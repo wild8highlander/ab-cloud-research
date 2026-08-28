@@ -1,0 +1,48 @@
+{
+  "title": "AB-Cloud Research: a phase resonator for the zeros of the Riemann zeta function",
+  "doi": "10.5281/zenodo.21825394",
+  "conceptdoi": "10.5281/zenodo.21825393",
+  "publication_date": "2026-08-28",
+  "version": "1.0.0",
+  "license": "Custom-Research-License",
+  "upload_type": "publication",
+  "publication_type": "workingpaper",
+  "creators": [
+    {
+      "name": "Isaev, Iskhak Khamzatovich",
+      "affiliation": "Independent Researcher",
+      "orcid": "https://orcid.org/0009-0003-7299-0701",
+      "gnd": null
+    }
+  ],
+  "description": "<p>The AB-cloud is a Hofstadter Hamiltonian decorated with topological vortices whose Aharonov-Bohm phases are derived from the non-trivial zeros of the Riemann zeta function. The repository contains: five monograph editions (v22 RU/EN/ZH + original author v21 RU/EN) in md/html/docx/pdf/pptx/tex with 131 figures at 600 dpi; the canonical 37-test two-pass Julia verification suite (dependency-free, interactive menu, Physics Lab with 22 experiments, 3D laboratory with 30 tests, --quick CI mode); an independent 10-language verification stack (C++, Fortran, Go, Haskell, JavaScript, Julia, MATLAB, Python, R, Rust) with zeta-zero datasets up to 2,000,000 zeros; and a 3D lattice laboratory (36\u00b3 Hofstadter lattices, 5000 embedded zeros).</p>",
+  "keywords": [
+    "AB-cloud",
+    "Hofstadter Hamiltonian",
+    "Riemann zeta function",
+    "Hilbert-P\u00f3lya hypothesis",
+    "random matrix theory",
+    "GUE",
+    "Aharonov-Bohm effect",
+    "topological vortices",
+    "Julia"
+  ],
+  "access_right": "open",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/wild8highlander/ab-cloud-research",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/wild8highlander/research-papers",
+      "relation": "isPartOf",
+      "scheme": "url"
+    },
+    {
+      "identifier": "10.5281/zenodo.21825393",
+      "relation": "isVersionOf",
+      "scheme": "doi"
+    }
+  ]
+}

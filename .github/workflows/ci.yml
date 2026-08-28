@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  structure:
+    name: Repository structure & metadata
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check canonical artifacts exist
+        run: |
+          test -f code/ab_cloud_v19.jl
+          test -f results/verification_run_v18_37tests_2026-08-28.txt
+          test -f monographs/ru/text/AB_Cloud_Monograph_v22_RU.pdf
+          test -f monographs/en/text/AB_Cloud_Monograph_v22_EN.pdf
+          test -f monographs/zh/text/AB_Cloud_Monograph_v22_ZH.pdf
+          test -f monographs/original-v21/ru/text/AB_Cloud_Monograph_v21_RU_with_Verification.docx
+          test -f monographs/original-v21/en/text/AB_Cloud_Monograph_v21_EN_with_Verification.pdf
+          test -f CITATION.cff
+          echo "All canonical artifacts present"
+      - name: Validate CITATION.cff
+        uses: citation-file-format/cffconvert-github-action@2.0.0
+        with:
+          args: --validate
+
+  markdown:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DavidAnson/markdownlint-cli2-action@v17
+        with:
+          globs: |
+            README.md
+            CONTRIBUTING.md
+            CHANGELOG.md
+            AUTHORS.md
+            docs/*.md
+        continue-on-error: true
+
+  yaml:
+    name: Workflow YAML lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pipx install yamllint && yamllint -s .github/workflows/
+        continue-on-error: true

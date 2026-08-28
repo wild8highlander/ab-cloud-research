@@ -1,0 +1,62 @@
+{
+    "summary": "9 3D visualizations tying AB-Cloud 3D spectrum to Riemann zeros",
+    "config": {
+        "target_shift": 0.0,
+        "nev": 200,
+        "sigma": 0.5,
+        "Lx": 36,
+        "Lz": 36,
+        "fs_L_max": 20,
+        "out_dir": "./ab_cloud_outputs",
+        "tz": 0.8,
+        "bc_z": "OBC",
+        "alpha": 2.0,
+        "poly_deg": 12,
+        "n_zeros": 5000,
+        "disorder": 1.0,
+        "Ly": 36,
+        "arf_levels": 4
+    },
+    "mode": "3d_bridge",
+    "visualizations": [
+        "1. ab_cloud_riemann_overlay (2D)",
+        "2. 3d_spectral_staircase (parallel planes)",
+        "3. 3d_topo_phase_diagram + heatmap (alpha, sigma) -> <r>",
+        "4. 3d_dirac_cone_family (sigma waterfall)",
+        "5. 3d_form_factor_surface K(tau, N) for Riemann + AB-Cloud",
+        "6. 3d_wavefunction_density + 2D slice",
+        "7. 3d_decay_time_manifold (Re E, Im E, tau)",
+        "8. 3d_pair_corr_landscape R_2(x, w)",
+        "9. 3d_S_T_overlay (parallel planes)"
+    ],
+    "timestamp": "2026-07-31_15-36-37",
+    "topo_phase": {
+        "min_r": 0.23843614974976557,
+        "r_at_RH_line": [
+            0.4664863616698907,
+            0.525759224745637,
+            0.6289641095697561,
+            0.4193380787489673,
+            0.5588798874670042,
+            0.39013089717799254
+        ],
+        "alpha_grid": [
+            0.0,
+            0.1,
+            0.2,
+            0.3,
+            0.4,
+            0.5
+        ],
+        "max_r": 0.6289641095697561,
+        "sigma_grid": [
+            0.2,
+            0.3,
+            0.4,
+            0.5,
+            0.6,
+            0.7,
+            0.8
+        ]
+    }
+}

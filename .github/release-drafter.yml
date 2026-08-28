@@ -1,0 +1,30 @@
+name-template: "v$RESOLVED_VERSION"
+tag-template: "v$RESOLVED_VERSION"
+categories:
+  - title: "Monographs & figures"
+    labels: ["monographs"]
+  - title: "Verification suite"
+    labels: ["verification"]
+  - title: "Julia suite"
+    labels: ["julia-suite"]
+  - title: "3D laboratory"
+    labels: ["3d-lab"]
+  - title: "Documentation"
+    labels: ["documentation"]
+  - title: "Other changes"
+    labels: ["*"]
+version-resolver:
+  major:
+    labels: ["breaking"]
+  minor:
+    labels: ["enhancement"]
+  patch:
+    labels: ["bug", "documentation"]
+  default: patch
+template: |
+  ## Changes
+
+  $CHANGES
+
+  **DOI:** [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394)
+  **Author:** Isaev Iskhak Khamzatovich · ORCID 0009-0003-7299-0701

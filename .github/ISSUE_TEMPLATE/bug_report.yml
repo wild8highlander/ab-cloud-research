@@ -1,0 +1,45 @@
+name: Bug report
+description: Something in the suite / verification / docs does not work as described
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill in the details below.
+        Numerical discrepancies are especially valuable — attach the **full run log**.
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options:
+        - "Julia suite (code/ab_cloud_v19.jl)"
+        - "10-language verification (verification/)"
+        - "3D laboratory (lab-3d/)"
+        - "Monographs / figures (monographs/)"
+        - "Documentation site (docs/)"
+        - "Other"
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Include the exact command and the relevant part of the log.
+    validations:
+      required: true
+  - type: input
+    id: julia-version
+    attributes:
+      label: Julia / Python version
+      placeholder: "julia version 1.10.4 / Python 3.12.1"
+  - type: input
+    id: os
+    attributes:
+      label: OS & platform
+      placeholder: "Ubuntu 24.04 x86_64 / Termux aarch64"
+  - type: checkboxes
+    id: reproducibility
+    attributes:
+      label: Reproducibility
+      options:
+        - label: The issue reproduces with a fixed seed / default configuration

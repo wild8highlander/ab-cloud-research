@@ -1,0 +1,65 @@
+site_name: AB-Cloud Research
+site_description: "AB-Cloud — a phase resonator for the zeros of the Riemann zeta function: monographs, 37-test Julia suite, 10-language verification, 3D lattice lab."
+site_author: "Isaev Iskhak Khamzatovich"
+site_url: "https://wild8highlander.github.io/ab-cloud-research"
+repo_url: "https://github.com/wild8highlander/ab-cloud-research"
+repo_name: wild8highlander/ab-cloud-research
+copyright: "Copyright © 2026 Isaev Iskhak Khamzatovich — Custom Research License"
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: deep purple
+      accent: light blue
+    - scheme: slate
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.arithmatex:
+      generic: true
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+extra_javascript:
+  - javascripts/mathjax.js
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Quick start: quickstart.md
+      - Julia suite (37 tests): julia-suite.md
+  - Monographs:
+      - Overview: monographs.md
+      - Original v21 edition: monograph-v21.md
+  - Verification:
+      - 10-language suite: verification.md
+      - Reference results: results.md
+  - 3D laboratory: lab3d.md
+  - About:
+      - Citation: citation.md
+      - License: license.md
+      - FAQ: faq.md

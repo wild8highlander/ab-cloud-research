@@ -1,0 +1,29 @@
+======================================================================
+AB-CLOUD 3D VERIFICATION REPORT
+======================================================================
+
+Timestamp: 2026-07-31_15-36-34
+
+--- Configuration ---
+  target_shift = 0.0
+  nev = 200
+  sigma = 0.5
+  Lx = 36
+  Lz = 36
+  fs_L_max = 20
+  out_dir = ./ab_cloud_outputs
+  tz = 0.8
+  bc_z = OBC
+  alpha = 2.0
+  poly_deg = 12
+  n_zeros = 5000
+  disorder = 1.0
+  Ly = 36
+  arf_levels = 4
+
+--- Embedded zeros ---
+  last_used = 5447.861998301
+  embedded_total = 5000
+  used = 5000
+  first = 14.134725142
+  RVN_prediction_at_last = 4999.530231773504

@@ -1,0 +1,17 @@
+# Generated files
+__pycache__/
+*.pyc
+*.pyo
+*.png
+*.o
+*.out
+*.exe
+*.obj
+
+# Build artifacts
+target/
+Cargo.lock
+
+# OS files
+.DS_Store
+Thumbs.db

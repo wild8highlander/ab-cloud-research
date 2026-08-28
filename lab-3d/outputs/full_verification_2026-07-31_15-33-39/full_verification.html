@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<title>AB-Cloud 3D Verification Report</title>
+<style>
+body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 1100px; margin: 20px auto; padding: 20px; color: #222; }
+h1 { color: #1a3a6c; border-bottom: 3px solid #1a3a6c; padding-bottom: 10px; }
+h2 { color: #1a3a6c; margin-top: 30px; border-left: 5px solid #1a3a6c; padding-left: 10px; }
+table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+th { background: #1a3a6c; color: white; }
+tr:nth-child(even) { background: #f5f8fc; }
+.pass { background: #d4edda; color: #155724; font-weight: bold; }
+.fail { background: #f8d7da; color: #721c24; font-weight: bold; }
+img { max-width: 100%; border: 1px solid #ddd; padding: 5px; margin: 10px 0; background: white; }
+.summary-box { background: #f0f4ff; padding: 15px; border-radius: 8px; margin: 20px 0; }
+</style></head><body>
+<h1>AB-Cloud 3D — Verification Report</h1>
+<div class="summary-box"><strong>Timestamp:</strong> 2026-07-31_15-33-39<br><strong>Overall:</strong> <span class="fail">4/6 passed</span></div>
+<h2>Configuration</h2>
+<table><tr><th>Parameter</th><th>Value</th></tr>
+<tr><td>sigma</td><td>0.5</td></tr>
+<tr><td>Ly</td><td>36</td></tr>
+<tr><td>disorder</td><td>1.0</td></tr>
+<tr><td>tz</td><td>0.8</td></tr>
+<tr><td>Lx</td><td>36</td></tr>
+<tr><td>bc_z</td><td>OBC</td></tr>
+<tr><td>alpha</td><td>2.0</td></tr>
+<tr><td>Lz</td><td>36</td></tr>
+<tr><td>nev</td><td>200</td></tr>
+<tr><td>n_zeros</td><td>5000</td></tr>
+</table>
+<h2>§1.1 — Zeta RMT statistics</h2>
+<table><tr><th>Metric</th><th>Value</th></tr>
+<tr><td>&lt;r&gt; (data)</td><td><strong>0.615948245091607</strong></td></tr>
+<tr><td>&lt;r&gt; GUE theory</td><td>0.5996</td></tr>
+<tr><td>KS p vs GUE</td><td>0.00030378041705135013</td></tr>
+<tr><td>KS p vs Poisson</td><td>0.0</td></tr>
+<tr><td>Refutes §1.1</td><td class="fail">false</td></tr>
+</table>
+<img src="01_P_s_zeta.png" alt="P(s)">
+<h2>§2a — Spectral rigidity</h2>
+<table><tr><th>Metric</th><th>Value</th></tr>
+<tr><td>Relative error Δ₃</td><td>0.9722201912472507</td></tr>
+<tr><td>Relative error Σ²</td><td>0.48097344493926386</td></tr>
+<tr><td>Refutes §2a</td><td class="fail">false</td></tr>
+</table>
+<img src="02_delta3_L.png" alt="Δ₃">
+<img src="03_sigma2_L.png" alt="Σ²">
+<h2>§2b — Finite-size scaling</h2>
+<h3>Zeta zeros</h3>
+<table><tr><th>N zeros</th><th>&lt;r&gt;</th><th>ΔGUE</th><th>KS p</th></tr>
+<tr><td>100</td><td>0.607921275134656</td><td>0.00832127513465597</td><td>0.7183159065197322</td></tr>
+<tr><td>200</td><td>0.6148115570007845</td><td>0.01521155700078447</td><td>0.417089424902486</td></tr>
+<tr><td>500</td><td>0.6199097256604011</td><td>0.020309725660401123</td><td>0.17227836723298842</td></tr>
+<tr><td>1000</td><td>0.6152346785454087</td><td>0.015634678545408676</td><td>0.05273003251220988</td></tr>
+<tr><td>2000</td><td>0.6174501510819457</td><td>0.017850151081945653</td><td>0.005518620913387584</td></tr>
+<tr><td>5000</td><td>0.615948245091607</td><td>0.016348245091606928</td><td>0.00030378041705135013</td></tr>
+<tr><td colspan="4">Refutes §2b: <span class="pass">true</span></td></tr>
+</table>
+<img src="04_fss_zeta.png" alt="FSS zeta">
+<img src="05_fss_ab_cloud.png" alt="FSS AB-Cloud">
+<h2>§2c — Arf invariant</h2>
+<table><tr><th>Level</th><th>N</th><th>Arf</th></tr>
+<tr><td>0</td><td>16</td><td>0</td></tr>
+<tr><td>1</td><td>64</td><td>0</td></tr>
+<tr><td>2</td><td>256</td><td>0</td></tr>
+<tr><td>3</td><td>1024</td><td>0</td></tr>
+<tr><td>4</td><td>4096</td><td>0</td></tr>
+<tr><td colspan="3">Preserved: <strong>true</strong></td></tr>
+</table>
+<img src="06_arf_invariant.png" alt="Arf">
+<h2>§2d — Dirac cone / QED</h2>
+<table><tr><th>Metric</th><th>Value</th></tr>
+<tr><td>α</td><td>0.5</td></tr>
+<tr><td>β</td><td>1.0</td></tr>
+<tr><td>Is Dirac cone</td><td>true</td></tr>
+<tr><td>Refutes §2d</td><td class="pass">true</td></tr>
+</table>
+<img src="08_dirac_cone.png" alt="Dirac">
+<h2>§3 — Decay time / E_typ</h2>
+<table><tr><th>E_typ (eV)</th><th>τ (s)</th><th>τ (ps)</th></tr>
+<tr><td>0.01</td><td>150.43794299761583</td><td>1.5043794299761584e14</td></tr>
+<tr><td>0.05</td><td>51.83142237670364</td><td>5.183142237670364e13</td></tr>
+<tr><td>0.1</td><td>23.632722403517484</td><td>2.3632722403517484e13</td></tr>
+<tr><td>0.2</td><td>11.157004340143446</td><td>1.1157004340143447e13</td></tr>
+<tr><td>0.5</td><td>4.251062292614495</td><td>4.2510622926144956e12</td></tr>
+<tr><td>1.0</td><td>1.8875746434298062</td><td>1.8875746434298062e12</td></tr>
+<tr><td colspan="3">Slope: -0.9673056874087306 — Refutes §3: <span class="pass">true</span></td></tr>
+</table>
+<img src="07_decay_time.png" alt="Decay">
+<h2>Overall verdict</h2>
+<div class="summary-box">
+<p>Verdicts passed: <strong>4/6</strong></p>
+<p>All passed: <span class="fail">false</span></p>
+</div>
+</body></html>

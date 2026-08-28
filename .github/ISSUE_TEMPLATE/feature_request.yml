@@ -1,0 +1,23 @@
+name: Feature request
+description: Suggest an on-topic improvement (new verification language, plots, docs)
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - "New language port (verification/)"
+        - "Julia suite performance / features"
+        - "3D laboratory"
+        - "Documentation & site"
+        - "Figures / reports"
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What exactly should be added or changed, and why it helps the AB-cloud programme.
+    validations:
+      required: true

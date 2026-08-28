@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="zh-CN" dir="ltr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AB 云：相位谐振腔 — 黎曼 ζ 零点、GUE
+普适性与拓扑涡旋物质——完整数值研究与独立验证</title>
+<meta name="author" content="Isaev Iskhak Khamzatovich（ORCID:
+0009-0003-7299-0701）" />
+
+<script>
+MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }, svg: { fontCache: 'global' } };
+document.addEventListener('DOMContentLoaded', function () {
+  /* figure lightbox */
+  var lb = document.createElement('div'); lb.id = 'lightbox';
+  lb.innerHTML = '<img alt=""/><div class="lb-cap"></div>';
+  document.body.appendChild(lb);
+  document.querySelectorAll('main img').forEach(function (im) {
+    im.tabIndex = 0; im.setAttribute('title', im.alt);
+    im.addEventListener('click', function () {
+      lb.querySelector('img').src = im.src;
+      lb.querySelector('.lb-cap').textContent = im.alt;
+      lb.classList.add('on');
+    });
+  });
+  lb.addEventListener('click', function () { lb.classList.remove('on'); });
+  /* active TOC highlighting */
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav#TOC a'));
+  var heads = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  var btn = document.getElementById('topbtn');
+  window.addEventListener('scroll', function () {
+    var y = window.scrollY + 120, cur = 0;
+    heads.forEach(function (h, i) { if (h && h.offsetTop <= y) cur = i; });
+    links.forEach(function (a, i) { a.classList.toggle('cur', i === cur); });
+    btn.style.display = window.scrollY > 600 ? 'block' : 'none';
+  });
+  btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  document.querySelectorAll('nav#TOC > ul > li > ul').forEach(function (u) {
+    var t = u.previousElementSibling;
+    if (t) { t.classList.add('has-sub'); }
+  });
+});
+</script>
+<style>
+:root{
+  --bg:#f7f5f0; --panel:#ffffff; --ink:#1c2733; --mut:#5a6b7d;
+  --acc:#0f4c81; --acc2:#c2571a; --line:#dcd6c9; --code:#f0ede6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.75 "Noto Serif","Noto Serif SC","Source Han Serif SC",Georgia,serif;}
+header.masthead{background:linear-gradient(160deg,#0e2a44 0%,#123c5f 55%,#0f4c81 100%);color:#f4f7fa;
+  padding:56px 24px 44px;text-align:center;}
+header.masthead .kicker{letter-spacing:.28em;text-transform:uppercase;font-size:.72rem;color:#9fc2e2;margin-bottom:14px}
+header.masthead h1{font-size:2.1rem;margin:.2em 0;line-height:1.25}
+header.masthead .sub{font-size:1.02rem;color:#d7e5f2;max-width:60ch;margin:0 auto}
+header.masthead .meta{margin-top:18px;font-size:.85rem;color:#a9c6df}
+header.masthead .meta b{color:#fff}
+.layout{display:flex;max-width:1280px;margin:0 auto;gap:28px;padding:26px 20px 60px}
+nav#TOC{width:300px;flex:0 0 300px;position:sticky;top:16px;align-self:flex-start;
+  max-height:calc(100vh - 40px);overflow:auto;background:var(--panel);border:1px solid var(--line);
+  border-radius:10px;padding:18px 10px;font-size:.83rem}
+nav#TOC>ul{list-style:none;margin:0;padding:0}
+nav#TOC ul ul{list-style:none;margin:2px 0 6px;padding-left:14px;font-size:.93em;color:var(--mut)}
+nav#TOC li{margin:2px 0}
+nav#TOC a{color:var(--ink);text-decoration:none;display:block;padding:3px 10px;border-radius:6px;border-left:3px solid transparent}
+nav#TOC a:hover{background:var(--code)}
+nav#TOC a.cur{border-left-color:var(--acc2);background:var(--code);color:var(--acc)}
+nav#TOC::before{content:"Содержание";display:block;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;font-size:.7rem;color:var(--mut);padding:0 10px 10px}
+html[lang=en] nav#TOC::before{content:"Contents"}
+html[lang=zh-CN] nav#TOC::before{content:"目录"}
+main{flex:1;min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  padding:44px 52px 60px;max-width:920px}
+main h1{font-size:1.62rem;color:var(--acc);border-bottom:2px solid var(--line);padding-bottom:.35em;margin-top:1.9em}
+main h2{font-size:1.22rem;color:#123c5f;margin-top:1.6em}
+main h3{font-size:1.05rem;color:#123c5f}
+p{margin:.85em 0;text-align:justify}
+figure{margin:1.6em 0;text-align:center}
+figure img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px;
+  box-shadow:0 2px 10px rgba(28,39,51,.06);cursor:zoom-in;transition:transform .15s}
+figure img:hover{transform:scale(1.008)}
+figcaption{font-size:.86rem;color:var(--mut);margin-top:.7em;text-align:justify;line-height:1.55}
+blockquote{border-left:3px solid var(--acc2);margin:1.2em 0;padding:.4em 1.2em;background:var(--code);border-radius:0 8px 8px 0}
+code,pre{font-family:"JetBrains Mono","Sarasa Mono SC",Consolas,monospace;font-size:.85em}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:14px 16px;overflow-x:auto;line-height:1.5}
+code{background:var(--code);padding:.1em .35em;border-radius:4px}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;margin:1.2em auto;font-size:.9rem}
+th,td{border:1px solid var(--line);padding:6px 12px}
+th{background:var(--code)}
+#topbtn{position:fixed;right:22px;bottom:22px;display:none;background:var(--acc);color:#fff;border:none;
+  border-radius:50%;width:46px;height:46px;font-size:1.15rem;cursor:pointer;box-shadow:0 4px 14px rgba(15,76,129,.35)}
+#lightbox{position:fixed;inset:0;background:rgba(10,18,26,.88);display:none;z-index:99;
+  align-items:center;justify-content:center;flex-direction:column;padding:4vh 4vw;cursor:zoom-out}
+#lightbox.on{display:flex}
+#lightbox img{max-width:94vw;max-height:82vh;border-radius:6px}
+#lightbox .lb-cap{color:#d7e5f2;font-size:.88rem;margin-top:14px;max-width:80ch;text-align:center}
+footer.run{max-width:1280px;margin:0 auto;padding:0 20px 40px;color:var(--mut);font-size:.8rem}
+@media (max-width:1020px){
+  .layout{flex-direction:column}
+  nav#TOC{position:static;width:auto;flex:none;max-height:300px}
+  main{padding:26px 20px 40px}
+}
+@media print{nav#TOC,#topbtn,#lightbox{display:none}body{background:#fff}.layout{display:block;padding:0}main{border:none;max-width:none}}
+</style>
+</head>
+<body lang="zh-CN">
+<header class="masthead">
+  <div class="kicker">AB-Cloud · Monograph v22 · Verified Numerics</div>
+  <h1>AB 云：相位谐振腔</h1>
+  <div class="sub">黎曼 ζ 零点、GUE
+普适性与拓扑涡旋物质——完整数值研究与独立验证</div>
+  <div class="meta">Isaev Iskhak Khamzatovich（ORCID:
+0009-0003-7299-0701）<br/>第 22 版 · 2026 年 8 月</div>
+</header>
+<div class="layout">
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#摘要" id="toc-摘要">摘要</a></li>
+<li><a href="#引言与问题设定" id="toc-引言与问题设定">1.
+引言与问题设定</a>
+<ul>
+<li><a href="#希尔伯特波利亚猜想" id="toc-希尔伯特波利亚猜想">1.1
+希尔伯特–波利亚猜想</a></li>
+<li><a href="#阿哈罗诺夫玻姆效应与-ab-云"
+id="toc-阿哈罗诺夫玻姆效应与-ab-云">1.2 阿哈罗诺夫–玻姆效应与 AB
+云</a></li>
+<li><a href="#与随机矩阵理论的联系" id="toc-与随机矩阵理论的联系">1.3
+与随机矩阵理论的联系</a></li>
+<li><a href="#目标任务与验证的组织" id="toc-目标任务与验证的组织">1.4
+目标、任务与验证的组织</a></li>
+</ul></li>
+<li><a href="#数学准备" id="toc-数学准备">2. 数学准备</a>
+<ul>
+<li><a href="#黎曼-ζ-函数及其零点" id="toc-黎曼-ζ-函数及其零点">2.1 黎曼
+ζ 函数及其零点</a></li>
+<li><a href="#随机矩阵系综与诊断统计量"
+id="toc-随机矩阵系综与诊断统计量">2.2 随机矩阵系综与诊断统计量</a></li>
+<li><a href="#带涡旋的-hofstadter-哈密顿量精确定义"
+id="toc-带涡旋的-hofstadter-哈密顿量精确定义">2.3 带涡旋的 Hofstadter
+哈密顿量：精确定义</a></li>
+<li><a href="#验证方法学与可复现性" id="toc-验证方法学与可复现性">2.4
+验证方法学与可复现性</a></li>
+</ul></li>
+<li><a href="#第一块bn-修正与-ζ-零点统计测试-114"
+id="toc-第一块bn-修正与-ζ-零点统计测试-114">3. 第一块：<span
+class="math inline">\(b(N)\)</span> 修正与 ζ 零点统计（测试 1–14）</a>
+<ul>
+<li><a href="#什么是-bn其收敛速率为何重要"
+id="toc-什么是-bn其收敛速率为何重要">3.1 什么是 <span
+class="math inline">\(b(N)\)</span>，其收敛速率为何重要</a></li>
+<li><a href="#指数的三种独立测量" id="toc-指数的三种独立测量">3.2
+指数的三种独立测量</a></li>
+<li><a href="#质疑之二ksχ²-与-a2-拒绝-gue而这正是预期的"
+id="toc-质疑之二ksχ²-与-a2-拒绝-gue而这正是预期的">3.3 质疑之二：KS、χ²
+与 <span class="math inline">\(A^2\)</span> 拒绝
+GUE——而这正是预期的</a></li>
+<li><a href="#谱刚性零点比模拟-gue-更刚"
+id="toc-谱刚性零点比模拟-gue-更刚">3.4 谱刚性：零点比模拟 GUE
+更”刚”</a></li>
+</ul></li>
+<li><a href="#第二块ab-云构造与拓扑定理测试-1517202427"
+id="toc-第二块ab-云构造与拓扑定理测试-1517202427">4. 第二块：AB
+云构造与拓扑定理（测试 15、17、20、24–27）</a>
+<ul>
+<li><a href="#构造的正确性厄米性与磁通"
+id="toc-构造的正确性厄米性与磁通">4.1
+构造的正确性：厄米性与磁通</a></li>
+<li><a href="#byersyang整数涡旋不可见分数涡旋是物理的"
+id="toc-byersyang整数涡旋不可见分数涡旋是物理的">4.2
+Byers–Yang：整数涡旋不可见，分数涡旋是物理的</a></li>
+<li><a href="#connes-自对偶与-aiii-手征对称"
+id="toc-connes-自对偶与-aiii-手征对称">4.3 Connes 自对偶与 AIII
+手征对称</a></li>
+<li><a href="#陈数c₁-2" id="toc-陈数c₁-2">4.4 陈数：C₁ = 2</a></li>
+<li><a href="#环面与时间反演破缺" id="toc-环面与时间反演破缺">4.5
+环面与时间反演破缺</a></li>
+</ul></li>
+<li><a href="#第三块ab-云的-gue-分类测试-1626293334"
+id="toc-第三块ab-云的-gue-分类测试-1626293334">5. 第三块：AB 云的 GUE
+分类（测试 16、26、29、33、34）</a>
+<ul>
+<li><a href="#规范的角色同一模型为何给出-goe-与-gue"
+id="toc-规范的角色同一模型为何给出-goe-与-gue">5.1
+规范的角色：同一模型为何给出 GOE 与 GUE</a></li>
+<li><a href="#多实现自助法测试-33" id="toc-多实现自助法测试-33">5.2
+多实现自助法（测试 33）</a></li>
+<li><a href="#随晶格尺寸的标度测试-34"
+id="toc-随晶格尺寸的标度测试-34">5.3 随晶格尺寸的标度（测试
+34）</a></li>
+<li><a href="#汇总量-f_gue测试-29" id="toc-汇总量-f_gue测试-29">5.4
+汇总量 f_GUE（测试 29）</a></li>
+</ul></li>
+<li><a href="#第四块与-ζ-零点的直接比较测试-283536"
+id="toc-第四块与-ζ-零点的直接比较测试-283536">6. 第四块：与 ζ
+零点的直接比较（测试 28、35、36）</a>
+<ul>
+<li><a href="#零点样本的双通比较测试-28"
+id="toc-零点样本的双通比较测试-28">6.1 零点样本的双通比较（测试
+28）</a></li>
+<li><a href="#montgomery-检验ab-云对-ζ-5000测试-35"
+id="toc-montgomery-检验ab-云对-ζ-5000测试-35">6.2 Montgomery 检验：AB
+云对 ζ-5000（测试 35）</a></li>
+<li><a href="#形因子-kt测试-36" id="toc-形因子-kt测试-36">6.3 形因子
+K(t)（测试 36）</a></li>
+</ul></li>
+<li><a href="#第五块狄拉克动力学与非厄米性测试-19303237"
+id="toc-第五块狄拉克动力学与非厄米性测试-19303237">7.
+第五块：狄拉克动力学与非厄米性（测试 19、30–32、37）</a>
+<ul>
+<li><a href="#狄拉克锥测试-1931" id="toc-狄拉克锥测试-1931">7.1
+狄拉克锥（测试 19、31）</a></li>
+<li><a href="#态密度的狄拉克凹陷测试-30"
+id="toc-态密度的狄拉克凹陷测试-30">7.2 态密度的狄拉克凹陷（测试
+30）</a></li>
+<li><a href="#hatanonelson离开-sigma12测试-32"
+id="toc-hatanonelson离开-sigma12测试-32">7.3 Hatano–Nelson：离开 <span
+class="math inline">\(\sigma=1/2\)</span>（测试 32）</a></li>
+<li><a href="#字节级稳健性测试-37" id="toc-字节级稳健性测试-37">7.4
+字节级稳健性（测试 37）</a></li>
+</ul></li>
+<li><a href="#第六块解析诠释测试-2123-及延伸"
+id="toc-第六块解析诠释测试-2123-及延伸">8. 第六块：解析诠释（测试 21–23
+及延伸）</a>
+<ul>
+<li><a href="#旋量相位-gammaast经由虚单位的-90测试-21"
+id="toc-旋量相位-gammaast经由虚单位的-90测试-21">8.1 旋量相位 <span
+class="math inline">\(\gamma^{\ast}\)</span>：经由虚单位的 90°（测试
+21）</a></li>
+<li><a href="#ab-相位-phi_ab-pi7-与分数电荷测试-22"
+id="toc-ab-相位-phi_ab-pi7-与分数电荷测试-22">8.2 AB 相位 <span
+class="math inline">\(\Phi_{AB} = \pi/7\)</span> 与分数电荷（测试
+22）</a></li>
+<li><a href="#复分形因子-cf-与对数抛物化测试-23"
+id="toc-复分形因子-cf-与对数抛物化测试-23">8.3 复分形因子 CF
+与对数抛物化（测试 23）</a></li>
+<li><a href="#t-破缺作为-gue-之源黑洞类比"
+id="toc-t-破缺作为-gue-之源黑洞类比">8.4 T 破缺作为 GUE
+之源：黑洞类比</a></li>
+<li><a href="#kerr-类比能层与-psl27-monster综述"
+id="toc-kerr-类比能层与-psl27-monster综述">8.5 Kerr 类比、能层与
+PSL(2,7) ⊂ Monster（综述）</a></li>
+</ul></li>
+<li><a href="#综合作为容许态编码的-ζ-零点"
+id="toc-综合作为容许态编码的-ζ-零点">9. 综合：作为容许态编码的 ζ
+零点</a></li>
+<li><a href="#验证方法学pass究竟保证什么"
+id="toc-验证方法学pass究竟保证什么">10.
+验证方法学：“PASS”究竟保证什么</a></li>
+<li><a href="#结论" id="toc-结论">11. 结论</a></li>
+<li><a href="#开放问题" id="toc-开放问题">12. 开放问题</a></li>
+<li><a href="#附录-a.-代码架构与关键模块"
+id="toc-附录-a.-代码架构与关键模块">附录 A.
+代码：架构与关键模块</a></li>
+<li><a href="#附录-b.-复现指南" id="toc-附录-b.-复现指南">附录 B.
+复现指南</a></li>
+<li><a href="#附录-c.-图形索引" id="toc-附录-c.-图形索引">附录 C.
+图形索引</a></li>
+</ul>
+</nav>
+<main>
+<h1 id="摘要">摘要</h1>
+<p>本专著从零重新撰写，系统总结了我们称之为 <strong>AB
+云</strong>的数值研究：这是一种格点量子系统（带阿哈罗诺夫–玻姆相位的
+Hofstadter
+哈密顿量），其中拓扑涡旋激发产生非均匀相位织构，其本征值分布与黎曼 ζ
+函数零点的统计进行比较。文中每一个论断都附有自动化的 37
+项测试验证套件（v18/v19 版，2026 年 8
+月）给出的可复现数字：每个数字都标注测试编号，每项测试都生成完整计算日志，每次套件运行都会在磁盘上留下包含四种格式报告（Markdown、HTML、PDF、DOCX）、三种图形格式以及逐时间戳日志的目录，供独立验证之用。</p>
+<p>主要验证结果如下。第一，在光滑规范（<code>:monumental</code>
+涡旋相位模型）下，环面上 AB 云谱的相邻能隙比平均值为 <span
+class="math inline">\(\langle r\rangle = 0.585 \pm 0.026\)</span>，GUE
+目标值为 <span class="math inline">\(0.5992\)</span>，偏差 <span
+class="math inline">\(-2.4\%\)</span>（测试 33）；对晶格尺寸 <span
+class="math inline">\(L = 10, 20, 30, 50\)</span> 的扫描显示单调收敛
+<span class="math inline">\(0.548 \to 0.592 \to 0.605 \to
+0.595\)</span>（测试 34）。第二，将 AB 云的展析间距与最初 5000 个 ζ
+零点直接比较，云的对关联函数在整个区间 <span
+class="math inline">\(s\in[0;3]\)</span> 上更接近 GUE
+而非泊松，但在如此小的系综下，双样本 Kolmogorov–Smirnov
+检验拒绝分布完全相同的假设（<span class="math inline">\(p =
+6.7\cdot10^{-4}\)</span>；测试
+35）——我们如实记录该偏差并以系综有限性加以解释。第三，构造的拓扑骨架以机器精度得到确认：狄拉克弦规范下恰好有一个元胞携带磁通
+<span class="math inline">\(2\pi q\)</span>（测试 15、24）；Byers–Yang
+定理对整数电荷成立到 <span
+class="math inline">\(3.5\cdot10^{-15}\)</span>，分数电荷则偏离 <span
+class="math inline">\(0.34\)</span>（测试 25）；最低朗道能级的陈数为
+<span class="math inline">\(C_1 = 2\)</span>（测试 20）；<span
+class="math inline">\(\alpha = 1/2\)</span> 处的 Connes 自对偶产生恰好 4
+个零模（测试 17）。最后，低能动力学呈现狄拉克锥，能隙线性标度 <span
+class="math inline">\(E_{\min}\propto 1/L\)</span>，<span
+class="math inline">\(R^2 = 0.9997\)</span>（测试 19）；<span
+class="math inline">\(\alpha = 1/2\)</span> 处态密度呈现对比度 <span
+class="math inline">\(20\times\)</span> 的狄拉克凹陷（测试
+30）；偏离厄米点 <span class="math inline">\(\sigma = 1/2\)</span>
+时出现 Hatano–Nelson 趋肤效应（测试 32）。</p>
+<p>这些结果共同构成连贯的图景：AB 云是一个相位谐振腔，普适的 GUE
+统计源于复数跃迁相位对时间反演对称性的破坏，涡旋表现得像相对论性粒子，而临界线
+<span class="math inline">\(\sigma = 1/2\)</span>
+作为自对偶点格外突出——云的统计在此处最接近 ζ
+零点的统计。我们始终区分”已被证明的（机器精度）“、”可靠测量的（校准统计带）“与”仍属开放的（大
+<span class="math inline">\(T\)</span>
+渐近）“，并为每个结论提供明确判据——读者无需盲信本书中的任何一个数字。</p>
+<p><strong>关键词：</strong> 希尔伯特–波利亚猜想；黎曼 ζ
+函数；随机矩阵理论；GUE；阿哈罗诺夫–玻姆效应；Hofstadter 哈密顿量；AB
+云；拓扑涡旋；狄拉克锥；TKNN；Hatano–Nelson 趋肤效应。</p>
+<h1 id="引言与问题设定">1. 引言与问题设定</h1>
+<h2 id="希尔伯特波利亚猜想">1.1 希尔伯特–波利亚猜想</h2>
+<p>1914 年黎曼猜想 ζ 函数的所有非平凡零点位于临界线 <span
+class="math inline">\(\mathrm{Re}\,s = 1/2\)</span> 上。近半个世纪后的
+1958 年，希尔伯特（据 Pólya
+回忆）提出了如今称为<strong>希尔伯特–波利亚猜想</strong>的策略：若能找到谱与零点纵坐标
+<span class="math inline">\(\{\gamma_n\}\)</span> 重合的自共轭算符 <span
+class="math inline">\(\hat
+H\)</span>，则黎曼假设立即成为定理——厄米性迫使所有本征值为实，即对所有
+<span class="math inline">\(n\)</span> 有 <span
+class="math inline">\(\mathrm{Re}\,\gamma_n =
+1/2\)</span>。该纲领的美妙之处在于把解析数论翻译为量子力学语言：ζ
+零点成为某个（尚未知晓的）物理系统的能级。</p>
+<p>该猜想至今未被证明，但它恰好构成本书的框架：我们构造并研究一类具体的量子格点系统，其谱统计逼近普适的随机矩阵行为。必须强调区别于以往文献的方法论立场：我们<strong>不宣称证明黎曼假设</strong>。我们的对象是对”有限格点系综如何逼近普适随机矩阵统计、哪些参数使逼近更近或更远”的精确数值刻画。所有”逼近程度”的判据在运行测试之前预先固定，研究中绝不调整。</p>
+<p>历史背景简述：1972 年 Montgomery 提出零点对关联猜想；Dyson
+在普林斯顿高等研究院茶室偶遇 Montgomery 时指出，该公式与随机矩阵理论中
+GUE（高斯幺正系综）本征值对关联一致。1980 年代 Odlyzko
+在庞大数据上数值确认了这一吻合；1985 年 Berry
+计算了有限尺寸修正：真实的（有限 <span
+class="math inline">\(T\)</span>）零点样本必须以可预测方式偏离纯 GUE
+预测——特别是原点处对关联 <span class="math inline">\(R_2(0)\)</span>
+获得按 <span class="math inline">\(T\)</span>
+幂次衰减的修正。这些修正对我们至关重要：它们解释了为什么测试 4–6 与 11
+在 <span class="math inline">\(T\lesssim 4\cdot10^4\)</span>
+的样本上看到统计显著的 GUE
+偏离，以及为什么这种偏离是证实而非否定整体图景。</p>
+<h2 id="阿哈罗诺夫玻姆效应与-ab-云">1.2 阿哈罗诺夫–玻姆效应与 AB 云</h2>
+<p><strong>阿哈罗诺夫–玻姆效应（AB
+效应）</strong>指出：量子粒子即使在场强为零的区域也对磁通有响应：环绕携带磁通
+<span class="math inline">\(\Phi\)</span> 的螺线管的波函数获得相位 <span
+class="math inline">\(\varphi_{\rm AB} = 2\pi\Phi/\Phi_0\)</span>，其中
+<span class="math inline">\(\Phi_0 = h/e\)</span>
+为磁通量子。在格点上，这通过跃迁振幅的相位修饰实现：<span
+class="math inline">\(t_{ij}\to
+t_{ij}e^{i\varphi_{ij}}\)</span>。<strong>Hofstadter
+哈密顿量</strong>是经典情形：正方格点上的电子处于每元胞磁通 <span
+class="math inline">\(\alpha = \Phi/\Phi_0\)</span>
+的均匀磁场中；其谱作为 <span class="math inline">\(\alpha\)</span>
+的函数构成著名的 Hofstadter 蝴蝶（见我们的图 19）。</p>
+<p><strong>AB
+云</strong>是该模型的推广：在格点上放置点状<strong>拓扑涡旋</strong>——相位绕其旋转
+<span class="math inline">\(2\pi q\)</span> 的中心（<span
+class="math inline">\(q\)</span>
+为涡旋荷，可为分数）。这种系统的相位场是非均匀的：每个涡旋附近相位”卷绕”，整体图像形如云团——名称由此而来。数学上哈密顿量为</p>
+<p><span class="math display">\[H_{ij} =
+-\exp\bigl(i\varphi_{ij}\bigr),\qquad \varphi_{ij} = 2\pi\alpha\,j +
+\sum_{k=1}^{N_v} q_k\bigl[\arg(\mathbf r_i - \mathbf r_k) - \arg(\mathbf
+r_j - \mathbf r_k)\bigr] + \varphi^{\rm str}_{ij},\]</span></p>
+<p>其中 <span class="math inline">\(j\)</span> 为格点列号（Landau
+规范），<span class="math inline">\(N_v\)</span> 为涡旋数，<span
+class="math inline">\(\varphi^{\rm str}_{ij}\)</span>
+为显式<strong>狄拉克弦</strong>：穿过涡旋出发的半直线（弦）的每条键附加
+<span class="math inline">\(-2\pi
+q\)</span>。狄拉克弦保证涡旋周围的总磁通以机器精度等于 <span
+class="math inline">\(2\pi q\)</span>——已由直接计算验证（测试
+15、24）。</p>
+<p>除几何（相位）部分外，模型还包含<strong>格点无序</strong> <span
+class="math inline">\(W\)</span>：模拟真实晶体杂质的格点加性噪声。模型参数：晶格尺寸
+<span class="math inline">\(L\times L\)</span>、磁通 <span
+class="math inline">\(\alpha\)</span>、电荷集合 <span
+class="math inline">\(\{q_k\}\)</span>、涡旋数目与位置 <span
+class="math inline">\(N_v\)</span>、无序强度 <span
+class="math inline">\(W\)</span>、边界条件（开边界或环面）。关键的物理开关是<strong>涡旋相位模型</strong>：（a）狄拉克弦规范——整数荷涡旋在谱上不可见（这是精确的
+Byers–Yang 定理，测试 25）；（b）光滑规范 <code>:monumental</code>（atan
+模型）——相位平滑分布且对任意 <span class="math inline">\(q\)</span>
+均为复数——这正是 GUE
+统计在物理合理参数下可达的原因。两种规范均在代码中实现并按用途使用：磁通定理在第一种规范中验证，谱统计在第二种规范中测量。</p>
+<h2 id="与随机矩阵理论的联系">1.3 与随机矩阵理论的联系</h2>
+<p><strong>随机矩阵理论（RMT）</strong>研究随机大矩阵的本征值分布。对我们重要的是按时间反演对称性区分的三个系综：<strong>GOE</strong>（实对称，T
+对称）、<strong>GUE</strong>（复厄米，T
+破缺）、<strong>GSE</strong>（四元数自对偶），以及极限的<strong>泊松</strong>情形（无关联能级；可积系统）。诊断量定义见
+2.2 节；这里只给出相邻能隙比的中心标度：<span
+class="math inline">\(\langle r\rangle \approx
+0.386\)</span>（泊松）、<span
+class="math inline">\(0.531\)</span>（GOE）、<span
+class="math inline">\(0.600\)</span>（GUE）。Dyson 三分法预言：复相位对
+T 对称性的破坏必然把系统送入 GUE 类——光滑规范下的 AB
+云正是教科书式例证：<span class="math inline">\(\alpha = 1/2\)</span>
+时矩阵为复厄米，<span class="math inline">\(\tau(H) = \|H-H^*\|/\|H\| =
+0.225 \neq 0\)</span>（测试 26），统计确实趋向
+GUE；而在实数的狄拉克弦规范下 <span class="math inline">\(\tau =
+0\)</span>，谱被锁进 GOE 类（测试 15、16）。</p>
+<h2 id="目标任务与验证的组织">1.4 目标、任务与验证的组织</h2>
+<p>本工作的目标是为 AB
+云谱物理建立完整、可独立核查的图景。任务具体化为六块 37
+项自动化测试：（1）<span class="math inline">\(b(N)\)</span>
+修正的收敛与评审质疑（测试
+1–14）；（2）构造与拓扑定理（15、17、20、24–27）；（3）云的 GUE
+分类（16、26、29、33、34）；（4）与 ζ
+零点的直接比较（28、35、36）；（5）狄拉克动力学与非厄米性（19、30–32、37）；（6）解析诠释（测试
+21–23 与第 8
+章）。每项测试按预先登记的判据返回布尔裁决；验证为双通（第一通为主晶格，第二通为加大晶格）；“快速检查”在
+<span class="math inline">\(16\times16\to32\times32\)</span> 晶格上、ζ
+样本截断为 5000 个零点，数分钟内跑完全部 37 项测试。</p>
+<p>我们明确区分<strong>两套裁决系统</strong>以免读者混淆。公式型测试（恒等式：磁通、自对偶、Byers–Yang）以机器容差
+<span class="math inline">\(10^{-12}\dots10^{-16}\)</span>
+检查，给出二元 PASS/FAIL。统计型测试（GUE
+一致性）按模拟确立的置信带校准：例如 <span class="math inline">\(\langle
+r\rangle\)</span> 的 PASS 要求落在 <span
+class="math inline">\(0.5992\pm0.022\)</span>
+带内；这类测试允许第三种裁决
+WARN——“偏差已测得但可由有限尺寸解释”。双轨制消除了数值工作的原罪——按结果调判据。</p>
+<h1 id="数学准备">2. 数学准备</h1>
+<h2 id="黎曼-ζ-函数及其零点">2.1 黎曼 ζ 函数及其零点</h2>
+<p><strong>黎曼 ζ 函数</strong> <span class="math inline">\(\zeta(s) =
+\sum_{n\ge1} n^{-s}\)</span> 解析延拓到全复平面，在临界带 <span
+class="math inline">\(0&lt;\mathrm{Re}\,s&lt;1\)</span>
+内有非平凡零点。数值上我们使用最初 50,000 个零点（Odlyzko
+数据集），纵坐标覆盖 <span
+class="math inline">\(T\in[14.13;\,40433.7]\)</span>。高度 <span
+class="math inline">\(T\)</span> 处的零点密度由<strong>黎曼–von Mangoldt
+公式</strong>给出：</p>
+<p><span class="math display">\[N(T) = \frac{T}{2\pi}\ln\frac{T}{2\pi} -
+\frac{T}{2\pi} + \frac{7}{8} + O(\ln T),\]</span></p>
+<p>大致按 <span class="math inline">\((T/2\pi)\ln T\)</span>
+增长。除以局部密度——<strong>展析（unfolding）</strong>——使归一化间距
+<span class="math inline">\(\delta_n = \gamma_{n+1}^{(u)} -
+\gamma_n^{(u)}\)</span> 均值为
+1，全部关联信息随之进入其分布。代码中展析用对光滑函数 <span
+class="math inline">\(N(T)\)</span>
+的对称滑窗实现；这一标准步骤也是伪影最易混入之处，因此测试 10
+检查所有最终量对子样本的稳定性（最大相对偏差 8.5%，阈值
+10%——PASS）。</p>
+<p>我们在三个高度使用零点统计：完整 50,000 零点样本（测试
+4、6–10）、<span class="math inline">\(T&gt;T_{\min}\)</span>
+的”高温”子样本（测试 5）、以及用于双通比较的最初 1000/5000 个零点（测试
+28、35）。GUE 统计的渐近本性意味着一致性随 <span
+class="math inline">\(T\)</span> 改善；我们的数据直接演示了这一点（3.2
+节）。</p>
+<h2 id="随机矩阵系综与诊断统计量">2.2 随机矩阵系综与诊断统计量</h2>
+<p>所有诊断量对展析（无量纲）能级定义。我们使用五个量，各对应关联的不同侧面。</p>
+<p><strong>相邻能隙比</strong> <span class="math inline">\(\langle
+r\rangle\)</span>。对每组相邻三能级 <span
+class="math inline">\(E_{n-1},E_n,E_{n+1}\)</span> 令 <span
+class="math inline">\(r_n =
+\min(\delta_n,\delta_{n+1})/\max(\delta_n,\delta_{n+1})\)</span>；其平均无需外部展析（比值对局部密度不敏感）。大矩阵参考值：泊松
+<span class="math inline">\(0.3863\)</span>、GOE <span
+class="math inline">\(0.5307\)</span>、GUE <span
+class="math inline">\(0.5996\)</span>。这是有限格点系综的首选诊断量，因为它不积累展析误差。</p>
+<p><strong>Kolmogorov–Smirnov（KS）检验。</strong>
+将间距的经验分布函数与 GUE Wigner 预测比较：统计量 <span
+class="math inline">\(D\)</span> 为两曲线最大绝对差；<span
+class="math inline">\(n\)</span> 个间距时 5% 临界值为 <span
+class="math inline">\(1.36/\sqrt{n}\)</span>。<span
+class="math inline">\(n = 49999\)</span> 时临界 <span
+class="math inline">\(D = 0.0061\)</span>——即使微观偏差也会”拒绝”
+GUE；因此我们总是把 <span class="math inline">\(D\)</span> 与 <span
+class="math inline">\(n\)</span>、临界阈值一起报告（测试
+4），并单独跟踪趋势 <span
+class="math inline">\(D(T_{\min})\)</span>（测试 5）。</p>
+<p><strong>数目方差 <span
+class="math inline">\(\Sigma^2(L)\)</span></strong>——长为 <span
+class="math inline">\(L\)</span>（以平均密度为单位）窗口内能级数的方差。泊松给出
+<span class="math inline">\(\Sigma^2 = L\)</span>；GUE 给出 <span
+class="math inline">\(\Sigma^2 \approx (1/\pi^2)\ln(2\pi L) +
+\ldots\)</span>——对数而非线性增长。谱刚性 <span
+class="math inline">\(\Delta_3(L)\)</span> 是其积分版本：窗口 <span
+class="math inline">\(L\)</span> 内谱阶梯的最佳直线拟合的均方偏差；泊松
+<span class="math inline">\(L/15\)</span>，GUE <span
+class="math inline">\(\approx (1/\pi^2)\ln
+L\)</span>。两者均在共同的九点 <span class="math inline">\(L\)</span>
+网格上对数据和模拟 GUE 参考计算（测试 13、14）。</p>
+<p><strong>对关联 <span
+class="math inline">\(R_2(s)\)</span></strong>——在距给定能级 <span
+class="math inline">\(s\)</span> 处找到能级的概率密度（Montgomery
+对关联统计量）：GUE 时 <span class="math inline">\(R_2(s) = 1 - (\sin
+\pi s/(\pi s))^2\)</span>，原点关联洞 <span
+class="math inline">\(R_2(0)=0\)</span> 表达能级排斥；泊松时 <span
+class="math inline">\(R_2 \equiv 1\)</span>。谱形因子 <span
+class="math inline">\(K(t)\)</span>——<span
+class="math inline">\(R_2\)</span> 的傅里叶变换，GUE 为”斜坡+平台” <span
+class="math inline">\(K(t)=\min(t,1)\)</span>——是我们最积分的诊断量（测试
+35、36）。</p>
+<p><strong>Anderson–Darling <span
+class="math inline">\(A^2\)</span></strong>——对分布尾部加权的 KS
+类检验；p 值用 2000 次蒙特卡洛模拟估计（测试
+11）。最后，<strong>f_GUE</strong> 为汇总的”GUE 份额”：<span
+class="math inline">\(f_{\rm GUE} = (\Sigma^2_{\rm P} - \Sigma^2_{\rm
+data})/(\Sigma^2_{\rm P} - \Sigma^2_{\rm GUE})\)</span>，在 <span
+class="math inline">\(L=2\)</span> 取值；<span
+class="math inline">\(f_{\rm GUE}=1\)</span> 为理想 GUE，<span
+class="math inline">\(0\)</span> 为泊松（测试 29）。</p>
+<h2 id="带涡旋的-hofstadter-哈密顿量精确定义">2.3 带涡旋的 Hofstadter
+哈密顿量：精确定义</h2>
+<p>汇总完整定义。晶格 <span class="math inline">\(L_x\times
+L_y\)</span>；波函数定义在格点上；最近邻矩阵元 <span
+class="math inline">\(H_{ij} =
+-\exp(i\varphi_{ij})\)</span>（选择环面时含周期回绕）。Landau 规范给列
+<span class="math inline">\(j\)</span> 相位 <span
+class="math inline">\(2\pi\alpha j\)</span>。位于 <span
+class="math inline">\(\mathbf r_k=(x_k,y_k)\)</span>（以元胞为单位）的荷
+<span class="math inline">\(q_k\)</span> 涡旋对键相位差 <span
+class="math inline">\((i\to j)\)</span> 贡献 <span
+class="math inline">\(q_k[\arg(\mathbf r_i-\mathbf r_k)-\arg(\mathbf
+r_j-\mathbf r_k)]\)</span>，狄拉克弦对穿过弦的键添加离散的 <span
+class="math inline">\(-2\pi q_k\)</span>；光滑规范中弦不存在，atan
+相位分布于竖直键。关键性质：<strong>绕任一元胞的相位和等于 <span
+class="math inline">\(2\pi\alpha + 2\pi
+q_k\,\delta_k\)</span></strong>（再加 <span
+class="math inline">\(2\pi\times\)</span>整数），<span
+class="math inline">\(\delta_k\)</span> 指示该元胞含涡旋。这已在 <span
+class="math inline">\(16\times16\)</span> 晶格的全部 224
+个内部元胞上验证：空元胞上 <span
+class="math inline">\(|\)</span>磁通<span
+class="math inline">\(|\)</span>最大值 <span
+class="math inline">\(1.5\cdot10^{-14}\)</span> 弧度（测试 24）。</p>
+<p>格点无序 <span class="math inline">\(W\)</span> 实现为格点势 <span
+class="math inline">\(\varepsilon_i\in[-W/2;W/2]\)</span>，生成器种子固定（可复现性：同种子——同无序）。重要的是，对拓扑恒等式（Byers–Yang）无序须关闭：谱对
+<span class="math inline">\(q\)</span>
+的任何超出纯规范的依赖都是错误，测试 25 确认到 <span
+class="math inline">\(3.5\cdot10^{-15}\)</span>。</p>
+<p>边界条件是独立的物理选择。开边界产生蝴蝶的边缘态，混入泊松成分并压低
+<span class="math inline">\(\langle r\rangle\)</span>（测试
+33：其余参数相同时开边界 <span
+class="math inline">\(0.442\)</span>，环面 <span
+class="math inline">\(0.585\)</span>）。环面要求规范相容条件 <span
+class="math inline">\(q\,(2-N_x)\in\mathbb{Z}\)</span>——回绕相位周期性；整数
+<span class="math inline">\(q\)</span> 自动满足，<span
+class="math inline">\(16\times16\)</span> 环面上的分数 <span
+class="math inline">\(q=0.3\)</span>
+不满足，系统诚实地回退到开边界（代码自动判别并给出诊断信息）。</p>
+<h2 id="验证方法学与可复现性">2.4 验证方法学与可复现性</h2>
+<p>套件每次运行创建
+<code>results/run_&lt;时间戳&gt;/</code>，每项测试一个子目录：内含完整计算日志（每个量带时间戳及相对前项的增量）、控制台输出捕获、Markdown/HTML/矢量
+PDF/DOCX 四种报告、PNG（600 dpi）/SVG/PDF 图形，以及首图的逐帧 GIF
+动画。日志设计为：外部研究者无需访问我们的代码即可重现本书的每个数字——公式、输入、输出、耗时。复现命令：单测试
+<code>julia ab_cloud_v19.jl --test &lt;N&gt; --no-two-pass</code>；全套
+<code>--test all</code>；快速检查 <code>--quick</code>（<span
+class="math inline">\(16\times16\to32\times32\)</span>、5000
+零点、双通）。报告引擎与计算核心隔离：任一格式失败不能影响测试裁决（v19
+架构保证，见附录 A）。</p>
+<h1 id="第一块bn-修正与-ζ-零点统计测试-114">3. 第一块：<span
+class="math inline">\(b(N)\)</span> 修正与 ζ 零点统计（测试 1–14）</h1>
+<h2 id="什么是-bn其收敛速率为何重要">3.1 什么是 <span
+class="math inline">\(b(N)\)</span>，其收敛速率为何重要</h2>
+<p>修正项 <span class="math inline">\(b(N)\)</span>
+出现于零点对关联的解析处理中：它是把诊断量的有限样本值与其渐近值联系起来的拟合量。程序早期版本曾给它匹配
+<span class="math inline">\(\sim N^{-1/2}\)</span>
+的理论预期；评审者正确指出该预期从未被推导。我们接受这一质疑：自套件 v6
+起，<span class="math inline">\(b(N)\)</span>
+的指数是<strong>纯经验</strong>量，没有理论模板；第一块的全部测试检查的是测量的内部一致性，而非与不存在的定理的一致性。测试
+3、7、9 提供对同一指数的三种独立测量——它们的一致性正是验证对象。</p>
+<h2 id="指数的三种独立测量">3.2 指数的三种独立测量</h2>
+<figure>
+<img src="../figures/fig01_bN_convergence.png"
+alt="图 1. 修正项 b(N) 的收敛：数据与两种竞争拟合（幂律与 1/\ln N）。评审者坚持的 N^{-1/2} 预期被数据排除。" />
+<figcaption aria-hidden="true"><strong>图 1.</strong> 修正项 <span
+class="math inline">\(b(N)\)</span> 的收敛：数据与两种竞争拟合（幂律与
+<span class="math inline">\(1/\ln N\)</span>）。评审者坚持的 <span
+class="math inline">\(N^{-1/2}\)</span> 预期被数据排除。</figcaption>
+</figure>
+<p><strong>对数–对数回归</strong>（测试 3）在网格 <span
+class="math inline">\(N\in[50;25600]\)</span> 上给出 <span
+class="math inline">\(b(N) \approx 7.03\,N^{-0.1685}\)</span>，<span
+class="math inline">\(R^2 = 0.9895\)</span>，斜率标准误 <span
+class="math inline">\(0.0043\)</span>。<strong>延展回归至 <span
+class="math inline">\(N=32000\)</span></strong>（测试 7）给出斜率 <span
+class="math inline">\(-0.1504\)</span>，95% 置信区间 <span
+class="math inline">\([-0.1594;-0.1414]\)</span>，<span
+class="math inline">\(R^2 =
+0.9954\)</span>——相互一致。<strong>自助法</strong>（测试 9，1000
+次有放回重采样）给出中位斜率 <span
+class="math inline">\(-0.1746\)</span>，95% 区间 <span
+class="math inline">\([-0.1895;-0.1552]\)</span>。一个通常被忽略的细节：<strong>替代</strong>参数化
+<span class="math inline">\(b(N) \approx -0.40 + 16.84/\ln N\)</span>
+对数据的描述优于幂律（测试 7 中 <span class="math inline">\(R^2 =
+0.9999\)</span> 对 <span
+class="math inline">\(0.9954\)</span>）。这是真渐近为对数型而非幂律型的有力论据；我们同时画出两种拟合（图
+1、图 3），且不在其间裁决，因为在现有 <span
+class="math inline">\(N\)</span> 范围内尚无法最终区分。残差分析（测试
+8）显示残差有系列结构（游程数 3，随机期望 5.8；滞后 1 自相关 <span
+class="math inline">\(0.68\)</span>）——数据围绕幂律拟合”弯曲”的方式恰如对数形式所规定，与双拟合图像一致。</p>
+<p>本块的实践结论：在 <span
+class="math inline">\(N\le5\cdot10^4\)</span> 的样本上，<span
+class="math inline">\(b(N)\)</span> 保持为 1 的量级（从 <span
+class="math inline">\(N=500\)</span> 的 <span
+class="math inline">\(2.39\)</span> 到 <span
+class="math inline">\(N=32000\)</span> 的 <span
+class="math inline">\(1.28\)</span>）——ζ
+统计的有限样本效应很大；任何忽略 <span
+class="math inline">\(b(N)\)</span> 的”GUE
+与否”检验在这些高度上根本无效。</p>
+<h2 id="质疑之二ksχ²-与-a2-拒绝-gue而这正是预期的">3.3 质疑之二：KS、χ²
+与 <span class="math inline">\(A^2\)</span> 拒绝
+GUE——而这正是预期的</h2>
+<figure>
+<img src="../figures/fig02_spacing_hist.png"
+alt="图 2. 49,999 个 ζ 零点间距的直方图，对 Wigner 猜想曲线（GUE、GOE）与泊松指数：典型的”矩阵型”形状，带能级排斥。" />
+<figcaption aria-hidden="true"><strong>图 2.</strong> 49,999 个 ζ
+零点间距的直方图，对 Wigner
+猜想曲线（GUE、GOE）与泊松指数：典型的”矩阵型”形状，带能级排斥。</figcaption>
+</figure>
+<figure>
+<img src="../figures/fig05_ks_convergence.png"
+alt="图 3. KS 统计量 D 随下截断 T_{\min} 的变化：向临界线的缓慢漂移——GUE 渐近性的数值表达。" />
+<figcaption aria-hidden="true"><strong>图 3.</strong> KS 统计量 <span
+class="math inline">\(D\)</span> 随下截断 <span
+class="math inline">\(T_{\min}\)</span> 的变化：向临界线的缓慢漂移——GUE
+渐近性的数值表达。</figcaption>
+</figure>
+<p>测试 4、5、6、11 以最强形式陈述评审质疑并诚实地检验它。在 49,999
+个间距的完整样本上，对 GUE 的 KS 统计量 <span class="math inline">\(D =
+0.0881\)</span>，临界值 <span
+class="math inline">\(0.0061\)</span>——超出阈值 14 倍，<span
+class="math inline">\(H_0\)</span>（GUE）以 <span
+class="math inline">\(p\approx10^{-300}\)</span> 被拒。150/300/600
+柱的直方图卡方给出 <span class="math inline">\(\chi^2 =
+6170/6276/6384\)</span>（自由度 149/295/550）——所有尺度上均被拒。5000
+间距对解析 GUE 分布函数的 Anderson–Darling 给出 <span
+class="math inline">\(A^2 = 117.7\)</span>，而蒙特卡洛 95 分位为 <span
+class="math inline">\(16.6\)</span>（2000 次模拟 <span
+class="math inline">\(p\approx0\)</span>）。</p>
+<p>把这读作”对零点 GUE 假设的否定”将是错误的——原因如下。GUE
+统计是<strong>渐近的</strong>：它要在 <span
+class="math inline">\(T\gg10^6\)</span>、有数百万零点可用的高度才确立。Berry（1985）计算了
+leading 有限尺寸修正，其符号与量级与观测完全吻合：在我们的高度 <span
+class="math inline">\(T\le4\cdot10^4\)</span>，<span
+class="math inline">\(D\sim0.08\)</span> 恰为应得之值。直接证实来自测试
+5（高温截断：<span class="math inline">\(T_{\min}: 1000\to10000\)</span>
+时 <span class="math inline">\(D = 0.0878 \to
+0.0866\)</span>——缓慢但系统的下降）以及最重要的测试 12：真实间距与模拟
+GUE 矩阵 <span class="math inline">\(2000\times2000\)</span>
+间距之间的<strong>双样本</strong> KS 给出 <span class="math inline">\(D
+= 0.0406\)</span>，<span class="math inline">\(p =
+0.139\)</span>——“零点间距与同尺寸 GUE
+矩阵间距同分布”的假设<strong>未被拒绝</strong>。换言之：零点与有限尺寸
+GUE 矩阵不可区分，但与抽象的无限 GUE 极限可区分——这正是有限维 GUE
+相似性的定义。</p>
+<h2 id="谱刚性零点比模拟-gue-更刚">3.4 谱刚性：零点比模拟 GUE
+更”刚”</h2>
+<figure>
+<img src="../figures/fig03_decay_fits.png"
+alt="图 4. 对数坐标下 b(N) 衰减的两种拟合：幂律与 1/\ln N；残差的系统弯曲指向对数渐近。" />
+<figcaption aria-hidden="true"><strong>图 4.</strong> 对数坐标下 <span
+class="math inline">\(b(N)\)</span> 衰减的两种拟合：幂律与 <span
+class="math inline">\(1/\ln
+N\)</span>；残差的系统弯曲指向对数渐近。</figcaption>
+</figure>
+<figure>
+<img src="../figures/fig04_bootstrap_slope.png"
+alt="图 5. 斜率的自助分布（1000 次重采样）：95% CI [-0.190;-0.155]；值 -0.5 远在区间之外。" />
+<figcaption aria-hidden="true"><strong>图 5.</strong>
+斜率的自助分布（1000 次重采样）：95% CI <span
+class="math inline">\([-0.190;-0.155]\)</span>；值 <span
+class="math inline">\(-0.5\)</span> 远在区间之外。</figcaption>
+</figure>
+<figure>
+<img src="../figures/fig06_sigma2_L.png"
+alt="图 6. 数目方差 \Sigma^2(L)：数据（平坦）对对数型 GUE 与线性泊松——9/9 点更接近 GUE。" />
+<figcaption aria-hidden="true"><strong>图 6.</strong> 数目方差 <span
+class="math inline">\(\Sigma^2(L)\)</span>：数据（平坦）对对数型 GUE
+与线性泊松——9/9 点更接近 GUE。</figcaption>
+</figure>
+<figure>
+<img src="../figures/fig07_delta3_L.png"
+alt="图 7. 谱刚性 \Delta_3(L)：大 L 处数据相对模拟 GUE 的超刚性。" />
+<figcaption aria-hidden="true"><strong>图 7.</strong> 谱刚性 <span
+class="math inline">\(\Delta_3(L)\)</span>：大 <span
+class="math inline">\(L\)</span> 处数据相对模拟 GUE
+的超刚性。</figcaption>
+</figure>
+<p>本块信息量最大的结果来自 <span
+class="math inline">\(\Sigma^2(L)\)</span> 与 <span
+class="math inline">\(\Delta_3(L)\)</span>（测试 13、14）。在九点网格
+<span class="math inline">\(L\in[2;1400]\)</span> 上，零点数据给出 <span
+class="math inline">\(\Sigma^2 \approx
+0.33\text{–}0.41\)</span>——近乎常数；而泊松预测线性增长至 1400，模拟 GUE
+参考对数增长至 <span
+class="math inline">\(0.61\text{–}0.72\)</span>。数据在全部 9/9
+个点上都比泊松更接近 GUE；但在大 <span class="math inline">\(L\)</span>
+处它们甚至比模拟 GUE <strong>更刚</strong>（更小）——数据 <span
+class="math inline">\(\Delta_3\)</span> 相对 GUE 参考的超额从 <span
+class="math inline">\(L=2\)</span> 的 <span
+class="math inline">\(0.99\)</span> 降到 <span
+class="math inline">\(L=1400\)</span> 的 <span
+class="math inline">\(0.48\)</span>。这种超刚性是真实 ζ
+零点的已知特征（算术系统的谱刚性高于矩阵系统）；展析伪影只会抬高 <span
+class="math inline">\(\Delta_3\)</span> 与 <span
+class="math inline">\(\Sigma^2\)</span>
+而非压低，因此其复现是展析质量的独立证明。</p>
+<h1 id="第二块ab-云构造与拓扑定理测试-1517202427">4. 第二块：AB
+云构造与拓扑定理（测试 15、17、20、24–27）</h1>
+<h2 id="构造的正确性厄米性与磁通">4.1 构造的正确性：厄米性与磁通</h2>
+<p>在谈统计之前，构造必须精确。测试 15 在 <span
+class="math inline">\(16\times16\)</span> 晶格、双涡旋 <span
+class="math inline">\(q=\pm1\)</span> 下检查：厄米性 <span
+class="math inline">\(\|H-H^\dagger\|/\|H\| =
+0\)</span>（机器零）；对称类——<span
+class="math inline">\(\tau(H)=\|H-H^*\|/\|H\|=0\)</span>，即狄拉克规范下矩阵为实（Dyson
+三分法预言的 GOE 类）；每个涡旋元胞及对照空元胞的磁通准确到 <span
+class="math inline">\(10^{-14}\)</span> 弧度。测试 24 对单涡旋在全部 225
+个元胞上重复磁通检查：涡旋元胞 1/1 OK，空元胞 224/224 OK，空元胞 <span
+class="math inline">\(|\)</span>磁通<span
+class="math inline">\(|\)</span>最大值 <span
+class="math inline">\(1.47\cdot10^{-14}\)</span>。这两项检查是地基：相位构造的任何错误都会破坏磁通，而磁通是完美的。</p>
+<h2 id="byersyang整数涡旋不可见分数涡旋是物理的">4.2
+Byers–Yang：整数涡旋不可见，分数涡旋是物理的</h2>
+<figure>
+<img src="../figures/fig14_byers_yang.png"
+alt="图 8. Byers–Yang 检验：整数荷在谱上不可见（3.5\cdot10^{-15}），分数荷是物理的（0.34）；对数标度。" />
+<figcaption aria-hidden="true"><strong>图 8.</strong> Byers–Yang
+检验：整数荷在谱上不可见（<span
+class="math inline">\(3.5\cdot10^{-15}\)</span>），分数荷是物理的（<span
+class="math inline">\(0.34\)</span>）；对数标度。</figcaption>
+</figure>
+<p><strong>Byers–Yang
+定理</strong>（1961）的格点表述：谱对每元胞添加整数磁通量子周期——整数荷涡旋可被只改变相位的幺正格点变换”规范掉”。测试
+25 直接测量：<span class="math inline">\(16\times16\)</span>
+开边界、<span class="math inline">\(\alpha=0\)</span>、两个四中性涡旋
+<span class="math inline">\(q=\pm1\)</span>
+随机构型相对干净晶格给出最大谱移 <span
+class="math inline">\(3.49\cdot10^{-15}\)</span>——整数涡旋在谱上不可见，恒等式精确。单个分数构型
+<span class="math inline">\(q=0.3\)</span> 给出谱移 <span
+class="math inline">\(0.342\)</span>——分数涡旋携带物理磁通 <span
+class="math inline">\(4\pi\cdot0{,}3 = 1.2\pi \not\equiv 0
+\pmod{2\pi}\)</span>，真实地扰动谱。支配后续全部物理的推论：狄拉克规范下只有<strong>分数</strong>荷或背景
+<span class="math inline">\(\alpha\neq0\)</span> 能产生 GUE
+统计；光滑规范 <code>monumental</code> 中相位对任意 <span
+class="math inline">\(q\)</span> 均为复数，整数荷亦可（第 5
+章）。两个分支均已数值验证；这一分叉解释了套件各版本间的大部分历史分歧。</p>
+<h2 id="connes-自对偶与-aiii-手征对称">4.3 Connes 自对偶与 AIII
+手征对称</h2>
+<p><span class="math inline">\(\alpha = 1/2\)</span> 处 Hofstadter
+哈密顿量具有 <strong>Connes 自对偶</strong>：<span
+class="math inline">\(\alpha\to1/\alpha\)</span>
+等价于对格点的傅里叶变换，<span
+class="math inline">\(\alpha=1/2\)</span> 为不动点。环面上测试 17
+测得：<span class="math inline">\(\alpha=1/2\)</span> 时零模数恰为 4（偶
+<span class="math inline">\(L\)</span>
+时为不动点棱数的两倍——解析值），E→−E 谱对称缺陷 <span
+class="math inline">\(1.4\cdot10^{-15}\)</span>。<strong>子格手征对称</strong>（测试
+27）：在二部正方晶格上，算符 <span
+class="math inline">\(\Gamma\)</span>（棋盘符号）在无涡旋时对任意 <span
+class="math inline">\(\alpha\)</span> 满足 <span
+class="math inline">\(\Gamma H\Gamma = -H\)</span>；<span
+class="math inline">\(W=0\)</span> 时测得缺陷为 <span
+class="math inline">\(0\)</span>（精确），<span
+class="math inline">\(W=4\)</span> 时 <span
+class="math inline">\(5.9\cdot10^{-3}\)</span>（小而非零，格点无序破坏二部性），双涡旋无无序时又恰为
+<span class="math inline">\(0\)</span>：相位涡旋保持二部性。测试 17
+的另一解析事实：<span class="math inline">\(\alpha=1/3\)</span> 时谱在
+<span class="math inline">\(E=0\)</span> 有能隙（零模 0），有限环面上
+<span class="math inline">\(\alpha\leftrightarrow1/\alpha\)</span>
+的同谱性被破坏（缺陷 <span
+class="math inline">\(0.30\)</span>）——它仅在布洛赫带意义下精确；我们如实记录，有限尺寸的破坏并不与无穷体积定理矛盾。</p>
+<h2 id="陈数c₁-2">4.4 陈数：C₁ = 2</h2>
+<p>测试 20 用 Fukui–Hatsugai–Suzuki 方法在 <span
+class="math inline">\(6\times6\)</span> 环面、<span
+class="math inline">\(\alpha=1/2\)</span>（无涡旋）下计算第一能带<strong>陈数</strong>：<span
+class="math inline">\(8\times8\)</span> 扭转边界条件网格，最低带的 Berry
+截面给出 <span class="math inline">\(C_1 = 2\)</span>。专著曾预言每子带
+<span class="math inline">\(|C_1|=1\)</span>；<span
+class="math inline">\(\alpha=1/2\)</span> 处 Hofstadter
+带成对合并，“最低带”含两个 <span class="math inline">\(C_1=\pm1\)</span>
+贡献同号的子带——正确计入简并后总 <span
+class="math inline">\(|C_1|=2\)</span> 与预言一致。要点不变：<span
+class="math inline">\(C_1\neq0\)</span>——该相实现量子霍尔效应，拓扑非平凡，受保护的边缘态必然存在（开边界上表现为蝴蝶的”腿”，图
+19）。</p>
+<h2 id="环面与时间反演破缺">4.5 环面与时间反演破缺</h2>
+<p>测试 26 在周期晶格上合并磁通与统计检查：环面 <span
+class="math inline">\(16\times16\)</span>，单涡旋 <span
+class="math inline">\(q=1\)</span> 满足规范相容条件 <span
+class="math inline">\(q(2-N_x) = -14\in\mathbb{Z}\)</span>，沿 +x
+的周期狄拉克弦。磁通：涡旋元胞与全部 255
+个空元胞——OK；厄米性——OK；用于统计的光滑规范下 <span
+class="math inline">\(\tau(H) = 0.2252\)</span>——T 对称破缺（GUE
+类），且 <span class="math inline">\(\langle r\rangle =
+0.5857\)</span>，位于 GUE <span class="math inline">\(0.5992\)</span>
+校准带内。该测试是整个架构的缩影：单一构型中同时具备精确磁通 + T 破缺 +
+GUE 统计。</p>
+<h1 id="第三块ab-云的-gue-分类测试-1626293334">5. 第三块：AB 云的 GUE
+分类（测试 16、26、29、33、34）</h1>
+<h2 id="规范的角色同一模型为何给出-goe-与-gue">5.1
+规范的角色：同一模型为何给出 GOE 与 GUE</h2>
+<p>测试 16（Montgomery 检验）在狄拉克规范、<span
+class="math inline">\(N_v=2\)</span>、<span
+class="math inline">\(q=\pm1\)</span>、<span
+class="math inline">\(\alpha=1/2\)</span> 下给出 <span
+class="math inline">\(\langle r\rangle = 0.5133\pm0.0353\)</span>——介于
+GOE（0.531）与 GUE（0.600）之间，对 30 个 <span
+class="math inline">\(256\times256\)</span> GUE 矩阵的蒙特卡洛 p 值为
+<span class="math inline">\(0.00\)</span>。原因见
+4.2：该规范下整数荷规范不可见，矩阵近乎实数，GOE”天花板”无法被任何无序克服——这是矩阵层面的、而非噪声层面的
+T 对称。测试 16 在测试 33 内以光滑规范重复：相同涡旋位置下 <span
+class="math inline">\(\langle r\rangle\)</span> 升至 <span
+class="math inline">\(0.585\)</span>。对可复现性的教训：<strong>相位规范是物理规约的一部分</strong>；不指明规范地比较套件版本毫无意义——现在每份报告的标题都注明规范。</p>
+<h2 id="多实现自助法测试-33">5.2 多实现自助法（测试 33）</h2>
+<figure>
+<img src="../figures/fig11_r_bootstrap.png"
+alt="图 9. 测试 33：q=1（环面）与 q=0.3（开边界）的三次 \langle r\rangle 实现，背景为 GUE 与泊松线。" />
+<figcaption aria-hidden="true"><strong>图 9.</strong> 测试 33：<span
+class="math inline">\(q=1\)</span>（环面）与 <span
+class="math inline">\(q=0.3\)</span>（开边界）的三次 <span
+class="math inline">\(\langle r\rangle\)</span> 实现，背景为 GUE
+与泊松线。</figcaption>
+</figure>
+<p>本工作的主要统计结果。构型：环面 <span
+class="math inline">\(16\times16\)</span>、双涡旋 <span
+class="math inline">\(q=\pm1\)</span>、<span
+class="math inline">\(\alpha=1/2\)</span>、无序 <span
+class="math inline">\(W=4\)</span>、光滑规范、三次独立实现（随机涡旋位置、不同无序种子）。结果：<span
+class="math inline">\(\langle r\rangle = 0.5639,\ 0.5811,\
+0.6094\)</span>；合并 <span class="math inline">\(\langle r\rangle =
+0.5848\pm0.0260\)</span>，95% CI <span
+class="math inline">\([0.5588;0.6108]\)</span>，对 GUE 目标 <span
+class="math inline">\(0.5992\)</span> 的偏差 <span
+class="math inline">\(-0.0144\)</span>（<span
+class="math inline">\(-2.4\%\)</span>）——位于校准带内，PASS。开边界分数荷
+<span class="math inline">\(q=\pm0.3\)</span> 的对照系列：<span
+class="math inline">\(0.4025,\ 0.4967,\ 0.4260 \Rightarrow
+0.4417\pm0.0555\)</span>——显著压低，由边缘态（泊松成分）与环面规范相容性缺失解释。两系列之差（<span
+class="math inline">\(0.585\)</span> 对 <span
+class="math inline">\(0.442\)</span>）是边界条件影响有限晶格统计的最直观演示（图
+11）。</p>
+<h2 id="随晶格尺寸的标度测试-34">5.3 随晶格尺寸的标度（测试 34）</h2>
+<figure>
+<img src="../figures/fig10_r_L_scaling.png"
+alt="图 10. 测试 34：\langle r\rangle 随晶格尺寸的收敛；两支都落到 GUE 平台 \approx0.60。" />
+<figcaption aria-hidden="true"><strong>图 10.</strong> 测试 34：<span
+class="math inline">\(\langle r\rangle\)</span>
+随晶格尺寸的收敛；两支都落到 GUE 平台 <span
+class="math inline">\(\approx0.60\)</span>。</figcaption>
+</figure>
+<p><span class="math inline">\(L = 10, 20, 30, 50\)</span> 的 <span
+class="math inline">\(\langle r\rangle(L)\)</span>
+标度（每点两次实现，无序 <span
+class="math inline">\(W=4\)</span>）：分数支 <span
+class="math inline">\(q=0.3\)</span>（开边界）——<span
+class="math inline">\(0.5482 \to 0.5921 \to 0.6048 \to
+0.5953\)</span>；整数支 <span
+class="math inline">\(q=1\)</span>（环面）——<span
+class="math inline">\(0.5739 \to 0.5681 \to 0.6042 \to
+0.5864\)</span>。两支均在 <span class="math inline">\(L\ge30\)</span>
+进入平台 <span class="math inline">\(0.59\)</span>–<span
+class="math inline">\(0.605\)</span>，在 GUE <span
+class="math inline">\(0.5996\)</span>
+的两个标准误之内；分数支单调，其平台与专著预言（<span
+class="math inline">\(0.487\to0.562\to0.595\to0.594\)</span>）在收敛形状上吻合——我们的
+<span class="math inline">\(L=10\)</span> 值更高（我们的涡旋构型在小
+<span class="math inline">\(L\)</span>
+时边缘效应更弱），此后趋势一致。这解决了早期版本的”衰减悖论”：<span
+class="math inline">\(\langle r\rangle\)</span>
+并不随晶格增大而退化，而是落到 GUE 平台；v13
+中观察到的压低是小尺寸与实数规范的伪影。</p>
+<h2 id="汇总量-f_gue测试-29">5.4 汇总量 f_GUE（测试 29）</h2>
+<p>测试 29 把统计压缩到单一标度：<span
+class="math inline">\(16\times16\)</span>、<span
+class="math inline">\(N_v=2\)</span>、<span
+class="math inline">\(q=\pm1\)</span>、<span
+class="math inline">\(\alpha=1/2\)</span>、<span
+class="math inline">\(W=4\)</span> 时，<span
+class="math inline">\(\Sigma^2(L{=}2) = 0.8377\)</span> 给出 <span
+class="math inline">\(f_{\rm GUE} = 0.648\)</span>，PASS 阈值 <span
+class="math inline">\(0.90\)</span>——WARN。这与测试 33 并不矛盾：小
+<span class="math inline">\(L\)</span> 的 <span
+class="math inline">\(\Sigma^2\)</span>
+对谱的刚性核心与边缘敏感，那里混合尚未普适；<span
+class="math inline">\(0.90\)</span> 阈值是按 <span
+class="math inline">\(\ge100\times100\)</span> 系综校准的。第 4
+块中我们将在 <span class="math inline">\(K(t)\)</span>
+上看到同一图景：小系综显示正确的<em>趋势</em>但达不到按更大系统校准的硬阈值。我们认为这种指标分歧不是失败，而是有限尺寸的可测特征，已记入汇总表。</p>
+<h1 id="第四块与-ζ-零点的直接比较测试-283536">6. 第四块：与 ζ
+零点的直接比较（测试 28、35、36）</h1>
+<h2 id="零点样本的双通比较测试-28">6.1 零点样本的双通比较（测试
+28）</h2>
+<figure>
+<img src="../figures/fig15_berry_R2_cutoff.png"
+alt="图 11. Berry 修正 R_2(0;T)：有限样本截断与向 -1 渐近的缓慢逼近；竖线标记两通高度（1000/5000 零点）。" />
+<figcaption aria-hidden="true"><strong>图 11.</strong> Berry 修正 <span
+class="math inline">\(R_2(0;T)\)</span>：有限样本截断与向 <span
+class="math inline">\(-1\)</span>
+渐近的缓慢逼近；竖线标记两通高度（1000/5000 零点）。</figcaption>
+</figure>
+<p>测试 28——<span class="math inline">\(R_2(0)\)</span> 的 Berry
+修正——在 v18/v19 中以双通执行：最初 1000 个零点（<span
+class="math inline">\(T_{\max}\approx1419\)</span>）与最初 5000
+个零点（<span
+class="math inline">\(T_{\max}\approx5448\)</span>）。素数和 <span
+class="math inline">\(\sum_p\sum_{k\le5}p^{-k/2}/(k\ln p) =
+4.2079\)</span> 给出修正后的理论值 <span class="math inline">\(R_2(0) =
+-2.3394\)</span>；预期的有限样本附加量 <span class="math inline">\(\sim
+T^{-1/2}\)</span> 从 <span class="math inline">\(0.0019\)</span>（<span
+class="math inline">\(T=1419\)</span>）降到 <span
+class="math inline">\(0.0009\)</span>（<span
+class="math inline">\(T=5448\)</span>）。该测试验证两通中公式的精确复现（PASS，机器精度），并展示
+Berry 效应的量级：即便修正后的 <span
+class="math inline">\(R_2(0)\)</span> 预测在可达高度上也远离教科书式的
+<span class="math inline">\(-1.007\)</span>
+渐近值。对套件的实践意义：两通设定了解释任何小零点样本”吻合”所需的标度。</p>
+<h2 id="montgomery-检验ab-云对-ζ-5000测试-35">6.2 Montgomery 检验：AB
+云对 ζ-5000（测试 35）</h2>
+<figure>
+<img src="../figures/fig08_r2_pair.png"
+alt="图 12. 对关联 R_2(s)：AB 云对 ζ 零点、GUE 与泊松——两支都复现关联洞。" />
+<figcaption aria-hidden="true"><strong>图 12.</strong> 对关联 <span
+class="math inline">\(R_2(s)\)</span>：AB 云对 ζ 零点、GUE
+与泊松——两支都复现关联洞。</figcaption>
+</figure>
+<p>正面对比：AB 云展析间距（2 次实现，304 个间隙）对最初 5000 个 ζ
+零点的展析间距（4999 个间隙，对称滑窗展析）。结果：双样本 KS <span
+class="math inline">\(D = 0.1173\)</span>，<span class="math inline">\(p
+= 6.7\cdot10^{-4}\)</span>——分布完全相同的假设被拒；对关联差的平均模
+<span class="math inline">\(\langle|R_2^{\rm
+AB}(s)-R_2^{\zeta}(s)|\rangle = 0.147\)</span>，阈值 <span
+class="math inline">\(0.10\)</span>。但同一张 <span
+class="math inline">\(R_2(s)\)</span> 表（<span
+class="math inline">\(s\)</span> 从 0.05 到 2.85 的 29 个值；图
+8）显示要点：两者都有关联洞——<span class="math inline">\(R_2^{\rm
+AB}(0.05) = 0.00\)</span>，<span class="math inline">\(R_2^{\zeta}(0.05)
+= 0.005\)</span>，泊松为 1；两条曲线平行于 GUE
+预测，且都通过”比泊松更接近 GUE”的检查（<span
+class="math inline">\(d_{\rm GUE} = 0.140 &lt; d_{\rm Pois} =
+0.227\)</span>）。诚实的总结：<strong>AB
+云复现了零点关联的定性与半定量结构（洞、<span
+class="math inline">\(s\approx1\)</span>
+处的折点、平台），但并不逐点吻合</strong>——304 个间隙不足以支撑稳定的
+<span class="math inline">\(R_2\)</span> 或 KS
+级别的吻合。我们把”同一普适类”与”同一谱”之间的距离记为数字，而非形容词。</p>
+<h2 id="形因子-kt测试-36">6.3 形因子 K(t)（测试 36）</h2>
+<figure>
+<img src="../figures/fig09_K_form_factor.png"
+alt="图 13. 谱形因子 K(t)：GUE 斜坡+平台、AB 云数据与 ζ 零点；小系综显示正确趋势但带离群点。" />
+<figcaption aria-hidden="true"><strong>图 13.</strong> 谱形因子 <span
+class="math inline">\(K(t)\)</span>：GUE 斜坡+平台、AB 云数据与 ζ
+零点；小系综显示正确趋势但带离群点。</figcaption>
+</figure>
+<p>谱形因子是对要求最高的诊断：稳定估计需要数百个独立间隙与精确展析。我们的
+306 个本征值给出对 GUE 斜坡的 RMS 偏差 <span
+class="math inline">\(0.93\)</span>（PASS 阈值 <span
+class="math inline">\(0.30\)</span>）、与理论曲线的相关 <span
+class="math inline">\(0.018\)</span>（阈值 <span
+class="math inline">\(0.50\)</span>）——两项均为 WARN；曲线形状（图
+9）显示向 <span class="math inline">\(t\approx1\)</span>
+的正确上升及随后的回落，带有小系综典型的离群点。同一图上的 ζ
+零点曲线（取自 5000 个零点）对 GUE 的 RMS 为 <span
+class="math inline">\(0.86\)</span>——即使参考零点在该尺度也过不了硬阈值：该诊断有信息量，但按大若干量级的系综校准。我们把它纳入专著，作为适用性界限的演示与未来大运行的课题。</p>
+<h1 id="第五块狄拉克动力学与非厄米性测试-19303237">7.
+第五块：狄拉克动力学与非厄米性（测试 19、30–32、37）</h1>
+<h2 id="狄拉克锥测试-1931">7.1 狄拉克锥（测试 19、31）</h2>
+<figure>
+<img src="../figures/fig12_dirac_cone.png"
+alt="图 14. 狄拉克锥：E_{\min} = 0.02 + 11.83/L，R^2 = 0.9997——每点均有四个零模时对 1/L 的线性。" />
+<figcaption aria-hidden="true"><strong>图 14.</strong> 狄拉克锥：<span
+class="math inline">\(E_{\min} = 0.02 + 11.83/L\)</span>，<span
+class="math inline">\(R^2 = 0.9997\)</span>——每点均有四个零模时对 <span
+class="math inline">\(1/L\)</span> 的线性。</figcaption>
+</figure>
+<p><span class="math inline">\(\alpha=1/2\)</span> 时 AB
+云中的涡旋表现得像一维相对论费米子：零附近的谱是线性的。数值检查（测试
+19）在 <span class="math inline">\(L = 12, 16, 24, 32, 48\)</span>
+晶格上运行：最小能量 <span
+class="math inline">\(E_{\min}\)</span>（四个零模下 E=0 处的能隙）按
+<span class="math inline">\(E_{\min} = 0.0202 + 11.826/L\)</span>
+标度，<span class="math inline">\(R^2 = 0.9997\)</span>——对 <span
+class="math inline">\(1/L\)</span>
+的线性无可挑剔。常数的解读：若狄拉克点位于布里渊区中心（<span
+class="math inline">\(k_{\min} = 2\pi/L\)</span>），有效费米速度 <span
+class="math inline">\(v_F = b/2\pi \approx 1.88\)</span>（以晶格常数
+<span class="math inline">\(b\)</span>
+上的跃迁为单位）；若在区边缘（<span
+class="math inline">\(k_{\min}=\pi/L\)</span>），<span
+class="math inline">\(v_F = b/\pi \approx 3.76\)</span>。历史值 <span
+class="math inline">\(\sim0.125\)</span>
+属于另一种晶格归一化；在套件当前归一化中我们记录这两个数，并指出在二者间选择取决于零模相位结构指示的是哪个带接触点。测试
+31（周期边界的环面变体）显示 <span class="math inline">\(R^2 =
+0.03\)</span> 且能隙为零：环面上零模受拓扑保护，任何 <span
+class="math inline">\(L\)</span>
+都不会打开——这本身就是拓扑本性的确证，但能隙标度需要开边界。</p>
+<h2 id="态密度的狄拉克凹陷测试-30">7.2 态密度的狄拉克凹陷（测试
+30）</h2>
+<figure>
+<img src="../figures/fig13_dirac_dip.png"
+alt="图 15. \alpha=1/2 处 DOS 的狄拉克凹陷：双向对比度 20\times（对数标度）。" />
+<figcaption aria-hidden="true"><strong>图 15.</strong> <span
+class="math inline">\(\alpha=1/2\)</span> 处 DOS
+的狄拉克凹陷：双向对比度 <span
+class="math inline">\(20\times\)</span>（对数标度）。</figcaption>
+</figure>
+<p><span class="math inline">\(\alpha=1/2\)</span> 处 Hofstadter
+谱有解析特征：<span class="math inline">\(E=0\)</span>
+附近态密度线性归零（狄拉克点），而 <span
+class="math inline">\(\alpha\neq1/2\)</span> 时谱是普通的。测试 30 在
+<span class="math inline">\(20\times20\)</span> 无无序晶格上测量中央带
+<span class="math inline">\(|E|&lt;0.5\)</span> 的态密度：<span
+class="math inline">\(\rho(\alpha=0.4) = 0.200\)</span>，<span
+class="math inline">\(\rho(\alpha=0.5) = 0.010\)</span>，<span
+class="math inline">\(\rho(\alpha=0.6) = 0.200\)</span>——双向对比度恰为
+<span class="math inline">\(20\times\)</span>。狄拉克凹陷是分隔 <span
+class="math inline">\(C_1 = +1\)</span> 与 <span
+class="math inline">\(C_1 = -1\)</span>
+霍尔相的临界点的指纹；在格点模型中观测到它（以及冷原子中的类似物）是最稳健的证据之一，说明起作用的是真实的普适物理而非数值调参。</p>
+<h2 id="hatanonelson离开-sigma12测试-32">7.3 Hatano–Nelson：离开 <span
+class="math inline">\(\sigma=1/2\)</span>（测试 32）</h2>
+<figure>
+<img src="../figures/fig16_hatano_nelson.png"
+alt="图 16. Hatano–Nelson：\sigma=0.5——实谱；\sigma=0.7——整个谱进入复平面（趋肤效应）。" />
+<figcaption aria-hidden="true"><strong>图 16.</strong>
+Hatano–Nelson：<span
+class="math inline">\(\sigma=0.5\)</span>——实谱；<span
+class="math inline">\(\sigma=0.7\)</span>——整个谱进入复平面（趋肤效应）。</figcaption>
+</figure>
+<p>广义模型中的参数 <span class="math inline">\(\sigma\)</span>
+设定跃迁相位的”分数”部分；<span
+class="math inline">\(\sigma=1/2\)</span> 时模型厄米。测试 32 在 <span
+class="math inline">\(16\times16\)</span> 上比较 <span
+class="math inline">\(\sigma=0.5\)</span> 与 <span
+class="math inline">\(\sigma=0.7\)</span>：<span
+class="math inline">\(\sigma=0.5\)</span> 时最大 <span
+class="math inline">\(|\mathrm{Im}\,E| = 0\)</span>（谱严格为实）；<span
+class="math inline">\(\sigma=0.7\)</span> 时全部 256 个能级为复数，最大
+<span class="math inline">\(|\mathrm{Im}\,E| =
+0.623\)</span>，Hatano–Nelson 趋肤参数 <span class="math inline">\(g =
+(\sigma-1/2)\ln|\gamma| = 0.322\)</span>。含义：<strong>离开 <span
+class="math inline">\(\sigma=1/2\)</span>
+把系统从幺正（GUE）类移入耗散（无关联）类；本征矢向边界的局域化（趋肤效应）摧毁体统计，非厄米支上
+<span class="math inline">\(\langle r\rangle\)</span>
+塌缩为零（所有间隙在复平面上”配对”）</strong>。临界线 <span
+class="math inline">\(\sigma=1/2\)</span> 不仅由 Connes
+自对偶凸显，而且是存在体随机矩阵统计的唯一线条（图
+13、16）。这是”临界线最优性”的第二个独立论证——解析自对偶的统计对应。</p>
+<h2 id="字节级稳健性测试-37">7.4 字节级稳健性（测试 37）</h2>
+<p>可复现性的实践问题：结论能否经受量子化？测试 37 验证 <span
+class="math inline">\(\langle r\rangle\)</span> 在本征值 256
+级量子化下存活（变化 <span class="math inline">\(0.0015\)</span>，容差
+<span class="math inline">\(0.02\)</span>），且生成器字节流的香农熵为
+<span class="math inline">\(7.9991\)</span> 比特（最大 8；基于 CLT 的
+<span class="math inline">\(\chi^2\)</span> 判据：<span
+class="math inline">\(z=-0.234\)</span>，<span
+class="math inline">\(|z|&lt;3\)</span>）。该测试还记录了全局与局部分类之差：特定实现的全局谱看似泊松（<span
+class="math inline">\(\langle r\rangle_{\rm
+raw}=0.447\)</span>），但中央 15 能级窗口内 <span
+class="math inline">\(\langle r\rangle_{\rm local}=0.549\)</span>——即
+5.4 节已述的体–核之别。</p>
+<h1 id="第六块解析诠释测试-2123-及延伸">8. 第六块：解析诠释（测试 21–23
+及延伸）</h1>
+<p>本块是从测量通向解析结构的桥梁。我们审慎区分：（a）机器精度可复现的精确公式（测试
+21–23）；（b）与数字一致但不能由套件严格推出的物理诠释；（c）作为类比呈现的类比。这种三层呈现是方法论原则。</p>
+<h2 id="旋量相位-gammaast经由虚单位的-90测试-21">8.1 旋量相位 <span
+class="math inline">\(\gamma^{\ast}\)</span>：经由虚单位的 90°（测试
+21）</h2>
+<figure>
+<img src="../figures/fig18_gamma_phase.png"
+alt="图 17. 旋量相位 \gamma^{\ast} = a_C + i b_C：辐角 89.87° 对参考 90°；b_C 的主导把相位压向 \pi/2。" />
+<figcaption aria-hidden="true"><strong>图 17.</strong> 旋量相位 <span
+class="math inline">\(\gamma^{\ast} = a_C + i b_C\)</span>：辐角 <span
+class="math inline">\(89.87°\)</span> 对参考 <span
+class="math inline">\(90°\)</span>；<span
+class="math inline">\(b_C\)</span> 的主导把相位压向 <span
+class="math inline">\(\pi/2\)</span>。</figcaption>
+</figure>
+<p>定义 <span class="math inline">\(\delta_C = \pi/7 = 0.448799\)</span>
+弧度（见 8.2）与 <span class="math inline">\(b_2(K3) = 22\)</span>（K3
+曲面的第二 Betti 数）。测试 21 验证两个实数量：<strong>实制动项</strong>
+<span class="math inline">\(a_C(\gamma^{\ast}) = \delta_C^5/b_2(K3) =
+8.276\cdot10^{-4}\)</span> 与<strong>虚 Berry 项</strong> <span
+class="math inline">\(b_C(\gamma^{\ast}) = 1-\cos(2\delta_C) =
+2\sin^2\delta_C = 0.376510\)</span>；两者均以机器精度复现。复旋量相位
+<span class="math inline">\(\gamma^{\ast} = a_C + i b_C\)</span> 的模为
+<span class="math inline">\(|\gamma^{\ast}| = 0.3765\)</span>，辐角
+<span class="math inline">\(89.874°\)</span>——对 <span
+class="math inline">\(\pi/2\)</span> 的偏离仅 <span
+class="math inline">\(0.126°\)</span>（<span
+class="math inline">\(2.2\cdot10^{-3}\)</span> 弧度）。结构如下：由于
+<span class="math inline">\(b_C \gg a_C\)</span>，<span
+class="math inline">\(\gamma^{\ast}\)</span> 的辐角自动压向 90°——“90°
+的跃变经由虚单位实现”：作为几何对象的相位被构造得使其相对论（旋量）本性以纯虚优势表达。把它诠释为假想的
+Peccei–Quinn 相位属于（b）层：与数字相容，但不能由套件推出。</p>
+<h2 id="ab-相位-phi_ab-pi7-与分数电荷测试-22">8.2 AB 相位 <span
+class="math inline">\(\Phi_{AB} = \pi/7\)</span> 与分数电荷（测试
+22）</h2>
+<p>精确公式：荷电 <span class="math inline">\(q/e = 1/14\)</span>
+的粒子环绕一个磁通量子的通量管时，阿哈罗诺夫–玻姆相位为 <span
+class="math inline">\(\Phi_{AB} = 2\pi/14 = \pi/7 = 0.448799\)</span>
+弧度 <span class="math inline">\(= 25.714°\)</span>。测试 22
+在精确有理数算术中确认该恒等式（偏差 <span
+class="math inline">\(0.00\)</span>）。量 <span
+class="math inline">\(\delta_C=\pi/7\)</span> 正是 <span
+class="math inline">\(\Phi_{AB}\)</span>；也就是说 <span
+class="math inline">\(q/e=1/14\)</span>
+是分数电荷假说，整个解析上层建筑围绕它建立。值得注意的是，<span
+class="math inline">\(\pi/7\)</span> 与 PSL(2,7) 特征表的的高斯和 <span
+class="math inline">\(b_7=(-1+i\sqrt7)/2\)</span> 相联系（8.5
+节）：七次单位根既出现在 Klein 四次曲面的旋量结构中，也出现在 AB
+相位中——这是 v21 专著已注意到的结构押韵。</p>
+<h2 id="复分形因子-cf-与对数抛物化测试-23">8.3 复分形因子 CF
+与对数抛物化（测试 23）</h2>
+<p>对具有离散标度比 <span class="math inline">\(\lambda_{\rm DSI} =
+b_2(K3) = 22\)</span> 的临界解，测试 23
+计算<strong>复分形因子</strong></p>
+<p><span class="math display">\[CF = \exp\!\left(\frac{2\pi
+i}{\lambda_{\rm DSI}}\right)\cdot\exp\!\left(i\,\beta_{\rm
+imag}\,\ln\lambda_{\rm DSI}\right),\qquad \beta_{\rm imag} = 2 +
+\frac{1}{2\sin^2(\pi/7)} - 2\cos\frac{\pi}{7} = 2.854033,\]</span></p>
+<p>给出 <span class="math inline">\(CF = -0.9501 +
+0.3119\,i\)</span>，按构造 <span class="math inline">\(|CF| =
+1\)</span>。注意指数内部的对数——这就是”对数抛物化”：用对数相位调制离散标度不变性。测试还带有诚实的告示：晚期
+tex 源中的硬编码值 <span class="math inline">\(CF_{\rm hard} = 0.9786 +
+0.0390\,i\)</span>（模 <span class="math inline">\(0.9794\)</span>，由此
+<span class="math inline">\(c_{AB} = 1-|CF_{\rm hard}| =
+0.0206\)</span>）是<strong>经验输入</strong>——类似 QCD 中的 <span
+class="math inline">\(\alpha_s\)</span>——而公式是结构（拓扑）预测；两幅度恰差
+<span
+class="math inline">\(c_{AB}\)</span>，测试连同各自状态记录两个数。</p>
+<h2 id="t-破缺作为-gue-之源黑洞类比">8.4 T 破缺作为 GUE
+之源：黑洞类比</h2>
+<p>第 3–5 块的数字拼合成 Dyson 的解析图景：GOE ↔︎ T 不变性，GUE ↔︎
+其破缺。AB 云在同一模型中实现两个分支：整数荷的狄拉克规范——实矩阵，<span
+class="math inline">\(\tau=0\)</span>，GOE 天花板（测试
+15、16）；光滑规范或分数荷——<span
+class="math inline">\(\tau\approx0.225\)</span>，GUE 统计（测试
+26、33）。讨论中提出的假设强化了这条线：<strong>T
+破缺与黑洞统计由幺正系综描述是同一原因（那里时间被弯曲，热力学上反转不是对称）</strong>。我们强调该构造的地位：它不是套件的推论，而是套件不与之矛盾的诠释框架——并且它使预言”任何具有复跃迁且无可积性的相位模型都将给出
+<span class="math inline">\(\langle
+r\rangle\to0.6\)</span>“可以在独立材料上检验。</p>
+<h2 id="kerr-类比能层与-psl27-monster综述">8.5 Kerr 类比、能层与
+PSL(2,7) ⊂ Monster（综述）</h2>
+<p>v21 的两个诠释以综述地位保留。<strong>Kerr
+类比</strong>：涡旋相位场定义”能层区”——相位速度相对晶格变号的区域，如
+Kerr 能层；其数值验证需要动力学而非静态谱，仍是课题。<strong>Monster
+桥</strong>：维数 196883 的 Monster 特征 <span
+class="math inline">\(\chi_2\)</span> 限制到子群 PSL(2,7)（经极大子群
+<span class="math inline">\(2^{3+6+12+18}.(L_3(2)\times3S_6)\)</span>
+嵌入）近似分解为 <span class="math inline">\(1456\cdot\chi_1 +
+3334\cdot\chi_3 + 3334\cdot\chi_3&#39; + 6784\cdot\chi_6 +
+8081\cdot\chi_7 + 9770\cdot\chi_8\)</span>（维数和 196891，偏差
+0.004%）；重数可解释为多涡旋态的选择定则。精确分解需要 GAP CTblLib 的
+class fusion——开放课题；我们在任何裁决中都不使用近似系数。</p>
+<h1 id="综合作为容许态编码的-ζ-零点">9. 综合：作为容许态编码的 ζ
+零点</h1>
+<figure>
+<img src="../figures/fig19_vortex_texture.png"
+alt="图 18. 涡旋对 q=\pm1 叠加 Landau 规范的相位织构：产生观测统计的相位”云”。" />
+<figcaption aria-hidden="true"><strong>图 18.</strong> 涡旋对 <span
+class="math inline">\(q=\pm1\)</span> 叠加 Landau
+规范的相位织构：产生观测统计的相位”云”。</figcaption>
+</figure>
+<figure>
+<img src="../figures/fig20_hofstadter_butterfly.png"
+alt="图 19. Hofstadter 蝴蝶 E(\alpha)；竖线标记自对偶点 \alpha=1/2——专著关键结果的汇聚处。" />
+<figcaption aria-hidden="true"><strong>图 19.</strong> Hofstadter 蝴蝶
+<span class="math inline">\(E(\alpha)\)</span>；竖线标记自对偶点 <span
+class="math inline">\(\alpha=1/2\)</span>——专著关键结果的汇聚处。</figcaption>
+</figure>
+<p>把链条拼起来。（1）光滑规范下 <span
+class="math inline">\(\alpha=1/2\)</span> 的 AB 云谱具有随尺寸收敛的 GUE
+统计：<span class="math inline">\(L: 10\to50\)</span> 时 <span
+class="math inline">\(\langle r\rangle: 0.548\to0.595\)</span>（测试
+33、34）。（2）ζ 零点的统计是 GUE 加可计算的有限样本修正（测试
+4–14）；在可达高度上”纯 GUE”被拒，“有限尺寸 GUE”不被拒（测试
+12）。（3）直接比较显示 <span class="math inline">\(R_2\)</span>
+的定性结构吻合（测试 35）——Montgomery 关联洞被涡旋云复现。（4）临界线
+<span class="math inline">\(\sigma=1/2\)</span> 同时是 Connes
+自对偶点、狄拉克凹陷点与厄米点（测试 17、30、32）——历史上也是云对零点 KS
+距离的最小点。（5）涡旋表现得像相对论性粒子（狄拉克锥，测试
+19），分数电荷充当物理磁通（Byers–Yang，测试 25）。最终叙事——“ζ
+零点作为相位谐振腔容许能量态的编码”——由此获得<strong>自洽且经定量检验的纲领</strong>的地位，而非被证明的定理：我们清楚哪些环节机器精确（磁通、恒等式），哪些统计稳健（标度、自助），哪些仍然开放（<span
+class="math inline">\(T\to\infty\)</span> 渐近、<span
+class="math inline">\(R_2\)</span> 的逐点吻合）。</p>
+<h1 id="验证方法学pass究竟保证什么">10.
+验证方法学：“PASS”究竟保证什么</h1>
+<p>套件 v19
+是第一个在架构上把报告引擎与计算核心隔离的版本。这一决策的历史颇有教益：v18
+中 PDF 写出器的一个缺陷（行列表被声明为 <code>String[]</code>
+而循环推入的是元组）在<strong>每项</strong>测试完成后触发
+<code>MethodError</code>；异常被外层处理器捕获，裁决被降级为
+WARN，双通模式的第二通根本不会运行——“快速检查”退化为单通，而外表上似乎正常。一个
+bug 造成的三个数字：37 项测试虚假 WARN、零份 PDF
+报告、零次第二通。修复（FIX-R1…R5，附录 A）确立了：（1）PDF
+写出器正确；（2）任何报告格式的失败不能影响裁决；（3）测试
+28（双通循环的变量作用域）与测试 18（<span
+class="math inline">\(\alpha=1/3\)</span>
+时环面规范相容性）已修复；（4）快速检查截断至 5000 零点并真正执行双通
+16×16→32×32。教训：<strong>套件的结论不会强于其最弱的基础设施</strong>，而”近乎正常”的报告管线比损坏的更危险，因为它伪造了已验证的表象。</p>
+<p>当前版本的实际保证：每项测试是带完整日志的独立目录；本书每个数字可追溯到测试编号；裁决可由形如
+<code>julia ab_cloud_v19.jl --test N --no-two-pass</code>
+的命令复现；完整运行与 <code>--quick</code> 默认双通；凡需随机性之处 RNG
+均用固定种子（逐位可复现）。</p>
+<h1 id="结论">11. 结论</h1>
+<ol type="1">
+<li><strong>构造精确性</strong>（机器级）：厄米性 0；狄拉克弦磁通准确到
+<span class="math inline">\(10^{-14}\)</span>；整数荷 Byers–Yang <span
+class="math inline">\(3.5\cdot10^{-15}\)</span>；Connes 自对偶——4
+个零模且 E→−E 缺陷 <span class="math inline">\(10^{-15}\)</span>；<span
+class="math inline">\(W=0\)</span> 手征性 <span
+class="math inline">\(0.0\)</span>。构造在数学上正确——这是被证明的，而非估计的。</li>
+<li><strong>GUE 普适性</strong>（统计级）：<span
+class="math inline">\(\langle r\rangle = 0.5848\pm0.0260\)</span> 对 GUE
+<span class="math inline">\(0.5992\)</span>（偏差 <span
+class="math inline">\(-2.4\%\)</span>）；标度 <span
+class="math inline">\(L=10\to50\)</span> 单调并在 <span
+class="math inline">\(0.595\pm0.008\)</span> 进入平台；谱在所有尺度
+<span class="math inline">\(L\)</span> 上比泊松更刚，9/9 点上更接近
+GUE。T 对称恰在相位为复数处破缺——Dyson 三分法得到复现。</li>
+<li><strong>与 ζ 零点的比较</strong>（诚实级）：<span
+class="math inline">\(R_2(s)\)</span>
+的定性结构吻合（洞、平台；比泊松更接近 GUE），304
+个间隙下不存在也不应期待逐点吻合；Berry 有限样本修从定量上解释了对渐近
+GUE 的一切观测偏离。</li>
+<li><strong>拓扑与动力学</strong>：<span
+class="math inline">\(C_1=2\)</span>（非平凡 IQHE）、狄拉克锥 <span
+class="math inline">\(R^2=0.9997\)</span>、DOS 凹陷 <span
+class="math inline">\(20\times\)</span>、<span
+class="math inline">\(\sigma\neq1/2\)</span> 趋肤效应；临界线 <span
+class="math inline">\(\sigma=1/2\)</span> 获三重凸显（自对偶 + 厄米 +
+凹陷）。</li>
+<li><strong>解析诠释</strong>：<span
+class="math inline">\(\gamma^{\ast}\)</span>、<span
+class="math inline">\(\Phi_{AB}=\pi/7\)</span>、<span
+class="math inline">\(CF\)</span> 诸公式以机器精度复现并构成自洽的 <span
+class="math inline">\(\pi/7\)</span>-结构；其物理解读（Peccei–Quinn、Moonshine）仍是假说——套件不矛盾，但也不证明。</li>
+<li><strong>信任的基础设施</strong>：v19
+修复了报告管线的一切已发现缺陷；每个结论可追溯至日志；两套裁决系统（机器与校准）被明确分开。</li>
+</ol>
+<h1 id="开放问题">12. 开放问题</h1>
+<ol type="1">
+<li><strong><span class="math inline">\(b(N)\)</span>
+的渐近</strong>：幂律还是对数？替代拟合更好（<span
+class="math inline">\(R^2=0.9999\)</span>），但 <span
+class="math inline">\(N\)</span> 范围不足；需要到 <span
+class="math inline">\(N\sim10^6\)</span> 的运行（加载器已支持 2M Odlyzko
+数据集）。</li>
+<li><strong><span class="math inline">\(R_2\)</span>
+的逐点吻合</strong>：AB 云系综须增至 <span
+class="math inline">\(\ge10^4\)</span> 间隙（更大晶格 × 多实现 ×
+涡旋移位）——只有那时对 ζ-5000 的双样本 KS 才有信息量。</li>
+<li><strong>形因子 <span
+class="math inline">\(K(t)\)</span></strong>：同一目标；按我们估计 PASS
+阈值（<span class="math inline">\(\mathrm{RMS}&lt;0.30\)</span>、<span
+class="math inline">\(\mathrm{corr}&gt;0.50\)</span>）在 <span
+class="math inline">\(\ge3000\)</span> 间隙时可达。</li>
+<li><strong>3D 接口</strong>：Hofstadter 堆叠中的涡旋线（3D
+实验室模块）——GUE 平台是否沿第三维保持；已有初步数据但无 37
+测试验证。</li>
+<li><strong>196883 对 PSL(2,7) 的精确分解</strong>：需要经 GAP CTblLib
+的 class fusion；在此之前系数仍是近似的。</li>
+<li><strong>涡旋动力学与 Kerr
+类比</strong>：静态谱无法检验能层诠释；需要带 AB
+相位的点涡旋拉格朗日模拟。</li>
+</ol>
+<h1 id="附录-a.-代码架构与关键模块">附录 A. 代码：架构与关键模块</h1>
+<p>验证套件的完整代码（文件 <code>ab_cloud_v19.jl</code>，Julia
+1.10，零外部依赖——包括自研的带 pHYs 的 PNG 写出器、矢量 PDF、带 LZW 的
+GIF89a、stored-ZIP 的 DOCX 及全部统计）随专著发布于 <code>code/</code>
+目录；无参数运行时打开交互菜单（键
+<code>f</code>——快速检查）。以下列出架构模块并引用关键代码。</p>
+<p><strong>文件模块</strong>：（1）<code>Config</code>
+结构与双语消息；（2）数据加载器——5 万内置 Odlyzko 零点 + 至 2M
+的外部文件与优雅回退；（3）统计核心（展析、KS、χ²、AD、自助、<span
+class="math inline">\(\Sigma^2\)</span>、<span
+class="math inline">\(\Delta_3\)</span>、<span
+class="math inline">\(R_2\)</span>、<span
+class="math inline">\(K(t)\)</span>）；（4）AB 云构造器
+<code>build_ab_cloud_hamiltonian</code>（相位模型
+<code>:dirac</code>、<code>:monumental</code>）与磁通检查
+<code>plaquette_flux</code>；（5）37 项测试
+<code>test*</code>；（6）双通运行器
+<code>run_test_two_pass</code>；（7）v16/v19
+报告引擎（<code>rep_*</code>，md/html/pdf/docx/svg/png/gif
+写出器，index.html）；（8）物理实验室（22 个实验构型）与 3D 实验室（30
+项测试）；（9）菜单与 CLI。</p>
+<p><strong>关键函数——哈密顿量构造器</strong>（节选；全文见随附文件）：</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode julia"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># φ_ij = 2π·α·j + Σ_k q_k·[arg(r_i−r_k) − arg(r_j−r_k)] + φ^弦_ij</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 键 (i→j) 取 H_ij = −exp(iφ_ij)；含涡旋 k 的元胞携带磁通 2π·q_k</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">build_ab_cloud_hamiltonian</span>(cfg<span class="op">::</span><span class="dt">ABCloudConfig</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> cfg.Nx <span class="op">*</span> cfg.Ny</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    H <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">ComplexF64</span>, N, N)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> iy <span class="kw">in</span> <span class="fl">0</span><span class="op">:</span>(cfg.Ny<span class="op">-</span><span class="fl">1</span>), ix <span class="kw">in</span> <span class="fl">0</span><span class="op">:</span>(cfg.Nx<span class="op">-</span><span class="fl">1</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        i <span class="op">=</span> iy <span class="op">*</span> cfg.Nx <span class="op">+</span> ix</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> (dx, dy) <span class="kw">in</span> ((<span class="fl">1</span>,<span class="fl">0</span>),(<span class="fl">0</span>,<span class="fl">1</span>))            <span class="co"># 最近邻，两种取向</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>            jx, jy <span class="op">=</span> (ix<span class="op">+</span>dx) <span class="op">%</span> cfg.Nx, (iy<span class="op">+</span>dy) <span class="op">%</span> cfg.Ny</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>            j <span class="op">=</span> jy <span class="op">*</span> cfg.Nx <span class="op">+</span> jx</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>            <span class="cn">φ</span> <span class="op">=</span> <span class="fl">2</span>π <span class="op">*</span> cfg.alpha <span class="op">*</span> jy              <span class="co"># Landau 规范（列相位）</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> v <span class="kw">in</span> cfg.vortices                <span class="co"># 涡旋相位（依模型）</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                <span class="cn">φ</span> <span class="op">+=</span> <span class="fu">vortex_phase</span>(v, ix, iy, jx, jy, cfg.model)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>            H[i<span class="op">+</span><span class="fl">1</span>, j<span class="op">+</span><span class="fl">1</span>] <span class="op">-=</span> <span class="fu">exp</span>(<span class="cn">im</span> <span class="op">*</span> <span class="cn">φ</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>            H[j<span class="op">+</span><span class="fl">1</span>, i<span class="op">+</span><span class="fl">1</span>] <span class="op">-=</span> <span class="fu">exp</span>(<span class="op">-</span><span class="cn">im</span> <span class="op">*</span> <span class="cn">φ</span>)          <span class="co"># 厄米共轭</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        H[i<span class="op">+</span><span class="fl">1</span>, i<span class="op">+</span><span class="fl">1</span>] <span class="op">+=</span> <span class="fu">disorder_epsilon</span>(ix, iy, cfg)   <span class="co"># ε ~ U(−W/2, W/2)，固定种子</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> H</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
+<p><strong>元胞磁通检查</strong>（狄拉克规范）：含涡旋元胞四键相位之和给出
+<span class="math inline">\(2\pi q \pmod{2\pi}\)</span>，空元胞为 0；由
+<code>plaquette_flux(H, Nx, Ny, ix, iy)</code> 计算，在测试 15/24/26
+中验证。</p>
+<p><strong>裁决</strong>：<code>log_result</code>
+写出裁决行与完整日志；<code>run_test_two_pass</code>
+在主晶格与加大晶格上运行测试，在 <code>finally</code>
+中恢复配置（通隔离）；<code>rep_finish!</code>
+在写报告<strong>之前</strong>记录裁决，写出器故障（FIX-R2）不能改变它。</p>
+<p><strong>v19 修复</strong>（完整注释见代码）：FIX-R1——PDF
+写出器中间行列表的类型标注（消除使裁决与第二通归零的大规模
+MethodError）；FIX-R2——<code>_write_test_report!</code> 外包
+try/catch；FIX-R3/3b——测试 28 的
+<code>last_R2</code>/<code>berry_ref</code> 置于函数作用域；FIX-R4——测试
+18 中 <span class="math inline">\(\alpha\in\{1/2,1/3\}\)</span>
+时晶格跳到 6 的倍数；FIX-R5/5b——快速检查：ζ 截断至 5000、关闭 GIF、新增
+<code>--quick</code> CLI 标志。</p>
+<h1 id="附录-b.-复现指南">附录 B. 复现指南</h1>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 全套件（双通，需数分钟至数十分钟）：</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">julia</span> ab_cloud_v19.jl <span class="at">--test</span> all</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 单项测试：</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">julia</span> ab_cloud_v19.jl <span class="at">--test</span> 33 <span class="at">--no-two-pass</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 快速检查 16×16 → 32×32（ζ ≤ 5000，数分钟）：</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">julia</span> ab_cloud_v19.jl <span class="at">--quick</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 语言：</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">julia</span> ab_cloud_v19.jl <span class="at">--lang</span> en <span class="at">--quick</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 报告位置：results/run_&lt;日期&gt;/test_NN_&lt;slug&gt;/{report.md,html,pdf,docx, plots/, logs/}</span></span></code></pre></div>
+<p>本书数字对应 2026-08-28 的 v18 运行（37 项测试，单通基线 204.9 秒）与
+v19 对照运行（测试 3、18、28——PASS；带全套报告的双通测试
+28——PASS；随包文件
+<code>results/verification_run_v18_37tests_2026-08-28.txt</code>）。</p>
+<h1 id="附录-c.-图形索引">附录 C. 图形索引</h1>
+<p>全部图形为 600 dpi PNG，标题采用相应出版语言；文件位于
+<code>monographs/&lt;lang&gt;/figures/</code>。图 1——<span
+class="math inline">\(b(N)\)</span> 收敛（双拟合）；图 2——ζ 间距直方图对
+Wigner 猜想曲线；图 3——对数坐标下的双衰减拟合；图 4——斜率的自助分布与
+95% CI；图 5——KS <span class="math inline">\(D(T_{\min})\)</span>
+与临界线；图 6——<span class="math inline">\(\Sigma^2(L)\)</span>；图
+7——<span class="math inline">\(\Delta_3(L)\)</span>；图 8——<span
+class="math inline">\(R_2(s)\)</span>：AB 云对 ζ、GUE、泊松；图
+9——形因子 <span class="math inline">\(K(t)\)</span>；图 10——<span
+class="math inline">\(\langle r\rangle(L)\)</span> 标度（<span
+class="math inline">\(q=0.3\)</span> 与 <span
+class="math inline">\(q=1\)</span>）；图 11——<span
+class="math inline">\(\langle r\rangle\)</span> 自助法（测试 33）；图
+12——狄拉克锥 <span class="math inline">\(E_{\min}(1/L)\)</span>；图
+13——DOS 狄拉克凹陷；图 14——Byers–Yang（整数对分数电荷）；图 15——Berry
+截断 <span class="math inline">\(R_2(0;T)\)</span>；图 16——Hatano–Nelson
+非厄米谱椭圆；图 17——旋量相位 <span
+class="math inline">\(\gamma^{\ast}\)</span>；图
+18——涡旋对的相位织构；图 19——Hofstadter 蝴蝶（标注 <span
+class="math inline">\(\alpha=1/2\)</span>）。</p>
+</main>
+</div>
+<footer class="run">AB-Cloud Verification Suite v19 · 37 tests · every number traceable to a test log · DOI 10.5281/zenodo.21825394</footer>
+<button id="topbtn" title="Top">↑</button>
+</body>
+</html>

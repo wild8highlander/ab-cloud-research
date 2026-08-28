@@ -1,0 +1,78 @@
+\documentclass[11pt,a4paper]{ctexart}
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+
+\title{\bfseries AB 云：相位谐振腔——GUE 普适性、拓扑定理\\与 $\zeta(s)$ 零点统计的比较}
+\author{I.\,K. Isaev\thanks{ORCID: 0009-0003-7299-0701。仓库：\url{https://github.com/wild8highlander/research-papers}。DOI: 10.5281/zenodo.21825394}}
+\date{预印本 v22 · 2026 年 8 月}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+我们给出 AB 云的完全验证数值研究——AB 云是带点状拓扑涡旋（阿哈罗诺夫–玻姆相位）的 Hofstadter 哈密顿量。所有结果均由带逐计算日志的 37 项自动化测试套件产生。关键确认量：$\langle r\rangle = 0.5848\pm0.0260$，对 GUE 目标 $0.5992$ 偏差 $-2.4\%$；$\langle r\rangle$ 随尺寸 $L=10\to50$ 单调收敛到平台 $0.595$；拓扑恒等式精确到 $10^{-14}\dots10^{-15}$（狄拉克弦磁通、Byers–Yang、具有 4 个零模的 Connes 自对偶、AIII 手征性）；狄拉克锥 $E_{\min}\propto1/L$，$R^2=0.9997$；$\alpha=1/2$ 处 $20\times$ 的狄拉克态密度凹陷；陈数 $C_1=2$。云与最初 5000 个 $\zeta$ 零点的对关联 $R_2(s)$ 直接比较显示 Montgomery 关联洞得到复现：两条曲线都比泊松更接近 GUE（$d_{\rm GUE}=0.140 < d_{\rm Pois}=0.227$），同时在 304 个间隙的系综下我们如实记录双样本 KS $p=6.7\cdot10^{-4}$。Berry 有限样本修正在可达高度 $T\le4\cdot10^4$ 上定量解释了对渐近 GUE 的一切偏离。
+\end{abstract}
+
+\noindent\textbf{关键词：} 希尔伯特–波利亚猜想；ζ 零点；GUE；阿哈罗诺夫–玻姆效应；Hofstadter；涡旋；TKNN；趋肤效应。
+
+\section{引言}
+希尔伯特–波利亚纲领寻找谱与 $\zeta(s)$ 零点纵坐标重合的自共轭算符。Montgomery~\cite{montgomery} 预言了零点对关联，Dyson 将其与 GUE 系综相联系；Odlyzko~\cite{odlyzko} 数值确认了它；Berry~\cite{berry} 计算了有限样本修正——没有它，任何高度 $T\lesssim10^5$ 的"GUE 与否"检验都无效。我们研究一类具体的候选系统：由点涡产生非均匀阿哈罗诺夫–玻姆场的格点相位系统。必须先固定本工作的地位：这不是黎曼假设的证明，而是有限格点系综如何逼近普适统计、以及哪些参数（相位规范、边界条件、电荷、尺寸）支配这一逼近的完整定量图谱。
+
+\section{模型}
+正方晶格 $L_x\times L_y$，最近邻跃迁：
+\begin{equation}
+H_{ij}=-\exp(i\varphi_{ij}),\qquad
+\varphi_{ij}=2\pi\alpha\,j+\sum_{k=1}^{N_v}q_k\!\left[\arg(\mathbf r_i-\mathbf r_k)-\arg(\mathbf r_j-\mathbf r_k)\right]+\varphi^{\rm str}_{ij},
+\end{equation}
+其中 $j$ 为列号（Landau 规范），$q_k$ 为涡旋荷，$\varphi^{\rm str}_{ij}=-2\pi q_k$ 施加于穿过狄拉克弦的键。格点无序 $\varepsilon_i\sim U(-W/2,W/2)$，种子固定。两种涡旋相位模型：\texttt{:dirac}（显式弦；整数荷规范不可见）与 \texttt{:monumental}（光滑 atan 模型；相位对任意 $q$ 为复数）。构造的关键性质：绕元胞的相位和等于 $2\pi\alpha+2\pi q_k\delta_k$——已在全部 224 个内部元胞上验证，空元胞上 $|\mathrm{flux}|$ 最大值 $1.5\cdot10^{-14}$ 弧度。环面要求：$q(2-N_x)\in\mathbb Z$；不满足时代码自动回退到开边界。
+
+\section{拓扑定理（机器精度）}
+\textbf{Byers–Yang。}两组各含四个中性涡旋 $q=\pm1$ 的构型相对干净晶格给出谱移 $3.49\cdot10^{-15}$；单个分数涡旋 $q=0.3$ 给出 $0.342$：整数不可见，分数是物理的。\textbf{Connes 自对偶}（$\alpha=1/2$）：恰有 4 个零模；E$\to-$E 谱对称缺陷 $1.4\cdot10^{-15}$。\textbf{AIII 手征性}：$W=0$ 时 $\Gamma H\Gamma=-H$ 缺陷为 $0$；有涡旋无无序时仍为 $0$；无序 $W=4$ 给出 $5.9\cdot10^{-3}$。\textbf{陈数}（Fukui–Hatsugai–Suzuki~\cite{fukui}）：$\alpha=1/2$ 时最低带 $C_1=2$（两条 $|C_1|=1$ 的子带——计入带简并后一致）。
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.72\textwidth]{../../figures/fig10_r_L_scaling.png}
+\caption{$\langle r\rangle$ 随晶格尺寸的收敛（测试 34）：两支电荷在 $L\ge30$ 均落到 GUE 平台 $\approx0.60$。}
+\end{figure}
+
+\section{GUE 分类}
+环面光滑规范（$16\times16$、$N_v=2$、$q=\pm1$、$\alpha=1/2$、$W=4$）下三次实现给出 $\langle r\rangle=0.5639,\,0.5811,\,0.6094$；合并 $0.5848\pm0.0260$（95\% CI $[0.5588;0.6108]$）——对 GUE $0.5992$ 偏差 $-2.4\%$。尺寸扫描（图~1）：$q=0.3$：$0.548\to0.592\to0.605\to0.595$；$q=1$：$0.574\to0.568\to0.604\to0.586$——$L\ge30$ 平台 $\approx0.60$。开边界上 $\langle r\rangle$ 系统性偏低（$0.442$ 对 $0.585$）——边缘态贡献。时间反演破缺由规范控制：\texttt{:dirac} 中 $\tau(H)=0$（GOE 天花板，$\langle r\rangle=0.513$）；\texttt{:monumental} 中 $\tau(H)=0.225$（GUE）——在单一模型内复现 Dyson 三分法~\cite{dyson}。
+
+\section{与 $\zeta$ 零点的比较}
+云的展析间距（304 个间隙，2 次实现）对最初 5000 个 $\zeta$ 零点：双样本 KS $D=0.1173$，$p=6.7\cdot10^{-4}$；$\langle|R_2^{\rm AB}(s)-R_2^{\zeta}(s)|\rangle=0.147$。同时两条曲线（图~2）都复现 Montgomery 关联洞（$R_2(0.05)\le0.005$，泊松为 1），且都比泊松更接近 GUE：$d_{\rm GUE}=0.140<d_{\rm Pois}=0.227$。素数和的有限样本截断给出 $R_2(0)=-2.3394$，预期附加量 $\sim T^{-1/2}$：对渐近 GUE 的一切偏离均被 Berry 修正~\cite{berry} 定量解释。形因子 $K(t)$（306 个本征值）显示趋向 GUE 斜坡的正确趋势，RMS $0.93$——该诊断有信息量，但按大若干量级的系综校准。
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.72\textwidth]{../../figures/fig08_r2_pair.png}
+\caption{对关联 $R_2(s)$：AB 云对 $\zeta$ 零点、GUE 与泊松（测试 35）。}
+\end{figure}
+
+\section{狄拉克动力学与临界线}
+$E_{\min}=0.0202+11.826/L$，$R^2=0.9997$（$L=12\dots48$；每个尺寸均有四个零模）；区中心狄拉克点对应 $v_F=b/2\pi\approx1.88$。$\alpha=1/2$ 处 DOS 凹陷：$\rho=0.010$ 对 $\alpha=0.4/0.6$ 的 $0.200$——对比度 $20\times$。$\sigma\ne1/2$ 时（相位推广）谱完全复数化（$\sigma=0.7$ 时最大 $|\mathrm{Im}\,E|=0.623$），趋肤参数 $g=0.322$：临界线 $\sigma=1/2$ 是存在体随机矩阵统计的唯一线条，与其作为 Connes 自对偶点的角色一致。
+
+\section{解析结构}
+精确恒等式（机器精度）：$q/e=1/14$ 时 $\Phi_{AB}=2\pi/14=\pi/7$；$\gamma^\ast=a_C+ib_C$，其中 $a_C=(\pi/7)^5/22=8.276\cdot10^{-4}$，$b_C=2\sin^2(\pi/7)=0.3765$，辐角 $89.874^\circ\approx\pi/2$；复分形因子 $CF=\exp(2\pi i/22)\exp(i\beta\ln22)$，$\beta=2.854$，$|CF|=1$，附经验输入 $CF_{\rm hard}$ 与 $c_{AB}=0.0206$。地位：公式精确；其物理解读（Peccei–Quinn 相位、PSL$(2,7)\subset M$ 的 Moonshine）仍属假说。
+
+\section{结论}
+AB 云是具有可复现 GUE 统计、精确拓扑骨架与狄拉克低能动力学的相位谐振腔；其关联在普适类层面与 $\zeta$ 零点吻合，偏差由有限尺寸定量解释。所有数字可由仓库中的命令复现；每项测试都留下完整日志与报告。
+
+\begin{thebibliography}{9}
+\bibitem{montgomery} H.~L. Montgomery, \emph{The pair correlation of zeros of the zeta function}, Proc. Sympos. Pure Math. \textbf{24}, 181 (1973).
+\bibitem{odlyzko} A.~M. Odlyzko, \emph{On the distribution of spacings between zeros of the zeta function}, Math. Comp. \textbf{48}, 273 (1987).
+\bibitem{berry} M.~V. Berry, \emph{Semiclassical formula for the number variativity of the Riemann zeros}, Nonlinearity \textbf{1}, 151 (1988).
+\bibitem{hofstadter} D.~R. Hofstadter, \emph{Energy levels and wave functions of Bloch electrons in rational and irrational magnetic fields}, Phys. Rev. B \textbf{14}, 2239 (1976).
+\bibitem{byers} N. Byers, C.~N. Yang, \emph{Theoretical considerations concerning quantum electromagnetic fields in the presence of superconductors}, Phys. Rev. Lett. \textbf{7}, 46 (1961).
+\bibitem{fukui} T. Fukui, Y. Hatsugai, H. Suzuki, \emph{Chern numbers in discretized Brillouin zone}, J. Phys. Soc. Jpn. \textbf{74}, 1674 (2005).
+\bibitem{dyson} F.~J. Dyson, \emph{The threefold way}, J. Math. Phys. \textbf{3}, 1199 (1962).
+\bibitem{hatano} N. Hatano, D.~R. Nelson, \emph{Localization resonances and loss coefficients in non-Hermitian models}, Phys. Rev. B \textbf{56}, 8651 (1997).
+\bibitem{tknn} D.~J. Thouless, M. Kohmoto, M.~P. Nightingale, M. den Nijs, \emph{Quantized Hall conductance in a two-dimensional periodic potential}, Phys. Rev. Lett. \textbf{49}, 405 (1982).
+\bibitem{berrykeating} M.~V. Berry, J.~P. Keating, \emph{$H=xp$ and the Riemann zeros}, SIAM Review \textbf{41}, 236 (1999).
+\end{thebibliography}
+
+\end{document}

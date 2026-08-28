@@ -1,0 +1,69 @@
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# .gitignore — ab-cloud-research
+# NOTE: PDF/DOCX/PPTX files are FIRST-CLASS CONTENT of this repository
+# (monographs, preprints, 3D lab outputs) — they are NOT ignored here.
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# ─── Julia ───
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+Manifest.toml
+LocalPreferences.toml
+InstantSandbox.toml
+deps/deps.jl
+
+# ─── Python ───
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ─── Generated run outputs (regenerable) ───
+results/run_*/
+code/reports/
+*.log
+!results/*.txt
+
+# ─── MkDocs build ───
+site/
+
+# ─── OS / editor noise ───
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.sublime-*
+
+# ─── TeX aux (preprint builds) ───
+*.aux
+*.out
+*.synctex.gz
+*.toc
+*.fls
+*.fdb_latexmk
+*.blg
+*.bbl
+
+# ─── Do NOT ignore (explicit reminders) ───
+!monographs/**/*.pdf
+!monographs/**/*.docx
+!monographs/**/*.pptx
+!lab-3d/**/*.pdf
+!verification/**/*.pdf

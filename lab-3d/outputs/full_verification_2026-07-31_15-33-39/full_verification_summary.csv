@@ -1,0 +1,14 @@
+section,metric,value,refutes_reviewer
+§1.1,mean_r,0.615948245091607,false
+§1.1,KS_vs_GUE_p,0.00030378041705135013,
+§1.1,KS_vs_Poisson_p,0.0,
+§2a,rel_err_delta3,0.9722201912472507,false
+§2a,rel_err_sigma2,0.48097344493926386,
+§2b,last_n_zeros,5000,true
+§2b,last_mean_r,0.615948245091607,
+§2c,arf_value,0,true
+§2d,beta,1.0,true
+§3,slope_dlogtau_dlogE,-0.9673056874087306,true
+OVERALL,passed,4,
+OVERALL,total,6,
+OVERALL,all_passed,false,

@@ -1,0 +1,48 @@
+cff-version: 1.2.0
+message: "If you use this software or reference these results, please cite it as below."
+title: "AB-Cloud Research: a phase resonator for the zeros of the Riemann zeta function"
+type: software
+authors:
+  - family-names: Isaev
+    given-names: Iskhak Khamzatovich
+    email: aslan08_05@mail.ru
+    affiliation: Independent Researcher
+    country: RU
+    orcid: "https://orcid.org/0009-0003-7299-0701"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.21825394"
+    description: "Zenodo DOI for this specific version (v1.0.0)"
+  - type: doi
+    value: "10.5281/zenodo.21825393"
+    description: "Zenodo Concept DOI (all versions)"
+  - type: url
+    value: "https://github.com/wild8highlander/ab-cloud-research"
+    description: "GitHub repository URL"
+  - type: url
+    value: "https://wild8highlander.github.io/ab-cloud-research"
+    description: "Documentation site URL"
+keywords:
+  - AB-cloud
+  - Hofstadter Hamiltonian
+  - Riemann zeta function
+  - Hilbert-Pólya hypothesis
+  - random matrix theory
+  - GUE
+  - Aharonov-Bohm effect
+  - topological vortices
+  - Julia
+version: 1.0.0
+date-released: "2026-08-28"
+license: Custom-Research-License
+abstract: >-
+  The AB-cloud is a Hofstadter Hamiltonian decorated with topological vortices
+  whose Aharonov-Bohm phases are derived from the non-trivial zeros of the
+  Riemann zeta function. This repository is fully dedicated to the AB-cloud
+  programme: five monograph editions (v22 RU/EN/ZH + original v21 RU/EN), the
+  canonical 37-test two-pass Julia verification suite, an independent
+  10-language verification stack with zeta-zero data up to 2M zeros, and a 3D
+  lattice laboratory. Verified results: <r> = 0.5848 +/- 0.0260 vs GUE 0.5992;
+  Montgomery test KS = 0.047 (p = 0.27, N = 500 certified zeros);
+  Byers-Yang defect 3.5e-15; Connes self-duality (4 zero modes); Dirac
+  dynamics R^2 = 0.9997.

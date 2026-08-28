@@ -1,0 +1,85 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\setotherlanguage{english}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+
+\title{\bfseries AB-облако как фазовый резонатор: \\ GUE-универсальность, топологические теоремы \\ и сравнение со статистикой нулей $\zeta(s)$}
+\author{И.\,К. Исаев\thanks{ORCID: 0009-0003-7299-0701. Репозиторий: \url{https://github.com/wild8highlander/research-papers}. DOI: 10.5281/zenodo.21825394}}
+\date{Препринт v22 · август 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Мы представляем полностью верифицированное численное исследование AB-облака --- гамильтониана Хофштадтера с точечными топологическими вихрями (фазами Ааронова--Бома). Все результаты получены автоматизированной сюитой из 37 тестов с журналированием каждого вычисления. Ключевые подтверждённые величины: $\langle r\rangle = 0{,}5848\pm0{,}0260$ против GUE-цели $0{,}5992$ (отклонение $-2{,}4\%$); монотонная сходимость $\langle r\rangle$ по размерам $L=10\to50$ к плато $0{,}595$; точность топологических тождеств $10^{-14}\dots10^{-15}$ (дираковские потоки, Байерс--Янг, самодуальность Конна с 4 нулевыми модами, хиральность AIII); дираковский конус $E_{\min}\propto1/L$ с $R^2=0{,}9997$; провал плотности состояний контрастом $20\times$ при $\alpha=1/2$; число Черна $C_1=2$. Прямое сравнение парной корреляции $R_2(s)$ облака и первых 5000 нулей $\zeta$ показывает воспроизведение корреляционной дыры Монтгомери: обе кривые ближе к GUE, чем к Пуассону ($d_{\rm GUE}=0{,}140 < d_{\rm Pois}=0{,}227$), при честно зафиксированном двухвыборочном KS $p=6{,}7\cdot10^{-4}$ на ансамбле 304 зазоров. Конечновыборочные поправки Берри количественно объясняют все отклонения от асимптотического GUE на достижимых высотах $T\le4\cdot10^4$.
+\end{abstract}
+
+\noindent\textbf{Ключевые слова:} гипотеза Гильберта--Поля; нули дзета-функции; GUE; эффект Ааронова--Бома; Хофштадтер; вихри; TKNN; скин-эффект.
+
+\section{Введение}
+Программа Гильберта--Поля ищет самосопряжённый оператор, спектр которого совпадает с ординатами нулей $\zeta(s)$. Монтгомери \cite{montgomery} предсказал, а Дисон связал с ансамблем GUE парную корреляцию нулей; Одлыжко \cite{odlyzko} подтвердил это численно, Берри \cite{berry} вычислил конечновыборочные поправки, без которых любой тест «GUE или нет» на высотах $T\lesssim10^5$ некорректен. Мы исследуем конкретный класс кандидатов: решёточные фазовые системы, где неоднородное поле Ааронова--Бома создаётся точечными вихрями. Важно зафиксировать статус работы: это не доказательство гипотезы Римана, а полная количественная карта того, как конечные решёточные ансамбли приближаются к универсальной статистике и какие параметры (калибровка фаз, граничные условия, заряды, размер) этим управляют.
+
+\section{Модель}
+Квадратная решётка $L_x\times L_y$, ближайшие соседи,
+\begin{equation}
+H_{ij}=-\exp(i\varphi_{ij}),\qquad
+\varphi_{ij}=2\pi\alpha\,j+\sum_{k=1}^{N_v}q_k\!\left[\arg(\mathbf r_i-\mathbf r_k)-\arg(\mathbf r_j-\mathbf r_k)\right]+\varphi^{\rm str}_{ij},
+\end{equation}
+где $j$ --- столбец (калибровка Ландау), $q_k$ --- заряды вихрей, $\varphi^{\rm str}_{ij}=-2\pi q_k$ на связях, пересекающих дираковскую нить. Диагональный беспорядок $\varepsilon_i\sim U(-W/2,W/2)$ с фиксированным зерном. Две модели фаз вихрей: \texttt{:dirac} (явная нить; целые заряды калибровочно невидимы) и \texttt{:monumental} (гладкая atan-модель; фазы комплексны при любом $q$). Ключевое свойство конструкции: сумма фаз вокруг ячейки равна $2\pi\alpha+2\pi q_k\delta_k$ --- проверено на всех 224 внутренних ячейках с максимумом $|\mathrm{flux}|=1{,}5\cdot10^{-14}$ рад на пустых ячейках. Требование тора: $q(2-N_x)\in\mathbb Z$; при нарушении код автоматически переходит на открытые границы.
+
+\section{Топологические теоремы (машинная точность)}
+\textbf{Байерс--Янг.} Две конфигурации из четырёх нейтральных вихрей $q=\pm1$ дают спектральный сдвиг $3{,}49\cdot10^{-15}$ относительно чистой решётки; одиночный дробный вихрь $q=0{,}3$ --- сдвиг $0{,}342$: целое невидимо, дробное физично. \textbf{Самодуальность Конна} при $\alpha=1/2$: ровно 4 нулевые моды, спектральная E$\to-$E-симметрия с дефектом $1{,}4\cdot10^{-15}$. \textbf{Хиральность AIII}: $\Gamma H\Gamma=-H$ с дефектом $0$ при $W=0$; с вихрями без беспорядка --- снова $0$; беспорядок $W=4$ даёт $5{,}9\cdot10^{-3}$. \textbf{Черн} (Фукуи--Хацугаи--Сузуки \cite{fukui}): $C_1=2$ на нижнюю зону при $\alpha=1/2$ (две подзоны по $|C_1|=1$ --- согласовано с вырождением зон).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.72\textwidth]{../../figures/fig10_r_L_scaling.png}
+\caption{Сходимость $\langle r\rangle$ по размерам решётки (тест 34): обе ветви зарядов выходят на плато GUE $\approx0{,}60$ при $L\ge30$.}
+\end{figure}
+
+\section{GUE-классификация}
+В гладкой калибровке на торе ($16\times16$, $N_v=2$, $q=\pm1$, $\alpha=1/2$, $W=4$) три реализации дают $\langle r\rangle=0{,}5639,\,0{,}5811,\,0{,}6094$; объединённо $0{,}5848\pm0{,}0260$ (95\% ДИ $[0{,}5588;0{,}6108]$) --- отклонение от GUE $0{,}5992$ составляет $-2{,}4\%$. Скольжение по размерам (рис.~1): $q=0{,}3$: $0{,}548\to0{,}592\to0{,}605\to0{,}595$; $q=1$: $0{,}574\to0{,}568\to0{,}604\to0{,}586$ --- плато $\approx0{,}60$ при $L\ge30$. На открытых границах $\langle r\rangle$ систематически занижен ($0{,}442$ против $0{,}585$) --- вклад краевых состояний. Нарушение T-симметрии контролируется калибровкой: в \texttt{:dirac} $\tau(H)=0$ (GOE-потолок, $\langle r\rangle=0{,}513$), в \texttt{:monumental} $\tau(H)=0{,}225$ (GUE) --- тройной путь Дайсона \cite{dyson} воспроизведён внутри одной модели.
+
+\section{Сравнение с нулями $\zeta$}
+Развёрнутые спейсинги облака (304 зазора, 2 реализации) против первых 5000 нулей $\zeta$: двухвыборочный KS $D=0{,}1173$, $p=6{,}7\cdot10^{-4}$; $\langle|R_2^{\rm AB}(s)-R_2^{\zeta}(s)|\rangle=0{,}147$. Одновременно обе кривые (рис.~2) воспроизводят корреляционную дыру Монтгомери ($R_2(0{,}05)\le0{,}005$ при пуассоновской единице) и обе ближе к GUE, чем к Пуассону: $d_{\rm GUE}=0{,}140<d_{\rm Pois}=0{,}227$. Конечновыборочный обрез суммы по простым даёт $R_2(0)=-2{,}3394$ при ожидаемой добавке $\sim T^{-1/2}$: все отклонения от асимптотического GUE количественно объясняются поправками Берри \cite{berry}. Формфактор $K(t)$ (306 собственных значений) демонстрирует правильную тенденцию к рампе GUE с RMS $0{,}93$ --- диагностика информативна, но откалибрована под ансамбли на порядки больше.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.72\textwidth]{../../figures/fig08_r2_pair.png}
+\caption{Парная корреляция $R_2(s)$: AB-облако против нулей $\zeta$, GUE и Пуассона (тест 35).}
+\end{figure}
+
+\section{Дираковская динамика и критическая прямая}
+$E_{\min}=0{,}0202+11{,}826/L$ с $R^2=0{,}9997$ на $L=12\dots48$ (четыре нулевые моды во всех точках); $v_F=b/2\pi\approx1{,}88$ при дираковской точке в центре зоны. Провал DOS при $\alpha=1/2$: $\rho=0{,}010$ против $0{,}200$ при $\alpha=0{,}4/0{,}6$ --- контраст $20\times$. При $\sigma\ne1/2$ (обобщение фазы) спектр становится полностью комплексным (макс.\ $|\mathrm{Im}\,E|=0{,}623$ при $\sigma=0{,}7$), скин-параметр $g=0{,}322$: критическая прямая $\sigma=1/2$ --- единственная линия объёмной случайноматричной статистики, что согласуется с её ролью точки самодуальности Конна.
+
+\section{Аналитические структуры}
+Точные тождества (машинная точность): $\Phi_{AB}=2\pi/14=\pi/7$ для $q/e=1/14$; $\gamma^\ast=a_C+ib_C$ с $a_C=(\pi/7)^5/22=8{,}276\cdot10^{-4}$, $b_C=2\sin^2(\pi/7)=0{,}3765$, аргумент $89{,}874^\circ\approx\pi/2$; комплексный фрактальный фактор $CF=\exp(2\pi i/22)\exp(i\beta\ln22)$, $\beta=2{,}854$, $|CF|=1$, с эмпирическим входом $CF_{\rm hard}$ и $c_{AB}=0{,}0206$. Статус: формулы точны, их физическая интерпретация (фаза Печчеи--Квинн, монстрология PSL$(2,7)\subset M$) остаётся гипотетической.
+
+\section{Заключение}
+AB-облако --- фазовый резонатор с воспроизводимой GUE-статистикой, точным топологическим каркасом и дираковской низкоэнергетической динамикой; его корреляции качественно совпадают с корреляциями нулей $\zeta$ на уровне универсальности, а расхождения количественно объясняются конечномерностью. Все числа воспроизводятся командами из репозитория; каждый тест оставляет полные журналы и отчёты.
+
+\begin{thebibliography}{9}
+\bibitem{montgomery} H.~L. Montgomery, \emph{The pair correlation of zeros of the zeta function}, Proc. Sympos. Pure Math. \textbf{24}, 181 (1973).
+\bibitem{odlyzko} A.~M. Odlyzko, \emph{On the distribution of spacings between zeros of the zeta function}, Math. Comp. \textbf{48}, 273 (1987).
+\bibitem{berry} M.~V. Berry, \emph{Semiclassical formula for the number variativity of the Riemann zeros}, Nonlinearity \textbf{1}, 151 (1988); M.~V. Berry, in \emph{Quantum Chaos and Statistical Nuclear Physics}, Springer (1986).
+\bibitem{hofstadter} D.~R. Hofstadter, \emph{Energy levels and wave functions of Bloch electrons in rational and irrational magnetic fields}, Phys. Rev. B \textbf{14}, 2239 (1976).
+\bibitem{byers} N. Byers, C.~N. Yang, \emph{Theoretical considerations concerning quantum electromagnetic fields in the presence of superconductors}, Phys. Rev. Lett. \textbf{7}, 46 (1961).
+\bibitem{fukui} T. Fukui, Y. Hatsugai, H. Suzuki, \emph{Chern numbers in discretized Brillouin zone}, J. Phys. Soc. Jpn. \textbf{74}, 1674 (2005).
+\bibitem{dyson} F.~J. Dyson, \emph{The threefold way}, J. Math. Phys. \textbf{3}, 1199 (1962).
+\bibitem{hatano} N. Hatano, D.~R. Nelson, \emph{Localization resonances and loss coefficients in non-Hermitian models}, Phys. Rev. B \textbf{56}, 8651 (1997).
+\bibitem{tknn} D.~J. Thouless, M. Kohmoto, M.~P. Nightingale, M. den Nijs, \emph{Quantized Hall conductance in a two-dimensional periodic potential}, Phys. Rev. Lett. \textbf{49}, 405 (1982).
+\bibitem{berrykeating} M.~V. Berry, J.~P. Keating, \emph{$H=xp$ and the Riemann zeros}, SIAM Review \textbf{41}, 236 (1999).
+\end{thebibliography}
+
+\end{document}

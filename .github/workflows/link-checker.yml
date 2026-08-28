@@ -1,0 +1,24 @@
+name: Link checker
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 4 * * 5"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lychee:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress --max-retries 2 --exclude-mail
+            --exclude 'doi.org|zenodo.org|orcid.org|star-history.com'
+            './**/*.md' './docs/**/*.md'
+        continue-on-error: true

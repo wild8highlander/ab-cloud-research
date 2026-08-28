@@ -1,0 +1,8 @@
+# AB-Cloud 3D — Python dependencies
+# Install: pip install -r requirements.txt
+
+numpy>=1.24.0
+scipy>=1.10.0
+matplotlib>=3.7.0
+sympy>=1.12
+mpmath>=1.3.0

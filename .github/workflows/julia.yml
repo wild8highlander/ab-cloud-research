@@ -1,0 +1,40 @@
+name: Julia quick-test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 3 * * 1"   # weekly Monday 03:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quick:
+    name: 37-test suite (quick protocol)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: "1.10"
+      - name: Parse check (include the suite)
+        run: julia -e 'Base.include(Main, "code/ab_cloud_v19.jl"); println("INCLUDE OK")'
+        timeout-minutes: 10
+      - name: Quick two-pass protocol (16x16 -> 32x32, zeta <= 5000)
+        run: julia code/ab_cloud_v19.jl --quick
+        timeout-minutes: 35
+      - name: Upload run reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quick-test-reports
+          path: |
+            results/
+            code/reports/
+          if-no-files-found: ignore
+          retention-days: 14

@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ab-cloud-3d"
+version = "1.3.0"
+description = "AB-Cloud: A Universal Lattice Operating System for the Riemann Zeros — numerical verification framework"
+readme = "README.md"
+license = {text = "CC-BY-NC-SA-4.0"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Iskhak Hamzatovich Isaev"},
+]
+keywords = [
+    "riemann-zeros",
+    "navier-stokes",
+    "gue",
+    "random-matrix-theory",
+    "hofstadter",
+    "topological-insulator",
+    "polarization-correction",
+    "hilbert-polya",
+    "langlands",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "numpy>=1.24.0",
+    "scipy>=1.10.0",
+    "matplotlib>=3.7.0",
+    "sympy>=1.12",
+    "mpmath>=1.3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/wild8highlander/research-papers"
+Repository = "https://github.com/wild8highlander/research-papers/tree/main/src/ab-cloud-3d"
+Documentation = "https://github.com/wild8highlander/research-papers/blob/main/src/ab-cloud-3d/README.md"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["code*"]
+
+[tool.setuptools.package-data]
+"code" = ["data/*.txt", "figs/*.png"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
