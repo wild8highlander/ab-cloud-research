@@ -95,3 +95,52 @@ VERDICT PASS.
   замороженные данные в `data/` делают прогон воспроизводимым.
 - Порты Test 38 на 10 языках проверяют тот же контракт собственным
   алгоритмом Якоби.
+
+## 📁 Complete file inventory
+
+| Entry | Size | Kind |
+|---|---|---|
+| `data/` | 4 files, 14.7 KB | directory |
+| `output/` | 4 files, 42.7 KB | directory |
+| `README.md` | 5.2 KB | file |
+| `run_spinor64.py` | 16.6 KB | file |
+| `spinor64_core.py` | 31.9 KB | file |
+| **Total (recursive)** | **11 files, 111.0 KB** | |
+
+## 🔬 Deep dive — the experiment that corrected the monograph
+
+The folder documents the two experiments E1 and E2 that settled the
+spinor question. **E1** computes, for each of the 64 spinor structures
+of the Klein quartic, the level-spacing statistics of its spectrum and
+compares them to the GUE law; **E2** verifies exact isospectrality
+between structures in the same PSL(2,7) orbit. The verified outcome:
+**64 of 64 structures are GUE-consistent**, the orbit decomposition is
+28/21/7/7/1, spectra agree to ≈ 1e-14, and the Arf invariant of ε(38)
+is 0 — which withdraws the v21 claim that "only idx=38 gives
+GUE-consistent statistics (p = 0.598)" as a computational artifact of
+the earlier, narrower scan. This result is the content of Appendix D in
+the v22.1 monograph rebuilds and of §3.2.5 in the v21.1 corrections.
+
+The artifacts are fully committed: `run_log.txt` (console trace of the
+run), `spinor64_results.json` (machine-readable per-structure
+statistics), `spinor64_table.csv` (flat table for spreadsheets), and
+`spinor64_report.md` (the narrative report with the verdict lines). The
+reference statistics the experiment compares against live in
+`data/reference_stats.json`, and the frozen class/edge inputs in
+`data/spinor_classes.csv` and `data/klein_graph_edges.csv` — the
+experiment is data-driven and re-runnable.
+
+Reproduce it with pure stdlib: `python3 run_spinor64.py` — the Jacobi
+eigenvalue algorithm is implemented in-file, there are no third-party
+imports and no network access; the run finishes in seconds and must
+reproduce the committed JSON byte-for-byte on the same interpreter
+generation. Any deviation is a bug report, not a discovery.
+
+## Кратко (по-русски)
+
+- E1: статистика межуровневых расстояний всех 64 спинор-структур против
+  GUE; E2: точная изоспектральность внутри орбит PSL(2,7).
+- Итог: 64/64 GUE-согласованы, орбиты 28/21/7/7/1, изоспектральность
+  ≈ 1e-14, Arf(ε(38)) = 0 → тезис v21 «уникальности idx=38» снят.
+- Артефакты закоммичены (лог, JSON, CSV, отчёт); воспроизведение —
+  `python3 run_spinor64.py`, чистый stdlib, без сторонних зависимостей.

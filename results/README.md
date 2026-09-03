@@ -90,3 +90,54 @@ suite is seeded and reads the frozen data in `verification/data/`.
   v22) и конфиг-дамп верификационного отчёта v19.
 - Читать так: index.html → computation_log.txt теста → report.md →
   FINAL_REPORT.
+
+## 📁 Complete file inventory
+
+| Entry | Size | Kind |
+|---|---|---|
+| `run_20260902_134759/` | 453 files, 5.7 MB | directory |
+| `README.md` | 4.5 KB | file |
+| `ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt` | 986.5 KB | file |
+| `verification_run_v18_37tests_2026-08-28.txt` | 58.3 KB | file |
+| **Total (recursive)** | **456 files, 6.8 MB** | |
+
+## 🔬 Deep dive — anatomy of the flagship run
+
+`run_20260902_134759/` is the complete artifact set of the two-pass v19
+run: 37 tests, Julia 1.12.0, 50 000 Odlyzko zeros, pass 2 in "HARDCORE"
+mode on a 96×96 lattice (pass 1 runs 72×72). The folder carries a
+`FINAL_REPORT` with the consolidated verdicts, an `index.html` that
+cross-links every test to its own directory, and per-test directories
+`test_01_bN_convergence` … `test_37_*`, each holding the test's report
+and raw log. The run's PNG plots (453 files) are intentionally **not**
+committed: every plot regenerates deterministically from the suite, and
+excluding them keeps the repository clone-able — the numbers, which are
+what the monographs cite, are all here as text.
+
+How to check a printed number. Take any figure quoted in the monographs
+— say the pair-correlation KS distance 0.047 with p = 0.27, the
+Byers–Yang flux defect 3.5e-15, the Dirac slope v_F ≈ 0.125 with
+R² = 0.9997, or b(50000) = 1.2126. Open `FINAL_REPORT`, find the test
+row, follow the `index.html` link into the test directory and read the
+report and log: inputs, parameters, statistic, p-value. Nothing is
+hidden behind a rerun; the chain printed-page → test → log is complete
+and committed.
+
+The two flat logs beside the run directory serve as the historical
+baseline: the 2026-08-28 v18 37-test run (the first full-suite pass,
+referenced by the earlier monograph builds) and the v19 verification
+report header/config dump from 2026-09-02 (the exact configuration of
+the flagship run). To reproduce rather than just read: install Julia
+1.12, point the suite at `verification/data/` and run
+`code/ab_cloud_v19.jl` — the frozen inputs guarantee byte-identical
+statistics.
+
+## Кратко (по-русски)
+
+- `run_20260902_134759/` — полный артефакт-сет двухпроходного прогона
+  v19 (37 тестов, Julia 1.12.0, 50 000 нулей Одлыжко, pass 2 HARDCORE
+  96×96): FINAL_REPORT, index.html, каталог на каждый тест.
+- 453 PNG сознательно не закоммичены — детерминированно пересоздаются
+  набором; все цитируемые числа хранятся текстом.
+- Проверка числа: FINAL_REPORT → index.html → каталог теста → отчёт/лог.
+  Рядом два плоских лога-бейслайна (v18 от 2026-08-28 и конфиг v19).

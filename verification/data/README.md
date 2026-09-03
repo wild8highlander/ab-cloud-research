@@ -79,3 +79,60 @@ and the frozen spectra are likewise immutable contracts.
   автоматическим выбором файла по запрошенному количеству.
 - Источник больших таблиц — официальные таблицы Одлыжко; набор 50 000
   извлечён из встроенного массива кода v19_v1.
+
+## 📁 Complete file inventory
+
+| Entry | Size | Kind |
+|---|---|---|
+| `README.md` | 4.2 KB | file |
+| `Zeta_Zeros_50000.jl` | 310.6 KB | file |
+| `zeros6.txt` | 34.4 MB | file |
+| `zeta_zeros_2M_odlyzko.txt` | 32.5 MB | file |
+| `zeta_zeros_2M_odlyzko.txt.gz` | 13.6 MB | file |
+| `zeta_zeros_50000.csv` | 757.8 KB | file |
+| `zeta_zeros_50000.txt` | 283.2 KB | file |
+| `zeta_zeros_50000_embedded.txt` | 771.0 KB | file |
+| `zeta_zeros_500k_odlyzko.txt` | 8.0 MB | file |
+| `zeta_zeros_highT_blocks.txt` | 419.2 KB | file |
+| **Total (recursive)** | **10 files, 90.9 MB** | |
+
+## 🔬 Deep dive — the freezing policy and who reads what
+
+Every numeric experiment in the repository consumes this folder, and the
+freezing policy is what makes results reproducible across ten languages:
+files are committed once and never regenerated, nothing here is produced
+at runtime, and loaders read bytes, not "the latest table". The datasets
+are the published Odlyzko tables of Riemann-zero ordinates, distributed
+in the granularities the experiments need: the default plain-text set,
+large 500k and 2M tables (the latter stored gzipped to stay
+clone-friendly), the high-temperature blocks used by the
+finite-temperature statistics tests, a six-zero smoke set for CI and
+quick smoke runs, an embedded copy for stdlib-only loaders that must not
+touch the filesystem, and a CSV rendering for environments where the
+line-oriented parser is inconvenient.
+
+Who reads what: all ten language suites resolve `--source` against this
+folder; the Julia research suite `code/ab_cloud_v19.jl` reads the same
+tables for the 37-test run; `spinor64/` uses the frozen reference
+statistics alongside its own class tables; the React dashboard embeds
+the zero sequence for its visualizations; and `sections/` deliberately
+reads none of it — its micro-checks are pure closed-form arithmetic by
+design, so a referee can eyeball them with no data present.
+
+Integrity practice: when a loader reports a checksum-sensitive
+mismatch, the file is treated as corrupted and the run aborts — there is
+no silent fallback to another table. If you extend the folder, follow
+the house rules: one ordinate per line, `#` comments allowed, no
+re-sorting of committed files, and every new table gets a row in the
+table above plus a note on provenance before it may be consumed by any
+implementation.
+
+## Кратко (по-русски)
+
+- Политика заморозки: файлы коммитятся один раз, в рантайме не
+  генерируются, загрузчики читают байты — все прогоны во всех языках
+  видят побайтово одинаковый вход.
+- Наборы: дефолтный текстовый, 500k и 2M Одлыжко (2M — gz), highT-блоки,
+  smoke-набор zeros6, встроенная копия для stdlib-загрузчиков, CSV.
+- Кто читает: 10 наборов, Julia-сюит, spinor64, дашборд; `sections/` —
+  сознательно никто (чистая арифметика без данных).

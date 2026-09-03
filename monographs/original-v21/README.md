@@ -73,3 +73,49 @@ Arf = 0, not 1.
   приложениях; исправленные сборки — `*_corrected.{docx,html,pdf}`.
 - Оригинальные файлы оставлены без изменений для истории; цитировать
   исправленные издания.
+
+## 📁 Complete file inventory
+
+| Entry | Size | Kind |
+|---|---|---|
+| `en/` | 9 files, 90.9 MB | directory |
+| `media/` | 74 files, 17.4 MB | directory |
+| `ru/` | 9 files, 77.4 MB | directory |
+| `README.md` | 4.2 KB | file |
+| **Total (recursive)** | **93 files, 185.7 MB** | |
+
+## 🔬 Deep dive — provenance, and what exactly v21.1 corrects
+
+This folder is the project's **historical layer** and is kept byte-faithful
+to what the author supplied. The v21 text narrates the discovery path in
+its own voice: Appendix F walks through verification runs V01–V115 — the
+iteration sequence in which the AB-cloud model, the GUE comparison
+protocol and the objection tests took shape. Alongside the Russian
+original and its full English edition, the folder stores the 16-slide
+decks, the shared figure media consumed by both editions, and the
+stylesheet `mono.css` that the pandoc HTML builds of **all** monograph
+editions still use — which is why deleting this folder would break the
+rebuild chain of the newer texts too.
+
+The **v21.1 corrections** are minimal by design. The single withdrawn
+claim is the statement that "only the spinor structure idx=38 yields
+GUE-consistent statistics (p = 0.598)". The spinor64 experiment
+(`verification/spinor64/`) showed that all 64 structures of the Klein
+quartic are GUE-consistent, that the PSL(2,7) orbit structure is
+28/21/7/7/1 with exact isospectrality at the 1e-14 level, and that the
+monograph's own formula gives Arf(ε(38)) = 0 — so the idx=38 signal was
+an artifact of the earlier, narrower scan. The corrected files carry the
+`*_corrected.*` suffix, patch §3.2.5 accordingly, and change nothing
+else; if you need the physics as currently verified, cite the v22/v22.1
+editions, and reach for this folder when you need the author's original
+narrative or the exact wording of the withdrawn claim.
+
+## Кратко (по-русски)
+
+- Папка — исторический слой: авторский текст v21 (RU+EN), Приложение F
+  с прогонами V01–V115, слайды, общие рисунки и `mono.css`, которым
+  пользуются и новые издания.
+- v21.1 = минимальная правка: снят тезис «уникальности idx=38»
+  (Arf(ε(38)) = 0; сигнал — артефакт узкого скана), остальное без изменений.
+- Для физики цитируем v22/v22.1; для истории и точной формулировки
+  снятого тезиса — эту папку.

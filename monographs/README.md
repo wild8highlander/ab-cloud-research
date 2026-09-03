@@ -78,3 +78,61 @@ pre-processing step exists.
   37-тестового набора; Приложение D описывает spinor64 (все 64 структуры
   GUE-согласованы, «уникальность idx=38» снята).
 - Цитировать v22/v22.1; v21 — только как оригинальное повествование автора.
+
+## 📁 Complete file inventory
+
+| Entry | Size | Kind |
+|---|---|---|
+| `en/` | 31 files, 53.2 MB | directory |
+| `original-v21/` | 93 files, 185.7 MB | directory |
+| `ru/` | 31 files, 54.1 MB | directory |
+| `zh/` | 31 files, 47.2 MB | directory |
+| `PACKAGE_README.md` | 4.3 KB | file |
+| `README.md` | 5.1 KB | file |
+| **Total (recursive)** | **188 files, 340.2 MB** | |
+
+## 🔬 Deep dive — how the five editions relate
+
+The library is deliberately versioned as **editions**, not as a pile of
+PDFs. The canonical line is **v22 → v22.1** (three parallel languages),
+rewritten from scratch on the verified 37-test suite so that every printed
+number resolves to a named test in `code/ab_cloud_v19.jl` or to the
+spinor64 experiment with its full log. **v22.1** is the current build of
+the same text: Appendix B now documents the two-pass run
+`run_20260902_134759` (Julia 1.12.0, 50 000 Odlyzko zeros, pass 2
+"HARDCORE" at 96×96), and the new Appendix D integrates the spinor64
+result — all 64 spinor structures of the Klein quartic GUE-consistent,
+PSL(2,7) orbits 28/21/7/7/1, exact isospectrality at the 1e-14 level.
+
+The **original v21** is preserved untouched as the author's historical
+record: its Appendix F carries the V01–V115 verification-run narrative
+that led to the project, and its analytical interpretations belong to the
+author alone. Because v21 claimed "only idx=38 gives GUE-consistent
+statistics", the folder also ships the **v21.1 corrected editions** — the
+minimal errata that withdraw that claim (Arf(ε(38)) = 0 follows from the
+monograph's own formula; the idx=38 signal was a computational artifact).
+Practical citation rule: cite v22/v22.1 for the physics, cite v21 only
+when discussing the project's history.
+
+Every edition ships in seven synchronized formats — Markdown and LaTeX
+sources (the files to diff and to typeset), interactive HTML (sticky TOC,
+MathJax, figure lightbox, print stylesheet), editable Word, typeset PDF
+(26–29 pages, vector), a 14-slide presentation, an arXiv-style preprint
+with bibliography, and 19–20 figures at 600 dpi with labels in the
+edition's language. The `.md → .html/.docx` chain runs through pandoc
+with the shared stylesheet `original-v21/*/text/mono.css`; the
+`.tex → .pdf` chain runs through any `polyglossia`/`ctex`-capable engine
+(`xelatex`, twice for TOC and cross-references; `ctex` is mandatory for
+the ZH edition). No hidden pre-processing step exists anywhere in the
+chain — what is committed is exactly what was built.
+
+## Кратко (по-русски)
+
+- Каноническая линия — v22 (RU/EN/ZH) и её текущая сборка v22.1: Приложение B
+  переведено на двухпроходный прогон `run_20260902_134759`, добавлено
+  Приложение D (spinor64: 64/64 GUE, орбиты PSL(2,7) 28/21/7/7/1).
+- v21 сохранена как история проекта (V01–V115, Приложение F); v21.1 —
+  минимальные исправления, снимающие «уникальность idx=38».
+- Семь синхронных форматов на издание: md, tex, html, docx, pdf,
+  презентация 14 слайдов, arXiv-препринт, плюс 19–20 рисунков 600 dpi.
+- Цитировать v22/v22.1; пересборка — pandoc для html/docx и xelatex для pdf.

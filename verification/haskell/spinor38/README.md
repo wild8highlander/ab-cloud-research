@@ -29,3 +29,50 @@ to verify:
     zero modes (representative): 2 (expected 2)
     <r> (representative): 0.4515710793 (reference 0.4515710793) -> PASS
     VERDICT: PASS
+
+## 📁 Complete file inventory
+
+| Entry | Size | Kind |
+|---|---|---|
+| `Main.hs` | 5.7 KB | file |
+| `README.md` | 1.3 KB | file |
+| **Total (recursive)** | **2 files, 6.9 KB** | |
+
+## ▶ Running — toolchain and entry point
+
+- **Toolchain:** GHC ≥ 9 — runhaskell or ghc -O2
+- **Run:** `runhaskell Main.hs [repo-root]`
+
+## 🔬 Deep dive — what Test 38 establishes
+
+Test 38 examines the **64 spinor structures of the Klein quartic**:
+for each structure it computes the level-spacing statistics of its
+spectrum and compares them against the GUE law, exactly as the main
+suite does for the zeta zeros. The verified verdict — confirmed
+independently by the full spinor64 experiment in `../../spinor64/` —
+is that **all 64 structures are GUE-consistent**, with the PSL(2,7)
+orbit decomposition 28/21/7/7/1 and exact isospectrality inside each
+orbit at the ≈ 1e-14 level. Historically this is the test that closed
+the v21 story: the claim "only idx=38 gives GUE-consistent statistics
+(p = 0.598)" is withdrawn, and the monograph's own formula gives
+Arf(ε(38)) = 0, so the earlier signal was an artifact of the narrower
+scan, not a property of the quartic.
+
+House rules for this port: it reads **only the frozen data files**
+(`../../data/`) and its language's standard library — where the
+language lacks a LAPACK binding, the Jacobi eigenvalue algorithm is
+implemented in-file (the Julia port documents this explicitly). The
+output format is shared across all ten languages so their verdict
+lines can be diffed mechanically; any line that differs from the
+validated C++ reference (`../../cpp/spinor38/spinor38.cpp`) marks a
+port bug.
+
+## Кратко (по-русски)
+
+- Тест 38: статистика межуровневых расстояний всех 64 спинор-структур
+  квартики Кляйна против GUE; итог — 64/64 согласованы, орбиты
+  PSL(2,7) 28/21/7/7/1, изоспектральность ≈ 1e-14.
+- Тезис v21 «уникальности idx=38» снят: Arf(ε(38)) = 0, сигнал был
+  артефактом узкого скана.
+- Только замороженные данные и stdlib; формат вывода одинаков во всех
+  десяти языках и сверяется с C++-эталоном.

@@ -46,3 +46,52 @@ is bound to a named test with a full computation log.
   LaTeX-исходники.
 - Свежий PDF: `text/AB_Cloud_Monograph_v22_EN_v221.pdf`.
 - Каждое число привязано к именному тесту набора v19.
+
+## 📁 Complete file inventory
+
+| Entry | Size | Kind |
+|---|---|---|
+| `figures/` | 19 files, 5.2 MB | directory |
+| `text/` | 11 files, 48.0 MB | directory |
+| `README.md` | 2.6 KB | file |
+| **Total (recursive)** | **31 files, 53.2 MB** | |
+
+## 🔬 Deep dive — working with the English edition
+
+Reading paths. For linear reading open
+`text/AB_Cloud_Monograph_v22_EN.pdf`, or its updated build
+`text/AB_Cloud_Monograph_v22_EN_v221.pdf` when you need the two-pass
+Appendix B and the spinor64 Appendix D. For diffing, quoting and machine
+processing use the canonical Markdown source; for typesetting edits use
+the LaTeX source added in v22.1. The interactive HTML mirrors the PDF
+one-to-one and adds a sticky TOC, MathJax rendering and a figure
+lightbox, so it is the best format for on-screen review with comments.
+
+What the text claims, in one paragraph. The monograph models the
+Riemann-zero sequence as the spectrum of a Hofstadter lattice with
+Aharonov–Bohm flux and topological vortices (the "AB cloud"), and
+demonstrates GUE-level agreement on four independent statistics — ⟨r⟩,
+Σ²(L), Δ₃(L) and K(τ) — with the pair-correlation KS distance 0.047
+(p = 0.27), the Byers–Yang flux defect at 3.5e-15, Connes self-duality
+via four zero modes, and the Dirac-cone slope v_F ≈ 0.125 with R² = 0.9997.
+Each of these numbers is bound to a named test of the 37-test suite and
+to a committed log under `results/`, so a referee can check any claim
+without running anything.
+
+Rebuilding the formats locally. The Markdown source is the single
+upstream artifact: `pandoc` produces the HTML and DOCX, `xelatex` (run
+twice) produces the PDF from the `.tex` source, and the presentation and
+preprint are separate pandoc/LaTeX targets of the same text. Figures are
+pre-rendered PNGs at 600 dpi under `figures/` (fig01–fig20), referenced
+by relative paths, so no plotting step is required to rebuild any
+format. Citation metadata lives in the repository-root `CITATION.cff`
+and resolves to ORCID 0009-0003-7299-0701.
+
+## Кратко (по-русски)
+
+- Английское издание v22: читать — `_v221.pdf` (обновлённые приложения),
+  сверять и цитировать — `.md`, править вёрстку — `.tex`.
+- Все ключевые числа (KS = 0.047, p = 0.27; дефект потока 3.5e-15;
+  v_F ≈ 0.125, R² = 0.9997) привязаны к именным тестам набора.
+- Пересборка без сюрпризов: pandoc → html/docx, xelatex ×2 → pdf;
+  рисунки уже отрендерены (600 dpi, относительные пути).

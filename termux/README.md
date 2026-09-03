@@ -75,3 +75,50 @@ table (401/403, non-fast-forward, disk space, mirrors) live in
   отправки) или браузерный одноразовый код GitHub CLI — токен не нужен.
 - Токен живёт только в памяти процесса; есть безопасный `DRY_RUN=1`.
 - Полная инструкция по-русски — `README_RU.md`.
+
+## 📁 Complete file inventory
+
+| Entry | Size | Kind |
+|---|---|---|
+| `README.md` | 3.7 KB | file |
+| `README_RU.md` | 14.3 KB | file |
+| `install_and_push.sh` | 19.9 KB | file |
+| **Total (recursive)** | **3 files, 37.9 KB** | |
+
+## 🔬 Deep dive — the publication flow, end to end
+
+The kit solves one problem: publishing this repository from an Android
+phone with a single command, no laptop and no git spelunking. The flow
+inside `install_and_push.sh`: (1) install missing Termux packages
+(`git`, `gh` fallback, `curl`); (2) relocate the repository out of
+Android shared storage into app-private storage — shared storage cannot
+hold unix permissions, so git operations there fail; (3) offer two login
+modes — a PAT with a curl preflight against the GitHub API (fast path,
+checks `permissions.push` before touching anything) or the browser
+device-flow via `gh auth login` (no token handling at all); (4) push
+`main` plus all tags; (5) verify the remote SHA matches the local HEAD;
+(6) open the repository page in the browser.
+
+The security model is explicit: the token exists in process memory and
+in the inline credential helper invocation only — it is never written to
+disk, never lands in `.git/config`, and is not echoed. The script never
+force-pushes silently: any divergence from the remote stops with a
+prompt, and `--force-with-lease` is available only with explicit
+confirmation, which protects both your own commits and any collaborators'
+work from accidental overwrite.
+
+When to reach for the kit: publishing a fresh clone from the phone,
+pushing documentation-only commits (like the present README set), or
+recovering after Termux was reinstalled. When **not** to: for anything
+involving the Release assets above ~100 MB use a desktop client — mobile
+networks make multi-hundred-megabyte uploads fragile; the GitHub Release
+page itself is the right delivery channel for those.
+
+## Кратко (по-русски)
+
+- Один скрипт = вся публикация с телефона: пакеты → перенос репо из
+  общей памяти в приватную → вход (PAT с префлайтом или device-flow) →
+  push main+теги → сверка remote SHA → открыть в браузере.
+- Токен живёт только в памяти процесса; на диск и в `.git/config` не
+  пишется; force-push — только с явного подтверждения.
+- Тяжёлые ассеты (Release, сотни МБ) лучше заливать с десктопа.
