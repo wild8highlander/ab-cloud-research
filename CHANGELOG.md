@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.2.0] — 2026-09-03 — «documentation deep dive»
+
+### Added
+- **Deep-dive README in every directory** (32 files): root README gains a
+  Documentation map, a Branches & versions section and a corrected
+  Highlights table; every folder of the repository now ships an English
+  README ending with a short Russian summary (`Кратко по-русски`):
+  `code/`, `code/julia/`, `verification/` + all 10 language folders +
+  `data/`, `spinor64/`, `sections/`, `monographs/` + `ru/en/zh` +
+  `original-v21/`, `lab-3d/` + `code/`, `outputs/`, `results/`, `apps/` +
+  both applications, `docs/`, `termux/` (new English guide), `assets/`,
+  `.github/`. Every README documents contents file-by-file, stored result
+  values with their provenance, run commands and expected output.
+- Root README: Highlights row for the spinor structures corrected to the
+  verified 64/64 GUE-consistent state (the stale "idx=38 unique" row is
+  gone); roadmap updated to v1.2.0.
+
 ## [1.1.0] — 2026-09-03 — «spinor64 verification + run artifacts + apps»
 
 ### Added
