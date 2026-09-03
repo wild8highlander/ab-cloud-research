@@ -65,3 +65,36 @@ compatible, relative base `./`). WebGL 2 capable browser required
   проверяет себя по ζ(2), ζ(4), ζ(1/2) и отказывается рисовать при
   расхождении.
 - `npm run dev` для разработки; `dist/` собран и готов к GitHub Pages.
+
+## 📁 Complete file inventory
+
+| Entry | Size | Kind |
+|---|---|---|
+| `dist/` | directory, 3 files inside | folder |
+| `src/` | directory, 5 files inside | folder |
+| `README.md` | 3.0 KB | markdown guide |
+| `index.html` | 313 B | HTML page |
+| `package-lock.json` | 56.2 KB | JSON data |
+| `package.json` | 377 B | JSON data |
+| `vite.config.js` | 208 B | JavaScript source |
+| **Total (files)** | **60.1 KB** | 5 files + 2 subdirectories |
+
+## 🔬 Deep dive — the lattice lab in the browser
+
+The browser twin of `lab-3d/` trades batch throughput for immediacy:
+choose α, lattice size and gauge, and the Hofstadter surface or the vortex
+texture renders in real time, camera-rotatable and zoomable. The
+visualization parameters mirror the offline pipelines exactly — same
+Hamiltonian convention, same gauge bookkeeping, same color mapping as the
+600-dpi plates of the monograph — so a screenshot from the lab and a
+printed figure are visually comparable without translation.
+
+Use it for: building intuition about where the flux lives (vortex cores
+versus empty plaquettes), demonstrating the α = 1/2 Dirac touching, and
+checking that a parameter change that should move a topological invariant
+actually does. For publication-grade output use the offline pipelines in
+`lab-3d/code/` — the browser is the sketchbook, the pipeline is the press.
+
+The reference scene — the **36³ Hofstadter configuration** — is the same
+one the 3D-lab preprint ([lab-3d/preprint/](../lab-3d/preprint/)) opens
+with, so the app and the paper start from identical ground.

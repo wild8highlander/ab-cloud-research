@@ -54,3 +54,28 @@ the `.md` report.
   Arf = 0 на всех масштабах, W = 1.
 - Воспроизводится из `../code/` меню-режимами G/H/I/J с фиксированными
   seed'ами.
+
+## 📁 Complete file inventory
+
+| Entry | Size | Kind |
+|---|---|---|
+| `3d_advanced_2026-07-31_15-51-47/` | directory, 21 files inside | folder |
+| `3d_bridge_2026-07-31_15-36-37/` | directory, 29 files inside | folder |
+| `deep_zeros_2026-07-31_15-36-34/` | directory, 15 files inside | folder |
+| `full_verification_2026-07-31_15-33-39/` | directory, 27 files inside | folder |
+| `README.md` | 2.9 KB | markdown guide |
+| **Total (files)** | **2.9 KB** | 1 files + 4 subdirectories |
+
+## 🔬 Deep dive — committed outputs with their producers
+
+Nothing in this folder is "free art": each output names the script and the
+parameter block that produced it, and the lab's README tables map every
+file to its producer. The committed set includes the 36³ reference scene
+renders, surface exports used by the preprint figures, and diagnostic
+probes (hermiticity checks, flux bookkeeping) that let a reviewer verify
+the *instrument* as well as the picture.
+
+If you regenerate an output and it differs, the lab treats that as a
+reportable event — check first for floating-point stack differences (BLAS
+orderings), then for actual drift. The committed files are the archival
+truth; local re-renders are for confidence, not for replacing evidence.

@@ -71,3 +71,43 @@ the anti-overfitting backbone of the monograph claims.
 - Результаты пишутся в `results/run_<метка>/` с отчётами, логами и
   графиками; образец — `results/run_20260902_134759/`.
 - `julia/` — авторские исторические версии (v19_v1, v20, v21) для прослеживания.
+
+## 📁 Complete file inventory
+
+| Entry | Size | Kind |
+|---|---|---|
+| `julia/` | directory, 6 files inside | folder |
+| `README.md` | 3.8 KB | markdown guide |
+| `ab_cloud_v19.jl` | 1.2 MB | Julia source |
+| `ab_cloud_v21.jl` | 1.7 MB | Julia source |
+| **Total (files)** | **3.0 MB** | 3 files + 1 subdirectories |
+
+## 🔬 Deep dive — the canonical suite and its supporting library
+
+`code/` is the computational heart: **12 MB** of Julia sources whose
+canonical entry point is `ab_cloud_v19.jl` — the two-pass, 37-test suite
+behind every verdict on the front page. The suite structure is
+deliberately old-fashioned: one file, numbered tests, explicit verdict
+printing, no hidden framework. A reviewer reads it top to bottom and sees
+every constant, every tolerance and every statistical decision — nothing
+lives in a config file or an environment variable.
+
+Run profiles (the same file serves all three):
+
+| Profile | Command | Ladders | ζ zeros | Time |
+|---------|---------|---------|---------|------|
+| Quick | `julia ab_cloud_v19.jl --quick` | 16×16 → 32×32 | ≤ 5000 | ~3–5 min |
+| Full (two-pass) | `make test-all` | 72×72 → 96×96 hardcore | 50 000 | 30–60 min / pass |
+| Interactive | `make menu` | pick tests, Physics Lab, 3D lab | — | interactive |
+
+The flagship run that produced the committed ledger took **≈ 9 h 46 min**
+wall time with artifacts enabled — per-test durations are stamped in the
+report log and reproduced in the root README ledger. Pass 2 ("hardcore")
+re-runs each test with tightened tolerances and decomposed sub-checks;
+selected tests add a series pass 3. A test only counts as green when every
+tier agrees.
+
+Version lineage lives in [code/julia/](julia/): the v19/v20/v21 sources
+are kept as supplied, so a verdict quoted from an older monograph can be
+re-run against the *exact* code revision that produced it — versioned
+science, not vibes.
