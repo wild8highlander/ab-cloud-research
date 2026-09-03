@@ -53,3 +53,40 @@ layouts — that is expected; the canonical numbers come from
   `verification/data/zeta_zeros_50000_embedded.txt`.
 - Рабочая версия проекта — `../ab_cloud_v19.jl`; исторические запускаются
   так же (`julia <файл> --quick`), но канонические числа даёт только она.
+
+## 📁 Complete file inventory
+
+| Entry | Size | Kind |
+|---|---|---|
+| `README.md` | 3.0 KB | markdown guide |
+| `ab_cloud_v19.jl` | 1.6 MB | Julia source |
+| `ab_cloud_v19_v1.jl` | 1.6 MB | Julia source |
+| `ab_cloud_v20.jl` | 1.7 MB | Julia source |
+| `ab_cloud_v21.jl` | 1.7 MB | Julia source |
+| `ab_cloud_v21_v1.jl` | 1.7 MB | Julia source |
+| **Total (files)** | **8.4 MB** | 6 files + 0 subdirectories |
+
+## 🔬 Deep dive — the versioned lineage of the suite
+
+This folder is the *time machine* of the project: the full sources of the
+suite generations **v19, v19_v1, v20 and v21**, kept exactly as supplied.
+When the v21 monograph quotes a number, the corresponding source here is
+the ground truth of what was actually executed; when v22/v23 re-derive the
+claim, the diff between suite generations is the audit trail of what
+changed in the instrumentation itself — as distinct from what changed in
+the physics narrative.
+
+Practical uses:
+
+- **Re-derive an old figure:** run the generation whose number a paper
+  cites, not the current one — discrepancies then mean something.
+- **Diff the instrumentation:** `diff` between generations shows every
+  tolerance, ladder and statistical criterion that moved, with commit
+  messages explaining why.
+- **Extract the embedded dataset:** the 50,000-zero embedded table used by
+  the suite lives here as well and is mirrored into
+  `verification/data/zeta_zeros_50000_embedded.txt` — one generation
+  decision, two byte-identical copies.
+
+The canonical current line remains `../ab_cloud_v19.jl`; everything in
+this folder is reference/archive material and is never loaded implicitly.

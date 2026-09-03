@@ -70,3 +70,42 @@ compatible, relative base `./`). Data files are duplicated into
   Web Worker на 50 000 нулей; вкладка 3: Test 38 — 64 спинора, спектры
   28 нечётных структур считаются в браузере алгоритмом Якоби (≈1e-14).
 - `npm run dev` для разработки; `dist/` уже собран и готов к публикации.
+
+## 📁 Complete file inventory
+
+| Entry | Size | Kind |
+|---|---|---|
+| `dist/` | directory, 6 files inside | folder |
+| `public/` | directory, 2 files inside | folder |
+| `src/` | directory, 8 files inside | folder |
+| `README.md` | 3.1 KB | markdown guide |
+| `index.html` | 322 B | HTML page |
+| `package-lock.json` | 55.9 KB | JSON data |
+| `package.json` | 356 B | JSON data |
+| `vite.config.js` | 236 B | JavaScript source |
+| **Total (files)** | **59.9 KB** | 5 files + 3 subdirectories |
+
+## 🔬 Deep dive — the dashboard tab by tab
+
+The dashboard is organised around one question: *where does each claimed
+number live?* Every panel resolves to a concrete artifact path, so a talk,
+a paper and the raw run can be cross-examined in seconds:
+
+- **Results overview** — the headline quantities ([r], Montgomery KS,
+  Byers–Yang defect, Connes zero modes, Dirac R²) with their verdicts and
+  the artifact path printed next to each value.
+- **Test ledger** — all 37 + 1 tests with pass-1 / hardcore-pass-2 verdicts
+  and per-test timing stamps, mirroring
+  `results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt`.
+- **Spinor64 panel** — the 64-structure orbit table (28/21/7/7/1), the E2
+  holonomy classes and the 64/64 GUE-consistency verdict.
+- **Dataset charter** — the frozen ζ dataset inventory with checksums,
+  file sizes and the loading rules every language port obeys.
+- **Monograph browser** — the five editions with formats and direct links
+  into `monographs/`.
+
+### Architecture notes
+
+Static React bundle, no backend, no analytics, no external requests: the
+app is a pure view over committed files. This is what makes it suitable
+for long-term archival — there is no service to keep alive.

@@ -213,3 +213,42 @@ License: **CC BY-NC-SA 4.0** (see `../LICENSE`).
   `outputs/` (отчёты json/md/html/csv + все рисунки PDF/PNG).
 - Запуск: `python3 code/ab_cloud_3d_en.py` (меню), `quick_start.py` для
   демо; препринт — `preprint/ab_cloud_preprint.tex` (xelatex ×2).
+
+## 📁 Complete file inventory
+
+| Entry | Size | Kind |
+|---|---|---|
+| `code/` | directory, 99 files inside | folder |
+| `data/` | directory, 1 files inside | folder |
+| `outputs/` | directory, 93 files inside | folder |
+| `preprint/` | directory, 1 files inside | folder |
+| `Makefile` | 339 B | file |
+| `README.md` | 10.0 KB | markdown guide |
+| `pyproject.toml` | 1.8 KB | TOML config |
+| `requirements.txt` | 154 B | text data/log |
+| **Total (files)** | **12.3 KB** | 4 files + 4 subdirectories |
+
+## 🔬 Deep dive — the 3D lattice laboratory
+
+`lab-3d/` is where the planar AB-cloud meets the third dimension: a
+**20 MB** self-contained laboratory with its own Makefile, its own
+dependency pins (`pyproject.toml`, `requirements.txt`), its own code,
+data, outputs and — notably — its own **preprint bundle**. The reference
+scene is the **36³ Hofstadter configuration**: a three-dimensional
+lattice butterfly that the monograph uses as the bridge between the 2D
+Chern-band physics and the 3D texture visualizations.
+
+The laboratory follows the same integrity discipline as the main suite:
+outputs are committed with their producers, figures carry generation
+parameters in their filenames/metadata, and the preprint in
+[lab-3d/preprint/](preprint/) quotes only numbers that a script in this
+folder can regenerate. The browser twin of the lab (for intuition and
+demos) lives in [apps/ab-cloud-lab3d/](../apps/ab-cloud-lab3d/); this
+folder is the press — the offline, publication-grade pipelines.
+
+Quick start:
+
+```bash
+cd lab-3d && make help     # lab-specific targets
+pip install -r requirements.txt   # pinned, small dependency set
+```
