@@ -346,8 +346,44 @@ julia ab_cloud_v19.jl --lang en --quick
 # 报告位置：results/run_<日期>/test_NN_<slug>/{report.md,html,pdf,docx, plots/, logs/}
 ```
 
-本书数字对应 2026-08-28 的 v18 运行（37 项测试，单通基线 204.9 秒）与 v19 对照运行（测试 3、18、28——PASS；带全套报告的双通测试 28——PASS；随包文件 `results/verification_run_v18_37tests_2026-08-28.txt`）。
+本书数字对应 2026-09-02 的完整双通运行 **v19 `run_20260902_134759`**（37 项测试，双通 72×72 → 96×96，含第二轮 HARDCORE 审计；测试 19/29/31 附第三轮系列；Julia 1.12.0；50,000 个 Odlyzko 零点）。第一轮汇总：**32 PASS / 5 WARN**（测试 4、5、6、11、12、28、35——统计类 WARN 判定，源于 Wigner 近似的“地板效应”，并以对精确 GUE 参照的双样本 KS 行进行校准；套件语义未变）；**第二轮 HARDCORE 全部 PASS**（共 77 条判定行）。全套工件——各测试报告（report.md/pdf/docx/html）、计算日志（logs/）、汇总 FINAL_REPORT 与 index.html——已随仓库提供：`results/run_20260902_134759/`。此外，克莱因四次曲面的全部 64 个旋量结构已由参考实现 `verification/spinor64` 验证（附录 D）。早期单通 v18 基线（`results/verification_run_v18_37tests_2026-08-28.txt`）作为历史记录保留。
 
 # 附录 C. 图形索引
 
 全部图形为 600 dpi PNG，标题采用相应出版语言；文件位于 `monographs/<lang>/figures/`。图 1——$b(N)$ 收敛（双拟合）；图 2——ζ 间距直方图对 Wigner 猜想曲线；图 3——对数坐标下的双衰减拟合；图 4——斜率的自助分布与 95% CI；图 5——KS $D(T_{\min})$ 与临界线；图 6——$\Sigma^2(L)$；图 7——$\Delta_3(L)$；图 8——$R_2(s)$：AB 云对 ζ、GUE、泊松；图 9——形因子 $K(t)$；图 10——$\langle r\rangle(L)$ 标度（$q=0.3$ 与 $q=1$）；图 11——$\langle r\rangle$ 自助法（测试 33）；图 12——狄拉克锥 $E_{\min}(1/L)$；图 13——DOS 狄拉克凹陷；图 14——Byers–Yang（整数对分数电荷）；图 15——Berry 截断 $R_2(0;T)$；图 16——Hatano–Nelson 非厄米谱椭圆；图 17——旋量相位 $\gamma^{\ast}$；图 18——涡旋对的相位织构；图 19——Hofstadter 蝴蝶（标注 $\alpha=1/2$）。
+
+# 附录 D（v22.1，spinor64）：克莱因四次曲面全部 64 个旋量结构的验证
+
+参考实现 `verification/spinor64`（Python/NumPy；复现命令：
+`python3 verification/spinor64/run_spinor64.py`）对克莱因四次曲面的全部
+64 个旋量结构 $\varepsilon\in\mathbb{F}_2^6$ 执行两项独立实验，并修正 v21
+专著中关于 idx=38 “唯一性”的论断。
+
+**E1 —— 精确对称性（克莱因图 {3,7}）。** 以正则映射 {3,7} 离散化克莱因
+四次曲面（56 顶点、84 边、24 个七边形，自同构群 PSL(2,7)，阶 168）。64
+个自旋结构实现为具有奇面奇性的边符号（Kasteleyn/Cimasoni-Reshetikhin
+模型，规范定准：生成树边均为正）。数值计算得 PSL(2,7) 作用的轨道分解
+**28 / 21 / 7 / 7 / 1**；28 元轨道——奇结构（Arf=1）——为单一轨道，
+证实 PSL(2,7) 在 28 条双切线上传递（Riemann–Klein 定理）。轨道内的符号
+狄拉克算子互为置换共轭：全部 64 个结构的最大成对谱距为 **8.9·10⁻¹⁵**；
+规范不变性 7.1·10⁻¹⁵；离散算子零模数：2（奇轨道）/ 3（偶轨道）/ 7
+（平凡类）。结论：任何旋量结构都不可能拥有独特统计——v21 中 “idx=38
+的唯一性”是破坏 PSL(2,7) 对称性的离散化伪影。按 v21 专著自身的公式
+$\mathrm{Arf}(\varepsilon)=\varepsilon_1\varepsilon_2+\varepsilon_3\varepsilon_4+\varepsilon_5\varepsilon_6$，
+向量 $\varepsilon(38)=(0,1,1,0,0,1)$ 给出 Arf = 0（而非此前声称的 1）。
+
+**E2 —— 统计（AB 云）。** Hofstadter 环面 $L=44$、$\alpha=1/2$、
+$N_v=54$ 个 $q=+1$ 涡旋（按密度定标锚点 $N_v=25$@$30\times30$）、$W=0$、
+`:monumental` 规范（atan 平滑、竖向键、因子 0.5），自旋结构以边界扭转
+$\varphi_x=\pi(\varepsilon_1+\varepsilon_3+\varepsilon_5)$、
+$\varphi_y=\pi(\varepsilon_2+\varepsilon_4+\varepsilon_6)$ 引入；对 5
+组涡旋构型取平均，体窗 0.6。参照：100 个 $1936\times1936$ GUE 矩阵的
+蒙特卡罗系综（测试 16 方法论）：中位数 $\langle r\rangle = 0.6013$，95%
+置信区间 $[0.5847; 0.6140]$。结果：**全部 64 个结构均落于置信区间内**：
+$\langle r\rangle = 0.5984\pm0.0035$（散布 $0.5935\dots0.6027$，最小
+MC p = 0.36）。GUE 统计对所有结构一致——正如 4.1 节所总结，GUE 的来源
+是 AB 云动力学，而非旋量结构的选择。
+
+测试 38 的多语言移植（冻结数据 + 自实现 Jacobi 算法，不用 LAPACK）随包
+提供 10 种语言：
+`verification/{cpp,java,rust,go,fortran,haskell,r,matlab,julia,javascript}/spinor38/`。

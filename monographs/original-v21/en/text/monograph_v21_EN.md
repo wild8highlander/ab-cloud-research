@@ -30,8 +30,14 @@ by the zeros of the Riemann zeta function. The main results:
 > the spacing distribution of the AB-cloud with N_v=25, W=4 is statistically
 > indistinguishable from the zeros of ζ(s) (KS=0.047, p=0.27). H₀ is not rejected.
 >
-> • Shown: of the 64 spinor structures of the Klein quartic, only the structure
-> idx=38 (odd θ-characteristic, holonomy=i) demonstrates GUE-agreement (p=0.598). All other 63 structures have p≈0.
+> • Shown (corrected in v21.1 by the verification run `verification/spinor64`):
+> ALL 64 spinor structures of the Klein quartic give GUE-consistent values.
+> PSL(2,7) = Aut(K4) splits them into orbits 28/21/7/7/1 (28 odd, Arf=1 —
+> the bitangents); operators within an orbit are exactly isospectral
+> (max|Δλ| ≈ 9·10⁻¹⁵), and in the AB-cloud model all 64 structures give
+> ⟨r⟩ = 0.5984 ± 0.0035 ≈ GUE (0.5996). The earlier claim that only
+> idx=38 shows GUE agreement (p=0.598, others p≈0) was a computational
+> artifact and is withdrawn.
 >
 > • Established: the GUE-statistics of the AB-cloud is independent of the substrate geometry (torus and Klein surface both give ⟨r⟩≈0.937). The source of GUE
 > is the dynamics of the cloud, not the geometry.
@@ -54,6 +60,20 @@ space.
 Hilbert–Pólya hypothesis, Riemann zeta function, random matrix theory,
 GUE, Aharonov-Bohm effect, Hofstadter Hamiltonian, Klein quartic,
 spinor structures, topological vortices, Montgomery test.
+
+> **Note v21.1 (corrections, 2026-09-03).** A full verification run over
+> all 64 spinor structures of the Klein quartic (`verification/spinor64`
+> in the ab-cloud-research repository; script `run_spinor64.py`) showed
+> that **all 64 structures give GUE-consistent values** — PSL(2,7) orbits
+> 28/21/7/7/1, exact isospectrality within orbits (max|Δλ| ≈ 9·10⁻¹⁵),
+> ⟨r⟩ = 0.5984 ± 0.0035 in the AB-cloud model. The claims of the original
+> edition about the "uniqueness" of idx=38 (Sections 3.1, 3.2, 3.2.1) are
+> withdrawn as a computational artifact; by the monograph's own formula
+> Arf(ε) = ε₁ε₂+ε₃ε₄+ε₅ε₆ the vector ε(38) = (0,1,1,0,0,1) gives Arf = 0
+> (not 1). The corrected statement is Section 3.2.5; the Riemann–Klein
+> split 36 even / 28 odd is confirmed numerically. Individual fragments
+> of the original text below retain the earlier "uniqueness" terminology —
+> they should be read with this note in mind.
 
 **Contents**
 
@@ -503,47 +523,64 @@ Each is parameterized by a binary vector ε=(ε₁,...,ε₆), εᵢ∈{0,1}.
 The Dirac operator D(ε) is constructed based on the eigenvalues of the
 Klein Laplacian with the inclusion of AB-phases determined by ε.
 
-For each of the 64 structures, a χ²-test of agreement with GUE was computed with N=2000
-eigenvalues. The results are summarized in the table:
+The original v21 table (χ²-test at N=2000, square lattice) contained a
+computational error: it claimed that only idx=38 shows GUE agreement
+(p=0.598) while the other 63 have p≈0. The corrected computation
+(v21.1, reference implementation `verification/spinor64` in the
+repository) on the PSL(2,7)-symmetric discretization and in the AB-cloud
+model gives:
 
-|              |                 |               |            |              |
-|--------------|-----------------|---------------|------------|--------------|
-| **idx**      | **ε-vector**    | **∑εᵢ**       | **p(GUE)** | **Status**   |
-| 38           | \[0,1,1,0,0,1\] | 3             | 0.5980     | UNIQUE ★     |
-| Other 63     | —               | ≠3 or even    | ≈0         | not GUE      |
-| 63           | \[1,1,1,1,1,1\] | 6             | 0.0000     | Poisson      |
-| 0            | \[0,0,0,0,0,0\] | 0             | 0.0000     | Poisson      |
+| Quantity | Value (v21.1 run) |
+|----------|-------------------|
+| PSL(2,7) splitting | orbits **28 (Arf=1)** / 21 / 7 / 7 / 1 (Arf=0) |
+| Transitivity on the 28 odd | confirmed (28 bitangents, Riemann–Klein theorem) |
+| Isospectrality within orbits | max\|Δλ\| = 8.9·10⁻¹⁵ — all 64 structures |
+| Gauge invariance | 7.1·10⁻¹⁵ |
+| Dirac zero modes | 2 (odd orbit) / 3 (even) / 7 (trivial class) |
+| AB-cloud ⟨r⟩ over all 64 | **0.5984 ± 0.0035** (spread 0.5935–0.6027; GUE 0.5996) |
+| GUE consistency (MC p>0.05) | **64 of 64** (min p = 0.36) |
 
-Key observation: p(38)/p(median) \> 6×10⁹. The structure idx=38
-is unique statistically with a huge margin.
+Key observation (corrected): the p-values of all 64 structures are
+statistically indistinguishable — no structure, including idx=38, is
+unique. The "uniqueness" of idx=38 in the original table was a
+discretization artifact breaking the PSL(2,7) symmetry (see Sections
+3.2.3 and 3.2.5).
 
-### 3.2 Problem 1: Analytical derivation of idx=38 without scanning
+### 3.2 Problem 1 (v21.1): equivalence of spinor structures and the status of "idx=38 uniqueness"
 
-The uniqueness of idx=38 follows from three independent conditions:
+The three conditions that previously attributed uniqueness to idx=38
+actually select only the Z₄-compatible class of the square lattice:
 
-> **1.** Odd θ-characteristic: ∑εᵢ=3 (odd) ⟹ h⁰(L)=0 (no
-> zero modes) — a necessary condition for pure GUE.
+> **1.** Odd θ-characteristic: ∑εᵢ=3 (odd) — membership of the odd class
+> (Arf=1); there are 28 such structures and all are PSL(2,7)-equivalent.
 >
-> **2.** Balancing: exactly g=3 antiperiodic cycles out of 2g=6, one
-> for each handle of the surface.
->
-> **3.** Effective holonomy = i: φ_eff = π·∑εᵢ/(2g) = 3π/6 = π/2,
-> so e^{iφ_eff} = i — a direct connection to the critical line ζ(1/2+iγ).
+> **2.** Balancing (one antiperiodic cycle per handle) and
+> **3.** effective holonomy i (φ_eff = π·∑εᵢ/(2g) = π/2) — conditions of
+> compatibility with the Z₄ symmetry of the square lattice. They describe
+> which structures "survive" this discretization, not a physical
+> selection of GUE structures.
 
-Of the 32 odd structures (∑εᵢ odd), only C(6,3)=20 have ∑εᵢ=3. Of these
-8 are balanced (one antiperiodic cycle per handle), and all 8 are
-equivalent under the action of PSL(2,7). Thus, idx=38 is the only one
-(up to symmetry) structure with holonomy i.
+Corrected statement: of the 32 odd structures, 20 have ∑εᵢ=3; they and
+their even partners split into the PSL(2,7) orbits 28/21/7/7/1. Within
+each orbit the Dirac operators are **exactly isospectral**
+(max|Δλ| ≈ 9·10⁻¹⁵, verification run v21.1), so no structure can carry
+unique statistics. The holonomy i is a property of the whole
+Z₄-compatible class, not of a single structure.
 
-3.2.1 Arf invariant and topological uniqueness of idx=38
+3.2.1 Arf invariant and the 36/28 split (corrected in v21.1)
 
-Of the 64 spinor structures of the Klein quartic, only the structure idx=38 has
-Arf = 1 (non-trivial), all other 63 have Arf = 0. This means that
-idx=38 is distinguished not only statistically (p-value = 0.95 vs median
-\< 10^{-10}), but also topologically. The non-trivial Arf invariant in
-class AIII corresponds to a Z_2 invariant that protects Dirac surface
-states from a mass term. Topological protection (Arf=1) ->
-no gap -> linear dispersion -> GUE.
+By the classical theorem of Riemann (1857) and Klein (1879), the 64
+spinor structures of the Klein quartic split by the Arf invariant into
+**36 even (Arf=0) and 28 odd (Arf=1)**. The original claim of this
+section ("only idx=38 has Arf=1") was mathematically incorrect — it
+contradicted both the theorem and the monograph's own formula: by
+Arf(ε) = ε₁ε₂ + ε₃ε₄ + ε₅ε₆ the vector ε(38) = (0,1,1,0,0,1) gives
+**Arf = 0**, not 1. The v21.1 numerical verification
+(`verification/spinor64`) confirms the 36/28 split, the transitivity of
+PSL(2,7) on the 28 odd structures (one orbit — the bitangents), and
+exact isospectrality within orbits. The odd (Arf=1) class in AIII
+corresponds to the Z_2 invariant protecting Dirac states from a mass
+term; this protection is shared by **all 28 odd structures**, not one.
 
 ![](../../media/image5.png){width=5.5in height=1.92986in}
 
@@ -663,6 +700,41 @@ PSL(2,7)-invariant discretization, all 28 structures are equivalent.
 ![](../../media/image58.png){width=6in height=4.8in}
 
 *Fig. 3.4. Top left: Klein graph (56 vertices, 84 edges, 3-regular, χ = −4). Top right: spectrum of the graph Laplacian. Bottom left: distribution of pairwise distances between spectra — PSL(2,7)-conjugate (blue) have distance ~10⁻¹⁴, random (red) — ~0.84. Bottom right: conceptual summary confirming Hypothesis 1.*
+
+### 3.2.5 Full verification of all 64 spinor structures (v21.1)
+
+In v21.1 a complete independent run over all 64 structures was performed
+(the reference implementation `verification/spinor64` in the
+ab-cloud-research repository; reproduction:
+`python3 verification/spinor64/run_spinor64.py`).
+
+**E1 — exact symmetry (the Klein graph {3,7}: 56 vertices, 84 edges, 24
+heptagons).** Spin structures are realised as edge signings with odd face
+parity (the Kasteleyn/Cimasoni-Reshetikhin model, canonical gauge).
+PSL(2,7) acts on the 64 classes with orbits 28/21/7/7/1; the Dirac
+operators (signed adjacency matrices) within an orbit are
+permutation-conjugate: the max pairwise spectral distance is 8.9·10⁻¹⁵
+over all 64 structures; gauge invariance 7.1·10⁻¹⁵; zero modes: 2 (odd
+orbit) / 3 (even orbits) / 7 (trivial class). This upgrades the result
+of Section 3.2.4 from the 28 odd structures to ALL 64.
+
+**E2 — statistics (AB-cloud).** Hofstadter torus L=44, α=1/2, Nv=54
+vortices q=+1 (density-scaled anchor Nv=25 at 30×30), W=0, the
+:monumental gauge (atan smooth gauge, vertical bonds, factor 0.5), spin
+structure as boundary twists φ_x = π(ε₁+ε₃+ε₅), φ_y = π(ε₂+ε₄+ε₆);
+averaging over 5 vortex configurations, bulk window 0.6. Reference: a
+Monte-Carlo GUE ensemble of 100 matrices 1936×1936 (the Test-16
+methodology of the suite): median ⟨r⟩ = 0.6013, 95% CI
+[0.5847, 0.6140]. Result: **all 64 structures lie inside the CI**:
+⟨r⟩ = 0.5984 ± 0.0035, spread 0.5935–0.6027, min MC p = 0.36. The GUE
+statistics is the same for every structure — the source of GUE, as
+concluded in Section 4.1, is the AB-cloud dynamics, not the choice of
+spinor structure.
+
+**Conclusion.** The "uniqueness" hypothesis for idx=38 is withdrawn: the
+correct PSL(2,7)-symmetric discretisation makes all structures within an
+orbit isospectral by construction, and the GUE statistics of the
+AB-cloud is reproduced by each of the 64 spinor structures.
 
 ### 3.3 Problem 3: Convergence curve p(N)
 
@@ -1373,7 +1445,7 @@ Iwasawa lambda-invariant lambda_7 = 0.658. Period T_7 = 2\*pi/log(7) =
 
 Key chains: (1) Quartic -\> PSL(2,7) -\> S_2(Gamma(7)) -\>
 Deligne RH -\> GUE; (2) Quartic -\> Selberg Z -\> Scale = log(7)/R_K;
-(3) idx=38 -\> Arf=1 -\> chiral protection -\> Dirac cone; (4)
+(3) 28 odd structures (Arf=1) -\> PSL(2,7)-equivalence -\> chiral protection -\> Dirac cone; (4)
 alpha=1/2 -> self-duality of Conn -> spectral realization of zeta; (5)
 C_1=1 -> TKNN -> IQHE -> topological protection of GUE. Each chain
 starts with an algebraic property of the Klein quartic and ends with an
@@ -1413,8 +1485,11 @@ has been independently verified numerically:
 (0.10% error vs theory 0.5992). Zeta zeros ⟨r⟩ = 0.5429 (finite-size
 effects). See Appendix D.2.
 
-10.4.3 Atiyah-Singer idx=38 VERIFIED (v9): Arf(38) = 1, orthogonality
-err = 8.46e-17, Deligne RH: 0 violations. See Appendix D.3.
+10.4.3 Atiyah-Singer VERIFIED (v9): the Arf split 36/28 confirmed;
+corrected in v21.1 — Arf(ε(38)) = 0 by the monograph's own formula, the
+"uniqueness" of idx=38 is withdrawn (all structures of the orbit are
+equivalent). Orthogonality err = 8.46e-17, Deligne RH: 0 violations.
+See Appendix D.3.
 
 **Priority 2: Numerical Problems**
 
@@ -2117,10 +2192,12 @@ lattice, honeycomb, triangular lattice, and noncommutative torus all give ⟨r�
 0.46–0.56, significantly higher than Poisson (0.386) and close to GUE (0.599).
 Noncommutative deformation θ ∈ \[0, 1.4\] preserves GUE characteristics.
 
-H3: Classification of 64 spinor structures — CONFIRMED. 36 even
-(Arf=0) and 28 odd (Arf=1) structures. Structure idx=38 activates
-channels 2A, 3A, and 7B, demonstrating GUE-optimality. Each Galois
-channel is activated in exactly 50% of spinor structures.
+H3: Classification of 64 spinor structures — CONFIRMED (v21.1). 36 even
+(Arf=0) and 28 odd (Arf=1) structures; PSL(2,7) orbits 28/21/7/7/1;
+isospectrality within orbits ≈ 9·10⁻¹⁵. Structure ε = (0,1,1,0,0,1)
+activates channels 2A, 3A, and 7B; GUE-optimality is confirmed for ALL
+64 structures (⟨r⟩ = 0.5984 ± 0.0035). Each Galois channel is activated
+in exactly 50% of spinor structures.
 
 H4: Preservation of Galois channels by spectral action — CONFIRMED.
 The spectral action S = Tr(f(D/Λ)) is invariant under unitary rotations
@@ -2139,7 +2216,7 @@ PSL(2,7) Galois channels simultaneously, regardless of the underlying geometry.
 |----------------|-------------------------------------|--------------|----------------------------------------|
 | H1             | 6 Galois channels                   | CONFIRMED    | All \|φ̂(ρ_i)\| \> 0 at α=1/2          |
 | H2             | GUE independent of geometry          | CONFIRMED    | ⟨r⟩=0.46-0.56 on all lattices         |
-| H3             | 64 spinor structures                | CONFIRMED    | idx=38: Arf=1, 3 channels, GUE-optimal|
+| H3             | 64 spinor structures                | CONFIRMED    | orbits 28/21/7/7/1; all 64 GUE-consistent|
 | H4             | Spectral action invariant           | CONFIRMED    | Accuracy 10⁻¹⁵                         |
 | H5             | AB = universal resonator            | CONFIRMED    | 6/6 channels active at α=1/2          |
 
@@ -3327,7 +3404,7 @@ and cross-correlation network.*
 | 10.4.5 Permutation      | clean=0.3825, disordered=0.4752       | VERIFIED    | 109.65       |
 | 10.4.6 IPR Scaling      | β=1.87, CI=\[1.86,1.87\]              | VERIFIED    | 87.29        |
 | 10.4.7 Fermi Velocity   | v_F=√2 (analytical), AdS/CFT δ=145%   | QUALITATIVE | 2.00         |
-| 10.4.8 QECC             | 8 codes tested, Arf(38)=1             | VERIFIED    | 2.06         |
+| 10.4.8 QECC             | 8 codes tested, Arf split 36/28 (v21.1)| VERIFIED    | 2.06         |
 | 10.4.9 BTZ Black Hole   | β=2π/log(7) exact match               | EXACT       | 0.86         |
 | 10.4.10 Dirac Twist     | 7-fold symmetry confirmed             | VERIFIED    | 1.32         |
 | 10.4.11 Langlands       | L-parameter verified, all Ramanujan ✓ | VERIFIED    | 0.54         |
