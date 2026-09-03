@@ -1,0 +1,328 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R] /Count 7 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3689 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 36: Byte-level robustness) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: PASS   |   Generated: 2026-09-02 23:33:00   |   Suite: AB-Cloud v19 \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (Mixed: |?r| under 256-level quantization + RNG entropy \(statistical\). Sample accumulated to 25 000 \(pass 1\) / 50 000 \(pass 2\) eigenvalues; verdict = multi-window average over 120×15-eig windows \(single window = diagnostic\); W_eff capped at ab_W_max.) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: Mixed: |?r| under 256-level quantization + RNG entropy \(statistical\). Sample accumulated to 25 000 \(pass 1\) / 50 000 \(pass 2\) eigenvalues; verdict = multi-window average over 120×15-eig windows \(single window = diagnostic\); W_eff capped at ab_W_max.) Tj ET
+BT /F1 10 Tf 50 690 Td ( WHY W \(DISORDER\) IS CAPPED AT W_max ? 1.0 ? disorder ? vortex motion ? statistics:) Tj ET
+BT /F1 10 Tf 50 668 Td (  W is the diagonal on-site potential the vortices paint onto the lattice:) Tj ET
+BT /F1 10 Tf 50 646 Td (      V_i = ?_k q_k·W / \(r_ik?·N?¹ + 1\),   hopping t = 1.) Tj ET
+BT /F1 10 Tf 50 624 Td (  The ratio \(disorder energy q·W\) / \(kinetic energy t\) decides what the) Tj ET
+BT /F1 10 Tf 50 602 Td (  vortex cloud does and which spectral statistics come out:) Tj ET
+BT /F1 10 Tf 50 580 Td (   ? q·W ? t  \(e.g. W=4, q=0.3 ? V?1.2 next to a core\): the disorder) Tj ET
+BT /F1 10 Tf 50 558 Td (     landscape dominates the vortex motion ? vortices pin/steer the) Tj ET
+BT /F1 10 Tf 50 536 Td (     eigenstates, states localize on the potential relief, and ?r? drifts) Tj ET
+BT /F1 10 Tf 50 514 Td (     from GUE \(0.5992\) toward Poisson \(0.3863\) by an essentially random) Tj ET
+BT /F1 10 Tf 50 492 Td (     amount. A strongly disordered, spinning vortex system can therefore) Tj ET
+BT /F1 10 Tf 50 470 Td (     emit ALMOST ANY statistics ? the numbers depend on the effective) Tj ET
+BT /F1 10 Tf 50 448 Td (     rotation speed \(W/t\) and on the twisting/vortex arrangement \(Nv,) Tj ET
+BT /F1 10 Tf 50 426 Td (     layout, charges\) of that realization, not on the AB physics.) Tj ET
+BT /F1 10 Tf 50 404 Td (   ? q·W ? t  \(W ? 1\): the Aharonov-Bohm phases dominate the hopping,) Tj ET
+BT /F1 10 Tf 50 382 Td (     states stay delocalized and GUE \(Wigner-Dyson\) is reachable.) Tj ET
+BT /F1 10 Tf 50 360 Td (  That is why these tests measure at W_eff = min\(cfg.ab_W, W_max = 1.0\):) Tj ET
+BT /F1 10 Tf 50 338 Td (  they certify the PHASE physics, not the disorder physics.) Tj ET
+BT /F1 10 Tf 50 316 Td (Sample: 55290 eigs \(pass 2 \(secondary\), target 50000, reached=yes\); W_eff=1.00.) Tj ET
+BT /F1 10 Tf 50 294 Td (Byte robustness verdict = multi-window |??r?|=0.0009 \(tol 0.0200, 120 windows\); single-window |?r|=0.0061 \(diagnostic\).) Tj ET
+BT /F1 13 Tf 50 176 Td (Result) Tj ET
+BT /F1 10 Tf 50 250 Td ( Test 36: byte robust ? r_256=0.5756, |?r|_multi=0.0009 \(120 windows\), |?r|_1win=0.0061 \(diag\), H=7.9991 bits, ??_z=-0.234, n=55288 ? PASS) Tj ET
+BT /F1 13 Tf 50 124 Td (Plots) Tj ET
+BT /F1 10 Tf 50 206 Td (\(no plots queued by this pass ? physics series live in the HARDCORE pass-2 report: hc_verdict_table queues a sub-check verdict map there, and the deep-audit tests queue their own scan charts; the retired stdout scraper no longer fabricates filler charts\)) Tj ET
+BT /F1 13 Tf 50 72 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 162 Td (Reproduce with: julia ab_cloud_v19.jl --test 36 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 140 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 6 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 5126 >>
+stream
+0 0 0 RG
+BT /F1 13 Tf 50 800 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 778 Td ([22:45:53.699] [+32268.981s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 756 Td ([22:51:13.311] [+32588.593s]  t37 pass 2 \(secondary\) realization 1: central block 5529 eigs, accumulated 5529 \(target 50000\)) Tj ET
+BT /F1 7 Tf 50 734 Td ([22:51:14.494] [+32589.776s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 712 Td ([22:55:54.778] [+32870.060s]  t37 pass 2 \(secondary\) realization 2: central block 5529 eigs, accumulated 11058 \(target 50000\)) Tj ET
+BT /F1 7 Tf 50 690 Td ([22:55:56.081] [+32871.363s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 668 Td ([23:00:33.946] [+33149.228s]  t37 pass 2 \(secondary\) realization 3: central block 5529 eigs, accumulated 16587 \(target 50000\)) Tj ET
+BT /F1 7 Tf 50 646 Td ([23:00:35.139] [+33150.422s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 624 Td ([23:05:51.910] [+33467.192s]  t37 pass 2 \(secondary\) realization 4: central block 5529 eigs, accumulated 22116 \(target 50000\)) Tj ET
+BT /F1 7 Tf 50 602 Td ([23:05:53.552] [+33468.834s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 580 Td ([23:10:20.477] [+33735.759s]  t37 pass 2 \(secondary\) realization 5: central block 5529 eigs, accumulated 27645 \(target 50000\)) Tj ET
+BT /F1 7 Tf 50 558 Td ([23:10:21.619] [+33736.901s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 536 Td ([23:14:36.092] [+33991.374s]  t37 pass 2 \(secondary\) realization 6: central block 5529 eigs, accumulated 33174 \(target 50000\)) Tj ET
+BT /F1 7 Tf 50 514 Td ([23:14:37.266] [+33992.548s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 492 Td ([23:18:57.442] [+34252.724s]  t37 pass 2 \(secondary\) realization 7: central block 5529 eigs, accumulated 38703 \(target 50000\)) Tj ET
+BT /F1 7 Tf 50 470 Td ([23:18:58.673] [+34253.955s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 448 Td ([23:23:11.865] [+34507.147s]  t37 pass 2 \(secondary\) realization 8: central block 5529 eigs, accumulated 44232 \(target 50000\)) Tj ET
+BT /F1 7 Tf 50 426 Td ([23:23:13.003] [+34508.286s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 404 Td ([23:27:55.567] [+34790.849s]  t37 pass 2 \(secondary\) realization 9: central block 5529 eigs, accumulated 49761 \(target 50000\)) Tj ET
+BT /F1 7 Tf 50 382 Td ([23:27:56.843] [+34792.126s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 360 Td ([23:33:00.249] [+35095.531s]  t37 pass 2 \(secondary\) realization 10: central block 5529 eigs, accumulated 55290 \(target 50000\)) Tj ET
+BT /F1 7 Tf 50 338 Td ([23:33:00.262] [+35095.544s]  calc: ?r? = 0.387930 \(n_r=55288, n_eigs=55290\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 316 Td ([23:33:00.277] [+35095.560s]  calc: ?r? = 0.657053 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 294 Td ([23:33:00.278] [+35095.560s]  calc: ?r? = 0.643724 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 272 Td ([23:33:00.278] [+35095.560s]  calc: ?r? = 0.624209 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 250 Td ([23:33:00.278] [+35095.560s]  calc: ?r? = 0.568482 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 228 Td ([23:33:00.278] [+35095.560s]  calc: ?r? = 0.522107 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 206 Td ([23:33:00.278] [+35095.560s]  calc: ?r? = 0.535764 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 184 Td ([23:33:00.278] [+35095.561s]  calc: ?r? = 0.652837 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 162 Td ([23:33:00.278] [+35095.561s]  calc: ?r? = 0.595610 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 140 Td ([23:33:00.278] [+35095.561s]  calc: ?r? = 0.624374 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 118 Td ([23:33:00.278] [+35095.561s]  calc: ?r? = 0.604567 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 96 Td ([23:33:00.278] [+35095.561s]  calc: ?r? = 0.485897 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 74 Td ([23:33:00.278] [+35095.561s]  calc: ?r? = 0.693192 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 8 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+8 0 obj
+<< /Length 4665 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ([23:33:00.278] [+35095.561s]  calc: ?r? = 0.683830 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 778 Td ([23:33:00.278] [+35095.561s]  calc: ?r? = 0.528901 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 756 Td ([23:33:00.278] [+35095.561s]  calc: ?r? = 0.519134 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 734 Td ([23:33:00.279] [+35095.561s]  calc: ?r? = 0.492447 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 712 Td ([23:33:00.279] [+35095.561s]  calc: ?r? = 0.622341 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 690 Td ([23:33:00.279] [+35095.561s]  calc: ?r? = 0.617574 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 668 Td ([23:33:00.279] [+35095.561s]  calc: ?r? = 0.607611 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 646 Td ([23:33:00.279] [+35095.561s]  calc: ?r? = 0.545788 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 624 Td ([23:33:00.279] [+35095.561s]  calc: ?r? = 0.540762 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 602 Td ([23:33:00.279] [+35095.561s]  calc: ?r? = 0.384361 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 580 Td ([23:33:00.279] [+35095.561s]  calc: ?r? = 0.605531 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 558 Td ([23:33:00.279] [+35095.561s]  calc: ?r? = 0.527459 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 536 Td ([23:33:00.279] [+35095.561s]  calc: ?r? = 0.492429 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 514 Td ([23:33:00.279] [+35095.561s]  calc: ?r? = 0.640946 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 492 Td ([23:33:00.279] [+35095.561s]  calc: ?r? = 0.815854 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 470 Td ([23:33:00.279] [+35095.561s]  calc: ?r? = 0.467241 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 448 Td ([23:33:00.279] [+35095.561s]  calc: ?r? = 0.655008 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 426 Td ([23:33:00.279] [+35095.561s]  calc: ?r? = 0.651800 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 404 Td ([23:33:00.279] [+35095.561s]  calc: ?r? = 0.476787 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 382 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.522209 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 360 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.526679 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 338 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.487008 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 316 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.639582 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 294 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.663925 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 272 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.501332 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 250 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.462589 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 228 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.486558 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 206 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.571701 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 184 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.655437 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 162 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.669788 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 140 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.681240 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 118 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.655458 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 96 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.628425 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 74 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.585196 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 10 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 4665 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.563536 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 778 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.692005 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 756 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.726317 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 734 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.665739 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 712 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.612582 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 690 Td ([23:33:00.280] [+35095.562s]  calc: ?r? = 0.672288 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 668 Td ([23:33:00.280] [+35095.563s]  calc: ?r? = 0.537854 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 646 Td ([23:33:00.280] [+35095.563s]  calc: ?r? = 0.462356 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 624 Td ([23:33:00.280] [+35095.563s]  calc: ?r? = 0.634012 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 602 Td ([23:33:00.280] [+35095.563s]  calc: ?r? = 0.544264 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 580 Td ([23:33:00.280] [+35095.563s]  calc: ?r? = 0.407715 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 558 Td ([23:33:00.280] [+35095.563s]  calc: ?r? = 0.540566 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 536 Td ([23:33:00.280] [+35095.563s]  calc: ?r? = 0.458490 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 514 Td ([23:33:00.280] [+35095.563s]  calc: ?r? = 0.572290 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 492 Td ([23:33:00.280] [+35095.563s]  calc: ?r? = 0.612044 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 470 Td ([23:33:00.280] [+35095.563s]  calc: ?r? = 0.745189 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 448 Td ([23:33:00.281] [+35095.563s]  calc: ?r? = 0.606921 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 426 Td ([23:33:00.281] [+35095.563s]  calc: ?r? = 0.673025 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 404 Td ([23:33:00.281] [+35095.563s]  calc: ?r? = 0.399152 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 382 Td ([23:33:00.281] [+35095.563s]  calc: ?r? = 0.553205 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 360 Td ([23:33:00.281] [+35095.563s]  calc: ?r? = 0.548260 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 338 Td ([23:33:00.281] [+35095.563s]  calc: ?r? = 0.521588 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 316 Td ([23:33:00.281] [+35095.563s]  calc: ?r? = 0.546769 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 294 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.533360 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 272 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.501554 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 250 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.508977 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 228 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.610973 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 206 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.626084 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 184 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.550313 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 162 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.550351 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 140 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.642275 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 118 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.529751 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 96 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.548388 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 74 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.658126 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 12 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+12 0 obj
+<< /Length 4665 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.557107 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 778 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.636281 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 756 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.497804 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 734 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.684932 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 712 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.687670 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 690 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.570463 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 668 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.610529 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 646 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.596610 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 624 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.617638 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 602 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.380672 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 580 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.525082 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 558 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.596661 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 536 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.578898 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 514 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.512743 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 492 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.628458 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 470 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.650209 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 448 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.535112 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 426 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.599149 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 404 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.454103 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 382 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.592745 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 360 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.490758 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 338 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.482994 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 316 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.451370 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 294 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.611679 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 272 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.530496 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 250 Td ([23:33:00.282] [+35095.564s]  calc: ?r? = 0.515716 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 228 Td ([23:33:00.283] [+35095.565s]  calc: ?r? = 0.547860 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 206 Td ([23:33:00.283] [+35095.565s]  calc: ?r? = 0.699975 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 184 Td ([23:33:00.283] [+35095.565s]  calc: ?r? = 0.619194 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 162 Td ([23:33:00.283] [+35095.565s]  calc: ?r? = 0.372409 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 140 Td ([23:33:00.283] [+35095.565s]  calc: ?r? = 0.670355 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 118 Td ([23:33:00.283] [+35095.565s]  calc: ?r? = 0.708571 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 96 Td ([23:33:00.283] [+35095.566s]  calc: ?r? = 0.607556 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 74 Td ([23:33:00.283] [+35095.566s]  calc: ?r? = 0.621021 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 14 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+14 0 obj
+<< /Length 3677 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ([23:33:00.283] [+35095.566s]  calc: ?r? = 0.662679 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 778 Td ([23:33:00.283] [+35095.566s]  calc: ?r? = 0.484236 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 756 Td ([23:33:00.283] [+35095.566s]  calc: ?r? = 0.642217 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 734 Td ([23:33:00.283] [+35095.566s]  calc: ?r? = 0.541220 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 712 Td ([23:33:00.283] [+35095.566s]  calc: ?r? = 0.602689 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 690 Td ([23:33:00.283] [+35095.566s]  calc: ?r? = 0.479526 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 668 Td ([23:33:00.283] [+35095.566s]  calc: ?r? = 0.599213 \(n_r=13, n_eigs=15\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 13 Tf 50 618 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 624 Td () Tj ET
+BT /F1 7 Tf 50 602 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 580 Td (TEST 36: Byte-level robustness ? quantization + RNG entropy) Tj ET
+BT /F1 7 Tf 50 558 Td ( Verify ?r? survives 256-level quantization + RNG byte uniformity) Tj ET
+BT /F1 7 Tf 50 536 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 514 Td ( WHY W \(DISORDER\) IS CAPPED AT W_max ? 1.0 ? disorder ? vortex motion ? statistics:) Tj ET
+BT /F1 7 Tf 50 492 Td (  W is the diagonal on-site potential the vortices paint onto the lattice:) Tj ET
+BT /F1 7 Tf 50 470 Td (      V_i = ?_k q_k·W / \(r_ik?·N?¹ + 1\),   hopping t = 1.) Tj ET
+BT /F1 7 Tf 50 448 Td (  The ratio \(disorder energy q·W\) / \(kinetic energy t\) decides what the) Tj ET
+BT /F1 7 Tf 50 426 Td (  vortex cloud does and which spectral statistics come out:) Tj ET
+BT /F1 7 Tf 50 404 Td (   ? q·W ? t  \(e.g. W=4, q=0.3 ? V?1.2 next to a core\): the disorder) Tj ET
+BT /F1 7 Tf 50 382 Td (     landscape dominates the vortex motion ? vortices pin/steer the) Tj ET
+BT /F1 7 Tf 50 360 Td (     eigenstates, states localize on the potential relief, and ?r? drifts) Tj ET
+BT /F1 7 Tf 50 338 Td (     from GUE \(0.5992\) toward Poisson \(0.3863\) by an essentially random) Tj ET
+BT /F1 7 Tf 50 316 Td (     amount. A strongly disordered, spinning vortex system can therefore) Tj ET
+BT /F1 7 Tf 50 294 Td (     emit ALMOST ANY statistics ? the numbers depend on the effective) Tj ET
+BT /F1 7 Tf 50 272 Td (     rotation speed \(W/t\) and on the twisting/vortex arrangement \(Nv,) Tj ET
+BT /F1 7 Tf 50 250 Td (     layout, charges\) of that realization, not on the AB physics.) Tj ET
+BT /F1 7 Tf 50 228 Td (   ? q·W ? t  \(W ? 1\): the Aharonov-Bohm phases dominate the hopping,) Tj ET
+BT /F1 7 Tf 50 206 Td (     states stay delocalized and GUE \(Wigner-Dyson\) is reachable.) Tj ET
+BT /F1 7 Tf 50 184 Td (  That is why these tests measure at W_eff = min\(cfg.ab_W, W_max = 1.0\):) Tj ET
+BT /F1 7 Tf 50 162 Td (  they certify the PHASE physics, not the disorder physics.) Tj ET
+BT /F1 7 Tf 50 140 Td ( Sample target: 50000 eigenvalues [pass 2 \(secondary\)] \(cfg.ab37_n_eigs_pass2\)) Tj ET
+BT /F1 7 Tf 50 118 Td ( Disorder: W = 1.00 = min\(ab_W=4.00, W_max=1.00\) ? q·W = 1.00 vs hopping t = 1.0 ? AB phases dominate \(byte check tests the phase physics\)) Tj ET
+BT /F1 7 Tf 50 96 Td ( realization  1/5, continuing \(below target\): +5529 central eigs ? accumulated 5529 / 50000 \(11%\)) Tj ET
+BT /F1 7 Tf 50 74 Td ( realization  2/5, continuing \(below target\): +5529 central eigs ? accumulated 11058 / 50000 \(22%\)) Tj ET
+
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 16 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+16 0 obj
+<< /Length 2190 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ( realization  3/5, continuing \(below target\): +5529 central eigs ? accumulated 16587 / 50000 \(33%\)) Tj ET
+BT /F1 7 Tf 50 778 Td ( realization  4/5, continuing \(below target\): +5529 central eigs ? accumulated 22116 / 50000 \(44%\)) Tj ET
+BT /F1 7 Tf 50 756 Td ( realization  5/5, continuing \(below target\): +5529 central eigs ? accumulated 27645 / 50000 \(55%\)) Tj ET
+BT /F1 7 Tf 50 734 Td ( realization  6/6, continuing \(below target\): +5529 central eigs ? accumulated 33174 / 50000 \(66%\)) Tj ET
+BT /F1 7 Tf 50 712 Td ( realization  7/7, continuing \(below target\): +5529 central eigs ? accumulated 38703 / 50000 \(77%\)) Tj ET
+BT /F1 7 Tf 50 690 Td ( realization  8/8, continuing \(below target\): +5529 central eigs ? accumulated 44232 / 50000 \(88%\)) Tj ET
+BT /F1 7 Tf 50 668 Td ( realization  9/9, continuing \(below target\): +5529 central eigs ? accumulated 49761 / 50000 \(100%\)) Tj ET
+BT /F1 7 Tf 50 646 Td ( realization 10/10: +5529 central eigs ? accumulated 55290 / 50000 \(111%\)) Tj ET
+BT /F1 7 Tf 50 624 Td ( Raw ?r? = 0.3879 \(n=55288 spacings\)) Tj ET
+BT /F1 7 Tf 50 602 Td ( Universality class: Poisson \(d_GUE=0.2117, d_GOE=0.1428, d_GSE=0.2883, d_Poi=0.0016\)) Tj ET
+BT /F1 7 Tf 50 580 Td ( \(local window: n=15 central eigs, raw ?r?_local = 0.6571\)) Tj ET
+BT /F1 7 Tf 50 558 Td () Tj ET
+BT /F1 7 Tf 50 536 Td ( \(a\) Byte-quantization robustness \(256 levels\):) Tj ET
+BT /F1 7 Tf 50 514 Td ( legacy single window \(diagnostic\): r_byte = 0.6631, raw_local = 0.6571, |?r| = 0.0061) Tj ET
+BT /F1 7 Tf 50 492 Td ( multi-window average \(decisive; 120 windows × 15 eigs\):) Tj ET
+BT /F1 7 Tf 50 470 Td ( ?r?_raw = 0.5765, ?r?_byte = 0.5756, |??r?| = 0.0009 \(tol=0.0200\) ? PASS) Tj ET
+BT /F1 7 Tf 50 448 Td () Tj ET
+BT /F1 7 Tf 50 426 Td ( \(b\) RNG byte-entropy / uniformity:) Tj ET
+BT /F1 7 Tf 50 404 Td ( Shannon entropy = 7.9991 bits \(target ? 7.9\)) Tj ET
+BT /F1 7 Tf 50 382 Td ( ??_z \(CLT approx, df=255\) = -0.2342 \(|z|<3.0\) ? PASS) Tj ET
+BT /F1 7 Tf 50 360 Td ( Test 36: byte robust ? r_256=0.5756, |?r|_multi=0.0009 \(120 windows\), |?r|_1win=0.0061 \(diag\), H=7.9991 bits, ??_z=-0.234, n=55288 ? PASS) Tj ET
+
+endstream
+endobj
+17 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 18
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000160 00000 n 
+0000000286 00000 n 
+0000004027 00000 n 
+0000004153 00000 n 
+0000009331 00000 n 
+0000009457 00000 n 
+0000014174 00000 n 
+0000014301 00000 n 
+0000019019 00000 n 
+0000019147 00000 n 
+0000023865 00000 n 
+0000023993 00000 n 
+0000027723 00000 n 
+0000027851 00000 n 
+0000030094 00000 n 
+trailer
+<< /Size 18 /Root 1 0 R >>
+startxref
+30192
+%%EOF

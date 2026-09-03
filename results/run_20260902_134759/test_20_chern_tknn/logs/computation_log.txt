@@ -1,0 +1,4 @@
+FULL COMPUTATION LOG — test 20: TKNN Chern number C₁=1 (gapped anchors)
+every log_comp() entry emitted while this test ran:
+
+(no log_comp entries)

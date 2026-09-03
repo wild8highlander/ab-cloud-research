@@ -1,0 +1,93 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3621 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 28: f_GUE figure of merit) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: FAIL   |   Generated: 2026-09-02 17:39:02   |   Suite: AB-Cloud v19 \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (Statistical: fraction of spectral diagnostics consistent with GUE.) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: Statistical: fraction of spectral diagnostics consistent with GUE.) Tj ET
+BT /F1 10 Tf 50 690 Td (Test 28 HARDCORE pass 2: 96x96, Nv=4, q=±1.0, W=1.0, n=5 realizations, per-realization f_GUE ensemble.) Tj ET
+BT /F1 10 Tf 50 668 Td (Test 28 HARDCORE: ?f_GUE?=0.8553±0.0214 \(n=5\), CI [0.8184,0.8946], scatter ?=0.0479.) Tj ET
+BT /F1 13 Tf 50 618 Td (Result) Tj ET
+BT /F1 10 Tf 50 624 Td ( Test 28b [HARDCORE pass 2]: 2 sub-checks, 1 failed ? WARN) Tj ET
+BT /F1 13 Tf 50 566 Td (Plots) Tj ET
+BT /F1 10 Tf 50 580 Td (- `plots/plot_01` \(.png 600dpi / .svg / .pdf\)) Tj ET
+BT /F1 10 Tf 50 558 Td (- `plots/plot_02` \(.png 600dpi / .svg / .pdf\)) Tj ET
+BT /F1 10 Tf 50 536 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+BT /F1 13 Tf 50 462 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 492 Td (Reproduce with: julia ab_cloud_v19.jl --test 28 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 470 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 384 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 426 Td ([17:13:08.712] [+12303.994s]  calc: ??\(L=2.000\) = 0.404688 \(n_pos=9601, n_windows=3000, mean_count=1.99\)) Tj ET
+BT /F1 7 Tf 50 404 Td ([17:13:09.363] [+12304.645s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 382 Td ([17:18:15.462] [+12610.744s]  calc: ??\(L=2.000\) = 0.663437 \(n_pos=5530, n_windows=3000, mean_count=2.03\)) Tj ET
+BT /F1 7 Tf 50 360 Td ([17:18:19.349] [+12614.631s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 338 Td ([17:23:20.729] [+12916.011s]  calc: ??\(L=2.000\) = 0.629287 \(n_pos=5530, n_windows=3000, mean_count=2.02\)) Tj ET
+BT /F1 7 Tf 50 316 Td ([17:23:26.725] [+12922.007s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 294 Td ([17:28:20.247] [+13215.529s]  calc: ??\(L=2.000\) = 0.620146 \(n_pos=5530, n_windows=3000, mean_count=2.04\)) Tj ET
+BT /F1 7 Tf 50 272 Td ([17:28:26.188] [+13221.470s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 250 Td ([17:33:37.233] [+13532.515s]  calc: ??\(L=2.000\) = 0.737871 \(n_pos=5527, n_windows=3000, mean_count=2.04\)) Tj ET
+BT /F1 7 Tf 50 228 Td ([17:33:43.480] [+13538.762s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 206 Td ([17:38:57.213] [+13852.495s]  calc: ??\(L=2.000\) = 0.526840 \(n_pos=5530, n_windows=3000, mean_count=2.02\)) Tj ET
+BT /F1 13 Tf 50 72 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 162 Td () Tj ET
+BT /F1 7 Tf 50 140 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 118 Td (TEST 28 \(pass 2, HARDCORE\): f_GUE figure of merit ? ensemble deep pass) Tj ET
+BT /F1 7 Tf 50 96 Td (n ? 5 realizations, per-realization f_GUE, ensemble verdict) Tj ET
+BT /F1 7 Tf 50 74 Td (????????????????????????????????????????????????????????????) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 6 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 1032 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ( ? RUNTIME: n=5 realizations at 96x96 ? expect ? 12?17 min) Tj ET
+BT /F1 7 Tf 50 778 Td ( Config: 96x96, Nv=4, q=±1.00, ?=0.5000, W=1.0 \(hardcore standard: W=1, q=1, Nv=4\)) Tj ET
+BT /F1 7 Tf 50 756 Td ( real  1/5: f_GUE = 0.8378) Tj ET
+BT /F1 7 Tf 50 734 Td ( real  2/5: f_GUE = 0.8592) Tj ET
+BT /F1 7 Tf 50 712 Td ( real  3/5: f_GUE = 0.8649) Tj ET
+BT /F1 7 Tf 50 690 Td ( real  4/5: f_GUE = 0.7911) Tj ET
+BT /F1 7 Tf 50 668 Td ( real  5/5: f_GUE = 0.9234) Tj ET
+BT /F1 7 Tf 50 646 Td () Tj ET
+BT /F1 7 Tf 50 624 Td ( Ensemble: ?f_GUE? = 0.8553 ± 0.0214 | bootstrap CI [0.8184, 0.8946] ? 0.90 \(diagnostic\)) Tj ET
+BT /F1 7 Tf 50 602 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 580 Td ( ?f_GUE? > 0.90       WARN ? ?f_GUE? = 0.8553 ± 0.0214 \(n=5 of 5 finite\)) Tj ET
+BT /F1 7 Tf 50 558 Td ( scatter < 0.10       PASS ? ?=0.0479 stable across vortex layouts) Tj ET
+BT /F1 7 Tf 50 536 Td ( Test 28b [HARDCORE pass 2]: 2 sub-checks, 1 failed ? WARN) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000253 00000 n 
+0000003926 00000 n 
+0000004052 00000 n 
+0000005136 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+5233
+%%EOF

@@ -1,0 +1,63 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 2438 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 8: Residual analysis of fit) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: PASS   |   Generated: 2026-09-02 13:49:43   |   Suite: AB-Cloud v19 \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (Residual structure of the log-log fit ? algebraic diagnostics.) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: Residual structure of the log-log fit ? algebraic diagnostics.) Tj ET
+BT /F1 13 Tf 50 670 Td (Result) Tj ET
+BT /F1 10 Tf 50 668 Td ( Test 8 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b\(50000\)=1.2126 ? PASS) Tj ET
+BT /F1 13 Tf 50 618 Td (Plots) Tj ET
+BT /F1 10 Tf 50 624 Td (- `plots/plot_01` \(.png 600dpi / .svg / .pdf\)) Tj ET
+BT /F1 10 Tf 50 602 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+BT /F1 13 Tf 50 540 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 558 Td (Reproduce with: julia ab_cloud_v19.jl --test 8 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 536 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 462 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 492 Td (\(no log_comp entries\)) Tj ET
+BT /F1 13 Tf 50 410 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 448 Td () Tj ET
+BT /F1 7 Tf 50 426 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 404 Td (TEST 8 \(secondary, HARDCORE\): Objection 3: Large-T Decay Rate ? dense residual audit) Tj ET
+BT /F1 7 Tf 50 382 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 360 Td ( E1 runs      : 3 runs over 10 doubling-grid residuals \(expected 5.8 ± 6.0\)) Tj ET
+BT /F1 7 Tf 50 338 Td ( E2 autocorr  : lag-1 = 0.6794, lag-2 = 0.0053 \(sanity limit |r|<0.95\)) Tj ET
+BT /F1 7 Tf 50 316 Td ( E3 scale     : dense residuals sd_first=0.04614, sd_second=0.04289, ratio=1.076 \(limits 0.4?2.5\)) Tj ET
+BT /F1 7 Tf 50 294 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 272 Td ( E1 runs              PASS ? 3 vs 5.8 expected) Tj ET
+BT /F1 7 Tf 50 250 Td ( E2 autocorr          PASS ? r1=0.679, r2=0.005) Tj ET
+BT /F1 7 Tf 50 228 Td ( E3 scale             PASS ? ratio = 1.076) Tj ET
+BT /F1 7 Tf 50 206 Td ( E4 sign balance      PASS ? 4+/-6) Tj ET
+BT /F1 7 Tf 50 184 Td ( Test 8 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b\(50000\)=1.2126 ? PASS) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000247 00000 n 
+0000002737 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+2834
+%%EOF

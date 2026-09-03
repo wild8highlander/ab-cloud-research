@@ -1,0 +1,524 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R] /Count 11 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 4022 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (FINAL REPORT ? AB-Cloud v19 ? full 37-test verification suite) Tj ET
+BT /F1 10 Tf 50 778 Td (Generated: 2026-09-02 23:33:46   |   Julia 1.12.0   |   wall duration: 35146.0 s \(585.8 min\)   |   Suite: AB-Cloud v19) Tj ET
+BT /F1 10 Tf 50 756 Td (Author: Isaev Iskhak Khamzatovich \(ORCID 0009-0003-7299-0701\) | DOI 10.5281/zenodo.21825394 | github.com/wild8highlander/research-papers) Tj ET
+BT /F1 13 Tf 50 722 Td (What this folder is) Tj ET
+BT /F1 10 Tf 50 712 Td (FINAL_REPORT is the LAST folder of the run and gathers ALL run information: the master report \(this document, in md/html/pdf\), COPIES of every test's report files \(reports/\), COPIES of every test's computation log and console capture \(logs/\), the full session computation log and the one-line verdict list. Heavy plot artifacts \(png/svg/pdf/gif\) stay in each test's own folder ../test_XX_<slug>/plots/ ? the per-test tables below point there.) Tj ET
+BT /F1 13 Tf 50 670 Td (How to reproduce) Tj ET
+BT /F1 10 Tf 50 668 Td (Full suite:        julia ab_cloud_v19.jl --test all) Tj ET
+BT /F1 10 Tf 50 646 Td (Single test:       julia ab_cloud_v19.jl --test 33 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 624 Td (Disorder cap:      --ab-w-max 1.0   \(Tests 32/33/36 use W_eff = min\(ab_W, W_max\)\)) Tj ET
+BT /F1 10 Tf 50 602 Td (Test 36 targets:   --ab37-n-eigs-pass1 25000 --ab37-n-eigs-pass2 50000) Tj ET
+BT /F1 10 Tf 50 580 Td (Labs: main menu 'l' \(Physics Lab\), 'd3' \(3D Lab\); every experiment writes its own report into the same run folder.) Tj ET
+BT /F1 13 Tf 50 514 Td (Configuration snapshot \(end-of-run values\)) Tj ET
+BT /F1 7 Tf 50 536 Td (zeros_count           = 50000  \(source: auto\)) Tj ET
+BT /F1 7 Tf 50 514 Td (lattice primary       = 72x72  Nv=[4]  q=[1.0]) Tj ET
+BT /F1 7 Tf 50 492 Td (lattice secondary     = 96x96  Nv=[2]  \(two-pass=true, primary-only=false\)) Tj ET
+BT /F1 7 Tf 50 470 Td (third pass \(SERIES\)   = true  \(Tests 19/29/31 ? 19c/29c/31c real report series\)) Tj ET
+BT /F1 7 Tf 50 448 Td (alpha                 = ab_alpha=0.5, ab_alpha_test16=0.5) Tj ET
+BT /F1 7 Tf 50 426 Td (disorder              = ab_W=4, ab_W_max=1  ? W_eff\(Tests 32/33/36\)=1.00) Tj ET
+BT /F1 7 Tf 50 404 Td (test33 comparison row = W_cmp=0.50, Nv_cmp=144) Tj ET
+BT /F1 7 Tf 50 382 Td (realizations          = ab_n_realizations=5, center_fraction=0.6) Tj ET
+BT /F1 7 Tf 50 360 Td (byte robustness       = tol=0.02, n_bytes=200000, seed=12345, T37 targets: pass1=25000 / pass2=50000 eigs) Tj ET
+BT /F1 7 Tf 50 338 Td (lab                   = L=72, ?=0.5, W=4, q=1, Nv=4, random/torus/monumental, seed=12345) Tj ET
+BT /F1 7 Tf 50 316 Td (3d                    = L=10, ?=0.5, tz=1, W=0, mass=0, boundary=:torus, lines=0 q=1, seed=777) Tj ET
+BT /F1 7 Tf 50 294 Td (reporting             = enabled=true, dir=results, dpi=600, formats=md,html,pdf,docx) Tj ET
+BT /F1 13 Tf 50 176 Td (Verdicts ? 77 tests: 66 PASS, 0 WARN, 11 FAIL, 0 DONE) Tj ET
+BT /F1 10 Tf 50 250 Td (Test 1   [PASS] bN_convergence ?  Test 1: b\(N=50000\) = 1.2126 ? PASS) Tj ET
+BT /F1 10 Tf 50 228 Td (Test 1   [PASS] bN_convergence ?  Test 1 [HARDCORE pass 2]: 8 sub-checks, 0 failed, b\(50000\)=1.2126 ? PASS) Tj ET
+BT /F1 10 Tf 50 206 Td (Test 2   [PASS] bN_monotonicity ?  Test 2: Monotonicity violations: 0 / 499 ? PASS) Tj ET
+BT /F1 10 Tf 50 184 Td (Test 2   [PASS] bN_monotonicity ?  Test 2 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b\(50000\)=1.2126 ? PASS) Tj ET
+BT /F1 10 Tf 50 162 Td (Test 3   [PASS] bN_rate ?  Test 3: ? = 0.1685 \(empirical; no expected value\), R?=0.9895 ? PASS) Tj ET
+BT /F1 10 Tf 50 140 Td (Test 3   [PASS] bN_rate ?  Test 3 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b\(50000\)=1.2126 ? PASS) Tj ET
+BT /F1 10 Tf 50 118 Td (Test 4   [FAIL] gue_ks_full ?  Test 4: KS D=0.0216, p=0.0 ? WARN) Tj ET
+BT /F1 10 Tf 50 96 Td (Test 4   [PASS] gue_ks_full ?  Test 4 [HARDCORE pass 2]: 3 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 74 Td (Test 5   [FAIL] gue_ks_highT ?  Test 5: Best high-T p-value=0.0 ? WARN) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 6 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 4326 >>
+stream
+0 0 0 RG
+BT /F1 10 Tf 50 800 Td (Test 5   [PASS] gue_ks_highT ?  Test 5 [HARDCORE pass 2]: 2 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 778 Td (Test 6   [FAIL] chi2_hist ?  Test 6: ?? p=0.0 ? WARN) Tj ET
+BT /F1 10 Tf 50 756 Td (Test 6   [PASS] chi2_hist ?  Test 6 [HARDCORE pass 2]: 2 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 734 Td (Test 7   [PASS] decay_slope ?  Test 7: Slope=-0.1504 \(empirical\), 95%CI=[-0.1594,-0.1414] ? PASS) Tj ET
+BT /F1 10 Tf 50 712 Td (Test 7   [PASS] decay_slope ?  Test 7 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b\(50000\)=1.2126 ? PASS) Tj ET
+BT /F1 10 Tf 50 690 Td (Test 8   [PASS] residuals ?  Test 8: Runs=3 \(exp=5.8\) ? PASS) Tj ET
+BT /F1 10 Tf 50 668 Td (Test 8   [PASS] residuals ?  Test 8 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b\(50000\)=1.2126 ? PASS) Tj ET
+BT /F1 10 Tf 50 646 Td (Test 9   [PASS] bootstrap_ci ?  Test 9: Bootstrap slope=-0.1746 \(empirical\), 95%CI=[-0.1895,-0.1552] ? PASS) Tj ET
+BT /F1 10 Tf 50 624 Td (Test 9   [PASS] bootstrap_ci ?  Test 9 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b\(50000\)=1.2126 ? PASS) Tj ET
+BT /F1 10 Tf 50 602 Td (Test 10  [PASS] cross_validation ?  Test 10: Max deviation=8.5% ? PASS) Tj ET
+BT /F1 10 Tf 50 580 Td (Test 10  [PASS] cross_validation ?  Test 10 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b\(50000\)=1.2126 ? PASS) Tj ET
+BT /F1 10 Tf 50 558 Td (Test 11  [FAIL] anderson_darling ?  Test 11: A?=61.4924, MC p=0.0000 ? WARN \(best high-T subrange T>31351 also rejects, p=0.0000; see height-resolved table\)) Tj ET
+BT /F1 10 Tf 50 536 Td (Test 11  [PASS] anderson_darling ?  Test 11 [HARDCORE pass 2]: 5 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 514 Td (Test 12  [FAIL] two_sample_ks ?  Test 12: 2-sample KS D=0.0233, p=0.010547 ? WARN) Tj ET
+BT /F1 10 Tf 50 492 Td (Test 12  [PASS] two_sample_ks ?  Test 12 [HARDCORE pass 2]: 3 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 470 Td (Test 13  [PASS] number_variance ?  Test 13: data closer to GUE in 9/9 L-values ? PASS) Tj ET
+BT /F1 10 Tf 50 448 Td (Test 13  [PASS] number_variance ?  Test 13 [HARDCORE pass 2]: 4 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 426 Td (Test 14  [PASS] spectral_rigidity ?  Test 14: data closer to GUE in 9/9 L-values ? PASS) Tj ET
+BT /F1 10 Tf 50 404 Td (Test 14  [PASS] spectral_rigidity ?  Test 14 [HARDCORE pass 2]: 3 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 382 Td (Test 15  [PASS] ab_construction ?  Test 15: Hermiticity=OK, ?_TRB=0.1037, flux_v1=-0.0 [exp -0.0], flux_empty=0.0 ? PASS) Tj ET
+BT /F1 10 Tf 50 360 Td (Test 15  [PASS] ab_construction ?  Test 15b [HARDCORE pass 2]: 2 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 338 Td (Test 16  [PASS] ab_gue_class ?  Test 16 [MONTGOMERY] FINAL \(last ?=0.5\): ?r?=0.594 ? PASS) Tj ET
+BT /F1 10 Tf 50 316 Td (Test 16  [PASS] ab_gue_class ?  Test 16b [HARDCORE pass 2]: 2 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 294 Td (Test 17  [PASS] connes_self_duality ?  Test 17: zero_modes\(?=1/2\)=4 \(expected 4\) ? PASS) Tj ET
+BT /F1 10 Tf 50 272 Td (Test 17  [PASS] connes_self_duality ?  Test 17b [HARDCORE pass 2]: 2 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 250 Td (Test 18  [PASS] chiral_AIII ?  Test 18: chiral defect \(?=1/2\)=0.0 [exp 0.000000], \(?=1/3\)=0.0058 [exp ?0] ? PASS) Tj ET
+BT /F1 10 Tf 50 228 Td (Test 18  [PASS] chiral_AIII ?  Test 18b [HARDCORE pass 2]: 4 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 206 Td (Test 19  [PASS] dirac_cone ?  Test 19: 1/L scaling R?=0.9997, v_F\(2?\)=1.8998, v_F\(?\)=3.7995 ? PASS) Tj ET
+BT /F1 10 Tf 50 184 Td (Test 19  [PASS] dirac_cone ?  Test 19b [HARDCORE pass 2]: 3 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 162 Td (Test 19  [PASS] dirac_cone ?  Test 19c [SERIES pass 3]: 3 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 140 Td (Test 20  [PASS] chern_tknn ?  Test 20: C? anchors {1/4,1/3,1/5}=1,1,1 [exp 1,1,1], ?=1/2 min gap=0.0 \(Dirac touching\), mass branch C=0/0 ? PASS) Tj ET
+BT /F1 10 Tf 50 118 Td (Test 20  [PASS] chern_tknn ?  Test 20b [HARDCORE pass 2]: 3 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 96 Td (Test 21  [PASS] gamma_phase ?  Test 21: arg\(?*\)=89.874° \(?90°, deviation=0.126°\) ? PASS) Tj ET
+BT /F1 10 Tf 50 74 Td (Test 21  [PASS] gamma_phase ?  Test 21b [HARDCORE pass 2]: 3 sub-checks, 0 failed ? PASS) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 8 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+8 0 obj
+<< /Length 4424 >>
+stream
+0 0 0 RG
+BT /F1 10 Tf 50 800 Td (Test 22  [PASS] ab_phase ?  Test 22: ?_AB=0.4487989505 = ?/7 \(exact\) ? PASS) Tj ET
+BT /F1 10 Tf 50 778 Td (Test 22  [PASS] ab_phase ?  Test 22b [HARDCORE pass 2]: 3 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 756 Td (Test 23  [PASS] fractal_factor ?  Test 23: |CF_formula|=1.0 \(=1 by construction\), c_AB=0.02062 \(?0.02063\) ? PASS) Tj ET
+BT /F1 10 Tf 50 734 Td (Test 23  [PASS] fractal_factor ?  Test 23b [HARDCORE pass 2]: 3 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 712 Td (Test 24  [PASS] dirac_string_flux ?  Test 24: vortex flux OK=1/1, empty OK=5040/5040, max_empty=0.0 ? PASS) Tj ET
+BT /F1 10 Tf 50 690 Td (Test 24  [PASS] dirac_string_flux ?  Test 24b [HARDCORE pass 2]: 5 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 668 Td (Test 25  [PASS] byers_yang ?  Test 25: ?\(q=1?0\)=0.0 [exp ~0], ?\(q=0.3?0\)=0.0032 [exp >1e-3] ? PASS) Tj ET
+BT /F1 10 Tf 50 646 Td (Test 25  [PASS] byers_yang ?  Test 25b [HARDCORE pass 2]: 2 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 624 Td (Test 26  [PASS] pbc_torus ?  Test 26: flux_v=-0.0 [exp -0.0], empty_ok=5040/5183, herm=OK, ?r?=0.6009 ? PASS) Tj ET
+BT /F1 10 Tf 50 602 Td (Test 26  [PASS] pbc_torus ?  Test 26b [HARDCORE pass 2]: 4 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 580 Td (Test 27  [PASS] binary_chiral ?  Test 27: chiral defect \(W=0\) = 0.0, \(W=1.0\) = 0.0058 ? PASS) Tj ET
+BT /F1 10 Tf 50 558 Td (Test 27  [PASS] binary_chiral ?  Test 27b [HARDCORE pass 2]: 4 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 536 Td (Test 28  [FAIL] f_gue_merit ?  Test 28: f_GUE=0.8704, ??_data=0.6115 ? WARN) Tj ET
+BT /F1 10 Tf 50 514 Td (Test 28  [FAIL] f_gue_merit ?  Test 28b [HARDCORE pass 2]: 2 sub-checks, 1 failed ? WARN) Tj ET
+BT /F1 10 Tf 50 492 Td (Test 29  [PASS] dirac_dip ?  Test 29: ?\(?=0.5\)=0.0193 vs ?\(0.403\)=0.1944 / ?\(0.597\)=0.1944 ? PASS) Tj ET
+BT /F1 10 Tf 50 470 Td (Test 29  [FAIL] dirac_dip ?  Test 29b [HARDCORE pass 2]: 3 sub-checks, 1 failed ? WARN) Tj ET
+BT /F1 10 Tf 50 448 Td (Test 29  [PASS] dirac_dip ?  Test 29c [SERIES pass 3]: 3 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 426 Td (Test 30  [PASS] vf_scaling ?  Test 30: v_F=1.798, R?=0.9977 ? PASS) Tj ET
+BT /F1 10 Tf 50 404 Td (Test 30  [PASS] vf_scaling ?  Test 30b [HARDCORE pass 2]: 3 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 382 Td (Test 31  [PASS] hatano_nelson ?  Test 31: max|Im\(E\)|=0.6397, ?r?_NH=0.8938 ? PASS) Tj ET
+BT /F1 10 Tf 50 360 Td (Test 31  [PASS] hatano_nelson ?  Test 31b [HARDCORE pass 2]: 3 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 338 Td (Test 31  [PASS] hatano_nelson ?  Test 31c [SERIES pass 3]: 4 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 316 Td (Test 32  [PASS] rmean_bootstrap ?  Test 32: ?r?=0.5991±0.0075 \(q=1.0, n=5, W=1.0\) vs GUE 0.5992 ? PASS) Tj ET
+BT /F1 10 Tf 50 294 Td (Test 32  [PASS] rmean_bootstrap ?  Test 32b [HARDCORE pass 2]: 2 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 10 Tf 50 272 Td (Test 33  [PASS] l_scaling_rmean ?  Test 33: L-scaling to L=80 0.434,0.556,0.593,0.6,0.6 ? PASS) Tj ET
+BT /F1 10 Tf 50 250 Td (Test 33  [PASS] l_scaling_rmean ?  Test 33b \(hardcore\): plateau weighted ?r?=0.6004, ??/dof=0.01 ? PASS) Tj ET
+BT /F1 10 Tf 50 228 Td (Test 34  [PASS] direct_vs_zeta ?  Test 34: KS p=0.0, ?|?R?|?=0.0374, d_GUE=0.796 ? PASS) Tj ET
+BT /F1 10 Tf 50 206 Td (Test 34  [FAIL] direct_vs_zeta ?  Test 34b [HARDCORE pass 2]: 4 sub-checks, 1 failed ? WARN) Tj ET
+BT /F1 10 Tf 50 184 Td (Test 35  [FAIL] form_factor_Kt ?  Test 35: K\(t\) ramp+plateau ? RMS_GUE=0.4193, corr_GUE=0.8889 ? WARN) Tj ET
+BT /F1 10 Tf 50 162 Td (Test 35  [FAIL] form_factor_Kt ?  Test 35b [HARDCORE pass 2]: 3 sub-checks, 2 failed ? WARN) Tj ET
+BT /F1 10 Tf 50 140 Td (Test 36  [PASS] byte_robust ?  Test 36: byte robust ? r_256=0.5894, |?r|_multi=0.001 \(120 windows\), |?r|_1win=0.012 \(diag\), H=7.9991 bits, ??_z=-0.234, n=27997 ? PASS) Tj ET
+BT /F1 10 Tf 50 118 Td (Test 36  [PASS] byte_robust ?  Test 36: byte robust ? r_256=0.5756, |?r|_multi=0.0009 \(120 windows\), |?r|_1win=0.0061 \(diag\), H=7.9991 bits, ??_z=-0.234, n=55288 ? PASS) Tj ET
+BT /F1 10 Tf 50 96 Td (Test 37  [PASS] half_factorial_gamma ?  Test 37: \(1/2\)!=??/2 [rel.err 0.0], 32/?? [rel.err 0.0], ?p?=1 [|?|=0.0], uniqueness ? ? PASS) Tj ET
+BT /F1 10 Tf 50 74 Td (Test 37  [PASS] half_factorial_gamma ?  Test 37b [HARDCORE pass 2]: 3 sub-checks, 0 failed ? PASS) Tj ET
+
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 10 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 3857 >>
+stream
+0 0 0 RG
+BT /F1 13 Tf 50 800 Td (Execution steps \(computation-log section markers\)) Tj ET
+BT /F1 7 Tf 50 778 Td ([13:48:04.797] [+  0.079s] ? run_all_tests START) Tj ET
+BT /F1 7 Tf 50 756 Td ([13:48:04.880] [+  0.162s] ? Test 1 ? pass 1 \(primary: standard implementation\)) Tj ET
+BT /F1 7 Tf 50 734 Td ([13:48:05.591] [+  0.873s]  pass 1 result: PASS \(elapsed: 0.71s\)) Tj ET
+BT /F1 7 Tf 50 712 Td ([13:48:05.591] [+  0.873s] ? Test 1 ? pass 2 \(secondary: HARDCORE deep validation, no lattice dependence\)) Tj ET
+BT /F1 7 Tf 50 690 Td ([13:48:27.985] [+ 23.267s]  pass 2 result: PASS \(elapsed: 22.39s\)) Tj ET
+BT /F1 7 Tf 50 668 Td ([13:48:27.985] [+ 23.267s]  Test 1 two-pass summary: pass1=PASS pass2=PASS \(hardcore\) ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 646 Td ([13:48:28.733] [+ 24.015s] ? Test 2 ? pass 1 \(primary: standard implementation\)) Tj ET
+BT /F1 7 Tf 50 624 Td ([13:48:39.425] [+ 34.707s]  pass 1 result: PASS \(elapsed: 10.69s\)) Tj ET
+BT /F1 7 Tf 50 602 Td ([13:48:39.425] [+ 34.707s] ? Test 2 ? pass 2 \(secondary: HARDCORE deep validation, no lattice dependence\)) Tj ET
+BT /F1 7 Tf 50 580 Td ([13:48:49.127] [+ 44.409s]  pass 2 result: PASS \(elapsed: 9.70s\)) Tj ET
+BT /F1 7 Tf 50 558 Td ([13:48:49.128] [+ 44.410s]  Test 2 two-pass summary: pass1=PASS pass2=PASS \(hardcore\) ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 536 Td ([13:48:49.817] [+ 45.099s] ? Test 3 ? pass 1 \(primary: standard implementation\)) Tj ET
+BT /F1 7 Tf 50 514 Td ([13:48:50.148] [+ 45.430s]  pass 1 result: PASS \(elapsed: 0.33s\)) Tj ET
+BT /F1 7 Tf 50 492 Td ([13:48:50.148] [+ 45.430s] ? Test 3 ? pass 2 \(secondary: HARDCORE deep validation, no lattice dependence\)) Tj ET
+BT /F1 7 Tf 50 470 Td ([13:48:59.449] [+ 54.732s]  pass 2 result: PASS \(elapsed: 9.30s\)) Tj ET
+BT /F1 7 Tf 50 448 Td ([13:48:59.449] [+ 54.732s]  Test 3 two-pass summary: pass1=PASS pass2=PASS \(hardcore\) ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 426 Td ([13:49:00.140] [+ 55.422s] ? Test 4 ? pass 1 \(primary: standard implementation\)) Tj ET
+BT /F1 7 Tf 50 404 Td ([13:49:00.316] [+ 55.598s]  pass 1 result: FAIL/WARN \(elapsed: 0.18s\)) Tj ET
+BT /F1 7 Tf 50 382 Td ([13:49:00.316] [+ 55.598s] ? Test 4 ? pass 2 \(secondary: HARDCORE deep validation, no lattice dependence\)) Tj ET
+BT /F1 7 Tf 50 360 Td ([13:49:09.999] [+ 65.282s]  pass 2 result: PASS \(elapsed: 9.68s\)) Tj ET
+BT /F1 7 Tf 50 338 Td ([13:49:09.999] [+ 65.282s]  Test 4 two-pass summary: pass1=FAIL pass2=PASS \(hardcore\) ? OVERALL FAIL) Tj ET
+BT /F1 7 Tf 50 316 Td ([13:49:10.710] [+ 65.993s] ? Test 5 ? pass 1 \(primary: standard implementation\)) Tj ET
+BT /F1 7 Tf 50 294 Td ([13:49:11.198] [+ 66.480s]  pass 1 result: FAIL/WARN \(elapsed: 0.49s\)) Tj ET
+BT /F1 7 Tf 50 272 Td ([13:49:11.198] [+ 66.480s] ? Test 5 ? pass 2 \(secondary: HARDCORE deep validation, no lattice dependence\)) Tj ET
+BT /F1 7 Tf 50 250 Td ([13:49:21.050] [+ 76.332s]  pass 2 result: PASS \(elapsed: 9.85s\)) Tj ET
+BT /F1 7 Tf 50 228 Td ([13:49:21.050] [+ 76.333s]  Test 5 two-pass summary: pass1=FAIL pass2=PASS \(hardcore\) ? OVERALL FAIL) Tj ET
+BT /F1 7 Tf 50 206 Td ([13:49:21.798] [+ 77.080s] ? Test 6 ? pass 1 \(primary: standard implementation\)) Tj ET
+BT /F1 7 Tf 50 184 Td ([13:49:22.162] [+ 77.444s]  pass 1 result: FAIL/WARN \(elapsed: 0.36s\)) Tj ET
+BT /F1 7 Tf 50 162 Td ([13:49:22.162] [+ 77.444s] ? Test 6 ? pass 2 \(secondary: HARDCORE deep validation, no lattice dependence\)) Tj ET
+BT /F1 7 Tf 50 140 Td ([13:49:31.754] [+ 87.036s]  pass 2 result: PASS \(elapsed: 9.59s\)) Tj ET
+BT /F1 7 Tf 50 118 Td ([13:49:31.754] [+ 87.036s]  Test 6 two-pass summary: pass1=FAIL pass2=PASS \(hardcore\) ? OVERALL FAIL) Tj ET
+BT /F1 7 Tf 50 96 Td ([13:49:32.468] [+ 87.751s] ? Test 7 ? pass 1 \(primary: standard implementation\)) Tj ET
+BT /F1 7 Tf 50 74 Td ([13:49:32.709] [+ 87.991s]  pass 1 result: PASS \(elapsed: 0.24s\)) Tj ET
+
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 12 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+12 0 obj
+<< /Length 3978 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ([13:49:32.709] [+ 87.992s] ? Test 7 ? pass 2 \(secondary: HARDCORE deep validation, no lattice dependence\)) Tj ET
+BT /F1 7 Tf 50 778 Td ([13:49:42.167] [+ 97.449s]  pass 2 result: PASS \(elapsed: 9.46s\)) Tj ET
+BT /F1 7 Tf 50 756 Td ([13:49:42.167] [+ 97.449s]  Test 7 two-pass summary: pass1=PASS pass2=PASS \(hardcore\) ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 734 Td ([13:49:42.913] [+ 98.196s] ? Test 8 ? pass 1 \(primary: standard implementation\)) Tj ET
+BT /F1 7 Tf 50 712 Td ([13:49:43.153] [+ 98.436s]  pass 1 result: PASS \(elapsed: 0.24s\)) Tj ET
+BT /F1 7 Tf 50 690 Td ([13:49:43.154] [+ 98.436s] ? Test 8 ? pass 2 \(secondary: HARDCORE deep validation, no lattice dependence\)) Tj ET
+BT /F1 7 Tf 50 668 Td ([13:49:52.662] [+107.944s]  pass 2 result: PASS \(elapsed: 9.51s\)) Tj ET
+BT /F1 7 Tf 50 646 Td ([13:49:52.662] [+107.944s]  Test 8 two-pass summary: pass1=PASS pass2=PASS \(hardcore\) ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 624 Td ([13:49:53.350] [+108.632s] ? Test 9 ? pass 1 \(primary: standard implementation\)) Tj ET
+BT /F1 7 Tf 50 602 Td ([13:49:53.580] [+108.862s]  pass 1 result: PASS \(elapsed: 0.23s\)) Tj ET
+BT /F1 7 Tf 50 580 Td ([13:49:53.580] [+108.862s] ? Test 9 ? pass 2 \(secondary: HARDCORE deep validation, no lattice dependence\)) Tj ET
+BT /F1 7 Tf 50 558 Td ([13:50:02.811] [+118.093s]  pass 2 result: PASS \(elapsed: 9.23s\)) Tj ET
+BT /F1 7 Tf 50 536 Td ([13:50:02.811] [+118.093s]  Test 9 two-pass summary: pass1=PASS pass2=PASS \(hardcore\) ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 514 Td ([13:50:03.524] [+118.806s] ? Test 10 ? pass 1 \(primary: standard implementation\)) Tj ET
+BT /F1 7 Tf 50 492 Td ([13:50:03.792] [+119.074s]  pass 1 result: PASS \(elapsed: 0.27s\)) Tj ET
+BT /F1 7 Tf 50 470 Td ([13:50:03.792] [+119.074s] ? Test 10 ? pass 2 \(secondary: HARDCORE deep validation, no lattice dependence\)) Tj ET
+BT /F1 7 Tf 50 448 Td ([13:50:13.786] [+129.068s]  pass 2 result: PASS \(elapsed: 9.99s\)) Tj ET
+BT /F1 7 Tf 50 426 Td ([13:50:13.786] [+129.068s]  Test 10 two-pass summary: pass1=PASS pass2=PASS \(hardcore\) ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 404 Td ([13:50:14.508] [+129.790s] ? Test 11 ? pass 1 \(primary: standard implementation\)) Tj ET
+BT /F1 7 Tf 50 382 Td ([14:00:20.704] [+735.986s]  pass 1 result: FAIL/WARN \(elapsed: 606.20s\)) Tj ET
+BT /F1 7 Tf 50 360 Td ([14:00:20.704] [+735.986s] ? Test 11 ? pass 2 \(secondary: HARDCORE deep validation, no lattice dependence\)) Tj ET
+BT /F1 7 Tf 50 338 Td ([14:02:24.336] [+859.618s]  pass 2 result: PASS \(elapsed: 123.63s\)) Tj ET
+BT /F1 7 Tf 50 316 Td ([14:02:24.336] [+859.618s]  Test 11 two-pass summary: pass1=FAIL pass2=PASS \(hardcore\) ? OVERALL FAIL) Tj ET
+BT /F1 7 Tf 50 294 Td ([14:02:25.804] [+861.086s] ? Test 12 ? pass 1 \(primary: standard implementation\)) Tj ET
+BT /F1 7 Tf 50 272 Td ([14:02:26.074] [+861.356s]  pass 1 result: FAIL/WARN \(elapsed: 0.27s\)) Tj ET
+BT /F1 7 Tf 50 250 Td ([14:02:26.074] [+861.356s] ? Test 12 ? pass 2 \(secondary: HARDCORE deep validation, no lattice dependence\)) Tj ET
+BT /F1 7 Tf 50 228 Td ([14:02:40.228] [+875.510s]  pass 2 result: PASS \(elapsed: 14.15s\)) Tj ET
+BT /F1 7 Tf 50 206 Td ([14:02:40.228] [+875.510s]  Test 12 two-pass summary: pass1=FAIL pass2=PASS \(hardcore\) ? OVERALL FAIL) Tj ET
+BT /F1 7 Tf 50 184 Td ([14:02:41.217] [+876.499s] ? Test 13 ? pass 1 \(primary: standard implementation\)) Tj ET
+BT /F1 7 Tf 50 162 Td ([14:02:41.638] [+876.920s]  pass 1 result: PASS \(elapsed: 0.42s\)) Tj ET
+BT /F1 7 Tf 50 140 Td ([14:02:41.638] [+876.920s] ? Test 13 ? pass 2 \(secondary: HARDCORE deep validation, no lattice dependence\)) Tj ET
+BT /F1 7 Tf 50 118 Td ([14:02:54.599] [+889.881s]  pass 2 result: PASS \(elapsed: 12.96s\)) Tj ET
+BT /F1 7 Tf 50 96 Td ([14:02:54.599] [+889.881s]  Test 13 two-pass summary: pass1=PASS pass2=PASS \(hardcore\) ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 74 Td ([14:02:55.465] [+890.747s] ? Test 14 ? pass 1 \(primary: standard implementation\)) Tj ET
+
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 14 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+14 0 obj
+<< /Length 3657 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ([14:02:56.116] [+891.398s]  pass 1 result: PASS \(elapsed: 0.65s\)) Tj ET
+BT /F1 7 Tf 50 778 Td ([14:02:56.116] [+891.399s] ? Test 14 ? pass 2 \(secondary: HARDCORE deep validation, no lattice dependence\)) Tj ET
+BT /F1 7 Tf 50 756 Td ([14:03:09.104] [+904.386s]  pass 2 result: PASS \(elapsed: 12.99s\)) Tj ET
+BT /F1 7 Tf 50 734 Td ([14:03:09.104] [+904.386s]  Test 14 two-pass summary: pass1=PASS pass2=PASS \(hardcore\) ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 712 Td ([14:03:09.964] [+905.246s] ? Test 15 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 690 Td ([14:03:13.350] [+908.633s]  pass 1 result: PASS \(elapsed: 3.39s\)) Tj ET
+BT /F1 7 Tf 50 668 Td ([14:03:13.351] [+908.633s] ? Test 15 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 646 Td ([14:03:36.815] [+932.097s]  pass 2 result: PASS \(elapsed: 23.46s\)) Tj ET
+BT /F1 7 Tf 50 624 Td ([14:03:36.815] [+932.097s]  Test 15 two-pass summary: pass1=PASS pass2=PASS ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 602 Td ([14:03:37.649] [+932.931s] ? Test 16 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 580 Td ([14:03:38.066] [+933.348s] ? Test 16 single-?: ?=0.500000 \(?=0.5000 \(default\)\)) Tj ET
+BT /F1 7 Tf 50 558 Td ([14:06:52.544] [+1127.826s]  pass 1 result: PASS \(elapsed: 194.89s\)) Tj ET
+BT /F1 7 Tf 50 536 Td ([14:06:52.544] [+1127.826s] ? Test 16 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 514 Td ([14:32:42.865] [+2678.147s]  pass 2 result: PASS \(elapsed: 1550.32s\)) Tj ET
+BT /F1 7 Tf 50 492 Td ([14:32:42.865] [+2678.147s]  Test 16 two-pass summary: pass1=PASS pass2=PASS ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 470 Td ([14:32:43.885] [+2679.167s] ? Test 17 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 448 Td ([14:40:55.746] [+3171.028s]  pass 1 result: PASS \(elapsed: 491.86s\)) Tj ET
+BT /F1 7 Tf 50 426 Td ([14:40:55.747] [+3171.029s] ? Test 17 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 404 Td ([15:07:52.727] [+4788.010s]  pass 2 result: PASS \(elapsed: 1616.97s\)) Tj ET
+BT /F1 7 Tf 50 382 Td ([15:07:52.728] [+4788.011s]  Test 17 two-pass summary: pass1=PASS pass2=PASS ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 360 Td ([15:07:56.207] [+4791.489s] ? Test 18 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 338 Td ([15:11:23.405] [+4998.687s]  pass 1 result: PASS \(elapsed: 207.20s\)) Tj ET
+BT /F1 7 Tf 50 316 Td ([15:11:23.405] [+4998.687s] ? Test 18 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 294 Td ([15:12:20.943] [+5056.225s]  pass 2 result: PASS \(elapsed: 57.54s\)) Tj ET
+BT /F1 7 Tf 50 272 Td ([15:12:20.943] [+5056.225s]  Test 18 two-pass summary: pass1=PASS pass2=PASS ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 250 Td ([15:12:22.027] [+5057.309s] ? Test 19 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 228 Td ([15:13:36.901] [+5132.184s]  pass 1 result: PASS \(elapsed: 74.87s\)) Tj ET
+BT /F1 7 Tf 50 206 Td ([15:13:36.902] [+5132.184s] ? Test 19 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 184 Td ([15:24:25.778] [+5781.060s]  pass 2 result: PASS \(elapsed: 648.88s\)) Tj ET
+BT /F1 7 Tf 50 162 Td ([15:24:25.778] [+5781.060s] ? Test 19 ? pass 3 \(tertiary: SERIES ? real report series, 96×96 regime\)) Tj ET
+BT /F1 7 Tf 50 140 Td ([15:30:16.835] [+6132.117s] ? Test 20 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 118 Td ([15:30:17.548] [+6132.830s]  pass 1 result: PASS \(elapsed: 0.71s\)) Tj ET
+BT /F1 7 Tf 50 96 Td ([15:30:17.548] [+6132.830s] ? Test 20 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 74 Td ([15:31:17.642] [+6192.924s]  pass 2 result: PASS \(elapsed: 60.09s\)) Tj ET
+
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 16 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+16 0 obj
+<< /Length 3629 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ([15:31:17.643] [+6192.925s]  Test 20 two-pass summary: pass1=PASS pass2=PASS ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 778 Td ([15:31:18.615] [+6193.897s] ? Test 21 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 756 Td ([15:31:19.032] [+6194.314s]  pass 1 result: PASS \(elapsed: 0.42s\)) Tj ET
+BT /F1 7 Tf 50 734 Td ([15:31:19.032] [+6194.314s] ? Test 21 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 712 Td ([15:31:32.783] [+6208.065s]  pass 2 result: PASS \(elapsed: 13.75s\)) Tj ET
+BT /F1 7 Tf 50 690 Td ([15:31:32.783] [+6208.065s]  Test 21 two-pass summary: pass1=PASS pass2=PASS ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 668 Td ([15:31:33.746] [+6209.029s] ? Test 22 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 646 Td ([15:31:33.960] [+6209.243s]  pass 1 result: PASS \(elapsed: 0.21s\)) Tj ET
+BT /F1 7 Tf 50 624 Td ([15:31:33.960] [+6209.243s] ? Test 22 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 602 Td ([15:31:47.778] [+6223.061s]  pass 2 result: PASS \(elapsed: 13.82s\)) Tj ET
+BT /F1 7 Tf 50 580 Td ([15:31:47.778] [+6223.061s]  Test 22 two-pass summary: pass1=PASS pass2=PASS ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 558 Td ([15:31:48.745] [+6224.028s] ? Test 23 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 536 Td ([15:31:49.126] [+6224.408s]  pass 1 result: PASS \(elapsed: 0.38s\)) Tj ET
+BT /F1 7 Tf 50 514 Td ([15:31:49.126] [+6224.408s] ? Test 23 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 492 Td ([15:32:02.675] [+6237.958s]  pass 2 result: PASS \(elapsed: 13.55s\)) Tj ET
+BT /F1 7 Tf 50 470 Td ([15:32:02.676] [+6237.958s]  Test 23 two-pass summary: pass1=PASS pass2=PASS ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 448 Td ([15:32:03.588] [+6238.870s] ? Test 24 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 426 Td ([15:32:05.403] [+6240.686s]  pass 1 result: PASS \(elapsed: 1.82s\)) Tj ET
+BT /F1 7 Tf 50 404 Td ([15:32:05.404] [+6240.686s] ? Test 24 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 382 Td ([15:33:11.749] [+6307.032s]  pass 2 result: PASS \(elapsed: 66.35s\)) Tj ET
+BT /F1 7 Tf 50 360 Td ([15:33:11.750] [+6307.032s]  Test 24 two-pass summary: pass1=PASS pass2=PASS ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 338 Td ([15:33:12.904] [+6308.186s] ? Test 25 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 316 Td ([15:35:40.787] [+6456.069s]  pass 1 result: PASS \(elapsed: 147.88s\)) Tj ET
+BT /F1 7 Tf 50 294 Td ([15:35:40.787] [+6456.069s] ? Test 25 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 272 Td ([16:39:40.082] [+10295.364s]  pass 2 result: PASS \(elapsed: 3839.29s\)) Tj ET
+BT /F1 7 Tf 50 250 Td ([16:39:40.082] [+10295.365s]  Test 25 two-pass summary: pass1=PASS pass2=PASS ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 228 Td ([16:39:41.352] [+10296.634s] ? Test 26 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 206 Td ([16:40:40.734] [+10356.016s]  pass 1 result: PASS \(elapsed: 59.38s\)) Tj ET
+BT /F1 7 Tf 50 184 Td ([16:40:40.734] [+10356.016s] ? Test 26 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 162 Td ([17:09:15.511] [+12070.794s]  pass 2 result: PASS \(elapsed: 1714.78s\)) Tj ET
+BT /F1 7 Tf 50 140 Td ([17:09:15.511] [+12070.794s]  Test 26 two-pass summary: pass1=PASS pass2=PASS ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 118 Td ([17:09:16.249] [+12071.531s] ? Test 27 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 96 Td ([17:09:30.084] [+12085.366s]  pass 1 result: PASS \(elapsed: 13.84s\)) Tj ET
+BT /F1 7 Tf 50 74 Td ([17:09:30.085] [+12085.367s] ? Test 27 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 18 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+18 0 obj
+<< /Length 3698 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ([17:12:14.164] [+12249.446s]  pass 2 result: PASS \(elapsed: 164.08s\)) Tj ET
+BT /F1 7 Tf 50 778 Td ([17:12:14.164] [+12249.446s]  Test 27 two-pass summary: pass1=PASS pass2=PASS ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 756 Td ([17:12:15.173] [+12250.455s] ? Test 28 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 734 Td ([17:13:08.708] [+12303.990s]  pass 1 result: FAIL/WARN \(elapsed: 53.54s\)) Tj ET
+BT /F1 7 Tf 50 712 Td ([17:13:08.708] [+12303.991s] ? Test 28 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 690 Td ([17:39:36.656] [+13891.939s]  pass 2 result: FAIL/WARN \(elapsed: 1587.95s\)) Tj ET
+BT /F1 7 Tf 50 668 Td ([17:39:36.657] [+13891.939s]  Test 28 two-pass summary: pass1=FAIL pass2=FAIL ? OVERALL FAIL) Tj ET
+BT /F1 7 Tf 50 646 Td ([17:39:37.904] [+13893.186s] ? Test 29 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 624 Td ([17:42:15.059] [+14050.341s]  pass 1 result: PASS \(elapsed: 157.15s\)) Tj ET
+BT /F1 7 Tf 50 602 Td ([17:42:15.059] [+14050.341s] ? Test 29 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 580 Td ([17:57:50.396] [+14985.678s]  pass 2 result: FAIL/WARN \(elapsed: 935.34s\)) Tj ET
+BT /F1 7 Tf 50 558 Td ([17:57:50.396] [+14985.678s] ? Test 29 ? pass 3 \(tertiary: SERIES ? real report series, 96×96 regime\)) Tj ET
+BT /F1 7 Tf 50 536 Td ([18:45:06.539] [+17821.821s] ? Test 30 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 514 Td ([18:47:06.232] [+17941.514s]  pass 1 result: PASS \(elapsed: 119.69s\)) Tj ET
+BT /F1 7 Tf 50 492 Td ([18:47:06.232] [+17941.514s] ? Test 30 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 470 Td ([18:59:11.075] [+18666.357s]  pass 2 result: PASS \(elapsed: 724.84s\)) Tj ET
+BT /F1 7 Tf 50 448 Td ([18:59:11.078] [+18666.360s]  Test 30 two-pass summary: pass1=PASS pass2=PASS ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 426 Td ([18:59:12.283] [+18667.565s] ? Test 31 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 404 Td ([19:03:17.582] [+18912.864s]  pass 1 result: PASS \(elapsed: 245.30s\)) Tj ET
+BT /F1 7 Tf 50 382 Td ([19:03:17.582] [+18912.864s] ? Test 31 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 360 Td ([19:58:20.555] [+22215.837s]  pass 2 result: PASS \(elapsed: 3302.97s\)) Tj ET
+BT /F1 7 Tf 50 338 Td ([19:58:20.555] [+22215.837s] ? Test 31 ? pass 3 \(tertiary: SERIES ? real report series, 96×96 regime\)) Tj ET
+BT /F1 7 Tf 50 316 Td ([20:04:51.687] [+22606.969s] ? Test 32 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 294 Td ([20:13:27.441] [+23122.723s]  pass 1 result: PASS \(elapsed: 515.75s\)) Tj ET
+BT /F1 7 Tf 50 272 Td ([20:13:27.441] [+23122.723s] ? Test 32 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 250 Td ([21:02:32.804] [+26068.086s]  pass 2 result: PASS \(elapsed: 2945.36s\)) Tj ET
+BT /F1 7 Tf 50 228 Td ([21:02:32.804] [+26068.086s]  Test 32 two-pass summary: pass1=PASS pass2=PASS ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 206 Td ([21:02:33.557] [+26068.839s] ? Test 33 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 184 Td ([21:18:17.750] [+27013.032s]  pass 1 result: PASS \(elapsed: 944.19s\)) Tj ET
+BT /F1 7 Tf 50 162 Td ([21:18:17.750] [+27013.032s] ? Test 33 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 140 Td ([21:33:01.262] [+27896.544s]  pass 2 result: PASS \(elapsed: 883.51s\)) Tj ET
+BT /F1 7 Tf 50 118 Td ([21:33:01.262] [+27896.544s]  Test 33 two-pass summary: pass1=PASS pass2=PASS ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 96 Td ([21:33:02.273] [+27897.555s] ? Test 34 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 74 Td ([21:37:02.924] [+28138.206s]  pass 1 result: PASS \(elapsed: 240.65s\)) Tj ET
+
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 20 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+20 0 obj
+<< /Length 3963 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ([21:37:02.924] [+28138.206s] ? Test 34 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 778 Td ([22:04:23.597] [+29778.879s]  pass 2 result: FAIL/WARN \(elapsed: 1640.67s\)) Tj ET
+BT /F1 7 Tf 50 756 Td ([22:04:23.600] [+29778.882s]  Test 34 two-pass summary: pass1=PASS pass2=FAIL ? OVERALL FAIL) Tj ET
+BT /F1 7 Tf 50 734 Td ([22:04:24.906] [+29780.188s] ? Test 35 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 712 Td ([22:09:08.652] [+30063.934s]  pass 1 result: FAIL/WARN \(elapsed: 283.74s\)) Tj ET
+BT /F1 7 Tf 50 690 Td ([22:09:08.653] [+30063.936s] ? Test 35 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 668 Td ([22:37:01.653] [+31736.935s]  pass 2 result: FAIL/WARN \(elapsed: 1673.00s\)) Tj ET
+BT /F1 7 Tf 50 646 Td ([22:37:01.654] [+31736.936s]  Test 35 two-pass summary: pass1=FAIL pass2=FAIL ? OVERALL FAIL) Tj ET
+BT /F1 7 Tf 50 624 Td ([22:37:02.779] [+31738.061s] ? Test 36 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 602 Td ([22:45:52.588] [+32267.870s]  pass 1 result: PASS \(elapsed: 529.81s\)) Tj ET
+BT /F1 7 Tf 50 580 Td ([22:45:52.588] [+32267.870s] ? Test 36 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 558 Td ([23:33:00.768] [+35096.050s]  pass 2 result: PASS \(elapsed: 2828.18s\)) Tj ET
+BT /F1 7 Tf 50 536 Td ([23:33:00.768] [+35096.050s]  Test 36 two-pass summary: pass1=PASS pass2=PASS ? OVERALL PASS) Tj ET
+BT /F1 7 Tf 50 514 Td ([23:33:02.097] [+35097.379s] ? Test 37 ? pass 1 \(primary: 72×72, Nv=[4]\)) Tj ET
+BT /F1 7 Tf 50 492 Td ([23:33:21.765] [+35117.048s]  pass 1 result: PASS \(elapsed: 19.67s\)) Tj ET
+BT /F1 7 Tf 50 470 Td ([23:33:21.766] [+35117.048s] ? Test 37 ? pass 2 \(secondary: 96×96, Nv=[2]\)) Tj ET
+BT /F1 7 Tf 50 448 Td ([23:33:39.517] [+35134.799s]  pass 2 result: PASS \(elapsed: 17.75s\)) Tj ET
+BT /F1 7 Tf 50 426 Td ([23:33:39.517] [+35134.799s]  Test 37 two-pass summary: pass1=PASS pass2=PASS ? OVERALL PASS) Tj ET
+BT /F1 13 Tf 50 332 Td (Artifact map) Tj ET
+BT /F1 7 Tf 50 382 Td (test_01_bN_convergence [PASS]  reports/ + logs/ copied; plots live in ../test_01_bN_convergence/plots/) Tj ET
+BT /F1 7 Tf 50 360 Td (test_01_bN_convergence [PASS]  reports/ + logs/ copied; plots live in ../test_01_bN_convergence/plots/) Tj ET
+BT /F1 7 Tf 50 338 Td (test_02_bN_monotonicity [PASS]  reports/ + logs/ copied; plots live in ../test_02_bN_monotonicity/plots/) Tj ET
+BT /F1 7 Tf 50 316 Td (test_02_bN_monotonicity [PASS]  reports/ + logs/ copied; plots live in ../test_02_bN_monotonicity/plots/) Tj ET
+BT /F1 7 Tf 50 294 Td (test_03_bN_rate        [PASS]  reports/ + logs/ copied; plots live in ../test_03_bN_rate/plots/) Tj ET
+BT /F1 7 Tf 50 272 Td (test_03_bN_rate        [PASS]  reports/ + logs/ copied; plots live in ../test_03_bN_rate/plots/) Tj ET
+BT /F1 7 Tf 50 250 Td (test_04_gue_ks_full    [FAIL]  reports/ + logs/ copied; plots live in ../test_04_gue_ks_full/plots/) Tj ET
+BT /F1 7 Tf 50 228 Td (test_04_gue_ks_full    [PASS]  reports/ + logs/ copied; plots live in ../test_04_gue_ks_full/plots/) Tj ET
+BT /F1 7 Tf 50 206 Td (test_05_gue_ks_highT   [FAIL]  reports/ + logs/ copied; plots live in ../test_05_gue_ks_highT/plots/) Tj ET
+BT /F1 7 Tf 50 184 Td (test_05_gue_ks_highT   [PASS]  reports/ + logs/ copied; plots live in ../test_05_gue_ks_highT/plots/) Tj ET
+BT /F1 7 Tf 50 162 Td (test_06_chi2_hist      [FAIL]  reports/ + logs/ copied; plots live in ../test_06_chi2_hist/plots/) Tj ET
+BT /F1 7 Tf 50 140 Td (test_06_chi2_hist      [PASS]  reports/ + logs/ copied; plots live in ../test_06_chi2_hist/plots/) Tj ET
+BT /F1 7 Tf 50 118 Td (test_07_decay_slope    [PASS]  reports/ + logs/ copied; plots live in ../test_07_decay_slope/plots/) Tj ET
+BT /F1 7 Tf 50 96 Td (test_07_decay_slope    [PASS]  reports/ + logs/ copied; plots live in ../test_07_decay_slope/plots/) Tj ET
+BT /F1 7 Tf 50 74 Td (test_08_residuals      [PASS]  reports/ + logs/ copied; plots live in ../test_08_residuals/plots/) Tj ET
+
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 22 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+22 0 obj
+<< /Length 4538 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td (test_08_residuals      [PASS]  reports/ + logs/ copied; plots live in ../test_08_residuals/plots/) Tj ET
+BT /F1 7 Tf 50 778 Td (test_09_bootstrap_ci   [PASS]  reports/ + logs/ copied; plots live in ../test_09_bootstrap_ci/plots/) Tj ET
+BT /F1 7 Tf 50 756 Td (test_09_bootstrap_ci   [PASS]  reports/ + logs/ copied; plots live in ../test_09_bootstrap_ci/plots/) Tj ET
+BT /F1 7 Tf 50 734 Td (test_10_cross_validation [PASS]  reports/ + logs/ copied; plots live in ../test_10_cross_validation/plots/) Tj ET
+BT /F1 7 Tf 50 712 Td (test_10_cross_validation [PASS]  reports/ + logs/ copied; plots live in ../test_10_cross_validation/plots/) Tj ET
+BT /F1 7 Tf 50 690 Td (test_11_anderson_darling [FAIL]  reports/ + logs/ copied; plots live in ../test_11_anderson_darling/plots/) Tj ET
+BT /F1 7 Tf 50 668 Td (test_11_anderson_darling [PASS]  reports/ + logs/ copied; plots live in ../test_11_anderson_darling/plots/) Tj ET
+BT /F1 7 Tf 50 646 Td (test_12_two_sample_ks  [FAIL]  reports/ + logs/ copied; plots live in ../test_12_two_sample_ks/plots/) Tj ET
+BT /F1 7 Tf 50 624 Td (test_12_two_sample_ks  [PASS]  reports/ + logs/ copied; plots live in ../test_12_two_sample_ks/plots/) Tj ET
+BT /F1 7 Tf 50 602 Td (test_13_number_variance [PASS]  reports/ + logs/ copied; plots live in ../test_13_number_variance/plots/) Tj ET
+BT /F1 7 Tf 50 580 Td (test_13_number_variance [PASS]  reports/ + logs/ copied; plots live in ../test_13_number_variance/plots/) Tj ET
+BT /F1 7 Tf 50 558 Td (test_14_spectral_rigidity [PASS]  reports/ + logs/ copied; plots live in ../test_14_spectral_rigidity/plots/) Tj ET
+BT /F1 7 Tf 50 536 Td (test_14_spectral_rigidity [PASS]  reports/ + logs/ copied; plots live in ../test_14_spectral_rigidity/plots/) Tj ET
+BT /F1 7 Tf 50 514 Td (test_15_ab_construction [PASS]  reports/ + logs/ copied; plots live in ../test_15_ab_construction/plots/) Tj ET
+BT /F1 7 Tf 50 492 Td (test_15_ab_construction [PASS]  reports/ + logs/ copied; plots live in ../test_15_ab_construction/plots/) Tj ET
+BT /F1 7 Tf 50 470 Td (test_16_ab_gue_class   [PASS]  reports/ + logs/ copied; plots live in ../test_16_ab_gue_class/plots/) Tj ET
+BT /F1 7 Tf 50 448 Td (test_16_ab_gue_class   [PASS]  reports/ + logs/ copied; plots live in ../test_16_ab_gue_class/plots/) Tj ET
+BT /F1 7 Tf 50 426 Td (test_17_connes_self_duality [PASS]  reports/ + logs/ copied; plots live in ../test_17_connes_self_duality/plots/) Tj ET
+BT /F1 7 Tf 50 404 Td (test_17_connes_self_duality [PASS]  reports/ + logs/ copied; plots live in ../test_17_connes_self_duality/plots/) Tj ET
+BT /F1 7 Tf 50 382 Td (test_18_chiral_AIII    [PASS]  reports/ + logs/ copied; plots live in ../test_18_chiral_AIII/plots/) Tj ET
+BT /F1 7 Tf 50 360 Td (test_18_chiral_AIII    [PASS]  reports/ + logs/ copied; plots live in ../test_18_chiral_AIII/plots/) Tj ET
+BT /F1 7 Tf 50 338 Td (test_19_dirac_cone     [PASS]  reports/ + logs/ copied; plots live in ../test_19_dirac_cone/plots/) Tj ET
+BT /F1 7 Tf 50 316 Td (test_19_dirac_cone     [PASS]  reports/ + logs/ copied; plots live in ../test_19_dirac_cone/plots/) Tj ET
+BT /F1 7 Tf 50 294 Td (test_19_dirac_cone     [PASS]  reports/ + logs/ copied; plots live in ../test_19_dirac_cone/plots/) Tj ET
+BT /F1 7 Tf 50 272 Td (test_20_chern_tknn     [PASS]  reports/ + logs/ copied; plots live in ../test_20_chern_tknn/plots/) Tj ET
+BT /F1 7 Tf 50 250 Td (test_20_chern_tknn     [PASS]  reports/ + logs/ copied; plots live in ../test_20_chern_tknn/plots/) Tj ET
+BT /F1 7 Tf 50 228 Td (test_21_gamma_phase    [PASS]  reports/ + logs/ copied; plots live in ../test_21_gamma_phase/plots/) Tj ET
+BT /F1 7 Tf 50 206 Td (test_21_gamma_phase    [PASS]  reports/ + logs/ copied; plots live in ../test_21_gamma_phase/plots/) Tj ET
+BT /F1 7 Tf 50 184 Td (test_22_ab_phase       [PASS]  reports/ + logs/ copied; plots live in ../test_22_ab_phase/plots/) Tj ET
+BT /F1 7 Tf 50 162 Td (test_22_ab_phase       [PASS]  reports/ + logs/ copied; plots live in ../test_22_ab_phase/plots/) Tj ET
+BT /F1 7 Tf 50 140 Td (test_23_fractal_factor [PASS]  reports/ + logs/ copied; plots live in ../test_23_fractal_factor/plots/) Tj ET
+BT /F1 7 Tf 50 118 Td (test_23_fractal_factor [PASS]  reports/ + logs/ copied; plots live in ../test_23_fractal_factor/plots/) Tj ET
+BT /F1 7 Tf 50 96 Td (test_24_dirac_string_flux [PASS]  reports/ + logs/ copied; plots live in ../test_24_dirac_string_flux/plots/) Tj ET
+BT /F1 7 Tf 50 74 Td (test_24_dirac_string_flux [PASS]  reports/ + logs/ copied; plots live in ../test_24_dirac_string_flux/plots/) Tj ET
+
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 24 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+24 0 obj
+<< /Length 4076 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td (test_25_byers_yang     [PASS]  reports/ + logs/ copied; plots live in ../test_25_byers_yang/plots/) Tj ET
+BT /F1 7 Tf 50 778 Td (test_25_byers_yang     [PASS]  reports/ + logs/ copied; plots live in ../test_25_byers_yang/plots/) Tj ET
+BT /F1 7 Tf 50 756 Td (test_26_pbc_torus      [PASS]  reports/ + logs/ copied; plots live in ../test_26_pbc_torus/plots/) Tj ET
+BT /F1 7 Tf 50 734 Td (test_26_pbc_torus      [PASS]  reports/ + logs/ copied; plots live in ../test_26_pbc_torus/plots/) Tj ET
+BT /F1 7 Tf 50 712 Td (test_27_binary_chiral  [PASS]  reports/ + logs/ copied; plots live in ../test_27_binary_chiral/plots/) Tj ET
+BT /F1 7 Tf 50 690 Td (test_27_binary_chiral  [PASS]  reports/ + logs/ copied; plots live in ../test_27_binary_chiral/plots/) Tj ET
+BT /F1 7 Tf 50 668 Td (test_28_f_gue_merit    [FAIL]  reports/ + logs/ copied; plots live in ../test_28_f_gue_merit/plots/) Tj ET
+BT /F1 7 Tf 50 646 Td (test_28_f_gue_merit    [FAIL]  reports/ + logs/ copied; plots live in ../test_28_f_gue_merit/plots/) Tj ET
+BT /F1 7 Tf 50 624 Td (test_29_dirac_dip      [PASS]  reports/ + logs/ copied; plots live in ../test_29_dirac_dip/plots/) Tj ET
+BT /F1 7 Tf 50 602 Td (test_29_dirac_dip      [FAIL]  reports/ + logs/ copied; plots live in ../test_29_dirac_dip/plots/) Tj ET
+BT /F1 7 Tf 50 580 Td (test_29_dirac_dip      [PASS]  reports/ + logs/ copied; plots live in ../test_29_dirac_dip/plots/) Tj ET
+BT /F1 7 Tf 50 558 Td (test_30_vf_scaling     [PASS]  reports/ + logs/ copied; plots live in ../test_30_vf_scaling/plots/) Tj ET
+BT /F1 7 Tf 50 536 Td (test_30_vf_scaling     [PASS]  reports/ + logs/ copied; plots live in ../test_30_vf_scaling/plots/) Tj ET
+BT /F1 7 Tf 50 514 Td (test_31_hatano_nelson  [PASS]  reports/ + logs/ copied; plots live in ../test_31_hatano_nelson/plots/) Tj ET
+BT /F1 7 Tf 50 492 Td (test_31_hatano_nelson  [PASS]  reports/ + logs/ copied; plots live in ../test_31_hatano_nelson/plots/) Tj ET
+BT /F1 7 Tf 50 470 Td (test_31_hatano_nelson  [PASS]  reports/ + logs/ copied; plots live in ../test_31_hatano_nelson/plots/) Tj ET
+BT /F1 7 Tf 50 448 Td (test_32_rmean_bootstrap [PASS]  reports/ + logs/ copied; plots live in ../test_32_rmean_bootstrap/plots/) Tj ET
+BT /F1 7 Tf 50 426 Td (test_32_rmean_bootstrap [PASS]  reports/ + logs/ copied; plots live in ../test_32_rmean_bootstrap/plots/) Tj ET
+BT /F1 7 Tf 50 404 Td (test_33_l_scaling_rmean [PASS]  reports/ + logs/ copied; plots live in ../test_33_l_scaling_rmean/plots/) Tj ET
+BT /F1 7 Tf 50 382 Td (test_33_l_scaling_rmean [PASS]  reports/ + logs/ copied; plots live in ../test_33_l_scaling_rmean/plots/) Tj ET
+BT /F1 7 Tf 50 360 Td (test_34_direct_vs_zeta [PASS]  reports/ + logs/ copied; plots live in ../test_34_direct_vs_zeta/plots/) Tj ET
+BT /F1 7 Tf 50 338 Td (test_34_direct_vs_zeta [FAIL]  reports/ + logs/ copied; plots live in ../test_34_direct_vs_zeta/plots/) Tj ET
+BT /F1 7 Tf 50 316 Td (test_35_form_factor_Kt [FAIL]  reports/ + logs/ copied; plots live in ../test_35_form_factor_Kt/plots/) Tj ET
+BT /F1 7 Tf 50 294 Td (test_35_form_factor_Kt [FAIL]  reports/ + logs/ copied; plots live in ../test_35_form_factor_Kt/plots/) Tj ET
+BT /F1 7 Tf 50 272 Td (test_36_byte_robust    [PASS]  reports/ + logs/ copied; plots live in ../test_36_byte_robust/plots/) Tj ET
+BT /F1 7 Tf 50 250 Td (test_36_byte_robust    [PASS]  reports/ + logs/ copied; plots live in ../test_36_byte_robust/plots/) Tj ET
+BT /F1 7 Tf 50 228 Td (test_37_half_factorial_gamma [PASS]  reports/ + logs/ copied; plots live in ../test_37_half_factorial_gamma/plots/) Tj ET
+BT /F1 7 Tf 50 206 Td (test_37_half_factorial_gamma [PASS]  reports/ + logs/ copied; plots live in ../test_37_half_factorial_gamma/plots/) Tj ET
+BT /F1 10 Tf 50 184 Td (Log files: logs/full_execution_log.txt \(console tee, suite runs\), logs/computation_log.txt / computation_log_full.txt \(every computation\), logs/results_verdicts.txt \(one-line verdicts\), logs/test_XX_*/ \(per-test\).) Tj ET
+BT /F1 10 Tf 50 162 Td (Run index: ../index.html ? verdict table with direct links to every per-test report.) Tj ET
+
+endstream
+endobj
+25 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 26
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000189 00000 n 
+0000000315 00000 n 
+0000004389 00000 n 
+0000004515 00000 n 
+0000008893 00000 n 
+0000009019 00000 n 
+0000013495 00000 n 
+0000013622 00000 n 
+0000017532 00000 n 
+0000017660 00000 n 
+0000021691 00000 n 
+0000021819 00000 n 
+0000025529 00000 n 
+0000025657 00000 n 
+0000029339 00000 n 
+0000029467 00000 n 
+0000033218 00000 n 
+0000033346 00000 n 
+0000037362 00000 n 
+0000037490 00000 n 
+0000042081 00000 n 
+0000042209 00000 n 
+0000046338 00000 n 
+trailer
+<< /Size 26 /Root 1 0 R >>
+startxref
+46436
+%%EOF

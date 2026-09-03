@@ -1,0 +1,31 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Test 12: Real zeros vs GUE matrix</title><style>body{font-family:system-ui;margin:2em;max-width:120ch}pre{background:#f4f4f4;padding:1em;overflow-x:auto;font-size:11px}h1{border-bottom:2px solid #333}</style></head><body>
+<h1>Test 12: Real zeros vs GUE matrix</h1>
+<p>Verdict: PASS   |   Generated: 2026-09-02 14:02:26   |   Suite: AB-Cloud v19 (Julia 1.12.0)</p>
+<h2>What this test verifies</h2>
+<p>Two-sample KS: data vs simulated GUE matrix spectrum.</p>
+<p> METHOD: Two-sample KS: data vs simulated GUE matrix spectrum.</p>
+<h2>Result</h2>
+<p> Test 12 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS</p>
+<h2>Plots</h2>
+<p>- `plots/plot_01` (.png 600dpi / .svg / .pdf)</p>
+<p>- `plots/animation.gif` — animated reveal of every plot of this test</p>
+<h2>Independent verification guide</h2>
+<p>Reproduce with: julia ab_cloud_v19.jl --test 12 --no-two-pass</p>
+<p>Every computation is logged in logs/computation_log.txt (timestamps + deltas); raw console output in logs/stdout_capture.txt.</p>
+<h2>FULL COMPUTATION LOG</h2>
+<pre>(no log_comp entries)</pre>
+<h2>CONSOLE CAPTURE</h2>
+<pre>
+════════════════════════════════════════════════════════════
+TEST 12 (secondary, HARDCORE): Objection 2 (extended): Advanced RMT Diagnostics — 2KS symmetry audit
+────────────────────────────────────────────────────────────
+ Full: real n=9600 vs ref n=9600, D=0.023333, p=0.010547 (primary verdict governs)
+ W1 ref split : D_vs_A=0.028542, D_vs_B=0.020729, |ΔD|=0.007812 (limit 0.02)
+ W2 blocks    : 4/4 blocks agree with full verdict at α=0.01 (limit ≥ 3)
+ W3 effect    : D_full=0.023333 &lt; 2KS critical at α=0.01: 0.023527? YES
+────────────────────────────────────────────────────────────
+ W1 ref symmetry      PASS — |ΔD| = 0.007812
+ W2 block agree       PASS — 4/4 agree
+ W3 D bound           PASS — D 0.0233 vs crit 0.0235
+ Test 12 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS</pre>
+</body></html>

@@ -1,0 +1,14 @@
+FULL COMPUTATION LOG — test 28: f_GUE figure of merit
+every log_comp() entry emitted while this test ran:
+
+[17:13:08.712] [+12303.994s]  calc: Σ²(L=2.000) = 0.404688 (n_pos=9601, n_windows=3000, mean_count=1.99)
+[17:13:09.363] [+12304.645s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[17:18:15.462] [+12610.744s]  calc: Σ²(L=2.000) = 0.663437 (n_pos=5530, n_windows=3000, mean_count=2.03)
+[17:18:19.349] [+12614.631s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[17:23:20.729] [+12916.011s]  calc: Σ²(L=2.000) = 0.629287 (n_pos=5530, n_windows=3000, mean_count=2.02)
+[17:23:26.725] [+12922.007s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[17:28:20.247] [+13215.529s]  calc: Σ²(L=2.000) = 0.620146 (n_pos=5530, n_windows=3000, mean_count=2.04)
+[17:28:26.188] [+13221.470s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[17:33:37.233] [+13532.515s]  calc: Σ²(L=2.000) = 0.737871 (n_pos=5527, n_windows=3000, mean_count=2.04)
+[17:33:43.480] [+13538.762s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[17:38:57.213] [+13852.495s]  calc: Σ²(L=2.000) = 0.526840 (n_pos=5530, n_windows=3000, mean_count=2.02)

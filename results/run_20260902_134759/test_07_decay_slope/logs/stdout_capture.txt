@@ -1,0 +1,14 @@
+
+════════════════════════════════════════════════════════════
+TEST 7 (secondary, HARDCORE): Objection 3: Large-T Decay Rate — deep slope validation
+────────────────────────────────────────────────────────────
+ D1 slope     : -0.1504, 95%CI [-0.1594, -0.1414] (width 0.0179), R²=0.9954 (limits 0.1 / 0.9)
+ D2 stability : slope_lo=-0.1752, slope_hi=-0.1385, |Δ|=0.0367 (limit 0.15)
+ D3 walk-fwd  : median err 0.05%, max err 0.09% (limits 2%/5%)
+ D4 bootstrap : slope=-0.1504 inside boot 95%CI [-0.1621, -0.1378]? YES
+────────────────────────────────────────────────────────────
+ D1 slope CI          PASS — width 0.0179, R² 0.9954
+ D2 stability         PASS — |Δslope| = 0.0367
+ D3 walk-forward      PASS — median 0.05%, max 0.09%
+ D4 boot vs CI        PASS — CI [-0.1621, -0.1378]
+ Test 7 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS

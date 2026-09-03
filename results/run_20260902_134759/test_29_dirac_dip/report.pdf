@@ -1,0 +1,103 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3384 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 29: Dirac dip in DOS at ?=1/2) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: PASS   |   Generated: 2026-09-02 18:44:11   |   Suite: AB-Cloud v19 \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (Semi-exact: DOS dip depth vs prediction.) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: Semi-exact: DOS dip depth vs prediction.) Tj ET
+BT /F1 10 Tf 50 690 Td (Test 29 SERIES: 9-pt fine scan @96? \(strict dip true, ?_dip=0.0195\), contrast\(w\) 288.00?3.97 \(w=0.1?0.8\), size contrast 13.33×?10.67×.) Tj ET
+BT /F1 13 Tf 50 644 Td (Result) Tj ET
+BT /F1 10 Tf 50 646 Td ( Test 29c [SERIES pass 3]: 3 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 13 Tf 50 592 Td (Plots) Tj ET
+BT /F1 10 Tf 50 602 Td (- `plots/plot_01` \(.png 600dpi / .svg / .pdf\)) Tj ET
+BT /F1 10 Tf 50 580 Td (- `plots/plot_02` \(.png 600dpi / .svg / .pdf\)) Tj ET
+BT /F1 10 Tf 50 558 Td (- `plots/plot_03` \(.png 600dpi / .svg / .pdf\)) Tj ET
+BT /F1 10 Tf 50 536 Td (- `plots/plot_04` \(.png 600dpi / .svg / .pdf\)) Tj ET
+BT /F1 10 Tf 50 514 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+BT /F1 13 Tf 50 436 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 470 Td (Reproduce with: julia ab_cloud_v19.jl --test 29 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 448 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 358 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 404 Td ([17:57:51.474] [+14986.757s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.3958, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 382 Td ([18:02:45.467] [+15280.749s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.4271, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 360 Td ([18:07:46.953] [+15582.235s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.4583, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 338 Td ([18:12:40.826] [+15876.108s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.4896, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 316 Td ([18:17:38.995] [+16174.277s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 294 Td ([18:22:37.999] [+16473.281s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5104, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 272 Td ([18:27:30.820] [+16766.102s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5417, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 250 Td ([18:33:06.073] [+17101.353s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5729, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 228 Td ([18:38:26.831] [+17422.113s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.6042, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 206 Td ([18:43:57.279] [+17752.561s]  build_ab_cloud_hamiltonian: 48x48 \(N=2304\), ?=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 184 Td ([18:44:03.436] [+17758.718s]  build_ab_cloud_hamiltonian: 48x48 \(N=2304\), ?=0.3958, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 6 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 2632 >>
+stream
+0 0 0 RG
+BT /F1 13 Tf 50 800 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 778 Td () Tj ET
+BT /F1 7 Tf 50 756 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 734 Td (TEST 29 \(pass 3, SERIES\): Dirac dip ? fine ?-scan + window series) Tj ET
+BT /F1 7 Tf 50 712 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 690 Td ( Fine scan: 9 points ? = k/96 around k=48 \(?=1/2 EXACT\), window |E|<0.5) Tj ET
+BT /F1 7 Tf 50 668 Td ( ? RUNTIME: 9 solves at 96? + 2 anchors at 48? ? 8?13 min) Tj ET
+BT /F1 7 Tf 50 646 Td ( ?=38/96 = 0.39583: ?\(|E|<0.5\) = 0.2083  \(289.4 s\)) Tj ET
+BT /F1 7 Tf 50 624 Td ( ?=41/96 = 0.42708: ?\(|E|<0.5\) = 0.1458  \(297.0 s\)) Tj ET
+BT /F1 7 Tf 50 602 Td ( ?=44/96 = 0.45833: ?\(|E|<0.5\) = 0.0833  \(290.1 s\)) Tj ET
+BT /F1 7 Tf 50 580 Td ( ?=47/96 = 0.48958: ?\(|E|<0.5\) = 0.0208  \(293.5 s\)) Tj ET
+BT /F1 7 Tf 50 558 Td ( ?=48/96 = 0.50000: ?\(|E|<0.5\) = 0.0195  \(294.9 s\)) Tj ET
+BT /F1 7 Tf 50 536 Td ( ?=49/96 = 0.51042: ?\(|E|<0.5\) = 0.0208  \(288.2 s\)) Tj ET
+BT /F1 7 Tf 50 514 Td ( ?=52/96 = 0.54167: ?\(|E|<0.5\) = 0.0833  \(331.0 s\)) Tj ET
+BT /F1 7 Tf 50 492 Td ( ?=55/96 = 0.57292: ?\(|E|<0.5\) = 0.1458  \(316.0 s\)) Tj ET
+BT /F1 7 Tf 50 470 Td ( ?=58/96 = 0.60417: ?\(|E|<0.5\) = 0.2083  \(326.3 s\)) Tj ET
+BT /F1 7 Tf 50 448 Td ( window |E|<0.1: ?_dip\(?=1/2\) = 0.0004, ?_off\(?=38/96\) = 0.1250 ? contrast 288.00×) Tj ET
+BT /F1 7 Tf 50 426 Td ( window |E|<0.2: ?_dip\(?=1/2\) = 0.0039, ?_off\(?=38/96\) = 0.2083 ? contrast 53.33×) Tj ET
+BT /F1 7 Tf 50 404 Td ( window |E|<0.3: ?_dip\(?=1/2\) = 0.0091, ?_off\(?=38/96\) = 0.2083 ? contrast 22.86×) Tj ET
+BT /F1 7 Tf 50 382 Td ( window |E|<0.5: ?_dip\(?=1/2\) = 0.0195, ?_off\(?=38/96\) = 0.2083 ? contrast 10.67×) Tj ET
+BT /F1 7 Tf 50 360 Td ( window |E|<0.8: ?_dip\(?=1/2\) = 0.0525, ?_off\(?=38/96\) = 0.2083 ? contrast 3.97×) Tj ET
+BT /F1 7 Tf 50 338 Td () Tj ET
+BT /F1 7 Tf 50 316 Td ( contrast @w=0.5 \(?=0.396 vs 1/2\): 13.33× \(48x48\) ? 10.67× \(96x96\) ? holds/sharpens ?) Tj ET
+BT /F1 7 Tf 50 294 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 272 Td ( strict dip @96? \(9 pts\) PASS ? ?\(?=1/2\) = 0.0195 below ALL 8 other scan points) Tj ET
+BT /F1 7 Tf 50 250 Td ( contrast grows as w ? 0 PASS ? contrast\(w\) 288.00× \(w=0.1\) vs 10.67× \(w=0.5\): Dirac ? ? E vs metallic ? ? const) Tj ET
+BT /F1 7 Tf 50 228 Td ( no wash-out 48??96?  PASS ? 13.33× ? 10.67× at the same ? pair \(0.396 vs 1/2; tolerance 0.8, as 29b\)) Tj ET
+BT /F1 7 Tf 50 206 Td ( Test 29c [SERIES pass 3]: 3 sub-checks, 0 failed ? PASS) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000253 00000 n 
+0000003689 00000 n 
+0000003815 00000 n 
+0000006499 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+6596
+%%EOF

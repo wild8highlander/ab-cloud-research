@@ -1,0 +1,15 @@
+
+════════════════════════════════════════════════════════════
+TEST 22 (pass 2, HARDCORE): AB phase Φ_AB = π/7 — 256-bit audit
+────────────────────────────────────────────────────────────
+ Φ_AB(1/14) == 1·(π/7): true (256-bit exact)
+ Φ_AB(2/14) == 2·(π/7): true (256-bit exact)
+ Φ_AB(3/14) == 3·(π/7): true (256-bit exact)
+ 2π·(1/14) == π/7 at 256-bit: true (bit-for-bit)
+ Float64 Φ_AB vs 256-bit truth: |Δ| = 1.75e-17 (contract < 1e-15)
+ Float64 δ_C vs 256-bit π/7:   |Δ| = 1.75e-17
+────────────────────────────────────────────────────────────
+ rational identity    PASS — 2π/14 == π/7 (256-bit), Float64 |Δ| = 1.75e-17
+ flux linearity p=1..3 PASS — Φ_AB(p/14) = p·(π/7) exact at 256-bit
+ Φ_AB == δ_C          PASS — Float64 δ_C vs 256-bit π/7: |Δ| = 1.75e-17
+ Test 22b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS

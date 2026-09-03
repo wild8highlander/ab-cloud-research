@@ -1,0 +1,15 @@
+FULL COMPUTATION LOG — test 19: Dirac cone v_F ≈ 0.125
+every log_comp() entry emitted while this test ran:
+
+[15:24:25.783] [+5781.065s]  build_ab_cloud_hamiltonian: 20x20 (N=400), α=0.4000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[15:24:27.667] [+5782.950s]  build_ab_cloud_hamiltonian: 40x40 (N=1600), α=0.4000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[15:24:30.652] [+5785.934s]  build_ab_cloud_hamiltonian: 60x60 (N=3600), α=0.4000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[15:24:46.991] [+5802.273s]  build_ab_cloud_hamiltonian: 80x80 (N=6400), α=0.4000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[15:26:09.619] [+5884.901s]  build_ab_cloud_hamiltonian: 20x20 (N=400), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[15:26:11.221] [+5886.504s]  build_ab_cloud_hamiltonian: 40x40 (N=1600), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[15:26:14.202] [+5889.485s]  build_ab_cloud_hamiltonian: 60x60 (N=3600), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[15:26:30.482] [+5905.764s]  build_ab_cloud_hamiltonian: 80x80 (N=6400), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[15:27:52.829] [+5988.111s]  build_ab_cloud_hamiltonian: 20x20 (N=400), α=0.6000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[15:27:54.428] [+5989.710s]  build_ab_cloud_hamiltonian: 40x40 (N=1600), α=0.6000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[15:27:57.396] [+5992.678s]  build_ab_cloud_hamiltonian: 60x60 (N=3600), α=0.6000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[15:28:13.935] [+6009.217s]  build_ab_cloud_hamiltonian: 80x80 (N=6400), α=0.6000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental

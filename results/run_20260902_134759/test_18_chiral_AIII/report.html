@@ -1,0 +1,38 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Test 18: Chiral symmetry AIII at α=1/2</title><style>body{font-family:system-ui;margin:2em;max-width:120ch}pre{background:#f4f4f4;padding:1em;overflow-x:auto;font-size:11px}h1{border-bottom:2px solid #333}</style></head><body>
+<h1>Test 18: Chiral symmetry AIII at α=1/2</h1>
+<p>Verdict: PASS   |   Generated: 2026-09-02 15:12:06   |   Suite: AB-Cloud v19 (Julia 1.12.0)</p>
+<h2>What this test verifies</h2>
+<p>EXACT: ||SHS+H||/||H|| ≈ 1e-16 on the pure lattice (W=0); W>0 is the honest breaker.</p>
+<p> METHOD: EXACT: ||SHS+H||/||H|| ≈ 1e-16 on the pure lattice (W=0); W>0 is the honest breaker.</p>
+<p>Test 18 HARDCORE: exact 0.00e+00, ε-row 5.77e-03 (ε_rms 0.0058, in window), vortex 0.00e+00 (preserved), S²=I 0.00e+00 (96x96 torus).</p>
+<h2>Result</h2>
+<p> Test 18b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS</p>
+<h2>Plots</h2>
+<p>- `plots/plot_01` (.png 600dpi / .svg / .pdf)</p>
+<p>- `plots/animation.gif` — animated reveal of every plot of this test</p>
+<h2>Independent verification guide</h2>
+<p>Reproduce with: julia ab_cloud_v19.jl --test 18 --no-two-pass</p>
+<p>Every computation is logged in logs/computation_log.txt (timestamps + deltas); raw console output in logs/stdout_capture.txt.</p>
+<h2>FULL COMPUTATION LOG</h2>
+<pre>[15:11:28.198] [+5003.481s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[15:11:40.131] [+5015.413s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 0 vortices, model=:monumental
+[15:11:52.929] [+5028.211s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=0.00, torus, 2 vortices, model=:monumental</pre>
+<h2>CONSOLE CAPTURE</h2>
+<pre>
+════════════════════════════════════════════════════════════
+TEST 18 (pass 2, HARDCORE): chiral symmetry AIII — deep audit
+Exact row + ε_rms quantitative contract + vortex-preservation row +
+S² = I operator sanity (launch-standard lattice)
+────────────────────────────────────────────────────────────
+ ⚠ RUNTIME: 3 builds + 3 S·H·S defect evals at 96x96 (Diagonal S, O(N²)) — ≈ 1–2 min
+ H1 exact row (α=1/2, W=0):      defect = 0.00e+00 &lt; ✓ 1e-10
+ H2 ε row (W=1.0, Nv=0):       defect = 5.77e-03 vs ε_rms = 0.0058 (analytic) ∈ [0.5, 2.0]× ✓
+ H2v vortex row (Nv=2, W=0):     defect = 0.00e+00 &lt; 1e-10 ✓ (bond phases PRESERVE AIII)
+ H3 operator sanity: ‖S² − I‖/‖I‖ = 0.00e+00 &lt; ✓ 1e-12
+────────────────────────────────────────────────────────────
+ exact row &lt; 1e-10    PASS — ‖SHS+H‖/‖H‖ = 0.00e+00 at α=1/2, W=0
+ ε_rms contract (W=1.0) PASS — defect 5.77e-03 vs analytic 2‖ε‖_F/‖H‖_F = 0.0058 (size-independent)
+ vortices PRESERVE AIII PASS — defect = 0.00e+00 (Nv=2, q=±1.00, W=0) — bond phases; Byers-Yang for integer q
+ S² = I               PASS — ‖S²−I‖/‖I‖ = 0.00e+00
+ Test 18b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS</pre>
+</body></html>

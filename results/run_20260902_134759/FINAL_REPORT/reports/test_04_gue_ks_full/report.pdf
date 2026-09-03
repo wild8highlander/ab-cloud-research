@@ -1,0 +1,85 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3625 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 4: GUE KS test \(full range\)) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: PASS   |   Generated: 2026-09-02 13:49:00   |   Suite: AB-Cloud v19 \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (STATISTICAL family: one-sample KS of zero spacings vs GUE Wigner surmise. p-values depend on sample size and T-range ? finite-data effects are legal.) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: STATISTICAL family: one-sample KS of zero spacings vs GUE Wigner surmise. p-values depend on sample size and T-range ? finite-data effects are legal.) Tj ET
+BT /F1 13 Tf 50 670 Td (Result) Tj ET
+BT /F1 10 Tf 50 668 Td ( Test 4 [HARDCORE pass 2]: 3 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 13 Tf 50 618 Td (Plots) Tj ET
+BT /F1 10 Tf 50 624 Td (- `plots/plot_01` \(.png 600dpi / .svg / .pdf\)) Tj ET
+BT /F1 10 Tf 50 602 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+BT /F1 13 Tf 50 540 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 558 Td (Reproduce with: julia ab_cloud_v19.jl --test 4 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 536 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 462 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 492 Td ([13:49:00.324] [+ 55.606s]  calc: KS D = 0.021619, p_asymptotic = 9.567870e-21 \(n=49999, ?=4.8368\)) Tj ET
+BT /F1 7 Tf 50 470 Td ([13:49:00.326] [+ 55.608s]  calc: KS D = 0.029562, p_asymptotic = 3.479907e-05 \(n=6251, ?=2.3408\)) Tj ET
+BT /F1 7 Tf 50 448 Td ([13:49:00.326] [+ 55.608s]  calc: KS D = 0.025418, p_asymptotic = 6.066737e-04 \(n=6250, ?=2.0125\)) Tj ET
+BT /F1 7 Tf 50 426 Td ([13:49:00.327] [+ 55.609s]  calc: KS D = 0.021305, p_asymptotic = 6.745302e-03 \(n=6251, ?=1.6870\)) Tj ET
+BT /F1 7 Tf 50 404 Td ([13:49:00.327] [+ 55.609s]  calc: KS D = 0.027409, p_asymptotic = 1.619781e-04 \(n=6251, ?=2.1704\)) Tj ET
+BT /F1 7 Tf 50 382 Td ([13:49:00.328] [+ 55.610s]  calc: KS D = 0.022629, p_asymptotic = 3.252259e-03 \(n=6251, ?=1.7919\)) Tj ET
+BT /F1 7 Tf 50 360 Td ([13:49:00.328] [+ 55.610s]  calc: KS D = 0.019816, p_asymptotic = 1.453640e-02 \(n=6251, ?=1.5691\)) Tj ET
+BT /F1 7 Tf 50 338 Td ([13:49:00.328] [+ 55.611s]  calc: KS D = 0.019647, p_asymptotic = 1.581953e-02 \(n=6250, ?=1.5556\)) Tj ET
+BT /F1 7 Tf 50 316 Td ([13:49:00.329] [+ 55.611s]  calc: KS D = 0.019627, p_asymptotic = 1.595774e-02 \(n=6251, ?=1.5542\)) Tj ET
+BT /F1 7 Tf 50 294 Td ([13:49:00.331] [+ 55.613s]  calc: KS D = 0.024587, p_asymptotic = 1.427535e-13 \(n=24999, ?=3.8904\)) Tj ET
+BT /F1 7 Tf 50 272 Td ([13:49:00.333] [+ 55.615s]  calc: KS D = 0.018906, p_asymptotic = 3.369159e-08 \(n=25000, ?=2.9916\)) Tj ET
+BT /F1 13 Tf 50 150 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 228 Td () Tj ET
+BT /F1 7 Tf 50 206 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 184 Td (TEST 4 \(secondary, HARDCORE\): Objection 2: GUE Spacing Statistics ? deep KS audit) Tj ET
+BT /F1 7 Tf 50 162 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 140 Td ( Full range: N=49999 spacings, D=0.021619, p=0.000000 \(report; primary verdict governs\)) Tj ET
+BT /F1 7 Tf 50 118 Td ( K1 blocks    : D over 8 blocks: min=0.019627 max=0.029562, spread=0.009934 \(limit 0.0101\)) Tj ET
+BT /F1 7 Tf 50 96 Td ( K2 half split: D_first=0.024587, D_second=0.018906, |?D|=0.005681 \(limit 0.02\)) Tj ET
+BT /F1 7 Tf 50 74 Td ( K3 moments   : mean\(s\)=1.0000 \(limit |?|<0.02\), var\(s\)=0.1591 vs surmise 0.1781 \(limit ±60%\)) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 6 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 422 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 778 Td ( K1 block homog       PASS ? spread = 0.009934) Tj ET
+BT /F1 7 Tf 50 756 Td ( K2 half split        PASS ? |?D| = 0.005681) Tj ET
+BT /F1 7 Tf 50 734 Td ( K3 moments           PASS ? mean 1.0000, var 0.1591) Tj ET
+BT /F1 7 Tf 50 712 Td ( Test 4 [HARDCORE pass 2]: 3 sub-checks, 0 failed ? PASS) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000253 00000 n 
+0000003930 00000 n 
+0000004056 00000 n 
+0000004529 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+4626
+%%EOF

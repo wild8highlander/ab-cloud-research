@@ -1,0 +1,89 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3337 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 35: Spectral form factor K\(t\)) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: FAIL   |   Generated: 2026-09-02 22:36:30   |   Suite: AB-Cloud v19 \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (Statistical: raw \(1/n\)|?e^{it?}|? vs finite-box GUE reference K_box\(t\)=t\(1?sinc\(2?t\)\); RMS over t?0.3.) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: Statistical: raw \(1/n\)|?e^{it?}|? vs finite-box GUE reference K_box\(t\)=t\(1?sinc\(2?t\)\); RMS over t?0.3.) Tj ET
+BT /F1 10 Tf 50 690 Td (Test 35 HARDCORE pass 2: n=5 per-realization K\(t\), 33-point t-grid, ensemble mean verdict.) Tj ET
+BT /F1 10 Tf 50 668 Td (Test 35 HARDCORE: ensemble RMS=0.6143, corr_box=0.6379, corr_?=0.8123, RMS scatter ?=0.1856.) Tj ET
+BT /F1 13 Tf 50 618 Td (Result) Tj ET
+BT /F1 10 Tf 50 624 Td ( Test 35b [HARDCORE pass 2]: 3 sub-checks, 2 failed ? WARN) Tj ET
+BT /F1 13 Tf 50 566 Td (Plots) Tj ET
+BT /F1 10 Tf 50 580 Td (- `plots/plot_01` \(.png 600dpi / .svg / .pdf\)) Tj ET
+BT /F1 10 Tf 50 558 Td (- `plots/plot_02` \(.png 600dpi / .svg / .pdf\)) Tj ET
+BT /F1 10 Tf 50 536 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+BT /F1 13 Tf 50 462 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 492 Td (Reproduce with: julia ab_cloud_v19.jl --test 35 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 470 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 384 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 426 Td ([22:09:09.750] [+30065.032s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 404 Td ([22:14:37.106] [+30392.388s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 382 Td ([22:19:44.711] [+30699.993s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 360 Td ([22:24:48.414] [+31003.696s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 338 Td ([22:30:51.804] [+31367.086s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 13 Tf 50 228 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 294 Td () Tj ET
+BT /F1 7 Tf 50 272 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 250 Td (TEST 35 \(pass 2, HARDCORE\): spectral form factor K\(t\) ? ensemble pass) Tj ET
+BT /F1 7 Tf 50 228 Td (n ? 5 per-realization K\(t\), 33-point t-grid, ensemble verdict) Tj ET
+BT /F1 7 Tf 50 206 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 184 Td ( ? RUNTIME: n=5 realizations at 96x96 ? expect ? 12?17 min) Tj ET
+BT /F1 7 Tf 50 162 Td ( real  1/5: RMS\(K?K_box, t?0.3\) = 0.9199) Tj ET
+BT /F1 7 Tf 50 140 Td ( real  2/5: RMS\(K?K_box, t?0.3\) = 0.8578) Tj ET
+BT /F1 7 Tf 50 118 Td ( real  3/5: RMS\(K?K_box, t?0.3\) = 0.9671) Tj ET
+BT /F1 7 Tf 50 96 Td ( real  4/5: RMS\(K?K_box, t?0.3\) = 0.7540) Tj ET
+BT /F1 7 Tf 50 74 Td ( real  5/5: RMS\(K?K_box, t?0.3\) = 0.4999) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 6 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 809 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td () Tj ET
+BT /F1 7 Tf 50 778 Td ( ENSEMBLE K\(t\): RMS\(K_AB ? K_box, t ? 0.3\) = 0.6143 \(target < 0.30\)) Tj ET
+BT /F1 7 Tf 50 756 Td ( Corr\(K_AB, K_box\) = 0.6379 \(target > 0.50\) | Corr\(K_AB, K_?\) = 0.8123) Tj ET
+BT /F1 7 Tf 50 734 Td ( Per-realization RMS: mean 0.7998, scatter ? = 0.1856 > ? 0.15) Tj ET
+BT /F1 7 Tf 50 712 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 690 Td ( RMS < 0.30 \(ensemble\) WARN ? ensemble-mean K\(t\), 33-point grid: 0.6143) Tj ET
+BT /F1 7 Tf 50 668 Td ( Corr > 0.50 \(ensemble\) PASS ? Corr\(K, K_box\) = 0.6379) Tj ET
+BT /F1 7 Tf 50 646 Td ( RMS scatter ? 0.15   WARN ? ?=0.1856 across 5 realizations) Tj ET
+BT /F1 7 Tf 50 624 Td ( Test 35b [HARDCORE pass 2]: 3 sub-checks, 2 failed ? WARN) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000253 00000 n 
+0000003642 00000 n 
+0000003768 00000 n 
+0000004628 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+4725
+%%EOF

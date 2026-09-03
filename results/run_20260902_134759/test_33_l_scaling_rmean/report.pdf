@@ -1,0 +1,284 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R] /Count 6 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3325 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 33: L-scaling ?r? \(10?20?30?50?80?112\)) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: PASS   |   Generated: 2026-09-02 21:32:46   |   Suite: AB-Cloud v19 \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (Statistical finite-size trend: monotone approach to 0.594-0.599; monograph anchors L?50, extended points L=80/112 \(user spec 2026-08-29\) check the GUE plateau; W_eff capped at ab_W_max.) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: Statistical finite-size trend: monotone approach to 0.594-0.599; monograph anchors L?50, extended points L=80/112 \(user spec 2026-08-29\) check the GUE plateau; W_eff capped at ab_W_max.) Tj ET
+BT /F1 10 Tf 50 690 Td (Test 33 HARDCORE pass 2: n ? 5 per L, weighted GUE-plateau ?? over L ? 50, L capped at 112 \(RAM honesty\).) Tj ET
+BT /F1 10 Tf 50 668 Td ( WHY W \(DISORDER\) IS CAPPED AT W_max ? 1.0 ? disorder ? vortex motion ? statistics:) Tj ET
+BT /F1 10 Tf 50 646 Td (  W is the diagonal on-site potential the vortices paint onto the lattice:) Tj ET
+BT /F1 10 Tf 50 624 Td (      V_i = ?_k q_k·W / \(r_ik?·N?¹ + 1\),   hopping t = 1.) Tj ET
+BT /F1 10 Tf 50 602 Td (  The ratio \(disorder energy q·W\) / \(kinetic energy t\) decides what the) Tj ET
+BT /F1 10 Tf 50 580 Td (  vortex cloud does and which spectral statistics come out:) Tj ET
+BT /F1 10 Tf 50 558 Td (   ? q·W ? t  \(e.g. W=4, q=0.3 ? V?1.2 next to a core\): the disorder) Tj ET
+BT /F1 10 Tf 50 536 Td (     landscape dominates the vortex motion ? vortices pin/steer the) Tj ET
+BT /F1 10 Tf 50 514 Td (     eigenstates, states localize on the potential relief, and ?r? drifts) Tj ET
+BT /F1 10 Tf 50 492 Td (     from GUE \(0.5992\) toward Poisson \(0.3863\) by an essentially random) Tj ET
+BT /F1 10 Tf 50 470 Td (     amount. A strongly disordered, spinning vortex system can therefore) Tj ET
+BT /F1 10 Tf 50 448 Td (     emit ALMOST ANY statistics ? the numbers depend on the effective) Tj ET
+BT /F1 10 Tf 50 426 Td (     rotation speed \(W/t\) and on the twisting/vortex arrangement \(Nv,) Tj ET
+BT /F1 10 Tf 50 404 Td (     layout, charges\) of that realization, not on the AB physics.) Tj ET
+BT /F1 10 Tf 50 382 Td (   ? q·W ? t  \(W ? 1\): the Aharonov-Bohm phases dominate the hopping,) Tj ET
+BT /F1 10 Tf 50 360 Td (     states stay delocalized and GUE \(Wigner-Dyson\) is reachable.) Tj ET
+BT /F1 10 Tf 50 338 Td (  That is why these tests measure at W_eff = min\(cfg.ab_W, W_max = 1.0\):) Tj ET
+BT /F1 10 Tf 50 316 Td (  they certify the PHASE physics, not the disorder physics.) Tj ET
+BT /F1 10 Tf 50 294 Td (Test 33 RAM gate: L=112 skipped \(needs ? 10.6 GB peak, free ? 4.5 GB\).) Tj ET
+BT /F1 10 Tf 50 272 Td (Extended L-scan to L=80 \(user spec 2026-08-29\); W_eff=1.00; verdict q=0.30; trend 0.434 ? 0.556 ? 0.593 ? 0.6 ? 0.6) Tj ET
+BT /F1 10 Tf 50 250 Td (Test 33 HARDCORE plateau \(q=0.30\): weighted ?r?=0.6004 vs GUE \(|?|=0.0012, in band\), ??/dof=0.01.) Tj ET
+BT /F1 13 Tf 50 124 Td (Result) Tj ET
+BT /F1 10 Tf 50 206 Td ( Test 33b \(hardcore\): plateau weighted ?r?=0.6004, ??/dof=0.01 ? PASS) Tj ET
+BT /F1 13 Tf 50 72 Td (Plots) Tj ET
+BT /F1 10 Tf 50 162 Td (- `plots/plot_01` \(.png 600dpi / .svg / .pdf\)) Tj ET
+BT /F1 10 Tf 50 140 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 6 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 4978 >>
+stream
+0 0 0 RG
+BT /F1 13 Tf 50 800 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 778 Td (Reproduce with: julia ab_cloud_v19.jl --test 33 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 756 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 722 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 712 Td ([21:18:17.797] [+27013.080s]  build_ab_cloud_hamiltonian: 10x10 \(N=100\), ?=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 690 Td ([21:18:18.357] [+27013.639s]  calc: ?r? = 0.629404 \(n_r=59, n_eigs=61\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 668 Td ([21:18:19.481] [+27014.763s]  build_ab_cloud_hamiltonian: 10x10 \(N=100\), ?=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 646 Td ([21:18:20.034] [+27015.316s]  calc: ?r? = 0.509721 \(n_r=59, n_eigs=61\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 624 Td ([21:18:21.171] [+27016.453s]  build_ab_cloud_hamiltonian: 10x10 \(N=100\), ?=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 602 Td ([21:18:21.721] [+27017.004s]  calc: ?r? = 0.574634 \(n_r=59, n_eigs=61\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 580 Td ([21:18:22.850] [+27018.132s]  build_ab_cloud_hamiltonian: 10x10 \(N=100\), ?=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 558 Td ([21:18:23.385] [+27018.667s]  calc: ?r? = 0.557955 \(n_r=59, n_eigs=61\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 536 Td ([21:18:24.495] [+27019.777s]  build_ab_cloud_hamiltonian: 10x10 \(N=100\), ?=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 514 Td ([21:18:25.049] [+27020.331s]  calc: ?r? = 0.486070 \(n_r=59, n_eigs=61\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 492 Td ([21:18:26.189] [+27021.472s]  build_ab_cloud_hamiltonian: 20x20 \(N=400\), ?=0.5000, t=1.00, W=1.00, torus, 12 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 470 Td ([21:18:26.787] [+27022.069s]  calc: ?r? = 0.593495 \(n_r=239, n_eigs=241\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 448 Td ([21:18:27.998] [+27023.280s]  build_ab_cloud_hamiltonian: 20x20 \(N=400\), ?=0.5000, t=1.00, W=1.00, torus, 12 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 426 Td ([21:18:28.604] [+27023.886s]  calc: ?r? = 0.596397 \(n_r=239, n_eigs=241\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 404 Td ([21:18:29.710] [+27024.992s]  build_ab_cloud_hamiltonian: 20x20 \(N=400\), ?=0.5000, t=1.00, W=1.00, torus, 12 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 382 Td ([21:18:30.274] [+27025.556s]  calc: ?r? = 0.582880 \(n_r=239, n_eigs=241\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 360 Td ([21:18:31.321] [+27026.603s]  build_ab_cloud_hamiltonian: 20x20 \(N=400\), ?=0.5000, t=1.00, W=1.00, torus, 12 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 338 Td ([21:18:31.864] [+27027.146s]  calc: ?r? = 0.588530 \(n_r=239, n_eigs=241\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 316 Td ([21:18:32.818] [+27028.100s]  build_ab_cloud_hamiltonian: 20x20 \(N=400\), ?=0.5000, t=1.00, W=1.00, torus, 12 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 294 Td ([21:18:33.332] [+27028.614s]  calc: ?r? = 0.615185 \(n_r=239, n_eigs=241\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 272 Td ([21:18:34.335] [+27029.618s]  build_ab_cloud_hamiltonian: 30x30 \(N=900\), ?=0.5000, t=1.00, W=1.00, torus, 26 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 250 Td ([21:18:35.120] [+27030.402s]  calc: ?r? = 0.625316 \(n_r=539, n_eigs=541\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 228 Td ([21:18:36.129] [+27031.411s]  build_ab_cloud_hamiltonian: 30x30 \(N=900\), ?=0.5000, t=1.00, W=1.00, torus, 26 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 206 Td ([21:18:36.862] [+27032.144s]  calc: ?r? = 0.610951 \(n_r=539, n_eigs=541\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 184 Td ([21:18:37.869] [+27033.151s]  build_ab_cloud_hamiltonian: 30x30 \(N=900\), ?=0.5000, t=1.00, W=1.00, torus, 26 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 162 Td ([21:18:38.593] [+27033.875s]  calc: ?r? = 0.600825 \(n_r=539, n_eigs=541\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 140 Td ([21:18:39.581] [+27034.863s]  build_ab_cloud_hamiltonian: 30x30 \(N=900\), ?=0.5000, t=1.00, W=1.00, torus, 26 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 118 Td ([21:18:40.302] [+27035.584s]  calc: ?r? = 0.592813 \(n_r=539, n_eigs=541\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 96 Td ([21:18:41.270] [+27036.552s]  build_ab_cloud_hamiltonian: 30x30 \(N=900\), ?=0.5000, t=1.00, W=1.00, torus, 26 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 74 Td ([21:18:42.004] [+27037.286s]  calc: ?r? = 0.605293 \(n_r=539, n_eigs=541\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 8 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+8 0 obj
+<< /Length 5256 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ([21:18:43.019] [+27038.302s]  build_ab_cloud_hamiltonian: 50x50 \(N=2500\), ?=0.5000, t=1.00, W=1.00, torus, 70 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 778 Td ([21:18:48.015] [+27043.297s]  calc: ?r? = 0.597483 \(n_r=1499, n_eigs=1501\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 756 Td ([21:18:49.075] [+27044.357s]  build_ab_cloud_hamiltonian: 50x50 \(N=2500\), ?=0.5000, t=1.00, W=1.00, torus, 70 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 734 Td ([21:18:54.049] [+27049.331s]  calc: ?r? = 0.594415 \(n_r=1499, n_eigs=1501\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 712 Td ([21:18:55.096] [+27050.378s]  build_ab_cloud_hamiltonian: 50x50 \(N=2500\), ?=0.5000, t=1.00, W=1.00, torus, 70 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 690 Td ([21:19:00.056] [+27055.338s]  calc: ?r? = 0.606851 \(n_r=1499, n_eigs=1501\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 668 Td ([21:19:01.083] [+27056.365s]  build_ab_cloud_hamiltonian: 50x50 \(N=2500\), ?=0.5000, t=1.00, W=1.00, torus, 70 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 646 Td ([21:19:06.087] [+27061.370s]  calc: ?r? = 0.574458 \(n_r=1499, n_eigs=1501\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 624 Td ([21:19:07.153] [+27062.436s]  build_ab_cloud_hamiltonian: 50x50 \(N=2500\), ?=0.5000, t=1.00, W=1.00, torus, 70 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 602 Td ([21:19:12.078] [+27067.360s]  calc: ?r? = 0.594551 \(n_r=1499, n_eigs=1501\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 580 Td ([21:19:13.463] [+27068.745s]  build_ab_cloud_hamiltonian: 80x80 \(N=6400\), ?=0.5000, t=1.00, W=1.00, torus, 178 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 558 Td ([21:20:25.768] [+27141.050s]  calc: ?r? = 0.598524 \(n_r=3839, n_eigs=3841\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 536 Td ([21:20:27.289] [+27142.571s]  build_ab_cloud_hamiltonian: 80x80 \(N=6400\), ?=0.5000, t=1.00, W=1.00, torus, 178 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 514 Td ([21:21:39.539] [+27214.821s]  calc: ?r? = 0.593096 \(n_r=3839, n_eigs=3841\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 492 Td ([21:21:41.084] [+27216.366s]  build_ab_cloud_hamiltonian: 80x80 \(N=6400\), ?=0.5000, t=1.00, W=1.00, torus, 178 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 470 Td ([21:22:54.656] [+27289.938s]  calc: ?r? = 0.598961 \(n_r=3839, n_eigs=3841\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 448 Td ([21:22:56.054] [+27291.337s]  build_ab_cloud_hamiltonian: 80x80 \(N=6400\), ?=0.5000, t=1.00, W=1.00, torus, 178 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 426 Td ([21:24:11.640] [+27366.922s]  calc: ?r? = 0.602712 \(n_r=3839, n_eigs=3841\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 404 Td ([21:24:13.429] [+27368.711s]  build_ab_cloud_hamiltonian: 80x80 \(N=6400\), ?=0.5000, t=1.00, W=1.00, torus, 178 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 382 Td ([21:25:27.096] [+27442.378s]  calc: ?r? = 0.600199 \(n_r=3839, n_eigs=3841\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 360 Td ([21:25:28.354] [+27443.636s]  build_ab_cloud_hamiltonian: 10x10 \(N=100\), ?=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 338 Td ([21:25:28.912] [+27444.194s]  calc: ?r? = 0.512863 \(n_r=59, n_eigs=61\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 316 Td ([21:25:30.090] [+27445.372s]  build_ab_cloud_hamiltonian: 10x10 \(N=100\), ?=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 294 Td ([21:25:30.645] [+27445.928s]  calc: ?r? = 0.408227 \(n_r=59, n_eigs=61\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 272 Td ([21:25:31.782] [+27447.064s]  build_ab_cloud_hamiltonian: 10x10 \(N=100\), ?=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 250 Td ([21:25:32.334] [+27447.616s]  calc: ?r? = 0.434605 \(n_r=59, n_eigs=61\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 228 Td ([21:25:33.453] [+27448.735s]  build_ab_cloud_hamiltonian: 10x10 \(N=100\), ?=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 206 Td ([21:25:34.001] [+27449.283s]  calc: ?r? = 0.444497 \(n_r=59, n_eigs=61\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 184 Td ([21:25:35.115] [+27450.397s]  build_ab_cloud_hamiltonian: 10x10 \(N=100\), ?=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 162 Td ([21:25:35.649] [+27450.931s]  calc: ?r? = 0.371493 \(n_r=59, n_eigs=61\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 140 Td ([21:25:36.772] [+27452.054s]  build_ab_cloud_hamiltonian: 20x20 \(N=400\), ?=0.5000, t=1.00, W=1.00, open, 12 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 118 Td ([21:25:37.377] [+27452.659s]  calc: ?r? = 0.552303 \(n_r=239, n_eigs=241\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 96 Td ([21:25:38.506] [+27453.789s]  build_ab_cloud_hamiltonian: 20x20 \(N=400\), ?=0.5000, t=1.00, W=1.00, open, 12 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 74 Td ([21:25:39.119] [+27454.401s]  calc: ?r? = 0.568758 \(n_r=239, n_eigs=241\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 10 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 5257 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ([21:25:40.260] [+27455.542s]  build_ab_cloud_hamiltonian: 20x20 \(N=400\), ?=0.5000, t=1.00, W=1.00, open, 12 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 778 Td ([21:25:40.847] [+27456.129s]  calc: ?r? = 0.525701 \(n_r=239, n_eigs=241\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 756 Td ([21:25:41.974] [+27457.256s]  build_ab_cloud_hamiltonian: 20x20 \(N=400\), ?=0.5000, t=1.00, W=1.00, open, 12 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 734 Td ([21:25:42.526] [+27457.808s]  calc: ?r? = 0.549972 \(n_r=239, n_eigs=241\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 712 Td ([21:25:43.537] [+27458.819s]  build_ab_cloud_hamiltonian: 20x20 \(N=400\), ?=0.5000, t=1.00, W=1.00, open, 12 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 690 Td ([21:25:44.100] [+27459.382s]  calc: ?r? = 0.585633 \(n_r=239, n_eigs=241\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 668 Td ([21:25:45.054] [+27460.336s]  build_ab_cloud_hamiltonian: 30x30 \(N=900\), ?=0.5000, t=1.00, W=1.00, open, 26 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 646 Td ([21:25:45.772] [+27461.054s]  calc: ?r? = 0.578164 \(n_r=539, n_eigs=541\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 624 Td ([21:25:46.753] [+27462.035s]  build_ab_cloud_hamiltonian: 30x30 \(N=900\), ?=0.5000, t=1.00, W=1.00, open, 26 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 602 Td ([21:25:47.487] [+27462.769s]  calc: ?r? = 0.588849 \(n_r=539, n_eigs=541\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 580 Td ([21:25:48.476] [+27463.758s]  build_ab_cloud_hamiltonian: 30x30 \(N=900\), ?=0.5000, t=1.00, W=1.00, open, 26 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 558 Td ([21:25:49.202] [+27464.484s]  calc: ?r? = 0.583585 \(n_r=539, n_eigs=541\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 536 Td ([21:25:50.205] [+27465.487s]  build_ab_cloud_hamiltonian: 30x30 \(N=900\), ?=0.5000, t=1.00, W=1.00, open, 26 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 514 Td ([21:25:50.928] [+27466.210s]  calc: ?r? = 0.601887 \(n_r=539, n_eigs=541\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 492 Td ([21:25:51.924] [+27467.205s]  build_ab_cloud_hamiltonian: 30x30 \(N=900\), ?=0.5000, t=1.00, W=1.00, open, 26 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 470 Td ([21:25:52.656] [+27467.938s]  calc: ?r? = 0.614023 \(n_r=539, n_eigs=541\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 448 Td ([21:25:53.720] [+27469.003s]  build_ab_cloud_hamiltonian: 50x50 \(N=2500\), ?=0.5000, t=1.00, W=1.00, open, 70 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 426 Td ([21:25:58.716] [+27473.998s]  calc: ?r? = 0.606783 \(n_r=1499, n_eigs=1501\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 404 Td ([21:25:59.762] [+27475.044s]  build_ab_cloud_hamiltonian: 50x50 \(N=2500\), ?=0.5000, t=1.00, W=1.00, open, 70 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 382 Td ([21:26:04.716] [+27479.999s]  calc: ?r? = 0.602431 \(n_r=1499, n_eigs=1501\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 360 Td ([21:26:05.772] [+27481.054s]  build_ab_cloud_hamiltonian: 50x50 \(N=2500\), ?=0.5000, t=1.00, W=1.00, open, 70 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 338 Td ([21:26:10.722] [+27486.005s]  calc: ?r? = 0.597144 \(n_r=1499, n_eigs=1501\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 316 Td ([21:26:11.792] [+27487.074s]  build_ab_cloud_hamiltonian: 50x50 \(N=2500\), ?=0.5000, t=1.00, W=1.00, open, 70 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 294 Td ([21:26:16.739] [+27492.021s]  calc: ?r? = 0.608952 \(n_r=1499, n_eigs=1501\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 272 Td ([21:26:17.808] [+27493.090s]  build_ab_cloud_hamiltonian: 50x50 \(N=2500\), ?=0.5000, t=1.00, W=1.00, open, 70 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 250 Td ([21:26:22.798] [+27498.080s]  calc: ?r? = 0.586730 \(n_r=1499, n_eigs=1501\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 228 Td ([21:26:24.162] [+27499.444s]  build_ab_cloud_hamiltonian: 80x80 \(N=6400\), ?=0.5000, t=1.00, W=1.00, open, 178 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 206 Td ([21:27:34.829] [+27570.111s]  calc: ?r? = 0.597930 \(n_r=3839, n_eigs=3841\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 184 Td ([21:27:36.326] [+27571.608s]  build_ab_cloud_hamiltonian: 80x80 \(N=6400\), ?=0.5000, t=1.00, W=1.00, open, 178 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 162 Td ([21:28:48.328] [+27643.610s]  calc: ?r? = 0.610283 \(n_r=3839, n_eigs=3841\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 140 Td ([21:28:49.848] [+27645.130s]  build_ab_cloud_hamiltonian: 80x80 \(N=6400\), ?=0.5000, t=1.00, W=1.00, open, 178 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 118 Td ([21:30:02.856] [+27718.138s]  calc: ?r? = 0.595793 \(n_r=3839, n_eigs=3841\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 96 Td ([21:30:04.465] [+27719.747s]  build_ab_cloud_hamiltonian: 80x80 \(N=6400\), ?=0.5000, t=1.00, W=1.00, open, 178 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 74 Td ([21:31:23.977] [+27799.259s]  calc: ?r? = 0.599605 \(n_r=3839, n_eigs=3841\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 12 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+12 0 obj
+<< /Length 3450 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ([21:31:26.491] [+27801.773s]  build_ab_cloud_hamiltonian: 80x80 \(N=6400\), ?=0.5000, t=1.00, W=1.00, open, 178 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 778 Td ([21:32:42.881] [+27878.163s]  calc: ?r? = 0.598340 \(n_r=3839, n_eigs=3841\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 13 Tf 50 748 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 734 Td () Tj ET
+BT /F1 7 Tf 50 712 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 690 Td (TEST 33 \(pass 2, HARDCORE\): L-scaling ? deep validation) Tj ET
+BT /F1 7 Tf 50 668 Td (Harder machinery: up to 5 realizations per L, weighted) Tj ET
+BT /F1 7 Tf 50 646 Td (GUE-plateau ?? over L ? 50, no L beyond 112 \(RAM honesty: L=128 ? 4.3 GB\).) Tj ET
+BT /F1 7 Tf 50 624 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 602 Td ( ? RUNTIME: 2 q-rows × up to n=5 realizations × L ? {10,20,30,50,80,112} ? expect ? 27?81 min \(±3× machine factor; RAM-gated rungs are skipped inside with a printed reason\)) Tj ET
+BT /F1 7 Tf 50 580 Td () Tj ET
+BT /F1 7 Tf 50 558 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 536 Td (TEST 33: L-Scaling for AB-Cloud Lattice) Tj ET
+BT /F1 7 Tf 50 514 Td (L=10?0.487 \(Poisson\), L=20?0.562, L=30?0.595, L=50?0.594 \(monograph\),) Tj ET
+BT /F1 7 Tf 50 492 Td (L=80, L=112 ? GUE plateau check \(extended range, user spec 2026-08-29\)) Tj ET
+BT /F1 7 Tf 50 470 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 448 Td ( WHY W \(DISORDER\) IS CAPPED AT W_max ? 1.0 ? disorder ? vortex motion ? statistics:) Tj ET
+BT /F1 7 Tf 50 426 Td (  W is the diagonal on-site potential the vortices paint onto the lattice:) Tj ET
+BT /F1 7 Tf 50 404 Td (      V_i = ?_k q_k·W / \(r_ik?·N?¹ + 1\),   hopping t = 1.) Tj ET
+BT /F1 7 Tf 50 382 Td (  The ratio \(disorder energy q·W\) / \(kinetic energy t\) decides what the) Tj ET
+BT /F1 7 Tf 50 360 Td (  vortex cloud does and which spectral statistics come out:) Tj ET
+BT /F1 7 Tf 50 338 Td (   ? q·W ? t  \(e.g. W=4, q=0.3 ? V?1.2 next to a core\): the disorder) Tj ET
+BT /F1 7 Tf 50 316 Td (     landscape dominates the vortex motion ? vortices pin/steer the) Tj ET
+BT /F1 7 Tf 50 294 Td (     eigenstates, states localize on the potential relief, and ?r? drifts) Tj ET
+BT /F1 7 Tf 50 272 Td (     from GUE \(0.5992\) toward Poisson \(0.3863\) by an essentially random) Tj ET
+BT /F1 7 Tf 50 250 Td (     amount. A strongly disordered, spinning vortex system can therefore) Tj ET
+BT /F1 7 Tf 50 228 Td (     emit ALMOST ANY statistics ? the numbers depend on the effective) Tj ET
+BT /F1 7 Tf 50 206 Td (     rotation speed \(W/t\) and on the twisting/vortex arrangement \(Nv,) Tj ET
+BT /F1 7 Tf 50 184 Td (     layout, charges\) of that realization, not on the AB physics.) Tj ET
+BT /F1 7 Tf 50 162 Td (   ? q·W ? t  \(W ? 1\): the Aharonov-Bohm phases dominate the hopping,) Tj ET
+BT /F1 7 Tf 50 140 Td (     states stay delocalized and GUE \(Wigner-Dyson\) is reachable.) Tj ET
+BT /F1 7 Tf 50 118 Td (  That is why these tests measure at W_eff = min\(cfg.ab_W, W_max = 1.0\):) Tj ET
+BT /F1 7 Tf 50 96 Td (  they certify the PHASE physics, not the disorder physics.) Tj ET
+BT /F1 7 Tf 50 74 Td ( ? RAM GATE: L=112 needs ? 10.6 GB peak \(matrix + LAPACK workspace\), free ? 4.5 GB ? SKIPPED \(a swap-thrashing eig is indistinguishable from a hang\)) Tj ET
+
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 14 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+14 0 obj
+<< /Length 2359 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ( q=1.00 BC=:torus L=10  Nv=4   ?=0.50 W=1.00 ?r? = 0.5516 ± 0.0252 \(5 real, monograph 0.487\)) Tj ET
+BT /F1 7 Tf 50 778 Td ( q=1.00 BC=:torus L=20  Nv=12  ?=0.50 W=1.00 ?r? = 0.5953 ± 0.0055 \(5 real, monograph 0.562\)) Tj ET
+BT /F1 7 Tf 50 756 Td ( q=1.00 BC=:torus L=30  Nv=26  ?=0.50 W=1.00 ?r? = 0.6070 ± 0.0054 \(5 real, monograph 0.595\)) Tj ET
+BT /F1 7 Tf 50 734 Td ( q=1.00 BC=:torus L=50  Nv=70  ?=0.50 W=1.00 ?r? = 0.5936 ± 0.0053 \(5 real, monograph 0.594\)) Tj ET
+BT /F1 7 Tf 50 712 Td ( q=1.00 BC=:torus L=80  Nv=178 ?=0.50 W=1.00 ?r? = 0.5987 ± 0.0016 \(5 real, monograph 0.595*\)) Tj ET
+BT /F1 7 Tf 50 690 Td ( q=0.30 BC=:open  L=10  Nv=4   ?=0.50 W=1.00 ?r? = 0.4343 ± 0.0233 \(5 real, monograph 0.487\)) Tj ET
+BT /F1 7 Tf 50 668 Td ( q=0.30 BC=:open  L=20  Nv=12  ?=0.50 W=1.00 ?r? = 0.5565 ± 0.0100 \(5 real, monograph 0.562\)) Tj ET
+BT /F1 7 Tf 50 646 Td ( q=0.30 BC=:open  L=30  Nv=26  ?=0.50 W=1.00 ?r? = 0.5933 ± 0.0065 \(5 real, monograph 0.595\)) Tj ET
+BT /F1 7 Tf 50 624 Td ( q=0.30 BC=:open  L=50  Nv=70  ?=0.50 W=1.00 ?r? = 0.6004 ± 0.0040 \(5 real, monograph 0.594\)) Tj ET
+BT /F1 7 Tf 50 602 Td ( q=0.30 BC=:open  L=80  Nv=178 ?=0.50 W=1.00 ?r? = 0.6004 ± 0.0025 \(5 real, monograph 0.595*\)) Tj ET
+BT /F1 7 Tf 50 580 Td () Tj ET
+BT /F1 7 Tf 50 558 Td ( Verdict run: q=0.30 \(fractional AB phase ? reference standard, stable\)) Tj ET
+BT /F1 7 Tf 50 536 Td ( Trend \(L=10?20?30?50?80\): 0.434 ? 0.556 ? 0.593 ? 0.6 ? 0.6) Tj ET
+BT /F1 7 Tf 50 514 Td ( Monotone increase: YES) Tj ET
+BT /F1 7 Tf 50 492 Td ( Final L=80 close to GUE 0.595 \(|?|<0.05\): YES) Tj ET
+BT /F1 7 Tf 50 470 Td ( \(comparison\) q=1.0 user setting: 0.552 ? 0.595 ? 0.607 ? 0.594 ? 0.599 \(final 0.5987\)) Tj ET
+BT /F1 7 Tf 50 448 Td ( Test 33: L-scaling to L=80 0.434,0.556,0.593,0.6,0.6 ? PASS) Tj ET
+BT /F1 7 Tf 50 426 Td () Tj ET
+BT /F1 7 Tf 50 404 Td ( ??? HARDCORE GUE-plateau check \(verdict q=0.3, L ? 50\) ???) Tj ET
+BT /F1 7 Tf 50 382 Td ( plateau points: L=50: 0.6004±0.0040, L=80: 0.6004±0.0025) Tj ET
+BT /F1 7 Tf 50 360 Td ( weighted ?r? = 0.6004 vs GUE 0.5992 \(|?|=0.0012\) ? IN ? band ±0.022) Tj ET
+BT /F1 7 Tf 50 338 Td ( ?? = 0.01, dof = 2, ??/dof = 0.01 ? consistent ? \(? 2 consistent; diagnostic\)) Tj ET
+BT /F1 7 Tf 50 316 Td ( Test 33b \(hardcore\): plateau weighted ?r?=0.6004, ??/dof=0.01 ? PASS) Tj ET
+
+endstream
+endobj
+15 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 16
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000153 00000 n 
+0000000279 00000 n 
+0000003656 00000 n 
+0000003782 00000 n 
+0000008812 00000 n 
+0000008938 00000 n 
+0000014246 00000 n 
+0000014373 00000 n 
+0000019683 00000 n 
+0000019811 00000 n 
+0000023314 00000 n 
+0000023442 00000 n 
+0000025854 00000 n 
+trailer
+<< /Size 16 /Root 1 0 R >>
+startxref
+25952
+%%EOF

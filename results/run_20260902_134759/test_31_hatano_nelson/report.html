@@ -1,0 +1,83 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Test 31: Hatano-Nelson non-Hermitian skin</title><style>body{font-family:system-ui;margin:2em;max-width:120ch}pre{background:#f4f4f4;padding:1em;overflow-x:auto;font-size:11px}h1{border-bottom:2px solid #333}</style></head><body>
+<h1>Test 31: Hatano-Nelson non-Hermitian skin</h1>
+<p>Verdict: PASS   |   Generated: 2026-09-02 20:04:01   |   Suite: AB-Cloud v19 (Julia 1.12.0)</p>
+<h2>What this test verifies</h2>
+<p>Deterministic non-Hermitian spectral property: complex eigenvalue count/pattern.</p>
+<p> METHOD: Deterministic non-Hermitian spectral property: complex eigenvalue count/pattern.</p>
+<p>Test 31 SERIES: n=5 realizations × σ∈{0.5,0.6,0.7,0.8} @48x48, n_cx mean 0,2225,2281,2295, ⟨r⟩ 0.8953→0.9253, max|Im| 0.3184→0.9576.</p>
+<h2>Result</h2>
+<p> Test 31c [SERIES pass 3]: 4 sub-checks, 0 failed → PASS</p>
+<h2>Plots</h2>
+<p>- `plots/plot_01` (.png 600dpi / .svg / .pdf)</p>
+<p>- `plots/plot_02` (.png 600dpi / .svg / .pdf)</p>
+<p>- `plots/plot_03` (.png 600dpi / .svg / .pdf)</p>
+<p>- `plots/plot_04` (.png 600dpi / .svg / .pdf)</p>
+<p>- `plots/animation.gif` — animated reveal of every plot of this test</p>
+<h2>Independent verification guide</h2>
+<p>Reproduce with: julia ab_cloud_v19.jl --test 31 --no-two-pass</p>
+<p>Every computation is logged in logs/computation_log.txt (timestamps + deltas); raw console output in logs/stdout_capture.txt.</p>
+<h2>FULL COMPUTATION LOG</h2>
+<pre>[19:58:20.612] [+22215.894s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[19:58:24.636] [+22219.918s]  calc: ⟨r⟩_NN = 0.894102 (n=2304, Poisson-box ref NaN, 10 clouds)
+[19:58:43.541] [+22238.824s]  calc: ⟨r⟩_NN = 0.907204 (n=2304, Poisson-box ref 0.851687, 10 clouds)
+[19:59:02.308] [+22257.590s]  calc: ⟨r⟩_NN = 0.925299 (n=2304, Poisson-box ref 0.852026, 10 clouds)
+[19:59:20.809] [+22276.091s]  calc: ⟨r⟩_NN = 0.930754 (n=2304, Poisson-box ref 0.850043, 10 clouds)
+[19:59:21.815] [+22277.097s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[19:59:25.833] [+22281.115s]  calc: ⟨r⟩_NN = 0.887760 (n=2304, Poisson-box ref NaN, 10 clouds)
+[19:59:43.930] [+22299.212s]  calc: ⟨r⟩_NN = 0.910544 (n=2304, Poisson-box ref 0.852173, 10 clouds)
+[20:00:02.298] [+22317.580s]  calc: ⟨r⟩_NN = 0.923175 (n=2304, Poisson-box ref 0.852783, 10 clouds)
+[20:00:20.812] [+22336.094s]  calc: ⟨r⟩_NN = 0.930952 (n=2304, Poisson-box ref 0.850774, 10 clouds)
+[20:00:21.952] [+22337.234s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[20:00:26.458] [+22341.741s]  calc: ⟨r⟩_NN = 0.898821 (n=2304, Poisson-box ref NaN, 10 clouds)
+[20:00:45.029] [+22360.311s]  calc: ⟨r⟩_NN = 0.878783 (n=2304, Poisson-box ref 0.851955, 10 clouds)
+[20:01:05.099] [+22380.381s]  calc: ⟨r⟩_NN = 0.888162 (n=2304, Poisson-box ref 0.852427, 10 clouds)
+[20:01:26.846] [+22402.128s]  calc: ⟨r⟩_NN = 0.891964 (n=2304, Poisson-box ref 0.850764, 10 clouds)
+[20:01:28.031] [+22403.313s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[20:01:32.497] [+22407.779s]  calc: ⟨r⟩_NN = 0.897703 (n=2304, Poisson-box ref NaN, 10 clouds)
+[20:01:51.151] [+22426.433s]  calc: ⟨r⟩_NN = 0.903503 (n=2304, Poisson-box ref 0.851913, 10 clouds)
+[20:02:14.218] [+22449.500s]  calc: ⟨r⟩_NN = 0.923336 (n=2304, Poisson-box ref 0.852584, 10 clouds)
+[20:02:39.742] [+22475.024s]  calc: ⟨r⟩_NN = 0.935506 (n=2304, Poisson-box ref 0.850682, 10 clouds)
+[20:02:42.557] [+22477.839s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[20:02:48.011] [+22483.293s]  calc: ⟨r⟩_NN = 0.898157 (n=2304, Poisson-box ref NaN, 10 clouds)
+[20:03:11.146] [+22506.428s]  calc: ⟨r⟩_NN = 0.906060 (n=2304, Poisson-box ref 0.851688, 10 clouds)
+[20:03:35.069] [+22530.351s]  calc: ⟨r⟩_NN = 0.920104 (n=2304, Poisson-box ref 0.851832, 10 clouds)
+[20:03:59.821] [+22555.103s]  calc: ⟨r⟩_NN = 0.937177 (n=2304, Poisson-box ref 0.850592, 10 clouds)</pre>
+<h2>CONSOLE CAPTURE</h2>
+<pre>
+════════════════════════════════════════════════════════════
+TEST 31 (pass 3, SERIES): Hatano–Nelson — realization ensemble
+────────────────────────────────────────────────────────────
+ Ensemble: n=5 realizations × σ ∈ {0.5, 0.6, 0.7, 0.8}, γ = 5.0
+ Lattice: 48x48 (N=2304), W_eff = 1.00 (standard), Nv=4 neutral, q=±1.00
+ ⚠ RUNTIME: 15 zgeev + 5 heevr rows at 48² ≈ 1–2 min
+ real 1/5 σ=0.5: n_complex =     0, max|Im| = 0.0000, ⟨r⟩NN = 0.8941 (3.3 s)
+ real 1/5 σ=0.6: n_complex =  2243, max|Im| = 0.3195, ⟨r⟩NN = 0.9072 (18.6 s)
+ real 1/5 σ=0.7: n_complex =  2283, max|Im| = 0.6397, ⟨r⟩NN = 0.9253 (18.8 s)
+ real 1/5 σ=0.8: n_complex =  2298, max|Im| = 0.9602, ⟨r⟩NN = 0.9308 (18.5 s)
+ real 2/5 σ=0.5: n_complex =     0, max|Im| = 0.0000, ⟨r⟩NN = 0.8878 (3.3 s)
+ real 2/5 σ=0.6: n_complex =  2237, max|Im| = 0.3194, ⟨r⟩NN = 0.9105 (18.1 s)
+ real 2/5 σ=0.7: n_complex =  2297, max|Im| = 0.6396, ⟨r⟩NN = 0.9232 (18.4 s)
+ real 2/5 σ=0.8: n_complex =  2299, max|Im| = 0.9598, ⟨r⟩NN = 0.9310 (18.5 s)
+ real 3/5 σ=0.5: n_complex =     0, max|Im| = 0.0000, ⟨r⟩NN = 0.8988 (3.8 s)
+ real 3/5 σ=0.6: n_complex =  2147, max|Im| = 0.3147, ⟨r⟩NN = 0.8788 (18.6 s)
+ real 3/5 σ=0.7: n_complex =  2239, max|Im| = 0.6319, ⟨r⟩NN = 0.8882 (20.1 s)
+ real 3/5 σ=0.8: n_complex =  2274, max|Im| = 0.9501, ⟨r⟩NN = 0.8920 (21.7 s)
+ real 4/5 σ=0.5: n_complex =     0, max|Im| = 0.0000, ⟨r⟩NN = 0.8977 (3.7 s)
+ real 4/5 σ=0.6: n_complex =  2260, max|Im| = 0.3199, ⟨r⟩NN = 0.9035 (18.7 s)
+ real 4/5 σ=0.7: n_complex =  2300, max|Im| = 0.6399, ⟨r⟩NN = 0.9233 (23.1 s)
+ real 4/5 σ=0.8: n_complex =  2303, max|Im| = 0.9601, ⟨r⟩NN = 0.9355 (25.5 s)
+ real 5/5 σ=0.5: n_complex =     0, max|Im| = 0.0000, ⟨r⟩NN = 0.8982 (4.6 s)
+ real 5/5 σ=0.6: n_complex =  2237, max|Im| = 0.3183, ⟨r⟩NN = 0.9061 (23.1 s)
+ real 5/5 σ=0.7: n_complex =  2287, max|Im| = 0.6381, ⟨r⟩NN = 0.9201 (23.9 s)
+ real 5/5 σ=0.8: n_complex =  2303, max|Im| = 0.9578, ⟨r⟩NN = 0.9372 (24.7 s)
+
+ Ensemble means: σ=0.5: n_cx=0.0, max|Im|=0.00e+00, ⟨r⟩=0.8953
+ σ=0.8: n_cx=2295.4, max|Im|=0.9576, ⟨r⟩=0.9253 | Poisson-box baseline ≈ 0.8500
+ S1 anchor: OK ✓ | S2 sweep: OK ✓ | S3 ⟨r⟩ rise: OK ✓ (0.8953→0.9253) | S4 max|Im| grow: OK ✓ (0.3184→0.9576)
+────────────────────────────────────────────────────────────
+ σ=0.5 Hermitian ∀real PASS — n_complex = 0 and max|Im| &lt; 1e-10 in all 5 realizations
+ n_complex > 0 ∀(σ,k) PASS — every non-Hermitian row (5 × 3) develops complex eigenvalues
+ ⟨r⟩ rises with σ (2-D repulsion) PASS — ensemble mean 0.8953 (σ=0.5, line) → 0.9253 (σ=0.8, area)
+ max|Im| grows with σ PASS — ensemble mean 0.3184 (σ=0.6) → 0.9576 (σ=0.8), g = (σ−½)·ln|γ|
+ Test 31c [SERIES pass 3]: 4 sub-checks, 0 failed → PASS</pre>
+</body></html>

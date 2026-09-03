@@ -1,0 +1,142 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 2975 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 1: b\(N\) convergence table) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: PASS   |   Generated: 2026-09-02 13:48:07   |   Suite: AB-Cloud v19 \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (b\(N\) = \(1/N\)?|?_k???_k| measures convergence of Gram-point approximations to true zeta zeros. EXACT-formula family: tolerance scale = floating-point round-off.) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: b\(N\) = \(1/N\)?|?_k???_k| measures convergence of Gram-point approximations to true zeta zeros. EXACT-formula family: tolerance scale = floating-point round-off.) Tj ET
+BT /F1 13 Tf 50 670 Td (Result) Tj ET
+BT /F1 10 Tf 50 668 Td ( Test 1 [HARDCORE pass 2]: 8 sub-checks, 0 failed, b\(50000\)=1.2126 ? PASS) Tj ET
+BT /F1 13 Tf 50 618 Td (Plots) Tj ET
+BT /F1 10 Tf 50 624 Td (- `plots/plot_01` \(.png 600dpi / .svg / .pdf\)) Tj ET
+BT /F1 10 Tf 50 602 Td (- `plots/plot_02` \(.png 600dpi / .svg / .pdf\)) Tj ET
+BT /F1 10 Tf 50 580 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+BT /F1 13 Tf 50 514 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 536 Td (Reproduce with: julia ab_cloud_v19.jl --test 1 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 514 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 436 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 470 Td (\(no log_comp entries\)) Tj ET
+BT /F1 13 Tf 50 384 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 426 Td () Tj ET
+BT /F1 7 Tf 50 404 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 382 Td (TEST 1 \(secondary, HARDCORE\): Objection 1: b\(N\) Convergence ? deep validation) Tj ET
+BT /F1 7 Tf 50 360 Td (Same statistic b\(N\) = \(1/N\) ?|?_k ? ??_k|, verified by 8 harder sub-checks) Tj ET
+BT /F1 7 Tf 50 338 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 316 Td ( H0 reproduce : max|b_direct ? b_prefix| over 4 probes = 0.00e+00 \(limit 1e-9\)) Tj ET
+BT /F1 7 Tf 50 294 Td ( H1 dense scan: 40 checkpoints, N = 25 ? 50000 \(ratio 1.22\)) Tj ET
+BT /F1 7 Tf 50 272 Td (            N             b\(N\)        ? vs prev) Tj ET
+BT /F1 7 Tf 50 250 Td (           25     4.6101190361              ---) Tj ET
+BT /F1 7 Tf 50 228 Td (           30     4.3989811028    -0.2111379332) Tj ET
+BT /F1 7 Tf 50 206 Td (           37     4.1932852303    -0.2056958726) Tj ET
+BT /F1 7 Tf 50 184 Td (           45     3.9943669591    -0.1989182711) Tj ET
+BT /F1 7 Tf 50 162 Td (           55     3.8252166187    -0.1691503404) Tj ET
+BT /F1 7 Tf 50 140 Td (           67     3.6455743228    -0.1796422960) Tj ET
+BT /F1 7 Tf 50 118 Td (           82     3.4801726407    -0.1654016820) Tj ET
+BT /F1 7 Tf 50 96 Td (          100     3.3321638710    -0.1480087697) Tj ET
+BT /F1 7 Tf 50 74 Td (          122     3.1910285619    -0.1411353091) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 6 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 2749 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td (          149     3.0547427984    -0.1362857635) Tj ET
+BT /F1 7 Tf 50 778 Td (          182     2.9267044466    -0.1280383518) Tj ET
+BT /F1 7 Tf 50 756 Td (          222     2.8066104527    -0.1200939939) Tj ET
+BT /F1 7 Tf 50 734 Td (          271     2.6947048268    -0.1119056258) Tj ET
+BT /F1 7 Tf 50 712 Td (          331     2.5892260492    -0.1054787776) Tj ET
+BT /F1 7 Tf 50 690 Td (          404     2.4907320942    -0.0984939550) Tj ET
+BT /F1 7 Tf 50 668 Td (          493     2.3966440338    -0.0940880604) Tj ET
+BT /F1 7 Tf 50 646 Td (          601     2.3100937127    -0.0865503211) Tj ET
+BT /F1 7 Tf 50 624 Td (          733     2.2274677461    -0.0826259666) Tj ET
+BT /F1 7 Tf 50 602 Td (          894     2.1498825733    -0.0775851728) Tj ET
+BT /F1 7 Tf 50 580 Td (         1091     2.0754888256    -0.0743937476) Tj ET
+BT /F1 7 Tf 50 558 Td (         1331     2.0067062433    -0.0687825824) Tj ET
+BT /F1 7 Tf 50 536 Td (         1624     1.9405012929    -0.0662049503) Tj ET
+BT /F1 7 Tf 50 514 Td (         1981     1.8782421944    -0.0622590986) Tj ET
+BT /F1 7 Tf 50 492 Td (         2417     1.8197691194    -0.0584730750) Tj ET
+BT /F1 7 Tf 50 470 Td (         2949     1.7640375461    -0.0557315733) Tj ET
+BT /F1 7 Tf 50 448 Td (         3598     1.7111812347    -0.0528563114) Tj ET
+BT /F1 7 Tf 50 426 Td (         4390     1.6613158059    -0.0498654288) Tj ET
+BT /F1 7 Tf 50 404 Td (         5356     1.6137261550    -0.0475896509) Tj ET
+BT /F1 7 Tf 50 382 Td (         6534     1.5686043745    -0.0451217805) Tj ET
+BT /F1 7 Tf 50 360 Td (         7971     1.5258165855    -0.0427877890) Tj ET
+BT /F1 7 Tf 50 338 Td (         9725     1.4850058741    -0.0408107114) Tj ET
+BT /F1 7 Tf 50 316 Td (        11864     1.4460749475    -0.0389309266) Tj ET
+BT /F1 7 Tf 50 294 Td (        14474     1.4090310622    -0.0370438853) Tj ET
+BT /F1 7 Tf 50 272 Td (        17658     1.3736819777    -0.0353490845) Tj ET
+BT /F1 7 Tf 50 250 Td (        21543     1.3399113218    -0.0337706559) Tj ET
+BT /F1 7 Tf 50 228 Td (        26282     1.3076687539    -0.0322425680) Tj ET
+BT /F1 7 Tf 50 206 Td (        32064     1.2768213946    -0.0308473593) Tj ET
+BT /F1 7 Tf 50 184 Td (        39118     1.2473022976    -0.0295190970) Tj ET
+BT /F1 7 Tf 50 162 Td (        47724     1.2190083740    -0.0282939236) Tj ET
+BT /F1 7 Tf 50 140 Td (        50000     1.2125526773    -0.0064556968) Tj ET
+BT /F1 7 Tf 50 118 Td ( H2 monotone  : 0/39 consecutive pairs exceed the noise band \(limit 2\)) Tj ET
+BT /F1 7 Tf 50 96 Td ( H3 predict   : walk-forward one-step-ahead, best of 3 laws \(power / 1∑log?πN / local secant\)) Tj ET
+BT /F1 7 Tf 50 74 Td (                median err 0.05%, max err 0.09% \(limits 2%/5%\)) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 8 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+8 0 obj
+<< /Length 1579 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ( H4 stationarity: head b\(25000\)=1.315628 | tail b\(25000\)=1.109478 | tail/head = 0.8433 \(limit 1.25\)) Tj ET
+BT /F1 7 Tf 50 778 Td ( H5 bootstrap : b\(50000\)=1.212553 | 95%CI [1.209765, 1.215265] \(width 0.45% of b, limit 15%\)) Tj ET
+BT /F1 7 Tf 50 756 Td (                threshold 2.00 ? \(b + 2?/?N = 1.215350\) = +0.784650 ? verdict ROBUST) Tj ET
+BT /F1 7 Tf 50 734 Td ( H6 outliers  : peak |??| = 9.0356 at k=1 \(0.0% of ?d, limit 10%\)) Tj ET
+BT /F1 7 Tf 50 712 Td (                top-5 share 0.1% | 1%-trimmed b deviates +1.13% from b \(limit 15%\)) Tj ET
+BT /F1 7 Tf 50 690 Td ( H7 Gram sanity: ?? strictly increasing over n=1..50000 ? 0 violations \(limit 0\)) Tj ET
+BT /F1 7 Tf 50 668 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 646 Td ( H0 reproduce         PASS ? worst |?| = 0.00e+00) Tj ET
+BT /F1 7 Tf 50 624 Td ( H1 dense scan        PASS ? 40 checkpoints) Tj ET
+BT /F1 7 Tf 50 602 Td ( H2 monotone          PASS ? 0 violations / 39 pairs) Tj ET
+BT /F1 7 Tf 50 580 Td ( H3 out-of-sample     PASS ? walk-forward median 0.05%, max 0.09%) Tj ET
+BT /F1 7 Tf 50 558 Td ( H4 stationarity      PASS ? tail/head = 0.8433) Tj ET
+BT /F1 7 Tf 50 536 Td ( H5 bootstrap         PASS ? CI width 0.45%, margin +0.7846) Tj ET
+BT /F1 7 Tf 50 514 Td ( H6 outlier audit     PASS ? peak 0.0% of ?d, trimmed dev 1.13%) Tj ET
+BT /F1 7 Tf 50 492 Td ( H7 Gram reference    PASS ? 0 violations) Tj ET
+BT /F1 7 Tf 50 470 Td ( Test 1 [HARDCORE pass 2]: 8 sub-checks, 0 failed, b\(50000\)=1.2126 ? PASS) Tj ET
+
+endstream
+endobj
+9 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000133 00000 n 
+0000000259 00000 n 
+0000003286 00000 n 
+0000003412 00000 n 
+0000006213 00000 n 
+0000006339 00000 n 
+0000007970 00000 n 
+trailer
+<< /Size 10 /Root 1 0 R >>
+startxref
+8067
+%%EOF

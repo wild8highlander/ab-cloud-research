@@ -1,0 +1,13 @@
+
+════════════════════════════════════════════════════════════
+TEST 17 (pass 2, HARDCORE): Connes self-duality — cross-size audit
+Zero-mode invariant + spectral symmetries on the size ladder 24 → ab_nx
+────────────────────────────────────────────────────────────
+ L=24: zero_modes(α=1/2)=4 | spec.defect(1/2)=1.42e-15, (1/3)=1.66e-15 | duality=3.62e-01
+ L=48: zero_modes(α=1/2)=4 | spec.defect(1/2)=2.90e-15, (1/3)=2.41e-15 | duality=3.65e-01
+ L=96: zero_modes(α=1/2)=4 | spec.defect(1/2)=3.96e-15, (1/3)=3.24e-15 | duality=3.66e-01
+ At α=1/3 the spectrum stays gapped at E=0 on these tori (base observation).
+────────────────────────────────────────────────────────────
+ zero_modes(1/2)=4 ∀L PASS — topological invariant holds on the whole ladder
+ E→−E defect < 1e-10 ∀L PASS — α=1/2 and α=1/3, generic bipartite symmetry
+ Test 17b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS

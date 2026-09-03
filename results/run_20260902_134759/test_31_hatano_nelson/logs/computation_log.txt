@@ -1,0 +1,28 @@
+FULL COMPUTATION LOG — test 31: Hatano-Nelson non-Hermitian skin
+every log_comp() entry emitted while this test ran:
+
+[19:58:20.612] [+22215.894s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[19:58:24.636] [+22219.918s]  calc: ⟨r⟩_NN = 0.894102 (n=2304, Poisson-box ref NaN, 10 clouds)
+[19:58:43.541] [+22238.824s]  calc: ⟨r⟩_NN = 0.907204 (n=2304, Poisson-box ref 0.851687, 10 clouds)
+[19:59:02.308] [+22257.590s]  calc: ⟨r⟩_NN = 0.925299 (n=2304, Poisson-box ref 0.852026, 10 clouds)
+[19:59:20.809] [+22276.091s]  calc: ⟨r⟩_NN = 0.930754 (n=2304, Poisson-box ref 0.850043, 10 clouds)
+[19:59:21.815] [+22277.097s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[19:59:25.833] [+22281.115s]  calc: ⟨r⟩_NN = 0.887760 (n=2304, Poisson-box ref NaN, 10 clouds)
+[19:59:43.930] [+22299.212s]  calc: ⟨r⟩_NN = 0.910544 (n=2304, Poisson-box ref 0.852173, 10 clouds)
+[20:00:02.298] [+22317.580s]  calc: ⟨r⟩_NN = 0.923175 (n=2304, Poisson-box ref 0.852783, 10 clouds)
+[20:00:20.812] [+22336.094s]  calc: ⟨r⟩_NN = 0.930952 (n=2304, Poisson-box ref 0.850774, 10 clouds)
+[20:00:21.952] [+22337.234s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[20:00:26.458] [+22341.741s]  calc: ⟨r⟩_NN = 0.898821 (n=2304, Poisson-box ref NaN, 10 clouds)
+[20:00:45.029] [+22360.311s]  calc: ⟨r⟩_NN = 0.878783 (n=2304, Poisson-box ref 0.851955, 10 clouds)
+[20:01:05.099] [+22380.381s]  calc: ⟨r⟩_NN = 0.888162 (n=2304, Poisson-box ref 0.852427, 10 clouds)
+[20:01:26.846] [+22402.128s]  calc: ⟨r⟩_NN = 0.891964 (n=2304, Poisson-box ref 0.850764, 10 clouds)
+[20:01:28.031] [+22403.313s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[20:01:32.497] [+22407.779s]  calc: ⟨r⟩_NN = 0.897703 (n=2304, Poisson-box ref NaN, 10 clouds)
+[20:01:51.151] [+22426.433s]  calc: ⟨r⟩_NN = 0.903503 (n=2304, Poisson-box ref 0.851913, 10 clouds)
+[20:02:14.218] [+22449.500s]  calc: ⟨r⟩_NN = 0.923336 (n=2304, Poisson-box ref 0.852584, 10 clouds)
+[20:02:39.742] [+22475.024s]  calc: ⟨r⟩_NN = 0.935506 (n=2304, Poisson-box ref 0.850682, 10 clouds)
+[20:02:42.557] [+22477.839s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[20:02:48.011] [+22483.293s]  calc: ⟨r⟩_NN = 0.898157 (n=2304, Poisson-box ref NaN, 10 clouds)
+[20:03:11.146] [+22506.428s]  calc: ⟨r⟩_NN = 0.906060 (n=2304, Poisson-box ref 0.851688, 10 clouds)
+[20:03:35.069] [+22530.351s]  calc: ⟨r⟩_NN = 0.920104 (n=2304, Poisson-box ref 0.851832, 10 clouds)
+[20:03:59.821] [+22555.103s]  calc: ⟨r⟩_NN = 0.937177 (n=2304, Poisson-box ref 0.850592, 10 clouds)

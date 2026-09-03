@@ -1,0 +1,14 @@
+FULL COMPUTATION LOG — test 30: Dirac cone vF scaling vs L
+every log_comp() entry emitted while this test ran:
+
+[18:47:06.239] [+17941.521s]  build_ab_cloud_hamiltonian: 16x16 (N=256), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:47:08.810] [+17944.092s]  build_ab_cloud_hamiltonian: 24x24 (N=576), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:47:10.759] [+17946.041s]  build_ab_cloud_hamiltonian: 32x32 (N=1024), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:47:13.274] [+17948.556s]  build_ab_cloud_hamiltonian: 40x40 (N=1600), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:47:16.985] [+17952.268s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:47:23.131] [+17958.413s]  build_ab_cloud_hamiltonian: 56x56 (N=3136), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:47:35.865] [+17971.147s]  build_ab_cloud_hamiltonian: 64x64 (N=4096), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:48:01.478] [+17996.760s]  build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:48:52.726] [+18048.009s]  build_ab_cloud_hamiltonian: 80x80 (N=6400), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:50:38.784] [+18154.066s]  build_ab_cloud_hamiltonian: 88x88 (N=7744), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:53:39.520] [+18334.803s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental

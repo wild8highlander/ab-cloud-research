@@ -1,0 +1,20 @@
+
+════════════════════════════════════════════════════════════
+TEST 35 (pass 2, HARDCORE): spectral form factor K(t) — ensemble pass
+n ≥ 5 per-realization K(t), 33-point t-grid, ensemble verdict
+────────────────────────────────────────────────────────────
+ ⚠ RUNTIME: n=5 realizations at 96x96 → expect ≈ 12–17 min
+ real  1/5: RMS(K−K_box, t≥0.3) = 0.9199
+ real  2/5: RMS(K−K_box, t≥0.3) = 0.8578
+ real  3/5: RMS(K−K_box, t≥0.3) = 0.9671
+ real  4/5: RMS(K−K_box, t≥0.3) = 0.7540
+ real  5/5: RMS(K−K_box, t≥0.3) = 0.4999
+
+ ENSEMBLE K(t): RMS(K_AB − K_box, t ≥ 0.3) = 0.6143 (target < 0.30)
+ Corr(K_AB, K_box) = 0.6379 (target > 0.50) | Corr(K_AB, K_ζ) = 0.8123
+ Per-realization RMS: mean 0.7998, scatter σ = 0.1856 > ✗ 0.15
+────────────────────────────────────────────────────────────
+ RMS < 0.30 (ensemble) WARN — ensemble-mean K(t), 33-point grid: 0.6143
+ Corr > 0.50 (ensemble) PASS — Corr(K, K_box) = 0.6379
+ RMS scatter ≤ 0.15   WARN — σ=0.1856 across 5 realizations
+ Test 35b [HARDCORE pass 2]: 3 sub-checks, 2 failed → WARN
