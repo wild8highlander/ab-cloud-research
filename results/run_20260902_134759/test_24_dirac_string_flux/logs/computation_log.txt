@@ -1,0 +1,7 @@
+FULL COMPUTATION LOG — test 24: Dirac string flux verification
+every log_comp() entry emitted while this test ran:
+
+[15:32:06.519] [+6241.801s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.0000, t=1.00, W=4.00, open, 1 vortices, model=:dirac
+[15:32:18.884] [+6254.166s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.0000, t=1.00, W=4.00, open, 1 vortices, model=:dirac
+[15:32:28.180] [+6263.462s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.0000, t=1.00, W=4.00, open, 1 vortices, model=:dirac
+[15:32:38.165] [+6273.447s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.0000, t=1.00, W=4.00, open, 1 vortices, model=:dirac

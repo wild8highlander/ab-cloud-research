@@ -1,0 +1,8 @@
+FULL COMPUTATION LOG — test 35: Spectral form factor K(t)
+every log_comp() entry emitted while this test ran:
+
+[22:09:09.750] [+30065.032s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[22:14:37.106] [+30392.388s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[22:19:44.711] [+30699.993s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[22:24:48.414] [+31003.696s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[22:30:51.804] [+31367.086s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental

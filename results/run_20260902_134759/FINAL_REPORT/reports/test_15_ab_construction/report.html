@@ -1,0 +1,32 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Test 15: AB-cloud Hamiltonian construction</title><style>body{font-family:system-ui;margin:2em;max-width:120ch}pre{background:#f4f4f4;padding:1em;overflow-x:auto;font-size:11px}h1{border-bottom:2px solid #333}</style></head><body>
+<h1>Test 15: AB-cloud Hamiltonian construction</h1>
+<p>Verdict: PASS   |   Generated: 2026-09-02 14:03:25   |   Suite: AB-Cloud v19 (Julia 1.12.0)</p>
+<h2>What this test verifies</h2>
+<p>Mixed: Hermiticity/τ_TRB are EXACT (machine-ε), ⟨r⟩ check is STATISTICAL.</p>
+<p> METHOD: Mixed: Hermiticity/τ_TRB are EXACT (machine-ε), ⟨r⟩ check is STATISTICAL.</p>
+<p>Test 15 HARDCORE: full plaquette scan 96x96 (±-quartet), signed flux 4/4, empty 9021/9021, worst empty flux 0.00e+00.</p>
+<h2>Result</h2>
+<p> Test 15b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS</p>
+<h2>Plots</h2>
+<p>- `plots/plot_01` (.png 600dpi / .svg / .pdf)</p>
+<p>- `plots/animation.gif` — animated reveal of every plot of this test</p>
+<h2>Independent verification guide</h2>
+<p>Reproduce with: julia ab_cloud_v19.jl --test 15 --no-two-pass</p>
+<p>Every computation is logged in logs/computation_log.txt (timestamps + deltas); raw console output in logs/stdout_capture.txt.</p>
+<h2>FULL COMPUTATION LOG</h2>
+<pre>[14:03:14.215] [+909.497s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.0000, t=1.00, W=4.00, open, 4 vortices, model=:dirac</pre>
+<h2>CONSOLE CAPTURE</h2>
+<pre>
+════════════════════════════════════════════════════════════
+TEST 15 (pass 2, HARDCORE): AB-cloud construction — deep validation
+Full-lattice plaquette scan of the ±-quartet (all plaquettes, signed check)
+────────────────────────────────────────────────────────────
+ ⚠ RUNTIME: 1 build + O(N) plaquette scan at 96x96 (N=9216) — seconds
+ Lattice: 96x96 open :dirac, α=0, quartet q=±1.00 → 9025 plaquettes scanned
+ Vortex plaquettes (signed): 4/4 correct ✓
+ Empty plaquettes clean (&lt;1e-9): 9021/9021, worst |flux| = 0.00e+00
+────────────────────────────────────────────────────────────
+ full signed scan     PASS — 4/4 vortex plaquettes, 9021/9021 empty clean
+ hermiticity          PASS — verify_hermitian on the quartet H
+ Test 15b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS</pre>
+</body></html>

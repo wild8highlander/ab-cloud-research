@@ -1,0 +1,86 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3220 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 5: GUE KS test \(high-T only\)) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: PASS   |   Generated: 2026-09-02 13:49:11   |   Suite: AB-Cloud v19 \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (Same, restricted to high T where GUE asymptotics hold better; still data-limited \(embedded 50k zeros, T ? 40434 ? 10?\).) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: Same, restricted to high T where GUE asymptotics hold better; still data-limited \(embedded 50k zeros, T ? 40434 ? 10?\).) Tj ET
+BT /F1 13 Tf 50 670 Td (Result) Tj ET
+BT /F1 10 Tf 50 668 Td ( Test 5 [HARDCORE pass 2]: 2 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 13 Tf 50 618 Td (Plots) Tj ET
+BT /F1 10 Tf 50 624 Td (- `plots/plot_01` \(.png 600dpi / .svg / .pdf\)) Tj ET
+BT /F1 10 Tf 50 602 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+BT /F1 13 Tf 50 540 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 558 Td (Reproduce with: julia ab_cloud_v19.jl --test 5 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 536 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 462 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 492 Td ([13:49:11.305] [+ 66.587s]  calc: KS D = 0.021622, p_asymptotic = 9.563953e-21 \(n=49989, ?=4.8368\)) Tj ET
+BT /F1 7 Tf 50 470 Td ([13:49:11.427] [+ 66.709s]  calc: KS D = 0.021625, p_asymptotic = 9.718636e-21 \(n=49958, ?=4.8360\)) Tj ET
+BT /F1 7 Tf 50 448 Td ([13:49:11.431] [+ 66.713s]  calc: KS D = 0.021588, p_asymptotic = 1.254559e-20 \(n=49853, ?=4.8228\)) Tj ET
+BT /F1 7 Tf 50 426 Td ([13:49:11.434] [+ 66.716s]  calc: KS D = 0.021380, p_asymptotic = 4.135955e-20 \(n=49523, ?=4.7605\)) Tj ET
+BT /F1 7 Tf 50 404 Td ([13:49:11.437] [+ 66.719s]  calc: KS D = 0.021203, p_asymptotic = 2.142535e-19 \(n=48525, ?=4.6733\)) Tj ET
+BT /F1 7 Tf 50 382 Td ([13:49:11.440] [+ 66.722s]  calc: KS D = 0.020927, p_asymptotic = 8.613887e-18 \(n=45603, ?=4.4714\)) Tj ET
+BT /F1 7 Tf 50 360 Td ([13:49:11.443] [+ 66.725s]  calc: KS D = 0.020175, p_asymptotic = 1.325911e-13 \(n=37230, ?=3.8952\)) Tj ET
+BT /F1 13 Tf 50 254 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 316 Td () Tj ET
+BT /F1 7 Tf 50 294 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 272 Td (TEST 5 \(secondary, HARDCORE\): Objection 2: GUE Spacing Statistics ? dense high-T sweep) Tj ET
+BT /F1 7 Tf 50 250 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 228 Td (        T_min    N_zeros            D            p) Tj ET
+BT /F1 7 Tf 50 206 Td (           50      49990     0.021622     0.000000) Tj ET
+BT /F1 7 Tf 50 184 Td (          125      49959     0.021625     0.000000) Tj ET
+BT /F1 7 Tf 50 162 Td (          312      49854     0.021588     0.000000) Tj ET
+BT /F1 7 Tf 50 140 Td (          781      49524     0.021380     0.000000) Tj ET
+BT /F1 7 Tf 50 118 Td (         1953      48526     0.021203     0.000000) Tj ET
+BT /F1 7 Tf 50 96 Td (         4883      45604     0.020927     0.000000) Tj ET
+BT /F1 7 Tf 50 74 Td (        12207      37231     0.020175     0.000000) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 6 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 597 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ( T2 trend     : p\(first\)=9.564e-21 ? p\(last\)=1.326e-13 \(must not degrade\); best p=1.326e-13 \(info; primary governs\)) Tj ET
+BT /F1 7 Tf 50 778 Td ( T3 top mean  : mean\(s\) at highest band = 1.0000 \(limit |?|<0.02\)) Tj ET
+BT /F1 7 Tf 50 756 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 734 Td ( T2 trend             PASS ? p 9.564e-21 ? 1.326e-13) Tj ET
+BT /F1 7 Tf 50 712 Td ( T3 top mean          PASS ? mean = 1.0000) Tj ET
+BT /F1 7 Tf 50 690 Td ( Test 5 [HARDCORE pass 2]: 2 sub-checks, 0 failed ? PASS) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000253 00000 n 
+0000003525 00000 n 
+0000003651 00000 n 
+0000004299 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+4396
+%%EOF

@@ -1,0 +1,26 @@
+
+════════════════════════════════════════════════════════════
+TEST 19 (pass 3, SERIES): Dirac cone — α-selective 1/L series
+────────────────────────────────────────────────────────────
+ 4-point mod-20 grid L=20, 40, 60, 80; α ∈ {0.4, 0.5, 0.6} — all EXACT on the torus
+ ⚠ RUNTIME: 12 value-only solves (largest 80²) ≈ 2–3 min
+ α=0.4 L=20: E_min = 0.086901, E_min·L = 1.7380, zero_modes = 30
+ α=0.4 L=40: E_min = 0.025377, E_min·L = 1.0151, zero_modes = 70
+ α=0.4 L=60: E_min = 0.011605, E_min·L = 0.6963, zero_modes = 110
+ α=0.4 L=80: E_min = 0.006593, E_min·L = 0.5275, zero_modes = 150
+ α=0.5 L=20: E_min = 0.618034, E_min·L = 12.3607, zero_modes = 4
+ α=0.5 L=40: E_min = 0.312869, E_min·L = 12.5148, zero_modes = 4
+ α=0.5 L=60: E_min = 0.209057, E_min·L = 12.5434, zero_modes = 4
+ α=0.5 L=80: E_min = 0.156918, E_min·L = 12.5535, zero_modes = 4
+ α=0.6 L=20: E_min = 0.086901, E_min·L = 1.7380, zero_modes = 30
+ α=0.6 L=40: E_min = 0.025377, E_min·L = 1.0151, zero_modes = 70
+ α=0.6 L=60: E_min = 0.011605, E_min·L = 0.6963, zero_modes = 110
+ α=0.6 L=80: E_min = 0.006593, E_min·L = 0.5275, zero_modes = 150
+
+ α=0.5 fit: E_min = 0.0043 + 12.2836/L, R² = 0.999975 (v_F = b/2π = 1.9550)
+ E_min·L @L=80: α=0.4 → 0.5275 | α=0.5 → 12.5535 (4π = 12.566) | α=0.6 → 0.5275
+────────────────────────────────────────────────────────────
+ α=0.5 fit R² > 0.95 (4 pts) PASS — E_min = 0.0043 + 12.2836/L, v_F = b/2π = 1.9550
+ α=0.5 scale ∈ [8, 18] PASS — E_min·L(L=80) = 12.553, target 4π = 12.566
+ α-selectivity > 2×   PASS — E_min·L(0.5) = 12.553 vs 0.4: 0.527 / 0.6: 0.527 (q=5 odd → gapless at E=0)
+ Test 19c [SERIES pass 3]: 3 sub-checks, 0 failed → PASS

@@ -1,0 +1,28 @@
+
+════════════════════════════════════════════════════════════
+TEST 11 (secondary, HARDCORE): Objection 2 (extended): Advanced RMT Diagnostics — A² reproducibility audit
+────────────────────────────────────────────────────────────
+ Data: A² = 61.492426 (n=49999, cap=50000)
+   MC(seed=0x11a1) progress: 500/1000
+   MC(seed=0x11a1) progress: 1000/1000
+   MC(seed=0x11a2) progress: 500/1000
+   MC(seed=0x11a2) progress: 1000/1000
+ A1 MC p seeds: p1=0.0000, p2=0.0000, |Δp|=0.0000 (limit 0.05, n_mc=1000)
+ A2 halves    : A²_first=37.6468, A²_second=24.8662, rel.dev=33.9% (limit 50%)
+                low-T/high-T trend: A²_first/A²_second = 1.51 (>1 → deviation concentrated at low T)
+ A3 structure : A²/W² = 7.52 (W² = 8.1777; structural band 1–8)
+ A4 ensemble  : 6 × 3500x3500 GUE, seeds 112–117 (diag est. ≈ 154 s)
+   pooled n_ref=16800: mean 1.000171, std 0.4294 (law 0.4220, Δ +1.8%), A²_pooled = 2.4313
+   floor scaled to n=49999: A² ≈ 7.2 vs data 61.5
+   A5 two-sample MC: 250/1000
+   A5 two-sample MC: 500/1000
+   A5 two-sample MC: 750/1000
+   A5 two-sample MC: 1000/1000
+   A5 two-sample: A²(data vs ensemble CDF) = 104.6518, p(MC) = 0.0000 [n_mc=1000] → deviation CONFIRMED vs big-GUE reference
+────────────────────────────────────────────────────────────
+ A1 MC p stability    PASS — |Δp| = 0.0000
+ A2 half split        PASS — rel.dev = 33.9%, low/high A² = 1.51
+ A3 structure         PASS — A²/W² = 7.52
+ A4 GUE floor         PASS — floor 7.2 vs data 61.5, std Δ +1.8%
+ A5 two-sample        PASS — p = 0.0000, A² = 104.7
+ Test 11 [HARDCORE pass 2]: 5 sub-checks, 0 failed → PASS

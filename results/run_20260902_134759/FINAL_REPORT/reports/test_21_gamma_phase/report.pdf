@@ -1,0 +1,66 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 2650 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 21: ?* spinorial phase ? ?/2) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: PASS   |   Generated: 2026-09-02 15:31:19   |   Suite: AB-Cloud v19 \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (EXACT geometric phase check.) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: EXACT geometric phase check.) Tj ET
+BT /F1 10 Tf 50 690 Td (Test 21 HARDCORE: 256-bit a_C err 1.23e-19, b_C err 6.39e-17, arg dev 0.1259∞, ?±1e-6 worst dev 0.1259∞.) Tj ET
+BT /F1 13 Tf 50 644 Td (Result) Tj ET
+BT /F1 10 Tf 50 646 Td ( Test 21b [HARDCORE pass 2]: 3 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 13 Tf 50 592 Td (Plots) Tj ET
+BT /F1 10 Tf 50 602 Td (- `plots/plot_01` \(.png 600dpi / .svg / .pdf\)) Tj ET
+BT /F1 10 Tf 50 580 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+BT /F1 13 Tf 50 514 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 536 Td (Reproduce with: julia ab_cloud_v19.jl --test 21 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 514 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 436 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 470 Td (\(no log_comp entries\)) Tj ET
+BT /F1 13 Tf 50 384 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 426 Td () Tj ET
+BT /F1 7 Tf 50 404 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 382 Td (TEST 21 \(pass 2, HARDCORE\): ?* spinorial phase ? 256-bit precision audit) Tj ET
+BT /F1 7 Tf 50 360 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 338 Td ( ?_C = ?/7, b?\(K3\) = 22 \(256-bit recomputation\)) Tj ET
+BT /F1 7 Tf 50 316 Td ( a_C: Float64 8.276305e-04 vs 256-bit 8.276305e-04 ? |?| = 1.23e-19) Tj ET
+BT /F1 7 Tf 50 294 Td ( b_C: Float64 0.376510 vs 256-bit 0.376510 ? |?| = 6.39e-17) Tj ET
+BT /F1 7 Tf 50 272 Td ( arg\(?*\) at 256-bit: 89.874055∞ \(deviation from 90∞: 0.1259∞\)) Tj ET
+BT /F1 7 Tf 50 250 Td ( ? = ?/7-1∑1e-6: arg\(?*\) deviation = 0.1259∞) Tj ET
+BT /F1 7 Tf 50 228 Td ( ? = ?/7+1∑1e-6: arg\(?*\) deviation = 0.1259∞) Tj ET
+BT /F1 7 Tf 50 206 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 184 Td ( Float64 round-off    PASS ? |?a|=1.23e-19, |?b|=6.39e-17 \(machine-? scale\)) Tj ET
+BT /F1 7 Tf 50 162 Td ( arg\(?*\) ? ?/2 \(256-bit\) PASS ? deviation 0.1259∞ < 1∞) Tj ET
+BT /F1 7 Tf 50 140 Td ( ?_C ± 1e-6 stability PASS ? worst deviation 0.1259∞ across the ±1e-6 scan) Tj ET
+BT /F1 7 Tf 50 118 Td ( Test 21b [HARDCORE pass 2]: 3 sub-checks, 0 failed ? PASS) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000247 00000 n 
+0000002949 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+3046
+%%EOF

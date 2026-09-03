@@ -1,0 +1,13 @@
+
+════════════════════════════════════════════════════════════
+TEST 15 (pass 2, HARDCORE): AB-cloud construction — deep validation
+Full-lattice plaquette scan of the ±-quartet (all plaquettes, signed check)
+────────────────────────────────────────────────────────────
+ ⚠ RUNTIME: 1 build + O(N) plaquette scan at 96x96 (N=9216) — seconds
+ Lattice: 96x96 open :dirac, α=0, quartet q=±1.00 → 9025 plaquettes scanned
+ Vortex plaquettes (signed): 4/4 correct ✓
+ Empty plaquettes clean (<1e-9): 9021/9021, worst |flux| = 0.00e+00
+────────────────────────────────────────────────────────────
+ full signed scan     PASS — 4/4 vortex plaquettes, 9021/9021 empty clean
+ hermiticity          PASS — verify_hermitian on the quartet H
+ Test 15b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS

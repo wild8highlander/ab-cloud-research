@@ -1,0 +1,14 @@
+FULL COMPUTATION LOG — test 26: PBC torus Dirac string
+every log_comp() entry emitted while this test ran:
+
+[16:40:42.418] [+10357.700s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.0000, t=1.00, W=4.00, torus, 1 vortices, model=:dirac
+[16:40:53.375] [+10368.657s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[16:46:12.496] [+10687.778s]  calc: ⟨r⟩ = 0.600632 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[16:46:20.404] [+10695.686s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[16:52:34.013] [+11069.295s]  calc: ⟨r⟩ = 0.596193 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[16:52:40.045] [+11075.327s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[16:58:08.064] [+11403.346s]  calc: ⟨r⟩ = 0.600551 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[16:58:13.542] [+11408.824s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[17:03:35.614] [+11730.896s]  calc: ⟨r⟩ = 0.589380 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[17:03:41.561] [+11736.843s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[17:08:56.247] [+12051.529s]  calc: ⟨r⟩ = 0.595447 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]

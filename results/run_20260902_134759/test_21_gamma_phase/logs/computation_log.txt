@@ -1,0 +1,4 @@
+FULL COMPUTATION LOG — test 21: γ* spinorial phase ≈ π/2
+every log_comp() entry emitted while this test ran:
+
+(no log_comp entries)

@@ -1,0 +1,13 @@
+FULL COMPUTATION LOG — test 16: AB-cloud GUE classification
+every log_comp() entry emitted while this test ran:
+
+[14:06:53.826] [+1129.108s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[14:11:12.341] [+1387.623s]  calc: ⟨r⟩ = 0.572908 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[14:11:17.814] [+1393.097s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[14:16:14.259] [+1689.541s]  calc: ⟨r⟩ = 0.569121 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[14:16:19.224] [+1694.506s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[14:21:34.935] [+2010.217s]  calc: ⟨r⟩ = 0.586869 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[14:21:38.664] [+2013.946s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[14:26:41.417] [+2316.699s]  calc: ⟨r⟩ = 0.584535 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[14:26:47.323] [+2322.605s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[14:31:55.621] [+2630.903s]  calc: ⟨r⟩ = 0.585615 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]

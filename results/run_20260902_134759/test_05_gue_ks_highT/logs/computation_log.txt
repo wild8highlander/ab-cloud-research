@@ -1,0 +1,10 @@
+FULL COMPUTATION LOG — test 5: GUE KS test (high-T only)
+every log_comp() entry emitted while this test ran:
+
+[13:49:11.305] [+ 66.587s]  calc: KS D = 0.021622, p_asymptotic = 9.563953e-21 (n=49989, λ=4.8368)
+[13:49:11.427] [+ 66.709s]  calc: KS D = 0.021625, p_asymptotic = 9.718636e-21 (n=49958, λ=4.8360)
+[13:49:11.431] [+ 66.713s]  calc: KS D = 0.021588, p_asymptotic = 1.254559e-20 (n=49853, λ=4.8228)
+[13:49:11.434] [+ 66.716s]  calc: KS D = 0.021380, p_asymptotic = 4.135955e-20 (n=49523, λ=4.7605)
+[13:49:11.437] [+ 66.719s]  calc: KS D = 0.021203, p_asymptotic = 2.142535e-19 (n=48525, λ=4.6733)
+[13:49:11.440] [+ 66.722s]  calc: KS D = 0.020927, p_asymptotic = 8.613887e-18 (n=45603, λ=4.4714)
+[13:49:11.443] [+ 66.725s]  calc: KS D = 0.020175, p_asymptotic = 1.325911e-13 (n=37230, λ=3.8952)

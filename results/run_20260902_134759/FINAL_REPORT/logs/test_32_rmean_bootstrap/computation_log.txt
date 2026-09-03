@@ -1,0 +1,43 @@
+FULL COMPUTATION LOG — test 32: Multi-realization ⟨r⟩ bootstrap
+every log_comp() entry emitted while this test ran:
+
+[20:13:27.733] [+23123.016s]  realization 1/5 (q=1.000): building 96x96 Hamiltonian (large-lattice diag dominates, minutes)
+[20:13:28.606] [+23123.888s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 2 vortices, model=:monumental
+[20:17:50.713] [+23385.996s]  calc: ⟨r⟩ = 0.581975 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[20:17:52.386] [+23387.668s]  realization 1/5 (q=1.000): ⟨r⟩=0.5820 in 264.7 s (bulk 5529 levels)
+[20:17:52.388] [+23387.670s]  realization 2/5 (q=1.000): building 96x96 Hamiltonian (large-lattice diag dominates, minutes)
+[20:17:53.271] [+23388.553s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 2 vortices, model=:monumental
+[20:22:31.715] [+23666.997s]  calc: ⟨r⟩ = 0.584950 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[20:22:36.303] [+23671.585s]  realization 2/5 (q=1.000): ⟨r⟩=0.5849 in 283.9 s (bulk 5529 levels)
+[20:22:36.309] [+23671.591s]  realization 3/5 (q=1.000): building 96x96 Hamiltonian (large-lattice diag dominates, minutes)
+[20:22:37.478] [+23672.760s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 2 vortices, model=:monumental
+[20:28:03.166] [+23998.448s]  calc: ⟨r⟩ = 0.588113 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[20:28:07.684] [+24002.966s]  realization 3/5 (q=1.000): ⟨r⟩=0.5881 in 331.4 s (bulk 5529 levels)
+[20:28:07.701] [+24002.983s]  realization 4/5 (q=1.000): building 96x96 Hamiltonian (large-lattice diag dominates, minutes)
+[20:28:08.796] [+24004.079s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 2 vortices, model=:monumental
+[20:33:10.440] [+24305.722s]  calc: ⟨r⟩ = 0.590950 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[20:33:15.334] [+24310.616s]  realization 4/5 (q=1.000): ⟨r⟩=0.5909 in 307.6 s (bulk 5529 levels)
+[20:33:15.342] [+24310.624s]  realization 5/5 (q=1.000): building 96x96 Hamiltonian (large-lattice diag dominates, minutes)
+[20:33:16.461] [+24311.743s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 2 vortices, model=:monumental
+[20:38:07.153] [+24602.435s]  calc: ⟨r⟩ = 0.586224 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[20:38:11.760] [+24607.042s]  realization 5/5 (q=1.000): ⟨r⟩=0.5862 in 296.4 s (bulk 5529 levels)
+[20:38:11.786] [+24607.068s]  realization 1/5 (q=0.300): building 96x96 Hamiltonian (large-lattice diag dominates, minutes)
+[20:38:13.081] [+24608.363s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=0.50, open, 256 vortices, model=:monumental
+[20:42:55.693] [+24890.975s]  calc: ⟨r⟩ = 0.599252 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[20:43:00.222] [+24895.504s]  realization 1/5 (q=0.300): ⟨r⟩=0.5993 in 288.4 s (bulk 5529 levels)
+[20:43:00.236] [+24895.518s]  realization 2/5 (q=0.300): building 96x96 Hamiltonian (large-lattice diag dominates, minutes)
+[20:43:01.390] [+24896.673s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=0.50, open, 256 vortices, model=:monumental
+[20:47:59.047] [+25194.329s]  calc: ⟨r⟩ = 0.603718 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[20:48:04.268] [+25199.550s]  realization 2/5 (q=0.300): ⟨r⟩=0.6037 in 304.0 s (bulk 5529 levels)
+[20:48:04.278] [+25199.560s]  realization 3/5 (q=0.300): building 96x96 Hamiltonian (large-lattice diag dominates, minutes)
+[20:48:05.422] [+25200.705s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=0.50, open, 256 vortices, model=:monumental
+[20:52:49.570] [+25484.852s]  calc: ⟨r⟩ = 0.600059 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[20:52:54.321] [+25489.603s]  realization 3/5 (q=0.300): ⟨r⟩=0.6001 in 290.0 s (bulk 5529 levels)
+[20:52:54.328] [+25489.610s]  realization 4/5 (q=0.300): building 96x96 Hamiltonian (large-lattice diag dominates, minutes)
+[20:52:55.456] [+25490.738s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=0.50, open, 256 vortices, model=:monumental
+[20:57:29.966] [+25765.248s]  calc: ⟨r⟩ = 0.601791 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[20:57:32.226] [+25767.508s]  realization 4/5 (q=0.300): ⟨r⟩=0.6018 in 277.9 s (bulk 5529 levels)
+[20:57:32.243] [+25767.526s]  realization 5/5 (q=0.300): building 96x96 Hamiltonian (large-lattice diag dominates, minutes)
+[20:57:33.449] [+25768.731s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=0.50, open, 256 vortices, model=:monumental
+[21:02:10.128] [+26045.410s]  calc: ⟨r⟩ = 0.600971 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[21:02:14.604] [+26049.886s]  realization 5/5 (q=0.300): ⟨r⟩=0.6010 in 282.4 s (bulk 5529 levels)

@@ -1,0 +1,13 @@
+
+════════════════════════════════════════════════════════════
+TEST 6 (secondary, HARDCORE): Objection 2: GUE Spacing Statistics — bin-stability audit
+────────────────────────────────────────────────────────────
+ C1 bins= 300: χ²/df = 2.3771, p = 0.000000 → REJECT
+ C1 bins= 150: χ²/df = 3.6171, p = 0.000000 → REJECT
+ C1 bins=  75: χ²/df = 6.3149, p = 0.000000 → REJECT
+ C1 bins=  37: χ²/df = 11.3303, p = 0.000000 → REJECT
+ C2 halves    : χ²/df first=2.5187, second=2.1023, rel.dev=16.5% (limit 50%)
+────────────────────────────────────────────────────────────
+ C1 bin sweep         PASS — 0 flips vs majority (REJECT)
+ C2 halves            PASS — rel.dev = 16.5%
+ Test 6 [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS

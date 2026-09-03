@@ -1,0 +1,21 @@
+
+════════════════════════════════════════════════════════════
+TEST 25 (pass 2, HARDCORE): Byers–Yang — multi-layout / multi-q audit
+3 layouts × {+1, +2, −1} integer rows + fractional {0.3, 0.5} rows
+────────────────────────────────────────────────────────────
+ ⚠ RUNTIME: 12 value-only diagonalizations at 96x96 (N=9216) — expect ≈ 10–15 min
+ layout 1, q=+1: Δ = 9.66e-15 < 1e-10 ✓
+ layout 1, q=+2: Δ = 1.04e-14 < 1e-10 ✓
+ layout 1, q=-1: Δ = 9.66e-15 < 1e-10 ✓
+ layout 1, fractional q=0.3: Δ = 3.35e-03 > 1e-3 ✓ (genuine AB effect)
+ layout 1, fractional q=0.5: Δ = 3.74e-03 > 1e-3 ✓ (genuine AB effect)
+ layout 2, q=+1: Δ = 1.24e-14 < 1e-10 ✓
+ layout 2, q=+2: Δ = 8.66e-15 < 1e-10 ✓
+ layout 2, q=-1: Δ = 1.24e-14 < 1e-10 ✓
+ layout 3, q=+1: Δ = 1.01e-14 < 1e-10 ✓
+ layout 3, q=+2: Δ = 8.89e-15 < 1e-10 ✓
+ layout 3, q=-1: Δ = 1.01e-14 < 1e-10 ✓
+────────────────────────────────────────────────────────────
+ integer q ∀layouts   PASS — Δ(q=+1,+2,−1 vs 0) < 1e-10 on 3 independent layouts
+ fractional Δ > 1e-3  PASS — q ∈ {0.3, 0.5} keep the genuine AB effect
+ Test 25b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS

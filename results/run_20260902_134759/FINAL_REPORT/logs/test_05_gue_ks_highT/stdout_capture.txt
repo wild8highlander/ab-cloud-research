@@ -1,0 +1,18 @@
+
+════════════════════════════════════════════════════════════
+TEST 5 (secondary, HARDCORE): Objection 2: GUE Spacing Statistics — dense high-T sweep
+────────────────────────────────────────────────────────────
+        T_min    N_zeros            D            p
+           50      49990     0.021622     0.000000
+          125      49959     0.021625     0.000000
+          312      49854     0.021588     0.000000
+          781      49524     0.021380     0.000000
+         1953      48526     0.021203     0.000000
+         4883      45604     0.020927     0.000000
+        12207      37231     0.020175     0.000000
+ T2 trend     : p(first)=9.564e-21 → p(last)=1.326e-13 (must not degrade); best p=1.326e-13 (info; primary governs)
+ T3 top mean  : mean(s) at highest band = 1.0000 (limit |Δ|<0.02)
+────────────────────────────────────────────────────────────
+ T2 trend             PASS — p 9.564e-21 → 1.326e-13
+ T3 top mean          PASS — mean = 1.0000
+ Test 5 [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS

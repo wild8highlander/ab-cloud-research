@@ -1,0 +1,4 @@
+FULL COMPUTATION LOG — test 23: Complex fractal factor CF
+every log_comp() entry emitted while this test ran:
+
+(no log_comp entries)

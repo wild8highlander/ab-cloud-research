@@ -1,0 +1,23 @@
+
+════════════════════════════════════════════════════════════
+TEST 13 (secondary, HARDCORE): Objection 2 (extended): Advanced RMT Diagnostics — Σ² rigidity audit
+────────────────────────────────────────────────────────────
+        L      Σ²_data    Poisson=L    data/Pois
+      2.0       0.3815       2.0000       0.1907
+      4.5       0.4029       4.5359       0.0888
+     10.3       0.3549      10.2874       0.0345
+     23.3       0.3135      23.3315       0.0134
+     52.9       0.3534      52.9150       0.0067
+    120.0       0.3542     120.0097       0.0030
+    272.2       0.3556     272.1783       0.0013
+    617.3       0.3511     617.2922       0.0006
+   1400.0       0.3421    1400.0000       0.0002
+ N2 monotone  : 0 dips >25% across 8 grid steps (limit 1)
+ N3 GUE band  : 9/9 finite pairs have data/GUE ∈ [0.2, 5] (limit 80%)
+ N4 seed noise: Σ²(L=23.3) over 3 seeds: 0.3247/0.3060/0.3180, spread=5.9% (limit 40%)
+────────────────────────────────────────────────────────────
+ N1 beat Poisson      PASS — 9/9 L-values
+ N2 monotone          PASS — 0 dips
+ N3 GUE band          PASS — 9/9 in band
+ N4 seed noise        PASS — spread = 5.9%
+ Test 13 [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS

@@ -1,0 +1,8 @@
+FULL COMPUTATION LOG — test 34: DIRECT AB-cloud vs ζ (full loaded set)
+every log_comp() entry emitted while this test ran:
+
+[21:37:05.355] [+28140.637s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[21:41:58.186] [+28433.468s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[21:47:07.004] [+28742.286s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[21:52:23.759] [+29059.041s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[21:57:55.738] [+29391.021s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental

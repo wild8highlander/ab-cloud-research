@@ -1,0 +1,47 @@
+
+════════════════════════════════════════════════════════════
+TEST 36: Byte-level robustness — quantization + RNG entropy
+ Verify ⟨r⟩ survives 256-level quantization + RNG byte uniformity
+────────────────────────────────────────────────────────────
+ WHY W (DISORDER) IS CAPPED AT W_max ≈ 1.0 — disorder → vortex motion → statistics:
+  W is the diagonal on-site potential the vortices paint onto the lattice:
+      V_i = Σ_k q_k·W / (r_ik²·N⁻¹ + 1),   hopping t = 1.
+  The ratio (disorder energy q·W) / (kinetic energy t) decides what the
+  vortex cloud does and which spectral statistics come out:
+   • q·W ≳ t  (e.g. W=4, q=0.3 → V≈1.2 next to a core): the disorder
+     landscape dominates the vortex motion — vortices pin/steer the
+     eigenstates, states localize on the potential relief, and ⟨r⟩ drifts
+     from GUE (0.5992) toward Poisson (0.3863) by an essentially random
+     amount. A strongly disordered, spinning vortex system can therefore
+     emit ALMOST ANY statistics — the numbers depend on the effective
+     rotation speed (W/t) and on the twisting/vortex arrangement (Nv,
+     layout, charges) of that realization, not on the AB physics.
+   • q·W ≲ t  (W ≤ 1): the Aharonov-Bohm phases dominate the hopping,
+     states stay delocalized and GUE (Wigner-Dyson) is reachable.
+  That is why these tests measure at W_eff = min(cfg.ab_W, W_max = 1.0):
+  they certify the PHASE physics, not the disorder physics.
+ Sample target: 50000 eigenvalues [pass 2 (secondary)] (cfg.ab37_n_eigs_pass2)
+ Disorder: W = 1.00 = min(ab_W=4.00, W_max=1.00) → q·W = 1.00 vs hopping t = 1.0 → AB phases dominate (byte check tests the phase physics)
+ realization  1/5, continuing (below target): +5529 central eigs → accumulated 5529 / 50000 (11%)
+ realization  2/5, continuing (below target): +5529 central eigs → accumulated 11058 / 50000 (22%)
+ realization  3/5, continuing (below target): +5529 central eigs → accumulated 16587 / 50000 (33%)
+ realization  4/5, continuing (below target): +5529 central eigs → accumulated 22116 / 50000 (44%)
+ realization  5/5, continuing (below target): +5529 central eigs → accumulated 27645 / 50000 (55%)
+ realization  6/6, continuing (below target): +5529 central eigs → accumulated 33174 / 50000 (66%)
+ realization  7/7, continuing (below target): +5529 central eigs → accumulated 38703 / 50000 (77%)
+ realization  8/8, continuing (below target): +5529 central eigs → accumulated 44232 / 50000 (88%)
+ realization  9/9, continuing (below target): +5529 central eigs → accumulated 49761 / 50000 (100%)
+ realization 10/10: +5529 central eigs → accumulated 55290 / 50000 (111%)
+ Raw ⟨r⟩ = 0.3879 (n=55288 spacings)
+ Universality class: Poisson (d_GUE=0.2117, d_GOE=0.1428, d_GSE=0.2883, d_Poi=0.0016)
+ (local window: n=15 central eigs, raw ⟨r⟩_local = 0.6571)
+
+ (a) Byte-quantization robustness (256 levels):
+ legacy single window (diagnostic): r_byte = 0.6631, raw_local = 0.6571, |Δr| = 0.0061
+ multi-window average (decisive; 120 windows × 15 eigs):
+ ⟨r⟩_raw = 0.5765, ⟨r⟩_byte = 0.5756, |Δ⟨r⟩| = 0.0009 (tol=0.0200) → PASS
+
+ (b) RNG byte-entropy / uniformity:
+ Shannon entropy = 7.9991 bits (target ≥ 7.9)
+ χ²_z (CLT approx, df=255) = -0.2342 (|z|<3.0) → PASS
+ Test 36: byte robust — r_256=0.5756, |Δr|_multi=0.0009 (120 windows), |Δr|_1win=0.0061 (diag), H=7.9991 bits, χ²_z=-0.234, n=55288 → PASS
