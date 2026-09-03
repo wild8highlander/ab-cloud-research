@@ -350,7 +350,8 @@ READMEs are in English and end with a short Russian summary.
 | `apps/ab-cloud-dashboard/`, `apps/ab-cloud-lab3d/` | `README.md` inside each | tab-by-tab feature guide, architecture, build commands |
 | `docs/` | [`docs/README.md`](docs/README.md) | the MkDocs site pages and how to build them |
 | `termux/` | [`termux/README.md`](termux/README.md) · [`termux/README_RU.md`](termux/README_RU.md) | publishing to GitHub from an Android phone (EN quick guide + full RU manual) |
-| `assets/`, `.github/` | `README.md` inside each | banner provenance; what every CI workflow and template does |
+| `assets/` | [`assets/README.md`](assets/README.md) | banner provenance and figure reuse rules |
+| `.github/` | [`.github/WORKFLOWS.md`](.github/WORKFLOWS.md) | what every CI workflow, template and automation file does |
 
 ## 🌿 Branches & versions
 
