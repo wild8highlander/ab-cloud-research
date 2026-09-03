@@ -1,0 +1,30 @@
+[     0.0s] spinor64 verification run — 64 spinor structures of the Klein quartic
+[     0.5s] === E1: Klein graph {3,7} — exact symmetry of all 64 structures ===
+[     0.5s] orbit sizes: [28, 21, 7, 7, 1]  (even=36, odd=28)
+[     0.5s] PSL(2,7) transitive on the 28 odd (Arf=1) structures: CONFIRMED
+[     0.5s] isospectrality check (real signed adjacency):
+[     0.5s]   orbit 0 (n=28, Arf=1): max|dl|=7.99e-15, zero modes=2, <r>=0.4516
+[     0.6s]   orbit 1 (n=21, Arf=0): max|dl|=8.88e-15, zero modes=3, <r>=0.4187
+[     0.6s]   orbit 2 (n=7, Arf=0): max|dl|=6.22e-15, zero modes=3, <r>=0.5041
+[     0.6s]   orbit 3 (n=7, Arf=0): max|dl|=5.77e-15, zero modes=3, <r>=0.5041
+[     0.6s]   orbit 4 (n=1, Arf=0): max|dl|=0.00e+00, zero modes=7, <r>=0.4223
+[     0.6s] worst pairwise spectral distance over ALL 64 structures: 8.88e-15
+[     0.6s] gauge invariance (random vertex phases): max|dl| = 7.11e-15
+[     0.6s] === E2: AB-cloud Hofstadter torus — GUE statistics of all 64 structures ===
+[     0.6s] config: L=44, alpha=0.5, Nv=54 (density-scaled), W=0, torus, :monumental gauge, seed=96
+[     0.6s] building size-matched GUE ensemble for MC p-values (100 matrices of 1936x1936, bulk 0.6)...
+[   164.6s] MC GUE <r>: median=0.6013, 95% CI=[0.5847, 0.6140]
+[   172.0s]   structure  0/64: label=100011 <r>=0.5968 p_mc=0.550 PASS
+[   231.4s]   structure  8/64: label=001011 <r>=0.5968 p_mc=0.550 PASS
+[   290.7s]   structure 16/64: label=010010 <r>=0.5935 p_mc=0.360 PASS
+[   349.7s]   structure 24/64: label=111010 <r>=0.5935 p_mc=0.360 PASS
+[   409.4s]   structure 32/64: label=010011 <r>=0.6027 p_mc=0.830 PASS
+[   468.6s]   structure 40/64: label=111011 <r>=0.6027 p_mc=0.830 PASS
+[   528.1s]   structure 48/64: label=100010 <r>=0.6005 p_mc=0.910 PASS
+[   587.3s]   structure 56/64: label=001010 <r>=0.6005 p_mc=0.910 PASS
+[   639.0s] RESULT: 64/64 structures GUE-consistent (p_mc > 0.05)
+[   639.0s] <r> over all 64: 0.5984 +- 0.0035 (spread 0.5935..0.6027)
+[   639.0s] GUE reference: 0.5997; MC ensemble median 0.6013
+[   639.0s] done; outputs in /home/z/my-project/repo-ab-cloud/verification/spinor64/output
+
+FINAL: 64/64 GUE-consistent; orbits [28, 21, 7, 7, 1]; isospectrality 8.88e-15
