@@ -103,6 +103,9 @@ GUE random-matrix universality · 37-test two-pass Julia verification suite ·
 - [Quick start](#-quick-start)
 - [Results & reproducibility](#-results--reproducibility)
 - [Repository map](#%EF%B8%8F-repository-map)
+- [Documentation map — a README in every folder](#-documentation-map--a-readme-in-every-folder)
+- [Branches & versions](#-branches--versions)
+- [Publishing from Android (Termux)](#-publishing-from-android-termux)
 - [Documentation site](#-documentation-site)
 - [Citation](#-citation)
 - [Roadmap](#-roadmap)
@@ -123,7 +126,7 @@ GUE random-matrix universality · 37-test two-pass Julia verification suite ·
 | Connes self-duality | **4 zero modes**, C₁ = 2 | machine precision | test 20 |
 | Montgomery correlation hole | R₂ closer to GUE (d = 0.140) than Poisson (0.227) | reproduced | test 36 |
 | Dirac dynamics at α = 1/2 | E_min ∝ 1/L, **R² = 0.9997**; DOS dip 20× | confirmed | tests 30, 34 |
-| Spinor structure idx = 38 (Klein quartic) | only structure with GUE agreement, p = 0.598; Z = 14.10 | unique | v21 monograph |
+| Spinor structures of the Klein quartic — **all 64** | PSL(2,7) orbits 28/21/7/7/1, exact isospectrality ≈ 9·10⁻¹⁵, ⟨r⟩ = 0.5984 ± 0.0035 → **64/64 GUE-consistent** | v21 “idx=38 uniqueness” withdrawn as artifact | spinor64; v21.1 §3.2.5; v22.1 App. D |
 | Critical line optimality | σ = 1/2 minimises KS (0.152) | GUE-optimal | v21 monograph §6 |
 
 Every number above traces to a named test in the
@@ -315,11 +318,62 @@ ab-cloud-research/
 │       └── media/                #   shared figures
 ├── verification/                 # 10-language verification + spinor64 + ζ data
 ├── lab-3d/                       # 3D lattice laboratory (code + outputs + preprint)
-├── results/                      # verification logs + full run_20260902_134759 artifacts
+├── results/                      # 455 files: run_20260902_134759 artifacts + reference logs
 ├── docs/                         # MkDocs Material documentation site
+├── termux/                       # push-from-phone kit (Android/Termux)
 ├── assets/                       # banner & repo art
 └── .github/                      # CI, templates, funding, release automation
 ```
+
+## 📚 Documentation map — a README in every folder
+
+Wherever you land, the folder you are in explains itself: what lives there,
+what it does, what the stored results mean, and how to run the code. All
+READMEs are in English and end with a short Russian summary.
+
+| Enter here | Read this | You will learn |
+|---|---|---|
+| `code/` | [`code/README.md`](code/README.md) | the canonical 37-test two-pass Julia suite: all test groups, flags, two-pass protocol, what a run writes |
+| `code/julia/` | [`code/julia/README.md`](code/julia/README.md) | the author's historical versions v19/v19_v1/v20/v21 and what each contributed |
+| `verification/` | [`verification/README.md`](verification/README.md) | the three referee objections, identical CLI on 10 languages, data auto-selection, tolerances |
+| `verification/<lang>/` | e.g. [`verification/python/README.md`](verification/python/README.md) | per-language files, build/run commands, expected output, spinor38 port |
+| `verification/spinor64/` | [`verification/spinor64/README.md`](verification/spinor64/README.md) | the 64-spinor experiment E1+E2, orbits 28/21/7/7/1, why idx=38 uniqueness was withdrawn |
+| `verification/data/` | [`verification/data/README.md`](verification/data/README.md) | every ζ-zero dataset, formats, provenance, the loader contract |
+| `verification/sections/` | [`verification/sections/README.md`](verification/sections/README.md) | per-section closed-form micro-verifications |
+| `monographs/` | [`monographs/README.md`](monographs/README.md) | the five editions, format guide, what physics each document stores, how to rebuild |
+| `monographs/{ru,en,zh}/` | [`monographs/en/README.md`](monographs/en/README.md) | per-edition file tables, reading order, appendices B/D |
+| `monographs/original-v21/` | [`monographs/original-v21/README.md`](monographs/original-v21/README.md) | the original v21, its claims, and the exact v21.1 corrections |
+| `lab-3d/` | [`lab-3d/README.md`](lab-3d/README.md) | the 3D lattice OS: key numbers, modes A–J, the four committed runs |
+| `lab-3d/code/`, `lab-3d/outputs/` | `README.md` inside each | the 69-module map; how to read/regenerate the 2026-07-31 runs |
+| `results/` | [`results/README.md`](results/README.md) | the 455-file run `run_20260902_134759` and the two reference logs |
+| `apps/` | [`apps/README.md`](apps/README.md) | the two React apps and how to run/deploy them |
+| `apps/ab-cloud-dashboard/`, `apps/ab-cloud-lab3d/` | `README.md` inside each | tab-by-tab feature guide, architecture, build commands |
+| `docs/` | [`docs/README.md`](docs/README.md) | the MkDocs site pages and how to build them |
+| `termux/` | [`termux/README.md`](termux/README.md) · [`termux/README_RU.md`](termux/README_RU.md) | publishing to GitHub from an Android phone (EN quick guide + full RU manual) |
+| `assets/`, `.github/` | `README.md` inside each | banner provenance; what every CI workflow and template does |
+
+## 🌿 Branches & versions
+
+- **`main`** — the only content branch; everything below ships from it.
+- **`dependabot/github_actions/*`** (5 branches: `markdownlint-cli2-action-24`,
+  `actions/checkout-7`, `actions/stale-11`, `julia-actions/setup-julia-3`,
+  `release-drafter/release-drafter-7`) — automated CI-action bumps, each
+  open as a PR (#1–#5); merge at your leisure, they never touch science
+  content.
+- **Tags**: `v1.0.0` — the first Zenodo-mirrored release;
+  the current state corresponds to the v1.2.0 entry of
+  [`CHANGELOG.md`](CHANGELOG.md) (v1.1.0 — spinor64 + run artifacts + React
+  apps + Termux kit; v1.2.0 — this documentation deep dive).
+
+## 📱 Publishing from Android (Termux)
+
+The repository updates itself from a phone: [`termux/install_and_push.sh`](termux/install_and_push.sh)
+installs everything, offers **PAT-token** (hidden input, API-verified) or
+**browser** login (one-time device code at github.com/login/device), pushes
+`main` + tags, verifies the remote SHA and opens the repo in the browser —
+token in memory only. Guides: [`termux/README.md`](termux/README.md) (EN),
+[`termux/README_RU.md`](termux/README_RU.md) (RU, full manual),
+[`HOW_TO_PUSH_FROM_ANDROID.md`](HOW_TO_PUSH_FROM_ANDROID.md) (cheat sheet).
 
 ## 📖 Documentation site
 
@@ -357,8 +411,12 @@ If this work is useful to you, please cite it (see also [`CITATION.cff`](CITATIO
 - [x] Original v21 monograph + English edition
 - [x] 10-language independent verification with ζ data up to 2M zeros
 - [x] 3D lattice laboratory with output reports
+- [x] 64-spinor verification; v21 idx=38 correction (v1.1.0)
+- [x] Full two-pass run artifacts committed (run_20260902_134759, v1.1.0)
+- [x] Interactive React dashboard + WebGL 3D laboratory (v1.1.0)
+- [x] Android/Termux one-command push kit (v1.1.0)
+- [x] Deep-dive README for every folder, EN + RU summaries (v1.2.0)
 - [ ] Full 37-test suite as a scheduled nightly CI job
-- [ ] Interactive browser dashboard for the verification results
 - [ ] Quantum Hadamard-walk & 2D e⁻/e⁺ jet hydrodynamics extensions
 - [ ] Preprint submission with the consolidated v22 numerics
 
@@ -411,7 +469,7 @@ require the Author's written consent. See [`LICENSE`](LICENSE) (EN/RU).
 | Самодуальность Конна | **4 нулевые моды**, C₁ = 2 | машинная точность |
 | Корреляционная дыра Монтгомери | R₂ ближе к GUE (d = 0.140), чем к Пуассону (0.227) | воспроизведена |
 | Дираковская динамика при α = 1/2 | E_min ∝ 1/L, **R² = 0.9997**; провал DOS 20× | подтверждена |
-| Спинорная структура idx = 38 (квартика Клейна) | единственная с GUE-согласием, p = 0.598; Z = 14.10 | уникальная |
+| Спинорные структуры квартики Клейна — все 64 | орбиты PSL(2,7) 28/21/7/7/1, изоспектральность ≈ 9·10⁻¹⁵, ⟨r⟩ = 0.5984 ± 0.0035 — **64/64 GUE-согласованы** | утверждение v21 об «уникальности idx=38» снято как артефакт |
 | Оптимальность критической прямой | σ = 1/2 минимизирует KS (0.152) | GUE-оптимальность |
 
 Каждое число трассируемо до именованного теста в
@@ -431,11 +489,19 @@ require the Author's written consent. See [`LICENSE`](LICENSE) (EN/RU).
 - **[`verification/`](verification/)** — независимая 10-языковая верификация
   (C++, Fortran, Go, Haskell, JavaScript, Julia, MATLAB, Python, R, Rust),
   двуязычный интерфейс RU/EN, ответы на 3 стандартных возражения рецензентов,
-  данные нулей ζ до 2 000 000 (Одлыжко).
+  данные нулей ζ до 2 000 000 (Одлыжко); spinor64 — все 64 спинорные
+  структуры GUE-согласованы, порты Test 38 на 10 языках.
 - **[`lab-3d/`](lab-3d/)** — трёхмерная лаборатория: 3D-гамильтониан
   Хофштадтера с вихревыми линиями, решётки 36³, 5000 встроенных нулей, полные
   отчёты прогонов.
-- **[`results/`](results/)** — эталонные логи верификации.
+- **[`results/`](results/)** — 455 файлов: полный двухпроходной прогон
+  run_20260902_134759 (37 тестов) + эталонные логи.
+- **[`apps/`](apps/)** — два React-приложения: дашборд 37 тестов с живыми
+  ζ-статистиками и WebGL 3D-лаборатория.
+- **[`termux/`](termux/)** — публикация репозитория с Android-телефона одной
+  командой (PAT-токен или вход через браузер).
+- В **каждом каталоге** лежит подробный README (по-английски + краткое
+  резюме по-русски) — см. «Documentation map» выше.
 
 ### Быстрый старт
 
