@@ -51,6 +51,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Android/Termux push kit** — `termux/install_and_push.sh` +
+  `termux/README_RU.md` + root cheat-sheet `HOW_TO_PUSH_FROM_ANDROID.md`:
+  one-command publication of this repository to GitHub straight from an
+  Android phone. The script auto-installs missing packages (git/curl/gh),
+  relocates the repo out of shared /sdcard storage into Termux home,
+  offers two login modes — **PAT token** (hidden input, pre-verified via
+  GitHub API incl. push-permission check) or **browser device-flow**
+  (GitHub CLI one-time code at github.com/login/device) — then pushes
+  `main` + tags, verifies the remote SHA via `ls-remote` and opens the
+  repo in the browser. Token exists in process memory only. Also shipped
+  as a standalone `termux-push-kit.zip` and inside the main archive.
+
 ### Planned
 - Full 37-test suite as a scheduled nightly CI job
 - Interactive browser dashboard for verification results

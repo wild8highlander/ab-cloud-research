@@ -271,6 +271,13 @@ cd apps/ab-cloud-lab3d && npm install && npm run dev       # WebGL 3D laboratory
 Requirements: Julia ≥ 1.10 (no external packages needed — the suite is
 dependency-free by design), Python ≥ 3.10 for the 3D lab and verification suite.
 
+**Pushing from an Android phone (Termux):** the archive ships with a
+one-command push kit — see [`termux/README_RU.md`](termux/README_RU.md)
+and the cheat-sheet [`HOW_TO_PUSH_FROM_ANDROID.md`](HOW_TO_PUSH_FROM_ANDROID.md).
+It auto-installs everything, offers PAT-token **or** browser (one-time
+device code) login, pushes `main` + tags, verifies the remote SHA and
+opens the repo in the browser. The token lives in memory only.
+
 ## 📊 Results & reproducibility
 
 - **Full two-pass run artifacts** (NEW):
