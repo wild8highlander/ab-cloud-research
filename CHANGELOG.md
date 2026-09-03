@@ -1,5 +1,35 @@
 # Changelog
 
+## [1.2.1] — 2026-09-04 — «the front page, restored and tripled»
+
+### Fixed
+- **Landing-page hijack removed.** `.github/README.md` (added in v1.2.0)
+  silently replaced the root README on the repository home page — GitHub
+  resolves `.github/README.md` ahead of the root README — so the banner,
+  the badge wall and all front-page content disappeared for visitors.
+  The infra guide moved to `.github/WORKFLOWS.md` (content unchanged) and
+  the full front page is the landing page again.
+
+### Added
+- **Root README tripled in size** (37 KB → 107 KB, 534 → 1,575 lines) with
+  big data straight from the stored computations: a 24-row *Computation
+  data at a glance* table; the **complete 38-test ledger** of the flagship
+  run (test-by-test verdicts with artifact links); the **full spinor64
+  data** (E1 orbit table 28/21/7/7/1, E2 four holonomy classes, ensemble
+  ⟨r⟩ = 0.5984 ± 0.0035); **real per-test wall-clock timings** (9 s …
+  1 h 06 m); the **ζ dataset inventory with real SHA-256 checksums** of
+  all nine frozen files (2,001,058 zeros, 91 MB); flagship artifact
+  inventory (453 files / 39 directories); a statistical deep-dive (⟨r⟩,
+  finite-T story, Montgomery R₂, topology at machine precision, Dirac
+  R² = 0.9997); the annotated gallery of all 19 monograph plates at
+  600 dpi; a ten-language cross-verification matrix; monograph editions
+  matrix; Makefile reference; CI/CD table; reading paths; FAQ; glossary;
+  a verification-history timeline; eight extra badges (Release, Version,
+  **strictly personal License**, Suite 37×2+38, 2,001,058 ζ zeros,
+  Android/Termux, 453 artifacts, Spinor64 64/64); and a Russian section
+  with the big-data table, the full 38-test registry, checksums and a
+  mini-glossary.
+
 ## [1.2.0] — 2026-09-03 — «documentation deep dive»
 
 ### Added
