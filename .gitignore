@@ -32,10 +32,17 @@ venv/
 htmlcov/
 
 # ─── Generated run outputs (regenerable) ───
+# NOTE: results/run_20260902_134759/ is a FIRST-CLASS ARTIFACT (the v19
+# two-pass run of 2026-09-02: reports + logs, no plots) — force-added.
 results/run_*/
 code/reports/
 *.log
 !results/*.txt
+
+# ─── Node (React apps) ───
+node_modules/
+# committed prebuilt bundles are first-class (GitHub Pages ready):
+!apps/**/dist/
 
 # ─── MkDocs build ───
 site/
