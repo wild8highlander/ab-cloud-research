@@ -37,3 +37,25 @@ Author: Isaev Iskhak Khamzatovich · ORCID 0009-0003-7299-0701 · DOI 10.5281/ze
 Cite the v22 editions for the verified numerics (`docs/ab-cloud-v22/{ru,en,zh}`),
 and this folder for the original author narrative and the V01–V115 verification
 runs (Appendix F).
+
+## v21.1 corrections (2026-09-03)
+
+The full verification run over ALL 64 spinor structures
+(`verification/spinor64`, script `run_spinor64.py`) showed that **all 64
+structures give GUE-consistent statistics** — PSL(2,7) orbits
+28/21/7/7/1, exact isospectrality within orbits (max|Δλ| ≈ 9·10⁻¹⁵),
+⟨r⟩ = 0.5984 ± 0.0035 in the AB-cloud model. The original claim that
+"only idx=38 shows GUE agreement" is withdrawn as a computational
+artifact; by the monograph's own formula Arf(ε)=ε₁ε₂+ε₃ε₄+ε₅ε₆ the
+vector ε(38)=(0,1,1,0,0,1) gives Arf=0 (not 1).
+
+Corrected editions (source `.md` with an errata note, rebuilt
+`*_corrected.docx` / `*_corrected.html` / `*_corrected.pdf`):
+
+| Path | Description |
+|---|---|
+| `ru/text/monograph_v21_RU.md` + `monograph_v21_RU_corrected.{docx,html,pdf}` | Русское исправленное издание v21.1 |
+| `en/text/monograph_v21_EN.md` + `monograph_v21_EN_corrected.{docx,html,pdf}` | English corrected edition v21.1 |
+
+The original (pre-correction) files `AB_Cloud_Monograph_v21_*` are kept
+unchanged for reference.

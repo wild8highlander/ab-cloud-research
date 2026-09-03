@@ -346,8 +346,54 @@ julia ab_cloud_v19.jl --lang en --quick
 # reports: results/run_<date>/test_NN_<slug>/{report.md,html,pdf,docx, plots/, logs/}
 ```
 
-The numbers of the monograph correspond to the v18 run of 2026-08-28 (37 tests, 204.9 s single-pass baseline) and to v19 control runs (Tests 3, 18, 28 — PASS; the two-pass Test 28 with the full report set — PASS; the file `results/verification_run_v18_37tests_2026-08-28.txt` ships with the package).
+The numbers of the monograph correspond to the full two-pass run **v19 `run_20260902_134759`** of 2026-09-02 (37 tests, two-pass 72×72 → 96×96 with the HARDCORE second-pass audit, a pass-3 series for tests 19/29/31; Julia 1.12.0; 50,000 Odlyzko zeros). First-pass summary: **32 PASS / 5 WARN** (tests 4, 5, 6, 11, 12, 28, 35 — statistical WARN verdicts of the "Wigner-surmise floor", calibrated by two-sample KS lines against the exact GUE reference; suite semantics unchanged); **all HARDCORE second-pass runs are PASS** (77 verdict lines in total). The full artifact set — per-test reports (report.md/pdf/docx/html), computation logs (logs/), the final FINAL_REPORT and index.html — ships in the repository: `results/run_20260902_134759/`. In addition, all 64 spinor structures of the Klein quartic were verified by the reference implementation `verification/spinor64` (Appendix D). The early single-pass v18 baseline (`results/verification_run_v18_37tests_2026-08-28.txt`) is kept for history.
 
 # Appendix C. Figure Index
 
 All figures are 600 dpi PNG with captions in the language of the edition; the files live in `monographs/<lang>/figures/`. Fig. 1 — $b(N)$ convergence (two fits); Fig. 2 — ζ spacing histogram vs. Wigner surmises; Fig. 3 — the two decay fits in log coordinates; Fig. 4 — bootstrap distribution of the slope with the 95% CI; Fig. 5 — KS $D(T_{\min})$ with the critical line; Fig. 6 — $\Sigma^2(L)$; Fig. 7 — $\Delta_3(L)$; Fig. 8 — $R_2(s)$: AB-cloud vs. ζ, GUE, Poisson; Fig. 9 — the form factor $K(t)$; Fig. 10 — scaling $\langle r\rangle(L)$ for $q=0.3$ and $q=1$; Fig. 11 — the $\langle r\rangle$ bootstrap (Test 33); Fig. 12 — the Dirac cone $E_{\min}(1/L)$; Fig. 13 — the Dirac dip in the DOS; Fig. 14 — Byers–Yang (integer vs. fractional charge); Fig. 15 — the Berry cutoff $R_2(0;T)$; Fig. 16 — Hatano–Nelson, the ellipse of the non-Hermitian spectrum; Fig. 17 — the spinorial phase $\gamma^{\ast}$; Fig. 18 — the phase texture of a vortex pair; Fig. 19 — the Hofstadter butterfly with the point $\alpha=1/2$ marked.
+
+# Appendix D. Verification of all 64 spinor structures of the Klein quartic (v22.1, spinor64)
+
+The reference implementation `verification/spinor64` (Python/NumPy,
+reproduction: `python3 verification/spinor64/run_spinor64.py`) performs two
+independent experiments over all 64 spinor structures
+$\varepsilon\in\mathbb{F}_2^6$ of the Klein quartic and corrects the v21
+monograph claim about the "uniqueness" of idx=38.
+
+**E1 — exact symmetry (the Klein graph {3,7}).** The Klein quartic is
+discretised by its regular map {3,7} (56 vertices, 84 edges, 24 heptagons,
+Aut = PSL(2,7) of order 168). The 64 spin structures are realised as edge
+signings with odd face parity (the Kasteleyn/Cimasoni-Reshetikhin model,
+canonical gauge: all spanning-tree edges positive). The computed splitting
+of the PSL(2,7) action gives orbits **28 / 21 / 7 / 7 / 1**; the 28-element
+orbit — the odd structures (Arf=1) — is a single orbit, confirming the
+transitivity of PSL(2,7) on the 28 bitangents (the Riemann–Klein theorem).
+The signed Dirac operators within an orbit are permutation-conjugate: the
+maximum pairwise spectral distance over all 64 structures is **8.9·10⁻¹⁵**;
+gauge invariance 7.1·10⁻¹⁵; zero modes of the discrete operator: 2 (odd
+orbit) / 3 (even orbits) / 7 (trivial class). Consequence: no spinor
+structure can carry unique statistics — the "uniqueness of idx=38" in v21
+was a discretization artifact breaking the PSL(2,7) symmetry. By the v21
+monograph's own formula
+$\mathrm{Arf}(\varepsilon)=\varepsilon_1\varepsilon_2+\varepsilon_3\varepsilon_4+\varepsilon_5\varepsilon_6$
+the vector $\varepsilon(38)=(0,1,1,0,0,1)$ gives Arf = 0 (not 1 as
+previously claimed).
+
+**E2 — statistics (AB-cloud).** Hofstadter torus $L=44$, $\alpha=1/2$,
+$N_v=54$ vortices $q=+1$ (density-scaled anchor $N_v=25$ at $30\times30$),
+$W=0$, the `:monumental` gauge (atan smooth, vertical bonds, factor 0.5),
+spin structure as boundary twists
+$\varphi_x=\pi(\varepsilon_1+\varepsilon_3+\varepsilon_5)$,
+$\varphi_y=\pi(\varepsilon_2+\varepsilon_4+\varepsilon_6)$; averaging over
+5 vortex configurations, bulk window 0.6. Reference: a Monte-Carlo GUE
+ensemble of 100 matrices $1936\times1936$ (the Test-16 methodology):
+median $\langle r\rangle = 0.6013$, 95% CI $[0.5847; 0.6140]$. Result:
+**all 64 structures lie inside the CI**: $\langle r\rangle =
+0.5984\pm0.0035$ (spread $0.5935\dots0.6027$, min MC p = 0.36). The GUE
+statistics is identical for all structures — the source of GUE, as
+concluded in Section 4.1, is the AB-cloud dynamics, not the choice of
+spinor structure.
+
+Ports of Test 38 (frozen data + a self-implemented Jacobi algorithm, no
+LAPACK) ship in 10 languages:
+`verification/{cpp,java,rust,go,fortran,haskell,r,matlab,julia,javascript}/spinor38/`.
