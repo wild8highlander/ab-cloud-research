@@ -168,6 +168,16 @@ each other:
    Hofstadter Hamiltonian with vortex lines ("Universal Lattice Operating
    System for the Riemann Zeros"), 36³ lattices, 5000 embedded zeros, full
    output reports.
+4. **64-spinor verification** (`verification/spinor64/`) — an independent
+   Python reference run over ALL 64 spinor structures of the Klein quartic:
+   PSL(2,7) orbits 28/21/7/7/1, exact isospectrality within orbits
+   (max|Δλ| ≈ 9·10⁻¹⁵), and GUE-consistent ⟨r⟩ = 0.5984 ± 0.0035 for every
+   structure in the AB-cloud setting — correcting the v21 "idx=38
+   uniqueness" claim (see the v21.1 corrected editions and Appendix D of
+   the v22 monographs). Ports of Test 38 ship in 10 languages
+   (`verification/<lang>/spinor38/`).
+5. **Interactive React applications** (`apps/`) — the 37-test dashboard with
+   real-time in-browser ζ statistics and the WebGL 3D laboratory.
 
 ## 📚 Monographs (5 editions)
 
@@ -178,6 +188,7 @@ each other:
 | **v22** | 中文 | md · html · docx · pdf · pptx · tex | [`monographs/zh/`](monographs/zh/text/) |
 | **v21 original** (author's edition with verification) | Русский | docx · pdf · html · md · pptx | [`monographs/original-v21/ru/`](monographs/original-v21/ru/text/) |
 | **v21 English edition** (full translation) | English | docx · pdf · html · md · pptx | [`monographs/original-v21/en/`](monographs/original-v21/en/text/) |
+| **v21.1 corrected editions** (idx=38 uniqueness withdrawn; errata note + section 3.2.5: all 64 spinor structures verified) | Русский · English | md · docx · html · pdf | [`monographs/original-v21/`](monographs/original-v21/) |
 
 Each v22 edition contains **19 figures at 600 dpi** with captions in the
 language of the edition, a 14-slide presentation, and an arXiv-style preprint
@@ -198,6 +209,12 @@ standard referee objections:
 verification/
 ├── cpp/  fortran/  go/  haskell/  javascript/  julia/  matlab/
 ├── python/  r/  rust/          # one identical protocol per language
+│   └── <lang>/spinor38/        # NEW: Test 38 — 64 spinor structures (per language)
+├── spinor64/                   # NEW: reference run over all 64 spin structures
+│   ├── spinor64_core.py        #   PSL(2,7), Klein graph {3,7}, Kasteleyn signings
+│   ├── run_spinor64.py         #   E1 (exact symmetry) + E2 (GUE statistics)
+│   ├── data/                   #   frozen classes/graph/reference spectrum
+│   └── output/                 #   results: JSON, CSV table of 64 rows, MD report
 ├── data/                       # ζ zeros: 13,661 / 50,000 / 500k / 2M (Odlyzko)
 ├── sections/                   # section 3 (AB-cloud) & section 6 (ζ zeros) reports
 ├── deploy.sh                   # one-command local verification
@@ -236,14 +253,36 @@ cd verification/python && python3 ab_cloud_verify.py --zeros ../data/zeta_zeros_
 cd lab-3d && pip install -r requirements.txt && make run
 ```
 
+**64-spinor verification (reference run, ~10 min, Python/NumPy only):**
+
+```bash
+python3 verification/spinor64/run_spinor64.py
+# -> verification/spinor64/output/{spinor64_report.md, spinor64_table.csv, spinor64_results.json}
+```
+
+**Interactive React applications:**
+
+```bash
+cd apps/ab-cloud-dashboard && npm install && npm run dev   # 37-test dashboard, real-time
+cd apps/ab-cloud-lab3d && npm install && npm run dev       # WebGL 3D laboratory
+# prebuilt static bundles are committed in apps/*/dist/ (GitHub Pages ready)
+```
+
 Requirements: Julia ≥ 1.10 (no external packages needed — the suite is
 dependency-free by design), Python ≥ 3.10 for the 3D lab and verification suite.
 
 ## 📊 Results & reproducibility
 
-- Reference full-suite log:
+- **Full two-pass run artifacts** (NEW):
+  [`results/run_20260902_134759/`](results/run_20260902_134759/) — the
+  complete v19 run of 2026-09-02 (37 tests, two-pass 72×72 → 96×96 with the
+  HARDCORE audit, Julia 1.12.0): per-test reports (md/pdf/docx/html),
+  computation logs, FINAL_REPORT and index.html — 32 PASS / 5 WARN on the
+  first pass (the Wigner-surmise floor, calibrated), all HARDCORE pass-2
+  runs PASS;
+- Reference single-pass baseline log:
   [`results/verification_run_v18_37tests_2026-08-28.txt`](results/verification_run_v18_37tests_2026-08-28.txt)
-  (all 37 tests, two-pass, machine-readable verdicts);
+  (all 37 tests, machine-readable verdicts);
 - The suite is **deterministic**: fixed seeds (`MersenneTwister(12345)`),
   certified ζ zeros (mpmath, 50 digits), and every run writes full computation
   logs so that each verdict can be independently re-verified;
@@ -254,7 +293,12 @@ dependency-free by design), Python ≥ 3.10 for the 3D lab and verification suit
 
 ```text
 ab-cloud-research/
-├── code/ab_cloud_v19.jl          # canonical 37-test two-pass Julia suite (+ menu, labs)
+├── code/
+│   ├── ab_cloud_v19.jl           # canonical 37-test two-pass Julia suite (menu, labs)
+│   └── julia/                    # NEW: v19 / v19_v1 / v20 / v21 full sources
+├── apps/                         # NEW: React applications
+│   ├── ab-cloud-dashboard/       #   37-test dashboard, real-time ζ statistics (+ dist/)
+│   └── ab-cloud-lab3d/           #   WebGL 3D laboratory: lattice, Dirac cone, ζ strip (+ dist/)
 ├── monographs/
 │   ├── ru/  en/  zh/             # v22 editions: md + html + docx + pdf + pptx + preprint
 │   │   ├── text/                 #   + 19 figures @ 600 dpi per language
@@ -262,9 +306,9 @@ ab-cloud-research/
 │   └── original-v21/             # author's original monograph (RU) + English edition
 │       ├── ru/  en/              #   docx + pdf + html + md + pptx (16 slides each)
 │       └── media/                #   shared figures
-├── verification/                 # 10-language independent verification + ζ data
+├── verification/                 # 10-language verification + spinor64 + ζ data
 ├── lab-3d/                       # 3D lattice laboratory (code + outputs + preprint)
-├── results/                      # reference verification logs
+├── results/                      # verification logs + full run_20260902_134759 artifacts
 ├── docs/                         # MkDocs Material documentation site
 ├── assets/                       # banner & repo art
 └── .github/                      # CI, templates, funding, release automation
