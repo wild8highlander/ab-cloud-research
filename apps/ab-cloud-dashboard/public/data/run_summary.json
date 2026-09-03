@@ -1,0 +1,199 @@
+{
+ "run": "run_20260902_134759",
+ "date": "2026-09-02",
+ "julia": "1.12.0",
+ "zeros": 50000,
+ "two_pass": "72x72 -> 96x96 (HARDCORE)",
+ "first_pass": {
+  "PASS": 32,
+  "WARN": 5
+ },
+ "hardcore_pass2": "all PASS (77 verdict lines total)",
+ "tests": [
+  {
+   "id": 1,
+   "verdict": "PASS",
+   "headline": "Test 1: b(N=50000) = 1.2126 \u2192 PASS"
+  },
+  {
+   "id": 2,
+   "verdict": "PASS",
+   "headline": "Test 2: Monotonicity violations: 0 / 499 \u2192 PASS"
+  },
+  {
+   "id": 3,
+   "verdict": "PASS",
+   "headline": "Test 3: \u03b1 = 0.1685 (empirical; no expected value), R\u00b2=0.9895 \u2192 PASS"
+  },
+  {
+   "id": 4,
+   "verdict": "FAIL",
+   "headline": "Test 4: KS D=0.0216, p=0.0 \u2192 WARN"
+  },
+  {
+   "id": 5,
+   "verdict": "FAIL",
+   "headline": "Test 5: Best high-T p-value=0.0 \u2192 WARN"
+  },
+  {
+   "id": 6,
+   "verdict": "FAIL",
+   "headline": "Test 6: \u03c7\u00b2 p=0.0 \u2192 WARN"
+  },
+  {
+   "id": 7,
+   "verdict": "PASS",
+   "headline": "Test 7: Slope=-0.1504 (empirical), 95%CI=[-0.1594,-0.1414] \u2192 PASS"
+  },
+  {
+   "id": 8,
+   "verdict": "PASS",
+   "headline": "Test 8: Runs=3 (exp=5.8) \u2192 PASS"
+  },
+  {
+   "id": 9,
+   "verdict": "PASS",
+   "headline": "Test 9: Bootstrap slope=-0.1746 (empirical), 95%CI=[-0.1895,-0.1552] \u2192 PASS"
+  },
+  {
+   "id": 10,
+   "verdict": "PASS",
+   "headline": "Test 10: Max deviation=8.5% \u2192 PASS"
+  },
+  {
+   "id": 11,
+   "verdict": "FAIL",
+   "headline": "Test 11: A\u00b2=61.4924, MC p=0.0000 \u2192 WARN (best high-T subrange T&gt;31351 also rejects, p=0.0000; see height-resolved table)"
+  },
+  {
+   "id": 12,
+   "verdict": "FAIL",
+   "headline": "Test 12: 2-sample KS D=0.0233, p=0.010547 \u2192 WARN"
+  },
+  {
+   "id": 13,
+   "verdict": "PASS",
+   "headline": "Test 13: data closer to GUE in 9/9 L-values \u2192 PASS"
+  },
+  {
+   "id": 14,
+   "verdict": "PASS",
+   "headline": "Test 14: data closer to GUE in 9/9 L-values \u2192 PASS"
+  },
+  {
+   "id": 15,
+   "verdict": "PASS",
+   "headline": "Test 15: Hermiticity=OK, \u03c4_TRB=0.1037, flux_v1=-0.0 [exp -0.0], flux_empty=0.0 \u2192 PASS"
+  },
+  {
+   "id": 16,
+   "verdict": "PASS",
+   "headline": "Test 16 [MONTGOMERY] FINAL (last \u03b1=0.5): \u27e8r\u27e9=0.594 \u2192 PASS"
+  },
+  {
+   "id": 17,
+   "verdict": "PASS",
+   "headline": "Test 17: zero_modes(\u03b1=1/2)=4 (expected 4) \u2192 PASS"
+  },
+  {
+   "id": 18,
+   "verdict": "PASS",
+   "headline": "Test 18: chiral defect (\u03b1=1/2)=0.0 [exp 0.000000], (\u03b1=1/3)=0.0058 [exp \u22600] \u2192 PASS"
+  },
+  {
+   "id": 19,
+   "verdict": "PASS",
+   "headline": "Test 19: 1/L scaling R\u00b2=0.9997, v_F(2\u03c0)=1.8998, v_F(\u03c0)=3.7995 \u2192 PASS"
+  },
+  {
+   "id": 20,
+   "verdict": "PASS",
+   "headline": "Test 20: C\u2081 anchors {1/4,1/3,1/5}=1,1,1 [exp 1,1,1], \u03b1=1/2 min gap=0.0 (Dirac touching), mass branch C=0/0 \u2192 PASS"
+  },
+  {
+   "id": 21,
+   "verdict": "PASS",
+   "headline": "Test 21: arg(\u03b3*)=89.874\u00b0 (\u224890\u00b0, deviation=0.126\u00b0) \u2192 PASS"
+  },
+  {
+   "id": 22,
+   "verdict": "PASS",
+   "headline": "Test 22: \u03a6_AB=0.4487989505 = \u03c0/7 (exact) \u2192 PASS"
+  },
+  {
+   "id": 23,
+   "verdict": "PASS",
+   "headline": "Test 23: |CF_formula|=1.0 (=1 by construction), c_AB=0.02062 (\u22480.02063) \u2192 PASS"
+  },
+  {
+   "id": 24,
+   "verdict": "PASS",
+   "headline": "Test 24: vortex flux OK=1/1, empty OK=5040/5040, max_empty=0.0 \u2192 PASS"
+  },
+  {
+   "id": 25,
+   "verdict": "PASS",
+   "headline": "Test 25: \u0394(q=1\u21920)=0.0 [exp ~0], \u0394(q=0.3\u21920)=0.0032 [exp &gt;1e-3] \u2192 PASS"
+  },
+  {
+   "id": 26,
+   "verdict": "PASS",
+   "headline": "Test 26: flux_v=-0.0 [exp -0.0], empty_ok=5040/5183, herm=OK, \u27e8r\u27e9=0.6009 \u2192 PASS"
+  },
+  {
+   "id": 27,
+   "verdict": "PASS",
+   "headline": "Test 27: chiral defect (W=0) = 0.0, (W=1.0) = 0.0058 \u2192 PASS"
+  },
+  {
+   "id": 28,
+   "verdict": "FAIL",
+   "headline": "Test 28: f_GUE=0.8704, \u03a3\u00b2_data=0.6115 \u2192 WARN"
+  },
+  {
+   "id": 29,
+   "verdict": "PASS",
+   "headline": "Test 29: \u03c1(\u03b1=0.5)=0.0193 vs \u03c1(0.403)=0.1944 / \u03c1(0.597)=0.1944 \u2192 PASS"
+  },
+  {
+   "id": 30,
+   "verdict": "PASS",
+   "headline": "Test 30: v_F=1.798, R\u00b2=0.9977 \u2192 PASS"
+  },
+  {
+   "id": 31,
+   "verdict": "PASS",
+   "headline": "Test 31: max|Im(E)|=0.6397, \u27e8r\u27e9_NH=0.8938 \u2192 PASS"
+  },
+  {
+   "id": 32,
+   "verdict": "PASS",
+   "headline": "Test 32: \u27e8r\u27e9=0.5991\u00b10.0075 (q=1.0, n=5, W=1.0) vs GUE 0.5992 \u2192 PASS"
+  },
+  {
+   "id": 33,
+   "verdict": "PASS",
+   "headline": "Test 33: L-scaling to L=80 0.434,0.556,0.593,0.6,0.6 \u2192 PASS"
+  },
+  {
+   "id": 34,
+   "verdict": "PASS",
+   "headline": "Test 34: KS p=0.0, \u27e8|\u0394R\u2082|\u27e9=0.0374, d_GUE=0.796 \u2192 PASS"
+  },
+  {
+   "id": 35,
+   "verdict": "FAIL",
+   "headline": "Test 35: K(t) ramp+plateau \u2014 RMS_GUE=0.4193, corr_GUE=0.8889 \u2192 WARN"
+  },
+  {
+   "id": 36,
+   "verdict": "PASS",
+   "headline": "Test 36: byte robust \u2014 r_256=0.5894, |\u0394r|_multi=0.001 (120 windows), |\u0394r|_1win=0.012 (diag), H=7.9991 bits, \u03c7\u00b2_z=-0.234, n=27997 \u2192 PASS"
+  },
+  {
+   "id": 37,
+   "verdict": "PASS",
+   "headline": "Test 37: (1/2)!=\u221a\u03c0/2 [rel.err 0.0], 32/\u03c0\u00b2 [rel.err 0.0], \u222bp\u2082=1 [|\u0394|=0.0], uniqueness \u2713 \u2192 PASS"
+  }
+ ]
+}
