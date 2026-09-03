@@ -47,3 +47,42 @@ GUE-consistent, PSL(2,7) orbits 28/21/7/7/1, isospectrality ≈ 1e-14, the v21
 *English note:* this folder holds the **Chinese edition** of the rewritten
 monograph (v22 + the updated v22.1 build). See the repository-root README
 for the trilingual overview.
+
+## 📁 Complete file inventory
+
+| Entry | Size | Kind |
+|---|---|---|
+| `figures/` | 19 files, 4.1 MB | directory |
+| `text/` | 11 files, 43.1 MB | directory |
+| `README.md` | 2.4 KB | file |
+| **Total (recursive)** | **31 files, 47.2 MB** | |
+
+## 🔬 Deep dive — working with the Chinese edition
+
+The ZH edition is a full parallel translation, not a summary: identical
+chapter structure, identical appendices, and the same 37-test numeric
+backbone as RU and EN, with all 19–20 figure labels re-set in Chinese.
+Two typesetting specifics are worth knowing. First, the `.tex` source
+requires a `ctex`-aware XeLaTeX toolchain — compile with `xelatex` twice
+so the TOC and cross-references settle; pdfLaTeX will not handle the CJK
+punctuation correctly. Second, the HTML build keeps MathJax for formulas
+while relying on system CJK fonts, so it renders identically on desktop
+and mobile without webfont downloads.
+
+Content-wise the edition carries the same headline results: the
+AB-cloud mechanism reproducing GUE statistics of the zeta zeros, the
+pair-correlation KS distance 0.047 (p = 0.27), the Byers–Yang flux
+defect 3.5e-15, the Dirac cone v_F ≈ 0.125 with R² = 0.9997, and the
+spinor64 appendix — all 64 Klein-quartic spinor structures
+GUE-consistent, PSL(2,7) orbits 28/21/7/7/1. Every number links back to
+a named test of the verification suite, and the two-pass run
+`run_20260902_134759` documented in Appendix B is committed under
+`results/`, so Chinese-reading referees verify claims exactly as
+English-reading ones do.
+
+## Кратко (по-русски)
+
+- Китайское издание — полный параллельный перевод v22/v22.1, не конспект.
+- Вёрстка `.tex` — только XeLaTeX с ctex (двойная сборка); html тянется
+  на системных CJK-шрифтах.
+- Числа и приложения идентичны RU/EN; проверяемость — через `results/`.

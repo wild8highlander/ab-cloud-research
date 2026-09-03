@@ -231,3 +231,68 @@ Cite the monographs for the physics and this suite for the numbers:
   `<язык>/spinor38/` (изоспектральность 3.4e-14, ⟨r⟩ = 0.4515710793 — PASS).
 - Ожидаемое межъязыковое согласие — на уровне двойной точности; расхождения
   ~1e-12 для b(N) считаются нормой.
+
+## 📁 Complete file inventory
+
+| Entry | Size | Kind |
+|---|---|---|
+| `cpp/` | 7 files, 76.0 KB | directory |
+| `data/` | 10 files, 90.9 MB | directory |
+| `fortran/` | 7 files, 62.4 KB | directory |
+| `go/` | 9 files, 30.5 KB | directory |
+| `haskell/` | 8 files, 31.2 KB | directory |
+| `java/` | 3 files, 9.3 KB | directory |
+| `javascript/` | 7 files, 48.4 KB | directory |
+| `julia/` | 7 files, 41.8 KB | directory |
+| `matlab/` | 7 files, 43.3 KB | directory |
+| `python/` | 5 files, 92.7 KB | directory |
+| `r/` | 7 files, 40.7 KB | directory |
+| `rust/` | 9 files, 46.1 KB | directory |
+| `sections/` | 3 files, 2.7 KB | directory |
+| `spinor64/` | 11 files, 111.0 KB | directory |
+| `.gitignore` | 141 B | file |
+| `README.md` | 10.4 KB | file |
+| `deploy.sh` | 4.8 KB | file |
+| **Total (recursive)** | **103 files, 91.6 MB** | |
+
+## 🔬 Deep dive — the ten-implementation parity matrix
+
+Ten independent implementations of the same suite live here: Python,
+Julia, C++, Fortran, Go, JavaScript, Haskell, Rust, MATLAB and R. Each
+folder follows the same shape: the core verifier, its `_en` and `_ru`
+reporting variants, a `run_verify` entry point, and (for the compiled
+and research languages) a `spinor38/` subfolder with the Test-38 port.
+Parity means something strict: all ten read the **same frozen data**
+from `data/`, run the **same 37 tests**, and must reproduce the **same
+reference statistics** — pair-correlation KS = 0.047 (p = 0.27),
+Byers–Yang flux defect 3.5e-15, ⟨r⟩ = 0.5848 ± 0.0260 against the GUE
+value 0.5992. A language that drifts from these numbers has a bug, not
+an opinion.
+
+Every entry point speaks the same flag language: `--zeros N` (number of
+zeros to use, 0 = all; default 10 000), `--source NAME` (choose a
+dataset from `data/`: `auto`, `zeta_zeros_50000`, `zeta_zeros_500k`,
+`zeta_zeros_2M`, `zeta_zeros_highT`, `zeros6`, `zeta_zeros_50000_csv`),
+`--objection all|1|2|3` (run everything or a single objection test) and
+`--lang en|ru` (report language). This uniformity is what makes the
+matrix testable: the same command line can be replayed across all ten
+folders, which is exactly what CI does on the interpreted subset.
+
+Beyond the ten suites, this directory hosts the three specialized
+checkers: `spinor64/` (the experiment that corrected the v21 monograph —
+all 64 Klein-quartic spinor structures GUE-consistent, PSL(2,7) orbits
+28/21/7/7/1), `spinor38/` ports inside the language folders (Test 38 of
+the suite) and `sections/` (one-screen closed-form micro-verifications
+for individual monograph sections). The data contract lives in
+`data/README.md`: nothing there is generated at runtime, so every
+rerun of every program in every language sees byte-identical input.
+
+## Кратко (по-русски)
+
+- Десять реализаций одного набора: Python, Julia, C++, Fortran, Go,
+  JavaScript, Haskell, Rust, MATLAB, R; одинаковые флаги, одни и те же
+  замороженные данные, одни и те же эталонные числа.
+- Паритет строгий: KS = 0.047 (p = 0.27), дефект Байерса–Янга 3.5e-15,
+  ⟨r⟩ = 0.5848 ± 0.0260 — расхождение трактуется как баг реализации.
+- Рядом — spinor64 (исправление v21), порты spinor38 (Тест 38) и
+  секционные микропроверки; контракт данных — в `data/README.md`.
