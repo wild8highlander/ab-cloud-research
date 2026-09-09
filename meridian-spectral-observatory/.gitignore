@@ -1,0 +1,25 @@
+# Артефакты прогонов Julia/Python (не коммитятся)
+*.png
+!docs/**/*.png
+out/
+output/
+plots/
+reports/
+results/
+logs/
+*.log
+push_log_*.txt
+
+# Системный мусор
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+.julia/
+LocalPreferences.toml
+
+# Временные файлы редакторов
+*.swp
+*~
+.vscode/
+.idea/
