@@ -1,0 +1,13 @@
+
+════════════════════════════════════════════════════════════
+TEST 8 (secondary, HARDCORE): Objection 3: Large-T Decay Rate — dense residual audit
+────────────────────────────────────────────────────────────
+ E1 runs      : 3 runs over 10 doubling-grid residuals (expected 5.8 ± 6.0)
+ E2 autocorr  : lag-1 = 0.6794, lag-2 = 0.0053 (sanity limit |r|<0.95)
+ E3 scale     : dense residuals sd_first=0.04614, sd_second=0.04289, ratio=1.076 (limits 0.4–2.5)
+────────────────────────────────────────────────────────────
+ E1 runs              PASS — 3 vs 5.8 expected
+ E2 autocorr          PASS — r1=0.679, r2=0.005
+ E3 scale             PASS — ratio = 1.076
+ E4 sign balance      PASS — 4+/-6
+ Test 8 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS

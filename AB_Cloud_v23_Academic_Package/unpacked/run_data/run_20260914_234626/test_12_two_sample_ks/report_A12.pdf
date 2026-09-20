@@ -1,0 +1,63 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 2459 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 12: Real zeros vs GUE matrix) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: FAIL   |   Generated: 2026-09-14 23:56:59   |   Suite: AB-Cloud v23 SUPERCOMBO \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (Two-sample KS: data vs simulated GUE matrix spectrum.) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: Two-sample KS: data vs simulated GUE matrix spectrum.) Tj ET
+BT /F1 13 Tf 50 670 Td (Result) Tj ET
+BT /F1 10 Tf 50 668 Td ( Test 12 [HARDCORE pass 2]: 3 sub-checks, 2 failed ? WARN) Tj ET
+BT /F1 13 Tf 50 618 Td (Plots) Tj ET
+BT /F1 10 Tf 50 624 Td (- `plots/plot_01.png` ? 1600◊1000, ABPlotV23 engine \(supersampled\)) Tj ET
+BT /F1 10 Tf 50 602 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+BT /F1 13 Tf 50 540 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 558 Td (Reproduce with: julia ab_cloud_v23.jl --test 12 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 536 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 462 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 492 Td (\(no log_comp entries\)) Tj ET
+BT /F1 13 Tf 50 410 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 448 Td () Tj ET
+BT /F1 7 Tf 50 426 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 404 Td (TEST 12 \(secondary, HARDCORE\): Objection 2 \(extended\): Advanced RMT Diagnostics ? 2KS symmetry audit) Tj ET
+BT /F1 7 Tf 50 382 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 360 Td ( Full: real n=8400 vs ref n=8400, D=0.026548, p=0.005252 \(primary verdict governs\)) Tj ET
+BT /F1 7 Tf 50 338 Td ( W1 ref split : D_vs_A=0.024405, D_vs_B=0.030238, |?D|=0.005833 \(limit 0.02\)) Tj ET
+BT /F1 7 Tf 50 316 Td ( W2 blocks    : 0/4 blocks agree with full verdict at ?=0.01 \(limit ? 3\)) Tj ET
+BT /F1 7 Tf 50 294 Td ( W3 effect    : D_full=0.026548 < 2KS critical at ?=0.01: 0.025151? NO) Tj ET
+BT /F1 7 Tf 50 272 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 250 Td ( W1 ref symmetry      PASS ? |?D| = 0.005833) Tj ET
+BT /F1 7 Tf 50 228 Td ( W2 block agree       WARN ? 0/4 agree) Tj ET
+BT /F1 7 Tf 50 206 Td ( W3 D bound           WARN ? D 0.0265 vs crit 0.0252) Tj ET
+BT /F1 7 Tf 50 184 Td ( Test 12 [HARDCORE pass 2]: 3 sub-checks, 2 failed ? WARN) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000247 00000 n 
+0000002758 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+2855
+%%EOF

@@ -1,0 +1,83 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>AB-Cloud v20 — run report</title><style>body{font-family:system-ui;margin:2em}table{border-collapse:collapse}td,th{border:1px solid #999;padding:6px 14px}.PASS{background:#cfc}.WARN{background:#ffc}.FAIL{background:#fcc}.DONE{background:#cde}</style></head><body>
+<h1>AB-Cloud v20 — verification run</h1><p>2026-09-16 01:48:54 | Julia 1.12.0</p><table><tr><th>Test</th><th>Verdict</th><th>Headline</th><th>Report</th></tr>
+<tr><td>1</td><td class="PASS">PASS</td><td> Test 1: b(N=50000) = 1.2126 → PASS</td><td><a href="test_01_bN_convergence/report.html">report</a></td></tr>
+<tr><td>1</td><td class="PASS">PASS</td><td> Test 1 [HARDCORE pass 2]: 8 sub-checks, 0 failed, b(50000)=1.2126 → PASS</td><td><a href="test_01_bN_convergence/report.html">report</a></td></tr>
+<tr><td>2</td><td class="PASS">PASS</td><td> Test 2: Monotonicity violations: 0 / 499 → PASS</td><td><a href="test_02_bN_monotonicity/report.html">report</a></td></tr>
+<tr><td>2</td><td class="PASS">PASS</td><td> Test 2 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS</td><td><a href="test_02_bN_monotonicity/report.html">report</a></td></tr>
+<tr><td>3</td><td class="PASS">PASS</td><td> Test 3: α = 0.1685 (empirical; no expected value), R²=0.9895 → PASS</td><td><a href="test_03_bN_rate/report.html">report</a></td></tr>
+<tr><td>3</td><td class="PASS">PASS</td><td> Test 3 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS</td><td><a href="test_03_bN_rate/report.html">report</a></td></tr>
+<tr><td>4</td><td class="FAIL">FAIL</td><td> Test 4: KS D=0.0216, p=0.0 → WARN</td><td><a href="test_04_gue_ks_full/report.html">report</a></td></tr>
+<tr><td>4</td><td class="PASS">PASS</td><td> Test 4 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS</td><td><a href="test_04_gue_ks_full/report.html">report</a></td></tr>
+<tr><td>5</td><td class="FAIL">FAIL</td><td> Test 5: Best high-T p-value=0.0 → WARN</td><td><a href="test_05_gue_ks_highT/report.html">report</a></td></tr>
+<tr><td>5</td><td class="PASS">PASS</td><td> Test 5 [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS</td><td><a href="test_05_gue_ks_highT/report.html">report</a></td></tr>
+<tr><td>6</td><td class="FAIL">FAIL</td><td> Test 6: χ² p=0.0 → WARN</td><td><a href="test_06_chi2_hist/report.html">report</a></td></tr>
+<tr><td>6</td><td class="PASS">PASS</td><td> Test 6 [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS</td><td><a href="test_06_chi2_hist/report.html">report</a></td></tr>
+<tr><td>7</td><td class="PASS">PASS</td><td> Test 7: Slope=-0.1504 (empirical), 95%CI=[-0.1594,-0.1414] → PASS</td><td><a href="test_07_decay_slope/report.html">report</a></td></tr>
+<tr><td>7</td><td class="PASS">PASS</td><td> Test 7 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS</td><td><a href="test_07_decay_slope/report.html">report</a></td></tr>
+<tr><td>8</td><td class="PASS">PASS</td><td> Test 8: Runs=3 (exp=5.8) → PASS</td><td><a href="test_08_residuals/report.html">report</a></td></tr>
+<tr><td>8</td><td class="PASS">PASS</td><td> Test 8 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS</td><td><a href="test_08_residuals/report.html">report</a></td></tr>
+<tr><td>9</td><td class="PASS">PASS</td><td> Test 9: Bootstrap slope=-0.1746 (empirical), 95%CI=[-0.1895,-0.1552] → PASS</td><td><a href="test_09_bootstrap_ci/report.html">report</a></td></tr>
+<tr><td>9</td><td class="PASS">PASS</td><td> Test 9 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS</td><td><a href="test_09_bootstrap_ci/report.html">report</a></td></tr>
+<tr><td>10</td><td class="PASS">PASS</td><td> Test 10: Max deviation=8.5% → PASS</td><td><a href="test_10_cross_validation/report.html">report</a></td></tr>
+<tr><td>10</td><td class="PASS">PASS</td><td> Test 10 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS</td><td><a href="test_10_cross_validation/report.html">report</a></td></tr>
+<tr><td>11</td><td class="FAIL">FAIL</td><td> Test 11: A²=61.4924, MC p=0.0000 → WARN (best high-T subrange T&gt;31351 also rejects, p=0.0000; see height-resolved table)</td><td><a href="test_11_anderson_darling/report.html">report</a></td></tr>
+<tr><td>11</td><td class="PASS">PASS</td><td> Test 11 [HARDCORE pass 2]: 5 sub-checks, 0 failed → PASS</td><td><a href="test_11_anderson_darling/report.html">report</a></td></tr>
+<tr><td>12</td><td class="FAIL">FAIL</td><td> Test 12: 2-sample KS D=0.0265, p=0.005252 → WARN</td><td><a href="test_12_two_sample_ks/report.html">report</a></td></tr>
+<tr><td>12</td><td class="FAIL">FAIL</td><td> Test 12 [HARDCORE pass 2]: 3 sub-checks, 2 failed → WARN</td><td><a href="test_12_two_sample_ks/report.html">report</a></td></tr>
+<tr><td>13</td><td class="PASS">PASS</td><td> Test 13: data closer to GUE in 9/9 L-values → PASS</td><td><a href="test_13_number_variance/report.html">report</a></td></tr>
+<tr><td>13</td><td class="PASS">PASS</td><td> Test 13 [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS</td><td><a href="test_13_number_variance/report.html">report</a></td></tr>
+<tr><td>14</td><td class="PASS">PASS</td><td> Test 14: data closer to GUE in 9/9 L-values → PASS</td><td><a href="test_14_spectral_rigidity/report.html">report</a></td></tr>
+<tr><td>14</td><td class="PASS">PASS</td><td> Test 14 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS</td><td><a href="test_14_spectral_rigidity/report.html">report</a></td></tr>
+<tr><td>15</td><td class="PASS">PASS</td><td> Test 15: Hermiticity=OK, τ_TRB=0.1037, flux_v1=-0.0 [exp -0.0], flux_empty=0.0 → PASS</td><td><a href="test_15_ab_construction/report.html">report</a></td></tr>
+<tr><td>15</td><td class="PASS">PASS</td><td> Test 15b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS</td><td><a href="test_15_ab_construction/report.html">report</a></td></tr>
+<tr><td>16</td><td class="PASS">PASS</td><td> Test 16 [MONTGOMERY] FINAL (last α=0.5): ⟨r⟩=0.594 → PASS</td><td><a href="test_16_ab_gue_class/report.html">report</a></td></tr>
+<tr><td>16</td><td class="PASS">PASS</td><td> Test 16b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS</td><td><a href="test_16_ab_gue_class/report.html">report</a></td></tr>
+<tr><td>17</td><td class="PASS">PASS</td><td> Test 17: zero_modes(α=1/2)=4 (expected 4) → PASS</td><td><a href="test_17_connes_self_duality/report.html">report</a></td></tr>
+<tr><td>17</td><td class="PASS">PASS</td><td> Test 17b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS</td><td><a href="test_17_connes_self_duality/report.html">report</a></td></tr>
+<tr><td>18</td><td class="PASS">PASS</td><td> Test 18: chiral defect (α=1/2)=0.0 [exp 0.000000], (α=1/3)=0.0058 [exp ≠0] → PASS</td><td><a href="test_18_chiral_AIII/report.html">report</a></td></tr>
+<tr><td>18</td><td class="PASS">PASS</td><td> Test 18b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS</td><td><a href="test_18_chiral_AIII/report.html">report</a></td></tr>
+<tr><td>19</td><td class="PASS">PASS</td><td> Test 19: 1/L scaling R²=0.9997, v_F(2π)=1.8998, v_F(π)=3.7995 → PASS</td><td><a href="test_19_dirac_cone/report.html">report</a></td></tr>
+<tr><td>19</td><td class="PASS">PASS</td><td> Test 19b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS</td><td><a href="test_19_dirac_cone/report.html">report</a></td></tr>
+<tr><td>19</td><td class="PASS">PASS</td><td> Test 19c [SERIES pass 3]: 3 sub-checks, 0 failed → PASS</td><td><a href="test_19_dirac_cone/report.html">report</a></td></tr>
+<tr><td>19</td><td class="PASS">PASS</td><td> Test 19d [AUDIT pass 4]: 8 sub-checks, 0 failed → PASS</td><td><a href="test_19_dirac_cone/report.html">report</a></td></tr>
+<tr><td>20</td><td class="PASS">PASS</td><td> Test 20: C₁ anchors {1/4,1/3,1/5}=1,1,1 [exp 1,1,1], α=1/2 min gap=0.0 (Dirac touching), mass branch C=0/0 → PASS</td><td><a href="test_20_chern_tknn/report.html">report</a></td></tr>
+<tr><td>20</td><td class="PASS">PASS</td><td> Test 20b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS</td><td><a href="test_20_chern_tknn/report.html">report</a></td></tr>
+<tr><td>21</td><td class="PASS">PASS</td><td> Test 21: arg(γ*)=89.874° (≈90°, deviation=0.126°) → PASS</td><td><a href="test_21_gamma_phase/report.html">report</a></td></tr>
+<tr><td>21</td><td class="PASS">PASS</td><td> Test 21b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS</td><td><a href="test_21_gamma_phase/report.html">report</a></td></tr>
+<tr><td>22</td><td class="PASS">PASS</td><td> Test 22: Φ_AB=0.4487989505 = π/7 (exact) → PASS</td><td><a href="test_22_ab_phase/report.html">report</a></td></tr>
+<tr><td>22</td><td class="PASS">PASS</td><td> Test 22b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS</td><td><a href="test_22_ab_phase/report.html">report</a></td></tr>
+<tr><td>23</td><td class="PASS">PASS</td><td> Test 23: |CF_formula|=1.0 (=1 by construction), c_AB=0.02062 (≈0.02063) → PASS</td><td><a href="test_23_fractal_factor/report.html">report</a></td></tr>
+<tr><td>23</td><td class="PASS">PASS</td><td> Test 23b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS</td><td><a href="test_23_fractal_factor/report.html">report</a></td></tr>
+<tr><td>24</td><td class="PASS">PASS</td><td> Test 24: vortex flux OK=1/1, empty OK=5040/5040, max_empty=0.0 → PASS</td><td><a href="test_24_dirac_string_flux/report.html">report</a></td></tr>
+<tr><td>24</td><td class="PASS">PASS</td><td> Test 24b [HARDCORE pass 2]: 5 sub-checks, 0 failed → PASS</td><td><a href="test_24_dirac_string_flux/report.html">report</a></td></tr>
+<tr><td>25</td><td class="PASS">PASS</td><td> Test 25: Δ(q=1→0)=0.0 [exp ~0], Δ(q=0.3→0)=0.0032 [exp &gt;1e-3] → PASS</td><td><a href="test_25_byers_yang/report.html">report</a></td></tr>
+<tr><td>25</td><td class="PASS">PASS</td><td> Test 25b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS</td><td><a href="test_25_byers_yang/report.html">report</a></td></tr>
+<tr><td>26</td><td class="PASS">PASS</td><td> Test 26: flux_v=-0.0 [exp -0.0], empty_ok=5040/5183, herm=OK, ⟨r⟩=0.6009 → PASS</td><td><a href="test_26_pbc_torus/report.html">report</a></td></tr>
+<tr><td>26</td><td class="PASS">PASS</td><td> Test 26b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS</td><td><a href="test_26_pbc_torus/report.html">report</a></td></tr>
+<tr><td>27</td><td class="FAIL">FAIL</td><td>EXCEPTION: UndefVarError: `R_POISSON` not defined in `Main`
+Suggestion: check for spelling errors or missing imports.</td><td><a href="test_27_binary_chiral/report.html">report</a></td></tr>
+<tr><td>27</td><td class="PASS">PASS</td><td> Test 27b [HARDCORE pass 2]: 8 sub-checks, 0 failed → PASS</td><td><a href="test_27_binary_chiral/report.html">report</a></td></tr>
+<tr><td>28</td><td class="FAIL">FAIL</td><td> Test 28: f_GUE=0.881, Σ²_data=0.6115 → WARN</td><td><a href="test_28_f_gue_merit/report.html">report</a></td></tr>
+<tr><td>28</td><td class="FAIL">FAIL</td><td> Test 28b [HARDCORE pass 2]: 2 sub-checks, 1 failed → WARN</td><td><a href="test_28_f_gue_merit/report.html">report</a></td></tr>
+<tr><td>29</td><td class="PASS">PASS</td><td> Test 29: ρ(α=0.5)=0.0193 vs ρ(0.403)=0.1944 / ρ(0.597)=0.1944 → PASS</td><td><a href="test_29_dirac_dip/report.html">report</a></td></tr>
+<tr><td>29</td><td class="FAIL">FAIL</td><td> Test 29b [HARDCORE pass 2]: 3 sub-checks, 1 failed → WARN</td><td><a href="test_29_dirac_dip/report.html">report</a></td></tr>
+<tr><td>29</td><td class="PASS">PASS</td><td> Test 29c [SERIES pass 3]: 3 sub-checks, 0 failed → PASS</td><td><a href="test_29_dirac_dip/report.html">report</a></td></tr>
+<tr><td>30</td><td class="PASS">PASS</td><td> Test 30: v_F=1.798, R²=0.9977 → PASS</td><td><a href="test_30_vf_scaling/report.html">report</a></td></tr>
+<tr><td>30</td><td class="PASS">PASS</td><td> Test 30b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS</td><td><a href="test_30_vf_scaling/report.html">report</a></td></tr>
+<tr><td>31</td><td class="PASS">PASS</td><td> Test 31: max|Im(E)|=0.6397, ⟨r⟩_NH=0.8938 → PASS</td><td><a href="test_31_hatano_nelson/report.html">report</a></td></tr>
+<tr><td>31</td><td class="PASS">PASS</td><td> Test 31b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS</td><td><a href="test_31_hatano_nelson/report.html">report</a></td></tr>
+<tr><td>31</td><td class="PASS">PASS</td><td> Test 31c [SERIES pass 3]: 4 sub-checks, 0 failed → PASS</td><td><a href="test_31_hatano_nelson/report.html">report</a></td></tr>
+<tr><td>32</td><td class="PASS">PASS</td><td> Test 32: ⟨r⟩=0.5991±0.0075 (q=1.0, n=5, W=1.0) vs GUE 0.5992 → PASS</td><td><a href="test_32_rmean_bootstrap/report.html">report</a></td></tr>
+<tr><td>32</td><td class="PASS">PASS</td><td> Test 32b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS</td><td><a href="test_32_rmean_bootstrap/report.html">report</a></td></tr>
+<tr><td>33</td><td class="PASS">PASS</td><td> Test 33: L-scaling to L=80 0.434,0.556,0.593,0.6,0.6 → PASS</td><td><a href="test_33_l_scaling_rmean/report.html">report</a></td></tr>
+<tr><td>33</td><td class="PASS">PASS</td><td> Test 33b (hardcore): plateau weighted ⟨r⟩=0.6004, χ²/dof=0.01 → PASS</td><td><a href="test_33_l_scaling_rmean/report.html">report</a></td></tr>
+<tr><td>34</td><td class="PASS">PASS</td><td> Test 34: KS p=0.0, ⟨|ΔR₂|⟩=0.0374, d_GUE=0.796 → PASS</td><td><a href="test_34_direct_vs_zeta/report.html">report</a></td></tr>
+<tr><td>34</td><td class="FAIL">FAIL</td><td> Test 34b [HARDCORE pass 2]: 4 sub-checks, 1 failed → WARN</td><td><a href="test_34_direct_vs_zeta/report.html">report</a></td></tr>
+<tr><td>35</td><td class="FAIL">FAIL</td><td> Test 35: K(t) ramp+plateau — RMS_GUE=0.4193, corr_GUE=0.8889 → WARN</td><td><a href="test_35_form_factor_Kt/report.html">report</a></td></tr>
+<tr><td>35</td><td class="FAIL">FAIL</td><td> Test 35b [HARDCORE pass 2]: 3 sub-checks, 2 failed → WARN</td><td><a href="test_35_form_factor_Kt/report.html">report</a></td></tr>
+<tr><td>36</td><td class="PASS">PASS</td><td> Test 36: byte robust — r_256=0.5894, |Δr|_multi=0.001 (120 windows), |Δr|_1win=0.012 (diag), H=7.9991 bits, χ²_z=-0.234, n=27997 → PASS</td><td><a href="test_36_byte_robust/report.html">report</a></td></tr>
+<tr><td>36</td><td class="PASS">PASS</td><td> Test 36: byte robust — r_256=0.5756, |Δr|_multi=0.0009 (120 windows), |Δr|_1win=0.0061 (diag), H=7.9991 bits, χ²_z=-0.234, n=55288 → PASS</td><td><a href="test_36_byte_robust/report.html">report</a></td></tr>
+<tr><td>37</td><td class="PASS">PASS</td><td> Test 37: (1/2)!=√π/2 [rel.err 0.0], 32/π² [rel.err 0.0], ∫p₂=1 [|Δ|=0.0], uniqueness ✓ → PASS</td><td><a href="test_37_half_factorial_gamma/report.html">report</a></td></tr>
+<tr><td>37</td><td class="PASS">PASS</td><td> Test 37b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS</td><td><a href="test_37_half_factorial_gamma/report.html">report</a></td></tr>
+<tr><td>38</td><td class="PASS">PASS</td><td> Test 38 (v23 three-pass) t38: PASS · Curie 3-pass (72²+96²+38c) — 486.9 min, 346 spectra in cache</td><td><a href="test_38_curie_point/report.html">report</a></td></tr>
+</table></body></html>

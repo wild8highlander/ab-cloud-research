@@ -1,0 +1,95 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3802 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 26: PBC torus Dirac string) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: PASS   |   Generated: 2026-09-15 03:07:01   |   Suite: AB-Cloud v23 SUPERCOMBO \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (Mixed: flux identities exact; ?r? on 4 neutral vortices over the bulk window \(statistical\).) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: Mixed: flux identities exact; ?r? on 4 neutral vortices over the bulk window \(statistical\).) Tj ET
+BT /F1 10 Tf 50 690 Td (Test 26 HARDCORE pass 2: 96x96 torus, exhaustive artifact classification, n=5 ?r? realizations at W_eff=1.00.) Tj ET
+BT /F1 10 Tf 50 668 Td (Test 26 HARDCORE: artifacts 9024 clean/0 wrap/0 unexplained; ?r?=0.5964±0.0021, scatter ?=0.0046.) Tj ET
+BT /F1 13 Tf 50 618 Td (Result) Tj ET
+BT /F1 10 Tf 50 624 Td ( Test 26b [HARDCORE pass 2]: 4 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 13 Tf 50 566 Td (Plots) Tj ET
+BT /F1 10 Tf 50 580 Td (- `plots/plot_01.png` ? 1600◊1000, ABPlotV23 engine \(supersampled\)) Tj ET
+BT /F1 10 Tf 50 558 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+BT /F1 13 Tf 50 488 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 514 Td (Reproduce with: julia ab_cloud_v23.jl --test 26 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 492 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 410 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 448 Td ([02:35:52.402] [+10143.430s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.0000, t=1.00, W=4.00, torus, 1 vortices, model=:dirac) Tj ET
+BT /F1 7 Tf 50 426 Td ([02:36:04.354] [+10155.382s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 404 Td ([02:41:24.785] [+10475.813s]  calc: ?r? = 0.600632 \(n_r=5527, n_eigs=5529\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 382 Td ([02:41:31.414] [+10482.443s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 360 Td ([02:47:55.044] [+10866.072s]  calc: ?r? = 0.596193 \(n_r=5527, n_eigs=5529\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 338 Td ([02:47:58.346] [+10869.375s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 316 Td ([02:54:12.143] [+11243.171s]  calc: ?r? = 0.600551 \(n_r=5527, n_eigs=5529\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 294 Td ([02:54:15.944] [+11246.972s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 272 Td ([03:00:22.789] [+11613.818s]  calc: ?r? = 0.589380 \(n_r=5527, n_eigs=5529\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 7 Tf 50 250 Td ([03:00:28.175] [+11619.203s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 228 Td ([03:06:55.993] [+12007.021s]  calc: ?r? = 0.595447 \(n_r=5527, n_eigs=5529\) [refs: GUE=0.5996 Poisson=0.3863]) Tj ET
+BT /F1 13 Tf 50 98 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 184 Td () Tj ET
+BT /F1 7 Tf 50 162 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 140 Td (TEST 26 \(pass 2, HARDCORE\): PBC torus Dirac string ? deep validation) Tj ET
+BT /F1 7 Tf 50 118 Td (Exhaustive artifact classification + ?r? ensemble \(n ? 5\)) Tj ET
+BT /F1 7 Tf 50 96 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 74 Td ( ? RUNTIME: flux scan \(1 build\) + n=5 ?r? realizations at 96x96 ? expect ? 12?17 min) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 6 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 1322 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ( ?r? row: ?=0.5000, Nv=4 \(base protocol\), q=1.0000, W=1.00 = ab_w_eff \(capped\)) Tj ET
+BT /F1 7 Tf 50 778 Td ( H1 flux: vortex plaquette OK; empty plaquettes: 9024 clean, 0 wrap artifacts \(0.0000\), 191 seam \(gauge holonomy, ix=96/iy=96\), 0 unexplained) Tj ET
+BT /F1 7 Tf 50 756 Td ( real  1/5: ?r? = 0.6006) Tj ET
+BT /F1 7 Tf 50 734 Td ( real  2/5: ?r? = 0.5962) Tj ET
+BT /F1 7 Tf 50 712 Td ( real  3/5: ?r? = 0.6006) Tj ET
+BT /F1 7 Tf 50 690 Td ( real  4/5: ?r? = 0.5894) Tj ET
+BT /F1 7 Tf 50 668 Td ( real  5/5: ?r? = 0.5954) Tj ET
+BT /F1 7 Tf 50 646 Td () Tj ET
+BT /F1 7 Tf 50 624 Td ( Ensemble: ?r? = 0.5964 ± 0.0021 | bootstrap CI [0.5928, 0.5997] ? GUE | above/below: 2/3) Tj ET
+BT /F1 7 Tf 50 602 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 580 Td ( flux + artifacts     PASS ? vortex OK; 9024 clean + 0 wrap\(?2?q\) + 191 seam holonomy; 0 unexplained) Tj ET
+BT /F1 7 Tf 50 558 Td ( ?r? > 0.5 \(ensemble\) PASS ? ?r? = 0.5964 ± 0.0021 \(n=5, base contract\)) Tj ET
+BT /F1 7 Tf 50 536 Td ( scatter ? 0.022      PASS ? ?=0.0046 ? ? monograph band) Tj ET
+BT /F1 7 Tf 50 514 Td ( hermiticity ?real    PASS ? verify_hermitian per realization) Tj ET
+BT /F1 7 Tf 50 492 Td ( Test 26b [HARDCORE pass 2]: 4 sub-checks, 0 failed ? PASS) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000253 00000 n 
+0000004107 00000 n 
+0000004233 00000 n 
+0000005607 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+5704
+%%EOF

@@ -1,0 +1,4 @@
+FULL COMPUTATION LOG — test 12: Real zeros vs GUE matrix
+every log_comp() entry emitted while this test ran:
+
+(no log_comp entries)

@@ -1,0 +1,19 @@
+
+════════════════════════════════════════════════════════════
+TEST 16 (pass 2, HARDCORE): ⟨r⟩ → GUE classification — deep validation
+Deep ensemble at the launch-standard config (pass 1 already swept breadth)
+────────────────────────────────────────────────────────────
+ ⚠ RUNTIME: n=5 realizations at 96x96 (N=9216) ≈ 1.5–3 min each → expect ≈ 12–17 min
+ Config: α=0.5000, Nv=2, q=1.000, BC=:open, W_eff=1.00 (standard cap 1.0)
+ real  1/5: ⟨r⟩ = 0.5729
+ real  2/5: ⟨r⟩ = 0.5691
+ real  3/5: ⟨r⟩ = 0.5869
+ real  4/5: ⟨r⟩ = 0.5845
+ real  5/5: ⟨r⟩ = 0.5856
+
+ Ensemble: ⟨r⟩ = 0.5798 ± 0.0037 (n=5)
+ Bootstrap 95% CI [0.5732, 0.5859] ∌ GUE (diagnostic); above/below GUE: 0/5
+────────────────────────────────────────────────────────────
+ ⟨r⟩ > 0.55           PASS — ⟨r⟩ = 0.5798 ± 0.0037 vs GUE 0.5992 (n=5)
+ scatter ≤ 0.022      PASS — σ=0.0082 ≤ ✓ monograph band
+ Test 16b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS

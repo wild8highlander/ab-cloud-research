@@ -1,0 +1,4 @@
+FULL COMPUTATION LOG — test 3: Convergence rate (power-law fit)
+every log_comp() entry emitted while this test ran:
+
+(no log_comp entries)

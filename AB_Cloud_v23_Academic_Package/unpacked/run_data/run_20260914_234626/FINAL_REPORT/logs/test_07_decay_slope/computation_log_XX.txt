@@ -1,0 +1,4 @@
+FULL COMPUTATION LOG — test 7: Decay slope (log-log regression)
+every log_comp() entry emitted while this test ran:
+
+(no log_comp entries)

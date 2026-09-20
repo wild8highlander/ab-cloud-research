@@ -1,0 +1,5 @@
+FULL COMPUTATION LOG — test 19: Dirac cone v_F ≈ 0.125
+every log_comp() entry emitted while this test ran:
+
+[01:23:43.346] [+5814.374s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[01:24:31.332] [+5862.360s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental

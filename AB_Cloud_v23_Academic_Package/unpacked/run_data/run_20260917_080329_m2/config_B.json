@@ -1,0 +1,19 @@
+{
+  "run_id": "20260917_080329_m2",
+  "mode": 2,
+  "julia": "1.12.0",
+  "zeros_file": "/mnt/sdcard/Download/zeta_zeros_2M_odlyzko.txt",
+  "n_zeros": 50000,
+  "L": 96,
+  "Nv": 2,
+  "q": 1.000000,
+  "alpha": 0.500000,
+  "W": 1.000000,
+  "reps1": 5,
+  "reps2": 20,
+  "sweep_param": "alpha",
+  "seed_base": 20260916,
+  "window_frac": 0.5000,
+  "threads": 1,
+  "generated": "2026-09-17 08:03:30"
+}

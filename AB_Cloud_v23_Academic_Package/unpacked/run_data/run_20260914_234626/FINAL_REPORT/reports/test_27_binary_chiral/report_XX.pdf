@@ -1,0 +1,127 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 4435 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 27: Binary chiral symmetry at ?=1/2) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: PASS   |   Generated: 2026-09-15 03:09:45   |   Suite: AB-Cloud v23 SUPERCOMBO \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (EXACT: defect 0 on pure lattice; W>0 row is the honest breaker control. ?-dictionary \(v23.2 rework\): pass 1 embeds 20,000 zeros \(honest ?r? verdict\), HARDCORE embeds the full 50,000 with ±E pairing probes, ?r? GUE-window + Poisson discrimination control, 5×10k block stationarity and KS GUE-vs-GOE classification.) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: EXACT: defect 0 on pure lattice; W>0 row is the honest breaker control. ?-dictionary \(v23.2 rework\): pass 1 embeds 20,000 zeros \(honest ?r? verdict\), HARDCORE embeds the full 50,000 with ±E pairing probes, ?r? GUE-window + Poisson discrimination control, 5×10k block stationarity and KS GUE-vs-GOE classification.) Tj ET
+BT /F1 10 Tf 50 690 Td (Test 27 ?-DEEP \(50k\): pairing exact on the 100000-dim dictionary, ?r? 0.6119 \(GUE 0.5996\), Poisson control 0.3864, block spread 0.0050, KS D_GUE 0.0216 vs D_GOE 0.0881.) Tj ET
+BT /F1 10 Tf 50 668 Td (Test 27 HARDCORE: exact 0.00e+00, ?-row 5.77e-03 \(?_rms 0.0058\), vortex 0.00e+00 \(preserved\), Coulomb W-scan 0.101?0.746 \(ratio 7.42\), ?-floor W-independent.) Tj ET
+BT /F1 13 Tf 50 618 Td (Result) Tj ET
+BT /F1 10 Tf 50 624 Td ( Test 27b [HARDCORE pass 2]: 8 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 13 Tf 50 566 Td (Plots) Tj ET
+BT /F1 10 Tf 50 580 Td (- `plots/plot_01.png` ? 1600×1000, ABPlotV23 engine \(supersampled\)) Tj ET
+BT /F1 10 Tf 50 558 Td (- `plots/plot_02.png` ? 1600×1000, ABPlotV23 engine \(supersampled\)) Tj ET
+BT /F1 10 Tf 50 536 Td (- `plots/plot_03.png` ? 1600×1000, ABPlotV23 engine \(supersampled\)) Tj ET
+BT /F1 10 Tf 50 514 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+BT /F1 13 Tf 50 436 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 470 Td (Reproduce with: julia ab_cloud_v23.jl --test 27 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 448 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 358 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 404 Td ([03:07:31.877] [+12042.906s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 382 Td ([03:07:42.466] [+12053.494s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 360 Td ([03:07:57.316] [+12068.344s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=0.00, torus, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 338 Td ([03:08:09.555] [+12080.584s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=0.50, torus, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 316 Td ([03:08:19.657] [+12090.685s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, torus, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 294 Td ([03:08:33.394] [+12104.422s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=2.00, torus, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 272 Td ([03:08:44.376] [+12115.405s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=4.00, torus, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 250 Td ([03:08:58.626] [+12129.654s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=0.50, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 228 Td ([03:09:10.593] [+12141.621s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 206 Td ([03:09:21.957] [+12152.985s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=2.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 184 Td ([03:09:34.381] [+12165.410s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=4.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 162 Td ([03:09:43.051] [+12174.079s]  calc: KS D = 0.021619, p_asymptotic = 9.567870e-21 \(n=49999, ?=4.8368\)) Tj ET
+BT /F1 7 Tf 50 140 Td ([03:09:43.060] [+12174.089s]  calc: KS D = 0.088053, p_asymptotic = 0.000000e+00 \(n=49999, ?=19.6997\)) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 6 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 3574 >>
+stream
+0 0 0 RG
+BT /F1 13 Tf 50 800 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 778 Td () Tj ET
+BT /F1 7 Tf 50 756 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 734 Td (TEST 27 \(pass 2, HARDCORE\): binary chiral symmetry ? deep audit) Tj ET
+BT /F1 7 Tf 50 712 Td (Exact row + ?_rms contract + vortex preservation + Coulomb W-scan) Tj ET
+BT /F1 7 Tf 50 690 Td (\(launch-standard lattice, 96x96 in two-pass mode\)) Tj ET
+BT /F1 7 Tf 50 668 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 646 Td ( ? RUNTIME: 11 builds + 11 S·H·S defect evals at 96x96 \(Diagonal S, O\(N?\)\) + ?-50k deep statistics \(O\(n\)\) ? ? 2?4 min) Tj ET
+BT /F1 7 Tf 50 624 Td ( H1 exact row \(W=0, clean\):     defect = 0.00e+00 < ? 1e-10) Tj ET
+BT /F1 7 Tf 50 602 Td ( H2 ? row \(W=1.0, Nv=0\):      defect = 5.77e-03 vs ?_rms = 0.0058 \(analytic\) ? [0.5, 2.0]× ?) Tj ET
+BT /F1 7 Tf 50 580 Td ( H2v vortex row \(Nv=2, W=0\):    defect = 0.00e+00 < 1e-10 ? \(bond phases PRESERVE AIII\)) Tj ET
+BT /F1 7 Tf 50 558 Td ( W-scan \(Nv=2\) W=0.5: defect = 1.0052e-01) Tj ET
+BT /F1 7 Tf 50 536 Td ( W-scan \(Nv=2\) W=1.0: defect = 2.0010e-01) Tj ET
+BT /F1 7 Tf 50 514 Td ( W-scan \(Nv=2\) W=2.0: defect = 3.9425e-01) Tj ET
+BT /F1 7 Tf 50 492 Td ( W-scan \(Nv=2\) W=4.0: defect = 7.4620e-01) Tj ET
+BT /F1 7 Tf 50 470 Td ( H3 scan: monotone ?, defect\(W=4\)/defect\(W=0.5\) = 7.42 ? [5, 12] ?) Tj ET
+BT /F1 7 Tf 50 448 Td ( Nv=0 ?-floor diagnostic \(residual ? is FIXED-amplitude\):) Tj ET
+BT /F1 7 Tf 50 426 Td ( W-scan \(Nv=0\) W=0.5: defect = 5.7704e-03 ? ?_rms \(W-independent ?\)) Tj ET
+BT /F1 7 Tf 50 404 Td ( W-scan \(Nv=0\) W=1.0: defect = 5.7704e-03 ? ?_rms \(W-independent ?\)) Tj ET
+BT /F1 7 Tf 50 382 Td ( W-scan \(Nv=0\) W=2.0: defect = 5.7704e-03 ? ?_rms \(W-independent ?\)) Tj ET
+BT /F1 7 Tf 50 360 Td ( W-scan \(Nv=0\) W=4.0: defect = 5.7704e-03 ? ?_rms \(W-independent ?\)) Tj ET
+BT /F1 7 Tf 50 338 Td ( ?-dictionary DEEP audit \(pass 2\) ? full 50000-zero embedded dataset:) Tj ET
+BT /F1 7 Tf 50 316 Td ( Z1 monotone \(50000 zeros\): min ?? = 0.029538 ? OK) Tj ET
+BT /F1 7 Tf 50 294 Td ( Z2 ±E pairing \(D=diag\(±??/2\), 100000-dim\): max|d+d_?| = 0.0e+00, ?D+?D??/?D? = 0.00e+00, ???v?v? = 0.0e+00 ? EXACT AIII) Tj ET
+BT /F1 7 Tf 50 272 Td ( Z3 zero modes of the dictionary: 0 \(AIII index anchor; min|??| = 14.1347\) ? OK) Tj ET
+BT /F1 7 Tf 50 250 Td ( Z4 ?r?\(49998 raw-gap ratios\) = 0.6119 \(GUE 0.5996; window ±0.020\) vs Poisson control 0.3864 \(same n, separation 0.225 > 0.15\) ? OK \(GUE-class, discriminated\)) Tj ET
+BT /F1 7 Tf 50 228 Td ( Z5 block stationarity \(5×10k\): ?r? = 0.6147, 0.6121, 0.6120, 0.6097, 0.6109, spread = 0.0050 < 0.012 ? OK) Tj ET
+BT /F1 7 Tf 50 206 Td ( Z6 KS: D_GUE = 0.021619 \(< 0.030\), D_GOE = 0.088053 ? GUE-class ?; depth diagnostic: no pass-1 baseline) Tj ET
+BT /F1 7 Tf 50 184 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 162 Td ( exact row < 1e-10    PASS ? binary contract at ?=1/2, W=0: 0.00e+00) Tj ET
+BT /F1 7 Tf 50 140 Td ( ?_rms contract \(W=1.0\) PASS ? defect 5.77e-03 ? analytic 2???_F/?H?_F = 0.0058) Tj ET
+BT /F1 7 Tf 50 118 Td ( vortices PRESERVE AIII PASS ? defect = 0.00e+00 \(Nv=2, q=±1.00, W=0\) ? bond phases; Byers-Yang for integer q) Tj ET
+BT /F1 7 Tf 50 96 Td ( Coulomb W-scan linear PASS ? Nv=2: monotone, defect 0.101?0.746, ratio 7.42 ? [5, 12]) Tj ET
+BT /F1 7 Tf 50 74 Td ( ?-dict exact ±E pairing PASS ? 100k-dim dictionary: max|d+d_?| = 0.0e+00, ?D+?D??/?D? = 0.00e+00, ?? probe 0.0e+00, tower 0) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 8 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+8 0 obj
+<< /Length 479 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ( ?-50k ?r? GUE-window + control PASS ? ?r? = 0.6119 \(GUE 0.5996 ±0.020\), Poisson control 0.3864, separation 0.225 > 0.15) Tj ET
+BT /F1 7 Tf 50 778 Td ( ?-50k block stationarity PASS ? 5×10k blocks spread 0.0050 < 0.012) Tj ET
+BT /F1 7 Tf 50 756 Td ( ?-50k KS GUE-class   PASS ? D_GUE = 0.0216 < 0.030 and < D_GOE = 0.0881 \(Poisson would be ?0.28\)) Tj ET
+BT /F1 7 Tf 50 734 Td ( Test 27b [HARDCORE pass 2]: 8 sub-checks, 0 failed ? PASS) Tj ET
+
+endstream
+endobj
+9 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000133 00000 n 
+0000000259 00000 n 
+0000004746 00000 n 
+0000004872 00000 n 
+0000008498 00000 n 
+0000008624 00000 n 
+0000009154 00000 n 
+trailer
+<< /Size 10 /Root 1 0 R >>
+startxref
+9251
+%%EOF

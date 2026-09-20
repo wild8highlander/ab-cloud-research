@@ -1,0 +1,93 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3525 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 34: DIRECT AB-cloud vs ? \(full loaded set\)) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: FAIL   |   Generated: 2026-09-15 07:51:46   |   Suite: AB-Cloud v23 SUPERCOMBO \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (Statistical: unfolded-spacing KS \(effect size D<0.10\) + Montgomery R?\(s\) vs ?-zeros and GUE. full 50k range, not ?-5000.) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: Statistical: unfolded-spacing KS \(effect size D<0.10\) + Montgomery R?\(s\) vs ?-zeros and GUE. full 50k range, not ?-5000.) Tj ET
+BT /F1 10 Tf 50 690 Td (Test 34 HARDCORE pass 2: n=5 realizations, R? ds=0.05/s_max=4.0, per-realization KS stability.) Tj ET
+BT /F1 10 Tf 50 668 Td (Test 34 HARDCORE: D=0.1096 \(p=2.236e-186\), per-real D med 0.1153 \(spread 0.0923..0.1189\), ?|?R?|?=0.0002, d_GUE=0.8764.) Tj ET
+BT /F1 13 Tf 50 618 Td (Result) Tj ET
+BT /F1 10 Tf 50 624 Td ( Test 34b [HARDCORE pass 2]: 4 sub-checks, 1 failed ? WARN) Tj ET
+BT /F1 13 Tf 50 566 Td (Plots) Tj ET
+BT /F1 10 Tf 50 580 Td (- `plots/plot_01.png` ? 1600◊1000, ABPlotV23 engine \(supersampled\)) Tj ET
+BT /F1 10 Tf 50 558 Td (- `plots/plot_02.png` ? 1600◊1000, ABPlotV23 engine \(supersampled\)) Tj ET
+BT /F1 10 Tf 50 536 Td (- `plots/plot_03.png` ? 1600◊1000, ABPlotV23 engine \(supersampled\)) Tj ET
+BT /F1 10 Tf 50 514 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+BT /F1 13 Tf 50 436 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 470 Td (Reproduce with: julia ab_cloud_v23.jl --test 34 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 448 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 358 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 404 Td ([07:30:25.651] [+27816.680s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 382 Td ([07:34:35.595] [+28066.623s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 360 Td ([07:38:52.493] [+28323.521s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 338 Td ([07:43:11.074] [+28582.102s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 316 Td ([07:47:23.751] [+28834.779s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental) Tj ET
+BT /F1 13 Tf 50 202 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 272 Td () Tj ET
+BT /F1 7 Tf 50 250 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 228 Td (TEST 34 \(pass 2, HARDCORE\): direct AB vs ? ? deep validation) Tj ET
+BT /F1 7 Tf 50 206 Td (n ? 5 realizations, R? bins 0.05, per-realization KS stability) Tj ET
+BT /F1 7 Tf 50 184 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 162 Td ( ? RUNTIME: n=5 AB realizations at 96x96 + ? unfolding \(50000 zeros\) ? ? 12?17 min) Tj ET
+BT /F1 7 Tf 50 140 Td ( Config: Nv=2, q=1.00, ?=0.5000, W=1.0 \(base protocol\)) Tj ET
+BT /F1 7 Tf 50 118 Td ( real  1/5: 5528 spacings, D_k\(?\) = 0.0923) Tj ET
+BT /F1 7 Tf 50 96 Td ( real  2/5: 5527 spacings, D_k\(?\) = 0.1188) Tj ET
+BT /F1 7 Tf 50 74 Td ( real  3/5: 5528 spacings, D_k\(?\) = 0.1153) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 6 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 1144 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ( real  4/5: 5528 spacings, D_k\(?\) = 0.1065) Tj ET
+BT /F1 7 Tf 50 778 Td ( real  5/5: 5528 spacings, D_k\(?\) = 0.1189) Tj ET
+BT /F1 7 Tf 50 756 Td () Tj ET
+BT /F1 7 Tf 50 734 Td ( Pooled: 27639 AB spacings vs 49999 ? spacings | KS D = 0.1096, p = 2.236e-186) Tj ET
+BT /F1 7 Tf 50 712 Td ( Per-realization D\(?\): min 0.0923 / median 0.1153 / max 0.1189 \(n=5\)) Tj ET
+BT /F1 7 Tf 50 690 Td ( ?|R?_AB ? R?_?|? \(ds=0.05, s?4\) = 0.0002 \(target < 0.10\)) Tj ET
+BT /F1 7 Tf 50 668 Td ( d_GUE = 0.8764 vs d_Poisson = 0.9998 ? closer to GUE) Tj ET
+BT /F1 7 Tf 50 646 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 624 Td ( KS composite         WARN ? p = 2.236e-186, D = 0.1096 \(p>0.01 or D<0.10\)) Tj ET
+BT /F1 7 Tf 50 602 Td ( ?|?R?|? < 0.10 \(fine\) PASS ? ds=0.05, s_max=4.0: 0.0002) Tj ET
+BT /F1 7 Tf 50 580 Td ( closer to GUE        PASS ? d_GUE=0.8764 < d_Pois=0.9998) Tj ET
+BT /F1 7 Tf 50 558 Td ( KS ensemble stability PASS ? D spread 0.0923..0.1189 \(median 0.1153\)) Tj ET
+BT /F1 7 Tf 50 536 Td ( Test 34b [HARDCORE pass 2]: 4 sub-checks, 1 failed ? WARN) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000253 00000 n 
+0000003830 00000 n 
+0000003956 00000 n 
+0000005152 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+5249
+%%EOF

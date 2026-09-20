@@ -1,0 +1,34 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Test 22: AB phase Φ_AB = π/7 = δ_C</title><style>body{font-family:system-ui;margin:2em;max-width:120ch}pre{background:#f4f4f4;padding:1em;overflow-x:auto;font-size:11px}h1{border-bottom:2px solid #333}</style></head><body>
+<h1>Test 22: AB phase Φ_AB = π/7 = δ_C</h1>
+<p>Verdict: PASS   |   Generated: 2026-09-15 01:25:42   |   Suite: AB-Cloud v23 SUPERCOMBO (Julia 1.12.0)</p>
+<h2>What this test verifies</h2>
+<p>EXACT flux-phase identity.</p>
+<p> METHOD: EXACT flux-phase identity.</p>
+<p>Test 22 HARDCORE: 256-bit rational identity true, Float64 err 1.75e-17, flux linearity p=1..3 true.</p>
+<h2>Result</h2>
+<p> Test 22b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS</p>
+<h2>Plots</h2>
+<p>- `plots/plot_01.png` — 1600×1000, ABPlotV23 engine (supersampled)</p>
+<p>- `plots/animation.gif` — animated reveal of every plot of this test</p>
+<h2>Independent verification guide</h2>
+<p>Reproduce with: julia ab_cloud_v23.jl --test 22 --no-two-pass</p>
+<p>Every computation is logged in logs/computation_log.txt (timestamps + deltas); raw console output in logs/stdout_capture.txt.</p>
+<h2>FULL COMPUTATION LOG</h2>
+<pre>(no log_comp entries)</pre>
+<h2>CONSOLE CAPTURE</h2>
+<pre>
+════════════════════════════════════════════════════════════
+TEST 22 (pass 2, HARDCORE): AB phase Φ_AB = π/7 — 256-bit audit
+────────────────────────────────────────────────────────────
+ Φ_AB(1/14) == 1·(π/7): true (256-bit exact)
+ Φ_AB(2/14) == 2·(π/7): true (256-bit exact)
+ Φ_AB(3/14) == 3·(π/7): true (256-bit exact)
+ 2π·(1/14) == π/7 at 256-bit: true (bit-for-bit)
+ Float64 Φ_AB vs 256-bit truth: |Δ| = 1.75e-17 (contract &lt; 1e-15)
+ Float64 δ_C vs 256-bit π/7:   |Δ| = 1.75e-17
+────────────────────────────────────────────────────────────
+ rational identity    PASS — 2π/14 == π/7 (256-bit), Float64 |Δ| = 1.75e-17
+ flux linearity p=1..3 PASS — Φ_AB(p/14) = p·(π/7) exact at 256-bit
+ Φ_AB == δ_C          PASS — Float64 δ_C vs 256-bit π/7: |Δ| = 1.75e-17
+ Test 22b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS</pre>
+</body></html>

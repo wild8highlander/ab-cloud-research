@@ -1,0 +1,54 @@
+
+════════════════════════════════════════════════════════════
+TEST 33 (pass 2, HARDCORE): L-scaling — deep validation
+Harder machinery: up to 5 realizations per L, weighted
+GUE-plateau χ² over L ≥ 50, no L beyond 112 (RAM honesty: L=128 ≈ 4.3 GB).
+────────────────────────────────────────────────────────────
+ ⚠ RUNTIME: 2 q-rows × up to n=5 realizations × L ∈ {10,20,30,50,80,112} → expect ≈ 27–81 min (±3× machine factor; RAM-gated rungs are skipped inside with a printed reason)
+
+════════════════════════════════════════════════════════════
+TEST 33: L-Scaling for AB-Cloud Lattice
+L=10→0.487 (Poisson), L=20→0.562, L=30→0.595, L=50→0.594 (monograph),
+L=80, L=112 → GUE plateau check (extended range, user spec 2026-08-29)
+────────────────────────────────────────────────────────────
+ WHY W (DISORDER) IS CAPPED AT W_max ≈ 1.0 — disorder → vortex motion → statistics:
+  W is the diagonal on-site potential the vortices paint onto the lattice:
+      V_i = Σ_k q_k·W / (r_ik²·N⁻¹ + 1),   hopping t = 1.
+  The ratio (disorder energy q·W) / (kinetic energy t) decides what the
+  vortex cloud does and which spectral statistics come out:
+   • q·W ≳ t  (e.g. W=4, q=0.3 → V≈1.2 next to a core): the disorder
+     landscape dominates the vortex motion — vortices pin/steer the
+     eigenstates, states localize on the potential relief, and ⟨r⟩ drifts
+     from GUE (0.5992) toward Poisson (0.3863) by an essentially random
+     amount. A strongly disordered, spinning vortex system can therefore
+     emit ALMOST ANY statistics — the numbers depend on the effective
+     rotation speed (W/t) and on the twisting/vortex arrangement (Nv,
+     layout, charges) of that realization, not on the AB physics.
+   • q·W ≲ t  (W ≤ 1): the Aharonov-Bohm phases dominate the hopping,
+     states stay delocalized and GUE (Wigner-Dyson) is reachable.
+  That is why these tests measure at W_eff = min(cfg.ab_W, W_max = 1.0):
+  they certify the PHASE physics, not the disorder physics.
+ ⚠ RAM GATE: L=112 needs ≈ 10.6 GB peak (matrix + LAPACK workspace), free ≈ 4.3 GB → SKIPPED (a swap-thrashing eig is indistinguishable from a hang)
+ q=1.00 BC=:torus L=10  Nv=4   α=0.50 W=1.00 ⟨r⟩ = 0.5516 ± 0.0252 (5 real, monograph 0.487)
+ q=1.00 BC=:torus L=20  Nv=12  α=0.50 W=1.00 ⟨r⟩ = 0.5953 ± 0.0055 (5 real, monograph 0.562)
+ q=1.00 BC=:torus L=30  Nv=26  α=0.50 W=1.00 ⟨r⟩ = 0.6070 ± 0.0054 (5 real, monograph 0.595)
+ q=1.00 BC=:torus L=50  Nv=70  α=0.50 W=1.00 ⟨r⟩ = 0.5936 ± 0.0053 (5 real, monograph 0.594)
+ q=1.00 BC=:torus L=80  Nv=178 α=0.50 W=1.00 ⟨r⟩ = 0.5987 ± 0.0016 (5 real, monograph 0.595*)
+ q=0.30 BC=:open  L=10  Nv=4   α=0.50 W=1.00 ⟨r⟩ = 0.4343 ± 0.0233 (5 real, monograph 0.487)
+ q=0.30 BC=:open  L=20  Nv=12  α=0.50 W=1.00 ⟨r⟩ = 0.5565 ± 0.0100 (5 real, monograph 0.562)
+ q=0.30 BC=:open  L=30  Nv=26  α=0.50 W=1.00 ⟨r⟩ = 0.5933 ± 0.0065 (5 real, monograph 0.595)
+ q=0.30 BC=:open  L=50  Nv=70  α=0.50 W=1.00 ⟨r⟩ = 0.6004 ± 0.0040 (5 real, monograph 0.594)
+ q=0.30 BC=:open  L=80  Nv=178 α=0.50 W=1.00 ⟨r⟩ = 0.6004 ± 0.0025 (5 real, monograph 0.595*)
+
+ Verdict run: q=0.30 (fractional AB phase — reference standard, stable)
+ Trend (L=10→20→30→50→80): 0.434 → 0.556 → 0.593 → 0.6 → 0.6
+ Monotone increase: YES
+ Final L=80 close to GUE 0.595 (|Δ|<0.05): YES
+ (comparison) q=1.0 user setting: 0.552 → 0.595 → 0.607 → 0.594 → 0.599 (final 0.5987)
+ Test 33: L-scaling to L=80 0.434,0.556,0.593,0.6,0.6 → PASS
+
+ ─── HARDCORE GUE-plateau check (verdict q=0.3, L ≥ 50) ───
+ plateau points: L=50: 0.6004±0.0040, L=80: 0.6004±0.0025
+ weighted ⟨r⟩ = 0.6004 vs GUE 0.5992 (|Δ|=0.0012) → IN ✓ band ±0.022
+ χ² = 0.01, dof = 2, χ²/dof = 0.01 → consistent ✓ (≤ 2 consistent; diagnostic)
+ Test 33b (hardcore): plateau weighted ⟨r⟩=0.6004, χ²/dof=0.01 → PASS

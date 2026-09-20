@@ -1,0 +1,35 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Test 37: (1/2)! via Γ — half-factorial & GUE normalization</title><style>body{font-family:system-ui;margin:2em;max-width:120ch}pre{background:#f4f4f4;padding:1em;overflow-x:auto;font-size:11px}h1{border-bottom:2px solid #333}</style></head><body>
+<h1>Test 37: (1/2)! via Γ — half-factorial & GUE normalization</h1>
+<p>Verdict: PASS   |   Generated: 2026-09-15 09:09:07   |   Suite: AB-Cloud v23 SUPERCOMBO (Julia 1.12.0)</p>
+<h2>What this test verifies</h2>
+<p>EXACT: Γ(1/2) = √π, (1/2)! = Γ(3/2) = √π/2, ladder + recurrence (suite's own Lanczos lgamma); UNIQUENESS of the Γ-construction via the reflection self-dual fixed point Γ(1/2)² = π and Bohr–Mollerup log-convexity; the GUE β=2 surmise normalization 32/π² verified as the half-factorial identity (∫p₂ = ⟨s⟩ = 1, ⟨s²⟩ = 3π/8 by quadrature). Pass 2 = 256-bit BigFloat re-audit.</p>
+<p> METHOD: EXACT: Γ(1/2) = √π, (1/2)! = Γ(3/2) = √π/2, ladder + recurrence (suite's own Lanczos lgamma); UNIQUENESS of the Γ-construction via the reflection self-dual fixed point Γ(1/2)² = π and Bohr–Mollerup log-convexity; the GUE β=2 surmise normalization 32/π² verified as the half-factorial identity (∫p₂ = ⟨s⟩ = 1, ⟨s²⟩ = 3π/8 by quadrature). Pass 2 = 256-bit BigFloat re-audit.</p>
+<p>Test 37 HARDCORE: 256-bit DE Γ(1/2) err 1.20e-28, Float64 round-off Γ(1/2) 5.83e-16 / (1/2)! 2.94e-16, N=32/π² err 2.51e-26, ladder/self-dual/recurrence exact.</p>
+<h2>Result</h2>
+<p> Test 37b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS</p>
+<h2>Plots</h2>
+<p>- `plots/plot_01.png` — 1600×1000, ABPlotV23 engine (supersampled)</p>
+<p>- `plots/animation.gif` — animated reveal of every plot of this test</p>
+<h2>Independent verification guide</h2>
+<p>Reproduce with: julia ab_cloud_v23.jl --test 37 --no-two-pass</p>
+<p>Every computation is logged in logs/computation_log.txt (timestamps + deltas); raw console output in logs/stdout_capture.txt.</p>
+<h2>FULL COMPUTATION LOG</h2>
+<pre>(no log_comp entries)</pre>
+<h2>CONSOLE CAPTURE</h2>
+<pre>
+════════════════════════════════════════════════════════════
+TEST 37 (pass 2, HARDCORE): (1/2)! via Γ — 256-bit precision audit
+────────────────────────────────────────────────────────────
+ DE reference: |Γ(1/2)_256 − √π| = 1.20e-28 (independent quadrature)
+ Γ(1/2):  Float64 vs 256-bit DE rel.err = 5.83e-16
+ (1/2)!:  Float64 vs 256-bit DE rel.err = 2.94e-16
+ N = 1/[½·(π/4)^{3/2}·(1/2)!] at 256-bit vs 32/π²: rel.err = 2.51e-26
+ ladder Γ(5/2)_DE = 3√π/4: rel.err = 4.78e-25
+ Γ(1/2)_DE² = π (reflection self-duality): rel.err = 1.35e-28
+ recurrence (1/2)!_DE = ½·Γ(1/2)_DE: rel.err = 2.51e-26
+────────────────────────────────────────────────────────────
+ Float64 round-off    PASS — |ΔΓ(1/2)|=5.83e-16, |Δ(1/2)!|=2.94e-16 relative (machine-ε scale)
+ 32/π² identity (256-bit) PASS — rel.err 2.51e-26 — exact at 256-bit
+ ladder + self-duality + recurrence (256-bit) PASS — worst rel.err 4.78e-25 across the three identities
+ Test 37b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS</pre>
+</body></html>

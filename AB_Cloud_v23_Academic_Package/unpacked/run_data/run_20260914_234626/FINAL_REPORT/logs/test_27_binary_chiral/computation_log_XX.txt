@@ -1,0 +1,16 @@
+FULL COMPUTATION LOG — test 27: Binary chiral symmetry at α=1/2
+every log_comp() entry emitted while this test ran:
+
+[03:07:31.877] [+12042.906s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[03:07:42.466] [+12053.494s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 0 vortices, model=:monumental
+[03:07:57.316] [+12068.344s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=0.00, torus, 2 vortices, model=:monumental
+[03:08:09.555] [+12080.584s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=0.50, torus, 2 vortices, model=:monumental
+[03:08:19.657] [+12090.685s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 2 vortices, model=:monumental
+[03:08:33.394] [+12104.422s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=2.00, torus, 2 vortices, model=:monumental
+[03:08:44.376] [+12115.405s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=4.00, torus, 2 vortices, model=:monumental
+[03:08:58.626] [+12129.654s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=0.50, torus, 0 vortices, model=:monumental
+[03:09:10.593] [+12141.621s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 0 vortices, model=:monumental
+[03:09:21.957] [+12152.985s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=2.00, torus, 0 vortices, model=:monumental
+[03:09:34.381] [+12165.410s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=4.00, torus, 0 vortices, model=:monumental
+[03:09:43.051] [+12174.079s]  calc: KS D = 0.021619, p_asymptotic = 9.567870e-21 (n=49999, λ=4.8368)
+[03:09:43.060] [+12174.089s]  calc: KS D = 0.088053, p_asymptotic = 0.000000e+00 (n=49999, λ=19.6997)

@@ -1,0 +1,64 @@
+# Test 17: Connes self-duality α↔1/α
+Verdict: PASS   |   Generated: 2026-09-15 00:55:45   |   Suite: AB-Cloud v23 SUPERCOMBO (Julia 1.12.0)
+
+## What this test verifies
+EXACT: isospectrality under α ↔ 1/α to machine precision.
+ METHOD: EXACT: isospectrality under α ↔ 1/α to machine precision.
+Test 17 HARDCORE L=24: zero_modes(α=1/2)=4, spectral defects 1.42e-15/1.66e-15, duality defect 3.62e-01.
+Test 17 HARDCORE L=48: zero_modes(α=1/2)=4, spectral defects 2.90e-15/2.41e-15, duality defect 3.65e-01.
+Test 17 HARDCORE L=96: zero_modes(α=1/2)=4, spectral defects 3.96e-15/3.24e-15, duality defect 3.66e-01.
+
+## Result
+ Test 17b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS
+
+## Plots
+- `plots/plot_01.png` — 1600×1000, ABPlotV23 engine (supersampled)
+- `plots/animation.gif` — animated reveal of every plot of this test
+
+## Independent verification guide
+Reproduce with: julia ab_cloud_v23.jl --test 17 --no-two-pass
+Every computation is logged in logs/computation_log.txt (timestamps + deltas); raw console output in logs/stdout_capture.txt.
+
+## FULL COMPUTATION LOG
+
+```text
+[00:32:11.030] [+2722.058s]  build_ab_cloud_hamiltonian: 24x24 (N=576), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[00:32:11.825] [+2722.853s]  heevr values-only solve: N=576 (α=0.5000, torus, W=0) — zero_modes + E→-E defect одним прогоном
+[00:32:11.978] [+2723.006s]  build_ab_cloud_hamiltonian: 24x24 (N=576), α=0.3333, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[00:32:12.540] [+2723.568s]  heevr values-only solve: N=576 (α=0.3333, torus, W=0) — spectral_symmetry_defect
+[00:32:12.697] [+2723.725s]  build_ab_cloud_hamiltonian: 24x24 (N=576), α=0.5000, t=1.00, W=4.00, open, 0 vortices, model=:monumental
+[00:32:13.231] [+2724.259s]  build_ab_cloud_hamiltonian: 24x24 (N=576), α=2.0000, t=1.00, W=4.00, open, 0 vortices, model=:monumental
+[00:32:13.780] [+2724.808s]  heevr values-only solves ×2: N=576 (α=0.5000 open, W=4) + N=576 (α=2.0000 open, W=4) — connes_self_duality_defect
+[00:32:14.746] [+2725.775s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[00:32:15.470] [+2726.498s]  heevr values-only solve: N=2304 (α=0.5000, torus, W=0) — zero_modes + E→-E defect одним прогоном
+[00:32:20.921] [+2731.950s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.3333, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[00:32:21.733] [+2732.761s]  heevr values-only solve: N=2304 (α=0.3333, torus, W=0) — spectral_symmetry_defect
+[00:32:27.105] [+2738.133s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=4.00, open, 0 vortices, model=:monumental
+[00:32:27.927] [+2738.955s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=2.0000, t=1.00, W=4.00, open, 0 vortices, model=:monumental
+[00:32:28.702] [+2739.730s]  heevr values-only solves ×2: N=2304 (α=0.5000 open, W=4) + N=2304 (α=2.0000 open, W=4) — connes_self_duality_defect
+[00:32:40.319] [+2751.347s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[00:32:47.777] [+2758.805s]  heevr values-only solve: N=9216 (α=0.5000, torus, W=0) — zero_modes + E→-E defect одним прогоном
+[00:38:24.371] [+3095.399s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.3333, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[00:38:35.596] [+3106.625s]  heevr values-only solve: N=9216 (α=0.3333, torus, W=0) — spectral_symmetry_defect
+[00:44:36.057] [+3467.085s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=4.00, open, 0 vortices, model=:monumental
+[00:44:49.823] [+3480.852s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=2.0000, t=1.00, W=4.00, open, 0 vortices, model=:monumental
+[00:45:02.209] [+3493.237s]  heevr values-only solves ×2: N=9216 (α=0.5000 open, W=4) + N=9216 (α=2.0000 open, W=4) — connes_self_duality_defect
+```
+
+## CONSOLE CAPTURE
+
+```text
+
+════════════════════════════════════════════════════════════
+TEST 17 (pass 2, HARDCORE): Connes self-duality — cross-size audit
+Zero-mode invariant + spectral symmetries on the size ladder 24 → ab_nx
+────────────────────────────────────────────────────────────
+ L=24: zero_modes(α=1/2)=4 | spec.defect(1/2)=1.42e-15, (1/3)=1.66e-15 | duality=3.62e-01
+ L=48: zero_modes(α=1/2)=4 | spec.defect(1/2)=2.90e-15, (1/3)=2.41e-15 | duality=3.65e-01
+ L=96: zero_modes(α=1/2)=4 | spec.defect(1/2)=3.96e-15, (1/3)=3.24e-15 | duality=3.66e-01
+ At α=1/3 the spectrum stays gapped at E=0 on these tori (base observation).
+────────────────────────────────────────────────────────────
+ zero_modes(1/2)=4 ∀L PASS — topological invariant holds on the whole ladder
+ E→−E defect < 1e-10 ∀L PASS — α=1/2 and α=1/3, generic bipartite symmetry
+ Test 17b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS
+```

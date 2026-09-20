@@ -1,0 +1,234 @@
+# Test 36: Byte-level robustness
+Verdict: PASS   |   Generated: 2026-09-15 09:08:55   |   Suite: AB-Cloud v23 SUPERCOMBO (Julia 1.12.0)
+
+## What this test verifies
+Mixed: |Δr| under 256-level quantization + RNG entropy (statistical). Sample accumulated to 25 000 (pass 1) / 50 000 (pass 2) eigenvalues; verdict = multi-window average over 120×15-eig windows (single window = diagnostic); W_eff capped at ab_W_max.
+ METHOD: Mixed: |Δr| under 256-level quantization + RNG entropy (statistical). Sample accumulated to 25 000 (pass 1) / 50 000 (pass 2) eigenvalues; verdict = multi-window average over 120×15-eig windows (single window = diagnostic); W_eff capped at ab_W_max.
+ WHY W (DISORDER) IS CAPPED AT W_max ≈ 1.0 — disorder → vortex motion → statistics:
+  W is the diagonal on-site potential the vortices paint onto the lattice:
+      V_i = Σ_k q_k·W / (r_ik²·N⁻¹ + 1),   hopping t = 1.
+  The ratio (disorder energy q·W) / (kinetic energy t) decides what the
+  vortex cloud does and which spectral statistics come out:
+   • q·W ≳ t  (e.g. W=4, q=0.3 → V≈1.2 next to a core): the disorder
+     landscape dominates the vortex motion — vortices pin/steer the
+     eigenstates, states localize on the potential relief, and ⟨r⟩ drifts
+     from GUE (0.5992) toward Poisson (0.3863) by an essentially random
+     amount. A strongly disordered, spinning vortex system can therefore
+     emit ALMOST ANY statistics — the numbers depend on the effective
+     rotation speed (W/t) and on the twisting/vortex arrangement (Nv,
+     layout, charges) of that realization, not on the AB physics.
+   • q·W ≲ t  (W ≤ 1): the Aharonov-Bohm phases dominate the hopping,
+     states stay delocalized and GUE (Wigner-Dyson) is reachable.
+  That is why these tests measure at W_eff = min(cfg.ab_W, W_max = 1.0):
+  they certify the PHASE physics, not the disorder physics.
+Sample: 55290 eigs (pass 2 (secondary), target 50000, reached=yes); W_eff=1.00.
+Byte robustness verdict = multi-window |Δ⟨r⟩|=0.0009 (tol 0.0200, 120 windows); single-window |Δr|=0.0061 (diagnostic).
+
+## Result
+ Test 36: byte robust — r_256=0.5756, |Δr|_multi=0.0009 (120 windows), |Δr|_1win=0.0061 (diag), H=7.9991 bits, χ²_z=-0.234, n=55288 → PASS
+
+## Plots
+(no plots queued by this pass — physics series live in the HARDCORE pass-2 report: hc_verdict_table queues a sub-check verdict map there, and the deep-audit tests queue their own scan charts; the retired stdout scraper no longer fabricates filler charts)
+
+## Independent verification guide
+Reproduce with: julia ab_cloud_v23.jl --test 36 --no-two-pass
+Every computation is logged in logs/computation_log.txt (timestamps + deltas); raw console output in logs/stdout_capture.txt.
+
+## FULL COMPUTATION LOG
+
+```text
+[08:25:16.507] [+31107.536s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[08:29:46.125] [+31377.154s]  t37 pass 2 (secondary) realization 1: central block 5529 eigs, accumulated 5529 (target 50000)
+[08:29:47.423] [+31378.451s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[08:34:04.812] [+31635.840s]  t37 pass 2 (secondary) realization 2: central block 5529 eigs, accumulated 11058 (target 50000)
+[08:34:05.610] [+31636.639s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[08:38:39.717] [+31910.745s]  t37 pass 2 (secondary) realization 3: central block 5529 eigs, accumulated 16587 (target 50000)
+[08:38:40.698] [+31911.726s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[08:42:58.835] [+32169.863s]  t37 pass 2 (secondary) realization 4: central block 5529 eigs, accumulated 22116 (target 50000)
+[08:42:59.617] [+32170.645s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[08:47:25.728] [+32436.756s]  t37 pass 2 (secondary) realization 5: central block 5529 eigs, accumulated 27645 (target 50000)
+[08:47:26.636] [+32437.664s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[08:51:40.917] [+32691.946s]  t37 pass 2 (secondary) realization 6: central block 5529 eigs, accumulated 33174 (target 50000)
+[08:51:41.498] [+32692.526s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[08:56:01.607] [+32952.636s]  t37 pass 2 (secondary) realization 7: central block 5529 eigs, accumulated 38703 (target 50000)
+[08:56:02.214] [+32953.242s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[09:00:21.506] [+33212.534s]  t37 pass 2 (secondary) realization 8: central block 5529 eigs, accumulated 44232 (target 50000)
+[09:00:22.299] [+33213.327s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[09:04:35.974] [+33467.002s]  t37 pass 2 (secondary) realization 9: central block 5529 eigs, accumulated 49761 (target 50000)
+[09:04:36.638] [+33467.666s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, open, 2 vortices, model=:monumental
+[09:08:55.278] [+33726.306s]  t37 pass 2 (secondary) realization 10: central block 5529 eigs, accumulated 55290 (target 50000)
+[09:08:55.292] [+33726.320s]  calc: ⟨r⟩ = 0.387930 (n_r=55288, n_eigs=55290) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.307] [+33726.335s]  calc: ⟨r⟩ = 0.657053 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.643724 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.624209 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.568482 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.522107 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.535764 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.652837 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.595610 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.624374 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.604567 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.485897 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.693192 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.683830 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.528901 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.519134 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.492447 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.622341 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.617574 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.607611 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.545788 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.540762 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.384361 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.336s]  calc: ⟨r⟩ = 0.605531 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.337s]  calc: ⟨r⟩ = 0.527459 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.337s]  calc: ⟨r⟩ = 0.492429 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.337s]  calc: ⟨r⟩ = 0.640946 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.337s]  calc: ⟨r⟩ = 0.815854 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.337s]  calc: ⟨r⟩ = 0.467241 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.337s]  calc: ⟨r⟩ = 0.655008 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.337s]  calc: ⟨r⟩ = 0.651800 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.337s]  calc: ⟨r⟩ = 0.476787 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.337s]  calc: ⟨r⟩ = 0.522209 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.337s]  calc: ⟨r⟩ = 0.526679 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.337s]  calc: ⟨r⟩ = 0.487008 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.337s]  calc: ⟨r⟩ = 0.639582 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.337s]  calc: ⟨r⟩ = 0.663925 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.337s]  calc: ⟨r⟩ = 0.501332 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.337s]  calc: ⟨r⟩ = 0.462589 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.337s]  calc: ⟨r⟩ = 0.486558 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.308] [+33726.337s]  calc: ⟨r⟩ = 0.571701 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.655437 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.669788 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.681240 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.655458 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.628425 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.585196 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.563536 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.692005 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.726317 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.665739 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.612582 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.672288 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.537854 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.462356 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.634012 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.544264 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.407715 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.540566 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.458490 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.572290 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.612044 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.745189 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.606921 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.673025 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.399152 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.553205 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.548260 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.521588 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.546769 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.533360 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.501554 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.508977 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.610973 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.626084 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.550313 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.550351 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.642275 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.529751 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.548388 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.658126 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.557107 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.636281 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.497804 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.684932 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.687670 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.570463 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.610529 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.596610 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.617638 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.380672 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.525082 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.596661 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.578898 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.512743 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.628458 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.650209 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.535112 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.599149 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.454103 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.592745 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.337s]  calc: ⟨r⟩ = 0.490758 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.482994 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.451370 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.611679 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.530496 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.515716 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.547860 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.699975 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.619194 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.372409 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.670355 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.708571 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.607556 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.621021 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.662679 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.484236 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.642217 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.541220 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.602689 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.309] [+33726.338s]  calc: ⟨r⟩ = 0.479526 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+[09:08:55.310] [+33726.338s]  calc: ⟨r⟩ = 0.599213 (n_r=13, n_eigs=15) [refs: GUE=0.5996 Poisson=0.3863]
+```
+
+## CONSOLE CAPTURE
+
+```text
+
+════════════════════════════════════════════════════════════
+TEST 36: Byte-level robustness — quantization + RNG entropy
+ Verify ⟨r⟩ survives 256-level quantization + RNG byte uniformity
+────────────────────────────────────────────────────────────
+ WHY W (DISORDER) IS CAPPED AT W_max ≈ 1.0 — disorder → vortex motion → statistics:
+  W is the diagonal on-site potential the vortices paint onto the lattice:
+      V_i = Σ_k q_k·W / (r_ik²·N⁻¹ + 1),   hopping t = 1.
+  The ratio (disorder energy q·W) / (kinetic energy t) decides what the
+  vortex cloud does and which spectral statistics come out:
+   • q·W ≳ t  (e.g. W=4, q=0.3 → V≈1.2 next to a core): the disorder
+     landscape dominates the vortex motion — vortices pin/steer the
+     eigenstates, states localize on the potential relief, and ⟨r⟩ drifts
+     from GUE (0.5992) toward Poisson (0.3863) by an essentially random
+     amount. A strongly disordered, spinning vortex system can therefore
+     emit ALMOST ANY statistics — the numbers depend on the effective
+     rotation speed (W/t) and on the twisting/vortex arrangement (Nv,
+     layout, charges) of that realization, not on the AB physics.
+   • q·W ≲ t  (W ≤ 1): the Aharonov-Bohm phases dominate the hopping,
+     states stay delocalized and GUE (Wigner-Dyson) is reachable.
+  That is why these tests measure at W_eff = min(cfg.ab_W, W_max = 1.0):
+  they certify the PHASE physics, not the disorder physics.
+ Sample target: 50000 eigenvalues [pass 2 (secondary)] (cfg.ab37_n_eigs_pass2)
+ Disorder: W = 1.00 = min(ab_W=4.00, W_max=1.00) → q·W = 1.00 vs hopping t = 1.0 → AB phases dominate (byte check tests the phase physics)
+ realization  1/5, continuing (below target): +5529 central eigs → accumulated 5529 / 50000 (11%)
+ realization  2/5, continuing (below target): +5529 central eigs → accumulated 11058 / 50000 (22%)
+ realization  3/5, continuing (below target): +5529 central eigs → accumulated 16587 / 50000 (33%)
+ realization  4/5, continuing (below target): +5529 central eigs → accumulated 22116 / 50000 (44%)
+ realization  5/5, continuing (below target): +5529 central eigs → accumulated 27645 / 50000 (55%)
+ realization  6/6, continuing (below target): +5529 central eigs → accumulated 33174 / 50000 (66%)
+ realization  7/7, continuing (below target): +5529 central eigs → accumulated 38703 / 50000 (77%)
+ realization  8/8, continuing (below target): +5529 central eigs → accumulated 44232 / 50000 (88%)
+ realization  9/9, continuing (below target): +5529 central eigs → accumulated 49761 / 50000 (100%)
+ realization 10/10: +5529 central eigs → accumulated 55290 / 50000 (111%)
+ Raw ⟨r⟩ = 0.3879 (n=55288 spacings)
+ Universality class: Poisson (d_GUE=0.2117, d_GOE=0.1428, d_GSE=0.2883, d_Poi=0.0016)
+ (local window: n=15 central eigs, raw ⟨r⟩_local = 0.6571)
+
+ (a) Byte-quantization robustness (256 levels):
+ legacy single window (diagnostic): r_byte = 0.6631, raw_local = 0.6571, |Δr| = 0.0061
+ multi-window average (decisive; 120 windows × 15 eigs):
+ ⟨r⟩_raw = 0.5765, ⟨r⟩_byte = 0.5756, |Δ⟨r⟩| = 0.0009 (tol=0.0200) → PASS
+
+ (b) RNG byte-entropy / uniformity:
+ Shannon entropy = 7.9991 bits (target ≥ 7.9)
+ χ²_z (CLT approx, df=255) = -0.2342 (|z|<3.0) → PASS
+ Test 36: byte robust — r_256=0.5756, |Δr|_multi=0.0009 (120 windows), |Δr|_1win=0.0061 (diag), H=7.9991 bits, χ²_z=-0.234, n=55288 → PASS
+```

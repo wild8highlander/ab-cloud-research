@@ -1,0 +1,71 @@
+# Test 13: Number variance Σ²(L)
+Verdict: PASS   |   Generated: 2026-09-14 23:57:04   |   Suite: AB-Cloud v23 SUPERCOMBO (Julia 1.12.0)
+
+## What this test verifies
+Long-range statistics: Σ²(L) ~ (1/π²)lnL for GUE — asymptotic curve comparison.
+ METHOD: Long-range statistics: Σ²(L) ~ (1/π²)lnL for GUE — asymptotic curve comparison.
+
+## Result
+ Test 13 [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS
+
+## Plots
+- `plots/plot_01.png` — 1600×1000, ABPlotV23 engine (supersampled)
+- `plots/animation.gif` — animated reveal of every plot of this test
+
+## Independent verification guide
+Reproduce with: julia ab_cloud_v23.jl --test 13 --no-two-pass
+Every computation is logged in logs/computation_log.txt (timestamps + deltas); raw console output in logs/stdout_capture.txt.
+
+## FULL COMPUTATION LOG
+
+```text
+[23:57:04.365] [+615.394s]  calc: Σ²(L=2.000) = 0.381460 (n_pos=50000, n_windows=3000, mean_count=2.00)
+[23:57:04.366] [+615.394s]  calc: Σ²(L=4.536) = 0.402894 (n_pos=50000, n_windows=3000, mean_count=4.54)
+[23:57:04.367] [+615.395s]  calc: Σ²(L=10.287) = 0.354897 (n_pos=50000, n_windows=3000, mean_count=10.30)
+[23:57:04.368] [+615.396s]  calc: Σ²(L=23.331) = 0.313517 (n_pos=50000, n_windows=3000, mean_count=23.34)
+[23:57:04.369] [+615.397s]  calc: Σ²(L=52.915) = 0.353407 (n_pos=50000, n_windows=3000, mean_count=52.91)
+[23:57:04.369] [+615.398s]  calc: Σ²(L=120.010) = 0.354226 (n_pos=50000, n_windows=3000, mean_count=120.02)
+[23:57:04.370] [+615.398s]  calc: Σ²(L=272.178) = 0.355610 (n_pos=50000, n_windows=3000, mean_count=272.16)
+[23:57:04.371] [+615.399s]  calc: Σ²(L=617.292) = 0.351103 (n_pos=50000, n_windows=3000, mean_count=617.29)
+[23:57:04.372] [+615.400s]  calc: Σ²(L=1400.000) = 0.342086 (n_pos=50000, n_windows=3000, mean_count=1399.99)
+[23:57:04.378] [+615.407s]  calc: Σ²(L=2.000) = 0.417134 (n_pos=8401, n_windows=3000, mean_count=2.00)
+[23:57:04.379] [+615.407s]  calc: Σ²(L=4.536) = 0.484449 (n_pos=8401, n_windows=3000, mean_count=4.53)
+[23:57:04.380] [+615.408s]  calc: Σ²(L=10.287) = 0.609118 (n_pos=8401, n_windows=3000, mean_count=10.29)
+[23:57:04.380] [+615.408s]  calc: Σ²(L=23.331) = 0.691228 (n_pos=8401, n_windows=3000, mean_count=23.33)
+[23:57:04.381] [+615.409s]  calc: Σ²(L=52.915) = 0.745288 (n_pos=8401, n_windows=3000, mean_count=52.92)
+[23:57:04.381] [+615.409s]  calc: Σ²(L=120.010) = 0.783139 (n_pos=8401, n_windows=3000, mean_count=120.02)
+[23:57:04.382] [+615.410s]  calc: Σ²(L=272.178) = 0.897044 (n_pos=8401, n_windows=3000, mean_count=272.18)
+[23:57:04.382] [+615.410s]  calc: Σ²(L=617.292) = 0.908534 (n_pos=8401, n_windows=3000, mean_count=617.29)
+[23:57:04.383] [+615.411s]  calc: Σ²(L=1400.000) = 0.811269 (n_pos=8401, n_windows=3000, mean_count=1400.00)
+[23:57:04.385] [+615.413s]  calc: Σ²(L=23.331) = 0.324730 (n_pos=50000, n_windows=3000, mean_count=23.33)
+[23:57:04.386] [+615.414s]  calc: Σ²(L=23.331) = 0.306048 (n_pos=50000, n_windows=3000, mean_count=23.34)
+[23:57:04.387] [+615.415s]  calc: Σ²(L=23.331) = 0.318012 (n_pos=50000, n_windows=3000, mean_count=23.32)
+```
+
+## CONSOLE CAPTURE
+
+```text
+
+════════════════════════════════════════════════════════════
+TEST 13 (secondary, HARDCORE): Objection 2 (extended): Advanced RMT Diagnostics — Σ² rigidity audit
+────────────────────────────────────────────────────────────
+        L      Σ²_data    Poisson=L    data/Pois
+      2.0       0.3815       2.0000       0.1907
+      4.5       0.4029       4.5359       0.0888
+     10.3       0.3549      10.2874       0.0345
+     23.3       0.3135      23.3315       0.0134
+     52.9       0.3534      52.9150       0.0067
+    120.0       0.3542     120.0097       0.0030
+    272.2       0.3556     272.1783       0.0013
+    617.3       0.3511     617.2922       0.0006
+   1400.0       0.3421    1400.0000       0.0002
+ N2 monotone  : 0 dips >25% across 8 grid steps (limit 1)
+ N3 GUE band  : 9/9 finite pairs have data/GUE ∈ [0.2, 5] (limit 80%)
+ N4 seed noise: Σ²(L=23.3) over 3 seeds: 0.3247/0.3060/0.3180, spread=5.9% (limit 40%)
+────────────────────────────────────────────────────────────
+ N1 beat Poisson      PASS — 9/9 L-values
+ N2 monotone          PASS — 0 dips
+ N3 GUE band          PASS — 9/9 in band
+ N4 seed noise        PASS — spread = 5.9%
+ Test 13 [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS
+```

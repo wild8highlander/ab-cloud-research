@@ -1,0 +1,15 @@
+
+════════════════════════════════════════════════════════════
+TEST 21 (pass 2, HARDCORE): γ* spinorial phase — 256-bit precision audit
+────────────────────────────────────────────────────────────
+ δ_C = π/7, b₂(K3) = 22 (256-bit recomputation)
+ a_C: Float64 8.276305e-04 vs 256-bit 8.276305e-04 → |Δ| = 1.23e-19
+ b_C: Float64 0.376510 vs 256-bit 0.376510 → |Δ| = 6.39e-17
+ arg(γ*) at 256-bit: 89.874055° (deviation from 90°: 0.1259°)
+ δ = π/7-1·1e-6: arg(γ*) deviation = 0.1259°
+ δ = π/7+1·1e-6: arg(γ*) deviation = 0.1259°
+────────────────────────────────────────────────────────────
+ Float64 round-off    PASS — |Δa|=1.23e-19, |Δb|=6.39e-17 (machine-ε scale)
+ arg(γ*) → π/2 (256-bit) PASS — deviation 0.1259° < 1°
+ δ_C ± 1e-6 stability PASS — worst deviation 0.1259° across the ±1e-6 scan
+ Test 21b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS

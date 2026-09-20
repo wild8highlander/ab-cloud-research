@@ -1,0 +1,96 @@
+# Test 1: b(N) convergence table
+Verdict: PASS   |   Generated: 2026-09-14 23:46:52   |   Suite: AB-Cloud v23 SUPERCOMBO (Julia 1.12.0)
+
+## What this test verifies
+b(N) = (1/N)Σ|γ_k−γ̃_k| measures convergence of Gram-point approximations to true zeta zeros. EXACT-formula family: tolerance scale = floating-point round-off.
+ METHOD: b(N) = (1/N)Σ|γ_k−γ̃_k| measures convergence of Gram-point approximations to true zeta zeros. EXACT-formula family: tolerance scale = floating-point round-off.
+
+## Result
+ Test 1 [HARDCORE pass 2]: 8 sub-checks, 0 failed, b(50000)=1.2126 → PASS
+
+## Plots
+- `plots/plot_01.png` — 1600×1000, ABPlotV23 engine (supersampled)
+- `plots/plot_02.png` — 1600×1000, ABPlotV23 engine (supersampled)
+- `plots/animation.gif` — animated reveal of every plot of this test
+
+## Independent verification guide
+Reproduce with: julia ab_cloud_v23.jl --test 1 --no-two-pass
+Every computation is logged in logs/computation_log.txt (timestamps + deltas); raw console output in logs/stdout_capture.txt.
+
+## FULL COMPUTATION LOG
+
+```text
+(no log_comp entries)
+```
+
+## CONSOLE CAPTURE
+
+```text
+
+════════════════════════════════════════════════════════════
+TEST 1 (secondary, HARDCORE): Objection 1: b(N) Convergence — deep validation
+Same statistic b(N) = (1/N) Σ|γ_k − γ̃_k|, verified by 8 harder sub-checks
+────────────────────────────────────────────────────────────
+ H0 reproduce : max|b_direct − b_prefix| over 4 probes = 0.00e+00 (limit 1e-9)
+ H1 dense scan: 40 checkpoints, N = 25 → 50000 (ratio 1.22)
+            N             b(N)        Δ vs prev
+           25     4.6101190361              ---
+           30     4.3989811028    -0.2111379332
+           37     4.1932852303    -0.2056958726
+           45     3.9943669591    -0.1989182711
+           55     3.8252166187    -0.1691503404
+           67     3.6455743228    -0.1796422960
+           82     3.4801726407    -0.1654016820
+          100     3.3321638710    -0.1480087697
+          122     3.1910285619    -0.1411353091
+          149     3.0547427984    -0.1362857635
+          182     2.9267044466    -0.1280383518
+          222     2.8066104527    -0.1200939939
+          271     2.6947048268    -0.1119056258
+          331     2.5892260492    -0.1054787776
+          404     2.4907320942    -0.0984939550
+          493     2.3966440338    -0.0940880604
+          601     2.3100937127    -0.0865503211
+          733     2.2274677461    -0.0826259666
+          894     2.1498825733    -0.0775851728
+         1091     2.0754888256    -0.0743937476
+         1331     2.0067062433    -0.0687825824
+         1624     1.9405012929    -0.0662049503
+         1981     1.8782421944    -0.0622590986
+         2417     1.8197691194    -0.0584730750
+         2949     1.7640375461    -0.0557315733
+         3598     1.7111812347    -0.0528563114
+         4390     1.6613158059    -0.0498654288
+         5356     1.6137261550    -0.0475896509
+         6534     1.5686043745    -0.0451217805
+         7971     1.5258165855    -0.0427877890
+         9725     1.4850058741    -0.0408107114
+        11864     1.4460749475    -0.0389309266
+        14474     1.4090310622    -0.0370438853
+        17658     1.3736819777    -0.0353490845
+        21543     1.3399113218    -0.0337706559
+        26282     1.3076687539    -0.0322425680
+        32064     1.2768213946    -0.0308473593
+        39118     1.2473022976    -0.0295190970
+        47724     1.2190083740    -0.0282939236
+        50000     1.2125526773    -0.0064556968
+ H2 monotone  : 0/39 consecutive pairs exceed the noise band (limit 2)
+ H3 predict   : walk-forward one-step-ahead, best of 3 laws (power / 1·log⁻¹N / local secant)
+                median err 0.05%, max err 0.09% (limits 2%/5%)
+ H4 stationarity: head b(25000)=1.315628 | tail b(25000)=1.109478 | tail/head = 0.8433 (limit 1.25)
+ H5 bootstrap : b(50000)=1.212553 | 95%CI [1.209765, 1.215265] (width 0.45% of b, limit 15%)
+                threshold 2.00 − (b + 2σ/√N = 1.215350) = +0.784650 → verdict ROBUST
+ H6 outliers  : peak |Δγ| = 9.0356 at k=1 (0.0% of Σd, limit 10%)
+                top-5 share 0.1% | 1%-trimmed b deviates +1.13% from b (limit 15%)
+ H7 Gram sanity: γ̃ strictly increasing over n=1..50000 → 0 violations (limit 0)
+────────────────────────────────────────────────────────────
+ H0 reproduce         PASS — worst |Δ| = 0.00e+00
+ H1 dense scan        PASS — 40 checkpoints
+ H2 monotone          PASS — 0 violations / 39 pairs
+ H3 out-of-sample     PASS — walk-forward median 0.05%, max 0.09%
+ H4 stationarity      PASS — tail/head = 0.8433
+ H5 bootstrap         PASS — CI width 0.45%, margin +0.7846
+ H6 outlier audit     PASS — peak 0.0% of Σd, trimmed dev 1.13%
+ H7 Gram reference    PASS — 0 violations
+ Test 1 [HARDCORE pass 2]: 8 sub-checks, 0 failed, b(50000)=1.2126 → PASS
+```
