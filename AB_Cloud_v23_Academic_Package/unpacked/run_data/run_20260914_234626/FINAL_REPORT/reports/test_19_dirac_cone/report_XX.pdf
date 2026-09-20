@@ -1,0 +1,100 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 4002 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 19: Dirac cone v_F ? 0.125) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: PASS   |   Generated: 2026-09-15 01:24:34   |   Suite: AB-Cloud v23 SUPERCOMBO \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (EXACT-geometry: zero modes at \(?/2,?/2\) require L/4??; gap scaling fit R?. FOUR-pass \(user spec 2026-09-04\): primary fit ? 11-pt hardcore audit ? ?-series ? twist-spectroscopy AUDIT \(direct E_min\(?\)=v_F·?/L, eigenvector index 2+2, 2?-holonomy, bit-exact rebuild, 1/L? collapse, cross-pass v_F ? 6%\).) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: EXACT-geometry: zero modes at \(?/2,?/2\) require L/4??; gap scaling fit R?. FOUR-pass \(user spec 2026-09-04\): primary fit ? 11-pt hardcore audit ? ?-series ? twist-spectroscopy AUDIT \(direct E_min\(?\)=v_F·?/L, eigenvector index 2+2, 2?-holonomy, bit-exact rebuild, 1/L? collapse, cross-pass v_F ? 6%\).) Tj ET
+BT /F1 10 Tf 50 690 Td (Test 19 AUDIT: v_F_twist = 1.9990 \(R? = 1.00000, L=48 y-twist scan\), tower 4 @1e-10 with 2+2 polarization, 2?-holonomy 2.5e-17, ?-cusp 6.279, rebuild bit-exact, 1/L? intercept 12.5662, cross-pass spread 5.09%.) Tj ET
+BT /F1 13 Tf 50 644 Td (Result) Tj ET
+BT /F1 10 Tf 50 646 Td ( Test 19d [AUDIT pass 4]: 8 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 13 Tf 50 592 Td (Plots) Tj ET
+BT /F1 10 Tf 50 602 Td (- `plots/plot_01.png` ? 1600×1000, ABPlotV23 engine \(supersampled\)) Tj ET
+BT /F1 10 Tf 50 580 Td (- `plots/plot_02.png` ? 1600×1000, ABPlotV23 engine \(supersampled\)) Tj ET
+BT /F1 10 Tf 50 558 Td (- `plots/plot_03.png` ? 1600×1000, ABPlotV23 engine \(supersampled\)) Tj ET
+BT /F1 10 Tf 50 536 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+BT /F1 13 Tf 50 462 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 492 Td (Reproduce with: julia ab_cloud_v23.jl --test 19 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 470 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 384 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 426 Td ([01:23:43.346] [+5814.374s]  build_ab_cloud_hamiltonian: 48x48 \(N=2304\), ?=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 404 Td ([01:24:31.332] [+5862.360s]  build_ab_cloud_hamiltonian: 48x48 \(N=2304\), ?=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 13 Tf 50 306 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 360 Td () Tj ET
+BT /F1 7 Tf 50 338 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 316 Td (TEST 19 \(pass 4, AUDIT\): Dirac cone ? twist spectroscopy + eigenvector index) Tj ET
+BT /F1 7 Tf 50 294 Td (Direct E\(k\) at the Dirac point \(pure-holonomy y-twist scan\), AIII index of) Tj ET
+BT /F1 7 Tf 50 272 Td (the tower, 2?-holonomy, determinism, 1/L? collapse, cross-pass v_F audit) Tj ET
+BT /F1 7 Tf 50 250 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 228 Td ( twist lattice 48x48 \(?=1/2, torus, W=0, clean\), ?-grid ?/5?? + ?=0 anchor) Tj ET
+BT /F1 7 Tf 50 206 Td ( ? RUNTIME: 7 dense solves at 48? \(2304 sites\) + 2 builds ? 1?2 min) Tj ET
+BT /F1 7 Tf 50 184 Td ( ?=0: tower\(|E|?1e-10\) = 4, E_min = 0.261052 \(E_min·L = 12.5305; pass-2 measured 12.5305\)) Tj ET
+BT /F1 7 Tf 50 162 Td ( ?=0.6283: E_min = 0.026179 \(E_min·L = 1.2566\), n_zero = 0, degeneracy = 2, v_F_local = 1.9999) Tj ET
+BT /F1 7 Tf 50 140 Td ( ?=1.2566: E_min = 0.052354 \(E_min·L = 2.5130\), n_zero = 0, degeneracy = 2, v_F_local = 1.9998) Tj ET
+BT /F1 7 Tf 50 118 Td ( ?=1.8850: E_min = 0.078520 \(E_min·L = 3.7689\), n_zero = 0, degeneracy = 2, v_F_local = 1.9995) Tj ET
+BT /F1 7 Tf 50 96 Td ( ?=2.5133: E_min = 0.104672 \(E_min·L = 5.0243\), n_zero = 0, degeneracy = 2, v_F_local = 1.9991) Tj ET
+BT /F1 7 Tf 50 74 Td ( ?=3.1416: E_min = 0.130806 \(E_min·L = 6.2787\), n_zero = 0, degeneracy = 4, v_F_local = 1.9986) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 6 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 2720 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ( D1 no-intercept fit: E = 0.041645·?, R? = 1.000000 ? v_F_twist = 1.9990 ?) Tj ET
+BT /F1 7 Tf 50 778 Td ( D1b v_F_twist vs pass-2 fit: 1.9990 vs 1.9447 \(|?| < 5%\) ? OK) Tj ET
+BT /F1 7 Tf 50 756 Td ( D2 tower polarization: Tr\(P_A P_T\) = 2.0000000000, Tr\(P_B P_T\) = 2.0000000000 \(expect 2, 2 ? chirality-balanced Dirac pair, AIII index 0\) ? OK) Tj ET
+BT /F1 7 Tf 50 734 Td (    per-vector purity \(LAPACK basis, diagnostic only\): 0.500, 0.499, 0.499, 0.500) Tj ET
+BT /F1 7 Tf 50 712 Td ( D3a 2?-holonomy: ?H\(2?\)?H\(0\)?/?H? = 2.50e-17, max|?E| = 4.35e-14 \(Byers-Yang at the twist level\) ? OK) Tj ET
+BT /F1 7 Tf 50 690 Td ( D3b ?=? cusp: n_zero = 0 \(tower annihilated\), E_min·L = 6.2787 ? [5.0, 7.6] \(target 2? = 6.283; degeneracy 4 ? both cones meet at the cusp\) ? OK) Tj ET
+BT /F1 7 Tf 50 668 Td ( D4 determinism: fresh W=0 rebuild ??H?_F/?H? = 0.0e+00 \(bit-exact expected ? clean fast path draws no RNG\) ? OK) Tj ET
+BT /F1 7 Tf 50 646 Td ( D5 1/L? collapse \(11 pts, pass-2 series\): E_min·L = 12.5662 + \(-82.06\)/L?, R? = 0.999996, intercept/4? = 0.999984 ? OK) Tj ET
+BT /F1 7 Tf 50 624 Td ( D6 v_F estimates \(4\): pass1 \(7-pt fit ?72\) = 1.8998, pass2 \(11-pt mod-4 ?96\) = 1.9447, pass3 \(?=0.5 series ?80\) = 1.955, pass4 \(twist L=48\) = 1.999) Tj ET
+BT /F1 7 Tf 50 602 Td (    spread = 5.09% ? 6%, all in [1.85, 2.05] \(analytic v_F = 2t = 2\) ? OK) Tj ET
+BT /F1 7 Tf 50 580 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 558 Td ( D1 twist-cone linear R? > 0.995 PASS ? E_min\(?\) = 0.041645·? over 5 pts \(no intercept\), v_F_twist = 1.9990, n_zero\(?>0\) = 0 ??) Tj ET
+BT /F1 7 Tf 50 536 Td ( D1b v_F_twist vs 1/L-fit < 5% PASS ? twist 1.9990 vs pass-2 fit 1.9447 ? independent momentum-space measurement) Tj ET
+BT /F1 7 Tf 50 514 Td ( D2 tower == 4 @1e-10 + index 2+2 PASS ? Tr\(P_A P_T\) = 2.00000000, Tr\(P_B P_T\) = 2.00000000 ? eigenvector-level AIII anchor) Tj ET
+BT /F1 7 Tf 50 492 Td ( D3a 2?-holonomy identity PASS ? ??H?/?H? = 2.5e-17, max|?E| = 4.4e-14 ? Byers-Yang at the twist level) Tj ET
+BT /F1 7 Tf 50 470 Td ( D3b ? cusp: tower 0, E_min·L ? 2? PASS ? n_zero\(?\) = 0, E_min·L = 6.2787 \(target 6.283, degeneracy 4\)) Tj ET
+BT /F1 7 Tf 50 448 Td ( D4 bit-exact rebuild PASS ? ?H_rebuild ? H?_F/?H? = 0.0e+00 ? no hidden RNG/global state in the builder) Tj ET
+BT /F1 7 Tf 50 426 Td ( D5 1/L? collapse ? 4? PASS ? intercept 12.5662 \(0.002% off 4?\), c = -82.06, R? = 0.999996 over 11 pts) Tj ET
+BT /F1 7 Tf 50 404 Td ( D6 cross-pass v_F ? 6% PASS ? 4 independent estimates, spread 5.09% ? twist + 3 fits agree) Tj ET
+BT /F1 7 Tf 50 382 Td ( Test 19d [AUDIT pass 4]: 8 sub-checks, 0 failed ? PASS) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000253 00000 n 
+0000004307 00000 n 
+0000004433 00000 n 
+0000007205 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+7302
+%%EOF

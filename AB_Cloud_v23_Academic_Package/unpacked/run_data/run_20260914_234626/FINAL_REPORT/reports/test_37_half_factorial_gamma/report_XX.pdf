@@ -1,0 +1,67 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3660 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 37: \(1/2\)! via ? ? half-factorial & GUE normalization) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: PASS   |   Generated: 2026-09-15 09:09:07   |   Suite: AB-Cloud v23 SUPERCOMBO \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (EXACT: ?\(1/2\) = ??, \(1/2\)! = ?\(3/2\) = ??/2, ladder + recurrence \(suite's own Lanczos lgamma\); UNIQUENESS of the ?-construction via the reflection self-dual fixed point ?\(1/2\)? = ? and Bohr?Mollerup log-convexity; the GUE ?=2 surmise normalization 32/?? verified as the half-factorial identity \(?p? = ?s? = 1, ?s?? = 3?/8 by quadrature\). Pass 2 = 256-bit BigFloat re-audit.) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: EXACT: ?\(1/2\) = ??, \(1/2\)! = ?\(3/2\) = ??/2, ladder + recurrence \(suite's own Lanczos lgamma\); UNIQUENESS of the ?-construction via the reflection self-dual fixed point ?\(1/2\)? = ? and Bohr?Mollerup log-convexity; the GUE ?=2 surmise normalization 32/?? verified as the half-factorial identity \(?p? = ?s? = 1, ?s?? = 3?/8 by quadrature\). Pass 2 = 256-bit BigFloat re-audit.) Tj ET
+BT /F1 10 Tf 50 690 Td (Test 37 HARDCORE: 256-bit DE ?\(1/2\) err 1.20e-28, Float64 round-off ?\(1/2\) 5.83e-16 / \(1/2\)! 2.94e-16, N=32/?? err 2.51e-26, ladder/self-dual/recurrence exact.) Tj ET
+BT /F1 13 Tf 50 644 Td (Result) Tj ET
+BT /F1 10 Tf 50 646 Td ( Test 37b [HARDCORE pass 2]: 3 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 13 Tf 50 592 Td (Plots) Tj ET
+BT /F1 10 Tf 50 602 Td (- `plots/plot_01.png` ? 1600◊1000, ABPlotV23 engine \(supersampled\)) Tj ET
+BT /F1 10 Tf 50 580 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+BT /F1 13 Tf 50 514 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 536 Td (Reproduce with: julia ab_cloud_v23.jl --test 37 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 514 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 436 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 470 Td (\(no log_comp entries\)) Tj ET
+BT /F1 13 Tf 50 384 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 426 Td () Tj ET
+BT /F1 7 Tf 50 404 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 382 Td (TEST 37 \(pass 2, HARDCORE\): \(1/2\)! via ? ? 256-bit precision audit) Tj ET
+BT /F1 7 Tf 50 360 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 338 Td ( DE reference: |?\(1/2\)_256 ? ??| = 1.20e-28 \(independent quadrature\)) Tj ET
+BT /F1 7 Tf 50 316 Td ( ?\(1/2\):  Float64 vs 256-bit DE rel.err = 5.83e-16) Tj ET
+BT /F1 7 Tf 50 294 Td ( \(1/2\)!:  Float64 vs 256-bit DE rel.err = 2.94e-16) Tj ET
+BT /F1 7 Tf 50 272 Td ( N = 1/[Ω∑\(?/4\)^{3/2}∑\(1/2\)!] at 256-bit vs 32/??: rel.err = 2.51e-26) Tj ET
+BT /F1 7 Tf 50 250 Td ( ladder ?\(5/2\)_DE = 3??/4: rel.err = 4.78e-25) Tj ET
+BT /F1 7 Tf 50 228 Td ( ?\(1/2\)_DE? = ? \(reflection self-duality\): rel.err = 1.35e-28) Tj ET
+BT /F1 7 Tf 50 206 Td ( recurrence \(1/2\)!_DE = Ω∑?\(1/2\)_DE: rel.err = 2.51e-26) Tj ET
+BT /F1 7 Tf 50 184 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 162 Td ( Float64 round-off    PASS ? |??\(1/2\)|=5.83e-16, |?\(1/2\)!|=2.94e-16 relative \(machine-? scale\)) Tj ET
+BT /F1 7 Tf 50 140 Td ( 32/?? identity \(256-bit\) PASS ? rel.err 2.51e-26 ? exact at 256-bit) Tj ET
+BT /F1 7 Tf 50 118 Td ( ladder + self-duality + recurrence \(256-bit\) PASS ? worst rel.err 4.78e-25 across the three identities) Tj ET
+BT /F1 7 Tf 50 96 Td ( Test 37b [HARDCORE pass 2]: 3 sub-checks, 0 failed ? PASS) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000247 00000 n 
+0000003959 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+4056
+%%EOF

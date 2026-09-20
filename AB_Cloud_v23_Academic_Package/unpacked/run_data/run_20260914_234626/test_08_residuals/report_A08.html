@@ -1,0 +1,31 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Test 8: Residual analysis of fit</title><style>body{font-family:system-ui;margin:2em;max-width:120ch}pre{background:#f4f4f4;padding:1em;overflow-x:auto;font-size:11px}h1{border-bottom:2px solid #333}</style></head><body>
+<h1>Test 8: Residual analysis of fit</h1>
+<p>Verdict: PASS   |   Generated: 2026-09-14 23:53:29   |   Suite: AB-Cloud v23 SUPERCOMBO (Julia 1.12.0)</p>
+<h2>What this test verifies</h2>
+<p>Residual structure of the log-log fit — algebraic diagnostics.</p>
+<p> METHOD: Residual structure of the log-log fit — algebraic diagnostics.</p>
+<h2>Result</h2>
+<p> Test 8 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS</p>
+<h2>Plots</h2>
+<p>- `plots/plot_01.png` — 1600×1000, ABPlotV23 engine (supersampled)</p>
+<p>- `plots/animation.gif` — animated reveal of every plot of this test</p>
+<h2>Independent verification guide</h2>
+<p>Reproduce with: julia ab_cloud_v23.jl --test 8 --no-two-pass</p>
+<p>Every computation is logged in logs/computation_log.txt (timestamps + deltas); raw console output in logs/stdout_capture.txt.</p>
+<h2>FULL COMPUTATION LOG</h2>
+<pre>(no log_comp entries)</pre>
+<h2>CONSOLE CAPTURE</h2>
+<pre>
+════════════════════════════════════════════════════════════
+TEST 8 (secondary, HARDCORE): Objection 3: Large-T Decay Rate — dense residual audit
+────────────────────────────────────────────────────────────
+ E1 runs      : 3 runs over 10 doubling-grid residuals (expected 5.8 ± 6.0)
+ E2 autocorr  : lag-1 = 0.6794, lag-2 = 0.0053 (sanity limit |r|&lt;0.95)
+ E3 scale     : dense residuals sd_first=0.04614, sd_second=0.04289, ratio=1.076 (limits 0.4–2.5)
+────────────────────────────────────────────────────────────
+ E1 runs              PASS — 3 vs 5.8 expected
+ E2 autocorr          PASS — r1=0.679, r2=0.005
+ E3 scale             PASS — ratio = 1.076
+ E4 sign balance      PASS — 4+/-6
+ Test 8 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS</pre>
+</body></html>

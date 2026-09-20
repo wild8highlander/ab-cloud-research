@@ -1,0 +1,51 @@
+{
+  "source": "run 20260917_080329_m2 pooled spacings (data_spacings.csv)",
+  "n_AB": 91360,
+  "n_zeta": 49999,
+  "cross_checks": {
+    "D_AB_vs_zeta": 0.097,
+    "reported": 0.2108,
+    "d_GUE": 0.0768,
+    "d_Pois": 0.2108,
+    "d_GUE_zeta_vs_surmise": 0.0216
+  },
+  "differential": {
+    "max_dF": 0.0969,
+    "at_s": 0.61,
+    "min_dF": -0.063,
+    "at_s2": 1.49,
+    "zero_crossings": [
+      1.044
+    ]
+  },
+  "mixture": {
+    "w_AB_KS": 0.281,
+    "residual_KS": 0.0241,
+    "w_AB_L2": 0.2465,
+    "w_zeta_KS": -0.0777,
+    "residual_KS_zeta": 0.0127,
+    "w_zeta_L2": -0.0521,
+    "Poisson_vs_zeta_KS": 0.3005,
+    "GUEmatrix_vs_zeta_bench": 0.0242
+  },
+  "fractions": {
+    "P_s<0.5": {
+      "AB": 0.1848,
+      "zeta": 0.0937
+    },
+    "P_s<1.0": {
+      "AB": 0.5463,
+      "zeta": 0.5345
+    }
+  },
+  "bootstrap_dGUE": {
+    "B": 500,
+    "CI95": [
+      0.0744,
+      0.0798
+    ],
+    "sigma": 0.00137
+  },
+  "position_GUE_to_Poisson": 0.282,
+  "z_dGUE_vs_GUEbench": 38.4
+}

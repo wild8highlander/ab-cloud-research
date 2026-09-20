@@ -1,0 +1,13 @@
+
+════════════════════════════════════════════════════════════
+TEST 4 (secondary, HARDCORE): Objection 2: GUE Spacing Statistics — deep KS audit
+────────────────────────────────────────────────────────────
+ Full range: N=49999 spacings, D=0.021619, p=0.000000 (report; primary verdict governs)
+ K1 blocks    : D over 8 blocks: min=0.019627 max=0.029562, spread=0.009934 (limit 0.0101)
+ K2 half split: D_first=0.024587, D_second=0.018906, |ΔD|=0.005681 (limit 0.02)
+ K3 moments   : mean(s)=1.0000 (limit |Δ|<0.02), var(s)=0.1591 vs surmise 0.1781 (limit ±60%)
+────────────────────────────────────────────────────────────
+ K1 block homog       PASS — spread = 0.009934
+ K2 half split        PASS — |ΔD| = 0.005681
+ K3 moments           PASS — mean 1.0000, var 0.1591
+ Test 4 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS

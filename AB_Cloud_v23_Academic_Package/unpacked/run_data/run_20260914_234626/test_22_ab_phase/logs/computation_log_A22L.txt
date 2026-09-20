@@ -1,0 +1,4 @@
+FULL COMPUTATION LOG — test 22: AB phase Φ_AB = π/7 = δ_C
+every log_comp() entry emitted while this test ran:
+
+(no log_comp entries)

@@ -1,0 +1,38 @@
+MODE 2 — HARDCORE  ·  refined ensemble pass — strict statistics and outliers
+════════════════════════════════════════════════════════════════════════════
+[live progress omitted — see console_capture_raw.txt for the received capture;
+ progress lines are IM-wrapped there and truncated by the messenger]
+
+  zeta: loaded 100000 zeros
+  rep 1/5: H built Cayley |G|=168 x56 (9408 sites) ... tridiag ... eigen 10/10 chunks
+           ⏱ 04:07  ↳ D = 0.0828 · d_GUE = 0.0095
+  rep 2/5: ... ⏱ 05:24 (cumulative 09:31)  ↳ D = 0.0811 · d_GUE = 0.0068
+  rep 3/5: ... ⏱ 05:16 (cumulative 14:47)  ↳ D = 0.0817 · d_GUE = 0.0078
+  rep 4/5: ... ⏱ 05:34 (cumulative 20:21)  ↳ D = 0.0804 · d_GUE = 0.0065
+  rep 5/5: ... ⏱ 05:50 (cumulative 26:11)  ↳ D = 0.0846 · d_GUE = 0.0128
+  100.0% · ⏱ 26:12 · done
+
+┌────┬─────────────┬─────────┬────────┬──────────┬────────┬────────┬─────────┬─────────┐
+│#   │seed         │spacings │D       │p         │d_GUE   │d_Pois  │plateau  │time     │
+├────┼─────────────┼─────────┼────────┼──────────┼────────┼────────┼─────────┼─────────┤
+│1   │…76802863    │4664     │0.0828  │6.2e-27   │0.0095  │0.2838  │0.9747   │04:07    │
+│2   │…76802964    │4664     │0.0811  │7.3e-26   │0.0068  │0.2808  │0.9723   │05:24    │
+│3   │…76803065    │4664     │0.0817  │2.7e-26   │0.0078  │0.2824  │0.9736   │05:16    │
+│4   │…76803166    │4664     │0.0804  │2.0e-25   │0.0065  │0.2801  │0.9743   │05:34    │
+│5   │…76803267    │4664     │0.0846  │3.8e-28   │0.0128  │0.2860  │0.9713   │05:50    │
+└────┴─────────────┴─────────┴────────┴──────────┴────────┴────────┴─────────┴─────────┘
+
+  POOLED statistics (all realizations together)
+    D(pooled) = 0.0808   p = 1.187e-107   d_GUE = 0.0044   d_Pois = 0.2817   plateau = 0.9734   |R2-GUE| = 0.0299
+
+  ENSEMBLE STABILITY (realization-17 forensics)
+    median D = 0.0817 · IQR = 0.0017 · min = 0.0804 · max = 0.0846 · MAD-outliers = 0
+    [OK] ensemble STABLE
+  [OK] AGREES WITH GUE — Test 34 composite criterion satisfied
+      c1 (p>0.01 || D<0.10): OK   c2 (d_GUE<d_Pois): OK   c3 (0.75<=plateau<=1.25): OK
+  plotting ...
+  --------------------------------------------------------------------------
+  Output directory: /mnt/sdcard/Download/results/run_20260919_085734_m2
+  Reports: FINAL_REPORT.md · index.html · data_*.csv · config.json
+  TOTAL: 26:15
+Press Enter to return to the menu

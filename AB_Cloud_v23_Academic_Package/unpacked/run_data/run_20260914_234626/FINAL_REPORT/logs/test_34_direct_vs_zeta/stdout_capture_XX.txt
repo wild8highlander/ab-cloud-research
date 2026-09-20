@@ -1,0 +1,23 @@
+
+════════════════════════════════════════════════════════════
+TEST 34 (pass 2, HARDCORE): direct AB vs ζ — deep validation
+n ≥ 5 realizations, R₂ bins 0.05, per-realization KS stability
+────────────────────────────────────────────────────────────
+ ⚠ RUNTIME: n=5 AB realizations at 96x96 + ζ unfolding (50000 zeros) → ≈ 12–17 min
+ Config: Nv=2, q=1.00, α=0.5000, W=1.0 (base protocol)
+ real  1/5: 5528 spacings, D_k(ζ) = 0.0923
+ real  2/5: 5527 spacings, D_k(ζ) = 0.1188
+ real  3/5: 5528 spacings, D_k(ζ) = 0.1153
+ real  4/5: 5528 spacings, D_k(ζ) = 0.1065
+ real  5/5: 5528 spacings, D_k(ζ) = 0.1189
+
+ Pooled: 27639 AB spacings vs 49999 ζ spacings | KS D = 0.1096, p = 2.236e-186
+ Per-realization D(ζ): min 0.0923 / median 0.1153 / max 0.1189 (n=5)
+ ⟨|R₂_AB − R₂_ζ|⟩ (ds=0.05, s≤4) = 0.0002 (target < 0.10)
+ d_GUE = 0.8764 vs d_Poisson = 0.9998 → closer to GUE
+────────────────────────────────────────────────────────────
+ KS composite         WARN — p = 2.236e-186, D = 0.1096 (p>0.01 or D<0.10)
+ ⟨|ΔR₂|⟩ < 0.10 (fine) PASS — ds=0.05, s_max=4.0: 0.0002
+ closer to GUE        PASS — d_GUE=0.8764 < d_Pois=0.9998
+ KS ensemble stability PASS — D spread 0.0923..0.1189 (median 0.1153)
+ Test 34b [HARDCORE pass 2]: 4 sub-checks, 1 failed → WARN

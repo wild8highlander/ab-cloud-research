@@ -1,0 +1,153 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Test 38: Curie point of the vortex-flux lattice magnet (v23 three-pass)</title><style>body{font-family:system-ui;margin:2em;max-width:120ch}pre{background:#f4f4f4;padding:1em;overflow-x:auto;font-size:11px}h1{border-bottom:2px solid #333}</style></head><body>
+<h1>Test 38: Curie point of the vortex-flux lattice magnet (v23 three-pass)</h1>
+<p>Verdict: PASS   |   Generated: 2026-09-15 17:16:11   |   Suite: AB-Cloud v23 SUPERCOMBO (Julia 1.12.0)</p>
+<h2>What this test verifies</h2>
+<p>STATISTICAL+EXACT (v22.2 three-pass rewrite): order parameter Λ(T)=⟨ln[p_GUE(s)/p_GOE(s)]⟩ — the KL lean — on Chebyshev-unfolded spacings of a paired-realization vortex-flux lattice; Debye–Waller thermal screening w(T)=exp(−σ1·T/2) melts the TRS-breaking flux. 38a main curve + V1 p-value-grade sampler calibration; 38b hardcore lattice (A1..A7, exact negative controls: no-flux, static dephasing); 38c reviewer ladder C1..C5 (density scan, Binder/FSS staircase 24→96, shared-curve disclosure, refine bound, crossover terminology). Spectrum cache (CSV, resumable), --t38-cap budget, six-panel journal figure. T*(L) is a finite-L crossover scale (half-decay convention).</p>
+<p> METHOD: STATISTICAL+EXACT (v22.2 three-pass rewrite): order parameter Λ(T)=⟨ln[p_GUE(s)/p_GOE(s)]⟩ — the KL lean — on Chebyshev-unfolded spacings of a paired-realization vortex-flux lattice; Debye–Waller thermal screening w(T)=exp(−σ1·T/2) melts the TRS-breaking flux. 38a main curve + V1 p-value-grade sampler calibration; 38b hardcore lattice (A1..A7, exact negative controls: no-flux, static dephasing); 38c reviewer ladder C1..C5 (density scan, Binder/FSS staircase 24→96, shared-curve disclosure, refine bound, crossover terminology). Spectrum cache (CSV, resumable), --t38-cap budget, six-panel journal figure. T*(L) is a finite-L crossover scale (half-decay convention).</p>
+<h2>Result</h2>
+<p> Test 38 (v23 three-pass) t38: PASS · Curie 3-pass (72²+96²+38c) — 486.9 min, 346 spectra in cache</p>
+<h2>Plots</h2>
+<p>- `plots/t38_curie_panels.png` — Test 38 — Curie point (38a + 38b + 38c) (journal-engine multi-panel figure)</p>
+<h2>Independent verification guide</h2>
+<p>Reproduce with: julia ab_cloud_v23.jl --test 38 --no-two-pass</p>
+<p>Every computation is logged in logs/computation_log.txt (timestamps + deltas); raw console output in logs/stdout_capture.txt.</p>
+<h2>FULL COMPUTATION LOG</h2>
+<pre>(no log_comp entries)</pre>
+<h2>CONSOLE CAPTURE</h2>
+<pre>    Test 38 Curie — lattice 38a: 72×72 (5184 nodes), hardcore 38b: 96×96 (9216 nodes), seeds 2
+    cache: 0 spectra loaded from ./t38_cache/spectra_v22C1.csv
+    38c C2 staircase: L = 24 → 36 → 48 → 64 → 80 → 96 · 6 rungs · 10 seeds/point
+        V1 · MC Λ_GUE = +0.04755 ± 0.00109 (quad +0.04743)
+        V1 · MC Λ_GOE = -0.06607 ± 0.00172 (quad -0.06427)
+        V1 · KS p: GUE 0.665, GOE 0.395 (n=20k)
+        V1 · ⟨r⟩ MC/quad: GUE 0.6349/0.6368, GOE 0.5696/0.5709
+  38a coarse L=72:  14% (2/14) · 00:45 elapsed
+  38a coarse L=72:  21% (3/14) · 01:33 elapsed
+  38a coarse L=72:  36% (5/14) · 03:03 elapsed
+  38a coarse L=72:  43% (6/14) · 03:47 elapsed
+  38a coarse L=72:  50% (7/14) · 04:31 elapsed
+  38a coarse L=72:  64% (9/14) · 06:10 elapsed
+  38a coarse L=72:  71% (10/14) · 06:59 elapsed
+  38a coarse L=72:  86% (12/14) · 08:36 elapsed
+  38a coarse L=72:  93% (13/14) · 09:22 elapsed
+  38a coarse L=72: 100% (14/14) · 10:11 elapsed
+  38a coarse grid: done
+  38a refine L=72:  17% (2/12) · 00:46 elapsed
+  38a refine L=72:  25% (3/12) · 01:33 elapsed
+  38a refine L=72:  33% (4/12) · 02:23 elapsed
+  38a refine L=72:  42% (5/12) · 03:12 elapsed
+  38a refine L=72:  50% (6/12) · 04:02 elapsed
+  38a refine L=72:  67% (8/12) · 05:34 elapsed
+  38a refine L=72:  75% (9/12) · 06:20 elapsed
+  38a refine L=72:  83% (10/12) · 07:10 elapsed
+  38a refine L=72:  92% (11/12) · 07:56 elapsed
+  38a refine L=72: 100% (12/12) · 08:42 elapsed
+  38a refine grid: done (12 new spectra)
+        V1 · PASS
+        V2 · PASS
+        V3 · PASS
+        V4 · PASS
+        V5 · PASS
+        38a: Λ(0)=+0.0339±0.0047  Λ(T_hi)=-0.0686±0.0024  depth=0.1025  T*(72)=1.7519
+  38b endpoints L=96:  25% (1/4) · 00:00 elapsed
+  38b endpoints L=96:  50% (2/4) · 04:45 elapsed
+  38b endpoints L=96:  75% (3/4) · 09:31 elapsed
+  38b endpoints L=96: 100% (4/4) · 14:14 elapsed
+  38b refine L=96: 100% (9/9) · 39:10 elapsed
+  38b hardcore: done
+  38b controls:  25% (1/4) · 00:00 elapsed
+  38b controls:  50% (2/4) · 00:54 elapsed
+  38b controls:  75% (3/4) · 01:44 elapsed
+  38b controls: 100% (4/4) · 02:58 elapsed
+        A1 · PASS
+        A2 · PASS
+        A3 · PASS
+        A4 · PASS
+        A5 · PASS
+        A6 · PASS
+        A7 · PASS
+        38b: T*(96)=1.6473  ΔT*=-0.1046  Λ(0)=+0.0394  depth=0.1238  ρ=-0.951
+        controls: no-flux Λ(0)=-0.0734 (want &lt; 0.02) · static deph Λ(0)=+0.0316 (want > 0.02)
+  38c C1 density scan:  10% (1/10) · 00:00 elapsed
+  38c C1 density scan:  20% (2/10) · 00:59 elapsed
+  38c C1 density scan:  30% (3/10) · 02:05 elapsed
+  38c C1 density scan:  40% (4/10) · 03:34 elapsed
+  38c C1 density scan:  50% (5/10) · 04:35 elapsed
+  38c C1 density scan:  60% (6/10) · 05:31 elapsed
+  38c C1 density scan:  70% (7/10) · 06:29 elapsed
+  38c C1 density scan:  80% (8/10) · 07:30 elapsed
+  38c C1 density scan:  90% (9/10) · 08:31 elapsed
+  38c C1 density scan: 100% (10/10) · 09:20 elapsed
+  38c C1 density scan: done
+        C1 · PASS · robust f-range [0.50, 2.00], width 1.50
+    38c C2 FSS staircase L=24→36→48→64→80→96 (10 seeds/point)
+  C2 rung 1/6 L=24:  10% (5/50) · 00:02 elapsed
+  C2 rung 1/6 L=24:  20% (10/50) · 00:06 elapsed
+  C2 rung 1/6 L=24:  30% (15/50) · 00:09 elapsed
+  C2 rung 1/6 L=24:  40% (20/50) · 00:13 elapsed
+  C2 rung 1/6 L=24:  50% (25/50) · 00:16 elapsed
+  C2 rung 1/6 L=24:  60% (30/50) · 00:20 elapsed
+  C2 rung 1/6 L=24:  70% (35/50) · 00:23 elapsed
+  C2 rung 1/6 L=24:  80% (40/50) · 00:26 elapsed
+  C2 rung 1/6 L=24:  90% (45/50) · 00:30 elapsed
+  C2 rung 1/6 L=24: 100% (50/50) · 00:33 elapsed
+  C2 rung 2/6 L=36:  10% (5/50) · 00:06 elapsed
+  C2 rung 2/6 L=36:  20% (10/50) · 00:14 elapsed
+  C2 rung 2/6 L=36:  30% (15/50) · 00:21 elapsed
+  C2 rung 2/6 L=36:  40% (20/50) · 00:28 elapsed
+  C2 rung 2/6 L=36:  50% (25/50) · 00:35 elapsed
+  C2 rung 2/6 L=36:  60% (30/50) · 00:43 elapsed
+  C2 rung 2/6 L=36:  70% (35/50) · 00:50 elapsed
+  C2 rung 2/6 L=36:  80% (40/50) · 00:57 elapsed
+  C2 rung 2/6 L=36:  90% (45/50) · 01:05 elapsed
+  C2 rung 2/6 L=36: 100% (50/50) · 01:12 elapsed
+  C2 rung 3/6 L=48:  10% (5/50) · 00:21 elapsed
+  C2 rung 3/6 L=48:  20% (10/50) · 00:49 elapsed
+  C2 rung 3/6 L=48:  30% (15/50) · 01:20 elapsed
+  C2 rung 3/6 L=48:  40% (20/50) · 01:49 elapsed
+  C2 rung 3/6 L=48:  50% (25/50) · 02:19 elapsed
+  C2 rung 3/6 L=48:  60% (30/50) · 02:49 elapsed
+  C2 rung 3/6 L=48:  70% (35/50) · 03:16 elapsed
+  C2 rung 3/6 L=48:  80% (40/50) · 03:42 elapsed
+  C2 rung 3/6 L=48:  90% (45/50) · 04:17 elapsed
+  C2 rung 3/6 L=48: 100% (50/50) · 04:43 elapsed
+  C2 rung 4/6 L=64:  10% (5/50) · 01:55 elapsed
+  C2 rung 4/6 L=64:  20% (10/50) · 04:19 elapsed
+  C2 rung 4/6 L=64:  30% (15/50) · 07:12 elapsed
+  C2 rung 4/6 L=64:  40% (20/50) · 09:31 elapsed
+  C2 rung 4/6 L=64:  50% (25/50) · 11:33 elapsed
+  C2 rung 4/6 L=64:  60% (30/50) · 13:35 elapsed
+  C2 rung 4/6 L=64:  70% (35/50) · 15:50 elapsed
+  C2 rung 4/6 L=64:  80% (40/50) · 17:57 elapsed
+  C2 rung 4/6 L=64:  90% (45/50) · 20:06 elapsed
+  C2 rung 4/6 L=64: 100% (50/50) · 22:12 elapsed
+  C2 rung 5/6 L=80:  10% (5/50) · 06:04 elapsed
+  C2 rung 5/6 L=80:  20% (10/50) · 13:36 elapsed
+  C2 rung 5/6 L=80:  30% (15/50) · 22:05 elapsed
+  C2 rung 5/6 L=80:  40% (20/50) · 57:06 elapsed
+  C2 rung 5/6 L=80:  50% (25/50) · 1:04:46 elapsed
+  C2 rung 5/6 L=80:  60% (30/50) · 1:13:28 elapsed
+  C2 rung 5/6 L=80:  70% (35/50) · 1:25:25 elapsed
+  C2 rung 5/6 L=80:  80% (40/50) · 1:33:59 elapsed
+  C2 rung 5/6 L=80:  90% (45/50) · 1:44:02 elapsed
+  C2 rung 5/6 L=80: 100% (50/50) · 1:53:24 elapsed
+  C2 rung 6/6 L=96:  10% (5/50) · 23:43 elapsed
+  C2 rung 6/6 L=96:  20% (10/50) · 50:24 elapsed
+  C2 rung 6/6 L=96:  30% (15/50) · 1:11:40 elapsed
+  C2 rung 6/6 L=96:  40% (20/50) · 1:40:14 elapsed
+  C2 rung 6/6 L=96:  50% (25/50) · 2:01:46 elapsed
+  C2 rung 6/6 L=96:  60% (30/50) · 2:27:46 elapsed
+  C2 rung 6/6 L=96:  70% (35/50) · 2:56:01 elapsed
+  C2 rung 6/6 L=96:  80% (40/50) · 3:26:01 elapsed
+  C2 rung 6/6 L=96:  90% (45/50) · 3:51:36 elapsed
+  C2 rung 6/6 L=96: 100% (50/50) · 4:18:20 elapsed
+  38c C2 staircase: done
+        C2 · PASS · m*(T*) stairs L=24/36/48/64/80/96 [-0.858, -0.438, -0.348, -0.320, -0.291, -0.371] vs anchor -0.160 · rising 4/5
+        C2 · Binder U₄ reported, not gated (n=10 realizations/point): L24 [+0.52 +0.48 +0.61 +0.67 +0.67]  L36 [+0.40 +0.04 +0.29 +0.55 +0.61]  L48 [+0.43 +0.22 +0.09 +0.54 +0.64]  L64 [+0.42 +0.27 +0.46 +0.52 +0.59]  L80 [+0.44 +0.27 +0.46 +0.59 +0.62]  L96 [+0.46 +0.37 +0.46 +0.56 +0.64]
+        C3 · disclosure rendered (8 lines, figure panel 6)
+        C4 · PASS · sup(refine 38a)=2.083, sup(refine 38b)=2.002 ≤ 3.0 = V4 bound
+        C5 · PASS · terminology enforced; C2 tie: critical trend consistent
+[PASS] t38      Test 38 Curie: 38a PASS · 38b PASS · 38c PASS · T*(72)=1.752 · T*(96)=1.647 · 486.9 min
+        figure → results/run_20260914_234626/test_38_curie_point/plots/t38_curie_panels.png (131.9 KB)
+ Test 38 (v23 three-pass) t38: PASS · Curie 3-pass (72²+96²+38c) — 486.9 min, 346 spectra in cache</pre>
+</body></html>

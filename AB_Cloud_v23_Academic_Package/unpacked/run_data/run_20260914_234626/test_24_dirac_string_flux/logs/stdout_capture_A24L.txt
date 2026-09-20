@@ -1,0 +1,18 @@
+
+════════════════════════════════════════════════════════════
+TEST 24 (pass 2, HARDCORE): Dirac-string flux — exhaustive scan
+Full plaquette scan × 4 configs: 2 positions × {+1, −1, +0.3}
+────────────────────────────────────────────────────────────
+ Lattice: 96x96 (N=9216 sites) — full plaquette scan × 4 configs
+ cfg A (ix=32, iy=48, q=+1.0): vortex 1/1, empty 9024/9024 → OK
+ cfg B (ix=64, iy=24, q=+1.0): vortex 1/1, empty 9024/9024 → OK
+ cfg A− (ix=32, iy=48, q=-1.0): vortex 1/1, empty 9024/9024 → OK
+ cfg A frac (ix=32, iy=48, q=+0.3): vortex 1/1, empty 9024/9024 → OK
+ Max |flux| over ALL empty plaquettes and configs: 8.88e-16
+────────────────────────────────────────────────────────────
+ scan A q=+1.0        PASS — 9025/9025 plaquettes OK
+ scan B q=+1.0        PASS — 9025/9025 plaquettes OK
+ scan A− q=-1.0       PASS — 9025/9025 plaquettes OK
+ scan A frac q=+0.3   PASS — 9025/9025 plaquettes OK
+ hermiticity (all)    PASS — verify_hermitian per config
+ Test 24b [HARDCORE pass 2]: 5 sub-checks, 0 failed → PASS

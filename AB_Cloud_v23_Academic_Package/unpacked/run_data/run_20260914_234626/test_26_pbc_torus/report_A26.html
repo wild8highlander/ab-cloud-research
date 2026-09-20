@@ -1,0 +1,51 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Test 26: PBC torus Dirac string</title><style>body{font-family:system-ui;margin:2em;max-width:120ch}pre{background:#f4f4f4;padding:1em;overflow-x:auto;font-size:11px}h1{border-bottom:2px solid #333}</style></head><body>
+<h1>Test 26: PBC torus Dirac string</h1>
+<p>Verdict: PASS   |   Generated: 2026-09-15 03:07:01   |   Suite: AB-Cloud v23 SUPERCOMBO (Julia 1.12.0)</p>
+<h2>What this test verifies</h2>
+<p>Mixed: flux identities exact; ⟨r⟩ on 4 neutral vortices over the bulk window (statistical).</p>
+<p> METHOD: Mixed: flux identities exact; ⟨r⟩ on 4 neutral vortices over the bulk window (statistical).</p>
+<p>Test 26 HARDCORE pass 2: 96x96 torus, exhaustive artifact classification, n=5 ⟨r⟩ realizations at W_eff=1.00.</p>
+<p>Test 26 HARDCORE: artifacts 9024 clean/0 wrap/0 unexplained; ⟨r⟩=0.5964±0.0021, scatter σ=0.0046.</p>
+<h2>Result</h2>
+<p> Test 26b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS</p>
+<h2>Plots</h2>
+<p>- `plots/plot_01.png` — 1600×1000, ABPlotV23 engine (supersampled)</p>
+<p>- `plots/animation.gif` — animated reveal of every plot of this test</p>
+<h2>Independent verification guide</h2>
+<p>Reproduce with: julia ab_cloud_v23.jl --test 26 --no-two-pass</p>
+<p>Every computation is logged in logs/computation_log.txt (timestamps + deltas); raw console output in logs/stdout_capture.txt.</p>
+<h2>FULL COMPUTATION LOG</h2>
+<pre>[02:35:52.402] [+10143.430s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.0000, t=1.00, W=4.00, torus, 1 vortices, model=:dirac
+[02:36:04.354] [+10155.382s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[02:41:24.785] [+10475.813s]  calc: ⟨r⟩ = 0.600632 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[02:41:31.414] [+10482.443s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[02:47:55.044] [+10866.072s]  calc: ⟨r⟩ = 0.596193 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[02:47:58.346] [+10869.375s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[02:54:12.143] [+11243.171s]  calc: ⟨r⟩ = 0.600551 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[02:54:15.944] [+11246.972s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[03:00:22.789] [+11613.818s]  calc: ⟨r⟩ = 0.589380 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]
+[03:00:28.175] [+11619.203s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[03:06:55.993] [+12007.021s]  calc: ⟨r⟩ = 0.595447 (n_r=5527, n_eigs=5529) [refs: GUE=0.5996 Poisson=0.3863]</pre>
+<h2>CONSOLE CAPTURE</h2>
+<pre>
+════════════════════════════════════════════════════════════
+TEST 26 (pass 2, HARDCORE): PBC torus Dirac string — deep validation
+Exhaustive artifact classification + ⟨r⟩ ensemble (n ≥ 5)
+────────────────────────────────────────────────────────────
+ ⚠ RUNTIME: flux scan (1 build) + n=5 ⟨r⟩ realizations at 96x96 → expect ≈ 12–17 min
+ ⟨r⟩ row: α=0.5000, Nv=4 (base protocol), q=1.0000, W=1.00 = ab_w_eff (capped)
+ H1 flux: vortex plaquette OK; empty plaquettes: 9024 clean, 0 wrap artifacts (0.0000), 191 seam (gauge holonomy, ix=96/iy=96), 0 unexplained
+ real  1/5: ⟨r⟩ = 0.6006
+ real  2/5: ⟨r⟩ = 0.5962
+ real  3/5: ⟨r⟩ = 0.6006
+ real  4/5: ⟨r⟩ = 0.5894
+ real  5/5: ⟨r⟩ = 0.5954
+
+ Ensemble: ⟨r⟩ = 0.5964 ± 0.0021 | bootstrap CI [0.5928, 0.5997] ∋ GUE | above/below: 2/3
+────────────────────────────────────────────────────────────
+ flux + artifacts     PASS — vortex OK; 9024 clean + 0 wrap(−2πq) + 191 seam holonomy; 0 unexplained
+ ⟨r⟩ > 0.5 (ensemble) PASS — ⟨r⟩ = 0.5964 ± 0.0021 (n=5, base contract)
+ scatter ≤ 0.022      PASS — σ=0.0046 ≤ ✓ monograph band
+ hermiticity ∀real    PASS — verify_hermitian per realization
+ Test 26b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS</pre>
+</body></html>

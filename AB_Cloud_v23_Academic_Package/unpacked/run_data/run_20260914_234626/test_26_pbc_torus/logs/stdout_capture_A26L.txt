@@ -1,0 +1,21 @@
+
+════════════════════════════════════════════════════════════
+TEST 26 (pass 2, HARDCORE): PBC torus Dirac string — deep validation
+Exhaustive artifact classification + ⟨r⟩ ensemble (n ≥ 5)
+────────────────────────────────────────────────────────────
+ ⚠ RUNTIME: flux scan (1 build) + n=5 ⟨r⟩ realizations at 96x96 → expect ≈ 12–17 min
+ ⟨r⟩ row: α=0.5000, Nv=4 (base protocol), q=1.0000, W=1.00 = ab_w_eff (capped)
+ H1 flux: vortex plaquette OK; empty plaquettes: 9024 clean, 0 wrap artifacts (0.0000), 191 seam (gauge holonomy, ix=96/iy=96), 0 unexplained
+ real  1/5: ⟨r⟩ = 0.6006
+ real  2/5: ⟨r⟩ = 0.5962
+ real  3/5: ⟨r⟩ = 0.6006
+ real  4/5: ⟨r⟩ = 0.5894
+ real  5/5: ⟨r⟩ = 0.5954
+
+ Ensemble: ⟨r⟩ = 0.5964 ± 0.0021 | bootstrap CI [0.5928, 0.5997] ∋ GUE | above/below: 2/3
+────────────────────────────────────────────────────────────
+ flux + artifacts     PASS — vortex OK; 9024 clean + 0 wrap(−2πq) + 191 seam holonomy; 0 unexplained
+ ⟨r⟩ > 0.5 (ensemble) PASS — ⟨r⟩ = 0.5964 ± 0.0021 (n=5, base contract)
+ scatter ≤ 0.022      PASS — σ=0.0046 ≤ ✓ monograph band
+ hermiticity ∀real    PASS — verify_hermitian per realization
+ Test 26b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS

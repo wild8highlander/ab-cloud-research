@@ -1,0 +1,98 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 4382 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 17: Connes self-duality ??1/?) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: PASS   |   Generated: 2026-09-15 00:55:45   |   Suite: AB-Cloud v23 SUPERCOMBO \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (EXACT: isospectrality under ? ? 1/? to machine precision.) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: EXACT: isospectrality under ? ? 1/? to machine precision.) Tj ET
+BT /F1 10 Tf 50 690 Td (Test 17 HARDCORE L=24: zero_modes\(?=1/2\)=4, spectral defects 1.42e-15/1.66e-15, duality defect 3.62e-01.) Tj ET
+BT /F1 10 Tf 50 668 Td (Test 17 HARDCORE L=48: zero_modes\(?=1/2\)=4, spectral defects 2.90e-15/2.41e-15, duality defect 3.65e-01.) Tj ET
+BT /F1 10 Tf 50 646 Td (Test 17 HARDCORE L=96: zero_modes\(?=1/2\)=4, spectral defects 3.96e-15/3.24e-15, duality defect 3.66e-01.) Tj ET
+BT /F1 13 Tf 50 592 Td (Result) Tj ET
+BT /F1 10 Tf 50 602 Td ( Test 17b [HARDCORE pass 2]: 2 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 13 Tf 50 540 Td (Plots) Tj ET
+BT /F1 10 Tf 50 558 Td (- `plots/plot_01.png` ? 1600×1000, ABPlotV23 engine \(supersampled\)) Tj ET
+BT /F1 10 Tf 50 536 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+BT /F1 13 Tf 50 462 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 492 Td (Reproduce with: julia ab_cloud_v23.jl --test 17 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 470 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 384 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 426 Td ([00:32:11.030] [+2722.058s]  build_ab_cloud_hamiltonian: 24x24 \(N=576\), ?=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 404 Td ([00:32:11.825] [+2722.853s]  heevr values-only solve: N=576 \(?=0.5000, torus, W=0\) ? zero_modes + E?-E defect ????? ????????) Tj ET
+BT /F1 7 Tf 50 382 Td ([00:32:11.978] [+2723.006s]  build_ab_cloud_hamiltonian: 24x24 \(N=576\), ?=0.3333, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 360 Td ([00:32:12.540] [+2723.568s]  heevr values-only solve: N=576 \(?=0.3333, torus, W=0\) ? spectral_symmetry_defect) Tj ET
+BT /F1 7 Tf 50 338 Td ([00:32:12.697] [+2723.725s]  build_ab_cloud_hamiltonian: 24x24 \(N=576\), ?=0.5000, t=1.00, W=4.00, open, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 316 Td ([00:32:13.231] [+2724.259s]  build_ab_cloud_hamiltonian: 24x24 \(N=576\), ?=2.0000, t=1.00, W=4.00, open, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 294 Td ([00:32:13.780] [+2724.808s]  heevr values-only solves ×2: N=576 \(?=0.5000 open, W=4\) + N=576 \(?=2.0000 open, W=4\) ? connes_self_duality_defect) Tj ET
+BT /F1 7 Tf 50 272 Td ([00:32:14.746] [+2725.775s]  build_ab_cloud_hamiltonian: 48x48 \(N=2304\), ?=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 250 Td ([00:32:15.470] [+2726.498s]  heevr values-only solve: N=2304 \(?=0.5000, torus, W=0\) ? zero_modes + E?-E defect ????? ????????) Tj ET
+BT /F1 7 Tf 50 228 Td ([00:32:20.921] [+2731.950s]  build_ab_cloud_hamiltonian: 48x48 \(N=2304\), ?=0.3333, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 206 Td ([00:32:21.733] [+2732.761s]  heevr values-only solve: N=2304 \(?=0.3333, torus, W=0\) ? spectral_symmetry_defect) Tj ET
+BT /F1 7 Tf 50 184 Td ([00:32:27.105] [+2738.133s]  build_ab_cloud_hamiltonian: 48x48 \(N=2304\), ?=0.5000, t=1.00, W=4.00, open, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 162 Td ([00:32:27.927] [+2738.955s]  build_ab_cloud_hamiltonian: 48x48 \(N=2304\), ?=2.0000, t=1.00, W=4.00, open, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 140 Td ([00:32:28.702] [+2739.730s]  heevr values-only solves ×2: N=2304 \(?=0.5000 open, W=4\) + N=2304 \(?=2.0000 open, W=4\) ? connes_self_duality_defect) Tj ET
+BT /F1 7 Tf 50 118 Td ([00:32:40.319] [+2751.347s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 96 Td ([00:32:47.777] [+2758.805s]  heevr values-only solve: N=9216 \(?=0.5000, torus, W=0\) ? zero_modes + E?-E defect ????? ????????) Tj ET
+BT /F1 7 Tf 50 74 Td ([00:38:24.371] [+3095.399s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.3333, t=1.00, W=0.00, torus, 0 vortices, model=:monumental) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 6 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 2007 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ([00:38:35.596] [+3106.625s]  heevr values-only solve: N=9216 \(?=0.3333, torus, W=0\) ? spectral_symmetry_defect) Tj ET
+BT /F1 7 Tf 50 778 Td ([00:44:36.057] [+3467.085s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=0.5000, t=1.00, W=4.00, open, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 756 Td ([00:44:49.823] [+3480.852s]  build_ab_cloud_hamiltonian: 96x96 \(N=9216\), ?=2.0000, t=1.00, W=4.00, open, 0 vortices, model=:monumental) Tj ET
+BT /F1 7 Tf 50 734 Td ([00:45:02.209] [+3493.237s]  heevr values-only solves ×2: N=9216 \(?=0.5000 open, W=4\) + N=9216 \(?=2.0000 open, W=4\) ? connes_self_duality_defect) Tj ET
+BT /F1 13 Tf 50 696 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 690 Td () Tj ET
+BT /F1 7 Tf 50 668 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 646 Td (TEST 17 \(pass 2, HARDCORE\): Connes self-duality ? cross-size audit) Tj ET
+BT /F1 7 Tf 50 624 Td (Zero-mode invariant + spectral symmetries on the size ladder 24 ? ab_nx) Tj ET
+BT /F1 7 Tf 50 602 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 580 Td ( L=24: zero_modes\(?=1/2\)=4 | spec.defect\(1/2\)=1.42e-15, \(1/3\)=1.66e-15 | duality=3.62e-01) Tj ET
+BT /F1 7 Tf 50 558 Td ( L=48: zero_modes\(?=1/2\)=4 | spec.defect\(1/2\)=2.90e-15, \(1/3\)=2.41e-15 | duality=3.65e-01) Tj ET
+BT /F1 7 Tf 50 536 Td ( L=96: zero_modes\(?=1/2\)=4 | spec.defect\(1/2\)=3.96e-15, \(1/3\)=3.24e-15 | duality=3.66e-01) Tj ET
+BT /F1 7 Tf 50 514 Td ( At ?=1/3 the spectrum stays gapped at E=0 on these tori \(base observation\).) Tj ET
+BT /F1 7 Tf 50 492 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 470 Td ( zero_modes\(1/2\)=4 ?L PASS ? topological invariant holds on the whole ladder) Tj ET
+BT /F1 7 Tf 50 448 Td ( E??E defect < 1e-10 ?L PASS ? ?=1/2 and ?=1/3, generic bipartite symmetry) Tj ET
+BT /F1 7 Tf 50 426 Td ( Test 17b [HARDCORE pass 2]: 2 sub-checks, 0 failed ? PASS) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000253 00000 n 
+0000004687 00000 n 
+0000004813 00000 n 
+0000006872 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+6969
+%%EOF

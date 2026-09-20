@@ -1,0 +1,48 @@
+{
+  "run": "20260917_084900_m3 (single realization, 4568 spacings) + m2 pooled (91360)",
+  "KS_single_m3": 0.0913,
+  "argmax_s": 0.65,
+  "dF_max": 0.0913,
+  "dF_min": -0.0589,
+  "dF_trough_s": 1.6,
+  "zero_crossings_s": [
+    1.06
+  ],
+  "P_s<0.5": {
+    "AB": 0.1782,
+    "zeta": 0.0937
+  },
+  "P_s<1.0": {
+    "AB": 0.5493,
+    "zeta": 0.5345
+  },
+  "mixture_fit_AB": {
+    "w_KS": 0.2432,
+    "residual_KS": 0.0233,
+    "w_L2": 0.2328
+  },
+  "mixture_fit_zeta_control": {
+    "w_KS": -0.0767,
+    "residual_KS": 0.0125,
+    "w_L2": -0.0521
+  },
+  "benchmarks_vs_zeta": {
+    "GUE_matrix_D": 0.0242,
+    "Poisson_D_from_CSV": 0.3004
+  },
+  "position_GUE_to_Poisson": 0.282,
+  "bootstrap": {
+    "CI95": [
+      0.0633,
+      0.0868
+    ],
+    "sigma": 0.00599,
+    "z_of_dGUE_vs_GUE_benchmark": 8.8
+  },
+  "r_based_naive_w": 0.33,
+  "D_of_L": {
+    "48": 0.1017,
+    "64": 0.1017,
+    "96": 0.1
+  }
+}

@@ -1,0 +1,87 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 2627 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 2: Monotonicity verification) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: PASS   |   Generated: 2026-09-14 23:47:15   |   Suite: AB-Cloud v23 SUPERCOMBO \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (Checks b\(N\) does not increase along the refinement sequence ? an algebraic consistency property \(binary verdict\).) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: Checks b\(N\) does not increase along the refinement sequence ? an algebraic consistency property \(binary verdict\).) Tj ET
+BT /F1 13 Tf 50 670 Td (Result) Tj ET
+BT /F1 10 Tf 50 668 Td ( Test 2 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b\(50000\)=1.2126 ? PASS) Tj ET
+BT /F1 13 Tf 50 618 Td (Plots) Tj ET
+BT /F1 10 Tf 50 624 Td (- `plots/plot_01.png` ? 1600◊1000, ABPlotV23 engine \(supersampled\)) Tj ET
+BT /F1 10 Tf 50 602 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+BT /F1 13 Tf 50 540 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 558 Td (Reproduce with: julia ab_cloud_v23.jl --test 2 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 536 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 462 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 492 Td (\(no log_comp entries\)) Tj ET
+BT /F1 13 Tf 50 410 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 448 Td () Tj ET
+BT /F1 7 Tf 50 426 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 404 Td (TEST 2 \(secondary, HARDCORE\): Objection 1: b\(N\) Convergence ? deep monotonicity audit) Tj ET
+BT /F1 7 Tf 50 382 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 360 Td ( S1 strict band: 0/39 pairs violate \(limit 0\)) Tj ET
+BT /F1 7 Tf 50 338 Td (    segment      mean |??|) Tj ET
+BT /F1 7 Tf 50 316 Td (    1-5001        1.629872) Tj ET
+BT /F1 7 Tf 50 294 Td ( 5001-10001       1.328818) Tj ET
+BT /F1 7 Tf 50 272 Td ( 10001-15001       1.248992) Tj ET
+BT /F1 7 Tf 50 250 Td ( 15001-20001       1.201689) Tj ET
+BT /F1 7 Tf 50 228 Td ( 20001-25000       1.168653) Tj ET
+BT /F1 7 Tf 50 206 Td ( 25000-30000       1.143731) Tj ET
+BT /F1 7 Tf 50 184 Td ( 30000-35000       1.123510) Tj ET
+BT /F1 7 Tf 50 162 Td ( 35000-40000       1.106908) Tj ET
+BT /F1 7 Tf 50 140 Td ( 40000-45000       1.092713) Tj ET
+BT /F1 7 Tf 50 118 Td ( 45000-50000       1.080314) Tj ET
+BT /F1 7 Tf 50 96 Td ( S2 segments  : 0 local increases \(limit 0\)) Tj ET
+BT /F1 7 Tf 50 74 Td ( S3 new lows  : 40/40 checkpoints = 100% \(limit ? 60%\)) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 6 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 641 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ( S4 drawdown  : b\(50000\)=1.2126 vs b\(25\)=4.6101 ? 73.7% decrease \(limit ? 5%\)) Tj ET
+BT /F1 7 Tf 50 778 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 756 Td ( S1 strict band       PASS ? 0 violations / 39 pairs) Tj ET
+BT /F1 7 Tf 50 734 Td ( S2 segments          PASS ? 0 increases / 10 segments) Tj ET
+BT /F1 7 Tf 50 712 Td ( S3 new lows          PASS ? 100% of checkpoints) Tj ET
+BT /F1 7 Tf 50 690 Td ( S4 drawdown          PASS ? 73.7% decrease) Tj ET
+BT /F1 7 Tf 50 668 Td ( Test 2 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b\(50000\)=1.2126 ? PASS) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000253 00000 n 
+0000002932 00000 n 
+0000003058 00000 n 
+0000003750 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+3847
+%%EOF

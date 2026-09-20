@@ -1,0 +1,233 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R] /Count 5 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 4193 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 38: Curie point of the vortex-flux lattice magnet \(v23 three-pass\)) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: PASS   |   Generated: 2026-09-15 17:16:11   |   Suite: AB-Cloud v23 SUPERCOMBO \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (STATISTICAL+EXACT \(v22.2 three-pass rewrite\): order parameter ?\(T\)=?ln[p_GUE\(s\)/p_GOE\(s\)]? ? the KL lean ? on Chebyshev-unfolded spacings of a paired-realization vortex-flux lattice; Debye?Waller thermal screening w\(T\)=exp\(??1·T/2\) melts the TRS-breaking flux. 38a main curve + V1 p-value-grade sampler calibration; 38b hardcore lattice \(A1..A7, exact negative controls: no-flux, static dephasing\); 38c reviewer ladder C1..C5 \(density scan, Binder/FSS staircase 24?96, shared-curve disclosure, refine bound, crossover terminology\). Spectrum cache \(CSV, resumable\), --t38-cap budget, six-panel journal figure. T*\(L\) is a finite-L crossover scale \(half-decay convention\).) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: STATISTICAL+EXACT \(v22.2 three-pass rewrite\): order parameter ?\(T\)=?ln[p_GUE\(s\)/p_GOE\(s\)]? ? the KL lean ? on Chebyshev-unfolded spacings of a paired-realization vortex-flux lattice; Debye?Waller thermal screening w\(T\)=exp\(??1·T/2\) melts the TRS-breaking flux. 38a main curve + V1 p-value-grade sampler calibration; 38b hardcore lattice \(A1..A7, exact negative controls: no-flux, static dephasing\); 38c reviewer ladder C1..C5 \(density scan, Binder/FSS staircase 24?96, shared-curve disclosure, refine bound, crossover terminology\). Spectrum cache \(CSV, resumable\), --t38-cap budget, six-panel journal figure. T*\(L\) is a finite-L crossover scale \(half-decay convention\).) Tj ET
+BT /F1 13 Tf 50 670 Td (Result) Tj ET
+BT /F1 10 Tf 50 668 Td ( Test 38 \(v23 three-pass\) t38: PASS · Curie 3-pass \(72?+96?+38c\) ? 486.9 min, 346 spectra in cache) Tj ET
+BT /F1 13 Tf 50 618 Td (Plots) Tj ET
+BT /F1 10 Tf 50 624 Td (- `plots/t38_curie_panels.png` ? Test 38 ? Curie point \(38a + 38b + 38c\) \(journal-engine multi-panel figure\)) Tj ET
+BT /F1 13 Tf 50 566 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 580 Td (Reproduce with: julia ab_cloud_v23.jl --test 38 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 558 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 488 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 514 Td (\(no log_comp entries\)) Tj ET
+BT /F1 13 Tf 50 436 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 470 Td (    Test 38 Curie ? lattice 38a: 72×72 \(5184 nodes\), hardcore 38b: 96×96 \(9216 nodes\), seeds 2) Tj ET
+BT /F1 7 Tf 50 448 Td (    cache: 0 spectra loaded from ./t38_cache/spectra_v22C1.csv) Tj ET
+BT /F1 7 Tf 50 426 Td (    38c C2 staircase: L = 24 ? 36 ? 48 ? 64 ? 80 ? 96 · 6 rungs · 10 seeds/point) Tj ET
+BT /F1 7 Tf 50 404 Td (        V1 · MC ?_GUE = +0.04755 ± 0.00109 \(quad +0.04743\)) Tj ET
+BT /F1 7 Tf 50 382 Td (        V1 · MC ?_GOE = -0.06607 ± 0.00172 \(quad -0.06427\)) Tj ET
+BT /F1 7 Tf 50 360 Td (        V1 · KS p: GUE 0.665, GOE 0.395 \(n=20k\)) Tj ET
+BT /F1 7 Tf 50 338 Td (        V1 · ?r? MC/quad: GUE 0.6349/0.6368, GOE 0.5696/0.5709) Tj ET
+BT /F1 7 Tf 50 316 Td (  38a coarse L=72:  14% \(2/14\) · 00:45 elapsed) Tj ET
+BT /F1 7 Tf 50 294 Td (  38a coarse L=72:  21% \(3/14\) · 01:33 elapsed) Tj ET
+BT /F1 7 Tf 50 272 Td (  38a coarse L=72:  36% \(5/14\) · 03:03 elapsed) Tj ET
+BT /F1 7 Tf 50 250 Td (  38a coarse L=72:  43% \(6/14\) · 03:47 elapsed) Tj ET
+BT /F1 7 Tf 50 228 Td (  38a coarse L=72:  50% \(7/14\) · 04:31 elapsed) Tj ET
+BT /F1 7 Tf 50 206 Td (  38a coarse L=72:  64% \(9/14\) · 06:10 elapsed) Tj ET
+BT /F1 7 Tf 50 184 Td (  38a coarse L=72:  71% \(10/14\) · 06:59 elapsed) Tj ET
+BT /F1 7 Tf 50 162 Td (  38a coarse L=72:  86% \(12/14\) · 08:36 elapsed) Tj ET
+BT /F1 7 Tf 50 140 Td (  38a coarse L=72:  93% \(13/14\) · 09:22 elapsed) Tj ET
+BT /F1 7 Tf 50 118 Td (  38a coarse L=72: 100% \(14/14\) · 10:11 elapsed) Tj ET
+BT /F1 7 Tf 50 96 Td (  38a coarse grid: done) Tj ET
+BT /F1 7 Tf 50 74 Td (  38a refine L=72:  17% \(2/12\) · 00:46 elapsed) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 6 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 2357 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td (  38a refine L=72:  25% \(3/12\) · 01:33 elapsed) Tj ET
+BT /F1 7 Tf 50 778 Td (  38a refine L=72:  33% \(4/12\) · 02:23 elapsed) Tj ET
+BT /F1 7 Tf 50 756 Td (  38a refine L=72:  42% \(5/12\) · 03:12 elapsed) Tj ET
+BT /F1 7 Tf 50 734 Td (  38a refine L=72:  50% \(6/12\) · 04:02 elapsed) Tj ET
+BT /F1 7 Tf 50 712 Td (  38a refine L=72:  67% \(8/12\) · 05:34 elapsed) Tj ET
+BT /F1 7 Tf 50 690 Td (  38a refine L=72:  75% \(9/12\) · 06:20 elapsed) Tj ET
+BT /F1 7 Tf 50 668 Td (  38a refine L=72:  83% \(10/12\) · 07:10 elapsed) Tj ET
+BT /F1 7 Tf 50 646 Td (  38a refine L=72:  92% \(11/12\) · 07:56 elapsed) Tj ET
+BT /F1 7 Tf 50 624 Td (  38a refine L=72: 100% \(12/12\) · 08:42 elapsed) Tj ET
+BT /F1 7 Tf 50 602 Td (  38a refine grid: done \(12 new spectra\)) Tj ET
+BT /F1 7 Tf 50 580 Td (        V1 · PASS) Tj ET
+BT /F1 7 Tf 50 558 Td (        V2 · PASS) Tj ET
+BT /F1 7 Tf 50 536 Td (        V3 · PASS) Tj ET
+BT /F1 7 Tf 50 514 Td (        V4 · PASS) Tj ET
+BT /F1 7 Tf 50 492 Td (        V5 · PASS) Tj ET
+BT /F1 7 Tf 50 470 Td (        38a: ?\(0\)=+0.0339±0.0047  ?\(T_hi\)=-0.0686±0.0024  depth=0.1025  T*\(72\)=1.7519) Tj ET
+BT /F1 7 Tf 50 448 Td (  38b endpoints L=96:  25% \(1/4\) · 00:00 elapsed) Tj ET
+BT /F1 7 Tf 50 426 Td (  38b endpoints L=96:  50% \(2/4\) · 04:45 elapsed) Tj ET
+BT /F1 7 Tf 50 404 Td (  38b endpoints L=96:  75% \(3/4\) · 09:31 elapsed) Tj ET
+BT /F1 7 Tf 50 382 Td (  38b endpoints L=96: 100% \(4/4\) · 14:14 elapsed) Tj ET
+BT /F1 7 Tf 50 360 Td (  38b refine L=96: 100% \(9/9\) · 39:10 elapsed) Tj ET
+BT /F1 7 Tf 50 338 Td (  38b hardcore: done) Tj ET
+BT /F1 7 Tf 50 316 Td (  38b controls:  25% \(1/4\) · 00:00 elapsed) Tj ET
+BT /F1 7 Tf 50 294 Td (  38b controls:  50% \(2/4\) · 00:54 elapsed) Tj ET
+BT /F1 7 Tf 50 272 Td (  38b controls:  75% \(3/4\) · 01:44 elapsed) Tj ET
+BT /F1 7 Tf 50 250 Td (  38b controls: 100% \(4/4\) · 02:58 elapsed) Tj ET
+BT /F1 7 Tf 50 228 Td (        A1 · PASS) Tj ET
+BT /F1 7 Tf 50 206 Td (        A2 · PASS) Tj ET
+BT /F1 7 Tf 50 184 Td (        A3 · PASS) Tj ET
+BT /F1 7 Tf 50 162 Td (        A4 · PASS) Tj ET
+BT /F1 7 Tf 50 140 Td (        A5 · PASS) Tj ET
+BT /F1 7 Tf 50 118 Td (        A6 · PASS) Tj ET
+BT /F1 7 Tf 50 96 Td (        A7 · PASS) Tj ET
+BT /F1 7 Tf 50 74 Td (        38b: T*\(96\)=1.6473  ?T*=-0.1046  ?\(0\)=+0.0394  depth=0.1238  ?=-0.951) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 8 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+8 0 obj
+<< /Length 2830 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td (        controls: no-flux ?\(0\)=-0.0734 \(want < 0.02\) · static deph ?\(0\)=+0.0316 \(want > 0.02\)) Tj ET
+BT /F1 7 Tf 50 778 Td (  38c C1 density scan:  10% \(1/10\) · 00:00 elapsed) Tj ET
+BT /F1 7 Tf 50 756 Td (  38c C1 density scan:  20% \(2/10\) · 00:59 elapsed) Tj ET
+BT /F1 7 Tf 50 734 Td (  38c C1 density scan:  30% \(3/10\) · 02:05 elapsed) Tj ET
+BT /F1 7 Tf 50 712 Td (  38c C1 density scan:  40% \(4/10\) · 03:34 elapsed) Tj ET
+BT /F1 7 Tf 50 690 Td (  38c C1 density scan:  50% \(5/10\) · 04:35 elapsed) Tj ET
+BT /F1 7 Tf 50 668 Td (  38c C1 density scan:  60% \(6/10\) · 05:31 elapsed) Tj ET
+BT /F1 7 Tf 50 646 Td (  38c C1 density scan:  70% \(7/10\) · 06:29 elapsed) Tj ET
+BT /F1 7 Tf 50 624 Td (  38c C1 density scan:  80% \(8/10\) · 07:30 elapsed) Tj ET
+BT /F1 7 Tf 50 602 Td (  38c C1 density scan:  90% \(9/10\) · 08:31 elapsed) Tj ET
+BT /F1 7 Tf 50 580 Td (  38c C1 density scan: 100% \(10/10\) · 09:20 elapsed) Tj ET
+BT /F1 7 Tf 50 558 Td (  38c C1 density scan: done) Tj ET
+BT /F1 7 Tf 50 536 Td (        C1 · PASS · robust f-range [0.50, 2.00], width 1.50) Tj ET
+BT /F1 7 Tf 50 514 Td (    38c C2 FSS staircase L=24?36?48?64?80?96 \(10 seeds/point\)) Tj ET
+BT /F1 7 Tf 50 492 Td (  C2 rung 1/6 L=24:  10% \(5/50\) · 00:02 elapsed) Tj ET
+BT /F1 7 Tf 50 470 Td (  C2 rung 1/6 L=24:  20% \(10/50\) · 00:06 elapsed) Tj ET
+BT /F1 7 Tf 50 448 Td (  C2 rung 1/6 L=24:  30% \(15/50\) · 00:09 elapsed) Tj ET
+BT /F1 7 Tf 50 426 Td (  C2 rung 1/6 L=24:  40% \(20/50\) · 00:13 elapsed) Tj ET
+BT /F1 7 Tf 50 404 Td (  C2 rung 1/6 L=24:  50% \(25/50\) · 00:16 elapsed) Tj ET
+BT /F1 7 Tf 50 382 Td (  C2 rung 1/6 L=24:  60% \(30/50\) · 00:20 elapsed) Tj ET
+BT /F1 7 Tf 50 360 Td (  C2 rung 1/6 L=24:  70% \(35/50\) · 00:23 elapsed) Tj ET
+BT /F1 7 Tf 50 338 Td (  C2 rung 1/6 L=24:  80% \(40/50\) · 00:26 elapsed) Tj ET
+BT /F1 7 Tf 50 316 Td (  C2 rung 1/6 L=24:  90% \(45/50\) · 00:30 elapsed) Tj ET
+BT /F1 7 Tf 50 294 Td (  C2 rung 1/6 L=24: 100% \(50/50\) · 00:33 elapsed) Tj ET
+BT /F1 7 Tf 50 272 Td (  C2 rung 2/6 L=36:  10% \(5/50\) · 00:06 elapsed) Tj ET
+BT /F1 7 Tf 50 250 Td (  C2 rung 2/6 L=36:  20% \(10/50\) · 00:14 elapsed) Tj ET
+BT /F1 7 Tf 50 228 Td (  C2 rung 2/6 L=36:  30% \(15/50\) · 00:21 elapsed) Tj ET
+BT /F1 7 Tf 50 206 Td (  C2 rung 2/6 L=36:  40% \(20/50\) · 00:28 elapsed) Tj ET
+BT /F1 7 Tf 50 184 Td (  C2 rung 2/6 L=36:  50% \(25/50\) · 00:35 elapsed) Tj ET
+BT /F1 7 Tf 50 162 Td (  C2 rung 2/6 L=36:  60% \(30/50\) · 00:43 elapsed) Tj ET
+BT /F1 7 Tf 50 140 Td (  C2 rung 2/6 L=36:  70% \(35/50\) · 00:50 elapsed) Tj ET
+BT /F1 7 Tf 50 118 Td (  C2 rung 2/6 L=36:  80% \(40/50\) · 00:57 elapsed) Tj ET
+BT /F1 7 Tf 50 96 Td (  C2 rung 2/6 L=36:  90% \(45/50\) · 01:05 elapsed) Tj ET
+BT /F1 7 Tf 50 74 Td (  C2 rung 2/6 L=36: 100% \(50/50\) · 01:12 elapsed) Tj ET
+
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 10 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 2773 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td (  C2 rung 3/6 L=48:  10% \(5/50\) · 00:21 elapsed) Tj ET
+BT /F1 7 Tf 50 778 Td (  C2 rung 3/6 L=48:  20% \(10/50\) · 00:49 elapsed) Tj ET
+BT /F1 7 Tf 50 756 Td (  C2 rung 3/6 L=48:  30% \(15/50\) · 01:20 elapsed) Tj ET
+BT /F1 7 Tf 50 734 Td (  C2 rung 3/6 L=48:  40% \(20/50\) · 01:49 elapsed) Tj ET
+BT /F1 7 Tf 50 712 Td (  C2 rung 3/6 L=48:  50% \(25/50\) · 02:19 elapsed) Tj ET
+BT /F1 7 Tf 50 690 Td (  C2 rung 3/6 L=48:  60% \(30/50\) · 02:49 elapsed) Tj ET
+BT /F1 7 Tf 50 668 Td (  C2 rung 3/6 L=48:  70% \(35/50\) · 03:16 elapsed) Tj ET
+BT /F1 7 Tf 50 646 Td (  C2 rung 3/6 L=48:  80% \(40/50\) · 03:42 elapsed) Tj ET
+BT /F1 7 Tf 50 624 Td (  C2 rung 3/6 L=48:  90% \(45/50\) · 04:17 elapsed) Tj ET
+BT /F1 7 Tf 50 602 Td (  C2 rung 3/6 L=48: 100% \(50/50\) · 04:43 elapsed) Tj ET
+BT /F1 7 Tf 50 580 Td (  C2 rung 4/6 L=64:  10% \(5/50\) · 01:55 elapsed) Tj ET
+BT /F1 7 Tf 50 558 Td (  C2 rung 4/6 L=64:  20% \(10/50\) · 04:19 elapsed) Tj ET
+BT /F1 7 Tf 50 536 Td (  C2 rung 4/6 L=64:  30% \(15/50\) · 07:12 elapsed) Tj ET
+BT /F1 7 Tf 50 514 Td (  C2 rung 4/6 L=64:  40% \(20/50\) · 09:31 elapsed) Tj ET
+BT /F1 7 Tf 50 492 Td (  C2 rung 4/6 L=64:  50% \(25/50\) · 11:33 elapsed) Tj ET
+BT /F1 7 Tf 50 470 Td (  C2 rung 4/6 L=64:  60% \(30/50\) · 13:35 elapsed) Tj ET
+BT /F1 7 Tf 50 448 Td (  C2 rung 4/6 L=64:  70% \(35/50\) · 15:50 elapsed) Tj ET
+BT /F1 7 Tf 50 426 Td (  C2 rung 4/6 L=64:  80% \(40/50\) · 17:57 elapsed) Tj ET
+BT /F1 7 Tf 50 404 Td (  C2 rung 4/6 L=64:  90% \(45/50\) · 20:06 elapsed) Tj ET
+BT /F1 7 Tf 50 382 Td (  C2 rung 4/6 L=64: 100% \(50/50\) · 22:12 elapsed) Tj ET
+BT /F1 7 Tf 50 360 Td (  C2 rung 5/6 L=80:  10% \(5/50\) · 06:04 elapsed) Tj ET
+BT /F1 7 Tf 50 338 Td (  C2 rung 5/6 L=80:  20% \(10/50\) · 13:36 elapsed) Tj ET
+BT /F1 7 Tf 50 316 Td (  C2 rung 5/6 L=80:  30% \(15/50\) · 22:05 elapsed) Tj ET
+BT /F1 7 Tf 50 294 Td (  C2 rung 5/6 L=80:  40% \(20/50\) · 57:06 elapsed) Tj ET
+BT /F1 7 Tf 50 272 Td (  C2 rung 5/6 L=80:  50% \(25/50\) · 1:04:46 elapsed) Tj ET
+BT /F1 7 Tf 50 250 Td (  C2 rung 5/6 L=80:  60% \(30/50\) · 1:13:28 elapsed) Tj ET
+BT /F1 7 Tf 50 228 Td (  C2 rung 5/6 L=80:  70% \(35/50\) · 1:25:25 elapsed) Tj ET
+BT /F1 7 Tf 50 206 Td (  C2 rung 5/6 L=80:  80% \(40/50\) · 1:33:59 elapsed) Tj ET
+BT /F1 7 Tf 50 184 Td (  C2 rung 5/6 L=80:  90% \(45/50\) · 1:44:02 elapsed) Tj ET
+BT /F1 7 Tf 50 162 Td (  C2 rung 5/6 L=80: 100% \(50/50\) · 1:53:24 elapsed) Tj ET
+BT /F1 7 Tf 50 140 Td (  C2 rung 6/6 L=96:  10% \(5/50\) · 23:43 elapsed) Tj ET
+BT /F1 7 Tf 50 118 Td (  C2 rung 6/6 L=96:  20% \(10/50\) · 50:24 elapsed) Tj ET
+BT /F1 7 Tf 50 96 Td (  C2 rung 6/6 L=96:  30% \(15/50\) · 1:11:40 elapsed) Tj ET
+BT /F1 7 Tf 50 74 Td (  C2 rung 6/6 L=96:  40% \(20/50\) · 1:40:14 elapsed) Tj ET
+
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 12 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+12 0 obj
+<< /Length 1769 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td (  C2 rung 6/6 L=96:  50% \(25/50\) · 2:01:46 elapsed) Tj ET
+BT /F1 7 Tf 50 778 Td (  C2 rung 6/6 L=96:  60% \(30/50\) · 2:27:46 elapsed) Tj ET
+BT /F1 7 Tf 50 756 Td (  C2 rung 6/6 L=96:  70% \(35/50\) · 2:56:01 elapsed) Tj ET
+BT /F1 7 Tf 50 734 Td (  C2 rung 6/6 L=96:  80% \(40/50\) · 3:26:01 elapsed) Tj ET
+BT /F1 7 Tf 50 712 Td (  C2 rung 6/6 L=96:  90% \(45/50\) · 3:51:36 elapsed) Tj ET
+BT /F1 7 Tf 50 690 Td (  C2 rung 6/6 L=96: 100% \(50/50\) · 4:18:20 elapsed) Tj ET
+BT /F1 7 Tf 50 668 Td (  38c C2 staircase: done) Tj ET
+BT /F1 7 Tf 50 646 Td (        C2 · PASS · m*\(T*\) stairs L=24/36/48/64/80/96 [-0.858, -0.438, -0.348, -0.320, -0.291, -0.371] vs anchor -0.160 · rising 4/5) Tj ET
+BT /F1 7 Tf 50 624 Td (        C2 · Binder U? reported, not gated \(n=10 realizations/point\): L24 [+0.52 +0.48 +0.61 +0.67 +0.67]  L36 [+0.40 +0.04 +0.29 +0.55 +0.61]  L48 [+0.43 +0.22 +0.09 +0.54 +0.64]  L64 [+0.42 +0.27 +0.46 +0.52 +0.59]  L80 [+0.44 +0.27 +0.46 +0.59 +0.62]  L96 [+0.46 +0.37 +0.46 +0.56 +0.64]) Tj ET
+BT /F1 7 Tf 50 602 Td (        C3 · disclosure rendered \(8 lines, figure panel 6\)) Tj ET
+BT /F1 7 Tf 50 580 Td (        C4 · PASS · sup\(refine 38a\)=2.083, sup\(refine 38b\)=2.002 ? 3.0 = V4 bound) Tj ET
+BT /F1 7 Tf 50 558 Td (        C5 · PASS · terminology enforced; C2 tie: critical trend consistent) Tj ET
+BT /F1 7 Tf 50 536 Td ([PASS] t38      Test 38 Curie: 38a PASS · 38b PASS · 38c PASS · T*\(72\)=1.752 · T*\(96\)=1.647 · 486.9 min) Tj ET
+BT /F1 7 Tf 50 514 Td (        figure ? results/run_20260914_234626/test_38_curie_point/plots/t38_curie_panels.png \(131.9 KB\)) Tj ET
+BT /F1 7 Tf 50 492 Td ( Test 38 \(v23 three-pass\) t38: PASS · Curie 3-pass \(72?+96?+38c\) ? 486.9 min, 346 spectra in cache) Tj ET
+
+endstream
+endobj
+13 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 14
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000146 00000 n 
+0000000272 00000 n 
+0000004517 00000 n 
+0000004643 00000 n 
+0000007052 00000 n 
+0000007178 00000 n 
+0000010060 00000 n 
+0000010187 00000 n 
+0000013013 00000 n 
+0000013141 00000 n 
+0000014963 00000 n 
+trailer
+<< /Size 14 /Root 1 0 R >>
+startxref
+15061
+%%EOF

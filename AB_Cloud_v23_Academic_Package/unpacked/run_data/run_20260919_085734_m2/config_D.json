@@ -1,0 +1,37 @@
+{
+  "_provenance": "Reconstructed from the operator console capture of 2026-09-19 (IM paste). Fields below are either verbatim console facts or derived deterministically from finite-size_lab.jl v1.3 source arithmetic; the device-side config.json of this run was not captured. Marked 'derived' where applicable.",
+  "run": "20260919_085734_m2",
+  "mode": 2,
+  "mode_name": "MODE 2 HARDCORE (refined ensemble pass)",
+  "generated": "2026-09-19 08:57:34 (run-id timestamp)",
+  "total_time": "26:15",
+  "zeros_loaded": 100000,
+  "reps": 5,
+  "reps_derived": false,
+  "geometry": {
+    "id": "psl27",
+    "name": "Klein quartic  PSL(2,7)",
+    "derived": true,
+    "derivation": "console prints 'H built Cayley ...' -> Cayley geometry; 4664 spacings/rep = nwin-41 with window_frac=0.5 => nwin=4705 => n=9408 sites; 9408 = 168 x 56 = |PSL(2,7)| x k, k=56 is the multiple of 7 nearest the 9216-site budget (unique among all geometry/lift combinations)",
+    "model": "magnetic Cayley graph Cay(G; B, C), ord(B)=3, ord(C)=7",
+    "aut_order": 168,
+    "lift_k": 56,
+    "sites": 9408,
+    "site_budget_percent": 102,
+    "genus": 3,
+    "hurwitz": true,
+    "autoscale": true
+  },
+  "L_budget": 96,
+  "window_frac": 0.5,
+  "seed_base": 20260916,
+  "seed_base_derived": true,
+  "seed_derivation": "lab_seed(2,k) = 20260916*1000003 + 2*10007 + k*101; k=1..5 -> 20260976802863..20260976803267; the console truncations ...76802863..76803267 match exactly",
+  "model_parameters": {
+    "Nv": 2,
+    "q": 1.0,
+    "alpha": 0.5,
+    "W": 1.0
+  },
+  "model_parameters_note": "laboratory defaults (not printed in the captured output)"
+}

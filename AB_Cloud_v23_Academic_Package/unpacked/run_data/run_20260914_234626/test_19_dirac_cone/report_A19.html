@@ -1,0 +1,56 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Test 19: Dirac cone v_F ≈ 0.125</title><style>body{font-family:system-ui;margin:2em;max-width:120ch}pre{background:#f4f4f4;padding:1em;overflow-x:auto;font-size:11px}h1{border-bottom:2px solid #333}</style></head><body>
+<h1>Test 19: Dirac cone v_F ≈ 0.125</h1>
+<p>Verdict: PASS   |   Generated: 2026-09-15 01:24:34   |   Suite: AB-Cloud v23 SUPERCOMBO (Julia 1.12.0)</p>
+<h2>What this test verifies</h2>
+<p>EXACT-geometry: zero modes at (π/2,π/2) require L/4∈ℤ; gap scaling fit R². FOUR-pass (user spec 2026-09-04): primary fit → 11-pt hardcore audit → α-series → twist-spectroscopy AUDIT (direct E_min(θ)=v_F·θ/L, eigenvector index 2+2, 2π-holonomy, bit-exact rebuild, 1/L² collapse, cross-pass v_F ≤ 6%).</p>
+<p> METHOD: EXACT-geometry: zero modes at (π/2,π/2) require L/4∈ℤ; gap scaling fit R². FOUR-pass (user spec 2026-09-04): primary fit → 11-pt hardcore audit → α-series → twist-spectroscopy AUDIT (direct E_min(θ)=v_F·θ/L, eigenvector index 2+2, 2π-holonomy, bit-exact rebuild, 1/L² collapse, cross-pass v_F ≤ 6%).</p>
+<p>Test 19 AUDIT: v_F_twist = 1.9990 (R² = 1.00000, L=48 y-twist scan), tower 4 @1e-10 with 2+2 polarization, 2π-holonomy 2.5e-17, π-cusp 6.279, rebuild bit-exact, 1/L² intercept 12.5662, cross-pass spread 5.09%.</p>
+<h2>Result</h2>
+<p> Test 19d [AUDIT pass 4]: 8 sub-checks, 0 failed → PASS</p>
+<h2>Plots</h2>
+<p>- `plots/plot_01.png` — 1600×1000, ABPlotV23 engine (supersampled)</p>
+<p>- `plots/plot_02.png` — 1600×1000, ABPlotV23 engine (supersampled)</p>
+<p>- `plots/plot_03.png` — 1600×1000, ABPlotV23 engine (supersampled)</p>
+<p>- `plots/animation.gif` — animated reveal of every plot of this test</p>
+<h2>Independent verification guide</h2>
+<p>Reproduce with: julia ab_cloud_v23.jl --test 19 --no-two-pass</p>
+<p>Every computation is logged in logs/computation_log.txt (timestamps + deltas); raw console output in logs/stdout_capture.txt.</p>
+<h2>FULL COMPUTATION LOG</h2>
+<pre>[01:23:43.346] [+5814.374s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[01:24:31.332] [+5862.360s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental</pre>
+<h2>CONSOLE CAPTURE</h2>
+<pre>
+════════════════════════════════════════════════════════════
+TEST 19 (pass 4, AUDIT): Dirac cone — twist spectroscopy + eigenvector index
+Direct E(k) at the Dirac point (pure-holonomy y-twist scan), AIII index of
+the tower, 2π-holonomy, determinism, 1/L² collapse, cross-pass v_F audit
+────────────────────────────────────────────────────────────
+ twist lattice 48x48 (α=1/2, torus, W=0, clean), θ-grid π/5…π + θ=0 anchor
+ ⚠ RUNTIME: 7 dense solves at 48² (2304 sites) + 2 builds ≈ 1–2 min
+ θ=0: tower(|E|≤1e-10) = 4, E_min = 0.261052 (E_min·L = 12.5305; pass-2 measured 12.5305)
+ θ=0.6283: E_min = 0.026179 (E_min·L = 1.2566), n_zero = 0, degeneracy = 2, v_F_local = 1.9999
+ θ=1.2566: E_min = 0.052354 (E_min·L = 2.5130), n_zero = 0, degeneracy = 2, v_F_local = 1.9998
+ θ=1.8850: E_min = 0.078520 (E_min·L = 3.7689), n_zero = 0, degeneracy = 2, v_F_local = 1.9995
+ θ=2.5133: E_min = 0.104672 (E_min·L = 5.0243), n_zero = 0, degeneracy = 2, v_F_local = 1.9991
+ θ=3.1416: E_min = 0.130806 (E_min·L = 6.2787), n_zero = 0, degeneracy = 4, v_F_local = 1.9986
+ D1 no-intercept fit: E = 0.041645·θ, R² = 1.000000 → v_F_twist = 1.9990 ✓
+ D1b v_F_twist vs pass-2 fit: 1.9990 vs 1.9447 (|Δ| &lt; 5%) → OK
+ D2 tower polarization: Tr(P_A P_T) = 2.0000000000, Tr(P_B P_T) = 2.0000000000 (expect 2, 2 — chirality-balanced Dirac pair, AIII index 0) → OK
+    per-vector purity (LAPACK basis, diagnostic only): 0.500, 0.499, 0.499, 0.500
+ D3a 2π-holonomy: ‖H(2π)−H(0)‖/‖H‖ = 2.50e-17, max|ΔE| = 4.35e-14 (Byers-Yang at the twist level) → OK
+ D3b θ=π cusp: n_zero = 0 (tower annihilated), E_min·L = 6.2787 ∈ [5.0, 7.6] (target 2π = 6.283; degeneracy 4 — both cones meet at the cusp) → OK
+ D4 determinism: fresh W=0 rebuild ‖ΔH‖_F/‖H‖ = 0.0e+00 (bit-exact expected — clean fast path draws no RNG) → OK
+ D5 1/L² collapse (11 pts, pass-2 series): E_min·L = 12.5662 + (-82.06)/L², R² = 0.999996, intercept/4π = 0.999984 → OK
+ D6 v_F estimates (4): pass1 (7-pt fit ≤72) = 1.8998, pass2 (11-pt mod-4 ≤96) = 1.9447, pass3 (α=0.5 series ≤80) = 1.955, pass4 (twist L=48) = 1.999
+    spread = 5.09% ≤ 6%, all in [1.85, 2.05] (analytic v_F = 2t = 2) → OK
+────────────────────────────────────────────────────────────
+ D1 twist-cone linear R² > 0.995 PASS — E_min(θ) = 0.041645·θ over 5 pts (no intercept), v_F_twist = 1.9990, n_zero(θ>0) = 0 ∀θ
+ D1b v_F_twist vs 1/L-fit &lt; 5% PASS — twist 1.9990 vs pass-2 fit 1.9447 — independent momentum-space measurement
+ D2 tower == 4 @1e-10 + index 2+2 PASS — Tr(P_A P_T) = 2.00000000, Tr(P_B P_T) = 2.00000000 — eigenvector-level AIII anchor
+ D3a 2π-holonomy identity PASS — ‖ΔH‖/‖H‖ = 2.5e-17, max|ΔE| = 4.4e-14 — Byers-Yang at the twist level
+ D3b π cusp: tower 0, E_min·L → 2π PASS — n_zero(π) = 0, E_min·L = 6.2787 (target 6.283, degeneracy 4)
+ D4 bit-exact rebuild PASS — ‖H_rebuild − H‖_F/‖H‖ = 0.0e+00 — no hidden RNG/global state in the builder
+ D5 1/L² collapse → 4π PASS — intercept 12.5662 (0.002% off 4π), c = -82.06, R² = 0.999996 over 11 pts
+ D6 cross-pass v_F ≤ 6% PASS — 4 independent estimates, spread 5.09% — twist + 3 fits agree
+ Test 19d [AUDIT pass 4]: 8 sub-checks, 0 failed → PASS</pre>
+</body></html>

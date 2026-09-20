@@ -1,0 +1,105 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 4034 >>
+stream
+0 0 0 RG
+BT /F1 18 Tf 50 800 Td (Test 13: Number variance ??\(L\)) Tj ET
+BT /F1 10 Tf 50 778 Td (Verdict: PASS   |   Generated: 2026-09-14 23:57:04   |   Suite: AB-Cloud v23 SUPERCOMBO \(Julia 1.12.0\)) Tj ET
+BT /F1 13 Tf 50 748 Td (What this test verifies) Tj ET
+BT /F1 10 Tf 50 734 Td (Long-range statistics: ??\(L\) ~ \(1/??\)lnL for GUE ? asymptotic curve comparison.) Tj ET
+BT /F1 10 Tf 50 712 Td ( METHOD: Long-range statistics: ??\(L\) ~ \(1/??\)lnL for GUE ? asymptotic curve comparison.) Tj ET
+BT /F1 13 Tf 50 670 Td (Result) Tj ET
+BT /F1 10 Tf 50 668 Td ( Test 13 [HARDCORE pass 2]: 4 sub-checks, 0 failed ? PASS) Tj ET
+BT /F1 13 Tf 50 618 Td (Plots) Tj ET
+BT /F1 10 Tf 50 624 Td (- `plots/plot_01.png` ? 1600◊1000, ABPlotV23 engine \(supersampled\)) Tj ET
+BT /F1 10 Tf 50 602 Td (- `plots/animation.gif` ? animated reveal of every plot of this test) Tj ET
+BT /F1 13 Tf 50 540 Td (Independent verification guide) Tj ET
+BT /F1 10 Tf 50 558 Td (Reproduce with: julia ab_cloud_v23.jl --test 13 --no-two-pass) Tj ET
+BT /F1 10 Tf 50 536 Td (Every computation is logged in logs/computation_log.txt \(timestamps + deltas\); raw console output in logs/stdout_capture.txt.) Tj ET
+BT /F1 13 Tf 50 462 Td (FULL COMPUTATION LOG) Tj ET
+BT /F1 7 Tf 50 492 Td ([23:57:04.365] [+615.394s]  calc: ??\(L=2.000\) = 0.381460 \(n_pos=50000, n_windows=3000, mean_count=2.00\)) Tj ET
+BT /F1 7 Tf 50 470 Td ([23:57:04.366] [+615.394s]  calc: ??\(L=4.536\) = 0.402894 \(n_pos=50000, n_windows=3000, mean_count=4.54\)) Tj ET
+BT /F1 7 Tf 50 448 Td ([23:57:04.367] [+615.395s]  calc: ??\(L=10.287\) = 0.354897 \(n_pos=50000, n_windows=3000, mean_count=10.30\)) Tj ET
+BT /F1 7 Tf 50 426 Td ([23:57:04.368] [+615.396s]  calc: ??\(L=23.331\) = 0.313517 \(n_pos=50000, n_windows=3000, mean_count=23.34\)) Tj ET
+BT /F1 7 Tf 50 404 Td ([23:57:04.369] [+615.397s]  calc: ??\(L=52.915\) = 0.353407 \(n_pos=50000, n_windows=3000, mean_count=52.91\)) Tj ET
+BT /F1 7 Tf 50 382 Td ([23:57:04.369] [+615.398s]  calc: ??\(L=120.010\) = 0.354226 \(n_pos=50000, n_windows=3000, mean_count=120.02\)) Tj ET
+BT /F1 7 Tf 50 360 Td ([23:57:04.370] [+615.398s]  calc: ??\(L=272.178\) = 0.355610 \(n_pos=50000, n_windows=3000, mean_count=272.16\)) Tj ET
+BT /F1 7 Tf 50 338 Td ([23:57:04.371] [+615.399s]  calc: ??\(L=617.292\) = 0.351103 \(n_pos=50000, n_windows=3000, mean_count=617.29\)) Tj ET
+BT /F1 7 Tf 50 316 Td ([23:57:04.372] [+615.400s]  calc: ??\(L=1400.000\) = 0.342086 \(n_pos=50000, n_windows=3000, mean_count=1399.99\)) Tj ET
+BT /F1 7 Tf 50 294 Td ([23:57:04.378] [+615.407s]  calc: ??\(L=2.000\) = 0.417134 \(n_pos=8401, n_windows=3000, mean_count=2.00\)) Tj ET
+BT /F1 7 Tf 50 272 Td ([23:57:04.379] [+615.407s]  calc: ??\(L=4.536\) = 0.484449 \(n_pos=8401, n_windows=3000, mean_count=4.53\)) Tj ET
+BT /F1 7 Tf 50 250 Td ([23:57:04.380] [+615.408s]  calc: ??\(L=10.287\) = 0.609118 \(n_pos=8401, n_windows=3000, mean_count=10.29\)) Tj ET
+BT /F1 7 Tf 50 228 Td ([23:57:04.380] [+615.408s]  calc: ??\(L=23.331\) = 0.691228 \(n_pos=8401, n_windows=3000, mean_count=23.33\)) Tj ET
+BT /F1 7 Tf 50 206 Td ([23:57:04.381] [+615.409s]  calc: ??\(L=52.915\) = 0.745288 \(n_pos=8401, n_windows=3000, mean_count=52.92\)) Tj ET
+BT /F1 7 Tf 50 184 Td ([23:57:04.381] [+615.409s]  calc: ??\(L=120.010\) = 0.783139 \(n_pos=8401, n_windows=3000, mean_count=120.02\)) Tj ET
+BT /F1 7 Tf 50 162 Td ([23:57:04.382] [+615.410s]  calc: ??\(L=272.178\) = 0.897044 \(n_pos=8401, n_windows=3000, mean_count=272.18\)) Tj ET
+BT /F1 7 Tf 50 140 Td ([23:57:04.382] [+615.410s]  calc: ??\(L=617.292\) = 0.908534 \(n_pos=8401, n_windows=3000, mean_count=617.29\)) Tj ET
+BT /F1 7 Tf 50 118 Td ([23:57:04.383] [+615.411s]  calc: ??\(L=1400.000\) = 0.811269 \(n_pos=8401, n_windows=3000, mean_count=1400.00\)) Tj ET
+BT /F1 7 Tf 50 96 Td ([23:57:04.385] [+615.413s]  calc: ??\(L=23.331\) = 0.324730 \(n_pos=50000, n_windows=3000, mean_count=23.33\)) Tj ET
+BT /F1 7 Tf 50 74 Td ([23:57:04.386] [+615.414s]  calc: ??\(L=23.331\) = 0.306048 \(n_pos=50000, n_windows=3000, mean_count=23.34\)) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents 6 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 2107 >>
+stream
+0 0 0 RG
+BT /F1 7 Tf 50 800 Td ([23:57:04.387] [+615.415s]  calc: ??\(L=23.331\) = 0.318012 \(n_pos=50000, n_windows=3000, mean_count=23.32\)) Tj ET
+BT /F1 13 Tf 50 774 Td (CONSOLE CAPTURE) Tj ET
+BT /F1 7 Tf 50 756 Td () Tj ET
+BT /F1 7 Tf 50 734 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 712 Td (TEST 13 \(secondary, HARDCORE\): Objection 2 \(extended\): Advanced RMT Diagnostics ? ?? rigidity audit) Tj ET
+BT /F1 7 Tf 50 690 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 668 Td (        L      ??_data    Poisson=L    data/Pois) Tj ET
+BT /F1 7 Tf 50 646 Td (      2.0       0.3815       2.0000       0.1907) Tj ET
+BT /F1 7 Tf 50 624 Td (      4.5       0.4029       4.5359       0.0888) Tj ET
+BT /F1 7 Tf 50 602 Td (     10.3       0.3549      10.2874       0.0345) Tj ET
+BT /F1 7 Tf 50 580 Td (     23.3       0.3135      23.3315       0.0134) Tj ET
+BT /F1 7 Tf 50 558 Td (     52.9       0.3534      52.9150       0.0067) Tj ET
+BT /F1 7 Tf 50 536 Td (    120.0       0.3542     120.0097       0.0030) Tj ET
+BT /F1 7 Tf 50 514 Td (    272.2       0.3556     272.1783       0.0013) Tj ET
+BT /F1 7 Tf 50 492 Td (    617.3       0.3511     617.2922       0.0006) Tj ET
+BT /F1 7 Tf 50 470 Td (   1400.0       0.3421    1400.0000       0.0002) Tj ET
+BT /F1 7 Tf 50 448 Td ( N2 monotone  : 0 dips >25% across 8 grid steps \(limit 1\)) Tj ET
+BT /F1 7 Tf 50 426 Td ( N3 GUE band  : 9/9 finite pairs have data/GUE ? [0.2, 5] \(limit 80%\)) Tj ET
+BT /F1 7 Tf 50 404 Td ( N4 seed noise: ??\(L=23.3\) over 3 seeds: 0.3247/0.3060/0.3180, spread=5.9% \(limit 40%\)) Tj ET
+BT /F1 7 Tf 50 382 Td (????????????????????????????????????????????????????????????) Tj ET
+BT /F1 7 Tf 50 360 Td ( N1 beat Poisson      PASS ? 9/9 L-values) Tj ET
+BT /F1 7 Tf 50 338 Td ( N2 monotone          PASS ? 0 dips) Tj ET
+BT /F1 7 Tf 50 316 Td ( N3 GUE band          PASS ? 9/9 in band) Tj ET
+BT /F1 7 Tf 50 294 Td ( N4 seed noise        PASS ? spread = 5.9%) Tj ET
+BT /F1 7 Tf 50 272 Td ( Test 13 [HARDCORE pass 2]: 4 sub-checks, 0 failed ? PASS) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000253 00000 n 
+0000004339 00000 n 
+0000004465 00000 n 
+0000006624 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+6721
+%%EOF

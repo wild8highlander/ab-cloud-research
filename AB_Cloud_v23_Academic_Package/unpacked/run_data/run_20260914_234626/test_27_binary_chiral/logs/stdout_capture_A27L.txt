@@ -1,0 +1,37 @@
+
+════════════════════════════════════════════════════════════
+TEST 27 (pass 2, HARDCORE): binary chiral symmetry — deep audit
+Exact row + ε_rms contract + vortex preservation + Coulomb W-scan
+(launch-standard lattice, 96x96 in two-pass mode)
+────────────────────────────────────────────────────────────
+ ⚠ RUNTIME: 11 builds + 11 S·H·S defect evals at 96x96 (Diagonal S, O(N²)) + ζ-50k deep statistics (O(n)) — ≈ 2–4 min
+ H1 exact row (W=0, clean):     defect = 0.00e+00 < ✓ 1e-10
+ H2 ε row (W=1.0, Nv=0):      defect = 5.77e-03 vs ε_rms = 0.0058 (analytic) ∈ [0.5, 2.0]× ✓
+ H2v vortex row (Nv=2, W=0):    defect = 0.00e+00 < 1e-10 ✓ (bond phases PRESERVE AIII)
+ W-scan (Nv=2) W=0.5: defect = 1.0052e-01
+ W-scan (Nv=2) W=1.0: defect = 2.0010e-01
+ W-scan (Nv=2) W=2.0: defect = 3.9425e-01
+ W-scan (Nv=2) W=4.0: defect = 7.4620e-01
+ H3 scan: monotone ✓, defect(W=4)/defect(W=0.5) = 7.42 ∈ [5, 12] ✓
+ Nv=0 ε-floor diagnostic (residual ε is FIXED-amplitude):
+ W-scan (Nv=0) W=0.5: defect = 5.7704e-03 ≈ ε_rms (W-independent ✓)
+ W-scan (Nv=0) W=1.0: defect = 5.7704e-03 ≈ ε_rms (W-independent ✓)
+ W-scan (Nv=0) W=2.0: defect = 5.7704e-03 ≈ ε_rms (W-independent ✓)
+ W-scan (Nv=0) W=4.0: defect = 5.7704e-03 ≈ ε_rms (W-independent ✓)
+ ζ-dictionary DEEP audit (pass 2) — full 50000-zero embedded dataset:
+ Z1 monotone (50000 zeros): min Δγ = 0.029538 → OK
+ Z2 ±E pairing (D=diag(±γₖ/2), 100000-dim): max|d+d_σ| = 0.0e+00, ‖D+ΓDΓ‖/‖D‖ = 0.00e+00, ‖Γ²v−v‖ = 0.0e+00 → EXACT AIII
+ Z3 zero modes of the dictionary: 0 (AIII index anchor; min|γₖ| = 14.1347) → OK
+ Z4 ⟨r⟩(49998 raw-gap ratios) = 0.6119 (GUE 0.5996; window ±0.020) vs Poisson control 0.3864 (same n, separation 0.225 > 0.15) → OK (GUE-class, discriminated)
+ Z5 block stationarity (5×10k): ⟨r⟩ = 0.6147, 0.6121, 0.6120, 0.6097, 0.6109, spread = 0.0050 < 0.012 → OK
+ Z6 KS: D_GUE = 0.021619 (< 0.030), D_GOE = 0.088053 → GUE-class ✓; depth diagnostic: no pass-1 baseline
+────────────────────────────────────────────────────────────
+ exact row < 1e-10    PASS — binary contract at α=1/2, W=0: 0.00e+00
+ ε_rms contract (W=1.0) PASS — defect 5.77e-03 ≈ analytic 2‖ε‖_F/‖H‖_F = 0.0058
+ vortices PRESERVE AIII PASS — defect = 0.00e+00 (Nv=2, q=±1.00, W=0) — bond phases; Byers-Yang for integer q
+ Coulomb W-scan linear PASS — Nv=2: monotone, defect 0.101→0.746, ratio 7.42 ∈ [5, 12]
+ ζ-dict exact ±E pairing PASS — 100k-dim dictionary: max|d+d_σ| = 0.0e+00, ‖D+ΓDΓ‖/‖D‖ = 0.00e+00, Γ² probe 0.0e+00, tower 0
+ ζ-50k ⟨r⟩ GUE-window + control PASS — ⟨r⟩ = 0.6119 (GUE 0.5996 ±0.020), Poisson control 0.3864, separation 0.225 > 0.15
+ ζ-50k block stationarity PASS — 5×10k blocks spread 0.0050 < 0.012
+ ζ-50k KS GUE-class   PASS — D_GUE = 0.0216 < 0.030 and < D_GOE = 0.0881 (Poisson would be ≈0.28)
+ Test 27b [HARDCORE pass 2]: 8 sub-checks, 0 failed → PASS

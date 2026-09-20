@@ -1,0 +1,24 @@
+FULL COMPUTATION LOG — test 17: Connes self-duality α↔1/α
+every log_comp() entry emitted while this test ran:
+
+[00:32:11.030] [+2722.058s]  build_ab_cloud_hamiltonian: 24x24 (N=576), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[00:32:11.825] [+2722.853s]  heevr values-only solve: N=576 (α=0.5000, torus, W=0) — zero_modes + E→-E defect одним прогоном
+[00:32:11.978] [+2723.006s]  build_ab_cloud_hamiltonian: 24x24 (N=576), α=0.3333, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[00:32:12.540] [+2723.568s]  heevr values-only solve: N=576 (α=0.3333, torus, W=0) — spectral_symmetry_defect
+[00:32:12.697] [+2723.725s]  build_ab_cloud_hamiltonian: 24x24 (N=576), α=0.5000, t=1.00, W=4.00, open, 0 vortices, model=:monumental
+[00:32:13.231] [+2724.259s]  build_ab_cloud_hamiltonian: 24x24 (N=576), α=2.0000, t=1.00, W=4.00, open, 0 vortices, model=:monumental
+[00:32:13.780] [+2724.808s]  heevr values-only solves ×2: N=576 (α=0.5000 open, W=4) + N=576 (α=2.0000 open, W=4) — connes_self_duality_defect
+[00:32:14.746] [+2725.775s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[00:32:15.470] [+2726.498s]  heevr values-only solve: N=2304 (α=0.5000, torus, W=0) — zero_modes + E→-E defect одним прогоном
+[00:32:20.921] [+2731.950s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.3333, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[00:32:21.733] [+2732.761s]  heevr values-only solve: N=2304 (α=0.3333, torus, W=0) — spectral_symmetry_defect
+[00:32:27.105] [+2738.133s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=4.00, open, 0 vortices, model=:monumental
+[00:32:27.927] [+2738.955s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=2.0000, t=1.00, W=4.00, open, 0 vortices, model=:monumental
+[00:32:28.702] [+2739.730s]  heevr values-only solves ×2: N=2304 (α=0.5000 open, W=4) + N=2304 (α=2.0000 open, W=4) — connes_self_duality_defect
+[00:32:40.319] [+2751.347s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[00:32:47.777] [+2758.805s]  heevr values-only solve: N=9216 (α=0.5000, torus, W=0) — zero_modes + E→-E defect одним прогоном
+[00:38:24.371] [+3095.399s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.3333, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[00:38:35.596] [+3106.625s]  heevr values-only solve: N=9216 (α=0.3333, torus, W=0) — spectral_symmetry_defect
+[00:44:36.057] [+3467.085s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=4.00, open, 0 vortices, model=:monumental
+[00:44:49.823] [+3480.852s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=2.0000, t=1.00, W=4.00, open, 0 vortices, model=:monumental
+[00:45:02.209] [+3493.237s]  heevr values-only solves ×2: N=9216 (α=0.5000 open, W=4) + N=9216 (α=2.0000 open, W=4) — connes_self_duality_defect
