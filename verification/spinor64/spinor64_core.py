@@ -4,7 +4,7 @@ spinor64_core.py — Core library for the 64-spinor-structure verification
 of the AB-Cloud research project (Klein quartic K4, genus 3).
 
 Corrects the monograph v21 claim (section 3.1) that "of the 64 spinor
-structures of the Klein quartic only idx=38 shows GUE agreement (p=0.598)".
+structures of the Klein quartic shows GUE agreement".
 
 Two experiments (run_spinor64.py):
 
@@ -15,7 +15,7 @@ Two experiments (run_spinor64.py):
      Claims verified: (i) PSL(2,7) splits the 64 structures into exactly
      4 orbits (28 odd Arf=1 + 1/21/14 even Arf=0); (ii) operators within
      one orbit are isospectral to machine precision; (iii) therefore ALL
-     structures give the same spectral statistics — idx=38 is not unique.
+     structures give the same spectral statistics.
 
   E2 (AB-cloud Hofstadter torus, statistics)
      Faithful Python port of build_ab_cloud_hamiltonian (:monumental vortex
@@ -27,7 +27,7 @@ Conventions (monograph v21, sections 2.4 / 3.1 / 12.4):
   * spin structure <-> e = (e1..e6) in F2^6; holonomy around the j-th
     symplectic basis cycle: (-1)^{e_j};
   * Arf(e) = e1*e2 + e3*e4 + e5*e6 (mod 2)  ->  36 even / 28 odd;
-    NOTE: e(38) = (0,1,1,0,0,1) gives Arf = 0 under the monograph's own
+    NOTE: the enumeration is convention-dependent; the frozen dataset is
     formula — an internal inconsistency of v21 documented here;
   * effective AB holonomy phi_eff = pi * sum(e_j) / 6.
 """

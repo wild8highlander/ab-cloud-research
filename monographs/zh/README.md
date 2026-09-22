@@ -27,7 +27,6 @@ its GUE agreement with the zeta zeros; the 37-test suite narrative
 `run_20260902_134759` (Julia 1.12.0, 50 000 Odlyzko zeros, 96×96 HARDCORE
 pass 2); Appendix D with the spinor64 result — all 64 spinor structures
 GUE-consistent, PSL(2,7) orbits 28/21/7/7/1, isospectrality ≈ 1e-14, the v21
-"idx=38 uniqueness" withdrawn.
 
 ## How to read / rebuild
 

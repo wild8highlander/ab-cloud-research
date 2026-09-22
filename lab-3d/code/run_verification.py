@@ -23,7 +23,7 @@ KEY DESIGN DECISIONS:
 
 6. Direct R₂(s) Montgomery pair-correlation check.
 
-7. 64 spinor structures + Arf invariant + idx=38 verification.
+7. 64 spinor structures + Arf invariant verification.
 
 8. σ-scan for σ* = 1/2.
 
@@ -61,7 +61,7 @@ from python.ab_cloud_stats import (
     bootstrap_mean, sigma_r_bk_correct,
     wigner_dyson_pdf,
 )
-from python.ab_cloud_spinor import classify_all_spinors, check_idx38, psl27_action_on_spinors_quick
+from python.ab_cloud_spinor import classify_all_spinors, psl27_action_on_spinors_quick
 from python.ab_cloud_sigma import sigma_scan
 from python.ab_cloud_dirac import (
     dirac_cone_spectrum, check_linear_dispersion,
@@ -729,31 +729,21 @@ def V24_f_gue_two_sided_plot(ver: Verifier):
 
 
 # ============================================================
-# V25: 64 spinor structures + Arf invariant + idx=38
+# V25: 64 spinor structures + Arf invariant
 # ============================================================
 def V25_spinor_structures(ver: Verifier):
     info = classify_all_spinors(g=3)
-    idx38_info = check_idx38(g=3)
-    # use the Arf under ANY standard convention as the test value
-    arf_any = (1 if idx38_info["claim_idx38_is_odd_under_some_convention"] else 0)
-    info["arf_idx38"] = arf_any
     path = plots.plot_spinor_arf_distribution(PLOTS_DIR, info)
     ver.plots.append(("V25", path))
     # CORRECTED count: even=36, odd=28 (v17 had it backwards)
-    expected_counts = {"n_total": 64, "n_even": 36, "n_odd": 28}
     counts_ok = (info["n_total"] == 64 and info["n_even"] == 36 and info["n_odd"] == 28)
-    idx38_ok = idx38_info["claim_idx38_is_odd_under_some_convention"]
-    status = "PASS_NOVEL" if (counts_ok and idx38_ok) else "FAIL"
-    ver.add("V25", "64 spinor structures on genus-3 surface; idx=38 odd under some convention",
-            value=f"total={info['n_total']}, even={info['n_even']}, odd={info['n_odd']}, "
-                  f"Arf(idx=38,lex)={idx38_info['arf_under_lex_convention']}, "
-                  f"Arf(idx=38,rev-lex)={idx38_info['arf_under_reverse_lex_convention']}, "
-                  f"Arf(idx=38,hamming)={idx38_info['arf_under_hamming_convention']}",
-            expected="total=64, even=36, odd=28, idx=38 odd under ≥1 convention",
+    status = "PASS_NOVEL" if counts_ok else "FAIL"
+    ver.add("V25", "64 spinor structures on genus-3 surface",
+            value=f"total={info['n_total']}, even={info['n_even']}, odd={info['n_odd']}",
+            expected="total=64, even=36, odd=28",
             status=status,
             notes="CRITICAL check that v17 completely missed. Note: the standard count is "
-                  "even=36 (not 28), odd=28 (not 36) — v17 had these swapped. The idx=38 "
-                  "'odd' claim depends on enumeration convention.")
+                  "even=36 (not 28), odd=28 (not 36) — v17 had these swapped.")
 
 
 # ============================================================

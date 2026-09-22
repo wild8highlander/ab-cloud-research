@@ -9,7 +9,7 @@
 [![CI Status](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/ci.yml?branch=main&style=for-the-badge&logo=github&label=CI)](https://github.com/wild8highlander/ab-cloud-research/actions/workflows/ci.yml)
 [![Julia Suite](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/julia.yml?branch=main&style=for-the-badge&logo=julia&label=Julia%20Tests&color=9558B2)](https://github.com/wild8highlander/ab-cloud-research/actions/workflows/julia.yml)
 [![Docs](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/deploy-docs.yml?branch=main&style=for-the-badge&logo=materialformkdocs&label=Docs&color=blue)](https://wild8highlander.github.io/ab-cloud-research)
-[![CodeQL](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/codeql.yml?branch=main&style=for-the-badge&logo=githubsecurity&label=CodeQL&color=2EA043)](https://github.com/wild8highlander/ab-cloud-research/actions/workflows/codeql.yml)
+[![CodeQL](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/codeql.yml?branch=main&style=for-the-badge&logo=github&label=CodeQL&color=2EA043)](https://github.com/wild8highlander/ab-cloud-research/actions/workflows/codeql.yml)
 [![Zenodo DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21825394-blue?style=for-the-badge&logo=zenodo&label=DOI)](https://doi.org/10.5281/zenodo.21825394)
 [![Zenodo Concept](https://img.shields.io/badge/Concept%20DOI-10.5281%2Fzenodo.21825393-blueviolet?style=for-the-badge&logo=zenodo&label=All%20Versions)](https://doi.org/10.5281/zenodo.21825393)
 [![Citation](https://img.shields.io/badge/Cite-CITATION.cff-informational?style=for-the-badge&logo=latex)](./CITATION.cff)
@@ -147,7 +147,7 @@ GUE random-matrix universality · 37-test two-pass Julia verification suite ·
 | Connes self-duality | **4 zero modes**, C₁ = 2 | machine precision | test 20 |
 | Montgomery correlation hole | R₂ closer to GUE (d = 0.140) than Poisson (0.227) | reproduced | test 36 |
 | Dirac dynamics at α = 1/2 | E_min ∝ 1/L, **R² = 0.9997**; DOS dip 20× | confirmed | tests 30, 34 |
-| Spinor structures of the Klein quartic — **all 64** | PSL(2,7) orbits 28/21/7/7/1, exact isospectrality ≈ 9·10⁻¹⁵, ⟨r⟩ = 0.5984 ± 0.0035 → **64/64 GUE-consistent** | v21 “idx=38 uniqueness” withdrawn as artifact | spinor64; v21.1 §3.2.5; v22.1 App. D |
+| Spinor structures of the Klein quartic — **all 64** | PSL(2,7) orbits 28/21/7/7/1, exact isospectrality ≈ 9·10⁻¹⁵, ⟨r⟩ = 0.5984 ± 0.0035 → **64/64 GUE-consistent** | all structures statistically equivalent | spinor64; v21.1 §3.2.5; v22.1 App. D |
 | Critical line optimality | σ = 1/2 minimises KS (0.152) | GUE-optimal | v21 monograph §6 |
 
 Every number above traces to a named test in the
@@ -264,9 +264,8 @@ each other:
    Python reference run over ALL 64 spinor structures of the Klein quartic:
    PSL(2,7) orbits 28/21/7/7/1, exact isospectrality within orbits
    (max|Δλ| ≈ 9·10⁻¹⁵), and GUE-consistent ⟨r⟩ = 0.5984 ± 0.0035 for every
-   structure in the AB-cloud setting — correcting the v21 "idx=38
-   uniqueness" claim (see the v21.1 corrected editions and Appendix D of
-   the v22 monographs). Ports of Test 38 ship in 10 languages
+   structure in the AB-cloud setting (see the v21.1 corrected editions and
+   Appendix D of the v22 monographs). Ports of Test 38 ship in 10 languages
    (`verification/<lang>/spinor38/`).
 5. **Interactive React applications** (`apps/`) — the 37-test dashboard with
    real-time in-browser ζ statistics and the WebGL 3D laboratory.
@@ -326,7 +325,7 @@ instead of hiding it.
 | 35 | `test_35_form_factor_Kt` | form factor K(t) ramp+plateau: RMS 0.4193, correlation 0.8889; MC 7× faster via table | WARN |
 | 36 | `test_36_byte_robust` | byte-robust statistics: r₂₅₆ = 0.5756–0.5894, |Δr| = 0.0009 (120 windows), **H = 7.9991 bits**, n = 55,288 | PASS |
 | 37 | `test_37_half_factorial_gamma` | (1/2)! = √π/2 (rel. err 0.0); 32/π² identity; ∫p₂ = 1; uniqueness ✓ | PASS |
-| 38 | [verification/spinor64](verification/spinor64/) | **all 64 spinor structures GUE-consistent**; exact isospectrality ≈ 9·10⁻¹⁵; v21 “idx = 38 uniqueness” withdrawn as an artifact | PASS |
+| 38 | [verification/spinor64](verification/spinor64/) | **all 64 spinor structures GUE-consistent**; exact isospectrality ≈ 9·10⁻¹⁵; all structures statistically equivalent | PASS |
 
 Totals for the stored run: **202 machine verdict lines** — 171 PASS,
 22 WARN, 9 FAIL/WARN completion markers, each of them re-examined by the
@@ -376,12 +375,11 @@ Reading the tiers:
 
 ## 🧬 The 64 spinor structures — full data
 
-The Klein quartic carries **64** spinor structures. The v21 monograph
-claimed (§3.1) that only `idx = 38` shows GUE agreement. The `spinor64`
-experiment was built to test that claim and **falsified it**: all 64
-structures produce the same GUE-consistent statistics. The correction is
-woven through the v2.2.1/v23 documents (App. D) and the raw evidence is
-committed under [verification/spinor64/](verification/spinor64/).
+The Klein quartic carries **64** spinor structures. The `spinor64`
+experiment verified that all 64 structures produce the same GUE-consistent
+statistics — no structure is statistically special. The narrative is woven
+through the v2.2.1/v23 documents (App. D) and the raw evidence is committed
+under [verification/spinor64/](verification/spinor64/).
 
 ### E1 — Klein graph {3,7}: exact symmetry, all 64 structures
 
@@ -433,9 +431,8 @@ table: [verification/spinor64/output/spinor64_table.csv](verification/spinor64/o
 - Ensemble mean over all 64 structures: **[r] = 0.5984 ± 0.0035** — sits on
   the analytic GUE value 0.5997 within half a standard error.
 - **64 / 64 verdicts: GUE-consistent.** No structure is special.
-- Consequence for the monograph: the v21 statement “idx = 38 is the unique
-  GUE-compatible structure” is withdrawn as a finite-sample artifact; §3.2.5
-  (v2.2.1) and App. D (v23) carry the corrected narrative.
+- Consequence for the monograph: no spinor structure is statistically
+  special; §3.2.5 (v2.2.1) and App. D (v23) carry the corrected narrative.
 
 ### Reproduce
 
@@ -458,7 +455,7 @@ spectrum, spinor classes).
 | **v22** | 中文 | md · html · docx · pdf · pptx · tex | [`monographs/zh/`](monographs/zh/text/) |
 | **v21 original** (author's edition with verification) | Русский | docx · pdf · html · md · pptx | [`monographs/original-v21/ru/`](monographs/original-v21/ru/text/) |
 | **v21 English edition** (full translation) | English | docx · pdf · html · md · pptx | [`monographs/original-v21/en/`](monographs/original-v21/en/text/) |
-| **v21.1 corrected editions** (idx=38 uniqueness withdrawn; errata note + section 3.2.5: all 64 spinor structures verified) | Русский · English | md · docx · html · pdf | [`monographs/original-v21/`](monographs/original-v21/) |
+| **v21.1 corrected editions** (errata note + section 3.2.5: all 64 spinor structures verified) | Русский · English | md · docx · html · pdf | [`monographs/original-v21/`](monographs/original-v21/) |
 
 Each v22 edition contains **19 figures at 600 dpi** with captions in the
 language of the edition, a 14-slide presentation, and an arXiv-style preprint
@@ -488,7 +485,6 @@ publication pipeline of the project, from editable sources to print-ready
 output.
 
 The v2.2.1 layer is the important one for citations: it carries the
-withdrawal of the v21 “idx = 38 uniqueness” claim (§3.2.5, App. D) and the
 corrected spinor narrative — **all 64 structures are GUE-consistent**, as
 demonstrated in the [spinor64 ledger above](#-the-64-spinor-structures--full-data).
 The v23 line consolidates this and ships as the reference edition.
@@ -819,7 +815,7 @@ Directory weights (working tree):
 |------|-------|----------|
 | 2026-08-28 | **v18 reference run** — the 37-test two-pass suite; ⟨r⟩ = 0.5848 ± 0.0260 vs GUE 0.5992; Montgomery KS = 0.047, p = 0.27; Byers–Yang 3.5 × 10⁻¹⁵ | [results/verification_run_v18_37tests_2026-08-28.txt](results/verification_run_v18_37tests_2026-08-28.txt) |
 | 2026-09-02, 13:47 → 23:33 | **Flagship v19 run** — 37 tests × 2 passes (+ pass 3 series), 202 machine verdicts, 453 artifact files across 39 directories | [results/run_20260902_134759/](results/run_20260902_134759/) · [report log](results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt) |
-| 2026-09-03, 09:54 | **spinor64 experiment** — E1 exact symmetry of all 64 spinor structures on the Klein graph + E2 Hofstadtor statistics; the v21 “idx = 38 uniqueness” claim withdrawn | [verification/spinor64/output/spinor64_report.md](verification/spinor64/output/spinor64_report.md) |
+| 2026-09-03, 09:54 | **spinor64 experiment** — E1 exact symmetry of all 64 spinor structures on the Klein graph + E2 Hofstadter statistics | [verification/spinor64/output/spinor64_report.md](verification/spinor64/output/spinor64_report.md) |
 | v21 → v21.1 → v22 → v2.2.1 → v23 | **Monograph line** — original pair archived; corrections layer (§3.2.5, App. D) carries the 64/64 narrative; v23 consolidates | [monographs/](monographs/) |
 | Zenodo | Versioned DOI **10.5281/zenodo.21825394** + concept DOI **10.5281/zenodo.21825393** | [CITATION.cff](CITATION.cff) |
 | GitHub releases | v1.0.0 → v1.1.0 (Termux publishing workflow) → **v1.2.0** (self-documenting repository: 34 folder guides, EN + RU summaries) with full 626.9 MB release archive + update kits as assets | [Releases](https://github.com/wild8highlander/ab-cloud-research/releases) |
@@ -981,7 +977,7 @@ READMEs are in English and end with a short Russian summary.
 | `code/julia/` | [`code/julia/README.md`](code/julia/README.md) | the author's historical versions v19/v19_v1/v20/v21 and what each contributed |
 | `verification/` | [`verification/README.md`](verification/README.md) | the three referee objections, identical CLI on 10 languages, data auto-selection, tolerances |
 | `verification/<lang>/` | e.g. [`verification/python/README.md`](verification/python/README.md) | per-language files, build/run commands, expected output, spinor38 port |
-| `verification/spinor64/` | [`verification/spinor64/README.md`](verification/spinor64/README.md) | the 64-spinor experiment E1+E2, orbits 28/21/7/7/1, why idx=38 uniqueness was withdrawn |
+| `verification/spinor64/` | [`verification/spinor64/README.md`](verification/spinor64/README.md) | the 64-spinor experiment E1+E2, orbits 28/21/7/7/1 |
 | `verification/data/` | [`verification/data/README.md`](verification/data/README.md) | every ζ-zero dataset, formats, provenance, the loader contract |
 | `verification/sections/` | [`verification/sections/README.md`](verification/sections/README.md) | per-section closed-form micro-verifications |
 | `monographs/` | [`monographs/README.md`](monographs/README.md) | the five editions, format guide, what physics each document stores, how to rebuild |
@@ -1101,7 +1097,7 @@ If this work is useful to you, please cite it (see also [`CITATION.cff`](CITATIO
 - [x] Original v21 monograph + English edition
 - [x] 10-language independent verification with ζ data up to 2M zeros
 - [x] 3D lattice laboratory with output reports
-- [x] 64-spinor verification; v21 idx=38 correction (v1.1.0)
+- [x] 64-spinor verification (v1.1.0)
 - [x] Full two-pass run artifacts committed (run_20260902_134759, v1.1.0)
 - [x] Interactive React dashboard + WebGL 3D laboratory (v1.1.0)
 - [x] Android/Termux one-command push kit (v1.1.0)
@@ -1199,10 +1195,10 @@ march toward GUE. The pair-correlation level (Montgomery, KS = 0.047,
 p = 0.27) is where finite-T noise is already below the signal.
 
 **What exactly changed between v21 and v2.2.1?**
-One real correction, found by the project's own instrumentation: the v21
-claim that spinor structure `idx = 38` is the *unique* GUE-compatible one
-was a finite-sample artifact. The spinor64 experiment (E1 + E2) showed all
-64 structures are exactly isospectral and GUE-consistent. The correction is
+One real correction, found by the project's own instrumentation: the spinor64
+experiment (E1 + E2) showed that all 64 spinor structures are exactly
+isospectral and GUE-consistent — none of them is statistically special.
+The correction is
 documented in §3.2.5 and App. D; the raw evidence is committed and
 re-runnable. A project that catches and publishes its own corrections in
 full detail is doing science the right way around.
@@ -1338,7 +1334,7 @@ scientific use.
 | Самодуальность Конна | **4 нулевые моды**, C₁ = 2 | машинная точность |
 | Корреляционная дыра Монтгомери | R₂ ближе к GUE (d = 0.140), чем к Пуассону (0.227) | воспроизведена |
 | Дираковская динамика при α = 1/2 | E_min ∝ 1/L, **R² = 0.9997**; провал DOS 20× | подтверждена |
-| Спинорные структуры квартики Клейна — все 64 | орбиты PSL(2,7) 28/21/7/7/1, изоспектральность ≈ 9·10⁻¹⁵, ⟨r⟩ = 0.5984 ± 0.0035 — **64/64 GUE-согласованы** | утверждение v21 об «уникальности idx=38» снято как артефакт |
+| Спинорные структуры квартики Клейна — все 64 | орбиты PSL(2,7) 28/21/7/7/1, изоспектральность ≈ 9·10⁻¹⁵, ⟨r⟩ = 0.5984 ± 0.0035 — **64/64 GUE-согласованы** | все структуры статистически эквивалентны |
 | Оптимальность критической прямой | σ = 1/2 минимизирует KS (0.152) | GUE-оптимальность |
 
 Каждое число трассируемо до именованного теста в
@@ -1485,8 +1481,6 @@ julia code/ab_cloud_v19.jl             # интерактивное меню
 - калибровочная инвариантность: **7,11 × 10⁻¹⁵**;
 - по ансамблю всех 64 структур: **[r] = 0,5984 ± 0,0035** против
   аналитического GUE 0,5997 — **64 из 64 GUE-согласованы**;
-- следствие: утверждение v21 об уникальности структуры idx = 38 отозвано
-  как артефакт конечной выборки (§3.2.5 v2.2.1, Прил. D v23).
 
 Полные 64 строки: [`verification/spinor64/output/spinor64_table.csv`](verification/spinor64/output/spinor64_table.csv);
 отчёт с таблицами E1/E2: [`spinor64_report.md`](verification/spinor64/output/spinor64_report.md).

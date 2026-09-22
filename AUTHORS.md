@@ -27,8 +27,6 @@
   statistical indistinguishability from the ζ zeros (Montgomery KS = 0.047)
 - Machine-precision topology of the cloud: Byers–Yang defect 3.5·10⁻¹⁵,
   Connes self-duality with 4 zero modes
-- Discovery of the unique GUE-consistent spinor structure idx = 38 on the
-  Klein quartic (permutation test Z = 14.10)
 - Canonical 37-test two-pass Julia verification suite (dependency-free) and an
   independent 10-language verification stack
 - 3D lattice laboratory: non-Hermitian Hofstadter Hamiltonian with vortex

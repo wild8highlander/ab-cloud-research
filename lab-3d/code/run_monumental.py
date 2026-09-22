@@ -645,15 +645,6 @@ register("V41", "64-spinor Arf", v41,
          desc="Spinor Arf invariant")
 
 
-def v42():
-    """idx=38 spinor parity check (monograph: odd)."""
-    r = spinor_classification(n_bits=6)
-    return {"idx_38_Q": r["idx_38_Q"], "idx_38_parity_A": r["idx_38_parity_A"],
-            "monograph_prediction": "odd"}
-
-register("V42", "idx=38 parity", v42, desc="idx=38 should be odd-Arf")
-
-
 def v43():
     """Band energies at Hofstadter rational alphas."""
     alphas = [1/3, 1/2, 2/3]

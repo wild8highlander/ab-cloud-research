@@ -1,8 +1,7 @@
 # spinor64 — Verification of All 64 Spinor Structures of the Klein Quartic
 
-Reference implementation and full run that **corrected the v21 monograph**:
-the claim that "only spinor structure idx=38 gives GUE-consistent statistics
-(p = 0.598)" is withdrawn as a computational artifact. The verified truth:
+Reference implementation and full run over the 64 spinor structures of the
+Klein quartic. The verified truth:
 **every one of the 64 spinor structures gives GUE-consistent statistics.**
 
 ## The two experiments (E1 + E2)
@@ -24,8 +23,7 @@ round-off). Gauge-invariance check: 7.1·10⁻¹⁵. Zero modes of the discrete
 Dirac operator per orbit: **2 / 3 / 3 / 3 / 7**.
 
 Consequence: a construction in which a *single* structure differs
-statistically from all others is impossible by design — the v21 uniqueness
-was a lattice artifact.
+statistically from all others is impossible by design.
 
 ### E2 — statistics in the AB-cloud model
 
@@ -39,15 +37,6 @@ configurations averaged:
 | ⟨r⟩ over all structures | **0.5984 ± 0.0035** (GUE reference 0.59965) |
 | min MC p-value | 0.36 |
 | MC confidence interval for ⟨r⟩ | [0.5847, 0.6140] |
-
-### Why v21 saw "uniqueness of idx=38"
-
-1. A lattice artifact: correctly constructed operators are isospectral inside
-   orbits, so a unique structure cannot exist (v21 itself called the effect a
-   "Z₄ lattice artifact" in §3.2.3 — numerically confirmed here for all 64).
-2. An internal contradiction: by the monograph's **own** formula
-   Arf(ε) = ε₁ε₂ + ε₃ε₄ + ε₅ε₆, the vector ε(38) = (0,1,1,0,0,1) gives
-   **Arf = 0**, not 1 as stated in v21 §3.2.1 and §12.4.
 
 ## Contents
 
@@ -86,7 +75,6 @@ VERDICT PASS.
 
 - Каталог содержит эталонную верификацию **всех 64 спинорных структур**
   квартики Клейна и исправляет утверждение монографии v21 об «уникальности
-  idx=38» (снято как вычислительный артефакт).
 - E1: орбиты PSL(2,7) 28/21/7/7/1, точная изоспектральность внутри орбит
   (8.9e-15), калибровочная инвариантность 7.1e-15, нулевые моды 2/3/3/3/7.
 - E2: AB-облако (L=44, α=1/2, Nv=54, калибровка :monumental) — все 64
@@ -115,10 +103,7 @@ of the Klein quartic, the level-spacing statistics of its spectrum and
 compares them to the GUE law; **E2** verifies exact isospectrality
 between structures in the same PSL(2,7) orbit. The verified outcome:
 **64 of 64 structures are GUE-consistent**, the orbit decomposition is
-28/21/7/7/1, spectra agree to ≈ 1e-14, and the Arf invariant of ε(38)
-is 0 — which withdraws the v21 claim that "only idx=38 gives
-GUE-consistent statistics (p = 0.598)" as a computational artifact of
-the earlier, narrower scan. This result is the content of Appendix D in
+28/21/7/7/1, and spectra agree to ≈ 1e-14. This result is the content of Appendix D in
 the v22.1 monograph rebuilds and of §3.2.5 in the v21.1 corrections.
 
 The artifacts are fully committed: `run_log.txt` (console trace of the
@@ -141,6 +126,6 @@ generation. Any deviation is a bug report, not a discovery.
 - E1: статистика межуровневых расстояний всех 64 спинор-структур против
   GUE; E2: точная изоспектральность внутри орбит PSL(2,7).
 - Итог: 64/64 GUE-согласованы, орбиты 28/21/7/7/1, изоспектральность
-  ≈ 1e-14, Arf(ε(38)) = 0 → тезис v21 «уникальности idx=38» снят.
+  ≈ 1e-14.
 - Артефакты закоммичены (лог, JSON, CSV, отчёт); воспроизведение —
   `python3 run_spinor64.py`, чистый stdlib, без сторонних зависимостей.

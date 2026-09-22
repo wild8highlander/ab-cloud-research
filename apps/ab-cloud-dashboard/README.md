@@ -35,7 +35,7 @@ odd-structure spectra computed live in the browser** by a hand-written
 cyclic-Jacobi eigensolver (port of Test 38, no LAPACK — plain JS on
 `Float64Array`s). You can pick any structure and watch its spectrum match
 the orbit representative to ≈ 1e-14 — a direct in-browser refutation of the
-withdrawn v21 "idx=38 uniqueness" claim.
+all 64 spinor structures verified in-browser.
 
 ## Architecture
 

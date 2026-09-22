@@ -1,4 +1,8 @@
 site_name: AB-Cloud Research
+# docs/README.md is repo-facing meta-doc; keep it out of the site
+# (it conflicts with index.md and breaks `mkdocs build --strict`).
+exclude_docs: |
+  README.md
 site_description: "AB-Cloud — a phase resonator for the zeros of the Riemann zeta function: monographs, 37-test Julia suite, 10-language verification, 3D lattice lab."
 site_author: "Isaev Iskhak Khamzatovich"
 site_url: "https://wild8highlander.github.io/ab-cloud-research"

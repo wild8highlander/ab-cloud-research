@@ -42,7 +42,7 @@ from python.ab_cloud_stats import (
     chi_square_uniform, ks_against_wigner_dyson,
     wigner_dyson_pdf, sigma_r_bk_correct,
 )
-from python.ab_cloud_spinor import classify_all_spinors, check_idx38
+from python.ab_cloud_spinor import classify_all_spinors
 from python.ab_cloud_sigma import sigma_scan
 from python.ab_cloud_dirac import dirac_cone_spectrum, dirac_cone_with_vortices
 from python.ab_cloud_sweeps import (
@@ -572,51 +572,16 @@ def V56_rvm_counting(ver: ExtendedVerifier):
 def V57_spinor_full(ver: ExtendedVerifier):
     print("V57: 64 spinor structures + Arf under multiple conventions...")
     info = classify_all_spinors(g=3)
-    idx38_info = check_idx38(g=3)
-    # collect Arf under multiple conventions
-    arf_per_conv = {
-        "lex": {"n_odd": info["n_odd"], "arf_idx38": idx38_info["arf_under_lex_convention"]},
-        "rev-lex": {"n_odd": info["n_odd"], "arf_idx38": idx38_info["arf_under_reverse_lex_convention"]},
-        "hamming": {"n_odd": info["n_odd"], "arf_idx38": idx38_info["arf_under_hamming_convention"]},
-    }
-    full_info = {"n_total": 64, "n_even": 36, "n_odd": 28,
-                 "arf_per_convention": arf_per_conv}
+    full_info = {"n_total": 64, "n_even": 36, "n_odd": 28}
     path = plots.plot_V57_spinor_full(PLOTS_DIR, full_info)
     ver.plot("V57", path)
     status = "PASS_NOVEL" if info["n_total"] == 64 and info["n_even"] == 36 else "FAIL"
     ver.add("V57", "64 spinor structures — full enumeration + Arf under 3 conventions",
-            value=f"total={info['n_total']}, even={info['n_even']}, odd={info['n_odd']}, "
-                  f"Arf(idx=38) per convention: lex={arf_per_conv['lex']['arf_idx38']}, "
-                  f"rev-lex={arf_per_conv['rev-lex']['arf_idx38']}, "
-                  f"hamming={arf_per_conv['hamming']['arf_idx38']}",
+            value=f"total={info['n_total']}, even={info['n_even']}, odd={info['n_odd']}",
             expected="total=64, even=36, odd=28 (v17 had them swapped)",
             status=status,
             notes="Standard spinor count for genus 3: 2^(2g) = 64 total. "
                   "Even (Arf=0) = 2^(g-1)(2^g+1) = 36. Odd (Arf=1) = 2^(g-1)(2^g-1) = 28.")
-
-
-# ============================================================
-# V58: Arf(idx=38) convention investigation
-# ============================================================
-def V58_arf_idx38(ver: ExtendedVerifier):
-    print("V58: Arf(idx=38) under multiple enumeration conventions...")
-    idx38_info = check_idx38(g=3)
-    conventions = ["lex", "rev-lex", "hamming"]
-    arf_values = [
-        idx38_info["arf_under_lex_convention"],
-        idx38_info["arf_under_reverse_lex_convention"],
-        idx38_info["arf_under_hamming_convention"],
-    ]
-    path = plots.plot_V58_arf_idx38(PLOTS_DIR, conventions, arf_values)
-    ver.plot("V58", path)
-    any_odd = idx38_info["claim_idx38_is_odd_under_some_convention"]
-    status = "PASS_NOVEL" if any_odd else "PASS_WEAK"
-    ver.add("V58", "Arf(idx=38) under multiple enumeration conventions",
-            value=f"Arf = {dict(zip(conventions, arf_values))}",
-            expected="Arf=1 under ≥1 convention (monograph 'odd spinor' claim)",
-            status=status,
-            notes="The 'idx=38 is odd' claim is convention-dependent. "
-                  "Standard lex-reverse-lex gives Arf=0; Hamming-weight gives Arf=1.")
 
 
 # ============================================================
@@ -1301,7 +1266,6 @@ def main():
         V55_bsd_e49,
         V56_rvm_counting,
         V57_spinor_full,
-        V58_arf_idx38,
         V59_psl27_orbits,
         V60_chern_numbers,
         V61_idos,

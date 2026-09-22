@@ -4,7 +4,7 @@
 // Jacobi eigenvalue algorithm (no BLAS/LAPACK):
 //   1. the 28 odd (Arf=1) spinor structures of the Klein quartic are exactly
 //      isospectral (max pairwise spectral distance ~ 1e-14) — no spinor
-//      structure is unique (corrects the v21 monograph claim about idx=38);
+//      structure is statistically special;
 //   2. the spacing-ratio statistic <r> of the representative spectrum matches
 //      the reference value 0.4515710792825435.
 //

@@ -97,7 +97,6 @@ The correction $b(N)$ arises in the analytic treatment of zero-pair correlations
 
 ![**Fig. 1.** Convergence of the $b(N)$ correction: data and two competing fits (power law and $1/\ln N$). The critics' $N^{-1/2}$ expectation is excluded by the data.](../figures/fig01_bN_convergence.png)
 
-
 **Log–log regression** (Test 3) over the grid $N\in[50;25600]$ gives $b(N) \approx 7.03\,N^{-0.1685}$, $R^2 = 0.9895$, slope standard error $0.0043$. The **extended regression up to $N=32000$** (Test 7) gives slope $-0.1504$ with a 95% confidence interval $[-0.1594;-0.1414]$, $R^2 = 0.9954$ — consistent. The **bootstrap** (Test 9, 1000 resamples with replacement) gives a median slope of $-0.1746$ and a 95% interval $[-0.1895;-0.1552]$. A detail that usually escapes notice: the **alternative** parametrization $b(N) \approx -0.40 + 16.84/\ln N$ describes the data better than the power law ($R^2 = 0.9999$ vs. $0.9954$ in Test 7). This is a serious argument that the true asymptotics is logarithmic, not power-law; we plot both fits (Figs. 1 and 3) and do not adjudicate between them, since on the available range of $N$ they cannot be definitively separated. Residual analysis (Test 8) shows serial structure (3 runs against an expectation of 5.8 for randomness; lag-1 autocorrelation $0.68$) — the data "bend" around the power-law fit exactly as a logarithmic form prescribes, consistent with the two-fit picture.
 
 The practical conclusion of the block: on samples $N\le5\cdot10^4$ the correction $b(N)$ remains of order unity (from $2.39$ at $N=500$ down to $1.28$ at $N=32000$) — finite-sample effects in ζ statistics are large, and any "GUE or not" test that ignores $b(N)$ is simply invalid at these heights.
@@ -106,9 +105,7 @@ The practical conclusion of the block: on samples $N\le5\cdot10^4$ the correctio
 
 ![**Fig. 2.** Histogram of 49,999 ζ-zero spacings against the Wigner surmises (GUE, GOE) and the Poisson exponential: a typically "matrix-like" shape with level repulsion.](../figures/fig02_spacing_hist.png)
 
-
 ![**Fig. 3.** The KS statistic $D$ against the lower cutoff $T_{\min}$: a slow drift toward the critical line — the numerical expression of GUE asymptoticity.](../figures/fig05_ks_convergence.png)
-
 
 Tests 4, 5, 6, and 11 state the reviewers' objection in its strongest form and test it honestly. On the full sample of 49,999 spacings, the KS statistic against GUE is $D = 0.0881$ against a critical value of $0.0061$ — a fourteenfold excess, $H_0$ (GUE) rejected with $p\approx10^{-300}$. The chi-square test on histograms with 150/300/600 bins gives $\chi^2 = 6170/6276/6384$ at 149/295/550 degrees of freedom — rejection at all scales. Anderson–Darling on 5,000 spacings against the analytic GUE CDF gives $A^2 = 117.7$ against a Monte-Carlo 95th percentile of $16.6$ ($p\approx0$ over 2000 simulations).
 
@@ -118,15 +115,11 @@ It would be a mistake to read this as a refutation of the GUE hypothesis for the
 
 ![**Fig. 4.** The two fits of the $b(N)$ decay in log coordinates: power law and $1/\ln N$; the systematic bend of residuals points to a logarithmic asymptote.](../figures/fig03_decay_fits.png)
 
-
 ![**Fig. 5.** Bootstrap distribution of the slope (1,000 replicates): the 95% CI is $[-0.190;-0.155]$; the value $-0.5$ lies far outside.](../figures/fig04_bootstrap_slope.png)
-
 
 ![**Fig. 6.** Number variance $\Sigma^2(L)$: the data (flat) against logarithmic GUE and linear Poisson — closer to GUE in 9/9 points.](../figures/fig06_sigma2_L.png)
 
-
 ![**Fig. 7.** Spectral rigidity $\Delta_3(L)$: super-rigidity of the data relative to even the simulated GUE at large $L$.](../figures/fig07_delta3_L.png)
-
 
 The most informative results of the block come from $\Sigma^2(L)$ and $\Delta_3(L)$ (Tests 13, 14). On a nine-point grid $L\in[2;1400]$, the zero data give $\Sigma^2 \approx 0.33\text{–}0.41$ — essentially constant — while the Poisson prediction grows linearly to 1400 and the simulated GUE reference grows logarithmically to $0.61\text{–}0.72$. The data are closer to GUE than to Poisson in all 9/9 points; but they are **stiffer** (smaller) than even the simulated GUE at large $L$ — the relative excess of the data's $\Delta_3$ over the GUE reference falls from $0.99$ at $L=2$ to $0.48$ at $L=1400$. Such super-rigidity is a known feature of the actual ζ zeros (spectral rigidity of arithmetic systems exceeds the matrix one), and artifacts of unfolding would inflate $\Delta_3$ and $\Sigma^2$ rather than deflate them — so their reproduction is an independent certificate of unfolding quality.
 
@@ -139,7 +132,6 @@ Before speaking of statistics, the construction must be exact. Test 15 checks on
 ## 4.2 Byers–Yang: Integer Vortices Are Invisible, Fractional Ones Are Physical
 
 ![**Fig. 8.** The Byers–Yang test: integer charge is spectrally invisible ($3.5\cdot10^{-15}$), fractional charge is physical ($0.34$); log scale.](../figures/fig14_byers_yang.png)
-
 
 **The Byers–Yang theorem** (1961) in its lattice formulation states: the spectrum is periodic under the addition of an integer flux quantum per plaquette — an integer-charge vortex can be "gauged away" by a unitary site transformation changing only phases. Test 25 measures this directly: two random configurations of four neutral vortices $q=\pm1$ on $16\times16$ with open boundaries at $\alpha=0$ give a maximal spectral shift of $3.49\cdot10^{-15}$ relative to the clean lattice — integer vortices are spectrally invisible, the identity is exact. A single fractional configuration $q=0.3$ gives a shift of $0.342$ — a fractional vortex carries physical flux $4\pi\cdot0.3 = 1.2\pi \not\equiv 0 \pmod{2\pi}$ and genuinely perturbs the spectrum. The consequence governing all subsequent physics: in the Dirac gauge only **fractional** charges or a background $\alpha\neq0$ can generate GUE statistics; in the smooth `monumental` gauge the phases are complex for any $q$, and integer charges work (Section 5). Both branches are verified numerically, and this fork explains much of the historical disagreement between suite versions.
 
@@ -165,13 +157,11 @@ Test 16 (the Montgomery test) in the Dirac gauge at $N_v=2$, $q=\pm1$, $\alpha=1
 
 ![**Fig. 9.** Test 33: three $\r\angle r\r\angle$ realizations for $q=1$ (torus) and $q=0.3$ (open boundaries) against the GUE and Poisson lines.](../figures/fig11_r_bootstrap.png)
 
-
 The principal statistical result of this work. Configuration: torus $16\times16$, two vortices $q=\pm1$, $\alpha=1/2$, disorder $W=4$, smooth gauge, three independent realizations (random vortex positions, distinct disorder seeds). Results: $\langle r\rangle = 0.5639,\ 0.5811,\ 0.6094$; combined $\langle r\rangle = 0.5848\pm0.0260$, 95% CI $[0.5588;0.6108]$, deviation from the GUE target $0.5992$ equal to $-0.0144$ ($-2.4\%$) — inside the calibrated band, PASS. A control series with fractional charge $q=\pm0.3$ on open boundaries: $0.4025,\ 0.4967,\ 0.4260 \Rightarrow 0.4417\pm0.0555$ — a substantial depression explained by edge states (the Poisson component) and the absence of torus gauge compatibility. The gap between the two series ($0.585$ vs. $0.442$) is the most vivid demonstration of how boundary conditions affect finite-lattice statistics (Fig. 11).
 
 ## 5.3 Scaling with Lattice Size (Test 34)
 
 ![**Fig. 10.** Test 34: convergence of $\langle r\rangle$ with lattice size; both branches settle onto the GUE plateau $\approx0.60$.](../figures/fig10_r_L_scaling.png)
-
 
 The scaling $\langle r\rangle(L)$ for $L = 10, 20, 30, 50$ (two realizations per point, disorder $W=4$): the fractional branch $q=0.3$ (open boundaries) — $0.5482 \to 0.5921 \to 0.6048 \to 0.5953$; the integer branch $q=1$ (torus) — $0.5739 \to 0.5681 \to 0.6042 \to 0.5864$. Both branches reach the plateau $0.59$–$0.605$ at $L\ge30$, within two standard errors of GUE $0.5996$; the fractional branch is monotone and its plateau matches the monograph's prediction ($0.487\to0.562\to0.595\to0.594$) in convergence shape — our $L=10$ value is higher (edge effects at small $L$ are weaker in our vortex configuration), and beyond that the trends coincide. This resolves the "decay paradox" of earlier versions: $\langle r\rangle$ does not degrade with lattice growth but settles onto the GUE plateau; the depression seen in v13 was an artifact of small sizes and the real gauge.
 
@@ -185,20 +175,17 @@ Test 29 compresses the statistics onto one scale: at $16\times16$, $N_v=2$, $q=\
 
 ![**Fig. 11.** The Berry correction $R_2(0;T)$: the finite-sample cutoff and the slow approach to the $-1$ asymptote; verticals mark the two pass heights (1000/5000 zeros).](../figures/fig15_berry_R2_cutoff.png)
 
-
 Test 28 — the Berry correction to $R_2(0)$ — runs in v18/v19 in two passes: the first 1000 zeros ($T_{\max}\approx1419$) and the first 5000 zeros ($T_{\max}\approx5448$). The prime sum $\sum_p\sum_{k\le5}p^{-k/2}/(k\ln p) = 4.2079$ gives the corrected theoretical value $R_2(0) = -2.3394$; the expected finite-sample addition $\sim T^{-1/2}$ decreases from $0.0019$ ($T=1419$) to $0.0009$ ($T=5448$). The test verifies the exact reproduction of the formula in both passes (PASS, machine precision) and demonstrates the scale of the Berry effect: even the corrected prediction for $R_2(0)$ at reachable heights is far from the textbook $-1.007$ asymptote. For the suite, the practical meaning is that the two passes set the scale on which any "agreement" of small zero samples must be interpreted.
 
 ## 6.2 The Montgomery Test: AB-Cloud vs ζ-5000 (Test 35)
 
 ![**Fig. 12.** Pair correlation $R_2(s)$: the AB-cloud against the ζ zeros, GUE and Poisson — the correlation hole is reproduced by both branches.](../figures/fig08_r2_pair.png)
 
-
 The direct head-on comparison: unfolded AB-cloud spacings (2 realizations, 304 gaps) against the unfolded spacings of the first 5000 ζ zeros (4999 gaps, symmetric sliding-window unfolding). Results: two-sample KS $D = 0.1173$, $p = 6.7\cdot10^{-4}$ — the hypothesis of full distributional equality is rejected; the mean absolute difference of pair correlations $\langle|R_2^{\rm AB}(s)-R_2^{\zeta}(s)|\rangle = 0.147$ against a threshold of $0.10$. But the same $R_2(s)$ table (29 values of $s$ from 0.05 to 2.85; Fig. 8) shows the essential point: the correlation hole exists for both — $R_2^{\rm AB}(0.05) = 0.00$, $R_2^{\zeta}(0.05) = 0.005$ against the Poisson value of one; both curves run parallel to the GUE prediction, and both pass the "closer to GUE than to Poisson" check ($d_{\rm GUE} = 0.140 < d_{\rm Pois} = 0.227$). The honest summary: **the AB-cloud reproduces the qualitative and semi-quantitative correlation structure of the zeros (the hole, the kink near $s\approx1$, the plateau), but does not match them pointwise** — 304 gaps are insufficient for a stable $R_2$ or a KS-level match. We record the distance between "the same universality" and "the same spectrum" as a number, not an adjective.
 
 ## 6.3 The Form Factor K(t) (Test 36)
 
 ![**Fig. 13.** Spectral form factor $K(t)$: the GUE ramp+plateau, the AB-cloud data and the ζ zeros; small ensembles show the right trend with outliers.](../figures/fig09_K_form_factor.png)
-
 
 The spectral form factor is the most demanding diagnostic: a stable estimate requires hundreds of independent gaps and a precise unfolding. Our 306 eigenvalues give an RMS deviation from the GUE ramp of $0.93$ (PASS threshold $0.30$) and a correlation with the theoretical curve of $0.018$ (threshold $0.50$) — WARN on both metrics; the shape of the curve (Fig. 9) shows the correct rise toward $t\approx1$ followed by a falloff, with outliers typical of small ensembles. The ζ-zero curve on the same plot (from 5000 zeros) has RMS against GUE of $0.86$ — that is, even the reference zeros at these scales fail the hard threshold: the diagnostic is informative but calibrated for ensembles orders of magnitude larger. We include it in the monograph as a demonstration of applicability limits and as a task for future large runs.
 
@@ -208,20 +195,17 @@ The spectral form factor is the most demanding diagnostic: a stable estimate req
 
 ![**Fig. 14.** The Dirac cone: $E_{\min} = 0.02 + 11.83/L$, $R^2 = 0.9997$ — linearity in $1/L$ with four zero modes at every point.](../figures/fig12_dirac_cone.png)
 
-
 A vortex in the AB-cloud at $\alpha=1/2$ behaves as a relativistic fermion in one dimension: the spectrum near zero is linear. The numerical check (Test 19) runs on lattices $L = 12, 16, 24, 32, 48$: the minimal energy $E_{\min}$ (the gap at zero, with four zero modes) scales as $E_{\min} = 0.0202 + 11.826/L$ with $R^2 = 0.9997$ — the linearity in $1/L$ is impeccable. Interpreting the constant: if the Dirac point sits at the Brillouin-zone center ($k_{\min} = 2\pi/L$), the effective Fermi velocity is $v_F = b/2\pi \approx 1.88$ (in units of hopping over lattice constant $b$); if at the zone edge ($k_{\min}=\pi/L$), $v_F = b/\pi \approx 3.76$. The historical value $\sim0.125$ belonged to a different lattice normalization; in the suite's current normalization we record precisely these two numbers, noting that choosing between them is a matter of identifying which band-contact point the zero-mode phase structure indicates. Test 31 (a torus variant with periodic boundaries) shows $R^2 = 0.03$ and zero gaps: on the torus the zero modes are topologically protected and never open at any $L$ — itself a confirmation of the topological nature, but gap scaling requires open boundaries.
 
 ## 7.2 The Dirac Dip in the Density of States (Test 30)
 
 ![**Fig. 15.** The Dirac dip in the DOS at $\alpha=1/2$: a $20\times$ contrast in both directions (log scale).](../figures/fig13_dirac_dip.png)
 
-
 At $\alpha=1/2$ the Hofstadter spectrum has an analytic feature: the density of states near $E=0$ vanishes linearly (the Dirac point), whereas for $\alpha\neq1/2$ the spectrum is generic. Test 30 measures the DOS in the central band $|E|<0.5$ on a $20\times20$ clean lattice: $\rho(\alpha=0.4) = 0.200$, $\rho(\alpha=0.5) = 0.010$, $\rho(\alpha=0.6) = 0.200$ — a contrast of exactly $20\times$ in both directions. The Dirac dip is the fingerprint of the critical point separating Hall phases with $C_1 = +1$ and $C_1=-1$; its observation in a lattice model (and analogues in cold atoms) is among the most robust evidences that genuine universal physics — not numerical tuning — is at work.
 
 ## 7.3 Hatano–Nelson: Leaving $\sigma=1/2$ (Test 32)
 
 ![**Fig. 16.** Hatano–Nelson: $\sigma=0.5$ — real spectrum; $\sigma=0.7$ — the entire spectrum in the complex plane (skin effect).](../figures/fig16_hatano_nelson.png)
-
 
 The parameter $\sigma$ in the generalized model sets the "fractional" part of the hopping phase; at $\sigma=1/2$ the model is Hermitian. Test 32 compares $\sigma=0.5$ and $\sigma=0.7$ on $16\times16$: at $\sigma=0.5$, max $|\mathrm{Im}\,E| = 0$ (the spectrum is strictly real); at $\sigma=0.7$ the entire 256-level spectrum is complex, max $|\mathrm{Im}\,E| = 0.623$, and the Hatano–Nelson skin parameter is $g = (\sigma-1/2)\ln|\gamma| = 0.322$. The meaning: **leaving $\sigma=1/2$ moves the system from the unitary (GUE) class into the dissipative (uncorrelated) class; boundary localization of eigenvectors (the skin effect) destroys bulk statistics, and $\langle r\rangle$ on the non-Hermitian branch collapses to zero (all gaps "pair up" in the complex plane)**. The critical line $\sigma=1/2$ is singled out not only by Connes self-duality but as the only line where bulk random-matrix statistics exists at all (Figs. 13, 16). This is a second, independent argument for the "optimality of the critical line" — the statistical counterpart of the analytic self-duality.
 
@@ -236,7 +220,6 @@ This block is the bridge from measurements to analytic structures. We carefully 
 ## 8.1 The Spinorial Phase $\gamma^{\ast}$: 90° Through the Imaginary Unit (Test 21)
 
 ![**Fig. 17.** The spinorial phase $\gamma^{\ast} = a_C + i b_C$: argument $89.87°$ against the reference $90°$; the dominance of $b_C$ presses the phase to $\pi/2$.](../figures/fig18_gamma_phase.png)
-
 
 Define $\delta_C = \pi/7 = 0.448799$ rad (see 8.2) and $b_2(K3) = 22$ (the second Betti number of the K3 surface). Test 21 verifies two real quantities: the **real braking term** $a_C(\gamma^{\ast}) = \delta_C^5/b_2(K3) = 8.276\cdot10^{-4}$ and the **imaginary Berry term** $b_C(\gamma^{\ast}) = 1-\cos(2\delta_C) = 2\sin^2\delta_C = 0.376510$; both reproduce at machine precision. The complex spinorial phase $\gamma^{\ast} = a_C + i b_C$ has modulus $|\gamma^{\ast}| = 0.3765$ and argument $89.874°$ — a deviation from $\pi/2$ of only $0.126°$ ($2.2\cdot10^{-3}$ rad). The structure is as follows: since $b_C \gg a_C$, the argument of $\gamma^{\ast}$ is automatically pressed toward 90° — "the 90° transition is realized through the imaginary unit": the phase, as a geometric object, is constructed so that its relativistic (spinorial) nature is expressed by purely imaginary dominance. The interpretation as a postulated Peccei–Quinn phase is at level (b): compatible with the numbers, not derived from the suite.
 
@@ -264,9 +247,7 @@ Two interpretations from v21 are retained in survey status. **The Kerr analogy**
 
 ![**Fig. 18.** The phase texture of a vortex pair $q=\pm1$ over the Landau gauge: the phase "cloud" that generates the observed statistics.](../figures/fig19_vortex_texture.png)
 
-
 ![**Fig. 19.** The Hofstadter butterfly $E(\alpha)$; the vertical marks the self-dual point $\alpha=1/2$ where the key results of the monograph concentrate.](../figures/fig20_hofstadter_butterfly.png)
-
 
 Assemble the chain. (1) The spectrum of the AB-cloud at $\alpha=1/2$ in the smooth gauge has GUE statistics converging with size: $\langle r\rangle: 0.548\to0.595$ for $L: 10\to50$ (Tests 33, 34). (2) The statistics of the ζ zeros is GUE plus computable finite-sample corrections (Tests 4–14); at reachable heights "pure GUE" is rejected, "finite-size GUE" is not (Test 12). (3) The direct comparison shows the qualitative structure of $R_2$ matches (Test 35) — the Montgomery correlation hole is reproduced by the vortex cloud. (4) The critical line $\sigma=1/2$ is simultaneously the point of Connes self-duality, the Dirac dip, and Hermiticity (Tests 17, 30, 32) — and historically the point where the cloud's KS distance to the zeros is minimal. (5) Vortices behave as relativistic particles (the Dirac cone, Test 19), and fractional charge acts as physical flux (Byers–Yang, Test 25). The final narrative — "ζ zeros as codes of admissible energy states of a phase resonator" — thereby attains the status of a **consistent, quantitatively verified program**, not a proven theorem: we know which links are machine-exact (fluxes, identities), which are statistically robust (scaling, bootstrap), and which remain open (the $T\to\infty$ asymptotics, pointwise agreement of $R_2$).
 
@@ -358,7 +339,6 @@ The reference implementation `verification/spinor64` (Python/NumPy,
 reproduction: `python3 verification/spinor64/run_spinor64.py`) performs two
 independent experiments over all 64 spinor structures
 $\varepsilon\in\mathbb{F}_2^6$ of the Klein quartic and corrects the v21
-monograph claim about the "uniqueness" of idx=38.
 
 **E1 — exact symmetry (the Klein graph {3,7}).** The Klein quartic is
 discretised by its regular map {3,7} (56 vertices, 84 edges, 24 heptagons,
@@ -372,11 +352,9 @@ The signed Dirac operators within an orbit are permutation-conjugate: the
 maximum pairwise spectral distance over all 64 structures is **8.9·10⁻¹⁵**;
 gauge invariance 7.1·10⁻¹⁵; zero modes of the discrete operator: 2 (odd
 orbit) / 3 (even orbits) / 7 (trivial class). Consequence: no spinor
-structure can carry unique statistics — the "uniqueness of idx=38" in v21
-was a discretization artifact breaking the PSL(2,7) symmetry. By the v21
+structure can carry unique statistics.
 monograph's own formula
 $\mathrm{Arf}(\varepsilon)=\varepsilon_1\varepsilon_2+\varepsilon_3\varepsilon_4+\varepsilon_5\varepsilon_6$
-the vector $\varepsilon(38)=(0,1,1,0,0,1)$ gives Arf = 0 (not 1 as
 previously claimed).
 
 **E2 — statistics (AB-cloud).** Hofstadter torus $L=44$, $\alpha=1/2$,

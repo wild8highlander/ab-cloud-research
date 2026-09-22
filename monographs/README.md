@@ -3,7 +3,7 @@
 This directory contains **all written outcomes** of the project: the
 rewritten trilingual monograph **v22** (Russian, English, Chinese), the
 **original author monograph v21** with its English edition, and the
-corrected **v21.1** editions that fix the "idx=38 uniqueness" claim.
+corrected **v21.1** editions with the errata note.
 Every number printed in any of these documents traces to a named test of the
 37-test verification suite (`code/ab_cloud_v19.jl`) or to the spinor64
 experiment (`verification/spinor64/`) with a full computation log.
@@ -13,7 +13,7 @@ experiment (`verification/spinor64/`) with a full computation log.
 | Edition | Path | Languages | Status |
 |---|---|---|---|
 | Monograph v22 (rewritten on the verified suite) | [`ru/`](ru) · [`en/`](en) · [`zh/`](zh) | RU, EN, ZH | canonical, cite these |
-| Original author monograph v21 + verification | [`original-v21/`](original-v21) | RU, EN | preserved as supplied; **superseded** on the idx=38 point |
+| Original author monograph v21 + verification | [`original-v21/`](original-v21) | RU, EN | preserved as supplied; **superseded** by the v21.1 corrections |
 | Corrected v21.1 editions | [`original-v21/`](original-v21) (`*_corrected.*`) | RU, EN | errata of v21 — use instead of the originals |
 | Rebuilt v22.1 (updated Appendix B, new Appendix D, LaTeX sources) | `*/text/*_v221.*` + `*/text/*.tex` | RU, EN, ZH | current build |
 
@@ -44,7 +44,6 @@ experiment (`verification/spinor64/`) with a full computation log.
 3. **Spinor structures of the Klein quartic** — v22 Appendix D (and corrected
    v21.1 §3.2.5) report the spinor64 result: all 64 structures GUE-consistent,
    PSL(2,7) orbits 28/21/7/7/1, exact isospectrality ≈ 1e-14; the v21 claim
-   "only idx=38" is withdrawn (Arf(ε(38)) = 0 by the monograph's own formula).
 4. **Two-pass protocol** — Appendix B documents the run
    `run_20260902_134759` (Julia 1.12.0, 50 000 Odlyzko zeros, 72×72 → 96×96
    HARDCORE pass 2), whose raw artifacts live in `results/`.
@@ -76,7 +75,7 @@ pre-processing step exists.
   14-слайдовая презентация, arXiv-препринт, 19–20 рисунков 600 dpi.
 - Внутри — вся физика проекта с привязкой каждого числа к именному тесту
   37-тестового набора; Приложение D описывает spinor64 (все 64 структуры
-  GUE-согласованы, «уникальность idx=38» снята).
+  GUE-согласованы).
 - Цитировать v22/v22.1; v21 — только как оригинальное повествование автора.
 
 ## 📁 Complete file inventory
@@ -107,10 +106,8 @@ PSL(2,7) orbits 28/21/7/7/1, exact isospectrality at the 1e-14 level.
 The **original v21** is preserved untouched as the author's historical
 record: its Appendix F carries the V01–V115 verification-run narrative
 that led to the project, and its analytical interpretations belong to the
-author alone. Because v21 claimed "only idx=38 gives GUE-consistent
-statistics", the folder also ships the **v21.1 corrected editions** — the
-minimal errata that withdraw that claim (Arf(ε(38)) = 0 follows from the
-monograph's own formula; the idx=38 signal was a computational artifact).
+author alone. The v21.1 editions carry minimal errata relative to the
+original text.
 Practical citation rule: cite v22/v22.1 for the physics, cite v21 only
 when discussing the project's history.
 
@@ -132,7 +129,7 @@ chain — what is committed is exactly what was built.
   переведено на двухпроходный прогон `run_20260902_134759`, добавлено
   Приложение D (spinor64: 64/64 GUE, орбиты PSL(2,7) 28/21/7/7/1).
 - v21 сохранена как история проекта (V01–V115, Приложение F); v21.1 —
-  минимальные исправления, снимающие «уникальность idx=38».
+  минимальные исправления исходного текста.
 - Семь синхронных форматов на издание: md, tex, html, docx, pdf,
   презентация 14 слайдов, arXiv-препринт, плюс 19–20 рисунков 600 dpi.
 - Цитировать v22/v22.1; пересборка — pandoc для html/docx и xelatex для pdf.

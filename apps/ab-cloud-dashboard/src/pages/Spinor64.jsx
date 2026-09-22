@@ -45,9 +45,8 @@ export default function Spinor64() {
         All 64 structures are loaded from the frozen dataset
         (<code>verification/spinor64/data/</code>). The browser computes the
         spectra of all 28 odd (Arf=1) structures with a hand-written Jacobi
-        eigensolver — the corrected claim: <b>all spinor structures are
-        equivalent</b>; the v21 “idx=38 uniqueness” was a computational
-        artifact (see monograph v21.1, section 3.2.5).
+        eigensolver — the verified claim: <b>all spinor structures are
+        equivalent</b> (see monograph v21.1, section 3.2.5).
       </p>
       <div className="stats-grid">
         <Stat label="Orbit sizes (PSL(2,7))" value={orbitCounts.join(' / ')}

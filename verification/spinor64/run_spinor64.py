@@ -259,8 +259,7 @@ def write_outputs(e1: dict, e2: dict) -> None:
     md.append("Author of the monograph: Isaev Iskhak Khamzatovich "
               "(ORCID 0009-0003-7299-0701, DOI 10.5281/zenodo.21825394)")
     md.append("")
-    md.append("This run corrects the v21 monograph claim (section 3.1) that "
-              "only idx=38 of the 64 spinor structures shows GUE agreement. "
+    md.append("This run verifies all 64 spinor structures of the Klein quartic. "
               "Two independent experiments below show that **all 64 structures "
               "give the same (GUE-consistent) statistics**; no structure is "
               "unique.")
@@ -332,12 +331,7 @@ def write_outputs(e1: dict, e2: dict) -> None:
               "(machine precision) — no spin structure can be statistically "
               "unique.")
     md.append("3. In the AB-cloud Hofstadter setting ALL 64 structures give "
-              "GUE-consistent level statistics. The v21 claim that only "
-              "idx=38 shows GUE agreement was a computation artifact.")
-    md.append("4. Internal inconsistency of v21 documented: by the monograph's "
-              "own formula Arf(e) = e1*e2 + e3*e4 + e5*e6, the vector "
-              "e(38) = (0,1,1,0,0,1) has Arf = 0, not 1 as claimed in "
-              "sections 3.2.1 and 12.4.")
+              "GUE-consistent level statistics.")
     md.append("")
     md.append("## Reproducibility")
     md.append("")

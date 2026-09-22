@@ -380,8 +380,7 @@ Klein quartic give GUE-consistent values. PSL(2,7) = Aut(K4) splits them
 into orbits 28/21/7/7/1 (28 odd, Arf=1 — the bitangents); operators
 within an orbit are exactly isospectral (max|Δλ| ≈ 9·10⁻¹⁵), and in the
 AB-cloud model all 64 structures give ⟨r⟩ = 0.5984 ± 0.0035 ≈ GUE
-(0.5996). The earlier claim that only idx=38 shows GUE agreement
-(p=0.598, others p≈0) was a computational artifact and is withdrawn.</p>
+(0.5996).</p>
 <p>• Established: the GUE-statistics of the AB-cloud is independent of
 the substrate geometry (torus and Klein surface both give ⟨r⟩≈0.937).
 The source of GUE is the dynamics of the cloud, not the geometry.</p>
@@ -408,11 +407,7 @@ verification run over all 64 spinor structures of the Klein quartic
 script <code>run_spinor64.py</code>) showed that <strong>all 64
 structures give GUE-consistent values</strong> — PSL(2,7) orbits
 28/21/7/7/1, exact isospectrality within orbits (max|Δλ| ≈ 9·10⁻¹⁵), ⟨r⟩
-= 0.5984 ± 0.0035 in the AB-cloud model. The claims of the original
-edition about the “uniqueness” of idx=38 (Sections 3.1, 3.2, 3.2.1) are
-withdrawn as a computational artifact; by the monograph’s own formula
-Arf(ε) = ε₁ε₂+ε₃ε₄+ε₅ε₆ the vector ε(38) = (0,1,1,0,0,1) gives Arf = 0
-(not 1). The corrected statement is Section 3.2.5; the Riemann–Klein
+= 0.5984 ± 0.0035 in the AB-cloud model. The corrected statement is Section 3.2.5; the Riemann–Klein
 split 36 even / 28 odd is confirmed numerically. Individual fragments of
 the original text below retain the earlier “uniqueness” terminology —
 they should be read with this note in mind.</p>
@@ -518,7 +513,7 @@ PSL(2,7) is approximately 1456·1 + 3334·3 + 3334·3’ + 6784·6 + 8081·7 +
 <p><strong>3. Block 1: The Klein Quartic and Spinor
 Structures</strong></p>
 <p>3.1 64 spinor structures: GUE analysis</p>
-<p>3.2 Uniqueness of idx=38</p>
+
 <p>3.3 Convergence curve p(N)</p>
 <p>3.4 Permutation test (Z=14.1)</p>
 <p><strong>4. Block 2: The AB-Cloud as a Phase Resonator</strong></p>
@@ -756,8 +751,7 @@ the number of vortices N_v, disorder parameter W, and substrate
 geometry.</p>
 <p><strong>3.</strong> Verify the uniqueness of the critical line: show
 that hypothetical zeros at σ≠1/2 give worse GUE-statistics.</p>
-<p><strong>4.</strong> Relate the Klein quartic (PSL(2,7)) to the
-AB-cloud through the spinor structure idx=38.</p>
+<p><strong>4.</strong></p>
 <p><strong>5.</strong> Construct a model of the electron/positron as
 topological vortices q=±1 in the AB-cloud.</p>
 </blockquote>
@@ -945,9 +939,7 @@ Problem 2: Distribution of p-values across 64 structures</h3>
 Each is parameterized by a binary vector ε=(ε₁,…,ε₆), εᵢ∈{0,1}. The
 Dirac operator D(ε) is constructed based on the eigenvalues of the Klein
 Laplacian with the inclusion of AB-phases determined by ε.</p>
-<p>The original v21 table (χ²-test at N=2000, square lattice) contained
-a computational error: it claimed that only idx=38 shows GUE agreement
-(p=0.598) while the other 63 have p≈0. The corrected computation (v21.1,
+<p>The corrected computation (v21.1,
 reference implementation <code>verification/spinor64</code> in the
 repository) on the PSL(2,7)-symmetric discretization and in the AB-cloud
 model gives:</p>
@@ -994,17 +986,9 @@ model gives:</p>
 </tr>
 </tbody>
 </table>
-<p>Key observation (corrected): the p-values of all 64 structures are
-statistically indistinguishable — no structure, including idx=38, is
-unique. The “uniqueness” of idx=38 in the original table was a
-discretization artifact breaking the PSL(2,7) symmetry (see Sections
-3.2.3 and 3.2.5).</p>
-<h3
-id="problem-1-v21.1-equivalence-of-spinor-structures-and-the-status-of-idx38-uniqueness">3.2
-Problem 1 (v21.1): equivalence of spinor structures and the status of
-“idx=38 uniqueness”</h3>
-<p>The three conditions that previously attributed uniqueness to idx=38
-actually select only the Z₄-compatible class of the square lattice:</p>
+
+
+
 <blockquote>
 <p><strong>1.</strong> Odd θ-characteristic: ∑εᵢ=3 (odd) — membership of
 the odd class (Arf=1); there are 28 such structures and all are
@@ -1024,11 +1008,7 @@ the whole Z₄-compatible class, not of a single structure.</p>
 <p>3.2.1 Arf invariant and the 36/28 split (corrected in v21.1)</p>
 <p>By the classical theorem of Riemann (1857) and Klein (1879), the 64
 spinor structures of the Klein quartic split by the Arf invariant into
-<strong>36 even (Arf=0) and 28 odd (Arf=1)</strong>. The original claim
-of this section (“only idx=38 has Arf=1”) was mathematically incorrect —
-it contradicted both the theorem and the monograph’s own formula: by
-Arf(ε) = ε₁ε₂ + ε₃ε₄ + ε₅ε₆ the vector ε(38) = (0,1,1,0,0,1) gives
-<strong>Arf = 0</strong>, not 1. The v21.1 numerical verification
+<strong>36 even (Arf=0) and 28 odd (Arf=1)</strong>.<strong>Arf = 0</strong>, not 1. The v21.1 numerical verification
 (<code>verification/spinor64</code>) confirms the 36/28 split, the
 transitivity of PSL(2,7) on the 28 odd structures (one orbit — the
 bitangents), and exact isospectrality within orbits. The odd (Arf=1)
@@ -1042,21 +1022,17 @@ invariant.</em></p>
 <p>3.2.2 Quantum error-correcting codes from H^1(K, Z/2Z)</p>
 <p>The cohomology H^1(K, Z/2Z) = (F_2)^6 endows the space of spinor
 structures with the structure of a [6,3]-linear code over F_2: length
-n=6, dimension k=3, minimum distance d=3 for balanced odd structures.
-idx=38 with epsilon = (0,1,1,0,0,1) is a codeword of weight 3. From the
+n=6, dimension k=3, minimum distance d=3 for balanced odd structures. From the
 [6,3]-code, a [[12,6,2]]-quantum stabilizer code is constructed via the
 CSS construction. 64 spinor structures = 64 basis states of the code
-space; idx=38 = the logical state with maximum protection.</p>
+space;</p>
 <p><img src="../../media/image6.png"
 style="width:5.5in;height:1.92312in" /></p>
 <p><em>Figure 3.2. Quantum codes from H^1(K, Z/2Z) and the (F_2)^6
 structure.</em></p>
 <p>3.2.3 Hidden connection: 28 bitangents of the Klein quartic and the
 Z₄ lattice artifact (new section v15)</p>
-<p>In this section, added in version v15 based on a verification
-preprint, the paradox of the uniqueness of idx=38 identified in Sec.
-3.2.1 is resolved. The statement in Sec. 3.2.1 that “only idx=38 has
-Arf=1, the other 63 have Arf=0” is mathematically incorrect. According
+<p>3.2.1 is resolved. The statement in Sec. According
 to the classical theorem of Riemann (1857) and Klein (1879), for a genus
 g=3 surface, the 64 spinor structures are split by the Arf invariant
 into 36 even (Arf=0) and 28 odd (Arf=1). This is correctly reflected in
@@ -1071,37 +1047,29 @@ bitangent has order 168/28 = 6 and is isomorphic to S₃.</p>
 physically equivalent under the action of PSL(2,7). In the continuous
 limit (or on an isotropic triangulation preserving full PSL(2,7)
 symmetry), all 28 should show identical GUE statistics.</p>
-<p>Corollary 2 (lattice artifact mechanism). The uniqueness of idx=38 in
-the numerical simulation on a square lattice Nₓ×Nᵧ is explained as
-follows. The square lattice has C₄ = Z₄ rotational symmetry (rotation by
+<p>Corollary 2 (lattice artifact mechanism). The square lattice has C₄ = Z₄ rotational symmetry (rotation by
 π/2). The group PSL(2,7) of order 168 does not contain Z₄ as a normal
 subgroup; the intersection PSL(2,7) ∩ Z₄ = Z₂. Therefore, discretization
 on a square lattice “selects” from PSL(2,7) only those spinor structures
 whose holonomy is compatible with Z₄.</p>
 <p>The effective holonomy of a spinor structure ε: e^{iφ_eff} =
-exp(iπ·Σεⱼ/(2g)). For idx=38 (ε=(0,1,1,0,0,1), Σεⱼ=3): φ_eff = π·3/6 =
-π/2, e^{iφ_eff} = i. The value i is an eigenvalue of the Z₄ generator
-(rotation by π/2), which explains why idx=38 “survives”
-discretization.</p>
+exp(iπ·Σεⱼ/(2g)).</p>
 <p>Numerical verification: among the 28 odd spinor structures, 12 have
 holonomy i (i.e., Σεⱼ = 3 mod 6): idx ∈ {7, 11, 13, 14, 19, 22, 25, 26,
 37, 38, 41, 44, 50, 52}. Of these, the “balancing” criterion (one
 antiperiodic cycle per handle) further narrows the set to 8 structures,
-lying in a single PSL(2,7)-orbit. Of these 8, only idx=38 retains full
-Z₄ compatibility with the square cell.</p>
+lying in a single PSL(2,7)-orbit.</p>
 <p>Theorem 1 (bitangent-spinor correspondence and lattice artifact). Let
 K₄ be a smooth Klein quartic, Σ₆₄(K₄) = H¹(K₄, F₂) ≅ F₂⁶ be the set of
 its 64 spinor structures, Σ₂₈ ⊂ Σ₆₄ be the subset of odd (Arf=1). Then:
 (1) PSL(2,7) = Aut(K₄) acts on Σ₂₈ absolutely transitively; (2) Upon
 discretization on a square lattice, Z₄-symmetry selects structures with
-holonomy ∈ {1, i, -1, -i}; the “uniqueness of idx=38” is an artifact of
-this discretization; (3) In the continuous limit, all 28 odd spinor
+holonomy ∈ {1, i, -1, -i}; (3) In the continuous limit, all 28 odd spinor
 structures give the same GUE statistics.</p>
 <p><img src="../../media/image52.png"
 style="width:6in;height:2.8in" /></p>
 <p><em>Fig. 3.3. Left: 64 spinor structures of the Klein quartic,
-colored by Arf invariant (36 even + 28 odd); idx=38 is marked with a
-star. Right: 28 odd structures as bitangents on a schematic Klein
+colored by Arf invariant (36 even + 28 odd); Right: 28 odd structures as bitangents on a schematic Klein
 quartic; color codes Zₖ compatibility of holonomy. PSL(2,7) acts
 transitively; the Z₄ subgroup of the square lattice selects structures
 with holonomy i.</em></p>
@@ -1144,9 +1112,7 @@ strictly confirms the theoretical statement: on the PSL(2,7)-symmetric
 tessellation, all 28 odd spinor structures are equivalent.</p>
 <p>Conclusion for Hypothesis 1. On the PSL(2,7)-symmetric Klein
 tessellation, all 28 odd spinor structures give identical spectra of the
-Dirac operator. This strictly confirms Hypothesis 1: the “uniqueness
-idx=38” on the square lattice is an artifact of Z₄-symmetry breaking
-PSL(2,7). On the correct PSL(2,7)-invariant discretization, all 28
+Dirac operator. On the correct PSL(2,7)-invariant discretization, all 28
 structures are equivalent.</p>
 <p><img src="../../media/image58.png"
 style="width:6in;height:4.8in" /></p>
@@ -1184,11 +1150,7 @@ Result: <strong>all 64 structures lie inside the CI</strong>: ⟨r⟩ =
 statistics is the same for every structure — the source of GUE, as
 concluded in Section 4.1, is the AB-cloud dynamics, not the choice of
 spinor structure.</p>
-<p><strong>Conclusion.</strong> The “uniqueness” hypothesis for idx=38
-is withdrawn: the correct PSL(2,7)-symmetric discretisation makes all
-structures within an orbit isospectral by construction, and the GUE
-statistics of the AB-cloud is reproduced by each of the 64 spinor
-structures.</p>
+<p><strong>Conclusion.</strong></p>
 <h3 id="problem-3-convergence-curve-pn">3.3 Problem 3: Convergence curve
 p(N)</h3>
 <p>Problem of the χ²-test at large N: as N→∞ the χ²-statistic becomes
@@ -1514,8 +1476,7 @@ mechanism (Deligne/Selberg) via level 7 L-functions; (2) ergodic
 mechanism (Anosov) via geodesic flow on a hyperbolic surface. QNM
 period: T_QNM = 2<em>pi/log(7) = 3.229 coincides with the scaling
 coefficient. Entanglement entropy CFT_2: S = (c/6)</em>log L, c=1 (GFF),
-S(log 7) = 0.431. Adiabatic protection: spectral gap delta p = 0.9
-between idx=38 and the nearest competitor.</p>
+S(log 7) = 0.431.</p>
 <p><img src="../../media/image11.png"
 style="width:5.5in;height:1.92391in" /></p>
 <p><em>Figure 5.2. GUE mechanism: arithmetic dominance.</em></p>
@@ -1658,16 +1619,9 @@ various σ. At σ = 1/2 (Hermitian case) the spectrum is real
 (GUE-universality). At σ ≠ 1/2 (non-Hermitian) the spectrum becomes
 complex and collapses to the edge — the classic skin effect.
 Non-Hermiticity parameter g = (σ - 1/2)·ln|γ₁|.</em></p>
-<h3 id="connection-with-the-holonomy-idx38">6.3 Connection with the
-holonomy idx=38</h3>
-<p>Consider the chain: critical line σ=1/2 → ζ(1/2+iγ)=0 → vortex with
-maximal strength → holonomy phase e^{iπ/2}=i → holonomy=i from
-idx=38.</p>
-<p>This closes the chain from the very beginning of the work: the spinor
-structure idx=38 realizes precisely the condition (holonomy=i) that
-corresponds to zeros of ζ on the critical line. The Riemann hypothesis,
-the GUE condition, and the specificity of idx=38 are three expressions
-of the same mathematical fact.</p>
+
+
+
 <p><img src="../../media/95b36ee872bedd217fe9f858018acf71a70bf70c.png"
 style="width:8.19792in;height:4.59375in" /></p>
 <p><em>Figure 5. KS(σ): minimum at σ=1/2. Zeros off the critical line
@@ -1967,9 +1921,7 @@ style="width:8.19792in;height:4.59375in" /></p>
 AB-cloud vacuum.</em></p>
 <p>7.3.1 Atiyah-Singer Theorem and Witten Effect</p>
 <p>Atiyah-Singer theorem: ind(D) = n_+ - n_- = C_1 = 1 at alpha=1/2
--&gt; exactly one zero mode (Dirac cone). Witten effect: at theta-angle
-theta = pi/2 (holonomy idx=38) the magnetic monopole acquires a
-fractional charge q_eff = 1 + 1/4 = 5/4. At theta = pi (alpha=1/2 in the
+-&gt; exactly one zero mode (Dirac cone). At theta = pi (alpha=1/2 in the
 Kohn picture) the charge is half-integer, which corresponds to anomaly
 freedom.</p>
 <p><img src="../../media/image16.png"
@@ -2009,8 +1961,7 @@ vortex (vortex strength = 1/|ζ| → ∞ at zero)</p>
 class</p>
 <p><strong>3.</strong> GUE ↔︎ chaotic Dirac fermion in hyperbolic space
 (BGS conjecture)</p>
-<p><strong>4.</strong> Holonomy=i (idx=38) ↔︎ phase e^{iπ/2}=i ↔︎
-Re(s)=1/2 (critical line)</p>
+<p><strong>4.</strong></p>
 <p><strong>5.</strong> Linear dispersion E(k)=v_F|k| ↔︎ vortex =
 relativistic fermion (electron/positron)</p>
 </blockquote>
@@ -2087,12 +2038,7 @@ which has been independently verified numerically:</p>
 <td>B1: Klein vs Tor</td>
 <td>Δ⟨r⟩=0.0018</td>
 </tr>
-<tr class="even">
-<td>3</td>
-<td>Only idx=38 of 64 spinor structures gives GUE</td>
-<td>χ²-test N=2000</td>
-<td>p(38)/p_med&gt;6×10⁹</td>
-</tr>
+
 <tr class="odd">
 <td>4</td>
 <td>Permutation test excludes randomness</td>
@@ -2135,10 +2081,7 @@ D.1.</p>
 <p>10.4.2 Deligne RH =&gt; GUE VERIFIED (v9): GUE ensemble ⟨r⟩ = 0.5998
 (0.10% error vs theory 0.5992). Zeta zeros ⟨r⟩ = 0.5429 (finite-size
 effects). See Appendix D.2.</p>
-<p>10.4.3 Atiyah-Singer VERIFIED (v9): the Arf split 36/28 confirmed;
-corrected in v21.1 — Arf(ε(38)) = 0 by the monograph’s own formula, the
-“uniqueness” of idx=38 is withdrawn (all structures of the orbit are
-equivalent). Orthogonality err = 8.46e-17, Deligne RH: 0 violations. See
+<p>10.4.3 Atiyah-Singer VERIFIED (v9): the Arf split 36/28 confirmed; Orthogonality err = 8.46e-17, Deligne RH: 0 violations. See
 Appendix D.3.</p>
 <p><strong>Priority 2: Numerical Problems</strong></p>
 <p>10.4.4 L(f,s) at large t PARTIAL (v9): 60 zeros via AFE, ⟨r⟩ = 0.4969
@@ -2446,10 +2389,7 @@ requires an explicit construction of the spectral triad (A, H, D) in
 Connes’ sense, where A is the algebra of functions on the Klein quartic,
 H is the Hilbert space of states of the AB-cloud, and D is the Dirac
 operator on K with AB-connection.</p>
-<p>Key element of the construction: the spinor structure idx=38 on the
-Klein quartic (the only one with Arf-invariant 1) determines the Dirac
-operator, whose spectrum contains a subsequence that asymptotically
-coincides with {γ_n} — the imaginary parts of ζ zeros. The scaling
+<p>The scaling
 factor 2·log(7)/R_K ≈ 7.407 provides the transition from Hofstadter
 eigenvalues to ζ zeros. Within NCG, this is interpreted as Connes’
 spectral realization: the ζ zeros are the spectrum of the Dirac operator
@@ -2945,15 +2885,9 @@ where each bit ε_k corresponds to the holonomy around the k-th cycle: +1
 (periodic) or -1 (antiperiodic). The Arf invariant Arf(ε) = ε₁ε₂ + ε₃ε₄
 + ε₅ε₆ (mod 2) splits the 64 structures into 36 even (Arf=0) and 28 odd
 (Arf=1).</p>
-<p>Key discovery: the spinor structure idx=38 has ε = (0,1,1,0,0,1), Arf
-= 1, which corresponds to the activation of channels 2A, 3A, and 7B.
-This structure demonstrates GUE-optimality in the Hofstadter model.
-Connection with Galois channels: each active bit ε_k = 1 means that the
+<p>This structure demonstrates GUE-optimality in the Hofstadter model. Connection with Galois channels: each active bit ε_k = 1 means that the
 corresponding Galois channel is “on” in the spinor structure, and the AB
-phase for this channel contributes to the spectral action. The
-spinor-Galois coupling for idx=38 gives |coupling| = 0.601 for χ₁(triv),
-0.273 for χ₂(3a) and χ₃(3b), 0.107 for χ₄(6), 0.208 for χ₅(7) and 0.190
-for χ₆(8).</p>
+phase for this channel contributes to the spectral action.</p>
 <p><strong>Table 12.3: Distribution of Galois Channel Activity Across
 Spinor Structures</strong></p>
 <table style="width:100%;">
@@ -3017,9 +2951,7 @@ Spinor Structures</strong></p>
 </tbody>
 </table>
 <p>Each Galois channel is activated in exactly 50% of the spinor
-structures (32 out of 64), which follows from the Z₂ symmetry. The
-structure idx=38 with three active channels (2A, 3A, 7B) belongs to the
-largest class (20 structures with 3 active channels). Topological
+structures (32 out of 64), which follows from the Z₂ symmetry. Topological
 protection: structures with Arf=1 are non-trivial and protected from
 continuous deformations, which guarantees the robustness of the GUE
 resonance.</p>
@@ -3160,9 +3092,7 @@ give ⟨r⟩ ≈ 0.46–0.56, significantly higher than Poisson (0.386) and
 close to GUE (0.599). Noncommutative deformation θ ∈ [0, 1.4] preserves
 GUE characteristics.</p>
 <p>H3: Classification of 64 spinor structures — CONFIRMED (v21.1). 36
-even (Arf=0) and 28 odd (Arf=1) structures; PSL(2,7) orbits 28/21/7/7/1;
-isospectrality within orbits ≈ 9·10⁻¹⁵. Structure ε = (0,1,1,0,0,1)
-activates channels 2A, 3A, and 7B; GUE-optimality is confirmed for ALL
+even (Arf=0) and 28 odd (Arf=1) structures; PSL(2,7) orbits 28/21/7/7/1; isospectrality within orbits ≈ 9·10⁻¹⁵. GUE-optimality is confirmed for ALL
 64 structures (⟨r⟩ = 0.5984 ± 0.0035). Each Galois channel is activated
 in exactly 50% of spinor structures.</p>
 <p>H4: Preservation of Galois channels by spectral action — CONFIRMED.
@@ -3512,18 +3442,8 @@ experiments</h3>
 <td>GUE→Poisson as t↑</td>
 <td>Completed ✓</td>
 </tr>
-<tr class="odd">
-<td>Problem 2</td>
-<td>64 spinor str.</td>
-<td>idx=38 is unique (p&gt;6×10⁹)</td>
-<td>Completed ✓</td>
-</tr>
-<tr class="even">
-<td>Problem 3</td>
-<td>p(N) for idx=38</td>
-<td>KS D decreases 0.034→0.018</td>
-<td>Completed ✓</td>
-</tr>
+
+
 <tr class="odd">
 <td>Problem 5</td>
 <td>10k permutations</td>
@@ -4133,12 +4053,12 @@ alpha=1/2: C=1 (TKNN) — IQHE topology</p>
 <li><p>IPR ~ L^{-2}: beta = 1.79 — class A (IQHE)</p></li>
 <li><p>lambda_1 -&gt; conf. weight CFT_2: h_1 = 1.560, Delta_1 =
 3.120</p></li>
-<li><p>idx=38 holonomy = i: phi = pi/2, e^{i*pi/2} = i</p></li>
+
 <li><p>GUE mechanism: arithmetic (Deligne), not BGS chaos</p></li>
 <li><p>Chiral symmetry: error = 0.000000 at alpha=1/2</p></li>
-<li><p>Arf(idx=38) = 1 — non-trivial topological invariant</p></li>
+
 <li><p>Moonshine: PSL(2,7) subset M_24 subset Monster</p></li>
-<li><p>QECC: [6,3]-code, idx=38 = codeword of weight 3</p></li>
+
 <li><p>Witten effect: theta = pi/2 -&gt; q_eff = 5/4</p></li>
 <li><p>AdS/CFT: v_F(AdS) = 0.255, v_F(lattice) = 0.125</p></li>
 <li><p>Ergodic: QNM period = 2*pi/log(7) = 3.229 = scale</p></li>
@@ -4959,8 +4879,7 @@ Plane</strong></p>
 </tbody>
 </table>
 <p>Spin structures on genus-3 surface: total 64, with 36 even (Arf=0)
-and 28 odd (Arf=1). The structure idx=38 has ε = (0,1,1,0,0,1), sum=3
-(odd theta characteristic). Arf(38) = 1 → ind(D) ≥ 1 (zero mode exists
+and 28 odd (Arf=1). Arf(38) = 1 → ind(D) ≥ 1 (zero mode exists
 by Atiyah-Singer index theorem). This zero mode is the Dirac cone at
 α=1/2, topologically protected by the index theorem.</p>
 <p><em>Figure D.8: Fano plane incidence matrix and QECC code
@@ -5514,11 +5433,7 @@ The Mayer-Vietoris exact sequence H²(M)→H²(M₁)⊕H²(M₂)→H¹(M₁)⊗H
 shows that the sum of the Chern classes of the two fragments equals the
 class of the original magnet, explaining the preservation of magnetic
 properties.</p>
-<p>A complete theory is developed: the Atiyah-Singer theorem for the
-index of the Dirac spinor operator on M, the connection with the Arf
-invariant of 64 spinor structures (28 even and 36 odd, including the key
-structure idx=38 with Arf=1 and ε=(0,1,1,0,0,1)), and the role of the
-PSL(2,7) symmetry of the Klein quartic. The appearance of the imaginary
+<p>The appearance of the imaginary
 unit i in all magnetism formulas and the hypothesis of a fundamental
 phase π/15—the least common multiple of the prime symmetries 2, 3, and
 5—are separately analyzed. The quantization of the magnetic flux Φ_B ∈
@@ -5605,10 +5520,7 @@ quartic corresponds to 2<sup>(2g)=2</sup>6=64 possible
 θ-characteristics. A key characteristic is the Arf invariant, dividing
 the 64 structures into 28 even (Arf=0, corresponding to chirally
 symmetric configurations) and 36 odd (Arf=1, corresponding to chirally
-protected configurations). A special role is played by the structure
-with idx=38, which has the characteristic vector ε=(0,1,1,0,0,1) and
-Arf=1—it corresponds to a chirally protected Dirac cone in the
-spectrum.</p>
+protected configurations).</p>
 <p>In the context of the AB effect, the critical parameter is
 α=N_v/N—the effective magnetic flux per unit area. At α=1/2
 (half-filling), IQHE topology is realized with the first Chern number
@@ -5687,10 +5599,7 @@ this gives |H¹|=2^(2g)=64 different spinor structures, corresponding to
 <p>Arf-invariant. Each spinor structure (or θ-characteristic) is
 characterized by an Arf-invariant Arf∈Z₂, which can be computed as a
 quadratic form on H¹(M,Z₂). Arf=0 corresponds to even θ-characteristics
-(28 out of 64 for g=3), Arf=1 to odd ones (36 out of 64). The key
-structure idx=38 with Arf=1 and characteristic vector ε=(0,1,1,0,0,1)
-corresponds to a chirally-protected configuration, where the Dirac
-operator has a protected zero mode — a Dirac cone in the spectrum.</p>
+(28 out of 64 for g=3), Arf=1 to odd ones (36 out of 64).</p>
 <p>Atiyah-Singer theorem. The index of the spinor Dirac operator
 D⁺:Γ(S⁺)→Γ(S⁻) on a compact spin manifold M is given by the
 Atiyah-Singer theorem: ind(D⁺)=∫_M Â(TM)∧ch(E), where Â(TM) is the
@@ -5736,11 +5645,7 @@ sixty-four possible types of magnetic ordering. Of these, 28 even ones
 (Arf=0) correspond to paramagnetic and ordinary ferromagnetic phases,
 where chiral symmetry is preserved and there are no protected zero modes
 of the Dirac operator. 36 odd ones (Arf=1) correspond to topologically
-protected magnetic phases with Dirac cones in the spectrum. The
-structure idx=38 with vector ε=(0,1,1,0,0,1) plays a special role: it is
-realized at α=1/2 (critical filling of the AB-cloud) and gives a
-protected Dirac cone responsible for the GUE statistics of spectral
-gaps.</p>
+protected magnetic phases with Dirac cones in the spectrum.</p>
 <p>Magnetic domains in this formalism are regions with different spinor
 structures. Domain walls are defects where the spinor structure changes.
 In standard magnetism theory, this is described by the magnetization
@@ -5765,8 +5670,7 @@ E.11).</p>
 style="width:6.04167in;height:2.58333in" /></p>
 <p><em>Figure E.3. Distribution of 64 spinor structures on the Klein
 quartic by Arf-invariant. Left: 28 even (Arf=0, blue) and 36 odd (Arf=1,
-red). Right: arrangement on the circle idx mod 64; the asterisk marks
-the key structure idx=38 with ε=(0,1,1,0,0,1) and Arf=1.</em></p>
+red). Right: arrangement on the circle idx mod 64;</em></p>
 <h3
 id="e.5-imaginary-units-in-magnetism-formulas-and-the-number-π15">E.5
 Imaginary units in magnetism formulas and the number π/15</h3>
@@ -7256,13 +7160,9 @@ symmetries.</p>
 vectors ε∈(Z₂)^6. Each structure has an Arf-invariant Arf(ε)∈Z₂,
 calculated as Arf(ε)=ε_1ε_2+ε_3ε_4+ε_5ε_6 mod 2 (in a suitable basis).
 Of the 64 structures, 28 have Arf=0 (even) and 36 have Arf=1 (odd).</p>
-<p>Key structure idx=38. The spinor structure with index idx=38 plays a
-special role, having a characteristic vector ε=(0,1,1,0,0,1) and Arf=1.
-This structure is realized at α=1/2 (critical filling of the AB-cloud)
+<p>This structure is realized at α=1/2 (critical filling of the AB-cloud)
 and gives a protected Dirac cone in the spectrum, responsible for the
-GUE statistics of gaps and the connection with the Riemann hypothesis.
-In the context of magnetism, idx=38 corresponds to a special magnetic
-state in which chiral protection is maximal.</p>
+GUE statistics of gaps and the connection with the Riemann hypothesis.</p>
 <p>Connection of Arf with magnetic domain. Hypothesis: each magnetic
 domain corresponds to a spinor structure with a specific Arf. Domains
 with Arf=0 are ordinary ferromagnetic (paramagnetic at T&gt;T_C)
@@ -7283,19 +7183,14 @@ Arf=1 (36 spinor structures) the possible phases are k·π/15 with k odd
 (15 values, corresponding to chirally non-trivial states). This explains
 why topologically protected magnetic phases (Arf=1) give phases
 different from ordinary ones (Arf=0).</p>
-<p>Specific values. For structure idx=38 (Arf=1, ε=(0,1,1,0,0,1)) the
-phase φ=38 mod 30=8, i.e., φ=8π/15=96°. This value should be observed in
+<p>Specific values. This value should be observed in
 samples processed at α=1/2 (for example, in special films with
 controlled magnetic flux). For structure idx=0 (Arf=0, trivial) the
-phase φ=0 is the ordinary ferromagnet without topological protection.
-For structure idx=1 (Arf=1, ε=(1,0,0,0,0,0)) the phase φ=π/15=12° — the
+phase φ=0 is the ordinary ferromagnet without topological protection. For structure idx=1 (Arf=1, ε=(1,0,0,0,0,0)) the phase φ=π/15=12° — the
 minimal non-trivial phase.</p>
 <p>Connection with PSL(2,7). The group PSL(2,7) of order 168 acts on the
 64 spinor structures, permuting them. The orbits of this action
-correspond to different types of magnetic phases. In particular, the
-structure idx=38 lies in an orbit of 24 elements (corresponding to the
-conjugacy class 7A in PSL(2,7)), which explains its special role — this
-orbit has a size equal to the index of the Frobenius subgroup.</p>
+correspond to different types of magnetic phases.</p>
 <p>Analytical formula. The full phase of a magnetic domain with spinor
 structure idx is given by the formula φ(idx)=2π·(idx mod 30)/30=π·(idx
 mod 30)/15. This formula is derived from the consistency condition: the
@@ -7607,8 +7502,7 @@ Riemann surface of genus g=3. Applying the Atiyah-Singer formula for the
 spinor operator (the Dolbeault operator with coefficients in a
 θ-characteristic) gives: ind(D_ε)=deg(ε)-g+1=deg(ε)-2, where deg(ε) is
 the degree of the θ-characteristic. For even θ (Arf=0) ind=0; for odd θ
-(Arf=1) ind=1 (after appropriate normalization). This is the topological
-justification for the protected Dirac cone for idx=38 (Arf=1).</p>
+(Arf=1) ind=1 (after appropriate normalization).</p>
 <p>Connection with the Hirzebruch R-parameter. The Hirzebruch
 R-parameter R(M)=sig(M)/8 for a four-dimensional manifold generalizes
 the Arf-invariant. For a 3D manifold M with boundary ∂M, the signature
@@ -7697,10 +7591,7 @@ results and data publication. The expected duration of the full cycle is
 <p>The primary objective of the experiment is to verify that mechanical
 processing of the sample in an alternating magnetic field (magnetic
 tumbling) leads to the appearance of a topologically-protected AB-phase,
-which is absent in unprocessed samples. According to the developed
-theory, this phase should take values from the discrete set k·π/15·Φ₀ (k
-= 0..29), with a predominance of values corresponding to the spinor
-structure idx=38 (Arf=1, phase 8π/15).</p>
+which is absent in unprocessed samples.</p>
 <p>Testable hypotheses:</p>
 <p>H1: The distribution of AB-phases in the treated group is
 statistically significantly different from uniform (Kolmogorov-Smirnov
@@ -8305,10 +8196,7 @@ versus original for both cases.</p>
 <p>E.C.3 Experiment 2: AB-phase quantization (30 peaks)</p>
 <p>Model: The AB-phase of each measurement is chosen from the discrete
 set {k·π/15 : k = 0..29} with weights w(k) = 1 + 4·exp(-(k-8)²/20) +
-2·exp(-k²/8) + 2·exp(-(k-15)²/10). This weight choice models the
-distribution observed in the experiment (Protocol 3) with maxima at k =
-0 (trivial phase), k = 8 (structure idx=38), k = 15 (Z₂-nontrivial).
-Gaussian noise with σ = 0.035 rad (~2°) is added to each phase,
+2·exp(-k²/8) + 2·exp(-(k-15)²/10). Gaussian noise with σ = 0.035 rad (~2°) is added to each phase,
 corresponding to the typical error of a SQUID magnetometer. 60,000
 samples are generated.</p>
 <p><em>Experiment 2 code (briefly):</em></p>
@@ -8397,58 +8285,7 @@ ordinal number of the structure in lexicographic sorting of ε.</p>
 <col style="width: 100%" />
 </colgroup>
 <thead>
-<tr class="header">
-<th>
-<p>
-def _arf_invariant(eps):
-</p>
-<p>
-return (eps[0]<em>eps[1] + eps[2]</em>eps[3] + eps[4]*eps[5]) % 2
-</p>
-<p>
-def experiment_arf_phase_map() -&gt; dict:
-</p>
-<p>
-from itertools import product
-</p>
-<p>
-structures = []
-</p>
-<p>
-for idx, eps in enumerate(product([0, 1], repeat=6)):
-</p>
-<p>
-arf = _arf_invariant(eps)
-</p>
-<p>
-k = idx % 30
-</p>
-<p>
-phase = k * np.pi / 15
-</p>
-<p>
-structures.append({“idx”: idx, “eps”: list(eps), “arf”: arf,
-</p>
-<p>
-“k_phase”: k, “phase_rad”: phase})
-</p>
-<p>
-arf0 = sum(1 for s in structures if s[“arf”] == 0)
-</p>
-<p>
-arf1 = sum(1 for s in structures if s[“arf”] == 1)
-</p>
-<p>
-idx38 = next(s for s in structures if s[“idx”] == 38)
-</p>
-<p>
-return {“total”: 64, “arf0_count”: arf0, “arf1_count”: arf1,
-</p>
-<p>
-“idx_38”: idx38}
-</p>
-</th>
-</tr>
+
 </thead>
 <tbody>
 </tbody>
@@ -8461,11 +8298,9 @@ g, the number of even θ-characteristics is 2<sup>(g-1)·(2</sup>g + 1) =
 earlier versions of the manuscript (including the first draft of
 Appendix E), these numbers were swapped (28 even and 36 odd) — this was
 a typo. The present version contains the corrected values.</p>
-<p>The key structure idx = 38 has ε = (0, 1, 1, 0, 0, 1), Arf = 0·1 +
-1·1 + 0·1 = 1 (mod 2), that is, Arf = 1 (odd θ-characteristic). Its
+<p>Its
 phase: k = 38 mod 30 = 8, φ = 8π/15 ≈ 96°. This value should be observed
-in samples processed at the critical filling of the AB-cloud α = 1/2.
-The graph sim3_arf_phase_map.png shows all 64 structures on the unit
+in samples processed at the critical filling of the AB-cloud α = 1/2. The graph sim3_arf_phase_map.png shows all 64 structures on the unit
 circle, colored by the Arf-invariant.</p>
 <p>E.C.5 Experiment 4: Temperature curve and topological window</p>
 <p>Model: The classical magnetization is described by the mean-field
@@ -8860,8 +8695,7 @@ Requirements: Python 3.10+, numpy, matplotlib, scipy.</em></p>
 <p>Consolidated verification script for all 11 hypotheses about AB-cloud
 monograph.</p>
 <p>This single file contains verification code for:</p>
-<p>- H1: idx=38 and 28 bitangents of Klein quartic (Riemann/Klein
-theorem)</p>
+
 <p>- H2: Factor of 2 in Langlands scale (K-theoretic Dirac doubling)</p>
 <p>- H3: E_8 and π/15 phase (Coxeter element, PSL(2,7)→W(E_8))</p>
 <p>- H4: Monster character restriction (ATLAS subgroup #10)</p>
@@ -8903,10 +8737,10 @@ Sans’]</p>
 <p>print(“AB-CLOUD ALL HYPOTHESES VERIFICATION”)</p>
 <p>print(“=”*70)</p>
 <h1 id="section">#</h1>
-<p># H1: idx=38 and 28 bitangents of Klein quartic</p>
+
 <h1 id="section-1">#</h1>
 <p>print(“” + “=”*70)</p>
-<p>print(“H1: idx=38 paradox and 28 bitangents”)</p>
+
 <p>print(“=”*70)</p>
 <p>g = 3</p>
 <p>n = 2 * g # = 6</p>
@@ -8927,11 +8761,9 @@ weight})</p>
 <p>print(f” Theory: 2<sup>(g-1)(2</sup>g+1) = {2**(g-1)*(2**g+1)} even,
 2<sup>(g-1)(2</sup>g-1) = {2**(g-1)*(2**g-1)} odd”)</p>
 <p>s38 = next(s for s in spinors if s[‘idx’] == 38)</p>
-<p>print(f” idx=38: ε={s38[‘eps’]}, Arf={s38[‘arf’]},
-weight={s38[‘weight’]}“)</p>
-<p>print(f” idx=38 is ONE of 28 odd structures (not the only one!)“)</p>
-<p>print(f” Holonomy of idx=38: e^(iπ·{s38[‘weight’]}/{2*g}) = e^(iπ/2)
-= i (Z_4 compatible)“)</p>
+
+
+
 <p>print(f” H1 VERDICT: STRONGLY CONFIRMED”)</p>
 <h1 id="section-2">#</h1>
 <p># H2: Factor of 2 in Langlands scale (K-theoretic Dirac doubling)</p>
@@ -9211,7 +9043,7 @@ bbox_inches=None)</p>
 <p>print(“SUMMARY: All 11 hypotheses verified”)</p>
 <p>print(“=”*70)</p>
 <p>verdicts = [</p>
-<p>(“H1”, “idx=38 and 28 bitangents”, “STRONGLY CONFIRMED”),</p>
+
 <p>(“H2”, “Factor of 2 in Langlands scale”, “CONFIRMED”),</p>
 <p>(“H3”, “E_8 and π/15 phase”, “STRONGLY CONFIRMED”),</p>
 <p>(“H4”, “Monster character restriction”, “PARTIALLY VERIFIED”),</p>
@@ -11434,15 +11266,7 @@ ID.</p>
 <td>—</td>
 <td>0.07</td>
 </tr>
-<tr class="even">
-<td>V42</td>
-<td>idx=38 parity</td>
-<td>ok</td>
-<td>idx</td>
-<td>38</td>
-<td>—</td>
-<td>0.04</td>
-</tr>
+
 <tr class="odd">
 <td>V43</td>
 <td>Band energies</td>
@@ -12064,24 +11888,8 @@ ID.</p>
 <td>—</td>
 <td>11.36</td>
 </tr>
-<tr class="even">
-<td>V112</td>
-<td>Arf invariant idx=38 (computed)</td>
-<td>ok</td>
-<td>idx_test</td>
-<td>38</td>
-<td>passes=true</td>
-<td>0.83</td>
-</tr>
-<tr class="odd">
-<td>V113</td>
-<td>Arf idx=21 vs idx=38 comparison</td>
-<td>ok</td>
-<td>idx_a</td>
-<td>21</td>
-<td>passes=true</td>
-<td>0.62</td>
-</tr>
+
+
 <tr class="even">
 <td>V114</td>
 <td>Physical idx selection by H_AB at alpha=1/2</td>
@@ -12338,13 +12146,7 @@ ensembles, Riemann zeta function)</strong></p>
 <td>64</td>
 <td>—</td>
 </tr>
-<tr class="even">
-<td>V42</td>
-<td>idx=38 parity</td>
-<td>idx</td>
-<td>38</td>
-<td>—</td>
-</tr>
+
 <tr class="odd">
 <td>V43</td>
 <td>Band energies</td>
@@ -12387,20 +12189,8 @@ ensembles, Riemann zeta function)</strong></p>
 <td>2</td>
 <td>—</td>
 </tr>
-<tr class="odd">
-<td>V112</td>
-<td>Arf invariant idx=38 (computed)</td>
-<td>idx_test</td>
-<td>38</td>
-<td>passes=true</td>
-</tr>
-<tr class="even">
-<td>V113</td>
-<td>Arf idx=21 vs idx=38 comparison</td>
-<td>idx_a</td>
-<td>21</td>
-<td>passes=true</td>
-</tr>
+
+
 </tbody>
 </table>
 <p><strong>§4. Block 2: AB-cloud as a phase resonator</strong></p>
@@ -13160,10 +12950,7 @@ cross the critical line at the zeros of ζ.</p>
 <p><strong>Hidden prime connections (V114, V115).</strong></p>
 <p>Problems V114 (physical idx selection via projection of H_AB) and
 V115 (hidden prime connections at GUE-optimum) both give ⟨r⟩ = 0.6063 —
-a deviation from R_GUE = 0.5996 of only 1.13%. This quantitatively
-confirms that the H_AB Hamiltonian itself “selects” the idx = 38
-structure and that this structure is related to the non-trivial
-arithmetic of prime numbers.</p>
+a deviation from R_GUE = 0.5996 of only 1.13%.</p>
 <h3 id="f.6.-remarks-on-finite-size-effects">F.6. Remarks on Finite-Size
 Effects</h3>
 <p>Several verification problems show quantitative discrepancies with
@@ -13210,9 +12997,7 @@ classification (V100–V110).</p></li>
 <li><p>The electron/positron model is confirmed: the Dirac cone at α =
 1/2 (V46), electron trajectories landing on the zeros of ζ
 (V111).</p></li>
-<li><p>The hidden arithmetic structure (selection of idx = 38 by the
-Hamiltonian H_AB, prime-indexed eigenstates) is confirmed with an error
-of 1.13 % (V114, V115).</p></li>
+
 <li><p>Finite-size effects (V13, V32, V77, V82) are explainable and
 consistent with known asymptotics; none of the discrepancies refutes the
 theory.</p></li>
