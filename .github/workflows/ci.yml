@@ -15,7 +15,7 @@ jobs:
     name: Repository structure & metadata
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check canonical artifacts exist
         run: |
           test -f code/ab_cloud_v19.jl
@@ -36,7 +36,7 @@ jobs:
     name: Markdown lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: DavidAnson/markdownlint-cli2-action@v17
         with:
           globs: |
@@ -51,6 +51,6 @@ jobs:
     name: Workflow YAML lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: pipx install yamllint && yamllint -s .github/workflows/
         continue-on-error: true
