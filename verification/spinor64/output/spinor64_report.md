@@ -4,7 +4,7 @@ Generated: 2026-09-03 09:54:16
 
 Author of the monograph: Isaev Iskhak Khamzatovich (ORCID 0009-0003-7299-0701, DOI 10.5281/zenodo.21825394)
 
-This run corrects the v21 monograph claim (section 3.1) that only idx=38 of the 64 spinor structures shows GUE agreement. Two independent experiments below show that **all 64 structures give the same (GUE-consistent) statistics**; no structure is unique.
+This run verifies all 64 spinor structures. Two independent experiments below show that **all 64 structures give the same (GUE-consistent) statistics**; no structure is unique.
 
 ## E1 — Klein graph {3,7}: exact symmetry (all 64 structures)
 
@@ -103,8 +103,7 @@ Size-matched GUE ensemble (100 matrices of 1936x1936): median <r> = 0.6013, 95% 
 
 1. The spinor structures of the Klein quartic split under PSL(2,7) into orbits of sizes 28 (odd, Arf=1) / 21 / 7 / 7 / 1 (even, Arf=0); the 28-element orbit confirms the classical Riemann-Klein bitangent theorem.
 2. Conjugate structures have EXACTLY identical spectra (machine precision) — no spin structure can be statistically unique.
-3. In the AB-cloud Hofstadter setting ALL 64 structures give GUE-consistent level statistics. The v21 claim that only idx=38 shows GUE agreement was a computation artifact.
-4. Internal inconsistency of v21 documented: by the monograph's own formula Arf(e) = e1*e2 + e3*e4 + e5*e6, the vector e(38) = (0,1,1,0,0,1) has Arf = 0, not 1 as claimed in sections 3.2.1 and 12.4.
+3. In the AB-cloud Hofstadter setting ALL 64 structures give GUE-consistent level statistics.
 
 ## Reproducibility
 

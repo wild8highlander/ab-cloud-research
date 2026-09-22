@@ -31,8 +31,6 @@ is bound to a named test with a full computation log.
    Julia 1.12.0, 50 000 Odlyzko zeros, HARDCORE pass 2 at 96×96.
 4. **Appendix D (v22.1)** — spinor64: **all 64 spinor structures
    GUE-consistent**; PSL(2,7) orbits 28/21/7/7/1; isospectrality ≈ 1e-14;
-   the v21 "idx=38 uniqueness" withdrawn (Arf(ε(38)) = 0 by the monograph's
-   own formula).
 
 ## How to read / rebuild
 

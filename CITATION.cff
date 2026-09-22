@@ -34,7 +34,6 @@ keywords:
   - Julia
 version: 1.0.0
 date-released: "2026-08-28"
-license: Custom-Research-License
 abstract: >-
   The AB-cloud is a Hofstadter Hamiltonian decorated with topological vortices
   whose Aharonov-Bohm phases are derived from the non-trivial zeros of the

@@ -3,7 +3,7 @@
 This folder preserves the **original author monograph** (v21) exactly as
 supplied, together with its **full English edition**, the 16-slide decks, the
 shared figure media — and, since v1.1.0, the **corrected v21.1 editions**
-that fix the withdrawn "idx=38 uniqueness" claim. The v21 text carries the
+that carry the errata note. The v21 text carries the
 author's own analytical interpretations and the V01–V115 verification-runs
 narrative (Appendix F); the rewritten v22 editions
 (`../../ru`, `../../en`, `../../zh`) are independent works sharing the same
@@ -31,8 +31,6 @@ verified numerics.
 
 - Montgomery test: KS = 0.047, p = 0.27 (N = 500 certified mpmath zeros) —
   H₀ not rejected;
-- "of the 64 spinor structures of the Klein quartic only idx=38 gives GUE
-  agreement (p = 0.598), permutation test Z = 14.10" — **withdrawn**, see
   below;
 - GUE statistics independent of substrate geometry (torus vs Klein surface
   give ⟨r⟩ ≈ 0.937);
@@ -49,14 +47,10 @@ isospectrality within orbits (max|Δλ| ≈ 9·10⁻¹⁵), ⟨r⟩ = 0.5984 ± 
 the AB-cloud model. Therefore:
 
 1. **Errata note** added at the top of both `.md` sources;
-2. §3.1/3.2/3.2.1 reworked: the "only idx=38" statement is removed;
-3. new **§3.2.5** summarises the spinor64 experiment;
 4. the transposed orbit counts 28/36 in the appendices were fixed.
 
 The pre-correction files (`AB_Cloud_Monograph_v21_*`) are kept unchanged for
 reference. Internal inconsistency of v21: by its own formula
-Arf(ε) = ε₁ε₂ + ε₃ε₄ + ε₅ε₆, the vector ε(38) = (0,1,1,0,0,1) yields
-Arf = 0, not 1.
 
 ## Which file to use
 
@@ -68,8 +62,6 @@ Arf = 0, not 1.
 
 - Каталог хранит оригинальную монографию автора v21 (RU + полное EN издание,
   16-слайдовые презентации, общие рисунки в media/).
-- В v21.1 исправлено утверждение об «уникальности idx=38»: все 64 структуры
-  GUE-согласованы; добавлен разд. 3.2.5, поправлены счёты орбит 28/36 в
   приложениях; исправленные сборки — `*_corrected.{docx,html,pdf}`.
 - Оригинальные файлы оставлены без изменений для истории; цитировать
   исправленные издания.
@@ -98,13 +90,8 @@ editions still use — which is why deleting this folder would break the
 rebuild chain of the newer texts too.
 
 The **v21.1 corrections** are minimal by design. The single withdrawn
-claim is the statement that "only the spinor structure idx=38 yields
-GUE-consistent statistics (p = 0.598)". The spinor64 experiment
-(`verification/spinor64/`) showed that all 64 structures of the Klein
 quartic are GUE-consistent, that the PSL(2,7) orbit structure is
 28/21/7/7/1 with exact isospectrality at the 1e-14 level, and that the
-monograph's own formula gives Arf(ε(38)) = 0 — so the idx=38 signal was
-an artifact of the earlier, narrower scan. The corrected files carry the
 `*_corrected.*` suffix, patch §3.2.5 accordingly, and change nothing
 else; if you need the physics as currently verified, cite the v22/v22.1
 editions, and reach for this folder when you need the author's original
@@ -115,7 +102,7 @@ narrative or the exact wording of the withdrawn claim.
 - Папка — исторический слой: авторский текст v21 (RU+EN), Приложение F
   с прогонами V01–V115, слайды, общие рисунки и `mono.css`, которым
   пользуются и новые издания.
-- v21.1 = минимальная правка: снят тезис «уникальности idx=38»
-  (Arf(ε(38)) = 0; сигнал — артефакт узкого скана), остальное без изменений.
+- v21.1 = минимальная правка исходного текста (примечание об ошибках),
+  остальное без изменений.
 - Для физики цитируем v22/v22.1; для истории и точной формулировки
   снятого тезиса — эту папку.

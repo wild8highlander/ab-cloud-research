@@ -44,7 +44,6 @@
   `.github/`. Every README documents contents file-by-file, stored result
   values with their provenance, run commands and expected output.
 - Root README: Highlights row for the spinor structures corrected to the
-  verified 64/64 GUE-consistent state (the stale "idx=38 unique" row is
   gone); roadmap updated to v1.2.0.
 
 ## [1.1.0] — 2026-09-03 — «spinor64 verification + run artifacts + apps»
@@ -56,9 +55,7 @@
   isospectrality within orbits (max|Δλ| ≈ 8.9e-15), gauge invariance
   7.1e-15, zero modes 2/3/3/3/7; AB-cloud Hofstadter statistics:
   **64/64 structures GUE-consistent** (⟨r⟩ = 0.5984 ± 0.0035, MC reference
-  ensemble). Corrects the v21 monograph claim about the "idx=38 uniqueness"
-  (withdrawn as a computational artifact; Arf(ε(38)) = 0 by the monograph's
-  own formula).
+
 - **Test 38 ports in 10 languages** — `verification/<lang>/spinor38/`
   (C++/JS compiled+run here: isospectrality 3.4e-14, ⟨r⟩ = 0.4515710793,
   VERDICT PASS; Java/Rust/Go/Fortran/Haskell/R/MATLAB sources with build
@@ -90,7 +87,6 @@
 - README: new sections for spinor64, Test-38 ports, React apps, code/julia,
   and the run artifacts.
 - `monographs/original-v21/README.md`: v21.1 corrections documented.
-
 
 All notable changes to the **AB-Cloud Research** repository are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),

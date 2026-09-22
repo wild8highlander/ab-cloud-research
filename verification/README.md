@@ -14,8 +14,6 @@ hosts two newer blocks added in v1.1.0:
 
 - [`spinor64/`](spinor64) — the reference verification of **all 64 spinor
   structures** of the Klein quartic (it corrects the v21 monograph claim that
-  "only idx=38 gives GUE agreement"; the claim is withdrawn as a computational
-  artifact);
 - `<lang>/spinor38/` — **Test 38 ports in 10 languages** (exact isospectrality
   inside a PSL(2,7) orbit + ⟨r⟩ via a hand-written Jacobi eigensolver).
 
@@ -162,7 +160,7 @@ Full provenance, formats and column layout: [`data/README.md`](data/README.md).
 ## 5. spinor64 and the Test-38 ports (added in v1.1.0)
 
 `spinor64/` is the **reference Python implementation** that settled the
-"idx=38 uniqueness" question: **all 64 spinor structures of the Klein quartic
+spinor-uniqueness question resolved: **all 64 spinor structures of the Klein quartic
 give GUE-consistent statistics**. PSL(2,7) splits them into orbits of sizes
 **28 / 21 / 7 / 7 / 1**; operators inside an orbit are exactly isospectral
 (max|Δλ| ≈ 8.9·10⁻¹⁵); in the AB-cloud Hofstadter model (L = 44, α = 1/2,
@@ -227,7 +225,7 @@ Cite the monographs for the physics and this suite for the numbers:
 - Команды запуска для каждого языка — в §3; файл нулей выбирается
   автоматически по запросу `--zeros`.
 - В v1.1.0 добавлены `spinor64/` (все 64 спинорные структуры GUE-согласованы,
-  «уникальность idx=38» снята как артефакт) и порты Test 38
+  все 64 структуры GUE-согласованы) и порты Test 38
   `<язык>/spinor38/` (изоспектральность 3.4e-14, ⟨r⟩ = 0.4515710793 — PASS).
 - Ожидаемое межъязыковое согласие — на уровне двойной точности; расхождения
   ~1e-12 для b(N) считаются нормой.

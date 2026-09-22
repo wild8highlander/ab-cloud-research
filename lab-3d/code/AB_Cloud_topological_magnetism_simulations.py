@@ -247,19 +247,17 @@ def experiment_arf_phase_map() -> dict:
     arf1_count = sum(1 for s in structures if s["arf"] == 1)
     arf0_count = sum(1 for s in structures if s["arf"] == 0)
 
-    # Find idx=38 specifically
-    idx38 = next(s for s in structures if s["idx"] == 38)
 
     # Plot: 64 structures on unit circle, colored by Arf
     fig, ax = plt.subplots(figsize=(7, 7), constrained_layout=True)
     for s in structures:
         theta = s["phase_rad"]
         color = "tab:orange" if s["arf"] == 1 else "tab:blue"
-        size = 220 if s["idx"] == 38 else 60
-        marker = "*" if s["idx"] == 38 else "o"
+        size = 60
+        marker = "o"
         ax.scatter(np.cos(theta), np.sin(theta), s=size, c=color,
                    marker=marker, edgecolor="k", linewidth=0.4,
-                   alpha=0.8 if s["idx"] == 38 else 0.7)
+                   alpha=0.7)
     # unit circle
     t = np.linspace(0, 2 * np.pi, 400)
     ax.plot(np.cos(t), np.sin(t), "k-", lw=0.6, alpha=0.4)
@@ -271,7 +269,7 @@ def experiment_arf_phase_map() -> dict:
     ax.set_xlim(-1.25, 1.25); ax.set_ylim(-1.25, 1.25)
     ax.set_xlabel("cos φ"); ax.set_ylabel("sin φ")
     ax.set_title(f"Experiment 3 — 64 spinor structures: "
-                 f"Arf=0 ({arf0_count}) blue, Arf=1 ({arf1_count}) orange, idx=38 ★")
+                 f"Arf=0 ({arf0_count}) blue, Arf=1 ({arf1_count}) orange")
     ax.grid(alpha=0.2)
     path = os.path.join(OUT_DIR, "sim3_arf_phase_map.png")
     fig.savefig(path)
@@ -281,7 +279,6 @@ def experiment_arf_phase_map() -> dict:
         "total_structures": len(structures),
         "arf0_count": arf0_count,
         "arf1_count": arf1_count,
-        "idx_38": idx38,
         "figure": path,
     }
 
@@ -358,7 +355,7 @@ def experiment_tumbling_transfer(n_per_group: int = 200) -> dict:
 
     # control: uniform noise
     control = RNG.uniform(0, 2 * np.pi, n_per_group)
-    # treated: discrete distribution biased toward k=8 (idx=38)
+    # treated: discrete distribution biased toward k=8
     weights = np.array([1.0 + 5.0 * np.exp(-((k - 8) ** 2) / 18.0) for k in range(30)])
     weights /= weights.sum()
     k_treated = RNG.choice(30, size=n_per_group, p=weights)

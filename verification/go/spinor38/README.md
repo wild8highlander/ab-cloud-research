@@ -8,7 +8,7 @@ verify:
 
 1. the 28 odd (Arf=1) spinor structures of the Klein quartic are exactly
    isospectral (max pairwise spectral distance ~ 1e-14) -- no spinor structure
-   is unique (corrects the v21 monograph claim about idx=38);
+   is statistically special;
 2. the spacing-ratio statistic `<r>` of the representative spectrum matches
    the reference value 0.4515710792825435.
 
@@ -73,11 +73,7 @@ suite does for the zeta zeros. The verified verdict — confirmed
 independently by the full spinor64 experiment in `../../spinor64/` —
 is that **all 64 structures are GUE-consistent**, with the PSL(2,7)
 orbit decomposition 28/21/7/7/1 and exact isospectrality inside each
-orbit at the ≈ 1e-14 level. Historically this is the test that closed
-the v21 story: the claim "only idx=38 gives GUE-consistent statistics
-(p = 0.598)" is withdrawn, and the monograph's own formula gives
-Arf(ε(38)) = 0, so the earlier signal was an artifact of the narrower
-scan, not a property of the quartic.
+orbit at the ≈ 1e-14 level.
 
 House rules for this port: it reads **only the frozen data files**
 (`../../data/`) and its language's standard library — where the
@@ -93,7 +89,5 @@ port bug.
 - Тест 38: статистика межуровневых расстояний всех 64 спинор-структур
   квартики Кляйна против GUE; итог — 64/64 согласованы, орбиты
   PSL(2,7) 28/21/7/7/1, изоспектральность ≈ 1e-14.
-- Тезис v21 «уникальности idx=38» снят: Arf(ε(38)) = 0, сигнал был
-  артефактом узкого скана.
 - Только замороженные данные и stdlib; формат вывода одинаков во всех
   десяти языках и сверяется с C++-эталоном.

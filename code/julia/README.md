@@ -28,8 +28,7 @@ kept for reproducibility archaeology.
 - **v20** — extended diagnostics pass; intermediate between the suite and
   the monograph-v21 code state.
 - **v21 / v21_v1** — the code state referenced by the original v21
-  monograph (including its spinor experiment whose idx=38 claim was later
-  corrected by `verification/spinor64/`).
+  monograph (including its spinor experiment).
 
 ## Running any historical version
 

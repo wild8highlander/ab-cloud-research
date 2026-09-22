@@ -6,7 +6,6 @@ Spinor classification and Arf invariant for AB-Cloud vortex configurations.
 Implements the 64-spinor classification on the L x L lattice with bipartite
 structure (alpha = 1/2) and computes the Arf invariant under three conventions.
 
-Monograph prediction: idx=38 spinor is in the odd-Arf sector.
 """
 import numpy as np
 from dataclasses import dataclass
@@ -91,7 +90,6 @@ def arf_invariant(spinors: List[Spinor], convention: str = "A") -> Dict:
 def spinor_classification(n_bits: int = 6) -> Dict:
     """
     Full 64-spinor classification with all three Arf conventions.
-    Monograph prediction: idx=38 spinor is odd-Arf.
     """
     spinors = generate_spinors(n_bits)
     n_total = len(spinors)
@@ -102,14 +100,6 @@ def spinor_classification(n_bits: int = 6) -> Dict:
     res_B = arf_invariant(spinors, "B")
     # Convention C
     res_C = arf_invariant(spinors, "C")
-
-    # Check idx=38 (label 38)
-    target = 38
-    target_sp = next((s for s in spinors if s.label == target), None)
-    target_Q = {}
-    if target_sp is not None:
-        for conv in ["A", "B", "C"]:
-            target_Q[conv] = quadratic_form_Q(target_sp.bits, conv)
 
     return {
         "n_total": n_total,
@@ -126,8 +116,6 @@ def spinor_classification(n_bits: int = 6) -> Dict:
             "B": {"even": res_B["n_even"], "odd": res_B["n_odd"]},
             "C": {"even": res_C["n_even"], "odd": res_C["n_odd"]},
         },
-        "idx_38_Q": target_Q,
-        "idx_38_parity_A": "odd" if target_Q.get("A") == 1 else "even",
     }
 
 
@@ -137,4 +125,3 @@ if __name__ == "__main__":
     print(f"Convention A: even={r['convention_counts']['A']['even']}, odd={r['convention_counts']['A']['odd']}")
     print(f"Convention B: even={r['convention_counts']['B']['even']}, odd={r['convention_counts']['B']['odd']}")
     print(f"Convention C: even={r['convention_counts']['C']['even']}, odd={r['convention_counts']['C']['odd']}")
-    print(f"idx=38 Q values: {r['idx_38_Q']}")

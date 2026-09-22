@@ -25,7 +25,7 @@ text is bound to a named test and its log.
 
 1. Introduction and the Hilbert–Pólya programme in computable form
 2. Mathematical apparatus (ζ zeros, RMT ensembles, the Hofstadter-vortex Hamiltonian)
-3. Block 1 — Klein quartic and 64 spinor structures (idx = 38, Z = 14.10)
+3. Block 1 — Klein quartic and 64 spinor structures
 4. Block 2 — the cloud as a phase resonator (geometry independence)
 5. Block 3 — Montgomery test vs certified zeros (KS = 0.047)
 6. Block 4 — optimality of the critical line σ = 1/2
