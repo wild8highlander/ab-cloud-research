@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    @page { size: 794px 1123px; margin: 0; }
+    :root {
+      --c-bg: #152028;
+      --c-accent: #4d94b8;
+      --c-text: #f2f5f7;
+      --c-muted: #8898a8;
+      --c-footer: #5d6f7e;
+    }
+    html, body { margin: 0; padding: 0; width: 794px; height: 1123px;
+      background: var(--c-bg); color: var(--c-text);
+      font-family: 'Inter', sans-serif; }
+    @media screen {
+      html { height: auto; display: flex; justify-content: center;
+        min-height: 100vh; background: var(--c-bg); }
+      body { transform-origin: top center;
+        scale: min(1, calc(100vw / 794), calc(100vh / 1123));
+        margin: 0 auto; box-shadow: 0 0 60px rgba(0,0,0,0.3); }
+    }
+    .cover { width: 794px; height: 1123px; position: relative;
+      box-sizing: border-box; border: none; outline: none; }
+    .bg-layer { position: absolute; inset: 0; overflow: hidden; z-index: 1; }
+    .bg-ring { position: absolute; right: -140px; bottom: -140px;
+      width: 480px; height: 480px; border-radius: 50%;
+      border: 1px solid rgba(77,148,184,0.12); }
+    .bg-ring2 { position: absolute; right: -60px; bottom: -60px;
+      width: 320px; height: 320px; border-radius: 50%;
+      border: 1px solid rgba(77,148,184,0.08); }
+    .vline { position: absolute; left: 57px; top: 76px; bottom: 76px;
+      width: 2.5px; background: var(--c-accent); z-index: 2; }
+    .content { position: absolute; left: 106px; right: 76px; top: 0; bottom: 0;
+      z-index: 3; }
+    .label { position: absolute; top: 128px; font-size: 9.5pt;
+      color: var(--c-accent); letter-spacing: 3.5px; text-transform: uppercase;
+      font-weight: 500; }
+    .title { position: absolute; top: 208px; font-size: 33pt; font-weight: 700;
+      line-height: 1.22; font-family: 'Playfair Display', serif;
+      color: var(--c-text); max-width: 600px; }
+    .subtitle { position: absolute; top: 512px; font-size: 12pt;
+      line-height: 1.65; color: var(--c-muted); max-width: 520px;
+      font-weight: 300; }
+    .stats { position: absolute; top: 672px; display: flex; gap: 34px; }
+    .stat { border-left: 2px solid var(--c-accent); padding-left: 14px; }
+    .stat .v { font-size: 21pt; font-weight: 600; color: var(--c-text);
+      font-family: 'Playfair Display', serif; }
+    .stat .l { font-size: 8pt; color: var(--c-muted); letter-spacing: 1px;
+      margin-top: 3px; max-width: 130px; line-height: 1.4; }
+    .authors { position: absolute; top: 856px; font-size: 11.5pt;
+      color: var(--c-text); font-weight: 400; }
+    .institution { position: absolute; top: 892px; font-size: 9.5pt;
+      color: var(--c-muted); line-height: 1.5; max-width: 520px; }
+    .footer { position: absolute; bottom: 76px; left: 0; right: 0;
+      display: flex; justify-content: space-between; font-size: 9pt;
+      color: var(--c-footer); letter-spacing: 1px; }
+  </style>
+</head>
+<body>
+  <div class="cover">
+    <div class="bg-layer">
+      <div class="bg-ring"></div>
+      <div class="bg-ring2"></div>
+    </div>
+    <div class="vline"></div>
+    <div class="content">
+      <div class="label">Исследовательский отчёт · AB-Cloud v23 · Тест 34</div>
+      <div class="title">Масштабное исследование<br>параметров вихрей<br>AB-облака</div>
+      <div class="subtitle">Где спектр решёточного гамильтониана Аронова–Бома
+        ближе всего к нулям дзета-функции Римана: трёхстадийный скрин
+        N<sub>v</sub> × q × W × α × геометрия (217 конфигураций) и верификация
+        четырёх финалистов на решётке 96×96 по полному протоколу Теста 34b.</div>
+      <div class="stats">
+        <div class="stat"><div class="v">0.0318</div>
+          <div class="l">минимальный KS-D на 96×96 (PASS)</div></div>
+        <div class="stat"><div class="v">×3.4</div>
+          <div class="l">улучшение против референса 0.1096</div></div>
+        <div class="stat"><div class="v">N<sub>v</sub> ≈ 8–16</div>
+          <div class="l">оптимальная плотность вихрей при q ≈ 1, α = 0.5</div></div>
+      </div>
+      <div class="authors">Вычислительный эксперимент: Python-порт протокола Теста 34b</div>
+      <div class="institution">по материалам репозитория
+        wild8highlander/ab-cloud-research · ζ-набор 50 000 нулей ·
+        seeds ab_seed = 96</div>
+      <div class="footer">
+        <span>AB-CLOUD v23 SUPERCOMBO · DIRECT AB vs ζ</span>
+        <span>СЕНТЯБРЬ 2026</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
