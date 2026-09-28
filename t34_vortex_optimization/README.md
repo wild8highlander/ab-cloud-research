@@ -1,4 +1,4 @@
-# T34 Vortex-Density Optimization for the AB-Cloud — Complete Research Package
+# Vortex-Density Optimization for the AB-Cloud — Complete Research Package
 
 > **Repository:** `wild8highlander/ab-cloud-research`
 > **Study:** Large-scale parameter scan of the AB-cloud vortex system against the Riemann ζ zeros (extension of the suite's `test_34_direct_vs_zeta`, referred to as **Test 34-ext**)
