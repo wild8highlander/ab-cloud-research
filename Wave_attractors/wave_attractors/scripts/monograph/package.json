@@ -1,0 +1,14 @@
+{
+  "name": "w1-monograph-builder",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DOCX builder for the AB-Cloud W1 monographs (RU/EN). Single runtime dependency: the 'docx' npm package.",
+  "scripts": {
+    "build:ru": "node build_monograph.js --lang ru",
+    "build:en": "node build_monograph.js --lang en",
+    "build": "npm run build:ru && npm run build:en"
+  },
+  "dependencies": {
+    "docx": "9.7.1"
+  }
+}

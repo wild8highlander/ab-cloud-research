@@ -1,0 +1,11 @@
+{
+  "n_rays": 24,
+  "n_slope_hits_transient": 234,
+  "ratio_transient_mean": 7.593509309570184,
+  "ratio_transient_max": 65.27561237879394,
+  "ratio_steady_mean": 4.185507137032702,
+  "q_fit_median": 0.9923426382946252,
+  "n_converged": 24,
+  "ref_period": 22,
+  "runtime_s": 8.5
+}

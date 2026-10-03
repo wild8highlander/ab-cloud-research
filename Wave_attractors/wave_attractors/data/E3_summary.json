@@ -1,0 +1,11 @@
+{
+  "n_rays": 24,
+  "n_loops_census": 24,
+  "census_mean": 0.036379080392071474,
+  "census_std": 0.4261202565790436,
+  "n_mirror_pairs": 24,
+  "mirror_chirality_flip": true,
+  "mirror_chirality_sum_max": 2.7755575615628914e-16,
+  "mirror_hausdorff_max": 1.0108670566267367e-14,
+  "runtime_s": 3.56
+}

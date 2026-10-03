@@ -1,0 +1,122 @@
+{
+  "model": "Drude-regularised hyperbolic medium, ADE-FDTD leapfrog",
+  "mapping": "omega0 = omega_p/sqrt(eta+1) <=> eta_eff = (wp/w0)^2-1",
+  "unit_cell": "omega_p = pi*c/a, a = L/N_cells",
+  "main_run": {
+    "n_grid": 256,
+    "n_cells": 128,
+    "omega_p": 402.1238596594935,
+    "omega0": 40.01281954319784,
+    "eta_eff": 100.0,
+    "sigma": 0.01,
+    "pulse_width": 0.0999679614100076,
+    "T": 120.0,
+    "route_period_ray": 22,
+    "corridor_area_fraction": 0.06016753141213978,
+    "capture_hyper": 0.05084733436423289,
+    "capture_iso": 0.03546245584817491,
+    "capture_ratio": 1.433835676297353,
+    "capture_contrast_hyper": 0.8450959042333854,
+    "formation_time": 0.8000000000000081,
+    "analysis_time": 24.0,
+    "kx_front": {
+      "t3": 156.4660403643354,
+      "t6": 168.98332359348223,
+      "t10": 168.98332359348223,
+      "t16": 168.98332359348223,
+      "t24": 168.98332359348223,
+      "t40": 162.72468197890882
+    },
+    "kx_fold_edge": 400.12819543197844
+  },
+  "truncation_scan": [
+    {
+      "n_cells": 32,
+      "n_grid": 64,
+      "omega_p": 100.53096491487338,
+      "omega0": 10.00320488579946,
+      "eta_eff": 100.0,
+      "wavelengths_across_chamber": 1.5920595043359826,
+      "capture_at_analysis": 0.004854582923001187,
+      "capture_peak": 0.014929997169280979,
+      "capture_contrast": 0.06717227860124339,
+      "corridor_area_fraction": 0.07227063044592516
+    },
+    {
+      "n_cells": 48,
+      "n_grid": 96,
+      "omega_p": 150.79644737231007,
+      "omega0": 15.004807328699192,
+      "eta_eff": 100.0,
+      "wavelengths_across_chamber": 2.388089256503974,
+      "capture_at_analysis": 0.019430530481218233,
+      "capture_peak": 0.024994464966162783,
+      "capture_contrast": 0.2984502588447327,
+      "corridor_area_fraction": 0.06510475332282045
+    },
+    {
+      "n_cells": 64,
+      "n_grid": 128,
+      "omega_p": 201.06192982974676,
+      "omega0": 20.00640977159892,
+      "eta_eff": 100.0,
+      "wavelengths_across_chamber": 3.1841190086719653,
+      "capture_at_analysis": 0.01647679164198154,
+      "capture_peak": 0.037267447492626,
+      "capture_contrast": 0.2598943635934026,
+      "corridor_area_fraction": 0.06339803377867406
+    },
+    {
+      "n_cells": 96,
+      "n_grid": 192,
+      "omega_p": 301.59289474462014,
+      "omega0": 30.009614657398384,
+      "eta_eff": 100.0,
+      "wavelengths_across_chamber": 4.776178513007948,
+      "capture_at_analysis": 0.015473320739907216,
+      "capture_peak": 0.06477173759922152,
+      "capture_contrast": 0.25361408582601347,
+      "corridor_area_fraction": 0.061011282908483074
+    },
+    {
+      "n_cells": 128,
+      "n_grid": 256,
+      "omega_p": 402.1238596594935,
+      "omega0": 40.01281954319784,
+      "eta_eff": 100.0,
+      "wavelengths_across_chamber": 6.368238017343931,
+      "capture_at_analysis": 0.019123142802198366,
+      "capture_peak": 0.1010787269673483,
+      "capture_contrast": 0.3178316004226153,
+      "corridor_area_fraction": 0.06016753141213978
+    },
+    {
+      "n_cells": 192,
+      "n_grid": 384,
+      "omega_p": 603.1857894892403,
+      "omega0": 60.01922931479677,
+      "eta_eff": 100.0,
+      "wavelengths_across_chamber": 9.552357026015896,
+      "capture_at_analysis": 0.04911082583448021,
+      "capture_peak": 0.15251729747979978,
+      "capture_contrast": 0.8366226806483236,
+      "corridor_area_fraction": 0.058701284307069924
+    }
+  ],
+  "naive_control": {
+    "eta": 100.0,
+    "n_grid": 256,
+    "gamma_predicted_discrete": 51.0,
+    "gamma_measured": 74.60304879086273,
+    "blowup_time": 0.441176470588234,
+    "gamma_predicted_continuum": 80.11061266653972,
+    "ratio_discrete": 1.4628048782522103
+  },
+  "stability_check": {
+    "n_grid": 128,
+    "steps": 8000,
+    "T": 18.89763779527559,
+    "E_max_over_E0": 1.0,
+    "chi_max": 44.1604936915549
+  }
+}

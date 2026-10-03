@@ -1,0 +1,167 @@
+{
+  "tool": "verify_repro.py",
+  "reference": "/home/z/my-project/repo-ab-cloud/wave_attractors/data",
+  "candidate": "/home/z/my-project/repro_test/repo/wave_attractors/data",
+  "atol": 1e-09,
+  "rtol": 1e-06,
+  "files_total": 31,
+  "files_ok": 31,
+  "reproducible": true,
+  "rows": [
+    {
+      "file": "AB_water_metrics.json",
+      "verdict": "MATCH",
+      "detail": "exact (max|delta| = 0); volatile pruned: 1 field(s)"
+    },
+    {
+      "file": "E1_cascade_slope_hits.csv",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "E1_convergence.csv",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "E1_summary.json",
+      "verdict": "MATCH",
+      "detail": "exact (max|delta| = 0); volatile pruned: 1 field(s)"
+    },
+    {
+      "file": "E2_control.csv",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "E2_summary.json",
+      "verdict": "MATCH",
+      "detail": "exact (max|delta| = 0); volatile pruned: 1 field(s)"
+    },
+    {
+      "file": "E3_chirality.csv",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "E3_summary.json",
+      "verdict": "MATCH",
+      "detail": "exact (max|delta| = 0); volatile pruned: 1 field(s)"
+    },
+    {
+      "file": "E4_frequency_invariance.json",
+      "verdict": "MATCH",
+      "detail": "exact (max|delta| = 0); volatile pruned: 1 field(s)"
+    },
+    {
+      "file": "E4_ray_density.npz",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "E4_summary.json",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "E4_wave_maps.npz",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "E5_phase_diagram.csv",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "E5_summary.json",
+      "verdict": "MATCH",
+      "detail": "exact (max|delta| = 0); volatile pruned: 1 field(s)"
+    },
+    {
+      "file": "E6_eta_scan.csv",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "E6_summary.json",
+      "verdict": "MATCH",
+      "detail": "exact (max|delta| = 0); volatile pruned: 4 field(s)"
+    },
+    {
+      "file": "E6_wave_scan.npz",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "E7_kspectra.npz",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "E7_route_fraction.csv",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "E7_summary.json",
+      "verdict": "MATCH",
+      "detail": "exact (max|delta| = 0)"
+    },
+    {
+      "file": "E7_td_snapshots.npz",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "E7_truncation_scan.csv",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "cross_verification.json",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "julia_td_td_snapshots.csv",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "rays_julia.csv",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "rays_python.json",
+      "verdict": "MATCH",
+      "detail": "exact (max|delta| = 0); volatile pruned: 1 field(s)"
+    },
+    {
+      "file": "rays_python_summary.csv",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "rays_reference.csv",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "rays_short_julia.csv",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "rays_short_python.csv",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    },
+    {
+      "file": "td_cross_verification.json",
+      "verdict": "IDENTICAL",
+      "detail": "bitwise (sha256)"
+    }
+  ]
+}

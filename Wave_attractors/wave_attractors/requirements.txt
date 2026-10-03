@@ -1,0 +1,14 @@
+# wave_attractors — Python runtime dependencies (study W1)
+#
+# Core pipeline (E1-E7, AB companion, figures) — the only hard requirement:
+numpy>=2.0
+scipy>=1.13
+matplotlib>=3.9
+
+# Report body build (scripts/report/w1_report_build.py):
+reportlab>=4.2
+pypdf>=4.3
+pillow>=10.4
+
+# Optional cross-verification (level 2 statistics on Julia CSV dumps):
+# pandas>=2.2   # not required; verify_cross.py uses stdlib csv + numpy

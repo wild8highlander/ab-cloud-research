@@ -1,0 +1,106 @@
+name: W1 Hyperbolic wave attractors
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "wave_attractors/**"
+      - ".github/workflows/wave-attractors.yml"
+  pull_request:
+    paths:
+      - "wave_attractors/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python-pipeline:
+    name: Ray + wave + AB pipeline (quick protocol)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install numpy scipy matplotlib
+      - name: Ray-core self-tests
+        run: python3 wave_attractors/scripts/ray_billiard.py
+        timeout-minutes: 5
+      - name: Quick experiment protocol (E1/E2/E3/E5)
+        run: python3 wave_attractors/scripts/run_experiments.py --quick
+        timeout-minutes: 10
+      - name: Frequency independence + ray density (E4)
+        run: python3 wave_attractors/scripts/e4_frequency.py
+        timeout-minutes: 6
+      - name: Wave-level Helmholtz simulation
+        run: python3 wave_attractors/scripts/wave_directional.py --quick
+        timeout-minutes: 6
+      - name: E6 eta scan (ray universality + wave channeling)
+        run: python3 wave_attractors/scripts/e6_eta_scan.py --quick
+        timeout-minutes: 6
+      - name: E7 time-domain simulation with unit-cell truncation
+        run: python3 wave_attractors/scripts/e7_time_domain.py --quick
+        timeout-minutes: 10
+      - name: Companion AB water-wave study
+        run: python3 wave_attractors/scripts/ab_water.py
+        timeout-minutes: 5
+      - name: Reference dump for cross-verification
+        run: python3 wave_attractors/scripts/dump_reference_csv.py
+      - name: Upload data artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: w1-data
+          path: wave_attractors/data/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  julia-cross-verification:
+    name: Julia port + cross-verification
+    runs-on: ubuntu-latest
+    needs: python-pipeline
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python3 -m pip install numpy
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: "1.10"
+      - name: Download reference data artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: w1-data
+          path: wave_attractors/data/
+      - name: Run Julia port
+        run: julia wave_attractors/scripts/julia/wave_attractors.jl wave_attractors
+        timeout-minutes: 10
+      - name: Julia TD kernel (E7)
+        run: julia wave_attractors/scripts/julia/td_check.jl wave_attractors/data/julia_td
+        timeout-minutes: 5
+      - name: Cross-verification (Python vs Julia, rays + TD)
+        run: |
+          python3 wave_attractors/scripts/verify_cross.py
+          python3 wave_attractors/scripts/verify_td_cross.py wave_attractors/data/julia_td_td_snapshots.csv
+        timeout-minutes: 5
+      - name: Upload cross-verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: w1-cross-verification
+          path: |
+            wave_attractors/data/cross_verification.json
+            wave_attractors/data/td_cross_verification.json
+          retention-days: 14
+      - name: Reproducibility self-check (verifier sanity)
+        run: |
+          python3 wave_attractors/scripts/verify_repro.py \
+            --reference wave_attractors/data --candidate wave_attractors/data
+        timeout-minutes: 5

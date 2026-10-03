@@ -1,0 +1,59 @@
+{
+  "level1_short_horizon": {
+    "n_bounce_points_compared": 1200,
+    "max_position_deviation": 3.4528650028251532e-15,
+    "tolerance": 1e-08,
+    "ok": true,
+    "per_ray_max_dev": {
+      "0": 0.0,
+      "1": 2.220446049250313e-16,
+      "2": 1.165754827143445e-15,
+      "3": 0.0,
+      "4": 3.4528650028251532e-15,
+      "5": 2.2204568912455683e-15,
+      "6": 7.771561172376096e-16,
+      "7": 1.887379141862766e-15,
+      "8": 2.2204568912455683e-15,
+      "9": 0.0,
+      "10": 0.0,
+      "11": 0.0
+    }
+  },
+  "level2_statistics": {
+    "lock_fraction_py": 0.9166666666666666,
+    "lock_fraction_jl": 0.9166666666666666,
+    "lock_fraction_ok": true,
+    "periods_py": [
+      22
+    ],
+    "periods_jl": [
+      22
+    ],
+    "periods_ok": true,
+    "abs_chirality_py": [
+      0.031726,
+      0.468274
+    ],
+    "abs_chirality_jl": [
+      0.0
+    ],
+    "abs_chirality_pooled": [
+      0.0,
+      0.031726,
+      0.468274
+    ],
+    "abs_chirality_ok": false,
+    "log10_final_k_py": [
+      0,
+      13,
+      14
+    ],
+    "log10_final_k_jl": [
+      0,
+      13,
+      14
+    ],
+    "log10_final_k_ok": true
+  },
+  "all_ok": true
+}

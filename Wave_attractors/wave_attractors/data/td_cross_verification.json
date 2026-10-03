@@ -1,0 +1,36 @@
+{
+  "model": "E7 time-domain leapfrog ADE-FDTD (Drude hyperbolic)",
+  "julia_csv": "julia_td_td_snapshots.csv",
+  "grid": 48,
+  "steps": 400,
+  "per_step": {
+    "0": {
+      "max_abs_diff_E": 6.776263578034403e-21,
+      "max_abs_diff_chi": 0.0,
+      "rel_diff_E": 7.665922377288575e-21
+    },
+    "100": {
+      "max_abs_diff_E": 5.551115123125783e-17,
+      "max_abs_diff_chi": 4.218847493575595e-15,
+      "rel_diff_E": 2.2454157543102705e-16
+    },
+    "200": {
+      "max_abs_diff_E": 2.0816681711721685e-16,
+      "max_abs_diff_chi": 6.411537967210279e-15,
+      "rel_diff_E": 1.913828488889679e-15
+    },
+    "300": {
+      "max_abs_diff_E": 1.9081958235744878e-16,
+      "max_abs_diff_chi": 6.217248937900877e-15,
+      "rel_diff_E": 1.800915220085009e-15
+    },
+    "400": {
+      "max_abs_diff_E": 2.445960101127298e-16,
+      "max_abs_diff_chi": 6.8833827526759706e-15,
+      "rel_diff_E": 2.4248860986528817e-15
+    }
+  },
+  "max_rel_dev": 2.4248860986528817e-15,
+  "threshold": 1e-11,
+  "passed": true
+}

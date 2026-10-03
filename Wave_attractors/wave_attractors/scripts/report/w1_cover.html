@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Noto+Serif+SC:wght@400;700;900&family=Inter:wght@300;400;500&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    @page { size: 794px 1123px; margin: 0; }
+    :root {
+      --c-bg: #1a1a2e;
+      --c-accent: #87702a;
+      --c-accent2: #3a95b4;
+      --c-text: #FFFFFF;
+      --c-muted: #8080A0;
+      --c-footer: #607080;
+    }
+    html, body { margin: 0; padding: 0; width: 794px; height: 1123px; background: var(--c-bg); color: var(--c-text); font-family: 'Inter', 'Noto Sans SC', sans-serif; }
+    @media screen {
+      html { height: auto; display: flex; justify-content: center; min-height: 100vh; background: var(--c-bg); }
+      body { transform-origin: top center; scale: min(1, calc(100vw / 794), calc(100vh / 1123)); margin: 0 auto; box-shadow: 0 0 60px rgba(0,0,0,0.3); }
+    }
+    .cover { width: 794px; height: 1123px; position: relative; box-sizing: border-box; }
+    .vline { position: absolute; left: 57px; top: 76px; bottom: 76px; width: 2.5px; background: var(--c-accent); }
+    .content { position: absolute; left: 100px; right: 76px; top: 0; bottom: 0; }
+    .label { position: absolute; top: 132px; font-size: 9pt; color: var(--c-accent); letter-spacing: 3px; text-transform: uppercase; font-family: 'Inter', 'Noto Sans SC', sans-serif; }
+    .title { position: absolute; top: 228px; font-size: 32pt; font-weight: 700; line-height: 1.3; font-family: 'Playfair Display', 'Noto Serif SC', serif; color: var(--c-text); max-width: 580px; }
+    .subtitle { position: absolute; top: 530px; font-size: 12pt; line-height: 1.55; color: var(--c-muted); max-width: 520px; }
+    .authors { position: absolute; top: 700px; font-size: 12pt; color: var(--c-text); }
+    .institution { position: absolute; top: 748px; font-size: 10pt; color: var(--c-muted); line-height: 1.5; }
+    .footer { position: absolute; bottom: 76px; left: 0; right: 0; display: flex; justify-content: space-between; font-size: 9pt; color: var(--c-footer); }
+  </style>
+</head>
+<body>
+  <div class="cover">
+    <div class="vline"></div>
+    <div class="content">
+      <div class="label">AB-Cloud Research &middot; Исследование W1 &middot; Физика волн</div>
+      <div class="title">Гиперболические<br>волновые<br>аттракторы</div>
+      <div class="subtitle">Численное воспроизведение самоорганизации волновых
+        траекторий в анизотропной полости: точная лучевая модель
+        k-векторного бильярда, спектральная модель анизотропного
+        уравнения Гельмгольца, кросс-верификация Python&ndash;Julia
+        и компаньонное исследование эффекта Ааронова&ndash;Бома
+        на поверхностных волнах воды.</div>
+      <div class="authors">И. К. Исаев &mdash; AB-Cloud Research</div>
+      <div class="institution">GitHub: wild8highlander/ab-cloud-research &middot; ORCID 0009-0003-7299-0701<br>Zenodo DOI: 10.5281/zenodo.21825394 &middot; Отчёт по мотивам Nature Physics (2026)</div>
+      <div class="footer">
+        <span>Октябрь 2026 &middot; версия 1.0</span>
+        <span>Референс: DOI 10.1038/s41567-026-03453-7</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
