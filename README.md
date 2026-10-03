@@ -124,7 +124,6 @@ GUE random-matrix universality · 37-test two-pass Julia verification suite ·
 - [Repository map](#%EF%B8%8F-repository-map)
 - [Documentation map — a README in every folder](#-documentation-map--a-readme-in-every-folder)
 - [Branches & versions](#-branches--versions)
-- [Publishing from Android (Termux)](#-publishing-from-android-termux)
 - [Documentation site](#-documentation-site)
 - [Citation](#-citation)
 - [Roadmap](#-roadmap)
@@ -1005,16 +1004,6 @@ READMEs are in English and end with a short Russian summary.
   the current state corresponds to the v1.2.0 entry of
   [`CHANGELOG.md`](CHANGELOG.md) (v1.1.0 — spinor64 + run artifacts + React
   apps + Termux kit; v1.2.0 — this documentation deep dive).
-
-## 📱 Publishing from Android (Termux)
-
-The repository updates itself from a phone: [`termux/install_and_push.sh`](termux/install_and_push.sh)
-installs everything, offers **PAT-token** (hidden input, API-verified) or
-**browser** login (one-time device code at github.com/login/device), pushes
-`main` + tags, verifies the remote SHA and opens the repo in the browser —
-token in memory only. Guides: [`termux/README.md`](termux/README.md) (EN),
-[`termux/README_RU.md`](termux/README_RU.md) (RU, full manual),
-[`HOW_TO_PUSH_FROM_ANDROID.md`](HOW_TO_PUSH_FROM_ANDROID.md) (cheat sheet).
 
 ## ⚙️ CI/CD — what runs on every push
 

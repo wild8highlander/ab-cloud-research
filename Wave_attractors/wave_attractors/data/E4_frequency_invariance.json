@@ -1,0 +1,17 @@
+{
+  "K_values": [
+    1.0,
+    7.0
+  ],
+  "n_bounces_compared": 1201,
+  "max_position_deviation": 6.994405055138486e-15,
+  "period_K1": 8,
+  "period_K7": 8,
+  "invariant": true,
+  "n_rays": 300,
+  "max_bounces": 400,
+  "grid": 512,
+  "corridor_contrast": 5.474375741652639,
+  "route_period": 8,
+  "runtime_s": 15.1
+}
