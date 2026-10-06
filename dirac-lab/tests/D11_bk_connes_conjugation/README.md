@@ -40,19 +40,19 @@ flowchart LR
 
 | Check | Result | Detail |
 |---|---|---|
-| D11a exact arithmetic spectrum of the cutoff dilation generator: max|E − 2πm/Λ| ≤ 1e-11 | ✅ PASS | dev = 1.71e-13 on Nu = 256 levels |
+| D11a exact arithmetic spectrum of the cutoff dilation generator: max\|E − 2πm/Λ\| ≤ 1e-11 | ✅ PASS | dev = 1.71e-13 on Nu = 256 levels |
 | D11a conjugation algebra exact: semigroup U(u₁)U(u₂) = U(u₁+u₂) and unitarity ≤ 1e-11 | ✅ PASS | semigroup 1.12e-14, unitarity 1.18e-14 |
 | D11a Connes trace comb: Tr U(u) matches the Dirichlet kernel (≤1e-11) and is exactly Λ-periodic (≤1e-11) | ✅ PASS | comb 2.57e-13, periodicity 8.56e-14 |
 | D11a counting staircase exact at 24 probe energies: NBK(E) = floor(ΛE/2π) + N/2 + 1 (incl. the m = 0 mode) | ✅ PASS | integer identity holds |
 | D11a BK staircase on the real zeros: mean residual ∈ [1.10, 1.65] (= 7/8 + ⟨S⟩, ⟨S⟩ ≈ +0.5 here) | ✅ PASS | mean residual = 1.3750 |
-| D11a BK staircase tracks every zero: max|residual| ≤ 2.3 | ✅ PASS | max|r| = 2.1298 over n = 2000 |
+| D11a BK staircase tracks every zero: max\|residual\| ≤ 2.3 | ✅ PASS | max\|r\| = 2.1298 over n = 2000 |
 | D11b recognition identity: the ζ-coding phase t/δ ≡ (t/2π)ln(t/2π) mod 1 to machine precision (≤1e-10) | ✅ PASS | max circle distance = 4.55e-13 |
 | D11b transport survives the Connes substitution: TConnes ≥ 1.2 × TPoisson | ✅ PASS | T: Connes 0.1245 vs Poisson 0.0756 (×1.65) |
 | D11b reflection ordering preserved: RConnes ≤ 0.95 × RPoisson | ✅ PASS | R: Connes 0.1028 vs Poisson 0.1151 (×0.89) |
-| D11b BK-class equivalence: |TConnes/Tζplain − 1| ≤ 0.25 (the arithmetic, not the shear, carries the protection) | ✅ PASS | TConnes/Tζ = 1.014 |
+| D11b BK-class equivalence: \|TConnes/Tζplain − 1\| ≤ 0.25 (the arithmetic, not the shear, carries the protection) | ✅ PASS | TConnes/Tζ = 1.014 |
 | D11c drive form factor — level repulsion in the drive channel: K(0.25) ≤ 0.45 (GUE 0.25, Poisson 1) | ✅ PASS | K(0.25) = 0.123 |
 | D11c GUE ramp shape: K(0.25) < K(0.5) ≤ 0.75 | ✅ PASS | K: 0.123 < 0.396 |
-| D11c GUE tracking of the suite's own reference: |Kζ(0.5)/KGUE(0.5) − 1| ≤ 0.5 | ✅ PASS | ratio = 0.782 (Kζ = 0.396, KGUE = 0.506) |
+| D11c GUE tracking of the suite's own reference: \|Kζ(0.5)/KGUE(0.5) − 1\| ≤ 0.5 | ✅ PASS | ratio = 0.782 (Kζ = 0.396, KGUE = 0.506) |
 | D11c protection along the whole conjugation orbit: minu T(u) ≥ 1.15 × TPoisson | ✅ PASS | min T = 0.0956 vs Poisson 0.0756 (×1.26) |
 | D11c drive robustness: meanu R(u) ≤ 0.9 × RPoisson and minu T(u) ≥ 0.7 × T(0) | ✅ PASS | mean R/RP = 0.78, min T/T(0) = 0.77 |
 

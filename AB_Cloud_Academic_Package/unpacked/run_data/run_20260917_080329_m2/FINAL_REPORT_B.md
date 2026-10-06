@@ -34,7 +34,7 @@
 | d_GUE | 0.0768 |
 | d_Pois | 0.2108 |
 | R2 plateau (1.0-2.0) | 0.9531 |
-| mean |R2-GUE| band 0.2-2.0 | 0.0638 |
+| mean \|R2-GUE\| band 0.2-2.0 | 0.0638 |
 | spacings | 91360 |
 
 ## Realizations

@@ -30,7 +30,7 @@ flowchart LR
 | Quantity | Value | Meaning |
 |---|---|---|
 | Sizes L | 16–48, L/4 ∈ Z | torus ladder where the tower exists |
-| Tower window | |E| < 10⁻¹² | pinning-depth estimator |
+| Tower window | \|E\| < 10⁻¹² | pinning-depth estimator |
 | Chiral operator | Γ = (-1)x⁺y | sublattice polarity label |
 | Vortices | none (clean torus) | clean-limit structure |
 | Seed | 96 | deterministic |
@@ -41,7 +41,7 @@ flowchart LR
 |---|---|---|
 | D2 tower = 4 ∀L (L/4∈ℤ) | ✅ PASS | L16:4; L20:4; L24:4; L28:4; L32:4; L40:4; L48:4 |
 | D2 {H,Γ} = 0 machine precision | ✅ PASS | worst 0.0e+00 |
-| D2 tower pinned: max|Ezero| < 1e-9 | ✅ PASS | worst 7.81e-15 |
+| D2 tower pinned: max\|Ezero\| < 1e-9 | ✅ PASS | worst 7.81e-15 |
 | D2 Γ-polarity of tower = 0 (2× Γ+ , 2× Γ−) | ✅ PASS | L16:+0; L20:+0; L24:+0; L28:+0; L32:+0; L40:+0; L48:+0 |
 
 ## Figures (600 dpi)

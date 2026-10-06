@@ -39,11 +39,11 @@ flowchart LR
 
 | Check | Result | Detail |
 |---|---|---|
-| D12a coherent peak: |Tr U(Λ)| = Nu exactly at every band size (≤1e-12 rel) | ✅ PASS | max dev = 0.00e+00 over Nu = [128, 512, 2048, 8192, 32768] |
-| D12a comb → delta train: off-peak sup |Tr U|/Nu follows the Dirichlet envelope 1/(Nu·sin(π/20)) and decreases monotonically | ✅ PASS | sup/Nu: 4.9e-02 → 1.2e-02 → 3.0e-03 → 7.4e-04 → 1.9e-04 |
+| D12a coherent peak: \|Tr U(Λ)\| = Nu exactly at every band size (≤1e-12 rel) | ✅ PASS | max dev = 0.00e+00 over Nu = [128, 512, 2048, 8192, 32768] |
+| D12a comb → delta train: off-peak sup \|Tr U\|/Nu follows the Dirichlet envelope 1/(Nu·sin(π/20)) and decreases monotonically | ✅ PASS | sup/Nu: 4.9e-02 → 1.2e-02 → 3.0e-03 → 7.4e-04 → 1.9e-04 |
 | D12a lattice operator agrees with the closed-form comb at the conjugation time Λ (≤1e-11) | ✅ PASS | dev = 2.23e-16 |
 | D12b fixed-density staircase exact: count = floor(Λb/2π) − ceil(Λa/2π) + 1 at 3 windows × every band size | ✅ PASS | max dev = 0e+00 |
-| D12b density is Nu-independent: |count − ΛΔE/2π| ≤ 1 (boundary term only) | ✅ PASS | max dev = 0.68 |
+| D12b density is Nu-independent: \|count − ΛΔE/2π\| ≤ 1 (boundary term only) | ✅ PASS | max dev = 0.68 |
 | D12b the extending ladder swallows the zero window: coverage monotone ↑ and = 1.0 at the largest band | ✅ PASS | coverage 1.000 at Nu = 32768 (Emax = 23288 ≥ tmax = 2515.3) |
 | D12c extensive protection at fixed density: ⟨r⟩(L) within [0.585, 0.625] (GUE 0.5992) for every ladder size | ✅ PASS | L30:0.5958; L36:0.6016; L42:0.6047; L48:0.6050 |
 | D12c statistics are L-independent while the encoded ladder grows (spread ≤ 0.012; Nv 25/900 law) and the GUE shift over the clean lattice is preserved (Δ ≥ +0.04) | ✅ PASS | spread = 0.0092; min Δ = +0.1175; Nv 26 → 64; random(L=48) = 0.5863 |

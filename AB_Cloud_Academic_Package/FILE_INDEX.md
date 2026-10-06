@@ -71,7 +71,7 @@ The original ZIP reuses some basenames across folders (`report.md` in every test
 | `python_clone/requirements.txt` | 52 B | — | Python dependencies of the clone (NumPy/SciPy/matplotlib). |
 | `python_clone/abcloud/README.md` | 3.8 KB | — | Folder documentation (generated for this GitHub edition). |
 | `python_clone/abcloud/__init__.py` | 521 B | — | Package initialisation for the abcloud clone. |
-| `python_clone/abcloud/cli.py` | 3.6 KB | — | The clone's command-line interface (--list, --test N|a-b|all, --no-two-pass, --zeros, --full, --out). |
+| `python_clone/abcloud/cli.py` | 3.6 KB | — | The clone's command-line interface (--list, --test N\|a-b\|all, --no-two-pass, --zeros, --full, --out). |
 | `python_clone/abcloud/core.py` | 25.1 KB | — | The clone's statistics engine: Gram ladder, unfolding, KS/χ²/AD, ⟨r⟩, Σ²(L), Δ₃(L), R₂(s), form factor, bootstrap/Monte-Carlo machinery. |
 | `python_clone/abcloud/report.py` | 12.3 KB | — | The clone's report writer and plot engine — emits per-test reports and the master final_report in the Julia suite's layout. |
 | `python_clone/abcloud/runner.py` | 7.5 KB | — | The clone's two-pass orchestrator: primary verdicts, HARDCORE pass-2 audits, composite verdict algebra. |

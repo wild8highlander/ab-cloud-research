@@ -31,7 +31,7 @@ flowchart LR
 |---|---|---|
 | Canonical size | L = 40, Nv = 44 (ζ-coded) | parent density rule |
 | Chiral operator | Γ = (-1)x⁺y | sublattice basis |
-| Pairing audit | maxi |Ei + E\bar i| over 800 pairs | tolerance 10⁻¹⁰ |
+| Pairing audit | maxi \|Ei + E\bar i\| over 800 pairs | tolerance 10⁻¹⁰ |
 | Bipartite scan | same-sublattice hopping matrix entries | must be exactly 0 |
 | Seed | 96 | deterministic |
 
@@ -39,7 +39,7 @@ flowchart LR
 
 | Check | Result | Detail |
 |---|---|---|
-| D8 {H,Γ} = 0 under ζ decoration (machine precision) | ✅ PASS | ||{H,Γ}|| = 0.00e+00 |
+| D8 {H,Γ} = 0 under ζ decoration (machine precision) | ✅ PASS | \|\|{H,Γ}\|\| = 0.00e+00 |
 | D8 bipartite (no same-sublattice hopping) | ✅ PASS | max = 0.0e+00 |
 | D8 E ↔ −E spectral symmetry < 1e-10 | ✅ PASS | max = 4.00e-15 over 800 pairs |
 | D8 zero-mode content is chiral-multiplet-consistent (even nzero; clean tower=4 documented as index-0 fragile in D7) | ✅ PASS | nzero = 0 (ζ decoration splits the clean 4-tower into ±E valley pairs — chiral symmetry survives, exact pinning is a clean-limit signature) |

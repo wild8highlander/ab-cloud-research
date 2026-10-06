@@ -5900,7 +5900,7 @@ Summary table of results for all 7 experiments:
 | 4     | Temperature curve | M_top(1200K) = 0.157       | ✓ prediction                    |
 | 5     | Tumbling transfer| KS p = 2.6·10⁻⁷            | ✓ confirmed                     |
 | 6     | Lattice symmetry | BCC: 6, HCP: 5 peaks       | ✓ prediction                    |
-| 7     | PSL(2,7) & Φ₃₀   | |PSL(2,7)|=168, deg Φ₃₀=8 | ✓ confirmed                     |
+| 7     | PSL(2,7) & Φ₃₀   | \|PSL(2,7)\|=168, deg Φ₃₀=8 | ✓ confirmed                     |
 
 Reproducibility: all simulations are deterministic with a fixed seed = 20240621. Python 3.10+, numpy, scipy, matplotlib are required to run. The full script execution time on a standard workstation (Intel i5, 16 GB RAM) is about 30 seconds. A JSON report topological_magnetism_report.json is saved automatically and contains all numerical values used in the main text of Appendix E. PNG graphs are saved in the appendix_e_figures/ directory and can be directly inserted into publications.
 

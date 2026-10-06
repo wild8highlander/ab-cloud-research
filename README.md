@@ -23,8 +23,8 @@
 [![Forks](https://img.shields.io/github/forks/wild8highlander/ab-cloud-research?style=for-the-badge&logo=github&color=blue&label=Forks)](https://github.com/wild8highlander/ab-cloud-research/forks)
 [![Issues](https://img.shields.io/github/issues/wild8highlander/ab-cloud-research?style=for-the-badge&logo=github&color=orange&label=Issues)](https://github.com/wild8highlander/ab-cloud-research/issues)
 [![PRs](https://img.shields.io/github/issues-pr/wild8highlander/ab-cloud-research?style=for-the-badge&logo=github&color=blueviolet&label=PRs)](https://github.com/wild8highlander/ab-cloud-research/pulls)
-[![Releases](https://img.shields.io/github/releases/wild8highlander/ab-cloud-research?style=for-the-badge&logo=github&color=green&label=Releases)](https://github.com/wild8highlander/ab-cloud-research/releases)
-[![Commits](https://img.shields.io/github/commit-activity/t/y/wild8highlander/ab-cloud-research?style=for-the-badge&logo=git&color=blue&label=Commits%2FYear)](https://github.com/wild8highlander/ab-cloud-research/commits/main)
+[![Latest Tag](https://img.shields.io/github/v/tag/wild8highlander/ab-cloud-research?style=for-the-badge&logo=git&color=green&label=Latest%20Tag)](https://github.com/wild8highlander/ab-cloud-research/tags)
+[![Commits](https://img.shields.io/github/commit-activity/t/wild8highlander/ab-cloud-research?style=for-the-badge&logo=git&color=blue&label=Commits)](https://github.com/wild8highlander/ab-cloud-research/commits/main)
 [![Last Commit](https://img.shields.io/github/last-commit/wild8highlander/ab-cloud-research?style=for-the-badge&logo=git&color=blue&label=Last%20Commit)](https://github.com/wild8highlander/ab-cloud-research/commits/main)
 [![Repo Size](https://img.shields.io/github/repo-size/wild8highlander/ab-cloud-research?style=for-the-badge&logo=github&color=teal&label=Size)](https://github.com/wild8highlander/ab-cloud-research)
 
@@ -37,7 +37,7 @@
 [![Byers–Yang](https://img.shields.io/badge/Byers%E2%80%93Yang%20defect-3.5e--15-2EA043?style=for-the-badge&label=Flux)](results/verification_run_v18_37tests_2026-08-28.txt)
 [![Connes](https://img.shields.io/badge/Connes%20self--duality-4%20zero%20modes-2EA043?style=for-the-badge&label=Topology)](results/verification_run_v18_37tests_2026-08-28.txt)
 [![Dirac](https://img.shields.io/badge/Dirac%20cone-v_F%E2%88%980.125%2C%20R%C2%B2%3D0.9997-FFB74D?style=for-the-badge&label=Dynamics)](results/verification_run_v18_37tests_2026-08-28.txt)
-[![Zeros](https://img.shields.io/badge/%CE%B6%20zeros-up%20to%202%2C000%2C000%20embedded-4FC3F7?style=for-the-badge&label=Data)](verification/data/)
+[![Zeros](https://img.shields.io/badge/%CE%B6%20zeros-2%2C001%2C058%20embedded-4FC3F7?style=for-the-badge&label=Data)](verification/data/)
 [![Lattice](https://img.shields.io/badge/3D%20lattice-36%C2%B3%20Hofstadter-4FC3F7?style=for-the-badge&label=Lab3D)](lab-3d/)
 [![Suite](https://img.shields.io/badge/Julia%20suite-37%20tests%2C%20two--pass-2EA043?style=for-the-badge&label=Suite)](code/ab_cloud_v19.jl)
 
@@ -46,8 +46,8 @@
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 
 [![Monographs](https://img.shields.io/badge/Monographs-5%20editions%20(RU%2FEN%2FZH%20%2B%20v21%20RU%2FEN)-blue?style=for-the-badge&logo=adobeacrobatreader&logoColor=white&label=Monographs)](monographs/)
-[![Verification](https://img.shields.io/badge/Verification-10%20languages-blue?style=for-the-badge&logo=linguee&logoColor=white&label=Verification)](verification/)
-[![Figures](https://img.shields.io/badge/Figures-131%20%40%20600%20dpi-green?style=for-the-badge&logo=gnuplot&logoColor=white&label=Figures)](monographs/ru/figures/)
+[![Verification](https://img.shields.io/badge/Verification-10%20languages-blue?style=for-the-badge&label=Verification)](verification/)
+[![Figures](https://img.shields.io/badge/Figures-57%20plates%20%40%20600%20dpi%20(19%20%C3%97%203%20languages)-green?style=for-the-badge&label=Figures)](monographs/ru/figures/)
 [![Documents](https://img.shields.io/badge/Documents-docx%20%7C%20pdf%20%7C%20html%20%7C%20pptx%20%7C%20tex-green?style=for-the-badge&logo=googledocs&logoColor=white&label=Documents)](monographs/)
 [![Preprints](https://img.shields.io/badge/Preprints-tex%20%2B%20pdf%20%C3%973-orange?style=for-the-badge&logo=arxiv&label=Preprints)](monographs/en/text/preprint/)
 
@@ -58,25 +58,23 @@
 [![Julia](https://img.shields.io/badge/Julia-1.10%2B-9558B2?style=for-the-badge&logo=julia&logoColor=white)](https://julialang.org)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org)
 [![C++](https://img.shields.io/badge/C%2B%2B-17-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)](https://isocpp.org)
-[![Fortran](https://img.shields.io/badge/Fortran-2008-734F96?style=for-the-badge&logo=fortran&logoColor=white)](verification/fortran/)
+[![Fortran](https://img.shields.io/badge/Fortran-2018-734F96?style=for-the-badge&logo=fortran&logoColor=white)](verification/fortran/)
 [![Rust](https://img.shields.io/badge/Rust-1.75%2B-CE422B?style=for-the-badge&logo=rust&logoColor=white)](verification/rust/)
 [![Go](https://img.shields.io/badge/Go-1.21-00ADD8?style=for-the-badge&logo=go&logoColor=white)](verification/go/)
 [![Haskell](https://img.shields.io/badge/Haskell-9.4-5D4F85?style=for-the-badge&logo=haskell&logoColor=white)](verification/haskell/)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES2022-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](verification/javascript/)
 [![R](https://img.shields.io/badge/R-4.x-276DC3?style=for-the-badge&logo=r&logoColor=white)](verification/r/)
-[![MATLAB](https://img.shields.io/badge/MATLAB-R2023b-orange?style=for-the-badge&logo=mathworks&logoColor=white)](verification/matlab/)
+[![MATLAB](https://img.shields.io/badge/MATLAB-R2023b-orange?style=for-the-badge)](verification/matlab/)
 [![GitHub Pages](https://img.shields.io/badge/Docs-GitHub%20Pages-222222?style=for-the-badge&logo=github&logoColor=white)](https://wild8highlander.github.io/ab-cloud-research)
 [![MkDocs](https://img.shields.io/badge/Built%20With-MkDocs-526CFE?style=for-the-badge&logo=materialformkdocs&logoColor=white)](https://www.mkdocs.org)
 [![Makefile](https://img.shields.io/badge/Build-Make-427818?style=for-the-badge&logo=gnu&logoColor=white)](./Makefile)
 [![Dependabot](https://img.shields.io/badge/Dependabot-Enabled-025E8C?style=for-the-badge&logo=dependabot&logoColor=white)](./.github/dependabot.yml)
-[![FAIR](https://img.shields.io/badge/FAIR-Compliant-2EA043?style=for-the-badge&logo=dataverse&logoColor=white)](https://fair-software.eu)
-[![Release](https://img.shields.io/github/v/release/wild8highlander/ab-cloud-research?style=for-the-badge&logo=github&label=Latest%20Release)](https://github.com/wild8highlander/ab-cloud-research/releases)
+[![FAIR](https://img.shields.io/badge/FAIR-Compliant-2EA043?style=for-the-badge&logo=openaccess&logoColor=white)](https://fair-software.eu)
 [![Version](https://img.shields.io/badge/Version-v1.2.1-2EA043?style=for-the-badge&logo=git&label=Version)](CHANGELOG.md)
-[![License](https://img.shields.io/badge/License-Strictly%20Personal%20%C2%B7%20Custom%20Research-D97706?style=for-the-badge&logo=lock&label=License)](LICENSE)
-[![Suite](https://img.shields.io/badge/Julia%20Suite-37%20%C3%97%202%20passes%20%2B%20Test%2038-9558B2?style=for-the-badge&logo=julia&label=Suite)](results/run_20260902_134759/)
+[![License](https://img.shields.io/badge/License-Strictly%20Personal%20%C2%B7%20Custom%20Research-D97706?style=for-the-badge&label=License)](LICENSE)
+[![Run](https://img.shields.io/badge/Julia%20Suite-37%20%C3%97%202%20passes%20%2B%20Test%2038-9558B2?style=for-the-badge&logo=julia&label=Run)](results/run_20260902_134759/)
 [![Zeta Data](https://img.shields.io/badge/%CE%B6%20zeros%20embedded-2%2C001%2C058-4FC3F7?style=for-the-badge&label=Frozen%20Data)](verification/data/)
-[![Android](https://img.shields.io/badge/Runs%20on-Android%20%2F%20Termux-3DDC84?style=for-the-badge&logo=android&label=Mobile)](termux/README.md)
-[![Artifacts](https://img.shields.io/badge/Flagship%20artifacts-453%20files%20%2F%2039%20tests-orange?style=for-the-badge&label=Evidence)](results/run_20260902_134759/)
+[![Artifacts](https://img.shields.io/badge/Flagship%20artifacts-453%20files%20%2F%2039%20directories-orange?style=for-the-badge&label=Evidence)](results/run_20260902_134759/)
 [![Spinor64](https://img.shields.io/badge/Spinor%20structures-64%2F64%20GUE--consistent-2EA043?style=for-the-badge&label=Spinor64)](verification/spinor64/)
 
 ---
@@ -105,6 +103,7 @@ GUE random-matrix universality · 37-test two-pass Julia verification suite ·
 - [Highlights](#-highlights)
 - [Computation data at a glance](#-computation-data-at-a-glance)
 - [What is the AB-cloud?](#-what-is-the-ab-cloud)
+- [The construction in one screen](#-the-construction-in-one-screen)
 - [Key verified results](#-key-verified-results)
 - [Full test ledger — the two-pass flagship run (2026-09-02)](#-full-test-ledger--the-two-pass-flagship-run-2026-09-02)
 - [The 64 spinor structures — full data](#-the-64-spinor-structures--full-data)
@@ -114,6 +113,7 @@ GUE random-matrix universality · 37-test two-pass Julia verification suite ·
 - [The ten language ports — cross-verification matrix](#-the-ten-language-ports--cross-verification-matrix)
 - [3D lattice laboratory](#-3d-lattice-laboratory)
 - [Quick start](#-quick-start)
+- [Interactive tools — Physics Lab, 3D lab and the two apps](#-interactive-tools--physics-lab-3d-lab-and-the-two-apps)
 - [Makefile command reference](#-makefile-command-reference)
 - [Results & reproducibility](#-results--reproducibility)
 - [Statistical deep-dive — how to read the numbers](#-statistical-deep-dive--how-to-read-the-numbers)
@@ -124,9 +124,12 @@ GUE random-matrix universality · 37-test two-pass Julia verification suite ·
 - [Repository map](#%EF%B8%8F-repository-map)
 - [Documentation map — a README in every folder](#-documentation-map--a-readme-in-every-folder)
 - [Branches & versions](#-branches--versions)
+- [CI/CD — what runs on every push](#%EF%B8%8F-cicd--what-runs-on-every-push)
+- [What success looks like — expected console outputs](#%EF%B8%8F-what-success-looks-like--expected-console-outputs)
 - [Documentation site](#-documentation-site)
 - [Citation](#-citation)
 - [Roadmap](#-roadmap)
+- [Glossary — every term used on this page](#-glossary--every-term-used-on-this-page)
 - [Reading paths — where to enter for your background](#-reading-paths--where-to-enter-for-your-background)
 - [FAQ — honest answers to fair questions](#-faq--honest-answers-to-fair-questions)
 - [Contributing](#-contributing)
@@ -145,7 +148,7 @@ GUE random-matrix universality · 37-test two-pass Julia verification suite ·
 | Byers–Yang flux defect (q → q+1) | **3.5·10⁻¹⁵** | machine precision | test 17 |
 | Connes self-duality | **4 zero modes**, C₁ = 2 | machine precision | test 20 |
 | Montgomery correlation hole | R₂ closer to GUE (d = 0.140) than Poisson (0.227) | reproduced | test 36 |
-| Dirac dynamics at α = 1/2 | E_min ∝ 1/L, **R² = 0.9997**; DOS dip 20× | confirmed | tests 30, 34 |
+| Dirac dynamics at α = 1/2 | E_min ∝ 1/L, **R² = 0.9997**; DOS dip ~10× | confirmed | tests 19, 29, 30 |
 | Spinor structures of the Klein quartic — **all 64** | PSL(2,7) orbits 28/21/7/7/1, exact isospectrality ≈ 9·10⁻¹⁵, ⟨r⟩ = 0.5984 ± 0.0035 → **64/64 GUE-consistent** | all structures statistically equivalent | spinor64; v21.1 §3.2.5; v22.1 App. D |
 | Critical line optimality | σ = 1/2 minimises KS (0.152) | GUE-optimal | v21 monograph §6 |
 
@@ -181,11 +184,11 @@ the number, produced by the named run; re-running the command from the
 | 17 | Dirac-string flux emptiness | **5040 / 5040** empty plaquettes exact 0.0 | Test 24 |
 | 18 | Byers–Yang flux-defect sensitivity | **Δ(q = 1→0) = 0.0**; Δ(q = 0.3→0) = 0.0032 > 10⁻³ | Test 25 |
 | 19 | Montgomery pair correlation at α = 1/2 | **KS = 0.047, p = 0.27** (v18 reference run) | [results/verification_run_v18_37tests_2026-08-28.txt](results/verification_run_v18_37tests_2026-08-28.txt) |
-| 20 | Byte-robust ratio statistics (Test 36) | **H = 7.9991 bits**, n = 55,288, multi-window |Δr| = 0.0009 over 120 windows | Test 36 |
+| 20 | Byte-robust ratio statistics (Test 36) | **H = 7.9991 bits**, n = 55,288, multi-window \|Δr\| = 0.0009 over 120 windows | Test 36 |
 | 21 | Plateau of [r] in L-scaling (L = 16…80) | **0.6004, χ²/dof = 0.01** | Test 33 |
 | 22 | DOS dip at the Dirac point | **ρ(α = 0.5) = 0.0193 vs ρ(±0.097 off) = 0.1944** (~10× dip) | Test 29 |
-| 23 | Tracked files in the repository | **1,040** | git ls-files |
-| 24 | Directory documentation guides (this site) | **34 README files, EN + RU summaries** | every folder |
+| 23 | Tracked files in the repository | **2,245** | git ls-files |
+| 24 | Directory documentation guides (this site) | **81 README files, EN + RU summaries** | every folder |
 
 > The v23 monograph consolidates the ledger; the v22 series (RU/EN/ZH + v2.2.1
 > corrections) and the original v21 pair remain archived under
@@ -254,7 +257,7 @@ each other:
 2. **10-language independent verification** (`verification/`) — the same core
    checks re-implemented in C++, Fortran, Go, Haskell, JavaScript, Julia,
    MATLAB, Python, R and Rust, with answers to 3 standard referee objections
-   and ζ-zero datasets up to **2,000,000 zeros** (Odlyzko).
+   and ζ-zero datasets up to **2,001,058 zeros** (Odlyzko).
 3. **3D lattice laboratory** (`lab-3d/`) — a three-dimensional non-Hermitian
    Hofstadter Hamiltonian with vortex lines ("Universal Lattice Operating
    System for the Riemann Zeros"), 36³ lattices, 5000 embedded zeros, full
@@ -317,12 +320,12 @@ instead of hiding it.
 | 28 | `test_28_f_gue_merit` | f_GUE merit = 0.8704, Σ²_data = 0.6115 | WARN |
 | 29 | `test_29_dirac_dip` | DOS dip: ρ(α = 0.5) = 0.0193 vs 0.1944 off-point — **~10× dip** | PASS |
 | 30 | `test_30_vf_scaling` | Fermi-velocity scaling v_F = 1.798, R² = 0.9977 | PASS |
-| 31 | `test_31_hatano_nelson` | non-Hermitian control: max |Im E| = 0.6397, ⟨r⟩_NH = 0.8938 | PASS |
+| 31 | `test_31_hatano_nelson` | non-Hermitian control: max \|Im E\| = 0.6397, ⟨r⟩_NH = 0.8938 | PASS |
 | 32 | `test_32_rmean_bootstrap` | ⟨r⟩ = 0.5991 ± 0.0075 (replica 0.5864 ± 0.003) vs GUE 0.5992 | PASS |
 | 33 | `test_33_l_scaling_rmean` | L-scaling to L = 80: 0.434 → 0.556 → 0.593 → 0.600 → 0.600; plateau 0.6004, χ²/dof = 0.01 | PASS |
-| 34 | `test_34_direct_vs_zeta` | direct-vs-ζ spectra: ⟨|ΔR₂|⟩ = 0.0374, d_GUE = 0.796 | PASS |
+| 34 | `test_34_direct_vs_zeta` | direct-vs-ζ spectra: ⟨\|ΔR₂\|⟩ = 0.0374, d_GUE = 0.796 | PASS |
 | 35 | `test_35_form_factor_Kt` | form factor K(t) ramp+plateau: RMS 0.4193, correlation 0.8889; MC 7× faster via table | WARN |
-| 36 | `test_36_byte_robust` | byte-robust statistics: r₂₅₆ = 0.5756–0.5894, |Δr| = 0.0009 (120 windows), **H = 7.9991 bits**, n = 55,288 | PASS |
+| 36 | `test_36_byte_robust` | byte-robust statistics: r₂₅₆ = 0.5756–0.5894, \|Δr\| = 0.0009 (120 windows), **H = 7.9991 bits**, n = 55,288 | PASS |
 | 37 | `test_37_half_factorial_gamma` | (1/2)! = √π/2 (rel. err 0.0); 32/π² identity; ∫p₂ = 1; uniqueness ✓ | PASS |
 | 38 | [verification/spinor64](verification/spinor64/) | **all 64 spinor structures GUE-consistent**; exact isospectrality ≈ 9·10⁻¹⁵; all structures statistically equivalent | PASS |
 
@@ -436,8 +439,9 @@ table: [verification/spinor64/output/spinor64_table.csv](verification/spinor64/o
 ### Reproduce
 
 ```bash
-python3 verification/spinor64/run_spinor64.py            # full E1 + E2
-python3 verification/spinor64/run_spinor64.py --help     # flags (L, Nv, seed, window)
+python3 verification/spinor64/run_spinor64.py   # full E1 + E2 (~10 min)
+# E2 configuration (L, Nv, seed, bulk window) is defined in the CONFIG block
+# of the script — edit there for custom runs
 ```
 
 Committed evidence: `spinor64_report.md` (human-readable),
@@ -529,7 +533,7 @@ same Python reference implementation with the same tolerances.
 | # | Language | Toolchain | Entry point | Runner | External dependencies |
 |---|----------|-----------|-------------|--------|------------------------|
 | 1 | C++ | C++17 (g++ / clang) | `ab_cloud_verify.cpp` (+ `_en` / `_ru` variants) | `run_verify.sh` | standard library only |
-| 2 | Fortran | Fortran 2008 (gfortran) | `ab_cloud_verify.f90` (+ variants) | `run_verify.sh` | standard library only |
+| 2 | Fortran | Fortran 2018 (gfortran) | `ab_cloud_verify.f90` (+ variants) | `run_verify.sh` | standard library only |
 | 3 | Go | Go 1.21 | `main.go`, `zeros.go` | `run_verify.sh` | standard library only |
 | 4 | Haskell | GHC 9+ | `Main.hs`, `ZerosLoader.hs` | `run_verify.sh` | base + containers |
 | 5 | JavaScript | Node.js, ES2022 | `ab_cloud_verify.js` (+ variants) | `run_verify.js` | none |
@@ -544,9 +548,10 @@ a Java port of Test 38 alongside the ten full suites.
 
 Every port ships its own [README](verification/README.md) with the exact
 commands and the expected console output for that language, and every port
-carries the [spinor38/](verification/python/spinor38/) sub-suite — the Test 38
-ports in **10 languages** that verify the exact isospectrality of conjugate
-spinor structures (≈ 9 × 10⁻¹⁵) independently of the Julia canon.
+carries the [spinor38/](verification/cpp/spinor38/) sub-suite — the Test 38
+ports in **10 languages** (9 full-suite languages + Java) that verify the
+exact isospectrality of conjugate spinor structures (≈ 9 × 10⁻¹⁵)
+independently of the Julia canon.
 
 The cross-language agreement is itself a result: ten independent
 implementations of the same mathematics produce the same ⟨r⟩, the same KS
@@ -576,7 +581,7 @@ julia code/ab_cloud_v19.jl                # interactive menu (37 tests + Physics
 **10-language verification (pick any language):**
 
 ```bash
-cd verification/python && python3 ab_cloud_verify.py --zeros ../data/zeta_zeros_50000.txt
+cd verification/python && python3 run_verify.py --zeros 5000 --objection all --lang en
 ```
 
 **3D laboratory:**
@@ -602,13 +607,6 @@ cd apps/ab-cloud-lab3d && npm install && npm run dev       # WebGL 3D laboratory
 
 Requirements: Julia ≥ 1.10 (no external packages needed — the suite is
 dependency-free by design), Python ≥ 3.10 for the 3D lab and verification suite.
-
-**Pushing from an Android phone (Termux):** the archive ships with a
-one-command push kit — see [`termux/README_RU.md`](termux/README_RU.md)
-and the cheat-sheet [`HOW_TO_PUSH_FROM_ANDROID.md`](HOW_TO_PUSH_FROM_ANDROID.md).
-It auto-installs everything, offers PAT-token **or** browser (one-time
-device code) login, pushes `main` + tags, verifies the remote SHA and
-opens the repo in the browser. The token lives in memory only.
 
 ## 🧑‍🔬 Interactive tools — Physics Lab, 3D lab and the two apps
 
@@ -777,19 +775,19 @@ Typical uses:
 
 | Census | Value |
 |--------|-------|
-| Tracked files | **1,040** |
-| Markdown documents | 150 (34 of them are folder guides with RU summaries) |
-| PDF documents | 124 (monographs, preprints, final reports, 3D-lab preprint) |
-| DOCX documents | 85 |
-| PNG figures | 168 |
-| Plain-text data/logs | 169 |
-| Python sources | 100 |
-| HTML pages | 94 (app bundles + final reports) |
-| Julia sources | 16 |
-| YAML (workflows/config) | 16 |
-| JavaScript (React apps) | 14 |
-| JSON (results/config) | 13 |
-| Shell scripts | 9 |
+| Tracked files | **2,245** |
+| Markdown documents | 497 (81 of them are folder guides with RU summaries) |
+| PDF documents | 233 (monographs, preprints, final reports, 3D-lab preprint) |
+| DOCX documents | 171 |
+| PNG figures | 329 |
+| Plain-text data/logs | 336 |
+| Python sources | 142 |
+| HTML pages | 181 (app bundles + final reports) |
+| Julia sources | 39 |
+| YAML (workflows/config) | 18 |
+| JavaScript (React apps) | 20 |
+| JSON (results/config) | 53 |
+| Shell scripts | 7 |
 | Verification languages | **10** (+ a Java port of Test 38) |
 | ζ zeros stored | **2,001,058** |
 | Figures at 600 dpi in the monograph set | 19 per language × 3 languages |
@@ -800,12 +798,17 @@ Directory weights (working tree):
 | Directory | Size | What dominates it |
 |-----------|------|--------------------|
 | `monographs/` | 341 MB | multi-format monograph editions + 600-dpi figures |
+| `AB_Cloud_Academic_Package/` | 108 MB | the packaged academic submission bundle (run archive, monographs, preprints) |
+| `Wave_attractors/` | 103 MB | hyperbolic wave-attractors reproduction study (W1) |
+| `dirac-lab/` | 89 MB | Dirac laboratory: D1–D14 test suite, figures, monograph |
 | `verification/data/` | 91 MB | the frozen ζ-zero dataset |
 | `lab-3d/` | 20 MB | 3D lattice lab: code, outputs, preprint bundle |
 | `code/` | 12 MB | the canonical Julia suite + supporting libraries |
-| `results/` | 7.3 MB + logs | flagship-run artifacts and reference logs |
+| `meridian-spectral-observatory/` | 12 MB | 24 standalone Julia benches + Python companion |
+| `Vortex_optimization/` | 9 MB | Test 34-ext vortex-density optimization study |
+| `results/` | 8.4 MB | flagship-run artifacts and reference logs |
 | `apps/` | 2.6 MB | two React applications with prebuilt bundles |
-| `verification/` | 980 KB + data | 10 language ports + spinor64 + sections |
+| `verification/` (sans data) | ≈ 2 MB | 10 language ports + spinor64 + sections |
 | `docs/` | 60 KB | MkDocs Material site sources |
 
 ## 🕰️ Verification history timeline
@@ -817,7 +820,7 @@ Directory weights (working tree):
 | 2026-09-03, 09:54 | **spinor64 experiment** — E1 exact symmetry of all 64 spinor structures on the Klein graph + E2 Hofstadter statistics | [verification/spinor64/output/spinor64_report.md](verification/spinor64/output/spinor64_report.md) |
 | v21 → v21.1 → v22 → v2.2.1 → v23 | **Monograph line** — original pair archived; corrections layer (§3.2.5, App. D) carries the 64/64 narrative; v23 consolidates | [monographs/](monographs/) |
 | Zenodo | Versioned DOI **10.5281/zenodo.21825394** + concept DOI **10.5281/zenodo.21825393** | [CITATION.cff](CITATION.cff) |
-| GitHub releases | v1.0.0 → v1.1.0 (Termux publishing workflow) → **v1.2.0** (self-documenting repository: 34 folder guides, EN + RU summaries) with full 626.9 MB release archive + update kits as assets | [Releases](https://github.com/wild8highlander/ab-cloud-research/releases) |
+| Git tags & CHANGELOG | **v1.0.0 → v1.1.0 → v1.2.0 (tagged) → v1.2.1** — the release line is documented in [CHANGELOG.md](CHANGELOG.md); the current state corresponds to the v1.2.1 entry, tag `v1.2.0` is on the main branch | [Tags](https://github.com/wild8highlander/ab-cloud-research/tags) |
 
 The two stored runs bracket the reproducibility story: v18 is the compact
 reference, the 2026-09-02 flagship is the full-evidence run — and the
@@ -929,7 +932,7 @@ plates appear in the per-language figure directories:
 | `fig13_dirac_dip.png` | the ~10× density-of-states dip at the Dirac point | Test 29 |
 | `fig14_byers_yang.png` | Byers–Yang flux response: exact 0.0 vs sensitive 0.0032 | Test 25 |
 | `fig15_berry_R2_cutoff.png` | Berry–Keating-type R₂ cutoff comparison | Test 34 |
-| `fig16_hatano_nelson.png` | non-Hermitian control: |Im E| spectrum and ⟨r⟩ = 0.8938 | Test 31 |
+| `fig16_hatano_nelson.png` | non-Hermitian control: \|Im E\| spectrum and ⟨r⟩ = 0.8938 | Test 31 |
 | `fig18_gamma_phase.png` | arg(γ*) = 89.874° — the phase portrait of γ | Test 21 |
 | `fig19_vortex_texture.png` | vortex texture of the monumental gauge — where the flux lives | Tests 22–24 |
 | `fig20_hofstadter_butterfly.png` | the Hofstadter butterfly of the substrate lattice | Physics Lab |
@@ -957,9 +960,13 @@ ab-cloud-research/
 │       └── media/                #   shared figures
 ├── verification/                 # 10-language verification + spinor64 + ζ data
 ├── lab-3d/                       # 3D lattice laboratory (code + outputs + preprint)
-├── results/                      # 455 files: run_20260902_134759 artifacts + reference logs
+├── dirac-lab/                    # NEW: Dirac laboratory — D1–D14, 96 checks, all PASS
+├── Vortex_optimization/          # NEW: Test 34-ext vortex-density scan (D = 0.0318)
+├── Wave_attractors/              # NEW: hyperbolic wave-attractors reproduction (study W1)
+├── meridian-spectral-observatory/ # NEW: 24 standalone Julia spectral benches
+├── AB_Cloud_Academic_Package/    # NEW: packaged academic submission bundle
+├── results/                      # 456 files: run_20260902_134759 artifacts + reference logs
 ├── docs/                         # MkDocs Material documentation site
-├── termux/                       # push-from-phone kit (Android/Termux)
 ├── assets/                       # banner & repo art
 └── .github/                      # CI, templates, funding, release automation
 ```
@@ -984,11 +991,15 @@ READMEs are in English and end with a short Russian summary.
 | `monographs/original-v21/` | [`monographs/original-v21/README.md`](monographs/original-v21/README.md) | the original v21, its claims, and the exact v21.1 corrections |
 | `lab-3d/` | [`lab-3d/README.md`](lab-3d/README.md) | the 3D lattice OS: key numbers, modes A–J, the four committed runs |
 | `lab-3d/code/`, `lab-3d/outputs/` | `README.md` inside each | the 69-module map; how to read/regenerate the 2026-07-31 runs |
-| `results/` | [`results/README.md`](results/README.md) | the 455-file run `run_20260902_134759` and the two reference logs |
+| `results/` | [`results/README.md`](results/README.md) | the 456-file run `run_20260902_134759` and the two reference logs |
 | `apps/` | [`apps/README.md`](apps/README.md) | the two React apps and how to run/deploy them |
 | `apps/ab-cloud-dashboard/`, `apps/ab-cloud-lab3d/` | `README.md` inside each | tab-by-tab feature guide, architecture, build commands |
+| `dirac-lab/` | [`dirac-lab/README.md`](dirac-lab/README.md) | the Dirac laboratory: D1–D14 test ledger (96 checks, all PASS), Dirac skeleton of the AB-cloud |
+| `Vortex_optimization/` | [`Vortex_optimization/README.md`](Vortex_optimization/README.md) (+ [`README_RU.md`](Vortex_optimization/README_RU.md)) | the Test 34-ext vortex-density scan: 242 configurations, best D = 0.0318 vs reference 0.1096 |
+| `Wave_attractors/` | [`Wave_attractors/README.md`](Wave_attractors/README.md) | study W1: hyperbolic wave attractors reproduced from first principles |
+| `meridian-spectral-observatory/` | [`meridian-spectral-observatory/README.md`](meridian-spectral-observatory/README.md) (+ [`README.ru.md`](meridian-spectral-observatory/README.ru.md)) | 24 standalone Julia benches: from the lattice AB model to ζ-zero statistics |
+| `AB_Cloud_Academic_Package/` | [`AB_Cloud_Academic_Package/README.md`](AB_Cloud_Academic_Package/README.md) | the packaged academic submission: monographs, preprints, run archive, SHA-256 sums |
 | `docs/` | [`docs/README.md`](docs/README.md) | the MkDocs site pages and how to build them |
-| `termux/` | [`termux/README.md`](termux/README.md) · [`termux/README_RU.md`](termux/README_RU.md) | publishing to GitHub from an Android phone (EN quick guide + full RU manual) |
 | `assets/` | [`assets/README.md`](assets/README.md) | banner provenance and figure reuse rules |
 | `.github/` | [`.github/WORKFLOWS.md`](.github/WORKFLOWS.md) | what every CI workflow, template and automation file does |
 
@@ -1000,23 +1011,25 @@ READMEs are in English and end with a short Russian summary.
   `release-drafter/release-drafter-7`) — automated CI-action bumps, each
   open as a PR (#1–#5); merge at your leisure, they never touch science
   content.
-- **Tags**: `v1.0.0` — the first Zenodo-mirrored release;
-  the current state corresponds to the v1.2.0 entry of
+- **Tags**: `v1.2.0` — the tagged snapshot of the self-documenting-repository
+  state; the current tree corresponds to the **v1.2.1** entry of
   [`CHANGELOG.md`](CHANGELOG.md) (v1.1.0 — spinor64 + run artifacts + React
-  apps + Termux kit; v1.2.0 — this documentation deep dive).
+  apps; v1.2.0 — documentation deep dive; v1.2.1 — the front page restored).
 
 ## ⚙️ CI/CD — what runs on every push
 
-Six automated pipelines (configured in [.github/workflows/](.github/WORKFLOWS.md))
+Eight automated pipelines (configured in [.github/workflows/](.github/WORKFLOWS.md))
 guard the repository; their live status is the first badge row of this page.
 
 | Workflow | Trigger | What it verifies |
 |----------|---------|------------------|
-| **CI** (`ci.yml`) | every push / PR | markdownlint + link sanity + smoke-run of the section micro-verifications (`verification/sections/*/python/verify.py`) |
-| **Julia tests** (`julia.yml`) | push / PR / nightly | `code/ab_cloud_v19.jl --quick` — 16×16 → 32×32, ζ ≤ 5000, both passes: the canonical suite must always run |
+| **CI** (`ci.yml`) | every push / PR | canonical-artifact presence, CITATION.cff validation (cffconvert), markdownlint, workflow YAML lint (yamllint) |
+| **Julia tests** (`julia.yml`) | push / PR / weekly | `code/ab_cloud_v19.jl --quick` — 16×16 → 32×32, ζ ≤ 5000, both passes: the canonical suite must always run |
 | **Docs deploy** (`deploy-docs.yml`) | push to main | builds the MkDocs Material site and publishes it to GitHub Pages |
-| **CodeQL** (`codeql.yml`) | push / weekly | static security analysis of the JavaScript/Python surfaces |
-| **Link checker** (`link-checker.yml`) | scheduled | crawls all repository markdown for dead links — this page's 218 links included |
+| **CodeQL** (`codeql.yml`) | push / PR / weekly | static security analysis of the Python surface |
+| **Link checker** (`link-checker.yml`) | weekly | crawls all repository markdown for dead links — this page's ~180 links included |
+| **Dependency review** (`dependency-review.yml`) | PRs | flags vulnerable or incompatible dependency bumps |
+| **Stale** (`stale.yml`) | scheduled | flags abandoned issues and pull requests |
 | **Release drafter** (`release-drafter.yml`) | merged PRs | assembles release notes and tags versions |
 
 Plus [Dependabot](.github/dependabot.yml) keeping the GitHub-Actions and
@@ -1038,17 +1051,24 @@ $ make quick-test
   pass 2 result: PASS
   SUITE: ALL GREEN
 
-$ python3 verification/python/ab_cloud_verify.py --alpha 0.5
-  loading frozen zeros: verification/data/zeta_zeros_50000.txt
-  N = 50000 | window = bulk 0.6 | gauge = monumental
-  ⟨r⟩ = 0.5xx (GUE ref 0.5997)          → PASS
-  KS pair-correlation vs Montgomery ...  → PASS
-  Φ_AB = 0.4487989505 (π/7 exact)       → PASS
-  VERDICT: consistent with GUE / Hilbert–Pólya instrumentation
+$ python3 run_verify.py --zeros 5000 --objection all --lang en   # in verification/python/
+  Loaded 5000 zeros from 'zeta_zeros_50000.txt'  |  T ∈ [14.1347, 5447.8620]
+  Objection 1: Numerical Stability of b(N)
+    b(5000) = 1.4942244142  → WARN (b(N) < 2.0 threshold met)
+  Objection 2: GUE Spacing Statistical Significance
+    Kolmogorov-Smirnov:  D = 0.099187,  p-value = 0.000000
+    H₀ (GUE distribution): REJECTED  (α = 0.05) — finite-T effect, see deep-dive
+  Objection 3: Large-T Decay Rate
+    Linear fit  log(b(N)) = -0.1896 · log(N) + 1.9881, R² = 0.995104
+  Verification Summary
+    Objection 1: WARN · Objection 2: FAIL · Objection 3: FAIL
+    (the honest finite-T verdicts the suite documents instead of hiding)
 ```
 
-(Exact digits vary with the chosen L/α/seed; verdicts do not. The flagship
-values in the tables above are the committed evidence.)
+(Exact digits vary with the chosen N/source; the Julia suite verdicts do not.
+The flagship values in the tables above are the committed evidence; the
+Python port's three-objection protocol and its expected verdicts are
+documented in [verification/README.md](verification/README.md).)
 
 ## 📖 Documentation site
 
@@ -1121,8 +1141,8 @@ If this work is useful to you, please cite it (see also [`CITATION.cff`](CITATIO
 | **convergence-watch** | the opt-in instrument printing KS at temperature cuts — honesty about finite-T |
 | **frozen data** | the ζ dataset committed once, checksummed, never re-downloaded or regenerated |
 | **monumental gauge** | the vortex gauge convention used by E2 and the flagship run |
-| **Termux** | the Android terminal emulator the whole project is developed and published from |
-| **FAIR** | findable–accessible–interoperable–reusable; the reason 600+ MB of evidence lives in git |
+| **Termux** | the Android terminal emulator the project was developed and published from (v1.0.0–v1.1.1 era) |
+| **FAIR** | findable–accessible–interoperable–reusable; the reason ~0.5 GB of evidence lives in git |
 
 ## 🧭 Reading paths — where to enter for your background
 
@@ -1194,14 +1214,17 @@ full detail is doing science the right way around.
 
 **Can I reproduce the headline numbers on a laptop?**
 Yes. `make quick-test` (~4 minutes, ζ ≤ 5000, 16×16 → 32×32, both passes)
-proves the toolchain. `python3 verification/python/ab_cloud_verify.py`
-re-derives ⟨r⟩, KS and the topology verdicts in minutes. The full flagship
-ledger is `make test-all` (30–60 min per pass tier on a modern laptop).
+proves the toolchain. `python3 verification/python/run_verify.py` re-derives
+the b(N) convergence table, the GUE spacing KS/Cramér–von Mises test and the
+large-T decay fit in minutes. The full flagship ledger is `make test-all`
+(30–60 min per pass tier on a modern laptop).
 
 **And on a phone?**
-Yes — the whole project is developed and published from Android via
-Termux; the [Termux guide](termux/README.md) covers installation, the
-Julia toolchain and the push workflow end to end.
+Yes — the whole project was developed and published from Android via
+Termux (see the v1.1.0 entry in [`CHANGELOG.md`](CHANGELOG.md)); Julia and
+the Python verification stack run fine under Termux today. The old
+push-from-phone kit was removed in a later cleanup — publish from Termux
+with plain `git push` (a PAT or `gh auth login` device code works).
 
 **Why ten programming languages for the same math?**
 Because a numerical artifact that survives translation through ten
@@ -1322,7 +1345,7 @@ scientific use.
 | Дефект потока Байерса–Янга (q → q+1) | **3.5·10⁻¹⁵** | машинная точность |
 | Самодуальность Конна | **4 нулевые моды**, C₁ = 2 | машинная точность |
 | Корреляционная дыра Монтгомери | R₂ ближе к GUE (d = 0.140), чем к Пуассону (0.227) | воспроизведена |
-| Дираковская динамика при α = 1/2 | E_min ∝ 1/L, **R² = 0.9997**; провал DOS 20× | подтверждена |
+| Дираковская динамика при α = 1/2 | E_min ∝ 1/L, **R² = 0.9997**; провал DOS ~10× | подтверждена |
 | Спинорные структуры квартики Клейна — все 64 | орбиты PSL(2,7) 28/21/7/7/1, изоспектральность ≈ 9·10⁻¹⁵, ⟨r⟩ = 0.5984 ± 0.0035 — **64/64 GUE-согласованы** | все структуры статистически эквивалентны |
 | Оптимальность критической прямой | σ = 1/2 минимизирует KS (0.152) | GUE-оптимальность |
 
@@ -1343,17 +1366,22 @@ scientific use.
 - **[`verification/`](verification/)** — независимая 10-языковая верификация
   (C++, Fortran, Go, Haskell, JavaScript, Julia, MATLAB, Python, R, Rust),
   двуязычный интерфейс RU/EN, ответы на 3 стандартных возражения рецензентов,
-  данные нулей ζ до 2 000 000 (Одлыжко); spinor64 — все 64 спинорные
+  данные нулей ζ — 2 001 058 (Одлыжко); spinor64 — все 64 спинорные
   структуры GUE-согласованы, порты Test 38 на 10 языках.
 - **[`lab-3d/`](lab-3d/)** — трёхмерная лаборатория: 3D-гамильтониан
   Хофштадтера с вихревыми линиями, решётки 36³, 5000 встроенных нулей, полные
   отчёты прогонов.
-- **[`results/`](results/)** — 455 файлов: полный двухпроходной прогон
+- **[`results/`](results/)** — 456 файлов: полный двухпроходной прогон
   run_20260902_134759 (37 тестов) + эталонные логи.
 - **[`apps/`](apps/)** — два React-приложения: дашборд 37 тестов с живыми
   ζ-статистиками и WebGL 3D-лаборатория.
-- **[`termux/`](termux/)** — публикация репозитория с Android-телефона одной
-  командой (PAT-токен или вход через браузер).
+- **Новые исследовательские пакеты:** [`dirac-lab/`](dirac-lab/) — Дирак-лаборатория
+  (тесты D1–D14, 96 проверок, все PASS); [`Vortex_optimization/`](Vortex_optimization/)
+  — сканирование плотности вихрей (лучший D = 0,0318 против эталона 0,1096);
+  [`Wave_attractors/`](Wave_attractors/) — воспроизведение гиперболических
+  волновых аттракторов (исследование W1); [`meridian-spectral-observatory/`](meridian-spectral-observatory/)
+  — 24 автономных Julia-стенда; [`AB_Cloud_Academic_Package/`](AB_Cloud_Academic_Package/)
+  — упакованный академический бандл с SHA-256-суммами.
 - В **каждом каталоге** лежит подробный README (по-английски + краткое
   резюме по-русски) — см. «Documentation map» выше.
 
@@ -1370,10 +1398,9 @@ python3 verification/spinor64/run_spinor64.py   # эксперимент E1+E2 �
 `pass 2 result: PASS`, финал `SUITE: ALL GREEN`. Признак успеха
 `run_spinor64.py` — таблица орбит 28/21/7/7/1 и вердикт
 `GUE-consistent` по всем 64 строкам. Точные команды для каждого из десяти
-языков — в `verification/<язык>/README.md`; полное руководство по публикации
-с телефона — в `termux/README_RU.md`.
+языков — в `verification/<язык>/README.md`.
 
-### Быстрый старт
+### Установка и первый запуск
 
 ```bash
 git clone https://github.com/wild8highlander/ab-cloud-research.git
@@ -1394,7 +1421,7 @@ julia code/ab_cloud_v19.jl             # интерактивное меню
 | Канонический сюит | **37 тестов × 2 прохода** + серийный проход 3 | `code/ab_cloud_v19.jl` |
 | Машинных вердиктов в флагманском прогоне | **202** (171 PASS · 22 WARN · 9 FAIL/WARN, все перепроверены) | `results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt` |
 | Время флагманского прогона | **≈ 9 ч 46 мин** (2026-09-02) | метки времени в логе |
-| Артефактов прогона | **453 файла / 39 каталогов** (7,3 МБ) | `results/run_20260902_134759/` |
+| Артефактов прогона | **453 файла / 39 каталогов** (8,4 МБ) | `results/run_20260902_134759/` |
 | Спинор-структуры | **64 из 64 GUE-согласованы** | `verification/spinor64/` |
 | Орбиты квартки Клейна | **28 / 21 / 7 / 7 / 1** (PSL(2,7), порядок 168) | отчёт E1 |
 | Максимальное спектральное расстояние | **8,88 × 10⁻¹⁵** | отчёт E1 |
@@ -1405,9 +1432,9 @@ julia code/ab_cloud_v19.jl             # интерактивное меню
 | Динамика Дирака | **R² = 0,9997**; v_F(2π) = 1,8998 | тесты 19/30 |
 | Нулевые моды Конна | **4 из 4**, C₁ = 2 | тест 17 |
 | Пустые плакетки (струны Дирака) | **5040/5040**, дефект ровно 0,0 | тест 24 |
-| Монпгомери, парная корреляция | KS = 0,047, p = 0,27 | v18-лог |
+| Монтгомери, парная корреляция | KS = 0,047, p = 0,27 | v18-лог |
 | Байт-устойчивая статистика | H = 7,9991 бит; n = 55 288 | тест 36 |
-| Отслеживаемых файлов | **1 040** | git ls-files |
+| Отслеживаемых файлов | **2 245** | git ls-files |
 | Монографии | 5 изданий (RU/EN/ZH + v21 RU/EN) + слой v2.2.1 | `monographs/` |
 | Рисунков при 600 dpi | 19 × 3 языка | `monographs/*/figures/` |
 
@@ -1445,16 +1472,17 @@ julia code/ab_cloud_v19.jl             # интерактивное меню
 | 28 | `test_28_f_gue_merit` | merit f_GUE = 0,8704; Σ²_data = 0,6115 | WARN |
 | 29 | `test_29_dirac_dip` | провал DOS: 0,0193 против 0,1944 (~10×) | PASS |
 | 30 | `test_30_vf_scaling` | масштабирование v_F = 1,798, R² = 0,9977 | PASS |
-| 31 | `test_31_hatano_nelson` | неэрмитов контроль: max|Im E| = 0,6397; ⟨r⟩ = 0,8938 | PASS |
+| 31 | `test_31_hatano_nelson` | неэрмитов контроль: max\|Im E\| = 0,6397; ⟨r⟩ = 0,8938 | PASS |
 | 32 | `test_32_rmean_bootstrap` | ⟨r⟩ = 0,5991 ± 0,0075 против GUE 0,5992 | PASS |
 | 33 | `test_33_l_scaling_rmean` | L-масштаб до L=80: плато 0,6004, χ²/dof = 0,01 | PASS |
-| 34 | `test_34_direct_vs_zeta` | ⟨|ΔR₂|⟩ = 0,0374; d_GUE = 0,796 | PASS |
+| 34 | `test_34_direct_vs_zeta` | ⟨\|ΔR₂\|⟩ = 0,0374; d_GUE = 0,796 | PASS |
 | 35 | `test_35_form_factor_Kt` | форм-фактор K(t): RMS 0,4193, корреляция 0,8889 | WARN |
 | 36 | `test_36_byte_robust` | r₂₅₆ = 0,5756–0,5894; H = 7,9991 бит; n = 55 288 | PASS |
 | 37 | `test_37_half_factorial_gamma` | (1/2)! = √π/2 (ошибка 0,0); 32/π²; ∫p₂ = 1 | PASS |
 | 38 | `verification/spinor64` | 64/64 GUE-согласованы; изоспектральность ≈ 9·10⁻¹⁵ | PASS |
 
-Итог: **202 машинных вердикта — 171 PASS, 22 WARN, 9 FAIL/WARN-маркеров**
+Итог: **202 машинных вердикта — 171 PASS, 22 WARN, 9 FAIL/WARN-маркеров**,
+каждый перепроверен «hardcore»-проходом; необъяснённых провалов нет.
 
 ### 64 спинор-структуры квартки Клейна — итог
 
@@ -1473,9 +1501,6 @@ julia code/ab_cloud_v19.jl             # интерактивное меню
 
 Полные 64 строки: [`verification/spinor64/output/spinor64_table.csv`](verification/spinor64/output/spinor64_table.csv);
 отчёт с таблицами E1/E2: [`spinor64_report.md`](verification/spinor64/output/spinor64_report.md).
-
-,
-каждый перепроверен «hardcore»-проходом; необъяснённых провалов нет.
 
 Три правила воспроизводимости, общие для всего репозитория: нули не
 скачиваются во время счёта; нули не пересоздаются; все десять языковых

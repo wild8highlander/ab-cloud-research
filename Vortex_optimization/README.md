@@ -221,7 +221,7 @@ All CSVs share the schema (one row = one configuration):
 | `n_spacings` | unfolded spacings per realization |
 | `D_pooled, p_pooled` | two-sample KS against the ζ spacings, pooled over realizations |
 | `D_min, D_med, D_max` | per-realization spread |
-| `mean_abs_dR2` | ⟨|ΔR₂|⟩ — mean absolute deviation of the R₂(s) band from the ζ curve |
+| `mean_abs_dR2` | ⟨\|ΔR₂\|⟩ — mean absolute deviation of the R₂(s) band from the ζ curve |
 | `d_GUE, d_Pois` | distance of ⟨r⟩ to the GUE (0.5992) / Poisson (0.5) targets |
 | `r_mean` | mean adjacent-spacing ratio ⟨r⟩ |
 | `D_excess` | D_pooled − GUE floor at this L (how far above the statistical zero) |

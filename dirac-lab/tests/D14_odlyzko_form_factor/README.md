@@ -42,14 +42,14 @@ flowchart LR
 |---|---|---|
 | D14 hard core of repulsion (main band): K(0.10) ≤ 0.30 (GUE 0.10, Poisson 1) | ✅ PASS | K(0.10) = 0.0042 |
 | D14 GUE ramp (main band): K(0.25) ≤ 0.45 and K(0.25) < K(0.5) | ✅ PASS | K: 0.123 < 0.396 |
-| D14 ramp tracking (main band): |K(0.5) − 0.5| ≤ 0.25 | ✅ PASS | K(0.5) = 0.396 |
+| D14 ramp tracking (main band): \|K(0.5) − 0.5\| ≤ 0.25 | ✅ PASS | K(0.5) = 0.396 |
 | D14 approach to the unit plateau (main band): K(1.5), K(2.0) ∈ [0.5, 1.6] | ✅ PASS | K(1.5) = 0.981, K(2.0) = 1.231 |
 | D14 Odlyzko band (t ≈ 1e5) hard core: K(0.10) ≤ 0.30 | ✅ PASS | K(0.10) = 0.0083 |
-| D14 Odlyzko band: unit plateau already exact — |K(2.0) − 1| ≤ 0.3 | ✅ PASS | K(2.0) = 0.962 |
+| D14 Odlyzko band: unit plateau already exact — \|K(2.0) − 1\| ≤ 0.3 | ✅ PASS | K(2.0) = 0.962 |
 | D14 Odlyzko band ramp: K(0.5) ≤ 0.85 (≪ Poisson) | ✅ PASS | K(0.5) = 0.466 |
 | D14 channel consistency (pair correlation): g(0.3) ≤ 0.35 on the main band | ✅ PASS | g(0.3) = 0.188 (Montgomery 0.263) |
-| D14 suite-GUE control tracking: |Kmain(0.5)/KGUE(0.5) − 1| ≤ 0.6 | ✅ PASS | ratio = 0.782 |
-| D14 the vortex channel reproduces the zero statistics: |Klat(0.5) − Kmain(0.5)| ≤ 0.35 | ✅ PASS | |0.607 − 0.396| = 0.211 |
+| D14 suite-GUE control tracking: \|Kmain(0.5)/KGUE(0.5) − 1\| ≤ 0.6 | ✅ PASS | ratio = 0.782 |
+| D14 the vortex channel reproduces the zero statistics: \|Klat(0.5) − Kmain(0.5)\| ≤ 0.35 | ✅ PASS | \|0.607 − 0.396\| = 0.211 |
 
 ## Figures (600 dpi)
 

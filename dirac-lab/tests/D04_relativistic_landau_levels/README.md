@@ -32,7 +32,7 @@ flowchart LR
 | Fields B | 0.02, 0.035, 0.05 | canonical scan |
 | Strip | Nx = 120, open x; ky scan | exact dense diagonalization |
 | Dirac velocity | vF = 1.0 (strip units) | slope target 2vF²B |
-| Clustering | degeneracy cut max(2×10⁻³|E|, tol) | edge-state rejection |
+| Clustering | degeneracy cut max(2×10⁻³\|E\|, tol) | edge-state rejection |
 | Seed | 96 | deterministic |
 
 ## Verdict ledger — verbatim from the canonical run
