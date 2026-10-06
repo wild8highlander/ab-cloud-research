@@ -1,0 +1,38 @@
+{
+ "tid": "D4",
+ "title": "Relativistic Landau levels (√n ladder)",
+ "verdict": "PASS",
+ "checks": [
+  [
+   "D4 Dirac ladder: R²(E²∝n) ≥ 0.9998 ∀B",
+   true,
+   "B0.02:0.999987; B0.035:0.999936; B0.05:0.999846"
+  ],
+  [
+   "D4 Dirac slope/(2B) ∈ [0.93, 1.05] ∀B (lattice-regularization deficit O(Bn), documented in monograph §6)",
+   true,
+   "B0.02:0.9755; B0.035:0.9523; B0.05:0.9330"
+  ],
+  [
+   "D4 Schrödinger ladder: R²(E∝n) ≥ 0.9999 ∀B",
+   true,
+   "B0.02:0.999964; B0.035:0.999949; B0.05:0.999986"
+  ],
+  [
+   "D4 discrimination: quad-fit wins for Dirac, lin-fit for Schrödinger",
+   true,
+   "B0.02: D 0.99999>0.98966, S 0.99996>0.94817; B0.035: D 0.99994>0.98903, S 0.99995>0.95016; B0.05: D 0.99985>0.98822, S 0.99999>0.94831"
+  ],
+  [
+   "D4 lattice n=0 LL pinned at E=0",
+   true,
+   "n0 = 64 vs α′L² = 32 (×1 or ×2: valley/parity structure)"
+  ]
+ ],
+ "n_pass": 5,
+ "n_total": 5,
+ "elapsed_s": 2.55,
+ "mode": "FULL",
+ "seed": 96,
+ "provenance": "regenerated v1.4 into tests/ with the canonical harness; ledger matches results/run_20261006_full_v13"
+}

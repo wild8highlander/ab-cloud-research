@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wave Packet Lab — AB-Cloud Dirac Laboratory</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI','DejaVu Sans',Arial,sans-serif; background:#0b1626; color:#cfe0f4; }
+  .wrap { max-width:1240px; margin:0 auto; padding:26px 22px 40px; }
+  header { display:flex; justify-content:space-between; align-items:flex-end; border-bottom:2px solid #FFB74D; padding-bottom:14px; }
+  h1 { font-size:24px; color:#fff; } h1 span { color:#FFB74D; }
+  header .meta { font-size:12px; color:#8fa8c8; text-align:right; line-height:1.5; }
+  .tabs { display:flex; gap:10px; margin:20px 0 14px; }
+  .tab { background:#122544; border:1px solid #24405f; border-radius:9px; padding:9px 20px; cursor:pointer; font-size:13.5px; color:#9db4d3; }
+  .tab.active { border-color:#FFB74D; color:#FFB74D; font-weight:600; }
+  .grid { display:grid; grid-template-columns: 1.35fr 1fr; gap:20px; }
+  .panel { background:#122544; border:1px solid #24405f; border-radius:12px; padding:16px 18px; }
+  .panel h2 { font-size:14px; color:#FFB74D; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px; }
+  canvas { width:100%; border-radius:8px; background:#0b1626; display:block; }
+  .ctrl { margin:9px 0 2px; }
+  .ctrl label { font-size:12.5px; color:#9db4d3; display:flex; justify-content:space-between; margin-bottom:4px; }
+  .ctrl label b { color:#FFB74D; }
+  input[type=range] { width:100%; accent-color:#FFB74D; }
+  .btnrow { display:flex; gap:10px; margin-top:12px; }
+  button { background:#1a3050; color:#cfe0f4; border:1px solid #33507a; border-radius:8px; padding:9px 18px; cursor:pointer; font-size:13px; }
+  button.primary { background:#FFB74D; color:#0b1626; font-weight:700; border-color:#FFB74D; }
+  button:hover { filter:brightness(1.15); }
+  .readout { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+  .chip { background:#0b1626; border:1px solid #2a3f5f; border-radius:8px; padding:8px 11px; }
+  .chip .k { font-size:10.5px; color:#8fa8c8; letter-spacing:1px; }
+  .chip .v { font-size:16px; font-weight:700; color:#4FC3F7; }
+  .chip .v.orange { color:#FFB74D; }
+  .note { font-size:11.5px; color:#7d95b5; line-height:1.55; margin-top:12px; border-top:1px solid #24405f; padding-top:10px; }
+  footer { margin-top:22px; color:#5d7a9e; font-size:11.5px; text-align:center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Wave Packet <span>Lab</span></h1>
+    <div class="meta">AB-Cloud Dirac Laboratory · interactive app 2/2<br>1D Dirac H = −i·v_F·σ<sub>z</sub>∂<sub>x</sub> + m·σ<sub>x</sub> + V(x) · spectral evolution, N = 256</div>
+  </header>
+  <div class="tabs">
+    <div class="tab active" data-mode="klein">Klein tunneling (T(θ))</div>
+    <div class="tab" data-mode="zb">Zitterbewegung (ω = 2E)</div>
+  </div>
+  <div class="grid">
+    <div class="panel">
+      <h2 id="simtitle">Dirac vs Schrödinger packet through a barrier</h2>
+      <canvas id="sim" width="860" height="470"></canvas>
+      <div class="btnrow">
+        <button class="primary" id="run">▶ Run / Restart</button>
+        <button id="pause">⏸ Pause</button>
+        <button id="reset">↺ Reset</button>
+      </div>
+    </div>
+    <div>
+      <div class="panel" id="panel-klein">
+        <h2>Barrier parameters</h2>
+        <div class="ctrl"><label>Barrier height V₀ (classically forbidden if V₀ &gt; E) <b><span id="v0v">0.40</span></b></label>
+          <input type="range" id="v0" min="0" max="0.9" step="0.02" value="0.40"></div>
+        <div class="ctrl"><label>Barrier width d <b><span id="dv">6</span></b></label>
+          <input type="range" id="d" min="2" max="20" step="1" value="6"></div>
+        <div class="ctrl"><label>Particle: mass m (0 = massless Dirac) <b><span id="mv">0.00</span></b></label>
+          <input type="range" id="m" min="0" max="0.5" step="0.02" value="0"></div>
+        <div class="ctrl"><label>Show Schrödinger control (same barrier) <b><span id="sv">on</span></b></label>
+          <input type="range" id="showschrod" min="0" max="1" step="1" value="1"></div>
+        <div class="readout">
+          <div class="chip"><div class="k">TRANSMISSION T (DIRAC)</div><div class="v orange" id="td">—</div></div>
+          <div class="chip"><div class="k">TRANSMISSION T (SCHRÖDINGER)</div><div class="v" id="ts">—</div></div>
+        </div>
+        <div class="note">At m = 0 and normal incidence the massless Dirac packet crosses ANY barrier (T → 1, the Klein paradox — test D5 measures T = 0.9777); the Schrödinger control is exponentially suppressed (T = 0.0010). Give the particle a mass m and the Dirac advantage collapses: the chiral protection is gone.</div>
+      </div>
+      <div class="panel" id="panel-zb" style="display:none">
+        <h2>Zitterbewegung parameters</h2>
+        <div class="ctrl"><label>Mass m (ZB amplitude ∝ m, frequency 2E) <b><span id="mv2">0.30</span></b></label>
+          <input type="range" id="m2" min="0.05" max="0.6" step="0.02" value="0.30"></div>
+        <div class="ctrl"><label>Initial state mixing: sublattice A weight <b><span id="mixv">1.00</span></b></label>
+          <input type="range" id="mix" min="0" max="1" step="0.05" value="1"></div>
+        <div class="readout">
+          <div class="chip"><div class="k">ω = 2E₁ (theory)</div><div class="v orange" id="omth">—</div></div>
+          <div class="chip"><div class="k">TREMBLING AMPLITUDE</div><div class="v" id="ampl">—</div></div>
+        </div>
+        <div class="note">A pure sublattice state (weight 1) is exactly the ±branch superposition → maximal trembling at ω = 2E₁ (test D6: ratio 0.99958). Mixing in sublattice B suppresses the interference — watch the oscillation vanish: ZB lives on the interband coherence.</div>
+      </div>
+    </div>
+  </div>
+  <footer>AB-Cloud Research — Dirac Laboratory v1.0 · self-contained HTML · the same constructions as tests D5/D6 of the verification suite</footer>
+</div>
+<script>
+const N = 512, vF = 1.0;
+const cv = document.getElementById('sim'), cx = cv.getContext('2d');
+let mode = 'klein', running = false, paused = false, t = 0, psi = null, eigs = null, vecs = null, V = null, Sch = null, schWave = null, xt = [], theoryW = 2;
+
+function buildH(m, Varr) {
+  // 1D Dirac: offdiag vF/2 hops + m diag (sigma_x mass), interleaved spinor
+  const M = 2 * N, H = new Array(M).fill(0).map(() => []);
+  const add = (i, j, re, im) => { H[i].push([j, re, im]); };
+  for (let i = 0; i < N - 1; i++) {
+    add(2*i, 2*(i+1)+1, vF/2, 0); add(2*(i+1)+1, 2*i, vF/2, 0);
+    add(2*i+1, 2*(i+1), -vF/2, 0); add(2*(i+1), 2*i+1, -vF/2, 0);
+  }
+  for (let i = 0; i < N; i++) {
+    if (m !== 0) { add(2*i, 2*i+1, m, 0); add(2*i+1, 2*i, m, 0); }
+  }
+  return H;
+}
+// dense eigs for N=512 → 1024×1024 is heavy in JS; use N=256 equivalent dense? Use spectral via
+// explicit tridiagonal-free approach: instead diagonalize a SMALLER chain (N=256 → 512-dim) — fine in JS.
+let NN = 128;
+function buildDense(m, Varr) {
+  const M = 2*NN, H = [];
+  for (let i = 0; i < M; i++) H.push(new Float64Array(M));
+  for (let i = 0; i < NN - 1; i++) {
+    H[2*i][2*(i+1)+1] = vF/2; H[2*(i+1)+1][2*i] = vF/2;
+    H[2*i+1][2*(i+1)] = -vF/2; H[2*(i+1)][2*i+1] = -vF/2;
+  }
+  if (m !== 0) for (let i = 0; i < NN; i++) { H[2*i][2*i+1] += m; H[2*i+1][2*i] += m; }
+  if (Varr) for (let i = 0; i < NN; i++) { H[2*i][2*i] += Varr[i]; H[2*i+1][2*i+1] += Varr[i]; }
+  return H;
+}
+// Jacobi eigenvalue solver for symmetric real matrices (M ≤ 512)
+function jacobiEig(Ain, M) {
+  const A = Ain.map(r => Float64Array.from(r));
+  const Vm = []; for (let i = 0; i < M; i++) { const r = new Float64Array(M); r[i] = 1; Vm.push(r); }
+  for (let sweep = 0; sweep < 24; sweep++) {
+    let off = 0;
+    for (let p = 0; p < M-1; p++) for (let q = p+1; q < M; q++) off += A[p][q]*A[p][q];
+    if (off < 1e-11) break;
+    for (let p = 0; p < M-1; p++) for (let q = p+1; q < M; q++) {
+      if (Math.abs(A[p][q]) < 1e-15) continue;
+      const theta = (A[q][q]-A[p][p])/(2*A[p][q]);
+      const tt = Math.sign(theta)/(Math.abs(theta)+Math.sqrt(theta*theta+1));
+      const c = 1/Math.sqrt(tt*tt+1), s = tt*c;
+      for (let k = 0; k < M; k++) {
+        const akp = A[k][p], akq = A[k][q];
+        A[k][p] = c*akp - s*akq; A[k][q] = s*akp + c*akq;
+      }
+      for (let k = 0; k < M; k++) {
+        const apk = A[p][k], aqk = A[q][k];
+        A[p][k] = c*apk - s*aqk; A[q][k] = s*apk + c*aqk;
+      }
+      for (let k = 0; k < M; k++) {
+        const vkp = Vm[k][p], vkq = Vm[k][q];
+        Vm[k][p] = c*vkp - s*vkq; Vm[k][q] = s*vkp + c*vkq;
+      }
+    }
+  }
+  const ev = []; for (let i = 0; i < M; i++) ev.push(A[i][i]);
+  // sort ascending, columns of Vm
+  const idx = ev.map((v,i)=>[v,i]).sort((a,b)=>a[0]-b[0]);
+  return { vals: idx.map(x=>x[0]), vecs: idx.map(x=>idx2col(Vm, x[1], M)) };
+}
+function idx2col(Vm, col, M) { const c = new Float64Array(M); for (let k = 0; k < M; k++) c[k] = Vm[k][col]; return c; }
+
+function gaussPacket(center, k0, sigma) {
+  // positive-band eigenpacket traveling +x: ψ = (env, env)·e^{+i k0 x}
+  const pRe = new Float64Array(2*NN), pIm = new Float64Array(2*NN);
+  let nrm = 0;
+  for (let i = 0; i < NN; i++) {
+    const env = Math.exp(-((i-center)**2)/(4*sigma*sigma));
+    pRe[2*i] = env*Math.cos(k0*i); pIm[2*i] = env*Math.sin(k0*i);
+    pRe[2*i+1] = pRe[2*i];         pIm[2*i+1] = pIm[2*i];
+    nrm += 2*(pRe[2*i]**2 + pIm[2*i]**2);
+  }
+  const s = Math.sqrt(nrm);
+  for (let i = 0; i < 2*NN; i++) { pRe[i] /= s; pIm[i] /= s; }
+  return { re: pRe, im: pIm };
+}
+function sublatticeState(center, sigma, wA) {
+  const pRe = new Float64Array(2*NN), pIm = new Float64Array(2*NN);
+  let nrm = 0;
+  for (let i = 0; i < NN; i++) {
+    const g = Math.exp(-((i-center)**2)/(4*sigma*sigma));
+    pRe[2*i] = Math.sqrt(2*wA)*g; pRe[2*i+1] = Math.sqrt(2*(1-wA))*g;
+    nrm += pRe[2*i]**2 + pRe[2*i+1]**2;
+  }
+  const s = Math.sqrt(nrm);
+  for (let i = 0; i < 2*NN; i++) pRe[i] /= s;
+  return { re: pRe, im: pIm };
+}
+
+function setupKlein() {
+  NN = 128;
+  const m = parseFloat(document.getElementById('m').value);
+  const V0 = parseFloat(document.getElementById('v0').value);
+  const d = parseInt(document.getElementById('d').value);
+  V = new Float64Array(NN);
+  const xb = Math.floor(NN/2 - d/2), w = 2.5;
+  for (let x = 0; x < NN; x++)
+    V[x] = V0 * 0.5 * (Math.tanh((x-xb)/w) - Math.tanh((x-(xb+d))/w));
+  const H = buildDense(m, V);
+  const r = jacobiEig(H, 2*NN);
+  eigs = r.vals; vecs = r.vecs;
+  psi = gaussPacket(Math.floor(NN/5), 0.5, 9);
+  t = 0; xt = [];
+  // Schrödinger control: p²/2 + V — separate small diag-dominant dense build
+  const Hs = []; for (let i = 0; i < NN; i++) Hs.push(new Float64Array(NN));
+  for (let i = 0; i < NN; i++) { Hs[i][i] = 1 + V[i]; if (i+1 < NN) { Hs[i][i+1] -= 0.5; Hs[i+1][i] -= 0.5; } }
+  const rs = jacobiEig(Hs, NN);
+  Sch = { vals: rs.vals, vecs: rs.vecs, c: (() => {
+    const c = new Float64Array(NN); let nrm = 0;
+    for (let i = 0; i < NN; i++) {
+      const g = Math.exp(-((i-Math.floor(NN/5))**2)/(4*81)) * Math.cos(0.5*(i-Math.floor(NN/5)));
+      c[i] = g; nrm += g*g;
+    }
+    for (let i = 0; i < NN; i++) c[i] /= Math.sqrt(nrm);
+    // project
+    const pr = new Float64Array(NN);
+    for (let k = 0; k < NN; k++) { let acc = 0; for (let i = 0; i < NN; i++) acc += rs.vecs[k][i]*c[i]; pr[k] = acc; }
+    return pr;
+  })(), t: 0 };
+}
+function setupZB() {
+  NN = 128;
+  const m = parseFloat(document.getElementById('m2').value);
+  const H = buildDense(m, null);
+  const r = jacobiEig(H, 2*NN);
+  eigs = r.vals; vecs = r.vecs;
+  const wA = parseFloat(document.getElementById('mix').value);
+  psi = sublatticeState(Math.floor(NN/2), 40, wA);
+  t = 0; xt = [];
+  // E1 = first positive
+  let ip = 0; while (eigs[ip] <= 1e-9) ip++;
+  theoryW = 2*eigs[ip];
+  document.getElementById('omth').textContent = theoryW.toFixed(4);
+}
+
+function step(dt) {
+  const c = new Float64Array(2*NN);
+  for (let k = 0; k < 2*NN; k++)
+    c[k] = psi[k]*Math.cos(eigs[k]*dt) - psi[k]*0; // real: use cos/sin pairs below
+  // real-symmetric evolution: psi(t) = Σ_k c_k v_k cos(E_k t) — store coefficients instead
+}
+// Complex coefficient-space evolution: ψ(t) = Σ_k c_k v_k e^{−iE_k t}
+let coefRe = null, coefIm = null;
+function toCoef() {
+  coefRe = new Float64Array(2*NN); coefIm = new Float64Array(2*NN);
+  for (let k = 0; k < 2*NN; k++) {
+    let ar = 0, ai = 0; const v = vecs[k];
+    for (let i = 0; i < 2*NN; i++) { ar += v[i]*psi.re[i]; ai += v[i]*psi.im[i]; }
+    coefRe[k] = ar; coefIm[k] = ai;
+  }
+}
+function render(tNow) {
+  const outRe = new Float64Array(2*NN), outIm = new Float64Array(2*NN);
+  for (let k = 0; k < 2*NN; k++) {
+    const ph = -eigs[k]*tNow, c = Math.cos(ph), s = Math.sin(ph);
+    const wr = coefRe[k]*c - coefIm[k]*s, wi = coefRe[k]*s + coefIm[k]*c;
+    if (wr === 0 && wi === 0) continue;
+    const v = vecs[k];
+    for (let i = 0; i < 2*NN; i++) { outRe[i] += wr*v[i]; outIm[i] += wi*v[i]; }
+  }
+  return { re: outRe, im: outIm };
+}
+
+let raf = null;
+function drawKlein(tNow) {
+  const out = render(tNow);
+  const W = cv.width, H = cv.height;
+  cx.fillStyle = '#0b1626'; cx.fillRect(0,0,W,H);
+  // potential backdrop
+  const d = parseInt(document.getElementById('d').value);
+  const xb = Math.floor(NN/2 - d/2);
+  cx.fillStyle = 'rgba(255,183,77,0.10)';
+  cx.fillRect(xb/NN*W, 0, d/NN*W, H);
+  // density (sum of both components)
+  cx.beginPath();
+  for (let i = 0; i < NN; i++) {
+    const rho = out.re[2*i]**2 + out.im[2*i]**2 + out.re[2*i+1]**2 + out.im[2*i+1]**2;
+    const X = i/NN*W, Y = H - Math.min(rho*W*1.6, H*0.94);
+    i === 0 ? cx.moveTo(X, Y) : cx.lineTo(X, Y);
+  }
+  cx.strokeStyle = '#4FC3F7'; cx.lineWidth = 1.6; cx.stroke();
+  cx.fillStyle = '#4FC3F7'; cx.globalAlpha = 0.25;
+  cx.beginPath(); cx.moveTo(0, H);
+  for (let i = 0; i < NN; i++) {
+    const rho = out.re[2*i]**2 + out.im[2*i]**2 + out.re[2*i+1]**2 + out.im[2*i+1]**2;
+    cx.lineTo(i/NN*W, H - Math.min(rho*W*1.6, H*0.94));
+  }
+  cx.lineTo(W, H); cx.closePath(); cx.fill(); cx.globalAlpha = 1;
+  // Schrödinger overlay
+  if (document.getElementById('showschrod').value === '1' && Sch) {
+    cx.beginPath();
+    const ts = tNow * (0.5/ (parseFloat(document.getElementById('m').value) ? 0.5 : 0.878));
+    for (let i = 0; i < NN; i++) {
+      let s = 0;
+      for (let k = 0; k < NN; k++) s += Sch.c[k]*Sch.vecs[k][i]*Math.cos(Sch.vals[k]*tNow*0.5/0.878);
+      const X = i/NN*W, Y = H - Math.min(s*s*W*1.6, H*0.94);
+      i === 0 ? cx.moveTo(X, Y) : cx.lineTo(X, Y);
+    }
+    cx.strokeStyle = '#E5534B'; cx.lineWidth = 1.3; cx.stroke();
+  }
+  cx.fillStyle = '#8fa8c8'; cx.font = '12px DejaVu Sans';
+  cx.fillText('blue: Dirac  |  red: Schrödinger control  |  shaded: barrier V₀', 12, 18);
+  cx.fillText('t = ' + tNow.toFixed(1), W-70, 18);
+  // transmission readout
+  const d2 = parseInt(document.getElementById('d').value);
+  const xb2 = Math.floor(NN/2 - d2/2);
+  let beyond = 0, total = 0;
+  for (let i = 0; i < NN; i++) {
+    const rho = out.re[2*i]**2 + out.im[2*i]**2 + out.re[2*i+1]**2 + out.im[2*i+1]**2;
+    total += rho;
+    if (i > xb2 + d2 + 8) beyond += rho;
+  }
+  document.getElementById('td').textContent = (beyond/Math.max(total,1e-12)).toFixed(3);
+}
+
+function drawZB(tNow) {
+  const out = render(tNow);
+  const W = cv.width, H = cv.height;
+  cx.fillStyle = '#0b1626'; cx.fillRect(0,0,W,H);
+  let mean = 0, total = 0;
+  for (let i = 0; i < NN; i++) {
+    const w = out.re[2*i]**2 + out.im[2*i]**2 + out.re[2*i+1]**2 + out.im[2*i+1]**2;
+    mean += i*w; total += w;
+  }
+  mean /= Math.max(total, 1e-12);
+  xt.push([tNow, mean]);
+  // trajectory of ⟨x(t)⟩
+  cx.strokeStyle = '#9558B2'; cx.lineWidth = 1.8; cx.beginPath();
+  const t0 = xt[0][0];
+  for (let j = 0; j < xt.length; j++) {
+    const X = (xt[j][0]-t0)/10*(W-40)+10;
+    const Y = H/2 - (xt[j][1] - NN/2)*6;
+    j === 0 ? cx.moveTo(X, Y) : cx.lineTo(X, Y);
+  }
+  cx.stroke();
+  // packet snapshot
+  cx.beginPath();
+  for (let i = 0; i < NN; i++) {
+    const rho = out.re[2*i]**2 + out.im[2*i]**2 + out.re[2*i+1]**2 + out.im[2*i+1]**2;
+    const X = i/NN*W, Y = H - Math.min(rho*W*1.2, H*0.35) - 6;
+    i === 0 ? cx.moveTo(X, Y) : cx.lineTo(X, Y);
+  }
+  cx.strokeStyle = 'rgba(79,195,247,0.8)'; cx.lineWidth = 1.2; cx.stroke();
+  cx.fillStyle = '#8fa8c8'; cx.font = '12px DejaVu Sans';
+  cx.fillText('⟨x(t)⟩ trembling (purple) at ω = 2E₁; packet below', 12, 18);
+  cx.fillText('t = ' + tNow.toFixed(1), W-70, 18);
+  // amplitude estimate
+  if (xt.length > 40) {
+    const tail = xt.slice(-Math.min(200, xt.length)).map(a => a[1]);
+    const mn = Math.min(...tail), mx = Math.max(...tail);
+    document.getElementById('ampl').textContent = ((mx-mn)/2).toFixed(3) + ' sites';
+  }
+}
+
+function loop() {
+  if (!running || paused) return;
+  t += 0.05;
+  if (mode === 'klein') { drawKlein(t); if (t > 95) { running = false; } }
+  else { drawZB(t); if (t > 10) { running = false; } }
+  raf = requestAnimationFrame(loop);
+}
+
+document.getElementById('run').onclick = () => {
+  if (mode === 'klein') setupKlein(); else setupZB();
+  toCoef(); running = true; paused = false; cancelAnimationFrame(raf); loop();
+};
+document.getElementById('pause').onclick = () => { paused = !paused; if (!paused && !running) { running = true; loop(); } };
+document.getElementById('reset').onclick = () => { running = false; t = 0; xt = []; cx.fillStyle = '#0b1626'; cx.fillRect(0,0,cv.width,cv.height); };
+
+document.querySelectorAll('.tab').forEach(tb => tb.onclick = () => {
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  tb.classList.add('active');
+  mode = tb.dataset.mode;
+  document.getElementById('panel-klein').style.display = mode === 'klein' ? '' : 'none';
+  document.getElementById('panel-zb').style.display = mode === 'zb' ? '' : 'none';
+  document.getElementById('simtitle').textContent = mode === 'klein'
+    ? 'Dirac vs Schrödinger packet through a barrier'
+    : '⟨x(t)⟩ trembling of the Dirac particle';
+  running = false;
+});
+['v0','d','m','showschrod'].forEach(id => document.getElementById(id).addEventListener('input', () => {
+  document.getElementById('v0v').textContent = document.getElementById('v0').value;
+  document.getElementById('dv').textContent = document.getElementById('d').value;
+  document.getElementById('mv').textContent = document.getElementById('m').value;
+  document.getElementById('sv').textContent = document.getElementById('showschrod').value === '1' ? 'on' : 'off';
+  if (mode === 'klein') setupKlein();
+}));
+['m2','mix'].forEach(id => document.getElementById(id).addEventListener('input', () => {
+  document.getElementById('mv2').textContent = document.getElementById('m2').value;
+  document.getElementById('mixv').textContent = document.getElementById('mix').value;
+  if (mode === 'zb') setupZB();
+}));
+
+// auto-start klein
+setupKlein(); toCoef(); running = true; loop();
+</script>
+</body>
+</html>

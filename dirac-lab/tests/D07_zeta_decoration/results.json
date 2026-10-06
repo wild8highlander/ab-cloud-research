@@ -1,0 +1,38 @@
+{
+ "tid": "D7",
+ "title": "ζ-decorated Dirac operator — the bridge",
+ "verdict": "PASS",
+ "checks": [
+  [
+   "D7 CLEAN baseline: tower = 4 ∀L (Dirac zero modes, ties D2)",
+   true,
+   "L32:4; L40:4; L48:4"
+  ],
+  [
+   "D7 chiral skeleton survives ζ decoration: {H,Γ} = 0 ∀L",
+   true,
+   "L32:0.0e+00; L40:0.0e+00; L48:0.0e+00 (E↔−E pairing audited in D8)"
+  ],
+  [
+   "D7 statistics move toward GUE: ⟨r⟩_ζ − ⟨r⟩_clean ≥ +0.04",
+   true,
+   "L32:+0.1321; L40:+0.0934; L48:+0.1937"
+  ],
+  [
+   "D7 ⟨r⟩_ζ ≥ 0.56 (GUE approach, theory 0.5992)",
+   true,
+   "L32:0.6080; L40:0.6084; L48:0.6050"
+  ],
+  [
+   "D7 Dirac low-energy scale survives (near-zero reservoir ≥ 8)",
+   true,
+   "L32:18; L40:24; L48:24"
+  ]
+ ],
+ "n_pass": 5,
+ "n_total": 5,
+ "elapsed_s": 20.6,
+ "mode": "FULL",
+ "seed": 96,
+ "provenance": "regenerated v1.4 into tests/ with the canonical harness; ledger matches results/run_20261006_full_v13"
+}

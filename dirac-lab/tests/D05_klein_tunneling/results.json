@@ -1,0 +1,33 @@
+{
+ "tid": "D5",
+ "title": "Klein tunneling (real time)",
+ "verdict": "PASS",
+ "checks": [
+  [
+   "D5 Klein supertansmission: T_Dirac(0°) ≥ 0.80 while barrier is classically forbidden (E₀ < V₀)",
+   true,
+   "T_Dirac(0°) = 0.9777"
+  ],
+  [
+   "D5 Dirac ≫ Schrödinger at normal incidence (≥ 10×)",
+   true,
+   "T_Schr(0°) = 0.0010 (tunneling-suppressed)"
+  ],
+  [
+   "D5 angular suppression: T_Dirac monotone ↓ within noise",
+   true,
+   "0°:0.978; 30°:0.350; 45°:0.055; 60°:0.005"
+  ],
+  [
+   "D5 strong suppression at 60° (T(60°) ≤ 0.6·T(0°))",
+   true,
+   "T(60°)/T(0°) = 0.005"
+  ]
+ ],
+ "n_pass": 4,
+ "n_total": 4,
+ "elapsed_s": 47.05,
+ "mode": "FULL",
+ "seed": 96,
+ "provenance": "regenerated v1.4 into tests/ with the canonical harness; ledger matches results/run_20261006_full_v13"
+}

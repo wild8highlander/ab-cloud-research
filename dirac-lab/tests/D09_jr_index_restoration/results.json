@@ -1,0 +1,63 @@
+{
+ "tid": "D9",
+ "title": "Index restoration — Jackiw–Rossi programme (§8.1)",
+ "verdict": "PASS",
+ "checks": [
+  [
+   "D9a Jackiw–Rebbi wall binds chiral-pair quasi-zero modes: |E₀| ≤ 1e-7 = gap/1e7",
+   true,
+   "|E₀| = 3.94e-09, gap/|E₀| = 4.1e+08"
+  ],
+  [
+   "D9a wall mode localized on the wall (⟨|y−y₀|⟩ ≤ 3 = 1.5w)",
+   true,
+   "⟨|y−y₀|⟩ = 1.30 (w = 2.0)"
+  ],
+  [
+   "D9a chiral skeleton exact: {H,Γ} = 0",
+   true,
+   "‖{H,Γ}‖ = 0.0e+00"
+  ],
+  [
+   "D9b wall mode SURVIVES the full ζ-vortex background: |E₀| ≤ 1e-7",
+   true,
+   "|E₀| = 3.94e-09 (Nv = 178)"
+  ],
+  [
+   "D9b index-restoration contrast ≥ 100 (background alone sits higher)",
+   true,
+   "E_ctrl/E_wall = 2.76e-02/3.94e-09 = 7.0e+06"
+  ],
+  [
+   "D9b localization preserved in the ζ cloud (⟨|y−y₀|⟩ ≤ 3)",
+   true,
+   "⟨|y−y₀|⟩ = 1.30"
+  ],
+  [
+   "D9b chiral skeleton exact in the decorated system",
+   true,
+   "‖{H,Γ}‖ = 0.0e+00"
+  ],
+  [
+   "D9c kernel grows by one valley multiplet (+4) per added wall, both pinned ≤ 1e-7",
+   true,
+   "n = 12 → 16 (Δn = 4), min|E| = 1.06e-08"
+  ],
+  [
+   "D9d composite vortex (ν, Φ = ν/2) collapses the kernel to machine zero: min|E| ≤ 1e-12",
+   true,
+   "min|E| = 1.33e-15, n = 12"
+  ],
+  [
+   "D9d composite config keeps {H,Γ} = 0",
+   true,
+   "‖{H,Γ}‖ = 0.0e+00"
+  ]
+ ],
+ "n_pass": 10,
+ "n_total": 10,
+ "elapsed_s": 56.38,
+ "mode": "FULL",
+ "seed": 96,
+ "provenance": "regenerated v1.4 into tests/ with the canonical harness; ledger matches results/run_20261006_full_v13"
+}

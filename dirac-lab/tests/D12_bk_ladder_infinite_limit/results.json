@@ -1,0 +1,58 @@
+{
+ "tid": "D12",
+ "title": "The infinite BK ladder — N_u → ∞ at fixed density (beyond §8)",
+ "verdict": "PASS",
+ "checks": [
+  [
+   "D12a coherent peak: |Tr U(Λ)| = N_u exactly at every band size (≤1e-12 rel)",
+   true,
+   "max dev = 0.00e+00 over N_u = [128, 512, 2048, 8192, 32768]"
+  ],
+  [
+   "D12a comb → delta train: off-peak sup |Tr U|/N_u follows the Dirichlet envelope 1/(N_u·sin(π/20)) and decreases monotonically",
+   true,
+   "sup/N_u: 4.9e-02 → 1.2e-02 → 3.0e-03 → 7.4e-04 → 1.9e-04"
+  ],
+  [
+   "D12a lattice operator agrees with the closed-form comb at the conjugation time Λ (≤1e-11)",
+   true,
+   "dev = 2.23e-16"
+  ],
+  [
+   "D12b fixed-density staircase exact: count = floor(Λb/2π) − ceil(Λa/2π) + 1 at 3 windows × every band size",
+   true,
+   "max dev = 0e+00"
+  ],
+  [
+   "D12b density is N_u-independent: |count − ΛΔE/2π| ≤ 1 (boundary term only)",
+   true,
+   "max dev = 0.68"
+  ],
+  [
+   "D12b the extending ladder swallows the zero window: coverage monotone ↑ and = 1.0 at the largest band",
+   true,
+   "coverage 1.000 at N_u = 32768 (E_max = 23288 ≥ t_max = 2515.3)"
+  ],
+  [
+   "D12c extensive protection at fixed density: ⟨r⟩(L) within [0.585, 0.625] (GUE 0.5992) for every ladder size",
+   true,
+   "L30:0.5958; L36:0.6016; L42:0.6047; L48:0.6050"
+  ],
+  [
+   "D12c statistics are L-independent while the encoded ladder grows (spread ≤ 0.012; Nv 25/900 law) and the GUE shift over the clean lattice is preserved (Δ ≥ +0.04)",
+   true,
+   "spread = 0.0092; min Δ = +0.1175; Nv 26 → 64; random(L=48) = 0.5863"
+  ],
+  [
+   "D12c GUE ramp present in the extended-ladder cloud: K(0.25) < K(0.5) < K(0.75) and K(0.5) ≤ 0.85",
+   true,
+   "K: 0.165 < 0.607 < 0.722"
+  ]
+ ],
+ "n_pass": 9,
+ "n_total": 9,
+ "elapsed_s": 18.8,
+ "mode": "FULL",
+ "seed": 96,
+ "provenance": "regenerated v1.4 into tests/ with the canonical harness; ledger matches results/run_20261006_full_v13"
+}

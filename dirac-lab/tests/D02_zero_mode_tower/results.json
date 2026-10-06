@@ -1,0 +1,33 @@
+{
+ "tid": "D2",
+ "title": "Zero-mode tower & index content",
+ "verdict": "PASS",
+ "checks": [
+  [
+   "D2 tower = 4 ∀L (L/4∈ℤ)",
+   true,
+   "L16:4; L20:4; L24:4; L28:4; L32:4; L40:4; L48:4"
+  ],
+  [
+   "D2 {H,Γ} = 0 machine precision",
+   true,
+   "worst 0.0e+00"
+  ],
+  [
+   "D2 tower pinned: max|E_zero| < 1e-9",
+   true,
+   "worst 7.81e-15"
+  ],
+  [
+   "D2 Γ-polarity of tower = 0 (2× Γ+ , 2× Γ−)",
+   true,
+   "L16:+0; L20:+0; L24:+0; L28:+0; L32:+0; L40:+0; L48:+0"
+  ]
+ ],
+ "n_pass": 4,
+ "n_total": 4,
+ "elapsed_s": 17.71,
+ "mode": "FULL",
+ "seed": 96,
+ "provenance": "regenerated v1.4 into tests/ with the canonical harness; ledger matches results/run_20261006_full_v13"
+}

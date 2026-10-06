@@ -1,0 +1,38 @@
+{
+ "tid": "D1",
+ "title": "Continuum limit — the lattice IS a Dirac equation",
+ "verdict": "PASS",
+ "checks": [
+  [
+   "D1a Bloch bands match analytic π-flux Dirac",
+   true,
+   "max|ΔE| = 2.66e-15"
+  ],
+  [
+   "D1b E₁ ∝ 1/L with R² ≥ 0.999",
+   true,
+   "R² = 0.999891"
+  ],
+  [
+   "D1b v_F = slope/2π ≈ 2t (±5%, finite-size; parent: 1.9447)",
+   true,
+   "v_F = 1.9347 vs 2.0"
+  ],
+  [
+   "D1b E₁·L → 4π (±1.5%)",
+   true,
+   "E₁·L = 12.4695 vs 4π = 12.5664 — parent test 30: 12.55"
+  ],
+  [
+   "D1c lattice tower = analytic Dirac shells",
+   true,
+   "max nearest-shell distance = 1.06e-03 over 32 levels"
+  ]
+ ],
+ "n_pass": 5,
+ "n_total": 5,
+ "elapsed_s": 23.23,
+ "mode": "FULL",
+ "seed": 96,
+ "provenance": "regenerated v1.4 into tests/ with the canonical harness; ledger matches results/run_20261006_full_v13"
+}
