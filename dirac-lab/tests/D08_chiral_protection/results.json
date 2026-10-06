@@ -1,0 +1,33 @@
+{
+ "tid": "D8",
+ "title": "Chiral protection (AIII) — why D7 works",
+ "verdict": "PASS",
+ "checks": [
+  [
+   "D8 {H,Γ} = 0 under ζ decoration (machine precision)",
+   true,
+   "||{H,Γ}|| = 0.00e+00"
+  ],
+  [
+   "D8 bipartite (no same-sublattice hopping)",
+   true,
+   "max = 0.0e+00"
+  ],
+  [
+   "D8 E ↔ −E spectral symmetry < 1e-10",
+   true,
+   "max = 4.00e-15 over 800 pairs"
+  ],
+  [
+   "D8 zero-mode content is chiral-multiplet-consistent (even n_zero; clean tower=4 documented as index-0 fragile in D7)",
+   true,
+   "n_zero = 0 (ζ decoration splits the clean 4-tower into ±E valley pairs — chiral symmetry survives, exact pinning is a clean-limit signature)"
+  ]
+ ],
+ "n_pass": 4,
+ "n_total": 4,
+ "elapsed_s": 4.61,
+ "mode": "FULL",
+ "seed": 96,
+ "provenance": "regenerated v1.4 into tests/ with the canonical harness; ledger matches results/run_20261006_full_v13"
+}

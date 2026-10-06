@@ -1,0 +1,28 @@
+{
+  "suite": "AB-Cloud Dirac Laboratory v1.1 extensions (D9)",
+  "language": "Julia 1.13.1 (LinearAlgebra only, zero external packages)",
+  "script": "code/dirac_lab_cross_ext.jl",
+  "grid": "40x40 dense, dx=0.4, m0=0.8, w=2.0, open BC",
+  "results": [
+    {
+      "block": "one wall (index 1)",
+      "chiral_norm": 0.0,
+      "min_abs_E": 6.4e-17,
+      "n_kernel_1e-6": 56,
+      "verdict": "PASS"
+    },
+    {
+      "block": "two walls (index 2)",
+      "chiral_norm": 0.0,
+      "min_abs_E": 1.28e-15,
+      "n_kernel_1e-6": 58,
+      "verdict": "PASS"
+    }
+  ],
+  "verdicts": {
+    "wall_binds_pinned_chiral_pair_multiplet": "PASS",
+    "kernel_grows_with_wall_count": "PASS (n: 56 -> 58)"
+  },
+  "overall": "ALL PASS",
+  "note": "Independent from-scratch Julia port of the D9 wall construction; confirms the Python findings: exact pinned kernel near E=0 (6e-17 on the reduced grid, 4e-9 on the 200-grid) and kernel growth with the wall count."
+}

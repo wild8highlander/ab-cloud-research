@@ -1,0 +1,33 @@
+{
+  "suite": "AB-Cloud Dirac Laboratory v1.3 extensions III (D12-D14)",
+  "language": "Julia 1.13.1 (LinearAlgebra only, zero external packages)",
+  "script": "code/dirac_lab_cross_ext3.jl",
+  "setup": "analytic BK ladder sums (N_u=1024, Lambda=ln(t_med/2pi e)=4.420128) + zeta-coded 30x30 torus (Nv=26) + bare 36x36 grid-Dirac JR wall + sliding-window form factors of the 2000-zero main band and the 2000-zero Odlyzko band (t~1e5)",
+  "results": [
+    {"block": "D12a comb", "quantity": "peak |Tr U(Lambda)|/N_u - 1", "value": 0.0, "window": "<= 1e-12", "verdict": "PASS"},
+    {"block": "D12a comb", "quantity": "off-peak sup |Tr U|/N_u", "value": 0.00598, "window": "<= 1.05 x 0.00624 (Dirichlet envelope)", "verdict": "PASS"},
+    {"block": "D12a staircase", "quantity": "integer identity at 3 windows", "value": "exact", "verdict": "PASS"},
+    {"block": "D12b torus", "quantity": "mean r at L=30, Nv=26 (fixed density 25/900)", "value": 0.5958, "window": "[0.58, 0.62], GUE 0.5992", "verdict": "PASS"},
+    {"block": "D13 wall", "quantity": "bare JR wall 36x36: min|E|", "value": 0.00011, "window": "<= gap/1000 = 1.6e-3 (quartic grid lifting; exact kernel 3.9e-9 at 200x200 in Python D13a)", "verdict": "PASS"},
+    {"block": "D14 main", "quantity": "K(0.10), K(0.25), K(0.5), K(2.0)", "value": [0.0042, 0.123, 0.396, 1.231], "window": "hard core <= 0.3; ramp 0.123 < 0.396 <= 0.75; plateau [0.5, 1.6]", "verdict": "PASS"},
+    {"block": "D14 Odlyzko 1e5", "quantity": "K(0.10), K(0.5), K(2.0)", "value": [0.0083, 0.466, 0.962], "window": "hard core <= 0.3; K(0.5) <= 0.85; |K(2)-1| <= 0.3", "verdict": "PASS"}
+  ],
+  "python_reference": {
+    "main_band_K": [0.0042, 0.123, 0.396, 1.231],
+    "odlyzko_band_K": [0.0083, 0.466, 0.962],
+    "r_mean_L30": 0.5958,
+    "wall_200x200_min_abs_E": 3.9e-09,
+    "agreement": "form factors and mean-r match the Python canonical run to the printed precision (identical constructions, identical LAPACK-class libraries)"
+  },
+  "verdicts": {
+    "d12a_coherent_peak": "PASS",
+    "d12a_dirichlet_envelope": "PASS",
+    "d12a_staircase_identity": "PASS",
+    "d12b_torus_gue_window": "PASS",
+    "d13_bare_wall_binding": "PASS",
+    "d14_main_band_structure": "PASS",
+    "d14_odlyzko_band_structure": "PASS",
+    "all": "PASS"
+  },
+  "timestamp": "2026-10-06"
+}

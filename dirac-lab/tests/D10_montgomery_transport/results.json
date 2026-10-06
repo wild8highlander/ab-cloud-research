@@ -1,0 +1,58 @@
+{
+ "tid": "D10",
+ "title": "Montgomery in motion — transport imaging (§8.2)",
+ "verdict": "PASS",
+ "checks": [
+  [
+   "D10a pair repulsion: g(0.3) ≤ 0.35 (Montgomery 0.26, Poisson 1)",
+   true,
+   "g(0.3) = 0.188"
+  ],
+  [
+   "D10a Montgomery form: max|g − 1−(sinπu/πu)²| ≤ 0.15 on u∈[1,10]",
+   true,
+   "max dev = 0.135"
+  ],
+  [
+   "D10a sub-Poisson number variance: Σ²(20) ≤ 2 (Poisson: 20)",
+   true,
+   "Σ²(20) = 0.33"
+  ],
+  [
+   "D10b GUE repulsion protects transport: R_ζ ≤ 0.9·R_Poisson",
+   true,
+   "R: ζ = 0.0865 vs random = 0.1151 (ratio 0.75)"
+  ],
+  [
+   "D10b transmission: T_ζ ≥ 1.2·T_Poisson",
+   true,
+   "T: ζ = 0.1228 vs random = 0.0756 (ratio 1.62)"
+  ],
+  [
+   "D10b clean lattice is ballistic: R_clean ≤ 0.02",
+   true,
+   "R_clean = 0.0003"
+  ],
+  [
+   "D10c momentum-flip ordering W_ζ < W_uniform < W_random",
+   true,
+   "0.2265 < 0.2398 < 0.2515"
+  ],
+  [
+   "D10c packet broadening σ_k(ζ) < σ_k(random)",
+   true,
+   "2.520 < 2.573"
+  ],
+  [
+   "D10c flip-weight gap is significant: W_random − W_ζ ≥ 0.01",
+   true,
+   "Δ = 0.0250"
+  ]
+ ],
+ "n_pass": 9,
+ "n_total": 9,
+ "elapsed_s": 5.4,
+ "mode": "FULL",
+ "seed": 96,
+ "provenance": "regenerated v1.4 into tests/ with the canonical harness; ledger matches results/run_20261006_full_v13"
+}

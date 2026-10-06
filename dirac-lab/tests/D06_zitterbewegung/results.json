@@ -1,0 +1,23 @@
+{
+ "tid": "D6",
+ "title": "Zitterbewegung (real time)",
+ "verdict": "PASS",
+ "checks": [
+  [
+   "D6 Zitterbewegung ω = 2E (Dirac box, ±1.5%)",
+   true,
+   "ratio = 0.999583"
+  ],
+  [
+   "D6 torus interband dipole oscillates at ω = 2E₁ (±4%)",
+   true,
+   "ratio = 0.9998"
+  ]
+ ],
+ "n_pass": 2,
+ "n_total": 2,
+ "elapsed_s": 2.32,
+ "mode": "FULL",
+ "seed": 96,
+ "provenance": "regenerated v1.4 into tests/ with the canonical harness; ledger matches results/run_20261006_full_v13"
+}

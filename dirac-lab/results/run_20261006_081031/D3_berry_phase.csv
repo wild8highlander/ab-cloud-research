@@ -1,0 +1,5 @@
+loop,radius,gamma
+cone,0.2,3.141592654
+cone,0.35,3.141592654
+control,0.2,0
+control2,0.15,0

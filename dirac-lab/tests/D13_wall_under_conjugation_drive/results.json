@@ -1,0 +1,63 @@
+{
+ "tid": "D13",
+ "title": "D9+D11 pairing — JR wall under the conjugating drive (beyond §8)",
+ "verdict": "PASS",
+ "checks": [
+  [
+   "D13a wall mode pinned along the whole Connes orbit: |E₀| ≤ 1e-7 at every u",
+   true,
+   "u=0.00:3.9e-09  u=0.10:3.9e-09  u=0.20:3.9e-09  u=0.30:3.9e-09"
+  ],
+  [
+   "D13a localization on the wall preserved: ⟨|y−y₀|⟩ ≤ 3.5",
+   true,
+   "1.30  1.30  1.30  1.30 (w = 2.0)"
+  ],
+  [
+   "D13a adiabatic transport: y-profile fidelity ≥ 0.98 between successive orbit steps",
+   true,
+   "0.9999  1.0000  1.0000"
+  ],
+  [
+   "D13a index contrast along the orbit: background-alone min|E| ≥ 100 × wall |E₀| at every u",
+   true,
+   "7e+06  7e+06  7e+06  7e+06"
+  ],
+  [
+   "D13a chiral skeleton exact on the whole orbit: {H,Γ} = 0",
+   true,
+   "0.0e+00  0.0e+00  0.0e+00  0.0e+00"
+  ],
+  [
+   "D13a valley multiplet fully present at every u: n_kernel(|E|<1e-7) ≥ 12",
+   true,
+   "12  12  12  12 (k = 12 window)"
+  ],
+  [
+   "D13b valley multiplet survives the generator drive as an isolated quasi-zero band: the 12 lowest states have band edge ≤ gap/300 at every λ ≤ 0.2 (edge scales ∝ λ)",
+   true,
+   "max band edge = 2.36e-03 = gap/679"
+  ],
+  [
+   "D13b isolation from the background: control min|E| ≥ 8 × band edge at every λ",
+   true,
+   "control 2.76e-02 vs band 2.36e-03 (min ratio 1e+01)"
+  ],
+  [
+   "D13b the lifting mechanism is explicit chiral breaking: ‖{H(λ),Γ} − λ{V,Γ}‖ ≤ 1e-12 (identity), i.e. the orbit drive (chiral-preserving) pins at 1e-8 while the generator lifts only to λ-scale",
+   true,
+   "max dev = 0.0e+00"
+  ],
+  [
+   "D13b vanishing diagonal flow: |d|E₀|/dλ| ≤ 0.05 = gap/32 (⟨V⟩ = 0 for the symmetric wall mode)",
+   true,
+   "slope = 0.0022, R² = 0.774"
+  ]
+ ],
+ "n_pass": 10,
+ "n_total": 10,
+ "elapsed_s": 244.18,
+ "mode": "FULL",
+ "seed": 96,
+ "provenance": "regenerated v1.4 into tests/ with the canonical harness; ledger matches results/run_20261006_full_v13"
+}

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dirac Laboratory — Lab Map</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', 'DejaVu Sans', Arial, sans-serif; background: #0b1626; }
+  .canvas { width: 1840px; padding: 46px 50px 40px; background: linear-gradient(135deg, #0b1626 0%, #0e1c31 55%, #10233f 100%); position: relative; }
+  .hdr { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #FFB74D; padding-bottom: 18px; }
+  .hdr h1 { color: #ffffff; font-size: 34px; letter-spacing: 0.5px; }
+  .hdr h1 span { color: #FFB74D; }
+  .hdr .sub { color: #8fa8c8; font-size: 15px; text-align: right; line-height: 1.5; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 26px; margin-top: 30px; }
+  .lane-title { color: #FFB74D; font-size: 14px; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 14px; display:flex; align-items:center; gap:10px;}
+  .lane-title::after { content:''; flex:1; height:1px; background:#2a3f5f; }
+  .card { background: #122544; border: 1px solid #24405f; border-left: 4px solid #4FC3F7; border-radius: 10px; padding: 16px 18px; margin-bottom: 14px; }
+  .card.orange { border-left-color: #FFB74D; }
+  .card.green { border-left-color: #2EA043; }
+  .card.purple { border-left-color: #9558B2; }
+  .card .id { color: #FFB74D; font-weight: 700; font-size: 13px; letter-spacing: 1px; }
+  .card .name { color: #ffffff; font-size: 16.5px; font-weight: 600; margin: 3px 0 6px; }
+  .card .desc { color: #9db4d3; font-size: 12.5px; line-height: 1.55; }
+  .metric { display: inline-block; background: #0b1626; border: 1px solid #2a3f5f; color: #4FC3F7; border-radius: 20px; padding: 3px 11px; font-size: 12px; margin: 6px 6px 0 0; font-weight: 600; }
+  .metric b { color: #FFB74D; }
+  .bridge { margin-top: 26px; background: linear-gradient(90deg, #122544, #1a3050, #122544); border: 1px solid #FFB74D; border-radius: 12px; padding: 20px 26px; display: flex; align-items: center; gap: 24px; }
+  .bridge .side { flex: 1; }
+  .bridge .side h3 { color: #ffffff; font-size: 17px; margin-bottom: 5px; }
+  .bridge .side p { color: #9db4d3; font-size: 12.5px; line-height: 1.5; }
+  .bridge .mid { text-align: center; }
+  .bridge .mid .arrow { color: #FFB74D; font-size: 26px; letter-spacing: 2px; }
+  .bridge .mid .lbl { color: #FFB74D; font-size: 13px; font-weight: 700; margin-top: 4px; }
+  .ftr { margin-top: 24px; color: #5d7a9e; font-size: 11.5px; display: flex; justify-content: space-between; border-top: 1px solid #24405f; padding-top: 14px; }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="hdr">
+    <h1>AB-Cloud <span>Dirac Laboratory</span> — Lab Map</h1>
+    <div class="sub">14 verification tests · 96 checks · Python suite + extensions I–III + Julia cross-suite<br>Autonomous lab of the AB-Cloud Research programme (D1–D14, v1.3)</div>
+  </div>
+  <div class="cols">
+    <div>
+      <div class="lane-title">Track I · Static identity</div>
+      <div class="card">
+        <div class="id">D1</div>
+        <div class="name">Continuum limit</div>
+        <div class="desc">The π-flux lattice IS a lattice Dirac equation: bands vs analytic dispersion, v_F from E₁ ∝ 1/L, full tower = Dirac shells.</div>
+        <div><span class="metric">|ΔE| <b>2.7e-15</b></span><span class="metric">v_F <b>1.935</b></span><span class="metric">E₁·L <b>4π</b></span></div>
+      </div>
+      <div class="card">
+        <div class="id">D2</div>
+        <div class="name">Zero-mode tower</div>
+        <div class="desc">Fourfold tower ∀L (L/4∈ℤ) pinned at E = 0 with exact Γ-polarity balance — the Dirac zero modes on the torus.</div>
+        <div><span class="metric">tower <b>= 4</b></span><span class="metric">max|E| <b>7.8e-15</b></span></div>
+      </div>
+      <div class="card">
+        <div class="id">D3</div>
+        <div class="name">Berry phase π</div>
+        <div class="desc">Wilson loops around the cone wind exactly π; control loops give 0; curvature = four π-flux peaks, C₁ = 0.</div>
+        <div><span class="metric">γ <b>= π</b> (12 digits)</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="lane-title">Track II · Relativistic response</div>
+      <div class="card orange">
+        <div class="id">D4</div>
+        <div class="name">Relativistic Landau levels</div>
+        <div class="desc">Exact strip: E_n² ∝ n with R² up to 0.99999, slope 2v_F²B; Schrödinger control stays linear; chiral n = 0 level at E = 0.</div>
+        <div><span class="metric">R² <b>0.9999</b></span><span class="metric">n=0 LL <b>@ E=0</b></span></div>
+      </div>
+      <div class="card orange">
+        <div class="id">D5</div>
+        <div class="name">Klein tunneling</div>
+        <div class="desc">Real-time scattering: T(0°) = 0.978 through a classically forbidden barrier; Schrödinger control 0.0010 (factor 977).</div>
+        <div><span class="metric">T(0°) <b>0.978</b></span><span class="metric">T_Schr <b>0.001</b></span></div>
+      </div>
+      <div class="card orange">
+        <div class="id">D6</div>
+        <div class="name">Zitterbewegung</div>
+        <div class="desc">Trembling at ω = 2E: Dirac box ratio 0.99958; the lab torus dipole oscillates at 2E₁ with ratio 0.9998.</div>
+        <div><span class="metric">ω/2E <b>0.9996</b></span><span class="metric">torus <b>0.9998</b></span></div>
+      </div>
+    </div>
+    <div>
+      <div class="lane-title">Track III · The ζ bridge</div>
+      <div class="card green">
+        <div class="id">D7</div>
+        <div class="name">ζ-decorated Dirac operator</div>
+        <div class="desc">Vortex positions coded from ζ zeros: ⟨r⟩ lifts to the GUE value (0.605–0.608 vs 0.5992); near-zero reservoir survives.</div>
+        <div><span class="metric">⟨r⟩ <b>0.608</b></span><span class="metric">GUE <b>0.5992</b></span></div>
+      </div>
+      <div class="card purple">
+        <div class="id">D8</div>
+        <div class="name">Chiral protection (AIII)</div>
+        <div class="desc">{H,Γ} = 0 exactly, E ↔ −E pairwise to 4e-15 over 800 pairs; the fragile tower splits as the index theorem demands.</div>
+        <div><span class="metric">‖{H,Γ}‖ <b>0</b></span><span class="metric">pairing <b>4e-15</b></span></div>
+      </div>
+      <div class="card purple">
+        <div class="id">✓</div>
+        <div class="name">Cross-verified</div>
+        <div class="desc">Independent Julia implementation (LinearAlgebra only) reproduces D1/D2/D7/D8 — E₁ to 9e-07, verdicts identical.</div>
+        <div><span class="metric">Julia <b>ALL PASS</b></span></div>
+      </div>
+    </div>
+    <div>
+      <div class="lane-title">Track IV · v1.1 + v1.2 extensions — §8 fully realized</div>
+      <div class="card purple">
+        <div class="id">D9</div>
+        <div class="name">Index restoration — Jackiw–Rossi programme</div>
+        <div class="desc">Mass wall binds chiral-pair kernel at 3.9e-9 (gap/4·10⁸); survives the full ζ-cloud — contrast 7·10⁶; composite JR vortex: kernel 1.3e-15.</div>
+        <div><span class="metric">|E₀| <b>3.9e-9</b></span><span class="metric">contrast <b>7·10⁶</b></span><span class="metric">JR kernel <b>1.3e-15</b></span></div>
+      </div>
+      <div class="card green">
+        <div class="id">D10</div>
+        <div class="name">Montgomery in motion</div>
+        <div class="desc">Unfolded zeros reproduce the Montgomery pair correlation (Σ²(20) = 0.33 vs 20); transport ranks clouds: ζ reflects least, transmits most (+62%).</div>
+        <div><span class="metric">g(0.3) <b>0.188</b></span><span class="metric">T_ζ <b>0.123</b> vs 0.076</span></div>
+      </div>
+      <div class="card orange">
+        <div class="id">D11</div>
+        <div class="name">Conjugation action — Berry–Keating / Connes (v1.2)</div>
+        <div class="desc">Cutoff dilation generator exact on the lattice (1.7e-13, Dirichlet comb of period Λ); coding phase = fractional BK staircase (4.6e-13); transport survives the Connes re-coding; drive form factor follows the GUE ramp.</div>
+        <div><span class="metric">spectrum <b>1.7e-13</b></span><span class="metric">recognition <b>4.6e-13</b></span><span class="metric">T/T_P <b>1.65</b></span></div>
+      </div>
+      <div class="card purple">
+        <div class="id">JR</div>
+        <div class="name">AB-cloud vortices are JR-ready</div>
+        <div class="desc">The monumental gauge factor ½ = exactly the half-quantum statistical flux the Jackiw–Rossi mechanism pairs with unit winding.</div>
+        <div><span class="metric">flux/vortex <b>±Φ₀/2</b></span><span class="metric">Julia D9+D11 <b>ALL PASS</b></span></div>
+      </div>
+    </div>
+    <div>
+      <div class="lane-title">Track V · v1.3 — beyond §8: the natural continuations</div>
+      <div class="card orange">
+        <div class="id">D12</div>
+        <div class="name">The infinite BK ladder — N_u → ∞ at fixed density</div>
+        <div class="desc">Trace comb sharpens into the Connes delta train (peak = N_u exact, off-peak envelope → 1.9e-4 at N_u = 32768); staircase an exact integer identity ∀N_u; the extending band swallows the zero window (coverage 1.0); ζ protection extensive — ⟨r⟩ L-independent while Nv grows 25 → 64.</div>
+        <div><span class="metric">peak <b>= N_u exact</b></span><span class="metric">coverage <b>1.000</b></span><span class="metric">⟨r⟩ spread <b>0.0092</b></span></div>
+      </div>
+      <div class="card green">
+        <div class="id">D13</div>
+        <div class="name">D9+D11 pairing — JR wall under the conjugating drive</div>
+        <div class="desc">On the physical Connes orbit the wall rides pinned: |E₀| = 3.9e-9 constant, fidelity 0.9999, contrast 7·10⁶, {H,Γ} = 0. The conjugating generator lifts the valley multiplet only to gap/679 — via the measured chiral breaking {H(λ),Γ} = λ{V,Γ} exact to 0.0e+00.</div>
+        <div><span class="metric">orbit |E₀| <b>3.9e-9</b></span><span class="metric">band <b>gap/679</b></span><span class="metric">fid <b>0.9999</b></span></div>
+      </div>
+      <div class="card purple">
+        <div class="id">D14</div>
+        <div class="name">Second form factor à la Odlyzko at large heights</div>
+        <div class="desc">K(τ) of the unfolded zeros on three real bands — main (2000 zeros, t ≤ 2515), low (600, t ≤ 939) and a genuine Odlyzko band (2000 zeros at t ≈ 10⁵, zeros6 № 137 300–139 299): hard core 0.0042/0.0083, GUE ramp 0.123 < 0.396, and the unit plateau already exact at 10⁵ (K(2) = 0.962).</div>
+        <div><span class="metric">K(0.1) <b>0.004</b></span><span class="metric">K(0.5) <b>0.396</b></span><span class="metric">K(2)@1e5 <b>0.962</b></span></div>
+      </div>
+      <div class="card orange">
+        <div class="id">✓</div>
+        <div class="name">Cross-verified again</div>
+        <div class="desc">Julia cross-suite (LinearAlgebra only) re-derives the ladder comb, staircase identity, ζ-torus ⟨r⟩ (0.5958 exact), the bare JR wall and all three form-factor bands — 7/7 PASS.</div>
+        <div><span class="metric">Julia D12–D14 <b>ALL PASS</b></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="bridge">
+    <div class="side">
+      <h3>Dirac skeleton</h3>
+      <p>v_F = 2t · four cones · γ = π · chiral tower · relativistic ladders · Klein + ZB — the symmetry and the low-energy physics.</p>
+    </div>
+    <div class="mid">
+      <div class="arrow">⟶ ⟨ ⟩ ⟵</div>
+      <div class="lbl">ζ-phases: topologically safe complexifier → GUE</div>
+    </div>
+    <div class="side">
+      <h3>Zeta phases</h3>
+      <p>Monumental atan gauge, positions coded from the zeros via the local Gram block — the arithmetic of the AB-cloud.</p>
+    </div>
+  </div>
+  <div class="ftr">
+    <div>AB-Cloud Research · Dirac Laboratory v1.3 · seed 96 · full D1–D14 run: 33 core + 19 extension + 15 conjugation-action + 29 beyond-§8 checks PASS</div>
+    <div>Isaev Iskhak Khamzatovich · ORCID 0009-0003-7299-0701</div>
+  </div>
+</div>
+</body>
+</html>

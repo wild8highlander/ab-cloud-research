@@ -1,0 +1,260 @@
+{
+  "D1": {
+    "title": "Continuum limit \u2014 the lattice IS a Dirac equation",
+    "verdict": "PASS",
+    "checks": [
+      [
+        "D1a Bloch bands match analytic \u03c0-flux Dirac",
+        true,
+        "max|\u0394E| = 2.66e-15"
+      ],
+      [
+        "D1b E\u2081 \u221d 1/L with R\u00b2 \u2265 0.999",
+        true,
+        "R\u00b2 = 0.999891"
+      ],
+      [
+        "D1b v_F = slope/2\u03c0 \u2248 2t (\u00b15%, finite-size; parent: 1.9447)",
+        true,
+        "v_F = 1.9347 vs 2.0"
+      ],
+      [
+        "D1b E\u2081\u00b7L \u2192 4\u03c0 (\u00b11.5%)",
+        true,
+        "E\u2081\u00b7L = 12.4695 vs 4\u03c0 = 12.5664 \u2014 parent test 30: 12.55"
+      ],
+      [
+        "D1c lattice tower = analytic Dirac shells",
+        true,
+        "max nearest-shell distance = 1.06e-03 over 32 levels"
+      ]
+    ],
+    "extras": {
+      "vf_fit": 1.9346594114162057,
+      "r2": 0.9998909189657393,
+      "e1L_mean": 12.469493078818791,
+      "slope": 12.15582358820701,
+      "match_err": 0.0010564222815123703
+    }
+  },
+  "D2": {
+    "title": "Zero-mode tower & index content",
+    "verdict": "PASS",
+    "checks": [
+      [
+        "D2 tower = 4 \u2200L (L/4\u2208\u2124)",
+        true,
+        "L16:4; L20:4; L24:4; L28:4; L32:4; L40:4; L48:4"
+      ],
+      [
+        "D2 {H,\u0393} = 0 machine precision",
+        true,
+        "worst 0.0e+00"
+      ],
+      [
+        "D2 tower pinned: max|E_zero| < 1e-9",
+        true,
+        "worst 7.81e-15"
+      ],
+      [
+        "D2 \u0393-polarity of tower = 0 (2\u00d7 \u0393+ , 2\u00d7 \u0393\u2212)",
+        true,
+        "L16:+0; L20:+0; L24:+0; L28:+0; L32:+0; L40:+0; L48:+0"
+      ]
+    ],
+    "extras": {}
+  },
+  "D3": {
+    "title": "Berry phase \u03c0 of the Dirac cone",
+    "verdict": "PASS",
+    "checks": [
+      [
+        "D3 Wilson loop around cone (r=0.2) \u2192 |\u03b3| = \u03c0",
+        true,
+        "\u03b3 = +3.141592653590"
+      ],
+      [
+        "D3 Wilson loop around cone (r=0.35) \u2192 |\u03b3| = \u03c0",
+        true,
+        "\u03b3 = +3.141592653590"
+      ],
+      [
+        "D3 control loop #1 (no cone inside) \u2192 \u03b3 \u2261 0 (mod 2\u03c0)",
+        true,
+        "\u03b3 = +0.00e+00"
+      ],
+      [
+        "D3 control loop #2 (no cone inside) \u2192 \u03b3 \u2261 0 (mod 2\u03c0)",
+        true,
+        "\u03b3 = +0.00e+00"
+      ]
+    ],
+    "extras": {
+      "g_cone": [
+        3.141592653589793,
+        3.141592653589793
+      ],
+      "g_off": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "D4": {
+    "title": "Relativistic Landau levels (\u221an ladder)",
+    "verdict": "PASS",
+    "checks": [
+      [
+        "D4 Dirac ladder: R\u00b2(E\u00b2\u221dn) \u2265 0.9998 \u2200B",
+        true,
+        "B0.02:0.999987; B0.035:0.999936; B0.05:0.999846"
+      ],
+      [
+        "D4 Dirac slope/(2B) \u2208 [0.93, 1.05] \u2200B (lattice-regularization deficit O(Bn), documented in monograph \u00a76)",
+        true,
+        "B0.02:0.9755; B0.035:0.9523; B0.05:0.9330"
+      ],
+      [
+        "D4 Schr\u00f6dinger ladder: R\u00b2(E\u221dn) \u2265 0.9999 \u2200B",
+        true,
+        "B0.02:0.999964; B0.035:0.999949; B0.05:0.999986"
+      ],
+      [
+        "D4 discrimination: quad-fit wins for Dirac, lin-fit for Schr\u00f6dinger",
+        true,
+        "B0.02: D 0.99999>0.98966, S 0.99996>0.94817; B0.035: D 0.99994>0.98903, S 0.99995>0.95016; B0.05: D 0.99985>0.98822, S 0.99999>0.94831"
+      ],
+      [
+        "D4 lattice n=0 LL pinned at E=0",
+        true,
+        "n0 = 64 vs \u03b1\u2032L\u00b2 = 32 (\u00d71 or \u00d72: valley/parity structure)"
+      ]
+    ],
+    "extras": {}
+  },
+  "D5": {
+    "title": "Klein tunneling (real time)",
+    "verdict": "PASS",
+    "checks": [
+      [
+        "D5 Klein supertansmission: T_Dirac(0\u00b0) \u2265 0.80 while barrier is classically forbidden (E\u2080 < V\u2080)",
+        true,
+        "T_Dirac(0\u00b0) = 0.9777"
+      ],
+      [
+        "D5 Dirac \u226b Schr\u00f6dinger at normal incidence (\u2265 10\u00d7)",
+        true,
+        "T_Schr(0\u00b0) = 0.0010 (tunneling-suppressed)"
+      ],
+      [
+        "D5 angular suppression: T_Dirac monotone \u2193 within noise",
+        true,
+        "0\u00b0:0.978; 30\u00b0:0.350; 45\u00b0:0.055; 60\u00b0:0.005"
+      ],
+      [
+        "D5 strong suppression at 60\u00b0 (T(60\u00b0) \u2264 0.6\u00b7T(0\u00b0))",
+        true,
+        "T(60\u00b0)/T(0\u00b0) = 0.005"
+      ]
+    ],
+    "extras": {}
+  },
+  "D6": {
+    "title": "Zitterbewegung (real time)",
+    "verdict": "PASS",
+    "checks": [
+      [
+        "D6 Zitterbewegung \u03c9 = 2E (Dirac box, \u00b11.5%)",
+        true,
+        "ratio = 0.999583"
+      ],
+      [
+        "D6 torus interband dipole oscillates at \u03c9 = 2E\u2081 (\u00b14%)",
+        true,
+        "ratio = 0.9998"
+      ]
+    ],
+    "extras": {
+      "zb_ratio": 0.9995833333333334
+    }
+  },
+  "D7": {
+    "title": "\u03b6-decorated Dirac operator \u2014 the bridge",
+    "verdict": "PASS",
+    "checks": [
+      [
+        "D7 CLEAN baseline: tower = 4 \u2200L (Dirac zero modes, ties D2)",
+        true,
+        "L32:4; L40:4; L48:4"
+      ],
+      [
+        "D7 chiral skeleton survives \u03b6 decoration: {H,\u0393} = 0 \u2200L",
+        true,
+        "L32:0.0e+00; L40:0.0e+00; L48:0.0e+00 (E\u2194\u2212E pairing audited in D8)"
+      ],
+      [
+        "D7 statistics move toward GUE: \u27e8r\u27e9_\u03b6 \u2212 \u27e8r\u27e9_clean \u2265 +0.04",
+        true,
+        "L32:+0.1321; L40:+0.0934; L48:+0.1937"
+      ],
+      [
+        "D7 \u27e8r\u27e9_\u03b6 \u2265 0.56 (GUE approach, theory 0.5992)",
+        true,
+        "L32:0.6080; L40:0.6084; L48:0.6050"
+      ],
+      [
+        "D7 Dirac low-energy scale survives (near-zero reservoir \u2265 8)",
+        true,
+        "L32:18; L40:24; L48:24"
+      ]
+    ],
+    "extras": {
+      "reservoir": [
+        [
+          32,
+          18
+        ],
+        [
+          40,
+          24
+        ],
+        [
+          48,
+          24
+        ]
+      ]
+    }
+  },
+  "D8": {
+    "title": "Chiral protection (AIII) \u2014 why D7 works",
+    "verdict": "PASS",
+    "checks": [
+      [
+        "D8 {H,\u0393} = 0 under \u03b6 decoration (machine precision)",
+        true,
+        "||{H,\u0393}|| = 0.00e+00"
+      ],
+      [
+        "D8 bipartite (no same-sublattice hopping)",
+        true,
+        "max = 0.0e+00"
+      ],
+      [
+        "D8 E \u2194 \u2212E spectral symmetry < 1e-10",
+        true,
+        "max = 4.00e-15 over 800 pairs"
+      ],
+      [
+        "D8 zero-mode content is chiral-multiplet-consistent (even n_zero; clean tower=4 documented as index-0 fragile in D7)",
+        true,
+        "n_zero = 0 (\u03b6 decoration splits the clean 4-tower into \u00b1E valley pairs \u2014 chiral symmetry survives, exact pinning is a clean-limit signature)"
+      ]
+    ],
+    "extras": {
+      "anticomm": 0.0,
+      "sym_err": 3.9968028886505635e-15,
+      "L": 40,
+      "Nv": 44
+    }
+  }
+}

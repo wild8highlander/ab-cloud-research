@@ -1,0 +1,59 @@
+cff-version: 1.3.0
+message: "If you use the Dirac Laboratory or reference its results, please cite it as below."
+title: "AB-Cloud Dirac Laboratory: the Dirac skeleton of the AB-Cloud (verification suite D1-D14, v1.4)"
+type: software
+authors:
+  - family-names: Isaev
+    given-names: Iskhak Khamzatovich
+    email: aslan08_05@mail.ru
+    affiliation: Independent Researcher
+    country: RU
+    orcid: "https://orcid.org/0009-0003-7299-0701"
+identifiers:
+  - type: url
+    value: "https://github.com/wild8highlander/ab-cloud-research"
+    description: "Parent repository (AB-Cloud Research programme)"
+  - type: doi
+    value: "10.5281/zenodo.21825394"
+    description: "Parent programme Zenodo DOI"
+keywords:
+  - Dirac equation
+  - Hofstadter Hamiltonian
+  - pi-flux model
+  - Riemann zeta function
+  - Hilbert-Polya hypothesis
+  - GUE
+  - Berry phase
+  - Klein tunneling
+  - Zitterbewegung
+  - Berry-Keating operator
+  - Connes trace formula
+  - conjugation action
+  - topological vortices
+  - chiral symmetry
+  - Jackiw-Rossi zero modes
+  - Montgomery pair correlation
+  - Odlyzko form factor
+  - infinite ladder limit
+  - index theorem
+version: 1.4.0
+date-released: "2026-10-06"
+abstract: >-
+  An autonomous verification laboratory connecting the AB-Cloud programme to the
+  Dirac equation. Fourteen tests (D1-D14) establish that the clean alpha = 1/2
+  Hofstadter model is a lattice discretization of the massless Dirac equation
+  (v_F = 2t, E_1 x L -> 4 pi, fourfold chiral zero tower, Berry phase pi,
+  relativistic Landau levels, Klein supertansmission, Zitterbewegung at
+  omega = 2E); that zeta-zero-decorated vortex phases lift the bulk statistics
+  to the GUE value while preserving the chiral skeleton to machine precision;
+  that the index is restored by a Jackiw-Rossi wall surviving the full zeta
+  background (contrast 7e6) and staying pinned along the whole Connes orbit;
+  that the Montgomery/Odlyzko statistics are carried dynamically by the vortex
+  channel (pair correlation, transport protection, two-point form factor with
+  an exact unit plateau at t ~ 1e5); and that the AB-Cloud coding phase is
+  exactly the Berry-Keating/Connes conjugation-action staircase — the BK
+  ladder extends to the infinite limit at fixed density with the trace comb
+  sharpening into the Connes delta train. Python canonical suite plus an
+  independent Julia cross-implementation; all 96 checks pass. Includes two
+  monograph editions (EN/RU LaTeX + DOCX), a self-contained LaTeX monograph with 600-dpi figures for each of the fourteen tests, publication figures, infographics and
+  two interactive web applications.

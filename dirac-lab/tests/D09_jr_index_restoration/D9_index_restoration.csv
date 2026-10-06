@@ -1,0 +1,14 @@
+block,quantity,value
+a_bare_wall,min_abs_E,3.939502803e-09
+a_bare_wall,wall_localization,1.302568021
+a_bare_wall,n_kernel_1e-7,12
+a_bare_wall,chiral_norm,0
+b_wall_plus_zeta,min_abs_E,3.939502775e-09
+b_wall_plus_zeta,wall_localization,1.302568021
+b_wall_plus_zeta,n_kernel_1e-7,12
+b_wall_plus_zeta,chiral_norm,0
+b_control_no_wall,min_abs_E,0.02762958778
+b_control_no_wall,contrast,7013470.825
+c_two_walls,n_kernel_1e-7,16
+d_composite_nu2_phi1,min_abs_E,1.331480944e-15
+d_composite_nu2_phi1,n_kernel_1e-12,12

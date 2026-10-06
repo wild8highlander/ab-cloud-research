@@ -1,0 +1,9 @@
+# local re-runs (the canonical committed run stays)
+results/run_*/
+!results/run_20261006_081031/
+__pycache__/
+*.pyc
+*.log
+.julia/
+site/
+.DS_Store

@@ -1,0 +1,33 @@
+{
+ "tid": "D3",
+ "title": "Berry phase π of the Dirac cone",
+ "verdict": "PASS",
+ "checks": [
+  [
+   "D3 Wilson loop around cone (r=0.2) → |γ| = π",
+   true,
+   "γ = +3.141592653590"
+  ],
+  [
+   "D3 Wilson loop around cone (r=0.35) → |γ| = π",
+   true,
+   "γ = +3.141592653590"
+  ],
+  [
+   "D3 control loop #1 (no cone inside) → γ ≡ 0 (mod 2π)",
+   true,
+   "γ = +0.00e+00"
+  ],
+  [
+   "D3 control loop #2 (no cone inside) → γ ≡ 0 (mod 2π)",
+   true,
+   "γ = +0.00e+00"
+  ]
+ ],
+ "n_pass": 4,
+ "n_total": 4,
+ "elapsed_s": 1.64,
+ "mode": "FULL",
+ "seed": 96,
+ "provenance": "regenerated v1.4 into tests/ with the canonical harness; ledger matches results/run_20261006_full_v13"
+}
