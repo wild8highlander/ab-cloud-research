@@ -39,7 +39,7 @@ flowchart LR
 
 | Check | Result | Detail |
 |---|---|---|
-| D1a Bloch bands match analytic π-flux Dirac | ✅ PASS | max|ΔE| = 2.66e-15 |
+| D1a Bloch bands match analytic π-flux Dirac | ✅ PASS | max\|ΔE\| = 2.66e-15 |
 | D1b E₁ ∝ 1/L with R² ≥ 0.999 | ✅ PASS | R² = 0.999891 |
 | D1b vF = slope/2π ≈ 2t (±5%, finite-size; parent: 1.9447) | ✅ PASS | vF = 1.9347 vs 2.0 |
 | D1b E₁·L → 4π (±1.5%) | ✅ PASS | E₁·L = 12.4695 vs 4π = 12.5664 — parent test 30: 12.55 |

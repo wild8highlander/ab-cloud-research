@@ -40,7 +40,7 @@ flowchart LR
 | Check | Result | Detail |
 |---|---|---|
 | D10a pair repulsion: g(0.3) ≤ 0.35 (Montgomery 0.26, Poisson 1) | ✅ PASS | g(0.3) = 0.188 |
-| D10a Montgomery form: max|g − 1−(sinπu/πu)²| ≤ 0.15 on u∈[1,10] | ✅ PASS | max dev = 0.135 |
+| D10a Montgomery form: max\|g − 1−(sinπu/πu)²\| ≤ 0.15 on u∈[1,10] | ✅ PASS | max dev = 0.135 |
 | D10a sub-Poisson number variance: Σ²(20) ≤ 2 (Poisson: 20) | ✅ PASS | Σ²(20) = 0.33 |
 | D10b GUE repulsion protects transport: Rζ ≤ 0.9·RPoisson | ✅ PASS | R: ζ = 0.0865 vs random = 0.1151 (ratio 0.75) |
 | D10b transmission: Tζ ≥ 1.2·TPoisson | ✅ PASS | T: ζ = 0.1228 vs random = 0.0756 (ratio 1.62) |

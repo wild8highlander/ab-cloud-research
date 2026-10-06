@@ -1,4 +1,4 @@
-# results — Run Artifacts and Reference Logs (455 files)
+# results — Run Artifacts and Reference Logs (456 files)
 
 Everything the Julia suite produced on paper-worthy runs, committed so the
 numbers in the monographs are checkable without running anything. Two kinds
@@ -7,7 +7,8 @@ of content live here:
 1. **`run_20260902_134759/`** — the complete two-pass v19 run of 2026-09-02
    (37 tests, Julia 1.12.0, 50 000 Odlyzko zeros, pass 2 "HARDCORE" at
    96×96): per-test reports, logs, final report, cross-linking index.
-   Committed without the run's PNG plots (453 files) — they regenerate
+   The run's PNG plots are not committed (the directory ships 453
+   files of reports, tables and logs) — the plots regenerate
    deterministically from the suite.
 2. **Two flat reference logs** — the 2026-08-28 37-test run (v18) and the
    v19 verification-report header/config dump from 2026-09-02.
@@ -70,7 +71,7 @@ suite is seeded and reads the frozen data in `verification/data/`.
 | File | What it is |
 |---|---|
 | `verification_run_v18_37tests_2026-08-28.txt` | full console log of the 2026-08-28 v18 37-test run — the historical basis of monograph v22; includes the b(N) fit (b(N) ≈ 7.0312·N^(−0.1685), R² = 0.9895; alternative 1/log N fit R² = 0.9994) and the v23-notation caveat that α = 1/2 refers to the AB-phase, not the convergence rate |
-| `ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt` | header/config dump of the v19 verification report: zeros = 50000, n_bootstrap = 1000, chi2_bins = 300, gue_matrix_size = 12000 (seed 112), rmt CDF table 32 768-pt (max|ΔF| = 4.9e-9), embedded-dataset note |
+| `ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt` | header/config dump of the v19 verification report: zeros = 50000, n_bootstrap = 1000, chi2_bins = 300, gue_matrix_size = 12000 (seed 112), rmt CDF table 32 768-pt (max\|ΔF\| = 4.9e-9), embedded-dataset note |
 
 ## How to read a run folder
 
@@ -95,11 +96,11 @@ suite is seeded and reads the frozen data in `verification/data/`.
 
 | Entry | Size | Kind |
 |---|---|---|
-| `run_20260902_134759/` | 453 files, 5.7 MB | directory |
+| `run_20260902_134759/` | 453 files, 7.3 MB | directory |
 | `README.md` | 4.5 KB | file |
 | `ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt` | 986.5 KB | file |
 | `verification_run_v18_37tests_2026-08-28.txt` | 58.3 KB | file |
-| **Total (recursive)** | **456 files, 6.8 MB** | |
+| **Total (recursive)** | **456 files, 8.4 MB** | |
 
 ## 🔬 Deep dive — anatomy of the flagship run
 
@@ -109,8 +110,8 @@ mode on a 96×96 lattice (pass 1 runs 72×72). The folder carries a
 `FINAL_REPORT` with the consolidated verdicts, an `index.html` that
 cross-links every test to its own directory, and per-test directories
 `test_01_bN_convergence` … `test_37_*`, each holding the test's report
-and raw log. The run's PNG plots (453 files) are intentionally **not**
-committed: every plot regenerates deterministically from the suite, and
+and raw log. The run's PNG plots are intentionally **not** committed:
+every plot regenerates deterministically from the suite, and
 excluding them keeps the repository clone-able — the numbers, which are
 what the monographs cite, are all here as text.
 
@@ -137,7 +138,8 @@ statistics.
 - `run_20260902_134759/` — полный артефакт-сет двухпроходного прогона
   v19 (37 тестов, Julia 1.12.0, 50 000 нулей Одлыжко, pass 2 HARDCORE
   96×96): FINAL_REPORT, index.html, каталог на каждый тест.
-- 453 PNG сознательно не закоммичены — детерминированно пересоздаются
+- PNG-графики прогона сознательно не закоммичены (в каталоге 453
+  текстовых файла — отчёты, таблицы, логи): детерминированно пересоздаются
   набором; все цитируемые числа хранятся текстом.
 - Проверка числа: FINAL_REPORT → index.html → каталог теста → отчёт/лог.
   Рядом два плоских лога-бейслайна (v18 от 2026-08-28 и конфиг v19).

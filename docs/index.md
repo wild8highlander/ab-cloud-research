@@ -31,6 +31,6 @@ $$H\psi_n = \gamma_n \psi_n, \qquad \zeta(\tfrac12 + i\gamma_n) = 0$$
 ## Where to go next
 
 - :material-rocket-launch: [Quick start](quickstart.md) — run the suite in 5 minutes
-- :material-book-open-variant: [Monographs](monographs.md) — 5 editions, 131 figures
+- :material-book-open-variant: [Monographs](monographs.md) — 5 editions, 57 figures at 600 dpi
 - :material-test-tube: [Verification](verification.md) — 10 languages, 2M zeros
 - :material-cube-outline: [3D laboratory](lab3d.md) — 36³ lattices with vortex lines

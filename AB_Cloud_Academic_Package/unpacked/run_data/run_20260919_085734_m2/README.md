@@ -12,7 +12,7 @@ This is the run that closes the September 2026 addendum (chapter Add.8 of the mo
 | pooled two-sample KS D vs ζ | **0.0808** (p = 1.187e-107) |
 | d_GUE / d_Pois | **0.0044** / 0.2817 |
 | R₂ plateau (1.0–2.0) | 0.9734 |
-| mean |R₂ − GUE| | 0.0299 |
+| mean \|R₂ − GUE\| | 0.0299 |
 | ensemble median D / IQR | 0.0817 / 0.0017 |
 | MAD outliers | none (zero) — ensemble STABLE |
 | composite verdict | **GUE-CONSISTENT** — criterion satisfied on all three counts |

@@ -39,8 +39,8 @@ flowchart LR
 
 | Check | Result | Detail |
 |---|---|---|
-| D3 Wilson loop around cone (r=0.2) → |γ| = π | ✅ PASS | γ = +3.141592653590 |
-| D3 Wilson loop around cone (r=0.35) → |γ| = π | ✅ PASS | γ = +3.141592653590 |
+| D3 Wilson loop around cone (r=0.2) → \|γ\| = π | ✅ PASS | γ = +3.141592653590 |
+| D3 Wilson loop around cone (r=0.35) → \|γ\| = π | ✅ PASS | γ = +3.141592653590 |
 | D3 control loop #1 (no cone inside) → γ ≡ 0 (mod 2π) | ✅ PASS | γ = +0.00e+00 |
 | D3 control loop #2 (no cone inside) → γ ≡ 0 (mod 2π) | ✅ PASS | γ = +0.00e+00 |
 

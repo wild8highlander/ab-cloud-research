@@ -27,7 +27,7 @@ menu: ## Interactive Julia menu (tests + Physics Lab + 3D lab)
 	$(JULIA) code/ab_cloud_v19.jl
 
 verify: ## 10-language verification (Python reference implementation)
-	cd verification/python && $(PYTHON) ab_cloud_verify.py --zeros ../data/zeta_zeros_50000.txt
+	cd verification/python && $(PYTHON) run_verify.py --zeros 5000 --objection all --lang en
 
 docs: ## Build the MkDocs Material site into site/
 	mkdocs build --strict
@@ -40,7 +40,7 @@ lint: ## Lint workflow YAML and markdown basics
 	@markdownlint . 2>/dev/null || echo "markdownlint not installed - skipped (CI enforces it)"
 
 clean: ## Remove generated reports/results of local runs
-	rm -rf results/run_* code/reports code/*.log 2>/dev/null || true
+	rm -rf results/run_* code/reports code/*.log verification/*/objection*.png verification/*/verify_report*.txt 2>/dev/null || true
 
 clean-all: clean ## Also remove the built documentation site
 	rm -rf site

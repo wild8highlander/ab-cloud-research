@@ -33,7 +33,7 @@ In the interactive menu:
 
 ```bash
 cd verification/python
-python3 ab_cloud_verify.py --zeros ../data/zeta_zeros_50000.txt
+python3 run_verify.py --zeros 5000 --objection all --lang en
 ```
 
 Choose your language in `verification/` (cpp, fortran, go, haskell,
