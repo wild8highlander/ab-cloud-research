@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: >-
+  If you use this work, cite it using the metadata below.
+title: >-
+  Hilbert-Polya Bridge: a self-contained numerical study of the
+  graph-operator passage, the Guinand-Weil trace formula, and the
+  measured boundary of lattice spectral identity
+authors:
+  - family-names: Isaev
+    given-names: Ishak Khamzatovich
+    affiliation: Independent researcher, Nalchik, Kabardino-Balkarian Republic, Russian Federation
+version: 1.0.0
+released: 2026-10-10
+keywords:
+  - Riemann Hypothesis
+  - Hilbert-Polya programme
+  - explicit formula
+  - trace formula
+  - GUE universality
+  - vortex lattice
+  - argument principle
+license: Isaev-Proprietary-1.0
+abstract: >-
+  A self-contained research package walking the map from algebraic
+  identities to the operator: the identity function Z_id built from the
+  Gamma-ladder closures, the argument principle verified to T=1000
+  (649=649), an 87-gate vortex-lattice spectral family measured in three
+  independent projections, and the Guinand-Weil trace formula
+  Tr e^{-xH_xi} = (1/pi) int Q(a) sin(ax) da derived from the Hadamard
+  product and verified to 1.2e-5 with the Lambda(n)/sqrt(n) prime weight
+  made explicit. Honest verdicts: the resonator is built and tuned
+  (self-adjointness, GUE class, Dirac dynamics); the zeros are encoded,
+  not generated (spectral identity and primes-in-operator measured NO
+  with positive controls).

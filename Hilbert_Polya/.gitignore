@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+/tmp/
+monograph/content/_json/
+scripts/_info_html/
+.DS_Store

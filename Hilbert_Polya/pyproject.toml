@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hilbert-polya-bridge"
+version = "1.0.0"
+description = "A self-contained numerical study of the graph-operator passage in the Hilbert-Polya programme: identity function, argument principle to T=1000, 87-gate spectral family, and the Guinand-Weil trace formula"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Isaev-Proprietary-1.0" }
+authors = [{ name = "Ishak Khamzatovich Isaev" }]
+keywords = ["Riemann Hypothesis", "Hilbert-Polya", "trace formula", "explicit formula", "GUE", "spectral theory"]
+dependencies = ["numpy>=2.0", "scipy>=1.14", "mpmath>=1.3"]
+
+[tool.setuptools]
+packages = ["hpbridge"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
