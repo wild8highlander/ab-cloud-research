@@ -111,7 +111,7 @@ modes, Dirac slope v_F ≈ 0.125 with R² = 0.9997, b(50000) = 1.2126.
 
 This port exists to prove the suite is language-independent: same frozen
 inputs, same 37 tests, same numbers out. If this implementation ever
-disagrees with the Julia reference (`../../code/ab_cloud_v19.jl`) or
+disagrees with the Julia reference (`../../code/ab_cloud_v23.jl`) or
 with the other nine ports, the discrepancy is a bug in the port — the
 data and the definitions are shared. CI exercises the interpreted
 subset; the compiled ports are expected to be replayed locally with the

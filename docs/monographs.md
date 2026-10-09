@@ -18,7 +18,7 @@ Each edition ships **19 figures at 600 dpi** with captions in the language
 of the edition (`monographs/<lang>/figures/`), a 14-slide dark-theme
 presentation, and an arXiv-style preprint.
 
-The v22 editions are **anchored to the 37-test suite**: every number in the
+The v22 editions are **anchored to the 39-test suite**: every number in the
 text is bound to a named test and its log.
 
 ## Structure of the v22 monograph

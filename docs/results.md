@@ -16,7 +16,7 @@ The reference full-suite run:
 | 32 | Hatano–Nelson skin | PASS | 5040 complex eigs |
 | 33 | ⟨r⟩ GUE | PASS/WARN | 0.5848 ± 0.0260 |
 | 36 | Montgomery correlation hole | PASS | d_GUE 0.140 < d_Pois 0.227 |
-| … | full table | 37 tests | see the log |
+| … | full table | 39 tests | see the log |
 
 ## Reproducibility guarantees
 

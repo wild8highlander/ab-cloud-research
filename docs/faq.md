@@ -14,7 +14,7 @@ here is bounded by its named verification test.
 
 ## Why is the Julia suite dependency-free?
 
-Reproducibility. A single `julia code/ab_cloud_v19.jl --quick` on any
+Reproducibility. A single `julia code/ab_cloud_v23.jl --test 1` on any
 machine with Julia ≥ 1.10 (including Termux on Android) must produce the
 same verdicts and full logs. External packages are the most common source
 of silent breakage.

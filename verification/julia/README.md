@@ -1,7 +1,7 @@
 # Julia Verification
 
 Thin wrapper around the canonical numerical ideas of the project in Julia —
-the same language the main suite `code/ab_cloud_v19.jl` (37 tests) is written
+the same language the main suite `code/ab_cloud_v23.jl` (37 tests) is written
 in, but reduced to the three-objection CLI so results can be cross-checked
 line-by-line against the other nine languages.
 
@@ -57,7 +57,7 @@ julia spinor38.jl
 ## Relation to the main suite
 
 For the **full 37-test two-pass protocol** (not just the three objections)
-use the canonical suite: `julia code/ab_cloud_v19.jl --test all` from the
+use the canonical suite: `julia code/ab_cloud_v23.jl --test all` from the
 repository root — see [`../code/README.md`](../code/README.md). This folder
 exists so that the objection-level numbers can be verified *independently*
 of the big suite.
@@ -70,7 +70,7 @@ of the big suite.
   три возражения, что и в эталоне, CLI идентичен всем языкам.
 - `spinor38/` — Порт Test 38: замороженные данные + собственный алгоритм
   Якоби.
-- Полный 37-тестовый прогон — в `code/ab_cloud_v19.jl` (другой каталог
+- Полный 37-тестовый прогон — в `code/ab_cloud_v23.jl` (другой каталог
   репозитория).
 
 ## 📁 Complete file inventory
@@ -88,7 +88,7 @@ of the big suite.
 ## 🔬 Deep dive — the Julia port in the parity matrix
 
 The Julia port is the closest sibling of the canonical
-research suite `../../code/ab_cloud_v19.jl` — the code that produced
+research suite `../../code/ab_cloud_v23.jl` — the code that produced
 the two-pass flagship run `results/run_20260902_134759` (50 000
 Odlyzko zeros, pass 2 "HARDCORE" at 96×96). Same array semantics, same
 statistics definitions, same report wording; if you want to trace a
@@ -120,7 +120,7 @@ modes, Dirac slope v_F ≈ 0.125 with R² = 0.9997, b(50000) = 1.2126.
 
 This port exists to prove the suite is language-independent: same frozen
 inputs, same 37 tests, same numbers out. If this implementation ever
-disagrees with the Julia reference (`../../code/ab_cloud_v19.jl`) or
+disagrees with the Julia reference (`../../code/ab_cloud_v23.jl`) or
 with the other nine ports, the discrepancy is a bug in the port — the
 data and the definitions are shared. CI exercises the interpreted
 subset; the compiled ports are expected to be replayed locally with the
@@ -139,6 +139,6 @@ structures — lives in `../spinor64/`.
 - Расхождение с эталоном трактуется как баг порта, а не как открытие.
 
 - Наиболее близок к каноническому исследовательскому набору
-  `code/ab_cloud_v19.jl`, породившему двухпроходный прогон v19.
+  `code/ab_cloud_v23.jl`, породившему двухпроходный прогон v19.
 - Кратчайший путь от числа в монографии к исполняемому коду.
 - Рядом — порт Теста 38 (`spinor38/`).

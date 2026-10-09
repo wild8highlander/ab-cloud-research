@@ -1,5 +1,61 @@
 # Changelog
 
+## [1.3.0] — 2026-10-10 — «CI green, Pages pinned, the formal layer»
+
+### Fixed
+- **CI is green again.** The `structure` job of `ci.yml` and both steps of
+  `julia.yml` still referenced `code/ab_cloud_v19.jl`, deleted in the
+  "Hilbert Polya" consolidation commit — every push failed. All workflows
+  now target the canonical v23 suite (`--test 1` smoke + manual full run),
+  the canonical-artifact list covers the formal layer, and the dependabot
+  action bumps (`checkout@v7`, `markdownlint-cli2-action@v24`, `stale@v11`,
+  `setup-julia@v3`, `release-drafter@v7`) are applied.
+- **`code/julia/README.md` rewritten** — it documented the removed
+  historical sources (v19/v19_v1/v20/v21) as if they were still present.
+- **GitHub Pages reproducibility.** `deploy-docs.yml` pins the exact
+  MkDocs stack (mkdocs 1.6.1 / material 9.7.7 / minify 0.8.0) the site is
+  verified with, and `mkdocs build --strict` passes.
+
+### Added
+- **The formal verification layer** ([`formal/`](formal/README.md)):
+  - `formal/lean4/` — a full Lean 4 project (toolchain v4.19.0, **zero
+    external dependencies**, no Mathlib): machine-checked theorems over
+    ℕ/ℤ (b(N) sum nonnegativity/monotonicity/additivity/triangle, Gram
+    offset lattice, flux certificates, PSL(2,7/8/13) orders, Klein orbit
+    decomposition, Tr(AB) = Tr(BA)) **plus the `abcloud-verify`
+    executable** — a Float64 port of the Python reference pipeline that
+    re-derives the frozen reference numbers from
+    `verification/data/zeta_zeros_50000.txt`: **8/8 checks PASS,
+    Δ = 0.000000** (b(100…5000), KS D = 0.0991866231, CvM W² =
+    17.6048550189, slope −0.1831023444, R² 0.9946087105), exit-code-gated.
+  - `formal/coq/` — the exact core over ℤ (`lia`/`nia`/`ring`).
+  - `formal/agda/` — builtins-only development; positivity of b(N) is a
+    typing fact.
+  - `formal/isabelle/` — `Main`-only HOL session.
+  - `formal/assets/` — the section banner and seal (SVG).
+- **`formal.yml`** — four independent CI jobs (lean4 / coq / agda /
+  isabelle) running on every push and PR.
+- **`.yamllint.yaml` + `.markdownlint-cli2.jsonc`** — real linter configs;
+  the `ci.yml` markdown job now lints a curated 61-file surface with a
+  reviewed rule set and the YAML job enforces the project config.
+- **Docs site**: new `formal.md` (formal verification) and `map.md`
+  (repository map) pages, nav regrouped, `docs/index.md` cards updated.
+- **Makefile**: `smoke` and `formal`/`formal-lean/coq/agda/isabelle`
+  targets; `quick-test`/`test-all`/`menu` target the v23 suite.
+
+### Changed
+- **Root README redesigned** (EN): new banner (`assets/banner-v2.svg`),
+  formal-verification badge row, a mermaid repository-architecture
+  diagram, the formal verification section with the re-derivation ledger,
+  LaTeX display math, updated quick start / Makefile reference / CI-CD
+  table / repository map / glossary / roadmap; the Russian duplicate
+  section was retired (EN is now the single source of truth; RU content
+  remains in the subprojects and the git history).
+- All canonical-suite references across the repo (README, docs/, code/,
+  verification/, .github templates, Makefile) updated from v19 to v23;
+  historical v18/v19 run-artifact references intentionally preserved.
+
+
 ## [1.2.1] — 2026-09-04 — «the front page, restored and tripled»
 
 ### Fixed

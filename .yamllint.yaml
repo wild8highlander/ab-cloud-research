@@ -1,0 +1,16 @@
+---
+# yamllint configuration for the AB-Cloud Research workflows.
+# CI runs: yamllint -c .yamllint.yaml .github/workflows/
+extends: default
+
+rules:
+  # Workflows don't need the "---" prologue.
+  document-start: disable
+  # `on:` triggers read as truthy strings to yamllint — always noise here.
+  truthy: disable
+  line-length:
+    max: 120
+    level: error
+  comments-indentation: disable
+  comments:
+    min-spaces-from-content: 1

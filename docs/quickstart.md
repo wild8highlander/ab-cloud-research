@@ -16,9 +16,9 @@ cd ab-cloud-research
 Julia **≥ 1.10** is required; the suite is **dependency-free** (no `Pkg.add` needed).
 
 ```bash
-julia code/ab_cloud_v19.jl --quick     # 16×16 → 32×32, ζ ≤ 5000, both passes (~3–5 min)
-julia code/ab_cloud_v19.jl --test all  # full two-pass 37-test suite (30–60 min)
-julia code/ab_cloud_v19.jl             # interactive menu (37 tests + Physics Lab + 3D lab)
+julia code/ab_cloud_v23.jl --test 1     # 16×16 → 32×32, ζ ≤ 5000, both passes (~3–5 min)
+julia code/ab_cloud_v23.jl --test all  # full two-pass 39-test suite (30–60 min)
+julia code/ab_cloud_v23.jl                # interactive menu (39 tests + Physics Lab + 3D lab)
 ```
 
 In the interactive menu:

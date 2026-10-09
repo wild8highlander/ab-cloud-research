@@ -1,3 +1,16 @@
+<div align="center">
+
+<img src="figures/logo/hpb_logo_light.png" alt="Hilbert–Pólya Bridge" width="360"/>
+
+[![CI](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/wild8highlander/ab-cloud-research/actions/workflows/ci.yml)
+[![Formal](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/formal.yml?branch=main&style=flat-square&label=Formal%20CI)](../.github/workflows/formal.yml)
+[![Version](https://img.shields.io/badge/version-v1.0.0-2EA043?style=flat-square)](VERSION)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21825394-blue?style=flat-square)](https://doi.org/10.5281/zenodo.21825394)
+[![ORCID](https://img.shields.io/badge/ORCID-0009--0003--7299--0701-a6ce39?style=flat-square)](https://orcid.org/0009-0003-7299-0701)
+[![License](https://img.shields.io/badge/License-Custom%20Research-D97706?style=flat-square)](LICENSE)
+
+</div>
+
 # Hilbert–Pólya Bridge
 
 **A self-contained numerical study of the graph ↔ operator passage in the

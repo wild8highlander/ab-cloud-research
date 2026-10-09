@@ -11,7 +11,7 @@ is automated by the `deploy-docs` workflow (`.github/workflows/deploy-docs.yml`)
 |---|---|
 | `index.md` | landing: what the project is, headline results |
 | `quickstart.md` | fastest paths: Julia suite, Python verification, apps |
-| `julia-suite.md` | the 37-test two-pass suite explained (modes, flags, outputs) |
+| `julia-suite.md` | the 39-test two-pass suite explained (modes, flags, outputs) |
 | `verification.md` | the 10-language verification suite and the three objections |
 | `monographs.md` | the trilingual v22 monograph package and formats |
 | `monograph-v21.md` | the original v21 monograph and the v21.1 corrections |

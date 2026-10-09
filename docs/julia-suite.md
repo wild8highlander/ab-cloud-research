@@ -1,10 +1,10 @@
 ---
-title: Julia suite — 37 tests, two-pass
+title: Julia suite — 39 tests, two-pass
 ---
 
-# The canonical 37-test two-pass suite
+# The canonical 39-test two-pass suite
 
-`code/ab_cloud_v19.jl` (~30 000 lines, **no external packages**) is the
+`code/ab_cloud_v23.jl` (~30 000 lines, **no external packages**) is the
 single source of truth for the numerics of this repository.
 
 ## Two-pass protocol
@@ -32,7 +32,7 @@ needs nothing beyond a Julia 1.10 installation.
 ## Quick mode (CI)
 
 ```bash
-julia code/ab_cloud_v19.jl --quick
+julia code/ab_cloud_v23.jl --test 1
 ```
 
 Runs the reduced protocol (16×16 → 32×32, ζ ≤ 5000) with **both passes**

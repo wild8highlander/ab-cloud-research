@@ -15,11 +15,19 @@ jobs:
     name: Repository structure & metadata
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check canonical artifacts exist
         run: |
-          test -f code/ab_cloud_v19.jl
+          test -f code/ab_cloud_v23.jl
+          test -f code/RH_Unified_D.jl
+          test -f code/RH_Sweep_Pro_D.jl
+          test -f code/hp_audit_standalone.jl
+          test -f verification/python/ab_cloud_verify.py
+          test -f formal/lean4/lakefile.lean
+          test -f formal/coq/ABCloud/Core.v
+          test -f formal/isabelle/ABCloud.thy
           test -f results/verification_run_v18_37tests_2026-08-28.txt
+          test -f results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt
           test -f monographs/ru/text/AB_Cloud_Monograph_v22_RU.pdf
           test -f monographs/en/text/AB_Cloud_Monograph_v22_EN.pdf
           test -f monographs/zh/text/AB_Cloud_Monograph_v22_ZH.pdf
@@ -36,21 +44,26 @@ jobs:
     name: Markdown lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: DavidAnson/markdownlint-cli2-action@v17
+      - uses: actions/checkout@v7
+      - name: Lint the curated markdown surface
+        uses: DavidAnson/markdownlint-cli2-action@v24
         with:
+          config: .markdownlint-cli2.jsonc
           globs: |
-            README.md
-            CONTRIBUTING.md
-            CHANGELOG.md
-            AUTHORS.md
-            docs/*.md
-        continue-on-error: true
+            *.md
+            docs/**/*.md
+            formal/**/*.md
+            code/**/*.md
+            verification/**/*.md
+            Hilbert_Polya/*.md
+            Hilbert_Polya/docs/*.md
+            apps/*.md
+            .github/*.md
 
   yaml:
     name: Workflow YAML lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: pipx install yamllint && yamllint -s .github/workflows/
-        continue-on-error: true
+      - uses: actions/checkout@v7
+      - name: yamllint (project config)
+        run: pipx install yamllint && yamllint -c .yamllint.yaml .github/workflows/

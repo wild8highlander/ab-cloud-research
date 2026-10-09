@@ -1,0 +1,87 @@
+name: Formal verification
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Four independent proof assistants compile the formal/ tree:
+#   lean4    — lake build + the executable re-verification program
+#   coq      — coq_makefile build (apt Coq on the runner)
+#   agda     — agda --include-path type-check (apt Agda, builtins only)
+#   isabelle — official Isabelle docker image, isabelle build session
+# Every job is fully independent: a failure in one assistant does not
+# mask or block the others.
+
+jobs:
+  lean4:
+    name: Lean4 — lake build + verified re-computation
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: leanprover/lean4-action@v1
+      - name: Build the ABCloud Lean library
+        working-directory: formal/lean4
+        run: lake build
+      - name: Run abcloud-verify (recompute the frozen reference numbers)
+        working-directory: formal/lean4
+        run: lake exe abcloud-verify
+
+  coq:
+    name: Coq — coqc compile + machine checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install Coq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends coq
+        shell: bash
+      - name: Compile the ABCloud Coq development
+        working-directory: formal/coq
+        run: |
+          coq_makefile -f _CoqProject -o Makefile.coq
+          make -f Makefile.coq -j2
+      - name: Print the certified headline computations
+        working-directory: formal/coq
+        run: |
+          echo 'Require Import ABCloud.Core.
+          Compute bsum_toy.
+          Compute psl27_order.
+          Compute psl28_order.
+          Compute psl213_order.' | coqtop -Q . ABCloud
+
+  agda:
+    name: Agda — type-check
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install Agda
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends agda
+        shell: bash
+      - name: Type-check the ABCloud Agda module (stdlib-free, builtins only)
+        working-directory: formal/agda
+        run: agda -i . -i . ABCloud.agda
+
+  isabelle:
+    name: Isabelle/HOL — build session
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    container:
+      image: makarius/isabelle:Isabelle2025
+      # If the tag above is unavailable at some point, switch to the
+      # previous stable release image, e.g. makarius/isabelle:Isabelle2024.
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build the ABCloud Isabelle session
+        run: isabelle build -v -D formal/isabelle

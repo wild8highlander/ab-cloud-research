@@ -112,7 +112,7 @@ touch the filesystem, and a CSV rendering for environments where the
 line-oriented parser is inconvenient.
 
 Who reads what: all ten language suites resolve `--source` against this
-folder; the Julia research suite `code/ab_cloud_v19.jl` reads the same
+folder; the Julia research suite `code/ab_cloud_v23.jl` reads the same
 tables for the 37-test run; `spinor64/` uses the frozen reference
 statistics alongside its own class tables; the React dashboard embeds
 the zero sequence for its visualizations; and `sections/` deliberately

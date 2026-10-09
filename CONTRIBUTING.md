@@ -30,7 +30,8 @@ on-topic are welcome.
    external packages.
 3. Verify locally:
    ```bash
-   julia code/ab_cloud_v19.jl --quick          # must pass both passes
+   julia code/ab_cloud_v23.jl --test 1         # smoke: must PASS
+julia code/ab_cloud_v23.jl --test all       # full two-pass suite (30-60 min)
    cd verification/python && python3 ab_cloud_verify.py --zeros ../data/zeta_zeros_50000.txt
    ```
 4. Commit with a [conventional message](https://www.conventionalcommits.org/):

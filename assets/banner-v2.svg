@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="400" viewBox="0 0 1280 400" role="img" aria-label="AB-Cloud Research banner">
+<defs>
+  <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#070b1d"/><stop offset="0.5" stop-color="#0d1730"/><stop offset="1" stop-color="#1a0f38"/>
+  </linearGradient>
+  <linearGradient id="crit2" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#4fc3f7" stop-opacity="0"/><stop offset="0.5" stop-color="#7ef9ff" stop-opacity="0.95"/><stop offset="1" stop-color="#4fc3f7" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="acc2" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#7c4dff"/><stop offset="0.5" stop-color="#00b8d4"/><stop offset="1" stop-color="#7ef9c1"/>
+  </linearGradient>
+  <linearGradient id="gold2" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#ffd54f" stop-opacity="0.95"/><stop offset="1" stop-color="#ff8f00" stop-opacity="0.75"/>
+  </linearGradient>
+  <radialGradient id="glowA" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#00b8d4" stop-opacity="0.4"/><stop offset="1" stop-color="#00b8d4" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="glowB" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#7c4dff" stop-opacity="0.45"/><stop offset="1" stop-color="#7c4dff" stop-opacity="0"/>
+  </radialGradient>
+  <pattern id="grid2" width="42" height="42" patternUnits="userSpaceOnUse">
+    <path d="M42 0H0V42" fill="none" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+  </pattern>
+  <pattern id="butterfly" width="26" height="20" patternUnits="userSpaceOnUse">
+    <rect width="26" height="20" fill="none"/>
+    <circle cx="13" cy="10" r="1.1" fill="#4fc3f7" fill-opacity="0.14"/>
+  </pattern>
+</defs>
+
+<rect width="1280" height="400" fill="url(#bg2)"/>
+<rect width="1280" height="400" fill="url(#grid2)"/>
+<rect y="120" width="1280" height="160" fill="url(#butterfly)"/>
+<ellipse cx="1050" cy="200" rx="330" ry="230" fill="url(#glowA)"/>
+<ellipse cx="180" cy="90" rx="280" ry="190" fill="url(#glowB)"/>
+
+<!-- ═══ right panel: the AB-cloud motif — vortex lattice + zero ladder ═══ -->
+<g transform="translate(1010,200)">
+  <circle r="150" fill="none" stroke="#7c4dff" stroke-opacity="0.5" stroke-width="2"/>
+  <circle r="108" fill="none" stroke="#00b8d4" stroke-opacity="0.4" stroke-width="1.5"/>
+  <circle r="66" fill="none" stroke="#7ef9c1" stroke-opacity="0.35" stroke-width="1.2"/>
+  <g stroke="#4fc3f7" stroke-opacity="0.5" stroke-width="1.1" fill="none">
+    <path d="M-150 0 C -80 -70, 80 70, 150 0"/>
+    <path d="M-150 0 C -80 70, 80 -70, 150 0"/>
+    <path d="M0 -150 C -70 -80, 70 80, 0 150"/>
+    <path d="M0 -150 C 70 -80, -70 80, 0 150"/>
+  </g>
+  <!-- vortices -->
+  <g>
+    <g transform="translate(-58,-44)"><circle r="7" fill="#ff8f00"/><circle r="13" fill="none" stroke="#ffd54f" stroke-opacity="0.7" stroke-width="1.6"/><path d="M0 -13 A13 13 0 0 1 13 0" fill="none" stroke="#ffd54f" stroke-width="2.4"/></g>
+    <g transform="translate(62,-36)"><circle r="7" fill="#ff8f00"/><circle r="13" fill="none" stroke="#ffd54f" stroke-opacity="0.7" stroke-width="1.6"/><path d="M0 -13 A13 13 0 0 1 13 0" fill="none" stroke="#ffd54f" stroke-width="2.4"/></g>
+    <g transform="translate(-20,58)"><circle r="7" fill="#ff8f00"/><circle r="13" fill="none" stroke="#ffd54f" stroke-opacity="0.7" stroke-width="1.6"/><path d="M0 -13 A13 13 0 0 1 13 0" fill="none" stroke="#ffd54f" stroke-width="2.4"/></g>
+    <g transform="translate(48,62)"><circle r="5" fill="#ff8f00"/><circle r="10" fill="none" stroke="#ffd54f" stroke-opacity="0.6" stroke-width="1.4"/></g>
+    <g transform="translate(-92,30)"><circle r="5" fill="#ff8f00"/><circle r="10" fill="none" stroke="#ffd54f" stroke-opacity="0.6" stroke-width="1.4"/></g>
+  </g>
+  <!-- ζ-zero ladder -->
+  <g fill="#7ef9c1">
+    <circle cx="150" cy="-96" r="3.4"/><circle cx="172" cy="-64" r="3.4"/><circle cx="142" cy="-34" r="3.4"/>
+    <circle cx="184" cy="-4" r="3.4"/><circle cx="150" cy="28" r="3.4"/><circle cx="192" cy="62" r="3.4"/>
+    <circle cx="146" cy="92" r="3.4"/><circle cx="176" cy="120" r="3.4"/>
+  </g>
+  <g stroke="#7ef9c1" stroke-opacity="0.35" stroke-width="1" fill="none">
+    <path d="M150 -96 L172 -64 L142 -34 L184 -4 L150 28 L192 62 L146 92 L176 120"/>
+  </g>
+  <!-- critical line -->
+  <rect x="6" y="-150" width="3" height="300" fill="url(#crit2)"/>
+</g>
+
+<!-- ═══ left: title block ═══ -->
+<g font-family="'Segoe UI', Helvetica, Arial, sans-serif">
+  <text x="64" y="92" font-size="22" letter-spacing="9" fill="#00b8d4" font-weight="600">RESEARCH PROGRAM · ZENODO 10.5281/ZENODO.21825394</text>
+  <text x="60" y="164" font-size="76" font-weight="800" fill="#ffffff">AB-Cloud Research</text>
+  <rect x="64" y="188" width="430" height="6" rx="3" fill="url(#acc2)"/>
+  <text x="64" y="232" font-size="24" fill="#d6deff">A phase resonator for the zeros of the Riemann zeta function</text>
+  <text x="64" y="264" font-size="19" fill="#9fb0e8">Hofstadter lattice · topological vortices · GUE universality · 39-test two-pass suite</text>
+  <text x="64" y="292" font-size="19" fill="#9fb0e8">10-language verification · formal layer in Lean 4 / Coq / Agda / Isabelle · 3D lattice lab</text>
+
+  <!-- stat chips -->
+  <g font-size="17" font-weight="700">
+    <g>
+      <rect x="64" y="316" width="212" height="34" rx="17" fill="#0e1a38" stroke="#7c4dff" stroke-opacity="0.65" stroke-width="1.5"/>
+      <text x="170" y="338" fill="#b39dff" text-anchor="middle">⟨r⟩ = 0.5848 vs GUE 0.5992</text>
+    </g>
+    <g>
+      <rect x="288" y="316" width="206" height="34" rx="17" fill="#0e1a38" stroke="#00b8d4" stroke-opacity="0.65" stroke-width="1.5"/>
+      <text x="391" y="338" fill="#7ee9ff" text-anchor="middle">Montgomery KS = 0.047, p = 0.27</text>
+    </g>
+    <g>
+      <rect x="506" y="316" width="188" height="34" rx="17" fill="#0e1a38" stroke="#7ef9c1" stroke-opacity="0.6" stroke-width="1.5"/>
+      <text x="600" y="338" fill="#7ef9c1" text-anchor="middle">2 001 058 ζ zeros frozen</text>
+    </g>
+    <g>
+      <rect x="706" y="316" width="168" height="34" rx="17" fill="#0e1a38" stroke="#ffd54f" stroke-opacity="0.55" stroke-width="1.5"/>
+      <text x="790" y="338" fill="url(#gold2)" text-anchor="middle">π/7 exact flux</text>
+    </g>
+  </g>
+</g>
+</svg>
