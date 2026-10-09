@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="AB-Cloud Formal Verification banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1026"/>
+      <stop offset="0.55" stop-color="#131a3a"/>
+      <stop offset="1" stop-color="#1b0f33"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7c4dff"/>
+      <stop offset="0.5" stop-color="#00b8d4"/>
+      <stop offset="1" stop-color="#7ef9c1"/>
+    </linearGradient>
+    <linearGradient id="chipline" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7c4dff" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#00b8d4" stop-opacity="0.9"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#00b8d4" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#00b8d4" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="300" fill="url(#bg)"/>
+  <rect width="1200" height="300" fill="url(#grid)"/>
+  <circle cx="985" cy="150" r="170" fill="url(#glow)"/>
+
+  <!-- decorative zeta-zero ladder dots on the right -->
+  <g fill="#7ef9c1">
+    <circle cx="950" cy="60"  r="3.2" opacity="0.85"/>
+    <circle cx="972" cy="88"  r="3.2" opacity="0.7"/>
+    <circle cx="938" cy="112" r="3.2" opacity="0.6"/>
+    <circle cx="992" cy="132" r="3.2" opacity="0.75"/>
+    <circle cx="952" cy="158" r="3.2" opacity="0.55"/>
+    <circle cx="1002" cy="180" r="3.2" opacity="0.65"/>
+    <circle cx="946" cy="204" r="3.2" opacity="0.5"/>
+    <circle cx="984" cy="228" r="3.2" opacity="0.6"/>
+  </g>
+  <g stroke="#7c4dff" stroke-opacity="0.55" stroke-width="1.4" fill="none">
+    <path d="M950 60 C 1000 90, 900 120, 972 88"/>
+    <path d="M972 88 C 1040 120, 880 160, 938 112"/>
+    <path d="M938 112 C 1020 170, 900 200, 992 132"/>
+    <path d="M992 132 C 1060 190, 890 230, 952 158"/>
+    <path d="M952 158 C 1030 230, 910 250, 1002 180"/>
+    <path d="M1002 180 C 1070 240, 900 270, 946 204"/>
+    <path d="M946 204 C 1010 260, 940 280, 984 228"/>
+  </g>
+
+  <!-- check-mark seal -->
+  <g transform="translate(1075,60)">
+    <circle r="34" fill="none" stroke="url(#accent)" stroke-width="3"/>
+    <path d="M-14 2 L-4 12 L16 -10" fill="none" stroke="#7ef9c1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- title -->
+  <g font-family="'Segoe UI', Helvetica, Arial, sans-serif">
+    <text x="64" y="86" font-size="21" letter-spacing="7" fill="#00b8d4" font-weight="600">AB-CLOUD RESEARCH</text>
+    <text x="60" y="150" font-size="58" font-weight="800" fill="#ffffff">Formal Verification</text>
+    <rect x="64" y="172" width="360" height="5" rx="2.5" fill="url(#accent)"/>
+    <text x="64" y="212" font-size="21" fill="#c9d4ff">Machine-checked core in four proof assistants —</text>
+    <text x="64" y="240" font-size="21" fill="#c9d4ff">exact theorems + executable re-derivation of the frozen numbers</text>
+  </g>
+
+  <!-- tool chips -->
+  <g font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" font-weight="700">
+    <g>
+      <rect x="64" y="254" width="120" height="30" rx="15" fill="#0f1c3f" stroke="url(#chipline)" stroke-width="1.5"/>
+      <text x="124" y="274" fill="#b39dff" text-anchor="middle">Lean 4</text>
+    </g>
+    <g>
+      <rect x="196" y="254" width="120" height="30" rx="15" fill="#0f1c3f" stroke="url(#chipline)" stroke-width="1.5"/>
+      <text x="256" y="274" fill="#ff9d76" text-anchor="middle">Coq</text>
+    </g>
+    <g>
+      <rect x="328" y="254" width="120" height="30" rx="15" fill="#0f1c3f" stroke="url(#chipline)" stroke-width="1.5"/>
+      <text x="388" y="274" fill="#7ef9c1" text-anchor="middle">Agda</text>
+    </g>
+    <g>
+      <rect x="460" y="254" width="180" height="30" rx="15" fill="#0f1c3f" stroke="url(#chipline)" stroke-width="1.5"/>
+      <text x="550" y="274" fill="#8ecbff" text-anchor="middle">Isabelle/HOL</text>
+    </g>
+  </g>
+</svg>

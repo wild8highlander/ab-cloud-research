@@ -186,7 +186,7 @@ reports, `_summary.csv`, and every figure in both PDF and PNG.
   `mpmath.siegelz` (Hardy Z sign search + bisection) at full precision.
 - **Determinism**: fixed seeds everywhere; re-running any mode reproduces the
   committed figures modulo the timestamp in the folder name.
-- The full 2D/3D suite and the 37-test protocol live in `code/ab_cloud_v19.jl`
+- The full 2D/3D suite and the 37-test protocol live in `code/ab_cloud_v23.jl`
   (see `../code/README.md`) — this lab is the dedicated 3D branch.
 
 ## Citation

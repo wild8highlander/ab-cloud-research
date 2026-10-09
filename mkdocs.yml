@@ -3,7 +3,7 @@ site_name: AB-Cloud Research
 # (it conflicts with index.md and breaks `mkdocs build --strict`).
 exclude_docs: |
   README.md
-site_description: "AB-Cloud — a phase resonator for the zeros of the Riemann zeta function: monographs, 37-test Julia suite, 10-language verification, 3D lattice lab."
+site_description: "AB-Cloud — a phase resonator for the zeros of the Riemann zeta function: monographs, 39-test Julia suite, 10-language verification, formal layer (Lean 4 · Coq · Agda · Isabelle), 3D lattice lab."
 site_author: "Isaev Iskhak Khamzatovich"
 site_url: "https://wild8highlander.github.io/ab-cloud-research"
 repo_url: "https://github.com/wild8highlander/ab-cloud-research"
@@ -55,14 +55,18 @@ nav:
   - Home: index.md
   - Getting started:
       - Quick start: quickstart.md
-      - Julia suite (37 tests): julia-suite.md
+      - Julia suite (39 tests): julia-suite.md
   - Monographs:
       - Overview: monographs.md
       - Original v21 edition: monograph-v21.md
   - Verification:
       - 10-language suite: verification.md
       - Reference results: results.md
-  - 3D laboratory: lab3d.md
+  - Formal verification:
+      - Lean 4 · Coq · Agda · Isabelle: formal.md
+  - Repository:
+      - Map: map.md
+      - 3D laboratory: lab3d.md
   - About:
       - Citation: citation.md
       - License: license.md

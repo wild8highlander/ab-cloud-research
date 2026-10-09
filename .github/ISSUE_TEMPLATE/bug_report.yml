@@ -12,7 +12,7 @@ body:
     attributes:
       label: Component
       options:
-        - "Julia suite (code/ab_cloud_v19.jl)"
+        - "Julia suite (code/ab_cloud_v23.jl)"
         - "10-language verification (verification/)"
         - "3D laboratory (lab-3d/)"
         - "Monographs / figures (monographs/)"

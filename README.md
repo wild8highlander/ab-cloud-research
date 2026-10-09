@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/banner.svg" alt="AB-Cloud Research" width="100%"/>
+<img src="assets/banner-v2.svg" alt="AB-Cloud Research" width="100%"/>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <!-- HERO / STATUS BADGES -->
@@ -39,7 +39,9 @@
 [![Dirac](https://img.shields.io/badge/Dirac%20cone-v_F%E2%88%980.125%2C%20R%C2%B2%3D0.9997-FFB74D?style=for-the-badge&label=Dynamics)](results/verification_run_v18_37tests_2026-08-28.txt)
 [![Zeros](https://img.shields.io/badge/%CE%B6%20zeros-2%2C001%2C058%20embedded-4FC3F7?style=for-the-badge&label=Data)](verification/data/)
 [![Lattice](https://img.shields.io/badge/3D%20lattice-36%C2%B3%20Hofstadter-4FC3F7?style=for-the-badge&label=Lab3D)](lab-3d/)
-[![Suite](https://img.shields.io/badge/Julia%20suite-37%20tests%2C%20two--pass-2EA043?style=for-the-badge&label=Suite)](code/ab_cloud_v19.jl)
+[![Suite](https://img.shields.io/badge/Julia%20suite-v23%20·%2039%20tests%2C%20two--pass-2EA043?style=for-the-badge&label=Suite)](code/ab_cloud_v23.jl)
+[![Formal](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/formal.yml?branch=main&style=for-the-badge&logo=lean&label=Formal%20%C2%B7%20Lean4%2FCoq%2FAgda%2FIsabelle&color=2E7D32)](formal/)
+[![Lean4](https://img.shields.io/badge/Lean4-verify%3A%208%2F8%20PASS-2E7D32?style=for-the-badge&logo=lean&label=%CE%BE%20re-derivation)](formal/lean4/)
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <!-- CONTENT BADGES -->
@@ -82,8 +84,9 @@
 ### 🔬 **AB-Cloud — a phase resonator for the zeros of the Riemann zeta function**
 
 **Topological vortices on a Hofstadter lattice · Aharonov–Bohm phases from ζ(s) zeros ·
-GUE random-matrix universality · 37-test two-pass Julia verification suite ·
-10-language independent verification · 3D lattice laboratory**
+GUE random-matrix universality · 39-test two-pass Julia verification suite ·
+10-language independent verification · formal layer in Lean 4 / Coq / Agda / Isabelle ·
+3D lattice laboratory**
 
 </div>
 
@@ -104,6 +107,7 @@ GUE random-matrix universality · 37-test two-pass Julia verification suite ·
 - [Computation data at a glance](#-computation-data-at-a-glance)
 - [What is the AB-cloud?](#-what-is-the-ab-cloud)
 - [The construction in one screen](#-the-construction-in-one-screen)
+- [Repository architecture](#-repository-architecture)
 - [Key verified results](#-key-verified-results)
 - [Full test ledger — the two-pass flagship run (2026-09-02)](#-full-test-ledger--the-two-pass-flagship-run-2026-09-02)
 - [The 64 spinor structures — full data](#-the-64-spinor-structures--full-data)
@@ -111,6 +115,7 @@ GUE random-matrix universality · 37-test two-pass Julia verification suite ·
 - [Monograph editions & formats — the full matrix](#-monograph-editions--formats--the-full-matrix)
 - [Verification suite (10 languages)](#-verification-suite-10-languages)
 - [The ten language ports — cross-verification matrix](#-the-ten-language-ports--cross-verification-matrix)
+- [Formal verification — Lean 4 · Coq · Agda · Isabelle](#-formal-verification--lean-4--coq--agda--isabelle)
 - [3D lattice laboratory](#-3d-lattice-laboratory)
 - [Quick start](#-quick-start)
 - [Interactive tools — Physics Lab, 3D lab and the two apps](#-interactive-tools--physics-lab-3d-lab-and-the-two-apps)
@@ -135,7 +140,6 @@ GUE random-matrix universality · 37-test two-pass Julia verification suite ·
 - [Contributing](#-contributing)
 - [License](#-license)
 - [Contact](#-contact)
-- [Русская версия](#-русская-версия)
 
 ---
 
@@ -167,7 +171,7 @@ the number, produced by the named run; re-running the command from the
 |---|--------|-------|-----------------|
 | 1 | ζ zeros embedded in the repo (Odlyzko tables) | **2,001,058** | [verification/data/zeta_zeros_2M_odlyzko.txt](verification/data/zeta_zeros_2M_odlyzko.txt) |
 | 2 | Frozen reference dataset (single source of truth) | **91 MB, 8 files** | [verification/data/](verification/data/) |
-| 3 | Canonical Julia suite | **37 tests × 2 passes** (+ pass 3 series on selected tests) | [code/ab_cloud_v19.jl](code/ab_cloud_v19.jl) |
+| 3 | Canonical Julia suite | **v23 · 39 registered tests × 2 passes** (+ pass 3 series on selected tests) | [code/ab_cloud_v23.jl](code/ab_cloud_v23.jl) |
 | 4 | Machine verdict lines in the flagship run | **202** (171 PASS · 22 WARN · 9 FAIL/WARN completions re-examined by pass 2) | [results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt](results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt) |
 | 5 | Flagship run wall time | **≈ 9 h 46 min** (2026-09-02 13:47 → 23:33) | same report, timing stamps |
 | 6 | Per-test artifact directories of the flagship run | **39** | [results/run_20260902_134759/](results/run_20260902_134759/) |
@@ -188,7 +192,9 @@ the number, produced by the named run; re-running the command from the
 | 21 | Plateau of [r] in L-scaling (L = 16…80) | **0.6004, χ²/dof = 0.01** | Test 33 |
 | 22 | DOS dip at the Dirac point | **ρ(α = 0.5) = 0.0193 vs ρ(±0.097 off) = 0.1944** (~10× dip) | Test 29 |
 | 23 | Tracked files in the repository | **2,245** | git ls-files |
-| 24 | Directory documentation guides (this site) | **81 README files, EN + RU summaries** | every folder |
+| 24 | Directory documentation guides (this site) | **90+ README files** | every folder |
+| 25 | Formal verification systems | **4** (Lean 4 · Coq · Agda · Isabelle/HOL), all dependency-free | [formal/](formal/) |
+| 26 | Lean re-derivation checks | **8/8 PASS** vs frozen references (Δ = 0) | [formal/lean4/](formal/lean4/) |
 
 > The v23 monograph consolidates the ledger; the v22 series (RU/EN/ZH + v2.2.1
 > corrections) and the original v21 pair remain archived under
@@ -233,9 +239,10 @@ it — the whole construction, in four steps:
    Dirac (massless chiral) dynamics at the touching point, and exact
    topological bookkeeping (flux = π/7, empty Dirac strings, 4 zero modes).
 
-4. **The discipline.** Every claim above is a test in a 37-test two-pass
-   suite with committed artifacts, cross-checked in ten languages, with
-   the honest finite-T caveats kept visible rather than tuned away.
+4. **The discipline.** Every claim above is a test in a 39-test two-pass
+   suite with committed artifacts, cross-checked in ten languages plus a
+   formal layer, with the honest finite-T caveats kept visible rather than
+   tuned away.
 
 The monographs ([EN](monographs/en/text/AB_Cloud_Monograph_v22_EN.pdf) ·
 [RU](monographs/ru/text/AB_Cloud_Monograph_v22_RU.pdf) ·
@@ -243,17 +250,65 @@ The monographs ([EN](monographs/en/text/AB_Cloud_Monograph_v22_EN.pdf) ·
 analytic story: seven chapters, the spinor-structure calculus on the Klein
 quartic, and the verification appendices that mirror this repository.
 
+## 🏛️ Repository architecture
+
+```mermaid
+flowchart LR
+    subgraph DATA["🧊 Frozen data layer"]
+        Z["ζ-zero datasets<br/>2 001 058 zeros · SHA-256<br/>verification/data/"]
+    end
+
+    subgraph CORE["🧮 Canonical numerics"]
+        J["Julia v23 suite<br/>39 tests · two-pass<br/>code/ab_cloud_v23.jl"]
+    end
+
+    subgraph CROSS["🌐 Cross-language verification"]
+        V["C++ · Fortran · Go · Haskell · JS<br/>Julia · MATLAB · Python · R · Rust"]
+        S64["spinor64<br/>all 64 spin structures"]
+    end
+
+    subgraph FORMAL["🛡️ Formal layer — four assistants"]
+        L["Lean 4<br/>theorems +<br/>executable re-derivation"]
+        C["Coq"]
+        A["Agda"]
+        I["Isabelle/HOL"]
+    end
+
+    subgraph OUT["📚 Publications & apps"]
+        M["Monographs v22 RU/EN/ZH<br/>+ v21 + v2.2.1 corrections"]
+        R["results/<br/>flagship run artifacts"]
+        APP["React dashboard<br/>+ WebGL 3D lab"]
+    end
+
+    Z --> J
+    Z --> V
+    Z --> L
+    J --> R
+    V --> S64
+    J --> M
+    L -.->|"8/8 PASS vs frozen refs"| V
+    C -.-> A -.-> I -.-> L
+    R --> APP
+```
+
+The rule the diagram encodes: **every arrow reads the same frozen dataset**
+— the Julia canon, the ten ports and the formal layer never re-download or
+regenerate the ζ zeros, so a disagreement between any two boxes is
+immediately visible rather than hidden by different inputs.
+
 ## 🔑 Key verified results
 
 The repository ships **three independent verification stacks** that agree with
 each other:
 
-1. **Julia 37-test two-pass suite** (`code/ab_cloud_v19.jl`) — the canonical
-   numerics: topology at machine precision, GUE/GOE/Poisson diagnostics,
-   Berry finite-sample corrections, Hatano–Nelson skin effect, 3D extensions.
-   The two-pass protocol re-runs every test at a second lattice size and
-   re-verifies the verdict; `--quick` runs a 16×16 → 32×32 pass pair with
-   ζ ≤ 5000 for CI.
+1. **Julia v23 two-pass suite** (`code/ab_cloud_v23.jl`) — the canonical
+   numerics: 39 registered tests covering topology at machine precision,
+   GUE/GOE/Poisson diagnostics, Berry finite-sample corrections,
+   Hatano–Nelson skin effect, the Test-34G geometry sweep over seven closed
+   surfaces (torus, Klein bottle, pillow orbifold, cube sphere and the
+   Hurwitz PSL(2,7)/PSL(2,8)/PSL(2,13) magnetic Cayley graphs), and 3D
+   extensions. The two-pass protocol re-runs every test at a second lattice
+   size and re-verifies the verdict.
 2. **10-language independent verification** (`verification/`) — the same core
    checks re-implemented in C++, Fortran, Go, Haskell, JavaScript, Julia,
    MATLAB, Python, R and Rust, with answers to 3 standard referee objections
@@ -269,13 +324,21 @@ each other:
    structure in the AB-cloud setting (see the v21.1 corrected editions and
    Appendix D of the v22 monographs). Ports of Test 38 ship in 10 languages
    (`verification/<lang>/spinor38/`).
-5. **Interactive React applications** (`apps/`) — the 37-test dashboard with
+5. **Interactive React applications** (`apps/`) — the 39-test dashboard with
    real-time in-browser ζ statistics and the WebGL 3D laboratory.
+6. **Formal verification layer** (`formal/`) — machine-checked theorems in
+   Lean 4, Coq, Agda and Isabelle/HOL plus the Lean executable that
+   re-derives the frozen reference numbers from the raw ζ dataset
+   (8/8 checks PASS); see the
+   [formal verification section](#-formal-verification--lean-4--coq--agda--isabelle).
 
 ## 🧾 Full test ledger — the two-pass flagship run (2026-09-02)
 
-The canonical suite is `code/ab_cloud_v19.jl`: **37 numbered tests plus
-Test 38** (the 64-spinor isospectrality experiment). Each test runs twice —
+The canonical suite is `code/ab_cloud_v23.jl`: **39 registered tests**
+(the v19-era flagship run of 2026-09-02 below executed the 37-test protocol
+of that era; the Test-34G geometry sweep and the estimator patches came
+later, and `results/` preserves the historical artifacts unchanged). Each
+test runs twice —
 a fast **pass 1** and a **hardcore pass 2** with tightened tolerances and
 sub-check decomposition; selected tests add a **series pass 3**. The table
 below is the complete verdict ledger of the stored flagship run; every row
@@ -558,6 +621,46 @@ implementations of the same mathematics produce the same ⟨r⟩, the same KS
 statistics and the same topology verdicts to the quoted precision — the
 strongest available guard against a silent bug masquerading as a discovery.
 
+## 🛡️ Formal verification — Lean 4 · Coq · Agda · Isabelle
+
+The next objection after "is it a numerical accident?" is *"who verifies the
+verifier?"*. [`formal/`](formal/) answers it with four independent proof
+assistants and an executable re-derivation, all dependency-free:
+
+<div align="center">
+
+<img src="formal/assets/formal-banner.svg" alt="Formal verification banner" width="62%"/>
+
+</div>
+
+| Wing | What it certifies | Entry point |
+|------|-------------------|-------------|
+| **[Lean 4](formal/lean4/)** ⭐ | the exact algebraic layer (b(N) sum theorems, Gram lattice, flux certificates, PSL(2,7/8/13) orders, Tr(AB) = Tr(BA)) **plus the executable that recomputes the frozen reference numbers from the raw ζ dataset** | `lake exe abcloud-verify` |
+| **[Coq](formal/coq/)** | the same exact core over ℤ with `lia`/`nia`/`ring` (certified arithmetic) | `coq_makefile && make` |
+| **[Agda](formal/agda/)** | builtins-only development where positivity of b(N) is a *typing fact* | `agda -i . -i . ABCloud.agda` |
+| **[Isabelle/HOL](formal/isabelle/)** | the classical wing, `Main`-only session | `isabelle build -D formal/isabelle` |
+
+The Lean re-derivation — the flagship of the formal layer — currently
+reproduces **8/8 frozen reference checks with Δ = 0.000000**:
+
+| Check | Recomputed | Frozen reference | Tolerance | Verdict |
+|-------|-----------|------------------|-----------|:-------:|
+| b(100) · b(500) · b(1000) · b(5000) | exact match on all four rungs | 3.0586168316 · 2.1928840613 · 1.9321062630 · 1.4942244142 | 1e-6 | ✅ |
+| KS distance D (4999 unfolded spacings vs GUE) | 0.0991866231 | 0.0991866231 | 5e-4 | ✅ |
+| Cramér–von Mises W² | 17.6048550189 | 17.6048550189 | 5e-3 | ✅ |
+| Decay slope / R² (log–log fit) | −0.1831023444 / 0.9946087105 | −0.1831023444 / 0.9946087105 | 1e-3 | ✅ |
+
+Because the reference block is *generated by the Python reference
+implementation* and the recomputation is *compiled Lean 4*, the agreement is
+a genuine cross-language result — the 12th implementation of the same
+mathematics, living inside a proof assistant. Every assistant compiles on
+every push in [formal CI](.github/workflows/formal.yml); the executable
+fails the build if any frozen number drifts.
+
+Full coverage matrix, quick starts for all four systems and the honesty
+notes (what is and is not claimed):
+**[formal/README.md](formal/README.md)**.
+
 ## 🧊 3D lattice laboratory
 
 `lab-3d/` accompanies the preprint *"AB-Cloud: A Universal Lattice Operating
@@ -573,9 +676,9 @@ generated output reports (July 2026 runs) in `lab-3d/outputs/`.
 ```bash
 git clone https://github.com/wild8highlander/ab-cloud-research.git
 cd ab-cloud-research
-julia code/ab_cloud_v19.jl --quick        # 16×16 → 32×32, ζ ≤ 5000, both passes (~3–5 min)
-julia code/ab_cloud_v19.jl --test all     # full two-pass 37-test suite (30–60 min)
-julia code/ab_cloud_v19.jl                # interactive menu (37 tests + Physics Lab + 3D lab)
+julia code/ab_cloud_v23.jl --test 1       # smoke run: Test 1, b(N) ladder (~1 min)
+julia code/ab_cloud_v23.jl --test all     # full two-pass 39-test suite (30–60 min)
+julia code/ab_cloud_v23.jl                # interactive menu (39 tests + Physics Lab + 3D lab)
 ```
 
 **10-language verification (pick any language):**
@@ -597,16 +700,29 @@ python3 verification/spinor64/run_spinor64.py
 # -> verification/spinor64/output/{spinor64_report.md, spinor64_table.csv, spinor64_results.json}
 ```
 
+**Formal verification (Lean 4 · Coq · Agda · Isabelle):**
+
+```bash
+cd formal/lean4 && lake build && lake exe abcloud-verify   # 8/8 frozen checks PASS (~2 min)
+# or, for the other three assistants:
+cd formal/coq && coq_makefile -f _CoqProject -o Makefile.coq && make -f Makefile.coq
+cd formal/agda && agda -i . -i . ABCloud.agda
+isabelle build -D formal/isabelle
+```
+
 **Interactive React applications:**
 
 ```bash
-cd apps/ab-cloud-dashboard && npm install && npm run dev   # 37-test dashboard, real-time
+cd apps/ab-cloud-dashboard && npm install && npm run dev   # 39-test dashboard, real-time
 cd apps/ab-cloud-lab3d && npm install && npm run dev       # WebGL 3D laboratory
 # prebuilt static bundles are committed in apps/*/dist/ (GitHub Pages ready)
 ```
 
 Requirements: Julia ≥ 1.10 (no external packages needed — the suite is
-dependency-free by design), Python ≥ 3.10 for the 3D lab and verification suite.
+dependency-free by design), Python ≥ 3.10 for the 3D lab and verification
+suite; for the formal layer see the pinned toolchains in
+[formal/README.md](formal/README.md) (Lean 4 via elan, Coq/Agda from the
+system package manager, Isabelle2024/2025).
 
 ## 🧑‍🔬 Interactive tools — Physics Lab, 3D lab and the two apps
 
@@ -642,9 +758,11 @@ self-documenting (`make help` prints this list):
 |---------|--------------|------------------|
 | `make help` | list all targets with one-line descriptions | instant |
 | `make quick-test` | fast Julia check: 16×16 → 32×32, ζ ≤ 5000, both passes | ~3–5 min |
-| `make test-all` | the full two-pass 37-test Julia suite (the ledger above) | 30–60 min |
+| `make smoke` | one-test smoke run of the v23 suite (Test 1) on the embedded zeros | ~1 min |
+| `make test-all` | the full two-pass 39-test Julia suite (the ledger above) | 30–60 min |
 | `make menu` | interactive Julia menu: tests, Physics Lab, 3D lab | interactive |
 | `make verify` | 10-language verification against the Python reference | per-language |
+| `make formal` | compile the formal layer and run the Lean re-derivation (`lake exe abcloud-verify`) | ~2 min |
 | `make docs` | build the MkDocs Material site into `site/` | ~1 min |
 | `make docs-serve` | live-reload documentation server on localhost:8000 | interactive |
 | `make lint` | lint workflow YAML and markdown basics | seconds |
@@ -768,7 +886,8 @@ Typical uses:
 - The suite is **deterministic**: fixed seeds (`MersenneTwister(12345)`),
   certified ζ zeros (mpmath, 50 digits), and every run writes full computation
   logs so that each verdict can be independently re-verified;
-- CI runs the `--quick` protocol on every push (see
+- CI runs the parse check + Test 1 smoke protocol on every push and can run
+  the full two-pass suite on demand (see
   [`.github/workflows/julia.yml`](.github/workflows/julia.yml)).
 
 ## 🔬 Repository by the numbers
@@ -788,7 +907,7 @@ Typical uses:
 | JavaScript (React apps) | 20 |
 | JSON (results/config) | 53 |
 | Shell scripts | 7 |
-| Verification languages | **10** (+ a Java port of Test 38) |
+| Verification languages | **10** (+ a Java port of Test 38) + the formal re-derivation in Lean 4 |
 | ζ zeros stored | **2,001,058** |
 | Figures at 600 dpi in the monograph set | 19 per language × 3 languages |
 | Monograph editions | 5 (v22 RU/EN/ZH + original v21 RU/EN) + v2.2.1 corrections |
@@ -809,7 +928,9 @@ Directory weights (working tree):
 | `results/` | 8.4 MB | flagship-run artifacts and reference logs |
 | `apps/` | 2.6 MB | two React applications with prebuilt bundles |
 | `verification/` (sans data) | ≈ 2 MB | 10 language ports + spinor64 + sections |
+| `Hilbert_Polya/` | ≈ 60 MB | Hilbert–Pólya bridge: campaigns, monograph volumes, infographics |
 | `docs/` | 60 KB | MkDocs Material site sources |
+| `formal/` | ≈ 0.3 MB source (no compiled artifacts) | Lean 4 / Coq / Agda / Isabelle formal layer |
 
 ## 🕰️ Verification history timeline
 
@@ -946,10 +1067,16 @@ author's written consent (see the license section).
 ```text
 ab-cloud-research/
 ├── code/
-│   ├── ab_cloud_v19.jl           # canonical 37-test two-pass Julia suite (menu, labs)
-│   └── julia/                    # NEW: v19 / v19_v1 / v20 / v21 full sources
-├── apps/                         # NEW: React applications
-│   ├── ab-cloud-dashboard/       #   37-test dashboard, real-time ζ statistics (+ dist/)
+│   ├── ab_cloud_v23.jl           # canonical 39-test two-pass Julia suite (menu, labs)
+│   ├── RH_Unified_D.jl · RH_Sweep_Pro_D.jl · hp_audit_standalone.jl
+│   └── julia/                    # v23 suite provenance copy
+├── formal/                       # NEW: formal verification layer
+│   ├── lean4/                    #   theorems + abcloud-verify executable (8/8 PASS)
+│   ├── coq/ · agda/ · isabelle/  #   the same exact core in three more assistants
+│   └── assets/                   #   banners & seal
+├── Hilbert_Polya/                # NEW: Hilbert–Pólya bridge subproject (C1–C8 campaigns)
+├── apps/                         # React applications
+│   ├── ab-cloud-dashboard/       #   39-test dashboard, real-time ζ statistics (+ dist/)
 │   └── ab-cloud-lab3d/           #   WebGL 3D laboratory: lattice, Dirac cone, ζ strip (+ dist/)
 ├── monographs/
 │   ├── ru/  en/  zh/             # v22 editions: md + html + docx + pdf + pptx + preprint
@@ -979,8 +1106,11 @@ READMEs are in English and end with a short Russian summary.
 
 | Enter here | Read this | You will learn |
 |---|---|---|
-| `code/` | [`code/README.md`](code/README.md) | the canonical 37-test two-pass Julia suite: all test groups, flags, two-pass protocol, what a run writes |
-| `code/julia/` | [`code/julia/README.md`](code/julia/README.md) | the author's historical versions v19/v19_v1/v20/v21 and what each contributed |
+| `code/` | [`code/README.md`](code/README.md) | the canonical 39-test two-pass Julia suite (v23): all test groups, flags, two-pass protocol, what a run writes |
+| `code/julia/` | [`code/julia/README.md`](code/julia/README.md) | the v23 provenance copy and how it relates to the suite |
+| `formal/` | [`formal/README.md`](formal/README.md) | the formal layer: coverage matrix across Lean 4 · Coq · Agda · Isabelle, quick starts, the 8/8 re-derivation ledger |
+| `formal/lean4/` | [`formal/lean4/ABCloud/README.md`](formal/lean4/ABCloud/README.md) | the Lean project anatomy: exact layer, numeric port, generated references, executable |
+| `Hilbert_Polya/` | [`Hilbert_Polya/README.md`](Hilbert_Polya/README.md) (+ [`README.ru.md`](Hilbert_Polya/README.ru.md)) | the Hilbert–Pólya bridge: campaigns C1–C8, monograph volumes, infographics |
 | `verification/` | [`verification/README.md`](verification/README.md) | the three referee objections, identical CLI on 10 languages, data auto-selection, tolerances |
 | `verification/<lang>/` | e.g. [`verification/python/README.md`](verification/python/README.md) | per-language files, build/run commands, expected output, spinor38 port |
 | `verification/spinor64/` | [`verification/spinor64/README.md`](verification/spinor64/README.md) | the 64-spinor experiment E1+E2, orbits 28/21/7/7/1 |
@@ -1006,11 +1136,11 @@ READMEs are in English and end with a short Russian summary.
 ## 🌿 Branches & versions
 
 - **`main`** — the only content branch; everything below ships from it.
-- **`dependabot/github_actions/*`** (5 branches: `markdownlint-cli2-action-24`,
-  `actions/checkout-7`, `actions/stale-11`, `julia-actions/setup-julia-3`,
-  `release-drafter/release-drafter-7`) — automated CI-action bumps, each
-  open as a PR (#1–#5); merge at your leisure, they never touch science
-  content.
+- **`dependabot/github_actions/*`** — automated CI-action bump branches;
+  the pinned action versions in this tree already incorporate all five
+  pending bumps (`checkout@v7`, `markdownlint-cli2-action@v24`, `stale@v11`,
+  `setup-julia@v3`, `release-drafter@v7`), so the open Dependabot PRs are
+  safe to close as already-applied.
 - **Tags**: `v1.2.0` — the tagged snapshot of the self-documenting-repository
   state; the current tree corresponds to the **v1.2.1** entry of
   [`CHANGELOG.md`](CHANGELOG.md) (v1.1.0 — spinor64 + run artifacts + React
@@ -1018,14 +1148,15 @@ READMEs are in English and end with a short Russian summary.
 
 ## ⚙️ CI/CD — what runs on every push
 
-Eight automated pipelines (configured in [.github/workflows/](.github/WORKFLOWS.md))
+Nine automated pipelines (configured in [.github/workflows/](.github/WORKFLOWS.md))
 guard the repository; their live status is the first badge row of this page.
 
 | Workflow | Trigger | What it verifies |
 |----------|---------|------------------|
 | **CI** (`ci.yml`) | every push / PR | canonical-artifact presence, CITATION.cff validation (cffconvert), markdownlint, workflow YAML lint (yamllint) |
-| **Julia tests** (`julia.yml`) | push / PR / weekly | `code/ab_cloud_v19.jl --quick` — 16×16 → 32×32, ζ ≤ 5000, both passes: the canonical suite must always run |
-| **Docs deploy** (`deploy-docs.yml`) | push to main | builds the MkDocs Material site and publishes it to GitHub Pages |
+| **Julia suite** (`julia.yml`) | push / PR / weekly | parse check of `code/ab_cloud_v23.jl` + Test 1 smoke run on the embedded zeros; the full two-pass suite runs on demand |
+| **Docs deploy** (`deploy-docs.yml`) | push to main | builds the MkDocs Material site (pinned versions) and publishes it to GitHub Pages |
+| **Formal verification** (`formal.yml`) | push / PR | compiles the formal layer in all four assistants and runs the Lean re-derivation gate (8 checks vs frozen references) |
 | **CodeQL** (`codeql.yml`) | push / PR / weekly | static security analysis of the Python surface |
 | **Link checker** (`link-checker.yml`) | weekly | crawls all repository markdown for dead links — this page's ~180 links included |
 | **Dependency review** (`dependency-review.yml`) | PRs | flags vulnerable or incompatible dependency bumps |
@@ -1065,10 +1196,22 @@ $ python3 run_verify.py --zeros 5000 --objection all --lang en   # in verificati
     (the honest finite-T verdicts the suite documents instead of hiding)
 ```
 
+**Formal re-derivation (Lean 4):**
+
+```text
+$ lake exe abcloud-verify        # in formal/lean4/
+  mode: DATASET (5000 zeros)  ·  zeros: 5000  ·  T ∈ [14.134725, 5447.861998]
+  b(5000) = 1.494224   ref 1.494224   Δ = 0.000000  (tol 0.000001)  PASS
+  KS D = 0.099187   ref 0.099187   Δ = 0.000000  (tol 0.000500)  PASS
+  decay R² = 0.994609   ref 0.994609   Δ = 0.000000  (tol 0.001000)  PASS
+ RESULT: 8/8 checks PASS — Lean 4 re-derives the frozen numbers
+```
+
 (Exact digits vary with the chosen N/source; the Julia suite verdicts do not.
 The flagship values in the tables above are the committed evidence; the
 Python port's three-objection protocol and its expected verdicts are
-documented in [verification/README.md](verification/README.md).)
+documented in [verification/README.md](verification/README.md), and the
+formal re-derivation in [formal/README.md](formal/README.md).)
 
 ## 📖 Documentation site
 
@@ -1092,7 +1235,7 @@ If this work is useful to you, please cite it (see also [`CITATION.cff`](CITATIO
   year    = {2026},
   doi     = {10.5281/zenodo.21825394},
   url     = {https://github.com/wild8highlander/ab-cloud-research},
-  note    = {Monographs (RU/EN/ZH + original v21), 37-test Julia suite, 10-language verification, 3D lattice lab}
+  note    = {Monographs (RU/EN/ZH + original v21), 39-test Julia suite, 10-language verification, formal layer (Lean 4/Coq/Agda/Isabelle), 3D lattice lab}
 }
 ```
 
@@ -1111,9 +1254,13 @@ If this work is useful to you, please cite it (see also [`CITATION.cff`](CITATIO
 - [x] Interactive React dashboard + WebGL 3D laboratory (v1.1.0)
 - [x] Android/Termux one-command push kit (v1.1.0)
 - [x] Deep-dive README for every folder, EN + RU summaries (v1.2.0)
-- [ ] Full 37-test suite as a scheduled nightly CI job
+- [x] Formal verification layer — Lean 4 · Coq · Agda · Isabelle, with the
+      executable re-derivation of the frozen references (8/8 PASS)
+- [ ] Full 39-test suite as a scheduled nightly CI job
 - [ ] Quantum Hadamard-walk & 2D e⁻/e⁺ jet hydrodynamics extensions
-- [ ] Preprint submission with the consolidated v22 numerics
+- [ ] Preprint submission with the consolidated v22/v23 numerics
+- [ ] Extend the formal exact layer toward the Montgomery pair-correlation
+      identities (Mathlib-based Lean development)
 
 ## 📖 Glossary — every term used on this page
 
@@ -1143,6 +1290,9 @@ If this work is useful to you, please cite it (see also [`CITATION.cff`](CITATIO
 | **monumental gauge** | the vortex gauge convention used by E2 and the flagship run |
 | **Termux** | the Android terminal emulator the project was developed and published from (v1.0.0–v1.1.1 era) |
 | **FAIR** | findable–accessible–interoperable–reusable; the reason ~0.5 GB of evidence lives in git |
+| **formal layer** | the machine-checked wing ([formal/](formal/)): exact theorems in four proof assistants + the Lean executable re-deriving the frozen numbers |
+| **Lean 4** | the proof assistant hosting the flagship formal development ([formal/lean4/](formal/lean4/)); core-only, no Mathlib |
+| **re-derivation gate** | the `lake exe abcloud-verify` CI check: recompute the frozen references from the raw dataset, exit non-zero on drift |
 
 ## 🧭 Reading paths — where to enter for your background
 
@@ -1232,7 +1382,9 @@ independent ecosystems (compilers, BLAS stacks, floating-point orders,
 parser quirks) is very unlikely to be a bug — and a discrepancy between
 ports is the cheapest early-warning system a numerical project can buy.
 The ports agree to the quoted precision; that agreement is itself part of
-the evidence.
+the evidence. The [formal layer](#-formal-verification--lean-4--coq--agda--isabelle)
+pushes the same idea one step further: a twelfth implementation inside a
+proof assistant, with the algebraic skeleton *proved* rather than computed.
 
 **Where do the ζ zeros come from — and why “frozen”?**
 From the Odlyzko tables, committed into the repository (2,001,058 zeros,
@@ -1326,257 +1478,3 @@ scientific use.
 [![Star History](https://api.star-history.com/svg?repos=wild8highlander/ab-cloud-research&type=Date)](https://star-history.com/#wild8highlander/ab-cloud-research&Date)
 
 ---
-
-# 🇷🇺 Русская версия
-
-## AB-Cloud — фазовый резонатор для нулей дзета-функции Римана
-
-**AB-облако** — гамильтониан Хофштадтера с топологическими вихрями, фазы
-Ааронова–Бома которого выведены из нетривиальных нулей дзета-функции Римана.
-Проект полностью посвящён одной теме: численной проверке программы
-Гильберта–Поля в вычислимой форме.
-
-### Ключевые верифицированные результаты
-
-| Результат | Значение | Статус |
-|---|---|---|
-| ⟨r⟩ против GUE 0.5992 | **0.5848 ± 0.0260** (отклонение −2.4 %) | согласуется |
-| Тест Монтгомери (облако vs нули ζ) | **KS = 0.047, p = 0.27**, N = 500 сертифицированных нулей | H₀ не отвергается |
-| Дефект потока Байерса–Янга (q → q+1) | **3.5·10⁻¹⁵** | машинная точность |
-| Самодуальность Конна | **4 нулевые моды**, C₁ = 2 | машинная точность |
-| Корреляционная дыра Монтгомери | R₂ ближе к GUE (d = 0.140), чем к Пуассону (0.227) | воспроизведена |
-| Дираковская динамика при α = 1/2 | E_min ∝ 1/L, **R² = 0.9997**; провал DOS ~10× | подтверждена |
-| Спинорные структуры квартики Клейна — все 64 | орбиты PSL(2,7) 28/21/7/7/1, изоспектральность ≈ 9·10⁻¹⁵, ⟨r⟩ = 0.5984 ± 0.0035 — **64/64 GUE-согласованы** | все структуры статистически эквивалентны |
-| Оптимальность критической прямой | σ = 1/2 минимизирует KS (0.152) | GUE-оптимальность |
-
-Каждое число трассируемо до именованного теста в
-[эталонном 37-тестовом логе](results/verification_run_v18_37tests_2026-08-28.txt).
-
-### Что в репозитории
-
-- **[`code/ab_cloud_v19.jl`](code/ab_cloud_v19.jl)** — каноническая 37-тестовая
-  двухпроходная сюита на Julia (без внешних пакетов): интерактивное меню,
-  физическая лаборатория (22 эксперимента), 3D-лаборатория (30 тестов),
-  быстрый режим `--quick` (16×16 → 32×32, ζ ≤ 5000).
-- **[`monographs/`](monographs/)** — пять изданий монографии: v22, переписанная
-  с нуля на верифицированной сюите (русский, английский, китайский —
-  md/html/docx/pdf/pptx/препринт tex+pdf, по 19 рисунков 600 dpi), и
-  **оригинальная авторская монография v21** с полной английской версией
-  (docx/pdf/html/md + презентации по 16 слайдов).
-- **[`verification/`](verification/)** — независимая 10-языковая верификация
-  (C++, Fortran, Go, Haskell, JavaScript, Julia, MATLAB, Python, R, Rust),
-  двуязычный интерфейс RU/EN, ответы на 3 стандартных возражения рецензентов,
-  данные нулей ζ — 2 001 058 (Одлыжко); spinor64 — все 64 спинорные
-  структуры GUE-согласованы, порты Test 38 на 10 языках.
-- **[`lab-3d/`](lab-3d/)** — трёхмерная лаборатория: 3D-гамильтониан
-  Хофштадтера с вихревыми линиями, решётки 36³, 5000 встроенных нулей, полные
-  отчёты прогонов.
-- **[`results/`](results/)** — 456 файлов: полный двухпроходной прогон
-  run_20260902_134759 (37 тестов) + эталонные логи.
-- **[`apps/`](apps/)** — два React-приложения: дашборд 37 тестов с живыми
-  ζ-статистиками и WebGL 3D-лаборатория.
-- **Новые исследовательские пакеты:** [`dirac-lab/`](dirac-lab/) — Дирак-лаборатория
-  (тесты D1–D14, 96 проверок, все PASS); [`Vortex_optimization/`](Vortex_optimization/)
-  — сканирование плотности вихрей (лучший D = 0,0318 против эталона 0,1096);
-  [`Wave_attractors/`](Wave_attractors/) — воспроизведение гиперболических
-  волновых аттракторов (исследование W1); [`meridian-spectral-observatory/`](meridian-spectral-observatory/)
-  — 24 автономных Julia-стенда; [`AB_Cloud_Academic_Package/`](AB_Cloud_Academic_Package/)
-  — упакованный академический бандл с SHA-256-суммами.
-- В **каждом каталоге** лежит подробный README (по-английски + краткое
-  резюме по-русски) — см. «Documentation map» выше.
-
-### Быстрый старт — что вы должны увидеть
-
-```bash
-make quick-test     # ~3–5 минут: 16×16 → 32×32, ζ ≤ 5000, оба прохода
-make verify         # десятиязычная перекрёстная проверка
-make menu           # интерактивное меню: тесты + Physics Lab + 3D-лаборатория
-python3 verification/spinor64/run_spinor64.py   # эксперимент E1+E2 по 64 структурам
-```
-
-Признак успеха `make quick-test` — строки `pass 1 result: PASS`,
-`pass 2 result: PASS`, финал `SUITE: ALL GREEN`. Признак успеха
-`run_spinor64.py` — таблица орбит 28/21/7/7/1 и вердикт
-`GUE-consistent` по всем 64 строкам. Точные команды для каждого из десяти
-языков — в `verification/<язык>/README.md`.
-
-### Установка и первый запуск
-
-```bash
-git clone https://github.com/wild8highlander/ab-cloud-research.git
-cd ab-cloud-research
-julia code/ab_cloud_v19.jl --quick     # быстрая проверка: оба прохода, ~3–5 мин
-julia code/ab_cloud_v19.jl             # интерактивное меню
-```
-
-### 📊 Большие данные вычислений
-
-Ключевые числа проекта — не декорация, а извлечённые из артефактов
-результаты; для каждой строки указан файл, в котором число хранится.
-
-| Показатель | Значение | Источник |
-|------------|----------|----------|
-| Нулей ζ, встроено в репозиторий | **2 001 058** (таблицы Одлыжко) | `verification/data/` |
-| Замороженный набор данных | 91 МБ, 8 файлов | `verification/data/` |
-| Канонический сюит | **37 тестов × 2 прохода** + серийный проход 3 | `code/ab_cloud_v19.jl` |
-| Машинных вердиктов в флагманском прогоне | **202** (171 PASS · 22 WARN · 9 FAIL/WARN, все перепроверены) | `results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt` |
-| Время флагманского прогона | **≈ 9 ч 46 мин** (2026-09-02) | метки времени в логе |
-| Артефактов прогона | **453 файла / 39 каталогов** (8,4 МБ) | `results/run_20260902_134759/` |
-| Спинор-структуры | **64 из 64 GUE-согласованы** | `verification/spinor64/` |
-| Орбиты квартки Клейна | **28 / 21 / 7 / 7 / 1** (PSL(2,7), порядок 168) | отчёт E1 |
-| Максимальное спектральное расстояние | **8,88 × 10⁻¹⁵** | отчёт E1 |
-| Калибровочная инвариантность | **7,11 × 10⁻¹⁵** | отчёт E1 |
-| ⟨r⟩ по ансамблю 64 структур | **0,5984 ± 0,0035** против GUE 0,5997 | E2 |
-| GUE-ансамбль | 100 матриц 1936×1936; медиана ⟨r⟩ = 0,6013 | E2 |
-| Поток Ааронова–Бома | **Φ_AB = 0,4487989505 = π/7 (точно)** | тест 22 |
-| Динамика Дирака | **R² = 0,9997**; v_F(2π) = 1,8998 | тесты 19/30 |
-| Нулевые моды Конна | **4 из 4**, C₁ = 2 | тест 17 |
-| Пустые плакетки (струны Дирака) | **5040/5040**, дефект ровно 0,0 | тест 24 |
-| Монтгомери, парная корреляция | KS = 0,047, p = 0,27 | v18-лог |
-| Байт-устойчивая статистика | H = 7,9991 бит; n = 55 288 | тест 36 |
-| Отслеживаемых файлов | **2 245** | git ls-files |
-| Монографии | 5 изданий (RU/EN/ZH + v21 RU/EN) + слой v2.2.1 | `monographs/` |
-| Рисунков при 600 dpi | 19 × 3 языка | `monographs/*/figures/` |
-
-### Полный реестр тестов флагманского прогона (2026-09-02)
-
-| № | Каталог теста | Что устанавливает | Вердикт |
-|---|---------------|--------------------|---------|
-| 1 | `test_01_bN_convergence` | b(N) = 1,2126 при N = 50 000 | PASS |
-| 2 | `test_02_bN_monotonicity` | 0 нарушений монотонности на 499 окнах | PASS |
-| 3 | `test_03_bN_rate` | степенной закон b(N) ≈ 7,0312·N^(−0,1685), R² = 0,9895 | PASS |
-| 4 | `test_04_gue_ks_full` | KS на всём диапазоне: D = 0,0881 — ожидаемое отклонение при конечном T | FAIL/WARN → ожидаемо |
-| 5 | `test_05_gue_ks_highT` | высокие T: D = 0,0878 / 0,0866 — дрейф к GUE | FAIL/WARN → ожидаемо |
-| 6 | `test_06_chi2_hist` | χ²-гистограмма: 6170 / 6276 / 6384 по бинам | FAIL/WARN → ожидаемо |
-| 7 | `test_07_decay_slope` | наклон −0,1504, ДИ95 [−0,1594, −0,1414] | PASS |
-| 8 | `test_08_residuals` | критерий серий: 3 серии (ожидалось 5,8) | PASS |
-| 9 | `test_09_bootstrap_ci` | бутстреп-наклон −0,1746, ДИ95 [−0,1895, −0,1552] | PASS |
-| 10 | `test_10_cross_validation` | максимальное отклонение 8,5% | PASS |
-| 11 | `test_11_anderson_darling` | батарея Андерсона–Дарлинга: 5/5 под-проверок чисто | PASS |
-| 12 | `test_12_two_sample_ks` | двухвыборочный KS: D = 0,0233, p = 0,0105 | WARN → PASS |
-| 13 | `test_13_number_variance` | дисперсия числа точек ближе к GUE в 9/9 L | PASS |
-| 14 | `test_14_spectral_rigidity` | жёсткость спектра Δ₃ ближе к GUE в 9/9 L | PASS |
-| 15 | `test_15_ab_construction` | эрмитовость ОК; τ_TRB = 0,1037; поток −0,0 точно | PASS |
-| 16 | `test_16_ab_gue_class` | ⟨r⟩ = 0,594 при α = 0,5 — класс GUE | PASS |
-| 17 | `test_17_connes_self_duality` | нулевые моды: 4 (ожидание 4); C₁ = 2 | PASS |
-| 18 | `test_18_chiral_AIII` | киральный дефект: 0,0 при α=1/2; 0,0058 при α=1/3 | PASS |
-| 19 | `test_19_dirac_cone` | E_min ∝ 1/L, R² = 0,9997; v_F(2π) = 1,8998 | PASS |
-| 20 | `test_20_chern_tknn` | якоря C₁: {1/4, 1/3, 1/5} = 1, 1, 1; зазор 0,0 в точке Дирака | PASS |
-| 21 | `test_21_gamma_phase` | arg(γ*) = 89,874° (отклонение 0,126°) | PASS |
-| 22 | `test_22_ab_phase` | Φ_AB = 0,4487989505 = π/7 (точно) | PASS |
-| 23 | `test_23_fractal_factor` | замкнутая форма = 1,0; c_AB = 0,02062 ≈ 0,02063 | PASS |
-| 24 | `test_24_dirac_string_flux` | 5040/5040 пустых плакеток, дефект 0,0 | PASS |
-| 25 | `test_25_byers_yang` | Δ(q=1→0) = 0,0; чувствительность 0,0032 > 10⁻³ | PASS |
-| 26 | `test_26_pbc_torus` | тор: поток −0,0; пустых 5040/5183; ⟨r⟩ = 0,6009 | PASS |
-| 27 | `test_27_binary_chiral` | киральный дефект 0,0 (W=0) против 0,0058 (W=1,0) | PASS |
-| 28 | `test_28_f_gue_merit` | merit f_GUE = 0,8704; Σ²_data = 0,6115 | WARN |
-| 29 | `test_29_dirac_dip` | провал DOS: 0,0193 против 0,1944 (~10×) | PASS |
-| 30 | `test_30_vf_scaling` | масштабирование v_F = 1,798, R² = 0,9977 | PASS |
-| 31 | `test_31_hatano_nelson` | неэрмитов контроль: max\|Im E\| = 0,6397; ⟨r⟩ = 0,8938 | PASS |
-| 32 | `test_32_rmean_bootstrap` | ⟨r⟩ = 0,5991 ± 0,0075 против GUE 0,5992 | PASS |
-| 33 | `test_33_l_scaling_rmean` | L-масштаб до L=80: плато 0,6004, χ²/dof = 0,01 | PASS |
-| 34 | `test_34_direct_vs_zeta` | ⟨\|ΔR₂\|⟩ = 0,0374; d_GUE = 0,796 | PASS |
-| 35 | `test_35_form_factor_Kt` | форм-фактор K(t): RMS 0,4193, корреляция 0,8889 | WARN |
-| 36 | `test_36_byte_robust` | r₂₅₆ = 0,5756–0,5894; H = 7,9991 бит; n = 55 288 | PASS |
-| 37 | `test_37_half_factorial_gamma` | (1/2)! = √π/2 (ошибка 0,0); 32/π²; ∫p₂ = 1 | PASS |
-| 38 | `verification/spinor64` | 64/64 GUE-согласованы; изоспектральность ≈ 9·10⁻¹⁵ | PASS |
-
-Итог: **202 машинных вердикта — 171 PASS, 22 WARN, 9 FAIL/WARN-маркеров**,
-каждый перепроверен «hardcore»-проходом; необъяснённых провалов нет.
-
-### 64 спинор-структуры квартки Клейна — итог
-
-Эксперимент `spinor64` (E1 — точная симметрия на графе Клейна {3,7}:
-56 вершин, 84 ребра, 24 семиугольные грани; E2 — статистика на
-хофштадтеровском торе, L = 44, α = 0,5, калибровка :monumental) показал:
-
-- разбиение 64 структур по орбитам PSL(2,7): **28 / 21 / 7 / 7 / 1**
-  (28 нечётных, Arf = 1, образуют одну орбиту — классическая теорема о
-  битангенсах, подтверждена численно до машинной точности);
-- максимальное спектральное расстояние внутри орбит: **8,88 × 10⁻¹⁵** —
-  сопряжённые структуры изоспектральны *точно*;
-- калибровочная инвариантность: **7,11 × 10⁻¹⁵**;
-- по ансамблю всех 64 структур: **[r] = 0,5984 ± 0,0035** против
-  аналитического GUE 0,5997 — **64 из 64 GUE-согласованы**;
-
-Полные 64 строки: [`verification/spinor64/output/spinor64_table.csv`](verification/spinor64/output/spinor64_table.csv);
-отчёт с таблицами E1/E2: [`spinor64_report.md`](verification/spinor64/output/spinor64_report.md).
-
-Три правила воспроизводимости, общие для всего репозитория: нули не
-скачиваются во время счёта; нули не пересоздаются; все десять языковых
-портов читают побитово одни и те же файлы. Английская часть этого README
-(разделы *Full test ledger*, *The 64 spinor structures*, *Statistical
-deep-dive*) содержит полные таблицы всех 38 тестов и 64 структур.
-
-### Целостность данных — контрольные суммы
-
-Набор нулей заморожен и защищён контрольными суммами; все десять языковых
-портов читают побитово одни и те же файлы. Реальные SHA-256 состояния,
-закоммиченного в репозиторий:
-
-| Файл | Размер | SHA-256 (начало) |
-|------|--------|-------------------|
-| `zeta_zeros_2M_odlyzko.txt` | 34 123 269 | `f0d2b200a12bdfa2…` |
-| `zeros6.txt` | 36 018 936 | `2ef7b752c2f17405…` |
-| `zeta_zeros_2M_odlyzko.txt.gz` | 14 255 583 | `eee125ac69bc2c98…` |
-| `zeta_zeros_500k_odlyzko.txt` | 8 351 317 | `1a213d7b97e6808e…` |
-| `zeta_zeros_highT_blocks.txt` | 429 224 | `02473ea733a53690…` |
-| `zeta_zeros_50000_embedded.txt` | 789 482 | `2cf6a84e9da69ee2…` |
-| `zeta_zeros_50000.csv` | 775 953 | `039b4d5170813ccc…` |
-| `Zeta_Zeros_50000.jl` | 318 013 | `5be3e16bba708ba8…` |
-| `zeta_zeros_50000.txt` | 290 004 | `efae6880bcde22b9…` |
-
-Первая строка главной таблицы — γ₁ = 14,134725142… — то же число, которым
-открываются монографии. Совпала сумма и первая строка — вся цепочка
-воспроизводимости унаследовала целостность. Время каждого из 37 тестов
-флагманского прогона опубликовано в английской части (таблица *Computational
-cost*): от 9 секунд у структурных проверок до 1 ч 06 мин у теста
-Байерса–Янга.
-
-### Мини-словарь
-
-**⟨r⟩** — среднее отношение соседних зазоров (GUE: 0,5997; Пуассон: 0,3863);
-**KS** — статистика Колмогорова–Смирнова; **Δ₃, Σ²(L)** — жёсткость спектра
-и дисперсия числа точек; **R₂** — парная корреляция (прогноз Монтгомери);
-**C₁** — первое число Черна; **α** — поток на плакетку (α = 1/2 — точка
-Дирака); **Arf** — ℤ₂-инвариант нечётных/чётных спинор-структур;
-**PSL(2,7)** — группа автоморфизмов квартки Клейна порядка 168;
-**двухпроходность** — быстрый проход 1 + «hardcore»-проход 2 с
-под-проверками; **замороженные данные** — единственный источник нулей для
-всех портов, без скачивания и пересоздания.
-
-### Лицензия
-
-Действует **персональная лицензия автора**: все права полностью и исключительно
-принадлежат **Исаеву Исхаку Хамзатовичу**. Разрешены чтение, клонирование,
-локальный запуск и цитирование с атрибуцией; распространение и коммерческое
-использование — только с письменного согласия автора. Полный текст (RU/EN):
-[`LICENSE`](LICENSE).
-
-Лицензия — **строго персональная**. Все исключительные права на материалы
-репозитория — монографии на всех языках и во всех форматах, верификационные
-сюиты на десяти языках, исходный код, графика, данные, приложения —
-принадлежат в полном объёме и исключительно автору, Исаеву Исхаку
-Хамзатовичу. Разрешено без разрешения: читать, клонировать локально,
-запускать сюиты и приложения для проверки и обучения, цитировать с
-атрибуцией (DOI + ORCID). Требуется предварительного письменного согласия
-автора: любое перераспространение или повторный хостинг (целиком, частично
-или в изменённом виде), любое коммерческое использование, любые
-производные монографии, переводы и учебные курсы на их основе. Публикация
-репозитория не создаёт совместной собственности, обратной лицензии или
-подразумеваемой передачи прав. Полный текст с равной юридической силой на
-русском и английском — в файле [`LICENSE`](LICENSE); запросы разрешений —
-через каналы связи ниже.
-
-### Контакты
-
-**Исаев Исхак Хамзатович** · [aslan08_05@mail.ru](mailto:aslan08_05@mail.ru) ·
-[ORCID 0009-0003-7299-0701](https://orcid.org/0009-0003-7299-0701) ·
-DOI [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394)
-
----
-
-<div align="center">
-<i>«Гипотеза Римана как условие универсальности квантового пространства»</i><br/>
-<b>The Riemann Hypothesis as a universality condition of quantum space</b>
-</div>

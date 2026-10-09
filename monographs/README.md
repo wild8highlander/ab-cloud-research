@@ -5,7 +5,7 @@ rewritten trilingual monograph **v22** (Russian, English, Chinese), the
 **original author monograph v21** with its English edition, and the
 corrected **v21.1** editions with the errata note.
 Every number printed in any of these documents traces to a named test of the
-37-test verification suite (`code/ab_cloud_v19.jl`) or to the spinor64
+37-test verification suite (`code/ab_cloud_v23.jl`) or to the spinor64
 experiment (`verification/spinor64/`) with a full computation log.
 
 ## Edition map
@@ -95,7 +95,7 @@ pre-processing step exists.
 The library is deliberately versioned as **editions**, not as a pile of
 PDFs. The canonical line is **v22 → v22.1** (three parallel languages),
 rewritten from scratch on the verified 37-test suite so that every printed
-number resolves to a named test in `code/ab_cloud_v19.jl` or to the
+number resolves to a named test in `code/ab_cloud_v23.jl` or to the
 spinor64 experiment with its full log. **v22.1** is the current build of
 the same text: Appendix B now documents the two-pass run
 `run_20260902_134759` (Julia 1.12.0, 50 000 Odlyzko zeros, pass 2

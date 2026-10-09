@@ -1,4 +1,4 @@
-name: Julia quick-test
+name: Julia suite
 
 on:
   push:
@@ -13,28 +13,54 @@ permissions:
   contents: read
 
 jobs:
-  quick:
-    name: 37-test suite (quick protocol)
+  smoke:
+    name: v23 suite — parse check + smoke test
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
-      - uses: julia-actions/setup-julia@v2
+      - uses: actions/checkout@v7
+      - uses: julia-actions/setup-julia@v3
         with:
           version: "1.10"
-      - name: Parse check (include the suite)
-        run: julia -e 'Base.include(Main, "code/ab_cloud_v19.jl"); println("INCLUDE OK")'
+      - name: Parse check (silent library load of the v23 suite)
+        run: julia -e 'Base.include(Main, "code/ab_cloud_v23.jl"); println("INCLUDE OK")'
         timeout-minutes: 10
-      - name: Quick two-pass protocol (16x16 -> 32x32, zeta <= 5000)
-        run: julia code/ab_cloud_v19.jl --quick
-        timeout-minutes: 35
+      - name: Smoke run — Test 1, b(N) convergence ladder (embedded 50 000 zeros)
+        run: julia code/ab_cloud_v23.jl --test 1
+        timeout-minutes: 25
       - name: Upload run reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: quick-test-reports
+          name: julia-smoke-reports
           path: |
             results/
             code/reports/
           if-no-files-found: ignore
           retention-days: 14
+
+  # The full two-pass 39-test protocol takes 30-60+ min on CI hardware —
+  # run it on demand from the Actions tab (Run workflow -> Julia suite).
+  full:
+    name: v23 suite — full 39-test two-pass protocol (manual)
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v7
+      - uses: julia-actions/setup-julia@v3
+        with:
+          version: "1.10"
+      - name: Full two-pass suite (all 39 tests, embedded 50 000 zeros)
+        run: julia code/ab_cloud_v23.jl --test all
+        timeout-minutes: 140
+      - name: Upload run reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: julia-full-reports
+          path: |
+            results/
+            code/reports/
+          if-no-files-found: ignore
+          retention-days: 30

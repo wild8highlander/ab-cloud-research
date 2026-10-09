@@ -71,9 +71,9 @@ author's analytical interpretations.
 ## Reproduction
 
 ```bash
-julia code/ab_cloud_v19.jl --test all     # full two-pass suite
-julia code/ab_cloud_v19.jl --test 33 --no-two-pass
-julia code/ab_cloud_v19.jl --quick        # 16×16 → 32×32, ζ ≤ 5000
+julia code/ab_cloud_v23.jl --test all     # full two-pass suite
+julia code/ab_cloud_v23.jl --test 33 --no-two-pass
+julia code/ab_cloud_v23.jl --quick        # 16×16 → 32×32, ζ ≤ 5000
 ```
 
 Author: Isaev Iskhak Khamzatovich · ORCID 0009-0003-7299-0701 ·

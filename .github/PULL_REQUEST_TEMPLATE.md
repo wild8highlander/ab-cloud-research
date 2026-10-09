@@ -11,6 +11,6 @@
 
 ## Verification
 
-- [ ] `julia code/ab_cloud_v19.jl --quick` passes both passes locally
+- [ ] `julia code/ab_cloud_v23.jl --test 1` passes locally (and `--test all` for suite-affecting changes)
 - [ ] New/changed verification ports follow the existing protocol
 - [ ] Docs updated (if user-facing)

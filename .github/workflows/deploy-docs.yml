@@ -18,12 +18,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install mkdocs-material mkdocs-minify-plugin
-      - run: mkdocs build --strict
+          cache: pip
+      # Pinned to the exact versions the site is authored and verified with,
+      # so Pages builds are byte-for-byte reproducible across runners.
+      - name: Install pinned MkDocs stack
+        run: |
+          pip install --disable-pip-version-check \
+            "mkdocs==1.6.1" \
+            "mkdocs-material==9.7.7" \
+            "mkdocs-minify-plugin==0.8.0"
+      - name: Build site (strict — warnings fail the build)
+        run: mkdocs build --strict
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

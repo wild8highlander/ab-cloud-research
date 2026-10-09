@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="AB-Cloud Formal Verification seal">
+  <defs>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7c4dff"/>
+      <stop offset="0.55" stop-color="#00b8d4"/>
+      <stop offset="1" stop-color="#7ef9c1"/>
+    </linearGradient>
+    <linearGradient id="bgseal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1026"/>
+      <stop offset="1" stop-color="#1b0f33"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#bgseal)"/>
+  <circle cx="256" cy="256" r="196" fill="none" stroke="url(#ring)" stroke-width="14"/>
+  <circle cx="256" cy="256" r="168" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="2"/>
+
+  <!-- the exact Gram lattice: 8 dots on a ring (8k − 7 motif) -->
+  <g fill="#7ef9c1">
+    <circle cx="256" cy="96"  r="9"/>
+    <circle cx="354" cy="132" r="9"/>
+    <circle cx="400" cy="228" r="9"/>
+    <circle cx="362" cy="330" r="9"/>
+    <circle cx="262" cy="388" r="9"/>
+    <circle cx="158" cy="356" r="9"/>
+    <circle cx="104" cy="262" r="9"/>
+    <circle cx="132" cy="158" r="9"/>
+  </g>
+  <g stroke="#7c4dff" stroke-opacity="0.65" stroke-width="3" fill="none">
+    <path d="M256 96 L354 132 L400 228 L362 330 L262 388 L158 356 L104 262 L132 158 Z"/>
+  </g>
+
+  <!-- centered check -->
+  <path d="M198 258 L240 300 L318 210" fill="none" stroke="url(#ring)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g font-family="'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="middle">
+    <text x="256" y="452" font-size="44" font-weight="800" fill="#ffffff">FORMAL</text>
+  </g>
+</svg>
