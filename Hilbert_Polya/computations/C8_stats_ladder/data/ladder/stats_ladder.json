@@ -1,0 +1,353 @@
+{
+  "constants": {
+    "Poisson": 0.3863,
+    "GOE": 0.5307,
+    "GUE": 0.5996,
+    "GSE": 0.6762
+  },
+  "GSE_note": "GSE недостижим: система бесподнотечная (спин 0), квадрат антиунитарной инверсии времени T²=+1; для GSE нужна симметрия Крамерса T²=−1 (спин-1/2). В core.py R_MEAN_GSE=0.6762 присутствует только как справочная константа Atas et al. 2013, ни один тест не сравнивает с ней спектр.",
+  "results": [
+    {
+      "Nv": 16,
+      "q": 1.0,
+      "W": 0.5,
+      "alpha": 0.5,
+      "bc": "torus",
+      "extra_disorder_w": 0.0,
+      "n_real": 5,
+      "L": 24,
+      "n_spacings": 1715,
+      "max_imag_H": 0.9729101989960937,
+      "r_mean": 0.5971567684195753,
+      "dist_to": {
+        "GUE": 0.0024,
+        "GOE": 0.0665,
+        "Poisson": 0.2109
+      },
+      "closest_by_r": "GUE",
+      "ks_D": {
+        "GUE": 0.01724,
+        "GOE": 0.0681,
+        "Poisson": 0.27322
+      },
+      "ks_p": {
+        "GUE": "6.84e-01",
+        "GOE": "2.25e-07",
+        "Poisson": "2.74e-112"
+      },
+      "closest_by_KS": "GUE",
+      "config_name": "GUE: Nv=16, q=1.0, W=0.5 (комплексный H)"
+    },
+    {
+      "Nv": 0,
+      "q": 0.0,
+      "W": 0.0,
+      "alpha": 0.5,
+      "bc": "torus",
+      "extra_disorder_w": 0.0,
+      "n_real": 3,
+      "L": 24,
+      "n_spacings": 807,
+      "max_imag_H": 9.799650315725178e-15,
+      "r_mean": 0.32419168547164984,
+      "dist_to": {
+        "GUE": 0.2754,
+        "GOE": 0.2065,
+        "Poisson": 0.0621
+      },
+      "closest_by_r": "Poisson",
+      "ks_D": {
+        "GUE": 0.97026,
+        "GOE": 0.97026,
+        "Poisson": 0.97026
+      },
+      "ks_p": {
+        "GUE": "0.00e+00",
+        "GOE": "0.00e+00",
+        "Poisson": "0.00e+00"
+      },
+      "closest_by_KS": "Poisson",
+      "config_name": "clean: Nv=0, W=0 (вещественный H, без беспорядка)"
+    },
+    {
+      "Nv": 0,
+      "q": 0.0,
+      "W": 0.0,
+      "alpha": 0.5,
+      "bc": "torus",
+      "extra_disorder_w": 0.2,
+      "n_real": 3,
+      "L": 24,
+      "n_spacings": 1008,
+      "max_imag_H": 9.799650315725178e-15,
+      "r_mean": 0.45468709297207527,
+      "dist_to": {
+        "GUE": 0.1449,
+        "GOE": 0.076,
+        "Poisson": 0.0684
+      },
+      "closest_by_r": "Poisson",
+      "ks_D": {
+        "GUE": 0.46433,
+        "GOE": 0.39649,
+        "Poisson": 0.18393
+      },
+      "ks_p": {
+        "GUE": "1.15e-190",
+        "GOE": "3.88e-139",
+        "Poisson": "2.82e-30"
+      },
+      "closest_by_KS": "Poisson",
+      "config_name": "real disorder w=0.2: Nv=0 (вещественный H)"
+    },
+    {
+      "Nv": 0,
+      "q": 0.0,
+      "W": 0.0,
+      "alpha": 0.5,
+      "bc": "torus",
+      "extra_disorder_w": 0.5,
+      "n_real": 3,
+      "L": 24,
+      "n_spacings": 1017,
+      "max_imag_H": 9.799650315725178e-15,
+      "r_mean": 0.4856133708549691,
+      "dist_to": {
+        "GUE": 0.114,
+        "GOE": 0.0451,
+        "Poisson": 0.0993
+      },
+      "closest_by_r": "GOE",
+      "ks_D": {
+        "GUE": 0.26987,
+        "GOE": 0.20379,
+        "Poisson": 0.07448
+      },
+      "ks_p": {
+        "GUE": "2.93e-65",
+        "GOE": "2.13e-37",
+        "Poisson": "2.31e-05"
+      },
+      "closest_by_KS": "Poisson",
+      "config_name": "real disorder w=0.5: Nv=0 (вещественный H)"
+    },
+    {
+      "Nv": 0,
+      "q": 0.0,
+      "W": 0.0,
+      "alpha": 0.5,
+      "bc": "torus",
+      "extra_disorder_w": 1.0,
+      "n_real": 3,
+      "L": 24,
+      "n_spacings": 1027,
+      "max_imag_H": 9.799650315725178e-15,
+      "r_mean": 0.523895467959008,
+      "dist_to": {
+        "GUE": 0.0757,
+        "GOE": 0.0068,
+        "Poisson": 0.1376
+      },
+      "closest_by_r": "GOE",
+      "ks_D": {
+        "GUE": 0.16115,
+        "GOE": 0.10129,
+        "Poisson": 0.14554
+      },
+      "ks_p": {
+        "GUE": "9.08e-24",
+        "GOE": "1.20e-09",
+        "Poisson": "1.81e-19"
+      },
+      "closest_by_KS": "GOE",
+      "config_name": "real disorder w=1.0: Nv=0 (вещественный H)"
+    },
+    {
+      "Nv": 0,
+      "q": 0.0,
+      "W": 0.0,
+      "alpha": 0.5,
+      "bc": "torus",
+      "extra_disorder_w": 2.0,
+      "n_real": 3,
+      "L": 24,
+      "n_spacings": 1029,
+      "max_imag_H": 9.799650315725178e-15,
+      "r_mean": 0.5202044849250358,
+      "dist_to": {
+        "GUE": 0.0794,
+        "GOE": 0.0105,
+        "Poisson": 0.1339
+      },
+      "closest_by_r": "GOE",
+      "ks_D": {
+        "GUE": 0.12286,
+        "GOE": 0.07184,
+        "Poisson": 0.20514
+      },
+      "ks_p": {
+        "GUE": "5.09e-14",
+        "GOE": "4.49e-05",
+        "Poisson": "2.50e-38"
+      },
+      "closest_by_KS": "GOE",
+      "config_name": "real disorder w=2.0: Nv=0 (вещественный H)"
+    },
+    {
+      "Nv": 0,
+      "q": 0.0,
+      "W": 0.0,
+      "alpha": 0.5,
+      "bc": "torus",
+      "extra_disorder_w": 4.0,
+      "n_real": 3,
+      "L": 24,
+      "n_spacings": 1029,
+      "max_imag_H": 9.799650315725178e-15,
+      "r_mean": 0.5378576716396926,
+      "dist_to": {
+        "GUE": 0.0617,
+        "GOE": 0.0072,
+        "Poisson": 0.1516
+      },
+      "closest_by_r": "GOE",
+      "ks_D": {
+        "GUE": 0.09893,
+        "GOE": 0.03407,
+        "Poisson": 0.20238
+      },
+      "ks_p": {
+        "GUE": "3.06e-09",
+        "GOE": "1.80e-01",
+        "Poisson": "2.58e-37"
+      },
+      "closest_by_KS": "GOE",
+      "config_name": "real disorder w=4.0: Nv=0 (вещественный H)"
+    },
+    {
+      "Nv": 0,
+      "q": 0.0,
+      "W": 0.0,
+      "alpha": 0.5,
+      "bc": "torus",
+      "extra_disorder_w": 8.0,
+      "n_real": 3,
+      "L": 24,
+      "n_spacings": 1029,
+      "max_imag_H": 9.799650315725178e-15,
+      "r_mean": 0.46949706764608146,
+      "dist_to": {
+        "GUE": 0.1301,
+        "GOE": 0.0612,
+        "Poisson": 0.0832
+      },
+      "closest_by_r": "GOE",
+      "ks_D": {
+        "GUE": 0.19309,
+        "GOE": 0.12568,
+        "Poisson": 0.12984
+      },
+      "ks_p": {
+        "GUE": "5.27e-34",
+        "GOE": "1.19e-14",
+        "Poisson": "1.31e-15"
+      },
+      "closest_by_KS": "GOE",
+      "config_name": "real disorder w=8.0: Nv=0 (вещественный H)"
+    },
+    {
+      "Nv": 0,
+      "q": 0.0,
+      "W": 0.0,
+      "alpha": 0.5,
+      "bc": "torus",
+      "extra_disorder_w": 16.0,
+      "n_real": 3,
+      "L": 24,
+      "n_spacings": 1029,
+      "max_imag_H": 9.799650315725178e-15,
+      "r_mean": 0.40822807088474095,
+      "dist_to": {
+        "GUE": 0.1914,
+        "GOE": 0.1225,
+        "Poisson": 0.0219
+      },
+      "closest_by_r": "Poisson",
+      "ks_D": {
+        "GUE": 0.26749,
+        "GOE": 0.19959,
+        "Poisson": 0.04432
+      },
+      "ks_p": {
+        "GUE": "7.18e-65",
+        "GOE": "2.64e-36",
+        "Poisson": "3.40e-02"
+      },
+      "closest_by_KS": "Poisson",
+      "config_name": "real disorder w=16.0: Nv=0 (вещественный H)"
+    },
+    {
+      "Nv": 0,
+      "q": 0.0,
+      "W": 0.0,
+      "alpha": 0.5,
+      "bc": "torus",
+      "extra_disorder_w": 32.0,
+      "n_real": 3,
+      "L": 24,
+      "n_spacings": 1029,
+      "max_imag_H": 9.799650315725178e-15,
+      "r_mean": 0.38711183579201186,
+      "dist_to": {
+        "GUE": 0.2125,
+        "GOE": 0.1436,
+        "Poisson": 0.0008
+      },
+      "closest_by_r": "Poisson",
+      "ks_D": {
+        "GUE": 0.28692,
+        "GOE": 0.22413,
+        "Poisson": 0.01943
+      },
+      "ks_p": {
+        "GUE": "1.43e-74",
+        "GOE": "1.14e-45",
+        "Poisson": "8.29e-01"
+      },
+      "closest_by_KS": "Poisson",
+      "config_name": "real disorder w=32.0: Nv=0 (вещественный H)"
+    },
+    {
+      "Nv": 16,
+      "q": 1.0,
+      "W": 1.0,
+      "alpha": 0.4,
+      "bc": "open",
+      "extra_disorder_w": 0.0,
+      "n_real": 5,
+      "L": 24,
+      "n_spacings": 1715,
+      "max_imag_H": 0.9729101989960937,
+      "r_mean": 0.6097050199494418,
+      "dist_to": {
+        "GUE": 0.0101,
+        "GOE": 0.079,
+        "Poisson": 0.2234
+      },
+      "closest_by_r": "GUE",
+      "ks_D": {
+        "GUE": 0.02663,
+        "GOE": 0.05783,
+        "Poisson": 0.27243
+      },
+      "ks_p": {
+        "GUE": "1.73e-01",
+        "GOE": "1.95e-05",
+        "Poisson": "1.23e-111"
+      },
+      "closest_by_KS": "GUE",
+      "config_name": "Nv=16, q=1.0, W=1.0, α=0.4 (вне самодуальности)"
+    }
+  ],
+  "runtime_s": 2.3
+}

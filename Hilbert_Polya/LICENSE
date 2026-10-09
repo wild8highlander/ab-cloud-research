@@ -1,0 +1,63 @@
+ISAEV PROPRIETARY LICENSE — HILBERT POLYA BRIDGE
+
+Version 1.0
+
+Copyright (c) 2024-2026 Ishak Khamzatovich Isaev (Исаев Исхак Хамзатович)
+All rights reserved.
+
+________________________________________________________________________________
+
+TERMS AND CONDITIONS
+
+1. DEFINITIONS
+
+   "Author" means Ishak Khamzatovich Isaev (Исаев Исхак Хамзатович),
+   residing in Nalchik, Kabardino-Balkarian Republic, Russian Federation.
+
+   "Work" means the Hilbert Polya Bridge research package, version 1.0.0:
+   all source code (hpbridge/, engine/, campaigns/, scripts/, tests/,
+   multilang/, independent_verification/), all data files (data/,
+   computations/*/data/), all documentation (docs/, README.md,
+   README.ru.md, all per-folder README files), all figures (figures/,
+   figures_hires/), all monographs (monograph/, computations/*/monograph_*),
+   and the associated metadata files, in source or compiled form.
+
+2. LICENSE GRANT
+
+   Subject to the terms of this License, the Author grants you a
+   non-exclusive, non-transferable, non-sublicensable right to:
+
+   (a) view, read and study the Work;
+   (b) run the code of the Work for verification and research purposes;
+   (c) quote limited excerpts of the Work with explicit attribution,
+       provided that the attribution names the Author, the Work and its
+       version, and the quote does not exceed 400 characters per excerpt.
+
+3. RESTRICTIONS
+
+   You may NOT:
+   (a) distribute, publish, sublicense, sell or relicense the Work or any
+       substantial part of it without the Author's prior written consent;
+   (b) present the Work or its results as your own research;
+   (c) remove or alter attribution, LICENSE, CITATION.cff or VERSION files;
+   (d) use the Work for automated bulk reproduction of its documentation,
+       monographs or figures.
+
+4. NO WARRANTY
+
+   THE WORK IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED. THE AUTHOR MAKES NO CLAIM THAT THE WORK PROVES THE RIEMANN
+   HYPOTHESIS OR ANY PART THEREOF. ALL VERDICTS OF THE WORK ARE PROVIDED
+   WITH EXPLICIT STATUS LABELS (PROVEN / MEASURED / REFUTED / CONJECTURE).
+
+5. TERMINATION
+
+   The License terminates automatically upon breach of any restriction.
+
+6. GOVERNING LAW
+
+   This License is governed by the laws of the Russian Federation.
+
+________________________________________________________________________________
+
+Contact: the Author's GitHub profile associated with this repository.

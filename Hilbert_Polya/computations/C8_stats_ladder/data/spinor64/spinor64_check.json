@@ -1,0 +1,88 @@
+{
+  "E1": {
+    "n_classes": 64,
+    "orbit_sizes": {
+      "0": 28,
+      "1": 21,
+      "2": 7,
+      "3": 7,
+      "4": 1
+    },
+    "orbit_sizes_expected": "28/21/7/7/1 (README)",
+    "arf_counts": {
+      "1": 28,
+      "0": 36
+    },
+    "odd_Arf1_count": 28,
+    "odd_set_matches_reference": true,
+    "isospectrality_max_dlambda": 1.021405182655144e-14,
+    "isospectrality_claim": "8.9e-15 (README E1)",
+    "zero_modes_per_orbit_representative": {
+      "0": 2,
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 7
+    },
+    "zero_modes_claim": "2/3/3/3/7 (README)",
+    "representative_class": 0,
+    "r_mean_my": 0.45157107928253004,
+    "r_mean_reference": 0.4515710792825435,
+    "r_mean_abs_diff": 1.3433698597964394e-14,
+    "spectrum_vs_frozen_max_dlambda": 5.773159728050814e-15
+  },
+  "E2_reduction": {
+    "unique_r_mean_values_in_their_table": [
+      0.59348,
+      0.59682,
+      0.60054,
+      0.60271
+    ],
+    "n_unique_r": 4,
+    "unique_phi_classes": [
+      [
+        "0",
+        "0"
+      ],
+      [
+        "0",
+        "1"
+      ],
+      [
+        "1",
+        "0"
+      ],
+      [
+        "1",
+        "1"
+      ]
+    ],
+    "r_determined_only_by_phi_pair": true,
+    "explanation": "phi_x=π(e1+e3+e5), phi_y=π(e2+e4+e6) mod 2π → 64 структур сводятся к 4 различным гамильтонианам; остальные 60 — точные копии (та же H)"
+  },
+  "E2_mine": {
+    "tx=0pi,ty=0pi": {
+      "r_mean": 0.5805458712253911,
+      "r_stderr": 0.022193026141650196,
+      "in_GUE_window_pm003": "True"
+    },
+    "tx=0pi,ty=1pi": {
+      "r_mean": 0.590309232987351,
+      "r_stderr": 0.0117521910478822,
+      "in_GUE_window_pm003": "True"
+    },
+    "tx=1pi,ty=0pi": {
+      "r_mean": 0.6015096620855627,
+      "r_stderr": 0.021107854883017137,
+      "in_GUE_window_pm003": "True"
+    },
+    "tx=1pi,ty=1pi": {
+      "r_mean": 0.5832369262698331,
+      "r_stderr": 0.0051586649011285644,
+      "in_GUE_window_pm003": "True"
+    },
+    "GUE_reference": 0.5996,
+    "config": "L=24, α=0.5, Nv=16 (плотность как у них 54@44²), n_real=3, движок t34 (protocol placement)"
+  },
+  "runtime_s": 0.8
+}
