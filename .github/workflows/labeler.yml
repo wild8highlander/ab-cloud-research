@@ -1,0 +1,17 @@
+name: PR labeler
+
+on:
+  pull_request_target:
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  label:
+    name: Auto-label by changed paths
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/labeler@v5
+        with:
+          configuration-path: .github/labeler.yml

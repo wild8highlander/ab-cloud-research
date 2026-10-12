@@ -1,0 +1,31 @@
+# Ruff configuration — AB-Cloud Research
+#
+# Philosophy: this repository is a research codebase with hundreds of
+# self-contained experiment scripts. The CI gate therefore targets *real
+# defects* (syntax errors, undefined names, shadowing, late __future__
+# imports, redefinitions) and deliberately does NOT gate on style rules
+# (unused imports, line length, …) that would flood the legacy corpus.
+#
+# Run locally:  ruff check .            (same config, same rules as CI)
+# Autofix:      ruff check --fix .
+
+target-version = "py310"
+line-length = 100
+extend-exclude = [
+    "site",
+    "AB_Cloud_Academic_Package/unpacked",
+    "**/outputs",
+    "**/run_data",
+]
+
+[lint]
+select = [
+    "E9",   # syntax errors (always fatal)
+    "F821", # undefined name — a crash waiting for its code path
+    "F402", # import shadowed by loop variable
+    "F404", # late `from __future__` import — SyntaxError at runtime
+    "F811", # redefinition of unused name
+]
+
+[lint.mccabe]
+max-complexity = 40

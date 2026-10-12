@@ -8,10 +8,7 @@ This is the English translation of ab_cloud_jacobi_verify.py.
 Russian comments in the code body are preserved for reference.
 
 Original file: ab_cloud_jacobi_verify.py
-"""
 
-# -*- coding: utf-8 -*-
-"""
 AB-CLOUD JACOBIAN EXTENSION — Verification Suite (Chapter 14)
 =============================================================
 Numerical verification of the Lagrangian hierarchy with Jacobi theta-function

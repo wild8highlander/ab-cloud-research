@@ -282,8 +282,7 @@ def exp_E19_isospectral():
     evals_orig = np.sort(np.linalg.eigvalsh(L_orig))
     print(f"  Original spectrum (lowest 5): {evals_orig[:5]}")
 
-    # Apply each b-mechanism at θ = θ_b
-    from kdv_core import apply_M1_spectral, apply_M2_rodrigues
+    # Apply each b-mechanism at θ = θ_b (helpers imported at module level)
     u_m1 = apply_M1_spectral(u0, THETA_B, k)
     u_m2 = apply_M2_rodrigues(u0, THETA_B, k)
     u_iso_euler = isospectral_b_step(u0, THETA_B, k, dealias)

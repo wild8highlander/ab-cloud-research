@@ -19,6 +19,7 @@ from monograph_verification import (
     CONFIG, Output, safe_norm, safe_max, rodrigues_rotation,
 )
 from monograph_verification_part2 import (
+    run_part2,
     task_31, task_32, task_33, task_34, task_35, task_36,
     task_37, task_38, task_39, task_40,
     task_41, task_42, task_43, task_44, task_45,
@@ -267,7 +268,8 @@ def task_53():
         # (u_x, u_y) → (cos·u_x - sin·u_y, sin·u_x + cos·u_y)
         # ω = ∂u_y/∂x - ∂u_x/∂y → при повороте скорости ω сохраняется!
         # Но добавим фазовый сдвиг в Фурье-пространстве
-        omega_hat = omega_hat * cmath.exp(1j * theta_b) if False else omega_hat
+        # NOTE: a phase-shift experiment (`* cmath.exp(1j*theta_b)`) was
+        # disabled here (`if False`) — removed as dead code.
 
         if (step+1) % 100 == 0:
             omega_real = np.real(np.fft.ifft2(omega_hat))

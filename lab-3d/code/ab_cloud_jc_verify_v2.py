@@ -598,7 +598,7 @@ def fig_jacobian_phase_space():
     axes[1].axvline(mean_d + std_d, color="orange", ls="--")
     axes[1].set_xlabel(r"$\det(J_F)$")
     axes[1].set_ylabel("частота")
-    axes[1].set_title("(b) Гистограмма: распределение $\det(J_F)$\n"
+    axes[1].set_title(r"(b) Гистограмма: распределение $\det(J_F)$\n"
                        "(узкий пик → const → JC выполняется)")
     axes[1].legend()
     axes[1].grid(alpha=0.3)

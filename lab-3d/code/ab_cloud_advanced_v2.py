@@ -30,7 +30,6 @@ from .ab_cloud_stats import (
     spacing_ratios,
     polynomial_unfold,
     R_GUE,
-    R_POISSON,
     number_variance,
 )
 

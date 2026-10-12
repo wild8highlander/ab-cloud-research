@@ -8,10 +8,7 @@ This is the English translation of ab_cloud_hybrid_approach.py.
 Russian comments in the code body are preserved for reference.
 
 Original file: ab_cloud_hybrid_approach.py
-"""
 
-# -*- coding: utf-8 -*-
-"""
 HYBRID APPROACH: Simplified AB-cloud Hamiltonian without geometry (Chapter 14 §14.21)
 ================================================================================
 Removes ALL geometric structure (τ, theta-functions, PSL(2,7)) and keeps only:

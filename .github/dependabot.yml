@@ -8,3 +8,11 @@ updates:
     directory: "/lab-3d"
     schedule:
       interval: "monthly"
+  - package-ecosystem: "pip"
+    directory: "/AB_Cloud_Quantum_Research/modules/core_spectrum"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "npm"
+    directory: "/Wave_attractors/wave_attractors/scripts/monograph"
+    schedule:
+      interval: "monthly"

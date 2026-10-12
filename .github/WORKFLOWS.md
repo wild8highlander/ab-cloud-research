@@ -7,15 +7,18 @@ runs locally; it is read by GitHub Apps and Actions.
 
 | Workflow | File | What it does |
 |---|---|---|
-| CI | `ci.yml` | canonical-artifact presence checks (v23 suite, formal layer, monographs, CITATION.cff), CITATION.cff validation (cffconvert), markdownlint (curated surface, `.markdownlint-cli2.jsonc`), workflow YAML lint (yamllint, `.yamllint.yaml`) |
+| CI | `ci.yml` | canonical-artifact presence checks (v23 suite, formal layer, monographs, CITATION.cff), CITATION.cff validation (cffconvert), markdownlint (curated surface, `.markdownlint-cli2.jsonc`), workflow YAML lint (yamllint, `.yamllint.yaml`), **ruff** (real-defect gate: `ruff.toml`), **pytest** (all four Python test suites) |
 | Julia suite | `julia.yml` | parse check of `code/ab_cloud_v23.jl` + smoke run (`--test 1`, ~1 min) on every push/PR/week; the **full two-pass 39-test suite** runs on demand via `workflow_dispatch` |
-| Formal verification | `formal.yml` | compiles the formal layer in **four proof assistants**: Lean 4 (`lake build` + `lake exe abcloud-verify` — the 8/8 frozen-reference gate), Coq (`coq_makefile && make`), Agda (`agda -i . -i .`), Isabelle/HOL (`isabelle build -D formal/isabelle`, official docker image) |
+| Formal verification | `formal.yml` | compiles the formal layer in **four proof assistants**: Lean 4 (`lean-action` → `lake build` + `lake exe abcloud-verify` — the 8/8 frozen-reference gate), Coq (`coq_makefile && make`), Agda (`agda -i . -i .`), Isabelle/HOL (`isabelle build -D formal/isabelle`, official docker image) |
 | Docs deploy | `deploy-docs.yml` | builds the MkDocs Material site (`docs/`) with **pinned versions** (mkdocs 1.6.1 / material 9.7.7) and publishes it to GitHub Pages |
 | CodeQL | `codeql.yml` | static security analysis of the Python code |
 | Link checker | `link-checker.yml` | crawls the repo markdown for dead links on a schedule |
 | Release drafter | `release-drafter.yml` | assembles release notes from merged PRs, tags versions |
 | Dependency review | `dependency-review.yml` | flags vulnerable/dependency changes on PRs |
 | Stale | `stale.yml` | marks/removes abandoned issues and PRs |
+| PR labeler | `labeler.yml` | applies path-based labels from `.github/labeler.yml` (`julia-suite`, `verification`, `3d-lab`, `monographs`, `documentation`, `ci`) |
+| First interaction | `first-interaction.yml` | greets first-time issue/PR authors with pointers to CONTRIBUTING.md and the PR checklist |
+| Dependabot auto-merge | `dependabot-auto-merge.yml` | enables squash auto-merge for Dependabot **patch/minor** bumps once CI is green (major bumps stay manual) |
 
 Action versions are kept current by Dependabot; the tree already incorporates
 the 2026-10 bump wave (`checkout@v7`, `markdownlint-cli2-action@v24`,
@@ -29,8 +32,8 @@ the 2026-10 bump wave (`checkout@v7`, `markdownlint-cli2-action@v24`,
 | `ISSUE_TEMPLATE/feature_request.yml` | structured feature form |
 | `ISSUE_TEMPLATE/config.yml` | disables blank issues, adds contact links |
 | `PULL_REQUEST_TEMPLATE.md` | PR checklist (tests run, docs updated, CHANGELOG entry) |
-| `dependabot.yml` | weekly bumps for GitHub Actions and npm/pip ecosystems |
-| `labeler.yml` | auto-labels PRs by touched paths (`monographs`, `verification`, `apps`, …) |
+| `dependabot.yml` | weekly bumps for GitHub Actions; monthly pip bumps (`lab-3d`, `modules/core_spectrum`) and npm bumps (`scripts/monograph`) |
+| `labeler.yml` | path → label mapping consumed by the `labeler.yml` workflow |
 | `release-drafter.yml` | categories/labels → release-notes sections mapping |
 | `CODEOWNERS` | default reviewers: `@wild8highlander` for everything |
 | `FUNDING.yml` | funding links shown in the repo's Sponsor tab |
@@ -41,22 +44,45 @@ the 2026-10 bump wave (`checkout@v7`, `markdownlint-cli2-action@v24`,
 |---|---|
 | `.yamllint.yaml` | the `yaml` job of `ci.yml` (workflow lint) |
 | `.markdownlint-cli2.jsonc` | the `markdown` job of `ci.yml` (curated markdown surface) |
+| `ruff.toml` | the `ruff` job of `ci.yml` (Python real-defect gate: E9, F821, F402, F404, F811) |
+| `lab-3d/pyproject.toml → [tool.ruff.lint]` | same rule set for the `lab-3d/` subtree (nearest-config discovery) |
+| `.editorconfig` | editor/IDE whitespace consistency for all file types |
 
 ## Local reproduction of CI checks
 
 ```bash
 make lint                                    # markdownlint + YAML sanity
+ruff check .                                 # Python real-defect gate
+python3 -m pytest AB_Cloud_Quantum_Research/tests -q     # unified suite
+python3 -m pytest AB_Cloud_Quantum_Research/modules -q   # module suites
 julia code/ab_cloud_v23.jl --test 1          # the same smoke run julia.yml executes
 cd formal/lean4 && lake build && lake exe abcloud-verify   # the formal gate
 python3 verification/sections/section3_ab_cloud/python/verify.py   # smoke test
 ```
 
+## Repo settings to enable once (web UI)
+
+Some GitHub features are repository settings, not files — flip them once in
+**Settings**:
+
+- **Branch protection** for `main`: require the `CI`, `Julia suite`, `CodeQL`
+  and `Formal verification` checks, require branches up to date, allow
+  Dependabot auto-merge to take effect.
+- **Security → Code security**: secret scanning + push protection.
+- **General → Pull requests**: allow squash merging (auto-merge uses it),
+  enable automatically delete head branches (cleans up stale Dependabot
+  branches after merge).
+
 ## Кратко (по-русски)
 
-- Служебная папка GitHub: 9 воркфлоу (CI, Julia-сюит v23 со смоук-прогоном,
-  формальная верификация Lean4/Coq/Agda/Isabelle, сборка документации на
-  Pages с закреплёнными версиями, CodeQL, проверка ссылок, release-drafter,
-  dependency-review, stale), шаблоны issue/PR, dependabot, авторазметка,
-  CODEOWNERS.
-- Локально повторяются: `make lint`, `julia code/ab_cloud_v23.jl --test 1`
-  и `lake exe abcloud-verify` в `formal/lean4/`.
+- Служебная папка GitHub: 12 воркфлоу (CI с ruff и pytest, Julia-сюит v23 со
+  смоук-прогоном, формальная верификация Lean4/Coq/Agda/Isabelle, сборка
+  документации на Pages с закреплёнными версиями, CodeQL, проверка ссылок,
+  release-drafter, dependency-review, stale, авторазметка PR, приветствие
+  новичков, авто-мерж Dependabot), шаблоны issue/PR, dependabot
+  (actions + pip + npm), авторазметка, CODEOWNERS.
+- Локально повторяются: `make lint`, `ruff check .`, `pytest`,
+  `julia code/ab_cloud_v23.jl --test 1` и `lake exe abcloud-verify`
+  в `formal/lean4/`.
+- Разово в Settings: защита ветки `main`, secret scanning, squash-merge
+  и авто-удаление головных веток.

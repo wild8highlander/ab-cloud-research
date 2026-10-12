@@ -8,10 +8,7 @@ This is the English translation of ab_cloud_jc_verify_v2.py.
 Russian comments in the code body are preserved for reference.
 
 Original file: ab_cloud_jc_verify_v2.py
-"""
 
-# -*- coding: utf-8 -*-
-"""
 JACOBIAN CONJECTURE VERIFICATION VIA AB-CLOUD HAMILTONIAN FLOW (Chapter 14 §14.12–14.16)
 ========================================================================================
 This script verifies the Keller Jacobian Conjecture (1939) for n=1, 2, 3 by using
@@ -609,7 +606,7 @@ def fig_jacobian_phase_space():
     axes[1].axvline(mean_d + std_d, color="orange", ls="--")
     axes[1].set_xlabel(r"$\det(J_F)$")
     axes[1].set_ylabel("частота")
-    axes[1].set_title("(b) Гистограмма: распределение $\det(J_F)$\n"
+    axes[1].set_title(r"(b) Гистограмма: распределение $\det(J_F)$\n"
                        "(узкий пик → const → JC выполняется)")
     axes[1].legend()
     axes[1].grid(alpha=0.3)

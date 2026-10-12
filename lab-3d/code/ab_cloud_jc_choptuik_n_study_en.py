@@ -8,10 +8,7 @@ This is the English translation of ab_cloud_jc_choptuik_n_study.py.
 Russian comments in the code body are preserved for reference.
 
 Original file: ab_cloud_jc_choptuik_n_study.py
-"""
 
-# -*- coding: utf-8 -*-
-"""
 JC VERIFICATION WITH CHOPTUIK CORRECTION FOR n = 1..6 (Chapter 14 §14.19-14.20)
 ================================================================================
 Systematic study of how the Choptuik correction (1 - 1/π²) = 0.89868 affects

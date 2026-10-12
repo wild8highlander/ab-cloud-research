@@ -67,3 +67,43 @@ jobs:
       - uses: actions/checkout@v7
       - name: yamllint (project config)
         run: pipx install yamllint && yamllint -c .yamllint.yaml .github/workflows/
+
+  ruff:
+    name: Python lint (ruff — real-defect gate)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install ruff
+        run: pip install "ruff>=0.17"
+      - name: Ruff check (ruff.toml + per-package configs)
+        run: ruff check --output-format=github .
+
+  pytest:
+    name: Python tests (pytest)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install scientific stack + pytest
+        run: |
+          pip install --disable-pip-version-check \
+            numpy scipy matplotlib mpmath sympy pytest
+      - name: Run the unified test suite
+        working-directory: AB_Cloud_Quantum_Research
+        run: pytest tests/test_unified.py -q
+      - name: Run the processor module tests
+        working-directory: AB_Cloud_Quantum_Research
+        run: pytest modules/processor_ab/tests/ -q
+      - name: Run the core spectrum module tests
+        working-directory: AB_Cloud_Quantum_Research
+        run: pytest modules/core_spectrum/tests/ -q
+      - name: Run the realtime spinor memory tests
+        working-directory: AB_Cloud_Quantum_Research/research/realtime_spinor_memory
+        run: pytest tests/ -q

@@ -8,10 +8,7 @@ This is the English translation of ab_cloud_vortex_search.py.
 Russian comments in the code body are preserved for reference.
 
 Original file: ab_cloud_vortex_search.py
-"""
 
-# -*- coding: utf-8 -*-
-"""
 EXPLORATORY: Vortex numerical values for absolute JC proof (Chapter 14 research)
 =================================================================================
 Systematically searches over numerical values assigned to vortices to find

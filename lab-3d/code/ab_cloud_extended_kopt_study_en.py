@@ -8,10 +8,7 @@ This is the English translation of ab_cloud_extended_kopt_study.py.
 Russian comments in the code body are preserved for reference.
 
 Original file: ab_cloud_extended_kopt_study.py
-"""
 
-# -*- coding: utf-8 -*-
-"""
 EXTENDED STUDY: k_opt(n) for n=1..10 + Choptuik correction variations
 =======================================================================
 Following user's intuition:

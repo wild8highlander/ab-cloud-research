@@ -8,10 +8,7 @@ This is the English translation of ab_cloud_robustness_study.py.
 Russian comments in the code body are preserved for reference.
 
 Original file: ab_cloud_robustness_study.py
-"""
 
-# -*- coding: utf-8 -*-
-"""
 ROBUSTNESS STUDY: W_k = π^(-2k) — stability across T_flow, r_k, n_test_points
 ================================================================================
 Following the discovery that W_k = π^(-2k) gives absolute JC (σ/|μ| < 0.04%)

@@ -288,7 +288,7 @@ def exp_E10_angle_scan():
     # We need to override the model's angle. Easiest: use the integrate
     # function with a modified THETA_B. But THETA_B is module-level.
     # Instead, we'll compute the b-modified model manually.
-    from kdv_core import ifrk4_step, _nonlinear_term_true, apply_M2_rodrigues
+    from kdv_core import ifrk4_step, _nonlinear_term_true  # apply_M2_rodrigues at module level
     from scipy.fft import fft, ifft
     import kdv_core
 
@@ -489,7 +489,7 @@ def exp_E15_universality():
     c = 0.5
     u0 = single_soliton(x, c, x0=-20.0)
 
-    from kdv_core import ifrk4_step, _nonlinear_term_true, apply_M2_rodrigues
+    from kdv_core import ifrk4_step, _nonlinear_term_true  # apply_M2_rodrigues at module level
     from scipy.fft import fft, ifft
 
     # Fine scan around θ_b
