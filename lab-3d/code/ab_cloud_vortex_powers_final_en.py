@@ -8,10 +8,7 @@ This is the English translation of ab_cloud_vortex_powers_final.py.
 Russian comments in the code body are preserved for reference.
 
 Original file: ab_cloud_vortex_powers_final.py
-"""
 
-# -*- coding: utf-8 -*-
-"""
 EXPLORATORY V3: Find optimal π^(-2k) for n=4 and confirm absolute JC for all n
 ================================================================================
 Following the discovery that W_k = π^(-8) gives absolute JC (σ/|μ| < 5%) for

@@ -19,7 +19,7 @@
         "div", "p", "span", "img", "br", "hr", "sub", "sup", "kbd",
         "details", "summary", "table", "thead", "tbody", "tr", "th", "td",
         "a", "picture", "source", "figcaption", "figure", "code", "pre",
-        "h1", "h2", "h3", "h4", "center", "font"
+        "h1", "h2", "h3", "h4", "center", "font", "strong", "em"
       ]
     },
     "MD034": false,

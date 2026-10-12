@@ -459,9 +459,7 @@ def fig_d11():
     ax2.plot(uu / Lam, tr, lw=1.4, color=PURPLE)
     ax2.set_xlabel(r"$u_0/\Lambda$")
     ax2.set_ylabel(r"$|\,\mathrm{Tr}\,U(u_0)|$")
-    ax2.set_title(rf"(b) Dirichlet trace comb, $N_u$={Nu}, $\Lambda$={Lg}"
-                  .replace("$Lg$", "$\\Lambda$") if False else
-                  rf"(b) Dirichlet trace comb, $N_u$={Nu}")
+    ax2.set_title(rf"(b) Dirichlet trace comb, $N_u$={Nu}")
     ax2.annotate(r"peak $= N_u$ exactly", xy=(0, Nu), xytext=(0.12, Nu * 0.72),
                  arrowprops=dict(arrowstyle="->", color="#444444"),
                  fontsize=10)

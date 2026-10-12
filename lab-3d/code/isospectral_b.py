@@ -76,17 +76,10 @@ def lax_spectrum(u, dx, n_eigs=None):
         eigenvectors : (N, N) ndarray, columns are eigenvectors
     """
     L = build_lax_matrix(u, dx)
-    if n_eigs is None:
-        evals, evecs = np.linalg.eigh(L)
-    else:
-        # Use sparse for large N
-        L_sparse = diags([off_diag_value(np.arange(N-1)+1, dx),
-                          main_diag_value(u, dx),
-                          off_diag_value(np.arange(N-1)+1, dx)],
-                         [-1, 0, 1], format="csr")
-        # Periodic wrap
-        # ... (for simplicity, fall back to dense)
-        evals, evecs = np.linalg.eigh(L)
+    # Dense diagonalization for every size: the sparse path below used an
+    # undefined size variable `N` and its result (L_sparse) was never
+    # consumed — the function always fell back to the dense eigen-solve.
+    evals, evecs = np.linalg.eigh(L)
     return evals, evecs
 
 
@@ -109,7 +102,7 @@ def darboux_transform(u, f):
     Define the Darboux operator D = ∂_x - (f_x / f).
     Then the transformed potential:
         u' = u - 2·∂²_x ln(f)
-    has spectrum σ(L') = σ(L) \ {λ_0}.
+    has spectrum σ(L') = σ(L) \\ {λ_0}.
 
     For the KdV Lax pair, this is the elementary Bäcklund transformation.
 

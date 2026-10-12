@@ -108,6 +108,8 @@ def spectral_compressibility(unfolded: np.ndarray, E_grid: np.ndarray,
     For GUE: χ → 0 at large E (rigid spectrum).
     For Poisson: χ → 1 (uncorrelated).
     """
+    from ab_cloud_stats import sigma2_statistic
+
     chi = np.zeros_like(E_grid)
     for i, Ec in enumerate(E_grid):
         chi[i] = sigma2_statistic(unfolded, window)

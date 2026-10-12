@@ -8,10 +8,7 @@ This is the English translation of ab_cloud_genus_universality.py.
 Russian comments in the code body are preserved for reference.
 
 Original file: ab_cloud_genus_universality.py
-"""
 
-# -*- coding: utf-8 -*-
-"""
 GENUS UNIVERSALITY STUDY: c=T(g) for g=2,3,4,5,6
 ==================================================
 Following the discovery that optimal c=T(g)=6 for g=3, we test:
@@ -333,7 +330,7 @@ def fig_genus_universality(genus_results):
         ax.text(g, s + 0.001, f"{s:.4f}%", ha="center", fontsize=9)
     ax.set_xlabel("genus $g$")
     ax.set_ylabel(r"$\sigma/|\mu|$ (%)")
-    ax.set_title("(b) Достигнутое $\sigma/|\mu|$ с $c=T(g)$ для каждого $g$")
+    ax.set_title(r"(b) Достигнутое $\sigma/|\mu|$ с $c=T(g)$ для каждого $g$")
     ax.legend()
     ax.grid(alpha=0.3, axis="y")
     ax.set_yscale('log')

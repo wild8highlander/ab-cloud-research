@@ -864,6 +864,11 @@ def write_report(results: list, run_dir: str, started: str, elapsed: float):
                    for r in results}, f, indent=2, default=str)
 
 
+# Populated in main() (lazy load of the 600 low + 2000 high zeros); module
+# level defaults keep the TESTS_EXT3 lambdas lint-clean before that happens.
+ZEROS_LOW: list = []
+ZEROS_BIG: list = []
+
 TESTS_EXT3 = [
     ("D12", "The infinite BK ladder — N_u → ∞ at fixed density (beyond §8)",
      lambda res, z: test_d12(res, z)),

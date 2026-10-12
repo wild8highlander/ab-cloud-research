@@ -65,6 +65,18 @@ include = ["code*"]
 line-length = 120
 target-version = "py310"
 
+# CI gate mirrors the repository-root ruff.toml philosophy: hard-fail on
+# real defects only (undefined names, shadowing, late __future__ imports,
+# redefinitions); legacy research scripts are not style-gated.
+[tool.ruff.lint]
+select = [
+    "E9",   # syntax errors (always fatal)
+    "F821", # undefined name — a crash waiting for its code path
+    "F402", # import shadowed by loop variable
+    "F404", # late `from __future__` import — SyntaxError at runtime
+    "F811", # redefinition of unused name
+]
+
 [tool.mypy]
 python_version = "3.10"
 warn_return_any = true

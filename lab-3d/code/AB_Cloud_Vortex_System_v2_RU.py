@@ -1982,9 +1982,9 @@ def run_real_systems_suite():
 
     systems = real_systems_presets()
     results = []
-    for sys in systems:
-        print(f"\n{sys.name}...")
-        r = compute_real_system_chaplygin(sys)
+    for system in systems:
+        print(f"\n{system.name}...")
+        r = compute_real_system_chaplygin(system)
         results.append(r)
         print(f"  C_Ch_norm = {r['C_Ch_normalized']:.4e}, T_ratio = {r['T_ratio']:.4f}")
 
