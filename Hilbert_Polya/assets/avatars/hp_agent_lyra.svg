@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230" width="200" height="230">
+  <!-- Hilbert–Pólya Bridge avatar cast · Agent Lyra (Spectral Analyst) · geometric duotone style -->
+  <defs>
+    <clipPath id="badgeClip"><circle cx="100" cy="92" r="86"/></clipPath>
+  </defs>
+  <circle cx="100" cy="92" r="90" fill="#0B1E3A"/>
+  <circle cx="100" cy="92" r="86" fill="#F5EDE0" stroke="#E8A33D" stroke-width="4"/>
+  <g clip-path="url(#badgeClip)">
+    <!-- shoulders: analyst chassis -->
+    <path d="M100 150 C 60 150 34 172 30 210 L 170 210 C 166 172 140 150 100 150 Z" fill="#2E3A56"/>
+    <path d="M64 186 q 8 -10 16 0 t 16 0 t 16 0 t 16 0 t 16 0" stroke="#E8A33D" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <!-- twin ears -->
+    <rect x="60" y="84" width="10" height="22" rx="5" fill="#0B1E3A"/>
+    <rect x="130" y="84" width="10" height="22" rx="5" fill="#0B1E3A"/>
+    <!-- head -->
+    <rect x="68" y="56" width="64" height="76" rx="28" fill="#EFE3D0" stroke="#0B1E3A" stroke-width="3"/>
+    <!-- round lens visor -->
+    <circle cx="86" cy="92" r="12" fill="#0B1E3A"/>
+    <circle cx="114" cy="92" r="12" fill="#0B1E3A"/>
+    <circle cx="86" cy="92" r="5" fill="#E8A33D"/>
+    <circle cx="114" cy="92" r="5" fill="#E8A33D"/>
+    <path d="M98 90 L 102 90" stroke="#0B1E3A" stroke-width="3"/>
+    <!-- spectrum smile -->
+    <path d="M88 116 Q 100 124 112 116" stroke="#E8A33D" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <!-- forehead scan line -->
+    <path d="M80 72 L 120 72" stroke="#2EA08F" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="6 4"/>
+  </g>
+  <!-- emblem: spectrum bars -->
+  <circle cx="152" cy="158" r="20" fill="#E8A33D" stroke="#0B1E3A" stroke-width="3"/>
+  <path d="M145 164 L 145 154 M 150 164 L 150 148 M 155 164 L 155 158 M 160 164 L 160 151" stroke="#0B1E3A" stroke-width="3" stroke-linecap="round"/>
+  <!-- name plate -->
+  <rect x="24" y="196" width="152" height="26" rx="13" fill="#0B1E3A"/>
+  <text x="100" y="214" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" letter-spacing="1.5" fill="#F5EDE0">AGENT LYRA</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230" width="200" height="230">
+  <!-- Hilbert–Pólya Bridge avatar cast · Agent Vera (Independent Verifier) · geometric duotone style -->
+  <defs>
+    <clipPath id="badgeClip"><circle cx="100" cy="92" r="86"/></clipPath>
+  </defs>
+  <circle cx="100" cy="92" r="90" fill="#0B1E3A"/>
+  <circle cx="100" cy="92" r="86" fill="#F5EDE0" stroke="#2EA08F" stroke-width="4"/>
+  <g clip-path="url(#badgeClip)">
+    <!-- shoulders: verifier chassis with shield -->
+    <path d="M100 150 C 60 150 34 172 30 210 L 170 210 C 166 172 140 150 100 150 Z" fill="#16324A"/>
+    <path d="M100 162 L 116 170 L 116 184 C 116 196 108 202 100 206 C 92 202 84 196 84 184 L 84 170 Z" fill="#2EA08F"/>
+    <path d="M92 184 L 98 190 L 110 176" stroke="#F5EDE0" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- head -->
+    <rect x="68" y="56" width="64" height="76" rx="24" fill="#E6DED2" stroke="#0B1E3A" stroke-width="3"/>
+    <!-- square verifier glasses -->
+    <rect x="74" y="84" width="22" height="16" rx="4" fill="none" stroke="#0B1E3A" stroke-width="3"/>
+    <rect x="104" y="84" width="22" height="16" rx="4" fill="none" stroke="#0B1E3A" stroke-width="3"/>
+    <path d="M96 92 L 104 92" stroke="#0B1E3A" stroke-width="3"/>
+    <rect x="79" y="89" width="8" height="6" fill="#2EA08F"/>
+    <rect x="109" y="89" width="8" height="6" fill="#2EA08F"/>
+    <!-- flat verdict mouth -->
+    <path d="M90 120 L 110 120" stroke="#0B1E3A" stroke-width="3" stroke-linecap="round"/>
+    <!-- calibration ticks on cheeks -->
+    <path d="M72 110 L 76 110 M 72 114 L 76 114 M 128 110 L 124 110 M 128 114 L 124 114" stroke="#0B1E3A" stroke-width="2" stroke-linecap="round"/>
+    <!-- crest line -->
+    <path d="M84 66 L 100 58 L 116 66" stroke="#E8A33D" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- emblem: checkmark seal -->
+  <circle cx="152" cy="158" r="20" fill="#2EA08F" stroke="#0B1E3A" stroke-width="3"/>
+  <path d="M143 158 L 150 165 L 162 151" stroke="#0B1E3A" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- name plate -->
+  <rect x="24" y="196" width="152" height="26" rx="13" fill="#0B1E3A"/>
+  <text x="100" y="214" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" letter-spacing="1.5" fill="#F5EDE0">AGENT VERA</text>
+</svg>

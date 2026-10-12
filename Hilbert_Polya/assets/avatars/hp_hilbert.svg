@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230" width="200" height="230">
+  <!-- Hilbert–Pólya Bridge avatar cast · Hilbert · geometric duotone style -->
+  <defs>
+    <clipPath id="badgeClip"><circle cx="100" cy="92" r="86"/></clipPath>
+  </defs>
+  <circle cx="100" cy="92" r="90" fill="#0B1E3A"/>
+  <circle cx="100" cy="92" r="86" fill="#F5EDE0" stroke="#E8A33D" stroke-width="4"/>
+  <g clip-path="url(#badgeClip)">
+    <!-- shoulders: high-collar professor suit -->
+    <path d="M100 150 C 60 150 34 172 30 210 L 170 210 C 166 172 140 150 100 150 Z" fill="#1E3350"/>
+    <path d="M100 150 L 86 156 L 100 184 L 114 156 Z" fill="#F5EDE0"/>
+    <path d="M86 150 L 100 158 L 114 150 L 112 146 L 100 152 L 88 146 Z" fill="#F5EDE0"/>
+    <path d="M96 154 L 100 176 L 104 154 Z" fill="#8C2F2F"/>
+    <!-- head -->
+    <ellipse cx="100" cy="96" rx="34" ry="40" fill="#EBCFAE"/>
+    <!-- bald dome with side hair -->
+    <path d="M68 84 C 70 62 84 52 100 52 C 116 52 130 62 132 84 C 130 72 118 66 100 66 C 82 66 70 72 68 84 Z" fill="#B9B2A6"/>
+    <path d="M66 88 C 64 96 64 104 66 112 C 68 104 68 96 66 88 Z" fill="#B9B2A6"/>
+    <path d="M134 88 C 136 96 136 104 134 112 C 132 104 132 96 134 88 Z" fill="#B9B2A6"/>
+    <!-- round spectacles -->
+    <circle cx="85" cy="98" r="11" fill="none" stroke="#0B1E3A" stroke-width="3"/>
+    <circle cx="115" cy="98" r="11" fill="none" stroke="#0B1E3A" stroke-width="3"/>
+    <path d="M96 98 L 104 98" stroke="#0B1E3A" stroke-width="3"/>
+    <circle cx="85" cy="98" r="3" fill="#0B1E3A"/>
+    <circle cx="115" cy="98" r="3" fill="#0B1E3A"/>
+    <!-- neat mustache -->
+    <path d="M86 118 Q 100 126 114 118 Q 100 120 86 118 Z" fill="#8A8074"/>
+    <!-- mouth -->
+    <path d="M90 126 Q 100 130 110 126" stroke="#A06A45" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- emblem: Hilbert space operator -->
+  <circle cx="152" cy="158" r="20" fill="#E8A33D" stroke="#0B1E3A" stroke-width="3"/>
+  <text x="152" y="166" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="24" font-style="italic" fill="#0B1E3A">&#8459;</text>
+  <!-- name plate -->
+  <rect x="24" y="196" width="152" height="26" rx="13" fill="#0B1E3A"/>
+  <text x="100" y="214" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" letter-spacing="1.5" fill="#F5EDE0">D. HILBERT</text>
+</svg>

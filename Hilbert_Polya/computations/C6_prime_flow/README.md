@@ -1,85 +1,283 @@
-# C6 · Поток простых, ядро ко-локации и ψ-лестница
+# C6 · The Prime Flow, the Co-location Kernel and the ψ-Ladder — where the arithmetic of primes actually lives
 
-![version](https://img.shields.io/badge/версия-1.0.0-298bbc) ![](https://img.shields.io/badge/серия-C1--C8-3b4f58) ![](https://img.shields.io/badge/статусы-честные-3a6b4f)
+<p align="center"><img src="../../assets/illustrations/ill_prime_flow.png" width="860" alt="The prime flow: phases Φ_p = ½ ln p streaming through the vortex lattice, composite nodes landing exactly on additive superpositions"/></p>
+<p align="center"><em>The prime flow: every prime p enters the phase layer with flux Φ_p = ½ ln p, and multiplication becomes addition — the composite node pq lands exactly where the flows of p and q meet. Illustration 1440×720.</em></p>
 
-> **Φ_p = ½ln p; точная ко-локация (Φ_p,Φ_q) ≡ Φ_pq (1.35e-14); ядро разрешения δ(d) с ξ_mult ≈ 2–3 ячейки; ψ-лестница: corr = 0.972 у нулей, нулевая зона у затворов; универсальность стирает кодировки.**
+<p align="center"><img src="../../assets/avatars/hp_cast_strip.svg" width="860" alt="Bridge avatar cast"/></p>
+<p align="center"><em>The cast follows the prime flow: from Riemann's explicit formula, through Hilbert's operator programme and Pólya's spectral answer, to the three agents who measured where the primes really live — in the flow and in the zeros, not in the level statistics.</em></p>
 
-[← Назад к главному README](../../README.ru.md)
+> **Φ_p = ½ln p; exact co-location (Φ_p,Φ_q) ≡ Φ_pq (1.35e-14); resolution kernel δ(d) with ξ_mult ≈ 2–3 cells; ψ-ladder: corr = 0.972 for zeros, null zone for gates; universality washes the codings out.**
 
-## Содержание
+[← Back to the main README](../../README.md)
 
-1. [Вопрос кампании](#вопрос-кампании)
-2. [Результаты](#результаты)
-3. [Метод](#метод)
-4. [Рисунки](#рисунки)
-5. [Монографии](#монографии)
-6. [Данные](#данные)
-7. [Воспроизведение](#воспроизведение)
-8. [Честные замечания](#честные замечания)
-9. [Вердикт](#вердикт)
+## Contents
+
+1. [The question](#the-question)
+2. [Background: where the arithmetic could hide](#background-where-the-arithmetic-could-hide)
+3. [The prime-flow picture](#the-prime-flow-picture)
+4. [T4: exact co-location](#t4-exact-co-location)
+5. [T5: the resolution kernel δ(d)](#t5-the-resolution-kernel-dd)
+6. [M2: the ψ-ladder](#m2-the-ψ-ladder)
+7. [M3: universality washes the codings out](#m3-universality-washes-the-codings-out)
+8. [Method step by step](#method-step-by-step)
+9. [Controls](#controls)
+10. [Results](#results)
+11. [How to read the numbers](#how-to-read-the-numbers)
+12. [Interpretation: H5 = NO, and why that is precise](#interpretation-h5--no-and-why-that-is-precise)
+13. [Reproduction](#reproduction)
+14. [Data and figures](#data-and-figures)
+15. [Honest notes](#honest-notes)
+16. [Verdict](#verdict)
+17. [FAQ](#faq)
+18. [See also](#see-also)
 
 ---
 
-## Вопрос кампании
+## The question
 
-Живёт ли арифметика простых в фазовом слое вихревого облака? Три вопроса: композит ли поток (M1); кодирует ли лестница ψ(x) нулевую структуру ζ (M2); видит ли спектр кодировки, или универсальность GUE стирает всё (M3). Ответы: поток композитит точно, лестница согласована с нулями, спектр — нет.
+Does the arithmetic of primes live in the phase layer of the vortex cloud? Three questions. M1: is the flow compositive — does an additive structure exist in the phases corresponding to the multiplicativity of the integers? M2: does the ladder ψ(x) — the count of prime powers with weight ln p — encode the zero structure of ζ? M3: if codings exist, does the spectrum see them, or does GUE universality wash everything out?
 
-## Результаты
+The answers form a coherent picture, and the campaign committed it as four booleans in `data/results.json`: M1_colocation_exact = true, M2_zeros_encode_primes = true, M2_gates_null = true, M3_universality_washes = true. In words: the flow composites exactly, the ladder matches the zeros, the spectrum does not.
 
-| Величина | Значение | Статус |
+This triple answer is the campaign's real content. It is easy to say "the primes are somewhere in the physics"; C6 instead draws a map with two green zones and one red zone — the flow (exact, proven), the zeros (correlation 0.972, measured), the level statistics (blind, measured) — and the map is what makes the subsequent negative verdicts of the package constructive rather than merely sour.
+
+## Background: where the arithmetic could hide
+
+The Hilbert–Pólya programme asks for a self-adjoint operator whose eigenvalues are the imaginary parts 1/2 + iγ_n of the zeta zeros. Any honest candidate must carry the primes somewhere: the zeros are not generic numbers, they are the characteristic values of the global arithmetic of ℤ, and an operator that generates them must in some encoding contain the von Mangoldt weights Λ(n)/√n. The package's stage 5 (T6, the trace formula for H_ξ) proves exactly this for the zero operator: the thermal trace of H_ξ contains the Λ(n)/√n comb, verified to |ΔK| ≤ 1.2e-5.
+
+But *where* in a physical operator should the primes sit? The resonator of this package is a lattice: L×L sites, hopping with phases, vortices carrying flux. A lattice offers three distinct places to write arithmetic into physics: the **positions** of the vortices, the **phases** (fluxes) attached to them, and the resulting **spectrum**. Campaign C10 would later show that position-codings are exact but spectrally invisible; campaign C6, run on the phase layer, is the chapter that maps the phase route. It asks the three M-questions precisely because the three hiding places demand separate tests — a coding that is exact in one layer may be erased in another, and the campaign's design (fixed positions, varied phase codings in M3; fixed phase law, varied objects in M2) separates the layers cleanly.
+
+The phase layer has one structural advantage: the flux is an *additive* object by nature. Phases add when paths compose; and the logarithm — the unique continuous homomorphism from multiplication to addition — is the natural language of primes, since ln(pq) = ln p + ln q is the exact statement that primes generate the positive integers multiplicatively. If primes can be written into a lattice at all with exactness, it should happen as a flux law.
+
+<p align="center"><img src="../../assets/avatars/hp_riemann.svg" width="120" alt="Riemann avatar"/></p>
+<p align="center"><em>Riemann's explicit formula already told us the primes and the zeros are two faces of one object. C6 asks the physical question: on a lattice, which layer of the resonator carries that identity — and which layers only pretend to?</em></p>
+
+## The prime-flow picture
+
+The flow law is Φ_p = c·ln p on the lattice phases, with c = 0.5 — the committed configuration stores C_flux = 0.5, giving the headline form Φ_p = ½ ln p. The factor ½ is not cosmetic: the whole dynamics of the series lives on the self-dual line α = ½, where the π-flux per plaquette turns the lattice into a discretised massless Dirac equation (criterion H4). Writing the primes with the same constant means the prime flux is expressed in the same units as the physics of the resonator — the primes are written *on* the line where the operator lives, not beside it.
+
+Under this law, multiplication becomes addition — exactly:
+
+- Φ_pq = ½ ln(pq) = ½ ln p + ½ ln q = Φ_p + Φ_q.
+
+That one line is the entire design. Each prime p carries a unique flux signature; a composite number pq does not need its own entry in the dictionary, because its flux is the sum of the two prime fluxes — the composite node of the phase layer is *automatically* the meeting point of the p-flow and the q-flow. Committed example (the pair stored in `data/results.json`): Φ_p = 0.34657359027997264, Φ_q = 0.5493061443340549, Φ_pq = 0.8958797346140275 — that is, p = 2, q = 3, pq = 6, with 0.34657359 + 0.54930614 = 0.89587973 to the last stored digit.
+
+The phrase "phase layer" is literal. The vortices of the resonator sit at lattice positions and carry angles θ; the flow attaches the prime fluxes to those angles, and the physics sees them through the vortex phase factors e^{iΦ} on the links. Nothing about the positions changes — which is exactly what makes the M3 test below clean: when the spectrum later fails to notice the codings, the failure cannot be blamed on moving targets.
+
+## T4: exact co-location
+
+**Theorem T4 (co-location) — proven, and measured.** Let Φ_p := ½ ln p be the flow of the prime. Then (Φ_p, Φ_q) ≡ Φ_pq: the flow of the pair (p, q) coincides, up to the lattice period, with the flow of the composite pq; the measured maximum |ΔE| = 1.35e-14.
+
+The proof is the line above — Φ_pq = Φ_p + Φ_q by the logarithm — but the theorem says more than the algebra: it says the *lattice realisation* preserves the identity. The phases are realised through floating-point angles (θ_k = atan2 in the engine), and atan2 is not a linear operation; a sceptic could expect rounding noise to blur the meeting of the two flows. The measurement answers: on the 24×24 grid the discrepancy never exceeds 1.354472090042691e-14 — machine-epsilon territory, the numerical signature of an identity, not an approximation.
+
+What does co-location mean physically? In the phase layer, the node labelled by the pair (p, q) and the node labelled by the composite pq are the *same node*: the flux of the composite is the superposition of the prime fluxes, so the composite does not merely resemble the pair — it is located exactly where the pair's flows coincide. This is the lattice version of unique prime factorisation: the dictionary of the flow needs only primes, and every integer is a meeting point of prime flows. Among all statements of the package, T4 is the purest: proven in one line, measured at 1.35e-14, and the foundation on which T5 and the honest-coding argument rest.
+
+The status pair "proven+measured" in the results table is deliberate. Proven: the identity holds by construction of the flow law. Measured: the engine's realisation of it on a finite lattice with floating-point phases is verified to 1.35e-14, so the exactness is a property of the shipped code, not only of the mathematics.
+
+## T5: the resolution kernel δ(d)
+
+Co-location being exact, the next question is resolution: *how far apart* can the two factors be before the phase layer stops resolving their composite as a meeting point? The answer is the resolution kernel δ(d) — the response of a composite node to the distance d between its factors — and it is theorem T5's content, measured.
+
+| d | δ_composite | additivity residual |
 |---|---|---|
-| Ко-локация (Φ_p,Φ_q) ≡ Φ_pq (T4) | max|ΔE| = 1.35e-14 | доказано+измерено |
-| Ядро разрешения δ(d) (T5) | 0 → 3.2e-3 → 1.5e-2 → ~2e-2 (d≈4–6) | ξ_mult ≈ 2–3 ячейки |
-| Аддитивность 1-го порядка | не выполняется (~1e-2) | отклик нелинеен |
-| ψ-лестница: эталон 200 нулей | corr = +0.972, max err 4.2 | вес простых у нулей |
-| ψ-лестница: затворы | +0.24/+0.13/+0.09/−0.12 | нулевая зона (Г5 — НЕТ) |
-| M3: 4 кодировки потока | ⟨r⟩ = 0.585–0.611, разброс 0.026 | один GUE-класс |
+| 0.0 | 1.354472090042691e-14 | 0.014859208990571915 |
+| 0.5 | 0.0032139432456332884 | 0.012745706368419984 |
+| 1.0 | 0.007188179921005733 | 0.011066544107845466 |
+| 1.5 | 0.01024896774357753 | 0.01078234329904637 |
+| 2.0 | 0.014700967234443585 | 0.012199940619781469 |
+| 3.0 | 0.01795238376580266 | 0.009511412624978899 |
+| 4.0 | 0.01778104413943904 | 0.009242201045333687 |
+| 6.0 | 0.019059807507270987 | 0.01037607576074584 |
+| 8.0 | 0.0213299700426014 | 0.01279532231531677 |
+| 11.0 | 0.02355717488838438 | 0.011501998803005176 |
 
-## Метод
+Read from the committed table: 0 → 3.2e-3 at d = 0.5 → 1.5e-2 at d = 2 → saturation at ~2e-2 for d ≈ 4–6 and beyond (the kernel keeps creeping — 0.0213 at d = 8, 0.0236 at d = 11 — but the informative scale is set long before). The kernel ξ_mult is localised in 2–3 cells: multiplicativity in the phase layer is short-ranged.
 
-Поток: Φ_p = ½ln p на решёточных фазах; ко-локация — совпадение узла (p,q) с узлом pq в фазовом слое. Ядро δ(d) — отклик композитного узла на расстояние d между сомножителями. ψ-лестница: эталон по первым 200 нулям ψ_ζ(x) = x − √x·Σe^{iγ ln x}/(½+iγ) − ln2π − ½ln(1−x⁻²) против сита фон Мангольдта до 10⁶; методический урок — окно на γ~500 даёт corr 0.48, эталон обязан быть на тех же высотах. Кодировки M3 — случайная, 1/√p, ln p, D10 — при фиксированных позициях.
+The second column carries a subtlety the campaign is careful about: first-order additivity does *not* hold — the additivity residuals sit at ~1e-2 across the whole range. The response is nonlinear, and the nonlinearity is not a defect: it is what carries compositeness. A perfectly linear kernel would make the composite node a trivial superposition of its factors, indistinguishable from an empty sum; the measured ~1e-2 nonlinearity is the mathematical room in which "pq" is a genuinely new object rather than a shadow of "p + q". The monograph draws the conclusion in one sentence: a linear approximation of the kernel would destroy the co-location.
 
-## Рисунки
+Why does the saturation scale matter for the rest of the package? Because it sets the *range* over which arithmetic in the phases can influence local observables: 2–3 lattice cells. Anything spectrally global — level statistics over 200-level windows — aggregates over distances where the kernel has long saturated; the phase layer's arithmetic is real but short-sighted, which is one structural reason (alongside the M3 result below) why the spectrum never sees it.
 
-| Файл | Где |
-|---|---|
-| `fig11_coloc.png` | 600 dpi — `figures_hires/ru/fig11_coloc.png`; экран — `figures/ru/` |
-| `fig12_psi.png` | 600 dpi — `figures_hires/ru/fig12_psi.png`; экран — `figures/ru/` |
+<p align="center"><img src="../../assets/avatars/hp_hilbert.svg" width="124" alt="Hilbert avatar"/></p>
+<p align="center"><em>Hilbert asked for the operator; C6 measures the plumbing. The flow is exact (T4), the resolution is short-ranged (T5) — the two facts every later verdict about spectral blindness must be consistent with.</em></p>
 
-## Монографии
+## M2: the ψ-ladder
 
-`monograph_ru.docx` · `monograph_ru.pdf` · `monograph_en.docx` · `monograph_en.pdf`
+The ψ-ladder is the campaign's bridge between the phase layer and the zeros. The Chebyshev function ψ(x) = Σ_{n≤x} Λ(n) — the staircase that climbs by ln p at every prime power — is the sharpest analytic encoding of the primes, and the explicit formula is its exact decomposition into zeros. C6 builds the reference ladder from the first 200 zeros:
 
-Полная монография этого вычисления (постановка, теоремы, таблицы, рисунки,
-честные ограничения): 7–9 страниц, один и тот же контент на двух языках.
+ψ_ζ(x) = x − √x·Σ e^{iγ ln x}/(½+iγ) − ln 2π − ½ln(1−x⁻²),
 
-## Данные
+and compares it against the von Mangoldt sieve computed up to 10⁶, on a 35-point x-grid from 2 to 1000 (2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 16, 20, 23, 28, 32, 40, 45, 56, 64, 80, 90, 110, 128, 160, 181, 220, 256, 300, 362, 430, 512, 600, 724, 850, 1000). The committed correlation is corr = 0.9723071126846038 — the table's +0.972 — with a maximal pointwise deviation of 4.16024943470552 (max err 4.2), which occurs at x = 181 (sieve 185.05438465464078 against ladder 180.89413521993527): the 200-zero truncation at work, in the direction and magnitude a truncated explicit formula predicts.
 
-| Файл | Содержание |
-|---|---|
-| `data/results.json` | закоммиченный вердикт кампании |
-| `data/` (npz/csv) | кривые и таблицы |
-| `../data/c6_*.json` | дубликат вердикта в общем реестре |
+A few committed points of the two curves:
 
-## Воспроизведение
+| x | ψ sieve (true) | ψ ladder (200 zeros) |
+|---|---|---|
+| 2 | 0.6931471805599453 | 0.3275141791332455 |
+| 9 | 7.832014180505469 | 7.22551884946709 |
+| 32 | 32.6036329466109 | 31.161547581858912 |
+| 90 | 89.470600250854 | 88.85965888773036 |
+| 181 | 185.05438465464078 | 180.89413521993527 |
+| 512 | 514.7983020169578 | 512.6096699006794 |
+| 1000 | 996.6809122471755 | 996.959554522636 |
+
+The methodological lesson of the debugging stage deserves its own paragraph, because it is a transferable rule. An early window placed at heights γ ~ 500 produced a correlation of only 0.48 — a frustrating number that turned out to be entirely about mismatched scales: the sieve up to 10⁶ lives at x ≤ 1000, and comparing it against a zero-window centred near γ ≈ 500 compares two objects sampled at different heights. The rule that survived into `docs/methods.md`: the reference window must live at the same heights where the sieve operates. With the window on the first 200 zeros — matching the sieve's range — the correlation is +0.972. Nothing about the zeros changed between the two attempts; only the honesty of the comparison did.
+
+Then the same test is pointed at the gates. The ladder correlations with the sieve:
+
+| Object | corr with sieve | Zone |
+|---|---|---|
+| Reference: first 200 zeros | +0.972 | identity (prime weight) |
+| Best gate (Nv=16) | +0.239 | null zone |
+| Nv=32 | +0.133 | null zone |
+| Clean lattice | −0.116 | null zone |
+| GUE null (12 runs) | +0.154±0.197 | null zone |
+
+The committed full-precision values: BEST Nv=16 q=1 W=0.5 α=0.5 → 0.23893272125185583; Nv=32 q=1 W=0.5 α=0.5 → 0.1326815308752718; REF Nv=2 q=1 W=1 α=0.5 → 0.08924479451269134; CLEAN Nv=0 α=0.5 → −0.11578053498103219. The decoy null (12 runs) is +0.050±0.153. Every gate value sits inside the null bands: the results table compresses them to +0.24/+0.13/+0.09/−0.12, null zone (H5 — NO).
+
+This is the second projection of the H2 gap — the ladder of primes is the prerogative of the zeros, and the gates do not reproduce it. Together with the rank correlation of C3 and the heat trace of C4 it completes a triple of mutually independent confirmations of one and the same fact: the spectral identity fails, and it fails in every direction the package knows how to point a measuring instrument.
+
+## M3: universality washes the codings out
+
+The third question is the deepest. Suppose the flow codings are real — T4 proves they are — does the *spectrum* notice which coding was injected? C6 tries four codings of the flow into vortex phases — random, prime with weight 1/√p, logarithmic ln p, and the D10 convention — at fixed positions, and measures the resulting level statistics.
+
+| Coding | ⟨r⟩ | sd | D vs ζ | D sd |
+|---|---|---|---|---|
+| RND | 0.6112241368063356 | 0.012098250038491663 | 0.04908436361147047 | 0.00033670269941612547 |
+| PRIME_Q | 0.5866467628065686 | 0.00281057640802863 | 0.09601488434044679 | 0.014849105632365907 |
+| PRIME_LOG | 0.5877278446703692 | 0.02452235004549674 | 0.06797908552923247 | 0.01479693759447552 |
+| ZETA_POS | 0.5852906243701436 | 0.003037983704320734 | 0.06005045270973448 | 0.007985439612019533 |
+
+All four codings give ⟨r⟩ = 0.585–0.611 and D(ζ) = 0.049–0.096: one and the same GUE class. The spread between codings (0.02593351243619202, the table's 0.026) is half the within-coding spread — the coding contributes less variance than the sampling noise around it. Universality erases the arithmetic content of the phase as reliably as annealing erases thermal history: the spectrum records the symmetry class of the input, not its message.
+
+This is exactly why encoding primes into a spectrum — say, the ±E dictionary of excited states — is a universal mechanism without RH-proving force: whatever you write in, GUE comes out. And it is why an honest coding must present itself in the flow (T4) and in the ladder (M2), not in the level statistics. The negative result is not a failure of the codings; it is a measurement of the witness. The spectrum is an unreliable narrator of arithmetic, and the package now has that on record with numbers.
+
+## Method step by step
+
+1. **Flow law.** Attach Φ_p = c·ln p with c = C_flux = 0.5 to the prime phases on the 24×24 lattice (L = 24, committed 2026-10-10): the phase layer now carries the prime dictionary, positions fixed.
+2. **M1 — co-location and kernel.** For pairs (p, q): compare the composite node pq against the superposition of the p and q nodes in the phase layer (max |ΔE|); sweep the factor distance d over {0, 0.5, 1, 1.5, 2, 3, 4, 6, 8, 11} to measure the kernel δ(d) and the additivity residuals.
+3. **M2 — the ladder.** Compute ψ_ζ from the first 200 zeros (explicit formula above) and the von Mangoldt sieve up to 10⁶; correlate on the 35-point grid; repeat the correlation with the gate spectra (BEST Nv=16, Nv=32, REF Nv=2, CLEAN Nv=0) and against 12 GUE surrogates and 12 decoys.
+4. **M3 — the codings.** Encode the flow four ways (RND, PRIME_Q = 1/√p, PRIME_LOG = ln p, ZETA_POS = D10) at fixed positions; run the C3 statistics conveyor (⟨r⟩, D vs ζ) on each.
+5. **Commit.** `data/results.json` stores the meta (L = 24, C_flux = 0.5, the flux law), the M1 kernel, the M2 curves and correlations, the M3 rows, and the four verdict booleans; the shared registry carries the duplicate `../data/c6_primes_verdict.json`.
+
+## Controls
+
+- **Positive control (the method's eyes).** The ψ-ladder itself is a positive control built into the campaign: corr = 0.972 for the zeros shows the method sees the prime weight when it exists. The gate values +0.24/+0.13/+0.09/−0.12 are read against exactly this certified instrument.
+- **Null distributions.** 12 GUE surrogates (+0.154±0.197) and 12 decoys (+0.050±0.153) calibrate the ladder null; the gate correlations sit inside both bands.
+- **Matched-heights discipline.** The rejected γ ~ 500 window (corr 0.48) is kept as a documented negative calibration: the reference must live at the same heights as the sieve.
+- **Fixed positions in M3.** The four codings differ only in the phase payload, never in vortex positions — any spectral difference would have been attributable to the coding alone; the measured spread 0.026 attributes it to nothing at all.
+- **Exactness floor.** The M1 measurement 1.35e-14 doubles as a numerical control: the phase machinery (atan2 realisation, floating-point phases) is verified to machine precision before anything downstream is believed.
+
+## Results
+
+The committed results table of the campaign, reproduced exactly:
+
+| Quantity | Value | Status |
+|---|---|---|
+| Co-location (Φ_p,Φ_q) ≡ Φ_pq (T4) | max\|ΔE\| = 1.35e-14 | proven+measured |
+| Resolution kernel δ(d) (T5) | 0 → 3.2e-3 → 1.5e-2 → ~2e-2 (d≈4–6) | ξ_mult ≈ 2–3 cells |
+| First-order additivity | fails (~1e-2) | the response is nonlinear |
+| ψ-ladder: 200-zero reference | corr = +0.972, max err 4.2 | the prime weight of the zeros |
+| ψ-ladder: gates | +0.24/+0.13/+0.09/−0.12 | null zone (H5 — NO) |
+| M3: 4 flow codings | ⟨r⟩ = 0.585–0.611, spread 0.026 | one GUE class |
+
+Paragraph by paragraph.
+
+**Co-location (T4).** Proven by the flow law and measured at max|ΔE| = 1.354472090042691e-14: multiplication of integers is addition of fluxes, and the lattice realisation preserves the identity at machine level. The dictionary of the phase layer needs only primes.
+
+**Resolution kernel (T5).** The composite-node response grows 0 → 3.2e-3 → 1.5e-2 and saturates at ~2e-2 for d ≈ 4–6, with ξ_mult ≈ 2–3 cells: multiplicativity is short-ranged in the phase layer. The kernel's localisation is the scale on which phase-arithmetic can talk to local observables — and no further.
+
+**First-order additivity.** It fails at ~1e-2 across the whole d-range (residuals 0.0092–0.0149 in the committed table): the response is nonlinear, and the nonlinearity is what makes a composite a new object rather than a trivial sum. A linearised kernel would erase the very compositeness it is meant to detect.
+
+**ψ-ladder reference.** corr = +0.972 (0.9723071126846038) with max err 4.2 (4.16024943470552, at x = 181): the explicit formula over the first 200 zeros reproduces the von Mangoldt sieve to 10⁶ — the prime weight of the zeros, measured with the matched-heights discipline that the rejected γ ~ 500 window (corr 0.48) forced on the campaign.
+
+**ψ-ladder gates.** +0.24/+0.13/+0.09/−0.12 (0.23893272125185583, 0.1326815308752718, 0.08924479451269134, −0.11578053498103219), all inside the null bands of the GUE and decoy surrogates: H5 — NO, measured. The gates do not carry the ladder of primes.
+
+**M3 codings.** Four codings at fixed positions, ⟨r⟩ = 0.585–0.611, spread 0.026: one GUE class. The spectrum is blind to the payload; universality washes the codings out.
+
+## How to read the numbers
+
+- **max|ΔE| = 1.35e-14** — the largest energy-scale discrepancy between the composite node pq and the additive superposition (Φ_p, Φ_q), over the committed pair set. Machine epsilon on this hardware is the floor; the number means "identity", and any value three or more orders larger would mean "approximation".
+- **δ(d)** — the response of a composite node to factor distance d. Its units are phase-response units; the meaningful read is the shape: rise over ~2 cells, saturation ~2e-2. ξ_mult ≈ 2–3 cells is the localisation length of multiplicativity itself.
+- **additivity residual** — the failure of the first-order (linear) superposition model, ~1e-2. Read it as the nonlinearity budget: the smaller column of the two, but the one that carries the physics.
+- **corr** — Pearson correlation on the 35-point grid. The three numbers to hold together: 0.972 (zeros), 0.48 (mismatched window, rejected), ≤ 0.24 (all gates). The distance between 0.972 and 0.24 is the H5 verdict; the distance between 0.48 and 0.972 is the matched-heights lesson.
+- **max err 4.2** — the worst pointwise deviation of the truncated ladder from the sieve, at x = 181: the price of truncating the explicit formula at 200 zeros, not an error of the sieve or the pipeline.
+- **⟨r⟩ and spread** — the GUE marker and the between-coding spread of M3. The reading: 0.585–0.611 is one class; 0.026 is smaller than the within-coding noise; the codings are statistically indistinguishable *as spectra*.
+
+## Interpretation: H5 = NO, and why that is precise
+
+<p align="center"><img src="../../assets/avatars/hp_polya.svg" width="120" alt="Pólya avatar"/></p>
+<p align="center"><em>Pólya's half of the programme was spectral: make the zeros vibrate. C6 states the price of that wish in measured numbers — a spectrum that universalises cannot also testify.</em></p>
+
+The verdict H5 = NO is a negative with unusually sharp edges, because it arrives with its positive control attached. The same instrument, on the same day, in the same pipeline, reads corr = 0.972 on the zeros and ≤ 0.24 on every gate: the ladder test is not deaf — it is the gates that are silent. That is what "H5 — NO, measured" means in this package: not "we could not find the primes in the gates", but "we built the instrument that finds primes (T4's exactness, M2's 0.972), pointed it at all the gates we have, and recorded silence — while the zeros, as the explicit formula promised, rang".
+
+The M3 result gives the silence its mechanism, and the mechanism is the campaign's deepest sentence: **universality is an attractor, not a witness.** A spectrum in the GUE class absorbs whatever coding is injected and returns the same statistics — the attractor does not preserve the information needed to testify about the input. Hence the epistemology the package adopts from C6 onward: spectral statistics can never certify arithmetic; an honest coding of the primes must show itself where the erasure does not reach — in exact flow identities (T4) and in the zero-encoded ladder (M2). This is also the final piece of the three-projection picture of the H2 gap: rank correlation (C3), heat trace (C4), ψ-ladder (C6) — three independent instruments, one answer, and now a mechanism explaining why all three had to agree.
+
+The consequence for the Hilbert–Pólya programme is stated in the monograph's conclusion and is worth quoting in substance: primes are encoded in the structure of the zeros; the road to the operator runs through generating them, not through copying them. An operator that *almost exists* — the resonator of stages 4–5, tuned by H1/H3/H4 — cannot be corrected by writing prime numbers into its phases more cleverly; the failure is architectural, and the roadmap's nonlocal programme is the honest response to an architectural failure.
+
+## Reproduction
 
 ```bash
-# экскурсия по вердикту (~секунды, файл нулей не нужен)
+# excursion through the verdict (~seconds, no zeros file needed)
 python3 campaigns/run_c6_primes.py
 ```
 
-Сид серии — 96; потоки RNG фиксированы (engine/hamiltonian.py). Все
-зависимости — в `requirements.txt`.
+The series seed is 96; the RNG streams are fixed (engine/hamiltonian.py). All dependencies are in `requirements.txt`. The script replays the committed verdict from `data/c6_primes_verdict.json`: the co-location figure, the ladder correlation, the M3 universality block and the verdict booleans — seconds, no zeros file required for the excursion. The full M2 ladder recomputation uses the committed zeros set and the sieve up to 10⁶.
 
-## Честные замечания
+## Data and figures
 
-> Г5 — отрицательный вердикт с позитивным контролем:corr 0.972 у нулей показывает, что метод видит вес простых, когда он есть.
-> Кодировки в спектре (M3) — универсальный механизм без RH-доказательной силы; честная кодировка предъявляет себя в потоке (T4) и лестнице (M2).
+| File | Content |
+|---|---|
+| `data/results.json` | the committed verdict of the campaign |
+| `data/` (npz/csv) | curves and tables |
+| `../data/c6_*.json` | duplicate of the verdict in the shared registry (`../data/c6_primes_verdict.json`) |
 
-## Вердикт
+| File | Where |
+|---|---|
+| `fig11_coloc.png` / `fig11_coloc_en.png` | 600 dpi — `figures_hires/ru/fig11_coloc.png` · `figures_hires/en/fig11_coloc_en.png`; screen — `figures/ru/` · `figures/en/` |
+| `fig12_psi.png` / `fig12_psi_en.png` | 600 dpi — `figures_hires/ru/fig12_psi.png` · `figures_hires/en/fig12_psi_en.png`; screen — `figures/ru/` · `figures/en/` |
 
-**{'ru': 'T4 доказана; Г5 — НЕТ, измерено; универсальность стирает кодировки', 'en': 'T4 proven; H5 — NO, measured; universality washes the codings out'}** — подробности: `data/results.json`, монография, и
-`independent_verification/` (IVP-проверки этой кампании).
+`fig11_coloc` draws the resolution kernel δ(d): growth from 0 to saturation ~2e-2 at d ≈ 4–6 — multiplicativity localised in 2–3 cells. `fig12_psi` overlays the von Mangoldt sieve (teal, thick) against the 200-zero ladder (copper, dashed): correlation 0.972.
+
+Monographs: `monograph_ru.docx` · `monograph_ru.pdf` · `monograph_en.docx` · `monograph_en.pdf`. The full monograph of this computation (setup, theorems, tables, figures, honest limitations): 7–9 pages, identical content in both languages.
+
+## Honest notes
+
+> H5 is a negative verdict with a positive control: the 0.972 correlation for the zeros shows the method sees the prime weight when it exists.
+
+> Spectral codings (M3) are a universal mechanism without RH-proving force; an honest coding presents itself in the flow (T4) and the ladder (M2).
+
+## Verdict
+
+**{'ru': 'T4 доказана; Г5 — НЕТ, измерено; универсальность стирает кодировки', 'en': 'T4 proven; H5 — NO, measured; universality washes the codings out'}** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign).
+
+## FAQ
+
+**1. What exactly is "the phase layer"?**
+The angular degrees of freedom of the resonator: the vortex angles θ and the flux phases e^{iφ} on the links, as opposed to the vortex positions and the resulting spectrum. C6 writes the primes into the phases (Φ_p = ½ ln p) while deliberately keeping positions fixed — the cleanest possible isolation of one hiding place.
+
+**2. If co-location is exact, why doesn't the spectrum show primes?**
+Because the spectrum is downstream of an attractor. The kernel δ(d) shows the arithmetic is real but short-ranged (ξ_mult ≈ 2–3 cells), and M3 shows the level statistics are identical for four different codings: universality erases the payload before it reaches the statistics. Exactness in the flow and blindness in the spectrum are consistent — the erasure happens between them.
+
+**3. Why the factor ½ in Φ_p = ½ ln p?**
+It puts the prime flux on the self-dual line α = ½, the only line where the package's dynamics lives (the π-flux that turns the lattice into a discretised massless Dirac equation, H4). The committed flux law is Φ_p = c·ln p with c = 0.5; the primes are written in the operator's own units.
+
+**4. Is corr = 0.972 a proof that the zeros encode the primes?**
+It is a measurement, and a deliberately honest one: the reference ladder is *built from* the zeros via the explicit formula, so the correlation certifies the pipeline and quantifies the truncation (max err 4.2), while the mathematical statement that zeros encode primes is the explicit formula itself. In this campaign the 0.972 also serves as the positive control that gives the gate-side silence its meaning.
+
+**5. Why did the γ ~ 500 window fail, and why is the failure documented?**
+The sieve to 10⁶ lives at x ≤ 1000; a zero-window near γ ≈ 500 compares objects at different heights, and the correlation collapsed to 0.48. The failure is kept as a calibration: any future ladder comparison must match the heights. The rule is recorded in `docs/methods.md`.
+
+**6. What would change the H5 verdict?**
+A gate family whose ψ-ladder correlation escapes the null bands (GUE +0.154±0.197, decoys +0.050±0.153) toward the 0.972 the zeros reach — or a heat-trace projection leaving its null cloud as PC0 does at 0.9998. Within the local lattice class, C5's six-dimensional sweep and C6's ladder agree that this does not happen; the open route is nonlocal, and it lives in the roadmap.
+
+## See also
+
+- [C3 — the gate family](../C3_gate_family/README.md): the rank-correlation projection of the H2 gap that the ψ-ladder here completes.
+- [C4 — the trace formula](../C4_trace_formula/README.md): the heat-trace projection (T6), where the Λ(n)/√n weight is proven to live — in the zero operator.
+- [Theory map](../../docs/theory.md): the five stages, the three projections of the gap, and the H1–H5 scorecard logic.
+- [Roadmap](../../results/ROADMAP.md): the nonlocal programme — the honest response to an architectural failure.
+- [Results registry](../../results/RESULTS.md): rows 16, 17 and 18 hold the co-location, kernel-saturation and ladder numbers committed here.
 
 ---
-*Hilbert Polya Bridge v1.0.0 · C6 · Поток простых, ядро ко-локации и ψ-лестница*
+*Hilbert Polya Bridge v1.0.0 · C6 · The prime flow, the co-location kernel and the ψ-ladder*
+

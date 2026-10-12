@@ -20,6 +20,17 @@ Tr e^(−uH).**
 
 *v1.0.0 · 2026-10-10 · 8 campaigns · 10 theorems · 3 projections of one gap*
 
+<div align="center">
+
+<img src="assets/avatars/hp_cast_strip.svg" alt="The Bridge avatar cast" width="820"/>
+
+*The Bridge avatar cast — Riemann, Hilbert, Pólya, and Agents Atlas, Lyra
+and Vera — guide the package's documentation. Start with the
+[Extended Research Edition](README.ru.md) (the five-fold deep companion),
+or dive straight into any campaign under [`computations/`](computations/).*
+
+</div>
+
 ---
 
 ---

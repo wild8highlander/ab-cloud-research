@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 300" width="1260" height="300">
+  <!-- Hilbert–Pólya Bridge · Avatar Cast Strip · geometric duotone style -->
+  <rect x="0" y="0" width="1260" height="300" rx="18" fill="#0B1E3A"/>
+  <rect x="10" y="10" width="1240" height="280" rx="12" fill="none" stroke="#E8A33D" stroke-width="2" stroke-dasharray="10 6"/>
+  <text x="630" y="44" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="22" letter-spacing="4" fill="#F5EDE0">THE HILBERT&#8211;&#211;LYA BRIDGE CAST</text>
+
+  <!-- embedded avatars via inline use of simplified geometry -->
+  <!-- slot geometry: centers at x = 130, 330, 530, 730, 930, 1130; badge cy = 160, r = 78 -->
+
+  <!-- 1 · Riemann -->
+  <circle cx="130" cy="160" r="78" fill="#F5EDE0" stroke="#E8A33D" stroke-width="3.5"/>
+  <clipPath id="c1"><circle cx="130" cy="160" r="74"/></clipPath>
+  <g clip-path="url(#c1)">
+    <path d="M130 216 C 96 216 74 236 70 264 L 190 264 C 186 236 164 216 130 216 Z" fill="#0B1E3A"/>
+    <path d="M130 216 L 117 223 L 130 246 L 143 223 Z" fill="#F5EDE0"/>
+    <path d="M125 218 L 130 233 L 135 218 Z" fill="#8C2F2F"/>
+    <ellipse cx="130" cy="158" rx="29" ry="34" fill="#E8C39E"/>
+    <path d="M102 152 C 100 122 116 112 130 112 C 146 112 162 122 160 146 C 152 130 144 126 130 126 C 116 126 106 134 102 152 Z" fill="#3A2A1E"/>
+    <path d="M102 154 C 98 164 100 176 107 184 L 112 178 C 107 171 105 162 107 155 Z" fill="#3A2A1E"/>
+    <path d="M158 154 C 162 164 160 176 153 184 L 148 178 C 153 171 155 162 153 155 Z" fill="#3A2A1E"/>
+    <circle cx="119" cy="158" r="2.8" fill="#0B1E3A"/><circle cx="141" cy="158" r="2.8" fill="#0B1E3A"/>
+    <path d="M121 150 Q 126 148 131 150 M 129 150 Q 134 148 139 150" stroke="#3A2A1E" stroke-width="2" fill="none"/>
+  </g>
+  <text x="130" y="278" text-anchor="middle" font-family="Georgia, serif" font-size="14" letter-spacing="2" fill="#F5EDE0">B. RIEMANN &#183; &#950;</text>
+
+  <!-- 2 · Hilbert -->
+  <circle cx="330" cy="160" r="78" fill="#F5EDE0" stroke="#E8A33D" stroke-width="3.5"/>
+  <clipPath id="c2"><circle cx="330" cy="160" r="74"/></clipPath>
+  <g clip-path="url(#c2)">
+    <path d="M330 216 C 296 216 274 236 270 264 L 390 264 C 386 236 364 216 330 216 Z" fill="#1E3350"/>
+    <path d="M330 216 L 318 222 L 330 244 L 342 222 Z" fill="#F5EDE0"/>
+    <path d="M327 218 L 330 234 L 333 218 Z" fill="#8C2F2F"/>
+    <ellipse cx="330" cy="158" rx="29" ry="34" fill="#EBCFAE"/>
+    <path d="M304 148 C 306 128 316 120 330 120 C 344 120 354 128 356 148 C 354 138 344 132 330 132 C 316 132 306 138 304 148 Z" fill="#B9B2A6"/>
+    <circle cx="317" cy="160" r="9.5" fill="none" stroke="#0B1E3A" stroke-width="2.6"/>
+    <circle cx="343" cy="160" r="9.5" fill="none" stroke="#0B1E3A" stroke-width="2.6"/>
+    <path d="M326 160 L 334 160" stroke="#0B1E3A" stroke-width="2.6"/>
+    <circle cx="317" cy="160" r="2.6" fill="#0B1E3A"/><circle cx="343" cy="160" r="2.6" fill="#0B1E3A"/>
+    <path d="M318 176 Q 330 182 342 176 Q 330 178 318 176 Z" fill="#8A8074"/>
+  </g>
+  <text x="330" y="278" text-anchor="middle" font-family="Georgia, serif" font-size="14" letter-spacing="2" fill="#F5EDE0">D. HILBERT &#183; &#8459;</text>
+
+  <!-- 3 · Pólya -->
+  <circle cx="530" cy="160" r="78" fill="#F5EDE0" stroke="#E8A33D" stroke-width="3.5"/>
+  <clipPath id="c3"><circle cx="530" cy="160" r="74"/></clipPath>
+  <g clip-path="url(#c3)">
+    <path d="M530 216 C 496 216 474 236 470 264 L 590 264 C 586 236 564 216 530 216 Z" fill="#4A5A52"/>
+    <path d="M530 216 L 518 222 L 530 244 L 542 222 Z" fill="#F5EDE0"/>
+    <path d="M527 218 L 530 236 L 533 218 Z" fill="#8C2F2F"/>
+    <ellipse cx="530" cy="158" rx="29" ry="34" fill="#E3BC93"/>
+    <path d="M502 154 C 498 128 512 114 530 114 C 548 114 562 128 558 154 C 554 138 544 130 530 130 C 516 130 506 138 502 154 Z" fill="#D8D3C8"/>
+    <circle cx="517" cy="160" r="8.5" fill="none" stroke="#7A6A2F" stroke-width="2.2"/>
+    <circle cx="543" cy="160" r="8.5" fill="none" stroke="#7A6A2F" stroke-width="2.2"/>
+    <path d="M526 158 Q 530 156 534 158" stroke="#7A6A2F" stroke-width="2.2" fill="none"/>
+    <circle cx="517" cy="160" r="2.6" fill="#0B1E3A"/><circle cx="543" cy="160" r="2.6" fill="#0B1E3A"/>
+    <path d="M514 176 C 521 171 527 174 530 174 C 533 174 539 171 546 176 C 539 181 533 179 530 179 C 527 179 521 181 514 176 Z" fill="#D8D3C8"/>
+  </g>
+  <text x="530" y="278" text-anchor="middle" font-family="Georgia, serif" font-size="14" letter-spacing="2" fill="#F5EDE0">G. P&#211;LYA &#183; &#955;</text>
+
+  <!-- 4 · Agent Atlas -->
+  <circle cx="730" cy="160" r="78" fill="#F5EDE0" stroke="#2EA08F" stroke-width="3.5"/>
+  <clipPath id="c4"><circle cx="730" cy="160" r="74"/></clipPath>
+  <g clip-path="url(#c4)">
+    <path d="M730 216 C 696 216 674 236 670 264 L 790 264 C 786 236 764 216 730 216 Z" fill="#123A45"/>
+    <rect x="710" y="228" width="40" height="8" rx="4" fill="#2EA08F"/>
+    <path d="M730 112 L 730 100" stroke="#0B1E3A" stroke-width="3.4" stroke-linecap="round"/>
+    <circle cx="730" cy="96" r="5" fill="#E8A33D" stroke="#0B1E3A" stroke-width="2.2"/>
+    <rect x="704" y="122" width="52" height="62" rx="22" fill="#DCE8E4" stroke="#0B1E3A" stroke-width="2.6"/>
+    <rect x="709" y="142" width="42" height="18" rx="9" fill="#0B1E3A"/>
+    <rect x="714" y="147" width="20" height="3.4" rx="1.7" fill="#2EA08F"/>
+    <rect x="738" y="147" width="9" height="3.4" rx="1.7" fill="#E8A33D"/>
+    <path d="M722 186 L 738 186 M 726 191 L 734 191" stroke="#0B1E3A" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+  <text x="730" y="278" text-anchor="middle" font-family="Georgia, serif" font-size="14" letter-spacing="2" fill="#F5EDE0">AGENT ATLAS &#183; DIRECTOR</text>
+
+  <!-- 5 · Agent Lyra -->
+  <circle cx="930" cy="160" r="78" fill="#F5EDE0" stroke="#E8A33D" stroke-width="3.5"/>
+  <clipPath id="c5"><circle cx="930" cy="160" r="74"/></clipPath>
+  <g clip-path="url(#c5)">
+    <path d="M930 216 C 896 216 874 236 870 264 L 990 264 C 986 236 964 216 930 216 Z" fill="#2E3A56"/>
+    <path d="M900 240 q 7 -9 14 0 t 14 0 t 14 0 t 14 0 t 14 0" stroke="#E8A33D" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <rect x="894" y="146" width="8" height="18" rx="4" fill="#0B1E3A"/>
+    <rect x="958" y="146" width="8" height="18" rx="4" fill="#0B1E3A"/>
+    <rect x="904" y="122" width="52" height="62" rx="24" fill="#EFE3D0" stroke="#0B1E3A" stroke-width="2.6"/>
+    <circle cx="919" cy="152" r="10" fill="#0B1E3A"/>
+    <circle cx="941" cy="152" r="10" fill="#0B1E3A"/>
+    <circle cx="919" cy="152" r="4" fill="#E8A33D"/>
+    <circle cx="941" cy="152" r="4" fill="#E8A33D"/>
+    <path d="M920 176 Q 930 183 940 176" stroke="#E8A33D" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  </g>
+  <text x="930" y="278" text-anchor="middle" font-family="Georgia, serif" font-size="14" letter-spacing="2" fill="#F5EDE0">AGENT LYRA &#183; ANALYST</text>
+
+  <!-- 6 · Agent Vera -->
+  <circle cx="1130" cy="160" r="78" fill="#F5EDE0" stroke="#2EA08F" stroke-width="3.5"/>
+  <clipPath id="c6"><circle cx="1130" cy="160" r="74"/></clipPath>
+  <g clip-path="url(#c6)">
+    <path d="M1130 216 C 1096 216 1074 236 1070 264 L 1190 264 C 1186 236 1164 216 1130 216 Z" fill="#16324A"/>
+    <path d="M1130 226 L 1144 233 L 1144 245 C 1144 255 1137 260 1130 263 C 1123 260 1116 255 1116 245 L 1116 233 Z" fill="#2EA08F"/>
+    <path d="M1123 244 L 1128 249 L 1138 238" stroke="#F5EDE0" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="1104" y="122" width="52" height="62" rx="20" fill="#E6DED2" stroke="#0B1E3A" stroke-width="2.6"/>
+    <rect x="1110" y="146" width="18" height="13" rx="3" fill="none" stroke="#0B1E3A" stroke-width="2.6"/>
+    <rect x="1132" y="146" width="18" height="13" rx="3" fill="none" stroke="#0B1E3A" stroke-width="2.6"/>
+    <rect x="1114" y="150" width="6" height="5" fill="#2EA08F"/>
+    <rect x="1136" y="150" width="6" height="5" fill="#2EA08F"/>
+    <path d="M1122 176 L 1138 176" stroke="#0B1E3A" stroke-width="2.6" stroke-linecap="round"/>
+  </g>
+  <text x="1130" y="278" text-anchor="middle" font-family="Georgia, serif" font-size="14" letter-spacing="2" fill="#F5EDE0">AGENT VERA &#183; VERIFIER</text>
+</svg>

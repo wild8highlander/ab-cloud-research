@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230" width="200" height="230">
+  <!-- Hilbert–Pólya Bridge avatar cast · Agent Atlas (Lab Director) · geometric duotone style -->
+  <defs>
+    <clipPath id="badgeClip"><circle cx="100" cy="92" r="86"/></clipPath>
+  </defs>
+  <circle cx="100" cy="92" r="90" fill="#0B1E3A"/>
+  <circle cx="100" cy="92" r="86" fill="#F5EDE0" stroke="#2EA08F" stroke-width="4"/>
+  <g clip-path="url(#badgeClip)">
+    <!-- shoulders: directive chassis -->
+    <path d="M100 150 C 60 150 34 172 30 210 L 170 210 C 166 172 140 150 100 150 Z" fill="#123A45"/>
+    <rect x="76" y="164" width="48" height="10" rx="5" fill="#2EA08F"/>
+    <circle cx="88" cy="182" r="4" fill="#E8A33D"/>
+    <circle cx="112" cy="182" r="4" fill="#E8A33D"/>
+    <!-- antenna -->
+    <path d="M100 44 L 100 30" stroke="#0B1E3A" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="100" cy="26" r="6" fill="#E8A33D" stroke="#0B1E3A" stroke-width="2.6"/>
+    <!-- head: smooth chassis -->
+    <rect x="68" y="56" width="64" height="76" rx="26" fill="#DCE8E4" stroke="#0B1E3A" stroke-width="3"/>
+    <!-- visor -->
+    <rect x="74" y="82" width="52" height="22" rx="11" fill="#0B1E3A"/>
+    <rect x="80" y="88" width="24" height="4" rx="2" fill="#2EA08F"/>
+    <rect x="108" y="88" width="12" height="4" rx="2" fill="#E8A33D"/>
+    <!-- side bolts -->
+    <circle cx="68" cy="96" r="5" fill="#0B1E3A"/>
+    <circle cx="132" cy="96" r="5" fill="#0B1E3A"/>
+    <!-- chin grille -->
+    <path d="M88 118 L 112 118 M 92 124 L 108 124" stroke="#0B1E3A" stroke-width="2.6" stroke-linecap="round"/>
+    <!-- hexagon circuit on chassis -->
+    <path d="M100 62 L 108 66 L 108 74 L 100 78 L 92 74 L 92 66 Z" fill="none" stroke="#2EA08F" stroke-width="2.4"/>
+  </g>
+  <!-- emblem: director compass -->
+  <circle cx="152" cy="158" r="20" fill="#2EA08F" stroke="#0B1E3A" stroke-width="3"/>
+  <path d="M152 147 L 156 161 L 152 158 L 148 161 Z" fill="#0B1E3A"/>
+  <!-- name plate -->
+  <rect x="24" y="196" width="152" height="26" rx="13" fill="#0B1E3A"/>
+  <text x="100" y="214" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" letter-spacing="1.5" fill="#F5EDE0">AGENT ATLAS</text>
+</svg>

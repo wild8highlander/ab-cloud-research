@@ -1,83 +1,228 @@
-# C7 · Динамика волнового пакета
+# C7 · Wave-packet dynamics on the L = 96 gate
 
-![version](https://img.shields.io/badge/версия-1.0.0-298bbc) ![](https://img.shields.io/badge/серия-C1--C8-3b4f58) ![](https://img.shields.io/badge/статусы-честные-3a6b4f)
+![version](https://img.shields.io/badge/version-1.0.0-298bbc) ![](https://img.shields.io/badge/series-C1--C8-3b4f58) ![](https://img.shields.io/badge/statuses-honest-3a6b4f)
 
-> **Когерентное распространение, отражение и рассеяние на L=96; сохранение энергии до 1e-15; ζ-облако прозрачнее случайного в 16 раз в дальнем крыле — динамическое лицо парных корреляций Монтгомери.**
+<p align="center"><img src="../../assets/illustrations/ill_spectrum_emerge.png" width="860" alt="A coherent wave packet crossing the flux lattice while the gate spectrum emerges underneath"/></p>
 
-[← Назад к главному README](../../README.ru.md)
+<p align="center"><img src="../../assets/avatars/hp_cast_strip.svg" width="860" alt="Bridge avatar cast"/></p>
 
-## Содержание
+<p align="center"><em>The cast of the Bridge — Riemann's zeros, Hilbert's operator programme, Pólya's spectral hunch, and the agents who run, check and question every number.</em></p>
 
-1. [Вопрос кампании](#вопрос-кампании)
-2. [Результаты](#результаты)
-3. [Метод](#метод)
-4. [Рисунки](#рисунки)
-5. [Монографии](#монографии)
-6. [Данные](#данные)
-7. [Воспроизведение](#воспроизведение)
-8. [Честные замечания](#честные замечания)
-9. [Вердикт](#вердикт)
+> **TL;DR (translated from the Russian source).** Coherent propagation, reflection and scattering on L=96; energy conserved to 1e-15; the ζ-cloud is 16× more transparent than random in the far wing — the dynamical face of the Montgomery pair correlations.
+
+[← Back to the main README](../../README.md)
+
+## Contents
+
+1. [The question](#the-question)
+2. [Background](#background)
+3. [Method step by step](#method-step-by-step)
+4. [Controls](#controls)
+5. [Results](#results)
+6. [How to read the numbers](#how-to-read-the-numbers)
+7. [Interpretation](#interpretation)
+8. [Reproduction](#reproduction)
+9. [Data and figures](#data-and-figures)
+10. [Verdict](#verdict)
+11. [FAQ](#faq)
+12. [See also](#see-also)
 
 ---
 
-## Вопрос кампании
+## The question
 
-Если решёточный резонатор — «электрон на флакс-решётке», то пакет должен двигаться: распространяться когерентно, отражаться от границ, рассеиваться на вихрях. И если структура ζ-фаз физична, ζ-облако обязано вести себя иначе, чем случайное той же плотности. Так и происходит — в трёх измеренных эффектах.
+If the lattice resonator is genuinely "an electron on a flux lattice", then it must not merely *have* a spectrum — it must have a *dynamics*. A quantum particle on a lattice does three characteristic things: it propagates coherently as a recognisable lump of probability, it reflects from boundaries, and it scatters from defects. Campaign C7 asks whether the gate does exactly this, and — the sharper half of the question — whether the ζ-ordered phase structure makes the motion *different* from the motion on a gate whose phases carry no arithmetic at all.
 
-## Результаты
+That second half is what makes C7 more than a physics sanity check. The gate family encodes zeta information in vortex phases (the ζ-gates of C3/C5). If those phases are physically meaningful, a wave packet prepared on the gate should feel them as a potential landscape: the arithmetic should leave fingerprints in *where the probability goes*, not only in *where the levels sit*. The campaign measures three effects in which it does:
 
-| Величина | Значение | Статус |
+1. **Billiard coherence** — on the clean lattice the packet propagates, reflects, and returns, like a ball on a frictionless table.
+2. **Vortex braking and steering** — vortices brake the packet monotonically; ζ-phases additionally steer it sideways, random phases do not.
+3. **Far-wing transport** — the ζ-cloud reaches the far strip x ≥ 90 sixteen times more often than a random-phase cloud of the same vortex density: P(x ≥ 90) = 0.0032 versus 0.0002 (×16), reproducing the D10 effect.
+
+The verdict criterion is **H4 (Dirac-type dynamics)**: all of the motion lives on the self-dual line α = ½, where the π flux per plaquette turns the lattice into a discretised massless Dirac equation. H4 answers **YES** — the resonator is a physical wave object, not an abstraction.
+
+## Background
+
+### Why dynamics is a separate question
+
+The Hilbert–Pólya programme asks for a self-adjoint operator whose eigenvalues are the imaginary parts of the Riemann zeros. Self-adjointness (H1 in this package) is a statement about *architecture*; the GUE statistics class (H3) is a statement about *spectral genetics*; but neither says whether the operator can actually *move anything*. C7 supplies the dynamical leg: the same Hamiltonian whose levels were profiled in C3–C5 is used as a propagation engine, and the probability density is watched frame by frame.
+
+This matters because dynamics is an *independent projection* of the same question. A spectrum can be matched by coincidence; a spectrum plus a coherent, energy-conserving, phase-sensitive transport behaviour is a much more constrained object. The Montgomery pair correlations of the zeta zeros have a statistical face (GUE spacings, measured in C8) and — if the phases are physical — a dynamical face. C7 is where that dynamical face is photographed.
+
+<a href="../../assets/illustrations/ill_vortex_lattice.png"><img src="../../assets/illustrations/ill_vortex_lattice.png" width="860" alt="Vortices of the lattice gate as scattering centres for a moving wave packet"/></a>
+
+### Dirac dynamics on a lattice
+
+A bare tight-binding lattice (hopping −t on every link, no phases) is a Schrödinger particle: its dispersion is quadratic near the band edge, and a packet spreads diffusively. The gate is different. On the x-links the hopping carries a Landgauss flux phase φ = 2πα·iy; on the y-links it carries vortex phases q·(θ_j − θ_i)/2. At the self-dual value **α = ½** every plaquette of the lattice threads exactly **π of flux**. This is the magical value: a charged particle hopping on a π-flux lattice is described, at low energy, by a **discretised massless Dirac equation**. The two sublattices play the role of the two spinor components, the complex hopping phases stand in for the gamma matrices, and the dispersion near the Fermi points becomes linear (relativistic) rather than quadratic. The packet therefore moves ballistically, like a massless fermion, not like a massive diffusing blob.
+
+This is precisely what criterion H4 demands of the resonator: the Hilbert–Pólya object should behave as a first-order (Dirac-type) wave system on the line α = ½, because that is the line where the series consistently lives. C7 verifies the "behaves" part empirically: the packet propagates ballistically (initial drift of about 1.7 sites per unit time on the clean lattice, read from the committed ⟨x⟩ curve), reflects, and conserves energy to machine precision. One caution, repeated throughout this package: the identification of the lattice line α = ½ with the critical line Re(s) = ½ is a **conjectural bridge** — statistically supported (D7/D10), not an identity.
+
+### Anatomy of the packet
+
+The packet is a Gaussian probability lump prepared by the D10 convention, the transport protocol fixed earlier in the series:
+
+- launched at the site (x, y) = (24, 48) — left of centre, vertically centred on the 96×96 gate (9,216 sites, open boundary conditions);
+- initial widths σx = σy = 5.0, i.e. a coherent lump spanning a few lattice constants, narrow enough to have a well-defined momentum;
+- mean energy E₀ ≈ −0.866 in units of the hopping t = 1, i.e. the packet is placed in the negative-energy band of the π-flux spectrum;
+- propagated with step dt = 0.1 up to the horizon T = 40, snapshotted every 0.4 — 101 frames per trajectory.
+
+At every frame the engine records the first moments ⟨x⟩, ⟨y⟩, the widths σx, σy, the energy ratio E(t)/E(0), and the probability weight in two regions of the lattice: the source-side (left) strip — whose final value is quoted as **R**, the reflected weight — and the far-right strip **x ≥ 90** — whose final value is the transport statistic **P(x ≥ 90)**.
+
+### The null against which everything is measured
+
+The headline number of C7 — the ×16 transparency enhancement — is a *ratio against a null*, not an absolute rate. The null is the **random-phase gate** (`r256` in the committed data): a gate with the same L = 96 size, the same open boundaries, the same Nv = 256 vortices at the same density, but with the arithmetic ζ-phase ordering replaced by random phases. This is the "decui" (decohered) null of the series methods: it tests the proposition *"the structure of the phases is not important"*. Any difference between the ζ-gate and its randomised twin is attributable to the phase structure alone — same density, same geometry, same disorder budget, different arithmetic. Two further baselines complete the design: the **clean lattice** (`clean`, Nv = 0), which is the billiard against which scattering is defined, and intermediate ζ-densities `z16`, `z64`.
+
+<p align="center"><img src="../../assets/avatars/hp_riemann.svg" width="120" alt="Riemann avatar"/></p>
+
+<p align="center"><em>Riemann supplies the phases: the ζ-cloud whose transport behaviour is the subject of this campaign.</em></p>
+
+## Method step by step
+
+1. **Build the Hamiltonian.** A sparse Hermitian 96×96-lattice Hamiltonian (9,216 sites) with open boundary conditions, hopping phases at α = ½: Landgauss flux 2πα·iy on x-links, vortex phases on y-links, all constructed by the single source of truth `engine/hamiltonian.py`.
+2. **Prepare the packet.** Gaussian lump at (24, 48) with σx = σy = 5, D10 convention, mean energy E₀ ≈ −0.866.
+3. **Propagate.** Unitary evolution under iψ̇ = Hψ with step dt = 0.1 to T = 40; 101 snapshots. Hermiticity of H makes unitarity structural, so probability is conserved exactly and energy conservation measures only integrator/diagonalisation noise.
+4. **Record.** Moments ⟨x⟩, ⟨y⟩, σx, σy; energy ratio E(t)/E(0); strip probabilities — source-side (left) and far wing x ≥ 90.
+5. **Run the five trajectories** tagged in `data/results.json`: `clean` (Nv = 0), `z16`, `z64`, `z256` (ζ-phases at three vortex densities), `r256` (random phases, Nv = 256 — the null).
+6. **Read out the statistics.** Reflection R = final left-strip weight; transport P(x ≥ 90) = final far-wing weight; transverse drift = final ⟨y⟩ minus initial 48; coherence = shape of the ⟨x⟩ trajectory against the billiard expectation.
+
+## Controls
+
+- **Energy conservation (the smoke detector).** The committed series E(t)/E(0) never leaves 1 by more than a few units in the fifteenth digit across all five trajectories — conservation at the 1e-15 level, as the results table states ("1e-15 on every trajectory"). A drifting energy would silently fake both braking and transport; this control is what makes every other number in the table meaningful.
+- **Billiard baseline.** The clean lattice must produce textbook reflection: the packet leaves x = 24, turns around near t ≈ 14.5 and comes back. It does — this validates packet preparation, the propagator, and the boundaries in one stroke.
+- **Density-matched null.** `r256` shares every parameter with `z256` except the phase ordering; the ×16 ratio is computed within this matched pair, so vortex density cannot explain it.
+- **Determinism.** The series seed is 96; the RNG streams are pinned in `engine/hamiltonian.py` (vortex stream `default_rng(96+3500)`, disorder stream `default_rng(96+3501)`), so every trajectory is exactly reproducible.
+- **Committed-verdict tour.** The campaign runner does not recompute anything by default: it re-reads the committed verdict `data/c7_dynamics_verdict.json` and prints it, so reproduction of the *record* takes seconds and cannot drift; a fresh recomputation remains optional.
+
+## Results
+
+| Quantity | Value | Status |
 |---|---|---|
-| Сохранение энергии | 1e-15 на всех траекториях | динамика честная |
-| Когерентность (чистая решётка) | ⟨x⟩: 24 → 4.3 (отражение, t≈14.5) → 44 | бильярдная траектория |
-| Рассеяние на вихрях | Nv=16: почти прозрачно; Nv=64: R=0.39; Nv=256: R=0.47 | монотонный тормозящий эффект |
-| Поперечное отклонение (ζ Nv=256) | ⟨y⟩: 48 → 38; случайные: без отклонения | фазы направляют |
-| Транспорт P(x ≥ 90) | ζ-облако 0.0032 против случайного 0.0002 (×16) | эффект D10 воспроизведён |
+| Energy conservation | 1e-15 on every trajectory | honest dynamics |
+| Coherence (clean lattice) | ⟨x⟩: 24 → 4.3 (reflection, t≈14.5) → 44 | billiard trajectory |
+| Vortex scattering | Nv=16: nearly transparent; Nv=64: R=0.39; Nv=256: R=0.47 | a monotone braking effect |
+| Transverse drift (ζ Nv=256) | ⟨y⟩: 48 → 38; random: none | the phases steer |
+| Transport P(x ≥ 90) | ζ-cloud 0.0032 vs random 0.0002 (×16) | the D10 effect reproduced |
 
-## Метод
+**Energy conservation — honest dynamics.** Every trajectory's committed energy series E(t)/E(0) stays at 1 to within at most a few units in 1e-15–1e-14 (the largest excursion across the five runs is below 1e-14, at t ≈ 38.8 of the clean run). The table's "1e-15" is the honest scale of this deviation. Because H is Hermitian and the propagation is unitary, this is a check of the *pipeline*, not of physics — and it passes.
 
-Разреженный гамильтониан 96×96 (open bc), шаг dt = 0.1, горизонт T = 40, пакет по конвенции D10. Вся динамика живёт на самодуальной линии α = ½, где π-флакс превращает решётку в дискретизированное безмассовое уравнение Дирака — критерий Г4.
+**Coherence on the clean lattice — the billiard.** ⟨x⟩ starts at 24, decreases to 4.3 at the turning point t ≈ 14.5 (reflection from the left boundary), and returns to 44 by T = 40. The packet width grows only modestly (σx from 5.0 to about 8.2 over the whole horizon): the lump remains a lump. This is coherent, ballistic, billiard-like motion — the dynamical signature of the Dirac-type dispersion on the self-dual line, and the baseline from which "scattering" is defined.
 
-## Рисунки
+**Vortex scattering — a monotone brake.** Adding vortices brakes the packet monotonically: `z16` is nearly transparent (final left-strip weight R ≈ 0.035; the packet still travels and returns), `z64` leaves R = 0.39 on the source side, and `z256` leaves R = 0.47 — nearly half the probability ends up stranded on the left half of the gate, with ⟨x⟩ dipping only to about 17 before drifting back to 23. Vortices act as a tangled, semitransparent medium: the more of them, the stronger the back-scattering, with no sign of a threshold or saturation up to Nv = 256.
 
-| Файл | Где |
-|---|---|
-| `fig13_dynamics.png` | 600 dpi — `figures_hires/ru/fig13_dynamics.png`; экран — `figures/ru/` |
+**Transverse drift — the phases steer.** On the ζ-gate at Nv = 256 the packet does not stay on its lane: ⟨y⟩ drifts from 48 to 38, a ten-row displacement toward one side of the gate. The random-phase twin at the same density shows statistically no drift (48.0 → 47.8), and the lower-density ζ-trajectories drift by at most half a row. Directional motion perpendicular to the launch direction is the clearest possible sign that the phase landscape is *structured*: random scatterers brake symmetrically, ζ-scatterers brake with a preferred side.
 
-## Монографии
+**Far-wing transport — the D10 effect reproduced.** The decisive row. The probability of reaching the far strip x ≥ 90 by T = 40 is 0.0032 for the ζ-cloud against 0.0002 for the random-phase cloud — a ×16 enhancement measured within a density-matched pair. The committed full-precision tails are 0.003221 (`z256`) and 0.000216 (`r256`). Note the honest ordering of all three regimes on this statistic: clean 0.0073 > ζ 0.0032 > random 0.0002. Vortices brake transport overall (0.0073 → 0.0032), but ζ-ordered phases brake it sixteen times *less* than random ones. Arithmetic, on this gate, is the difference between a wall and a doorway.
 
-`monograph_ru.docx` · `monograph_ru.pdf` · `monograph_en.docx` · `monograph_en.pdf`
+| Trajectory | Nv | Phases | R (final) | P(x ≥ 90) (final) | max \|E/E₀ − 1\| |
+|---|---|---|---|---|---|
+| `clean` | 0 | — | 0.000104 | 0.007269 | 9.3e-15 |
+| `z16` | 16 | ζ | 0.035461 | 0.008189 | 1.6e-15 |
+| `z64` | 64 | ζ | 0.387970 | 0.002704 | 3.3e-15 |
+| `z256` | 256 | ζ | 0.473403 | 0.003221 | 6.0e-15 |
+| `r256` | 256 | random | 0.400846 | 0.000216 | 7.4e-15 |
 
-Полная монография этого вычисления (постановка, теоремы, таблицы, рисунки,
-честные ограничения): 7–9 страниц, один и тот же контент на двух языках.
+*Supplementary read-out from the committed curves in `data/results.json` (the table above quotes the same values rounded: R = 0.39 at Nv = 64, R = 0.47 at Nv = 256, transport 0.0032 vs 0.0002).*
 
-## Данные
+## How to read the numbers
 
-| Файл | Содержание |
-|---|---|
-| `data/results.json` | закоммиченный вердикт кампании |
-| `data/` (npz/csv) | кривые и таблицы |
-| `../data/c7_*.json` | дубликат вердикта в общем реестре |
+- **R and P(x ≥ 90) are probabilities, not rates.** They are the weight of the wavefunction inside two strips at the final time T = 40. Both are small numbers, so their ratio — not their absolute size — is the informative quantity; the ×16 headline is exactly the ratio 0.0032/0.0002 at committed precision.
+- **The comparison is density-matched.** ζ-256 and random-256 differ only in phase ordering. The ×16 therefore isolates the arithmetic content of the phases from everything else a skeptic could blame (density, disorder budget, boundaries, packet shape).
+- **The braking column is monotone in Nv, the transport column is not a monotone function of anything simple.** That asymmetry is expected: braking is a bulk scattering effect (more vortices → more back-scattering), while far-wing transport is a percolation-like tail effect in which the phase *correlations* decide whether channels open.
+- **Times are in hopping units** (t = 1), lengths in lattice spacings; dt = 0.1 and T = 40 fix the horizon at 400 steps. The reflection time t ≈ 14.5 is consistent with ballistic travel from x = 24 to the left boundary at the observed initial speed of about 1.7 sites per unit time.
+- **Energy is quoted relative to E₀ ≈ −0.866**, the packet's mean energy in the negative band of the π-flux spectrum; "1e-15" refers to the excursion of the ratio E(t)/E(0) from unity.
 
-## Воспроизведение
+## Interpretation
+
+**H4 — YES (honest dynamics).** The gate supports coherent, ballistic, energy-conserving wave motion of the Dirac type on the self-dual line α = ½, and its ζ-phase structure produces transport behaviour that a random-phase medium of identical density does not. The resonator is a physical wave object.
+
+> The identification of the self-dual line α = ½ with Re(s) = ½ is a conjectural bridge: statistical support exists (D7/D10), identity does not.
+> The electron motion is confirmed in the dynamical sense; it is not a statement about the spectrum (see C3–C5).
+
+What the verdict does **not** give you:
+
+- **It does not say the gate spectrum is the zeta spectrum.** The spectral identity question is H2, measured three times in this package (C3, C4, C5) with the answer NO — a gap of 9–10 orders of magnitude in the rank metric, about half an order in the thermal metric. C7 adds a dynamical leg, not a spectral one.
+- **It does not prove the critical line.** All motion lives on α = ½; calling that line Re(s) = ½ is the package's central conjecture, supported statistically (the D7/D10 effects, of which the ×16 transport is the dynamical member) but not established as an identity.
+- **It does not elevate the ×16 into a proof of anything.** It is one cleanly controlled measurement: a ζ-ordered phase landscape steers probability differently from a random one. Its force comes from the matched null and the energy control, not from its size.
+
+The link to Montgomery is structural, not rhetorical. The same vortex phases that put every gate into the GUE universality class (C8, H3) are the ones that steer the packet here. Pair-correlation statistics and directed transport are two projections of one phase structure — the statistical face and the dynamical face of the same arithmetic. C7 photographs the second.
+
+<p align="center"><img src="../../assets/avatars/hp_hilbert.svg" width="120" alt="Hilbert avatar"/></p>
+
+<p align="center"><em>Hilbert's programme demanded an operator; C7 checks that the operator can actually move a wave.</em></p>
+
+## Reproduction
 
 ```bash
-# экскурсия по вердикту (~секунды, файл нулей не нужен)
+# verdict tour (~seconds, no zeros file needed)
 python3 campaigns/run_c7_dynamics.py
 ```
 
-Сид серии — 96; потоки RNG фиксированы (engine/hamiltonian.py). Все
-зависимости — в `requirements.txt`.
+The series seed is 96; the RNG streams are fixed in `engine/hamiltonian.py`. All dependencies are listed in `requirements.txt`. The runner re-reads the committed verdict `data/c7_dynamics_verdict.json` (tags `clean`, `z16`, `z64`, `z256`, `r256`), so the tour runs in seconds and needs no zeta-zero file; a fresh recomputation of the trajectories is optional and reproduces the committed curves bit-for-bit under the pinned streams. Independent protocol checks of this campaign live in `independent_verification/` (IVP).
 
-## Честные замечания
+## Data and figures
 
-> Отождествление самодуальной линии α = ½ с Re(s) = ½ — конъектурный мост: статистическая поддержка есть (D7/D10), тождества нет.
-> «Движение электрона» подтверждено в динамическом смысле; это не утверждение о спектре (см. C3–C5).
+| File | Content |
+|---|---|
+| `data/results.json` | the committed verdict of the campaign (all five trajectories) |
+| `data/` (npz/csv) | curves and tables |
+| `../data/c7_*.json` | duplicate of the verdict in the shared registry |
 
-## Вердикт
+Inside `data/results.json` each trajectory tag carries: `t` (101 time points, 0 to 40 in steps of 0.4), `mx`, `my` (first moments), `sx`, `sy` (widths), `pl`, `pr` (left-strip and far-wing x ≥ 90 probabilities), `ee` (energy ratio E(t)/E(0)), and the scalars `R`, `T`, `E0`. The same structure is duplicated in the shared registry under `../data/c7_dynamics_verdict.json`.
 
-**{'ru': 'Г4 — ДА (динамика честная); мост к Re(s)=½ — конъектура', 'en': 'H4 — YES (honest dynamics); the bridge to Re(s)=½ is a conjecture'}** — подробности: `data/results.json`, монография, и
-`independent_verification/` (IVP-проверки этой кампании).
+| File | Where |
+|---|---|
+| `fig13_dynamics.png` | 600 dpi — `figures_hires/ru/fig13_dynamics.png`; screen — `figures/ru/` |
+| `fig13_dynamics_en.png` | 600 dpi — `figures_hires/en/fig13_dynamics_en.png`; screen — `figures/en/` |
+
+The animated version of the packet motion ships as `anim_wavepacket.mp4` and `anim_wavepacket.gif` in this folder (also mirrored under `figures/animations/`), and a compact still is stored as `data/wavepacket_dynamics.png`.
+
+**Monographs.** `monograph_ru.docx` · `monograph_ru.pdf` · `monograph_en.docx` · `monograph_en.pdf` — the full monograph of this computation (formulation, theorems, tables, figures, honest limitations): 7–9 pages, identical content in the two languages.
+
+## Verdict
+
+**H4 — YES (honest dynamics); the bridge to Re(s)=½ is a conjecture** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign). The number enters the live registry as row 19 of `results/RESULTS.md`: *Transport P(x ≥ 90): ζ 0.0032 vs random 0.0002 (×16), C7*.
+
+Committed verdict record, verbatim from the source (bilingual dict): **{'ru': 'Г4 — ДА (динамика честная); мост к Re(s)=½ — конъектура', 'en': 'H4 — YES (honest dynamics); the bridge to Re(s)=½ is a conjecture'}**.
+
+## FAQ
+
+#### Is a zeta zero visible moving across the lattice?
+
+No. Nothing in C7 identifies an eigenvalue with a zero. The packet is built from a band of eigenstates of the gate; what is measured is how probability *flows* on a gate whose phases encode ζ structure. The level-by-level identification question is H2, and it is answered NO elsewhere in the package (C3–C5).
+
+#### What exactly is the ×16 measured against?
+
+Against the random-phase gate `r256`: identical lattice, boundaries, vortex count (Nv = 256) and density, with the ζ-ordering of phases replaced by random ones. The ratio 0.0032/0.0002 is computed within this matched pair, so it isolates the phase structure. It is not measured against the clean lattice (which transmits even more, 0.0073) or against any external dataset.
+
+#### Why is energy conservation such a big deal?
+
+Because braking and transport are *differences* of small probabilities. If the integrator leaked or pumped energy, probability could appear in the far wing for free, and the ×16 could be an artifact. The committed energy ratio stays at 1 to 1e-15 (never worse than 1e-14), which closes that door: whatever reaches x ≥ 90 got there through the Hamiltonian, not through the numerics.
+
+#### Does the transverse drift mean the packet "knows" where the vortices are?
+
+It means the phase landscape is anisotropic in a way that survives averaging: the ζ-phases bias interference toward one side, while random phases bias nothing. The packet does not detect vortices individually; it integrates their phase field, and the ζ-field integrates to a sideways push (⟨y⟩: 48 → 38) that the random field does not produce.
+
+#### If the dynamics is honest, why is the verdict not "the bridge works"?
+
+"Honest dynamics" is deliberately modest: it certifies the resonator as a wave system (H4) without converting dynamics into spectral identity. The bridge to Re(s) = ½ remains a conjecture with statistical support (D7/D10). The package keeps the two statements in separate rooms on purpose.
+
+#### Where do the figures and the full write-up live?
+
+`fig13_dynamics.png` (ru) and `fig13_dynamics_en.png` (en) at 600 dpi under `figures_hires/`, screen copies under `figures/`, the animation as `anim_wavepacket.mp4/.gif`, and the 7–9-page monograph in four files (`monograph_ru/en.docx/pdf`) in this folder.
+
+## Why energy conservation is the smoke detector of a simulation
+
+Every headline of this campaign — the billiard reflection, the monotone braking, the sideways drift, the ×16 transport — is a statement about *where probability is*, and probability is only a meaningful bookkeeping device if the books balance. On a Hermitian Hamiltonian the books balance by construction: unitary evolution conserves both the norm of the state and the expectation value of the energy. That is exactly why the energy series `ee(t) = E(t)/E(0)` in `data/results.json` functions as a smoke detector rather than as a physical result. Physics guarantees the reading; any deviation from 1 therefore points at the *apparatus* — an integrator that leaks, a Hamiltonian accidentally non-Hermitian, a state vector silently renormalised, a diagonalisation truncating the spectrum.
+
+The detector in C7 reads clean at the level the table quotes: over 400 propagation steps (dt = 0.1 out to T = 40) and five trajectories, the ratio hugs unity to 1e-15, with the worst excursion of any run still below 1e-14. Two properties make this a strong control and not a formality. First, it is *continuous*: 101 snapshots per trajectory, not a single end-point check, so a transient energy glitch mid-flight could not hide. Second, it is *differential*: the five runs share the propagator and differ in the phase landscape, so a defect in the stepper would corrupt `clean` and `r256` as well as `z256` — and the far-wing asymmetry between the ζ-cloud and its random twin would shrink rather than grow. The smoke detector also guards the small-probability regime specifically: P(x ≥ 90) lives at the 1e-3–1e-4 level, precisely where an artificial energy pump of relative size 1e-3 would be indistinguishable from real transport. Nothing of the sort is present at 1e-15. This is the same discipline the package applies elsewhere (the machine-floor registry in `docs/validation.md` records where each metric goes blind); in C7 the metric never gets near its floor, and every number downstream of the propagator inherits the certificate.
+
+## See also
+
+- [C3 · Gate family](../C3_gate_family/) — the 52 protocol gates whose ζ-phases steer the packet here.
+- [C8 · Statistics ladder and spin structures](../C8_stats_ladder/) — the statistical face of the same phase structure (GUE class, H3).
+- [Methods](../../docs/methods.md) — the shared pipeline: seeds, streams, nulls, and the decui (random-phase) control.
+- [Theory map](../../docs/theory.md) — where H4 sits in the five-station route of the Bridge.
+- [Main README](../../README.md) — the package overview, the H1–H5 scorecard, and the theorem list.
 
 ---
-*Hilbert Polya Bridge v1.0.0 · C7 · Динамика волнового пакета*
+*Hilbert Polya Bridge v1.0.0 · C7 · Wave-packet dynamics*

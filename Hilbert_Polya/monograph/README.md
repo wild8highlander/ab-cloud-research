@@ -1,12 +1,83 @@
-# monograph/ — сводные тома и источники контента
+# monograph/ — the summary volumes and their content sources
+
+<p align="center"><img src="../assets/illustrations/ill_critical_line.png" width="600" alt="The critical line drawn as a bound volume spine"/></p>
+
+<p align="center"><img src="../assets/avatars/hp_cast_strip.svg" width="720" alt="Bridge avatar cast"/></p>
+<p align="center"><em>Where the numbers become prose: one content source, two typesetters, four bound volumes per generation.</em></p>
+
+[← Back to the main README](../README.md)
+
+## What this folder is
+
+The bound, human-readable layer of the series. While `data/` keeps raw
+verdicts and `computations/C*/` keeps per-campaign material, this folder holds
+the consolidated volumes: a theorem volume (T1–T10), a reproduction-protocol
+appendix, and the v2.0 generation of both. Each volume exists in Russian and
+English and in two formats (PDF and DOCX), all rendered from a single source
+of content so that the languages and formats cannot drift apart.
+
+## Folder map
 
 ```
-theorems_volume/  monograph_theorems_{ru,en}.{docx,pdf}  — том теорем T1–T10
-appendix_volume/  monograph_appendix_{ru,en}.{docx,pdf}  — протоколы воспроизведения
-content/          единый источник контента (ru_part1-3.py, en_part1-3.py)
+theorems_volume/  monograph_theorems_{ru,en}.{docx,pdf}  — volume of theorems T1–T10
+appendix_volume/  monograph_appendix_{ru,en}.{docx,pdf}  — reproduction protocols
+content/          single source of content (ru_part1-3.py, en_part1-3.py)
 ```
 
-Монографии отдельных вычислений — в computations/C*/monograph_{ru,en}.{docx,pdf}.
-Один и тот же контент-JSON рендерится в PDF (ReportLab + html2poster-обложка
-+ pypdf) и DOCX (docx-js: обложка-рецепт R1, трёхсекционная нумерация,
-TOC-плейсхолдеры). Пересборка: `make monographs`.
+The full inventory of the folder:
+
+| Path | Contents |
+|------|----------|
+| `theorems_volume/` | `monograph_theorems_{ru,en}.{docx,pdf}` — the four files of the T1–T10 theorem volume |
+| `appendix_volume/` | `monograph_appendix_{ru,en}.{docx,pdf}` — the four files of the reproduction-protocol appendix |
+| `v2_volume/` | `monograph_v2_{ru,en}.{docx,pdf}` — the consolidated v2.0 volume |
+| `theorems_v2_volume/` | `monograph_theorems_v2_{ru,en}.{docx,pdf}` — the v2 theorem volume (T11–T18 era) |
+| `preprint/` | `preprint.tex`, `preprint.pdf` — the LaTeX preprint distilled from the series |
+| `content/` | the single content source: `ru_part1.py` … `ru_part3.py`, `en_part1.py` … `en_part3.py`, extended by `ru_part4.py`, `en_part4.py` and `parts_theorems_v2.py` for the v2 generation |
+| `src/` | reserved slot for future template overrides (cover, styles); see `src/README.md` |
+
+Monographs of the individual computations live separately, in
+`computations/C*/monograph_{ru,en}.{docx,pdf}` — one pair per campaign
+directory, next to that campaign's figures and data.
+
+## How to use it
+
+The same content-JSON is rendered twice:
+
+- **PDF** — ReportLab, with an html2poster cover and final assembly via pypdf;
+- **DOCX** — docx-js, with the R1 cover recipe, three-section numbering, and
+  TOC placeholders.
+
+Rebuild everything from the committed content:
+
+```bash
+make monographs
+```
+
+The renderers themselves live in `scripts/` (`render_pdf.py`,
+`render_docx.js`, `postprocess_docx.py`, `make_monographs.py`); this folder
+only stores sources and outputs. To change what the volumes *say*, edit
+`content/`; to change how they *look*, see the conventions below.
+
+## Conventions
+
+- Language and format are encoded in the file name as suffix pairs
+  `{ru,en}` × `{docx,pdf}`; the four combinations of a volume are always
+  produced together.
+- `content/` is the single source of truth: part files are plain Python
+  modules of content blocks, so the ru/en pairs stay in lockstep by review,
+  and the v2 generation reuses the same block schema
+  (`parts_theorems_v2.py`).
+- DOCX files carry TOC placeholders that `postprocess_docx.py` resolves, plus
+  ROMAN/arabic footer numbering over three sections; PDF files get their
+  cover from the html2poster recipe and are merged with pypdf.
+- The preprint in `preprint/` is plain LaTeX (`preprint.tex`) compiled to
+  `preprint.pdf`; it cites the same committed numbers as the volumes, never
+  fresh ones.
+
+## See also
+
+- [src/README.md](src/README.md) — the reserved template-override slot
+- [../computations/C1_identity_function/README.md](../computations/C1_identity_function/README.md) — a per-campaign monograph next to its data
+- [../scripts/README.md](../scripts/README.md) — the render pipeline that builds this folder
+- [../results/RESULTS.md](../results/RESULTS.md) — the ledger every volume quotes from
