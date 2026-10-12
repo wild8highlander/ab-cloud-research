@@ -1,0 +1,8 @@
+{
+  "name": "my-blind-zeros",
+  "battery": "zeros",
+  "params": { "n": 8, "grid": 0.02 },
+  "thresholds": { "precision_recall_min": 0.999 },
+  "does_not_prove": "RH above the tested height; the absence of off-line zeros beyond it",
+  "blind": true
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="330" viewBox="0 0 300 330">
+<rect width="300" height="330" fill="#221B16"/>
+<circle cx="150" cy="150" r="90" fill="none" stroke="#3A3028" stroke-width="1.5"/>
+<circle cx="240.0" cy="150.0" r="6" fill="#C96F4A" opacity="0.8"/>
+<circle cx="150.0" cy="240.0" r="6" fill="#C96F4A" opacity="0.8"/>
+<circle cx="60.0" cy="150.0" r="6" fill="#C96F4A" opacity="0.8"/>
+<circle cx="150.0" cy="60.0" r="6" fill="#C96F4A" opacity="0.8"/>
+<g>
+  <animateTransform attributeName="transform" type="rotate" from="0 150 150" to="360 150 150" dur="12s" repeatCount="indefinite"/>
+  <circle cx="240" cy="150" r="11" fill="#EDE6E0" stroke="#C96F4A" stroke-width="3"/>
+</g>
+<text x="150" y="286" text-anchor="middle" fill="#C96F4A" font-size="16" font-weight="700" font-family="monospace">θ = π/2</text>
+<text x="150" y="310" text-anchor="middle" fill="#B8A99C" font-size="12.5" font-family="monospace">N = 2k = 4 · gap = 2π/4</text>
+</svg>

@@ -1,0 +1,142 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{copper}{HTML}{C96F4A}
+\hypersetup{colorlinks=true, linkcolor=copper, urlcolor=copper}
+\setlength{\parskip}{4pt}
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Research Program: The Machine with No Long-Term Memory (ES1–ES5, TS1–TS3)}\\[8pt]
+{\large Research Program Monograph · Version 1.0.0}\\[6pt]
+{\color{copper}\small RESEARCH PROGRAM · SPINOR}\\[4pt]
+{\small Isaev Iskhak Khamzatovich · ORCID 0009-0003-7299-0701}\\[2pt]
+{\small AB Cloud Quantum Research · DOI 10.5281/zenodo.21825394}
+\end{center}
+
+\tableofcontents
+\newpage
+
+\section{Research Program: The Spinor Study}
+
+\noindent\textit{\color{copper}The spinor program drives the central claim "reads, does not carry" to explicit models: the only state is the spinor phase; a step is a rotation by θ. Three theorems, five campaigns, all PASS; the capacity-versus-robustness trade-off is fixed as an honest boundary.}
+
+\subsection{1. Program goals}
+
+\begin{itemize}
+  \item state and prove the properties of the volatile state: cycle closure (TS1), reset irreversibility (TS2), O(1) steps versus the Ω(t) log (TS3);
+  \item measure the models with campaigns carrying pre-registered thresholds;
+  \item prepare the models for processor stage P1 (memory V21).
+\end{itemize}
+
+\subsection{2. Models}
+
+\begin{table}[htbp]\centering\small
+\caption{Table 4.2. Three models and their parameters}
+\begin{tabular}{p{0.10\textwidth} p{0.10\textwidth} p{0.13\textwidth} p{0.15\textwidth} p{0.13\textwidth} p{0.35\textwidth}}
+\toprule
+\textbf{Model} & \textbf{θ} & \textbf{N = 2k} & \textbf{Bits/step} & \textbf{σ*} & \textbf{Purpose}
+\midrule
+S1 & π/2 & 4 & 2.000 & 0.135 & maximal robustness \\
+S2 & π/3 & 6 & 2.585 & 0.089 & balance \\
+S3 & π/7 & 14 & 3.807 & 0.038 & maximal capacity \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{3. Executed campaigns ES1–ES5}
+
+\begin{table}[htbp]\centering\small
+\caption{Table 4.3. Spinor campaigns}
+\begin{tabular}{p{0.12\textwidth} p{0.19\textwidth} p{0.52\textwidth} p{0.13\textwidth}}
+\toprule
+\textbf{Campaign} & \textbf{Measured} & \textbf{Result} & \textbf{Verdict}
+\midrule
+ES1 & cycles & periods 4/6/14 = 2k exactly; gap = step & PASS \\
+ES2 & reset & I(pre;post) = 0; reconstruction ≈ 1/N & PASS \\
+ES3 & time & step slope −1.5e−12; log ×129 & PASS \\
+ES4 & task & a Markov policy is solvable without memory & PASS \\
+ES5 & noise & diffusion bounded by the silence zone & PASS \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The errata ES2a and ES5a: the thresholds of campaigns ES2 and ES5 were replaced before the verdicts were accepted; the replacements are published in the verdict files. The log₂N versus 1/k trade-off is a permanent boundary: capacity grows, the silence zone narrows.
+
+\subsection{4. The next wave}
+
+\begin{itemize}
+  \item phases θ = π/k for k > 7: searching for the inflection points of the trade-off;
+  \item task compilation into phase cycles: a formal grammar of policies;
+  \item a diffusion channel with correlations: beyond the Markov assumption.
+\end{itemize}
+
+\subsection{5. Honest boundaries}
+
+Not every task is solvable without memory: the applicability class is tasks with a Markov policy. Reconstruction ≈ 1/N is the chance level, not "almost zero": information is erased to the limit. A log gives Ω(t) under any "smart" scheduling — this is a lower bound, not an implementation defect.
+
+\subsection{6. Campaigns in detail}
+
+\subsection{6.1. Five measurements of volatility}
+
+\subsubsection{ES1 — cycles}
+
+The first measurement campaign: the rotation periods for θ = π/2, π/3, π/7 equal 4, 6 and 14 — exactly N = 2k, and the gap between distinguishable states equals the step 2π/N. The volatile phase turned out to be an exact counter: no drift, no memory.
+
+\subsubsection{ES2 — reset and erasure}
+
+A phase reset erases everything: the pre/post mutual information is zero, reconstruction 0.2501/0.1674/0.0717 ≈ 1/N — the chance level. Time after the reset is defined only modulo N. Theorem TS2 gets its numerical body here; erratum ES2a recorded the threshold replacement before the verdict.
+
+\subsubsection{ES3 — real time}
+
+The contrast experiment: the memoryless machine holds O(1) steps (slope −1.5e−12 ms/step — zero), the eternal-log machine grows ×129 and misses deadlines. This is the numerical proof of TS3 and the main argument of the "reads, does not carry" architecture: a log is not reliability but a cause of failure.
+
+\subsubsection{ES4 — the memoryless task}
+
+The applicability check: a sequence of decisions inside the cycle without storage; on the class of tasks with a Markov policy the quality is comparable to a memory-bearing machine. The boundary is honestly fixed: tasks with substantial history require another level of the architecture.
+
+\subsubsection{ES5 — noise and the silence zone}
+
+Phase diffusion is bounded by the silence zone σ*: S1 (0.135 rad) is more robust, S3 (0.038 rad) has more capacity — the capacity/robustness trade-off is measured. Erratum ES5a: the threshold was replaced before the verdict was accepted, and the replacement is published.
+
+\subsection{7. The full campaign table}
+
+\begin{table}[htbp]\centering\small
+\caption{The full campaign table of the level}
+\begin{tabular}{p{0.12\textwidth} p{0.25\textwidth} p{0.60\textwidth}}
+\toprule
+\textbf{Campaign} & \textbf{Title} & \textbf{Key result}
+\midrule
+ES1 & Phase cycles &  \\
+ES2 & Volatility &  \\
+ES3 & Real time &  \\
+ES4 & Memoryless task &  \\
+ES5 & Noise diffusion &  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{8. How to reproduce}
+
+\begin{verbatim}
+cd research/realtime_spinor_memory
+python3 experiments/run_all.py        # ES1–ES5 (~2.5 min, all PASS)
+python3 make_figures.py               # 4-dimension tiles
+python3 make_theorem_docs.py          # 12 TS1–TS3 documents
+python3 -m pytest tests/ -q           # 11 tests
+\end{verbatim}
+
+\subsection{9. Further reading}
+
+\begin{itemize}
+  \item theory: docs/theory.en.md (EN) and docs/theory.md (RU);
+  \item implementation: spinor/core.py — the model core, spinor/tasks.py — tasks;
+  \item verdicts: data/es1…es5\_verdict.json;
+  \item theorems: theorems/TS1\_cycle, TS2\_volatility, TS3\_realtime.
+\end{itemize}
+
+\end{document}

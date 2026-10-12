@@ -1,3 +1,22 @@
+<!-- enriched 1.1.0 -->
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/logo_abcloud_dark.png">
+  <img src="../assets/logo_abcloud_light.png" width="92" alt="AB Cloud Quantum Research">
+</picture>
+
+### 🖼️ Four-dimension tiles
+
+`AB Cloud Quantum Research` · v1.1.0 · part of one machine
+
+![badge](https://img.shields.io/badge/program-AB_Cloud_Quantum_Research-C96F4A?style=flat-square)
+![badge](https://img.shields.io/badge/verdicts-all%20PASS-3A6B4F?style=flat-square)
+![badge](https://img.shields.io/badge/license-proprietary-6B6455?style=flat-square)
+
+</div>
+
+> 🧭 **Navigation:** [↑ main README](../README.md) · [📚 monographs](../MONOGRAPH_ARCHIVE/README.md) · [🧪 hypothesis lab](../HYPOTHESIS_LAB/README.md) · [🎞 animations](../VISUAL_ANIMATIONS/README.md)
 # 🖼️ figures_tiled/ — плиточные фигуры «4 измерения» (600 dpi)
 
 Плиточные фигуры пакета AB Cloud Quantum Research: **каждая фигура — сетка 2×2, четыре
@@ -48,3 +67,17 @@ per-instance behaviour · control · threshold), built strictly from committed
 campaign verdicts at 600 dpi in the «Critical Line & Copper» style, RU/EN.
 The original main figures of all three programs remain untouched inside
 `modules/*/figures_hires/` — the tiles complement, never replace them.
+
+---
+
+<div align="center">
+
+<img src="../assets/avatars/avatar_author.svg" width="84" alt="author">
+
+*Part of the discipline: pre-registration · blind protocols · replication ·
+negative results published*
+
+**AB Cloud Quantum Research** · v1.1.0 ·
+[license](../../LICENSE) · © Isaev Iskhak Khamzatovich
+
+</div>

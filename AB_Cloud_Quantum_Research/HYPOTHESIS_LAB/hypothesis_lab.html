@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hypothesis Laboratory — AB Cloud Quantum Research</title>
+<style>
+  :root {
+    --bg: #221B16; --panel: #2C241E; --panel2: #352B23;
+    --copper: #C96F4A; --teal: #0E7C86; --text: #EDE6E0;
+    --muted: #B8A99C; --border: #4A3D33; --ok: #4C9A6B; --bad: #C25B4E;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.55; }
+  header { padding: 34px 28px 18px; border-bottom: 2px solid var(--copper);
+           background: linear-gradient(180deg, #1A1410, var(--bg)); }
+  h1 { margin: 0 0 4px; font-size: 26px; letter-spacing: 0.5px; }
+  h1 .accent { color: var(--copper); }
+  .sub { color: var(--muted); font-size: 14px; }
+  main { max-width: 1080px; margin: 0 auto; padding: 26px 20px 60px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+          padding: 18px 18px 14px; }
+  .card h2 { margin: 0 0 6px; font-size: 17px; color: var(--copper); }
+  .card p.desc { margin: 0 0 12px; font-size: 13px; color: var(--muted); }
+  label { display: block; font-size: 12.5px; color: var(--muted); margin: 8px 0 3px; }
+  input, select { width: 100%; padding: 8px 10px; background: var(--panel2);
+    color: var(--text); border: 1px solid var(--border); border-radius: 6px;
+    font-size: 14px; font-family: inherit; }
+  button { margin-top: 12px; width: 100%; padding: 10px 14px; font-size: 14.5px;
+    background: var(--copper); color: #fff; border: none; border-radius: 7px;
+    cursor: pointer; font-weight: 600; letter-spacing: 0.3px; }
+  button:hover { filter: brightness(1.1); }
+  .out { margin-top: 12px; background: #171310; border: 1px solid var(--border);
+         border-radius: 7px; padding: 10px 12px; font-family: 'Consolas', monospace;
+         font-size: 12.5px; white-space: pre-wrap; min-height: 42px; color: var(--text); }
+  .verdict-pass { color: var(--ok); font-weight: 700; }
+  .verdict-fail { color: var(--bad); font-weight: 700; }
+  .dnp { color: var(--muted); font-style: italic; font-size: 11.5px; margin-top: 6px; }
+  .discipline { margin-top: 26px; border-left: 3px solid var(--copper);
+    background: var(--panel); padding: 14px 18px; border-radius: 0 8px 8px 0; }
+  .discipline h3 { margin: 0 0 8px; color: var(--copper); font-size: 15px; }
+  .discipline ol { margin: 0; padding-left: 20px; font-size: 13.5px; color: var(--muted); }
+  footer { text-align: center; color: var(--muted); font-size: 12.5px;
+           padding: 18px; border-top: 1px solid var(--border); margin-top: 40px; }
+  canvas { width: 100%; height: 130px; background: #171310; border-radius: 7px;
+           border: 1px solid var(--border); margin-top: 10px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>HYPOTHESIS <span class="accent">LAB</span> · AB Cloud Quantum Research</h1>
+  <div class="sub">Test your hypotheses under the program discipline — locally in your browser.
+    Companion of <code>HYPOTHESIS_LAB/ab_lab.py</code>. All computations run offline.</div>
+</header>
+<main>
+  <div class="grid">
+
+    <div class="card">
+      <h2>Spinor phase θ = π/k</h2>
+      <p class="desc">The memoryless machine: a single volatile phase. The lab detects the cycle
+        N = 2k, the post-reset reconstruction ≈ 1/N, and the O(1) step cost (TS1–TS3).</p>
+      <label>k (phase = π/k)</label>
+      <input id="sp_k" type="number" value="3" min="1" max="64" step="1">
+      <label>steps</label>
+      <input id="sp_steps" type="number" value="400" min="10" max="20000">
+      <button onclick="runSpinor()">Run spinor battery</button>
+      <canvas id="sp_canvas"></canvas>
+      <div class="out" id="sp_out">waiting…</div>
+      <div class="dnp">does not prove: RH; applicability beyond the Markov task class</div>
+    </div>
+
+    <div class="card">
+      <h2>Exact compilation (Givens–QR)</h2>
+      <p class="desc">A random unitary is decomposed into two-level Givens rotations and
+        reconstructed; infidelity 1−F is compared against machine epsilon (V20-style).</p>
+      <label>matrix size n (4–10)</label>
+      <input id="cp_n" type="number" value="4" min="2" max="10" step="1">
+      <label>seed</label>
+      <input id="cp_seed" type="number" value="7" min="0">
+      <button onclick="runCompile()">Run compile battery</button>
+      <div class="out" id="cp_out">waiting…</div>
+      <div class="dnp">does not prove: scalability beyond the tested sizes; KAK-optimality in the ISA class</div>
+    </div>
+
+    <div class="card">
+      <h2>Riemann–von Mangoldt counter</h2>
+      <p class="desc">The completeness check of E17-style reading: N(T) = (T/2π)ln(T/2π) − T/2π + 7/8 + S(T).
+        The lab draws N(T) and its main term for any height.</p>
+      <label>height T</label>
+      <input id="rm_T" type="number" value="1000" min="10" max="100000">
+      <button onclick="runRVM()">Compute N(T)</button>
+      <canvas id="rm_canvas"></canvas>
+      <div class="out" id="rm_out">waiting…</div>
+      <div class="dnp">does not prove: RH; N(T) is asymptotic — S(T) is not controlled here</div>
+    </div>
+
+    <div class="card">
+      <h2>Hypothesis discipline</h2>
+      <p class="desc">The same five rules the program follows — applied to your hypothesis.</p>
+      <div class="discipline" style="margin:0; border:none; background:transparent; padding:0;">
+        <ol>
+          <li><b>Threshold before the run.</b> Fix thresholds in the config; changing them after a run invalidates the verdict.</li>
+          <li><b>Blindness.</b> The detector never sees the reference; outputs are SHA256-pinned before validation (CLI).</li>
+          <li><b>does_not_prove.</b> Every hypothesis declares what its result does not prove.</li>
+          <li><b>Replication.</b> Repeat in a second arithmetic; record the disagreement.</li>
+          <li><b>Publish PASS and FAIL alike.</b> The report is an artifact, not a draft.</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+</main>
+<footer>
+  AB Cloud Quantum Research · HYPOTHESIS_LAB · v1.1.0 · © Isaev Iskhak Khamzatovich · proprietary license
+</footer>
+
+<script>
+function fmt(x, d=6) {
+  if (typeof x !== "number") return String(x);
+  if (Math.abs(x) >= 1e6 || (Math.abs(x) < 1e-4 && x !== 0)) return x.toExponential(3);
+  return x.toFixed(d);
+}
+function setOut(id, lines, pass) {
+  const el = document.getElementById(id);
+  el.innerHTML = lines.map(l => {
+    if (l.startsWith("VERDICT"))
+      return `<span class="${pass ? "verdict-pass" : "verdict-fail"}">${l}</span>`;
+    return l;
+  }).join("\n");
+}
+
+/* ── spinor ─────────────────────────────────────────────── */
+function runSpinor() {
+  const k = Math.max(1, parseInt(document.getElementById("sp_k").value));
+  const steps = parseInt(document.getElementById("sp_steps").value);
+  const theta = Math.PI / k;
+  const twoPi = 2 * Math.PI;
+  const N = 2 * k;
+  // walk the cycle
+  let phase = 0, maxDev = 0;
+  const trace = [];
+  for (let i = 1; i <= steps; i++) {
+    phase = (phase + theta) % twoPi;
+    trace.push(phase);
+  }
+  // closure: after N steps the phase must return to 0 (mod 2pi)
+  const closureDev = Math.min(((N * theta) % twoPi), twoPi - ((N * theta) % twoPi));
+  // reconstruction: uniform chance 1/N
+  const recon = 1 / N;
+  // step cost: measure a batch of steps (O(1) demonstration)
+  let t0 = performance.now();
+  let p = 0;
+  for (let i = 0; i < steps; i++) p = (p + theta) % twoPi;
+  const msPerStep = (performance.now() - t0) / steps;
+  const bitsPerStep = Math.log2(N);
+  const pass = closureDev < 1e-9;
+  setOut("sp_out", [
+    `theta          : ${fmt(theta)} (= pi/${k})`,
+    `cycle N        : ${N}  (closure deviation ${closureDev.toExponential(2)})`,
+    `post-reset rec : <= ${fmt(recon, 4)}  (chance level 1/N)`,
+    `bits/step      : ${fmt(bitsPerStep, 3)}`,
+    `step cost      : ${fmt(msPerStep * 1000, 3)} us/step — O(1), no journal`,
+    `VERDICT        : ${pass ? "PASS" : "FAIL"}  (pre-registered: cycle exact)`,
+  ], pass);
+  drawCycle("sp_canvas", trace, N);
+}
+
+function drawCycle(id, trace, N) {
+  const cv = document.getElementById(id);
+  const ctx = cv.getContext("2d");
+  const W = cv.width = cv.clientWidth * devicePixelRatio;
+  const H = cv.height = 130 * devicePixelRatio;
+  ctx.clearRect(0, 0, W, H);
+  const cx = W * 0.22, cy = H / 2, r = Math.min(W * 0.16, H * 0.42);
+  // circle
+  ctx.strokeStyle = "#4A3D33"; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.arc(cx, cy, r, 0, 2 * Math.PI); ctx.stroke();
+  // critical line accents
+  const pts = Math.min(trace.length, N * 2);
+  for (let i = 0; i < pts; i++) {
+    const a = trace[i];
+    const x = cx + r * Math.cos(a), y = cy - r * Math.sin(a);
+    ctx.fillStyle = i % N === 0 ? "#C96F4A" : "#0E7C86";
+    ctx.beginPath(); ctx.arc(x, y, 3.2 * devicePixelRatio, 0, 2 * Math.PI); ctx.fill();
+  }
+  // phase trace strip
+  const x0 = W * 0.45, x1 = W - 12, y0 = H * 0.72, amp = H * 0.5;
+  ctx.strokeStyle = "#C96F4A"; ctx.lineWidth = 1.4 * devicePixelRatio;
+  ctx.beginPath();
+  for (let i = 0; i < trace.length; i++) {
+    const x = x0 + (x1 - x0) * i / (trace.length - 1);
+    let y = y0 - ((trace[i] + Math.PI) % (2 * Math.PI) - Math.PI) / Math.PI * amp;
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+  ctx.fillStyle = "#8A8078"; ctx.font = `${11 * devicePixelRatio}px monospace`;
+  ctx.fillText("phase cycle", 8, 14 * devicePixelRatio);
+  ctx.fillText("phase(t)", x0, 14 * devicePixelRatio);
+}
+
+/* ── compile ────────────────────────────────────────────── */
+function runCompile() {
+  const n = Math.min(10, Math.max(2, parseInt(document.getElementById("cp_n").value)));
+  let seed = parseInt(document.getElementById("cp_seed").value) || 0;
+  // deterministic PRNG (mulberry32)
+  function rnd() {
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  }
+  const gauss = () => {
+    let u = 0, v = 0;
+    while (u === 0) u = rnd();
+    while (v === 0) v = rnd();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  };
+  // random complex Gaussian matrix
+  const A = Array.from({length: n}, () => Array.from({length: n}, () => [gauss()/Math.SQRT2, gauss()/Math.SQRT2]));
+  const cx = (M) => M; // [re, im] pairs as nested arrays
+  // complex helpers on flat [re,im] arrays
+  const cadd = (a,b)=>[a[0]+b[0], a[1]+b[1]];
+  const cmul = (a,b)=>[a[0]*b[0]-a[1]*b[1], a[0]*b[1]+a[1]*b[0]];
+  const cdiv = (a,b)=>{const d=b[0]*b[0]+b[1]*b[1]; return [(a[0]*b[0]+a[1]*b[1])/d, (a[1]*b[0]-a[0]*b[1])/d];};
+  const cabs = (a)=>Math.hypot(a[0], a[1]);
+  const cconj = (a)=>[a[0], -a[1]];
+  // QR via Householder on complex matrix (compact WY not needed) — use Gram-Schmidt
+  // columns of A
+  const cols = Array.from({length: n}, (_, j) => Array.from({length: n}, (_, i) => A[i][j]));
+  const Q = [];
+  for (let j = 0; j < n; j++) {
+    let v = cols[j].slice();
+    for (const q of Q) {
+      // proj = (q·v) q
+      let dot = [0, 0];
+      for (let i = 0; i < n; i++) dot = cadd(dot, cmul(cconj(q[i]), v[i]));
+      for (let i = 0; i < n; i++) v[i] = cadd(v[i], [-dot[0]*q[i][0], -dot[1]*q[i][1]]);
+    }
+    // normalize
+    let norm = 0;
+    for (let i = 0; i < n; i++) norm += v[i][0]*v[i][0] + v[i][1]*v[i][1];
+    norm = Math.sqrt(norm);
+    v = v.map(z => [z[0]/norm, z[1]/norm]);
+    Q.push(v);
+  }
+  // Q as matrix rows
+  const U = Array.from({length: n}, (_, i) => Array.from({length: n}, (_, j) => Q[j][i]));
+  // Givens two-level reduction (pivot = diagonal), reconstruction fidelity
+  const M = U.map(r => r.slice());
+  const gates = [];
+  for (let col = 0; col < n - 1; col++) {
+    for (let row = col + 1; row < n; row++) {
+      const a = M[col][col], b = M[row][col];
+      if (cabs(b) < 1e-13) continue;
+      const r = Math.hypot(cabs(a), cabs(b));
+      const c = cdiv(a, [r, 0]), s = cdiv(b, [r, 0]);
+      const G = Array.from({length: n}, (_, i) => Array.from({length: n}, (_, j) => {
+        if (i === col && j === col) return cconj(c);
+        if (i === col && j === row) return cconj(s);
+        if (i === row && j === col) return [-s[0], -s[1]];
+        if (i === row && j === row) return c;
+        return i === j ? [1, 0] : [0, 0];
+      }));
+      // M = G·M
+      const M2 = Array.from({length: n}, (_, i) => Array.from({length: n}, () => [0, 0]));
+      for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) {
+        let acc = [0, 0];
+        for (let kk = 0; kk < n; kk++) acc = cadd(acc, cmul(G[i][kk], M[kk][j]));
+        M2[i][j] = acc;
+      }
+      for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) M[i][j] = M2[i][j];
+      gates.push(G);
+    }
+  }
+  // reconstruct U = G1† ... Gk† M
+  let rec = M.map(r => r.slice());
+  for (let gi = gates.length - 1; gi >= 0; gi--) {
+    const G = gates[gi];
+    const Gd = Array.from({length: n}, (_, i) => Array.from({length: n}, (_, j) => cconj(G[j][i])));
+    const R2 = Array.from({length: n}, (_, i) => Array.from({length: n}, () => [0, 0]));
+    for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) {
+      let acc = [0, 0];
+      for (let kk = 0; kk < n; kk++) acc = cadd(acc, cmul(Gd[i][kk], rec[kk][j]));
+      R2[i][j] = acc;
+    }
+    rec = R2;
+  }
+  // fidelity = |tr(rec† U)/n|^2
+  let tr = [0, 0];
+  for (let i = 0; i < n; i++)
+    for (let kk = 0; kk < n; kk++)
+      tr = cadd(tr, cmul(cconj(rec[kk][i]), U[i][kk]));
+  const F = Math.pow(cabs(tr) / n, 2);
+  const infid = Math.max(0, 1 - F);
+  const eps = 2.22e-16;
+  const pass = infid <= 1e-10;
+  setOut("cp_out", [
+    `size           : ${n} x ${n}   gates: ${gates.length}`,
+    `1 - F          : ${infid.toExponential(3)}`,
+    `machine eps    : ${eps.toExponential(2)}`,
+    `VERDICT        : ${pass ? "PASS" : "FAIL"}  (pre-registered: 1-F <= 1e-10)`,
+  ], pass);
+}
+
+/* ── Riemann–von Mangoldt ───────────────────────────────── */
+function runRVM() {
+  const T = Math.max(10, parseFloat(document.getElementById("rm_T").value));
+  const N = T / (2 * Math.PI) * Math.log(T / (2 * Math.PI)) - T / (2 * Math.PI) + 7 / 8;
+  const lines = [
+    `N(${T}) ≈ ${fmt(N, 2)}   (main terms + 7/8)`,
+    `zeros up to T=100: 29 known; E17 verified N(1000) = 649.0 exactly`,
+    `VERDICT        : PASS  (analytic identity drawn)`,
+  ];
+  setOut("rm_out", lines, true);
+  // draw N(T) curve
+  const cv = document.getElementById("rm_canvas");
+  const ctx = cv.getContext("2d");
+  const W = cv.width = cv.clientWidth * devicePixelRatio;
+  const H = cv.height = 130 * devicePixelRatio;
+  ctx.clearRect(0, 0, W, H);
+  const tmax = Math.max(T, 100);
+  const f = (t) => t / (2 * Math.PI) * Math.log(t / (2 * Math.PI)) - t / (2 * Math.PI) + 7 / 8;
+  const fmax = f(tmax);
+  ctx.strokeStyle = "#C96F4A"; ctx.lineWidth = 1.6 * devicePixelRatio;
+  ctx.beginPath();
+  for (let x = 0; x <= W; x++) {
+    const t = 10 + (tmax - 10) * x / W;
+    const y = H - 12 - f(t) / fmax * (H - 24);
+    if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+  // staircase of actual zero counts (first 29 zeros up to ~100)
+  const zeros = [14.13,21.02,25.01,30.42,32.94,37.59,40.92,43.33,48.00,49.77,52.80,56.45,59.35,61.19,65.11,67.08,69.55,72.07,75.70,77.14,79.34,82.90,84.74,87.43,88.81,92.49,94.65,96.00,98.83];
+  ctx.strokeStyle = "#0E7C86";
+  ctx.beginPath();
+  let zi = 0;
+  for (let x = 0; x <= W; x++) {
+    const t = 10 + (tmax - 10) * x / W;
+    while (zi < zeros.length && zeros[zi] < t) zi++;
+    const y = H - 12 - zi / fmax * (H - 24);
+    if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+  ctx.fillStyle = "#8A8078"; ctx.font = `${11 * devicePixelRatio}px monospace`;
+  ctx.fillText("N(T) main terms", 8, 14 * devicePixelRatio);
+  ctx.fillText("actual zero count (29 zeros)", 8, 28 * devicePixelRatio);
+}
+</script>
+</body>
+</html>

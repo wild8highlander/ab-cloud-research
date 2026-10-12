@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="330" viewBox="0 0 300 330">
+<rect width="300" height="330" fill="#221B16"/>
+<circle cx="150" cy="150" r="90" fill="none" stroke="#3A3028" stroke-width="1.5"/>
+<circle cx="240.0" cy="150.0" r="6" fill="#C9A227" opacity="0.8"/>
+<circle cx="231.1" cy="189.0" r="6" fill="#C9A227" opacity="0.8"/>
+<circle cx="206.1" cy="220.4" r="6" fill="#C9A227" opacity="0.8"/>
+<circle cx="170.0" cy="237.7" r="6" fill="#C9A227" opacity="0.8"/>
+<circle cx="130.0" cy="237.7" r="6" fill="#C9A227" opacity="0.8"/>
+<circle cx="93.9" cy="220.4" r="6" fill="#C9A227" opacity="0.8"/>
+<circle cx="68.9" cy="189.0" r="6" fill="#C9A227" opacity="0.8"/>
+<circle cx="60.0" cy="150.0" r="6" fill="#C9A227" opacity="0.8"/>
+<circle cx="68.9" cy="111.0" r="6" fill="#C9A227" opacity="0.8"/>
+<circle cx="93.9" cy="79.6" r="6" fill="#C9A227" opacity="0.8"/>
+<circle cx="130.0" cy="62.3" r="6" fill="#C9A227" opacity="0.8"/>
+<circle cx="170.0" cy="62.3" r="6" fill="#C9A227" opacity="0.8"/>
+<circle cx="206.1" cy="79.6" r="6" fill="#C9A227" opacity="0.8"/>
+<circle cx="231.1" cy="111.0" r="6" fill="#C9A227" opacity="0.8"/>
+<g>
+  <animateTransform attributeName="transform" type="rotate" from="0 150 150" to="360 150 150" dur="42s" repeatCount="indefinite"/>
+  <circle cx="240" cy="150" r="11" fill="#EDE6E0" stroke="#C9A227" stroke-width="3"/>
+</g>
+<text x="150" y="286" text-anchor="middle" fill="#C9A227" font-size="16" font-weight="700" font-family="monospace">θ = π/7</text>
+<text x="150" y="310" text-anchor="middle" fill="#B8A99C" font-size="12.5" font-family="monospace">N = 2k = 14 · gap = 2π/14</text>
+</svg>

@@ -1,0 +1,8 @@
+{
+  "name": "my-compilation",
+  "battery": "compile",
+  "params": { "n": 4, "seed": 42 },
+  "thresholds": { "infidelity_max": 1e-12 },
+  "does_not_prove": "scalability beyond the tested sizes; KAK-optimality inside the ISA class",
+  "blind": true
+}
