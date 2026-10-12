@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+title: AB Quantum Processor Program 0.1.0 — V20, the AB-cloud compiler
+message: >-
+  If you use this package, please cite both this program and the
+  mother AB Research Program.
+authors:
+  - fullname: AB Quantum Processor Program
+version: 0.1.0
+date-released: "2026-10-11"
+license: PROPRIETARY
+abstract: >-
+  Phase P0 of the "AB processor" program: an ISA with a phase
+  continuum, an exact compiler for arbitrary unitary logic
+  (4x4/8x8, machine floor), memory, ALU, blind reading of the
+  Riemann zeros off direct algebraic functions (no zero table),
+  and holonomic nonlocality with exact no-signaling. Companion to
+  the AB Research Program (V1-V19).
+keywords:
+  - Aharonov-Bohm
+  - quantum processor
+  - compiler
+  - Riemann zeta
+  - nonlocality
+  - Hilbert-Polya

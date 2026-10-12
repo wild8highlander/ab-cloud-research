@@ -1,0 +1,9 @@
+{
+  "does_not_prove": "корректность физической реализации ворот",
+  "max_unitarity_residual_clean": 4.4408920985006262e-16,
+  "corrupted_1mF": 0.00024998437499990089,
+  "pre_registered": "невязка ≤ 1e−12; контроль фазы F ≥ 1−1e−12; испорченный контроль 1−F ≥ 1e−4",
+  "pass": true,
+  "corrupted_unitarity_residual": 0.00099899999999997213,
+  "global_phase_worst_1mF": 0
+}

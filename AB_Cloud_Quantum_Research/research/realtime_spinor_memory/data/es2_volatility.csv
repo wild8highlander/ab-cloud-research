@@ -1,0 +1,4 @@
+model,N,recon_acc,chance,MI,control_det,consistent_share,expected_share
+S1,4,0.250075,0.250000,0.0,True,0.250000,0.250000
+S2,6,0.167408,0.166667,0.0,True,0.166667,0.166667
+S3,14,0.071658,0.071429,0.0,True,0.071428,0.071429

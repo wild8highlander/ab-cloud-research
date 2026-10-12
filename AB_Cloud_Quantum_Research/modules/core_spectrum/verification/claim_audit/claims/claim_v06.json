@@ -1,0 +1,24 @@
+{
+ "id": "v06",
+ "claim": "V6 спектральное тождество",
+ "statement": "Тождество спектра с нулями для решёточных затворов — НЕТ (ранговое соответствие в нулевой зоне); для H_ξ = diag(±γ) характеристическая функция совпадает с ξ с точностью до константы Адамара (остаток ≤ 1e-9).",
+ "premises": [
+  "позитивный контроль H_ξ по построению"
+ ],
+ "code": [
+  "rpbridge/spectral_identity.py",
+  "campaigns/run_v06_spectral_identity.py"
+ ],
+ "controls": [
+  {
+   "name": "Hxi Adamard control",
+   "passed": true,
+   "detail": "max|log resid| = 5.8e-10"
+  }
+ ],
+ "does_not_prove": [
+  "отсутствие иного оператора с нужным спектром",
+  "RH"
+ ],
+ "status": "measured"
+}

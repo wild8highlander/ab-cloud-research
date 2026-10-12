@@ -1,0 +1,33 @@
+{
+ "meta": {
+  "title": "Th4. The Li formula",
+  "subtitle": "Th1–Th6: hermiticity, self-adjointness, certificates, the spectral Li formula, block reduction, the Guinand–Weil trace formula",
+  "author": "Ishak Khamzatovich Isaev",
+  "affil": "Independent researcher, Nalchik, Kabardino-Balkarian Republic",
+  "series": "AB Research Program · monograph series V1–V19",
+  "volume": "Th4",
+  "version": "1.2.0",
+  "date": "October 10, 2026"
+ },
+ "sections": [
+  {
+   "h1": "Th4. The spectral Li formula",
+   "theorem": {
+    "label": "Theorem Th4 (V15).",
+    "text": "The Li coefficients admit the spectral representation λ_n = Tr g_n(H_ξ), g_n(E) = 1 − (1 − 1/ρ(E))^n, ρ(E) = ½ − iE/2; the series converges absolutely; two computational paths agree with |Δ| ≤ 4.4e-11 for n ≤ 3000.",
+    "proof": "By definition λ_n = Σ_ρ [1 − (1 − 1/ρ)^n] over the nontrivial zeros with conjugation accounted (λ_n is real). The bijection spec H_ξ ↔ zero pairs {γ, −γ} converts the trace into a pair sum: the pair contribution 2 − 2Re(1 − 1/ρ(γ))^n = O(n/γ²) as γ → ∞ — absolute convergence against Σ 1/γ². The poles of g_n sit at ρ = 1, i.e. E = −i — off the real spectrum of H_ξ: the trace is well defined. Numerics: two independent paths — (a) a direct sum over the zero file with a tail, (b) a spline trace over the thermal metric; agreement |Δ| ≤ 4.4e-11. Positivity λ_n ≥ 0 — the Li criterion — is measured for n ≤ 3000 (tails ≤ 0.115); for all n the question is open and equivalent to RH."
+   }
+  },
+  {
+   "h1": "Th4.1 Certificate and boundaries",
+   "paras": [
+    "Certificate: test_th4_li.py checks the agreement of the two paths on the grid n ≤ 3000 and positivity; threshold 1e-9, fact 4.4e-11. Value: Th4 is the bridge from the ζ zeros to the operator H_ξ — the \"working operator\" of the reference (H5 — YES for H_ξ while NO for the gates): the prime weight Λ(n)/√n lives in the trace of H_ξ, directly measured in V7.",
+    "Boundaries: absolute convergence is proved, but positivity is empirical only up to n = 3000; extending the grid is linear in time and bounded by the zero file (external data). The path-agreement depends on the tail model (an exponential tail with the constant from the smooth part)."
+   ],
+   "figure": {
+    "path": "../../theorems_lemmas/T04_li_spectral/figures/th4_4dim_{lang}.png",
+    "caption": "Fig. 1. Theorem Th4: four measurement dimensions — the metric, its behaviour across gates/instances, the control and the threshold (2×2 tile, 600 dpi, campaign verdict data)."
+   }
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+{
+  "abqp_primitives_le_baselines": true,
+  "kak_optimal_2q_d4": 3,
+  "abqp_twoq_max_d4": 10,
+  "abqp_time_advantage_x50": true,
+  "does_not_prove": "превосходство по 2q-эквиваленту над KAK-оптимумом; масштабирование численных baseline на d>8; физическую реализацию",
+  "identity_zero_ab2": true,
+  "equal_constraints": "все методы выдают программы в одном ISA (AB2+PHASE); BL3/BL5 используют те же слоты, что ABQP (равный бюджет примитивов); независимый набор seeds 41800+",
+  "pass": true,
+  "pre_registered": "ABQP: 1−F ≤ 1e−12 на 100% независимого набора (структурированные + Haar 4×4/8×8); примитивов у ABQP ≤ каждой точной ISA-baseline (BL1/BL2/BL4) на каждой цели; медиана времени компиляции ABQP × 50 ≤ медианы BL3 (Haar 4×4); identity — 0 блоков AB2; испорченная цель компилируется (1−F ≤ 0.01)",
+  "n_targets": 69,
+  "abqp_success_all_1e12": true,
+  "corrupted_compiles": true,
+  "kak_note": "KAK-оптимум (3 CNOT для 4×4, Vidal–Dawson 2004) — контекст вне ISA-класса сравнения; по 2q-эквиваленту превосходство НЕ заявляется",
+  "median_ms_bl3_haar4": 232.21798899999999,
+  "median_ms_abqp_haar4": 0.0039350000000000001
+}

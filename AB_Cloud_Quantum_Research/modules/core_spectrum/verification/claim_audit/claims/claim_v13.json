@@ -1,0 +1,25 @@
+{
+ "id": "v13",
+ "claim": "V13 формальный мост",
+ "statement": "DAG обязательств корректен; вывод RH заблокирован: путь к заключению содержит узлы со статусом assumed/computed.",
+ "premises": [
+  "классификация статусов: proven/computed/assumed/external"
+ ],
+ "code": [
+  "rpbridge/formaloblig.py",
+  "formal/lean",
+  "formal/coq"
+ ],
+ "controls": [
+  {
+   "name": "DAG acyclicity",
+   "passed": true,
+   "detail": "циклов нет, ссылки корректны"
+  }
+ ],
+ "does_not_prove": [
+  "RH",
+  "достаточность текущего набора обязательств"
+ ],
+ "status": "measured"
+}

@@ -1,0 +1,9 @@
+{
+  "does_not_prove": "универсальную воспроизводимость на всех BLAS/CPU",
+  "byte_exact_replay": true,
+  "sha256": "fe5c12436efbf9937eee267de019afa49e9e7794ce6a4b053a5d5cb499c3fcc5",
+  "max_20seeds": 6.6613381477509392e-16,
+  "order_independent": true,
+  "pre_registered": "байт-в-байт реплей; серия 20 seeds: max ≤ 1e−12; независимость порядка",
+  "pass": true
+}

@@ -1,0 +1,8 @@
+key,experiment,value
+method,16,Riemann–Siegel expansion (Arias de Reyna I/II); coefficients from integer Euler recurrence; no hand tables
+work_precision_bits,16,140
+max_F_derivative,16,60
+truncation,16,stride-2 U-turn on |term_k|
+module,16,RiemannSiegel (e16_rs_engine.jl)
+setup_precision_bits,16,400
+taylor_order,16,200

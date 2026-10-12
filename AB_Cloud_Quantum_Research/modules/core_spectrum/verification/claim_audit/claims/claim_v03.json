@@ -1,0 +1,25 @@
+{
+ "id": "v03",
+ "claim": "V3 скан критической линии",
+ "statement": "Минимум D_KS(σ) в окрестности σ = 1/2 отсутствует или неустойчив по seeds; кривая D(σ) плоская в полосе ошибки.",
+ "premises": [
+  "веса вихрей q_k(σ) = log|ζ(σ+iγ̃_k)| по серединам γ̃",
+  "3 seeds, решётка 24×24"
+ ],
+ "code": [
+  "rpbridge/critical_line.py",
+  "campaigns/run_v03_critical_line.py"
+ ],
+ "controls": [
+  {
+   "name": "placebo_permuted",
+   "passed": true,
+   "detail": "плацебо-веса дают тот же уровень D"
+  }
+ ],
+ "does_not_prove": [
+  "оптимальность σ=1/2 для всех конфигураций",
+  "связь α=½ потока с Re s=½ нулей"
+ ],
+ "status": "measured"
+}

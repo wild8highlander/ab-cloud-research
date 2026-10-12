@@ -1,0 +1,10 @@
+total_gates,errors,dense_complex_matrix_bytes,dense_dim_4n,mode,experiment,bits,inputs_checked,toffoli,cnot
+23,0,4096,8,exhaustive,9,2,16,6,17
+37,0,65536,12,exhaustive,9,3,64,10,27
+51,0,1048576,16,exhaustive,9,4,256,14,37
+65,0,16777216,20,exhaustive,9,5,1024,18,47
+79,0,268435456,24,exhaustive,9,6,4096,22,57
+93,0,4294967296,28,exhaustive,9,7,16384,26,67
+107,0,68719476736,32,exhaustive,9,8,65536,30,77
+163,0,4503599627370496,48,random_10k,9,12,10000,46,117
+219,0,0,64,random_10k,9,16,10000,62,157

@@ -1,0 +1,46 @@
+{
+ "id": "V20",
+ "title": "Компилятор AB-процессора: точная компиляция произвольной унитарной логики в ISA AB-облака",
+ "statement": "Любая унитарная матрица 4×4 и 8×8 компилируется в последовательность затворов ISA {AB2, PHASE} AB-облака замкнутой Givens-декомпозицией (без оптимизации и аппроксимации) и исполняется с fidelity ≥ 1−1e-12 (4×4, M=200, сид 96) и ≥ 1−1e-10 (8×8, M=100, сид 296); контроли identity/permutation/DFT4/CL(2) точны; полный прогон воспроизводится бит-в-бит.",
+ "premises": [
+  "ISA = {AB2(a,b;θ,λ,φ,χ) — двухуровневый блок-импульс (обобщение P1 V18), PHASE(x;φ) — селективный детюнинг уровня (обобщение P2 V18)}; фиксированные ворота V18 {X,Y,Z,H,S,T} — частные случаи",
+  "Механизм компиляции: Givens-QR → двухуровневые блоки → AB2-параметризация; диагональ → лестница PHASE (предрегистрировано в PROCESSOR_PROGRAM.md как «QR + блоки»)",
+  "Исполнение — точная линейная алгебра (спецификация процессора); вопрос физического носителя вне области пакета"
+ ],
+ "code": [
+  "rpbridge/isa.py",
+  "rpbridge/compiler.py",
+  "scripts/compute_v20.py"
+ ],
+ "controls": {
+  "identity": "F = 1.0, 0 затворов",
+  "permutation": "F = 1.0 (точная перестановочная декомпозиция)",
+  "dft4": "F = 1.0 (машинный пол)",
+  "cl2": "F = 1 − O(1e-16)",
+  "bit_exact_replay": "полный прогон дважды — программы и матрицы совпадают на уровне битов float64"
+ },
+ "does_not_prove": [
+  "масштабируемую глубину при n → 10² кубитов (оптимизация глубины — KAK/Соловей–Китаев — обязательство P3/V26)",
+  "физическую реализуемость чипа (носитель вне области пакета)",
+  "квантовое превосходство (не заявляется)",
+  "валидность AH-архитектуры как физической теории — пакет исполняет математическую спецификацию"
+ ],
+ "status": "committed",
+ "numeric_check": [
+  {"path": "compiler.m4.max_one_minus_F", "value": 4.440892098500626e-16, "tol": 1e-6},
+  {"path": "compiler.m8.max_one_minus_F", "value": 6.661338147750939e-16, "tol": 1e-6},
+  {"path": "compiler.controls.dft4", "value": 1.0, "tol": 1e-9},
+  {"path": "compiler.controls.cl2", "value": 0.9999999999999993, "tol": 1e-6},
+  {"path": "compiler.bit_exact_replay", "value": 1.0, "tol": 1e-12},
+  {"path": "previews.memory_P1.ram.read_back", "value": 64, "tol": 1e-12},
+  {"path": "previews.memory_P1.latency.b", "value": 3.999999999999998, "tol": 1e-6},
+  {"path": "previews.alu_V22.adder_mod16.passed", "value": 256, "tol": 1e-12},
+  {"path": "previews.alu_V22.mulmod16_odd.passed", "value": 128, "tol": 1e-12},
+  {"path": "previews.alu_V22.comparator_phase.passed", "value": 256, "tol": 1e-12},
+  {"path": "previews.reading_V23.zeros_read", "value": 12, "tol": 1e-12},
+  {"path": "previews.reading_V23.zeros_reference", "value": 12, "tol": 1e-12},
+  {"path": "previews.nonlocality_V24.chsh.S", "value": 2.82842712474619, "tol": 1e-6},
+  {"path": "previews.nonlocality_V24.interferometer.max_resid", "value": 6.661338147750939e-16, "tol": 1e-6}
+ ],
+ "previews_note": "Слои памяти/ALU/считывания/нелокальности включены в вердикт как ПРЕДВАРИТЕЛЬНЫЕ измерения (превью P1–P3); их предрегистрированные пороги закреплены за кампаниями V21–V24 в results/ROADMAP.md."
+}

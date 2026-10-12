@@ -1,0 +1,33 @@
+{
+ "meta": {
+  "title": "Th3. Certificates",
+  "subtitle": "Th1–Th6: hermiticity, self-adjointness, certificates, the spectral Li formula, block reduction, the Guinand–Weil trace formula",
+  "author": "Ishak Khamzatovich Isaev",
+  "affil": "Independent researcher, Nalchik, Kabardino-Balkarian Republic",
+  "series": "AB Research Program · monograph series V1–V19",
+  "volume": "Th3",
+  "version": "1.2.0",
+  "date": "October 10, 2026"
+ },
+ "sections": [
+  {
+   "h1": "Th3. Eigenvalue certificates",
+   "theorem": {
+    "label": "Theorem Th3 (V12).",
+    "text": "For Hermitian H, a computed λ̃, a unit v with residual r = Hv − λ̃v, δ = ‖r‖ and gap g to the nearest other level, some λ̂ ∈ spec H satisfies |λ̂ − λ̃| ≤ δ²/g; the whole spectrum lies in the union of rational Gershgorin intervals.",
+    "proof": "Decompose v = c·u + w with u the normalized eigenvector of λ̂ and w ⊥ u. The residual weight on foreign levels yields the Kato-type estimate ‖w‖ ≤ δ/gap, hence |λ̂ − λ̃| ≤ δ²/gap — quadratic superconvergence: at δ ~ 1e-8 and gap ~ 0.5 the interval shrinks to ~2e-16. Gershgorin: for H = D + E the radii R_i = Σ_{j≠i}|H_ij| in exact rational arithmetic (fractions, limit_denominator 1e12) give rounding-free intervals; their union covers the spectrum deterministically. Verified 5/5 certificates with width ~1e-27 in mpmath (dps 40)."
+   }
+  },
+  {
+   "h1": "Th3.1 Certificate and boundaries",
+   "paras": [
+    "Certificate: test_th3_certificates.py checks (a) the claimed level falls into its Kato interval, (b) the spectrum is covered by Gershgorin intervals, (c) the width reproduces. The series threshold 1e-27 is achieved on the first five levels of the protocol gate. Value for the program: the interval layer is a \"trust passport\" for all spectral comparisons (V1–V3, V6, V16) — any coincidence of levels with zero ordinates can be certified by intervals, not only by floating-point numbers.",
+    "Boundaries: the estimate is quadratic in δ and therefore requires an already well-converged λ̃; for degenerate or close levels the gap is small and the interval widens — cluster versions of the estimate are not included in the package. Rational arithmetic is slow: the layer is applied pointwise, not to the whole spectrum."
+   ],
+   "figure": {
+    "path": "../../theorems_lemmas/T03_certificates/figures/th3_4dim_{lang}.png",
+    "caption": "Fig. 1. Theorem Th3: four measurement dimensions — the metric, its behaviour across gates/instances, the control and the threshold (2×2 tile, 600 dpi, campaign verdict data)."
+   }
+  }
+ ]
+}

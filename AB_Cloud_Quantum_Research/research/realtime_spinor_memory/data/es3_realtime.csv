@@ -1,0 +1,8 @@
+subject,t,cost_ms
+logmachine,1024,0.061953
+logmachine,8192,0.488046
+logmachine,65536,3.908532
+logmachine,131072,7.751206
+logmachine,200000,0.000522
+machine_S1,all,0.000194
+machine_S3,all,0.000193

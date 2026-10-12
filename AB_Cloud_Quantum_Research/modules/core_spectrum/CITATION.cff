@@ -1,0 +1,10 @@
+cff-version: 1.2.1
+message: "If you use this package, please cite it as below."
+authors:
+  - family-names: Isaev
+    given-names: Ishak Khamzatovich
+    orcid: "https://orcid.org/0009-0003-7299-0701"
+title: "AB Research Program: a self-contained computational implementation of the 15-solution Hilbert–Pólya research plan (V1–V15), with theorems, certificates, a formal obligation layer and a web laboratory"
+version: 1.2.1
+date-released: "2026-10-11"
+license: Isaev-Proprietary-1.0

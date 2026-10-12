@@ -1,0 +1,30 @@
+{
+ "id": "v04",
+ "claim": "V4 паспорт оператора / Th1",
+ "statement": "H_L эрмитов по построению (H[i,j] = conj H[j,i]); спектр вещественен; при α=½, W=0 спектр кирально спарен λ ↔ −λ.",
+ "premises": [
+  "конечная размерность (ограниченный оператор на ℂ^N)"
+ ],
+ "code": [
+  "rpbridge/operator.py",
+  "engine/hamiltonian.py",
+  "monograph/theorems/T01_hermiticity"
+ ],
+ "controls": [
+  {
+   "name": "P1 hermiticity battery",
+   "passed": true,
+   "detail": "max|H−H†| = 0.0 на 10 конфигурациях"
+  },
+  {
+   "name": "P4 residuals",
+   "passed": true,
+   "detail": "max‖Hv−λv‖ = 8.8e-15"
+  }
+ ],
+ "does_not_prove": [
+  "самосопряжённость предельного оператора L→∞",
+  "спектральную связь с нулями ζ"
+ ],
+ "status": "proven"
+}

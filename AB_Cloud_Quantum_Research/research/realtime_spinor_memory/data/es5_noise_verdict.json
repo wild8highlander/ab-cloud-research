@@ -1,0 +1,141 @@
+{
+ "experiment": "ES5-noise",
+ "campaign": "realtime_spinor_memory",
+ "package": "AB Cloud Quantum Research v1.0.0",
+ "pre_registered": {
+  "C1": "gap/12 ≤ σ* ≤ gap/2 для каждой модели (шум считывания)",
+  "C2": "σ*_S1 ≥ σ*_S2 ≥ σ*_S3",
+  "C3": "SER(gap/8) ≤ 1e-3",
+  "C4": "SER(gap) ≥ 0.3",
+  "C5": "векторный симулятор ≡ скалярной машине побитово",
+  "erratum": "ES5a: первичная реализация моделировала фазовую диффузию; приведена к предрегистрации (шум считывания), диффузия — разведка D-блока"
+ },
+ "results": {
+  "S1": {
+   "N": 4,
+   "gap": 1.5707963267948966,
+   "sigma_star": 0.13538761800225432,
+   "gap_over_12": 0.1308996938995747,
+   "gap_over_2": 0.7853981633974483,
+   "SER_at_gap_over_8": 5.625e-05,
+   "SER_at_gap": 0.6170583333333334,
+   "bits_per_step": 2.0
+  },
+  "S2": {
+   "N": 6,
+   "gap": 1.0471975511965976,
+   "sigma_star": 0.08858667904100823,
+   "gap_over_12": 0.08726646259971647,
+   "gap_over_2": 0.5235987755982988,
+   "SER_at_gap_over_8": 7.291666666666667e-05,
+   "SER_at_gap": 0.6165916666666666,
+   "bits_per_step": 2.584962500721156
+  },
+  "S3": {
+   "N": 14,
+   "gap": 0.4487989505128276,
+   "sigma_star": 0.0379269019073225,
+   "gap_over_12": 0.037399912542735635,
+   "gap_over_2": 0.2243994752564138,
+   "SER_at_gap_over_8": 6.875e-05,
+   "SER_at_gap": 0.6169020833333333,
+   "bits_per_step": 3.807354922057604
+  },
+  "ordering": {
+   "S1": 0.13538761800225432,
+   "S2": 0.08858667904100823,
+   "S3": 0.0379269019073225
+  },
+  "diffusion_S1": {
+   "sigma=0.05·gap": 74.5,
+   "sigma=0.1·gap": 17.5,
+   "sigma=0.2·gap": 8.0,
+   "sigma=0.4·gap": 3.5,
+   "loglog_slope": 34.03654741405443
+  },
+  "diffusion_S2": {
+   "sigma=0.05·gap": 81.0,
+   "sigma=0.1·gap": 18.5,
+   "sigma=0.2·gap": 8.0,
+   "sigma=0.4·gap": 2.5,
+   "loglog_slope": 42.43840220441725
+  },
+  "diffusion_S3": {
+   "sigma=0.05·gap": 98.5,
+   "sigma=0.1·gap": 11.0,
+   "sigma=0.2·gap": 5.0,
+   "sigma=0.4·gap": 3.0,
+   "loglog_slope": 53.389771660024685
+  },
+  "diffusion_note": "РАЗВЕДКА (без порогов, эрратум ES5a): наклон log t* по σ ≈ −2 согласуется с t* ~ gap²/σ²; не является вердиктом"
+ },
+ "checks": [
+  {
+   "name": "C1:S1_silence_zone",
+   "pass": true,
+   "detail": "σ* = 0.1354 ∈ [gap/12=0.1309, gap/2=0.7854]"
+  },
+  {
+   "name": "C3:S1_deep_zone",
+   "pass": true,
+   "detail": "SER(gap/8) = 5.62e-05 ≤ 1e-3"
+  },
+  {
+   "name": "C4:S1_channel_breaks",
+   "pass": true,
+   "detail": "SER(gap) = 0.617 ≥ 0.3"
+  },
+  {
+   "name": "C5:S1_vectorized_bitwise",
+   "pass": true,
+   "detail": "векторный симулятор ≡ скалярной машине (5000 шагов)"
+  },
+  {
+   "name": "C1:S2_silence_zone",
+   "pass": true,
+   "detail": "σ* = 0.0886 ∈ [gap/12=0.0873, gap/2=0.5236]"
+  },
+  {
+   "name": "C3:S2_deep_zone",
+   "pass": true,
+   "detail": "SER(gap/8) = 7.29e-05 ≤ 1e-3"
+  },
+  {
+   "name": "C4:S2_channel_breaks",
+   "pass": true,
+   "detail": "SER(gap) = 0.617 ≥ 0.3"
+  },
+  {
+   "name": "C5:S2_vectorized_bitwise",
+   "pass": true,
+   "detail": "векторный симулятор ≡ скалярной машине (5000 шагов)"
+  },
+  {
+   "name": "C1:S3_silence_zone",
+   "pass": true,
+   "detail": "σ* = 0.0379 ∈ [gap/12=0.0374, gap/2=0.2244]"
+  },
+  {
+   "name": "C3:S3_deep_zone",
+   "pass": true,
+   "detail": "SER(gap/8) = 6.88e-05 ≤ 1e-3"
+  },
+  {
+   "name": "C4:S3_channel_breaks",
+   "pass": true,
+   "detail": "SER(gap) = 0.617 ≥ 0.3"
+  },
+  {
+   "name": "C5:S3_vectorized_bitwise",
+   "pass": true,
+   "detail": "векторный симулятор ≡ скалярной машине (5000 шагов)"
+  },
+  {
+   "name": "C2:robustness_ordering",
+   "pass": true,
+   "detail": "σ*_S1=0.1354 ≥ σ*_S2=0.0886 ≥ σ*_S3=0.0379"
+  }
+ ],
+ "pass": true,
+ "does_not_prove": "Сертифицирует границу робастности ФАЗОВОГО КАНАЛА при iid-шуме считывания. Не утверждает устойчивости к фазовой диффузии (см. разведку D-блока: t* ~ gap²/σ²), систематическим дрейфам и квантовой декогеренции; trade-off «биты против зазора» публикуется как честная граница модели."
+}

@@ -1,0 +1,12 @@
+{
+  "julia": "1.10.9",
+  "run_utc": "2026-10-11T19:38:43Z",
+  "e18_abqp_success_all": true,
+  "e18_median_ms_abqp_haar4": 0.0039345000000000005,
+  "stage": "5 (E18)",
+  "e18_abqp_time_advantage_x50": true,
+  "e18_median_ms_bl3_haar4": 232.21798899999999,
+  "e18_identity_zero_ab2": true,
+  "e18_abqp_primitives_le_baselines": true,
+  "e18_corrupted_compiles": true
+}

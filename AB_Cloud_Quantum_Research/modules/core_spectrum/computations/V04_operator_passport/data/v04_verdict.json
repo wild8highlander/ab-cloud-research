@@ -1,0 +1,120 @@
+{
+ "entries": [
+  {
+   "L": 12,
+   "seed": 96,
+   "N": 144,
+   "norm_H": 3.0642159769821538,
+   "hermiticity_max": 0.0,
+   "imag_spectrum_max": 0.0,
+   "chiral_pair_max": NaN,
+   "eigpair_residual_max": 4.528005546474814e-15
+  },
+  {
+   "L": 16,
+   "seed": 96,
+   "N": 256,
+   "norm_H": 3.081062232687749,
+   "hermiticity_max": 0.0,
+   "imag_spectrum_max": 0.0,
+   "chiral_pair_max": NaN,
+   "eigpair_residual_max": 4.620442309625452e-15
+  },
+  {
+   "L": 24,
+   "seed": 96,
+   "N": 576,
+   "norm_H": 3.1217589146227067,
+   "hermiticity_max": 0.0,
+   "imag_spectrum_max": 0.0,
+   "chiral_pair_max": NaN,
+   "eigpair_residual_max": 6.7712850767660195e-15
+  },
+  {
+   "L": 32,
+   "seed": 96,
+   "N": 1024,
+   "norm_H": 3.116193126032922,
+   "hermiticity_max": 0.0,
+   "imag_spectrum_max": 0.0,
+   "chiral_pair_max": NaN,
+   "eigpair_residual_max": 8.782821366945728e-15
+  },
+  {
+   "L": 24,
+   "seed": 196,
+   "N": 576,
+   "norm_H": 2.9930508653601016,
+   "hermiticity_max": 0.0,
+   "imag_spectrum_max": 0.0,
+   "chiral_pair_max": NaN,
+   "eigpair_residual_max": 6.229792076837229e-15
+  },
+  {
+   "L": 24,
+   "seed": 296,
+   "N": 576,
+   "norm_H": 2.9494697771576983,
+   "hermiticity_max": 0.0,
+   "imag_spectrum_max": 0.0,
+   "chiral_pair_max": NaN,
+   "eigpair_residual_max": 7.938856683039285e-15
+  },
+  {
+   "L": 24,
+   "seed": 396,
+   "N": 576,
+   "norm_H": 3.7235688876660458,
+   "hermiticity_max": 0.0,
+   "imag_spectrum_max": 0.0,
+   "chiral_pair_max": NaN,
+   "eigpair_residual_max": 7.982655176104256e-15
+  },
+  {
+   "L": 24,
+   "seed": 496,
+   "N": 576,
+   "norm_H": 2.9031566635433084,
+   "hermiticity_max": 0.0,
+   "imag_spectrum_max": 0.0,
+   "chiral_pair_max": NaN,
+   "eigpair_residual_max": 6.9607761861169065e-15
+  },
+  {
+   "L": 24,
+   "seed": 96,
+   "N": 576,
+   "norm_H": 2.881154830627389,
+   "hermiticity_max": 0.0,
+   "imag_spectrum_max": 0.0,
+   "chiral_pair_max": 8.215650382226158e-15,
+   "eigpair_residual_max": 8.399520544470409e-15
+  },
+  {
+   "L": 16,
+   "seed": 196,
+   "N": 256,
+   "norm_H": 2.956564385707912,
+   "hermiticity_max": 0.0,
+   "imag_spectrum_max": 0.0,
+   "chiral_pair_max": 4.551914400963142e-15,
+   "eigpair_residual_max": 5.199713811937757e-15
+  }
+ ],
+ "epsilon_num": 1e-12,
+ "P1_hermiticity": true,
+ "P1_max": 0.0,
+ "P2_real_spectrum": true,
+ "P3_chiral_pairs": true,
+ "P3_max": 8.215650382226158e-15,
+ "P4_residuals": true,
+ "P4_max": 8.782821366945728e-15,
+ "theorem_note": "Th1: H_L эрмитов по построению (H[i,j] = conj H[j,i]) ⇒ спектр вещественен; киральность α=½ — бипартиность",
+ "meta": {
+  "campaign": "V04",
+  "date": "2026-10-10",
+  "package": "AB Research Program 1.0.0",
+  "runtime_s": 3.9
+ },
+ "verdict_note": "Th1 доказана: эрмитовость по построению, спектр вещественен, киральность α=½/W=0 — бипартидность"
+}

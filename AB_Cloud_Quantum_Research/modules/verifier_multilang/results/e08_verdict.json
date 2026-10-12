@@ -1,0 +1,8 @@
+{
+  "does_not_prove": "ускорение арифметики относительно CPU",
+  "adder_bijective": true,
+  "adder_collisions": 0,
+  "mulmod_odd_even_pattern_ok": true,
+  "pre_registered": "сумматор биективен (256/256); mulmod16: нечётные — биекция, чётные — нет",
+  "pass": true
+}

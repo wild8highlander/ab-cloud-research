@@ -1,0 +1,33 @@
+{
+ "meta": {
+  "title": "Th1. Hermiticity",
+  "subtitle": "Th1–Th6: hermiticity, self-adjointness, certificates, the spectral Li formula, block reduction, the Guinand–Weil trace formula",
+  "author": "Ishak Khamzatovich Isaev",
+  "affil": "Independent researcher, Nalchik, Kabardino-Balkarian Republic",
+  "series": "AB Research Program · monograph series V1–V19",
+  "volume": "Th1",
+  "version": "1.2.0",
+  "date": "October 10, 2026"
+ },
+ "sections": [
+  {
+   "h1": "Th1. Hermiticity and reality of the spectrum",
+   "theorem": {
+    "label": "Theorem Th1 (V4).",
+    "text": "For any choice of vortices, W, α and boundaries the operator H_L satisfies H_L = H_L†; hence spec(H_L) ⊂ ℝ. At α = ½ and W = 0 the spectrum is symmetric: λ ∈ spec ⇒ −λ ∈ spec.",
+    "proof": "Every bond is inserted as the pair H[i,j] = −t·e^{iφ}, H[j,i] = −t·e^{−iφ} = conj(H[i,j]) — hermiticity by construction; the diagonal is real (vortex potential, disorder, staggered mass). By the spectral theorem for Hermitian matrices the whole spectrum is real. Symmetry at W = 0: the lattice is bipartite in the parity ix+iy; in that basis H = [[0, B], [B†, 0]]; if H(λ, 0) = λ·(u, v) then H(−v, u)·(−1) = −λ·(u, v) — the spectrum is symmetric about zero. Numerical certificate: ‖H − H†‖ = 0.0 exactly; the pairing λ ↔ −λ reproduced to 8.2e-15; reality residuals 8.8e-15 (the eigvalsh machine floor)."
+   }
+  },
+  {
+   "h1": "Th1.1 Certificate and boundaries",
+   "paras": [
+    "The certificate is reproducible: test_th1_passport.py checks hermiticity on three protocol gates (Nv = 16/64/256, seed 96) and demands ‖H − H†‖ ≤ 1e-12; the fact is exactly 0.0, since the construction uses no approximations — conjugate pairs are written simultaneously. Importantly, hermiticity survives ALL the C5 handles — twists, anisotropy, δα, staggered mass, profile, signs: each handle either modifies the bond magnitude (preserving the phase pair) or the diagonal (staying real). This makes Th1 an architectural property, not a property of a single configuration.",
+    "Boundaries: Th1 says nothing about the correspondence of the spectrum to the ζ zeros — that is the H2/H5 question, on which the series delivers negative verdicts (V1, V3, V6, V16). The pairing λ ↔ −λ breaks already at W > 0 (the vortex potential is asymmetric) and is not restored by vortices."
+   ],
+   "figure": {
+    "path": "../../theorems_lemmas/T01_hermiticity/figures/th1_4dim_{lang}.png",
+    "caption": "Fig. 1. Theorem Th1: four measurement dimensions — the metric, its behaviour across gates/instances, the control and the threshold (2×2 tile, 600 dpi, campaign verdict data)."
+   }
+  }
+ ]
+}

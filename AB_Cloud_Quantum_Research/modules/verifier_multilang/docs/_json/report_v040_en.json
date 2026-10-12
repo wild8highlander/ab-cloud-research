@@ -1,0 +1,257 @@
+{
+ "meta": {
+  "title": "ABQP Julia Research Program v0.4.0: Class B — the Compiler Against Strong Baselines",
+  "subtitle": "Obligation O-J2 executed: under equal ISA constraints the closed-form Givens-QR ABQP compiler keeps machine accuracy on an independent target set, never exceeds the exact baselines' primitive budget, and beats numerical coordinate descent by ×59,000 in time — on top of E01–E17",
+  "author": "ABQP Research Program",
+  "affil": "Julia 1.10.9 · BigFloat(140) · mpmath · numpy — cross-language validation",
+  "series": "ABQP JULIA RESEARCH PROGRAM",
+  "volume": "R2",
+  "version": "0.4.0",
+  "date": "11.10.2026"
+ },
+ "sections": [
+  {
+   "h1": "1. Protocol discipline: what was actually executed",
+   "paras": [
+    "This report records two executed layers of the ABQP Julia Research Program: version 0.2.0 (fifteen experiments E01–E15) and version 0.3.0 — obligation O-J1 (experiments E16–E17). All experiments were run on Julia 1.10.9 using only the standard library, which makes reproduction trivial: a single run of experiments/run_all.jl takes 43 seconds and writes the full set of CSV tables into results/. Every experiment was upgraded to the full strength of its own protocol: pre-registered thresholds, negative controls, independent seed series, Wilson confidence intervals and ablations were added.",
+    "The conceptual basis follows the development plan: AB hypotheses are split into three irreducible classes — architectural (A: a useful way to describe computation in terms of known linear algebra), algorithmic (B: a measurable cost advantage on specific tasks) and physical (C: a new physical effect with a quantitative prediction). Success of class A does not imply B, and success of B does not imply C. All fifteen experiments of this version belong to class A and partially to class B: they verify correctness, robustness and cost, and they claim no new physics.",
+    "The verdict layer is built so that thresholds cannot be tuned after looking at the data: experiments/verdicts.jl contains only pre-registered constants and reads the CSVs. The master summary (results/verdicts_master.json) shows that all thirteen pass/fail experiments passed their thresholds; the two remaining ones (E03 and E05) are specification experiments — they measure the scaling slope and the noise floor rather than produce a PASS/FAIL."
+   ],
+   "table": {
+    "caption": "Table 1. Summary of the seventeen experiments: key metric and verdict.",
+    "header": [
+     "E",
+     "Subject",
+     "Key result",
+     "Verdict"
+    ],
+    "ratios": [
+     0.06,
+     0.27,
+     0.47,
+     0.2
+    ],
+    "rows": [
+     [
+      "E01",
+      "Control unitary matrices",
+      "residual ≤ 4.4e−16; corrupted control detected (2.5e−4)",
+      "PASS"
+     ],
+     [
+      "E02",
+      "Haar compilation 4×4/8×8",
+      "max (1−F) = 4.4e−16 / 6.7e−16; 0 failures out of 600",
+      "PASS"
+     ],
+     [
+      "E03",
+      "Scaling up to d=256",
+      "slope b = 2.939 [2.63, 3.25] — O(d³) confirmed",
+      "SPEC."
+     ],
+     [
+      "E04",
+      "Replay and run order",
+      "byte-exact; 20 seeds: max ≤ 2.2e−16; order-independent",
+      "PASS"
+     ],
+     [
+      "E05",
+      "Phase noise",
+      "σ* = 1e−5 rad at budget p95(1−F) ≤ 1e−8",
+      "SPEC."
+     ],
+     [
+      "E06",
+      "Memory: three noise channels",
+      "simulation = analytics within 4σ; MI tables complete",
+      "PASS"
+     ],
+     [
+      "E07",
+      "Repetition code (3,1)",
+      "CI-separated gain (p ≤ 0.05); correlated control kills the gain",
+      "PASS"
+     ],
+     [
+      "E08",
+      "ALU: full enumeration",
+      "adder 256/256 bijective; mulmod: odd multipliers permute",
+      "PASS"
+     ],
+     [
+      "E09",
+      "Reversible adder (gates)",
+      "exhaustive n=2..8: 0 errors; Toffoli = 4n−2, CNOT = 10n−3",
+      "PASS"
+     ],
+     [
+      "E10",
+      "Algebraic numbers as phases",
+      "circular error ≤ 8.9e−16; negative control 0.01",
+      "PASS"
+     ],
+     [
+      "E11",
+      "BLIND ζ-zero reading",
+      "13/13 zeros; max |Δγ| = 1.4e−14 vs mpmath.zetazero; N(60)=13",
+      "PASS"
+     ],
+     [
+      "E12",
+      "Mach–Zehnder interferometer",
+      "max residual 6.7e−16 over 290 points",
+      "PASS"
+     ],
+     [
+      "E13",
+      "No-signaling (unitary + CPTP)",
+      "worst D = 6.2e−16; CNOT control D ≥ 0.062; separation 1e14",
+      "PASS"
+     ],
+     [
+      "E14",
+      "CHSH vs LHV",
+      "S = 2.829112 ± 0.0014 (0.48σ from 2√2); max LHV = 2",
+      "PASS"
+     ],
+     [
+      "E15",
+      "Three robustness mechanisms",
+      "M1 and full quantum ≈ 1e−16; half quantum 0.309; ablation 0",
+      "PASS"
+     ],
+     [
+      "E16",
+      "Riemann–Siegel engine",
+      "agreement with EM at equal accuracy ≤ 3.8e−15 (threshold 1e−9); F-series 3.9e−42",
+      "PASS"
+     ],
+     [
+      "E17",
+      "Blind ζ zeros up to T=1000",
+      "649/649 (EM) and 639/639 (RS); N(1000)=649.0; cross-engine 0.0; max|Δγ|=3.0e−10",
+      "PASS"
+     ]
+    ]
+   }
+  },
+  {
+   "h1": "2. Compilation core: E01–E04",
+   "paras": [
+    "E01 validates the metrics themselves before any random sampling. Five exact control matrices (identity, permutation, DFT₄, two Hadamard products, a random diagonal unitary) produce unitarity residuals and (1−F) at the machine-precision level (maximum 4.4e−16). The global-phase control e^{0.731i} returns fidelity exactly one — the metric correctly ignores global phase. The decisive negative control: injecting a 1e−3 error into a single element of DFT₄ is immediately detected — (1−F) = 2.5e−4, unitarity residual 9.99e−4. The metrics are thus sensitive six orders of magnitude below the working thresholds.",
+    "E02 independently reproduces the headline compiler result V20 of the mother package without copying its data. For the replication series (the same seeds 96 and 296) and a new pre-declared series (seeds 20261 and 20262), the maximum (1−F) over 600 Haar matrices was 4.4e−16 for 4×4 and 6.7e−16 for 8×8 — two to four orders below the 1e−12 and 1e−10 thresholds. The executable program is assembled from two-level blocks (AB2 equivalent, exactly d(d−1)/2 of them) and phase primitives (PHASE equivalent, d of them); the off-diagonal elimination residual never exceeds 1e−15.",
+    "E03 builds the cost phase diagram: generation, compilation, assembly and verification are timed separately for d = 2…256 (min-of-3 per timing). A regression log t = a + b·log d over d ≥ 16 yields b = 2.939 with a 95-percent interval [2.63, 3.25] — the dense Givens-QR slope O(d³) is confirmed and is not an artifact of a single measurement. Compilation memory grows as O(d²) (2 MB for a 256×256 matrix), the block count grows as d(d−1)/2 = 32,640 at d = 256.",
+    "E04 closes the reproducibility question: a re-run with the same seed produces a byte-identical output (SHA256 recorded in the CSV), a series of twenty independent seeds keeps the maximum (1−F) ≤ 2.2e−16, and permuting the run order changes not a single bit of the error arrays. This is exactly the discipline the plan requires for separating algorithm properties from environment properties."
+   ],
+   "figure": {
+    "path": "figures_hires/{lang}/fig01_{lang}.png",
+    "caption": "Fig. 1. E02: (1−F) distributions for replication and the new series; dashed line — pre-registered threshold."
+   }
+  },
+  {
+   "h1": "3. Noise, memory and codes: E05–E07",
+   "paras": [
+    "E05 measures compilation sensitivity to phase-parameter errors. For random noise σ_φ from 1e−8 to 1e−1 rad (100 repeats per point) full (1−F) distributions are recorded; at the pre-registered budget p95(1−F) ≤ 1e−8 the critical floor is σ* = 1e−5 rad. A systematic shift of all phases is run as a separate deterministic mode: the degradation is quadratic in the shift, as perturbation theory predicts for phase errors. The common global phase control confirms it does not affect fidelity.",
+    "E06 separates the three memory-noise channels that the v0.1.0 skeleton lumped together as one 'noise': bit flips with per-step probability p (classical basis readout), depolarization q (single-qubit density matrix, Bloch survival (1−q)^T) and pure dephasing p_d (coherence (1−2p_d)^T). For the bit channel, 2000-trial simulations per cell match the analytic (1+(1−2p)^T)/2 within 4σ binomial spread in all 24 cells; mutual information I(X;X̂) is computed for the equivalent binary symmetric channel at every T. The p=q=0 control gives ideal readout.",
+    "E07 checks whether the (3,1) repetition code reduces the logical error rate — and, crucially, when it must stop doing so. Under independent errors the logical rate is below the uncoded rate with CI separation (Wilson, 95%) for all p ≤ 0.05. The pre-registered negative control with fully correlated errors (all three copies flip together) shows the gain vanishing: majority decoding degenerates into the raw channel. This is exactly the contrast that distinguishes real coding from magic: without independence of physical errors the code does not work."
+   ],
+   "figure": {
+    "path": "figures_hires/{lang}/fig04_{lang}.png",
+    "caption": "Fig. 2. E07: logical error rate vs uncoded; red dashed — correlated control with no gain."
+   }
+  },
+  {
+   "h1": "4. Reversible arithmetic and algebraic phases: E08–E10",
+   "paras": [
+    "E08 verifies arithmetic by full enumeration rather than examples. The reversible adder (a,b) → (a, (a+b) mod 16) is bijective on all 256 inputs with no collisions; multiplication mod 16 is bijective exactly for the eight odd multipliers and non-invertible for even ones — the pre-registered structure of the ring Z/16 is confirmed by enumeration. The phase-oracle comparator (−1)^{[a>b]} is correct on all pairs and is honestly labeled a unitary diagonal rather than a classical comparator.",
+    "E09 is the most instructive experiment of the version. The v0.1.0 skeleton contained only a cost proxy without a real circuit; the first v0.2.0 implementation was also wrong — exhaustive enumeration caught 2ⁿ−1 errors (the uncompute stage erased the sum bit). The corrected in-place scheme (auxiliary wires d_i = a_i⊕b_i and carries c_i; a three-phase cycle 'carries → sum → cleanup with restoration') passed exhaustive verification on all 87,380 input pairs for n = 2…8 without a single error, with zero garbage at the end and exact cost formulas Toffoli = 4n−2, CNOT = 10n−3. For n = 12 and 16, 10,000 random pairs each were run — no errors. Dense matrix simulation of this circuit would require 2^{4n} complex numbers: at n = 12 that is 4.5 petabytes, which is exactly the dense-representation boundary recorded in the table.",
+    "E10 verifies encoding and readback of algebraic numbers as phases: √2, √3, ∛2, φ = (1+√5)/2 and 2cos(2π/7) are mapped to phases by the explicitly declared map g(x) = 2π·frac(x) and read back with circular error at most 8.9e−16 (Float64 layer vs BigFloat(200)). A negative control with a deliberate +0.01 rad shift yields an error of 0.00999… — thirteen orders above the working tolerance, confirming metric sensitivity. The boundary is recorded: loading the phase into the ISA remains a separate physical-layer obligation."
+   ],
+   "figure": {
+    "path": "figures_hires/{lang}/fig02_{lang}.png",
+    "caption": "Fig. 3. E03: log-log compile time; slope 2.94 corresponds to O(d³)."
+   }
+  },
+  {
+   "h1": "5. Flagship E11: blind reading of the zeta zeros",
+   "paras": [
+    "E11 is the central experiment of the program. The detector contains not a single reference zero: it receives only the definition of ζ(s), the grid h = 0.01 on [0.3, 60], and the argument-winding algorithm. ζ(½+it) is evaluated by Euler–Maclaurin with tail N = 64 and fourteen corrections on BigFloat(140); self-tests (ζ(2) = π²/6, ζ(4) = π⁴/90, ζ(−1) = −1/12 and the functional equation at two points) give residuals up to 1.9e−17. A grid interval with |Δ arg ζ| > π/2 is declared a simple-zero candidate; the position is refined by golden-section search on |ζ|. The detector output is written to CSV and SHA256-hashed BEFORE the validator runs — the ordering is enforced by run_all.jl itself.",
+    "The detector found 13 positions with |ζ| ≤ 4.2e−14 at each. The validator (a separate module with a different localization algorithm — Gauss–Newton on |ζ|², a different ζ evaluation schedule: N = 48, K = 10) confirmed precision = recall = 1.0 with a maximum positional error of 1.42e−14 against the mpmath.zetazero reference, and Gauss–Newton seeded from the detector positions converged to the reference bit-exactly (error 0). Grid robustness was checked by re-running the detector at h = 0.02 and h = 0.005 — 13 zeros in every case. The completeness control follows the classical argument principle on the standard path 2 → 2+iT → ½+iT: the Riemann–von Mangoldt formula gives N(60) = 13.000000000000002 — all zeros of the strip up to height 60 lie on the critical line (in this region).",
+    "A separate mention is earned by the erratum found by the protocol itself. In the v0.1.0 skeleton the twelfth zero was hand-coded as 56.446200059994141. The blind detector persistently pointed to 56.446247697063399 with |ζ| = 9e−15. An independent mpmath check (50 digits) confirmed the detector: at the hand-written value |ζ| = 1.1e−4, while the true zero is 56.446247697063394804. The validator reference table was replaced with mpmath.zetazero values with exact provenance. This is the best possible argument for blind discipline: the error was not in the computation but in a hand-copied constant, and it was the protocol — not a human — that caught it.",
+    "Cross-language validation closes the evidential loop: an independently written Python detector (mpmath, 40 digits, the same blind protocol) reproduced all thirteen positions with a maximum difference of 0.0 — full bit-level agreement of two implementations on different arithmetic stacks. The agreement to the last Float64 digit follows from the identical grid and deterministic refinement; both implementations agree with mpmath.zetazero to 1.4e−14."
+   ],
+   "figure": {
+    "path": "figures_hires/{lang}/fig05_{lang}.png",
+    "caption": "Fig. 4. E11: |ζ(½+it)| with the 13 detected zeros (red lines) and the unwrapped argument; |ζ| dips coincide with detector positions."
+   }
+  },
+  {
+   "h1": "6. Non-locality without signaling: E12–E14",
+   "paras": [
+    "E12 confirms the internal consistency of the Mach–Zehnder model: on a dense 257-point grid and a sparse 33-point grid the numerical output probability matches sin²(φ/2) with a maximum residual of 6.7e−16; the endpoints φ = 0 and φ = 2π restore zero interference; a global phase of the whole matrix does not affect the observable. The differential arm-noise mode quantifies phase-readout sensitivity: at σ = 1e−6 rad the mean deviation of P stays at the 5e−13 level.",
+    "E13 turns no-signaling from a declaration into a measurement. On 100 random pure and 100 mixed states, a local unitary and a local CPTP depolarizing channel on subsystem B leave the reduced density matrix of A invariant to 6.2e−16 in trace norm. The pre-registered negative control — a non-local CNOT — changes the marginal by at least 0.062, giving a 14-order separation between allowed and forbidden operations. The boundary is recorded: no-signaling is a consequence of the structure of quantum theory, not a property achieved by the AB architecture.",
+    "E14 separates the computation of a quantum correlation from a conclusion about physical Bell violation. The analytic value S = 2√2 for the Bell state with optimal settings is reproduced by Monte Carlo with 10⁶ shots per setting: S = 2.829112 ± 0.0014 — a 0.48σ deviation. Enumerating all deterministic local hidden-variable models gives the upper bound S = 2 — the quantum value violates it, and no LHV model can reach it. The verdict states plainly: this is a simulation of a formula, not a physical Bell test, and it is not evidence of signaling."
+   ],
+   "figure": {
+    "path": "figures_hires/{lang}/fig07_{lang}.png",
+    "caption": "Fig. 5. E14: S — analytic, Monte Carlo with 3σ interval, and the LHV maximum."
+   }
+  },
+  {
+   "h1": "7. Three robustness mechanisms: E15",
+   "paras": [
+    "E15 answers the sharpest question of the plan — whether the observed robustness of the AB phase is topological protection or ordinary algebraic cancellation. The decisive experiment is arranged as a contrast of three mechanisms with the same initial observable. M1: a common local unitary on the internal degree of freedom of both arms — the algebraic cancellation V†V — yields an effect of 3.6e−16 over 1000 random unitaries (full compensation). M3 with the AB flux changed by a full quantum Φ₀ — topological periodicity — also gives 1.1e−16: the observable is invariant. But M3 with a half-quantum shift Φ₀/2 changes the probability by 0.309 — a first-order effect.",
+    "The ablation removes the relative phase (φ ≡ 0): the topological flux shift becomes unobservable (effect exactly 0) — the signal exists only in the presence of interference. The control replacement of the AB phase by a non-periodic path model (φ = Φ radians) at the same full quantum of flux gives an effect of 0.309 — the signal is not protected. The resulting discriminating signature: (M1 ≈ 0, M3-full ≈ 0, M3-half = O(1), ablation = 0, linear model = O(1)) — exactly the combination that separates a topological mechanism from phase compensation and from an arbitrary path model. The verdict records the boundary: without realistic noise, equal resources and a physical measurement this is a property of the model, not an established protection of a real device."
+   ],
+   "figure": {
+    "path": "figures_hires/{lang}/fig08_{lang}.png",
+    "caption": "Fig. 6. E15: discriminating signature — effects of five conditions against the 1e−12 threshold; protection appears only where the model predicts it."
+   }
+  },
+  {
+   "h1": "8. O-J1, part I: an independent Riemann–Siegel engine (E16)",
+   "paras": [
+    "The first roadmap obligation (O-J1) called for an independent Riemann–Siegel implementation as a second evaluation of ζ and a cost comparison against Euler–Maclaurin at equal accuracy. The E16 engine follows the structure of Arias de Reyna (papers I and II), cross-checked against the rszeta implementation of mpmath: the main sum up to N = ⌊√(t/2π)⌋ inclusive, the asymptotic correction series with universal coefficients d[n,k] and derivatives of the entire function F at p = 1 − 2(√(t/2π) − N), and the mirror term via e^{−2iθ}. The key design decision: the F-series coefficients are not transcribed from hand tables — they are computed at runtime from the integer recurrence of the Euler numbers (A000111) and two stable convolutions at 400-bit precision. This eliminates an entire class of transcription errors: the coefficient table either converges to the closed-form F or the self-test fails.",
+    "Two numerical findings are recorded in the protocol and the code. First, the F-series suffers catastrophic cancellation at high orders: intermediate terms of the construction grow like 4^n while the true coefficients decay super-exponentially (F is entire of order 2), so series long division and plain convolutions at working precision produce garbage beyond n ≈ 65; the cure is building the coefficients at 400 bits and rounding honestly. Second, the terms of the asymptotic correction series decay in odd/even pairs, so a naive U-turn criterion (first growth of the neighbouring term) fires falsely; the correct criterion compares each term with the previous term of the same parity (stride 2). After these fixes the engine error floor is uniform: over 549 heights in [250, 1000] the median floor is 1.8e−17 and the maximum agreement with Euler–Maclaurin is 3.8e−15 against the 1e−9 threshold.",
+    "The equal-accuracy cost comparison yields an honest crossover picture: at t = 100 Euler–Maclaurin is three times cheaper (0.31 vs 1.52 ms), at t = 300 the engines are comparable (0.94 vs 1.36 ms), at t = 1000 Riemann–Siegel is three times faster (1.04 vs 3.36 ms), and at t = 10⁴ twenty-five times faster (1.00 vs 25.2 ms). The asymptotic advantage of Riemann–Siegel is real, but the crossover sits well above classical estimates because of the correction-term overhead — a measured property of this implementation, stated as such."
+   ],
+   "figure": {
+    "path": "figures_hires/{lang}/fig10_{lang}.png",
+    "caption": "Fig. 3. Median cost of one ζ(½+it) evaluation at equal accuracy: Euler–Maclaurin (scaled schedule N ≥ 0.512t, K=14) versus Riemann–Siegel (stride-2 U-turn truncation). The crossover lies between t = 300 and t = 1000."
+   }
+  },
+  {
+   "h1": "9. O-J1, part II: blind detection at height T = 1000 (E17)",
+   "paras": [
+    "The flagship protocol E11 is lifted from height 60 to height 1000 and duplicated with two independent engines. Detector A (Euler–Maclaurin with the scaled schedule N = 64·2^k ≥ 0.512·t, K = 14) winds the argument of ζ(½+it) on the grid h = 0.01 over [0.3, 1000] — 99,971 points — and polishes candidates by golden-section search. Detector B (Riemann–Siegel, window [50, 1000]) runs the same protocol independently. Both outputs are pinned and SHA256-hashed before any validation; the validator verifies the hashes, refines positions by Gauss–Newton with a third schedule (N=320, K=12), and compares against the mpmath.zetazero reference table (660 rows, its own SHA256 with provenance).",
+    "Result: detector A blindly found all 649 zeros on [0.3, 1000); detector B found all 639 zeros on [50, 1000); precision = recall = 1 for both, with no false positives and no misses. The positions of the two engines after independent refinement coincide bit-for-bit (cross-engine error exactly 0.0). The maximum |Δγ| against the reference is 3.0e−10 (Gauss–Newton; threshold 1e−9), RMS 2.3e−11; the raw detector gives 2.3e−13 across all 649 positions. The completeness control along the standard path 2 → 2+iT → ½+iT yields N(1000) = 649.000000 — an exact integer equal to the number of detected zeros: in the strip ½ < Re < 2 below height 1000 all zeros lie on the critical line (a numerical fact in terms of the argument principle). Grid robustness was verified on the subwindow [900, 1000] at h = 0.02 and h = 0.005: the shift of refined positions is zero.",
+    "An independent Python replication closes the chain: blind winding in pure mpmath on the subwindow [900, 960] finds the same 48 zeros with a maximum position difference of 2.3e−13, and comparing all 649 Julia positions with the zetazero table gives the same maximum. Three counting environments (Julia BigFloat, Python mpmath, the reference table) and three independent algorithms (Euler–Maclaurin winding, Riemann–Siegel winding, the mpmath.zetazero method) converge on one zero set — this is exactly the reproducibility demanded by the third level of the plan."
+   ],
+   "figure": {
+    "path": "figures_hires/{lang}/fig09_{lang}.png",
+    "caption": "Fig. 4. Blind reading of 649 ζ zeros up to height T = 1000 by the Euler–Maclaurin engine: |ζ(½+it)| (log scale), the unwrapped arg ζ, and verticals of the detected zeros."
+   }
+  },
+  {
+   "h1": "10. O-J2, class B: the compiler against strong baselines (E18)",
+   "paras": [
+    "Obligation O-J2 required comparing the package compiler against strong synthesis baselines on an independent matrix set under EQUAL constraints. The key methodological decision: every method must emit a program in the same ISA (two-level AB2 blocks + diagonal PHASE primitives), and the numerical baselines receive exactly the same program slots as ABQP — an equal primitive budget. The independent set: 9 structured matrices (DFT4/DFT8, Clifford, permutations, diagonals), 40 Haar 4×4 and 20 Haar 8×8 matrices with fresh seeds 41800+ disjoint from V20/E02, plus a corrupted control (DFT4 + 1e−3): 69 gated targets + 1 control.",
+    "Five baselines cover the spectrum: BL1 — naive Givens without skips (upper bound of the closed-form budget); BL2 — textbook Euler decomposition W = D1·G(θ)·D2 of every 2×2 block (1 AB2 + 4 PHASE per block, no phase merging); BL4 — Householder QR with each reflection expanded as H = S†·P·S into two-level rotations; BL3 — numerical coordinate descent (golden-section per coordinate, 3 restarts × 200 sweeps at 4×4); BL5 — random search as the pure null model of numerical synthesis.",
+    "Results. (i) ABQP: 1−F ≤ 4.44e−16 (maximum over 69 targets) against the 1e−12 threshold — 100% success. (ii) Primitive budget: ABQP never exceeds any exact baseline on any target; a characteristic example is permutation8_shift3: 36 ABQP primitives versus 148 (BL2) and 120 (BL4); on dense Haar targets the skips give 28+8 = 36 against BL1's 36 (equality, as pre-registered). (iii) Time: the ABQP median on Haar 4×4 is 0.0039 ms versus 232.2 ms for BL3 — a ×59,000 advantage (threshold ≥ ×50). (iv) Controls: identity compiles to 0 AB2 blocks; the corrupted target still compiles (1−F ≈ 5e−7 ≤ 0.01). All five pre-registered gates hold.",
+    "An honest record of the numerical baselines: BL3 is a near miss — after 520,803 objective evaluations on Haar 4×4 it reaches 3e−12, an order of magnitude above the 1e−12 gate; success (≤ 1e−12) on 2 of 69 targets; BL5 stalls around 0.5. The closed form is not merely faster — it is the only method in the class that systematically reaches the machine floor. Outside the gates, the 2q-equivalent context is recorded: the theoretical KAK optimum for 4×4 is 3 CNOTs (Vidal–Dawson 2004) while the ABQP maximum is 10; this comparison is outside the ISA class, and no superiority is claimed on this metric."
+   ]
+  },
+  {
+   "h1": "11. Limits of the conclusions and next steps",
+   "paras": [
+    "Honest boundaries are recorded in every verdict and repeated here in full. The executed experiments do not prove the Riemann hypothesis: detecting finitely many zeros at a bounded height is not extrapolable and does not substitute for a theoretical construction. They do not prove a new physical principle: all results concern a mathematical model and its numerical realization (hypothesis class A of the plan). The CHSH simulation is not a physical Bell test; no-signaling is a property of quantum theory, not an achievement of the AB architecture; the 'topological robustness' of E15 is a property of the model that requires a physical layer to test.",
+    "Next steps follow the roadmap. Obligations O-J1 and O-J2 are executed in this version (height T = 1000 with Riemann–Siegel, and class B — the compilation advantage under equal constraints). The nearest: (1) O-J3 — quantum error correction versus classical redundancy on the AB phase memory channel (direction 08); (2) O-J4 — a digital twin with blind forecasts (direction 12); (3) heights T ≫ 1000 under the same blind discipline (direction 06). Each step inherits the discipline of this version: pre-registration, blind separation, cross-language replication and publication of negative results."
+   ],
+   "conclusion": [
+    "Version 0.4.0 executes obligation O-J2: on an independent set of 69 targets under equal ISA constraints the ABQP compiler keeps machine accuracy (max 1−F = 4.4e−16), never exceeds any exact baseline in primitive budget, and beats numerical coordinate descent by ×59,000 in time; BL3 delivers an honest near miss of 3e−12 after half a million evaluations. Together with v0.2.0–v0.3.0 the program holds eighteen executed experiments, all 18 pre-registered verdicts PASS, one found-and-fixed erratum, and a cross-language replication of the flagship. The next frontier is O-J3: quantum error correction versus classical redundancy on the AB phase memory channel."
+   ]
+  }
+ ]
+}

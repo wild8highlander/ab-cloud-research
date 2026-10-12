@@ -1,0 +1,104 @@
+{
+ "experiment": "ES2-volatility",
+ "campaign": "realtime_spinor_memory",
+ "package": "AB Cloud Quantum Research v1.0.0",
+ "pre_registered": {
+  "C1": "acc ≤ 1/N + 3·σ_бин (n=120000); эрратум ES2a: первичный порог 1e-9 заменён 3σ-полосой до принятия вердикта",
+  "C2": "I(пре; пост) = 0 точно",
+  "C3": "контроль без сброса: точность 1.0",
+  "C4": "|доля согласованных t' − 1/N| ≤ 1% + 1e-6"
+ },
+ "results": {
+  "S1": {
+   "N": 4,
+   "recon_acc": 0.250075,
+   "chance": 0.25,
+   "MI_post": 0.0,
+   "control_det": true,
+   "consistent_share": 0.25,
+   "expected_share": 0.25
+  },
+  "S2": {
+   "N": 6,
+   "recon_acc": 0.16740833333333333,
+   "chance": 0.16666666666666666,
+   "MI_post": 0.0,
+   "control_det": true,
+   "consistent_share": 0.166667,
+   "expected_share": 0.16666666666666666
+  },
+  "S3": {
+   "N": 14,
+   "recon_acc": 0.07165833333333334,
+   "chance": 0.07142857142857142,
+   "MI_post": 0.0,
+   "control_det": true,
+   "consistent_share": 0.071428,
+   "expected_share": 0.07142857142857142
+  }
+ },
+ "checks": [
+  {
+   "name": "C1:S1_reset_irreversible",
+   "pass": true,
+   "detail": "реконструкция 0.250075 ≤ 1/N + 3σ = 0.253750 (1/N = 0.250000, σ_бин = 1.25e-03, trials=120000)"
+  },
+  {
+   "name": "C2:S1_MI=0",
+   "pass": true,
+   "detail": "пост-состояние вырождено → I(пре;пост)=0"
+  },
+  {
+   "name": "C3:S1_control_deterministic",
+   "pass": true,
+   "detail": "без сброса считывание детерминировано (t mod N, 999 шагов)"
+  },
+  {
+   "name": "C4:S1_time_mod_N",
+   "pass": true,
+   "detail": "доля согласованных t' = 0.250000 ≈ 1/N = 0.250000"
+  },
+  {
+   "name": "C1:S2_reset_irreversible",
+   "pass": true,
+   "detail": "реконструкция 0.167408 ≤ 1/N + 3σ = 0.169894 (1/N = 0.166667, σ_бин = 1.08e-03, trials=120000)"
+  },
+  {
+   "name": "C2:S2_MI=0",
+   "pass": true,
+   "detail": "пост-состояние вырождено → I(пре;пост)=0"
+  },
+  {
+   "name": "C3:S2_control_deterministic",
+   "pass": true,
+   "detail": "без сброса считывание детерминировано (t mod N, 999 шагов)"
+  },
+  {
+   "name": "C4:S2_time_mod_N",
+   "pass": true,
+   "detail": "доля согласованных t' = 0.166667 ≈ 1/N = 0.166667"
+  },
+  {
+   "name": "C1:S3_reset_irreversible",
+   "pass": true,
+   "detail": "реконструкция 0.071658 ≤ 1/N + 3σ = 0.073659 (1/N = 0.071429, σ_бин = 7.43e-04, trials=120000)"
+  },
+  {
+   "name": "C2:S3_MI=0",
+   "pass": true,
+   "detail": "пост-состояние вырождено → I(пре;пост)=0"
+  },
+  {
+   "name": "C3:S3_control_deterministic",
+   "pass": true,
+   "detail": "без сброса считывание детерминировано (t mod N, 999 шагов)"
+  },
+  {
+   "name": "C4:S3_time_mod_N",
+   "pass": true,
+   "detail": "доля согласованных t' = 0.071428 ≈ 1/N = 0.071429"
+  }
+ ],
+ "pass": true,
+ "does_not_prove": "Сертифицирует информационную необратимость СБРОСА летучего регистра и сжатие времени до mod N в модели. Не утверждает ничего о физическом стирании (принцип Ландауэра) и о тепловых эффектах реальных носителей."
+}

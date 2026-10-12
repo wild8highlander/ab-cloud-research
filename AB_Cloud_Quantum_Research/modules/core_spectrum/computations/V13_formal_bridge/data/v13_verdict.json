@@ -1,0 +1,124 @@
+{
+ "obligations": [
+  {
+   "id": "O01",
+   "status": "proven",
+   "artifact": "monograph/theorems/T01_hermiticity",
+   "deps": []
+  },
+  {
+   "id": "O02",
+   "status": "proven",
+   "artifact": "tests/test_operator_passport.py",
+   "deps": [
+    "O01"
+   ]
+  },
+  {
+   "id": "O03",
+   "status": "proven",
+   "artifact": "monograph/theorems/T02_self_adjointness",
+   "deps": [
+    "O01"
+   ]
+  },
+  {
+   "id": "O04",
+   "status": "proven",
+   "artifact": "rpbridge/limits.py (эмпирический закон)",
+   "deps": [
+    "O01"
+   ]
+  },
+  {
+   "id": "O05",
+   "status": "computed",
+   "artifact": "computations/V05_limit_lattice",
+   "deps": [
+    "O04"
+   ]
+  },
+  {
+   "id": "O06",
+   "status": "proven",
+   "artifact": "monograph/theorems/T06_trace_formula",
+   "deps": []
+  },
+  {
+   "id": "O07",
+   "status": "computed",
+   "artifact": "computations/V07_arithmetic_trace",
+   "deps": [
+    "O06"
+   ]
+  },
+  {
+   "id": "O08",
+   "status": "assumed",
+   "artifact": "гипотеза: спектр H_L сходится к spec H_ξ",
+   "deps": [
+    "O05"
+   ]
+  },
+  {
+   "id": "O09",
+   "status": "assumed",
+   "artifact": "гипотеза: λ_n(AB) → λ_n(ξ) при L→∞",
+   "deps": [
+    "O08"
+   ]
+  },
+  {
+   "id": "O10",
+   "status": "computed",
+   "artifact": "computations/V15_li_criterion",
+   "deps": [
+    "O09"
+   ]
+  },
+  {
+   "id": "O11",
+   "status": "assumed",
+   "artifact": "положительность λ_n для всех n (критерий Ли)",
+   "deps": [
+    "O10"
+   ]
+  },
+  {
+   "id": "O12",
+   "status": "assumed",
+   "artifact": "вывод RH из критерия Ли (классика, при O11)",
+   "deps": [
+    "O11"
+   ]
+  }
+ ],
+ "dag_valid": true,
+ "dag_messages": [],
+ "rh_conclusion": "blocked",
+ "rh_blockers": [
+  "O05",
+  "O07",
+  "O08",
+  "O09",
+  "O10",
+  "O11",
+  "O12"
+ ],
+ "n_proven": 5,
+ "n_computed": 3,
+ "n_assumed": 4,
+ "formal_sources": {
+  "lean": [],
+  "coq": [],
+  "agda": [],
+  "isabelle": []
+ },
+ "verdict_note": "формальная машина БЛОКИРУЕТ вывод RH: путь к заключению содержит гипотезы O08/O09/O11/O12; ни одна численная проверка не повышает статус",
+ "meta": {
+  "campaign": "V13",
+  "date": "2026-10-10",
+  "package": "AB Research Program 1.0.0",
+  "runtime_s": 0.0
+ }
+}

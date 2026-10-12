@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+monograph/content/_json/
+*.egg-info/
+build/
+dist/
