@@ -1,0 +1,15 @@
+{
+  "e17_precision_em": 1,
+  "e17_N_rvm": 649,
+  "e17_max_err_rs": 3.0195224098861217e-10,
+  "e17_max_err_em": 3.0195224098861217e-10,
+  "e17_cross_engine_max": 0,
+  "e17_recall_rs": 1,
+  "e17_N_rvm_rounded": 649,
+  "run_utc": "2026-10-11T08:25:52Z",
+  "e17_grid_robustness_max_shift": 0,
+  "stage": "3c (validator)",
+  "julia": "1.10.9",
+  "e17_precision_rs": 1,
+  "e17_recall_em": 1
+}

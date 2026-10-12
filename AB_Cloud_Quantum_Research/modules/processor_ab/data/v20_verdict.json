@@ -1,0 +1,351 @@
+{
+ "meta": {
+  "package": "AB Quantum Processor Program",
+  "campaign": "V20",
+  "name": "AB processor compiler: ISA → exact compilation (program phase P0)",
+  "seeds": {
+   "main": 96,
+   "m2": 296
+  },
+  "date": "2026-10-11",
+  "source": "results/PROCESSOR_PROGRAM.md (mother package AB Research Program 1.2.1), pre-registered"
+ },
+ "isa": {
+  "primitives": [
+   [
+    "AB2(a,b;θ,λ,φ,χ)",
+    "двухуровневый блок-импульс",
+    "θ,λ,φ,χ ∈ ℝ",
+    "резонансный импульс перехода (P1 V18, обобщение)"
+   ],
+   [
+    "PHASE(x;φ)",
+    "фаза уровня AB",
+    "x ∈ {0,…,2ⁿ−1}, φ ∈ ℝ",
+    "селективный детюнинг уровня (P2 V18, без поля на партнёре)"
+   ],
+   [
+    "RZ(φ)",
+    "фазовый затвор AB",
+    "φ = 2πΦ/Φ0",
+    "чистая масса: m·t = φ/2"
+   ],
+   [
+    "RX(θ)",
+    "вращение",
+    "θ ∈ ℝ",
+    "чистый туннель: t·t_pulse = θ/2"
+   ],
+   [
+    "CPHASE(φ)",
+    "контролируемая фаза",
+    "φ ∈ ℝ",
+    "PHASE(0b11; φ): Δ·t = φ"
+   ],
+   [
+    "CNOT",
+    "производный",
+    "—",
+    "H₂·CPHASE(π)·H₂"
+   ],
+   [
+    "{X,Y,Z,H,S,T}",
+    "V18-фиксированные",
+    "—",
+    "частные случаи RZ/RX (V18: fidelity 1−2e-16)"
+   ]
+  ],
+  "calibration": {
+   "RX": {
+    "fidelity": 1.0,
+    "t_pulse": 1.5707963267948966
+   },
+   "RZ": {
+    "fidelity": 0.9999999999999998,
+    "t_pulse": 0.39269908169872414
+   },
+   "PHASE": {
+    "fidelity": 1.0,
+    "t_pulse": 1.0471975511965976
+   }
+  },
+  "fixed_gate_base": "V18: {X,Y,Z,H,S,T} fidelity 1−2e-16"
+ },
+ "compiler": {
+  "mechanism": "Givens QR → two-level AB2 blocks + level-PHASE ladder; closed form, no optimization",
+  "m4": {
+   "n": 200,
+   "seed": 96,
+   "threshold": 1e-12,
+   "min_fidelity": 0.9999999999999996,
+   "mean_fidelity": 1.0,
+   "max_one_minus_F": 4.440892098500626e-16,
+   "gates_max": 7,
+   "gates_mean": 7.0,
+   "two_qubit_equiv_max": 10,
+   "passed": true
+  },
+  "m8": {
+   "n": 100,
+   "seed": 296,
+   "threshold": 1e-10,
+   "min_fidelity": 0.9999999999999993,
+   "mean_fidelity": 1.0,
+   "max_one_minus_F": 6.661338147750939e-16,
+   "gates_max": 29,
+   "gates_mean": 29.0,
+   "two_qubit_equiv_max": 68,
+   "passed": true
+  },
+  "controls": {
+   "identity": 1.0,
+   "permutation": 1.0,
+   "dft4": 1.0,
+   "cl2": 0.9999999999999993
+  },
+  "bit_exact_replay": true,
+  "passed": true
+ },
+ "previews": {
+  "status": "PRELIMINARY — пороги этих слоёв предрегистрированы для фаз P1–P3; здесь фиксируются первые измерения",
+  "memory_P1": {
+   "ram": {
+    "n_qubits": 6,
+    "patterns": 64,
+    "cycles": 1000,
+    "read_back": 64,
+    "bit_exact": true,
+    "survival": 1.0
+   },
+   "latency": {
+    "distances": [
+     1,
+     2,
+     3,
+     4,
+     6,
+     8,
+     12,
+     16
+    ],
+    "latency": [
+     6.0,
+     10.0,
+     14.0,
+     18.0,
+     26.0,
+     34.0,
+     50.0,
+     66.0
+    ],
+    "a": 2.0000000000000147,
+    "b": 3.999999999999998,
+    "b_threshold_V21": 6,
+    "passed": true
+   },
+   "phase_word": {
+    "N": 256,
+    "exact_words": 256,
+    "max_dev": 0.0
+   },
+   "capacity": [
+    [
+     1,
+     2,
+     "полный перебор"
+    ],
+    [
+     2,
+     4,
+     "полный перебор"
+    ],
+    [
+     4,
+     16,
+     "полный перебор"
+    ],
+    [
+     6,
+     64,
+     "полный перебор"
+    ],
+    [
+     8,
+     256,
+     "оценка"
+    ],
+    [
+     10,
+     1024,
+     "оценка"
+    ]
+   ]
+  },
+  "alu_V22": {
+   "adder_mod16": {
+    "passed": 256,
+    "total": 256,
+    "bit_exact": true,
+    "gates": {
+     "n_gates": 240,
+     "n_ab2": 208,
+     "n_phase": 32,
+     "two_qubit_equiv": 588,
+     "max_diag_skip": 0.0
+    },
+    "worst": []
+   },
+   "mulmod16_odd": {
+    "passed": 128,
+    "total": 128,
+    "bit_exact": true,
+    "gates": {
+     "n_gates": 88,
+     "n_ab2": 52,
+     "n_phase": 36,
+     "two_qubit_equiv": 100,
+     "max_diag_skip": 0.0
+    }
+   },
+   "inc_mod16": {
+    "passed": 16,
+    "total": 16,
+    "bit_exact": true,
+    "gates": {
+     "n_gates": 16,
+     "n_ab2": 15,
+     "n_phase": 1,
+     "two_qubit_equiv": 37,
+     "max_diag_skip": 0.0
+    }
+   },
+   "comparator_phase": {
+    "passed": 256,
+    "total": 256,
+    "bit_exact": true,
+    "gates": {
+     "n_gates": 120,
+     "n_ab2": 0,
+     "n_phase": 120,
+     "two_qubit_equiv": 0,
+     "max_diag_skip": 0.0
+    }
+   }
+  },
+  "reading_V23": {
+   "window": [
+    2.0,
+    58.0
+   ],
+   "n_samples": 560,
+   "zeros_read": 12,
+   "zeros_reference": 12,
+   "count_exact": true,
+   "positions_read": [
+    14.134168157423971,
+    21.021466905187836,
+    25.00983899821109,
+    30.425760286225405,
+    32.93649373881932,
+    37.58855098389982,
+    40.91949910554562,
+    43.33005366726297,
+    48.00715563506262,
+    49.772808586762075,
+    52.97227191413238,
+    56.44722719141324
+   ],
+   "positions_reference": [
+    14.134725141734695,
+    21.022039638771552,
+    25.01085758014569,
+    30.424876125859512,
+    32.935061587739185,
+    37.586178158825675,
+    40.91871901214749,
+    43.327073280915,
+    48.005150881167154,
+    49.7738324776723,
+    52.970321477714464,
+    56.4462476970634
+   ],
+   "max_position_dev": 0.0029803863479713755,
+   "sampling_dt": 0.10017889087656551,
+   "reading_bandwidth_zeros_per_1000": 21.428571428571427,
+   "stored_zero_tables": 0,
+   "stored_constants": "O(1): формула ζ (Euler–Maclaurin, mpmath)",
+   "passed": true,
+   "storage": {
+    "zeros_produced": 12,
+    "stored_zeros": 0,
+    "stored_formula_constants": 6,
+    "reading_ratio": 2.0,
+    "note": "нули воспроизводятся из функции по запросу; таблица нулей не входит ни во вход, ни в состояние"
+   }
+  },
+  "nonlocality_V24": {
+   "interferometer": {
+    "phi": 0.7,
+    "max_resid": 6.661338147750939e-16,
+    "threshold": 1e-14,
+    "passed": true
+   },
+   "protection": {
+    "n_seeds": 1000,
+    "protected": 1000,
+    "max_dev": 5.551115123125783e-16,
+    "threshold": 1e-12,
+    "passed": true
+   },
+   "cross_phase": {
+    "q12_grid": [
+     0.0,
+     0.25,
+     0.5,
+     0.75,
+     1.0
+    ],
+    "Exx": [
+     1.0,
+     0.5,
+     0.0,
+     0.4999999999999999,
+     1.0
+    ],
+    "Exx_theory": [
+     1.0,
+     0.5,
+     0.0,
+     0.4999999999999999,
+     1.0
+    ],
+    "rho1_local_invariance_max": 3.342213888644167e-16,
+    "joint_resid": 0.0,
+    "n_local_seeds": 100,
+    "passed": true
+   },
+   "chsh": {
+    "S": 2.82842712474619,
+    "S_exact": 2.8284271247461903,
+    "S_resid": 4.440892098500626e-16,
+    "chsh_passed": true,
+    "comm_max": 0.0,
+    "no_signaling": true
+   },
+   "verdict_note": {
+    "ru": "Голономная корреляция: совместная фаза — общая степень свободы пары; маргиналы инвариантны (сигналинга нет); защита топологическая",
+    "en": "Holonomic correlation: the joint phase is a shared degree of freedom; marginals invariant (no signaling); topological protection"
+   }
+  }
+ },
+ "summary": {
+  "compiler": true,
+  "previews": true,
+  "processor_p0": true
+ },
+ "verdict_note": {
+  "ru": "ПРОЦЕССОРНАЯ СПЕЦИФИКАЦИЯ ИСПОЛНЕНА (P0): любая унитарная логика 4×4/8×8 компилируется в ISA AB-облака точно (машинный пол), контроли точны, повтор бит-в-бит; превью памяти/ALU/считывания/нелокальности согласованы с предрегистрированными порогами P1–P3",
+  "en": "PROCESSOR SPECIFICATION EXECUTED (P0): arbitrary 4×4/8×8 unitary logic compiles exactly into the AB-cloud ISA (machine floor), controls exact, bit-exact replay; memory/ALU/reading/nonlocality previews match the pre-registered P1–P3 thresholds"
+ },
+ "runtime_s": 1.8
+}

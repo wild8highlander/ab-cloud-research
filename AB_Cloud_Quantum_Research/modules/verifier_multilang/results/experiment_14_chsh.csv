@@ -1,0 +1,8 @@
+experiment,value,quantity
+14,2.8284271247461903,S_analytic
+14,2.829112,S_sampled_1e6
+14,0.0014138704555679777,S_sampled_sigma
+14,0.4843974574279022,S_minus_2sqrt2_sigma
+14,2.0,LHV_max_S
+14,2.8284271247461903,quantum_bound
+14,2.0,local_bound

@@ -1,0 +1,31 @@
+{
+ "id": "v07",
+ "claim": "V7 арифметическая формула следа / Th6",
+ "statement": "Следовая формула Гуинанда–Вейля для H_ξ: K(x) = (1/π)∫Q(a)sin(ax)da с весом простых Λ(n)/√n; |ΔQ| ≤ 5e-8, |ΔK| ≤ 1e-5; PC0 (окно нулей): r_EF = +0.9996.",
+ "premises": [
+  "файл нулей Одлыжко (внешние данные)",
+  "решето Λ(n) до 2·10⁶"
+ ],
+ "code": [
+  "rpbridge/arithmetic_trace.py",
+  "rpbridge/traceformula.py",
+  "monograph/theorems/T06_trace_formula"
+ ],
+ "controls": [
+  {
+   "name": "PC0 zeros window",
+   "passed": true,
+   "detail": "r_EF = +0.9996, resid 0.027"
+  },
+  {
+   "name": "B = −C₀",
+   "passed": true,
+   "detail": "|B + C₀| = 2.5e-10"
+  }
+ ],
+ "does_not_prove": [
+  "вес простых в следах решёточных затворов",
+  "RH"
+ ],
+ "status": "proven"
+}

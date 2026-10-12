@@ -1,0 +1,31 @@
+{
+ "id": "v15",
+ "claim": "V15 критерий Ли / Th4",
+ "statement": "λ_n = Tr g_n(H_ξ) — доказано и верифицировано (|Δ| ≤ 5e-11); λ_n > 0 для n ≤ 3000 с сертифицированными хвостами; бесконечное семейство неравенств остаётся открытым.",
+ "premises": [
+  "файл нулей до T = 40433",
+  "хвост: |1−w^n| ≤ n|1−w| (телескоп)"
+ ],
+ "code": [
+  "rpbridge/li.py",
+  "monograph/theorems/T04_li_spectral"
+ ],
+ "controls": [
+  {
+   "name": "two-path Th4 verification",
+   "passed": true,
+   "detail": "max|Δ| = 4.4e-11"
+  },
+  {
+   "name": "lambda_1 vs analytic",
+   "passed": true,
+   "detail": "λ₁ = 0.023057 vs −B = 0.023096 (хвост 3.8e-5)"
+  }
+ ],
+ "does_not_prove": [
+  "λ_n ≥ 0 для всех n (критерий Ли полностью)",
+  "RH",
+  "представление λ_n следами решёточных затворов"
+ ],
+ "status": "proven"
+}

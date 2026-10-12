@@ -1,0 +1,7 @@
+{
+  "does_not_prove": "превосходство над классическим умножением",
+  "pre_registered": "полный перебор n=2..8 без ошибок; Toffoli = 4n−2, CNOT = 10n−3 (исправленная in-place схема v0.2.0); мусор ≡ 0",
+  "exhaustive_no_errors": true,
+  "pass": true,
+  "gate_counts": [{"bits": 2, "toffoli": 6, "cnot": 17}, {"bits": 3, "toffoli": 10, "cnot": 27}, {"bits": 4, "toffoli": 14, "cnot": 37}, {"bits": 5, "toffoli": 18, "cnot": 47}, {"bits": 6, "toffoli": 22, "cnot": 57}, {"bits": 7, "toffoli": 26, "cnot": 67}, {"bits": 8, "toffoli": 30, "cnot": 77}, {"bits": 12, "toffoli": 46, "cnot": 117}, {"bits": 16, "toffoli": 62, "cnot": 157}]
+}

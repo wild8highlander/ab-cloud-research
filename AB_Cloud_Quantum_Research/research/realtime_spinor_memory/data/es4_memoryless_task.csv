@@ -1,0 +1,4 @@
+model,N,steps,accuracy,footprint_t0,footprint_T,containers,logmachine_footprint
+S1,4,300000,1.0,1,1,0,300001
+S2,6,300000,1.0,1,1,0,300001
+S3,14,300000,1.0,1,1,0,300001

@@ -1,0 +1,16 @@
+metric,value,source_verdict,module
+Слепые нули ζ до T=1000 (ЭМ),649/649,e17_verdict.json,verifier_multilang
+Слепые нули ζ до T=1000 (Риман–Зигель),639/639,e17_verdict.json,verifier_multilang
+Кросс-движок (макс. расхождение),0,e17_verdict.json,verifier_multilang
+Полнота N(1000),649,e17_verdict.json,verifier_multilang
+"РС vs ЭМ (E16, макс. отклонение)",—,e16_verdict.json,verifier_multilang
+Компиляция 4×4: max (1−F),4.44e-16,v20_verdict.json,processor_ab
+Компиляция 8×8: max (1−F),6.66e-16,v20_verdict.json,processor_ab
+Глубина компиляции (4×4 / 8×8),7 / 29 затворов,v20_verdict.json,processor_ab
+След ↔ простые: r(H_ξ),0.999626,v07_verdict.json,core_spectrum
+CHSH S (V24-превью),2.828427124746,v20_verdict.json,processor_ab
+E18: преимущество компилятора по времени,×59 000,e18_verdict.json,verifier_multilang
+ES1: периоды циклов (π/2·π/3·π/7),4 / 6 / 14 = 2k,es1_cycles_verdict.json,realtime_spinor_memory
+ES2: реконструкция после сброса,0.2501 ≈ 1/N,es2_volatility_verdict.json,realtime_spinor_memory
+ES3: наклон стоимости шага машины,-1.0e-09 нс/шаг²,es3_realtime_verdict.json,realtime_spinor_memory
+ES5: зона тишины σ* (S1/S2/S3),0.135 / 0.089 / 0.038 рад,es5_noise_verdict.json,realtime_spinor_memory

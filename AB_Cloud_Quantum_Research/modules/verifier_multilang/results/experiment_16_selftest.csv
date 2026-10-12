@@ -1,0 +1,5 @@
+test,experiment,residual
+agree_vs_em_max,16,3.76158145408261e-15
+Z_realness_max,16,5.739718509874451e-42
+F_series_residual,16,3.871984178599602e-42
+n_grid_points,16,203

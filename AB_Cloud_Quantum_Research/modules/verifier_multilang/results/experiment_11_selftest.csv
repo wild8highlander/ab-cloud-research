@@ -1,0 +1,6 @@
+test,experiment,residual
+resid_zeta4,11,7.500594452479042e-45
+resid_zeta2,11,2.4382695155824885e-43
+resid_functional_eq_1,11,1.949085916260993e-17
+resid_zeta_minus1,11,0.0
+resid_functional_eq_2,11,1.9490860582915407e-17

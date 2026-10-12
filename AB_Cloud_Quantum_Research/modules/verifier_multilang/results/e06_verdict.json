@@ -1,0 +1,7 @@
+{
+  "does_not_prove": "измеренную когерентность физической памяти",
+  "ideal_control_ok": true,
+  "pre_registered": "p=q=0 → чтение 1.0; |сим − аналитика| ≤ 4σ_бином",
+  "worst_dev_in_4sigma_units": 0.48933035683227283,
+  "pass": true
+}

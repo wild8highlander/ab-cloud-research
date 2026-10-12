@@ -1,0 +1,5 @@
+role,median_one_minus_F,phase_gates,ab2_blocks,p95_one_minus_F,count,n_failures,threshold_pass,experiment,dimension,max_one_minus_F,n_qubits,threshold,seed,max_offdiag_residual
+replication_v20,0.0,4,6,4.440892098500626e-16,200,0,true,2,4,6.661338147750939e-16,2,1.0e-12,96,1.0381707687696215e-15
+replication_v20,0.0,8,28,2.220446049250313e-16,100,0,true,2,8,4.440892098500626e-16,3,1.0e-10,296,8.606746219448675e-16
+new_predeclared,0.0,4,6,4.440892098500626e-16,200,0,true,2,4,4.440892098500626e-16,2,1.0e-12,20261,7.978219391693747e-16
+new_predeclared,0.0,8,28,2.220446049250313e-16,100,0,true,2,8,4.440892098500626e-16,3,1.0e-10,20262,9.453208419344607e-16

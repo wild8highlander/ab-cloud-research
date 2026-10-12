@@ -1,0 +1,100 @@
+{
+ "experiment": "ES1-cycles",
+ "campaign": "realtime_spinor_memory",
+ "package": "AB Cloud Quantum Research v1.0.0",
+ "pre_registered": {
+  "C1": "period == N == 2k точно (4, 6, 14)",
+  "C2": "min_gap == 2π/N в пределах 1e-9",
+  "C3": "равномерность решётки ≤ 1e-9",
+  "C4": "N(π/k) = 2k для всех k = 2…16"
+ },
+ "results": {
+  "S1": {
+   "theta_over_pi": "1/2",
+   "k": 2,
+   "N_expected": 4,
+   "N_measured": 4,
+   "period_measured": 4,
+   "min_gap": 1.5707963267948966,
+   "min_gap_expected": 1.5707963267948966,
+   "uniformity_dev": 0.0,
+   "bits_per_step": 2.0
+  },
+  "S2": {
+   "theta_over_pi": "1/3",
+   "k": 3,
+   "N_expected": 6,
+   "N_measured": 6,
+   "period_measured": 6,
+   "min_gap": 1.0471975511965974,
+   "min_gap_expected": 1.0471975511965976,
+   "uniformity_dev": 8.881784197001252e-16,
+   "bits_per_step": 2.584962500721156
+  },
+  "S3": {
+   "theta_over_pi": "1/7",
+   "k": 7,
+   "N_expected": 14,
+   "N_measured": 14,
+   "period_measured": 14,
+   "min_gap": 0.4487989505128276,
+   "min_gap_expected": 0.4487989505128276,
+   "uniformity_dev": 8.881784197001252e-16,
+   "bits_per_step": 3.807354922057604
+  }
+ },
+ "checks": [
+  {
+   "name": "C1:S1_period=2k",
+   "pass": true,
+   "detail": "θ=π/2: N=4, период=4, ожидалось 4"
+  },
+  {
+   "name": "C2:S1_min_gap",
+   "pass": true,
+   "detail": "min gap = 1.570796326795 vs 2π/N = 1.570796326795"
+  },
+  {
+   "name": "C3:S1_uniformity",
+   "pass": true,
+   "detail": "max |φ_i − i·2π/N| = 0.00e+00 ≤ 1e-9"
+  },
+  {
+   "name": "C1:S2_period=2k",
+   "pass": true,
+   "detail": "θ=π/3: N=6, период=6, ожидалось 6"
+  },
+  {
+   "name": "C2:S2_min_gap",
+   "pass": true,
+   "detail": "min gap = 1.047197551197 vs 2π/N = 1.047197551197"
+  },
+  {
+   "name": "C3:S2_uniformity",
+   "pass": true,
+   "detail": "max |φ_i − i·2π/N| = 8.88e-16 ≤ 1e-9"
+  },
+  {
+   "name": "C1:S3_period=2k",
+   "pass": true,
+   "detail": "θ=π/7: N=14, период=14, ожидалось 14"
+  },
+  {
+   "name": "C2:S3_min_gap",
+   "pass": true,
+   "detail": "min gap = 0.448798950513 vs 2π/N = 0.448798950513"
+  },
+  {
+   "name": "C3:S3_uniformity",
+   "pass": true,
+   "detail": "max |φ_i − i·2π/N| = 8.88e-16 ≤ 1e-9"
+  },
+  {
+   "name": "C4:sweep_k2..16_N=2k",
+   "pass": true,
+   "detail": "N(π/k)=2k для всех k=2…16"
+  }
+ ],
+ "pass": true,
+ "does_not_prove": "Сертифицирует замкнутость ФАЗОВЫХ решёток выбранных моделей и формулу N = 2k; не утверждает ничего о физической реализации спинорных фаз и не связана с гипотезой Римана."
+}

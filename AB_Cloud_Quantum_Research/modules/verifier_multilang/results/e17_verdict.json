@@ -1,0 +1,20 @@
+{
+  "blindness": "оба детектора (ЭМ и Риман–Зигель) не содержат эталонных нулей; оба выхода зафиксированы и хешированы до запуска валидатора",
+  "sha_em": "3843fb52c930fdca25bcc3689e67ed6cc513e67fd7b1d15566d0297b44ef47e5  e17_detector_em.csv",
+  "max_err_em": 3.0195224098861217e-10,
+  "n_detected_em": 649,
+  "cross_engine_max": 0,
+  "N_rvm": 649,
+  "recall_em": 1,
+  "n_detected_rs": 639,
+  "sha_rs": "08cd95b6259b4f5855785b2f78e45d5884df2c3992c5fbfa7d9ae11cdf9cf117  e17_detector_rs.csv",
+  "does_not_prove": "RH выше T=1000; простоту всех нулей; отсутствие нулей вне прямой при γ > 1000",
+  "precision_rs": 1,
+  "precision_em": 1,
+  "N_rvm_rounded": 649,
+  "grid_robustness_max_shift": 0,
+  "pre_registered": "precision = recall = 1 для ОБОИХ движков; max|Δγ| ≤ 1e−9 к mpmath.zetazero; кросс-движок ≤ 1e−9; N(1000) по стандартному пути = числу найденных; устойчивость к сетке [900,1000] ≤ 1e−9",
+  "pass": true,
+  "max_err_rs": 3.0195224098861217e-10,
+  "recall_rs": 1
+}

@@ -1,0 +1,4 @@
+stitch_theta_ladder_conc=0.967741935484
+stitch_sign_coherence=1.000000000000
+stitch_phase_law_max_res=1.208e-14
+stitch_verdict=ALGEBRAIC_CERTIFICATE

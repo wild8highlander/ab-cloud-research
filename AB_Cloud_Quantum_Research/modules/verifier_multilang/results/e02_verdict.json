@@ -1,0 +1,6 @@
+{
+  "does_not_prove": "масштабируемость на десятки кубитов; точность Float64 ≠ физическая fidelity",
+  "pre_registered": "макс. (1−F) ≤ 1e−12 (4×4) и ≤ 1e−10 (8×8), на репликации и новых seeds",
+  "pass": true,
+  "series": [{"role": "replication_v20", "max_1mF": 6.6613381477509392e-16, "failures": 0, "seed": 96, "pass": true, "p95_1mF": 4.4408920985006262e-16, "d": 4}, {"role": "replication_v20", "max_1mF": 4.4408920985006262e-16, "failures": 0, "seed": 296, "pass": true, "p95_1mF": 2.2204460492503131e-16, "d": 8}, {"role": "new_predeclared", "max_1mF": 4.4408920985006262e-16, "failures": 0, "seed": 20261, "pass": true, "p95_1mF": 4.4408920985006262e-16, "d": 4}, {"role": "new_predeclared", "max_1mF": 4.4408920985006262e-16, "failures": 0, "seed": 20262, "pass": true, "p95_1mF": 2.2204460492503131e-16, "d": 8}]
+}

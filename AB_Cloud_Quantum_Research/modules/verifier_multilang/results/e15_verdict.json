@@ -1,0 +1,11 @@
+{
+  "does_not_prove": "физическую топологическую защиту без реалистичного шума и равных ресурсов",
+  "M1_common_local_max_effect": 3.6082248300317588e-16,
+  "ablation_phi0_effect": 0,
+  "M3_full_quantum_residual": 1.1102230246251565e-16,
+  "discriminating_signature": "M1≈0 и M3(полный квант)≈0 при M3(полуквант)=O(1); линейная модель не защищена",
+  "pre_registered": "M1 ≤ 1e−12; M3 полный квант ≤ 1e−12; M3 полуквант ≥ 0.2; абляция φ0 ≈ 0; линейная модель ≥ 0.1",
+  "pass": true,
+  "linear_phase_model_effect": 0.30885441168228406,
+  "M3_half_quantum_effect": 0.30901699437494745
+}

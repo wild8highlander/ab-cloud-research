@@ -1,0 +1,2 @@
+seed_replay,sha256_output,independent_seeds,byte_exact_replay,median_one_minus_F_20seeds,max_one_minus_F_20seeds,order_independent,experiment,julia_version
+96,fe5c12436efbf9937eee267de019afa49e9e7794ce6a4b053a5d5cb499c3fcc5,20,true,0.0,6.661338147750939e-16,true,4,1.10.9

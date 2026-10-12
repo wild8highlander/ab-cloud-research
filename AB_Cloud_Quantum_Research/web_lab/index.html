@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AB Cloud Quantum Research · Web Portal v1.0.0</title>
+<style>
+:root { --bg:#10101A; --panel:#181826; --ink:#E8E4DA; --line:#4FB3BE;
+        --copper:#E08B66; --muted:#9A938A; --grid:#2A2A3A; --ok:#6FBF8A; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--ink);
+       font-family:'Segoe UI', system-ui, sans-serif; }
+header { padding:22px 26px 10px; }
+h1 { font-size:22px; margin:0 0 4px; }
+h1 .cop { color:var(--copper); }
+.sub { color:var(--muted); font-size:13px; }
+.lang { float:right; }
+.lang button { background:var(--panel); color:var(--ink);
+  border:1px solid var(--grid); border-radius:6px; padding:4px 12px;
+  cursor:pointer; margin-left:6px; }
+.lang button.on { border-color:var(--copper); color:var(--copper); }
+main { margin:14px 26px 26px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:14px; }
+.card { background:var(--panel); border:1px solid var(--grid);
+  border-radius:12px; padding:16px 18px; }
+.card h2 { margin:0 0 6px; font-size:16px; color:var(--line); }
+.card .v { color:var(--copper); font-size:12px; font-weight:600; }
+.card p { font-size:12.5px; color:var(--muted); line-height:1.65; margin:8px 0; }
+.card a { color:var(--line); text-decoration:none; font-size:12.5px; }
+.card a:hover { color:var(--copper); }
+.pill { display:inline-block; border:1px solid var(--ok); color:var(--ok);
+  border-radius:20px; padding:1px 10px; font-size:11px; margin:2px 4px 2px 0; }
+.thm { border-left:3px solid var(--copper); padding-left:12px; margin:12px 0; }
+.thm .t { font-size:13px; color:var(--copper); font-weight:600; }
+.thm .s { font-size:12px; color:var(--ink); line-height:1.6; }
+.thm .f { font-size:11px; color:var(--ok); }
+table { width:100%; border-collapse:collapse; font-size:12px; margin-top:10px; }
+td, th { border:1px solid var(--grid); padding:6px 9px; text-align:left; }
+th { color:var(--copper); }
+.note { color:var(--muted); font-size:11.5px; margin-top:14px; line-height:1.6; }
+</style>
+</head>
+<body>
+<header>
+  <div class="lang">
+    <button id="btn_ru" class="on" onclick="setLang('ru')">RU</button>
+    <button id="btn_en" onclick="setLang('en')">EN</button>
+  </div>
+  <h1>AB CLOUD QUANTUM RESEARCH <span class="cop">· WEB PORTAL</span> v1.0.0</h1>
+  <div class="sub" id="subtitle"></div>
+</header>
+<main>
+  <div class="grid" id="prog"></div>
+  <h2 id="thmh" style="color:var(--copper); margin-top:22px"></h2>
+  <div id="thms"></div>
+  <table id="formal"></table>
+  <div class="note" id="note"></div>
+</main>
+<script>
+'use strict';
+const PROG = [
+ { dir:'core_spectrum/', ver:'Spectral Core · V01–V19',
+   ru:['Спектральное ядро V01–V19','19 кампаний, теоремы Th1–Th6, машина обязательств V13 (RH заблокирован), формальный слой Lean/Coq/Agda/Isabelle, веб-лаборатория на 10 вкладок, сшивка ветвей V19 (ALGEBRAIC_CERTIFICATE).'],
+   en:['Spectral core V01–V19','19 campaigns, theorems Th1–Th6, the V13 obligation machine (RH blocked), Lean/Coq/Agda/Isabelle formal layer, a 10-tab web lab, branch stitching V19 (ALGEBRAIC_CERTIFICATE).'] },
+ { dir:'processor_ab/', ver:'AB Processor · V20 (P0)',
+   ru:['Процессорный уровень V20 (P0)','ISA AB-облаков, точный компилятор Givens-QR (1−F ≤ 6.7e−16), считывание нулей «читает, не несёт», нелокальность без сигналинга; веб-лаборатория на 8 вкладок.'],
+   en:['Processor level V20 (P0)','The AB-cloud ISA, the exact Givens-QR compiler (1−F ≤ 6.7e−16), zero reading that «reads, not carries», no-signaling nonlocality; an 8-tab web lab.'] },
+ { dir:'verifier_multilang/', ver:'Verification Platform · E01–E18',
+   ru:['Верификационный уровень E01–E18','18 экспериментов на Julia; слепое чтение 649+639 нулей ζ до T=1000 двумя движками (побитово); класс B: компилятор против 5 baseline при равных ограничениях — ×59 000 по времени.'],
+   en:['Verification level E01–E18','18 experiments on Julia; blind reading of 649+639 ζ zeros up to T=1000 by two engines (bit-for-bit); class B: the compiler vs 5 baselines under equal constraints — ×59,000 in time.'] },
+];
+const THMS = [
+ ['Th1','Эрмитовость и вещественность спектра','V4','A1','‖H−H†‖ = 0.0 точно; spec ⊂ ℝ; λ↔−λ при α=½, W=0',
+  'Hermiticity and the real spectrum','V4','A1','‖H−H†‖ = 0.0 exactly; real spectrum; λ↔−λ at α=½, W=0'],
+ ['Th2','Конечномерная самосопряжённость','V8','A2b','дефекты (0,0); e^{−iHt} унитарен; дрейф 2.2e−16',
+  'Finite-dimensional self-adjointness','V8','A2b','defects (0,0); unitary e^{−iHt}; drift 2.2e−16'],
+ ['Th3','Сертификаты собственных значений','V12','A4, A5','Каутский δ²/gap; Гершгорин; ширины ~1e−27',
+  'Eigenvalue certificates','V12','A4, A5','Kato δ²/gap; Gershgorin; widths ~1e−27'],
+ ['Th4','Спектральная формула коэффициентов Ли','V15','A6','λ_n = Tr g_n(H_ξ); два пути ≤ 4.4e−11; λ_n > 0 (n ≤ 3000)',
+  'Spectral formula of the Li coefficients','V15','A6','λ_n = Tr g_n(H_ξ); two paths ≤ 4.4e−11; λ_n > 0 (n ≤ 3000)'],
+ ['Th5','Блочная редукция по симметрии','V9','A2','блоки характеров; объединение ≈ спектр до 7.1e−15',
+  'Block reduction by symmetry','V9','A2','character blocks; union ≈ spectrum to 7.1e−15'],
+ ['Th6','Следовая формула Гуинанда–Вейля','V7','A3','Q(a) ↔ ζ′/ζ; след несёт Λ(n)/√n; B, C₀ выведены заново',
+  'Guinand–Weil trace formula','V7','A3','Q(a) ↔ ζ′/ζ; the trace carries Λ(n)/√n; B, C₀ re-derived'],
+];
+const L = {
+ru: {
+  sub: 'Одно исследование — три уровня: спектральное ядро, AB-процессор, мультиязычная верификация; общая дисциплина честности, кросс-языковая репликация',
+  progT: 'Модули',
+  open: 'Открыть веб-лабораторию →',
+  thmh: 'Теоремы Th1–Th6: слой доказательств',
+  formal: [['Формализация','formal/lean/RPTheorems.lean · formal/coq/RPTheorems.v — постановки Th1–Th6, редукции A1–A6, без sorry/admit'],
+           ['Документы','theorems_lemmas/T0K_*/ — 24 файла (RU/EN × PDF/DOCX) + плиточные фигуры 2×2 @600 dpi'],
+           ['Машина обязательств','V13: вывод RH заблокирован — O08/O09/O11/O12 assumed'],
+           ['Вспомогательное исследование','research/realtime_spinor_memory/ — спинорные фазовые модели π/2 · π/3 · π/7 машины без долговременной памяти; кампании ES1–ES5, теоремы TS1–TS3']],
+  note: 'Дисциплина семейства: предрегистрированные пороги, слепые протоколы с SHA256-пинами, кросс-языковая репликация, публикация отрицательных результатов. Формализация гарантирует блокировку преждевременного вывода RH, а не доказательство гипотезы.'
+},
+en: {
+  sub: 'One study — three levels: spectral core, AB processor, multi-language verification; one honesty discipline, cross-language replication',
+  progT: 'Modules',
+  open: 'Open the web lab →',
+  thmh: 'Theorems Th1–Th6: the proof layer',
+  formal: [['Formalization','formal/lean/RPTheorems.lean · formal/coq/RPTheorems.v — statements Th1–Th6, reductions A1–A6, no sorry/admit'],
+           ['Documents','theorems_lemmas/T0K_*/ — 24 files (RU/EN × PDF/DOCX) + 2×2 tiled figures @600 dpi'],
+           ['Obligation machine','V13: the RH conclusion is blocked — O08/O09/O11/O12 assumed'],
+           ['Supplementary study','research/realtime_spinor_memory/ — spinor phase models π/2 · π/3 · π/7 of a machine with no long-term memory; campaigns ES1–ES5, theorems TS1–TS3']],
+  note: 'Family discipline: pre-registered thresholds, blind SHA256-pinned protocols, cross-language replication, publication of negative results. The formalization guarantees blocking of a premature RH conclusion — it is not a proof of the hypothesis.'
+}};
+let lang = 'ru';
+function setLang(l){ lang = l; document.getElementById('btn_ru').classList.toggle('on', l==='ru');
+  document.getElementById('btn_en').classList.toggle('on', l==='en');
+  document.documentElement.lang = l; render(); }
+function render(){
+  const l = L[lang];
+  document.getElementById('subtitle').textContent = l.sub;
+  const g = document.getElementById('prog'); g.innerHTML = '';
+  for (const p of PROG){
+    const d = p[lang];
+    const el = document.createElement('div');
+    el.className = 'card';
+    el.innerHTML = '<h2>' + d[0] + '</h2><div class="v">' + p.ver + '</div>' +
+      '<p>' + d[1] + '</p>' +
+      '<a href="' + p.dir + 'web_lab/index.html">' + l.open + '</a>';
+    g.appendChild(el);
+  }
+  document.getElementById('thmh').textContent = l.thmh;
+  const t = document.getElementById('thms'); t.innerHTML = '';
+  for (const m of THMS){
+    const i = lang === 'ru' ? 0 : 5;
+    const el = document.createElement('div');
+    el.className = 'thm';
+    el.innerHTML = '<div class="t">' + m[i] + ' · ' + m[i+1] + ' · редукция ' + m[i+2] + '</div>' +
+      '<div class="s">' + m[i+3] + '</div>';
+    t.appendChild(el);
+  }
+  document.getElementById('formal').innerHTML = l.formal.map(r =>
+    '<tr><th style="width:22%">' + r[0] + '</th><td>' + r[1] + '</td></tr>').join('');
+  document.getElementById('note').textContent = l.note;
+}
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+ "id": "v14",
+ "claim": "V14 аудит утверждений",
+ "statement": "Каждый вердикт data/v*_verdict.json покрыт claim-файлом со схемой из 5 обязательных частей; статус-гигиена соблюдена.",
+ "premises": [
+  "схема фиксирует 5 частей и словарь статусов"
+ ],
+ "code": [
+  "rpbridge/audit.py",
+  "verification/claim_audit/claims"
+ ],
+ "controls": [
+  {
+   "name": "A1+A3 coverage",
+   "passed": true,
+   "detail": "18/18 claims, пропусков нет"
+  }
+ ],
+ "does_not_prove": [
+  "истинность утверждений (аудит проверяет форму)",
+  "полноту схемы"
+ ],
+ "status": "measured"
+}

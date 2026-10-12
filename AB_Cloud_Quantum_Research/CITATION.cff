@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this package, please cite it as below."
+title: "AB Cloud Quantum Research: an AB (Aharonov-Bohm) algebraic architecture that reads mathematics - from operator spectra to zeta zeros - with volatile real-time state and zero long-term storage"
+authors:
+  - family-names: "AB Cloud Quantum Research"
+    given-names: ""
+version: 1.0.0
+date-released: "2026-10-11"
+license: PROPRIETARY
+repository-code: "https://github.com/ab-cloud-quantum/AB_Cloud_Quantum_Research"
+abstract: "A single research program built around one idea: the algebraic AB (Aharonov-Bohm) architecture as a computing fabric that reads mathematics in real time and retains nothing. The spectral core (campaigns V01-V19, theorems Th1-Th6 with Lean 4 / Coq statements, the V13 obligation machine keeping RH honestly blocked), the AB processor (V20/P0: exact Givens-QR compilation of unitary logic into AB clouds, fidelity error <= 4.4e-16, 'reads, does not carry'), and the multi-language verification platform (E01-E18: blind reading of all 649 zeta zeros up to T=1000 by two independent engines, bit-exact cross-engine agreement, the class-B compiler vs 5 strong baselines at x59,000 speed-up). Includes a bilingual theorem layer (24 PDF/DOCX documents with embedded four-dimension tiles), a supplementary study on spinor phase models of a machine without long-term memory (theta = pi/2, pi/3, pi/7), curated datasets, a whitepaper, and three local web laboratories."

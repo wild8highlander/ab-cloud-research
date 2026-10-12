@@ -1,0 +1,33 @@
+{
+ "meta": {
+  "title": "Th5. Block reduction",
+  "subtitle": "Th1–Th6: hermiticity, self-adjointness, certificates, the spectral Li formula, block reduction, the Guinand–Weil trace formula",
+  "author": "Ishak Khamzatovich Isaev",
+  "affil": "Independent researcher, Nalchik, Kabardino-Balkarian Republic",
+  "series": "AB Research Program · monograph series V1–V19",
+  "volume": "Th5",
+  "version": "1.2.0",
+  "date": "October 10, 2026"
+ },
+ "sections": [
+  {
+   "h1": "Th5. Block reduction by symmetry",
+   "theorem": {
+    "label": "Theorem Th5 (V9).",
+    "text": "If [H, A] = [H, B] = 0 for the generators of the abelian group G of magnetic translations, then H is block-diagonal in the character decomposition of G and spec H = ⊔_χ spec(H|Π_χ ℂ^N).",
+    "proof": "Commuting unitaries A, B are simultaneously diagonalizable; their joint eigenvalues are the characters χ: G → U(1); the spectral projectors Π_χ (polynomials in A, B) commute with H: [H, Π_χ] = 0, hence each Π_χ ℂ^N is invariant and H decomposes into the direct sum of restrictions. Corollary: eigenvalues are found in smaller blocks with guaranteed coverage. Numerically: the union of 6 blocks reproduces the full spectrum to 7.1e-15; vortices break the symmetry (commutators ε_g = O(1)) — the reduction applies only to the clean lattice and to symmetric vortex configurations."
+   }
+  },
+  {
+   "h1": "Th5.1 Certificate and boundaries",
+   "paras": [
+    "Certificate: test_th5_block_reduction.py compares the union of the block spectra with the full spectrum; threshold 1e-9, fact 7.1e-15. The value is twofold: (a) computational — the reduction speeds up scans (each block ~L²/6 instead of L²); (b) diagnostic — the magnitude ‖[H, A]‖ measures how far a vortex configuration is from symmetric and serves as a passport feature of a gate in V4.",
+    "Boundaries: for protocol (asymmetric) vortices the reduction does not apply — this is not a defect but the boundary of its domain; partially symmetric configurations give approximate invariant subspaces, and the quantification of this idea is not included in the package."
+   ],
+   "figure": {
+    "path": "../../theorems_lemmas/T05_block_reduction/figures/th5_4dim_{lang}.png",
+    "caption": "Fig. 1. Theorem Th5: four measurement dimensions — the metric, its behaviour across gates/instances, the control and the threshold (2×2 tile, 600 dpi, campaign verdict data)."
+   }
+  }
+ ]
+}

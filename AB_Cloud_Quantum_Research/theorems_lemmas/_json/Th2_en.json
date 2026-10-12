@@ -1,0 +1,33 @@
+{
+ "meta": {
+  "title": "Th2. Self-adjointness",
+  "subtitle": "Th1–Th6: hermiticity, self-adjointness, certificates, the spectral Li formula, block reduction, the Guinand–Weil trace formula",
+  "author": "Ishak Khamzatovich Isaev",
+  "affil": "Independent researcher, Nalchik, Kabardino-Balkarian Republic",
+  "series": "AB Research Program · monograph series V1–V19",
+  "volume": "Th2",
+  "version": "1.2.0",
+  "date": "October 10, 2026"
+ },
+ "sections": [
+  {
+   "h1": "Th2. Finite-dimensional self-adjointness",
+   "theorem": {
+    "label": "Theorem Th2 (V8).",
+    "text": "A symmetric operator on ℂ^N is essentially self-adjoint: defect indices (0, 0); e^{−iHt} is unitary; Im⟨ψ, Hψ⟩ = 0.",
+    "proof": "On ℂ^N every bounded symmetric operator is self-adjoint: D(H) = ℂ^N and the defect spaces ker(H* − iI), ker(H* + iI) are empty, since ‖(H ∓ iI)ψ‖² = ‖Hψ‖² + ‖ψ‖² ≥ ‖ψ‖² > 0 (the cross-term vanishes by symmetry). Consequences: real spectrum, e^{−iHt} a unitary group, ⟨ψ, Hψ⟩ real. Numerically: the minimal singular value of H − iI is 3.9 (theory: √(1 + min‖Hψ‖²) ≥ 1), the unitarity drift of e^{−iHt} is 2.2e-16 over 1000 steps. The limit part (L → ∞, essential self-adjointness of an unbounded operator) is the open obligation O03."
+   }
+  },
+  {
+   "h1": "Th2.1 Certificate and boundaries",
+   "paras": [
+    "Certificate: test_th2_selfadjoint.py checks three equivalent manifestations of self-adjointness — empty defects, unitary dynamics, real form — on the protocol gate; all three hold at machine floors. Practical value: the unitarity of e^{−iHt} underpins the dynamics campaigns (V17): the energy conservation 1.8e-15 in V17 is a direct corollary of Th2. The gap \"finite-dim proved / limit open\" is recorded honestly: in the infinite-dimensional problem symmetry is not enough, boundary conditions are needed (open boundaries are natural, but the strict convergence of resonances is an open problem of the program).",
+    "Boundaries: the theorem is finite-dimensional; the transfer to L → ∞ requires estimates of the essential spectrum and resonance geometry — see O03 in the obligation DAG."
+   ],
+   "figure": {
+    "path": "../../theorems_lemmas/T02_self_adjointness/figures/th2_4dim_{lang}.png",
+    "caption": "Fig. 1. Theorem Th2: four measurement dimensions — the metric, its behaviour across gates/instances, the control and the threshold (2×2 tile, 600 dpi, campaign verdict data)."
+   }
+  }
+ ]
+}

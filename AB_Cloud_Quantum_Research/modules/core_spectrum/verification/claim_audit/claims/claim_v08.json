@@ -1,0 +1,24 @@
+{
+ "id": "v08",
+ "claim": "V8 самосопряжённость / Th2",
+ "statement": "Конечномерный H самосопряжён (дефектные индексы (0,0)); унитарность e^{−iHt} и Im⟨ψ,Hψ⟩ = 0 — до 1e-13; сдвиги спектра при смене BC конечны.",
+ "premises": [
+  "конечная размерность"
+ ],
+ "code": [
+  "rpbridge/selfadjoint.py",
+  "monograph/theorems/T02_self_adjointness"
+ ],
+ "controls": [
+  {
+   "name": "defect indices",
+   "passed": true,
+   "detail": "(n₊, n₋) = (0,0) на L = 12/16/24"
+  }
+ ],
+ "does_not_prove": [
+  "существенно самосопряжённый предельный оператор",
+  "независимость спектра предела от BC"
+ ],
+ "status": "proven"
+}

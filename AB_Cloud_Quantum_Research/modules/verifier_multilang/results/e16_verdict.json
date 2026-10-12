@@ -1,0 +1,10 @@
+{
+  "does_not_prove": "превосходство RS на всех высотах; применимость RS при t < 50; RH",
+  "crossover_note": "EM быстрее при t≲300, RS быстрее при t≳300 (см. experiment_16_benchmark.csv)",
+  "agree_vs_em_max_grid": 3.7615814540826104e-15,
+  "Z_realness_max": 5.7397185098744507e-42,
+  "F_series_residual": 3.8719841785996018e-42,
+  "agree_vs_em_max_benchmark": 3.0529728023639952e-17,
+  "pass": true,
+  "pre_registered": "F-ряд ≤ 1e−30; вещественность Z(t) ≤ 1e−12; согласие RS↔ЭМ при равной точности ≤ 1e−9 на сетке [250,1000] (порог O-J1)"
+}

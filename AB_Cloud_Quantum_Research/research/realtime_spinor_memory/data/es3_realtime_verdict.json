@@ -1,0 +1,77 @@
+{
+ "experiment": "ES3-realtime",
+ "campaign": "realtime_spinor_memory",
+ "package": "AB Cloud Quantum Research v1.0.0",
+ "pre_registered": {
+  "C1": "|наклон| ≤ 1e-11 мс/шаг (плоский профиль)",
+  "C2": "дедлайн-комплаенс 100% при Δt = 1 мс",
+  "C3": "baseline ×≥5 на t=2^17 против t=2^10; машина ≤ ×2",
+  "C4": "наклон replay > 0, R² ≥ 0.98"
+ },
+ "results": {
+  "machine_S1": {
+   "chunks": 48,
+   "median_ms": 0.00019399885786697268,
+   "slope_ms_per_step": -1.0476976549795279e-12,
+   "r2": 0.006289612025906277,
+   "deadline_misses": 0,
+   "compliance": 1.0
+  },
+  "machine_S3": {
+   "median_ms": 0.000193000232684426,
+   "slope_ms_per_step": -2.75596113692068e-12,
+   "deadline_misses": 0
+  },
+  "logmachine": {
+   "cost_ms_at": {
+    "1024": 0.061953000113135204,
+    "8192": 0.4880460001004394,
+    "65536": 3.9085319986043032,
+    "131072": 7.751205999738886,
+    "200000": 0.0005220008461037651
+   },
+   "growth_ratio_2x17_over_2x10": 125.11429608871329,
+   "replay_cost_cells": 19568640.0,
+   "footprint_at_T": 200001
+  },
+  "replay": {
+   "slope_ms_per_cell": 7.893010419261103e-05,
+   "r2": 0.994805342297585,
+   "points": 195
+  }
+ },
+ "checks": [
+  {
+   "name": "C1:machine_flat_profile",
+   "pass": true,
+   "detail": "наклон = -1.048e-12 мс/шаг ≤ 1e-11 (R²=0.006)"
+  },
+  {
+   "name": "C2:machine_deadlines_100pct",
+   "pass": true,
+   "detail": "пропусков дедлайна 0 из 200000 (Δt = 1 мс)"
+  },
+  {
+   "name": "C1b:machine_S3_flat",
+   "pass": true,
+   "detail": "S3: наклон = -2.756e-12 мс/шаг; пропусков 0"
+  },
+  {
+   "name": "C3:baseline_grows_x5",
+   "pass": true,
+   "detail": "LogMachine: стоимость шага на t=2^17 против t=2^10 × 125.1 (машина: × 1.00 ≤ 2.0)"
+  },
+  {
+   "name": "C3b:machine_ratio_small",
+   "pass": true,
+   "detail": "машина в тех же точках × 1.00"
+  },
+  {
+   "name": "C4:replay_Omega(t)",
+   "pass": true,
+   "detail": "наклон replay = 7.893e-05 мс/ячейка, R² = 0.9948"
+  }
+ ],
+ "pass": true,
+ "does_not_prove": "Сертифицирует O(1)-стоимость шага модели и линейный рост полной перепроверки журнала в КОНТРАСТНОЙ модели. Не измеряет производительность физических устройств и не утверждает, что всякая память запрещена — только что вечный журнал несовместим с жёстким реальным временем."
+}

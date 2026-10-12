@@ -1,0 +1,106 @@
+{
+ "experiment": "ES4-memoryless-task",
+ "campaign": "realtime_spinor_memory",
+ "package": "AB Cloud Quantum Research v1.0.0",
+ "pre_registered": {
+  "C1": "accuracy == 1.0 для всех трёх моделей",
+  "C2": "footprint == 1 при t=0 и t=T",
+  "C3": "контейнеров истории 0",
+  "C4": "LogMachine footprint == 1 + T"
+ },
+ "results": {
+  "S1": {
+   "N": 4,
+   "accuracy": 1.0,
+   "footprint": 1,
+   "footprint_after_T": 1,
+   "containers_found": 0,
+   "logmachine_footprint": 300001
+  },
+  "S2": {
+   "N": 6,
+   "accuracy": 1.0,
+   "footprint": 1,
+   "footprint_after_T": 1,
+   "containers_found": 0,
+   "logmachine_footprint": 300001
+  },
+  "S3": {
+   "N": 14,
+   "accuracy": 1.0,
+   "footprint": 1,
+   "footprint_after_T": 1,
+   "containers_found": 0,
+   "logmachine_footprint": 300001
+  },
+  "bits_per_step": {
+   "S1": 2.0,
+   "S2": 2.584962500721156,
+   "S3": 3.807354922057604
+  }
+ },
+ "checks": [
+  {
+   "name": "C1:S1_counter_exact",
+   "pass": true,
+   "detail": "модульный счётчик на 300000 шагов: доля верных = 1.0"
+  },
+  {
+   "name": "C2:S1_footprint_const",
+   "pass": true,
+   "detail": "след состояния = 1 регистр(а) до и после 300000 шагов"
+  },
+  {
+   "name": "C3:S1_no_history_containers",
+   "pass": true,
+   "detail": "история не хранится: контейнеров 0 (хранение = 0)"
+  },
+  {
+   "name": "C4:S1_log_contrast",
+   "pass": true,
+   "detail": "LogMachine: след = 300001 ячеек (1 + 300000) — рост без ограничений"
+  },
+  {
+   "name": "C1:S2_counter_exact",
+   "pass": true,
+   "detail": "модульный счётчик на 300000 шагов: доля верных = 1.0"
+  },
+  {
+   "name": "C2:S2_footprint_const",
+   "pass": true,
+   "detail": "след состояния = 1 регистр(а) до и после 300000 шагов"
+  },
+  {
+   "name": "C3:S2_no_history_containers",
+   "pass": true,
+   "detail": "история не хранится: контейнеров 0 (хранение = 0)"
+  },
+  {
+   "name": "C4:S2_log_contrast",
+   "pass": true,
+   "detail": "LogMachine: след = 300001 ячеек (1 + 300000) — рост без ограничений"
+  },
+  {
+   "name": "C1:S3_counter_exact",
+   "pass": true,
+   "detail": "модульный счётчик на 300000 шагов: доля верных = 1.0"
+  },
+  {
+   "name": "C2:S3_footprint_const",
+   "pass": true,
+   "detail": "след состояния = 1 регистр(а) до и после 300000 шагов"
+  },
+  {
+   "name": "C3:S3_no_history_containers",
+   "pass": true,
+   "detail": "история не хранится: контейнеров 0 (хранение = 0)"
+  },
+  {
+   "name": "C4:S3_log_contrast",
+   "pass": true,
+   "detail": "LogMachine: след = 300001 ячеек (1 + 300000) — рост без ограничений"
+  }
+ ],
+ "pass": true,
+ "does_not_prove": "Демонстрирует вычислительную ПОЛНОТУ летучей фазы как счётчика по модулю N и нулевой след хранения. Не утверждает универсальности: произвольные вычисления с большими промежуточными данными требуют либо внешнего потока, либо памяти — это честная граница модели."
+}

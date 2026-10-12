@@ -1,0 +1,16 @@
+experiment,value,quantity
+11,13,n_detector
+11,13,n_reference_in_range
+11,13,n_matched
+11,1.0,precision
+11,1.0,recall
+11,1.4210854715202004e-14,max_position_error
+11,9.308777382563375e-15,rms_position_error
+11,0.0,gauss_newton_max_error_vs_reference
+11,7.774278151494182e-15,gauss_newton_max_abszeta
+11,0.8892069648124682,winding_count
+11,1.0,winding_zeros_rounded
+11,0.39743882254458596,S_T_standard_path
+11,37.30167302053294,theta_T
+11,13.000000000000002,N_rvm
+11,13.0,N_rvm_rounded

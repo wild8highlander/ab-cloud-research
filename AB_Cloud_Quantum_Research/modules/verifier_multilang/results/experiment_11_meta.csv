@@ -1,0 +1,7 @@
+key,experiment,value
+K_corrections,11,14
+method,11,argument winding of ζ(½+it); Euler–Maclaurin tail; BigFloat(140)
+precision_bits,11,140
+module,11,ZetaDetector (e11_zeta_blind.jl)
+reference_zeros_used,11,false
+N_tail,11,64

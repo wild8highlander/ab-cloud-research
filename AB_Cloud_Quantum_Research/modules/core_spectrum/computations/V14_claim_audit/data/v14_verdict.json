@@ -1,0 +1,123 @@
+{
+ "claims": [
+  {
+   "file": "claim_v01.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V1 слепой спектральный эксперимент",
+   "status": "measured"
+  },
+  {
+   "file": "claim_v02.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V2 арифметические контрольные модели",
+   "status": "measured"
+  },
+  {
+   "file": "claim_v03.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V3 скан критической линии",
+   "status": "measured"
+  },
+  {
+   "file": "claim_v04.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V4 паспорт оператора / Th1",
+   "status": "proven"
+  },
+  {
+   "file": "claim_v05.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V5 предел решётки",
+   "status": "measured"
+  },
+  {
+   "file": "claim_v06.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V6 спектральное тождество",
+   "status": "measured"
+  },
+  {
+   "file": "claim_v07.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V7 арифметическая формула следа / Th6",
+   "status": "proven"
+  },
+  {
+   "file": "claim_v08.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V8 самосопряжённость / Th2",
+   "status": "proven"
+  },
+  {
+   "file": "claim_v09.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V9 симметрийная редукция / Th5",
+   "status": "proven"
+  },
+  {
+   "file": "claim_v10.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V10 обратная задача",
+   "status": "measured"
+  },
+  {
+   "file": "claim_v11.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V11 универсальность после разрушения арифметики",
+   "status": "measured"
+  },
+  {
+   "file": "claim_v12.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V12 интервальные сертификаты / Th3",
+   "status": "proven"
+  },
+  {
+   "file": "claim_v13.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V13 формальный мост",
+   "status": "measured"
+  },
+  {
+   "file": "claim_v14.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V14 аудит утверждений",
+   "status": "measured"
+  },
+  {
+   "file": "claim_v15.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V15 критерий Ли / Th4",
+   "status": "proven"
+  }
+ ],
+ "consistency": {
+  "n_verdicts": 15,
+  "n_claims": 15,
+  "missing_claims": []
+ },
+ "all_a1": true,
+ "covered": true,
+ "verdict_note": "каждое публичное утверждение пакета трассируется к вычислению, контролю и перечню не-следствий; автоповышение гипотезы до теоремы заблокировано",
+ "meta": {
+  "campaign": "V14",
+  "date": "2026-10-10",
+  "package": "AB Research Program 1.0.0",
+  "runtime_s": 0.0
+ }
+}
