@@ -25,8 +25,13 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
+      # The Lean package lives in formal/lean4, not at the repository root:
+      # lean-action resolves the toolchain, lake-manifest.json and the .lake
+      # cache relative to lake-package-directory, so it must be pointed at
+      # the package explicitly (defaults to "." and would fail otherwise).
       - uses: leanprover/lean-action@v1
         with:
+          lake-package-directory: formal/lean4
           auto-config: false
           build: false
           test: false
@@ -99,7 +104,11 @@ jobs:
       image: makarius/isabelle:Isabelle2025
       # If the tag above is unavailable at some point, switch to the
       # previous stable release image, e.g. makarius/isabelle:Isabelle2024.
+      # The image defaults to USER isabelle (uid 1000), which cannot write
+      # into the runner-owned checkout; run as root instead. The isabelle
+      # binary is also not on the image PATH, hence the absolute invocation.
+      options: --user root
     steps:
       - uses: actions/checkout@v7
       - name: Build the ABCloud Isabelle session
-        run: isabelle build -v -D formal/isabelle
+        run: /home/isabelle/Isabelle/bin/isabelle build -v -D formal/isabelle
