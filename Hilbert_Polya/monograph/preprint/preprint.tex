@@ -1,0 +1,221 @@
+\documentclass[11pt]{article}
+\usepackage[margin=2.6cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{caption}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}{Remark}
+
+\title{\bf The Operator That Almost Exists:\\ Eight New Campaigns and the Measured Boundary\\ of the Hilbert--P\'olya Program (v2.0)}
+\author{Ishak Khamzatovich Isaev\\
+\small Independent researcher, Nalchik, Kabardino-Balkarian Republic\\
+\small \texttt{Hilbert Polya Bridge v2.0.0}}
+\date{October 12, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Version 1.0 of the Hilbert--P\'olya Bridge measured the boundary between
+the graph ($\xi$ on the critical line) and any lattice operator through
+three projections of one gap (rank, prime staircase, heat trace) with
+positive controls. Version 2.0 executes the v1 roadmap and adds eight
+campaigns (C9--C16) with eight theorems (T11--T18). The headline results:
+\textbf{(T11)} the heat trace with the Guinand--Weil kernel forces the
+spectrum to be the zero multiset, so a prime-weight-in-trace primitive
+exists and can be made arbitrarily nonlocal ($r_{H7}=1.000$,
+$r_{EF}=0.999$) --- the measured H2 gap is a wall of \emph{locality};
+\textbf{(T13)} the first arithmetic-to-spectrum bridge inside the lattice:
+the $\alpha=1/3$ zero modes satisfy the counting law
+$N_0 = 2L - 6\,[L \equiv 0 \pmod{12}]$ with Dirac index $-2$ on the
+$L \equiv 0 \pmod{12}$ subfamily, verified through $L=48$;
+\textbf{(T14)} the verified-RH band is extended to $T=5000$
+($N = 4520 = N_{\mathrm{strip}}$, $S_{\max}=0.91$);
+\textbf{(T17)} the trace formula transfers to Dirichlet $L$-functions with
+the twisted weight $\chi(n)\Lambda(n)/\sqrt{n}$ verified to
+$|\Delta K| \le 9.6\cdot 10^{-6}$, and the gates stay in the null zone
+against $L$-zeros --- the H2 gap is \emph{universal} across the class.
+Blind gate families (T15), a 121-configuration anomaly taxonomy (T16), and
+a quantum-information layer (T18) confirm the demarcation. The package is
+fully self-contained: the zeta zeros are computed and committed internally
+(no external data files), verification is 18/18 IVP + 21/21 pytest, and an
+open challenge with a public scoring protocol is attached.
+\end{abstract}
+
+\section{Introduction}
+The Hilbert--P\'olya program asks whether the nontrivial zeros of $\zeta$
+are the spectrum of a self-adjoint operator. The v1 package (C1--C8,
+T1--T10, 87 gates) answered five questions by measurement, with positive
+controls on machine precision. The roadmap named four directions able to
+move the main gap: nonlocal trace constructions (the T6 lesson), stitching
+the statistical and coding branches, a number-theoretic explanation of the
+$\alpha = 1/3$ zero modes, and extending the verified band. v2.0 executes
+all of them (C9, C10, C11, C12), adds blind campaigns and an anomaly hunt
+(C13, C14), transfers the pipeline to Dirichlet $L$-functions (C15), and
+adds a quantum-information layer (C16).
+
+\section{C9/T11: the nonlocal trace primitive}
+\begin{theorem}[Heat-trace uniqueness]
+Let $H$ be self-adjoint with discrete spectrum $\{\lambda_n\} \subset
+(0,\infty)$. If
+\[
+\operatorname{Tr} e^{-xH} \;=\; \frac{1}{\pi}\int_0^\infty Q(a)\sin(ax)\,
+da \quad \text{for all } x>0,
+\qquad Q(a) = \sum_{\gamma>0} \frac{2a}{a^2+\gamma^2},
+\]
+then $\operatorname{spec} H = \{\pm\gamma_n\}$ with multiplicity.
+\end{theorem}
+\begin{proof}
+Both sides are Laplace--Stieltjes transforms of measures on $(0,\infty)$;
+by uniqueness the measure is determined by the trace. Since
+$\frac{1}{\pi}\int_0^\infty \frac{2a\,\sin(ax)}{a^2+\gamma^2}da =
+e^{-x\gamma}$, the measure is the counting measure of the zero set.
+\end{proof}
+\begin{corollary}
+The prime weight in the trace is the spectral measure itself: any operator
+with such a trace is isospectral to $H_\xi$. Nonlocality is achievable
+arbitrarily (dense orthogonal conjugations), locality is not.
+\end{corollary}
+
+Measured family: $H_\xi = \operatorname{diag}(\pm\gamma)$ (control); DCT
+and QR twins $O\,\mathrm{diag}(\gamma)\,O^T$ (dense, isospectral to
+$7\cdot10^{-13}$): $r_{H7} = 1.000$, $r_{EF}^{(\mathrm{fluct})} = 0.999$;
+truncated Berry--Keating $xp$: $r_{H7}=0.047$ (null); the multiplicative
+kernel $\Lambda(\mathrm{lcm}(m,n))/\sqrt{mn}$: degenerate spectrum (an
+arithmetic signature), $r_{EF}=-0.96$. The T6 machine re-verifies on the
+internal zero cache to $|\Delta K| \le 1.8\cdot10^{-6}$.
+
+\section{C10/T12: hard co-location and its limit}
+Any phase system with $\Phi_{pq} \equiv \Phi_p + \Phi_q \pmod{2\pi}$ is a
+homomorphism from the free abelian group on the primes; its normal form is
+$\Phi_p = 2\pi\{\beta \ln p\}$. The $\{0,\pi\}$-valued case
+($\Phi_p = \pi\chi_4(p)$) is \emph{gauge-trivial} in the lattice overlay
+channel: $e^{\pm i\pi} = -1$ flips every $y$-bond and $\psi \to
+(-1)^y\psi$ removes it (spectra coincide to $8.4\cdot10^{-15}$). With the
+site-linked overlay the hard co-location holds at machine zero
+($4.4\cdot10^{-16}$) for every $\beta$, yet the spectrum does not see it:
+$r_{H7} \le 0.092$ over an 11-point $\beta$-grid (Bonferroni $0.20$), GUE
+class unchanged. Universality erases even hard codings.
+
+\section{C11/T13: the arithmetic bridge at $\alpha = 1/3$}
+For the K\"ahler--Dirac (staggered) operator in the $\gamma_5$-Hermitian
+form $H = \varepsilon D + m$ with Landau flux $\alpha = 1/3$ on the torus
+($\alpha L \in \mathbb{Z}$ forces $L \equiv 0 \pmod 3$), the full scan
+$L = 6,\dots,48$ gives the counting law
+\[
+N_0(L) \;=\; 2L \;-\; 6\,\big[L \equiv 0 \pmod{12}\big]
+\quad\text{for } L \equiv 0 \pmod 6, \qquad N_0 = 0 \text{ otherwise},
+\]
+with Dirac index $\mathrm{ind} = \sum_{\text{zero modes}}
+\mathrm{sign}(\varepsilon) = -2\,[L \equiv 0 \pmod{12}]$. The decisive
+checks: $L = 36 \to 66$, $L = 48 \to 90$ (both exact); open boundaries
+give one edge zero mode with index $-1$ for odd $L \equiv 0 \pmod 3$; the
+$\alpha = 1/2$ control gives none. The v1 observation «tori $L \equiv 0
+\pmod 4$» described only the index $-2$ subfamily: $L = 18$ ($\equiv 2
+\pmod 4$) also carries $36$ modes. This is the first
+arithmetic-to-spectrum bridge of the program; proving the law through the
+K\"ahler--Dirac index is the v3 goal.
+
+\section{C12/T14: the band to $T = 5000$}
+With $Z(t) = \mathtt{mp.siegelz}$ (bridge to $e^{i\theta}\zeta$: max
+$|\Delta| = 0$ at six heights), adaptive sign-change counting (coarse grid
+$0.15$, small-$|Z|$ refinement, 36-iteration bisection) and Turing-monitored
+$S(T)$, the count gives $N_{\mathrm{online}}(5000) = 4520$ against
+$\bar N(5000) = 4520.08$, $S_{\max} = 0.91 \le 2$; three full-strip
+argument-principle windows match ($11{=}11$, $10{=}10$, $5{=}5$); the v1
+anchors $(0,3,10,29,79,649)$ reproduce bit-wise. Gaps below 5000: min
+$0.0908$, mean $1.103$.
+
+\section{C13/T15 + C14/T16: blind families and the attractor taxonomy}
+Five families absent from the v1 handle space (imaginary $x$-hoppings;
+golden-ratio quasiperiodic vortices; vortex dimers; power-law hoppings
+$r^{-2}$; row flux dithering) produce 20 gates: all in the null zone
+($|r_{H7}| \le 0.040$, $\min p = 0.29$) with the pipeline control
+$PC0' = 1.000$. A 121-configuration scan yields the honest taxonomy
+$97$ GUE $/\,18$ integrable ($N_v{=}0$, Poisson) $/\,6$ intermediate
+(weak-vortex $N_v \le 8$, $q{=}0.5$, $\langle r\rangle = 0.47$--$0.53$);
+no rank outliers ($|r_{H7}| \le 0.153$). The GUE attractor is global for
+vortex-carrying configurations, with a measurable basin structure.
+
+\section{C15/T17: Dirichlet $L$-functions — the gap is universal}
+For the quadratic characters $\chi_5$ (even) and $\chi_7$ (odd):
+$Z_\chi(t) = e^{i\theta_\chi(t)}L(\tfrac12{+}it,\chi)$ is real to
+$5\cdot10^{-35}$; bisection finds $68$ and $74$ zeros $\le 120$ against
+smooth counts $67.8$ and $74.5$; the twisted staircase
+$\psi_\chi(x) = \sum_{n\le x}\chi(n)\Lambda(n)$ matches the zero reference
+at $0.902$/$0.949$.
+\begin{theorem}[Twisted trace formula]
+$K_\chi(x) = \sum_\gamma e^{-x\gamma_\chi} = \frac{1}{\pi}\int_0^\infty
+Q_\chi(a)\sin(ax)\,da$, where $Q_\chi(a) = \frac{\Lambda'}{\Lambda}
+(\tfrac12{+}a,\chi) - B_\chi - C_0^{(\chi)}$ carries the twisted weight
+$\chi(n)\Lambda(n)/\sqrt{n}$, and $C_0^{(\chi)} =
+\frac{\Lambda'}{\Lambda}(\tfrac12) - B_\chi$.
+\end{theorem}
+Verified to $|\Delta K| \le 9.6\cdot10^{-6}$ ($\chi_5$) and
+$6.1\cdot10^{-6}$ ($\chi_7$). The same lattice gates against $L$-zeros:
+$r_{H7} = 0.035$--$0.164$, the null zone. The H2 gap is a class property,
+not a zeta defect.
+
+\section{C16/T18: the quantum-information layer}
+Fermionic entanglement of the Slater Fermi sea (correlation-matrix
+protocol): the gate's half-system entropy $S_A \approx 12$--$16$ nats
+against the Haar baseline $160$--$220$ ($z>100$) --- locality suppresses
+the volume-law entanglement, the quantum echo of C9/T11. The mutual
+information profile carries no zero signature ($-0.018$ vs $-0.121$
+random). Spectral-form-factor slopes on unfolded 200-level windows are
+noisy; the gate matches GUE within the spread.
+
+\section{Honesty ledger (found-and-fixed, v2)}
+(i) the shipped $B_{\mathrm{Hadamard}}$ constant used $\ln 2\pi$ instead
+of $\ln 4\pi$ (committed v1 verdicts unaffected);
+(ii) the v1 T9 observation refined to the full T13 law;
+(iii) $\{0,\pi\}$-valued codings are gauge-trivial (T12 corollary);
+(iv) the $r_{EF}$ metric is taken on detrended fluctuations (raw
+correlation catches common trends); plus the T6-check fixes ($n$ vs
+$\ln n$; the $a=0.5$ pole excluded from the spline grid).
+
+\section{Reproducibility and the open challenge}
+The package uses no external data files: the zeta zeros are computed by
+mpmath internally and committed (800 ordinates to $\gamma = 1183.7$,
+bit-reproducible). Verification: IVP01--IVP18 (18/18 PASS) and pytest
+(21/21). An open challenge is attached: demonstrate $r_{H7} \ge 0.7$
+under the v2 protocol with passing positive controls and an intact GUE
+class; a blind scorer (\texttt{challenge/score\_submission.py}) rebuilds
+the gate from the submitted spec and archives the full report.
+
+\section{The v2 verdict}
+The operator that almost exists exists exactly as far as the trace
+allows: with the prime weight in it (T11), with arbitrary nonlocality,
+with prime co-location in its phases (T12). It refuses to exist locally:
+none of 227 measured configurations of five families and three classes
+left the null zones (T15, T16). Arithmetic entered the lattice spectrum
+where nobody looked: in the Dirac-index zero-mode count (T13). And the
+gap measured on zeta is a property of the whole $L$-function class
+(T17). The continuation is the v3 roadmap: proving the T13 law through
+the index, other characters and modular forms, stitching through the
+index, the band to $T = 50000$, and the quantum response to the index.
+
+\begin{thebibliography}{9}
+\bibitem{riemann1859} B. Riemann (1859), \emph{On the Number of Primes
+Less Than a Given Magnitude}.
+\bibitem{hadamard1893} J. Hadamard (1893), canonical product;
+the constant $B = \xi'(0)/\xi(0)$.
+\bibitem{weil1952} A. Weil (1952), explicit formula for test functions;
+Guinand's zero-side formulation.
+\bibitem{bgs1984} O. Bohigas, M.-J. Giannoni, C. Schmit (1984), GUE
+hypothesis for quantum spectra.
+\bibitem{berrykeating1999} M. Berry, J. Keating (1999), $H = xp$ and the
+semiclassical window.
+\bibitem{connes1999} A. Connes (1999), trace formula and the
+semilocal factor.
+\bibitem{hpbv1} I. K. Isaev (2026), \emph{Hilbert--P\'olya Bridge v1.0.0:
+a self-contained numerical study of the graph--operator passage},
+this repository.
+\end{thebibliography}
+
+\end{document}

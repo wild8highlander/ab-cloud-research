@@ -1,0 +1,228 @@
+{
+ "meta": {
+  "campaign": "C11 alpha-third zero modes vs arithmetic",
+  "roadmap": "R3",
+  "theorem": "T13",
+  "operator": "Kahler-Dirac (staggered), gamma5-Hermitian form, Landau gauge, torus/open bc",
+  "tol_sweep": [
+   {
+    "tol": 1e-06,
+    "L12": {
+     "count": 18,
+     "index": -2
+    },
+    "L24": {
+     "count": 42,
+     "index": -2
+    }
+   },
+   {
+    "tol": 1e-08,
+    "L12": {
+     "count": 18,
+     "index": -2
+    },
+    "L24": {
+     "count": 42,
+     "index": -2
+    }
+   },
+   {
+    "tol": 1e-10,
+    "L12": {
+     "count": 18,
+     "index": -2
+    },
+    "L24": {
+     "count": 42,
+     "index": -2
+    }
+   }
+  ],
+  "alpha_half_control": {
+   "6": {
+    "count": 4,
+    "index": 0
+   },
+   "12": {
+    "count": 4,
+    "index": 0
+   },
+   "24": {
+    "count": 4,
+    "index": 0
+   },
+   "36": {
+    "count": 4,
+    "index": 0
+   }
+  },
+  "runtime_s": 65.0
+ },
+ "scan": [
+  {
+   "L": 6,
+   "L_mod_12": 6,
+   "torus_exists": true,
+   "n_zero_torus": 12,
+   "index_torus": 0,
+   "n_zero_open": 0,
+   "index_open": 0,
+   "law_prediction": 12
+  },
+  {
+   "L": 9,
+   "L_mod_12": 9,
+   "torus_exists": true,
+   "n_zero_torus": 0,
+   "index_torus": 0,
+   "n_zero_open": 1,
+   "index_open": -1,
+   "law_prediction": 0
+  },
+  {
+   "L": 12,
+   "L_mod_12": 0,
+   "torus_exists": true,
+   "n_zero_torus": 18,
+   "index_torus": -2,
+   "n_zero_open": 0,
+   "index_open": 0,
+   "law_prediction": 18
+  },
+  {
+   "L": 15,
+   "L_mod_12": 3,
+   "torus_exists": true,
+   "n_zero_torus": 0,
+   "index_torus": 0,
+   "n_zero_open": 1,
+   "index_open": -1,
+   "law_prediction": 0
+  },
+  {
+   "L": 18,
+   "L_mod_12": 6,
+   "torus_exists": true,
+   "n_zero_torus": 36,
+   "index_torus": 0,
+   "n_zero_open": 0,
+   "index_open": 0,
+   "law_prediction": 36
+  },
+  {
+   "L": 21,
+   "L_mod_12": 9,
+   "torus_exists": true,
+   "n_zero_torus": 0,
+   "index_torus": 0,
+   "n_zero_open": 1,
+   "index_open": -1,
+   "law_prediction": 0
+  },
+  {
+   "L": 24,
+   "L_mod_12": 0,
+   "torus_exists": true,
+   "n_zero_torus": 42,
+   "index_torus": -2,
+   "n_zero_open": 0,
+   "index_open": 0,
+   "law_prediction": 42
+  },
+  {
+   "L": 27,
+   "L_mod_12": 3,
+   "torus_exists": true,
+   "n_zero_torus": 0,
+   "index_torus": 0,
+   "n_zero_open": 1,
+   "index_open": -1,
+   "law_prediction": 0
+  },
+  {
+   "L": 30,
+   "L_mod_12": 6,
+   "torus_exists": true,
+   "n_zero_torus": 60,
+   "index_torus": 0,
+   "n_zero_open": 0,
+   "index_open": 0,
+   "law_prediction": 60
+  },
+  {
+   "L": 33,
+   "L_mod_12": 9,
+   "torus_exists": true,
+   "n_zero_torus": 0,
+   "index_torus": 0,
+   "n_zero_open": 1,
+   "index_open": -1,
+   "law_prediction": 0
+  },
+  {
+   "L": 36,
+   "L_mod_12": 0,
+   "torus_exists": true,
+   "n_zero_torus": 66,
+   "index_torus": -2,
+   "n_zero_open": 0,
+   "index_open": 0,
+   "law_prediction": 66
+  },
+  {
+   "L": 39,
+   "L_mod_12": 3,
+   "torus_exists": true,
+   "n_zero_torus": 0,
+   "index_torus": 0,
+   "n_zero_open": 1,
+   "index_open": -1,
+   "law_prediction": 0
+  },
+  {
+   "L": 42,
+   "L_mod_12": 6,
+   "torus_exists": true,
+   "n_zero_torus": 84,
+   "index_torus": 0,
+   "n_zero_open": 0,
+   "index_open": 0,
+   "law_prediction": 84
+  },
+  {
+   "L": 45,
+   "L_mod_12": 9,
+   "torus_exists": true,
+   "n_zero_torus": 0,
+   "index_torus": 0,
+   "n_zero_open": 1,
+   "index_open": -1,
+   "law_prediction": 0
+  },
+  {
+   "L": 48,
+   "L_mod_12": 0,
+   "torus_exists": true,
+   "n_zero_torus": 90,
+   "index_torus": -2,
+   "n_zero_open": 0,
+   "index_open": 0,
+   "law_prediction": 90
+  }
+ ],
+ "law": {
+  "statement": "N0 = 2L − 6·[L ≡ 0 (mod 12)] for L ≡ 0 (mod 6); N0 = 0 for L ≡ 3, 9 (mod 12)",
+  "holds_all_L": true,
+  "index_pattern": "ind = −2·[L ≡ 0 (mod 12)], else 0",
+  "index_holds": true,
+  "decisive_L36_L48": {
+   "36": 66,
+   "48": 90
+  }
+ },
+ "verdict": {
+  "ru": "Мост «арифметика → спектр» измерен: нулевые моды при α=1/3 существуют ⇔ L ≡ 0 (mod 6); счётный закон N₀ = 2L − 6·[L≡0 (mod 12)] подтверждён на всех 15 размерах (включая решающие L=36→66, L=48→90); индекс −2 привязан к L ≡ 0 (mod 12) — конъюнкция mod 3 (флакс) и mod 4 (стаггерд-структура). Наблюдение T9 v1  («mod 4») уточнено: L=18 (≡2 mod 4) тоже имеет 36 мод.",
+  "en": "The arithmetic-to-spectrum bridge is measured: zero modes at α=1/3 exist iff L ≡ 0 (mod 6); the counting law N0 = 2L − 6·[L≡0 (mod 12)] holds on all 15 sizes (decisive L=36→66, L=48→90); index −2 is tied to L ≡ 0 (mod 12) — the conjunction of mod 3 (flux) and mod 4 (staggered structure). The v1 T9 observation ('mod 4') is refined: L=18 (≡2 mod 4) also has 36 modes."
+ }
+}

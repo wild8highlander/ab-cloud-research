@@ -1,0 +1,216 @@
+{
+ "meta": {
+  "campaign": "C10 phase-coded gates (hard co-location)",
+  "roadmap": "R2",
+  "theorem": "T12",
+  "zeros": "internal mpmath cache n=800",
+  "lattice": 24,
+  "Nv": 16,
+  "q": 1.0,
+  "alpha": 0.5,
+  "W": 0.5,
+  "null_shifts": 64,
+  "null_gue": 40,
+  "runtime_s": 5.9
+ },
+ "colocation_T12": {
+  "beta=0.0": {
+   "pairwise_max_resid": 0.0,
+   "closure_max_resid": 0.0
+  },
+  "beta=0.13": {
+   "pairwise_max_resid": 4.440892098500626e-16,
+   "closure_max_resid": 1.7763568394002505e-15
+  },
+  "beta=0.23": {
+   "pairwise_max_resid": 4.440892098500626e-16,
+   "closure_max_resid": 2.6645352591003757e-15
+  },
+  "beta=0.37": {
+   "pairwise_max_resid": 4.440892098500626e-16,
+   "closure_max_resid": 3.552713678800501e-15
+  },
+  "beta=0.5": {
+   "pairwise_max_resid": 4.440892098500626e-16,
+   "closure_max_resid": 3.552713678800501e-15
+  },
+  "chi4": {
+   "pairwise_max_resid": 0.0,
+   "closure_max_resid": 3.552713678800501e-15
+  }
+ },
+ "gates": [
+  {
+   "gate": "PC-beta0.00",
+   "mode": "beta",
+   "beta": 0.0,
+   "r_H7": 0.029894859593304065,
+   "shift": 1.0000000000000018,
+   "p_r": 0.5230769230769231,
+   "r_EF_raw": 0.9514017208938714,
+   "r_EF_fluct": -0.88206248837928,
+   "r_mean": 0.6277025926735946,
+   "gue_class": true
+  },
+  {
+   "gate": "PC-beta0.05",
+   "mode": "beta",
+   "beta": 0.05,
+   "r_H7": 0.019378465963967487,
+   "shift": -1.0,
+   "p_r": 0.6461538461538462,
+   "r_EF_raw": 0.9134665743792187,
+   "r_EF_fluct": 0.941812666756973,
+   "r_mean": 0.6059285254706441,
+   "gue_class": true
+  },
+  {
+   "gate": "PC-beta0.10",
+   "mode": "beta",
+   "beta": 0.1,
+   "r_H7": 0.044402647574260296,
+   "shift": 0.8000000000000016,
+   "p_r": 0.4,
+   "r_EF_raw": 0.9643991879832616,
+   "r_EF_fluct": 0.7155168843850791,
+   "r_mean": 0.6112229461656687,
+   "gue_class": true
+  },
+  {
+   "gate": "PC-beta0.15",
+   "mode": "beta",
+   "beta": 0.15,
+   "r_H7": 0.017449671883815503,
+   "shift": -1.0,
+   "p_r": 0.6307692307692307,
+   "r_EF_raw": 0.9222090402214305,
+   "r_EF_fluct": 0.6413386722292419,
+   "r_mean": 0.6019189463934043,
+   "gue_class": true
+  },
+  {
+   "gate": "PC-beta0.20",
+   "mode": "beta",
+   "beta": 0.2,
+   "r_H7": 0.03844473423188691,
+   "shift": 1.0000000000000018,
+   "p_r": 0.3076923076923077,
+   "r_EF_raw": -0.42821700079201097,
+   "r_EF_fluct": -0.9838178551281233,
+   "r_mean": 0.6236199312935291,
+   "gue_class": true
+  },
+  {
+   "gate": "PC-beta0.25",
+   "mode": "beta",
+   "beta": 0.25,
+   "r_H7": 0.08628410668821462,
+   "shift": -0.6499999999999997,
+   "p_r": 0.16923076923076924,
+   "r_EF_raw": -0.9388025913694306,
+   "r_EF_fluct": -0.7384382838895845,
+   "r_mean": 0.6072662895261233,
+   "gue_class": true
+  },
+  {
+   "gate": "PC-beta0.30",
+   "mode": "beta",
+   "beta": 0.3,
+   "r_H7": 0.06779874876383155,
+   "shift": -0.95,
+   "p_r": 0.09230769230769231,
+   "r_EF_raw": 0.9458031968160799,
+   "r_EF_fluct": 0.9750242157583162,
+   "r_mean": 0.6038058409765695,
+   "gue_class": true
+  },
+  {
+   "gate": "PC-beta0.35",
+   "mode": "beta",
+   "beta": 0.35,
+   "r_H7": 0.0923071163656827,
+   "shift": 1.0000000000000018,
+   "p_r": 0.015384615384615385,
+   "r_EF_raw": 0.9258923719062091,
+   "r_EF_fluct": 0.94457623687454,
+   "r_mean": 0.6054033357140324,
+   "gue_class": true
+  },
+  {
+   "gate": "PC-beta0.40",
+   "mode": "beta",
+   "beta": 0.4,
+   "r_H7": 0.007343463277125688,
+   "shift": -1.0,
+   "p_r": 0.6153846153846154,
+   "r_EF_raw": 0.7907834873683749,
+   "r_EF_fluct": 0.8692978195177072,
+   "r_mean": 0.5802682334864198,
+   "gue_class": true
+  },
+  {
+   "gate": "PC-beta0.45",
+   "mode": "beta",
+   "beta": 0.45,
+   "r_H7": 0.028613634581684474,
+   "shift": 1.0000000000000018,
+   "p_r": 0.36923076923076925,
+   "r_EF_raw": 0.8212974704473375,
+   "r_EF_fluct": 0.8369497300568058,
+   "r_mean": 0.5795675749372864,
+   "gue_class": true
+  },
+  {
+   "gate": "PC-beta0.50",
+   "mode": "beta",
+   "beta": 0.5,
+   "r_H7": 0.01293711805068249,
+   "shift": -0.049999999999999156,
+   "p_r": 0.49230769230769234,
+   "r_EF_raw": 0.8969133706404261,
+   "r_EF_fluct": 0.9137532771305689,
+   "r_mean": 0.5840281401460505,
+   "gue_class": true
+  },
+  {
+   "gate": "PC-chi4",
+   "mode": "chi4",
+   "beta": null,
+   "r_H7": 0.029894859593262685,
+   "shift": 1.0000000000000018,
+   "p_r": 0.5230769230769231,
+   "r_EF_raw": 0.951401720893722,
+   "r_EF_fluct": -0.8820624883792366,
+   "r_mean": 0.6277025926736046,
+   "gue_class": true
+  },
+  {
+   "gate": "PC-random-control",
+   "mode": "random",
+   "beta": null,
+   "r_H7": 0.03626792084248789,
+   "shift": 0.9500000000000017,
+   "p_r": 0.46153846153846156,
+   "r_EF_raw": 0.7660272365854599,
+   "r_EF_fluct": 0.9650543042353249,
+   "r_mean": 0.5803766372827089,
+   "gue_class": true
+  },
+  {
+   "gate": "v1-anchor Nv16",
+   "mode": "v1",
+   "beta": null,
+   "r_H7": 0.02943866803244155,
+   "shift": 0.6500000000000015,
+   "p_r": null,
+   "r_EF_raw": null,
+   "r_EF_fluct": null,
+   "r_mean": 0.6228553971148943,
+   "gue_class": true
+  }
+ ],
+ "verdict": {
+  "ru": "Жёсткая ко-локация (Φ_p,Φ_q) ≡ Φ_pq выполнена по построению на машинном нуле для любого β (T12); спектр кодировку не видит: r_H7 в нулевой зоне, класс GUE неизменен — универсальность стирает и жёсткие кодировки.",
+  "en": "Hard co-location (Φ_p,Φ_q) ≡ Φ_pq holds by construction at machine zero for any beta (T12); the spectrum does not see the coding: r_H7 in the null zone, GUE class unchanged — universality erases even hard codings."
+ }
+}

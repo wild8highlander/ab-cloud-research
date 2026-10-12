@@ -1,0 +1,90 @@
+{
+ "meta": {
+  "campaign": "C12 argument principle band T=5000",
+  "roadmap": "R4",
+  "theorem": "T14",
+  "method": "mp.siegelz adaptive sign count + Turing S(T) monitor + 3 strip argument windows",
+  "dps_siegelz": 20,
+  "dps_strip": 15,
+  "runtime_s": 44.6
+ },
+ "bridge_max_abs": 0.0,
+ "anchors": {
+  "T=10.0": {
+   "N_int": 0,
+   "expected": 0,
+   "match": true
+  },
+  "T=27.7": {
+   "N_int": 3,
+   "expected": 3,
+   "match": true
+  },
+  "T=51.4": {
+   "N_int": 10,
+   "expected": 10,
+   "match": true
+  },
+  "T=100.07": {
+   "N_int": 29,
+   "expected": 29,
+   "match": true
+  },
+  "T=199.6": {
+   "N_int": 79,
+   "expected": 79,
+   "match": true
+  },
+  "T=1000.57": {
+   "N_int": 649,
+   "expected": 649,
+   "match": true
+  },
+  "T=5000": {
+   "N_int": 4520,
+   "expected": null
+  }
+ },
+ "N_online_5000": 4520,
+ "N_bar_5000": 4520.081173381777,
+ "S_max": 0.9069595378505255,
+ "strip_checks": [
+  {
+   "window": [
+    3995.0,
+    4005.0
+   ],
+   "N_strip": 11,
+   "N_online_in_window": 11,
+   "match": true
+  },
+  {
+   "window": [
+    4495.0,
+    4505.0
+   ],
+   "N_strip": 10,
+   "N_online_in_window": 10,
+   "match": true
+  },
+  {
+   "window": [
+    4995.0,
+    5000.0
+   ],
+   "N_strip": 5,
+   "N_online_in_window": 5,
+   "match": true
+  }
+ ],
+ "gaps": {
+  "n": 4519,
+  "min_gap": 0.09081841528222867,
+  "max_gap": 6.887314497037011,
+  "mean_gap": 1.1031633007814203
+ },
+ "verdict": {
+  "ru": "RH верифицирована в полосе T ≤ 5000: N_online = N_strip = 4520, S_max = 0.91 ≤ 2, якоря v1 воспроизведены, мост Z↔ζ на машинной точности.",
+  "en": "RH verified in the band T ≤ 5000: N_online = N_strip = 4520, S_max = 0.91 ≤ 2, v1 anchors reproduced, Z↔ζ bridge at machine precision."
+ }
+}

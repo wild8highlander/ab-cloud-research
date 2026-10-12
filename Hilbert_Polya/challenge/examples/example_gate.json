@@ -1,0 +1,9 @@
+{
+  "name": "example-protocol-gate",
+  "family": "protocol",
+  "lattice": 24,
+  "handles": {"Nv": 16, "q": 1.0, "W": 0.5, "alpha": 0.5},
+  "phase_encoding": null,
+  "seed": 96,
+  "notes": "v1-protocol baseline: expected r_H7 ~ 0.1-0.2, null zone"
+}

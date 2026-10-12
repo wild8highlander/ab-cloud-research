@@ -1,0 +1,98 @@
+{
+ "meta": {
+  "campaign": "C9 nonlocal trace primitive",
+  "roadmap": "R1",
+  "theorem": "T11",
+  "zeros": "internal mpmath cache n=800 (no external files)",
+  "convention": "unfolded-vs-unfolded (v2), U grid [0.05,1.0] x40",
+  "zero_window_k0_convention": 224,
+  "K": 200,
+  "null_shifts": 64,
+  "null_gue": 40,
+  "runtime_s": 5.4
+ },
+ "results": {
+  "N1_Hxi": {
+   "r_H7_matched": 1.0,
+   "shift": 8.881784197001252e-16,
+   "r_EF": {
+    "r_raw": 0.9879821126364168,
+    "coef": 0.07514996781065644,
+    "r_fluct": 0.998557912291655,
+    "surrogate_null": [
+     0.0058705030977430515,
+     0.38665158858961357
+    ]
+   },
+   "trace_check": {
+    "max_abs_diff_K": 1.8489076149093763e-06,
+    "max_abs_diff_Q": 1.7464959416318981e-06,
+    "C0": 0.023096145323716854
+   },
+   "B_plus_C0_abs": 4.3635569220087933e-07,
+   "class": "ispectral by construction (PC0'/PC0)",
+   "p_r": 0.015384615384615385,
+   "r_GUE_z": 20.454513525175894
+  },
+  "N2_DCT_twin": {
+   "r_H7_matched": 0.9999999999999996,
+   "shift": 8.881784197001252e-16,
+   "r_EF": {
+    "r_raw": 0.9879821126363617,
+    "coef": 0.07514996781066698,
+    "r_fluct": 0.9985579122914737
+   },
+   "density": 1.0,
+   "ispectral_dev": 6.821210263296962e-13,
+   "class": "ispectral nonlocal (dense orthogonal conjugation)",
+   "p_r": 0.015384615384615385,
+   "r_GUE_z": 20.454513525175887
+  },
+  "N3_QR_twin": {
+   "r_H7_matched": 0.9999999999999997,
+   "shift": 8.881784197001252e-16,
+   "r_EF": {
+    "r_raw": 0.9879821126363065,
+    "coef": 0.07514996781065847,
+    "r_fluct": 0.9985579122914029
+   },
+   "density": 1.0,
+   "ispectral_dev": 6.821210263296962e-13,
+   "class": "ispectral nonlocal (dense orthogonal conjugation)",
+   "p_r": 0.015384615384615385,
+   "r_GUE_z": 20.454513525175887
+  },
+  "N4_BerryKeating": {
+   "r_H7": 0.04738054155062188,
+   "shift": 0.5500000000000014,
+   "r_EF": {
+    "r_raw": 0.9993838702529622,
+    "coef": 0.04605628376146445,
+    "r_fluct": 0.8382865531410515,
+    "surrogate_null": [
+     0.0029740475036689955,
+     0.3851977083242678
+    ]
+   },
+   "r_mean": 0.9916115454317241,
+   "gue_class": false,
+   "class": "truncated xp — measured",
+   "p_r": 0.03076923076923077,
+   "r_GUE_z": 0.12319598834775106
+  },
+  "N5_LCM_kernel": {
+   "r_H7": null,
+   "r_H7_note": "unfold impossible: degenerate spectrum (arithmetic)",
+   "degeneracy": 0.8,
+   "r_EF": {
+    "r_raw": -0.9103488311872348,
+    "r_fluct": -0.9591154029884269
+   },
+   "class": "Λ(lcm) kernel — prime weight in the KERNEL, not spectrum"
+  }
+ },
+ "verdict": {
+  "ru": "Примитив существует: любой изоспектральный нелокальный оператор несёт Λ(n)/√n в следе по построению (r_EF на уровне PC0, r_H7 = 1); внеклассовые кандидаты (xp, LCM-ядро) остаются в нулевых зонах. Г2 — стена ЛОКАЛЬНОСТИ, не следа (T11).",
+  "en": "The primitive exists: any ispectral nonlocal operator carries Λ(n)/√n in its trace by construction (r_EF at PC0 level, r_H7 = 1); off-class candidates (xp, LCM kernel) stay in null zones. H2 is a wall of LOCALITY, not of the trace (T11)."
+ }
+}

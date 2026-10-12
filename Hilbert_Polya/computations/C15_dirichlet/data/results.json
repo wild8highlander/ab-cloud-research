@@ -1,0 +1,154 @@
+{
+ "meta": {
+  "campaign": "C15 Dirichlet L-function pipeline",
+  "theorem": "T17",
+  "characters": {
+   "chi5": "even, mod 5",
+   "chi7": "odd, mod 7"
+  },
+  "T_band": 120.0,
+  "runtime_s": 50.5
+ },
+ "results": {
+  "q5": {
+   "parity": "even",
+   "max_abs_Im_Z": 5.118883170543109e-35,
+   "n_zeros_T120": 68,
+   "n_bar_120": 67.84795273026998,
+   "first_zeros": [
+    6.648453,
+    9.831444,
+    11.958846,
+    16.033821,
+    17.566994
+   ],
+   "B_chi": -0.0782744695351616,
+   "trace_formula": [
+    {
+     "x": 0.4,
+     "K_direct": 0.10111664819360655,
+     "K_formula": 0.1011100101091116,
+     "abs_diff": 6.638084494955954e-06
+    },
+    {
+     "x": 0.6,
+     "K_direct": 0.0221277768251714,
+     "K_formula": 0.022137384752626478,
+     "abs_diff": 9.607927455079768e-06
+    },
+    {
+     "x": 0.9,
+     "K_direct": 0.002685215730731054,
+     "K_formula": 0.002682510615098805,
+     "abs_diff": 2.7051156322489833e-06
+    },
+    {
+     "x": 1.3,
+     "K_direct": 0.00017935111383292915,
+     "K_formula": 0.0001781552145485477,
+     "abs_diff": 1.1958992843814496e-06
+    }
+   ],
+   "C0_chi": 0.0782744695351616,
+   "C0_chi_zero_sum": 0.0709158003540316,
+   "Q_weight_check": {
+    "a": 1.1,
+    "Q_identity": 0.17073620011495869,
+    "Q_direct_all_committed_zeros": 0.1545386272651222,
+    "note": "direct sums committed zeros only; residual = zero tail beyond T=120"
+   },
+   "psi_chi_corr": 0.9020473814224362
+  },
+  "q7": {
+   "parity": "odd",
+   "max_abs_Im_Z": 1.9874433000902544e-35,
+   "n_zeros_T120": 74,
+   "n_bar_120": 74.52409909084422,
+   "first_zeros": [
+    4.475738,
+    6.845492,
+    11.160185,
+    12.489603,
+    15.112882
+   ],
+   "B_chi": -0.1276115042664667,
+   "trace_formula": [
+    {
+     "x": 0.4,
+     "K_direct": 0.25418797080883976,
+     "K_formula": 0.25418182682095486,
+     "abs_diff": 6.143987884899005e-06
+    },
+    {
+     "x": 0.6,
+     "K_direct": 0.08660378630507545,
+     "K_formula": 0.08660785173946318,
+     "abs_diff": 4.065434387731659e-06
+    },
+    {
+     "x": 0.9,
+     "K_direct": 0.01997535147606356,
+     "K_formula": 0.019973527689262197,
+     "abs_diff": 1.8237868013616654e-06
+    },
+    {
+     "x": 1.3,
+     "K_direct": 0.003109278155151238,
+     "K_formula": 0.0031097230940507078,
+     "abs_diff": 4.4493889946994186e-07
+    }
+   ],
+   "C0_chi": 0.1276115042664667,
+   "C0_chi_zero_sum": 0.11976224385711394,
+   "Q_weight_check": {
+    "a": 1.1,
+    "Q_identity": 0.274578356972645,
+    "Q_direct_all_committed_zeros": 0.25729606175675834,
+    "note": "direct sums committed zeros only; residual = zero tail beyond T=120"
+   },
+   "psi_chi_corr": 0.9489005712610911
+  }
+ },
+ "gate_rank_projection": [
+  {
+   "L_char": "chi5",
+   "Nv": 8,
+   "r_H7": 0.03516581740464969,
+   "shift": -1.0
+  },
+  {
+   "L_char": "chi5",
+   "Nv": 16,
+   "r_H7": 0.0582731819194666,
+   "shift": 1.0000000000000018
+  },
+  {
+   "L_char": "chi5",
+   "Nv": 32,
+   "r_H7": 0.041161593249017095,
+   "shift": 1.0000000000000018
+  },
+  {
+   "L_char": "chi7",
+   "Nv": 8,
+   "r_H7": -0.035261399280284024,
+   "shift": -1.0
+  },
+  {
+   "L_char": "chi7",
+   "Nv": 16,
+   "r_H7": 0.16399923338986266,
+   "shift": -0.39999999999999947
+  },
+  {
+   "L_char": "chi7",
+   "Nv": 32,
+   "r_H7": 0.07056403838996333,
+   "shift": -1.0
+  }
+ ],
+ "verdict": {
+  "ru": "Пайплайн переносится на L-функции: Z_χ вещественна (машинная точность), нули согласованы с гладким счётом, тепловой след H_{ξ,χ} несёт скрученный вес χ(n)Λ(n)/√n (T17), ψ_χ-лестница согласована с нулями; затворы против нулей L — та же нулевая зона. Разрыв Г2 УНИВЕРСАЛЕН: он не дефект дзеты, а свойство класса.",
+  "en": "The pipeline transfers to L-functions: Z_χ is real (machine precision), zeros match the smooth count, the heat trace of H_{ξ,χ} carries the twisted weight χ(n)Λ(n)/√n (T17), the ψ_χ ladder matches zeros; gates against L-zeros stay in the same null zone. The H2 gap is UNIVERSAL: a class property, not a zeta defect."
+ }
+}

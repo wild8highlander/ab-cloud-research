@@ -140,10 +140,105 @@ def ivp10_cross_language():
             'detail': f'parsed {sorted(lines)}'}
 
 
+# ── v2.0: IVP11–IVP18 (кампании C9–C16) ─────────────────────────────────────
+
+def ivp11_nonlocal_primitive():
+    """C9/T11: изоспектральные нелокальные близнецы обязаны давать
+    r_H7 = 1 и r_EF(fluct) ≥ 0.99; T6-реприка на внутреннем кэше нулей."""
+    d = json.load(open(_data('computations/C9_nonlocal_trace/data/results.json')))
+    r = d['results']['N2_DCT_twin']
+    tf = d['results']['N1_Hxi']['trace_check']
+    ok = (r['r_H7_matched'] > 0.999 and r['r_EF']['r_fluct'] > 0.99
+          and tf['max_abs_diff_K'] < 1e-4)
+    return {'name': 'IVP11 nonlocal primitive (T11)', 'passed': bool(ok),
+            'detail': f"r_H7={r['r_H7_matched']:.4f}, "
+                      f"r_EF={r['r_EF']['r_fluct']:.4f}, "
+                      f"|dK|<={tf['max_abs_diff_K']:.1e}"}
+
+
+def ivp12_colocation_hard():
+    """C10/T12: жёсткая ко-локация на машинном нуле для всех β."""
+    d = json.load(open(_data('computations/C10_phase_coded/data/results.json')))
+    worst = max(v['pairwise_max_resid'] for v in d['colocation_T12'].values())
+    rmax = max(abs(g['r_H7']) for g in d['gates'])
+    ok = worst < 1e-12 and rmax < 0.15
+    return {'name': 'IVP12 hard co-location (T12)', 'passed': bool(ok),
+            'detail': f'max resid {worst:.1e}, max |r_H7| {rmax:.3f}'}
+
+
+def ivp13_alpha_third_law():
+    """C11/T13: счётный закон N0 = 2L − 6·[L≡0 mod 12] на всех L."""
+    d = json.load(open(_data('computations/C11_alpha_third/data/results.json')))
+    ok = d['law']['holds_all_L'] and d['law']['index_holds']
+    dec = d['law']['decisive_L36_L48']
+    ok = ok and dec.get('36') == 66 and dec.get('48') == 90
+    return {'name': 'IVP13 alpha-third counting law (T13)',
+            'passed': bool(ok),
+            'detail': f"law holds, decisive {dec}"}
+
+
+def ivp14_band5000():
+    """C12/T14: N(5000) = 4520 = N_strip, S_max ≤ 2, якоря v1 воспроизведены."""
+    d = json.load(open(_data('computations/C12_band_5000/data/results.json')))
+    anchors_ok = all(v['match'] for v in d['anchors'].values()
+                     if v.get('expected') is not None)
+    strips_ok = all(s['match'] for s in d['strip_checks'])
+    ok = (d['N_online_5000'] == 4520 and anchors_ok and strips_ok
+          and d['S_max'] <= 2.0)
+    return {'name': 'IVP14 band T=5000 (T14)', 'passed': bool(ok),
+            'detail': f"N={d['N_online_5000']}, S_max={d['S_max']:.2f}"}
+
+
+def ivp15_blind_families():
+    """C13/T15: PC0' = 1.0; все 16 слепых затворов в нулевой зоне."""
+    d = json.load(open(_data('computations/C13_blind_families/data/results.json')))
+    pc = d['meta']['pipeline_PC0p_r']
+    mx = max(abs(g['r_H7']) for g in d['gates'])
+    ok = pc > 0.999 and mx < 0.15
+    return {'name': 'IVP15 blind families (T15)', 'passed': bool(ok),
+            'detail': f"PC0'={pc:.4f}, max |r_H7|={mx:.3f}"}
+
+
+def ivp16_anomaly_taxonomy():
+    """C14/T16: аттрактор глобален — нет ранговых выбросов; таксономия."""
+    d = json.load(open(_data('computations/C14_anomaly_hunt/data/results.json')))
+    ok = d['n_rH7_outliers_0p35'] == 0 and d['meta']['n_configs'] >= 100
+    return {'name': 'IVP16 anomaly taxonomy (T16)', 'passed': bool(ok),
+            'detail': f"{d['meta']['n_configs']} configs, "
+                      f"{d['n_rH7_outliers_0p35']} rank outliers"}
+
+
+def ivp17_dirichlet_universal():
+    """C15/T17: следовая формула со скрученным весом на точности ≤ 1e-4;
+    ранговая проекция против нулей L — нулевая зона."""
+    d = json.load(open(_data('computations/C15_dirichlet/data/results.json')))
+    mx = max(r['abs_diff'] for q in ('q5', 'q7')
+             for r in d['results'][q]['trace_formula'])
+    mx_r = max(abs(g['r_H7']) for g in d['gate_rank_projection'])
+    ok = mx < 1e-4 and mx_r < 0.25
+    return {'name': 'IVP17 Dirichlet universality (T17)', 'passed': bool(ok),
+            'detail': f'max |dK| {mx:.1e}, max |r_H7| {mx_r:.3f}'}
+
+
+def ivp18_qinfo():
+    """C16/T18: локальность давит фермионную запутанность (z > 10 против
+    Haar-базы); MI не несёт нулевой подписи."""
+    d = json.load(open(_data('computations/C16_qinfo/data/results.json')))
+    z = d['Q1_gate_MI_max_z_vs_page']
+    c0 = d['Q2_MI_alignment']['corr_MI_vs_zerowindow']
+    ok = z > 10 and abs(c0) < 0.3
+    return {'name': 'IVP18 qinfo locality echo (T18)', 'passed': bool(ok),
+            'detail': f'z_vs_page {z:.0f}, corr MI-zero {c0:+.3f}'}
+
+
 ALL = [ivp01_release_integrity, ivp02_gamma_closures, ivp03_zid_reality,
        ivp04_argument_anchors, ivp05_zeros_vs_rvm, ivp06_trace_formula_hxi,
        ivp07_gue_class, ivp08_colocation, ivp09_psi_staircase,
-       ivp10_cross_language]
+       ivp10_cross_language,
+       ivp11_nonlocal_primitive, ivp12_colocation_hard,
+       ivp13_alpha_third_law, ivp14_band5000, ivp15_blind_families,
+       ivp16_anomaly_taxonomy, ivp17_dirichlet_universal, ivp18_qinfo]
+
 
 
 def run_all():

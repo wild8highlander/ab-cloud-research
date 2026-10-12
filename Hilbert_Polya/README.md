@@ -22,6 +22,43 @@ Tr e^(−uH).**
 
 ---
 
+---
+
+## v2.0 — The Operator That Almost Exists (Oct 12, 2026)
+
+Eight new campaigns execute the v1 roadmap (R1–R5) and add five new measurements. The zeta zeros are an internal mpmath cache; no external data files at all.
+
+| # | Campaign | Theorem | Key result |
+|---|----------|---------|------------|
+| C9 | nonlocal trace | T11 | r_H7 = 1.000, r_EF = 0.999 — the primitive exists; the wall is locality |
+| C10 | phase coding | T12 | co-location 4.4e-16 for any β; the spectrum is blind |
+| C11 | α=1/3 zero modes | T13 | N₀ = 2L−6·[L≡0 (mod 12)], index −2 (L=36→66, L=48→90) |
+| C12 | band T=5000 | T14 | N = 4520 = N_strip, S_max = 0.91 |
+| C13 | blind families | T15 | 20 gates outside the v1 handles — all in the null zone |
+| C14 | anomaly hunt | T16 | 97 GUE / 18 integrable / 6 intermediate; no outliers |
+| C15 | Dirichlet L | T17 | weight χ(n)Λ(n)/√n, |ΔK| ≤ 9.6e-6 — the gap is universal |
+| C16 | qinfo layer | T18 | locality suppresses entanglement (S_A 12–16 vs 160–220) |
+
+**v2 verdict:** the operator almost exists — the primitive with the prime weight in its trace is built exactly and made arbitrarily nonlocal (T11); arithmetic entered the lattice spectrum through the counting law of zero modes (T13); the H2 gap is universal for the L-function class (T17); the wall passes through locality, not the trace.
+
+### Quick start v2
+
+```bash
+python3 campaigns/run_c9_nonlocal.py
+python3 campaigns/run_c10_phase_coded.py
+python3 campaigns/run_c11_alphathird.py
+python3 campaigns/run_c12_band5000.py --segment 0 1000 computations/C12_band_5000/data/seg_1.npz
+python3 campaigns/run_c12_band5000.py --assemble
+python3 campaigns/run_c13_blind.py
+python3 campaigns/run_c14_anomaly.py
+python3 campaigns/run_c15_dirichlet.py
+python3 campaigns/run_c16_qinfo.py
+streamlit run explorer/streamlit_app.py
+python3 challenge/score_submission.py challenge/examples/example_gate.json
+```
+
+New volumes: monograph/v2_volume/ (ru/en, docx+pdf), monograph/theorems_v2_volume/ (T11–T18), arXiv preprint monograph/preprint/preprint.tex|pdf (tectonic). v2 figures: figures_hires/*/fig17–fig25 (600 dpi, ru/en). Animations: figures/animations/. Verification: IVP01–18 (18/18), pytest 21/21.
+
 ## Table of contents
 
 1. [What this is](#what-this-is)

@@ -1,0 +1,37 @@
+{
+ "gate": "example-protocol-gate",
+ "spec_echo": {
+  "name": "example-protocol-gate",
+  "family": "protocol",
+  "lattice": 24,
+  "handles": {
+   "Nv": 16,
+   "q": 1.0,
+   "W": 0.5,
+   "alpha": 0.5
+  },
+  "phase_encoding": null,
+  "seed": 96,
+  "notes": "v1-protocol baseline: expected r_H7 ~ 0.1-0.2, null zone"
+ },
+ "controls": {
+  "PC0p_r": 0.9999999999999996,
+  "PC0p_ok": true,
+  "PC0_r_fluct": 0.9985579122914737,
+  "PC0_ok": true
+ },
+ "metrics": {
+  "r_H7": 0.02943866803244155,
+  "shift": 0.6500000000000015,
+  "p_r": 0.4461538461538462,
+  "r_GUE_z": -0.2597291392761422,
+  "r_mean": 0.6228553971148943,
+  "gue_class": true,
+  "r_EF_fluct": 0.9978825761617269
+ },
+ "target": {
+  "r_H7": 0.7
+ },
+ "verdict": "REJECT — the gap stands",
+ "runtime_s": 5.5
+}

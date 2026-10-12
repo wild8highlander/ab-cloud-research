@@ -9,6 +9,43 @@
 
 ---
 
+---
+
+## v2.0 — «The Operator That Almost Exists» (12.10.2026)
+
+Восемь новых кампаний исполняют дорожную карту v1 (R1–R5) и добавляют пять новых измерений. Нули дзеты — внутренний mpmath-кэш; внешних файлов данных нет вовсе.
+
+| # | Кампания | Теорема | Ключевой результат |
+|---|----------|---------|--------------------|
+| C9 | нелокальный след | T11 | r_H7 = 1.000, r_EF = 0.999 — примитив существует; стена — локальность |
+| C10 | фазовое кодирование | T12 | ко-локация 4.4e-16 при любом β; спектр слеп |
+| C11 | α=1/3 | T13 | N₀ = 2L−6·[L≡0 (mod 12)], индекс −2 (L=36→66, L=48→90) |
+| C12 | полоса T=5000 | T14 | N = 4520 = N_strip, S_max = 0.91 |
+| C13 | слепые семейства | T15 | 20 затворов вне ручек v1 — все в нулевой зоне |
+| C14 | аномалии | T16 | 97 GUE / 18 интегрируемых / 6 промежуточных; выбросов нет |
+| C15 | Дирихле L | T17 | вес χ(n)Λ(n)/√n, |ΔK| ≤ 9.6e-6 — разрыв универсален |
+| C16 | квантовый слой | T18 | локальность давит запутанность (S_A 12–16 vs 160–220) |
+
+**Вердикт v2:** оператор почти существует — примитив с весом простых в следе построен точно и сделан сколь угодно нелокальным (T11); арифметика вошла в спектр решётки через счётный закон нулевых мод (T13); разрыв Г2 универсален для класса L-функций (T17); стена проходит по локальности, не по следу.
+
+### Quick start v2
+
+```bash
+python3 campaigns/run_c9_nonlocal.py
+python3 campaigns/run_c10_phase_coded.py
+python3 campaigns/run_c11_alphathird.py
+python3 campaigns/run_c12_band5000.py --segment 0 1000 computations/C12_band_5000/data/seg_1.npz
+python3 campaigns/run_c12_band5000.py --assemble
+python3 campaigns/run_c13_blind.py
+python3 campaigns/run_c14_anomaly.py
+python3 campaigns/run_c15_dirichlet.py
+python3 campaigns/run_c16_qinfo.py
+streamlit run explorer/streamlit_app.py
+python3 challenge/score_submission.py challenge/examples/example_gate.json
+```
+
+Новые тома: monograph/v2_volume/ (ru/en, docx+pdf), monograph/theorems_v2_volume/ (T11–T18), arXiv-препринт monograph/preprint/preprint.tex|pdf (tectonic). Фигуры v2: figures_hires/*/fig17–fig25 (600 dpi, ru/en). Анимации: figures/animations/. Верификация: IVP01–18 (18/18), pytest 21/21.
+
 ## Содержание
 
 1. [Что это такое](#что-это-такое)
@@ -278,7 +315,7 @@ Hilbert Polya Bridge/
 - `tests/` — pytest по закоммиченным вердиктам + живая теоремная
   машинерия (Γ-замыкания при dps = 40, вещественность Z_id, тождество
   следовой формулы, GUE-окна затворов): `python3 -m pytest tests/ -q`
-- `independent_verification/` — IVP01–IVP10, протокол из десяти слепых
+- `independent_verification/` — IVP01–IVP10, протокол из восемнадцати слепых (v1: IVP01–10, v2: IVP11–18)
   проверок: `bash independent_verification/RUN_ALL.sh`
 - Мультиязычные двойники (C, C++, Go, Julia, JavaScript, Rust)
   пересчитывают Γ-замыкания и Λ-сито и печатают управляющий блок,
