@@ -70,9 +70,9 @@ x ∎ = refl
 +-interchange : ∀ x y z w → (x + y) + (z + w) ≡ (x + z) + (y + w)
 +-interchange x y z w =
   (x + y) + (z + w)        ≡⟨ +-assoc x y (z + w) ⟩
-  x + (y + (z + w))        ≡⟨ cong (x +_) (+-assoc y z w) ⟩
+  x + (y + (z + w))        ≡⟨ cong (x +_) (sym (+-assoc y z w)) ⟩
   x + ((y + z) + w)        ≡⟨ cong (λ s → x + (s + w)) (+-comm y z) ⟩
-  x + ((z + y) + w)        ≡⟨ cong (x +_) (sym (+-assoc z y w)) ⟩
+  x + ((z + y) + w)        ≡⟨ cong (x +_) (+-assoc z y w) ⟩
   x + (z + (y + w))        ≡⟨ sym (+-assoc x z (y + w)) ⟩
   (x + z) + (y + w)        ∎
 
@@ -96,7 +96,9 @@ x ∎ = refl
 
 *-comm : ∀ a b → a * b ≡ b * a
 *-comm zero b = sym (*-zeroʳ b)
-*-comm (suc a) b = trans (cong (b +_) (*-comm a b)) (+-comm b (a * b))
+*-comm (suc a) b =
+  trans (cong (b +_) (*-comm a b))
+        (trans (+-comm b (b * a)) (sym (*-suc a b)))
 
 ------------------------------------------------------------------------------
 -- Section 1 — the b(N) residual sum, exact core
@@ -117,7 +119,8 @@ _++'_ : List Nat → List Nat → List Nat
 -- splitting the residual ledger cannot change the total
 sumAbs-++ : ∀ (xs ys : List Nat) → sumAbs (xs ++' ys) ≡ sumAbs xs + sumAbs ys
 sumAbs-++ [] ys = refl
-sumAbs-++ (x ∷ xs) ys = cong (x +_) (sumAbs-++ xs ys)
+sumAbs-++ (x ∷ xs) ys =
+  trans (cong (x +_) (sumAbs-++ xs ys)) (sym (+-assoc x (sumAbs xs) (sumAbs ys)))
 
 -- partial sums never decrease (the Test 2 monotonicity discipline),
 -- stated with an explicit ≤ on ℕ built from scratch
@@ -129,9 +132,14 @@ data _≤'_ : Nat → Nat → Set where
 ≤-refl zero = z≤
 ≤-refl (suc n) = s≤ (≤-refl n)
 
+-- weakening: m ≤ n implies m ≤ suc n
+≤-step : ∀ {m n : Nat} → m ≤' n → m ≤' suc n
+≤-step z≤ = z≤
+≤-step (s≤ p) = s≤ (≤-step p)
+
 sumAbs-mono : ∀ (x : Nat) (xs : List Nat) → sumAbs xs ≤' sumAbs (x ∷ xs)
 sumAbs-mono zero xs = ≤-refl (sumAbs xs)
-sumAbs-mono (suc x) xs = s≤ (sumAbs-mono x xs)
+sumAbs-mono (suc x) xs = ≤-step (sumAbs-mono x xs)
 
 -- decided exact instance: |3| + |−2| + |5| = 10 on the signed lattice
 b-toy : Nat
@@ -165,9 +173,7 @@ flux-shift-two : ∀ p q → q * suc (suc p) ≡ q * p + q + q
 flux-shift-two p q =
   q * suc (suc p)          ≡⟨ *-suc (suc p) q ⟩
   q * suc p + q            ≡⟨ cong (_+ q) (*-suc p q) ⟩
-  (q * p + q) + q          ≡⟨ sym (+-assoc (q * p) q q) ⟩
-  q * p + (q + q)          ≡⟨ refl ⟩
-  q * p + q + q            ∎
+  (q * p + q) + q          ∎
 
 -- critical-line certificate: the flux class 1/2 is fixed by 1·6 = 3·2
 critical-line-cert : 1 * 6 ≡ 3 * 2

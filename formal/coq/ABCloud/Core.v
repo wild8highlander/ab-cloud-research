@@ -18,7 +18,13 @@
 (*    - the trace identity Tr(AB) = Tr(BA) for 2×2 integer matrices.        *)
 (* ========================================================================== *)
 
-From Coq Require Import Arith Lia ZArith Ring.
+From Coq Require Import Arith Lia ZArith Ring List.
+Import ListNotations.
+
+(* The development is Z-centric: open the integer scope for all statements
+   below; explicitly %-nat-annotated statements remain on the natural
+   numbers. *)
+Open Scope Z_scope.
 
 (* ========================================================================== *)
 (*  Section 1 — the b(N) sum, exact fixed-point core                          *)
@@ -67,11 +73,10 @@ Proof. reflexivity. Qed.
 
 (** The fixed-point mean Σ|·|/N is nonnegative for N > 0. *)
 Lemma mean_nonneg : forall (xs : list Z) (n : Z),
-  n <> 0 -> 0 <= sum_abs xs / n.
+  0 < n -> 0 <= sum_abs xs / n.
 Proof.
   intros xs n hn.
-  apply Z.div_nonneg; [apply sum_abs_nonneg |].
-  destruct n; [contradiction | lia].
+  apply Z.div_pos; [apply sum_abs_nonneg | exact hn].
 Qed.
 
 (* ========================================================================== *)
@@ -85,10 +90,10 @@ Qed.
 
 Definition gram_scaled (k : nat) : Z := 8 * Z.of_nat k - 7.
 
-Lemma gram_scaled_pos : forall k : nat, 1 <= k -> 0 < gram_scaled k.
+Lemma gram_scaled_pos : forall k : nat, (1 <= k)%nat -> 0 < gram_scaled k.
 Proof. intros k hk. unfold gram_scaled. lia. Qed.
 
-Lemma gram_scaled_mono : forall k : nat, gram_scaled k < gram_scaled (k + 1).
+Lemma gram_scaled_mono : forall k : nat, gram_scaled k < gram_scaled (k + 1)%nat.
 Proof. intros k. unfold gram_scaled. lia. Qed.
 
 (** The Riemann–von Mangoldt constant 7/8 on its scaled lattice. *)
@@ -103,16 +108,16 @@ Proof. reflexivity. Qed.
     cross-multiplication p₁·q₂ = p₂·q₁ holds — the integer certificate the
     Byers–Yang loop (Test 25) checks at α = 1/2 and Φ_AB = π/7. *)
 Lemma flux_eq_cert : forall p1 q1 p2 q2 : nat,
-  p1 * q2 = p2 * q1 -> q2 * p1 = q1 * p2.
+  (p1 * q2 = p2 * q1 -> q2 * p1 = q1 * p2)%nat.
 Proof. intros. nia. Qed.
 
 (** Exact magnetic translation: q·(p+1) = q·p + q — the integer identity
     underlying the Hofstadter periodicity α ↦ α + 1. *)
-Lemma flux_shift : forall p q : nat, q * (p + 1) = q * p + q.
+Lemma flux_shift : forall p q : nat, (q * (p + 1) = q * p + q)%nat.
 Proof. intros. nia. Qed.
 
 (** Two-step magnetic translation. *)
-Lemma flux_shift_two : forall p q : nat, q * (p + 2) = q * p + q + q.
+Lemma flux_shift_two : forall p q : nat, (q * (p + 2) = q * p + q + q)%nat.
 Proof. intros. nia. Qed.
 
 (** The critical-line certificate: the flux class 1/2 is fixed by the
@@ -146,7 +151,7 @@ Proof. reflexivity. Qed.
     demands. *)
 Lemma klein_orbits_divide :
   168 mod 28 = 0 /\ 168 mod 21 = 0 /\ 168 mod 7 = 0.
-Proof. reflexivity. Qed.
+Proof. repeat split; reflexivity. Qed.
 
 (* ========================================================================== *)
 (*  Section 5 — the trace identity Tr(AB) = Tr(BA)                            *)
@@ -185,7 +190,7 @@ Proof. reflexivity. Qed.
 
 (* ========================================================================== *)
 (*  Machine evaluations — the headline exact numbers, computed by the         *)
-(*  kernel: run [coqtop -Q . ABCloud] and [Compute] these.                    *)
+(*  kernel: run [coqtop -Q ABCloud ABCloud] and [Compute] these.              *)
 (* ========================================================================== *)
 
 Compute b_toy.               (* = 10 *)

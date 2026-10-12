@@ -74,3 +74,15 @@ desktop.ini
 !monographs/**/*.pptx
 !lab-3d/**/*.pdf
 !verification/**/*.pdf
+
+# Formal verification build artifacts (Lean4 / Coq / Agda)
+formal/lean4/.lake/
+formal/coq/Makefile.coq*
+formal/coq/.*.cache
+formal/coq/**/.*.aux
+formal/coq/**/*.vo
+formal/coq/**/*.vos
+formal/coq/**/*.vok
+formal/coq/**/*.glob
+formal/agda/**/_build/
+formal/agda/**/*.agdai

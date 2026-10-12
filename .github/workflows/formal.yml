@@ -59,10 +59,22 @@ jobs:
         working-directory: formal/coq
         run: |
           echo 'Require Import ABCloud.Core.
-          Compute bsum_toy.
+          Compute b_toy.
           Compute psl27_order.
           Compute psl28_order.
-          Compute psl213_order.' | coqtop -Q . ABCloud
+          Compute psl213_order.' | coqtop -Q ABCloud ABCloud
+      - name: Fail if any Coq computation errored
+        working-directory: formal/coq
+        run: |
+          echo 'Require Import ABCloud.Core.
+          Compute b_toy.
+          Compute psl27_order.
+          Compute psl28_order.
+          Compute psl213_order.' | coqtop -Q ABCloud ABCloud 2>&1 | tee /tmp/coq_out.txt
+          if grep -q "Error" /tmp/coq_out.txt; then
+            echo "::error::coqtop reported an error while computing the headline certificates"
+            exit 1
+          fi
 
   agda:
     name: Agda — type-check

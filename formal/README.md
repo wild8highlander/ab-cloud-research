@@ -169,7 +169,7 @@ self-contained and fast.
 cd formal/coq
 coq_makefile -f _CoqProject -o Makefile.coq
 make -f Makefile.coq -j2                      # compiles ABCloud/Core.v
-coqtop -Q . ABCloud                           # then interactively:
+coqtop -Q ABCloud ABCloud                     # then interactively:
 #   Require Import ABCloud.Core.
 #   Compute b_toy.              (* = 10  *)
 #   Compute psl27_order_value.  (* = 168 *)

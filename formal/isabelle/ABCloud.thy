@@ -64,10 +64,10 @@ definition gram_scaled :: "nat ⇒ int" where
   "gram_scaled k = 8 * int k - 7"
 
 lemma gram_scaled_pos: "1 ≤ k ⟹ 0 < gram_scaled k"
-  unfolding gram_scaled_def by simp
+  unfolding gram_scaled_def by linarith
 
 lemma gram_scaled_mono: "gram_scaled k < gram_scaled (k + 1)"
-  unfolding gram_scaled_def by simp
+  unfolding gram_scaled_def by linarith
 
 text ‹The Riemann–von Mangoldt constant 7/8 on its scaled lattice.›
 
