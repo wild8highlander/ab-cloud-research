@@ -168,3 +168,17 @@ errata: ES2a, ES5a). Twelve bilingual documents (RU/EN × PDF/DOCX),
 eight 2×2 four-dimension tiles @600 dpi, 11 tests. Honest boundaries:
 no Landauer claims, no coherent-physics claims, no RH connection — the
 RH conclusion remains blocked by the V13 obligation machine.
+
+---
+
+<!-- enriched 1.1.0 -->
+<div align="center">
+
+<img src="../../../assets/avatars/avatar_spinor.svg" width="84" alt="spinor">
+
+*Part of the discipline: pre-registration · blind protocols · replication ·
+negative results published*
+
+**AB Cloud Quantum Research** · v1.1.0 · [license](../../../LICENSE) · © Isaev Iskhak Khamzatovich
+
+</div>

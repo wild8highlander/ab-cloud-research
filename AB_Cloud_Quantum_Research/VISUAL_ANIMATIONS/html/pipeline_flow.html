@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIPELINE FLOW — AB Cloud Quantum Research</title>
+<style>
+  :root { --bg:#221B16; --panel:#2C241E; --copper:#C96F4A; --teal:#0E7C86;
+          --gold:#C9A227; --text:#EDE6E0; --muted:#B8A99C; --border:#4A3D33; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text);
+         font-family:'Segoe UI',system-ui,sans-serif; line-height:1.55; }
+  header { padding:30px 26px 16px; border-bottom:2px solid var(--copper);
+           background:linear-gradient(180deg,#1A1410,var(--bg)); }
+  h1 { margin:0 0 4px; font-size:24px; }
+  h1 .a { color:var(--copper); }
+  .sub { color:var(--muted); font-size:13.5px; }
+  main { max-width:1020px; margin:0 auto; padding:24px 18px 50px; }
+  canvas { width:100%; background:#171310; border:1px solid var(--border);
+           border-radius:10px; display:block; }
+  .row { display:flex; gap:16px; flex-wrap:wrap; margin:16px 0; }
+  .card { flex:1 1 300px; background:var(--panel); border:1px solid var(--border);
+          border-radius:10px; padding:14px 16px; }
+  button { padding:8px 14px; background:var(--copper); color:#fff; border:none;
+           border-radius:6px; cursor:pointer; font-weight:600; }
+  input { padding:7px 10px; background:#171310; color:var(--text);
+          border:1px solid var(--border); border-radius:6px; width:110px; }
+  a { color:var(--copper); text-decoration:none; }
+  footer { text-align:center; color:var(--muted); font-size:12.5px; padding:16px;
+           border-top:1px solid var(--border); }
+  .legend { color:var(--muted); font-size:12.5px; margin-top:6px; }
+</style></head>
+<body>
+<header><h1>PIPELINE FLOW</h1><div class="sub">Verdict → dataset → artifact → monograph: the reproducibility loop as an animation.</div></header>
+<main>
+
+<canvas id="cv" height="430"></canvas>
+<div class="legend">The data pipeline in one loop: <b>verdict → dataset → artifact → monograph</b>. The pulse is a number travelling with its provenance. Nothing moves backwards — that is what kills circularity.</div>
+<div class="row">
+  <div class="card"><b>Try it in the terminal</b><br>
+    <span style="color:var(--muted);font-size:12.5px;font-family:monospace">
+    python3 scripts/make_datasets.py<br>
+    python3 scripts/make_tiled_figures.py<br>
+    python3 scripts/make_timeline.py<br>
+    python3 scripts/validate_package.py</span></div>
+  <div class="card"><b>Why it matters</b><br>
+    <span style="color:var(--muted);font-size:13px">Every figure in every README is rebuildable from committed verdicts. Every number in the monographs traces to a dataset row. The chain is short and executable.</span></div>
+</div>
+
+</main>
+<footer>AB Cloud Quantum Research · VISUAL_ANIMATIONS · v1.1.0 · © Isaev Iskhak Khamzatovich · proprietary license</footer>
+<script>
+const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+const DPR = devicePixelRatio || 1;
+let W, H; function resize(){ W = cv.width = cv.clientWidth*DPR; H = cv.height = 430*DPR; }
+resize(); addEventListener('resize', resize);
+const pts = [
+  {t:'VERDICT', s:'*_verdict.json · SHA256 pins', c:'#C96F4A'},
+  {t:'DATASET', s:'flagships · timeline · zeros', c:'#0E7C86'},
+  {t:'ARTIFACT', s:'tiles · atlas · timeline figures', c:'#C9A227'},
+  {t:'MONOGRAPH', s:'RU/EN × DOCX/PDF + LaTeX', c:'#D4A94A'},
+];
+let t = 0;
+function draw(){
+  t += 0.012;
+  ctx.clearRect(0,0,W,H);
+  const y = H*0.32, xs = pts.map((_, i) => W*(0.14 + 0.72*i/(pts.length-1)));
+  ctx.strokeStyle = '#4A3D33'; ctx.lineWidth = 2.2*DPR;
+  ctx.setLineDash([6*DPR, 8*DPR]); ctx.lineDashOffset = -t*50*DPR;
+  ctx.beginPath(); ctx.moveTo(xs[0], y); ctx.lineTo(xs[xs.length-1], y); ctx.stroke();
+  ctx.setLineDash([]);
+  // return arc (excluded)
+  ctx.strokeStyle = '#3A3028'; ctx.setLineDash([3*DPR, 7*DPR]);
+  ctx.beginPath(); ctx.moveTo(xs[xs.length-1], y + 16*DPR);
+  ctx.bezierCurveTo(xs[xs.length-1], y + 96*DPR, xs[0], y + 96*DPR, xs[0], y + 16*DPR);
+  ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle = '#8A8078'; ctx.font = `${10.5*DPR}px monospace`;
+  ctx.fillText('no reverse dependency — artifacts never feed campaigns', W/2 - 130*DPR, y + 118*DPR);
+  for (let i = 0; i < pts.length; i++){
+    const x = xs[i];
+    ctx.fillStyle = '#2C241E'; ctx.strokeStyle = pts[i].c; ctx.lineWidth = 2*DPR;
+    ctx.beginPath(); ctx.arc(x, y, 34*DPR, 0, 7); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = pts[i].c; ctx.textAlign = 'center';
+    ctx.font = `700 ${10.5*DPR}px monospace`;
+    ctx.fillText(pts[i].t, x, y + 3.5*DPR);
+    ctx.fillStyle = '#B8A99C'; ctx.font = `${9.5*DPR}px 'Segoe UI', sans-serif`;
+    ctx.fillText(pts[i].s, x, y + 66*DPR);
+  }
+  // pulse
+  const ph = (t % 1) * (pts.length - 1);
+  const seg = Math.min(pts.length - 2, Math.floor(ph));
+  const tt = ph - seg;
+  const px = xs[seg] + (xs[seg+1] - xs[seg])*tt;
+  const g = ctx.createRadialGradient(px, y, 0, px, y, 16*DPR);
+  g.addColorStop(0, 'rgba(237,230,224,0.95)'); g.addColorStop(1, 'rgba(201,111,74,0)');
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(px, y, 16*DPR, 0, 7); ctx.fill();
+  ctx.textAlign = 'left';
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body></html>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="180" viewBox="0 0 160 180">
+<defs>
+  <radialGradient id="g-author" cx="0.5" cy="0.42" r="0.62">
+    <stop offset="0" stop-color="#C96F4A" stop-opacity="0.42"/>
+    <stop offset="1" stop-color="#C96F4A" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+<circle cx="80" cy="72" r="66" fill="url(#g-author)"/>
+<circle cx="80" cy="72" r="52" fill="#221B16" stroke="#C96F4A" stroke-width="2.6"/>
+<circle cx="80" cy="72" r="45" fill="none" stroke="#C96F4A" stroke-width="1" opacity="0.55"
+        stroke-dasharray="6 5">
+  <animateTransform attributeName="transform" type="rotate" from="0 80 72" to="360 80 72"
+    dur="16s" repeatCount="indefinite"/>
+</circle>
+<text x="80" y="72" text-anchor="middle" fill="#EDE6E0"
+      font-size="40" font-weight="700"
+      font-family="Georgia, serif" dominant-baseline="central">ИИ</text>
+<text x="80" y="148" text-anchor="middle" fill="#C96F4A" font-size="12.5" font-weight="600"
+      font-family="Segoe UI, sans-serif">Isaev I. Kh.</text>
+<text x="80" y="165" text-anchor="middle" fill="#B8A99C" font-size="10"
+      font-family="Segoe UI, sans-serif">author · ORCID 0009-0003-7299-0701</text>
+</svg>

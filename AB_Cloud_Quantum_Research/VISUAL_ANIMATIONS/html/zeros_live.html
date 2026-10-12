@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZEROS LIVE — AB Cloud Quantum Research</title>
+<style>
+  :root { --bg:#221B16; --panel:#2C241E; --copper:#C96F4A; --teal:#0E7C86;
+          --gold:#C9A227; --text:#EDE6E0; --muted:#B8A99C; --border:#4A3D33; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text);
+         font-family:'Segoe UI',system-ui,sans-serif; line-height:1.55; }
+  header { padding:30px 26px 16px; border-bottom:2px solid var(--copper);
+           background:linear-gradient(180deg,#1A1410,var(--bg)); }
+  h1 { margin:0 0 4px; font-size:24px; }
+  h1 .a { color:var(--copper); }
+  .sub { color:var(--muted); font-size:13.5px; }
+  main { max-width:1020px; margin:0 auto; padding:24px 18px 50px; }
+  canvas { width:100%; background:#171310; border:1px solid var(--border);
+           border-radius:10px; display:block; }
+  .row { display:flex; gap:16px; flex-wrap:wrap; margin:16px 0; }
+  .card { flex:1 1 300px; background:var(--panel); border:1px solid var(--border);
+          border-radius:10px; padding:14px 16px; }
+  button { padding:8px 14px; background:var(--copper); color:#fff; border:none;
+           border-radius:6px; cursor:pointer; font-weight:600; }
+  input { padding:7px 10px; background:#171310; color:var(--text);
+          border:1px solid var(--border); border-radius:6px; width:110px; }
+  a { color:var(--copper); text-decoration:none; }
+  footer { text-align:center; color:var(--muted); font-size:12.5px; padding:16px;
+           border-top:1px solid var(--border); }
+  .legend { color:var(--muted); font-size:12.5px; margin-top:6px; }
+</style></head>
+<body>
+<header><h1>ZEROS LIVE</h1><div class="sub">The critical line in motion: zeros rising, N(T) counting — the E17 flagship as an animation.</div></header>
+<main>
+
+<canvas id="cv" height="480"></canvas>
+<div class="legend">N(T) counts the zeros below height T: the copper curve is the Riemann–von Mangoldt main terms, the teal staircase is the actual count. E17 read <b>649 + 639 zeros blind</b> to T = 1000 — cross-engine disagreement 0.0, bit-exact.</div>
+<div class="row">
+  <div class="card"><b>Blind protocol of E17</b><br>
+    <span style="color:var(--muted);font-size:13px">detectors (EM and Riemann–Siegel) never see the reference → outputs are SHA256-pinned → the validator compares → the verdict quotes the pre-registered thresholds.</span></div>
+  <div class="card"><b>What it does not prove</b><br>
+    <span style="color:var(--muted);font-size:13px">RH above T = 1000; the primality of all zeros; the absence of off-line zeros for γ &gt; 1000. The honest boundary travels with the result.</span></div>
+</div>
+
+</main>
+<footer>AB Cloud Quantum Research · VISUAL_ANIMATIONS · v1.1.0 · © Isaev Iskhak Khamzatovich · proprietary license</footer>
+<script>
+const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+const DPR = devicePixelRatio || 1;
+let W, H; function resize(){ W = cv.width = cv.clientWidth*DPR; H = cv.height = 480*DPR; }
+resize(); addEventListener('resize', resize);
+const zeros = [14.13,21.02,25.01,30.42,32.94,37.59,40.92,43.33,48.00,49.77,52.80,56.45,59.35,61.19,65.11,67.08,69.55,72.07,75.70,77.14,79.34,82.90,84.74,87.43,88.81,92.49,94.65,96.00,98.83];
+const N = T => T/(2*Math.PI)*Math.log(T/(2*Math.PI)) - T/(2*Math.PI) + 7/8;
+let reveal = 0, T = 0;
+function draw(){
+  T += 0.35; reveal = Math.min(1, T/300);
+  ctx.clearRect(0,0,W,H);
+  const Tmax = 104;
+  const X = t => 44*DPR + (W-64*DPR)*t/Tmax;
+  const Y = v => H - 30*DPR - v/(N(Tmax)+2)*(H-70*DPR);
+  // axes
+  ctx.strokeStyle = '#4A3D33'; ctx.lineWidth = DPR;
+  ctx.beginPath(); ctx.moveTo(X(0), Y(0)); ctx.lineTo(X(Tmax), Y(0)); ctx.stroke();
+  // main terms curve
+  ctx.strokeStyle = '#C96F4A'; ctx.lineWidth = 2*DPR; ctx.beginPath();
+  for (let t = 8; t <= Tmax*reveal; t += 0.5){
+    const x = X(t), y = Y(N(t));
+    t === 8 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+  // actual staircase
+  let zi = 0; ctx.strokeStyle = '#0E7C86'; ctx.beginPath();
+  for (let t = 8; t <= Tmax*reveal; t += 0.5){
+    while (zi < zeros.length && zeros[zi] < t) zi++;
+    const x = X(t), y = Y(zi);
+    t === 8 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+  // rising zeros on the line
+  const shown = Math.floor(reveal * zeros.length);
+  for (let i = 0; i < shown; i++){
+    const g = zeros[i];
+    const pulse = 3.2 + 1.4*Math.sin(T*0.1 + i);
+    ctx.fillStyle = '#0E7C86';
+    ctx.beginPath(); ctx.arc(X(g), Y(N(g)), pulse*DPR, 0, 7); ctx.fill();
+    ctx.strokeStyle = '#EDE6E0'; ctx.lineWidth = 0.7*DPR; ctx.stroke();
+  }
+  ctx.fillStyle = '#EDE6E0'; ctx.font = `700 ${15*DPR}px monospace`;
+  ctx.fillText(`T = ${(Tmax*reveal).toFixed(0)}   N(T) = ${N(Tmax*reveal).toFixed(1)}   zeros shown: ${shown}/${zeros.length}`, 44*DPR, 26*DPR);
+  ctx.fillStyle = '#8A8078'; ctx.font = `${11*DPR}px monospace`;
+  ctx.fillText('copper: Riemann–von Mangoldt main terms · teal: actual zero count', 44*DPR, H-12*DPR);
+  if (reveal >= 1){ T = 0; }
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body></html>

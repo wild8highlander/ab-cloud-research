@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+<defs>
+  <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#C96F4A" stop-opacity="0.5"/>
+    <stop offset="1" stop-color="#C96F4A" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+<rect width="240" height="240" fill="#221B16"/>
+<circle cx="120" cy="120" r="86" fill="url(#glow)">
+  <animate attributeName="r" values="78;92;78" dur="3s" repeatCount="indefinite"/>
+</circle>
+<circle cx="120" cy="120" r="70" fill="none" stroke="#C96F4A" stroke-width="2.5">
+  <animateTransform attributeName="transform" type="rotate" from="0 120 120" to="360 120 120" dur="14s" repeatCount="indefinite"/>
+  <animate attributeName="stroke-dasharray" values="90 60; 60 90" dur="3s" repeatCount="indefinite"/>
+</circle>
+<circle cx="120" cy="120" r="52" fill="none" stroke="#0E7C86" stroke-width="1.6">
+  <animateTransform attributeName="transform" type="rotate" from="360 120 120" to="0 120 120" dur="10s" repeatCount="indefinite"/>
+</circle>
+<text x="120" y="114" text-anchor="middle" fill="#EDE6E0" font-size="30" font-weight="800" font-family="Georgia, serif">AB</text>
+<text x="120" y="140" text-anchor="middle" fill="#C96F4A" font-size="13" font-family="monospace" letter-spacing="2">CLOUD</text>
+<text x="120" y="222" text-anchor="middle" fill="#B8A99C" font-size="10.5" font-family="Segoe UI, sans-serif">reads · compiles · stores nothing</text>
+</svg>

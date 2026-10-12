@@ -1,0 +1,164 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{copper}{HTML}{C96F4A}
+\hypersetup{colorlinks=true, linkcolor=copper, urlcolor=copper}
+\setlength{\parskip}{4pt}
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Research Program: The Spectral Core (V01–V19, Th1–Th6, V13)}\\[8pt]
+{\large Research Program Monograph · Version 1.0.0}\\[6pt]
+{\color{copper}\small RESEARCH PROGRAM · CORE}\\[4pt]
+{\small Isaev Iskhak Khamzatovich · ORCID 0009-0003-7299-0701}\\[2pt]
+{\small AB Cloud Quantum Research · DOI 10.5281/zenodo.21825394}
+\end{center}
+
+\tableofcontents
+\newpage
+
+\section{Research Program: The Spectral Core}
+
+\noindent\textit{\color{copper}The core program owns the mathematical foundation of the AB architecture: the blind spectrum, null models, the critical line, the trace formula, the obligation machine and branch stitching. Nineteen campaigns and six theorems form a closed loop: construction → certificate → formal statement → independent verification.}
+
+\subsection{1. Program goals}
+
+\begin{itemize}
+  \item construct a Hermitian operator H\textsubscript{ξ} whose heat expansion carries the arithmetic of the primes (Λ(n)/√n);
+  \item prove the correctness of the construction: Hermiticity (Th1), self-adjointness (Th2), Kato certificates (Th3), the Li formula (Th4), block reduction (Th5), the Guinand–Weil correspondence (Th6);
+  \item separate arithmetic specificity from GUE statistics — including honest negative answers on lattices;
+  \item fix the RH status with the obligation machine V13 — and keep it blocked while the hypotheses are unproved.
+\end{itemize}
+
+\subsection{2. Methodology}
+
+Every campaign starts with a pre-registration protocol: thresholds are fixed before the run. Blind protocols are applied wherever a reference exists (V01: calibration/test with no leak). All derived artifacts (tiles, documents) are built only from committed verdicts. Formal statements are duplicated in Lean 4, Coq, Agda and Isabelle (reductions A1–A6, no sorry/admit).
+
+\subsection{3. Executed campaigns}
+
+\begin{table}[htbp]\centering\small
+\caption{Table 3.1. Core campaigns V01–V19}
+\begin{tabular}{p{0.10\textwidth} p{0.29\textwidth} p{0.58\textwidth}}
+\toprule
+\textbf{Campaign} & \textbf{Content} & \textbf{Key result}
+\midrule
+V01 & blind spectrum & statistics consistent; individual ordinates not predicted (honest negative) \\
+V02 & null models & AB cloud in the GUE class; specificity measured by fine structure \\
+V03 & lattice σ-scan & no agreement zone with ζ found \\
+V04 & Hermiticity & Th1: ‖H − H†‖ = 0.0; symmetry λ ↔ −λ at α = ½ \\
+V05 & construction certificate & construction boundaries fixed \\
+V06 & lattice closure & lattice direction closed (negative) \\
+V07 & trace ↔ primes & Th6: r = 0.9996; lattice control 0.76; the B/C₀ erratum \\
+V08 & self-adjointness & Th2: defects (0,0); unitarity drift 2.2e−16 \\
+V09 & block reduction & Th5: block union ≈ spectrum to 7.1e−15 \\
+V10 & spectral certificates & certificates consistent with Kato estimates \\
+V11 & obligation DAG draft & the structure of the path to RH fixed \\
+V12 & Kato certificates & Th3: widths \textasciitilde{}1e−27 (dps 40) \\
+V13 & obligation machine & RH blocked: 5 proven / 3 computed / 4 assumed \\
+V14 & claim audit & claim files consistent with verdicts \\
+V15 & Li formula & Th4: two paths ≤ 4.4e−11; absolute convergence \\
+V16 & lattice re-check & negative confirmed on a new construction \\
+V17 & trajectories & reading is idempotent; no degradation \\
+V18 & pong protocol & latency bounded; no log growth \\
+V19 & branch stitching & θ-ladder 0.832; coherence 0.9995; Z₂-monodromy \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{4. The next wave}
+
+\begin{itemize}
+  \item stitching refinement: r\_align ≤ 0.135 on an extended height grid;
+  \item the ζ monodromy as an algebraic object: formalization of V19;
+  \item compiling obligations into Lean/Coq: O-lean/O-coq — moving the V13 DAG into the formal layer;
+  \item extending the Th3–Th4 certificates to larger sizes.
+\end{itemize}
+
+\subsection{5. Honest boundaries}
+
+Individual ordinates are not predicted by the blind spectrum — statistics agreed, no oracle. The hypotheses O08/O09/O11/O12 are not removed: RH stays blocked. Vortex terms break Th5. Lattice constructions do not reproduce the arithmetic of ζ. These boundaries are part of the result, not its flaw.
+
+\subsection{6. Key campaigns in detail}
+
+\subsection{6.1. Six campaigns that defined the core}
+
+\subsubsection{V01 — the blind spectrum}
+
+The campaign is built as a strict no-leak check: the operator is calibrated on 600 ordinates and tested on another 600. The result is dual and both components matter. Positive: the test-set statistics agree with the construction expectations — correlations within control zones. Negative: individual ordinates are not predicted. The practical conclusion: the model works as a consistency counter, not as an oracle; any future claim of "zero prediction" must first refute this verdict.
+
+\subsubsection{V02 — null models and GUE}
+
+The comparison with four null models (M0, N1, N4 and references) over r\_mean, Σ₂, Δ₃ and the KS statistic showed: the AB cloud falls into the GUE class together with the controls (r\_mean 0.6093 versus 0.5837 for random phases, KS 0.0499). Hence the program's methodological rule: GUE agreement is necessary but not sufficient; the arithmetic specificity is sought separately — in the trace, the constants and the behaviour.
+
+\subsubsection{V07 — trace ↔ primes}
+
+The central arithmetic campaign of the core. The heat trace K(x) = Tr e\textasciicircum{}(−xH) expands in a series whose coefficients carry Λ(n)/√n — the content of Th6. The trace-prime correlation r = 0.9996; the lattice control without arithmetic gives 0.76; the gap is the measured specificity. An important side result — the B/C₀ constants erratum: the error was found by an independent derivation and fixed in the same verdict.
+
+\subsubsection{V12 — Kato certificates}
+
+The campaign answers the question "how much can a computed eigenvalue be trusted". Kato theory gives the corridor δ²/gap plus a Gershgorin allowance; numerically the widths are of order 1e−27 at forty significant digits. A rare situation: the error of the estimate is known better than the estimate itself. These certificates later become the basis of the computed status in the obligation machine.
+
+\subsubsection{V13 — the obligation machine}
+
+The executable DAG of the path to RH: five nodes proven, three computed, four assumed (O08, O09, O11, O12); the conclusion is automatically blocked. The verdict note fixes the principle: no numerical check raises the status. The campaign turned the program from a set of results into a system of obligations with checkable statuses.
+
+\subsubsection{V19 — branch stitching}
+
+The final algebraic campaign of the core: the branches of the spectral construction are stitched with a θ-ladder, agreement 0.832 and coherence 0.9995 (z = 43.4); Z₂-monodromy. The certificate is algebraic: going around the branch point twice returns to the original branch. The stitching closes the construction and opens the R2 roadmap: refining r\_align ≤ 0.135 and formalizing the monodromy.
+
+\subsection{7. The full campaign table}
+
+\begin{table}[htbp]\centering\small
+\caption{The full campaign table of the level}
+\begin{tabular}{p{0.12\textwidth} p{0.25\textwidth} p{0.60\textwidth}}
+\toprule
+\textbf{Campaign} & \textbf{Title} & \textbf{Key result}
+\midrule
+V1 & Blind spectrum & слепой контроль выполнен; индивидуальные ординаты не предсказываются (r\_test в нулевой зон \\
+V2 & Null models & AB-cloud попадает в GUE-класс вместе с N1/N4; специфичность арифметики измеряется не ⟨r⟩,  \\
+V3 & Lattice scan & минимум D(σ) в окрестности σ = 1/2 отсутствует или неустойчив — специфичность линии измере \\
+V4 & Hermiticity & Th1 доказана: эрмитовость по построению, спектр вещественен, киральность α=½/W=0 — бипарти \\
+V5 & Construction certificate & устойчивый степенной закон конечномерной ошибки обнаружен; экстраполяция за пределы прогон \\
+V6 & Lattice closure & тождество спектра (n ↔ нуль n) для решёточных затворов — НЕТ (ранговое соответствие в нуле \\
+V7 & Trace ↔ primes (Th6) & вес простых Λ(n)/√n доказательно живёт в тепловом следе H\_ξ (Th6: |ΔK| ≤ 5e-5); в следах р \\
+V8 & Self-adjointness & Th2 доказана для конечной размерности; устойчивость предельной модели при смене BC — измер \\
+V9 & Block reduction & Th5 доказана и верифицирована (тор без вихрей: спектр = объединение блоков характеров, вне \\
+V10 & Spectral certificates & часть арифметики (заряды) идентифицируема по старшим следам при достаточном k; ранг J < n\_ \\
+V11 & Obligation DAG draft & GUE-универсальность выживает при всех режимах разрушения арифметики (⟨r⟩ в классе); арифме \\
+V12 & Kato certificates & все сертификаты содержат истинные значения; интервалы — гарантированные, а не десятичные д \\
+V13 & Obligation machine & формальная машина БЛОКИРУЕТ вывод RH: путь к заключению содержит гипотезы O08/O09/O11/O12; \\
+V14 & Claim audit & каждое публичное утверждение пакета трассируется к вычислению, контролю и перечню не-следс \\
+V15 & Li formula & Th4 доказана и верифицирована (два пути, |Δ| ≤ 1e-9); λ\_n > 0 для n ≤ 3000 измерено с серт \\
+V16 & Lattice re-check &  \\
+V17 & Trajectories &  \\
+V18 & Pong protocol &  \\
+V19 & Branch stitching &  \\
+V20 & Processor compilation (P0) & 1−F ≤ 4.4e-16; глубина ≤ 7/29 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{8. How to reproduce}
+
+\begin{verbatim}
+cd modules/core_spectrum
+python3 -m pytest tests/ -q              # core tests
+python3 scripts/compute_all.py           # rebuild computations
+python3 scripts/make_figures.py          # level figures
+# web lab: modules/core_spectrum/web_lab/index.html
+\end{verbatim}
+
+\subsection{9. Further reading}
+
+\begin{itemize}
+  \item core docs: modules/core\_spectrum/docs/ — theory and methods;
+  \item level monographs: modules/core\_spectrum/monograph/ (incl. appendix\_volume);
+  \item verdicts: modules/core\_spectrum/data/v01…v19\_verdict.json;
+  \item formal statements: formal/ — reductions A1–A6.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="470" viewBox="0 0 880 470">
+<rect width="880" height="470" fill="#221B16"/>
+<text x="440" y="40" text-anchor="middle" fill="#EDE6E0" font-size="20" font-weight="600" font-family="Segoe UI, sans-serif">How this folder works — the map</text>
+<rect x="60" y="78" width="760" height="56" rx="10" fill="#2C241E" stroke="#C96F4A" stroke-width="1.8"/>
+<text x="84" y="102" fill="#C96F4A" font-size="15.5" font-weight="600" font-family="Consolas, monospace">AB_Cloud_Quantum_Research/</text>
+<text x="84" y="122" fill="#B8A99C" font-size="12" font-family="Segoe UI, sans-serif">the program root · v1.1.0</text>
+<rect x="60" y="152" width="760" height="56" rx="10" fill="#2C241E" stroke="#0E7C86" stroke-width="1.8"/>
+<text x="84" y="176" fill="#0E7C86" font-size="15.5" font-weight="600" font-family="Consolas, monospace">MONOGRAPH_ARCHIVE/</text>
+<text x="84" y="196" fill="#B8A99C" font-size="12" font-family="Segoe UI, sans-serif">monographs RU/EN × DOCX/PDF + LaTeX</text>
+<rect x="60" y="226" width="760" height="56" rx="10" fill="#2C241E" stroke="#C9A227" stroke-width="1.8"/>
+<text x="84" y="250" fill="#C9A227" font-size="15.5" font-weight="600" font-family="Consolas, monospace">HYPOTHESIS_LAB/</text>
+<text x="84" y="270" fill="#B8A99C" font-size="12" font-family="Segoe UI, sans-serif">test your own hypotheses · CLI + browser</text>
+<rect x="60" y="300" width="760" height="56" rx="10" fill="#2C241E" stroke="#D4A94A" stroke-width="1.8"/>
+<text x="84" y="324" fill="#D4A94A" font-size="15.5" font-weight="600" font-family="Consolas, monospace">VISUAL_ANIMATIONS/</text>
+<text x="84" y="344" fill="#B8A99C" font-size="12" font-family="Segoe UI, sans-serif">this folder · GIF + SVG + HTML</text>
+<rect x="60" y="374" width="760" height="56" rx="10" fill="#2C241E" stroke="#B8A99C" stroke-width="1.8"/>
+<text x="84" y="398" fill="#B8A99C" font-size="15.5" font-weight="600" font-family="Consolas, monospace">modules/ · research/ · theorems_lemmas/</text>
+<text x="84" y="418" fill="#B8A99C" font-size="12" font-family="Segoe UI, sans-serif">the machine: core, processor, verification, spinor</text>
+<rect x="60" y="78" width="760" height="56" rx="10" fill="#C96F4A" opacity="0">
+  <animate attributeName="opacity" values="0;0.16;0" dur="5s" begin="0.0s" repeatCount="indefinite"/>
+</rect>
+<rect x="60" y="152" width="760" height="56" rx="10" fill="#0E7C86" opacity="0">
+  <animate attributeName="opacity" values="0;0.16;0" dur="5s" begin="1.0s" repeatCount="indefinite"/>
+</rect>
+<rect x="60" y="226" width="760" height="56" rx="10" fill="#C9A227" opacity="0">
+  <animate attributeName="opacity" values="0;0.16;0" dur="5s" begin="2.0s" repeatCount="indefinite"/>
+</rect>
+<rect x="60" y="300" width="760" height="56" rx="10" fill="#D4A94A" opacity="0">
+  <animate attributeName="opacity" values="0;0.16;0" dur="5s" begin="3.0s" repeatCount="indefinite"/>
+</rect>
+<rect x="60" y="374" width="760" height="56" rx="10" fill="#B8A99C" opacity="0">
+  <animate attributeName="opacity" values="0;0.16;0" dur="5s" begin="4.0s" repeatCount="indefinite"/>
+</rect>
+
+<text x="440" y="456" text-anchor="middle" fill="#B8A99C" font-size="11.5" font-style="italic" font-family="Segoe UI, sans-serif">43 campaigns PASS · 9 theorems · storage = 0 · RH honestly blocked (V13)</text>
+</svg>

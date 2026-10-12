@@ -1,0 +1,119 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{copper}{HTML}{C96F4A}
+\hypersetup{colorlinks=true, linkcolor=copper, urlcolor=copper}
+\setlength{\parskip}{4pt}
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Research Program: The Verification Platform (E01–E18, O-J)}\\[8pt]
+{\large Research Program Monograph · Version 1.0.0}\\[6pt]
+{\color{copper}\small RESEARCH PROGRAM · VERIFICATION}\\[4pt]
+{\small Isaev Iskhak Khamzatovich · ORCID 0009-0003-7299-0701}\\[2pt]
+{\small AB Cloud Quantum Research · DOI 10.5281/zenodo.21825394}
+\end{center}
+
+\tableofcontents
+\newpage
+
+\section{Research Program: The Verification Platform}
+
+\noindent\textit{\color{copper}The verification program is the independent judge of the program: a Julia platform sharing no code with the core or the processor, blind protocols, SHA pins, cross-language replication. Eighteen verdicts PASS; the next wave — QEC memory, digital twin, integration.}
+
+\subsection{1. Program goals}
+
+\begin{itemize}
+  \item re-check the core and the processor with an independent implementation;
+  \item perform blind reading of ζ zeros by two engines up to T = 1000;
+  \item run the fair compiler benchmark (class B);
+  \item build the QEC layer and the digital twin of the machine.
+\end{itemize}
+
+\subsection{2. Methodology}
+
+Detector and validator are separated; outputs are SHA256-pinned before validation; thresholds are pre-registered. Cross-language replication: Julia BigFloat ↔ Python mpmath (0.0 disagreement), numpy replicas (0 counter mismatches). Implementation independence is a design principle, not a circumstance.
+
+\subsection{3. Executed campaigns E01–E18}
+
+\begin{table}[htbp]\centering\small
+\caption{Table 3.3. Verification campaigns}
+\begin{tabular}{p{0.21\textwidth} p{0.15\textwidth} p{0.60\textwidth}}
+\toprule
+\textbf{Block} & \textbf{Campaigns} & \textbf{Key results}
+\midrule
+infrastructure & E01–E10 & controls, Haar, scaling, replays, noise, code, ALU, cost, readout \\
+ζ reading & E11 & the blind ζ reader: pins, validation, zero leaks \\
+optics/nonlocality & E12–E14 & interferometer; no-signaling; CHSH \\
+classification & E15 & topology ablation \\
+engines & E16 & the independent Riemann–Siegel: ≤ 3.8e−15 \\
+flagship & E17 & blind zeros: 649/649 + 639/639; cross-engine 0.0; N(1000) = 649.0 \\
+benchmark & E18 & class B: ×59,000; the 2q KAK outside the class (10 vs 3) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{4. The O-J roadmap}
+
+\begin{itemize}
+  \item O-J1 done: blind reading to T = 1000 (E16–E17);
+  \item O-J2 done: class B (E18);
+  \item O-J3: QEC memory — relies on E07 and V21;
+  \item O-J4: the digital twin of the processor;
+  \item O-J5: the integration campaign; target heights T well above 1000.
+\end{itemize}
+
+\subsection{5. Honest boundaries}
+
+E17 does not prove RH above T = 1000, the simplicity of all zeros, or the absence of off-line zeros for γ > 1000. E18 claims no superiority outside the ISA class. The blind erratum γ₁₂ showed that an error can live in the framework rather than in the detector — therefore references are checked too.
+
+\subsection{6. Key campaigns in detail}
+
+\subsection{6.1. From infrastructure to flagships}
+
+\subsubsection{E11 — the blind ζ reader}
+
+The platform's first full blind protocol: a detector with no access to the reference, SHA256 pinning, validation after fixing. The campaign exercised the blindness mechanics on a live task — reading zeros of a lower height — and showed zero leaks. All subsequent blind protocols (E16, E17) inherit its scheme.
+
+\subsubsection{E16 — the independent Riemann–Siegel}
+
+An implementation of the Riemann–Siegel formula (the Arias de Reyna version) without external packages: the main sum plus the integral correction. Agreement with the reference ≤ 3.8e−15 against a threshold of 1e−9; the error floor is 1e−17. The meaning: the platform owns a second independent Z(t) engine, independent of the explicit method.
+
+\subsubsection{E17 — blind zeros T=1000}
+
+The platform flagship: two independent detectors read zeros up to T = 1000 with no access to the reference; 649/649 (EM) and 639/639 (RS), cross-engine 0.0 bit-exact, N(1000) = 649.0 exactly, grid-shift robustness 0. The blind γ₁₂ erratum is built in as a negative control: the detector refuted a hand-made framework constant. The verdict honestly states: RH above T = 1000 is not proved.
+
+\subsubsection{E18 — class B}
+
+The fair compiler benchmark: one ISA, one criterion, five strong baselines. The outcome: ×59,000 in time at equal accuracy; the 2q boundary 10 versus the KAK optimum 3 — outside the class, declared explicitly. The numpy replication: 0 counter mismatches. The E18 methodology becomes the standard for processor stage P5.
+
+\subsubsection{E12–E14 — optics and nonlocality}
+
+The interferometry and nonlocality block: the interferometer (E12), the absence of signaling (E13), CHSH (E14). These campaigns independently confirm the processor's V24 preview and give an independent estimate of the correlations of distributed clouds.
+
+\subsection{7. How to reproduce}
+
+\begin{verbatim}
+julia modules/verifier_multilang/experiments/run_all.jl all   # E01–E18 (~2.5 min)
+julia modules/verifier_multilang/experiments/verdicts.jl      # verdict summary
+# pins and results: modules/verifier_multilang/results/
+\end{verbatim}
+
+\subsection{8. Pins and integrity}
+
+Every blind output is SHA256-pinned before validation: e17\_detector\_em.csv, e17\_detector\_rs.csv, e11\_detector\_output.csv, the reference e17\_zetazero\_reference.csv. The pin files sit next to the data; the package validator recomputes the hashes on every build. Changing a pin after validation is impossible without a trace in the history.
+
+\subsection{9. Further reading}
+
+\begin{itemize}
+  \item protocols: experiments/experiment\_01\_15.md;
+  \item master verdicts: results/verdicts\_master.json;
+  \item cross-language validation: results/cross\_language\_validation.md;
+  \item provenance and limitations: PROVENANCE\_AND\_LIMITATIONS.md.
+\end{itemize}
+
+\end{document}

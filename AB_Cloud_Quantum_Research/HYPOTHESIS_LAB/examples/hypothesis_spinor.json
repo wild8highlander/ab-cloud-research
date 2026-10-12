@@ -1,0 +1,12 @@
+{
+  "name": "my-spinor-phase",
+  "battery": "spinor",
+  "params": { "theta": 1.0471975511965976, "steps": 400 },
+  "thresholds": {
+    "cycle_closure": "exact",
+    "reconstruction_max": 0.18,
+    "step_slope_abs_max": 0.001
+  },
+  "does_not_prove": "RH; primality of zeta zeros; applicability beyond the Markov task class",
+  "blind": true
+}

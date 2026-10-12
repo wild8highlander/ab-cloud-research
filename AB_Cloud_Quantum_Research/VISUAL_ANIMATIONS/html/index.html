@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VISUAL ANIMATIONS — AB Cloud Quantum Research</title>
+<style>
+  :root { --bg:#221B16; --panel:#2C241E; --copper:#C96F4A; --teal:#0E7C86;
+          --gold:#C9A227; --text:#EDE6E0; --muted:#B8A99C; --border:#4A3D33; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text);
+         font-family:'Segoe UI',system-ui,sans-serif; line-height:1.55; }
+  header { padding:30px 26px 16px; border-bottom:2px solid var(--copper);
+           background:linear-gradient(180deg,#1A1410,var(--bg)); }
+  h1 { margin:0 0 4px; font-size:24px; }
+  h1 .a { color:var(--copper); }
+  .sub { color:var(--muted); font-size:13.5px; }
+  main { max-width:1020px; margin:0 auto; padding:24px 18px 50px; }
+  canvas { width:100%; background:#171310; border:1px solid var(--border);
+           border-radius:10px; display:block; }
+  .row { display:flex; gap:16px; flex-wrap:wrap; margin:16px 0; }
+  .card { flex:1 1 300px; background:var(--panel); border:1px solid var(--border);
+          border-radius:10px; padding:14px 16px; }
+  button { padding:8px 14px; background:var(--copper); color:#fff; border:none;
+           border-radius:6px; cursor:pointer; font-weight:600; }
+  input { padding:7px 10px; background:#171310; color:var(--text);
+          border:1px solid var(--border); border-radius:6px; width:110px; }
+  a { color:var(--copper); text-decoration:none; }
+  footer { text-align:center; color:var(--muted); font-size:12.5px; padding:16px;
+           border-top:1px solid var(--border); }
+  .legend { color:var(--muted); font-size:12.5px; margin-top:6px; }
+
+  .hero { text-align:center; padding:26px 0 8px; }
+  .hero h2 { font-size:26px; margin:0 0 6px; }
+  .hero p { color:var(--muted); margin:0 0 22px; }
+  .tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; }
+  .tile { background:var(--panel); border:1px solid var(--border); border-radius:12px;
+          padding:20px; transition:transform .2s, border-color .2s; display:block; }
+  .tile:hover { transform:translateY(-4px); border-color:var(--copper); }
+  .tile h3 { margin:0 0 6px; color:var(--copper); font-size:16.5px; }
+  .tile p { margin:0; color:var(--muted); font-size:13px; }
+  .badge { display:inline-block; margin-top:10px; padding:2px 9px; border-radius:10px;
+           font-size:11px; background:#171310; border:1px solid var(--border); color:var(--muted); }
+</style></head>
+<body>
+<header><h1>VISUAL <span class="a">ANIMATIONS</span></h1>
+<div class="sub">How the AB Cloud Quantum Research folder works — in GIFs, animated SVGs and interactive HTML. Everything offline.</div></header>
+<main>
+<div class="hero">
+  <h2>One program · one discipline · one loop</h2>
+  <p>43 campaigns PASS · 9 theorems · 649+639 blind zeros · storage = 0 · RH honestly blocked</p>
+  <img src="../svg/architecture_flow.svg" alt="architecture" style="max-width:100%; border-radius:12px;">
+</div>
+<div class="tiles">
+  <a class="tile" href="architecture_tour.html"><h3>🏛 Architecture tour</h3>
+    <p>The four levels of one machine, animated. Click to send a pulse from the core.</p><span class="badge">HTML · interactive</span></a>
+  <a class="tile" href="zeros_live.html"><h3>📈 Zeros live</h3>
+    <p>Zeros rising along Re(s) = 1/2 and N(T) counting — the E17 flagship in motion.</p><span class="badge">HTML · interactive</span></a>
+  <a class="tile" href="spinor_lab.html"><h3>🌀 Spinor lab</h3>
+    <p>θ = π/2, π/3, π/7 — cycles, reset (TS2) and volatility, drawn live.</p><span class="badge">HTML · interactive</span></a>
+  <a class="tile" href="how_this_folder_works.html"><h3>🗂 How this folder works</h3>
+    <p>Campaigns → verdicts → artifacts → monographs: the evidence machine.</p><span class="badge">HTML · interactive</span></a>
+  <a class="tile" href="pipeline_flow.html"><h3>🔁 Pipeline flow</h3>
+    <p>Verdict → dataset → artifact → monograph: the reproducibility loop.</p><span class="badge">HTML · interactive</span></a>
+  <a class="tile" href="../gif/"><h3>🎞 GIF collection</h3>
+    <p>zeros_rising · pipeline_flow · spinor_cycles · campaign_timeline · compiler_gates — ready for READMEs.</p><span class="badge">GIF · 600px</span></a>
+  <a class="tile" href="../svg/"><h3>✨ Animated SVG</h3>
+    <p>architecture_flow · critical_line · spinor rings · folder_map · logo_pulse — SMIL, GitHub-visible.</p><span class="badge">SVG · SMIL</span></a>
+  <a class="tile" href="../../HYPOTHESIS_LAB/hypothesis_lab.html"><h3>🧪 Hypothesis lab</h3>
+    <p>Not just watching — test your own hypotheses in the browser laboratory.</p><span class="badge">HTML · interactive</span></a>
+</div>
+</main>
+<footer>AB Cloud Quantum Research · VISUAL_ANIMATIONS · v1.1.0 · © Isaev Iskhak Khamzatovich · proprietary license · LICENSE duplicated in this folder</footer>
+</body></html>

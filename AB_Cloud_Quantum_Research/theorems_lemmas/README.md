@@ -1,3 +1,22 @@
+<!-- enriched 1.1.0 -->
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/logo_abcloud_dark.png">
+  <img src="../assets/logo_abcloud_light.png" width="92" alt="AB Cloud Quantum Research">
+</picture>
+
+### 📐 Theorems Th1–Th6
+
+`AB Cloud Quantum Research` · v1.1.0 · part of one machine
+
+![badge](https://img.shields.io/badge/program-AB_Cloud_Quantum_Research-C96F4A?style=flat-square)
+![badge](https://img.shields.io/badge/verdicts-all%20PASS-3A6B4F?style=flat-square)
+![badge](https://img.shields.io/badge/license-proprietary-6B6455?style=flat-square)
+
+</div>
+
+> 🧭 **Navigation:** [↑ main README](../README.md) · [📚 monographs](../MONOGRAPH_ARCHIVE/README.md) · [🧪 hypothesis lab](../HYPOTHESIS_LAB/README.md) · [🎞 animations](../VISUAL_ANIMATIONS/README.md)
 # 📐 theorems_lemmas/ — выводы теорем Th1–Th6 с фигурами измерений
 
 **Единая папка формальных и численных выводов** исследования AB Cloud Quantum Research.
@@ -10,6 +29,18 @@
 (4) связь с кампаниями и формальными постановками.
 
 ## Состав
+
+| Tile | Statement (short) | Certificate |
+|------|-------------------|-------------|
+| Th1 | Hermiticity ⇒ real spectrum, λ ↔ −λ | ‖H − H†‖ = 0.0 |
+| Th2 | self-adjointness, unitary evolution | drift 2.2e−16 |
+| Th3 | Kato corridors | ~1e−27 |
+| Th4 | Li formula λ_n ≥ 0 | two paths ≤ 4.4e−11 |
+| Th5 | block reduction | 7.1e−15 |
+| Th6 | trace carries Λ(n)/√n | r = 0.9996 |
+
+<img src="../VISUAL_ANIMATIONS/svg/critical_line.svg" width="420" alt="critical line">
+
 
 | Папка | Теорема | Кампания | Формальная редукция | Документов |
 |-------|---------|----------|---------------------|------------|
@@ -60,3 +91,17 @@ are formally stated in Lean 4 and Coq with named reductions A1–A6; no
 `sorry`/`admit` is used anywhere. The RH conclusion remains blocked by the
 V13 obligation machine — the formal layer guarantees honest blocking, not a
 proof of RH.
+
+---
+
+<div align="center">
+
+<img src="../assets/avatars/avatar_core.svg" width="84" alt="core">
+
+*Part of the discipline: pre-registration · blind protocols · replication ·
+negative results published*
+
+**AB Cloud Quantum Research** · v1.1.0 ·
+[license](../../LICENSE) · © Isaev Iskhak Khamzatovich
+
+</div>

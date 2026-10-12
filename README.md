@@ -296,6 +296,45 @@ The rule the diagram encodes: **every arrow reads the same frozen dataset**
 regenerate the ζ zeros, so a disagreement between any two boxes is
 immediately visible rather than hidden by different inputs.
 
+---
+
+## 📦 AB_Cloud_Quantum_Research — the packaged program
+
+[`AB_Cloud_Quantum_Research/`](AB_Cloud_Quantum_Research/README.md) is the
+self-contained campaign program inside this repository: four levels of one
+machine — the spectral core (V01–V19, theorems Th1–Th6, the V13 obligation
+machine), the AB processor (V20/P0, exact Givens-QR compilation), the
+Julia verification platform (E01–E18, blind zero reading to T = 1000) and
+the spinor study (ES1–ES5, the machine with no long-term memory) — **43
+pre-registered campaigns, all PASS, 9 theorems with certificates**.
+
+**New — three new layers inside the folder:**
+
+| Folder | What it is | Highlights |
+|--------|-----------|------------|
+| 📚 [`MONOGRAPH_ARCHIVE/`](AB_Cloud_Quantum_Research/MONOGRAPH_ARCHIVE/README.md) | the publication layer: monographs of the whole program | main monograph **RU + EN × DOCX + PDF** (104+ pages, 28 figures, 44 tables) · 4 level research-program monographs · 10 compilable LaTeX (.tex) sources · license duplicated inside |
+| 🧪 [`HYPOTHESIS_LAB/`](AB_Cloud_Quantum_Research/HYPOTHESIS_LAB/README.md) | the open hypothesis laboratory — **test your own hypotheses** under the program discipline | 4 batteries (spinor · blind zeros · explicit formula · exact compilation) · Python CLI `ab_lab.py` + offline browser lab · SHA256-pinned verdicts with `does_not_prove` |
+| 🎞 [`VISUAL_ANIMATIONS/`](AB_Cloud_Quantum_Research/VISUAL_ANIMATIONS/README.md) | how the whole folder works — shown, not told | 5 GIF animations · 7 animated SMIL SVGs (GitHub-visible) · 6 interactive HTML pages · everything rebuildable by scripts |
+
+```mermaid
+flowchart LR
+    A["🧠 Core<br/>V01–V19"] -->|"mathematics"| B["⚛️ Processor<br/>V20"]
+    A -->|"statements"| C["🔬 Verification<br/>E01–E18"]
+    B -->|"reads, not carries"| D["🌀 Spinor<br/>ES1–ES5"]
+    A --> E["📚 MONOGRAPH_ARCHIVE"]
+    B --> F["🧪 HYPOTHESIS_LAB"]
+    C --> G["🎞 VISUAL_ANIMATIONS"]
+```
+
+Quick entry points: the [folder README](AB_Cloud_Quantum_Research/README.md)
+(EN, full) · [README.ru.md](AB_Cloud_Quantum_Research/README.ru.md) (RU, full)
+· the [main monograph EN](AB_Cloud_Quantum_Research/MONOGRAPH_ARCHIVE/main_monograph/AB_Cloud_Quantum_Research_Monograph_EN.pdf)
+· the [browser hypothesis lab](AB_Cloud_Quantum_Research/HYPOTHESIS_LAB/hypothesis_lab.html)
+· the [animation portal](AB_Cloud_Quantum_Research/VISUAL_ANIMATIONS/html/index.html).
+The folder keeps the same honesty discipline as the rest of the repository:
+pre-registered thresholds, blind SHA-pinned protocols, published negative
+results, and the RH conclusion honestly **blocked**.
+
 ## 🔑 Key verified results
 
 The repository ships **three independent verification stacks** that agree with
@@ -332,7 +371,7 @@ each other:
    (8/8 checks PASS); see the
    [formal verification section](#-formal-verification--lean-4--coq--agda--isabelle).
 
-## 🧾 Full test ledger — the two-pass flagship run (2026-09-02)
+## 🧾 Full test ledger — the two-pass flagship run
 
 The canonical suite is `code/ab_cloud_v23.jl`: **39 registered tests**
 (the v19-era flagship run of 2026-09-02 below executed the 37-test protocol
@@ -402,6 +441,57 @@ per-test plots, tables and machine-readable artifacts:
 The previous reference run (v18, 2026-08-28) is kept side-by-side for
 diffing:
 [results/verification_run_v18_37tests_2026-08-28.txt](results/verification_run_v18_37tests_2026-08-28.txt).
+
+<div style="background: linear-gradient(135deg, #000000 0%, #111111 50%, #000000 100%); border: 2px solid #D4AF37; border-radius: 18px; padding: 24px; color: #F5D76E; font-family: Georgia, 'Times New Roman', serif; box-shadow: 0 0 24px rgba(212,175,55,0.35);">
+
+<h1 style="color: #FFD700; text-align: center; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255,215,0,0.7); margin: 0 0 8px 0;">
+⚜️ ALL COMPUTATIONS WERE PERFORMED ON A SMARTPHONE ⚜️
+</h1>
+
+<h2 style="color: #D4AF37; text-align: center; letter-spacing: 1.5px; margin: 0 0 20px 0;">
+👑 POCO X7 PRO · 512 GB 👑
+</h2>
+
+<hr style="border: none; height: 1px; background: linear-gradient(90deg, transparent, #D4AF37, #FFD700, #D4AF37, transparent); margin: 20px 0;">
+
+<h3 style="color: #FFD700; border-left: 4px solid #D4AF37; padding-left: 12px; margin: 0 0 16px 0;">
+🖤 Key Memory &amp; Processor Specifications ✨
+</h3>
+
+<table style="width: 100%; border-collapse: collapse; color: #F5D76E;">
+  <thead>
+    <tr>
+      <th style="text-align: left; color: #FFD700; border-bottom: 1px solid #D4AF37; padding: 10px;">Component</th>
+      <th style="text-align: left; color: #FFD700; border-bottom: 1px solid #D4AF37; padding: 10px;">Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 10px; border-bottom: 1px solid rgba(212,175,55,0.35);"><strong>Processor (CPU)</strong></td>
+      <td style="padding: 10px; border-bottom: 1px solid rgba(212,175,55,0.35);">MediaTek Dimensity 8400-Ultra <span style="color:#FFD700;">(4 nm, 8 cores: 1 × 3.25 GHz Cortex-A725, 3 × 3.0 GHz Cortex-A725, 4 × 2.1 GHz Cortex-A725)</span></td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border-bottom: 1px solid rgba(212,175,55,0.35);"><strong>Graphics Chip (GPU)</strong></td>
+      <td style="padding: 10px; border-bottom: 1px solid rgba(212,175,55,0.35);">ARM Mali-G720 MC7</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border-bottom: 1px solid rgba(212,175,55,0.35);"><strong>RAM</strong></td>
+      <td style="padding: 10px; border-bottom: 1px solid rgba(212,175,55,0.35);">12 GB <span style="color:#FFD700;">(LPDDR5X)</span></td>
+    </tr>
+    <tr>
+      <td style="padding: 10px;"><strong>Internal Storage (ROM)</strong></td>
+      <td style="padding: 10px;">512 GB <span style="color:#FFD700;">(UFS 4.0)</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr style="border: none; height: 1px; background: linear-gradient(90deg, transparent, #D4AF37, #FFD700, #D4AF37, transparent); margin: 20px 0;">
+
+<p style="text-align: center; color: #D4AF37; font-style: italic; letter-spacing: 1px; margin: 0;">
+✨ Powered by raw mobile performance · Black &amp; Gold Edition ✨
+</p>
+
+</div>
 
 ### Computational cost of every test (real timings of the flagship run)
 
@@ -873,7 +963,7 @@ Typical uses:
 
 ## 📊 Results & reproducibility
 
-- **Full two-pass run artifacts** (NEW):
+- **Full two-pass run artifacts**:
   [`results/run_20260902_134759/`](results/run_20260902_134759/) — the
   complete v19 run of 2026-09-02 (37 tests, two-pass 72×72 → 96×96 with the
   HARDCORE audit, Julia 1.12.0): per-test reports (md/pdf/docx/html),
@@ -910,44 +1000,8 @@ Typical uses:
 | Verification languages | **10** (+ a Java port of Test 38) + the formal re-derivation in Lean 4 |
 | ζ zeros stored | **2,001,058** |
 | Figures at 600 dpi in the monograph set | 19 per language × 3 languages |
-| Monograph editions | 5 (v22 RU/EN/ZH + original v21 RU/EN) + v2.2.1 corrections |
+| Monograph editions | 5 (v22 RU/EN/ZH + original v21 RU/EN)|
 
-Directory weights (working tree):
-
-| Directory | Size | What dominates it |
-|-----------|------|--------------------|
-| `monographs/` | 341 MB | multi-format monograph editions + 600-dpi figures |
-| `AB_Cloud_Academic_Package/` | 108 MB | the packaged academic submission bundle (run archive, monographs, preprints) |
-| `Wave_attractors/` | 103 MB | hyperbolic wave-attractors reproduction study (W1) |
-| `dirac-lab/` | 89 MB | Dirac laboratory: D1–D14 test suite, figures, monograph |
-| `verification/data/` | 91 MB | the frozen ζ-zero dataset |
-| `lab-3d/` | 20 MB | 3D lattice lab: code, outputs, preprint bundle |
-| `code/` | 12 MB | the canonical Julia suite + supporting libraries |
-| `meridian-spectral-observatory/` | 12 MB | 24 standalone Julia benches + Python companion |
-| `Vortex_optimization/` | 9 MB | Test 34-ext vortex-density optimization study |
-| `results/` | 8.4 MB | flagship-run artifacts and reference logs |
-| `apps/` | 2.6 MB | two React applications with prebuilt bundles |
-| `verification/` (sans data) | ≈ 2 MB | 10 language ports + spinor64 + sections |
-| `Hilbert_Polya/` | ≈ 60 MB | Hilbert–Pólya bridge: campaigns, monograph volumes, infographics |
-| `docs/` | 60 KB | MkDocs Material site sources |
-| `formal/` | ≈ 0.3 MB source (no compiled artifacts) | Lean 4 / Coq / Agda / Isabelle formal layer |
-
-## 🕰️ Verification history timeline
-
-| Date | Event | Evidence |
-|------|-------|----------|
-| 2026-08-28 | **v18 reference run** — the 37-test two-pass suite; ⟨r⟩ = 0.5848 ± 0.0260 vs GUE 0.5992; Montgomery KS = 0.047, p = 0.27; Byers–Yang 3.5 × 10⁻¹⁵ | [results/verification_run_v18_37tests_2026-08-28.txt](results/verification_run_v18_37tests_2026-08-28.txt) |
-| 2026-09-02, 13:47 → 23:33 | **Flagship v19 run** — 37 tests × 2 passes (+ pass 3 series), 202 machine verdicts, 453 artifact files across 39 directories | [results/run_20260902_134759/](results/run_20260902_134759/) · [report log](results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt) |
-| 2026-09-03, 09:54 | **spinor64 experiment** — E1 exact symmetry of all 64 spinor structures on the Klein graph + E2 Hofstadter statistics | [verification/spinor64/output/spinor64_report.md](verification/spinor64/output/spinor64_report.md) |
-| v21 → v21.1 → v22 → v2.2.1 → v23 | **Monograph line** — original pair archived; corrections layer (§3.2.5, App. D) carries the 64/64 narrative; v23 consolidates | [monographs/](monographs/) |
-| Zenodo | Versioned DOI **10.5281/zenodo.21825394** + concept DOI **10.5281/zenodo.21825393** | [CITATION.cff](CITATION.cff) |
-| Git tags & CHANGELOG | **v1.0.0 → v1.1.0 → v1.2.0 (tagged) → v1.2.1** — the release line is documented in [CHANGELOG.md](CHANGELOG.md); the current state corresponds to the v1.2.1 entry, tag `v1.2.0` is on the main branch | [Tags](https://github.com/wild8highlander/ab-cloud-research/tags) |
-
-The two stored runs bracket the reproducibility story: v18 is the compact
-reference, the 2026-09-02 flagship is the full-evidence run — and the
-per-test timing stamps in both logs make the runtime cost of every claim
-public (Test 28: 27 min; Test 29: 1 h 05 min; Test 34/35: ~32 min each;
-most structural tests: seconds).
 
 ## 📈 Statistical deep-dive — how to read the numbers
 

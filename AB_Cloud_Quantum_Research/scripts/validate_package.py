@@ -39,8 +39,8 @@ def main():
     check("core 1.2.2", v_core == "1.2.2", v_core)
     check("processor 0.1.2", v_qp == "0.1.2", v_qp)
     check("verifier 0.4.0 (класс B исполнен)", "O-J2 (класс B) — ИСПОЛНЕНО в v0.4.0" in v_jl)
-    check("VERSION корня 1.0.0",
-          open(os.path.join(ROOT, "VERSION")).read().strip() == "1.0.0")
+    check("VERSION корня допустима (1.0.0 / 1.1.0)",
+          open(os.path.join(ROOT, "VERSION")).read().strip() in ("1.0.0", "1.1.0"))
 
     # 3. вердикты
     m = json.load(open(os.path.join(ROOT, "modules/verifier_multilang",

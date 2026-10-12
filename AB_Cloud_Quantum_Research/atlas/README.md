@@ -1,3 +1,22 @@
+<!-- enriched 1.1.0 -->
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/logo_abcloud_dark.png">
+  <img src="../assets/logo_abcloud_light.png" width="92" alt="AB Cloud Quantum Research">
+</picture>
+
+### 🏛️ Atlas — the flagship tile
+
+`AB Cloud Quantum Research` · v1.1.0 · part of one machine
+
+![badge](https://img.shields.io/badge/program-AB_Cloud_Quantum_Research-C96F4A?style=flat-square)
+![badge](https://img.shields.io/badge/verdicts-all%20PASS-3A6B4F?style=flat-square)
+![badge](https://img.shields.io/badge/license-proprietary-6B6455?style=flat-square)
+
+</div>
+
+> 🧭 **Navigation:** [↑ main README](../README.md) · [📚 monographs](../MONOGRAPH_ARCHIVE/README.md) · [🧪 hypothesis lab](../HYPOTHESIS_LAB/README.md) · [🎞 animations](../VISUAL_ANIMATIONS/README.md)
 # 🏛️ atlas/ — атлас флагманских результатов
 
 Одна плитка 2×2 «четыре измерения программы» (600 dpi, RU/EN),
@@ -28,3 +47,17 @@ from committed verdicts: blind ζ-zero reading (649+639), the exact
 compiler (1−F ≤ 4.4e-16), trace↔primes (r = 0.9996 vs 0.76 control),
 and no-signaling nonlocality (S = 2√2 − 4.4e-16). Rebuild with
 `scripts/make_atlas.py`.
+
+---
+
+<div align="center">
+
+<img src="../assets/avatars/avatar_author.svg" width="84" alt="author">
+
+*Part of the discipline: pre-registration · blind protocols · replication ·
+negative results published*
+
+**AB Cloud Quantum Research** · v1.1.0 ·
+[license](../../LICENSE) · © Isaev Iskhak Khamzatovich
+
+</div>

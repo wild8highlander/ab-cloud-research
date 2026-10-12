@@ -1,3 +1,22 @@
+<!-- enriched 1.1.0 -->
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/logo_abcloud_dark.png">
+  <img src="../assets/logo_abcloud_light.png" width="92" alt="AB Cloud Quantum Research">
+</picture>
+
+### ⚖️ Formal layer — Lean 4 / Coq / Agda / Isabelle
+
+`AB Cloud Quantum Research` · v1.1.0 · part of one machine
+
+![badge](https://img.shields.io/badge/program-AB_Cloud_Quantum_Research-C96F4A?style=flat-square)
+![badge](https://img.shields.io/badge/verdicts-all%20PASS-3A6B4F?style=flat-square)
+![badge](https://img.shields.io/badge/license-proprietary-6B6455?style=flat-square)
+
+</div>
+
+> 🧭 **Navigation:** [↑ main README](../README.md) · [📚 monographs](../MONOGRAPH_ARCHIVE/README.md) · [🧪 hypothesis lab](../HYPOTHESIS_LAB/README.md) · [🎞 animations](../VISUAL_ANIMATIONS/README.md)
 # ⚖️ formal/ — формальный слой единого пакета (мост)
 
 Формальные исходники живут **в материнской программе**
@@ -42,3 +61,17 @@ of truth); this folder is a map. Th1–Th6 are formally stated in Lean 4 and
 Coq with named reductions A1–A6, no `sorry`/`admit` anywhere; the V13
 obligation machine keeps the RH conclusion blocked — the layer guarantees
 honest blocking, not a proof of RH.
+
+---
+
+<div align="center">
+
+<img src="../assets/avatars/avatar_author.svg" width="84" alt="author">
+
+*Part of the discipline: pre-registration · blind protocols · replication ·
+negative results published*
+
+**AB Cloud Quantum Research** · v1.1.0 ·
+[license](../../LICENSE) · © Isaev Iskhak Khamzatovich
+
+</div>

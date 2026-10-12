@@ -1,3 +1,22 @@
+<!-- enriched 1.1.0 -->
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/logo_abcloud_dark.png">
+  <img src="../assets/logo_abcloud_light.png" width="92" alt="AB Cloud Quantum Research">
+</picture>
+
+### 🌐 Web lab — the research portal
+
+`AB Cloud Quantum Research` · v1.1.0 · part of one machine
+
+![badge](https://img.shields.io/badge/program-AB_Cloud_Quantum_Research-C96F4A?style=flat-square)
+![badge](https://img.shields.io/badge/verdicts-all%20PASS-3A6B4F?style=flat-square)
+![badge](https://img.shields.io/badge/license-proprietary-6B6455?style=flat-square)
+
+</div>
+
+> 🧭 **Navigation:** [↑ main README](../README.md) · [📚 monographs](../MONOGRAPH_ARCHIVE/README.md) · [🧪 hypothesis lab](../HYPOTHESIS_LAB/README.md) · [🎞 animations](../VISUAL_ANIMATIONS/README.md)
 # 🌐 web_lab/ — портал исследования AB Cloud Quantum Research
 
 `index.html` — единая точка входа (RU/EN): карточки трёх программ со
@@ -23,3 +42,17 @@ cards linking to their labs, the Th1–Th6 theorem layer and the formal
 status. The «Theorems» tab — added to both labs during the merge — shows
 statements, certificates, the 24 document paths and the A1–A6 reduction
 registry. Everything runs locally in the browser.
+
+---
+
+<div align="center">
+
+<img src="../assets/avatars/avatar_author.svg" width="84" alt="author">
+
+*Part of the discipline: pre-registration · blind protocols · replication ·
+negative results published*
+
+**AB Cloud Quantum Research** · v1.1.0 ·
+[license](../../LICENSE) · © Isaev Iskhak Khamzatovich
+
+</div>

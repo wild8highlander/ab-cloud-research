@@ -109,3 +109,17 @@ python3 -m pytest tests/ -q        # 11 invariants
   remains blocked by the V13 obligation machine.
 
 Полная русская версия: [`README.md`](README.md).
+
+---
+
+<!-- enriched 1.1.0 -->
+<div align="center">
+
+<img src="../../../assets/avatars/avatar_spinor.svg" width="84" alt="spinor">
+
+*Part of the discipline: pre-registration · blind protocols · replication ·
+negative results published*
+
+**AB Cloud Quantum Research** · v1.1.0 · [license](../../../LICENSE) · © Isaev Iskhak Khamzatovich
+
+</div>

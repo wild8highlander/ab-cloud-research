@@ -1,0 +1,8 @@
+{
+  "name": "my-explicit-formula",
+  "battery": "trace",
+  "params": { "x": 100, "t": 300 },
+  "thresholds": { "residual_max": 0.05 },
+  "does_not_prove": "RH; the analytic prerequisites of the obligation machine V13",
+  "blind": true
+}

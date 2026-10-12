@@ -1,0 +1,122 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{copper}{HTML}{C96F4A}
+\hypersetup{colorlinks=true, linkcolor=copper, urlcolor=copper}
+\setlength{\parskip}{4pt}
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Research Program: The AB Processor (V20, P0–P6)}\\[8pt]
+{\large Research Program Monograph · Version 1.0.0}\\[6pt]
+{\color{copper}\small RESEARCH PROGRAM · PROCESSOR}\\[4pt]
+{\small Isaev Iskhak Khamzatovich · ORCID 0009-0003-7299-0701}\\[2pt]
+{\small AB Cloud Quantum Research · DOI 10.5281/zenodo.21825394}
+\end{center}
+
+\tableofcontents
+\newpage
+
+\section{Research Program: The AB Processor}
+
+\noindent\textit{\color{copper}The processor program turns the mathematics of the core into an executable machine: the AB-cloud ISA, the exact compiler, memory, ALU, zero reading, nonlocality, benchmarks and the passport. Stage P0 is executed; the P0–P6 roadmap is chained with verification.}
+
+\subsection{1. Program goals}
+
+\begin{itemize}
+  \item fix the AB-cloud ISA: admissible clouds, parameters, composition;
+  \item compile unitary logic exactly: 1−F at the machine epsilon level;
+  \item implement "reads, does not carry" algebraically (V23);
+  \item provide nonlocality without signaling (V24) and obtain the Datasheet 1.0 passport.
+\end{itemize}
+
+\subsection{2. Methodology}
+
+The ISA is not "yet another gate set": every cloud carries a geometric phase, and compilation accounts for it exactly. All stages have pre-registered thresholds and verdict files. Benchmarks follow the E18 methodology: one class, one criterion, strong baselines. numpy replication is mandatory.
+
+\subsection{3. Executed: P0 (V20)}
+
+\begin{table}[htbp]\centering\small
+\caption{Table 3.2. The V20 verdict}
+\begin{tabular}{p{0.38\textwidth} p{0.58\textwidth}}
+\toprule
+\textbf{Indicator} & \textbf{Value}
+\midrule
+accuracy 4×4 & 1−F ≤ 4.4e−16; depth ≤ 7 \\
+accuracy 8×8 & 1−F ≤ 6.7e−16; depth ≤ 29 \\
+compilation time & 1.8 s for the full run \\
+numpy replication & 0 mismatches; |Δ(1−F)| = 2.2e−16 \\
+status & PASS; stage P0 closed \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{4. The P0–P6 roadmap}
+
+\begin{table}[htbp]\centering\small
+\caption{Table 4.1. Processor stages}
+\begin{tabular}{p{0.10\textwidth} p{0.13\textwidth} p{0.40\textwidth} p{0.33\textwidth}}
+\toprule
+\textbf{Stage} & \textbf{Campaign} & \textbf{Content} & \textbf{Depends on}
+\midrule
+P0 & V20 & ISA + exact compiler & Th5 (block structure) \\
+P1 & V21 & volatile memory & ES models, TS1–TS3 \\
+P2 & V22 & AB-cloud ALU & V20 \\
+P3 & V23 & zero reading & E17, Th6 \\
+P4 & V24 & nonlocality & E13/E14 \\
+P5 & V25 & benchmarks & the E18 methodology \\
+P6 & V26 & Datasheet 1.0 & all verdicts of the P-chain \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{5. Honest boundaries}
+
+The 2q KAK optimum (3 gates) is unreachable in the ISA class: the compiler produces 10, and this is a property of the class, not of the algorithm. The V20 targets are unitary 4×4/8×8; non-unitary operators and larger sizes are outside the campaign. The V23/V24 previews are not full verdicts: the full campaigns are ahead.
+
+\subsection{6. Key results in detail}
+
+\subsection{6.1. From P0 to the P3/P4 previews}
+
+\subsubsection{V20 — exact compilation (P0)}
+
+The only executed processor campaign so far closes stage P0: the ISA is fixed, the Givens-QR compiler assembles unitary 4×4 and 8×8 from AB clouds with infidelity 1−F ≤ 4.4e−16 and 6.7e−16, depths ≤ 7 and ≤ 29 gates, the full run takes 1.8 s. The numpy replication gives zero counter mismatches and |Δ(1−F)| = 2.2e−16. Accuracy at machine epsilon means: further improvement requires changing the arithmetic, not the algorithm.
+
+\subsubsection{V23 preview — zero reading}
+
+The P3 stage preview: the processor receives six constants of the trace formula and reproduces 12 of 12 ζ zeros exactly; storage = 0. The blind discipline is preserved: the constants contain no zeros, the output is pinned before validation. A preview is not a full verdict: the full V23 campaign requires the whole E17 methodology at the processor level.
+
+\subsubsection{V24 preview — nonlocality}
+
+The P4 stage preview: a pair of separated clouds gives CHSH S = 2√2 − 4.4e−16, signaling protection 1000/1000, zero commutators of the measuring operators. The correlations are nonlocal but carry no signal — a structural property of quantum mechanics reproduced by the architecture and required for distributed operations.
+
+\subsubsection{E18 link — class B}
+
+The external control of the processor compiler: against five baselines at equal ISA — a ×59,000 time speed-up at equal accuracy; the honest boundary — the 2q KAK optimum (3 gates) is unreachable in the class (the compiler produces 10). Class B protects the comparison from looseness and makes the result reproducible.
+
+\subsection{7. How to reproduce}
+
+\begin{verbatim}
+python3 modules/processor_ab/scripts/compute_v20.py      # campaign V20
+cd modules/processor_ab && python3 -m pytest tests/ -q   # tests
+# web lab: modules/processor_ab/web_lab/index.html (compiler tab)
+\end{verbatim}
+
+\subsection{8. Verdicts and data}
+
+\begin{itemize}
+  \item V20 verdict: modules/processor\_ab/data/v20\_verdict.json;
+  \item claim audit: modules/processor\_ab/verification/claim\_audit/;
+  \item figures: figures\_hires/ru|en (600 dpi); workbook: tables/qp\_workbook.xlsx;
+  \item rpbridge: ISA, compiler, ALU, reader — modules/processor\_ab/rpbridge/.
+\end{itemize}
+
+\subsection{9. Program risks}
+
+The main risk is extending the ISA without re-examining the class: any new primitives must pass the E18 methodology again. The second risk is the temptation to claim the KAK optimum: the class boundary is fixed by a verdict and is not removed without new verdicts. The third — the V23/V24 previews: until the full campaigns, their results do not enter the passport.
+
+\end{document}
