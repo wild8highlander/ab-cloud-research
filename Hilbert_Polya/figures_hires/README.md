@@ -7,7 +7,7 @@
 *The publication gallery of the series: every data figure, print-quality,
 bilingual, and generated deterministically from the committed verdicts.*
 
-[← Back to the main README](../../README.md)
+[← Back to the main README](../README.md)
 
 ## What this folder is
 

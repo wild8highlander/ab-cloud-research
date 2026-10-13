@@ -1,6 +1,6 @@
 # C4 · The trace formula: Tr e^{−uH} versus the explicit formula
 
-![version](https://img.shields.io/badge/version-1.0.0-298bbc) ![](https://img.shields.io/badge/series-C1--C8-3b4f58) ![](https://img.shields.io/badge/statuses-honest-3a6b4f)
+![version](https://img.shields.io/badge/version-2.0.0-298bbc) ![](https://img.shields.io/badge/series-C1--C8-3b4f58) ![](https://img.shields.io/badge/statuses-honest-3a6b4f)
 
 <p align="center"><img src="../../assets/illustrations/ill_trace_formula.png" width="720" alt="The Guinand–Weil trace formula: the heat trace of the zero-coded operator H_ξ on the zeros side and the prime comb with weight Λ(n)/√n on the primes side, joined by the sine transform of Q(a)"/></p>
 
@@ -12,6 +12,33 @@
 
 [← Back to the main README](../../README.md)
 
+## Quick reference card
+
+| Item | Value |
+|---|---|
+| Claim (theorem T6) | if a Hilbert–Pólya operator existed, its heat trace would have to carry the prime weight: Tr e^{−xH} = smooth Γ-terms − ΣΛ(n)/√n·x/(x²+ln²n) |
+| Headline numbers | \|ΔQ\| ≤ 1.7e-12 (M0, grid a ∈ [0.1, 3]) · \|ΔK\| ≤ 1.2e-5 (M1, x ∈ [0.08, 3]) · PC0: r = +0.9998, relative residual 2.1% · M2: r_EF −0.93…+1.00 over the 52 gates (null clouds) · gap ≈ 0.5 orders by residual (best gate 6.7% vs the zeros' 2.1%) |
+| Verdict string | **{'ru': 'T6 верифицирована; разрыв Г2 ≈ 1 порядок в тепловой метрике', 'en': 'T6 verified; the H2 gap ≈ 1 order in the trace metric'}** — cite the results table for the precise measurement: ≈ 0.5 orders (gap_orders = 0.509) |
+| Gate verdict | the lattice gates sit in the null clouds — no prime weight; the status column reads H2 — NO, measured |
+| Operator | H_ξ = diag(±γ_n), built from the zeros file (`zeros6.txt`, 2 001 052 zeros) — identity by construction |
+| Population | the 52-gate protocol family of C3 (package total 87 gates); windows of 200 unfolded levels; 40-point thermal grid u ∈ [0.05, 1.0]; scale fixed at s = 1 |
+| Artifacts | `data/task9a_trace_formula.json` (committed verdict; meta records the zeros file, the sieve bound 10⁷ and the split A_split = 1.5) · `data/curves.npz` (arrays `U`, `P_ref`, `D_xi`, `gates_D`) · figures `fig06_trace` / `fig07_parts` / `fig08_rEF` |
+| One-line meaning | the zeros pass the thermal test that the gates fail: the prime weight Λ(n)/√n is a derived theorem (T6) for H_ξ and is measured absent for every gate |
+
+Reproduction entry point:
+
+```bash
+# tour of the verdict (~seconds, no zeros file needed)
+python3 campaigns/run_c4_trace_formula.py
+
+# the committed verdict is self-contained; the zeros file (zeros6.txt,
+# 2 001 052 zeros) is required only for fresh recomputations of the sums
+# figures: figures_hires/ru/fig06_trace.png · fig07_parts.png · fig08_rEF.png
+#          (screen copies under figures/ru/; English-named *_en variants under figures_hires/en/ and figures/en/)
+```
+
+Everything else in this document explains where these five numbers come from, what they certify, and what they deliberately do not claim.
+
 ## Contents
 
 1. The question
@@ -22,12 +49,14 @@
 6. The gates' heat projection: r_EF, null clouds, and the ≈0.5-order gap
 7. Results
 8. How to read the numbers
-9. Interpretation: what T6 proves and does not prove
-10. Reproduction
-11. Data and figures
-12. Verdict
-13. FAQ
-14. See also
+9. A five-minute tour of the explicit formula
+10. Interpretation: what T6 proves and does not prove
+11. Reproduction
+12. Data and figures
+13. Verdict
+14. FAQ
+15. Mini-glossary
+16. See also
 
 ---
 
@@ -54,6 +83,15 @@ Everything in this campaign is a measurement of distance: between the operator s
 ## Two formulas, one bridge: the explicit formula meets the trace formula
 
 Number theory has two classical ways of saying one thing, and the whole of campaign C4 lives on the bridge between them.
+
+The two sides at a glance:
+
+| | Primes side | Zeros side |
+|---|---|---|
+| Object | explicit formula, Weil (1952) test-function form | heat trace K(x) = Σ_{γ>0} e^{−xγ} = Tr e^{−xH_ξ} |
+| Generator | ζ'/ζ(½+a) = −Σ_n Λ(n)/n^{½+a} for a > 1.5 | Q(a) = Σ_{γ>0} 2a/(a²+γ²) |
+| Thermal shape | comb P(u) = Σ Λ(n)/√n · u/(u²+ln²n) | fluctuation D(u) of the unfolded heat trace |
+| What it encodes | *which* numbers are prime (Λ ≠ 0 only at prime powers) | *where* the zeros sit |
 
 **The primes side — the explicit formula.** Since Riemann and von Mangoldt it has been known that the distribution of primes can be written exactly as a sum over zeta zeros; Weil (1952) cast this as a precise identity for suitable even test functions h: a sum over zeros Σ_ρ h(γ) equals a sum over primes with von Mangoldt weights plus smooth archimedean terms. Guinand's earlier formulation showed that the zero side can be organized as a cosine (sine) transform of a single generating function. In this campaign the test function is the thermal one, h(γ) = e^{−xγ}, and the resulting identity is the Guinand–Weil trace formula quoted in the title:
 
@@ -255,6 +293,22 @@ A note on two committed formulations of the gap. The results table measures ≈ 
 > The 1.2e-5 floor is the quadrature floor, not the precision limit of the identity: for x ≥ 1 the value of K(x) itself is ~1e-6 and the relative metric loses meaning; in the informative range the agreement is 1e-6…1e-4.
 > The zero file is needed only for fresh recomputations; the committed verdict is self-contained.
 
+## A five-minute tour of the explicit formula
+
+A compact walk through the two sides, using four committed numbers as stepping stones.
+
+**Stand on the primes side and read identity (★) term by term.**
+
+    Q(a) = ζ'/ζ(½+a) + 1/(½+a) + 1/(a−½) − ½lnπ + ½ψ(¼+a/2) − B − C₀.
+
+Six terms, each with a fixed role and none with a free parameter: the first term carries the primes (through ζ'/ζ, whose Dirichlet series at a > 1.5 is exactly −Σ_n Λ(n)/n^{½+a}); the two pole terms 1/(½+a) and 1/(a−½) are the echoes of the 1/s and 1/(s−1) factors in ξ'/ξ; −½lnπ is the archimedean density; ½ψ(¼+a/2) is the Γ-part; and −B − C₀ subtracts the two Hadamard normalization constants derived in *Derived constants as built-in controls*. The identity is an equality between the raw zero-file sum Q(a) = Σ_{γ>0} 2a/(a²+γ²) and this closed form — which is why it can serve as a calibration, not a fit.
+
+**Stone one — the M0 grid at a = 0.10.** Direct sum over the file: Q = 0.004620924280814972. Closed form (★): Q = 0.004620924280536055. Difference: 2.79e-13. Across the grid a ∈ {0.10, …, 3.00} the difference never exceeds 1.73e-12 (attained at a = 3.0). The primes side and the zeros side already agree before any transform is taken.
+
+**Cross the bridge and land on the operator side.** The same Q(a) feeds the trace formula (★★). At x = 0.08 the direct spectral sum over the file gives K = 1.0352618292269251, while the three-part formula gives T1 + T2 + T3 = 0.0013190607 − 0.0322335884 + 1.0661749357 = 1.0352604080544578 — agreement to 1.42e-6. Note who dominates at small x: the smooth archimedean bulk T3 (1.066) dwarfs everything; the prime part T2 is already present (−0.0322) but sits on top of the bulk. This is the optical problem of the whole subject: the prime weight is real but buried in a smooth background.
+
+**Stone two — why the fluctuation, and only the fluctuation, can see the comb.** The gate metric of *The method step by step* subtracts exactly that smooth background — D(u) = Σ_n e^{−u x_n} − (1 − e^{−u x_K})/u — so what remains is the spectral fine structure, which is then correlated against the comb P(u) at fixed scale. On the zeros' own window the residual of that comparison is 2.1%; on the best of the 52 gates it is 6.7% — a factor ≈ 3.2, the ≈ 0.5-order gap. That is the campaign in miniature: derive (Hadamard → (★)), verify (M0, M1), calibrate (PC0), and only then aim the same ruler at the candidates.
+
 ## Interpretation: what T6 proves and does not prove
 
 **What T6 proves.**
@@ -331,6 +385,35 @@ Four committed reasons: the scale knob was removed (fixed s = 1, so r could not 
 **6. Where do Hadamard, Guinand, Weil and Connes enter?**
 The Hadamard product (1893) is the starting point of the derivation of Q(a); Guinand's formulation organizes the zero side as a transform; Weil (1952) states the explicit formula in test-function form — here with the thermal test function e^{−xγ}; the heat-kernel viewpoint is consonant with Connes (1999) and his semilocal factor. The derivation in this package is self-contained, and every numerical constant was derived in-project rather than taken from the literature.
 
+**7. What is the Guinand–Weil trace formula, in one sentence?**
+An exact identity — Tr e^{−xH_ξ} = (1/π)∫₀^∞ Q(a) sin(ax) da — equating a spectral sum over the zeta zeros (the heat trace of the zero-coded operator) with the transform of a function Q(a) that contains ζ'/ζ and therefore, for a > 1.5, the prime comb with weight Λ(n)/√n; it is Weil's explicit formula with the thermal test function e^{−xγ}.
+
+**8. What would change the H2 verdict?**
+A gate family whose heat-trace fluctuation tracks the comb P(u) at a relative residual near the zeros' 2.1% at fixed scale — not a high r_EF, which the broad null clouds (±0.39) produce by chance. The metric's decisive component is the residual, which is exactly why the campaign fixes the scale and calibrates with PC0.
+
+**9. Where do the counts 52 and 87 come from?**
+C4 measures the 52-gate protocol family of C3 with the shared engine and protocol (reproduced bit-for-bit: |Δ mean_spacing| = 1.45e-16); 87 is the package's total gate population including the extended families of C5, which are measured separately in that campaign. The trace-formula benchmark of C4 is what the other 35 gates are judged against elsewhere.
+
+## Mini-glossary
+
+| Term | Meaning |
+|---|---|
+| Heat trace | Tr e^{−xH} = Σ_n e^{−xλ_n}: the Laplace transform of the spectrum; exponential damping smooths discrete levels into a curve |
+| Explicit formula | the classical identity expressing prime sums through zeta zeros (Weil 1952, test-function form) |
+| Test function | the even function applied to the zeros; here h(γ) = e^{−xγ} |
+| H_ξ | the zero-coded operator diag(±γ_n), built from the zeros file — identity by construction |
+| Q(a) | Σ_{γ>0} 2a/(a²+γ²); the sine-transform dual of K(x); contains ζ'/ζ(½+a) via identity (★) |
+| K(x) | Σ_{γ>0} e^{−xγ} = Tr e^{−xH_ξ}; recovered from Q(a) by the trace formula (★★) |
+| Λ(n)/√n comb | P(u) = Σ Λ(n)/√n · u/(u²+ln²n); the thermal fingerprint of primes and prime powers |
+| Unfolded levels | levels rescaled to unit mean density; windows of 200 levels feed D(u) |
+| D(u) | heat-trace fluctuation of a window: Σ_n e^{−u x_n} − (1 − e^{−u x_K})/u |
+| r_EF | corr(D, c·P) at fixed scale s = 1, amplitude c by least squares — the projection metric |
+| Null cloud | the spread of r_EF for spectra with no prime weight (surrogate 0.00±0.39, Poisson 0.08±0.80) |
+| PC0 | positive control: the zeros' own window through the identical pipeline (r = +0.9998, residual 2.1%) |
+| H2 / Г2 | the "spectral identity" clause of the Hilbert–Pólya checklist (level n ↔ zero n) — verdict NO |
+| T6 | the theorem of this campaign: the trace formula with prime weight for H_ξ |
+| M0 / M1 / M2 | calibration of (★); verification of (★★) for H_ξ; the 52-gate thermal projection |
+
 ## See also
 
 - [../C3_gate_family/README.md](../C3_gate_family/README.md) — the 52-gate protocol family measured here, and the first (rank-correlation) projection of the H2 gap.
@@ -338,5 +421,5 @@ The Hadamard product (1893) is the starting point of the derivation of Q(a); Gui
 - [../../results/RESULTS.md](../../results/RESULTS.md) — the living registry of committed numbers, the Г1–Г5/H1–H5 verdicts, and the honesty registry (including the broad-null acknowledgment for the thermal metric).
 
 ---
-*Hilbert Polya Bridge v1.0.0 · C4 · The trace formula: Tr e^{−uH} versus the explicit formula*
+*Hilbert Polya Bridge v2.0.0 · C4 · The trace formula: Tr e^{−uH} versus the explicit formula*
 

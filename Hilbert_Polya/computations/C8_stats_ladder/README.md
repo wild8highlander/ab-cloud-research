@@ -1,6 +1,6 @@
 # C8 · The statistics ladder and spin structures
 
-![version](https://img.shields.io/badge/version-1.0.0-298bbc) ![](https://img.shields.io/badge/series-C1--C8-3b4f58) ![](https://img.shields.io/badge/statuses-honest-3a6b4f)
+![version](https://img.shields.io/badge/version-2.0.0-298bbc) ![](https://img.shields.io/badge/series-C1--C8-3b4f58) ![](https://img.shields.io/badge/statuses-honest-3a6b4f)
 
 <p align="center"><img src="../../assets/illustrations/ill_stats_ladder.png" width="860" alt="The Poisson, GOE and GUE spacing laws arranged as a ladder that the gate spectrum climbs by symmetry"/></p>
 
@@ -11,6 +11,35 @@
 > **TL;DR (translated from the Russian source).** Poisson/GOE/GUE governed by symmetry (T10); GSE is structurally unreachable (T²=+1); spinor64: 64 spin structures → 4 Hamiltonians (T8) with isospectrality 1.1e-14.
 
 [← Back to the main README](../../README.md)
+
+## Quick reference card
+
+| Item | Value |
+|---|---|
+| Claim (T10) | The spacing class is set by symmetry: integrable or localised → Poisson, real disorder → GOE, complex vortex phases → GUE; GSE unreachable (T² = +1) |
+| Claim (T8) | spinor64: 64 spin structures → 4 Hamiltonians — the coding is exact, its capacity capped by phase symmetry |
+| Verdict | **H3 — YES; T8, T10** · committed record: `{'ru': 'Г3 — ДА; T8, T10', 'en': 'H3 — YES; T8, T10'}` |
+| Headline numbers | ⟨r⟩ = 0.597–0.612 at Nv ≥ 8 (GUE) · GOE plateau 0.520–0.538 at w = 1–4 · Poisson 0.324–0.386 clean and 0.387 at w = 32 · constants 0.3863 / 0.5307 / 0.5996, GSE 0.6762 (reference-only, Atas et al. 2013) |
+| Flagship channel | Nv = 16, w = 0.5, torus, α = 0.5 → ⟨r⟩ = 0.5972 over 1715 spacings; KS D = 0.0172 vs GUE, p = 0.684; GOE rejected at p = 2.25e-07, Poisson at p = 2.74e-112 |
+| spinor64 | 64 classes / 84 edges · orbits 28/21/7/7/1 · Arf 28 odd / 36 even · zero modes 2/3/3/3/7 · max\|Δλ\| = 1.02e-14 (the registry's \|Δλ\| ≤ 1.1e-14 is the same measurement, rounded) |
+| The ladder | 11 channels on the protocol lattice L = 24, series seed 96; n_real up to 5, n_spacings up to 1715; runtime 2.3 s; spinor64 runtime 0.8 s |
+| Artifacts | `data/results.json` · `data/ladder/stats_ladder.json` · `data/spinor64/spinor64_check.json` · `../data/c8_*.json` · `fig14_ladder` / `fig15_spinor` (ru + en) |
+| One-line meaning | Universality is an attractor: it cannot witness arithmetic, because it erases everything but symmetry. |
+
+Fast reproduction path:
+
+```bash
+# verdict tour (~seconds, no zeros file needed)
+python3 campaigns/run_c8_stats_ladder.py
+
+# the committed artefacts behind every table above
+cat data/results.json
+cat data/ladder/stats_ladder.json      # eleven channels, constants, GSE note (runtime 2.3 s)
+cat data/spinor64/spinor64_check.json  # E1 inventory + E2 reduction (runtime 0.8 s)
+
+# independent protocol checks of this campaign (IVP)
+make ivp
+```
 
 ## Contents
 
@@ -25,7 +54,8 @@
 9. [Data and figures](#data-and-figures)
 10. [Verdict](#verdict)
 11. [FAQ](#faq)
-12. [See also](#see-also)
+12. [The threefold way in one paragraph](#the-threefold-way-in-one-paragraph)
+13. [See also](#see-also)
 
 ---
 
@@ -33,7 +63,7 @@
 
 Which random-matrix classes does the lattice realise, and what governs them? And what do discrete phase structures encode — is there a "hidden variable" of arithmetic among them? The answers committed by this campaign: **the class is set by symmetry (the Dyson triplet, T10)**; and **discrete codings are exact, but their capacity is set by phase symmetry, not by the number of structures (T8)**. A clean or strongly localised lattice clusters its levels like independent random numbers (Poisson); a lattice with real disorder and time-reversal symmetry settles onto the GOE plateau; a lattice with complex vortex phases — where time-reversal is broken and no antiunitary symmetry survives — lands in GUE, the class of the zeta zeros. And the sixty-four spin structures of the Klein quartic, far from being sixty-four independent physics choices, collapse to exactly four distinct Hamiltonians, with spectra coinciding to machine precision inside each orbit.
 
-This is the definitive edition of C8. It carries the original results table in full, the eleven-channel ladder with its committed statistics, the spinor64 experiment at full depth (E1 inventory and E2 reduction), and a careful statement of what the GUE verdict does and does not give the Hilbert–Pólya programme.
+This is the unified edition of C8 — the single README of this campaign. It carries the original results table in full, the eleven-channel ladder with its committed statistics, the spinor64 experiment at full depth (E1 inventory and E2 reduction), and a careful statement of what the GUE verdict does and does not give the Hilbert–Pólya programme. One question is about the continuum of Hamiltonians the gate family can produce (the ladder, T10); the other is about a finite set of sixty-four phase choices (spinor64, T8). Both get binary answers, and both answers are symmetry answers — which is exactly why they belong in the same campaign. The two slogans to carry away: *symmetry sets the class*, and *symmetry caps the code*.
 
 ## Background
 
@@ -55,11 +85,17 @@ The fourth member of the symmetry family, **GSE** (Gaussian symplectic ensemble,
 
 <a href="../../assets/illustrations/ill_montage_bench.png"><img src="../../assets/illustrations/ill_montage_bench.png" width="860" alt="The measurement bench where eleven lattice channels are classified against the three spacing laws"/></a>
 
+<p align="center"><img src="../../assets/avatars/hp_riemann.svg" width="120" alt="Riemann avatar"/></p>
+
+<p align="center"><em>Riemann's zeros fall in the GUE class; the campaign checks whether the gate's spectrum falls there too — and what else symmetry demands.</em></p>
+
 ### Spin structures: sixty-four ways to close a fermion around a curve
 
-On a complex curve of genus g, a *spin structure* is a choice of square root of the canonical bundle — equivalently, a pattern of periodic versus antiperiodic boundary conditions for a fermion transported around the g independent cycles. There are 2^(2g) of them. The test object here is the **Klein quartic** (genus 3), so the count is 2⁶ = **64 spin structures**, classically split by the **Arf invariant** into 36 even and 28 odd (2^(g−1)(2^g ± 1) = 36 and 28 at g = 3). The odd structures carry forced zero modes; the even ones do not.
+On a complex curve of genus g, a *spin structure* is a choice of square root of the canonical bundle — equivalently, a pattern of periodic versus antiperiodic boundary conditions for a fermion transported around the g independent cycles. There are 2^(2g) of them. The test object here is the **Klein quartic** (genus 3), so the count is 2⁶ = **64 spin structures** — the classical *theta characteristics* — classically split by the **Arf invariant** into 36 even and 28 odd (2^(g−1)(2^g ± 1) = 36 and 28 at g = 3). The odd structures carry forced zero modes; the even ones do not.
 
-Why should a numerical package about the zeta function care? Because spin structures are the *cleanest discrete phase structure available*: a lattice discretisation encodes each of the 64 by a sign vector e ∈ (Z/2)⁶, each sign vector becomes a phase pattern in the Hamiltonian, and every claim of the form "this discrete coding carries information" can be tested with total rigour — two structures either produce the same Hamiltonian bit-for-bit or they do not. spinor64 (the experiment of this campaign named after that count) asks the hidden-variable question with this object: if arithmetic hides somewhere in discrete phase choices, sixty-four candidates is where one would look first. What the experiment finds is a symmetry reduction, not an arithmetic archive — see Results and Interpretation.
+Why should a numerical package about the zeta function care? Because spin structures are the *cleanest discrete phase structure available*: a lattice discretisation encodes each of the 64 by a sign vector e ∈ (Z/2)⁶, each sign vector becomes a phase pattern in the Hamiltonian, and every claim of the form "this discrete coding carries information" can be tested with total rigour — two structures either produce the same Hamiltonian bit-for-bit or they do not. spinor64 (the experiment of this campaign named after that count) asks the hidden-variable question with this object: if arithmetic hides somewhere in discrete phase choices, sixty-four candidates is where one would look first. What the experiment finds is a symmetry reduction, not an arithmetic archive — the hunt comes up empty in the most informative way possible — see Results and Interpretation.
+
+<a href="../../assets/illustrations/ill_pixel_encoding.png"><img src="../../assets/illustrations/ill_pixel_encoding.png" width="860" alt="Phase coding of spin structures collapsing sixty-four sign patterns onto a two-by-two grid of flux pairs"/></a>
 
 <p align="center"><img src="../../assets/avatars/hp_hilbert.svg" width="120" alt="Hilbert avatar"/></p>
 
@@ -137,6 +173,10 @@ The original method statement, preserved: *an 11-channel ladder (n_real up to 5,
 
 *(Condensed from `data/ladder/stats_ladder.json`, runtime 2.3 s; distances Δ are |⟨r⟩ − reference|.)* The ladder tells one story twice: by ⟨r⟩ and by KS. The clean lattice sits in Poisson/clustering; the weak-disorder window climbs to the GOE plateau and is *accepted* as GOE at w = 4; strong disorder falls back to Poisson with the cleanest p-value of the real-disorder arm (0.829); and both vortex channels are accepted as GUE with overwhelming margins over GOE and Poisson (at channel 10, GOE is rejected at p = 2.25e-07 and Poisson at p = 2.74e-112). The crossover channels (w ≈ 0.2–2, and the over-disordered w = 8) fit no reference well — they are transitions, and the table says so instead of forcing a label.
 
+<p align="center"><img src="../../assets/avatars/hp_agent_atlas.svg" width="120" alt="Agent Atlas avatar"/></p>
+
+<p align="center"><em>Agent Atlas walked the eleven channels in order — and marked the crossover ones "unclassified" where a weaker ledger would have guessed.</em></p>
+
 ### spinor64 in detail
 
 | Item | Committed value | Reference status |
@@ -156,10 +196,13 @@ The original method statement, preserved: *an 11-channel ladder (n_real up to 5,
 ## How to read the numbers
 
 - **⟨r⟩ is a *relative* statistic.** Each adjacent-spacing ratio s̃ = min/max is bounded by 1 and biased toward small values for Poisson (0.3863) and toward stiff spectra for GUE (0.5996). Differences of 0.01 near 0.60 are meaningful at n_spacings ≈ 1715; differences of 0.01 near 0.39 at 807 spacings are routine. Always compare against the constants, never against 0.5 folklore.
+- **0.60 is a fixed point, not a direction.** Compare every channel against the committed constants 0.3863 / 0.5307 / 0.5996; a channel at 0.597 with 1715 spacings is on the GUE attractor, while 0.5379 at 1029 spacings is on the GOE plateau. The gap between the two laws is about 0.07 — resolvable here with margin.
 - **KS p-values are the referee, ⟨r⟩ is the guide.** A channel is classified when the ⟨r⟩-nearest reference also survives KS at the usual 5% level. Channel 6 (GOE, p = 0.180), channels 8–9 (Poisson, p = 0.034 / 0.829) and channels 10–11 (GUE, p = 0.684 / 0.173) pass; the crossover channels fail all three and stay unclassified by design.
+- **The p-values are the story's margins.** GUE is accepted at p = 0.684 while GOE is rejected at p = 2.25e-07 and Poisson at p = 2.74e-112 in the same channel: the class assignment is not a coin toss, it is a landslide.
 - **"T² = +1 → unreachable" is an architectural statement.** It follows from the lattice being spinless; no experiment could overturn it, and none tried. This is why the row's status is "architectural constraint" and why the GSE constant is kept as a reference only.
 - **The 64 → 4 reduction is exact, not statistical.** The phase coding maps 2⁶ sign vectors onto a 2×2 grid of flux pairs; sixty of the sixty-four Hamiltonians are literally identical to one of the other four. The four unique ⟨r⟩ values in the reference table and the four fresh measurements in the re-run are two views of the same four-object set.
-- **Machine floors.** 1e-14 is the package's declared floor for spectral differences (below it, only diagonalisation noise lives). Isospectrality at 1.02e-14 and the ⟨r⟩ reproduction at 1.34e-14 both sit on that floor — the correct numerical posture for "equal".
+- **The reduction is bitwise, then statistical.** First sixty-four Hamiltonians collapse to four *identical matrices* (a statement about the coding); only then do the four survivors get four slightly different ⟨r⟩ values (a statement about their spectra). Do not read the four values as four variants of noise — they are four genuinely distinct Hamiltonians.
+- **Machine floors.** 1e-14 is the package's declared floor for spectral differences (below it, only diagonalisation noise lives). Isospectrality at 1.02e-14 and the ⟨r⟩ reproduction at 1.34e-14 both sit on that floor — the correct numerical posture for "equal". The hero line's 1.1e-14 and the table's 1.02e-14 are the same measurement, rounded differently.
 
 ## Interpretation
 
@@ -195,6 +238,7 @@ The series seed is 96; the RNG streams are fixed in `engine/hamiltonian.py`. All
 | `data/results.json` | the committed verdict of the campaign |
 | `data/ladder/stats_ladder.json` | the eleven-channel ladder: ⟨r⟩, distances, KS D and p vs Poisson/GOE/GUE, constants, GSE note, runtime 2.3 s |
 | `data/spinor64/spinor64_check.json` | E1 inventory and E2 reduction with isospectrality and the independent four-sector re-run, runtime 0.8 s |
+| `data/` (npz/csv) | curves and tables |
 | `../data/c8_*.json` | duplicate of the verdict in the shared registry |
 
 | File | Where |
@@ -238,13 +282,25 @@ Statistics is a necessary filter, not an identity. Universality is an attractor 
 
 T8 (spinor64 64 → 4, proven) and T10 (Poisson/GOE/GUE ladder, measured) are listed in the main README's theorem section, registry row 12 (*spinor64 reduction | 64 spin structures → 4 Hamiltonians, |Δλ| ≤ 1.1e-14 | C8, T8*) and row 20 of `results/RESULTS.md`; the full derivations are in the monographs of this folder.
 
+#### In one sentence each — what are Poisson, GOE and GUE?
+
+Poisson: levels ignore each other (integrable or localised systems, ⟨r⟩ = 0.3863). GOE: real symmetric matrices with time-reversal symmetry, quadratic repulsion (⟨r⟩ = 0.5307). GUE: complex Hermitian matrices with no antiunitary symmetry, linear repulsion (⟨r⟩ = 0.5996) — the zeros' class.
+
+#### What is a spin structure, quickly?
+
+A choice of periodic versus antiperiodic boundary conditions for a fermion around each handle of a complex curve — for the genus-3 Klein quartic, 2⁶ = 64 such choices (theta characteristics), 36 even and 28 odd by the Arf invariant, the odd ones carrying forced zero modes.
+
+## The threefold way in one paragraph
+
+Dyson's 1962 observation organises everything above into one sentence: a quantum system's spacing law is decided by its *antiunitary symmetries*. If a time-reversal operator T exists with T² = +1 (complex conjugation, available to any real symmetric Hamiltonian), levels repel quadratically — GOE. If no antiunitary symmetry survives at all (complex phases that cannot be conjugated or gauged away), repulsion is linear — GUE. If T exists with T² = −1 (Kramers, half-integer spin), every level is at least doubly degenerate and repulsion is quartic — GSE. The gate climbs this classification column by column: real disorder preserves conjugation (GOE plateau), vortex phases destroy every antiunitary option (GUE), and the spinless architecture fixes T² = +1, barring the symplectic row outright. The ladder is then not a collection of observations but a filled-out symmetry table — which is why T10 can be a *theorem-shaped* statement about an experimental campaign, and why no amount of parameter tuning could ever add a fourth rung to it.
+
 ## See also
 
 - [C3 · Gate family](../C3_gate_family/) — the protocol gates whose statistics this ladder classifies; the GUE flagship channel reuses the C3 Hamiltonian engine.
-- [C7 · Wave-packet dynamics](../C7_wave_dynamics/) — the dynamical twin: the same vortex phases judged by transport instead of spacings.
+- [C7 · Wave-packet dynamics](../C7_wave_dynamics/) — the dynamical twin: the same vortex phases judged by transport instead of spacings — coherent packet transport and the ×16 far-wing effect (H4).
 - [Methods](../../docs/methods.md) — the shared pipeline: seeds, streams, unfolding, nulls, and the spinor64 positive control (PC1).
 - [Theory map](../../docs/theory.md) — where the Dyson triplet and the scorecard's H3 row sit in the Bridge.
 - [Main README](../../README.md) — the package overview, theorems T1–T10 and the honesty registry.
 
 ---
-*Hilbert Polya Bridge v1.0.0 · C8 · The statistics ladder and spin structures*
+*Hilbert Polya Bridge v2.0.0 · C8 · The statistics ladder and spin structures*

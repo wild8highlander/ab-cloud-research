@@ -10,22 +10,50 @@
 
 [← Back to the main README](../../README.md)
 
+## Quick reference card
+
+| Item | Value |
+|---|---|
+| Campaign | C5 · The Extended Gate Family — six new handle dimensions and the stability of the H2 gap |
+| Claim under test | "Perhaps identity is reached not on the C3 protocol handles but on some others?" — the campaign extends the handle space by six dimensions and checks whether any of them moves a gate out of the null zone |
+| Scale | 35 new gates + 2 decoys = 37 configurations, six new handles: twists, anisotropy, flux shift, staggered mass, vortex profile, signs and boundaries |
+| Headline statistics | GUE class for all: ⟨r⟩ = 0.498–0.502 (0.500±0.001); \|r_H7\| family max 0.0434730569109078 (`C_Nv8_allplus`), five times below the C3 protocol best 0.226; r_EF family: mean 0.6112285569902335, sd 0.3452702369140134, max 0.9911878822153721 (`A_mass0.15`, inside its null cloud) |
+| Controls | Regression vs the C3 CSV: deviation 1.4e-16, bit-for-bit; positive control PC0 (H_ξ window vs Λ-comb): r = 0.9997540255853161; decoys indistinguishable from real gates |
+| Verdict | `{'ru': 'разрыв Г2 устойчив ко всем шести новым ручкам', 'en': 'the H2 gap is stable across all six new handles'}` |
+| Demarcation | With C3, theorem T7: 87 gates (52 protocol + 35 extended) in the GUE class, no Λ-weights; positive controls PC1/PC2 at r = 1.0 |
+| Artifacts | `data/gates_table.csv` (37 rows) · `data/results.json` · `../data/c5_gates_ext_verdict.json` · `fig09_handles` / `fig10_gue_ext` (ru + en, 600 dpi + screen) · monographs ru/en (docx + pdf) |
+| One-line meaning | No single new handle and no tested combination moves a gate out of the GUE class or the null zone — the H2 gap is stable across the whole local handle space |
+
+```bash
+# excursion through the verdict (~seconds, no zeros file needed)
+python3 campaigns/run_c5_gates_ext.py
+
+# the committed artifacts to inspect afterwards (files, not commands):
+#   data/gates_table.csv · data/results.json · ../data/c5_gates_ext_verdict.json
+#   figures_hires/ru/fig09_handles.png · figures_hires/en/fig09_handles_en.png
+#   figures_hires/ru/fig10_gue_ext.png · figures_hires/en/fig10_gue_ext_en.png
+```
+
 ## Contents
 
-1. [The question](#the-question)
-2. [Background: the one-family objection](#background-the-one-family-objection)
-3. [Design space: the six handle dimensions](#design-space-the-six-handle-dimensions)
-4. [Method step by step](#method-step-by-step)
-5. [Controls](#controls)
-6. [Results](#results)
-7. [How to read the numbers](#how-to-read-the-numbers)
-8. [Interpretation: what stability means](#interpretation-what-stability-means)
-9. [Reproduction](#reproduction)
-10. [Data and figures](#data-and-figures)
-11. [Honest notes](#honest-notes)
-12. [Verdict](#verdict)
-13. [FAQ](#faq)
-14. [See also](#see-also)
+1. [Quick reference card](#quick-reference-card)
+2. [The question](#the-question)
+3. [Background: the one-family objection](#background-the-one-family-objection)
+4. [Design space: the six handle dimensions](#design-space-the-six-handle-dimensions)
+5. [Method step by step](#method-step-by-step)
+6. [Controls](#controls)
+7. [Results](#results)
+8. [How to read the numbers](#how-to-read-the-numbers)
+9. [Interpretation: what stability means](#interpretation-what-stability-means)
+10. [Reproduction](#reproduction)
+11. [Data and figures](#data-and-figures)
+12. [Honest notes](#honest-notes)
+13. [Verdict](#verdict)
+14. [FAQ](#faq)
+15. [Glossary](#glossary)
+16. [Why these six handles and not others](#why-these-six-handles-and-not-others)
+17. [What would have changed the verdict](#what-would-have-changed-the-verdict)
+18. [See also](#see-also)
 
 ---
 
@@ -38,6 +66,8 @@ Campaign C5 is the direct answer to that rejoinder. It extends the handle space 
 The regression control comes first, because nothing else matters without it: the protocol reference gate (Nv = 0, W = 0.5, α = 0.5) reproduces the mean level spacing of the C3 CSV bit-for-bit, with deviation 1.4e-16. Whatever C5 measures, it measures on the same pipeline that produced the C3 verdict — the port is equivalent, the ruler is unchanged.
 
 ## Background: the one-family objection
+
+The object under test is the package's resonator: an L×L lattice (protocol L = 24) with hopping −t·e^{iφ}, Landau-gauge flux φ_x = 2πα·iy on the x-links, vortex phases on the y-links, on-site disorder W, open or toroidal boundaries — Hermitian by construction, hence the scorecard's H1 = YES. On the ledger of the series the spectral-identity question H2 already carries two measured NOs before C5: a gap of 9–10 orders in the rank metric (C3) and roughly half an order in the thermal metric (C4), while H3 (GUE class) is a YES. C5's role in that ledger is the width of the negative: it converts "the protocol family fails" into "the local handle space, extended along six dimensions, fails" — the step that makes theorem T7 (universality demarcation, 87 gates) a measurement rather than a conjecture.
 
 Why is the objection serious enough to spend an entire campaign on it? Because the package's own diagnosis of the H2 gap makes it serious. Campaign C3 (and later C8) established that the vortex lattice sits in the GUE universality class — the third verdict on the Hilbert–Pólya scorecard, H3 = YES. Universality is a two-edged result: it says the resonator is a genuine quantum-chaotic object, and it also explains *why* H2 fails, since a universal spectrum erases precisely the arithmetic detail that a level-n ↔ zero-n identity would require. If universality erases arithmetic, then the correct adversarial move is to attack the setting of the arithmetic: change the topology, the geometry, the gauge field, the mass, the vortex core, the charge pattern — everything a critic could name — and see whether the erasure survives.
 
@@ -183,6 +213,23 @@ All 37 rows of `data/gates_table.csv`, values rounded to six decimals; the CSV c
 | D_decoy_signs_random | decoy, random phases | 0.499175 | −0.018555 | 0.692253 |
 | D_decoy_Nv32_random | decoy, Nv = 32 random | 0.499121 | −0.020663 | 0.916640 |
 
+Representative rows with the verdict-bearing z-score (the same `data/gates_table.csv`, six-decimal rounding; full precision in the CSV). The z_EF column is the only verdict-bearing number for r_EF: the distance from the gate's own null cloud — every gate stays inside its cloud.
+
+| Gate | Change | ⟨r⟩ | r_H7 | r_EF | z_EF |
+|---|---|---|---|---|---|
+| A_aniso0.8 | aniso 0.8 | 0.500221 | +0.002616 | 0.808533 | 2.726267 |
+| A_dalpha-0.02 | δα −0.02 | 0.500288 | +0.000083 | 0.978381 | 2.565831 |
+| A_mass0.15 | mass 0.15 | 0.500624 | +0.018988 | 0.991188 | 2.455031 |
+| A_profile_midpoint | midpoint | 0.499375 | +0.032565 | 0.952809 | 2.564990 |
+| A_signs_allplus | all-plus | 0.499674 | +0.013159 | 0.547357 | 3.456305 |
+| B_twist3_3 | twist (π, π) | 0.499711 | −0.033015 | 0.221711 | 1.008321 |
+| B_torus_dalpha+0.0417 | torus, δα +1/24 | 0.498481 | −0.004102 | 0.301775 | 1.316571 |
+| B_twistpi_pi_aniso1.25 | twist + aniso | 0.501781 | +0.022340 | 0.124648 | 0.652364 |
+| C_Nv8_allplus | Nv 8, all-plus | 0.499237 | −0.043473 | 0.351375 | 2.797747 |
+| C_W0.1_midpoint | W 0.1, midpoint | 0.499329 | −0.010839 | −0.090584 | −0.357152 |
+| C_q0.5_mass0.15 | q 0.5, mass 0.15 | 0.498512 | +0.015509 | −0.617819 | −2.241932 |
+| D_decoy_Nv32_random | decoy | 0.499121 | −0.020663 | 0.916640 | 2.013028 |
+
 ### Family statistics from the committed verdict
 
 The verdict block of `data/results.json` records: n_gates_new = 35; rH7_abs_max = 0.0434730569109078; rEF_max = 0.9911878822153721; rEF_mean = 0.6112285569902335; rEF_sd = 0.3452702369140134; PC0_Hxi_r = 0.9997540255853161; GUE_mean = 0.7880407730570796; GUE_sd = 0.3758286233259756 (the GUE null cloud of the heat-trace statistic). The committed verdict string reads: "разрыв Г2 устойчив: ни одна новая ручка не выводит r_EF/r_H7 из нулевой зоны" — the H2 gap is stable: no new handle moves r_EF/r_H7 out of the null zone.
@@ -207,6 +254,8 @@ The verdict "the H2 gap is stable across all six new handles" is a three-layer s
 **Layer 2 — the arithmetic does not return.** Universality would be harmless if the zero correlation survived underneath it. It does not: |r_H7| ≤ 0.043 over the new handles against 0.226 for the best protocol gate — the extended family is, if anything, *quieter* than the protocol family. The heat-trace projection agrees: r_EF distributed as 0.611 ± 0.345, inside the null clouds, decoys indistinguishable from real gates.
 
 **Layer 3 — the demarcation is now wide.** Theorems T1–T6 fixed what the zeros do; theorem T7 fixes what the 87 gates do: 52 protocol gates (C3) plus 35 extended gates (C5) lie in the GUE class and carry no Λ-weights, with positive controls at r = 1.0 (PC1/PC2) and r = 0.9998 (PC0). The conclusion the package draws is deliberately modest and deliberately sharp: a hypothetical Hilbert–Pólya operator carrying the Λ(n)/√n weight in its trace cannot be obtained by *local* deformation of the lattice resonator. The question of nonlocal constructions remains open and belongs to the roadmap — the negative verdict covers the class of local Hermitian lattice Hamiltonians with vortex phases, and the campaign is careful to claim exactly that and no more.
+
+In the bookkeeping of the series, C5 is the third and final measurement behind the scorecard verdict on H2: the gap is 9–10 orders deep in the rank metric (C3), roughly half an order in the thermal metric (C4), and — this campaign — stable under a six-dimensional extension of the handle space. Three independent projections, one direction of answer. The companion verdict H3 (GUE class, YES) is what makes the H2 negative intelligible rather than merely disappointing: universality erases arithmetic, and C5 shows the erasure is not an artifact of any particular way of imposing the arithmetic setting.
 
 The honest frame matters as much as the result. "Stability" is a measurement over 37 configurations, not a theorem about all possible handles; and the family maximum of |r_H7| is reached on a random-sign decoy, which is exactly where a noise maximum belongs.
 
@@ -271,6 +320,48 @@ A decoy is a gate whose vortex phases are random — the null hypothesis "the st
 **6. Does C5 say no lattice operator can ever encode the zeros?**
 No. It says no *local* deformation of this resonator family — six dimensions, 37 configurations, 87 gates with C3 — moves the statistics toward the zeros. Nonlocal constructions are explicitly outside the verdict and are kept open in the roadmap.
 
+**7. In one sentence, what did C5 establish?**
+That the H2 gap of the lattice resonator does not close under any of six new deformation dimensions — 35 gates and 2 decoys all stay GUE (⟨r⟩ = 0.500±0.001) and null-zone (|r_H7| ≤ 0.043).
+
+**8. Which handle came closest to breaking the null zone?**
+Signs and boundaries, at |r_H7| = 0.0434730569109078 on the all-plus, Nv = 8 gate — and the decoys sit at the same level, which is precisely why the value is read as noise.
+
+**9. Why include cross-combinations like anisotropy+flux or twist+mass?**
+Because a critic's next move after "try other handles" is "try them together". The A-group pairs (A_aniso08_dalpha+0.02, A_aniso125_mass0.15, A_mass0.15_dalpha-0.02, A_midpoint_allplus) and the B-group combinations (B_twistpi_pi_mass0.15, B_twistpi_pi_aniso1.25) test interaction effects; none appears.
+
+**10. Is the 1.4e-16 regression control really necessary?**
+Yes — it is what makes the campaign a measurement *of the handles* rather than of a new pipeline. Without it, a change in the null zone could be blamed on the port; with it, the ruler is certified unchanged.
+
+**11. Where does this leave the Hilbert–Pólya programme in this package?**
+The resonator is built and tuned (H1 + H3 + H4); the zeros are encoded in it, not generated by it (H2 + H5); the prime weight is verified only for the zero operator (T6). C5's contribution is the width of the negative: the gap is not a corner case of one protocol.
+
+## Glossary
+
+- **Gate** — one Hermitian Hamiltonian of the Hofstadter type: an L×L lattice with hopping −t·e^{iφ}, Landau-gauge flux φ_x = 2πα·iy on x-links, vortex phases φ_y = Σ_k q_k(θ_j − θ_i)/2 on y-links, on-site disorder W, open or toroidal boundaries. 87 such gates exist across C3 + C5.
+- **Handle** — one controllable deformation of the gate builder. The protocol handles (Nv, q, W, α) belong to C3; the six new ones (twists, anisotropy, flux shift, staggered mass, vortex profile, signs/boundaries) belong to C5 and all live in `engine/hamiltonian.py`.
+- **Vortex** — a lattice site carrying a phase θ and charge q; the phase pattern of Nv vortices is what makes the Hamiltonian complex and, with Nv ≥ 8, pushes the spectrum into the GUE class.
+- **Decoy** — a configuration whose vortex phases are random: the null hypothesis "phase structure does not matter" materialised as a row of the table.
+- **Null zone** — the range of a statistic consistent with its calibration noise (circular shifts of the zero list for r_H7; per-gate surrogate clouds for r_EF). A gate "in the null zone" shows no trace of the zeros.
+- **Unfolding** — the rescaling of raw eigenvalues to unit mean density (polynomial fit here) that makes spacing statistics comparable across spectra; exact multiplicities, as at the W = 0 + midpoint corner, break it.
+- **GUE class** — the Gaussian unitary ensemble universality class, the signature of quantum chaos with broken time-reversal symmetry; the package's marker statistic is the mean adjacent-spacing ratio ⟨r⟩.
+
+## Why these six handles and not others
+
+The six dimensions are a checklist drawn against the standard escape routes a sceptic would offer a negative spectral result. Each class of objection names a deformation; C5 tests one handle per class, in both boundary geometries, alone and in combination:
+
+- *"Your boundary conditions are wrong."* — answered by twists (all non-trivial spin structures) and by the open/torus switch itself; the torus base B_torus_base and its decorated variants all stay null.
+- *"Your lattice is too symmetric."* — answered by anisotropy t_x/t_y ∈ {0.8, 1.25}, which deforms the Dirac cone and the density of states while leaving the class untouched.
+- *"You sit on a special flux."* — answered by δα = ±0.02 open and the admissible ±1/24 on the torus: the immediate, exactly-realised neighbourhood of the self-dual line α = ½.
+- *"The fermion is massless in your model."* — answered by the staggered masses 0.15 and 0.35, the standard lattice mass term; gaps open, statistics do not move.
+- *"Your vortices are points; real cores have size."* — answered by the midpoint profile, a finite-radius core; the degenerate W = 0 corner is honestly replaced by W = 0.1 with a note.
+- *"Your charge pattern is finetuned."* — answered by all-plus and random signs against the neutral protocol; the decoys complete the picture.
+
+This is why the campaign closes the "you only tried one family" objection rather than merely widening the sample: the six handles span topology, geometry, gauge field, matter content, regularization and disorder — the whole local design space a lattice builder controls.
+
+## What would have changed the verdict
+
+The verdict is falsifiable at three independent dials, and the committed data make the thresholds explicit. A gate would have left the null zone if its |r_H7| had escaped the circular-shift calibration (C3's 0.226 shows values up to there were still null; the family max 0.0434730569109078 is far inside); if its r_EF had left the per-gate cloud at a decisive z_EF (family bound |z_EF| ≤ 3.4563051301961507 against clouds with sd up to 0.499555297750286); or if its ⟨r⟩ had drifted from the 0.498–0.502 band toward an integrable or intermediate class. Any one of the 37 rows could have delivered this; none did. The same three dials — staircase correlation, heat-trace projection, spacing class — are exactly the ones the positive controls certify: PC1/PC2 at r = 1.0 and PC0 at r = 0.9997540255853161 prove the dials move when they should. A negative result with certified dials is a measurement, not an absence of instrumentation.
+
 ## See also
 
 - [C3 — the protocol gate family](../C3_gate_family/README.md): the 52-gate campaign C5 extends; source of the 0.226 reference and the null-zone calibration.
@@ -280,5 +371,5 @@ No. It says no *local* deformation of this resonator family — six dimensions, 
 - [Results registry](../../results/RESULTS.md): rows 15 and 21 of the main table live here; every number in this README is committed.
 
 ---
-*Hilbert Polya Bridge v1.0.0 · C5 · The extended gate family*
+*Hilbert Polya Bridge v2.0.0 · C5 · The extended gate family*
 

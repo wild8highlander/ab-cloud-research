@@ -1,6 +1,6 @@
 # C7 · Wave-packet dynamics on the L = 96 gate
 
-![version](https://img.shields.io/badge/version-1.0.0-298bbc) ![](https://img.shields.io/badge/series-C1--C8-3b4f58) ![](https://img.shields.io/badge/statuses-honest-3a6b4f)
+![version](https://img.shields.io/badge/version-2.0.0-298bbc) ![](https://img.shields.io/badge/series-C1--C8-3b4f58) ![](https://img.shields.io/badge/statuses-honest-3a6b4f)
 
 <p align="center"><img src="../../assets/illustrations/ill_spectrum_emerge.png" width="860" alt="A coherent wave packet crossing the flux lattice while the gate spectrum emerges underneath"/></p>
 
@@ -12,26 +12,52 @@
 
 [← Back to the main README](../../README.md)
 
+## Quick reference card
+
+| Item | Value |
+|---|---|
+| Campaign | C7 · Wave-packet dynamics on the L = 96 gate — the dynamical leg of the Bridge: the gate is not only profiled spectrally, it is used as a propagation engine and the probability density is watched frame by frame |
+| Claim | a ζ-ordered phase landscape steers a wave packet differently from a random-phase medium of identical density — arithmetic is the difference between a wall and a doorway |
+| Verdict | **H4 — YES (honest dynamics); the bridge to Re(s)=½ is a conjecture** |
+| Headline numbers | energy conserved to 1e-15 on every trajectory · P(x ≥ 90): ζ 0.0032 vs random 0.0002 (×16) · reflection t ≈ 14.5 on the clean lattice · transverse drift ⟨y⟩: 48 → 38 on ζ Nv=256 (random: 48.0 → 47.8) · clean-lattice R = 0.000104 |
+| Null | `r256` — the random-phase twin of `z256`: same L = 96, same 256 vortices at the same density, phases de-ordered (the decui control) |
+| Artifacts | `data/results.json` · `data/c7_dynamics_verdict.json` · `fig13_dynamics.png` / `fig13_dynamics_en.png` (600 dpi under `figures_hires/`) · `anim_wavepacket.mp4` / `anim_wavepacket.gif` · `data/wavepacket_dynamics.png` · `monograph_ru.docx` / `monograph_ru.pdf` / `monograph_en.docx` / `monograph_en.pdf` |
+| Registry | row 19 of `results/RESULTS.md` — *Transport P(x ≥ 90): ζ 0.0032 vs random 0.0002 (×16), C7* |
+| Independent checks | `independent_verification/` (IVP) |
+| In one line | the dynamical face of the Montgomery pair correlations — coherent propagation, reflection and scattering on L=96, with the ζ-cloud 16× more transparent than random in the far wing |
+
+Reproduce the committed record — the campaign's one command, seconds, no zeros file needed:
+
+```bash
+# verdict tour (~seconds, no zeros file needed)
+python3 campaigns/run_c7_dynamics.py
+```
+
 ## Contents
 
-1. [The question](#the-question)
-2. [Background](#background)
-3. [Method step by step](#method-step-by-step)
-4. [Controls](#controls)
-5. [Results](#results)
-6. [How to read the numbers](#how-to-read-the-numbers)
-7. [Interpretation](#interpretation)
-8. [Reproduction](#reproduction)
-9. [Data and figures](#data-and-figures)
-10. [Verdict](#verdict)
-11. [FAQ](#faq)
-12. [See also](#see-also)
+1. [Quick reference card](#quick-reference-card)
+2. [The question](#the-question)
+3. [Background](#background)
+4. [Method step by step](#method-step-by-step)
+5. [Controls](#controls)
+6. [Results](#results)
+7. [How to read the numbers](#how-to-read-the-numbers)
+8. [Interpretation](#interpretation)
+9. [Reproduction](#reproduction)
+10. [Data and figures](#data-and-figures)
+11. [Verdict](#verdict)
+12. [FAQ](#faq)
+13. [Why energy conservation is the smoke detector of a simulation](#why-energy-conservation-is-the-smoke-detector-of-a-simulation)
+14. [The vortex protocol in one paragraph](#the-vortex-protocol-in-one-paragraph)
+15. [The five trajectories at a glance](#the-five-trajectories-at-a-glance)
+16. [Where C7 sits on the scorecard](#where-c7-sits-on-the-scorecard)
+17. [See also](#see-also)
 
 ---
 
 ## The question
 
-If the lattice resonator is genuinely "an electron on a flux lattice", then it must not merely *have* a spectrum — it must have a *dynamics*. A quantum particle on a lattice does three characteristic things: it propagates coherently as a recognisable lump of probability, it reflects from boundaries, and it scatters from defects. Campaign C7 asks whether the gate does exactly this, and — the sharper half of the question — whether the ζ-ordered phase structure makes the motion *different* from the motion on a gate whose phases carry no arithmetic at all.
+A resonator that only has eigenvalues is a catalogue; a resonator that can carry a wave is a machine. If the lattice resonator is genuinely "an electron on a flux lattice", then it must not merely *have* a spectrum — it must have a *dynamics*. A quantum particle on a lattice does three characteristic things: it propagates coherently as a recognisable lump of probability, it reflects from boundaries, and it scatters from defects. Campaign C7 asks whether the gate does exactly this, and — the sharper half of the question — whether the ζ-ordered phase structure makes the motion *different* from the motion on a gate whose phases carry no arithmetic at all.
 
 That second half is what makes C7 more than a physics sanity check. The gate family encodes zeta information in vortex phases (the ζ-gates of C3/C5). If those phases are physically meaningful, a wave packet prepared on the gate should feel them as a potential landscape: the arithmetic should leave fingerprints in *where the probability goes*, not only in *where the levels sit*. The campaign measures three effects in which it does:
 
@@ -85,6 +111,8 @@ The headline number of C7 — the ×16 transparency enhancement — is a *ratio 
 5. **Run the five trajectories** tagged in `data/results.json`: `clean` (Nv = 0), `z16`, `z64`, `z256` (ζ-phases at three vortex densities), `r256` (random phases, Nv = 256 — the null).
 6. **Read out the statistics.** Reflection R = final left-strip weight; transport P(x ≥ 90) = final far-wing weight; transverse drift = final ⟨y⟩ minus initial 48; coherence = shape of the ⟨x⟩ trajectory against the billiard expectation.
 
+The original method statement, preserved: *a sparse 96×96 Hamiltonian (open bc), step dt = 0.1, horizon T = 40, the packet by the D10 convention. All the dynamics lives on the self-dual line α = ½, where the π flux turns the lattice into a discretised massless Dirac equation — criterion H4.*
+
 ## Controls
 
 - **Energy conservation (the smoke detector).** The committed series E(t)/E(0) never leaves 1 by more than a few units in the fifteenth digit across all five trajectories — conservation at the 1e-15 level, as the results table states ("1e-15 on every trajectory"). A drifting energy would silently fake both braking and transport; this control is what makes every other number in the table meaningful.
@@ -92,6 +120,10 @@ The headline number of C7 — the ×16 transparency enhancement — is a *ratio 
 - **Density-matched null.** `r256` shares every parameter with `z256` except the phase ordering; the ×16 ratio is computed within this matched pair, so vortex density cannot explain it.
 - **Determinism.** The series seed is 96; the RNG streams are pinned in `engine/hamiltonian.py` (vortex stream `default_rng(96+3500)`, disorder stream `default_rng(96+3501)`), so every trajectory is exactly reproducible.
 - **Committed-verdict tour.** The campaign runner does not recompute anything by default: it re-reads the committed verdict `data/c7_dynamics_verdict.json` and prints it, so reproduction of the *record* takes seconds and cannot drift; a fresh recomputation remains optional.
+
+<p align="center"><img src="../../assets/avatars/hp_polya.svg" width="120" alt="Polya avatar"/></p>
+
+<p align="center"><em>Pólya's instinct — treat the zeros as a spectrum — here acquires a kinetic corollary: a spectrum you can also surf on.</em></p>
 
 ## Results
 
@@ -143,12 +175,17 @@ What the verdict does **not** give you:
 - **It does not say the gate spectrum is the zeta spectrum.** The spectral identity question is H2, measured three times in this package (C3, C4, C5) with the answer NO — a gap of 9–10 orders of magnitude in the rank metric, about half an order in the thermal metric. C7 adds a dynamical leg, not a spectral one.
 - **It does not prove the critical line.** All motion lives on α = ½; calling that line Re(s) = ½ is the package's central conjecture, supported statistically (the D7/D10 effects, of which the ×16 transport is the dynamical member) but not established as an identity.
 - **It does not elevate the ×16 into a proof of anything.** It is one cleanly controlled measurement: a ζ-ordered phase landscape steers probability differently from a random one. Its force comes from the matched null and the energy control, not from its size.
+- **It is not an arithmetic witness.** A transport ratio cannot certify that the phases *are* zeta phases; it certifies that they are *structured* where the random null is not. Universality-adjacent claims belong to C8, and even there they stop at symmetry.
 
 The link to Montgomery is structural, not rhetorical. The same vortex phases that put every gate into the GUE universality class (C8, H3) are the ones that steer the packet here. Pair-correlation statistics and directed transport are two projections of one phase structure — the statistical face and the dynamical face of the same arithmetic. C7 photographs the second.
 
 <p align="center"><img src="../../assets/avatars/hp_hilbert.svg" width="120" alt="Hilbert avatar"/></p>
 
 <p align="center"><em>Hilbert's programme demanded an operator; C7 checks that the operator can actually move a wave.</em></p>
+
+<p align="center"><img src="../../assets/avatars/hp_agent_lyra.svg" width="120" alt="Agent Lyra avatar"/></p>
+
+<p align="center"><em>Agent Lyra tracked every snapshot of the packet — and insists the energy column be read before the transport column.</em></p>
 
 ## Reproduction
 
@@ -190,9 +227,21 @@ Committed verdict record, verbatim from the source (bilingual dict): **{'ru': '�
 
 No. Nothing in C7 identifies an eigenvalue with a zero. The packet is built from a band of eigenstates of the gate; what is measured is how probability *flows* on a gate whose phases encode ζ structure. The level-by-level identification question is H2, and it is answered NO elsewhere in the package (C3–C5).
 
+#### What moves on the lattice — an electron, a zero, or what?
+
+A wave packet: a Gaussian superposition of eigenstates of the gate Hamiltonian. No individual eigenvalue is tracked and no zero of ζ is simulated. The packet is a probe, the way a test charge probes a field.
+
 #### What exactly is the ×16 measured against?
 
 Against the random-phase gate `r256`: identical lattice, boundaries, vortex count (Nv = 256) and density, with the ζ-ordering of phases replaced by random ones. The ratio 0.0032/0.0002 is computed within this matched pair, so it isolates the phase structure. It is not measured against the clean lattice (which transmits even more, 0.0073) or against any external dataset.
+
+#### Why should I believe the ×16 rather than shrug at it?
+
+Because the ratio is taken inside a matched pair (`z256` vs `r256`: same density, geometry, disorder and packet) and under a 1e-15 energy certificate. The denominator is the pre-registered null "phase structure does not matter"; the numerator beats it by an order of magnitude on its own turf.
+
+#### The clean lattice transmits more than the ζ-gate — doesn't that weaken the story?
+
+It sharpens it. The claim was never "arithmetic beats emptiness" but "arithmetic beats randomness at equal obstruction": clean 0.0073 > ζ 0.0032 > random 0.0002. Vortices brake; the ζ-ordering leaves doors open that randomness closes.
 
 #### Why is energy conservation such a big deal?
 
@@ -200,21 +249,57 @@ Because braking and transport are *differences* of small probabilities. If the i
 
 #### Does the transverse drift mean the packet "knows" where the vortices are?
 
-It means the phase landscape is anisotropic in a way that survives averaging: the ζ-phases bias interference toward one side, while random phases bias nothing. The packet does not detect vortices individually; it integrates their phase field, and the ζ-field integrates to a sideways push (⟨y⟩: 48 → 38) that the random field does not produce.
+It means the phase landscape is anisotropic in a way that survives averaging: the ζ-phases bias interference toward one side, while random phases bias nothing. The packet does not detect vortices individually; it integrates their phase field, and the ζ-field integrates to a sideways push (⟨y⟩: 48 → 38) that the random field does not produce. A push with a preferred side requires a preferred direction in the medium — which is exactly what the ordered phases supply and the randomised phases erase.
 
 #### If the dynamics is honest, why is the verdict not "the bridge works"?
 
 "Honest dynamics" is deliberately modest: it certifies the resonator as a wave system (H4) without converting dynamics into spectral identity. The bridge to Re(s) = ½ remains a conjecture with statistical support (D7/D10). The package keeps the two statements in separate rooms on purpose.
 
+#### Where is the line between what C7 measured and what it conjectures?
+
+Measured: coherent propagation, reflection, braking, drift, far-wing transport with energy conserved to 1e-15, on the line α = ½. Conjectured: that this line *is* the critical line Re(s) = ½. The package prints the two in different typefaces for a reason.
+
 #### Where do the figures and the full write-up live?
 
 `fig13_dynamics.png` (ru) and `fig13_dynamics_en.png` (en) at 600 dpi under `figures_hires/`, screen copies under `figures/`, the animation as `anim_wavepacket.mp4/.gif`, and the 7–9-page monograph in four files (`monograph_ru/en.docx/pdf`) in this folder.
+
+#### I only have five minutes — what do I run?
+
+`python3 campaigns/run_c7_dynamics.py` — it prints the committed verdict in seconds, no zeros file needed. The figures (`fig13_dynamics_en.png` at 600 dpi) and the animation (`anim_wavepacket.mp4`) do the visual explaining.
 
 ## Why energy conservation is the smoke detector of a simulation
 
 Every headline of this campaign — the billiard reflection, the monotone braking, the sideways drift, the ×16 transport — is a statement about *where probability is*, and probability is only a meaningful bookkeeping device if the books balance. On a Hermitian Hamiltonian the books balance by construction: unitary evolution conserves both the norm of the state and the expectation value of the energy. That is exactly why the energy series `ee(t) = E(t)/E(0)` in `data/results.json` functions as a smoke detector rather than as a physical result. Physics guarantees the reading; any deviation from 1 therefore points at the *apparatus* — an integrator that leaks, a Hamiltonian accidentally non-Hermitian, a state vector silently renormalised, a diagonalisation truncating the spectrum.
 
 The detector in C7 reads clean at the level the table quotes: over 400 propagation steps (dt = 0.1 out to T = 40) and five trajectories, the ratio hugs unity to 1e-15, with the worst excursion of any run still below 1e-14. Two properties make this a strong control and not a formality. First, it is *continuous*: 101 snapshots per trajectory, not a single end-point check, so a transient energy glitch mid-flight could not hide. Second, it is *differential*: the five runs share the propagator and differ in the phase landscape, so a defect in the stepper would corrupt `clean` and `r256` as well as `z256` — and the far-wing asymmetry between the ζ-cloud and its random twin would shrink rather than grow. The smoke detector also guards the small-probability regime specifically: P(x ≥ 90) lives at the 1e-3–1e-4 level, precisely where an artificial energy pump of relative size 1e-3 would be indistinguishable from real transport. Nothing of the sort is present at 1e-15. This is the same discipline the package applies elsewhere (the machine-floor registry in `docs/validation.md` records where each metric goes blind); in C7 the metric never gets near its floor, and every number downstream of the propagator inherits the certificate.
+
+## The vortex protocol in one paragraph
+
+The scattering centres of this campaign are not hand-drawn; they are sampled by a pinned protocol that the whole series shares, so it is worth knowing what "Nv = 256" concretely means. Vortex centres land on cell midpoints (ix + 0.5, iy + 0.5) with ix, iy drawn independently from 1 … N − 1; charges follow the **neutral** convention (for even Nv the first half get +q, the rest −q, so the total circulation of the gate is zero), and the vortex stream is fed by `default_rng(seed + 3500)` while the on-site disorder stream is offset by one more — the constants `BASE_SEED = 96`, `HARDCORE_OFFSET = 3500`, `T_HOP = 1.0` live at the top of `engine/hamiltonian.py`. The hopping amplitude t = 1 is why every time and length in this README is quoted "in hopping units". None of these choices is adjusted per campaign; C7 inherits them, which is precisely what makes its trajectories comparable with the gates of C3/C5 and the statistics of C8.
+
+## The five trajectories at a glance
+
+Beyond the headline rows, the committed file `data/results.json` fixes the initialisation of each run. The mean energies E₀ below are the packet's launch energies in hopping units; the drift column is final ⟨y⟩ minus the launch value 48; the last column is the largest excursion of the committed energy ratio from unity — the per-trajectory reading of the 1e-15 certificate.
+
+| Tag | Nv | Phases | E₀ | Δ⟨y⟩ (final − 48) | max \|E/E₀ − 1\| |
+|---|---|---|---|---|---|
+| `clean` | 0 | — | −0.865592 | −0.01 | 9.3e-15 |
+| `z16` | 16 | ζ | −0.866296 | −0.36 | 1.6e-15 |
+| `z64` | 64 | ζ | −0.865042 | −0.51 | 3.3e-15 |
+| `z256` | 256 | ζ | −0.859608 | −9.70 | 6.0e-15 |
+| `r256` | 256 | random | −0.866360 | −0.24 | 7.4e-15 |
+
+Three things to notice. The launch energy is essentially constant across all five runs (−0.866 ± 0.003; the ζ-256 gate shifts the band slightly, −0.8596), so differences in transport are not differences in where the packet starts. The drift column isolates the steering effect in one glance: −9.70 rows for the ζ-cloud at Nv = 256 against at most half a row everywhere else. And the energy column confirms that the certificate is per-trajectory, not an average over runs — each of the five readings stays in the 1e-15–1e-14 band that the results table summarises as "1e-15 on every trajectory".
+
+## Where C7 sits on the scorecard
+
+The main README's Hilbert–Pólya scorecard has five rows, and this campaign owns one of them:
+
+| Item | Verdict | Basis |
+|---|---|---|
+| H4 — Dirac-type dynamics | **YES** | coherent packet, reflection, scattering; energy 1e-15 (C7) |
+
+Its neighbours are supplied by other stations: H1 (self-adjointness) is architectural and confirmed by the real spectrum of every gate; H3 (GUE class) is C8, the statistical twin of this campaign; H2 (spectral identity) is the repeated NO of C3–C5. Read as a row of one table, the division of labour is exact — C7 certifies that the resonator *moves*, C8 certifies how its levels *correlate*, and neither row is allowed to speak for the other. That separation is the quiet discipline behind the package's honesty labels.
 
 ## See also
 
@@ -225,4 +310,4 @@ The detector in C7 reads clean at the level the table quotes: over 400 propagati
 - [Main README](../../README.md) — the package overview, the H1–H5 scorecard, and the theorem list.
 
 ---
-*Hilbert Polya Bridge v1.0.0 · C7 · Wave-packet dynamics*
+*Hilbert Polya Bridge v2.0.0 · C7 · Wave-packet dynamics*

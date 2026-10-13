@@ -1,6 +1,6 @@
 # C3 · The H7 Gate Family — the definitive guide to the 52-gate vortex-lattice search
 
-![version](https://img.shields.io/badge/version-1.0.0-298bbc) ![](https://img.shields.io/badge/series-C1--C8-3b4f58) ![](https://img.shields.io/badge/statuses-honest-3a6b4f)
+![version](https://img.shields.io/badge/version-2.0.0-298bbc) ![](https://img.shields.io/badge/series-C1--C8-3b4f58) ![](https://img.shields.io/badge/statuses-honest-3a6b4f)
 
 <p align="center"><img src="../../assets/illustrations/ill_vortex_lattice.png" width="720" alt="A 24×24 vortex lattice at half flux: charged vortices pin phase windings into a Hofstadter-type Hamiltonian, and the campaign asks whether any of the 52 shutters lets through the spectrum of the zeta zeros"/></p>
 
@@ -12,8 +12,37 @@
 
 [← Back to the main README](../../README.md)
 
+## Quick reference card
+
+| Item | Value |
+|---|---|
+| Claim under test | H2 — does a gate exist — a vortex-cloud configuration — whose spectrum is *identical* to the zeta zero spectrum under the correspondence **level n ↔ zero n**? |
+| Verdict | H2 — NO (no identity), measured with PC1/PC2 |
+| Family | 52 gate configurations, master seed 96 |
+| Best rank correlation with the zeros | r_H7 = 0.226 (p = 0.169, Bonferroni 0.80) |
+| Null zones (r_H7) | decoys 0.026±0.140 · GUE −0.014±0.127 |
+| Identity controls | PC1 r = 1.000000000 · PC2 r = 1.000000000000 |
+| Detection floor | D_nn = 2.7e-14 (PC1) · 1.2e-10 (PC2) |
+| Best gate distance from floor | ≈ 0.26 in D_nn — the 9–10 order gap |
+| Best gate | vortex-free reference (Nv, q, W, α) = (0, 0.0, 0.5, 0.5) |
+| One-line meaning | no gate is distinguishable from the permutation null model, while the pipeline sees identity at the 1e-14 level whenever it exists |
+
+Reproduction at a glance:
+
+```bash
+# tour of the verdict (~seconds, no zero file needed)
+python3 campaigns/run_c3_gates.py
+# committed verdict of the campaign — data/results.json
+# the 52-gate table (all statistics and p-values) — data/gates_table.csv
+# 600 dpi figures — figures_hires/ru/fig05_gates.png · figures_hires/en/fig05_gates_en.png
+# monographs — monograph_ru.docx · monograph_ru.pdf · monograph_en.docx · monograph_en.pdf
+```
+
+Every number in this card is traceable to `data/results.json` or `data/gates_table.csv`.
+
 ## Contents
 
+- [Quick reference card](#quick-reference-card)
 1. [The campaign question](#1-the-campaign-question)
 2. [What a gate is — shutters, light, and vortex handles](#2-what-a-gate-is--shutters-light-and-vortex-handles)
 3. [The 52-family design space](#3-the-52-family-design-space)
@@ -25,8 +54,9 @@
 9. [Reproduction](#9-reproduction)
 10. [Data and figures](#10-data-and-figures)
 11. [Verdict](#11-verdict)
-12. [FAQ](#12-faq)
-13. [See also](#13-see-also)
+12. [Glossary of gate terminology](#12-glossary-of-gate-terminology)
+13. [FAQ](#13-faq)
+14. [See also](#14-see-also)
 
 ---
 
@@ -64,7 +94,8 @@ detection experiment rather than a fitting exercise:
 - two positive controls are carried through the identical pipeline — the
   spinor64 isospectral twins (PC1) and the stage-2 graph against the committed
   zero file (PC2) — on which the method is *obliged* to see identity and does,
-  at r = 1.000000000 and r = 1.000000000000 respectively.
+  at r = 1.000000000 and r = 1.000000000000 respectively — identity to nine and
+twelve decimal places.
 
 The verdict of the campaign is the third item of the bridge's scoreboard
 (question H2 of the Hilbert–Pólya tablet): **no identity**, with the distance
@@ -143,7 +174,7 @@ is the entire content of H2, and it is what C3 measures.
 ## 3. The 52-family design space
 
 The family is recorded in `data/gates_table.csv` (52 rows, one per gate) and
-summarised in `data/results.json`. The protocol label of the family is H7, and
+summarised in the `family` list of `data/results.json`. The protocol label of the family is H7, and
 the rank statistic r_H7 takes its name from this tag.
 
 | Knob | Meaning | Values swept in C3 |
@@ -183,6 +214,9 @@ self-dual line — not a search tuned to a favourite configuration.*
 The pipeline is deterministic end to end; every step below is executed
 identically for each of the 52 gates, for both null ensembles, and for both
 positive controls. This is what makes the numbers comparable at all.
+
+**Protocol constants:** L = 24, K = 200, poly_deg = 6, zero window starting at
+γ₀ = 500.309084942, null_shifts = 64, null_gue = 40.
 
 1. **Build the vortex configuration.** Vortices are placed at cell centres
    with neutral charges (the protocol wording of the source); their
@@ -417,6 +451,12 @@ able to resolve identity" is off the table. The gates' D_nn values (0.238 to
 0.295) are separated from the floors by 9–13 orders of magnitude depending on
 the control — the "9–10 order gap" of the headline.
 
+**The floors are the fixed points of the reading.** Every interpretation comes
+back to the same comparison: gates at D_nn ≈ 0.26, controls at 1.2e-10 and
+2.7e-14. p-values, z-scores and KS statistics all tell the same story from
+different angles because the metric itself separates the two regimes by 9–10
+orders.
+
 **The verdict is deliberately conservative in what it claims.** p_KS = 1.0 for
 the best gate, ⟨r⟩ = 0.32 localization clustering on the clean lattice, and
 the decoy/GUE null zones are all reported as measured. Nothing has been
@@ -444,7 +484,9 @@ The gates sit at D_nn ≈ 2.6e-1. The ratio between "identity present" and
 "best gate achieved" is therefore not a matter of interpretation — it is a
 factor of billions to trillions in the rank metric, quoted in the series
 ledger as the 9–10 order gap (C3), a scale cross-checked by campaign C4 in
-the thermal metric (≈0.5 order there) and confirmed stable by C5. A NO at
+the thermal metric (≈0.5 order there) and confirmed stable by C5 — three
+independent projections of one question, agreeing in sign (both NO), the
+methodological core of the series. A NO at
 this separation is a *measured absence*, not a failure to detect: if a vortex
 gate in this class were the Hilbert–Pólya operator, the pipeline would have
 returned r ≈ 1 and D_nn ≤ 1e-10, and it did not come within ten orders of
@@ -497,7 +539,8 @@ Notes on the protocol:
   confirms that all 52 C3 gates reproduce the committed `mean_spacing` CSV
   column bit-for-bit — 52/52 gates at |Δ| < 1e-10, with the recorded maximum
   deviation |Δ| = 1.45e-16 (double-precision epsilon territory, verified in
-  the protocol reproduction credited to C4 in `results/RESULTS.md`).
+  the protocol reproduction credited to C4 in `results/RESULTS.md`). Any
+  reimplementation that misses this tolerance is not running the C3 protocol.
 - The tour runs in seconds and does not require the zeta zero file on input;
   the zero window (γ₀ = 500.309084942, K = 200) is part of the committed
   protocol data.
@@ -553,7 +596,30 @@ Independent checks of this campaign live in `independent_verification/`
 
 ---
 
-## 12. FAQ
+## 12. Glossary of gate terminology
+
+| Term | Meaning in this campaign |
+|---|---|
+| Gate (затвор, shutter) | A parametrised Hermitian Hamiltonian — a vortex-decorated Hofstadter lattice; an aperture in the shutter-wall metaphor, not a device. |
+| Shutter wall | The family of all 52 apertures; opening one means diagonalising its Hamiltonian. |
+| Vortex | A phase singularity pinned in the lattice; carries a charge q_k at a position with atan2 angle θ about the centre. |
+| Handle | A knob of the family: Nv, q, W, α in C3; twists, anisotropy, δα, mass, profile, charge signs in C5. |
+| π flux / self-dual line (α = 1/2) | Half a flux quantum per plaquette; the line where the lattice realises discretised massless Dirac dynamics (H4). |
+| Unfolding | Dividing out a degree-6 polynomial fit to the integrated density so levels have unit mean spacing. |
+| Ramps | Residual linear trends removed before correlating, so no smooth drift can fake correspondence. |
+| r_H7 | Correlation of the unfolded gate and zero sequences, ramps excluded; +1 certifies the level-n ↔ zero-n identity. |
+| D_nn | Nearest-neighbour discrepancy between unfolded sequences after an optimised shift in [−1, 1]; floors 2.7e-14 (PC1) and 1.2e-10 (PC2). |
+| KS_sp | Kolmogorov–Smirnov statistic between the spacing distributions of the two sequences. |
+| Decoys (nullA) | 64 shifted copies of the zero list — the empirical no-identity cloud for r_H7. |
+| GUE null (nullB) | 40 Gaussian unitary ensemble matrices — the universality baseline. |
+| Permutation p-value | k/65: the null fraction at least as identity-like as the gate, add-one convention. |
+| Bonferroni 0.80 | 52 × (1/65): the family-wise floor after correcting for all tests. |
+| mean_spacing | Mean level spacing of the central band (≈ 0.012); the column reproduced bit-for-bit in the equivalence control. |
+| IVP | The independent verification protocol; its checks of C3 live in `independent_verification/`. |
+
+---
+
+## 13. FAQ
 
 **Q1. Is a "gate" a physical shutter or device?**
 No. The shutter picture is a metaphor for the mathematics: a gate is a
@@ -599,9 +665,51 @@ These are the frozen protocol constants of C3: the central 0.6 band of the
 They were fixed before scoring; changing them post hoc would invalidate the
 permutation nulls, which are built under the same protocol.
 
+**Q7. What does the label H7 refer to?**
+The protocol tag of this gate family; the rank statistic r_H7 is named after
+it. The question the campaign tests is H2 of the series' tablet — spectral
+identity — which is a different numbering and should not be confused with the
+family tag.
+
+**Q8. Why two null clouds instead of one formula?**
+Because they answer different objections. The decoy cloud (shifted zero
+lists) models "same zeros, broken correspondence" — exactly the alternative
+that matters for identity. The GUE cloud models "generic universal spectrum".
+A gate must escape both to claim anything; escaping neither, as all 52 do,
+closes the question cleanly.
+
+**Q9. The best gate is the vortex-free lattice. Does that mean vortices were
+a dead end?**
+Within this class and this protocol, yes as measured: the undecorated π-flux
+reference (Nv, q, W, α) = (0, 0.0, 0.5, 0.5) tops the table at
+r_H7 = 0.22641576150208137, and decoration never beats it. The campaign's
+claim is about this family; C5 explores whether more handles change the
+picture (they do not change the verdict).
+
+**Q10. How does the 9–10 order gap here relate to C4's ≈0.5 order figure?**
+Two metrics, one question. C3 measures the gap in the rank metric D_nn
+(gates ≈ 0.26 against control floors of 1e-10 and 1e-14); C4 measures it in a
+thermal (heat-kernel) metric, where the separation is ≈0.5 order. The theory
+map records both projections, and their agreement in sign — both NO — is the
+methodological point.
+
+**Q11. Can I test my own configuration with this pipeline?**
+Yes, under the same discipline: build the Hamiltonian with the documented
+handles in `engine/hamiltonian.py`, keep the windows and unfolding frozen
+(band 0.6 → 344 levels, degree-6 polynomial, K = 200 window), regenerate both
+null clouds, run PC1/PC2 first, and apply the 52-fold multiplicity
+correction appropriate to the number of candidates you score. A result
+without the controls is not a C3-style result.
+
+**Q12. Where is the line between what is measured and what is conjectured?**
+Measured: the spectra, the statistics, the null clouds, the control floors,
+the verdict for this class. Conjectural: identifying the α = 1/2 dynamics
+line with the critical line Re(s) = 1/2 — the package keeps that bridge
+explicit and separates it from everything measured here.
+
 ---
 
-## 13. See also
+## 14. See also
 
 - [C5 · Gates extended](../C5_gates_extended/README.md) — the extended handle
   set (twists, anisotropy, δα, mass, vortex profile, charge signs) and the
@@ -617,5 +725,5 @@ permutation nulls, which are built under the same protocol.
 
 ---
 
-*Hilbert Polya Bridge v1.0.0 · C3 · The H7 gate family*
+*Hilbert Polya Bridge v2.0.0 · C3 · The H7 gate family*
 

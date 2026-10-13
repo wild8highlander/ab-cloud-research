@@ -1,6 +1,6 @@
 # C1 · The identity function and the Γ-ladder
 
-![version](https://img.shields.io/badge/version-1.0.0-298bbc) ![](https://img.shields.io/badge/series-C1--C8-3b4f58) ![](https://img.shields.io/badge/statuses-honest-3a6b4f)
+![version](https://img.shields.io/badge/version-2.0.0-298bbc) ![](https://img.shields.io/badge/series-C1--C8-3b4f58) ![](https://img.shields.io/badge/statuses-honest-3a6b4f)
 
 <p align="center"><img src="../../assets/illustrations/ill_critical_line.png" width="720" alt="The critical line: the identity function Z_id assembled from the Γ-ladder closures"/></p>
 
@@ -12,24 +12,58 @@
 
 [← Back to the main README](../../README.md)
 
-**About this edition.** This is the definitive English guide to campaign C1. It merges and extends the original bilingual pair — the Russian `README.md` and the English companion `README.en.md` — into a single reference. Every number, verdict label, file name, command and threshold of both sources is preserved; everything else here is explanation: the mathematics behind the assembly, the reason each control exists, and the place of this campaign in the Hilbert–Pólya programme.
+## Quick reference card
+
+| Item | Value |
+|---|---|
+| Campaign | **C1 · The identity function and the Γ-ladder** — stages 1–2 of the five-stage map (algebra → graph), seeding stage 3 |
+| Claim | assemble, on the critical line, a function whose zeros coincide with those of ζ **without using any zero data** — only elementary identities of the Γ-frame and ζ itself: Z_id(t) = e^{iθ(t)}ζ(½+it), real on the line and even in t |
+| Verdict | composite verdict K1–K4, K7: **PASS (one refutation published)** — T1 *proven* (dps = 40; plus one honest refutation), T2 *proven*, K3 *confirmed*, K7 *reproduced* (informational) |
+| Γ-ladder closures (K1) | residuals 1.27–2.59e-39 on a 401-point grid at dps = 40, threshold 1e-30 — nine orders of margin |
+| Honest refutation | the single modulus \|Γ(¼+iu)\| on the line has no elementary form — structural mismatch 0.765 ≠ 1, "the line where the ladder stops closing" |
+| Reality of Z_id (K2, T2) | max\|Im Z_id\| = 4.9e-29; thresholds 1e-20 (`results.json`) and 1e-25 (validation register); evenness deviation 9.856237674189225e-29 |
+| Zeros (K3) | 79 of 79 on [0, 200] against the internal mpmath reference; max\|Δγ\| = 2.8e-14 (float64 comparison floor ≈ 2⁻⁴⁵) |
+| Counting (K4, T3) | exact integers 3, 10, 29, 79 at the occupied probes; residuals ≤ 4.9e-28; `rh_in_block_pass` at all five probes |
+| Gram points (K7) | 220 points, 4 sign violations — the classical exceptions (n = 126, 134, 195, 211) |
+| Discipline | `free_parameters: 0` — nothing fitted; series seed 96; deterministic; runtime about two seconds |
+| Key artifacts | `data/results.json` · `data/curve_Zid.npz` · `../data/c1_*.json` · `fig01_zid.png` + `fig02_gamma_ladder.png` (+ `_en` variants) · monographs ru/en in docx + pdf (7–9 pages) |
+| External inputs | none — no external zero file needed; every criterion compares internally |
+| One-line meaning | the algebraic envelope does not generate zeros — it merely wraps ζ in a smooth phase; whatever is true of Z_id is true by identity, and whatever Z_id cannot do, no rearrangement of the phase can do either |
+
+Fastest reproduction (deterministic; the campaign tour runs in about two seconds and needs no zero file):
+
+```bash
+# a tour of the verdict (~seconds, the zero file is not needed)
+python3 campaigns/run_c1_identity.py
+
+# CI guards: Γ-closures at dps = 40 below 1e-35; Z_id reality (K2)
+python3 -m pytest tests/ -q
+
+# independent verification: the IVP checks re-derive this campaign's numbers
+bash independent_verification/RUN_ALL.sh
+```
+
+**About this edition.** This is the definitive English guide to campaign C1 — the single unified edition of this folder. Every number, verdict label, file name, command and threshold is preserved; everything else here is explanation: the mathematics behind the assembly, the reason each control exists, and the place of this campaign in the Hilbert–Pólya programme.
 
 ## Contents
 
-1. [The question this campaign answers](#the-question-this-campaign-answers)
-2. [Background: the five-stage map](#background-the-five-stage-map)
-3. [The method, step by step](#the-method-step-by-step)
-4. [The positive controls: why honesty requires them](#the-positive-controls-why-honesty-requires-them)
-5. [Results](#results)
-6. [How to read the numbers](#how-to-read-the-numbers)
-7. [Interpretation: what C1 means for H1–H5](#interpretation-what-c1-means-for-h1h5)
-8. [Reproduction](#reproduction)
-9. [Data and figures](#data-and-figures)
-10. [Verdict](#verdict)
-11. [FAQ](#faq)
-12. [Glossary](#glossary)
-13. [Historical notes on Gram's observation](#historical-notes-on-grams-observation)
-14. [See also](#see-also)
+1. [Quick reference card](#quick-reference-card)
+2. [The question this campaign answers](#the-question-this-campaign-answers)
+3. [Background: the five-stage map](#background-the-five-stage-map)
+4. [The method, step by step](#the-method-step-by-step)
+5. [The positive controls: why honesty requires them](#the-positive-controls-why-honesty-requires-them)
+6. [Results](#results)
+7. [How to read the numbers](#how-to-read-the-numbers)
+8. [Interpretation: what C1 means for H1–H5](#interpretation-what-c1-means-for-h1h5)
+9. [Reproduction](#reproduction)
+10. [Data and figures](#data-and-figures)
+11. [Verdict](#verdict)
+12. [FAQ](#faq)
+13. [Common misreadings](#common-misreadings)
+14. [Glossary](#glossary)
+15. [Historical notes on Gram's observation](#historical-notes-on-grams-observation)
+16. [Appendix: provenance of every headline number](#appendix-provenance-of-every-headline-number)
+17. [See also](#see-also)
 
 ---
 
@@ -38,6 +72,8 @@
 <img src="../../assets/avatars/hp_riemann.svg" width="120" align="right" alt="Bernhard Riemann"/>
 
 Can one assemble, on the critical line, a function whose zeros coincide with those of ζ without using any zero data — only elementary identities of the Γ-frame and ζ itself? This campaign answers yes, and that answer is the graph of the whole series: **Z_id(t) = e^{iθ(t)}ζ(½+it)**. But the answer fixes the boundary as well: the algebraic envelope does not generate zeros — it merely wraps ζ in a smooth phase. Whatever is true of Z_id is true by identity; whatever Z_id cannot do, no rearrangement of the phase can do either.
+
+Agent Atlas opened the series here, with the graph rather than the operator: before any candidate Hamiltonian can be judged, the object to be matched must exist, be real, and carry no fitted constants. The campaign delivers exactly that in four moves — **T1 (proven)** the Γ-ladder closures, **T2 (proven)** the reality of Z_id, **K3 (confirmed)** the zero match, **K7 (reproduced)** the classical Gram exceptions — tabulated at a glance in the quick reference card above.
 
 That boundary sentence is worth reading twice, because it is the honest core of the campaign. C1 is not a claim that the Riemann Hypothesis has been defeated by a change of phase; it is the construction of the cleanest possible *target object* — a real, even function whose zeros on the line are exactly the zeros of ζ — together with a measured account of what the construction can and cannot deliver.
 
@@ -105,9 +141,19 @@ The campaign core is `hpbridge/identity.py`; the committed verdict lives in `dat
 
 8. **Determinism and runtime.** The series seed is 96; the RNG streams are fixed (`engine/hamiltonian.py`). The whole campaign is deterministic and runs in about two seconds. The pytest suite guards the same identities in CI: `tests/test_gamma_closures.py` re-runs the three closures at dps = 40 below 1e-35 on u ∈ {0.5, 1.0, 2.0, 3.5}, and `tests/test_zid_reality.py` re-checks K2.
 
+Agent Lyra ran the spectral pipeline that produces this sequence — the same eight steps, in the same order, every rerun — which is why the committed verdict can be re-read in seconds and the fresh recomputation stays optional.
+
 ## The positive controls: why honesty requires them
 
-Every criterion in C1 is shaped like a control: a threshold fixed in advance, a measured value, a pass flag, and a provenance note. The rule they serve is stated in `independent_verification/PROTOCOL.md` (rule 2) and in `docs/validation.md`: *a negative verdict is valid only after a positive control by the same method*. C1 is the campaign where the positive side of that discipline is manufactured — it demonstrates exact identities exactly where identity is provable.
+Every criterion in C1 is shaped like a control: a threshold fixed in advance, a measured value, a pass flag, and a provenance note. The rule they serve is stated in `independent_verification/PROTOCOL.md` (rule 2) and in `docs/validation.md`: *a negative verdict is valid only after a positive control by the same method*. C1 is the campaign where the positive side of that discipline is manufactured — it demonstrates exact identities exactly where identity is provable. The five committed criteria at a glance:
+
+| Control | Guards | Threshold | Measured | Status |
+|---|---|---|---|---|
+| K1 Γ-ladder | exactness of the algebra under θ(t) | 1e-30 (dps 40) | 1.27–2.59e-39 | proven |
+| K2 reality | legitimacy of spectral comparison | 1e-20 (results.json); 1e-25 (register) | 4.9e-29 | proven |
+| K3 zeros | "zeros = ζ's zeros" demonstrated | 79 = 79 | max\|Δγ\| = 2.8e-14 | confirmed |
+| K4 argument principle | calibrated counting (T3) | integers | residual ≤ 4.9e-28 | proven |
+| K7 Gram | classical interlace, imperfections included | informational | 4 of 220 (classical) | reproduced |
 
 - **K1 exists because the whole phase pipeline leans on Γ-identities.** If the closures drifted, θ(t) would be phase noise and Z_id would be a complex-valued function like any other, unfit for spectral comparison. Threshold 1e-30 at dps 40; measured 1.27–2.59e-39 — nine orders of margin.
 - **K2 exists because reality is the property that makes the comparison to a self-adjoint spectrum legitimate at all.** A complex target could match an operator's eigenvalues only by coincidence of moduli; a real target can be matched crossing by crossing. Measured: 4.9e-29 against a committed threshold of 1e-20 (the series validation register lists T2 at 1e-25 — both cleared with room to spare).
@@ -119,7 +165,7 @@ And the discipline cuts both ways. Honesty rule no. 3 of the package — *status
 
 ## Results
 
-The campaign's headline table, verbatim in translation from both sources:
+The campaign's headline table, numbers verbatim from the committed verdict:
 
 | Quantity | Value | Status |
 |---|---|---|
@@ -252,14 +298,14 @@ The pytest suite re-runs the Γ-closures at dps = 40 below the test threshold 1e
 
 ## Data and figures
 
-Figures of the campaign — the original guide's Russian variants:
+Figures of the campaign — the Russian variants:
 
 | File | Where |
 |---|---|
 | `fig01_zid.png` | 600 dpi — `figures_hires/ru/fig01_zid.png`; screen — `figures/ru/` |
 | `fig02_gamma_ladder.png` | 600 dpi — `figures_hires/ru/fig02_gamma_ladder.png`; screen — `figures/ru/` |
 
-and the international edition's English variants:
+and the English variants:
 
 | File | Where |
 |---|---|
@@ -309,6 +355,17 @@ A: Every committed criterion compares against something internal: K1 against alg
 **Q: What are the K5 and K6 blocks doing in C1's results.json?**
 A: The committed verdict file archives the counting-identity (K5) and second-moment (K6) blocks of the shared pipeline — up to T_max = 1132490.658714411 with max|S| = 1.7993664555251598 and Σγ² relative deviation 8.8e-7. Their campaign-level numbers are reported under C2 in the ledger; C1's composite verdict covers K1–K4 and K7 only. The duplication is deliberate: one file, one registry entry, no orphan numbers.
 
+## Common misreadings
+
+| Misreading | Correction |
+|---|---|
+| "Z_id proves the Riemann Hypothesis" | It proves reality (T2) and exact algebra (T1); the zero coincidence holds on the line by rephasing and generates nothing. |
+| "0.765 is a numerical residual" | It is the structural mismatch of the refuted candidate form for the single modulus \|Γ(¼+iu)\| — a published refutation, not an error. |
+| "The 4 Gram violations are campaign defects" | They are the classical exceptions to Gram's law in this window; K7 reproduces them deliberately. |
+| "C1 decided H2" | C1 built the graph side; the H2 verdict (NO) is measured in C3/C4/C5 (9–10 orders; ≈0.5 order; \|r_H7\| ≤ 0.043). |
+| "2.8e-14 is the bisection precision" | It is the float64 comparison floor (≈ 2⁻⁴⁵ at γ ≈ 100–200); the bisection runs at dps = 25. |
+| "K5/K6 numbers belong to C1's verdict" | They are archived in the same results.json but reported under C2; C1's composite covers K1–K4, K7. |
+
 ## Glossary
 
 - **Γ-frame** — the lattice of Gamma-function identities (reflection, duplication and their shifts) from which the package derives every phase and modulus it uses.
@@ -329,6 +386,24 @@ A: The committed verdict file archives the counting-identity (K5) and second-mom
 
 Jørgen Pedersen Gram computed zeros of ζ by hand at the turn of the twentieth century and published his note on the zeros of the zeta function in 1903; the lattice θ(g_n) = nπ now carries his name. Working with tables rather than code, Gram noticed that the zeros seemed to fall between his points in strict alternation — a heuristic so regular that it stood as a near-law for the low zeros and entered the literature as Gram's law. The heuristic survives in a refined form: the violations are real but rare and small, and they occur in patterns that the later computations of Rosser and colleagues organized into "good" blocks, in which the interlacing rights itself after every miss. The four violations this campaign reproduces among the first 220 Gram points — n = 126, 134, 195, 211 — are precisely the classical ones in this window, and their compensation by good blocks is why they carry no threat to the location of the zeros: Gram's law is about interlacing, not about where the zeros are. For the Hilbert–Pólya programme the observation has a modern reading: the slight, patterned looseness of the interlace is the first statistical hint that the zeros behave like eigenvalues of a chaotic system rather than like a rigid arithmetic lattice — the hint that C3 and C8 later quantify as the GUE class.
 
+## Appendix: provenance of every headline number
+
+Every headline number of this campaign, mapped to its source of record:
+
+| Number | Source of record | Quoted as |
+|---|---|---|
+| 2.59e-39 / 2.57e-39 / 1.27e-39 | K1 block of `data/results.json` (full precision 2.5896027595341725e-39, 2.5680114024923632e-39, 1.2662422397767273e-39) | headline table; ledger entry 1 |
+| 0.765 | K1 refutation, `structural mismatch` of the candidate form | headline table row 4 |
+| 4.9e-29 | K2 `max_imZ` = 4.9281188370946126e-29 | headline table; ledger entry 2 quotes 4.93e-29 |
+| 79 / 79; 2.8e-14 | K3 `n_found`, `n_reference`, `max_dev_gamma` = 2.842170943040401e-14 | headline table; ledger entry 3 |
+| 220 / 4 | K7 `n_points` (n_range 1..220), `n_violations` | headline table; ledger entry 4 |
+| 401-point grid; dps 40; 1e-30 | campaign method; `docs/validation.md` row 1 | method; how to read the numbers |
+| 1e-20 / 1e-25 | K2 threshold in results.json; T2 row of the validation register | K2 table |
+| seed 96; ~2 s | series seed (`engine/hamiltonian.py`); campaign runtime | reproduction |
+| 7–9 pages | monograph volumes (ru/en, docx/pdf) | data and figures |
+
+One rounding convention note, so no reader is confused by the ledger: the headline table rounds 4.9281188370946126e-29 down to 4.9e-29 while the living ledger prints 4.93e-29 — both are the same committed measurement, and the JSON file is the source of record. The package's reproducibility rule (`data/README.md`) requires any rerun of the campaigns to reproduce the committed values bit-for-bit, which is why every number above can be traced to exactly one file and one field name. If a value cannot be traced this way, it does not belong to the series; that discipline is the quiet backbone of the whole package, and C1 — the campaign with zero fitted parameters — is where it is easiest to see in full.
+
 ## See also
 
 - [C2 · The argument principle](../C2_argument_principle/README.md) — the counting stage, from the K4 block here to RH in the strip verified to T = 1000 (649 = 649).
@@ -336,5 +411,5 @@ Jørgen Pedersen Gram computed zeros of ζ by hand at the turn of the twentieth 
 - [results/RESULTS.md](../../results/RESULTS.md) — the living ledger of numbers; entries 1–4 of the main table belong to this campaign (2.59e-39 closures; 4.93e-29 reality; 79/79 zeros at max|Δγ| = 2.8e-14; 4-of-220 Gram).
 
 ---
-*Hilbert Polya Bridge v1.0.0 · C1 · The identity function and the Γ-ladder*
+*Hilbert Polya Bridge v2.0.0 · C1 · The identity function and the Γ-ladder*
 

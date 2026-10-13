@@ -1,6 +1,6 @@
 # C2 · The argument principle up to T = 1000
 
-![version](https://img.shields.io/badge/version-1.0.0-298bbc) ![](https://img.shields.io/badge/series-C1--C8-3b4f58) ![](https://img.shields.io/badge/statuses-honest-3a6b4f)
+![version](https://img.shields.io/badge/version-2.0.0-298bbc) ![](https://img.shields.io/badge/series-C1--C8-3b4f58) ![](https://img.shields.io/badge/statuses-honest-3a6b4f)
 
 <p align="center"><img src="../../assets/illustrations/ill_spectrum_emerge.png" width="720" alt="The zeta spectrum emerging over the critical line — dossier of campaign C2"/></p>
 
@@ -12,25 +12,59 @@
 
 [← Back to the main README](../../README.md)
 
-**About this edition.** This page is the definitive English dossier of campaign C2. It merges and expands the original bilingual pair of the package — the Russian `README.md` and the English quick edition `README.en.md` — into a single self-contained account. Every number, verdict label, file name and command below is taken verbatim from the committed sources of the repository, primarily `data/results.json` (the campaign verdict, duplicated in the common registry as `data/c2_argument_verdict.json`), the C2 monograph chapters (`monograph_ru` / `monograph_en`), and the registry `results/RESULTS.md`. Nothing is estimated, extrapolated or beautified: where the package reports a residual of 8.3e-25, the committed maximum is 8.271806125530277e-25, and this page says both.
+## Quick reference card
+
+| Item | Value |
+|---|---|
+| Claim | below T = 1000 the critical strip and the critical line contain exactly the same zeros — decided by the argument principle alone, with no table of zeros consulted as an authority |
+| Verdict | RH verified in the strip up to T = 1000 (649 = 649) |
+| Instrument | the argument principle on the contour (2,0)→(2,T)→(0,T)→(0,0), the pole s = 1 bypassed from above by a small semicircle; N(T) = Δarg ξ / 2π |
+| Headline counts | 649 = 649 at thirteen heights up to T ≈ 1000; anchors 0 / 3 / 10 / 29 / 79 / 649; winding residuals ≤ 8.3e-25 |
+| Arithmetic bridge | \|ΔN\| = 2.6e-26 — the same contour in numpy and in mpmath at dps = 26, at T = 100.074522612 |
+| Classical residual (K5) | S(T) ≤ 1.8 — maximum 1.7994 on [0, 1.13e6] |
+| Gaps below T = 1000 | min 0.3104 · max 6.887 · mean 1.521 (Lehman–Odlyzko) |
+| Second moment Σγ² (K6) | deviation 8.8e-7 from (T³/6π)(ln(T/2π)−1/3) — formula exact, no fitted constant |
+| Anti-aliasing | double leaf condition \|wrap\| ≤ 0.3 AND length ≤ h_safe; the 2π aliasing trap (N=5 instead of 10) was found and fixed |
+| One-line meaning | the campaign winds the argument of ξ around the strip and compares the strip count with the independent on-line count; the equality of the two counts at every probed height is the operationalisation of the Riemann Hypothesis below T = 1000 |
+
+Reproduction at a glance (series seed 96; the tour needs no zero file and runs in seconds):
+
+```bash
+# guided tour of the verdict (~seconds, the zero file is not needed)
+python3 campaigns/run_c2_argument.py
+
+# protocol-level cross-check of the committed numbers (not a re-count)
+bash independent_verification/RUN_ALL.sh
+
+# committed verdict of the campaign — data/results.json (registry duplicate ../data/c2_argument_verdict.json)
+# numeric substrate of the figures — data/curve.npz · the S_curve block of data/results.json
+# 600 dpi figures — figures_hires/ru/fig03_argument.png · figures_hires/ru/fig04_gaps.png
+#                    figures_hires/en/fig03_argument_en.png · figures_hires/en/fig04_gaps_en.png
+# monographs — monograph_ru.docx · monograph_ru.pdf · monograph_en.docx · monograph_en.pdf
+```
+
+Every number in this card is traceable to `data/results.json` (registry duplicate `../data/c2_argument_verdict.json`).
+
+**About this edition.** This is the definitive English dossier of campaign C2 — the single unified edition of this folder. Every number, verdict label, file name and command below is taken verbatim from the committed sources of the repository, primarily `data/results.json` (the campaign verdict, duplicated in the common registry as `data/c2_argument_verdict.json`), the C2 monograph chapters (`monograph_ru` / `monograph_en`), and the registry `results/RESULTS.md`. Nothing is estimated, extrapolated or beautified: where the package reports a residual of 8.3e-25, the committed maximum is 8.271806125530277e-25, and this page says both.
 
 ## Contents
 
-1. [The question](#sec-question)
-2. [Background: the argument principle 101, and why adaptive](#sec-background)
-3. [The method, step by step](#sec-method)
-4. [The pole calibration: T3](#sec-t3)
-5. [Results](#sec-results)
-6. [How to read the numbers](#sec-read)
-7. [The found-and-fixed episode: Σγ² as an honesty case study](#sec-honesty)
-8. [Interpretation: RH in the strip versus global RH](#sec-interpretation)
-9. [Reproduction](#sec-repro)
-10. [Data and figures](#sec-data)
-11. [Verdict](#sec-verdict)
-12. [FAQ](#sec-faq)
-13. [A short history of the argument principle in RH](#sec-history)
-14. [Glossary](#sec-glossary)
-15. [See also](#sec-see)
+1. [Quick reference card](#quick-reference-card)
+2. [The question](#sec-question)
+3. [Background: the argument principle 101, and why adaptive](#sec-background)
+4. [The method, step by step](#sec-method)
+5. [The pole calibration: T3](#sec-t3)
+6. [Results](#sec-results)
+7. [How to read the numbers](#sec-read)
+8. [The found-and-fixed episode: Σγ² as an honesty case study](#sec-honesty)
+9. [Interpretation: RH in the strip versus global RH](#sec-interpretation)
+10. [Reproduction](#sec-repro)
+11. [Data and figures](#sec-data)
+12. [Verdict](#sec-verdict)
+13. [FAQ](#sec-faq)
+14. [A short history of the argument principle in RH](#sec-history)
+15. [Glossary](#sec-glossary)
+16. [See also](#sec-see)
 
 <a id="sec-question"></a>
 
@@ -42,9 +76,9 @@ How many zeta zeros lie in the critical strip below a height T, and are they all
 
 That single sentence compresses the whole campaign, so it is worth unpacking. The critical strip is the vertical band 0 < Re s < 1 of the complex plane; a "height" T means the horizontal level Im s = T. The Riemann Hypothesis (RH) asserts that every non-trivial zero of ζ(s) sits exactly on the middle line Re s = ½ of that strip. Counting is the oldest and most robust way to test this: if one can show that the strip below height T contains exactly N zeros, and that exactly N zeros lie on the line Re s = ½ below the same height, then — for that interval — RH is verified, because the two sets must coincide. No analytic number theory beyond the argument principle is needed; no table of zeros is consulted as an authority.
 
-This is why the campaign is deliberately table-free. In the Hilbert–Pólya programme the zeros are destined to become the spectrum of a self-adjoint operator; before any spectrum can be compared against them, the zeros themselves must be counted by an independent, self-contained instrument. A table would smuggle in an external authority. The argument principle needs only the ability to evaluate ξ(s) along a contour — and, as campaign C1 established for the phase θ(t) and the identity graph Z_id(t) = e^{iθ(t)}ζ(½+it), the components of the counting machine are already verified inside the package: C1 closed the Γ-ladder at machine precision (max residual 2.59e-39 at dps 40), proved the reality of Z_id (T2), and matched its first 79 zeros against mpmath with max|Δγ| = 2.8e-14 (criterion K3). C2 adds the third station of the bridge map — counting — as summarised in `docs/theory.md`: *stage 3 · Counting — the argument principle — T3 (pole calibration) — RH in the strip up to T = 1000*.
+This is why the campaign is deliberately table-free. In the Hilbert–Pólya programme the zeros are destined to become the spectrum of a self-adjoint operator; before any spectrum can be compared against them, the zeros themselves must be counted by an independent, self-contained instrument. A table would smuggle in an external authority. The argument principle needs only the ability to evaluate ξ(s) along a contour — and, as campaign C1 established for the phase θ(t) and the identity graph Z_id(t) = e^{iθ(t)}ζ(½+it), the components of the counting machine are already verified inside the package: C1 closed the Γ-ladder at machine precision (max residual 2.59e-39 at dps 40), proved the reality of Z_id (T2), and matched its first 79 zeros against mpmath with max|Δγ| = 2.8e-14 (criterion K3). C2 adds the third station of the bridge map — counting — as summarised in `docs/theory.md`: *stage 3 · Counting — the argument principle — T3 (pole calibration) — RH in the strip up to T = 1000*. Downstream, the spectral campaigns C3–C5 need exactly this kind of independent, machine-verified zero account to compare spectra against.
 
-The headline outcome, stated once here and dissected for the rest of this page: **at all thirteen heights up to T ≈ 1000 the strip count equals the line count, ending at 649 = 649, with every winding number within 8.3e-25 of an integer.**
+The headline outcome, stated once here and dissected for the rest of this page: **at all thirteen heights up to T ≈ 1000 the strip count equals the line count, ending at 649 = 649, with every winding number within 8.3e-25 of an integer.** The equality is a test rather than a tautology — it can only come out positive if both computations are right — and thirteen times out of thirteen below T ≈ 1000, it did.
 
 <a id="sec-background"></a>
 
@@ -59,6 +93,8 @@ For a function f meromorphic inside and on a closed contour C, with no zeros or 
 where Z and P are the numbers of zeros and poles of f inside C, counted with multiplicity, and Δarg f is the total accumulated change of the argument of f as one traverses C once counter-clockwise. The equality of the contour integral of the logarithmic derivative with the winding number of f(C) around the origin is one of the workhorses of complex analysis; applied to the Riemann xi-function it turns zero-counting into a bookkeeping problem for a phase.
 
 The Riemann ξ-function, ξ(s) = ½ s(s−1) π^{−s/2} Γ(s/2) ζ(s), is entire: the factor ½ s(s−1) cancels the simple pole of ζ at s = 1 and tames the trivial zeros at the negative even integers. Hence P = 0 inside any contour, and the winding number of ξ along the boundary equals the number of ξ-zeros enclosed — which are exactly the non-trivial zeros of ζ. The rectangle (2,0)→(2,T)→(0,T)→(0,0), closed back along the real axis, encloses precisely the zeros of the strip with 0 < Im s < T. This is the contour of campaign C2, reproduced verbatim from the committed meta block of the verdict: *contour: "(2,0)→(2,T)→(0,T)→(0,0), pole s=1 from above, N=Δarg/2π"*.
+
+Counting zeros becomes measuring a phase — the oldest trick in the Riemann trade, and still the most trustworthy.
 
 ### The pole at s = 1 and the detour
 
@@ -107,7 +143,7 @@ Everything in C2 rests on a sign. The lemma, stated verbatim as in the monograph
 
 Why this matters enough to be a numbered theorem of the package: the textbook formula N(T) = (T/2π) ln(T/2π) − T/2π + 7/8 + S(T) + 1 — with its characteristic "+1" — is derived for a contour that encloses the pole s = 1 in its interior, so the pole contributes a full turn. The C2 contour deliberately *excludes* the pole by detouring above it: the small semicircle is traversed clockwise (right-to-left along the top of the point s = 1), a half-turn, worth exactly −π in the argument of ξ — half of the −2πi log contribution of a residue +1 pole. The half-turn removes exactly the unit that the "+1" would add. Dropping the detour's effect and keeping the +1 (or vice versa) shifts **every** N(T) by exactly 1 — an error of the kind that no amount of numerical precision can repair, because it is not a rounding error but a bookkeeping error: the count would be perfectly precise and perfectly wrong.
 
-The campaign's first calibration made precisely this mistake and documents it honestly: with the +1 applied, a systematic unit shift appeared at every height. It was caught not by belief but by the S(T) cross-check — the residual computed against the file count was off by one everywhere, which is impossible for a correct counter — and corrected. The corrected calibration is then positively certified by the anchors: at T = 10 the committed winding is N_strip = −5.142573567093604e-28, i.e. zero to 27 decimal places, matching n_on_line_file = 0; a spurious +1 would have insisted on 1 = 0. The same certifying logic appears in the verdict of the independent verification protocol, where IVP04 checks the anchors 0/3/10/29/79/649 and passes. T3 is thus the cheapest theorem of the series and one of the most load-bearing: it is the difference between counting the zeros of the strip and counting the zeros of the strip plus one imaginary zero that lives only in a misapplied formula.
+The campaign's first calibration made precisely this mistake and documents it honestly: with the +1 applied, a systematic unit shift appeared at every height. It was caught not by belief but by the S(T) cross-check — the residual computed against the file count was off by one everywhere, which is impossible for a correct counter — and corrected; a uniform shift by one is the signature of a calibration error, not of noise. The corrected calibration is then positively certified by the anchors: at T = 10 the committed winding is N_strip = −5.142573567093604e-28, i.e. zero to 27 decimal places, matching n_on_line_file = 0; a spurious +1 would have insisted on 1 = 0. The same certifying logic appears in the verdict of the independent verification protocol, where IVP04 checks the anchors 0/3/10/29/79/649 and passes. T3 is thus the cheapest theorem of the series and one of the most load-bearing: it is the difference between counting the zeros of the strip and counting the zeros of the strip plus one imaginary zero that lives only in a misapplied formula.
 
 <a id="sec-results"></a>
 
@@ -157,7 +193,7 @@ Every row carries `"pass": true`; the first three rows additionally carry `"anch
 
 <img src="../../assets/avatars/hp_agent_lyra.svg" width="120" align="right" alt="Agent Lyra"/>
 
-Reading the registry as a whole: the equality N_strip = n_on_line_file holds at all thirteen heights; the largest deviation of a winding number from its integer is 8.271806125530277e-25 (at T ≈ 900.4 and T ≈ 1000.6), quoted in prose as "residuals ≤ 8.3e-25"; the S_arg and S_file columns agree to 1e-13 or better everywhere, and both remain far inside the ±1.8 classical envelope, with the largest magnitude in this table −0.3430531529818248 at T ≈ 699.7.
+Reading the registry as a whole: the equality N_strip = n_on_line_file holds at all thirteen heights; the largest deviation of a winding number from its integer is 8.271806125530277e-25 (at T ≈ 900.4 and T ≈ 1000.6), quoted in prose as "residuals ≤ 8.3e-25"; the S_arg and S_file columns agree to 1e-13 or better everywhere, and both remain far inside the ±1.8 classical envelope, with the largest magnitude in this table −0.3430531529818248 at T ≈ 699.7. Note the shape of the S_arg column: all values sit between −0.3430531529818248 and +0.12118278887043062, far inside ±1.8 — small residuals of the *right* size, oscillating the *classical* way, are themselves evidence. The committed control points +0.38/+0.34/+0.79/+0.50 (from the monograph, criterion K5) reproduce the classical oscillations of the residual against the smooth count; a buggy counter produces residuals that are either huge or suspiciously tame, never this texture.
 
 ### The bridge
 
@@ -169,7 +205,7 @@ Reading the registry as a whole: the equality N_strip = n_on_line_file holds at 
 | delta | 2.5849394142282115e-26 |
 | bridge_ok | true |
 
-The bridge is the campaign's answer to a question any numerical auditor should ask: how do you know your double-precision counter is not artifacts all the way down? Recomputing the same contour in an arithmetic with 26 significant digits and obtaining agreement to 2.6e-26 pins the winding number between the two arithmetics so tightly that the integer it rounds to is not in doubt — and since the anchor heights show the same equality against the file, the certification propagates.
+A float64 counter can be fast and wrong in ways that are hard to see from inside itself. The bridge is the campaign's answer to the question any numerical auditor should then ask: how do you know your double-precision counter is not artifacts all the way down? Recomputing the same contour in an arithmetic with 26 significant digits and obtaining agreement to 2.6e-26 pins the winding number between the two arithmetics so tightly that the integer it rounds to is not in doubt — and since the anchor heights show the same equality against the file, the certification propagates.
 
 ### Gaps below T = 1000
 
@@ -182,7 +218,7 @@ The bridge is the campaign's answer to a question any numerical auditor should a
 | argmax_gap_T | 14.134725142 |
 | mean_gap | 1.5210753802700616 |
 
-The 649 zeros have 648 neighbouring gaps. The largest one opens immediately after the first zero: the committed fields give argmax_gap_T = 14.134725142 and max_gap = 6.887314496999998, and indeed 14.134725142 + 6.887314497 = 21.022039639 — the second zero. The smallest gap 0.3104307050000443 occurs at T = 750.655950362, the closest approach of two consecutive zeros below the height limit. Why do gap statistics belong in a counting campaign's headline table? Because the *shape* of the gap distribution is the classical meeting point between counting and the GUE story: after unfolding (rescaling by the local density ≈ (1/2π) ln(t/2π)), random-matrix predictions say the mean spacing is 1 with level repulsion at zero; the raw mean 1.521 below T = 1000 is exactly what the growing density implies, and the [0.3104, 6.887] spread is the texture that the spectral campaigns downstream (C3–C5, C8, with ⟨r⟩ = 0.60 at Nv ≥ 8 and the Dyson trinity of statistics) confront with random-matrix nulls. The row's label "Lehman–Odlyzko" credits the classical literature on these very statistics.
+The 649 zeros have 648 neighbouring gaps. The largest one opens immediately after the first zero: the committed fields give argmax_gap_T = 14.134725142 and max_gap = 6.887314496999998, and indeed 14.134725142 + 6.887314497 = 21.022039639 — the second zero. The smallest gap 0.3104307050000443 occurs at T = 750.655950362, the closest approach of two consecutive zeros below the height limit. Why do gap statistics belong in a counting campaign's headline table? Because the *shape* of the gap distribution is the classical meeting point between counting and the GUE story: after unfolding (rescaling by the local density ≈ (1/2π) ln(t/2π)), random-matrix predictions say the mean spacing is 1 with level repulsion at zero; the raw mean 1.521 below T = 1000 is exactly what the growing density implies, and the [0.3104, 6.887] spread is the texture that the spectral campaigns downstream (C3–C5, C8, with ⟨r⟩ = 0.60 at Nv ≥ 8 and the Dyson trinity of statistics) confront with random-matrix nulls. The row's label "Lehman–Odlyzko" credits the classical literature on these very statistics; C2 supplies the trusted zero list those comparisons stand on.
 
 <a id="sec-read"></a>
 
@@ -211,9 +247,9 @@ The first version of the second-moment formula **carried a factor error of 4π³
 
 > The K6 story is instructive: the first version of the second-moment formula carried a factor error of 4π³ ≈ 124, found through the mismatch with the data; the final agreement is a property of the formula, not a fit.
 
-Three things make this a model case rather than an embarrassment. First, **the error was discoverable**: because the prediction (T³/6π)(ln(T/2π) − 1/3) has no free parameters, a wrong constant cannot hide — it can only produce a mismatch, and the mismatch pointed at 4π³ specifically. Second, **the fix is verifiable in the direction that matters**: the final 8.8e-7 agreement is a property of the corrected *formula*, not the result of tuning anything to the data; there is no fitted constant whose removal would break the agreement. Third, **the failure is part of the published record**: the same package that reports "formula exact" reports, one table row earlier, "found and fixed" — the badge "statuses-honest" in the header of this README is a commitment that such episodes are registered, not laundered. It is the same culture that in C1 published the refutation K1 of a candidate Γ-form rather than quietly dropping it.
+Three things make this a model case rather than an embarrassment. First, **the error was discoverable**: because the prediction (T³/6π)(ln(T/2π) − 1/3) has no free parameters, a wrong constant cannot hide — it can only produce a mismatch, and the mismatch pointed at 4π³ specifically. Second, **the fix is verifiable in the direction that matters**: the final 8.8e-7 agreement is a property of the corrected *formula*, not the result of tuning anything to the data; there is no fitted constant whose removal would break the agreement. Third, **the failure is part of the published record**: the same package that reports "formula exact" reports, one table row earlier, "found and fixed" — the badge "statuses-honest" in the header of this README is a commitment that such episodes are registered, not laundered — errors are recorded in the same tables as successes, with the same typographic prominence. It is the same culture that in C1 published the refutation K1 of a candidate Γ-form rather than quietly dropping it.
 
-For the reader calibrating their own trust: the correct inference from this section is not "the package once erred" but "the package's cross-checks are strong enough that a factor-124 error could not survive them". The S(T) cross-check caught the +1 calibration error and the aliasing trap; the parameter-free K6 comparison caught the 4π³ factor. Every error the campaign has ever had, it found by confrontation with independent numbers.
+For the reader calibrating their own trust: the correct inference from this section is not "the package once erred" but "the package's cross-checks are strong enough that a factor-124 error could not survive them". The S(T) cross-check caught the +1 calibration error and the aliasing trap; the parameter-free K6 comparison caught the 4π³ factor. The same campaign that reports "found and fixed" for the aliasing trap reports "formula exact" for the corrected K6; a reader who trusts the second should trust it *because* of the first. Every error the campaign has ever had, it found by confrontation with independent numbers.
 
 <a id="sec-interpretation"></a>
 
@@ -234,7 +270,7 @@ What is *not* claimed, stated with the same precision (the theory map's section 
 
 <img src="../../assets/avatars/hp_polya.svg" width="120" align="right" alt="George Pólya"/>
 
-The machinery, however, scales. Campaign C12 (v2 series) re-deploys the C2 machine — the adaptive argument principle with the Turing-step bridge — an order of magnitude higher: in the band up to T = 5000 it obtains N_online = N_strip = 4520 against the smooth count N̄(5000) = 4520.08, with S_max = 0.91 (theorem T14). The pattern is the intended one: the same calibrated instrument, moved up the critical line, keeps returning equal counts — which is what a correct counter, and only a correct counter, can do.
+The machinery, however, scales. Campaign C12 (v2 series) re-deploys the C2 machine — the adaptive argument principle with the Turing-step bridge — an order of magnitude higher: in the band up to T = 5000 it obtains N_online = N_strip = 4520 against the smooth count N̄(5000) = 4520.08, with S_max = 0.91 (theorem T14) — an order of magnitude in height and a sevenfold count relative to C2. The pattern is the intended one: the same calibrated instrument, moved up the critical line, keeps returning equal counts — which is what a correct counter, and only a correct counter, can do.
 
 <a id="sec-repro"></a>
 
@@ -294,6 +330,9 @@ The verdict label is reproduced in full, bilingual, exactly as committed — the
 
 ## FAQ
 
+**In one sentence — what did C2 establish?**
+That below T = 1000 the critical strip and the critical line contain exactly the same zeros — 649 = 649 — measured by an argument-principle counter that is calibrated at the pole (T3), alias-proof (double leaf condition), and machine-certified (bridge 2.6e-26).
+
 **Does 649 = 649 prove the Riemann Hypothesis?**
 No. It proves — in the literal, machine-checked sense — that below T = 1000 no zero of ζ lies off the critical line, because the strip and the line hold exactly the same count at every probed height. RH is a statement about *all* heights. The package's own honest notes draw the boundary: this is the honest limit below which the counting agrees component by component, nothing more.
 
@@ -301,7 +340,10 @@ No. It proves — in the literal, machine-checked sense — that below T = 1000 
 Because the detour above s = 1 is a clockwise half-turn contributing −π to Δarg ξ, which cancels exactly the +1 that the Riemann–von Mangoldt formula reserves for contours enclosing the pole (lemma T3). Applying both adds a phantom zero to every height — the systematic unit shift that the first calibration exhibited and the S(T) cross-check exposed.
 
 **What exactly is "the arithmetic bridge"?**
-The same contour, counted twice in different arithmetics: numpy float64 (fast branch) and mpmath dps = 26 (reference branch) at T = 100.074522612. Result: N_fp = 29.0, N_mp = 29.0, |ΔN| = 2.5849394142282115e-26. The bridge certifies that the fast branch's integer is a property of ξ, not of floating-point noise.
+The same contour, counted twice in different arithmetics: numpy float64 (fast branch) and mpmath dps = 26 (reference branch) at T = 100.074522612. Result: N_fp = 29.0, N_mp = 29.0, |ΔN| = 2.5849394142282115e-26. The bridge certifies that the fast branch's integer is a property of ξ, not of floating-point noise. And the anchors reproduce the registry counts 0/3/10 independently of the winding.
+
+**What are K4, K5 and K6?**
+The campaign's three criteria: K4 — the argument-principle count is consistent (the 649 = 649 machinery); K5 — the von Mangoldt counting identity holds, with S(T) within ±1.8 (peak 1.7994); K6 — the second moment Σγ² matches (T³/6π)(ln(T/2π)−1/3) to 8.8e-7.
 
 **How did the first version lose half the zeros at T ≈ 51?**
 Step aliasing: with a single leaf condition, arcs on steep segments could hide a full 2π revolution between samples, and the counter returned N = 5 instead of 10 at T ≈ 51.4. The cross-check of S(T) against the file count exposed the missing turns; the double leaf condition — |wrap| ≤ 0.3 AND arc length ≤ h_safe from |ζ′/ζ| bounds — made the failure mode impossible. Status in the results table: found and fixed.
@@ -311,6 +353,9 @@ Yes. n_on_line_file comes from the package's committed zero registry, not from t
 
 **How expensive is a reproduction?**
 The committed tour (`python3 campaigns/run_c2_argument.py`) replays the verdict in seconds without touching the zero file. A fresh re-count of all thirteen heights cost about 105 seconds in total in the reference run (sum of the committed runtime_s fields, from 0.23 s to 25.24 s per height). The fixed seed 96 and the fixed RNG streams make the re-run bit-for-bit.
+
+**What if I want more than the tour?**
+Read `data/results.json` field by field — the "How to read the numbers" section above is the key — and run the full re-count with the fixed seed 96 for a bit-for-bit reproduction; the complete registry table and the history of the method are earlier on this page.
 
 <a id="sec-history"></a>
 
@@ -357,4 +402,4 @@ What the historical continuum did with mainframes and hand-checking, C2 does wit
 - [C12 · Band T = 5000](../C12_band_5000/README.md) — the same counting machine, ten times higher (theorem T14).
 
 ---
-*Hilbert Polya Bridge v1.0.0 · C2 · The argument principle up to T = 1000*
+*Hilbert Polya Bridge v2.0.0 · C2 · The argument principle up to T = 1000*
