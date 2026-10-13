@@ -31,6 +31,9 @@ infographics:
 monographs:      ## все монографии RU/EN × DOCX/PDF
 	$(PY) scripts/make_monographs.py
 
+canon:           ## канонический том RU/EN × DOCX/PDF (единая версия)
+	$(PY) scripts/make_monographs.py canon
+
 workbook:
 	$(PY) scripts/build_workbook.py
 

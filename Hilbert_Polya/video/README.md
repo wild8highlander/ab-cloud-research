@@ -46,7 +46,10 @@ re-render reproduces the shipped cut deterministically.
 | `README.md` | this production companion |
 | `render.py` | the picture: seven scenes, crossfades, titles, the montage accumulator; pipes raw RGB frames to ffmpeg |
 | `soundtrack.py` | the score: pad chords, sub drone, noise swells, shutter clicks, the 24 zero bells; writes a 48 kHz stereo WAV |
-| `zeros_and_gates_1080p.mp4` | the film itself — delivered next to the documentation archive |
+| `pixel_decoding.py` | the pixel-gate measurement: 87 gates → Q22 canvas → PNG round-trip → H_pixels → det recurrence → 24 zeros (with the enriched log: weights, witness_recomputed, max_quant_err, strong witness assert) |
+| `pixel_decoding_data.json` | the shipped measurement log — schema-identical to the script's output (witness 17/17) |
+| `pixel_decoding_canvas.png` / `_matrix.png` / `_spectrum.png` | the three verification artifacts of the run |
+| `pixel_gate_decoding_1080p.mp4` | the second film — a presentational artifact composed around the committed data; the frame-composition/audio script is not committed (see the audit report, §5.3) |
 
 ## The film, fact sheet
 
@@ -202,6 +205,24 @@ Run `python3 pixel_decoding.py` (needs `numpy`, `mpmath`, `pillow`) and
 the report ends with the sentence the whole package is built around:
 *zeros are measured, not typed.*
 
+**Algebraic form (2026-10-13).** The Lanczos step of this pipeline is now
+backed by a closed-form algebraic function Φ (Hankel determinants D/S of
+the squared-residue measure νₙ ∝ |Res(1/ζ, ρₙ)|²): the canvas is the Q22
+quantization of Φ(γ, ν), the det-recursion decode is the inverse branch,
+and the identity Σαₙ = Σγₙ makes the committed witness pair
+`mean_alpha`/`mean_gamma` an exact built-in checksum. Library, exact-ℚ
+verification and the report live in [`../algebraic_map/`](../algebraic_map/).
+
+**Honesty note (audit, 2026-10-13).** The zeros are prescribed as the
+nodes of the measure (inverse Jacobi problem); the film demonstrates
+lossless pixel transport with witness-verified integrity — not an
+arithmetic generation of the operator. The blind counterpart (pixels
+from arithmetic, zeros as the prediction) is roadmap step N7. The
+committed `pixel_decoding_data.json` was regenerated on 2026-10-13 so
+that its schema equals the script's output; the earlier committed
+artifact carried an off-by-one witness check from an older script
+revision.
+
 ## See also
 
 - [../README.md](../README.md) — **Appendix H**, the measured storyboard:
@@ -211,6 +232,9 @@ the report ends with the sentence the whole package is built around:
   the statistics ladder whose GUE content the bells play.
 - [../computations/C3_gate_family/README.md](../computations/C3_gate_family/README.md) —
   the wall of gates, scene 2's subject.
+- [../algebraic_map/README.md](../algebraic_map/README.md) — the closed-form
+  algebraic function Φ behind the pixel protocol, verified in exact
+  rational arithmetic.
 - [../assets/illustrations/](../assets/illustrations/) — the duotone
   illustrations whose texture the film's grain and palette extend.
 

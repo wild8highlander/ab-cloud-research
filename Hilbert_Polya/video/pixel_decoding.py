@@ -123,6 +123,19 @@ wit_check = [dict(name=nm, encoded=float(v),
              for i, (nm, v) in enumerate(witness_vals, start=1)]
 lam_p = np.linalg.eigvalsh(Hp)
 
+# witness-значения, пересчитанные из ДЕКОДИРОВАННОЙ матрицы (сильная проверка
+# из Appendix H.8: пиксельная канва обязана воспроизвести свои же чек-суммы)
+_a, _b = np.diag(Hp), np.diag(Hp, 1)
+witness_recomputed = dict(
+    mean_alpha=float(_a.mean()), sum_beta=float(_b.sum()),
+    log_det=float(np.log(lam_p).sum()) if (lam_p > 0).all() else None,
+    alpha_1=float(_a[0]), alpha_24=float(_a[-1]),
+    beta_1=float(_b[0]), beta_23=float(_b[-1]))
+max_quant_err = float(max(abs(decode(encode(v)) - v)
+                          for _, v in witness_vals))
+assert abs(witness_recomputed['mean_alpha']
+           - dict(witness_vals)['mean_alpha']) < 1e-6, 'witness drift'
+
 # -- 6) f(E) = det(E*I - H_pixels): three-term determinant recurrence --------
 def det_sign_log(H, E):
     a = np.diag(H); b2 = np.diag(H, 1) ** 2
@@ -167,7 +180,10 @@ out = dict(
                   gates=dict(diagonal=24, coupling=46, witness=17, total=87)),
     typed_zeros=gams.tolist(), alphas=al.tolist(), betas=be.tolist(),
     gates=gates, witness=witness_vals, witness_check=wit_check,
+    weights=w.tolist(),
+    witness_recomputed=witness_recomputed,
     decode=dict(png_byte_identical=png_identical,
+                max_quant_err=max_quant_err,
                 max_eig_err=float(np.abs(lam_p - gams).max())),
     measured_zeros=measured.tolist(), eigen_zeros=lam_p.tolist(),
     deltas=delta.tolist(),

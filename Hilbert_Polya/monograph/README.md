@@ -19,22 +19,31 @@ of content so that the languages and formats cannot drift apart.
 ## Folder map
 
 ```
-theorems_volume/  monograph_theorems_{ru,en}.{docx,pdf}  — volume of theorems T1–T10
-appendix_volume/  monograph_appendix_{ru,en}.{docx,pdf}  — reproduction protocols
-content/          single source of content (ru_part1-3.py, en_part1-3.py)
+canon_volume/     monograph_canon_{ru,en}.{docx,pdf}  — канонический том: единая версия (T1–T18)
+theorems_volume/  monograph_theorems_{ru,en}.{docx,pdf}  — том теорем T1–T10 (приложение к канону)
+appendix_volume/  monograph_appendix_{ru,en}.{docx,pdf}  — протоколы воспроизведения (приложение)
+content/          single source of content (ru_part1-4.py, en_part1-4.py, canon_ru/en.py)
 ```
 
 The full inventory of the folder:
 
 | Path | Contents |
 |------|----------|
-| `theorems_volume/` | `monograph_theorems_{ru,en}.{docx,pdf}` — the four files of the T1–T10 theorem volume |
+| `canon_volume/` | `monograph_canon_{ru,en}.{docx,pdf}` — **the canonical volume, the primary version of the package**: one continuous text T1–T18, campaigns C1–C16, the scorecard, the pixel protocol, reproduction protocols, the honesty ledger and the expanded roadmap «the operator that encodes the zeros» |
+| `theorems_volume/` | `monograph_theorems_{ru,en}.{docx,pdf}` — the four files of the T1–T10 theorem volume (predecessor of the canon) |
 | `appendix_volume/` | `monograph_appendix_{ru,en}.{docx,pdf}` — the four files of the reproduction-protocol appendix |
-| `v2_volume/` | `monograph_v2_{ru,en}.{docx,pdf}` — the consolidated v2.0 volume |
+| `v2_volume/` | `monograph_v2_{ru,en}.{docx,pdf}` — the consolidated v2.0 monograph (chapters C9–C16 feed the canon verbatim) |
 | `theorems_v2_volume/` | `monograph_theorems_v2_{ru,en}.{docx,pdf}` — the v2 theorem volume (T11–T18 era) |
 | `preprint/` | `preprint.tex`, `preprint.pdf` — the LaTeX preprint distilled from the series |
-| `content/` | the single content source: `ru_part1.py` … `ru_part3.py`, `en_part1.py` … `en_part3.py`, extended by `ru_part4.py`, `en_part4.py` and `parts_theorems_v2.py` for the v2 generation |
+| `content/` | the single content source: `ru_part1.py` … `ru_part4.py`, `en_part1.py` … `en_part4.py`, `parts_theorems_v2.py`, and the canon sources `canon_ru.py` / `canon_en.py` (fresh chapters only — C9–C16 chapters and T-blocks are imported from the part modules) |
 | `src/` | reserved slot for future template overrides (cover, styles); see `src/README.md` |
+| `../audit/` | the package audit report (pdf/docx): monograph layer, pixel protocol, scientific review, roadmap |
+
+**The reading order for newcomers is: main README → canon → detail
+volumes.** The canon supersedes the v1/v2 split: the theorem volumes and
+the v2 monograph remain as detailed appendices, and their titles are best
+read as «приложение к канону». Rebuild the canon alone with
+`python3 scripts/make_monographs.py canon` (or `make canon`).
 
 Monographs of the individual computations live separately, in
 `computations/C*/monograph_{ru,en}.{docx,pdf}` — one pair per campaign

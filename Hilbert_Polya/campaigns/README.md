@@ -61,6 +61,7 @@ theorems T11–T18.
 | `run_c14_anomaly.py` | C14 | v2 · T16 — anomaly hunt |
 | `run_c15_dirichlet.py` | C15 | v2 · T17 — Dirichlet L |
 | `run_c16_qinfo.py` | C16 | v2 · T18 — qinfo layer |
+| `run_c17_blind_phaseB.py` | C17 | v3 · N7 фаза B — слепой прогон на замкнутой плотности явной формулы (простые + θ → J → канва Q22 → хеш → нули как предсказание) |
 
 ## How to use it
 

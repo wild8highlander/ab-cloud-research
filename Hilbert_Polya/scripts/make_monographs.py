@@ -12,12 +12,15 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(ROOT, 'monograph'))
 sys.path.insert(0, os.path.join(ROOT, 'monograph', 'content'))
 
-from content import ru_part1, ru_part2, ru_part3  # noqa: E402
-from content import en_part1, en_part2, en_part3  # noqa: E402
+from content import ru_part1, ru_part2, ru_part3, ru_part4  # noqa: E402
+from content import en_part1, en_part2, en_part3, en_part4  # noqa: E402
+from content import canon_ru, canon_en  # noqa: E402
 
 DOCS = {
-    'ru': {**ru_part1.DOCS, **ru_part2.DOCS, **ru_part3.DOCS},
-    'en': {**en_part1.DOCS, **en_part2.DOCS, **en_part3.DOCS},
+    'ru': {**ru_part1.DOCS, **ru_part2.DOCS, **ru_part3.DOCS,
+           **ru_part4.DOCS, **canon_ru.DOCS},
+    'en': {**en_part1.DOCS, **en_part2.DOCS, **en_part3.DOCS,
+           **en_part4.DOCS, **canon_en.DOCS},
 }
 # пути: C* → computations/C*/monograph_{lang}; theorems/appendix → monograph/
 DEST = {
@@ -31,8 +34,11 @@ DEST = {
     'C8': 'computations/C8_stats_ladder',
     'theorems': 'monograph/theorems_volume',
     'appendix': 'monograph/appendix_volume',
+    'v2': 'monograph/v2_volume',
+    'canon': 'monograph/canon_volume',
 }
-STEM = {'theorems': 'monograph_theorems', 'appendix': 'monograph_appendix'}
+STEM = {'theorems': 'monograph_theorems', 'appendix': 'monograph_appendix',
+        'v2': 'monograph_v2', 'canon': 'monograph_canon'}
 
 
 def dest_for(key, lang, ext):

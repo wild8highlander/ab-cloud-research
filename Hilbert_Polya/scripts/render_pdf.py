@@ -290,7 +290,7 @@ def make_pdf(content_path, out_pdf, lang):
                 w.add_page(pg)
         w.add_metadata({'/Title': meta['title'], '/Author': meta['author'],
                         '/Subject': meta['subtitle'],
-                        '/Creator': 'Hilbert Polya Bridge 1.0.0'})
+                        '/Creator': f"Hilbert Polya Bridge {meta.get('version', '2.0.0')}"})
         with open(out_pdf, 'wb') as f:
             w.write(f)
     os.remove(body_pdf)
