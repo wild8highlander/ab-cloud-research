@@ -163,7 +163,12 @@ func GramPoint(n int) float64 {
 	return t
 }
 
-// GUECDF returns 1 - exp(-πs²/4).
+// GUECDF returns the GUE (beta=2) Wigner surmise CDF:
+// erf(2s/sqrt(pi)) - (4s/pi) exp(-4 s^2 / pi).
+// v2.0.3: was 1 - exp(-pi s^2/4), which is the GOE (beta=1) surmise — wrong ensemble.
 func GUECDF(s float64) float64 {
-	return 1 - math.Exp(-math.Pi*s*s/4)
+	if s <= 0 {
+		return 0
+	}
+	return math.Erf(2*s/math.Sqrt(math.Pi)) - (4*s/math.Pi)*math.Exp(-4*s*s/math.Pi)
 }

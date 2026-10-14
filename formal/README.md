@@ -101,8 +101,8 @@ dataset `verification/data/zeta_zeros_50000.txt` and checks each one:
 | b(500) | 2.1928840613 | 2.1928840613 | 1e-6 | ✅ PASS |
 | b(1000) | 1.9321062630 | 1.9321062630 | 1e-6 | ✅ PASS |
 | b(5000) | 1.4942244142 | 1.4942244142 | 1e-6 | ✅ PASS |
-| KS distance D (4999 spacings vs GUE) | 0.0991866231 | 0.0991866231 | 5e-4 | ✅ PASS |
-| Cramér–von Mises W² | 17.6048550189 | 17.6048550189 | 5e-3 | ✅ PASS |
+| KS distance D (4999 spacings vs GUE) | 0.0310483738 | 0.0310483738 | 5e-4 | ✅ PASS |
+| Cramér–von Mises W² | 1.5383040905 | 1.5383040905 | 5e-3 | ✅ PASS |
 | Decay slope (log–log fit) | −0.1831023444 | −0.1831023444 | 1e-3 | ✅ PASS |
 | Decay R² | 0.9946087105 | 0.9946087105 | 1e-3 | ✅ PASS |
 

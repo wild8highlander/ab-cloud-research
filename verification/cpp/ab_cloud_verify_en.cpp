@@ -54,7 +54,7 @@ constexpr const char* OBJ1_CONV_N    = "NOT converging";
 
 constexpr const char* OBJ2_HDR       = "\n--- Objection 2: GUE Spacing Statistics ---";
 constexpr const char* OBJ2_DESC      = "Normalized spacings: s_k = (gamma_{k+1} - gamma_k) * log(gamma_k/(2*pi)) / (2*pi)";
-constexpr const char* OBJ2_GUE       = "GUE PDF: p(s) = (pi*s/2) * exp(-pi*s^2/4)";
+constexpr const char* OBJ2_GUE       = "GUE PDF: p(s) = (32/pi^2) * s^2 * exp(-4 s^2/pi)";
 constexpr const char* OBJ2_KS        = "Kolmogorov-Smirnov test: D = max|F_emp - F_GUE|";
 
 constexpr const char* OBJ3_HDR       = "\n--- Objection 3: Large-T Decay Rate ---";
@@ -181,9 +181,13 @@ static double compute_bN(const std::vector<double>& zeros, int N) {
     return sum / N;
 }
 
-/** GUE CDF: F(s) = 1 − exp(−π s² / 4) */
+/** GUE CDF: F(s) = erf(2s/√π) − (4s/π) exp(−4s²/π) */
 static double gue_cdf(double s) {
-    return (s <= 0.0) ? 0.0 : 1.0 - std::exp(-M_PI * s * s / 4.0);
+    // v2.0.3: GUE (beta=2) surmise CDF: erf(2s/sqrt(pi)) - (4s/pi)exp(-4s^2/pi)
+    // (was 1 - exp(-pi s^2/4) = the GOE beta=1 surmise — wrong ensemble).
+    return (s <= 0.0) ? 0.0
+        : std::erf(2.0 * s / std::sqrt(M_PI))
+          - (4.0 * s / M_PI) * std::exp(-4.0 * s * s / M_PI);
 }
 
 /** Compute normalized GUE spacings */

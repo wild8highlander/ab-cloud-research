@@ -36,9 +36,9 @@ Timestamp: 2026-07-31_15-33-39
   REFUTES §1.1: false
 
 --- §2a Spectral rigidity ---
-  rel_err_Δ₃ = 0.9722201912472507
-  rel_err_Σ² = 0.48097344493926386
-  REFUTES §2a: false
+  rel_err_Δ₃ = 0.12622522414124057
+  rel_err_Σ² = 0.41223888957858934
+  REFUTES §2a: true
 
 --- §2b Finite-size scaling ---
   n=100, <r>=0.607921275134656, ΔGUE=0.00832127513465597, KS_p=0.7183159065197322
@@ -74,6 +74,6 @@ Timestamp: 2026-07-31_15-33-39
   REFUTES §3: true
 
 ======================================================================
-OVERALL VERDICT: 4/6 passed
+OVERALL VERDICT: 5/6 passed
 ALL PASSED: false
 ======================================================================

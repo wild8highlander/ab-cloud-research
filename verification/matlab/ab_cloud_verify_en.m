@@ -151,7 +151,9 @@ function res = obj2_en(gammas, MSG)
     fprintf('\n%s\n%s\n%s\n%s\n',MSG.separator,MSG.obj2_title,MSG.obj2_desc,MSG.separator);
     gam=gammas(1:N-1); dlt=gammas(2:N)-gammas(1:N-1);
     lfac=log(gam/(2*pi))/(2*pi); s=dlt.*lfac; s=s(isfinite(s)&s>0);
-    ss=sort(s); ns=numel(ss); ecdf=(1:ns)'/ns; gcdf=1-exp(-pi*ss.^2/4);
+    ss=sort(s); ns=numel(ss); ecdf=(1:ns)'/ns;
+% v2.0.3: GUE (beta=2) surmise CDF (was the GOE beta=1 surmise - wrong ensemble)
+gcdf=erf(2*ss/sqrt(pi))-(4*ss/pi).*exp(-4*ss.^2/pi);
     Dp=max(ecdf-gcdf); Dm=max(gcdf-[0;ecdf(1:end-1)]); D=max(Dp,Dm);
     lam=(sqrt(ns)+0.12+0.11/sqrt(ns))*D; pv=0;
     for k=-5:5, pv=pv+(-1)^k*exp(-2*k^2*lam^2); end

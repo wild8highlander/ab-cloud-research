@@ -5300,90 +5300,79 @@ function ks_statistic(data::Vector{Float64}, cdf_func::Function)
 end
 
 # --- DYSON-MEHTA Δ₃(L) — SPECTRAL RIGIDITY ----------------------------------------------------------
-# # Standard Δ₃(L): mean-square deviation of the number of levels
-# # in a window of length L from the linear trend. For GUE: Δ₃(L) ≈ (1/π²)(ln L + γ - 5/4).
-# Standard Dyson-Mehta: for each window [u_i, u_i+L], fit a line n(u) = a + b*u
-# to the staircase, and compute the average squared residual PER UNIT LENGTH.
-# Dividing by L (≈ n_in) is critical — without it, the values grow linearly
-# with L instead of logarithmically.
+# # Standard Δ₃(L): mean-square deviation of the counting staircase N(x)
+# # in a window of length L (unfolded units) from the LSQ line. For GUE: Δ₃(L) ≈ (1/(2π²))(ln(2πL) + γ - 5/4).
 function delta_3_curve(unfolded::Vector{Float64}, L_grid::Vector{Float64})
+    # v2.0.3: honest Dyson-Mehta Δ₃ — LSQ line fit of the counting staircase
+    # N(x) on a fine grid inside windows of L unfolded units
+    # (validated: Poisson → L/15; GUE → (1/(2π²))(ln(2πL)+γ−5/4)).
+    # The old per-window knot fit with sum(res²)/n_in over level-locked
+    # starts was biased low by ~8x on the zeta zeros — the committed
+    # full_verification data was false and has been regenerated.
     n = length(unfolded)
+    u0, u1 = unfolded[1], unfolded[n]
+    nsub = 20
     delta3 = fill(NaN, length(L_grid))
     for (idx, L) in enumerate(L_grid)
-        if L < 2 || L > n/3
+        if L < 2 || (u1 - u0) < 2*L + 2
             continue
         end
-        cnt = 0
-        s = 0.0
-        # # Linear regression inside each window — standard Dyson-Mehta method
-        for i in 1:(n - Int(ceil(L)) - 1)
-            target = unfolded[i] + L
-            j_end = i
-            while j_end + 1 <= n && unfolded[j_end + 1] <= target
-                j_end += 1
+        ngrid = Int(floor(L * nsub)) + 1
+        vals = Float64[]
+        for s in u0:L:(u1 - L)
+            i0 = searchsortedlast(unfolded, s)
+            i1 = searchsortedlast(unfolded, s + L)
+            seg = unfolded[i0+1:i1]
+            grid = Vector{Float64}(undef, ngrid)
+            stair = Vector{Float64}(undef, ngrid)
+            for j in 1:ngrid
+                g = s + (j - 1) * L / (ngrid - 1)
+                grid[j] = g
+                stair[j] = Float64(searchsortedlast(seg, g))
             end
-            n_in = j_end - i + 1
-            if n_in < 2
+            if ngrid < 3
                 continue
             end
-            xs = unfolded[i:j_end] .- unfolded[i]
-            ys = collect(0.0:(n_in-1))
-            μ_x = mean(xs); μ_y = mean(ys)
-            var_x = sum((xs .- μ_x).^2)
-            if var_x > 1e-12
-                b = sum((xs .- μ_x) .* (ys .- μ_y)) / var_x
-                a = μ_y - b * μ_x
-                residuals = ys .- (a .+ b .* xs)
-                # Divide by n_in to get per-level variance (standard Δ₃ definition)
-                s += sum(residuals.^2) / n_in
-            else
-                s += (n_in - L)^2 / n_in
-            end
-            cnt += 1
+            A = hcat(grid, ones(ngrid))
+            coef = A \ stair
+            resid = stair - A * coef
+            push!(vals, mean(resid .^ 2))
         end
-        delta3[idx] = cnt > 0 ? s / cnt : NaN
+        if !isempty(vals)
+            delta3[idx] = mean(vals)
+        end
     end
     return delta3
 end
 
 # --- Σ²(L) — NUMBER VARIANCE ----------------------------------------------------------
 # # Σ²(L) = <(N(L) - L)²>, where N(L) is the number of levels in a window of length L.
-# # For GUE: Σ²(L) ≈ (2/π²)(ln(2π L) + γ - Ci(2π L) + cos(2π L)). For Poisson: Σ²(L) = L.
+# # For GUE: Σ²(L) → (1/π²)(ln(2πL) + γ + 1). For Poisson: Σ²(L) = L.
 function sigma2_curve(unfolded::Vector{Float64}, L_grid::Vector{Float64})
+    # v2.0.3: honest Σ² — variance of window counts over windows of L
+    # unfolded units with phase-covered starts (stride L/9.7; integer
+    # strides alias the lattice-locked zeta process).
+    # Validated: Poisson → L; GUE → (1/π²)(ln(2πL)+γ+1).
+    # The old "regression" variant extrapolated the in-window line to the
+    # endpoint and was catastrophically biased (Poisson L=2: 262 vs 2).
     n = length(unfolded)
+    u0, u1 = unfolded[1], unfolded[n]
     s2 = fill(NaN, length(L_grid))
     for (idx, L) in enumerate(L_grid)
-        if L < 2 || L > n/3
+        if L < 2 || (u1 - u0) < 2*L + 2
             continue
         end
-        cnt = 0
-        s = 0.0
-        counts_in = Float64[]
-        for i in 1:(n - Int(ceil(L)) - 1)
-            target = unfolded[i] + L
-            j_end = i
-            while j_end + 1 <= n && unfolded[j_end + 1] <= target
-                j_end += 1
-            end
-            n_in = j_end - i + 1
-            # # Use regression to compute the expected N(L)
-            xs = unfolded[i:j_end] .- unfolded[i]
-            ys = collect(0.0:(n_in-1))
-            if n_in >= 2
-                μ_x = mean(xs); μ_y = mean(ys)
-                var_x = sum((xs .- μ_x).^2)
-                if var_x > 1e-12
-                    b = sum((xs .- μ_x) .* (ys .- μ_y)) / var_x
-                    a = μ_y - b * μ_x
-                    # # Residual: difference between actual N and regression prediction at L
-                    n_expected = a + b * L
-                    push!(counts_in, n_in - n_expected)
-                end
-            end
-            cnt += 1
+        # L/9.7: incommensurate with the unit lattice (integer strides
+        # resonate with the lattice-locked zeta process, +50% variance).
+        stride = L / 9.7
+        counts = Float64[]
+        for s in u0:stride:(u1 - L)
+            c = searchsortedlast(unfolded, s + L) - searchsortedlast(unfolded, s)
+            push!(counts, Float64(c))
         end
-        if !isempty(counts_in)
-            s2[idx] = mean(counts_in.^2)
+        if !isempty(counts)
+            μ = mean(counts)
+            s2[idx] = sum((counts .- μ).^2) / length(counts)
         end
     end
     return s2
@@ -5395,10 +5384,12 @@ function sigma2_gue_theory(L::Float64)
         return 0.0
     end
     x = 2π * L
-    # # Σ²(L) = (2/π²)(ln(2π L) + γ - Ci(2π L) + cos(2π L))
-    # Standard Mehta formula: Σ²(L) = (2/π²)[ln(2π L) + γ + 1 - cos(2π L) - Ci(2π L)]
-    # `cosint` is the SpecialFunctions.jl name for Ci(x).
-    return (2/π^2) * (log(x) + 0.5772156649 + 1.0 - cos(x) - cosint(x))
+    # v2.0.3: exact Mehta form (sine kernel):
+    # Σ²(L) = L − (2/π²)[πL·Si(x) − (1−cos x)/2 − (γ+ln x − Ci(x))/2], x = 2πL;
+    # asymptotics (1/π²)(ln(2πL)+γ+1). The old (2/π²)(ln+γ+1−cos−Ci) matched
+    # neither GUE nor GOE (validated against direct GUE simulation).
+    return L - (2/π^2) * (π*L*sinint(x) - (1.0 - cos(x))/2
+                          - (0.5772156649015329 + log(x) - cosint(x))/2)
 end
 
 # --- Theoretical Δ₃ for GUE ---
@@ -5406,8 +5397,10 @@ function delta3_gue_theory(L::Float64)
     if L <= 0
         return 0.0
     end
-    # # Δ₃(L) ≈ (1/π²)(ln L + γ - 5/4)
-    return (1/π^2) * (log(L) + 0.5772156649 - 1.25)
+    # v2.0.3: Δ₃_GUE = (1/(2π²))·[ln(2πL) + γ − 5/4] — follows from the exact
+    # Σ² through the Dyson-Mehta kernel (Poisson → L/15). The old
+    # (1/π²)(ln L + γ − 5/4) had the wrong prefactor and log argument.
+    return (1/(2*π^2)) * (log(2π*L) + 0.5772156649015329 - 1.25)
 end
 
 # ==============================================================================

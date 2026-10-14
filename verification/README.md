@@ -41,11 +41,20 @@ the Hofstadter AB-flux per plaquette, *not* to this convergence rate.
 
 **Check:** the unfolded spacings
 `sₖ = (γₖ₊₁ − γₖ) · log(γₖ / 2π) / (2π)`
-are tested against the Wigner surmise `p(s) = (πs/2)·exp(−πs²/4)` with a
-Kolmogorov–Smirnov test and a Cramér–von Mises test. Criterion: p-value > 0.05
+are tested against the GUE (β=2) Wigner surmise
+`p(s) = (32/π²)·s²·exp(−4s²/π)`, CDF `F(s) = erf(2s/√π) − (4s/π)·exp(−4s²/π)`,
+with a Kolmogorov–Smirnov test and a Cramér–von Mises test. Criterion: p-value > 0.05
 (H₀ "the zeros are GUE-spaced" is not rejected). The reference run reports
 KS = 0.047 with p = 0.27 on 500 mpmath-certified zeros (Montgomery test), and
 ⟨r⟩ = 0.5848 ± 0.0260 against the GUE reference 0.5992.
+
+> **v2.0.3 correction.** All ten language folders shipped the reference law as
+> `1 − exp(−πs²/4)` — the **GOE (β=1)** surmise — while labeling it GUE. The
+> v23 Julia reference suite already used the correct β=2 law, so its pinned
+> numbers stand; the folder verifiers now match it. On the frozen first 500
+> zeros of `data/zeta_zeros_50000.txt` the corrected law gives KS D = 0.0495
+> (p = 0.168), where the old GOE-as-GUE law gave D = 0.1165 (p ≈ 0) — a false
+> rejection of the true hypothesis.
 
 ### Objection 3 — decay rate at large T
 
@@ -265,7 +274,9 @@ from `data/`, run the **same 37 tests**, and must reproduce the **same
 reference statistics** — pair-correlation KS = 0.047 (p = 0.27),
 Byers–Yang flux defect 3.5e-15, ⟨r⟩ = 0.5848 ± 0.0260 against the GUE
 value 0.5992. A language that drifts from these numbers has a bug, not
-an opinion.
+an opinion. (v2.0.3: the spacing reference law itself was corrected in all
+ten folders — it was the GOE β=1 surmise labeled as GUE; see the Objection 2
+note above.)
 
 Every entry point speaks the same flag language: `--zeros N` (number of
 zeros to use, 0 = all; default 10 000), `--source NAME` (choose a
@@ -292,5 +303,8 @@ rerun of every program in every language sees byte-identical input.
   замороженные данные, одни и те же эталонные числа.
 - Паритет строгий: KS = 0.047 (p = 0.27), дефект Байерса–Янга 3.5e-15,
   ⟨r⟩ = 0.5848 ± 0.0260 — расхождение трактуется как баг реализации.
+- v2.0.3: во всех десяти папках эталонный закон интервалов исправлен —
+  вместо сюрмизы GOE (β=1), выдававшейся за GUE, теперь истинная
+  сюрмиза GUE (β=2): p(s) = (32/π²)·s²·exp(−4s²/π).
 - Рядом — spinor64 (исправление v21), порты spinor38 (Тест 38) и
   секционные микропроверки; контракт данных — в `data/README.md`.

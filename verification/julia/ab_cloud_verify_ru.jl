@@ -67,8 +67,9 @@ function objection1(gammas::Vector{Float64})
     return b_n, pass
 end
 
-# --- GUE вспомогательные ---
-gue_pdf(s::Float64)::Float64 = (PI*s/2.0) * exp(-PI*s^2/4.0)
+# --- GUE вспомогательные (v2.0.3: ПР GUE β=2 (32/π²)s²exp(−4s²/π);
+# была сюрмиза GOE β=1 (πs/2)exp(−πs²/4) — неверный ансамбль) ---
+gue_pdf(s::Float64)::Float64 = (32.0/(PI*PI)) * s * s * exp(-4.0*s*s/PI)
 
 function gue_cdf(s::Float64)::Float64
     s ≤ 0.0 && return 0.0

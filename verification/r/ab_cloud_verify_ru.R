@@ -69,7 +69,16 @@ gram_points_vec_ru <- function(n_vec) sapply(n_vec, gram_point_ru)
 
 # --- Функция распределения интервалов GUE (гипотеза Вигнера) -----------------
 
-gue_cdf_ru <- function(s) 1 - exp(-pi * s^2 / 4)
+gue_cdf_ru <- function(s) {
+  # v2.0.3: GUE (beta=2) surmise CDF: erf(2s/sqrt(pi)) - (4s/pi)exp(-4s^2/pi)
+  # (was 1 - exp(-pi s^2/4) = the GOE beta=1 surmise - wrong ensemble).
+  # erf via pnorm: erf(x) = 2*pnorm(x*sqrt(2)) - 1.
+  ind <- s > 0
+  out <- rep(0, length(s))
+  x <- s[ind]
+  out[ind] <- 2*pnorm(2*x*sqrt(2/pi)) - 1 - (4*x/pi)*exp(-4*x^2/pi)
+  out
+}
 
 # --- Загрузка нулей из файлов данных -----------------------------------------
 

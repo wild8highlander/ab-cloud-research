@@ -71,10 +71,15 @@ def r_ratio_goe_pdfa(r: np.ndarray) -> np.ndarray:
 
 
 def r_ratio_gue_pdfa(r: np.ndarray) -> np.ndarray:
-    """GUE P(r) ~ (81·sqrt(3)/π) (r² + r⁴) / (1 + r² + r⁴)^(5/2) ... approx form."""
-    # Yokoyama-Tanaka P(r) for GUE
+    """GUE P(r) = (81*sqrt(3)/(2*pi)) * (r + r^2)^2 / (1 + r + r^2)^4.
+
+    Atas et al. 2012 Wigner-surmise for the ratio distribution, beta=2:
+    normalized on [0, 1], <r> = 0.6027 (surmise value).
+    v2.0.3: was C*(r^2 + r^4)/(1 + r^2 + r^4)^(5/2) — integrates to 2.6
+    (not 1) and gives <r> = 0.636 after renormalization; wrong form.
+    """
     C = 81.0 * np.sqrt(3) / (2.0 * np.pi)
-    return C * (r**2 + r**4) / (1 + r**2 + r**4)**2.5
+    return C * (r + r ** 2) ** 2 / (1 + r + r ** 2) ** 4
 
 
 # ============================================================
@@ -379,9 +384,11 @@ def r_cdf_comparison(spacings: np.ndarray) -> dict:
     pdf_goe = (27.0/4.0) * (r_grid + r_grid**2) / (1 + r_grid + r_grid**2)**2.5
     pdf_goe /= np.trapz(pdf_goe, r_grid)
     cdf_goe = np.cumsum(pdf_goe) * (r_grid[1] - r_grid[0])
-    # GUE P(r) — use the Atas-Bogomolny formula
-    pdf_gue = 2.0 * (81.0 * np.sqrt(3) / (2.0 * np.pi)) * \
-              (r_grid**2 + r_grid**4) / (1 + r_grid**2 + r_grid**4)**2.5
+    # GUE P(r) — Atas et al. 2012 beta=2 surmise
+    # P2(r) = (81*sqrt(3)/(2*pi)) (r + r^2)^2 / (1 + r + r^2)^4, <r> = 0.6027
+    # (v2.0.3: the old (r^2+r^4)/(1+r^2+r^4)^(5/2) form gave <r> = 0.636)
+    pdf_gue = (81.0 * np.sqrt(3) / (2.0 * np.pi)) * \
+              (r_grid + r_grid ** 2) ** 2 / (1 + r_grid + r_grid ** 2) ** 4
     pdf_gue /= np.trapz(pdf_gue, r_grid)
     cdf_gue = np.cumsum(pdf_gue) * (r_grid[1] - r_grid[0])
     return {"r_grid": r_grid, "cdf_GUE": cdf_gue, "cdf_GOE": cdf_goe,

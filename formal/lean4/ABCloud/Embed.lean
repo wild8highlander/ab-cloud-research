@@ -107,11 +107,14 @@ def REF_EMBEDB200 : Float := 2.6333671966604486
 /-- Frozen reference: b(256). -/
 def REF_EMBEDB256 : Float := 2.5045177355720414
 
-/-- Frozen reference: the KS distance D of the GUE spacing test. -/
-def REF_EMBEDD : Float := 0.13726831918538146
+/-- Frozen reference: the KS distance D of the GUE spacing test.
+v2.0.3: regenerated with the corrected β=2 GUE CDF (was the GOE β=1
+surmise — the old value 0.13726831918538146 measured the wrong ensemble). -/
+def REF_EMBEDD : Float := 0.0702356425520416
 
-/-- Frozen reference: the Cramér–von Mises statistic W². -/
-def REF_EMBEDW2 : Float := 1.1855661605530794
+/-- Frozen reference: the Cramér–von Mises statistic W².
+v2.0.3: regenerated (old 1.1855661605530794 was against the GOE law). -/
+def REF_EMBEDW2 : Float := 0.2059419746153673
 
 /-- Frozen reference: the log–log decay slope of b(N). -/
 def REF_EMBEDSlope : Float := -0.2209242680560308
@@ -131,11 +134,15 @@ def REF_MAINB1000 : Float := 1.9321062629959025
 /-- Frozen reference: b(5000). -/
 def REF_MAINB5000 : Float := 1.4942244141976606
 
-/-- Frozen reference: the KS distance D of the GUE spacing test. -/
-def REF_MAIND : Float := 0.0991866230673718
+/-- Frozen reference: the KS distance D of the GUE spacing test.
+v2.0.3: regenerated with the corrected β=2 GUE CDF — cross-validated against
+the lab-3d Julia pipeline (D = 0.0312 on the same zeros). The old value
+0.0991866230673718 was measured against the GOE β=1 surmise. -/
+def REF_MAIND : Float := 0.0310483738268406
 
-/-- Frozen reference: the Cramér–von Mises statistic W². -/
-def REF_MAINW2 : Float := 17.604855018865965
+/-- Frozen reference: the Cramér–von Mises statistic W².
+v2.0.3: regenerated (old 17.604855018865965 was against the GOE law). -/
+def REF_MAINW2 : Float := 1.5383040904977836
 
 /-- Frozen reference: the log–log decay slope of b(N). -/
 def REF_MAINSlope : Float := -0.1831023443957192

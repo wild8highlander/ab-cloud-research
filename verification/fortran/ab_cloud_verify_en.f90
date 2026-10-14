@@ -209,7 +209,7 @@ contains
     pass = (ks_pval > 0.05_dp)
     write(*,'(/,A)')  "====================================================="
     write(*,'(A)')    "  OBJECTION 2: GUE Spacing KS Test"
-    write(*,'(A)')    "  s_k = dg_k * log(g_k/2pi) / 2pi,  p(s) = (pi*s/2)*exp(-pi*s^2/4)"
+    write(*,'(A)')    "  s_k = dg_k * log(g_k/2pi) / 2pi,  p(s) = (32/pi^2)*s^2*exp(-4 s^2/pi)"
     write(*,'(A)')    "====================================================="
     write(*,'(A,I0)')     "    Spacing count    = ", m
     write(*,'(A,ES15.8)') "    KS statistic     = ", ks_stat
@@ -220,21 +220,17 @@ contains
 
   function gue_cdf(s) result(cdf)
     real(dp), intent(in) :: s, cdf
-    integer :: i, nsteps; real(dp) :: h, x, sum_val
+    ! v2.0.3: GUE (beta=2) surmise CDF: erf(2s/sqrt(pi)) - (4s/pi)exp(-4s^2/pi)
+    ! (was the Simpson integral of the GOE pdf — wrong ensemble).
     if (s <= 0.0_dp) then; cdf = 0.0_dp; return; end if
-    nsteps = 200; h = s / real(nsteps, dp); sum_val = 0.0_dp
-    do i = 0, nsteps
-      x = real(i, dp) * h
-      if (i == 0 .or. i == nsteps) then; sum_val = sum_val + gue_pdf(x)
-      else if (mod(i,2) == 1) then; sum_val = sum_val + 4.0_dp * gue_pdf(x)
-      else; sum_val = sum_val + 2.0_dp * gue_pdf(x); end if
-    end do
-    cdf = min((h / 3.0_dp) * sum_val, 1.0_dp)
+    cdf = erf(2.0_dp * s / sqrt(PI)) - (4.0_dp * s / PI) * exp(-4.0_dp * s**2 / PI)
+    cdf = min(max(cdf, 0.0_dp), 1.0_dp)
   end function gue_cdf
 
   function gue_pdf(s) result(pdf)
     real(dp), intent(in) :: s, pdf
-    pdf = (PI * s / 2.0_dp) * exp(-PI * s**2 / 4.0_dp)
+    ! v2.0.3: GUE (beta=2) surmise PDF: (32/pi^2) s^2 exp(-4 s^2/pi)
+    pdf = (32.0_dp / (PI * PI)) * s * s * exp(-4.0_dp * s**2 / PI)
   end function gue_pdf
 
   function kolmogorov_pvalue(d, n) result(pval)

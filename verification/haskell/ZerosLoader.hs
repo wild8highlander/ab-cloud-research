@@ -1,3 +1,4 @@
+{-# LANGUAGE ForeignFunctionInterface #-}
 module ZerosLoader
   ( loadZeros
   , lambertW
@@ -108,6 +109,13 @@ gramPoint n
         fp    = rsThetaPrime t
         delta = f / fp
 
--- | GUE cumulative distribution function: 1 - exp(-πs²/4).
+-- | GUE (beta=2) Wigner surmise cumulative distribution function:
+-- F(s) = erf(2s/sqrt(pi)) - (4s/pi) * exp(-4 s^2 / pi).
+-- v2.0.3: was 1 - exp(-pi s^2/4), which is the GOE (beta=1) surmise —
+-- wrong ensemble (linear vs quadratic repulsion).
+foreign import ccall "math.h erf" c_erf :: Double -> Double
+
 gueCDF :: Double -> Double
-gueCDF s = 1 - exp (-pi * s * s / 4)
+gueCDF s
+  | s <= 0    = 0
+  | otherwise = c_erf (2 * s / sqrt pi) - (4 * s / pi) * exp (-4 * s * s / pi)

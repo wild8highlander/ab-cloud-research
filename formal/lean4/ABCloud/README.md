@@ -41,8 +41,8 @@ Expected tail of a healthy run:
   b(500) = 2.192884   ref 2.192884   Δ = 0.000000  (tol 0.000001)  PASS
   b(1000) = 1.932106   ref 1.932106   Δ = 0.000000  (tol 0.000001)  PASS
   b(5000) = 1.494224   ref 1.494224   Δ = 0.000000  (tol 0.000001)  PASS
-  KS D = 0.099187   ref 0.099187   Δ = 0.000000  (tol 0.000500)  PASS
-  CvM W² = 17.604855   ref 17.604855   Δ = 0.000000  (tol 0.005000)  PASS
+  KS D = 0.031048   ref 0.031048   Δ = 0.000000  (tol 0.000500)  PASS
+  CvM W² = 1.538304   ref 1.538304   Δ = 0.000000  (tol 0.005000)  PASS
   decay slope = -0.183102   ref -0.183102   Δ = 0.000000  (tol 0.001000)  PASS
   decay R² = 0.994609   ref 0.994609   Δ = 0.000000  (tol 0.001000)  PASS
  RESULT: 8/8 checks PASS — Lean 4 re-derives the frozen numbers

@@ -12,7 +12,9 @@ A dependency-free Float64 port of the algorithms of
 * Gram points γ̃_k = 2πk / W(k/e);
 * the b(N) = (1/N)·Σ_{k≤N} |γ_k − γ̃_k| convergence ladder;
 * unfolded spacings s_k = (γ_{k+1} − γ_k)·log(γ_k/2π)/(2π);
-* the GUE Wigner–Dyson CDF F(s) = 1 − e^{−πs²/4};
+* the GUE (β=2) Wigner–Dyson CDF F(s) = erf(2s/√π) − (4s/π)·e^{−4s²/π}
+  (v2.0.3: the previous 1 − e^{−πs²/4} was the GOE β=1 surmise — wrong
+  ensemble; the frozen Objection-2 references were regenerated);
 * the Kolmogorov–Smirnov D statistic and the Cramér–von Mises W²;
 * the mean adjacent-spacing ratio ⟨r⟩;
 * the log–log linear regression of b(N) (slope / intercept / R²).
@@ -89,13 +91,30 @@ def computeBn (zeros : Array Float) (N : Nat) : Float :=
 
 /-! ## Objection 2 — GUE spacing statistics -/
 
-/-- GUE (Wigner–Dyson) CDF: `F(s) = 1 − e^{−πs²/4}`. -/
-def gueCdf (s : Float) : Float :=
-  1.0 - (-(3.141592653589793 * s * s / 4.0)).exp
+/-- erf via the Abramowitz–Stegun 7.1.26 rational approximation (|err| ≤ 1.5e-7).
+Lean core has no `erf`, and this file deliberately avoids Mathlib. -/
+def erfApprox (x : Float) : Float :=
+  let ax := fabs x
+  let t := 1.0 / (1.0 + 0.3275911 * ax)
+  let y := 1.0
+    - (((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736)
+          * t + 0.254829592) * t)
+      * (-(x * x)).exp
+  if x < 0.0 then -y else y
 
-/-- GUE (Wigner–Dyson) PDF: `p(s) = (πs/2)·e^{−πs²/4}`. -/
+/-- GUE (β=2) Wigner–Dyson CDF (v2.0.3): `F(s) = erf(2s/√π) − (4s/π)·e^{−4s²/π}`.
+The old `1 − e^{−πs²/4}` was the GOE (β=1) surmise — wrong ensemble
+(linear instead of quadratic level repulsion). -/
+def gueCdf (s : Float) : Float :=
+  if s ≤ 0.0 then 0.0
+  else
+    erfApprox (2.0 * s / 1.7724538509055159)
+      - (4.0 * s / 3.141592653589793) * (-(4.0 * s * s / 3.141592653589793)).exp
+
+/-- GUE (β=2) Wigner–Dyson PDF (v2.0.3): `p(s) = (32/π²)·s²·e^{−4s²/π}`. -/
 def guePdf (s : Float) : Float :=
-  (3.141592653589793 * s / 2.0) * (-(3.141592653589793 * s * s / 4.0)).exp
+  (32.0 / (3.141592653589793 * 3.141592653589793)) * s * s
+    * (-(4.0 * s * s / 3.141592653589793)).exp
 
 /-- Unfolded spacings `s_k = (γ_{k+1} − γ_k)·log(γ_k/2π)/(2π)`,
 skipping nonpositive ordinates exactly like the reference loader. -/

@@ -55,7 +55,7 @@ constexpr const char* OBJ1_CONV_N    = "НЕ сходится";
 
 constexpr const char* OBJ2_HDR       = "\n--- Возражение 2: Статистика интервалов GUE ---";
 constexpr const char* OBJ2_DESC      = "Нормир. интервалы: s_k = (gamma_{k+1} - gamma_k) * log(gamma_k/(2*pi)) / (2*pi)";
-constexpr const char* OBJ2_GUE       = "Плотность GUE: p(s) = (pi*s/2) * exp(-pi*s^2/4)";
+constexpr const char* OBJ2_GUE       = "Плотность GUE: p(s) = (32/pi^2) * s^2 * exp(-4 s^2/pi)";
 constexpr const char* OBJ2_KS        = "Критерий Колмогорова-Смирнова: D = max|F_эмп - F_GUE|";
 
 constexpr const char* OBJ3_HDR       = "\n--- Возражение 3: Скорость убывания на больших T ---";
@@ -188,9 +188,13 @@ static double compute_bN(const std::vector<double>& zeros, int N) {
     return sum / N;
 }
 
-/** Кумулятивная функция распределения GUE: F(s) = 1 − exp(−π s² / 4) */
+/** Кумулятивная функция распределения GUE: F(s) = erf(2s/√π) − (4s/π) exp(−4s²/π) */
 static double gue_cdf(double s) {
-    return (s <= 0.0) ? 0.0 : 1.0 - std::exp(-M_PI * s * s / 4.0);
+    // v2.0.3: ФР GUE (β=2): erf(2s/√π) − (4s/π)exp(−4s²/π)
+    // (было 1 − exp(−πs²/4) — сюрмиза GOE β=1, неверный ансамбль).
+    return (s <= 0.0) ? 0.0
+        : std::erf(2.0 * s / std::sqrt(M_PI))
+          - (4.0 * s / M_PI) * std::exp(-4.0 * s * s / M_PI);
 }
 
 /**

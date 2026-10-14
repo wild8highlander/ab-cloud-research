@@ -282,7 +282,9 @@ function res = objection_2(gammas, MSG)
     s_sort = sort(s);
     n_s = numel(s_sort);
     emp_cdf = (1:n_s)' / n_s;
-    gue_cdf = 1 - exp(-pi * s_sort.^2 / 4);
+    % v2.0.3: GUE (beta=2) surmise CDF: erf(2s/sqrt(pi)) - (4s/pi)exp(-4s^2/pi)
+    % (was 1 - exp(-pi s^2/4) = the GOE beta=1 surmise - wrong ensemble)
+    gue_cdf = erf(2*s_sort/sqrt(pi)) - (4*s_sort/pi).*exp(-4*s_sort.^2/pi);
 
     D_plus  = max(emp_cdf - gue_cdf);
     D_minus = max(gue_cdf - [0; emp_cdf(1:end-1)]);

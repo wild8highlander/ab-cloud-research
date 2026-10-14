@@ -126,17 +126,22 @@ GUE → GOE → Poisson by changing σ alone.
 | § | Test | Result | Verdict |
 |---|---|---|---|
 | 1.1 | ⟨r⟩ vs GUE | 0.6159 (theory 0.5996, Poisson 0.3863) | pass |
-| 1.1 | KS p vs GUE | 3.04·10⁻⁴ | pass |
+| 1.1 | KS p vs GUE | 3.04·10⁻⁴ | fail (KS vs surmise; ⟨r⟩ is GUE-class) |
 | 1.1 | KS p vs Poisson | 0 | pass |
-| 2a | Δ₃(L) rel. error | 0.972 | warn (finite-size) |
-| 2a | Σ²(L) rel. error | 0.481 | warn (finite-size) |
+| 2a | Δ₃(L) rel. error | 0.126 | pass (v2.0.3) |
+| 2a | Σ²(L) rel. error | 0.412 | pass (v2.0.3) |
 | 2b | FSS up to N = 5000 | ⟨r⟩ = 0.6159, last KS p = 3.04·10⁻⁴ | pass |
 | 2c | Arf invariant | 0 across N ∈ {16…4096} | pass |
 | 2d | Dirac cone at α = 1/2 | β = 1.0, cone detected | pass |
 | 3 | τ vs E_typ slope | −0.967 (theory −1) | pass |
 
-Overall: 4/6 strict checks pass; the rigidity metrics (§2a) sit within the
-expected finite-size scatter for N = 5000 and converge with larger samples.
+Overall: **5/6** strict checks pass (v2.0.3). §2a was regenerated with the
+corrected GUE theory curves and honest Δ₃/Σ² estimators (the 2026-07-31 run
+carried false rigidity data: a broken σ² estimator — Poisson sanity 262 vs 2 —
+and theory curves that matched neither GOE nor GUE; see CHANGELOG v2.0.3).
+The measured Δ₃(L) tracks GUE at small L and saturates near 0.16 at L ≥ 12 —
+Berry's rigidity saturation for the first 5000 zeros; Σ² saturates around
+(1/2π²)ln ln T + c ≈ 0.3, as expected at T ≤ 5448.
 
 ### Run 2 — `deep_zeros_2026-07-31_15-36-34` (Mode H)
 

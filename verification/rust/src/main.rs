@@ -195,10 +195,12 @@ fn compute_objection1(gammas: &[f64], lang: u8) -> VerifyResult {
 }
 
 // =============================================================================
-// GUE PDF: p(s) = (πs/2) · exp(-πs²/4)
+// GUE PDF (v2.0.3): p(s) = (32/π²) · s² · exp(-4s²/π)
 // =============================================================================
 fn gue_pdf(s: f64) -> f64 {
-    (PI * s / 2.0) * (-PI * s * s / 4.0).exp()
+    // v2.0.3: GUE (beta=2) surmise: (32/pi^2) s^2 exp(-4 s^2 / pi)
+    // (was the GOE beta=1 surmise (pi s/2) exp(-pi s^2/4) - wrong ensemble)
+    (32.0 / (PI * PI)) * s * s * (-4.0 * s * s / PI).exp()
 }
 
 /// GUE CDF via Simpson's rule
@@ -275,7 +277,7 @@ fn compute_objection2(gammas: &[f64], lang: u8) -> VerifyResult {
         println!();
         println!("═══════════════════════════════════════════════════");
         println!("  ВОЗРАЖЕНИЕ 2: GUE-интервалы, KS-критерий");
-        println!("  s_k = Δγ_k · log(γ_k/2π) / 2π,  p(s) = (πs/2)·e^{{-πs²/4}}");
+        println!("  s_k = Δγ_k · log(γ_k/2π) / 2π,  p(s) = (32/π²)·s²·e^{{-4s²/π}}");
         println!("═══════════════════════════════════════════════════");
         println!("    Кол-во интервалов = {}", m);
         println!("    KS-статистика     = {:.8e}", ks_stat);
@@ -285,7 +287,7 @@ fn compute_objection2(gammas: &[f64], lang: u8) -> VerifyResult {
         println!();
         println!("═══════════════════════════════════════════════════");
         println!("  OBJECTION 2: GUE Spacing KS Test");
-        println!("  s_k = Δγ_k · log(γ_k/2π) / 2π,  p(s) = (πs/2)·e^{{-πs²/4}}");
+        println!("  s_k = Δγ_k · log(γ_k/2π) / 2π,  p(s) = (32/π²)·s²·e^{{-4s²/π}}");
         println!("═══════════════════════════════════════════════════");
         println!("    Spacing count    = {}", m);
         println!("    KS statistic     = {:.8e}", ks_stat);

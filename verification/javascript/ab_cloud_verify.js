@@ -35,7 +35,7 @@ const MSG = {
     obj1_stable:  'STABLE — b(N) near zero, AB-Cloud consistent',
     obj1_diverge: 'DIVERGING — b(N) not → 0, objection upheld',
     obj2_title:   'Objection 2: GUE Spacing KS Test',
-    obj2_desc:    's_k = (γ_{k+1}-γ_k)·log(γ_k/2π)/(2π), vs p(s)=(πs/2)·exp(-πs²/4)',
+    obj2_desc:    's_k = (γ_{k+1}-γ_k)·log(γ_k/2π)/(2π), vs p(s)=(32/π²)·s²·exp(-4s²/π)',
     obj2_stat:    'D-statistic',
     obj2_pval:    'p-value',
     obj2_result:  'Result',
@@ -128,8 +128,20 @@ function gramPointsVec(nVec) {
 // GUE spacing CDF (Wigner surmise)
 // ==============================================================================
 
+// v2.0.3: GUE (beta=2) Wigner surmise CDF:
+// F(s) = erf(2s/sqrt(pi)) - (4s/pi) exp(-4 s^2 / pi)
+// (was 1 - exp(-pi s^2/4) -- the GOE beta=1 surmise, wrong ensemble).
+// erf via Abramowitz & Stegun 7.1.26 (|err| <= 1.5e-7).
+function erfApprox(x) {
+  const sign = x < 0 ? -1 : 1;
+  const ax = Math.abs(x);
+  const t = 1 / (1 + 0.3275911 * ax);
+  const y = 1 - ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-ax * ax);
+  return sign * y;
+}
 function gueCDF(s) {
-  return 1 - Math.exp(-Math.PI * s * s / 4);
+  if (s <= 0) return 0;
+  return erfApprox(2 * s / Math.sqrt(Math.PI)) - (4 * s / Math.PI) * Math.exp(-4 * s * s / Math.PI);
 }
 
 // ==============================================================================

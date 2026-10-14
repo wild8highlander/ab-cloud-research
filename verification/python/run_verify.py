@@ -125,13 +125,19 @@ def gram_point(k: int) -> float:
 
 
 def gue_pdf(s: float) -> float:
-    """GUE (Wigner-Dyson) spacing PDF: p(s) = (pi*s/2)*exp(-pi*s^2/4)."""
-    return (math.pi * s / 2.0) * math.exp(-math.pi * s * s / 4.0)
+    """GUE (Wigner-Dyson) spacing PDF: p(s) = (32/pi^2)*s^2*exp(-4 s^2/pi).
+
+    v2.0.3: was (pi*s/2)*exp(-pi*s^2/4) — the GOE (beta=1) surmise, not GUE.
+    """
+    return (32.0 / math.pi ** 2) * s * s * math.exp(-4.0 * s * s / math.pi)
 
 
 def gue_cdf(s: float) -> float:
-    """GUE spacing CDF: P(s) = 1 - exp(-pi*s^2/4)."""
-    return 1.0 - math.exp(-math.pi * s * s / 4.0)
+    """GUE spacing CDF: P(s) = erf(2s/sqrt(pi)) - (4s/pi) exp(-4 s^2/pi)."""
+    if s <= 0:
+        return 0.0
+    return math.erf(2.0 * s / math.sqrt(math.pi)) \
+        - (4.0 * s / math.pi) * math.exp(-4.0 * s * s / math.pi)
 
 
 def compute_bN(zeros: List[float], N: int) -> float:

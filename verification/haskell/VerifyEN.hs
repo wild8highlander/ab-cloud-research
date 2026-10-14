@@ -52,7 +52,7 @@ objection2EN zeros = unlines
   , "╚══════════════════════════════════════════════════════╝"
   , ""
   , "  s_k = (γ_{k+1} - γ_k) × log(γ_k/(2π)) / (2π)"
-  , "  GUE level spacing: p(s) = (πs/2) × exp(-πs²/4)"
+  , "  GUE level spacing: p(s) = (32/π²) × s² × exp(-4s²/π)"
   , ""
   , "  Zeros analyzed:    " ++ show n
   , "  Spacings computed: " ++ show (n - 1)

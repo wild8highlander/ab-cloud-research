@@ -432,13 +432,17 @@ def verify_objection1(
 def gue_cdf(s: float) -> float:
     """Cumulative distribution function for GUE (Wigner-Dyson) spacing.
 
-    P(s) = ∫₀ˢ (πt/2) exp(−πt²/4) dt = 1 − exp(−πs²/4).
+    p₂(s) = (32/π²) s² exp(−4s²/π)  =>  P(s) = erf(2s/√π) − (4s/π) exp(−4s²/π).
+    v2.0.3: was 1 − exp(−πs²/4) — that is the GOE (β=1) surmise, not GUE.
     """
-    return 1.0 - math.exp(-math.pi * s * s / 4.0)
+    if s <= 0:
+        return 0.0
+    return math.erf(2.0 * s / math.sqrt(math.pi)) \
+        - (4.0 * s / math.pi) * math.exp(-4.0 * s * s / math.pi)
 
 def gue_pdf(s: float) -> float:
-    """Probability density for GUE spacing: p(s) = (πs/2) exp(−πs²/4)."""
-    return (math.pi * s / 2.0) * math.exp(-math.pi * s * s / 4.0)
+    """Probability density for GUE spacing: p(s) = (32/π²) s² exp(−4s²/π)."""
+    return (32.0 / math.pi ** 2) * s * s * math.exp(-4.0 * s * s / math.pi)
 
 def _ks_test(empirical: List[float], cdf_func, n_bootstrap: int = 0) -> Tuple[float, float]:
     """Kolmogorov-Smirnov test: empirical CDF vs theoretical CDF.

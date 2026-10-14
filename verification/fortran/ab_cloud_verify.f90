@@ -299,7 +299,7 @@ contains
   !=============================================================================
   ! Objection 2: GUE spacing KS test
   ! s_k = (γ_{k+1} - γ_k) · log(γ_k/(2π)) / (2π)
-  ! GUE PDF: p(s) = (πs/2) · exp(-πs²/4)
+  ! GUE PDF (v2.0.3): p(s) = (32/π²) · s² · exp(-4s²/π)
   !=============================================================================
   subroutine compute_objection2(gammas, n, ks_stat, ks_pval, pass, lang_id)
     real(dp), intent(in)    :: gammas(:)
@@ -340,7 +340,7 @@ contains
     if (lang_id == 2) then
       write(*,'(/,A)') "═══════════════════════════════════════════════════"
       write(*,'(A)')   "  ВОЗРАЖЕНИЕ 2: GUE-интервалы, KS-критерий"
-      write(*,'(A)')   "  s_k = Δγ_k · log(γ_k/2π) / 2π,  p(s) = (πs/2)·e^{-πs²/4}"
+      write(*,'(A)')   "  s_k = Δγ_k · log(γ_k/2π) / 2π,  p(s) = (32/π²)·s²·e^{-4s²/π}"
       write(*,'(A)')   "═══════════════════════════════════════════════════"
       write(*,'(A,I0)')    "    Кол-во интервалов = ", m
       write(*,'(A,ES15.8)') "    KS-статистика     = ", ks_stat
@@ -349,7 +349,7 @@ contains
     else
       write(*,'(/,A)') "═══════════════════════════════════════════════════"
       write(*,'(A)')   "  OBJECTION 2: GUE Spacing KS Test"
-      write(*,'(A)')   "  s_k = Δγ_k · log(γ_k/2π) / 2π,  p(s) = (πs/2)·e^{-πs²/4}"
+      write(*,'(A)')   "  s_k = Δγ_k · log(γ_k/2π) / 2π,  p(s) = (32/π²)·s²·e^{-4s²/π}"
       write(*,'(A)')   "═══════════════════════════════════════════════════"
       write(*,'(A,I0)')    "    Spacing count    = ", m
       write(*,'(A,ES15.8)') "    KS statistic     = ", ks_stat
@@ -366,34 +366,22 @@ contains
   function gue_cdf(s) result(cdf)
     real(dp), intent(in) :: s
     real(dp)             :: cdf
-    integer              :: i, nsteps
-    real(dp)             :: h, x, sum_val
 
+    ! v2.0.3: closed form of the GUE (beta=2) surmise CDF:
+    ! F(s) = erf(2s/sqrt(pi)) - (4s/pi) exp(-4 s^2 / pi)
+    ! (was the Simpson integral of the GOE pdf — wrong ensemble).
     if (s <= 0.0_dp) then; cdf = 0.0_dp; return; end if
-    nsteps = 200
-    h = s / real(nsteps, dp)
-    sum_val = 0.0_dp
-
-    do i = 0, nsteps
-      x = real(i, dp) * h
-      if (i == 0 .or. i == nsteps) then
-        sum_val = sum_val + gue_pdf(x)
-      else if (mod(i,2) == 1) then
-        sum_val = sum_val + 4.0_dp * gue_pdf(x)
-      else
-        sum_val = sum_val + 2.0_dp * gue_pdf(x)
-      end if
-    end do
-    cdf = (h / 3.0_dp) * sum_val
-    cdf = min(cdf, 1.0_dp)
+    cdf = erf(2.0_dp * s / sqrt(PI)) - (4.0_dp * s / PI) * exp(-4.0_dp * s**2 / PI)
+    cdf = min(max(cdf, 0.0_dp), 1.0_dp)
   end function gue_cdf
 
   !=============================================================================
-  ! GUE PDF: p(s) = (πs/2) · exp(-πs²/4)
+  ! GUE PDF (v2.0.3): p(s) = (32/π²) · s² · exp(-4s²/π)
+  ! (was the GOE beta=1 surmise (πs/2)exp(-πs²/4) — wrong ensemble)
   !=============================================================================
   function gue_pdf(s) result(pdf)
     real(dp), intent(in) :: s, pdf
-    pdf = (PI * s / 2.0_dp) * exp(-PI * s**2 / 4.0_dp)
+    pdf = (32.0_dp / (PI * PI)) * s * s * exp(-4.0_dp * s**2 / PI)
   end function gue_pdf
 
   !=============================================================================

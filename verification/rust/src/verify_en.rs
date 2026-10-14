@@ -85,7 +85,9 @@ pub fn compute_objection1(gammas: &[f64]) -> VerifyResult {
 // GUE PDF / CDF
 // =============================================================================
 fn gue_pdf(s: f64) -> f64 {
-    (PI * s / 2.0) * (-PI * s * s / 4.0).exp()
+    // v2.0.3: GUE (beta=2) surmise: (32/pi^2) s^2 exp(-4 s^2 / pi)
+    // (was the GOE beta=1 surmise (pi s/2) exp(-pi s^2/4) - wrong ensemble)
+    (32.0 / (PI * PI)) * s * s * (-4.0 * s * s / PI).exp()
 }
 
 fn gue_cdf(s: f64) -> f64 {

@@ -127,9 +127,11 @@ function objection1(gammas::Vector{Float64}; lang::Int=0)::VerifyResult
 end
 
 # =============================================================================
-# GUE PDF: p(s) = (πs/2) · exp(-πs²/4)
+# GUE PDF (v2.0.3): p(s) = (32/π²) · s² · exp(-4s²/π)
+# (was (πs/2)·exp(−πs²/4) — the GOE beta=1 surmise, wrong ensemble; the
+#  Simpson CDF below integrates whatever pdf is defined here)
 # =============================================================================
-gue_pdf(s::Float64)::Float64 = (PI * s / 2.0) * exp(-PI * s^2 / 4.0)
+gue_pdf(s::Float64)::Float64 = (32.0 / (PI * PI)) * s * s * exp(-4.0 * s * s / PI)
 
 # =============================================================================
 # GUE CDF via Simpson's rule

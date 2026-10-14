@@ -41,8 +41,8 @@
 
 | Metric | Value |
 |---|---|
-| Relative error Δ₃ | 0.9722201912472507 |
-| Relative error Σ² | 0.48097344493926386 |
+| Relative error Δ₃ | 0.12622522414124057 |
+| Relative error Σ² | 0.41223888957858934 |
 
 ![Δ₃(L)](02_delta3_L.png)
 
@@ -104,5 +104,5 @@
 
 ## Overall verdict
 
-- Verdicts passed: **4/6**
+- Verdicts passed: **5/6**
 - All passed: **false**

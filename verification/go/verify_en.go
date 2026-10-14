@@ -89,7 +89,7 @@ func Objection2EN(zeros []float64) string {
 	b.WriteString("║  OBJECTION 2: GUE Spacing KS Test                   ║\n")
 	b.WriteString("╚══════════════════════════════════════════════════════╝\n\n")
 	b.WriteString("  s_k = (γ_{k+1} - γ_k) × log(γ_k/(2π)) / (2π)\n")
-	b.WriteString("  GUE level spacing: p(s) = (πs/2) × exp(-πs²/4)\n\n")
+	b.WriteString("  GUE level spacing: p(s) = (32/π²) × s² × exp(-4s²/π)\n\n")
 	b.WriteString(fmt.Sprintf("  Zeros analyzed:    %d\n", n))
 	b.WriteString(fmt.Sprintf("  Spacings computed: %d\n", len(spacings)))
 	b.WriteString(fmt.Sprintf("  Mean spacing:      %.6f  (expected ≈ 1.0)\n", meanS))

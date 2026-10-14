@@ -89,7 +89,7 @@ func Objection2RU(zeros []float64) string {
 	b.WriteString("║  ВОЗРАЖЕНИЕ 2: KS-критерий GUE-интервалов           ║\n")
 	b.WriteString("╚══════════════════════════════════════════════════════╝\n\n")
 	b.WriteString("  s_k = (γ_{k+1} - γ_k) × log(γ_k/(2π)) / (2π)\n")
-	b.WriteString("  GUE: p(s) = (πs/2) × exp(−πs²/4)\n\n")
+	b.WriteString("  GUE: p(s) = (32/π²) × s² × exp(−4s²/π)\n\n")
 	b.WriteString(fmt.Sprintf("  Анализируемых нулей: %d\n", n))
 	b.WriteString(fmt.Sprintf("  Вычисленных интервалов: %d\n", len(spacings)))
 	b.WriteString(fmt.Sprintf("  Средний интервал:    %.6f  (ожидается ≈ 1.0)\n", meanS))

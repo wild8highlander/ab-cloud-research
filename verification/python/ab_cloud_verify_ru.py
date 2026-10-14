@@ -333,12 +333,18 @@ def verify_objection1(
 # ---------------------------------------------------------------------------
 
 def gue_cdf(s: float) -> float:
-    """ФР для GUE-интервалов: P(s) = 1 − exp(−πs²/4)."""
-    return 1.0 - math.exp(-math.pi * s * s / 4.0)
+    """ФР для GUE-интервалов: P(s) = erf(2s/√π) − (4s/π) exp(−4s²/π).
+
+    v2.0.3: было 1 − exp(−πs²/4) — это сюрмиза GOE (β=1), а не GUE (β=2).
+    """
+    if s <= 0:
+        return 0.0
+    return math.erf(2.0 * s / math.sqrt(math.pi)) \
+        - (4.0 * s / math.pi) * math.exp(-4.0 * s * s / math.pi)
 
 def gue_pdf(s: float) -> float:
-    """ПР для GUE-интервалов: p(s) = (πs/2) exp(−πs²/4)."""
-    return (math.pi * s / 2.0) * math.exp(-math.pi * s * s / 4.0)
+    """ПР для GUE-интервалов: p(s) = (32/π²) s² exp(−4s²/π)."""
+    return (32.0 / math.pi ** 2) * s * s * math.exp(-4.0 * s * s / math.pi)
 
 def _ks_test(empirical: List[float], cdf_func) -> Tuple[float, float]:
     """Критерий Колмогорова-Смирнова. Возвращает (D, p-значение)."""

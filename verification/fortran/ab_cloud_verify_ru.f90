@@ -195,7 +195,7 @@ contains
     ks_pval = kolmogorov_pvalue(ks_stat, real(m, dp)); pass = (ks_pval > 0.05_dp)
     write(*,'(/,A)')  "═══════════════════════════════════════════════════"
     write(*,'(A)')    "  ВОЗРАЖЕНИЕ 2: GUE-интервалы, KS-критерий"
-    write(*,'(A)')    "  s_k = Δγ_k · log(γ_k/2π) / 2π,  p(s) = (πs/2)·e^{-πs²/4}"
+    write(*,'(A)')    "  s_k = Δγ_k · log(γ_k/2π) / 2π,  p(s) = (32/π²)·s²·e^{-4s²/π}"
     write(*,'(A)')    "═══════════════════════════════════════════════════"
     write(*,'(A,I0)')     "    Кол-во интервалов = ", m
     write(*,'(A,ES15.8)') "    KS-статистика     = ", ks_stat
@@ -206,21 +206,17 @@ contains
 
   function gue_cdf(s) result(cdf)
     real(dp), intent(in) :: s, cdf
-    integer :: i, nsteps; real(dp) :: h, x, sum_val
+    ! v2.0.3: ФР GUE (β=2): erf(2s/√π) − (4s/π)exp(−4s²/π)
+    ! (был интеграл Симпсона от ПР GOE — неверный ансамбль).
     if (s <= 0.0_dp) then; cdf = 0.0_dp; return; end if
-    nsteps = 200; h = s / real(nsteps, dp); sum_val = 0.0_dp
-    do i = 0, nsteps
-      x = real(i, dp) * h
-      if (i == 0 .or. i == nsteps) then; sum_val = sum_val + gue_pdf(x)
-      else if (mod(i,2) == 1) then; sum_val = sum_val + 4.0_dp * gue_pdf(x)
-      else; sum_val = sum_val + 2.0_dp * gue_pdf(x); end if
-    end do
-    cdf = min((h / 3.0_dp) * sum_val, 1.0_dp)
+    cdf = erf(2.0_dp * s / sqrt(PI)) - (4.0_dp * s / PI) * exp(-4.0_dp * s**2 / PI)
+    cdf = min(max(cdf, 0.0_dp), 1.0_dp)
   end function gue_cdf
 
   function gue_pdf(s) result(pdf)
     real(dp), intent(in) :: s, pdf
-    pdf = (PI * s / 2.0_dp) * exp(-PI * s**2 / 4.0_dp)
+    ! v2.0.3: ПР GUE (β=2): (32/π²)·s²·exp(−4s²/π)
+    pdf = (32.0_dp / (PI * PI)) * s * s * exp(-4.0_dp * s**2 / PI)
   end function gue_pdf
 
   function kolmogorov_pvalue(d, n) result(pval)

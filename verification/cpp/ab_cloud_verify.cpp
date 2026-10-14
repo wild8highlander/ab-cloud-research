@@ -64,7 +64,7 @@ static MsgMap make_messages_en() {
 
         {"obj2_header",   "\n--- Objection 2: GUE Spacing Statistics ---"},
         {"obj2_desc",     "Normalized spacings: s_k = (gamma_{k+1} - gamma_k) * log(gamma_k/(2*pi)) / (2*pi)"},
-        {"obj2_gue_pdf",  "GUE PDF: p(s) = (pi*s/2) * exp(-pi*s^2/4)"},
+        {"obj2_gue_pdf",  "GUE PDF: p(s) = (32/pi^2) * s^2 * exp(-4 s^2/pi)"},
         {"obj2_ks",       "Kolmogorov-Smirnov test: D = max|F_emp - F_GUE|"},
         {"obj2_table_hdr","\n  %10s %15s %15s %15s %10s"},
         {"obj2_col1",     "N_zeros"},
@@ -118,7 +118,7 @@ static MsgMap make_messages_ru() {
 
         {"obj2_header",   "\n--- Возражение 2: Статистика интервалов GUE ---"},
         {"obj2_desc",     "Нормализованные интервалы: s_k = (gamma_{k+1} - gamma_k) * log(gamma_k/(2*pi)) / (2*pi)"},
-        {"obj2_gue_pdf",  "PDF GUE: p(s) = (pi*s/2) * exp(-pi*s^2/4)"},
+        {"obj2_gue_pdf",  "PDF GUE: p(s) = (32/pi^2) * s^2 * exp(-4 s^2/pi)"},
         {"obj2_ks",       "Критерий Колмогорова-Смирнова: D = max|F_emp - F_GUE|"},
         {"obj2_table_hdr","\n  %10s %15s %15s %15s %10s"},
         {"obj2_col1",     "N_нулей"},
@@ -293,15 +293,18 @@ static double compute_bN(const std::vector<double>& zeros, int N) {
 }
 
 /**
- * GUE CDF: F(s) = 1 - exp(-π s² / 4)
+ * GUE CDF: F(s) = erf(2s/√π) − (4s/π) exp(−4s²/π)
  * Cumulative distribution function for the GUE level spacing.
  *
  * @param s Spacing value
  * @return  Cumulative probability
  */
 static double gue_cdf(double s) {
+    // v2.0.3: GUE (beta=2) Wigner surmise CDF: erf(2s/sqrt(pi)) - (4s/pi)exp(-4s^2/pi).
+    // Was 1 - exp(-pi s^2/4), which is the GOE (beta=1) surmise — wrong ensemble.
     if (s <= 0.0) return 0.0;
-    return 1.0 - std::exp(-M_PI * s * s / 4.0);
+    return std::erf(2.0 * s / std::sqrt(M_PI))
+         - (4.0 * s / M_PI) * std::exp(-4.0 * s * s / M_PI);
 }
 
 /**
