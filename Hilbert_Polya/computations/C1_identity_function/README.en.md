@@ -131,7 +131,7 @@ The package's scorecard, for orientation:
 | Item | Question | Verdict | Basis |
 |---|---|---|---|
 | H1 | Self-adjointness | **YES** | Hermitian by construction; real spectrum at machine precision |
-| H2 | Spectral identity (level n ↔ zero n) | **NO** | null level — D_nn 0.258 vs surrogate 0.26±0.01 (C3); ≈0.5 order by relative residual (C4); \|r_H7\| ≤ 0.043 (C5) |
+| H2 | Spectral identity (level n ↔ zero n) | **NO** | null level — D_nn 0.0079 vs surrogate 0.0079±0.0005 (C3); ≈0.5 order by relative residual (C4); \|r_H7\| ≤ 0.043 (C5) |
 | H3 | The GUE statistics class | **YES** | ⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class |
 | H4 | Dirac-type dynamics | **YES** | coherent packet, reflection, scattering; energy 1e-15 (C7) |
 | H5 | Primes inside the operator | **NO** | ψ-ladder 0.972 for zeros, null zone for gates (C6) |

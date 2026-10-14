@@ -326,7 +326,7 @@ The five questions of the Hilbert–Pólya programme, answered by measurement:
 | Item | Question | Verdict | Basis |
 |------|----------|---------|-------|
 | H1 | Self-adjointness | **YES** | Hermitian by construction; real spectrum at machine precision |
-| H2 | Spectral identity (level n ↔ zero n) | **NO** | null level — D_nn 0.258 vs surrogate 0.26±0.01 (C3); ≈0.5 order by relative residual (C4); \|r_H7\| ≤ 0.043 (C5) |
+| H2 | Spectral identity (level n ↔ zero n) | **NO** | null level — D_nn 0.0079 vs surrogate 0.0079±0.0005 (C3); ≈0.5 order by relative residual (C4); \|r_H7\| ≤ 0.043 (C5) |
 | H3 | The GUE statistics class | **YES** | ⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class |
 | H4 | Dirac-type dynamics | **YES** | coherent packet, reflection, scattering; energy 1e-15 (C7) |
 | H5 | Primes inside the operator | **NO** | ψ-ladder 0.972 for zeros, null zone for gates (C6) |
@@ -415,7 +415,7 @@ shift surrogates per gate) and the GUE surrogates (40 per gate) build the
 cloud that any honest gate should live in; PC1 and PC2 are wired so that
 the pipeline *must* return r = 1.000000000 and r = 1.000000000000 when
 identity is present by construction. The gates return 0.226 at best, and
-the D_nn distances sit exactly at the surrogate-null saturation level (gates 0.238–0.295 vs 0.26 ± 0.01 for GUE surrogates and shifted zero windows). The control's floor (1.2e-10) is machine-precision identity, not a physical scale — 'orders of magnitude' are undefined on this bounded metric (correction v2.0.1).
+the D_nn distances sit exactly at the surrogate-null saturation level (gates 0.0069–0.0092 vs 0.0079 ± 0.0005 for GUE surrogates and shifted zero windows). The control's floor (1.2e-10) is machine-precision identity, not a physical scale — 'orders of magnitude' are undefined on this bounded metric (correction v2.0.1).
 
 **Why the ψ-ladder second.** The ladder is the primes' own instrument: it
 sieves the von Mangoldt weight against a window of 200 zeros and asks how

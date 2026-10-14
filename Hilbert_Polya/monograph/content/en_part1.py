@@ -231,7 +231,7 @@ C3 = {
  "D_nn = 2.7e-14; merging multiple levels and a shared piecewise-linear "
  "unfolding were required); PC2 — the graph: the 79 Z_id zeros of C2 "
  "against the file (r = 1.000000000000, D_nn = 1.2e-10). The gap between "
- "the graph and the operator is a null-level residence in D_nn (0.258 vs surrogate 0.26 ± 0.01; the controls' 1e-14…1e-10 floors are machine precision, so 'orders of magnitude' are undefined on this bounded metric)."]},
+ "the graph and the operator is a null-level residence in D_nn (0.0079 vs surrogate 0.0079 ± 0.0005; the controls' 1e-14…1e-10 floors are machine precision, so 'orders of magnitude' are undefined on this bounded metric)."]},
 {"h1": "Results and verdict",
  "paras": [
  "The best gate of the family (Nv = 0, W = 0.5, α = 0.5) yields "
@@ -260,7 +260,8 @@ C3 = {
   "caption": "Fig. 1. r_H7 across the 52 gates: grey band — null zone, gold line — best gate 0.226, copper lines — positive controls ±1."}},
 {"h1": "Conclusions",
  "paras": [
- "C3 fixes the scale of the problem: a desert of nine to ten orders lies "
+ "C3 fixes the scale of the problem: a desert at the surrogate-null "
+ "level (D_nn ≈ 0.0079 vs 0.0079 ± 0.0005 for surrogates) lies "
  "between the graph and the operator, crossed by no protocol handle. "
  "This is not the end of the programme but its calibration: every new "
  "handle (C5) and every new metric (C4 — the trace projection) must now "

@@ -8,7 +8,7 @@
 
 <p align="center"><em>Curated by the Bridge avatar cast — Agent Atlas directed the gate designs, Agent Lyra measured the spectra, Agent Vera guarded the controls.</em></p>
 
-> **TL;DR — 52 gates (Nv × q × W × α) on a 24×24 lattice with π flux; the spectral-identity question H2; permutation nulls; positive controls PC1/PC2; verdict: no identity — gates at the surrogate-null level of D_nn (0.258 vs 0.26 ± 0.01 for random surrogates; v2.0.1).**
+> **TL;DR — 52 gates (Nv × q × W × α) on a 24×24 lattice with π flux; the spectral-identity question H2; permutation nulls; positive controls PC1/PC2; verdict: no identity — gates at the surrogate-null level of D_nn (0.0079 vs 0.0079 ± 0.0005 for random surrogates; v2.0.1).**
 
 [← Back to the main README](../../README.md)
 
@@ -70,7 +70,7 @@ show, with certified instruments, how far the nearest lattice aperture sits
 from transmitting it.*
 
 The verdict, in one line: **no identity — the gates sit at the
-surrogate-null saturation level of the D_nn metric (0.258 vs 0.26 ± 0.01
+surrogate-null saturation level of the D_nn metric (0.0079 vs 0.0079 ± 0.0005
 for random surrogates; the identity controls' floors are machine precision,
 not a scale — correction v2.0.1)** — with the controls proving the
 measuring device works.
@@ -223,8 +223,9 @@ committed zero file:
 | K (levels compared) | 79 |
 
 The two controls calibrate the detection floor of the method: D_nn ≈ 1e-10
-for graph-level identity, D_nn ≈ 1e-14 for operator-level identity. The best
-gate reaches D_nn = 0.2584614616101241. The distance between those numbers is
+for graph-level identity, D_nn ≈ 1e-14 for operator-level identity. The best gate (by r_H7) reaches D_nn = 0.007914719356298686, the
+family minimum is 0.006937508455596089. The distance between those
+numbers is
 the corrected headline of the series (anchored on the graph ↔ operator
 comparison recorded in `results/RESULTS.md` and the theory map; against PC1
 the separation is larger still). The gap is not a vagueness — it is the
@@ -267,8 +268,8 @@ lives inside both.
 identity is visible to the method when present, down to D_nn = 2.7e-14 and
 1.2e-10 respectively.
 
-*Gap row.* Best gate D_nn (0.2584614616101241) versus the control floors:
-the null-level saturation that defines the series' verdict for H2.
+*Gap row.* Best gate D_nn (0.007914719356298686) versus the surrogate null
+(0.0079 ± 0.0005): the null-level saturation that defines the series' verdict for H2.
 
 ### 6.2 The best gate in detail
 
@@ -279,11 +280,11 @@ reference, (Nv, q, W, α) = (0, 0.0, 0.5, 0.5):
 |---|---|
 | mean_spacing | 0.011981804524559426 |
 | r_H7 | 0.22641576150208137 |
-| D_nn | 0.2584614616101241 |
+| D_nn | 0.007914719356298686 |
 | shift | 0.8 |
 | KS_sp | 0.7336683417085427 |
 | p_r | 0.16923076923076924 |
-| p_D | 0.1076923076923077 |
+| p_D | 1.0 |
 | p_KS | 1.0 |
 | r_GUE_z | 1.8936817833815616 |
 
@@ -312,13 +313,13 @@ Grounded in `data/gates_table.csv` (columns
 | Statistic | min | max | notes |
 |---|---|---|---|
 | r_H7 | −0.168447299012455 | 0.22641576150208137 | 36 of 52 positive, 16 negative, 7 above +0.2 |
-| D_nn | 0.23783037032567297 | 0.2946466564180682 | uniformly 9+ orders from the floors |
+| D_nn | 0.006937508455596089 | 0.009221555365816578 | all within ±20% of the GUE surrogate null 0.0079 |
 | mean_spacing | 0.011981804524559426 | 0.01272797005910956 | mild variation across gates |
 | r_GUE_z | −1.2152397215832413 | 1.8936817833815616 | no outlier against the GUE null |
 
 The smallest raw p-value anywhere in the table is p_D = 0.015384615384615385
-(four gates: (0, 0.0, 0.5, 0.4), (0, 0.0, 1.0, 0.4), (2, 0.5, 0.0, 0.4),
-(2, 1.0, 0.0, 0.4)); the Bonferroni correction consumes it several times over
+(five gates: (8, 1.0, 0.0, 0.5), (8, 0.5, 1.0, 0.4), (8, 1.0, 1.0, 0.4),
+(16, 1.0, 1.0, 0.4), (32, 1.0, 1.0, 0.4)); the Bonferroni correction consumes it several times over
 before any claim of significance could start.
 
 ---
@@ -344,11 +345,11 @@ the gate's r_H7 and the GUE cloud's mean; +1.89 at best, negative for much of
 the family. Useful for ranking, not a p-value.
 
 **The floors are the fixed points of the reading.** Every interpretation
-comes back to the same comparison: gates at D_nn ≈ 0.26, controls at
+comes back to the same comparison: gates at D_nn ≈ 0.0078, surrogate nulls at 0.0079 ± 0.0005, controls at
 1.2e-10 and 2.7e-14. p-values, z-scores and KS statistics all tell the same
 story from different angles because the metric itself separates the two
 regimes in one step: identity at machine precision, everything else at the
-common 0.26 saturation level (v2.0.1 correction — "orders" retired).
+common 0.0079 saturation level ≈ 2/n (v2.0.1 correction — "orders" retired).
 
 ---
 

@@ -24,8 +24,8 @@ V16 = {'meta': _meta(
    'are modulated by the θ-phase, q_k = θ(γ̃_k)/π, does an alignment '
    'of the spectrum with the zero ordinates appear — and does any '
    'point of the FULL handle space (signs, profile, anisotropy, mass, '
-   'twists, δα) exist at which the 9–10 order gap measured by the '
-   'reference (H2) closes?',
+   'twists, δα) exist at which the rank agreement measured by the '
+   'reference (H2) leaves the null zone?',
    'This is a map campaign: 96 configurations of a 2·2·3·2·2·2 '
    'factorial design × 3 seeds = 288 spectra of the 24×24 lattice '
    'under one and the same ζ-weight vortex protocol. The alignment '

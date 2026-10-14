@@ -36,8 +36,8 @@ V6 = {'meta': M('V6. Spectral Identity: Operator versus ξ',
  {'h1': 'Results',
   'paras': [
   'For lattice gates the rank agreement of the window with the zeros is '
-  '0.036 (consistent with the blind protocol V1 and with the 9–10 orders '
-  'of the reference gap); minimal spectral gaps ≥ 1e-3 — no '
+  '0.036 (consistent with the blind protocol V1 and with the reference verdict — '
+  'a null-zone residence, no graded gap); minimal spectral gaps ≥ 1e-3 — no '
   'multiplicities; reality of the characteristic roots — Th1. For H_ξ '
   'the identity residual is 5.8e-10 — machine level at 50,000 zeros.',
   'Importantly, H_ξ is not a solution of the program but its trivial '

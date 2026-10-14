@@ -8,7 +8,7 @@
 
 <p align="center"><em>Curated by the Bridge avatar cast — Agent Atlas directed the gate designs, Agent Lyra measured the spectra, Agent Vera guarded the controls.</em></p>
 
-> **TL;DR — 52 gates (Nv × q × W × α) on a 24×24 lattice with π flux; the spectral-identity question H2; permutation nulls; positive controls PC1/PC2; verdict: no identity — gates at the surrogate-null level of D_nn (0.258 vs 0.26 ± 0.01 for random surrogates; v2.0.1).**
+> **TL;DR — 52 gates (Nv × q × W × α) on a 24×24 lattice with π flux; the spectral-identity question H2; permutation nulls; positive controls PC1/PC2; verdict: no identity — gates at the surrogate-null level of D_nn (0.0079 vs 0.0079 ± 0.0005 for random surrogates; v2.0.1).**
 
 [← Back to the main README](../../README.md)
 
@@ -23,7 +23,7 @@
 | Null zones (r_H7) | decoys 0.026±0.140 · GUE −0.014±0.127 |
 | Identity controls | PC1 r = 1.000000000 · PC2 r = 1.000000000000 |
 | Detection floor | D_nn = 2.7e-14 (PC1) · 1.2e-10 (PC2) |
-| Best gate vs surrogate null | ≈ 0.26 in D_nn — at saturation, indistinguishable from random |
+| Best gate vs surrogate null | ≈ 0.0079 in D_nn — at saturation (≈2/n), indistinguishable from random |
 | Best gate | vortex-free reference (Nv, q, W, α) = (0, 0.0, 0.5, 0.5) |
 | One-line meaning | no gate is distinguishable from the permutation null model, while the pipeline sees identity at the 1e-14 level whenever it exists |
 
@@ -99,8 +99,8 @@ twelve decimal places.
 
 The verdict of the campaign is the third item of the bridge's scoreboard
 (question H2 of the Hilbert–Pólya tablet): **no identity**, with the best gate sitting at the
-saturation level of the D_nn metric (0.258 — numerically the same as the
-random-surrogate nulls 0.26 ± 0.01), infinitely far from identity in rank
+saturation level of the D_nn metric (0.0079 — numerically the same as the
+random-surrogate nulls 0.0079 ± 0.0005), infinitely far from identity in rank
 but carrying no graded "distance": D_nn is a bounded metric (correction
 v2.0.1). The rest of this document
 explains what a gate is, how the measurement works, why the negative verdict
@@ -329,13 +329,14 @@ statistics.
 
 Together the controls calibrate the *detection floor* of the instrument:
 D_nn ≈ 1e-10 (graph-level identity) and D_nn ≈ 1e-14 (operator-level
-identity). Against these floors the verdict is interpretable in one line: the
-best any gate achieves is D_nn = 0.2584614616101241 — nine to ten orders of
-magnitude above the graph-level floor and thirteen above the operator-level
-one. The corrected headline of the series (recorded in
+identity). Against the surrogate null the verdict is interpretable in one line: the
+best any gate achieves is D_nn = 0.006937508455596089 — 0.88 of the GUE
+surrogate level (0.0079 ± 0.0005), i.e. statistically indistinguishable from
+random (v2.0.2 recompute; ratios to floors are category errors). The corrected
+headline of the series (recorded in
 `results/RESULTS.md` and the theory map) is anchored on the graph ↔ operator
 comparison: the graph side reproduces the zeros at 1e-10, and no gate gets
-closer than 2.6e-1.
+below 0.0069 — the surrogate-null saturation level (≈2/n at n = 200).
 
 <p align="center"><img src="../../assets/avatars/hp_agent_vera.svg" width="120" alt="Agent Vera avatar"/></p>
 
@@ -368,18 +369,19 @@ The strongest candidate of the family (from `verdict.best_gate` in
 |---|---|
 | mean_spacing | 0.011981804524559426 |
 | r_H7 | 0.22641576150208137 |
-| D_nn | 0.2584614616101241 |
+| D_nn | 0.007914719356298686 |
 | shift | 0.8 |
 | KS_sp | 0.7336683417085427 |
 | p_r | 0.16923076923076924 |
-| p_D | 0.1076923076923077 |
+| p_D | 1.0 |
 | p_KS | 1.0 |
 | r_GUE_z | 1.8936817833815616 |
 
 That the best of 52 gates is the *clean π-flux lattice* is itself
 informative: adding vortices does not move the family toward the zeros. Note
 also the internal disagreement of the statistics for this gate — it is the
-best by r_H7, mid-pack by D_nn (p_D = 0.108), and the *worst* by KS_sp
+best by r_H7, mid-pack by D_nn (p_D = 1.0 — the true zero window is not even
+the best-matching window for this gate), and the *worst* by KS_sp
 (p_KS = 1.0, i.e. its spacing distribution is farther from the zeros' than
 every decoy's). A genuine identity would push all three statistics to their
 extremes simultaneously; a fluctuation pushes one.
@@ -408,14 +410,14 @@ Across all 52 gates (from `data/gates_table.csv`, columns
 | Statistic | min | max | notes |
 |---|---|---|---|
 | r_H7 | −0.168447299012455 | 0.22641576150208137 | 36 of 52 positive, 16 negative, 7 above +0.2 |
-| D_nn | 0.23783037032567297 | 0.2946466564180682 | mean 0.2697 — uniformly far from the 1e-10/1e-14 floors |
+| D_nn | 0.006937508455596089 | 0.009221555365816578 | mean 0.0078 — at the surrogate-null level ≈ 2/n |
 | mean_spacing | 0.011981804524559426 | 0.01272797005910956 | band density varies only mildly across gates |
 | r_GUE_z | −1.2152397215832413 | 1.8936817833815616 | no gate is an outlier against the GUE null |
 
 No gate in the family approaches identity by any statistic. The smallest raw
-p-value anywhere in the table is p_D = 0.015384615384615385, attained by four
-gates — (0, 0.0, 0.5, 0.4), (0, 0.0, 1.0, 0.4), (2, 0.5, 0.0, 0.4) and
-(2, 1.0, 0.0, 0.4) — and even that minimum is consumed many times over by the
+p-value anywhere in the table is p_D = 0.015384615384615385, attained by five
+gates — (8, 1.0, 0.0, 0.5), (8, 0.5, 1.0, 0.4), (8, 1.0, 1.0, 0.4),
+(16, 1.0, 1.0, 0.4) and (32, 1.0, 1.0, 0.4) — and even that minimum is consumed many times over by the
 52-fold multiplicity correction (Section 7).
 
 ---
@@ -450,14 +452,14 @@ and the family minimum is negative (−1.2152397215832413).
 Because the shift is optimised before D_nn is computed, a gate cannot plead a
 global misalignment; and because PC1/PC2 certify floors of 1e-14 and 1e-10,
 "we might just not be able to resolve identity" is off the table. The gates'
-D_nn values (0.238 to 0.295) coincide with the surrogate nulls (nullA/nullB:
-0.26–0.28): the metric separates *identity* from *everything else* in one
+D_nn values (0.0069 to 0.0092) coincide with the surrogate nulls (nullA/nullB:
+0.0070–0.0089): the metric separates *identity* from *everything else* in one
 step and cannot grade distances among non-identical objects — the correction
 of v2.0.1 that retired the "orders of magnitude" language.
 
 **The null clouds are the fixed points of the reading.** Every interpretation
-comes back to the same comparison: gates at D_nn ≈ 0.26, surrogate nulls at
-0.26 ± 0.01, controls at 1.2e-10 and 2.7e-14. p-values, z-scores and KS
+comes back to the same comparison: gates at D_nn ≈ 0.0078, surrogate nulls at
+0.0079 ± 0.0005, controls at 1.2e-10 and 2.7e-14. p-values, z-scores and KS
 statistics all tell the same story from different angles: the gates are
 statistically indistinguishable from random — the binary content the old
 "orders" phrasing obscured.
@@ -485,12 +487,12 @@ measured*.
 **What the verdict means operationally (corrected v2.0.1).** The instrument
 has a demonstrated detection floor: D_nn = 2.7e-14 when handed two
 isospectral operators (PC1) and 1.2e-10 when handed the graph against the
-zero file (PC2). The gates sit at D_nn ≈ 2.6e-1 — *the same value as the
-random surrogates* (nullA 0.26–0.28, nullB 0.26–0.28). The former reading —
+zero file (PC2). The gates sit at D_nn ≈ 7.8e-3 — *the same value as the
+random surrogates* (nullA 0.0075 ± 0.0002, nullB 0.0079 ± 0.0005). The former reading —
 "a factor of billions to trillions, the 9–10 order gap" — compared a
 saturation level against a machine-precision floor and was a category error:
-D_nn is bounded, no non-identical pair gets below ≈0.23, and a random GUE
-matrix is "as far" from the zeros as any gate. The corrected statement: the
+D_nn is bounded, no non-identical pair gets below ≈0.007 (≈2/n at n = 200), and a
+random GUE matrix is "as far" from the zeros as any gate. The corrected statement: the
 NO is *measured absence, not graded distance* — if a vortex gate in this
 class were the Hilbert–Pólya operator, the pipeline would have returned
 r ≈ 1 and D_nn ≤ 1e-10; instead every gate sits inside the random cloud.

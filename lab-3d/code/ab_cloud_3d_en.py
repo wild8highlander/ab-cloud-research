@@ -682,7 +682,8 @@ def finite_size_scaling(cfg: SimConfig) -> Dict[str, Any]:
             ab_fss.append({"L": L, "N": L**3 * 2, "mean_r": sim["mean_r"]})
         except Exception as e:
             ab_fss.append({"L": L, "N": L**3 * 2, "mean_r": float('nan'), "error": str(e)})
-    # Zeta zeros FSS (analytical: ⟨r⟩ → 0.6027 as n→∞)
+    # Zeta zeros FSS (analytical: ⟨r⟩ → 0.5996 as n→∞; GUE, Atas et al.;
+    # surmise approximation 0.6027 retired — canonical value, v2.0.2)
     zeta_fss = []
     for n_z in [100, 500, 1000, 2000, 5000]:
         if n_z > cfg.n_zeros:
@@ -866,7 +867,7 @@ def plot_finite_size(ab_fss: List[Dict], zeta_fss: List[Dict], run_dir: Path) ->
         N_z = [d.get("n_zeros", 0) for d in zeta_fss]
         r_z = [d.get("mean_r", 0) for d in zeta_fss]
         ax.plot(N_z, r_z, 'rs-', label='Zeta zeros')
-    ax.axhline(0.6027, color='k', ls='--', label='GUE ⟨r⟩ = 0.6027')
+    ax.axhline(0.5996, color='k', ls='--', label='GUE ⟨r⟩ = 0.5996')
     ax.axhline(0.3863, color='g', ls=':', label='Poisson ⟨r⟩ = 0.3863')
     ax.set_xscale('log')
     ax.set_xlabel('System size N (or n_zeros)')
@@ -1003,7 +1004,7 @@ def run_mode_zeta_rmt(cfg: SimConfig) -> None:
         "first_zero": float(z[0]),
         "last_zero": float(z[-1]),
         "mean_r": mean_r,
-        "GUE_mean_r_theory": 0.6027,
+        "GUE_mean_r_theory": 0.5996,
         "Poisson_mean_r_theory": 0.3863,
         "KS_vs_GUE_D": D_g, "KS_vs_GUE_p": p_g,
         "KS_vs_Poisson_D": D_p, "KS_vs_Poisson_p": p_p,
@@ -1014,7 +1015,7 @@ def run_mode_zeta_rmt(cfg: SimConfig) -> None:
     write_all_reports(report, run_dir, "report_rmt")
     plot_rmt_results(unfolded, ns, mean_r, run_dir, L_grid, d3, d3_t, s2, s2_t)
     print(f"\n[RMT] Done. Folder: {run_dir}")
-    print(f"      n_zeros={n}, ⟨r⟩={mean_r:.4f} (GUE≈0.6027), KS D={D_g:.4f}")
+    print(f"      n_zeros={n}, ⟨r⟩={mean_r:.4f} (GUE≈0.5996), KS D={D_g:.4f}")
 
 
 def run_mode_fss(cfg: SimConfig) -> None:

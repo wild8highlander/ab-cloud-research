@@ -232,9 +232,9 @@ both languages and both formats.
 
 **The boundary.** Through 15 campaigns and 87 gate-equivalent
 configurations the package measures exactly how far the ξ graph is from
-any operator of the local lattice family: 9–10 orders in the rank metric
-(reference), 0.63 orders in the trace metric, null zones in the blind
-protocol. GUE universality is an attractor; it erases everything but
+any operator of the local lattice family: rank agreement stuck in the
+null zone (r = 0.036 against the permutation nulls — V6 reference), 0.63
+orders in the trace metric, null zones in the blind protocol. GUE universality is an attractor; it erases everything but
 symmetry.
 
 **What is proved.** The mathematical object is defined and proved:
