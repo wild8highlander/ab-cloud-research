@@ -411,7 +411,7 @@ def fig14_ladder(t):
                        label=L["poi"])
             ax.axhline(0.531, color=tok["slate"], ls="--", lw=1.2,
                        label=L["goe"])
-            ax.axhline(0.602, color=tok["copper"], ls="-.", lw=1.2,
+            ax.axhline(0.5996, color=tok["copper"], ls="-.", lw=1.2,
                        label=L["gue"])
             ax.set_xticks(range(len(vals)))
             ax.set_xticklabels(labels, rotation=60, fontsize=6.6)

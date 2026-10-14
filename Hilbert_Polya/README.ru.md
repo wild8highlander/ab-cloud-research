@@ -326,7 +326,7 @@ The five questions of the Hilbert–Pólya programme, answered by measurement:
 | Item | Question | Verdict | Basis |
 |------|----------|---------|-------|
 | H1 | Self-adjointness | **YES** | Hermitian by construction; real spectrum at machine precision |
-| H2 | Spectral identity (level n ↔ zero n) | **NO** | 9–10 orders (C3); ≈0.5 order (C4); \|r_H7\| ≤ 0.043 (C5) |
+| H2 | Spectral identity (level n ↔ zero n) | **NO** | null level — D_nn 0.258 vs surrogate 0.26±0.01 (C3); ≈0.5 order by relative residual (C4); \|r_H7\| ≤ 0.043 (C5) |
 | H3 | The GUE statistics class | **YES** | ⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class |
 | H4 | Dirac-type dynamics | **YES** | coherent packet, reflection, scattering; energy 1e-15 (C7) |
 | H5 | Primes inside the operator | **NO** | ψ-ladder 0.972 for zeros, null zone for gates (C6) |
@@ -339,7 +339,7 @@ heat-trace projections behave, and the isospectral twins of PC1 agree to
 because an unexamined YES is where a sloppy pipeline hides its bugs.
 
 **H2 — NO, and this is the package's central measurement.** Three
-independent metrics agree: rank correlation leaves a 9–10 order gap between
+independent metrics agree: rank correlation leaves the best gate at the surrogate-null level against
 the best gate and the zeros; the heat-trace metric leaves ≈0.5 orders by
 residual; the ψ-ladder leaves the gates in the null zone where the zeros sit
 at +0.972. The gap is not a marginal miss — it is an architectural
@@ -403,7 +403,7 @@ severity, cannot be dismissed so easily.
 
 | Projection | Campaign | Best gate | Positive control | Gap |
 |------------|----------|-----------|------------------|-----|
-| Rank correlation r_H7 | C3 (52 gates) + C5 (35 gates) | 0.226 / 0.043 | PC1, PC2: r = 1.000000000 | **9–10 orders** |
+| Rank correlation r_H7 | C3 (52 gates) + C5 (35 gates) | 0.226 / 0.043 | PC1, PC2: r = 1.000000000 | **surrogate-null level** |
 | ψ-ladder corr | C6 | +0.239 | zeros: +0.972 | **null zone** |
 | Heat trace r_EF | C4 | residual 6.7% | PC0: r = +0.9998, resid 2.1% | **≈0.5 order (conservative)** |
 
@@ -415,7 +415,7 @@ shift surrogates per gate) and the GUE surrogates (40 per gate) build the
 cloud that any honest gate should live in; PC1 and PC2 are wired so that
 the pipeline *must* return r = 1.000000000 and r = 1.000000000000 when
 identity is present by construction. The gates return 0.226 at best, and
-the D_nn distances sit 9–10 decimal orders away from the control's floor.
+the D_nn distances sit exactly at the surrogate-null saturation level (gates 0.238–0.295 vs 0.26 ± 0.01 for GUE surrogates and shifted zero windows). The control's floor (1.2e-10) is machine-precision identity, not a physical scale — 'orders of magnitude' are undefined on this bounded metric (correction v2.0.1).
 
 **Why the ψ-ladder second.** The ladder is the primes' own instrument: it
 sieves the von Mangoldt weight against a window of 200 zeros and asks how
@@ -615,7 +615,7 @@ rank correlation r_H7 against the zeros, with 64 permutation surrogates and
 40 GUE surrogates per gate. Best gate: r_H7 = 0.226, p = 0.169, family
 Bonferroni 0.80 — no gate survives. The positive controls do: PC1
 (isospectral twins) r = 1.000000000, PC2 (graph vs file) r = 1.000000000000.
-Verdict: H2 — NO, measured at 9–10 orders.
+Verdict: H2 — NO, measured at the surrogate-null level (gates statistically indistinguishable from random surrogates).
 
 ### C4 · The trace formula — `C4_trace_formula/`
 
@@ -1753,7 +1753,7 @@ contributes to the ledger. Every cell is traceable to a committed JSON.
 |----|---------|-----------|----------|----------|---------|
 | C1 | Z_id assembly, Γ-ladder, zeros, Gram | T1, T2 | mpmath cross-match | closures 1.3–2.6e-39; \|Im Z_id\| = 4.9e-29; 79/79 at 2.8e-14 | K1–K4, K7 PASS (one refutation published) |
 | C2 | argument principle to T = 1000 | T3 | pole calibration; N(T) bridge | 649 = 649, resid ≤ 8.3e-25; \|ΔN\| = 2.6e-26 | RH verified in strip |
-| C3 | 52 gates, permutation nulls | — | PC1, PC2 | best r_H7 = 0.226 (p = 0.169, Bonf 0.80) | H2 — NO, 9–10 orders |
+| C3 | 52 gates, permutation nulls | — | PC1, PC2 | best r_H7 = 0.226 (p = 0.169, Bonf 0.80) | H2 — NO, at the surrogate-null level |
 | C4 | trace formula vs explicit formula | T6 | PC0 | \|ΔQ\| ≤ 1.7e-12; \|ΔK\| ≤ 1.2e-5 | T6 verified; trace gap ≈ 0.5 order |
 | C5 | 35 gates, 6 new handles | T7 | PC0 re-run | \|r_H7\| ≤ 0.043; ⟨r⟩ = 0.500±0.001 | gap stable |
 | C6 | co-location kernel, ψ-ladder | T4, T5 | sieve vs zeros | co-location 1.35e-14; ψ corr 0.972 vs null | H5 — NO, measured |
@@ -2096,7 +2096,7 @@ same discipline — is part of the contract's prose.
 ## Appendix R — The v2 roadmap, executed and graded
 
 The v1 roadmap set five items (R1–R5), ordered by their expected effect on
-the main measured gap (H2: 9–10 orders in rank metric, ≈0.5–1 in heat).
+the main measured negative (H2: surrogate-null level in the rank metric, ≈0.5–1 by relative residual in heat).
 v2 executed all five; this appendix grades each execution against its
 intent.
 
@@ -2291,7 +2291,7 @@ wearing a suit.
 (6.7%) against the PC0 control's (2.1%): roughly half an order of
 magnitude in the most conservative metric the package runs. The
 conservatism is quantified (the surrogate null is wide, ±0.39), which
-is exactly why the rank metric's 9–10 orders leads the story and this
+is exactly why the rank metric's clean null-level negative leads the story and this
 number corroborates it.
 
 **9 · 1.35e-14 — the co-location exactness.** (Φ_p,Φ_q) ≡ Φ_pq: the
@@ -2429,7 +2429,7 @@ Five diagrams that fit the whole package on one screen each.
 **The three projections, side by side.**
 
 ```
- rank r_H7      :  gates 0.226 / 0.043   vs  PC 1.000000000     → 9–10 orders
+ rank r_H7      :  gates 0.226 / 0.043   vs  PC 1.000000000     → surrogate-null level
  ψ-ladder       :  gates +0.239…−0.124   vs  zeros +0.972        → null zone
  heat trace r_EF:  gates resid 6.7%      vs  PC0 2.1% (r=+0.9998) → ≈0.5 order
                               ─────────────
@@ -2527,7 +2527,7 @@ matrices.
 
 **Stamp three — "The sequence is not there."** *(Pólya cautioned; Lyra
 confirmed.)* Best rank correlation 0.226 → 0.043 across widening
-searches; 9–10 orders from the control floor; null zone across blind
+searches; at the surrogate-null level (the control floor being machine-precision identity); null zone across blind
 designs; the zoo holds no outliers; the L-class twist changes nothing.
 Authority: C3, C5, C13, C14, C15; T7, T15, T16, T17. The package's
 central product, countersigned by its own attempt at refutation.

@@ -8,7 +8,7 @@
 
 <p align="center"><em>Curated by the Bridge avatar cast — Agent Atlas directed the gate designs, Agent Lyra measured the spectra, Agent Vera guarded the controls.</em></p>
 
-> **TL;DR — 52 gates (Nv × q × W × α) on a 24×24 lattice with π flux; the spectral-identity question H2; permutation nulls; positive controls PC1/PC2; verdict: no identity, a 9–10 order gap.**
+> **TL;DR — 52 gates (Nv × q × W × α) on a 24×24 lattice with π flux; the spectral-identity question H2; permutation nulls; positive controls PC1/PC2; verdict: no identity — gates at the surrogate-null level of D_nn (0.258 vs 0.26 ± 0.01 for random surrogates; v2.0.1).**
 
 [← Back to the main README](../../README.md)
 
@@ -20,7 +20,7 @@
 | Best rank correlation with the zeros | r_H7 = 0.226 (p = 0.169, Bonferroni 0.80) |
 | Identity controls | PC1 r = 1.000000000 · PC2 r = 1.000000000000 |
 | Detection floor | D_nn = 2.7e-14 (PC1) · 1.2e-10 (PC2) |
-| Best gate distance from floor | ≈ 0.26 in D_nn — the 9–10 order gap |
+| Best gate vs surrogate null | ≈ 0.26 in D_nn — at saturation, indistinguishable from random |
 | Verdict | H2 — NO (no identity), measured with PC1/PC2 |
 | One-line reproduction | `python3 campaigns/run_c3_gates.py` |
 
@@ -69,8 +69,10 @@ distribution, built from 64 shifted zero lists and 40 GUE matrices, so that
 show, with certified instruments, how far the nearest lattice aperture sits
 from transmitting it.*
 
-The verdict, in one line: **no identity, at a measured separation of 9–10
-orders of magnitude in the D_nn metric** — with the controls proving the
+The verdict, in one line: **no identity — the gates sit at the
+surrogate-null saturation level of the D_nn metric (0.258 vs 0.26 ± 0.01
+for random surrogates; the identity controls' floors are machine precision,
+not a scale — correction v2.0.1)** — with the controls proving the
 measuring device works.
 
 ---
@@ -223,7 +225,7 @@ committed zero file:
 The two controls calibrate the detection floor of the method: D_nn ≈ 1e-10
 for graph-level identity, D_nn ≈ 1e-14 for operator-level identity. The best
 gate reaches D_nn = 0.2584614616101241. The distance between those numbers is
-the "9–10 order gap" of the headline (anchored on the graph ↔ operator
+the corrected headline of the series (anchored on the graph ↔ operator
 comparison recorded in `results/RESULTS.md` and the theory map; against PC1
 the separation is larger still). The gap is not a vagueness — it is the
 reason "maybe the method just can't resolve identity" is unavailable here.
@@ -247,7 +249,7 @@ the 1e-14 level whenever identity exists.*
 | Decoys / GUE null | 0.026±0.140 / −0.014±0.127 | null zones |
 | PC1 spinor64 twins | r = 1.000000000, D_nn = 2.7e-14 | method sees identity |
 | PC2 graph ↔ file | r = 1.000000000000, D_nn = 1.2e-10 | method sees identity |
-| Graph ↔ operator gap | 9–10 orders in D_nn | the series scale |
+| Graph ↔ operator relation | none: D_nn at surrogate-null level | the series verdict |
 
 *Family row.* The sweep is the protocol: 52 unique (Nv, q, W, α)
 configurations on one master seed. Nothing was added, dropped, or retuned
@@ -266,7 +268,7 @@ identity is visible to the method when present, down to D_nn = 2.7e-14 and
 1.2e-10 respectively.
 
 *Gap row.* Best gate D_nn (0.2584614616101241) versus the control floors:
-the 9–10 order separation that defines the series' scale for H2.
+the null-level saturation that defines the series' verdict for H2.
 
 ### 6.2 The best gate in detail
 
@@ -345,7 +347,8 @@ the family. Useful for ranking, not a p-value.
 comes back to the same comparison: gates at D_nn ≈ 0.26, controls at
 1.2e-10 and 2.7e-14. p-values, z-scores and KS statistics all tell the same
 story from different angles because the metric itself separates the two
-regimes by 9–10 orders.
+regimes in one step: identity at machine precision, everything else at the
+common 0.26 saturation level (v2.0.1 correction — "orders" retired).
 
 ---
 
@@ -356,9 +359,10 @@ gate carries the zero spectrum. The recorded conclusion translates as: *no
 gate is distinguishable from the permutation null model — H2 remains closed,
 now with the method's power measured.* The "power measured" clause is the
 point: the campaign quantifies what its own instrument can see (identity at
-1e-10 to 1e-14) and reports the gates' distance from it (9–10 orders).
+1e-10 to 1e-14) and reports the gates' position against the surrogate null
+(at saturation — indistinguishable from random).
 
-**It is measured three ways.** C3 is the rank-metric projection (9–10
+**It is measured three ways.** C3 is the rank-metric projection (null
 orders); campaign C4 recasts the question thermally (≈0.5 order there); C5
 confirms stability across the extended handle set. Three independent
 projections of one question agree — the methodological core of the series.
@@ -495,7 +499,7 @@ r_H7 = 0.22641576150208137, and decoration never beats it. The campaign's
 claim is about this family; C5 explores whether more handles change the
 picture (they do not change the verdict).
 
-**Q4. How does the 9–10 order gap here relate to C4's ≈0.5 order figure?**
+**Q4. How does the null-level verdict here relate to C4's ≈0.5 order figure?**
 Two metrics, one question. C3 measures the gap in the rank metric D_nn
 (gates ≈ 0.26 against control floors of 1e-10 and 1e-14); C4 measures it in a
 thermal (heat-kernel) metric, where the separation is ≈0.5 order. The theory

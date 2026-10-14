@@ -279,7 +279,7 @@ A note on two committed formulations of the gap. The results table measures ≈ 
 
 **M2 — 52 gates.** r_EF spans −0.93…+1.00 with null clouds: 35 of 52 gates negative, mean −0.159, sd 0.708, median residual ≈ 71%. The gates of the C3 protocol family do not carry the prime weight in their heat traces. Status: *no prime weight*.
 
-**Gap in the trace metric.** Best gate residual 6.7% against the zeros' 2.1% — a gap of ≈ 0.5 orders (committed gap_orders = 0.509). This is the third independent measurement of the H2 gap, and it is consistent with the other two: 9–10 orders in the rank metric (C3) and stability across the extended gate families (C5).
+**Gap in the trace metric.** Best gate residual 6.7% against the zeros' 2.1% — a gap of ≈ 0.5 orders (committed gap_orders = 0.509). This is the third independent measurement of the H2 negative, and it is consistent with the other two: the surrogate-null level in the rank metric (C3) and stability across the extended gate families (C5). Note: the ≈0.5-order figure lives on a genuinely unbounded scale (relative residual), unlike the bounded D_nn (v2.0.1).
 
 **C3 protocol reproduction.** Re-running the C3 protocol through the shared engine reproduces the committed mean spacing with |Δ mean_spacing| = 1.45e-16 (committed: 1.4477981779965596e-16) — float64 round-off. The campaigns of this package audit each other bit-for-bit; C4's gate measurements inherit C3's protocol without drift.
 
@@ -320,7 +320,7 @@ Six terms, each with a fixed role and none with a free parameter: the first term
 **What T6 does not prove.**
 
 - It does not prove the Riemann hypothesis. H_ξ is built *from* the zeros, so "spectrum = zeros" holds by construction and the verification of T6 is a consistency check of the derivation pipeline — nothing about the existence of a natural operator follows from it.
-- It does not provide a candidate operator. The gates fail the thermal test: clause Г2/H2 (spectral identity) is answered NO and has now been measured three times — 9–10 orders in the rank metric (C3), ≈ 0.5 orders in the thermal metric (C4), and stable across the extended families (C5).
+- It does not provide a candidate operator. The gates fail the thermal test: clause Г2/H2 (spectral identity) is answered NO and has now been measured three times — surrogate-null level in the rank metric (C3), ≈ 0.5 orders by relative residual in the thermal metric (C4), and stable across the extended families (C5).
 - It does not close the door on nonlocal constructions. The negative verdicts of the package concern the class of *local* lattice Hamiltonians with vortex phases; the question of nonlocal operators is explicitly left open and moved to the roadmap (`docs/theory.md`, §4).
 
 The package's own cycle formula, from the theory map, compresses the standing of this campaign into one sentence: *the resonator is built and tuned (Г1+Г3+Г4); the zeros are coded, not generated (Г2+Г5); the prime weight is verified only for the zero operator (T6).* Campaign C4 is the "only for the zero operator" clause — and it is the most precise place of the series, because it states not only that the gates do not work, but exactly what a working operator's heat trace looks like.

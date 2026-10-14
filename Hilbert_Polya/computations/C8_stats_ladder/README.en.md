@@ -109,7 +109,7 @@ The independent four-sector re-run (fresh spectra, L = 24, α = 0.5, Nv = 16, n_
 
 What the verdict does **not** give you — **GUE class is necessary, not sufficient**:
 
-- **The class is crowded.** Every complex-Hermitian chaotic system on earth shares ⟨r⟩ ≈ 0.60. Matching statistics earns the gate a place in the class, not the throne of the zeta operator; the level-by-level identity question (H2) is answered NO in C3–C5, by a gap of 9–10 orders.
+- **The class is crowded.** Every complex-Hermitian chaotic system on earth shares ⟨r⟩ ≈ 0.60. Matching statistics earns the gate a place in the class, not the throne of the zeta operator; the level-by-level identity question (H2) is answered NO in C3–C5 — the gates sit at the surrogate-null level, indistinguishable from random.
 - **Universality is a sieve, not a signature.** It retains only symmetry and washes out arithmetic. That is precisely why the package keeps the statistical verdict (H3 = YES) and the spectral-identity verdict (H2 = NO) in separate rows: the first is true *because* of universality, the second fails *for the same reason*.
 - **64 → 4 closes the hidden-variable escape hatch.** If arithmetic hid in the discrete phase structures, the sixty-four structures would be its cupboard. The cupboard has four shelves. The coding is exact; its capacity is symmetry-capped.
 - **GSE's unreachability bounds the architecture, not the programme.** It says what this lattice family can never express; it does not comment on other constructions.
@@ -172,7 +172,7 @@ The phase coding reads each structure e ∈ (Z/2)⁶ only through two parity sum
 
 #### Does GUE agreement prove the Hilbert–Pólya programme?
 
-No — and the package is explicit that it does not. GUE is necessary, not sufficient: universality is an attractor that erases everything but symmetry, so it can never witness arithmetic. It explains why H3 is YES and why H2 (spectral identity) fails by 9–10 orders at the same time.
+No — and the package is explicit that it does not. GUE is necessary, not sufficient: universality is an attractor that erases everything but symmetry, so it can never witness arithmetic. It explains why H3 is YES and why H2 (spectral identity) fails at the surrogate-null level at the same time.
 
 #### What would it take to see GSE?
 

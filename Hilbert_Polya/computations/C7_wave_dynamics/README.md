@@ -172,7 +172,7 @@ The original method statement, preserved: *a sparse 96×96 Hamiltonian (open bc)
 
 What the verdict does **not** give you:
 
-- **It does not say the gate spectrum is the zeta spectrum.** The spectral identity question is H2, measured three times in this package (C3, C4, C5) with the answer NO — a gap of 9–10 orders of magnitude in the rank metric, about half an order in the thermal metric. C7 adds a dynamical leg, not a spectral one.
+- **It does not say the gate spectrum is the zeta spectrum.** The spectral identity question is H2, measured three times in this package (C3, C4, C5) with the answer NO — the gates sit at the surrogate-null level of the rank metric, about half an order by relative residual in the thermal metric. C7 adds a dynamical leg, not a spectral one.
 - **It does not prove the critical line.** All motion lives on α = ½; calling that line Re(s) = ½ is the package's central conjecture, supported statistically (the D7/D10 effects, of which the ×16 transport is the dynamical member) but not established as an identity.
 - **It does not elevate the ×16 into a proof of anything.** It is one cleanly controlled measurement: a ζ-ordered phase landscape steers probability differently from a random one. Its force comes from the matched null and the energy control, not from its size.
 - **It is not an arithmetic witness.** A transport ratio cannot certify that the phases *are* zeta phases; it certifies that they are *structured* where the random null is not. Universality-adjacent claims belong to C8, and even there they stop at symmetry.

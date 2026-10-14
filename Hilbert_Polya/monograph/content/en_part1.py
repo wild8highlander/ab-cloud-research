@@ -231,7 +231,7 @@ C3 = {
  "D_nn = 2.7e-14; merging multiple levels and a shared piecewise-linear "
  "unfolding were required); PC2 — the graph: the 79 Z_id zeros of C2 "
  "against the file (r = 1.000000000000, D_nn = 1.2e-10). The gap between "
- "the graph and the operator is 9–10 orders of magnitude in D_nn."]},
+ "the graph and the operator is a null-level residence in D_nn (0.258 vs surrogate 0.26 ± 0.01; the controls' 1e-14…1e-10 floors are machine precision, so 'orders of magnitude' are undefined on this bounded metric)."]},
 {"h1": "Results and verdict",
  "paras": [
  "The best gate of the family (Nv = 0, W = 0.5, α = 0.5) yields "
@@ -254,7 +254,7 @@ C3 = {
    ["Decoys / GUE null", "0.026±0.140 / −0.014±0.127", "null zones"],
    ["PC1 spinor64 twins", "r = 1.000000000, D_nn = 2.7e-14", "method sees identity"],
    ["PC2 graph Z_id ↔ file", "r = 1.000000000000, D_nn = 1.2e-10", "method sees identity"],
-   ["Graph↔operator gap", "9–10 orders (in D_nn)", "the master scale of the series"]],
+   ["Graph↔operator relation", "none — D_nn at surrogate-null level", "the master negative of the series"]],
   "ratios": [0.28, 0.44, 0.28]},
  "figure": {"path": "figures_hires/{lang}/fig05_gates_{lang}.png",
   "caption": "Fig. 1. r_H7 across the 52 gates: grey band — null zone, gold line — best gate 0.226, copper lines — positive controls ±1."}},
@@ -369,7 +369,7 @@ C4 = {
 {"h1": "Conclusions",
  "paras": [
  "The trace formula completes the triad of projections of the H2 gap: "
- "rank correlation (C3, 9–10 orders), the ψ-ladder (C6, null zone) and "
+ "rank correlation (C3, surrogate-null level), the ψ-ladder (C6, null zone) and "
  "now the heat trace (C4, ≈1 order in the window metric). All three "
  "converge on one statement: the arithmetic of primes lives in the "
  "zeros and does not transfer to the spectrum of a local resonator by "

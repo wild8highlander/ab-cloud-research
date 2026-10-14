@@ -172,10 +172,10 @@ C["C3_gate_family"] = {
 "slug_en": "C3 · The H7 gate family",
 "one": "52 затвора (Nv × q × W × α) на решётке 24×24 с π-флаксом; вопрос "
        "спектрального тождества Г2; перестановочные нули; позитивные контроли "
-       "PC1/PC2; вердикт: тождества нет, разрыв 9–10 порядков.",
+       "PC1/PC2; вердикт: тождества нет, нулевая зона (D_nn на уровне суррогата).",
 "one_en": "52 gates (Nv × q × W × α) on a 24×24 lattice with π flux; the "
           "spectral-identity question H2; permutation nulls; positive controls "
-          "PC1/PC2; verdict: no identity, a 9–10 order gap.",
+          "PC1/PC2; verdict: no identity — D_nn at the surrogate-null level.",
 "question": [
  "Существует ли затвор — конфигурация вихревого облака, — спектр которого "
  "тождественен спектру нулей ζ по соответствию «уровень n ↔ нуль n»? "
@@ -200,7 +200,7 @@ C["C3_gate_family"] = {
  ("Декуи / GUE-нуль", "0.026±0.140 / −0.014±0.127", "нулевые зоны"),
  ("PC1 близнецы spinor64", "r = 1.000000000, D_nn = 2.7e-14", "метод видит тождество"),
  ("PC2 график ↔ файл", "r = 1.000000000000, D_nn = 1.2e-10", "метод видит тождество"),
- ("Разрыв график ↔ оператор", "9–10 порядков по D_nn", "масштаб серии"),
+ ("Связь график ↔ оператор", "нулевая — D_nn на уровне суррогата", "итог серии"),
 ],
 "results_en": [
  ("Family", "52 unique configurations, master seed 96", "protocol C3"),
@@ -208,7 +208,7 @@ C["C3_gate_family"] = {
  ("Decoys / GUE null", "0.026±0.140 / −0.014±0.127", "null zones"),
  ("PC1 spinor64 twins", "r = 1.000000000, D_nn = 2.7e-14", "method sees identity"),
  ("PC2 graph ↔ file", "r = 1.000000000000, D_nn = 1.2e-10", "method sees identity"),
- ("Graph ↔ operator gap", "9–10 orders in D_nn", "the series scale"),
+ ("Graph ↔ operator relation", "none — D_nn at surrogate-null level", "the series verdict"),
 ],
 "how": [
  "Конвейер: vortex-конфигурация (центры ячеек, нейтральные заряды) → "

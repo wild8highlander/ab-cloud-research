@@ -104,7 +104,7 @@ The original method statement, preserved: *a sparse 96×96 Hamiltonian (open bc)
 
 What H4 does **not** give you:
 
-- **No spectral identity.** The level-to-zero matching question is H2, measured NO three times in this package (C3, C4, C5; gap of 9–10 orders in the rank metric, about 0.5 orders in the thermal metric). C7 is a dynamics verdict and stays one.
+- **No spectral identity.** The level-to-zero matching question is H2, measured NO three times in this package (C3, C4, C5; surrogate-null-level rank metric, about half an order by relative residual in the thermal metric). C7 is a dynamics verdict and stays one.
 - **No proof of the critical line.** Calling α = ½ "Re(s) = ½" is the package's conjecture; the ×16 transport is part of its statistical support (D7/D10), not its demonstration.
 - **No arithmetic witness.** A transport ratio cannot certify that the phases *are* zeta phases; it certifies that they are *structured* where the random null is not. Universality-adjacent claims belong to C8, and even there they stop at symmetry.
 

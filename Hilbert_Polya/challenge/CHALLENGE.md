@@ -18,14 +18,20 @@ r_H7  ≤  0.226   (v1 protocol)        p_r = 0.169, Bonferroni 0.80
 
 while the positive controls — the only places where identity is known to
 exist — give **r = 1.000** (PC1 isospectral twins) and **r = 1.000000**
-(PC0′ twin pipeline). The gap between the gate family and the control is
-**9–10 orders of magnitude** in the D_nn metric.
+(PC0′ twin pipeline). The gate family sits at the **surrogate-null
+saturation level** of the D_nn metric (gates 0.238–0.295 vs 0.26 ± 0.01 for
+GUE surrogates and shifted zero windows — indistinguishable from random; the
+controls' 1e-14…1e-10 values are machine-precision identity, not a scale,
+so "orders of magnitude" are undefined on this bounded metric — correction
+v2.0.1).
 
 ## The challenge
 
-> **Reduce the r_H7 gap by at least 2 orders of magnitude (i.e. demonstrate
-> r_H7 ≥ 0.7 under the v2 protocol) while keeping all positive controls
-> passing and the GUE class intact.** Recognition in the repository
+> **Demonstrate r_H7 ≥ 0.7 under the v2 protocol — a rank correlation far
+> above the surrogate null cloud (r_H7 is a bounded correlation, so the
+> former "reduce by 2 orders of magnitude" phrasing was undefined; correction
+> v2.0.1) — while keeping all positive controls passing and the GUE class
+> intact.** Recognition in the repository
 > AUTHORS/CHANGELOG and a joint paper offer for any accepted result.
 
 ## Submission format

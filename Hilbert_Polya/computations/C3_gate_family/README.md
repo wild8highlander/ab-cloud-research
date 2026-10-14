@@ -8,7 +8,7 @@
 
 <p align="center"><em>Curated by the Bridge avatar cast — Agent Atlas directed the gate designs, Agent Lyra measured the spectra, Agent Vera guarded the controls.</em></p>
 
-> **TL;DR — 52 gates (Nv × q × W × α) on a 24×24 lattice with π flux; the spectral-identity question H2; permutation nulls; positive controls PC1/PC2; verdict: no identity, a 9–10 order gap.**
+> **TL;DR — 52 gates (Nv × q × W × α) on a 24×24 lattice with π flux; the spectral-identity question H2; permutation nulls; positive controls PC1/PC2; verdict: no identity — gates at the surrogate-null level of D_nn (0.258 vs 0.26 ± 0.01 for random surrogates; v2.0.1).**
 
 [← Back to the main README](../../README.md)
 
@@ -23,7 +23,7 @@
 | Null zones (r_H7) | decoys 0.026±0.140 · GUE −0.014±0.127 |
 | Identity controls | PC1 r = 1.000000000 · PC2 r = 1.000000000000 |
 | Detection floor | D_nn = 2.7e-14 (PC1) · 1.2e-10 (PC2) |
-| Best gate distance from floor | ≈ 0.26 in D_nn — the 9–10 order gap |
+| Best gate vs surrogate null | ≈ 0.26 in D_nn — at saturation, indistinguishable from random |
 | Best gate | vortex-free reference (Nv, q, W, α) = (0, 0.0, 0.5, 0.5) |
 | One-line meaning | no gate is distinguishable from the permutation null model, while the pipeline sees identity at the 1e-14 level whenever it exists |
 
@@ -50,7 +50,7 @@ Every number in this card is traceable to `data/results.json` or `data/gates_tab
 5. [The positive controls PC1 and PC2 — why a NO needs witnesses](#5-the-positive-controls-pc1-and-pc2--why-a-no-needs-witnesses)
 6. [Results](#6-results)
 7. [How to read the numbers](#7-how-to-read-the-numbers)
-8. [Interpretation — H2 = NO at 9–10 orders](#8-interpretation--h2--no-at-910-orders)
+8. [Interpretation — H2 = NO at the surrogate-null level](#8-interpretation--h2--no-at-the-surrogate-null-level)
 9. [Reproduction](#9-reproduction)
 10. [Data and figures](#10-data-and-figures)
 11. [Verdict](#11-verdict)
@@ -98,9 +98,11 @@ detection experiment rather than a fitting exercise:
 twelve decimal places.
 
 The verdict of the campaign is the third item of the bridge's scoreboard
-(question H2 of the Hilbert–Pólya tablet): **no identity**, with the distance
-between "what the gates achieve" and "what identity would look like" measured
-at 9–10 orders of magnitude in the D_nn metric. The rest of this document
+(question H2 of the Hilbert–Pólya tablet): **no identity**, with the best gate sitting at the
+saturation level of the D_nn metric (0.258 — numerically the same as the
+random-surrogate nulls 0.26 ± 0.01), infinitely far from identity in rank
+but carrying no graded "distance": D_nn is a bounded metric (correction
+v2.0.1). The rest of this document
 explains what a gate is, how the measurement works, why the negative verdict
 is trustworthy, and how to reproduce every number.
 
@@ -330,7 +332,7 @@ D_nn ≈ 1e-10 (graph-level identity) and D_nn ≈ 1e-14 (operator-level
 identity). Against these floors the verdict is interpretable in one line: the
 best any gate achieves is D_nn = 0.2584614616101241 — nine to ten orders of
 magnitude above the graph-level floor and thirteen above the operator-level
-one. The headline "9–10 order gap" of the series (recorded in
+one. The corrected headline of the series (recorded in
 `results/RESULTS.md` and the theory map) is anchored on the graph ↔ operator
 comparison: the graph side reproduces the zeros at 1e-10, and no gate gets
 closer than 2.6e-1.
@@ -354,7 +356,7 @@ controls passed. An unfalsifiable NO was never on the table.*
 | Decoys / GUE null | 0.026±0.140 / −0.014±0.127 | null zones |
 | PC1 spinor64 twins | r = 1.000000000, D_nn = 2.7e-14 | method sees identity |
 | PC2 graph ↔ file | r = 1.000000000000, D_nn = 1.2e-10 | method sees identity |
-| Graph ↔ operator gap | 9–10 orders in D_nn | the series scale |
+| Graph ↔ operator relation | none: D_nn at surrogate-null level | the series verdict |
 
 ### 6.2 The best gate
 
@@ -444,18 +446,21 @@ many GUE-null standard deviations its r_H7 lies above the GUE mean. The best
 gate's 1.8936817833815616 is unremarkable for a two-sided normal comparison,
 and the family minimum is negative (−1.2152397215832413).
 
-**D_nn has a floor, and the gates are nowhere near it.** Because the shift is
-optimised before D_nn is computed, a gate cannot plead a global misalignment;
-and because PC1/PC2 certify floors of 1e-14 and 1e-10, "we might just not be
-able to resolve identity" is off the table. The gates' D_nn values (0.238 to
-0.295) are separated from the floors by 9–13 orders of magnitude depending on
-the control — the "9–10 order gap" of the headline.
+**D_nn saturates, and the gates sit exactly at the saturation level.**
+Because the shift is optimised before D_nn is computed, a gate cannot plead a
+global misalignment; and because PC1/PC2 certify floors of 1e-14 and 1e-10,
+"we might just not be able to resolve identity" is off the table. The gates'
+D_nn values (0.238 to 0.295) coincide with the surrogate nulls (nullA/nullB:
+0.26–0.28): the metric separates *identity* from *everything else* in one
+step and cannot grade distances among non-identical objects — the correction
+of v2.0.1 that retired the "orders of magnitude" language.
 
-**The floors are the fixed points of the reading.** Every interpretation comes
-back to the same comparison: gates at D_nn ≈ 0.26, controls at 1.2e-10 and
-2.7e-14. p-values, z-scores and KS statistics all tell the same story from
-different angles because the metric itself separates the two regimes by 9–10
-orders.
+**The null clouds are the fixed points of the reading.** Every interpretation
+comes back to the same comparison: gates at D_nn ≈ 0.26, surrogate nulls at
+0.26 ± 0.01, controls at 1.2e-10 and 2.7e-14. p-values, z-scores and KS
+statistics all tell the same story from different angles: the gates are
+statistically indistinguishable from random — the binary content the old
+"orders" phrasing obscured.
 
 **The verdict is deliberately conservative in what it claims.** p_KS = 1.0 for
 the best gate, ⟨r⟩ = 0.32 localization clustering on the clean lattice, and
@@ -464,7 +469,7 @@ rounded toward a more dramatic story in either direction.
 
 ---
 
-## 8. Interpretation — H2 = NO at 9–10 orders
+## 8. Interpretation — H2 = NO at the surrogate-null level
 
 **What was asked.** Question H2 of the Hilbert–Pólya tablet: is there a gate
 whose spectrum *is* the zero spectrum, level by level?
@@ -477,20 +482,20 @@ in `data/results.json` translates as: *no gate is distinguishable from the
 permutation null model — H2 remains closed, now with the method's power
 measured*.
 
-**What "9–10 orders of magnitude" means operationally.** The instrument has a
-demonstrated detection floor: D_nn = 2.7e-14 when handed two isospectral
-operators (PC1) and 1.2e-10 when handed the graph against the zero file (PC2).
-The gates sit at D_nn ≈ 2.6e-1. The ratio between "identity present" and
-"best gate achieved" is therefore not a matter of interpretation — it is a
-factor of billions to trillions in the rank metric, quoted in the series
-ledger as the 9–10 order gap (C3), a scale cross-checked by campaign C4 in
-the thermal metric (≈0.5 order there) and confirmed stable by C5 — three
-independent projections of one question, agreeing in sign (both NO), the
-methodological core of the series. A NO at
-this separation is a *measured absence*, not a failure to detect: if a vortex
-gate in this class were the Hilbert–Pólya operator, the pipeline would have
-returned r ≈ 1 and D_nn ≤ 1e-10, and it did not come within ten orders of
-either.
+**What the verdict means operationally (corrected v2.0.1).** The instrument
+has a demonstrated detection floor: D_nn = 2.7e-14 when handed two
+isospectral operators (PC1) and 1.2e-10 when handed the graph against the
+zero file (PC2). The gates sit at D_nn ≈ 2.6e-1 — *the same value as the
+random surrogates* (nullA 0.26–0.28, nullB 0.26–0.28). The former reading —
+"a factor of billions to trillions, the 9–10 order gap" — compared a
+saturation level against a machine-precision floor and was a category error:
+D_nn is bounded, no non-identical pair gets below ≈0.23, and a random GUE
+matrix is "as far" from the zeros as any gate. The corrected statement: the
+NO is *measured absence, not graded distance* — if a vortex gate in this
+class were the Hilbert–Pólya operator, the pipeline would have returned
+r ≈ 1 and D_nn ≤ 1e-10; instead every gate sits inside the random cloud.
+The C4 cross-check (≈0.5 order by *relative residual* — a genuinely
+unbounded metric) and C5's stability extension stand unchanged.
 
 **Why the negative verdict is trustworthy.** Three independent guarantees: the
 positive controls certify the detector (Section 5); the permutation nulls
@@ -631,8 +636,9 @@ the term denotes a family of Hamiltonians, not a physical device.
 No. It means the opposite: the best gate's r_H7 falls inside the measured
 null zone (11/65 of permutation draws look at least as identity-like).
 "Close" would be a p-value far *below* the corrected threshold together with
-D_nn near the certified floors; the gates are 9–10 orders away from those
-floors.
+D_nn near the certified floors; the gates sit at the surrogate-null
+saturation level (≈0.26) — as far from those floors as any random pair, and
+not distinguishable from the null cloud (v2.0.1).
 
 **Q3. Why rank correlation (r_H7) instead of comparing eigenvalues directly?**
 Because identity is a statement about the level-n ↔ zero-n *correspondence*,
@@ -686,7 +692,7 @@ r_H7 = 0.22641576150208137, and decoration never beats it. The campaign's
 claim is about this family; C5 explores whether more handles change the
 picture (they do not change the verdict).
 
-**Q10. How does the 9–10 order gap here relate to C4's ≈0.5 order figure?**
+**Q10. How does the null-level verdict here relate to C4's ≈0.5 order figure?**
 Two metrics, one question. C3 measures the gap in the rank metric D_nn
 (gates ≈ 0.26 against control floors of 1e-10 and 1e-14); C4 measures it in a
 thermal (heat-kernel) metric, where the separation is ≈0.5 order. The theory

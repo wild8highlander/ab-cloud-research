@@ -89,7 +89,7 @@ THEOREMS = {
  "controls (T5, T7, T9, T10), and one is proven at the level of phase "
  "structure (T8). None carries a status higher than its content — and "
  "it is exactly this discipline that lets the series speak of the H2 "
- "gap of 9–10 orders as a measured fact rather than an estimate.",
+ "null-level verdict (gates indistinguishable from surrogates) as a measured fact rather than an estimate.",
  "The main consequences for the Hilbert–Pólya programme are collected "
  "in the scorecard: the resonator is built and tuned (H1+H3+H4), the "
  "zeros are encoded rather than generated (H2+H5), and the prime weight "
@@ -175,7 +175,7 @@ APPENDIX = {
   "header": ["Item", "Question", "Verdict", "Basis"],
   "rows": [
    ["H1", "self-adjointness of the operator", "YES", "Hermitian by construction; real spectrum"],
-   ["H2", "spectral identity level↔zero", "NO", "9–10 orders (C3); ≈0.5 order (C4); |r_H7| ≤ 0.043 (C5)"],
+   ["H2", "spectral identity level↔zero", "NO", "null level — D_nn 0.258 vs surrogate 0.26±0.01 (C3); ≈0.5 order by relative residual (C4); |r_H7| ≤ 0.043 (C5)"],
    ["H3", "the GUE class", "YES", "⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class"],
    ["H4", "Dirac dynamics", "YES", "coherent packet, energy 1e-15 (C7)"],
    ["H5", "primes in the operator", "NO", "ψ-ladder 0.972 for zeros, null zone for gates (C6)"]],

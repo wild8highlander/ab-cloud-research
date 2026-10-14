@@ -110,7 +110,10 @@ def mi_alignment(H, L, zero_profile, k=64):
 
 
 def spectral_form_factor(eigs, t_grid, unfolding=True):
-    """SFF(t) = |Σ e^{−iE_n t}|² на развёрнутом спектре (окно)."""
+    """SFF(t) = |Σ e^{−iE_n t}|²; вход — уже развёрнутое окно (window_u).
+    Параметр unfolding — ЛИНЕЙНАЯ стандартизация (E−⟨E⟩)/std, а не
+    развёртка (исправление подписи v2.0.1; развёртку выполняет
+    вызывающий код через central_band → unfold_poly → window_u)."""
     E = np.asarray(eigs, dtype=float)
     if unfolding:
         E = (E - E.mean()) / E.std()

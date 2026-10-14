@@ -58,7 +58,7 @@ The package walks from algebra to operator in five stages, measuring the distanc
 | 1 · Algebra | Γ-ladder: three closures | T1 (dps = 40, ~1e-39) | one refutation (K1) |
 | 2 · Graph | Z_id(t) = e^{iθ(t)}ζ(½+it) | T2 (reality) | 79 zeros, Gram (K3, K7) |
 | 3 · Counting | argument principle | T3 (pole calibration) | RH in strip to T = 1000 |
-| 4 · Operator | 87 gates of the lattice | — | H2: gap 9–10 orders |
+| 4 · Operator | 87 gates of the lattice | — | H2: no relation (surrogate-null level) |
 | 5 · Trace | Tr e^{−xH} vs explicit formula | T6 (for H_ξ) | H2 ≈ 1 order in heat metric |
 
 The assembly card committed with the verdict (`data/results.json`, 2026-10-10, dps 30): HL-1 (T03/V6) the Γ-ladder Γ(z)Γ(1−z) = π/sin πz ⇒ |Γ(1/4+it/2)|² = π/cosh(πt/2); HL-2 (T02) the phase lattice arg P = 2π(ra+sb)/N ⇒ continuous phase θ(t); HL-4 (T04) the Riemann bilinear relations as the symmetry pattern ξ(s) = ξ(1−s); HL-5 (T01) the genus g(N) = (N−1)(N−2)/2 as contrast; AC-2 (A6) the counting identity t/δ = N(t) + (t/2π − 7/8); AC-3 (A7) the second moment Σγ² = (T³/6π)(ln(T/2π) − 1/3). Assembled: Z_id — the real Hardy function — and Xi_id = ξ(1/2+it) = −½(t²+¼)·π^{−s/2}·Γ(s/2)·ζ(s), the exact completed ξ. **free_parameters: 0.** Nothing is fitted; that is the point of starting the series here.
@@ -131,14 +131,14 @@ The package's scorecard, for orientation:
 | Item | Question | Verdict | Basis |
 |---|---|---|---|
 | H1 | Self-adjointness | **YES** | Hermitian by construction; real spectrum at machine precision |
-| H2 | Spectral identity (level n ↔ zero n) | **NO** | 9–10 orders (C3); ≈0.5 order (C4); \|r_H7\| ≤ 0.043 (C5) |
+| H2 | Spectral identity (level n ↔ zero n) | **NO** | null level — D_nn 0.258 vs surrogate 0.26±0.01 (C3); ≈0.5 order by relative residual (C4); \|r_H7\| ≤ 0.043 (C5) |
 | H3 | The GUE statistics class | **YES** | ⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class |
 | H4 | Dirac-type dynamics | **YES** | coherent packet, reflection, scattering; energy 1e-15 (C7) |
 | H5 | Primes inside the operator | **NO** | ψ-ladder 0.972 for zeros, null zone for gates (C6) |
 
 <img src="../../assets/avatars/hp_hilbert.svg" width="120" align="right" alt="David Hilbert"/>
 
-C1 decides no row alone but touches all five. For **H1** it supplies the graph-side mirror of self-adjointness — a real, even target function (T2 at 4.9e-29) against which eigenvalue comparisons are meaningful. For **H2** it supplies the boundary statement the later campaigns measure: the envelope wraps ζ in phase and generates nothing, so identity-matching can never certify an operator — and the gates are indeed found 9–10 orders away (rank metric, C3/C5) and ≈0.5 order away (heat metric, C4). For **H3** the 4-of-220 Gram violations are the first statistical hint of non-rigid interlacing — zeros with GUE-like behaviour, not beads on the θ-lattice; C3 and C8 quantify it later. For **H4** it builds the target the resonator must hit (C7, energy 1e-15). For **H5** the exact assembly Xi_id is what the trace stage (C4, T6) later exploits: the prime weight Λ(n)/√n is proven to live in the heat trace of the zero-coded operator H_ξ (|ΔK| ≤ 1.2e-5) and in no gate.
+C1 decides no row alone but touches all five. For **H1** it supplies the graph-side mirror of self-adjointness — a real, even target function (T2 at 4.9e-29) against which eigenvalue comparisons are meaningful. For **H2** it supplies the boundary statement the later campaigns measure: the envelope wraps ζ in phase and generates nothing, so identity-matching can never certify an operator — and the gates are indeed found at the surrogate-null level (rank metric, C3/C5) and ≈0.5 order away by relative residual (heat metric, C4). For **H3** the 4-of-220 Gram violations are the first statistical hint of non-rigid interlacing — zeros with GUE-like behaviour, not beads on the θ-lattice; C3 and C8 quantify it later. For **H4** it builds the target the resonator must hit (C7, energy 1e-15). For **H5** the exact assembly Xi_id is what the trace stage (C4, T6) later exploits: the prime weight Λ(n)/√n is proven to live in the heat trace of the zero-coded operator H_ξ (|ΔK| ≤ 1.2e-5) and in no gate.
 
 <p align="center"><img src="../../assets/illustrations/ill_shutter_wall.png" width="720" alt="The shutter wall: 87 lattice gates facing the graph"/></p>
 
@@ -212,7 +212,7 @@ A: Every criterion compares internally: algebra (K1, 1e-30), reality (K2, 4.9e-2
 | "Z_id proves the Riemann Hypothesis" | It proves reality (T2) and exact algebra (T1); the zero coincidence holds on the line by rephasing and generates nothing. |
 | "0.765 is a numerical residual" | It is the structural mismatch of the refuted candidate form for the single modulus \|Γ(¼+iu)\| — a published refutation, not an error. |
 | "The 4 Gram violations are campaign defects" | They are the classical exceptions to Gram's law in this window; K7 reproduces them deliberately. |
-| "C1 decided H2" | C1 built the graph side; the H2 verdict (NO) is measured in C3/C4/C5 (9–10 orders; ≈0.5 order; \|r_H7\| ≤ 0.043). |
+| "C1 decided H2" | C1 built the graph side; the H2 verdict (NO) is measured in C3/C4/C5 (surrogate-null level; ≈0.5 order by residual; \|r_H7\| ≤ 0.043). |
 | "2.8e-14 is the bisection precision" | It is the float64 comparison floor (≈ 2⁻⁴⁵ at γ ≈ 100–200); the bisection runs at dps = 25. |
 | "K5/K6 numbers belong to C1's verdict" | They are archived in the same results.json but reported under C2; C1's composite covers K1–K4, K7. |
 

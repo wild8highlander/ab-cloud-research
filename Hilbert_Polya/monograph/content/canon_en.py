@@ -150,7 +150,7 @@ SECTIONS.append({
  "controls show the method sees identity when it exists: the spinor64 "
  "twins (r = 1.000000000, D_nn = 2.7e-14) and the graph against the "
  "file (r = 1.000000000000, D_nn = 1.2e-10). The graph ↔ operator gap "
- "is 9–10 orders of magnitude in D_nn: a desert no handle crosses. "
+ "is at the surrogate-null level in D_nn (0.258 vs 0.26 ± 0.01): a desert no handle crosses. "
  "GUE universality is an attractor erasing the arithmetic setting no "
  "matter how it is imposed."],
  "theorem": T710["theorem"],
@@ -265,7 +265,7 @@ SECTIONS.append({
   ["Г1", "self-adjointness of the operator", "YES",
    "Hermiticity by construction; real spectrum"],
   ["Г2", "spectral identity level↔zero", "NO",
-   "9–10 orders (C3); ≈0.5 order (C4); |r_H7| ≤ 0.043 (C5)"],
+   "null level — D_nn 0.258 vs surrogate 0.26±0.01 (C3); ≈0.5 order by relative residual (C4); |r_H7| ≤ 0.043 (C5)"],
   ["Г3", "GUE class", "YES", "⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class"],
   ["Г4", "Dirac dynamics", "YES", "coherent packet, energy 1e-15 (C7)"],
   ["Г5", "primes in the operator", "NO",
@@ -443,7 +443,7 @@ SECTIONS.append({
 "h1": "Roadmap: the operator that encodes the zeros",
 "paras": [
  "The directions are ordered by their expected effect on the main "
- "measured gap Г2 (9–10 orders in the rank metric, ≈0.5–1 in the heat "
+ "measured verdict Г2 (surrogate-null level in the rank metric, ≈0.5–1 by residual in the heat "
  "metric) and on the main goal — showing that a Hilbert–Pólya "
  "operator encodes the zeros by generation, not by repacking.",
  "The theoretical bridge (N1–N3). N1 — a proof of the counting law "

@@ -44,7 +44,7 @@ Monographs (full, RU/EN, DOCX+PDF): monograph/ and computations/*/.
   Z_id(t) = e^{iθ(t)}ζ(½+it) (T2, reality on the line); stage 3, counting
   — the argument principle (T3, pole calibration, RH verified in the strip
   up to T = 1000); stage 4, operator — the 87 lattice gates, where the gap
-  H2 of 9–10 orders is measured; stage 5, trace — Tr e^{−xH} against the
+  H2 is measured at the surrogate-null level; stage 5, trace — Tr e^{−xH} against the
   explicit formula, with T6 proven for H_ξ and the gap ≈ 1 order in the
   heat metric. It also fixes the resonator construction (L×L lattice,
   protocol 24×24, hopping −t·e^{iφ}, flux 2πα·iy, vortex phases, disorder
