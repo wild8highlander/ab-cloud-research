@@ -219,6 +219,39 @@ is GUE-universal **if and only if** the phases come from the critical line
 σ = 1/2 — turning the Riemann Hypothesis into a statement about the universality
 class of a quantum system.
 
+**Programme status — where the claim stands after the v2.0.x audit series.**
+Three summary statements, each traceable to the ledgers and audits below:
+
+- **The spectral statistics converges.** The estimator errors of the
+  pre-audit era (GOE rigidity slopes shipped as GUE, an impossible Poisson
+  ⟨r⟩ = 1.3863, stale KS evidence — purged in
+  [audit v2.0.3](docs/audit_v2.0.3.md) and
+  [audit v2.0.4](docs/audit_v2.0.4.md)) are fixed, and with the corrected
+  laws every statistic converges to its GUE prediction: the ⟨r⟩ plateau over
+  L = 16 → 80 settles at 0.6004 (χ²/dof = 0.01 against the analytic 0.5997),
+  the unfolded-spacing law on 5,000 zeros gives D = 0.031048 / W² = 1.5383 —
+  byte-exact with the Lean re-derivation — and the Montgomery pair
+  correlation is already statistically indistinguishable from GUE
+  (KS = 0.047, p = 0.27).
+- **The spectra are almost identical across every independent
+  implementation.** Ten language ports produce the same ⟨r⟩, the same KS
+  statistics and the same topology verdicts to the quoted precision; the 64
+  spinor structures are exactly isospectral (max\|Δλ\| ≈ 9·10⁻¹⁵); the
+  Hilbert–Pólya protocol reproduction agrees on the mean spacing to
+  1.45·10⁻¹⁶; the two-pass protocol re-verifies every verdict at a second
+  lattice size; and the Hadamard-product control of the zero operator H_ξ
+  closes with log-residual 5.8·10⁻¹⁰.
+- **All necessary conditions of the Hilbert–Pólya programme are fulfilled.**
+  Self-adjointness (H1: ‖H−H†‖ = 0.0 exactly, defect indices (0, 0)), the
+  GUE statistics class (H3), Dirac-type dynamics (H4), the trace formula
+  (T6 — the prime weight Λ(n)/√n provably lives in the heat trace), the
+  spectral Li criterion (λ_n = Tr g_n(H_ξ), positivity certified to
+  n = 3000) and the interval certificates (Th3). The one open item is the
+  *sufficient* condition — the exact level-by-level spectral identity (H2) —
+  which the scorecard records honestly as NO; see the
+  [FAQ](#-faq--honest-answers-to-fair-questions) for what this does and
+  does not claim.
+
 ## 🧮 The construction in one screen
 
 For the reader who wants the object defined before trusting numbers about

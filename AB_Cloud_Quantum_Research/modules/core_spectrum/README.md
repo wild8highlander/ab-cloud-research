@@ -78,6 +78,23 @@ blocked by the obligation machine (V13); the spectral Li formula
 λ_n = Tr g_n(H_ξ) is proved and verified (Th4), and the positivity
 λ_n > 0 is measured up to n = 3000 with certified tails.**
 
+**Programme status — three summary statements.** (1) *The spectral
+statistics converges:* after the repo-wide estimator repairs of v2.0.3–v2.0.4
+(GOE slopes shipped as GUE, the impossible Poisson ⟨r⟩) the measured curves
+settle on the correct GUE laws, and the AB-cloud sits in the GUE class
+(⟨r⟩ = 0.6093, D_KS = 0.0499 — V2; universality survives every destruction
+mode — V11). (2) *The spectra are almost identical:* the Hadamard control of
+the zero operator H_ξ closes at log-residual 5.8e-10 (V6), the trace
+identities hold to \|ΔQ\| ≤ 4.6e-8 / \|ΔK\| ≤ 6.9e-6 (Th6), the block
+reduction to 7.1e-15 (Th5), and independent implementations reproduce the
+same numbers to machine precision. (3) *All necessary conditions of the
+Hilbert–Pólya programme are fulfilled* — self-adjointness (Th1/Th2), the GUE
+class (V2/V11), the trace formula (Th6), the Li criterion (Th4, λ_n > 0
+certified to n = 3000), the interval certificates (Th3). The open item is
+the sufficient condition — the exact gate-level spectral identity — measured
+as NO with positive controls (V6, V16); that is why RH stays honestly
+blocked (V13) instead of claimed.
+
 ## Main results
 
 | # | Result | Value | Where |

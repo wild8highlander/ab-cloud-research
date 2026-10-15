@@ -183,6 +183,27 @@ The five questions of the Hilbert–Pólya programme, answered by measurement:
 
 ![the scorecard](figures/en/light/info_scorecard_en.png)
 
+**How to read the scorecard.** Every *necessary* condition of the
+Hilbert–Pólya programme is fulfilled: self-adjointness (H1 — YES,
+‖H−H†‖ = 0.0 exactly, defect indices (0, 0)), the GUE statistics class
+(H3 — YES, ⟨r⟩ = 0.569–0.633 across the extended family, mean 0.601 inside
+the GUE band 0.5996 ± 0.03), Dirac-type dynamics (H4 — YES), and behind
+them the proven layer — the trace formula T6 (the weight of primes Λ(n)/√n
+provably lives in the heat trace of the zero operator, \|ΔK\| ≤ 1.2e-5),
+the argument-principle strip check (C2: RH verified for 649 = 649 zeros at
+T ≤ 1000, residuals ≤ 8.3e-25) and the Γ-ladder closures at dps = 40
+(residuals 1.3–2.6e-39). The spectral statistics itself converges — after
+the repo-wide estimator repairs (v2.0.1–v2.0.4: the D_nn metric, the C3
+data, the GOE-as-GUE purge, the rigidity-slope purge) the measured curves
+settle on the correct laws — and the spectra are almost identical across
+independent implementations: the C3 protocol reproduction matches the
+parent measurement to \|Δ mean_spacing\| = 1.45e-16, the C8 spinor
+reduction is isospectral to \|Δλ\| ≤ 1.1e-14, and ten language ports agree
+on the same statistics to quoted precision. The open item is the
+*sufficient* condition — the exact level-by-level spectral identity (H2)
+and the gate channel to the primes (H5) — and that is exactly what the two
+NO rows say, each measured against a positive control.
+
 ## The three projections of the H2 gap
 
 One conclusion, three independent measurements — this is the core

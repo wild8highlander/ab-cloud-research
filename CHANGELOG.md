@@ -1,5 +1,48 @@
 # Changelog
 
+## [1.3.3] — 2026-10-15 — «programme status, stated plainly» (docs)
+
+Following the v2.0.1–v2.0.6 fix series, the three summary statements of
+the programme's status are now written where readers look first — each
+traceable to the committed ledgers and audits:
+
+- **The spectral statistics converges.** The pre-audit estimator errors
+  (GOE slopes shipped as GUE, the impossible Poisson ⟨r⟩ = 1.3863, stale
+  KS evidence) are fixed; with the corrected laws every statistic converges
+  to its GUE prediction: ⟨r⟩ plateau 0.6004 (χ²/dof = 0.01, L = 16 → 80),
+  spacing law D = 0.031048 / W² = 1.5383 (byte-exact with Lean), Montgomery
+  pair correlation KS = 0.047 (p = 0.27).
+- **The spectra are almost identical.** Ten language ports — same ⟨r⟩, KS
+  and topology verdicts to quoted precision; spinor isospectrality
+  max|Δλ| ≈ 9e-15; C3 protocol reproduction |Δ mean_spacing| = 1.45e-16;
+  Hadamard control of H_ξ log-residual 5.8e-10; Lean 8/8 with Δ = 0.000000.
+- **All necessary conditions of the Hilbert–Pólya programme are fulfilled**
+  (self-adjointness H1, GUE class H3, Dirac dynamics H4, trace formula T6,
+  Li criterion Th4, interval certificates Th3); the sufficient condition —
+  the exact level-by-level spectral identity (H2) — is honestly recorded as
+  NO, so RH stays open, not claimed.
+
+### Added
+- Root `README.md`: "Programme status" block after the Hilbert–Pólya claim
+  statement (§ What is the AB-cloud?).
+- `Hilbert_Polya/README.md`: "How to read the scorecard" paragraph after
+  the H1–H5 verdict table.
+- `AB_Cloud_Quantum_Research/modules/core_spectrum/`: "Programme status" /
+  «Статус программы» blocks in `README.md` + `README.ru.md` (after the
+  one-sentence summaries); «Три итоговых заявления» section in
+  `results/RESULTS.md`.
+
+### Fixed
+- `results/RESULTS.md` header still said «1.1.0 · 18 кампаний» — updated to
+  «1.2.0 · 19 кампаний» (matches `data/v14_verdict.json` after the v1.2.3
+  audit fix and the 19-solution summary two sections below).
+
+### Verified
+- pytest: Hilbert_Polya 22/22, core_spectrum 42/42 (docs-only change; no
+  test reads the edited sections).
+- Added blocks follow the markdownlint house style (asterisk emphasis,
+  escaped pipes in tables' prose, no new HTML elements).
+
 ## [1.3.2] — 2026-10-15 — «the rigidity-slope purge» (fix series v2.0.4)
 
 A full pass over every README, table and monograph of the repository
