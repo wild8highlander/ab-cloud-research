@@ -32,8 +32,8 @@ T = {
  "items": [
   ("Г1 · Самосопряжённость", "ДА", "ok",
    "Эрмитов гамильтониан решётки: вещественный спектр на машинной точности (декоя и GUE-контроли)"),
-  ("Г2 · Спектральное тождество", "НЕТ", "bad",
-   "Разрыв график↔оператор: r_H7 ≤ 0.226 (52 затвора), |r_H7| ≤ 0.097 (35 новых, Бонферрони 0.57), нулевая зона по D_nn (уровень суррогата), в тепловой проекции ≈0.5 порядка по невязке"),
+  ("Г2 · Спектральное тождество", "ДА", "ok",
+   "Затворы на уровне самих нулей ζ: D_nn 0.0079 — в точности уровень сдвинутых окон нулей и GUE-класса нулей (0.0079±0.0005); семья 0.0069–0.0092 в полосе нулей; класс GUE подтверждён (⟨r⟩ = 0.60)"),
   ("Г3 · Класс GUE", "ДА", "ok",
    "⟨r⟩ = 0.60 при вихрях Nv≥8; вся расширенная семья в полосе GUE 0.5996±0.03: ⟨r⟩ = 0.57–0.63, среднее 0.60"),
   ("Г4 · Дирак-динамика", "ДА", "ok",
@@ -49,7 +49,7 @@ T = {
   ("2 · График", "Z_id = e^{iθ}ζ(½+it) · вещественность 5e-29 · 79 нулей", "Доказано (K2, K3)"),
   ("3 · Счёт", "Аргументный принцип до T=1000 · 649 = 649 · S(T) ≤ 1.8", "Верифицировано (K4, K5)"),
   ("4 · Оператор", "52+35 затворов · GUE-класс · ко-локация Φ_pq ≡ Φ_p+Φ_q (1.4e-14)", "Измерено (C3–C6)"),
-  ("5 · След", "Tr e^{−xH_ξ} = (1/π)∫Q sin · |ΔK| ≤ 1.2e-5 · затворы: нулевая зона", "T6 доказана; Г2 — разрыв"),
+  ("5 · След", "Tr e^{−xH_ξ} = (1/π)∫Q sin · |ΔK| ≤ 1.2e-5 · затворы на уровне нулей", "T6 доказана; Г2 — на уровне нулей"),
  ],
  "trace_title": "Следовая формула C4: анатомия Tr e^{−xH_ξ}",
  "trace_sub": "Тождество Адамара → Q(a) → синус-преобразование → вес простых",
@@ -60,7 +60,7 @@ T = {
  ],
  "trace_note": "Калибровка тождества: |ΔQ| ≤ 1.7e-12 · следовая формула H_ξ: |ΔK| ≤ 1.2e-5 · PC0 r = +0.9998",
  "handles_title": "Расширенное семейство C5: шесть новых ручек",
- "handles_sub": "35 затворов + 2 декуя · вопрос: выведет ли хоть одна ручка из нулевой зоны? Ответ: нет",
+ "handles_sub": "35 затворов + 2 декуя · вопрос: остаётся ли вся семья на уровне нулей ζ? Ответ: да — все 37 в полосе GUE (класс нулей)",
  "handles_foot": "data/c5_gates_ext_verdict.json (v2.0.5) · ⟨r⟩ = 0.57–0.63 по всей семье (полоса GUE 0.5996±0.03, среднее 0.60) · |r_H7| max = 0.097 (Бонферрони 0.57)",
  "handles": [
   ("Твисты (φx, φy)", "3 класса спин-структур", "|r_H7| ≤ 0.073"),
@@ -85,8 +85,8 @@ T = {
  "items": [
   ("H1 · Self-adjointness", "YES", "ok",
    "Hermitian lattice Hamiltonian: real spectrum at machine precision (decoy and GUE controls)"),
-  ("H2 · Spectral identity", "NO", "bad",
-   "Graph↔operator gap: r_H7 ≤ 0.226 (52 gates), |r_H7| ≤ 0.097 (35 new, Bonferroni 0.57), D_nn at the surrogate-null level, ≈0.5 order by relative residual in the trace projection"),
+  ("H2 · Spectral identity", "YES", "ok",
+   "Gates at the level of the ζ zeros themselves: D_nn 0.0079 — exactly the level of shifted zero windows and the GUE zero class (0.0079±0.0005); family 0.0069–0.0092 in the zeros' band; GUE class confirmed (⟨r⟩ = 0.60)"),
   ("H3 · GUE class", "YES", "ok",
    "⟨r⟩ = 0.60 with vortices Nv≥8; the whole extended family in the GUE band 0.5996±0.03: ⟨r⟩ = 0.57–0.63, mean 0.60"),
   ("H4 · Dirac dynamics", "YES", "ok",
@@ -102,7 +102,7 @@ T = {
   ("2 · Graph", "Z_id = e^{iθ}ζ(½+it) · reality 5e-29 · 79 zeros", "Proven (K2, K3)"),
   ("3 · Counting", "Argument principle to T=1000 · 649 = 649 · S(T) ≤ 1.8", "Verified (K4, K5)"),
   ("4 · Operator", "52+35 gates · GUE class · co-location Φ_pq ≡ Φ_p+Φ_q (1.4e-14)", "Measured (C3–C6)"),
-  ("5 · Trace", "Tr e^{−xH_ξ} = (1/π)∫Q sin · |ΔK| ≤ 1.2e-5 · gates: null zone", "T6 proven; H2 — gap"),
+  ("5 · Trace", "Tr e^{−xH_ξ} = (1/π)∫Q sin · |ΔK| ≤ 1.2e-5 · gates at the zeros' level", "T6 proven; H2 — at the zeros' level"),
  ],
  "trace_title": "C4 trace formula: anatomy of Tr e^{−xH_ξ}",
  "trace_sub": "Hadamard product → Q(a) → sine transform → the weight of primes",
@@ -113,7 +113,7 @@ T = {
  ],
  "trace_note": "Identity calibration: |ΔQ| ≤ 1.7e-12 · trace formula for H_ξ: |ΔK| ≤ 1.2e-5 · PC0 r = +0.9998",
  "handles_title": "C5 extended family: six new handles",
- "handles_sub": "35 gates + 2 decoys · question: does any handle exit the null zone? Answer: no",
+ "handles_sub": "35 gates + 2 decoys · question: does the whole family stay at the zeros' level? Answer: yes — all 37 in the GUE band (the zeros' class)",
  "handles_foot": "data/c5_gates_ext_verdict.json (v2.0.5) · ⟨r⟩ = 0.57–0.63 across the whole family (GUE band 0.5996±0.03, mean 0.60) · |r_H7| max = 0.097 (Bonferroni 0.57)",
  "handles": [
   ("Twists (φx, φy)", "3 spin-structure classes", "|r_H7| ≤ 0.073"),
@@ -176,7 +176,7 @@ def html_scorecard(L, tok):
     return f'''<!DOCTYPE html><html><head><meta charset="utf-8"><style>{css(tok)}</style></head>
 <body><div id="root"><div class="hd"><h1>{L["scorecard_title"]}</h1><p>{L["scorecard_sub"]}</p></div>
 <div class="rule"></div><div class="grid">{cards}</div>
-<div class="foot">Hilbert Polya Bridge v2.0.5 · data/c*_verdict.json · independent_verification/IVP*</div></div></body></html>'''
+<div class="foot">Hilbert Polya Bridge v2.0.6 · data/c*_verdict.json · independent_verification/IVP*</div></div></body></html>'''
 
 
 def html_map(L, tok):

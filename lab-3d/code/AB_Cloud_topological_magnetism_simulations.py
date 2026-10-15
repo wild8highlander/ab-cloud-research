@@ -56,7 +56,7 @@ plt.rcParams["font.sans-serif"] = ["Noto Sans SC", "DejaVu Sans"]
 plt.rcParams["axes.unicode_minus"] = False
 plt.rcParams["figure.dpi"] = 110
 
-OUT_DIR = "/home/z/my-project/download/appendix_e_figures"
+OUT_DIR = "../outputs/appendix_e_figures"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 RNG = np.random.default_rng(20240621)  # deterministic seed
@@ -611,7 +611,7 @@ def main():
           f"deg Φ_30 = {results['psl27_cyclotomic']['deg_phi30']}")
 
     # Write JSON report
-    report_path = "/home/z/my-project/download/topological_magnetism_report.json"
+    report_path = "../outputs/topological_magnetism_report.json"
     with open(report_path, "w", encoding="utf-8") as f:
         # strip non-serializable (sample_rows already list of dicts of primitives)
         json.dump(results, f, indent=2, ensure_ascii=False, default=str)

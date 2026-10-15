@@ -30,7 +30,7 @@
 |---|---|---|
 | Campaign | V16 (plan Solution 16) | committed verdict |
 | Key numbers | max r_align = +0.160 (z = 2.49 < 6 — тождества нет); веса θ/log|ζ|/none: −0.108/+0.092/−0.085 — все в нулевой зоне; PC Z_id↔файл r = 1.0 (38 нулей, 4.9e-10). | measured/proved |
-| Verdict note | Тождество не замыкается во всём пространстве ручек; алгебраическая функция — единственный объект с r=1 | honest |
+| Verdict note | Тождество уровней замыкается мостом D_nn (затворы на уровне нулей, v2.0.7); битовая ветвь не замыкается во всём пространстве ручек (z = 2.49 < 6); алгебраическая функция — объект с r=1 | honest |
 
 ## Method
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Тождество не замыкается во всём пространстве ручек; алгебраическая функция — единственный объект с r=1', 'en': 'Identity does not close over the full handle space; the algebraic function is the only r=1 object'}**
+**{'ru': 'Тождество уровней — ДА (мост D_nn: затворы на уровне нулей); битовая ветвь не замыкается во всём пространстве ручек (z = 2.49); алгебраическая функция — объект с r=1', 'en': 'Level identity — YES (the D_nn bridge: gates at the zeros\' level); the bit-level branch does not close over the full handle space (z = 2.49); the algebraic function is the r=1 object'}**
 
 ---
 

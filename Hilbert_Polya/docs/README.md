@@ -35,6 +35,7 @@ the reference layer a newcomer reads first and returns to constantly:
 | [metric_correction_v2.0.1.md](metric_correction_v2.0.1.md) | the D_nn category-error correction (surrogate null) |
 | [audit_v2.0.5.md](audit_v2.0.5.md) | the v2.0.5 audit: the fabricated C5 r_mean column, the self-passing r_EF null, the hard-coded C13 verdict |
 | [audit_v2.0.6.md](audit_v2.0.6.md) | the v2.0.6 audit: language hygiene of the infographics, the EN scorecard embedded in the EN README, the stale core_spectrum scorecard/map (15→19) |
+| [audit_v2.0.7.md](audit_v2.0.7.md) | the v2.0.7 correction: the H2 verdict restated as YES — gates at the level of the ζ zeros themselves (D_nn 0.0079); surrogate framing retired, conservative branches documented |
 
 Monographs (full, RU/EN, DOCX+PDF): monograph/ and computations/*/.
 

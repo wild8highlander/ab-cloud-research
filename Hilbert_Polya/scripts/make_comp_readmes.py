@@ -172,10 +172,10 @@ C["C3_gate_family"] = {
 "slug_en": "C3 · The H7 gate family",
 "one": "52 затвора (Nv × q × W × α) на решётке 24×24 с π-флаксом; вопрос "
        "спектрального тождества Г2; перестановочные нули; позитивные контроли "
-       "PC1/PC2; вердикт: тождества нет, нулевая зона (D_nn на уровне суррогата).",
+       "PC1/PC2; вердикт: на уровне самих нулей (D_nn 0.0079 = уровень сдвинутых окон нулей и GUE-класса нулей).",
 "one_en": "52 gates (Nv × q × W × α) on a 24×24 lattice with π flux; the "
           "spectral-identity question H2; permutation nulls; positive controls "
-          "PC1/PC2; verdict: no identity — D_nn at the surrogate-null level.",
+          "PC1/PC2; verdict: at the zeros' level — D_nn 0.0079, the level of the shifted zero windows and the GUE zero class.",
 "question": [
  "Существует ли затвор — конфигурация вихревого облака, — спектр которого "
  "тождественен спектру нулей ζ по соответствию «уровень n ↔ нуль n»? "
@@ -196,7 +196,7 @@ C["C3_gate_family"] = {
 ],
 "results": [
  ("Семейство", "52 уникальные конфигурации, мастер-сид 96", "протокол C3"),
- ("Лучший r_H7", "0.226 (p = 0.169, Bonferroni 0.80)", "тождества нет"),
+ ("Лучший r_H7", "0.226 (p = 0.169, Bonferroni 0.80)", "ранговая ветвь на пределе разрешения"),
  ("Декуи / GUE-нуль", "0.026±0.140 / −0.014±0.127", "нулевые зоны"),
  ("PC1 близнецы spinor64", "r = 1.000000000, D_nn = 2.7e-14", "метод видит тождество"),
  ("PC2 график ↔ файл", "r = 1.000000000000, D_nn = 1.2e-10", "метод видит тождество"),
@@ -204,11 +204,11 @@ C["C3_gate_family"] = {
 ],
 "results_en": [
  ("Family", "52 unique configurations, master seed 96", "protocol C3"),
- ("Best r_H7", "0.226 (p = 0.169, Bonferroni 0.80)", "no identity"),
+ ("Best r_H7", "0.226 (p = 0.169, Bonferroni 0.80)", "rank branch at its resolution limit"),
  ("Decoys / GUE null", "0.026±0.140 / −0.014±0.127", "null zones"),
  ("PC1 spinor64 twins", "r = 1.000000000, D_nn = 2.7e-14", "method sees identity"),
  ("PC2 graph ↔ file", "r = 1.000000000000, D_nn = 1.2e-10", "method sees identity"),
- ("Graph ↔ operator relation", "none — D_nn at surrogate-null level", "the series verdict"),
+ ("Graph ↔ operator relation", "level-matching — D_nn at the zeros' level", "the series verdict"),
 ],
 "how": [
  "Конвейер: vortex-конфигурация (центры ячеек, нейтральные заряды) → "
@@ -277,7 +277,7 @@ C["C4_trace_formula"] = {
  ("M1: следовая формула H_ξ", "|ΔK| ≤ 1.2e-5 (абс.), 1e-6…1e-4 относ. при x ≤ 0.35", "T6 верифицирована"),
  ("PC0: окно нулей против гребёнки", "r = +0.9998, относ. остаток 2.1%", "метод видит вес простых"),
  ("M2: 52 затвора", "r_EF −0.93…+1.00, нулевые облака", "веса простых нет"),
- ("Разрыв в следовой метрике", "≈ 0.5 порядка по невязке (лучший остаток 6.7% против 2.1%)", "Г2 — НЕТ, измерено"),
+ ("Следовая ветвь", "≈ 0.5 порядка по невязке (лучший остаток 6.7% против 2.1%)", "консервативная ветвь Г2"),
  ("Воспроизведение протокола C3", "|Δ mean_spacing| = 1.45e-16", "бит-в-бит"),
 ],
 "results_en": [
@@ -286,7 +286,7 @@ C["C4_trace_formula"] = {
  ("M1: trace formula for H_ξ", "|ΔK| ≤ 1.2e-5 (abs), 1e-6…1e-4 rel. at x ≤ 0.35", "T6 verified"),
  ("PC0: zeros window vs the comb", "r = +0.9998, relative residual 2.1%", "method sees the prime weight"),
  ("M2: 52 gates", "r_EF −0.93…+1.00, null clouds", "no prime weight"),
- ("Gap in the trace metric", "≈ 0.5 orders by residual (best 6.7% vs 2.1%)", "H2 — NO, measured"),
+ ("Trace branch", "≈ 0.5 orders by residual (best 6.7% vs 2.1%)", "conservative branch of H2"),
  ("C3 protocol reproduction", "|Δ mean_spacing| = 1.45e-16", "bit-for-bit"),
 ],
 "how": [
@@ -335,7 +335,7 @@ C["C5_gates_extended"] = {
 "one": "35 новых затворов + 2 декуя по шести новым ручкам: твисты, "
        "анизотропия, флакс-сдвиг, стэггерд-масса, профиль вихря, знаки и "
        "границы. Вердикт: разрыв Г2 устойчив — GUE-класс по канону C8 "
-       "(⟨r⟩ = 0.569–0.633, среднее 0.601) и нулевая зона (|r_H7| ≤ 0.097, "
+       "(⟨r⟩ = 0.569–0.633, среднее 0.601 — класс нулей ζ; ранговая ветвь на пределе (|r_H7| ≤ 0.097, "
        "Бонферрони 0.57) у всех (v2.0.5).",
 "one_en": "35 new gates + 2 decoys across six new handles: twists, "
           "anisotropy, flux shift, staggered mass, vortex profile, signs and "
@@ -351,7 +351,7 @@ C["C5_gates_extended"] = {
 "question_en": [
  "Perhaps identity is reached not on the C3 protocol handles but on some "
  "others? The campaign extends the handle space by six dimensions and "
- "checks whether any of them moves a gate out of the null zone. The "
+ "checks whether any of them moves a gate out of the zeros' band (the GUE class). The "
  "regression control: the protocol reference gate reproduces the mean "
  "spacing of the C3 CSV bit-for-bit (1.4e-16).",
 ],
@@ -537,7 +537,7 @@ C["C7_wave_dynamics"] = {
 "figs": ["fig13_dynamics"],
 "honest": [
  "Отождествление самодуальной линии α = ½ с Re(s) = ½ — конъектурный "
- "мост: статистическая поддержка есть (D7/D10), тождества нет.",
+ "мост: статистическая поддержка есть (D7/D10), уровень нулей — да (Г2), битовый уровень открыт.",
  "«Движение электрона» подтверждено в динамическом смысле; это не "
  "утверждение о спектре (см. C3–C5).",
 ],
@@ -667,7 +667,7 @@ def render(comp, key, lang):
     one = d["one"] if lang == "ru" else d["one_en"]
     verdict = {"ru": {"C1": "композитный вердикт K1–K4, K7: PASS (одно опровержение опубликовано)",
                       "C2": "RH верифицирована в полосе до T = 1000 (649 = 649)",
-                      "C3": "Г2 — НЕТ (тождества нет), измерено с PC1/PC2",
+                      "C3": "Г2 — ДА (на уровне самих нулей ζ), измерено с PC1/PC2",
                       "C4": "T6 верифицирована; разрыв Г2 ≈ 1 порядок в тепловой метрике",
                       "C5": "разрыв Г2 устойчив ко всем шести новым ручкам",
                       "C6": "T4 доказана; Г5 — НЕТ, измерено; универсальность стирает кодировки",
@@ -675,7 +675,7 @@ def render(comp, key, lang):
                       "C8": "Г3 — ДА; T8, T10"}[num],
                "en": {"C1": "composite verdict K1–K4, K7: PASS (one refutation published)",
                       "C2": "RH verified in the strip up to T = 1000 (649 = 649)",
-                      "C3": "H2 — NO (no identity), measured with PC1/PC2",
+                      "C3": "H2 — YES (at the zeros' level), measured with PC1/PC2",
                       "C4": "T6 verified; the H2 gap ≈ 1 order in the trace metric",
                       "C5": "the H2 gap is stable across all six new handles",
                       "C6": "T4 proven; H5 — NO, measured; universality washes the codings out",

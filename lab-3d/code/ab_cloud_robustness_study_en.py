@@ -46,7 +46,7 @@ plt.rcParams["font.sans-serif"] = ["Noto Sans SC", "DejaVu Sans"]
 plt.rcParams["axes.unicode_minus"] = False
 plt.rcParams["savefig.dpi"] = 300
 
-PROJECT_ROOT = "/home/z/my-project"
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOWNLOAD_DIR = os.path.join(PROJECT_ROOT, "download")
 FIG_DIR = os.path.join(DOWNLOAD_DIR, "figures")
 EXP_DIR = os.path.join(DOWNLOAD_DIR, "results", "exploratory")

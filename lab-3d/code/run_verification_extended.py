@@ -15,6 +15,14 @@ Total verifications in extended suite: 49 new (V38–V86) + 37 existing = 86.
 
 Designed for the GitHub repository: ab-cloud-monograph-verification.
 """
+# NOTE (portability fix, 2026-10-15): this runner was authored against a
+# private `python/` package layout whose modules `ab_cloud_sigma`,
+# `ab_cloud_dirac`, `ab_cloud_plots` (and the v2 API of `ab_cloud_zeta`)
+# were NOT committed to the repository. The package prefix was corrected
+# to `code.*` (this directory). Importing this module will fail until the
+# missing modules are committed; the core library (80+ modules) imports
+# cleanly -- see code/README.md, "Known gaps".
+
 from __future__ import annotations
 
 import os
@@ -26,15 +34,15 @@ from mpmath import mp, mpf, sqrt, pi, cos, sin, log, fabs
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HERE))
-from python.ab_cloud_hamiltonian import (
+from code.ab_cloud_hamiltonian import (
     build_ab_cloud_hamiltonian, build_pure_hofstadter,
     build_random_anderson, build_random_gue, VortexConfig,
 )
-from python.ab_cloud_zeta import (
+from code.ab_cloud_zeta import (
     fetch_riemann_zeros, unfold_rvm, unfolded_spacings, sanity_check_unfolding,
     riemann_von_mangoldt_N,
 )
-from python.ab_cloud_stats import (
+from code.ab_cloud_stats import (
     mean_level_spacing_ratio, spacings_from_levels,
     sigma2_statistic, delta3_statistic,
     sigma2_GUE_exact, delta3_GUE_exact,
@@ -42,17 +50,17 @@ from python.ab_cloud_stats import (
     chi_square_uniform, ks_against_wigner_dyson,
     wigner_dyson_pdf, sigma_r_bk_correct,
 )
-from python.ab_cloud_spinor import classify_all_spinors
-from python.ab_cloud_sigma import sigma_scan
-from python.ab_cloud_dirac import dirac_cone_spectrum, dirac_cone_with_vortices
-from python.ab_cloud_sweeps import (
+from code.ab_cloud_spinor import classify_all_spinors
+from code.ab_cloud_sigma import sigma_scan
+from code.ab_cloud_dirac import dirac_cone_spectrum, dirac_cone_with_vortices
+from code.ab_cloud_sweeps import (
     sweep_r_vs_alpha, sweep_r_vs_L, sweep_r_vs_W, sweep_r_vs_Nv,
     sweep_sigma2, sweep_delta3, sweep_R2, spectral_form_factor,
     sweep_sigma_scan, sweep_r_zeta_vs_N, sweep_hofstadter_spectrum,
     sweep_spacing_pdf, sweep_chi2_alpha_W, idos_spectrum,
     band_gaps_alpha_pq, dirac_dispersion, bootstrap_sigma2, bootstrap_delta3,
 )
-from python.ab_cloud_advanced import (
+from code.ab_cloud_advanced import (
     participation_ratio, r_ratio_distribution,
     sigma2_GUE_high_precision, spectral_compressibility,
     mode_fluctuation_distribution, Y2_GUE, level_repulsion_exponent,
@@ -63,7 +71,7 @@ from python.ab_cloud_advanced import (
     veritas_hatsugai_invariant, energy_resolved_r_ratio,
     sigma2_with_bootstrap,
 )
-from python import ab_cloud_plots_extended as plots
+from code import ab_cloud_plots_extended as plots
 
 
 # ============================================================

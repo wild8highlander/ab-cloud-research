@@ -136,7 +136,7 @@ CONFIG = {
     "plot_style": "seaborn-v0_8-whitegrid",
 
     # Директории / Directories
-    "output_dir": "/home/z/my-project/download/monograph",
+    "output_dir": "../outputs/monograph",
     "figures_subdir": "figures",
     "data_subdir": "data",
 }

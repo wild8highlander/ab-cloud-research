@@ -4,8 +4,8 @@ and generates the 25+ professional figures (English labels) for the
 report (chapter 16 of the monograph).
 
 Output:
-    /home/z/my-project/download/figures/*.png     (45 figures)
-    /home/z/my-project/download/results.json      (numerical results)
+    ../outputs/figures/*.png     (45 figures)
+    ../outputs/results.json      (numerical results)
 
 Experiments:
     E1   Single soliton, baseline (no b)
@@ -80,9 +80,9 @@ import monograph_constants as mc
 # ------------------------------------------------------------------
 # Output directories
 # ------------------------------------------------------------------
-FIG_DIR = Path("/home/z/my-project/download/figures")
+FIG_DIR = Path("../outputs/figures")
 FIG_DIR.mkdir(parents=True, exist_ok=True)
-RESULTS_PATH = Path("/home/z/my-project/download/results.json")
+RESULTS_PATH = Path("../outputs/results.json")
 
 # Color palette (publication-quality, color-blind safe)
 PALETTE = {

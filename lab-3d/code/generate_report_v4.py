@@ -2,7 +2,7 @@
 generate_report.py — Generates the bilingual DOCX report (Chapter 16 of the
 monograph): Russian text + English figure captions.
 
-Output: /home/z/my-project/download/KdV_b_correction_Chapter16.docx
+Output: ../outputs/KdV_b_correction_Chapter16.docx
 """
 from __future__ import annotations
 
@@ -19,14 +19,14 @@ from docx.oxml.ns import qn, nsmap
 from docx.oxml import OxmlElement
 
 # Local imports
-sys.path.insert(0, "/home/z/my-project/scripts")
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import monograph_constants as mc
 from kdv_core import B_UNIVERSAL, THETA_B
 
 # Paths
-FIG_DIR = Path("/home/z/my-project/download/figures")
-RESULTS_PATH = Path("/home/z/my-project/download/results.json")
-OUTPUT_DOCX = Path("/home/z/my-project/download/KdV_b_correction_Chapter16.docx")
+FIG_DIR = Path("../outputs/figures")
+RESULTS_PATH = Path("../outputs/results.json")
+OUTPUT_DOCX = Path("../outputs/KdV_b_correction_Chapter16.docx")
 
 # Load experimental results
 RESULTS = json.loads(RESULTS_PATH.read_text()) if RESULTS_PATH.exists() else {}

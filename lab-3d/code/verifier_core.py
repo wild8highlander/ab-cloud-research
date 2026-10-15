@@ -26,6 +26,7 @@ Author: Z.ai Research, 2026
 """
 from __future__ import annotations
 
+import os
 import json
 import time
 import traceback
@@ -35,7 +36,7 @@ from typing import Callable, List, Dict, Any, Optional
 import numpy as np
 
 # Import config
-from config import Config
+from code.config import Config
 
 
 # ==================================================================

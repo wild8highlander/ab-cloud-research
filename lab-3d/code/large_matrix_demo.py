@@ -10,18 +10,26 @@ Shows:
 4. Generating Hofstadter butterfly
 5. Computing spectral form factor K(t)
 """
+# NOTE (portability fix, 2026-10-15): this runner was authored against a
+# private `python/` package layout whose modules `ab_cloud_sigma`,
+# `ab_cloud_dirac`, `ab_cloud_plots` (and the v2 API of `ab_cloud_zeta`)
+# were NOT committed to the repository. The package prefix was corrected
+# to `code.*` (this directory). Importing this module will fail until the
+# missing modules are committed; the core library (80+ modules) imports
+# cleanly -- see code/README.md, "Known gaps".
+
 import sys
 import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from python.ab_cloud_hamiltonian import build_ab_cloud_hamiltonian, build_pure_hofstadter
-from python.ab_cloud_stats import (
+from code.ab_cloud_hamiltonian_v2 import build_ab_cloud_hamiltonian, build_pure_hofstadter
+from code.ab_cloud_stats_v2 import (
     spacing_ratios, mean_spacing_ratio, polynomial_unfold,
     spectral_form_factor, R_GUE, R_POISSON,
 )
-from python.ab_cloud_plots import (
+from code.ab_cloud_plots import (
     plot_hofstadter_butterfly, plot_spectral_form_factor_long,
 )
 import numpy as np

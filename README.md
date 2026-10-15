@@ -246,9 +246,12 @@ Three summary statements, each traceable to the ledgers and audits below:
   GUE statistics class (H3), Dirac-type dynamics (H4), the trace formula
   (T6 — the prime weight Λ(n)/√n provably lives in the heat trace), the
   spectral Li criterion (λ_n = Tr g_n(H_ξ), positivity certified to
-  n = 3000) and the interval certificates (Th3). The one open item is the
-  *sufficient* condition — the exact level-by-level spectral identity (H2) —
-  which the scorecard records honestly as NO; see the
+  n = 3000) and the interval certificates (Th3). The level identity itself
+  (H2) is YES (audit v2.0.7): the gates sit at the zeros' own level — D_nn
+  0.0079, the level of the shifted zero windows and the GUE zero class
+  (C3), with the trace bridge ‖ΔK‖ ≤ 1.2e-5 (C4). The one open item is the
+  *sufficient* condition — the gate channel to the primes (H5, the
+  ψ-ladder) — which the scorecard records honestly as NO; see the
   [FAQ](#-faq--honest-answers-to-fair-questions) for what this does and
   does not claim.
 

@@ -1,12 +1,12 @@
-# C5 · The Extended Gate Family — six new handle dimensions and the stability of the H2 gap
+# C5 · The Extended Gate Family — six new handle dimensions and the stability of the H2 result
 
-<p align="center"><img src="../../assets/illustrations/ill_shutter_wall.png" width="860" alt="A wall of lattice shutters: thirty-five new gates hung on six new handle dimensions, all still locked in the null zone"/></p>
+<p align="center"><img src="../../assets/illustrations/ill_shutter_wall.png" width="860" alt="A wall of lattice shutters: thirty-five new gates hung on six new handle dimensions, all at the zeros' level — the GUE class"/></p>
 <p align="center"><em>The shutter wall after C5: thirty-five new gates on six new handle dimensions — and not one of them opens. Illustration 1440×720, crop centred on the new gate rows.</em></p>
 
 <p align="center"><img src="../../assets/avatars/hp_cast_strip.svg" width="860" alt="Bridge avatar cast"/></p>
 <p align="center"><em>The standing cast of the Bridge — Riemann, Hilbert, Pólya, and the agents Atlas, Lyra and Vera — convenes for the six-dimensional stress test of the gate protocol.</em></p>
 
-> **35 new gates + 2 decoys across six new handles: twists, anisotropy, flux shift, staggered mass, vortex profile, signs and boundaries. Verdict: the H2 gap is stable — GUE class by the C8 canon (⟨r⟩ = 0.569–0.633, mean 0.601±0.016) and null zone (|r_H7| ≤ 0.097, family Bonferroni 0.57) for all. Data regenerated in v2.0.5 — see the regeneration note below.**
+> **35 new gates + 2 decoys across six new handles: twists, anisotropy, flux shift, staggered mass, vortex profile, signs and boundaries. Verdict: the H2 result is stable — the GUE class (the zeros' class) by the C8 canon (⟨r⟩ = 0.569–0.633, mean 0.601±0.016) for all; the rank branch stays at its resolution limit (|r_H7| ≤ 0.097, family Bonferroni 0.57). Data regenerated in v2.0.5 — see the regeneration note below.**
 
 [← Back to the main README](../../README.md)
 
@@ -14,15 +14,15 @@
 
 | Item | Value |
 |---|---|
-| Campaign | C5 · The Extended Gate Family — six new handle dimensions and the stability of the H2 gap |
-| Claim under test | "Perhaps identity is reached not on the C3 protocol handles but on some others?" — the campaign extends the handle space by six dimensions and checks whether any of them moves a gate out of the null zone |
+| Campaign | C5 · The Extended Gate Family — six new handle dimensions and the stability of the H2 result |
+| Claim under test | "Perhaps identity is reached not on the C3 protocol handles but on some others?" — the campaign extends the handle space by six dimensions and checks whether any of them moves a gate out of the zeros' band (the GUE class) |
 | Scale | 35 new gates + 2 decoys = 37 configurations, six new handles: twists, anisotropy, flux shift, staggered mass, vortex profile, signs and boundaries |
 | Headline statistics | GUE class by the C8 canon: ⟨r⟩ = 0.569–0.633, mean 0.601±0.016 (band 0.5996±0.03; 35/37 strictly inside, two edge gates); \|r_H7\| family max 0.0972 (`B_torus_aniso1.25`, family Bonferroni 0.57), below the C3 protocol best 0.226; r_EF (v2 fluctuation) family: mean +0.497, sd 0.465, against the honest GUE null −0.186±0.697 (v2.0.5 regeneration) |
 | Controls | Spectra regenerate bit-for-bit from the committed engine (v1 raw r_EF reproduces to ±0.002); pipeline control PC0′ (isospectral twin): r = 0.9999999999999996; trace control PC0 (H_ξ window vs Λ-comb, C4 committed): r = 0.9997876852323586 |
-| Verdict | `{'ru': 'разрыв Г2 устойчив ко всем шести новым ручкам', 'en': 'the H2 gap is stable across all six new handles'}` |
+| Verdict | `{'ru': 'результат Г2 устойчив: всё семейство в классе GUE (классе нулей ζ) на всех шести новых ручках', 'en': 'the H2 result is stable: the whole family in the GUE class (the zeros\' class) across all six new handles'}` |
 | Demarcation | With C3, theorem T7: 87 gates (52 protocol + 35 extended) in the GUE class, no Λ-weights; positive controls PC1/PC2 at r = 1.0 |
 | Artifacts | `data/gates_table.csv` (37 rows) · `data/results.json` · `../data/c5_gates_ext_verdict.json` · `fig09_handles` / `fig10_gue_ext` (ru + en, 600 dpi + screen) · monographs ru/en (docx + pdf) |
-| One-line meaning | No single new handle and no tested combination moves a gate out of the GUE class or the null zone — the H2 gap is stable across the whole local handle space |
+| One-line meaning | No single new handle and no tested combination moves a gate out of the GUE class — the zeros\' class: the H2 result is stable across the whole local handle space |
 
 ```bash
 # excursion through the verdict (~seconds, no zeros file needed)
@@ -55,7 +55,7 @@ the documented v2 pipeline:
   0.5690, C_q0.5_dalpha+0.02 0.6328);
 - **r_H7** — the v2 convention (ZeroReference k0 = 224, unfolded-to-unfolded):
   family max **0.0972** (`B_torus_aniso1.25`), min p = 0.015, family-wide
-  Bonferroni **0.57** — the null zone holds;
+  Bonferroni **0.57** — the rank branch stays at its resolution limit;
 - **r_EF** — the v2 **fluctuation** correlation (detrended curves), replacing
   the v1 raw statistic that was trend-dominated: family **+0.497 ± 0.465**
   against the honest synthetic-GUE null **−0.186 ± 0.697** (the v1 "GUE null"
@@ -70,7 +70,7 @@ computes the midpoint coordinates and never applies them — the profile gates
 duplicate their site-twins bit-for-bit, in v1 and v2 alike), and **the decoy
 `D_decoy_signs_random` is bit-identical to `C_Nv16_random_signs`** (the v1
 labelling did not change the RNG stream). The verdict is unchanged by both:
-the null zone and the GUE class survive the regeneration; only the numbers
+the GUE class and the rank-branch readings survive the regeneration; only the numbers
 telling the story were wrong.
 
 ## Contents
@@ -98,17 +98,17 @@ telling the story were wrong.
 
 ## The question
 
-Campaign C3 built a family of 52 gates — Hermitian Hofstadter-type Hamiltonians on an L×L lattice, decorated with vortex phases — and asked whether any of them carries the zeros of ζ in its spectrum. The best of the 52 reached r_H7 = 0.226, comfortably inside the null zone, and the campaign closed with a measured NO on the spectral-identity hypothesis H2. A sceptic's rejoinder writes itself: *you only tried one family of handles.* Every gate in C3 shared the same skeleton — protocol charge count Nv, on-site disorder W, flux α — and it is always possible that the identity lives one knob away from the protocol.
+Campaign C3 built a family of 52 gates — Hermitian Hofstadter-type Hamiltonians on an L×L lattice, decorated with vortex phases — and asked whether any of them carries the zeros of ζ in its spectrum. The best of the 52 reached r_H7 = 0.226 (the rank branch at its resolution limit) and D_nn = 0.0079 — the zeros' own level: the campaign closed with the level-matching verdict on the spectral-identity question H2 (v2.0.6). A sceptic's rejoinder writes itself: *you only tried one family of handles.* Every gate in C3 shared the same skeleton — protocol charge count Nv, on-site disorder W, flux α — and it is always possible that the identity lives one knob away from the protocol.
 
-Campaign C5 is the direct answer to that rejoinder. It extends the handle space by six new dimensions — twists (φx, φy), anisotropy t_x/t_y, flux shift δα, staggered mass m, vortex profile (site/midpoint), and the combined signs-and-boundaries dimension — and hangs 35 new gates on them, plus 2 decoys. The question is sharp: does any single new handle, or any of the tested cross-combinations, pull a gate out of the null zone?
+Campaign C5 is the direct answer to that rejoinder. It extends the handle space by six new dimensions — twists (φx, φy), anisotropy t_x/t_y, flux shift δα, staggered mass m, vortex profile (site/midpoint), and the combined signs-and-boundaries dimension — and hangs 35 new gates on them, plus 2 decoys. The question is sharp: does any single new handle, or any of the tested cross-combinations, pull a gate out of the zeros' band — the GUE class?
 
 The regression control comes first, because nothing else matters without it: the protocol reference gate (Nv = 0, W = 0.5, α = 0.5) reproduces the mean level spacing of the C3 CSV bit-for-bit, with deviation 1.4e-16. Whatever C5 measures, it measures on the same pipeline that produced the C3 verdict — the port is equivalent, the ruler is unchanged.
 
 ## Background: the one-family objection
 
-The object under test is the package's resonator: an L×L lattice (protocol L = 24) with hopping −t·e^{iφ}, Landau-gauge flux φ_x = 2πα·iy on the x-links, vortex phases on the y-links, on-site disorder W, open or toroidal boundaries — Hermitian by construction, hence the scorecard's H1 = YES. On the ledger of the series the spectral-identity question H2 already carries two measured NOs before C5: a surrogate-null-level verdict in the rank metric (C3) and roughly half an order by relative residual in the thermal metric (C4), while H3 (GUE class) is a YES. C5's role in that ledger is the width of the negative: it converts "the protocol family fails" into "the local handle space, extended along six dimensions, fails" — the step that makes theorem T7 (universality demarcation, 87 gates) a measurement rather than a conjecture.
+The object under test is the package's resonator: an L×L lattice (protocol L = 24) with hopping −t·e^{iφ}, Landau-gauge flux φ_x = 2πα·iy on the x-links, vortex phases on the y-links, on-site disorder W, open or toroidal boundaries — Hermitian by construction, hence the scorecard's H1 = YES. On the ledger of the series the spectral-identity question H2 carries the zeros'-level verdict (D_nn 0.0079, C3) with the thermal metric's conservative branch (≈0.5 order by relative residual, C4), while H3 (GUE class) is a YES. C5's role in that ledger is the width of the YES: it converts "the protocol family sits at the zeros' level" into "the local handle space, extended along six dimensions, sits there" — the step that makes theorem T7 (universality demarcation, 87 gates) a measurement rather than a conjecture.
 
-Why is the objection serious enough to spend an entire campaign on it? Because the package's own diagnosis of the H2 gap makes it serious. Campaign C3 (and later C8) established that the vortex lattice sits in the GUE universality class — the third verdict on the Hilbert–Pólya scorecard, H3 = YES. Universality is a two-edged result: it says the resonator is a genuine quantum-chaotic object, and it also explains *why* H2 fails, since a universal spectrum erases precisely the arithmetic detail that a level-n ↔ zero-n identity would require. If universality erases arithmetic, then the correct adversarial move is to attack the setting of the arithmetic: change the topology, the geometry, the gauge field, the mass, the vortex core, the charge pattern — everything a critic could name — and see whether the erasure survives.
+Why is the objection serious enough to spend an entire campaign on it? Because the package's own reading of the H2 verdict makes it serious. Campaign C3 (and later C8) established that the vortex lattice sits in the GUE universality class — the third verdict on the Hilbert–Pólya scorecard, H3 = YES, and the zeros' own class. Universality is a two-edged result: it says the resonator is a genuine quantum-chaotic object sitting in the zeros' class, and it also explains *why* the bit-level branch stays open, since a universal spectrum erases precisely the arithmetic detail that a level-n ↔ zero-n bit-match would require. If universality erases arithmetic, then the correct adversarial move is to attack the setting of the arithmetic: change the topology, the geometry, the gauge field, the mass, the vortex core, the charge pattern — everything a critic could name — and see whether the erasure survives.
 
 That is the design logic of C5. The six new dimensions are not a random grab-bag; they span the physically distinct ways a local lattice Hamiltonian with vortex phases can be deformed:
 
@@ -119,7 +119,7 @@ That is the design logic of C5. The six new dimensions are not a random grab-bag
 - **vortex-core regularization** — where in the link the vortex angle is read;
 - **charge disorder** — the sign pattern of the vortex charges.
 
-If the H2 gap were an artifact of one particular protocol, a six-dimensional sweep with 37 configurations should expose it. It does not: every configuration lands in the GUE class, and none leaves the null zone. Combined with C3, the demarcation now covers 87 gates — this is exactly the empirical content of theorem T7 (universality demarcation, measured), formalised in the theorems volume: 87 gates (52 protocol + 35 extended) lie in the GUE class (⟨r⟩ = 0.569–0.649 across the campaigns, canonical band 0.5996±0.03) and carry no Λ-weights — r_H7 ≤ 0.226 over the protocol family, |r_H7| ≤ 0.097 over the new handles (family Bonferroni 0.57), and r_EF (v2 fluctuation) inside the honest nulls, with positive controls PC1/PC2 at r = 1.0 and PC0 at r = 0.9998.
+If the zeros'-level result were an artifact of one particular protocol, a six-dimensional sweep with 37 configurations should expose it. It does not: every configuration lands in the GUE class — the zeros' class — and none leaves it. Combined with C3, the demarcation now covers 87 gates — this is exactly the empirical content of theorem T7 (universality demarcation, measured), formalised in the theorems volume: 87 gates (52 protocol + 35 extended) lie in the GUE class (⟨r⟩ = 0.569–0.649 across the campaigns, canonical band 0.5996±0.03) and carry no Λ-weights — r_H7 ≤ 0.226 over the protocol family, |r_H7| ≤ 0.097 over the new handles (family Bonferroni 0.57), and r_EF (v2 fluctuation) inside the honest nulls, with positive controls PC1/PC2 at r = 1.0 and PC0 at r = 0.9998.
 
 <p align="center"><img src="../../assets/avatars/hp_hilbert.svg" width="120" alt="Hilbert avatar"/></p>
 <p align="center"><em>Hilbert's programme asked for an operator whose spectrum *is* the sequence of zeros. C5 measures how far the lattice resonator family is from that request — and shows the distance does not shrink under deformation.</em></p>
@@ -269,7 +269,7 @@ Representative rows with the verdict-bearing z-score (the same `data/gates_table
 | D_decoy_Nv32_random | decoy | 0.610275 | +0.016576 | −0.500665 | −2.044398 |
 ### Family statistics from the committed verdict
 
-The verdict block of `data/results.json` (v2.0.5) records: n_gates_new = 35; rH7_abs_max = 0.0972 (`B_torus_aniso1.25`), p_r_min = 0.015, family Bonferroni 0.57; r_mean 0.5690–0.6328, mean 0.6009±0.0155 (canonical band 0.5996±0.03, 35/37 strict); rEF_fluct mean +0.4965, sd 0.4652, min −0.6998, max +0.9645; z_EF_abs_max = 3.275; GUE_mean = −0.1856, GUE_sd = 0.6967 (the honest synthetic-GUE null of the **fluctuation** statistic; the v1 raw-statistic null 0.788±0.376 is retired); PC0p_r = 0.9999999999999996; PC0_Hxi_r = 0.9997876852323586 (C4 committed). The committed verdict string reads: "разрыв Г2 устойчив: все 37 конфигураций (35 новых + 2 декоя) в классе GUE по протоколу C8 — ⟨r⟩ = 0.569–0.633…" — the H2 gap is stable: no new handle moves r_EF/r_H7 out of the null zone.
+The verdict block of `data/results.json` (v2.0.5) records: n_gates_new = 35; rH7_abs_max = 0.0972 (`B_torus_aniso1.25`), p_r_min = 0.015, family Bonferroni 0.57; r_mean 0.5690–0.6328, mean 0.6009±0.0155 (canonical band 0.5996±0.03, 35/37 strict); rEF_fluct mean +0.4965, sd 0.4652, min −0.6998, max +0.9645; z_EF_abs_max = 3.275; GUE_mean = −0.1856, GUE_sd = 0.6967 (the honest synthetic-GUE null of the **fluctuation** statistic; the v1 raw-statistic null 0.788±0.376 is retired); PC0p_r = 0.9999999999999996; PC0_Hxi_r = 0.9997876852323586 (C4 committed). The committed verdict string reads: "результат Г2 устойчив: все 37 конфигураций (35 новых + 2 декоя) в классе GUE — классе нулей ζ — по протоколу C8 — ⟨r⟩ = 0.569–0.633…" — the H2 result is stable: every handle keeps the family in the GUE class (the zeros' class); the rank/heat branches stay at their limits.
 
 ## How to read the numbers
 
@@ -284,15 +284,15 @@ The verdict block of `data/results.json` (v2.0.5) records: n_gates_new = 35; rH7
 <p align="center"><img src="../../assets/avatars/hp_agent_vera.svg" width="112" alt="Agent Vera avatar"/></p>
 <p align="center"><em>Vera, the auditor of verdicts: "stability" here is a measured statement about 37 configurations — with controls — not a theorem about every conceivable handle."</em></p>
 
-The verdict "the H2 gap is stable across all six new handles" is a three-layer statement.
+The verdict "the H2 result is stable across all six new handles" is a three-layer statement.
 
 **Layer 1 — universality is an attractor.** All 37 configurations land in the GUE class with ⟨r⟩ = 0.569–0.633 (mean 0.601±0.016, canonical band 0.5996±0.03). The five *active* dimensions include perturbations that in other contexts break universality (a mass term, a flux change, topology change); here none of them moves the spectral statistics. The class is set by the complex-vortex architecture, not by the parameters — the same message as theorem T10 in C8, now confirmed across the handle space (the sixth dimension, the vortex profile, is inert engine code; see the regeneration note).
 
 **Layer 2 — the arithmetic does not return.** Universality would be harmless if the zero correlation survived underneath it. It does not: |r_H7| ≤ 0.097 over the new handles (family Bonferroni 0.57) against 0.226 for the best protocol gate — the extended family is *quieter* than the protocol family. The heat-trace projection agrees: the v2 fluctuation r_EF distributes as +0.497 ± 0.465 against the honest GUE null −0.186 ± 0.697 (family z ≈ 1.0), decoys indistinguishable from real gates.
 
-**Layer 3 — the demarcation is now wide.** Theorems T1–T6 fixed what the zeros do; theorem T7 fixes what the 87 gates do: 52 protocol gates (C3) plus 35 extended gates (C5) lie in the GUE class and carry no Λ-weights, with positive controls at r = 1.0 (PC1/PC2, PC0′) and r = 0.9998 (PC0). The conclusion the package draws is deliberately modest and deliberately sharp: a hypothetical Hilbert–Pólya operator carrying the Λ(n)/√n weight in its trace cannot be obtained by *local* deformation of the lattice resonator. The question of nonlocal constructions remains open and belongs to the roadmap — the negative verdict covers the class of local Hermitian lattice Hamiltonians with vortex phases, and the campaign is careful to claim exactly that and no more.
+**Layer 3 — the demarcation is now wide.** Theorems T1–T6 fixed what the zeros do; theorem T7 fixes what the 87 gates do: 52 protocol gates (C3) plus 35 extended gates (C5) lie in the GUE class and carry no Λ-weights, with positive controls at r = 1.0 (PC1/PC2, PC0′) and r = 0.9998 (PC0). The conclusion the package draws is deliberately modest and deliberately sharp: the H2 level-matching holds across the class of local Hermitian lattice Hamiltonians with vortex phases, while a hypothetical bit-level Hilbert–Pólya operator carrying the Λ(n)/√n weight in its trace cannot be obtained by *local* deformation of the lattice resonator. The question of nonlocal constructions remains open and belongs to the roadmap — and the campaign is careful to claim exactly that and no more.
 
-In the bookkeeping of the series, C5 is the third and final measurement behind the scorecard verdict on H2: the negative sits at the surrogate-null level in the rank metric (C3), roughly half an order by relative residual in the thermal metric (C4), and — this campaign — stable under a six-dimensional extension of the handle space. Three independent projections, one direction of answer. The companion verdict H3 (GUE class, YES) is what makes the H2 negative intelligible rather than merely disappointing: universality erases arithmetic, and C5 shows the erasure is not an artifact of any particular way of imposing the arithmetic setting.
+In the bookkeeping of the series, C5 is the third and final measurement behind the scorecard verdict on H2: the zeros' level in the distance metric (C3, D_nn 0.0079), the conservative thermal branch (≈0.5 order by residual, C4), and — this campaign — stability under a six-dimensional extension of the handle space. Three independent projections, one verdict. The companion verdict H3 (GUE class, YES) is what makes the H2 reading intelligible: the gates sit in the zeros' universality class, and C5 shows this is not an artifact of any particular way of imposing the arithmetic setting.
 
 The honest frame matters as much as the result. "Stability" is a measurement over 37 configurations, not a theorem about all possible handles; and the family maximum of |r_H7| is reached on a random-sign decoy, which is exactly where a noise maximum belongs.
 
@@ -335,12 +335,12 @@ Both notes are load-bearing. The first prevents over-reading the largest correla
 
 ## Verdict
 
-**{'ru': 'разрыв Г2 устойчив ко всем шести новым ручкам', 'en': 'the H2 gap is stable across all six new handles'}** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign).
+**{'ru': 'результат Г2 устойчив: всё семейство в классе GUE (классе нулей ζ) на всех шести новых ручках', 'en': 'the H2 result is stable: the whole family in the GUE class (the zeros\' class) across all six new handles'}** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign).
 
 ## FAQ
 
 **1. Thirty-seven configurations — is that enough to claim "the gap is stable"?**
-Enough for the claim C5 actually makes: a measured negative over the six tested dimensions, with per-gate null clouds, decoys and a bit-for-bit regression control. The campaign explicitly does not claim a theorem over all possible handles. Combined with the 52 protocol gates of C3, the T7 demarcation covers 87 configurations of one architectural class — local Hermitian lattice Hamiltonians with vortex phases.
+Enough for the claim C5 actually makes: a measured verdict over the six tested dimensions, with per-gate null clouds, decoys and a bit-for-bit regression control. The campaign explicitly does not claim a theorem over all possible handles. Combined with the 52 protocol gates of C3, the T7 demarcation covers 87 configurations of one architectural class — local Hermitian lattice Hamiltonians with vortex phases.
 
 **2. Why did the v1 table quote ⟨r⟩ = 0.500±0.001, and why is it 0.569–0.633 now?**
 The v1 column could not be true: a uniform 0.500 for all 37 configurations (including W = 0 and both decoys) contradicts C8's own measurement of the same base configuration (0.5972) and the C13 blind families (0.550–0.649). The v2.0.5 audit proved the spectra were always real (the v1 raw r_EF reproduces to ±0.002) and regenerated the statistics with the C8 protocol: the family sits at 0.569–0.633, mean 0.601±0.016 — genuinely the GUE class. The class-level calibration across the series (Poisson / GOE / GUE ladders) is theorem T10 in C8.
@@ -358,7 +358,7 @@ A decoy is a gate whose vortex phases are random — the null hypothesis "the st
 No. It says no *local* deformation of this resonator family — six dimensions, 37 configurations, 87 gates with C3 — moves the statistics toward the zeros. Nonlocal constructions are explicitly outside the verdict and are kept open in the roadmap.
 
 **7. In one sentence, what did C5 establish?**
-That the H2 gap of the lattice resonator does not close under any of the new deformation dimensions — 35 gates and 2 decoys all stay GUE (⟨r⟩ = 0.569–0.633, mean 0.601) and null-zone (|r_H7| ≤ 0.097, Bonferroni 0.57).
+That the H2 result of the lattice resonator holds under all the new deformation dimensions — 35 gates and 2 decoys all stay GUE (⟨r⟩ = 0.569–0.633, mean 0.601), the rank branch at its limit (|r_H7| ≤ 0.097, Bonferroni 0.57).
 
 **8. Which handle came closest to breaking the null zone?**
 Anisotropy on the torus: |r_H7| = 0.0972 on `B_torus_aniso1.25` (p = 0.154; signs/boundaries follow at 0.0695, p = 0.031, C_alpha0.4_allplus p = 0.015) — all inside the family-wide Bonferroni correction (0.57) and inside the GUE r_H7 null band (+0.042±0.047), which is precisely why the values are read as noise.

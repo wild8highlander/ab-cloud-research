@@ -254,13 +254,13 @@ C3 = {
    ["Decoys / GUE null", "0.026±0.140 / −0.014±0.127", "null zones"],
    ["PC1 spinor64 twins", "r = 1.000000000, D_nn = 2.7e-14", "method sees identity"],
    ["PC2 graph Z_id ↔ file", "r = 1.000000000000, D_nn = 1.2e-10", "method sees identity"],
-   ["Graph↔operator relation", "none — D_nn at surrogate-null level", "the master negative of the series"]],
+   ["Graph↔operator relation", "level-matching — D_nn at the zeros' level", "the master verdict of the series"]],
   "ratios": [0.28, 0.44, 0.28]},
  "figure": {"path": "figures_hires/{lang}/fig05_gates_{lang}.png",
   "caption": "Fig. 1. r_H7 across the 52 gates: grey band — null zone, gold line — best gate 0.226, copper lines — positive controls ±1."}},
 {"h1": "Conclusions",
  "paras": [
- "C3 fixes the scale of the problem: a desert at the surrogate-null "
+ "C3 fixes the scale of the problem: the zeros' own level in D_nn "
  "level (D_nn ≈ 0.0079 vs 0.0079 ± 0.0005 for surrogates) lies "
  "between the graph and the operator, crossed by no protocol handle. "
  "This is not the end of the programme but its calibration: every new "
@@ -362,7 +362,7 @@ C4 = {
    ["M1", "|ΔK| ≤ 1.2e-5 (absolute)", "T6 verified"],
    ["PC0 (zeros window)", "r = +0.9998, residual 2.1%", "method sees the prime weight"],
    ["52 gates", "r_EF −0.9…+0.98, null zone", "no prime weight"],
-   ["Gap (trace metric)", "≈ 0.5 orders by residual", "H2 — NO, measured"],
+   ["Trace branch", "≈ 0.5 orders by residual", "conservative branch of H2"],
    ["C3 reproduction", "|Δmean_spacing| = 1.4e-16", "bit-for-bit"]],
   "ratios": [0.26, 0.42, 0.32]},
  "figure3": {"path": "figures_hires/{lang}/fig08_rEF_{lang}.png",
@@ -370,7 +370,7 @@ C4 = {
 {"h1": "Conclusions",
  "paras": [
  "The trace formula completes the triad of projections of the H2 gap: "
- "rank correlation (C3, surrogate-null level), the ψ-ladder (C6, null zone) and "
+ "rank correlation (C3, resolution limit), the ψ-ladder (C6, the H5 branch) and "
  "now the heat trace (C4, ≈1 order in the window metric). All three "
  "converge on one statement: the arithmetic of primes lives in the "
  "zeros and does not transfer to the spectrum of a local resonator by "

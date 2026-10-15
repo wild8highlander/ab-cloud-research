@@ -39,7 +39,7 @@ from kp_solver import (
 )
 from run_experiments import FIG_DIR, save_fig, PALETTE, RESULTS
 
-RESULTS_PATH = Path("/home/z/my-project/download/results.json")
+RESULTS_PATH = Path("../outputs/results.json")
 if RESULTS_PATH.exists():
     RESULTS.update(json.loads(RESULTS_PATH.read_text()))
 

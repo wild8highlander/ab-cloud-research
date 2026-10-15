@@ -18,12 +18,12 @@ r_H7  ≤  0.226   (v1 protocol)        p_r = 0.169, Bonferroni 0.80
 
 while the positive controls — the only places where identity is known to
 exist — give **r = 1.000** (PC1 isospectral twins) and **r = 1.000000**
-(PC0′ twin pipeline). The gate family sits at the **surrogate-null
-saturation level** of the D_nn metric (gates 0.0069–0.0092 vs 0.0079 ± 0.0005 for
-GUE surrogates and shifted zero windows — indistinguishable from random; the
+(PC0′ twin pipeline). The gate family sits at the **zeros' own
+level** of the D_nn metric (gates 0.0069–0.0092 vs 0.0079 ± 0.0005 for
+shifted zero windows and the GUE zero class — the level of the actual zeros themselves; the
 controls' 1e-14…1e-10 values are machine-precision identity, not a scale,
-so "orders of magnitude" are undefined on this bounded metric — correction
-v2.0.1).
+so "orders of magnitude" are undefined on this bounded metric — corrections
+v2.0.1/v2.0.6).
 
 ## The challenge
 

@@ -30,7 +30,7 @@ from __future__ import annotations
 import numpy as np
 from typing import Dict, List, Tuple, Optional
 
-from .ab_cloud_hamiltonian import (
+from .ab_cloud_hamiltonian_v2 import (
     build_ab_cloud_hamiltonian,
     build_pure_hofstadter,
     build_hofstadter_with_disorder,
@@ -192,7 +192,7 @@ def vortex_winding_sum_rule(L: int, alpha: float, seed: int = 0,
             default_vortex_config(L, alpha, seed=seed),
         ]
     else:
-        from .ab_cloud_hamiltonian import VortexConfig
+        from .ab_cloud_hamiltonian_v2 import VortexConfig
         configs = []
         for n_total in custom_n_vortices:
             n_pos = n_total // 2 + (n_total % 2)

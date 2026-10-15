@@ -20,13 +20,13 @@ from typing import Callable, Dict, List, Optional, Tuple, Any
 import itertools
 import time
 
-from .ab_cloud_hamiltonian import (
+from .ab_cloud_hamiltonian_v2 import (
     build_ab_cloud_hamiltonian,
     build_pure_hofstadter,
     build_hofstadter_with_disorder,
     default_vortex_config,
 )
-from .ab_cloud_stats import (
+from .ab_cloud_stats_v2 import (
     spacing_ratios,
     mean_spacing_ratio,
     std_spacing_ratio,

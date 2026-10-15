@@ -183,3 +183,35 @@ Every script here is deterministic: fixed seeds, fixed ladders, explicit
 parameter blocks at the top of the file. Re-running a script reproduces
 its committed output byte-for-byte or reports why not — silent drift is
 treated as a bug, not as entropy.
+
+## ⚠️ Known gaps — portability audit (2026-10-15)
+
+A full import sweep (`python -c "import code.<module>"` for every module)
+runs **85 of 90 Python modules clean**. Five legacy runners —
+`run_monumental.py`, `run_batched.py`, `run_verification.py`,
+`run_verification_extended.py`, `large_matrix_demo.py` — were authored
+against a private `python/` package layout and reference three modules
+that were never committed to this repository:
+`ab_cloud_sigma`, `ab_cloud_dirac`, `ab_cloud_plots` (plus the v2 API of
+`ab_cloud_zeta`). They carry an explicit NOTE header and will fail with a
+clear `ModuleNotFoundError` until those modules are added.
+
+Fixes applied in the same sweep (all mechanical, no behaviour change):
+
+- `ab_cloud_sweeps_v2.py`, `ab_cloud_advanced_v2.py`, `ab_cloud_ktheory.py`
+  imported the v2 API from the **v1** module names (`from .ab_cloud_hamiltonian
+  import build_hofstadter_with_disorder` → `ImportError`); repointed to
+  `.ab_cloud_hamiltonian_v2` / `.ab_cloud_stats_v2`. All three now import
+  cleanly as `code.*`.
+- `quick_start.py` — wrong package path (`python.*`, and a nonexistent
+  `ab_cloud_plots` module); rewritten against the real API
+  (`code.ab_cloud_hamiltonian_v2` …) with inline matplotlib for the demo
+  figure. Verified end-to-end: ⟨r⟩ ≈ 0.59 at α = 1/2 — GUE-class, as the
+  monograph claims.
+- 41 scripts carried absolute authoring-environment paths
+  (`/home/z/my-project/...`); replaced with `Path(__file__)`-relative
+  locations (`../outputs/`, `figs/`, `PROJECT_ROOT`), so the package no
+  longer depends on a machine that does not exist.
+- Intra-package flat imports (`from config import …`) → package-qualified
+  (`from code.config import …`) for `config`, `verifier_core`,
+  `tasks_parametric` and friends.

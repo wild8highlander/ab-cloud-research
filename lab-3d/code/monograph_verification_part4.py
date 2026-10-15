@@ -62,7 +62,7 @@ plt.rcParams['savefig.bbox'] = 'tight'
 
 # Импорт базовых модулей
 sys.path.insert(0, str(Path(__file__).parent))
-from monograph_verification import CONFIG, Output, safe_norm, safe_max, rodrigues_rotation
+from code.monograph_verification import CONFIG, Output, safe_norm, safe_max, rodrigues_rotation
 
 OUTPUT_DIR = Path(CONFIG["output_dir"])
 FIG_DIR = OUTPUT_DIR / CONFIG["figures_subdir"]

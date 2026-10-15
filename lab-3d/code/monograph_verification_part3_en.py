@@ -17,7 +17,7 @@ import numpy as np
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from monograph_verification import (
+from code.monograph_verification import (
     CONFIG, Output, safe_norm, safe_max, rodrigues_rotation,
 )
 from monograph_verification_part2 import (

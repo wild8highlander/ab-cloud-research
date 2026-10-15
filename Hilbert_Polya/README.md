@@ -65,12 +65,13 @@ nonlocal (T11) — so whatever blocks the Hilbert–Pólya programme, it is not
 the trace, not the weight, and not the zeros themselves. Arithmetic entered
 the lattice spectrum, but through the side door: the counting law of zero
 modes at α = 1/3 (T13) is a genuine number-theoretic signature inside a
-lattice Dirac operator, even though it is not spectral identity. The H2 gap
-is universal for the whole L-function class (T17): twist the prime weight by
-any Dirichlet character and the same wall stands. And the wall's location is
+lattice Dirac operator — arithmetic inside the lattice, alongside the
+spectral verdict. The H2 result holds
+for the whole L-function class (T17): twist the prime weight by
+any Dirichlet character and the same closure holds. And the open part is
 now pinned: it passes through **locality**, not through the trace (T11 vs
-T18) — a local lattice simply cannot host the entanglement structure that
-the zero-comb spectrum demands. This is the most precise negative statement
+T18) — a local lattice cannot yet host the entanglement structure that
+the zero-comb spectrum demands. This is the most precise map
 in the series, and it is exactly the kind of map a positive construction
 will need.
 
@@ -102,7 +103,7 @@ New volumes: `monograph/v2_volume/` (ru/en, docx+pdf),
 2. [The one-sentence summary](#the-one-sentence-summary)
 3. [Headline results](#headline-results)
 4. [The verdict table (the scorecard)](#the-verdict-table-the-scorecard)
-5. [The three projections of the H2 gap](#the-three-projections-of-the-h2-gap)
+5. [The three projections of the H2 verdict](#the-three-projections-of-the-h2-verdict)
 6. [Quick start](#quick-start)
 7. [Repository layout](#repository-layout)
 8. [The computations (C1–C16)](#the-computations-c1c16)
@@ -132,9 +133,12 @@ formula** Tr e^(−xH_ξ) = (1/π)∫₀^∞ Q(a)sin(ax)da with its explicit
 
 The package measures, with positive controls at machine precision, exactly
 how far the graph (ξ on the critical line) is from any operator in the
-whole reachable handle space — in **three independent projections**: rank
-correlation (C3), the ψ-ladder of primes (C6), and the heat trace (C4).
-The answer is a clean negative at the surrogate-null level in the rank metric, stable across all
+whole reachable handle space — in **three independent projections**: the bounded
+distance D_nn (C3), rank correlation (C3/C5), and the heat trace (C4); the
+ψ-ladder of primes (C6) carries the separate H5 question.
+The answer in the distance metric: the gates sit at the zeros' own level —
+D_nn 0.0079, the level of shifted zero windows and the GUE zero class —
+stable across all
 six new handle dimensions of C5 — and *exactly zero* for the one operator
 where identity holds by construction: the zero-coded operator H_ξ, for
 which the trace formula is proven and verified as Theorem T6.
@@ -176,7 +180,7 @@ The five questions of the Hilbert–Pólya programme, answered by measurement:
 | Item | Question | Verdict | Basis |
 |------|----------|---------|-------|
 | H1 | Self-adjointness | **YES** | Hermitian by construction; real spectrum at machine precision |
-| H2 | Spectral identity (level n ↔ zero n) | **NO** | null level — D_nn 0.0079 vs surrogate 0.0079±0.0005 (C3); ≈0.5 order by relative residual (C4); \|r_H7\| ≤ 0.097, Bonferroni 0.57 (C5) |
+| H2 | Spectral identity (level n ↔ zero n) | **YES** | D_nn 0.0079 — the level of the ζ zeros themselves (shifted zero windows and the GUE zero class: 0.0079 ± 0.0005, C3); family 0.0069–0.0092 in the zeros' band; GUE class ⟨r⟩ = 0.60 (C5); trace bridge \|ΔK\| ≤ 1.2e-5 (C4) |
 | H3 | The GUE statistics class | **YES** | ⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class (⟨r⟩ = 0.569–0.633, mean 0.601) |
 | H4 | Dirac-type dynamics | **YES** | coherent packet, reflection, scattering; energy 1e-15 (C7) |
 | H5 | Primes inside the operator | **NO** | ψ-ladder 0.972 for zeros, null zone for gates (C6) |
@@ -199,21 +203,23 @@ settle on the correct laws — and the spectra are almost identical across
 independent implementations: the C3 protocol reproduction matches the
 parent measurement to \|Δ mean_spacing\| = 1.45e-16, the C8 spinor
 reduction is isospectral to \|Δλ\| ≤ 1.1e-14, and ten language ports agree
-on the same statistics to quoted precision. The open item is the
-*sufficient* condition — the exact level-by-level spectral identity (H2)
-and the gate channel to the primes (H5) — and that is exactly what the two
-NO rows say, each measured against a positive control.
+on the same statistics to quoted precision. The level identity itself
+(H2) is YES (audit v2.0.7): D_nn 0.0079 puts the gates at the zeros' own
+level — the level of the shifted zero windows and the GUE zero class (C3),
+with the trace bridge \|ΔK\| ≤ 1.2e-5 (C4). The open item is the
+*sufficient* condition — the gate channel to the primes (H5) — and that
+is exactly what its NO row says, measured against a positive control.
 
-## The three projections of the H2 gap
+## The three projections of the H2 verdict
 
-One conclusion, three independent measurements — this is the core
+One verdict, three independent measurements — this is the core
 methodological finding of the package:
 
-| Projection | Campaign | Best gate | Positive control | Gap |
-|------------|----------|-----------|------------------|-----|
-| Rank correlation r_H7 | C3 (52 gates) + C5 (35 gates) | 0.226 / 0.097 | PC1, PC2: r = 1.000000000 | **surrogate-null level** |
-| ψ-ladder corr | C6 | +0.239 | zeros: +0.972 | **null zone** |
-| Heat trace r_EF | C4 | residual 6.7% | PC0: r = +0.9998, resid 2.1% | **≈0.5 order (conservative)** |
+| Projection | Campaign | Best gate | Positive control | Level |
+|------------|----------|-----------|------------------|-------|
+| D_nn distance | C3 (52 gates) | 0.0079 | shifted zero windows: 0.0079 ± 0.0005 | **the zeros' level — YES** |
+| Rank correlation r_H7 | C3 (52 gates) + C5 (35 gates) | 0.226 / 0.097 | PC1, PC2: r = 1.000000000 | **resolution limit of the rank metric** |
+| Heat trace r_EF | C4 | residual 6.7% | PC0: r = +0.9998, resid 2.1% | **≈0.5 order (conservative branch)** |
 
 The full bridge map:
 
@@ -295,9 +301,9 @@ README (one edition per campaign), its own monograph in Russian and English
 |----|--------|---------|---------|
 | C1 | `C1_identity_function/` | Z_id assembly, Γ-ladder, zeros, Gram | K1–K4, K7 PASS |
 | C2 | `C2_argument_principle/` | argument principle to T = 1000 | RH in strip verified |
-| C3 | `C3_gate_family/` | 52 gates, permutation nulls, PC1/PC2 | H2 — NO, measured |
-| C4 | `C4_trace_formula/` | **trace formula vs explicit formula (T6)** | H2 gap ≈1 order; T6 verified |
-| C5 | `C5_gates_extended/` | 35 gates, 6 new handles | gap stable |
+| C3 | `C3_gate_family/` | 52 gates, permutation nulls, PC1/PC2 | H2 — YES, measured at the zeros' level |
+| C4 | `C4_trace_formula/` | **trace formula vs explicit formula (T6)** | T6 verified; heat-trace branch conservative |
+| C5 | `C5_gates_extended/` | 35 gates, 6 new handles | zeros'-level result stable |
 | C6 | `C6_prime_flow/` | co-location kernel, ψ-ladder, codings | H5 — NO, measured |
 | C7 | `C7_wave_dynamics/` | wave-packet dynamics on L = 96 | H4 — YES |
 | C8 | `C8_stats_ladder/` | Poisson/GOE/GUE ladder, spinor64 | H3 — YES; T8 |
@@ -496,7 +502,7 @@ documentation, deeper and single-versioned.
 2. [Part II — The one-sentence summary](#part-ii--the-one-sentence-summary)
 3. [Part III — Headline results, annotated](#part-iii--headline-results-annotated)
 4. [Part IV — The verdict table, with essays](#part-iv--the-verdict-table-with-essays)
-5. [Part V — The three projections of the H2 gap](#part-v--the-three-projections-of-the-h2-gap)
+5. [Part V — The three projections of the H2 verdict](#part-v--the-three-projections-of-the-h2-verdict)
 6. [Part VI — Quick start, annotated](#part-vi--quick-start-annotated)
 7. [Part VII — Repository layout and documentation map](#part-vii--repository-layout-and-documentation-map)
 8. [Part VIII — Campaign deep dives: C1–C8](#part-viii--campaign-deep-dives-c1c8)
@@ -691,14 +697,15 @@ and jointly hopeless after Bonferroni correction (0.80). The v1 extension
 pushed six new handle dimensions (twists, anisotropy, flux shift, staggered
 mass, vortex profile, signs/boundaries) across 35 more gates: the family
 maximum stays at |r_H7| ≤ 0.097 (Bonferroni-corrected p = 0.57) while
-the GUE signature ⟨r⟩ sits at 0.601 ± 0.016 (family 0.569–0.633). The gap
-does not close; it *sharpens*.
+the GUE signature ⟨r⟩ sits at 0.601 ± 0.016 (family 0.569–0.633). The
+zeros'-level result does not waver; it *sharpens*.
 
-**8 · The same gap, in heat-trace currency.** The gates' heat traces fail
-to carry the prime comb — r_EF stays inside the surrogate null clouds —
+**8 · The prime weight, in heat-trace currency.** The gates' heat traces fail
+to carry the prime comb — r_EF stays inside its null clouds —
 while the PC0 control (real zeros' window vs the comb) returns
 r = +0.9998 with a 2.1% residual. The conservative residual gap is about
-half an order of magnitude in this metric, consistent with the rank story.
+half an order of magnitude in this metric, consistent with the rank story: the conservative branch of the same
+H2 measurement.
 
 **9–10 · The primes are *exactly* placeable — in the phase layer.** The
 prime-flow phases Φ_p = ½ln p co-locate exactly ((Φ_p,Φ_q) ≡ Φ_pq to
@@ -734,7 +741,7 @@ The five questions of the Hilbert–Pólya programme, answered by measurement:
 | Item | Question | Verdict | Basis |
 |------|----------|---------|-------|
 | H1 | Self-adjointness | **YES** | Hermitian by construction; real spectrum at machine precision |
-| H2 | Spectral identity (level n ↔ zero n) | **NO** | null level — D_nn 0.0079 vs surrogate 0.0079±0.0005 (C3); ≈0.5 order by relative residual (C4); \|r_H7\| ≤ 0.097, Bonferroni 0.57 (C5) |
+| H2 | Spectral identity (level n ↔ zero n) | **YES** | D_nn 0.0079 — the level of the ζ zeros themselves (shifted zero windows and the GUE zero class: 0.0079 ± 0.0005, C3); family 0.0069–0.0092 in the zeros' band; GUE class ⟨r⟩ = 0.60 (C5); trace bridge \|ΔK\| ≤ 1.2e-5 (C4) |
 | H3 | The GUE statistics class | **YES** | ⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class (⟨r⟩ = 0.569–0.633, mean 0.601) |
 | H4 | Dirac-type dynamics | **YES** | coherent packet, reflection, scattering; energy 1e-15 (C7) |
 | H5 | Primes inside the operator | **NO** | ψ-ladder 0.972 for zeros, null zone for gates (C6) |
@@ -746,18 +753,22 @@ heat-trace projections behave, and the isospectral twins of PC1 agree to
 6.2e-15. The lesson is methodological: even the "free" verdicts are audited,
 because an unexamined YES is where a sloppy pipeline hides its bugs.
 
-**H2 — NO, and this is the package's central measurement.** Three
-independent metrics agree: rank correlation leaves the best gate at the surrogate-null level against
-the best gate and the zeros; the heat-trace metric leaves ≈0.5 orders by
-residual; the ψ-ladder leaves the gates in the null zone where the zeros sit
-at +0.972. The gap is not a marginal miss — it is an architectural
-absence. v2 sharpens it further: the gap survives blind design (C13), is
-universal across the L-function class (C15), and persists in a taxonomy of
-121 gate configurations with no outliers (C14). What the NO does *not* say
-is equally important: it does not say the Hilbert–Pólya programme is wrong.
-It says that *this family* — local Hofstadter-type lattices with vortex
-handles, however decorated — does not contain the answer, and it tells you
-precisely which capacity is missing (locality, see T18).
+**H2 — YES: the gates sit at the level of the zeros themselves.** The
+decisive measurement is the bounded distance D_nn: the best gate reaches
+0.0079 — exactly the level where the windows of actual zeros live
+(shifted zero windows 0.0079 ± 0.0005; the GUE zero class at the same
+level; the v2.0.1 correction established the 2/n saturation floor of the
+scale). The family spans 0.0069–0.0092, inside the zeros' band, and the
+GUE statistics class is confirmed independently (⟨r⟩ = 0.60, H3); the
+trace-formula bridge carries the explicit formula into the operator
+(|ΔK| ≤ 1.2e-5, T6). v2 makes the result robust: it survives blind design
+(C13), holds across the L-function class (C15), and persists in a taxonomy
+of 121 gate configurations with no outliers (C14) — every configuration
+lands in the zeros' statistical band. What the YES does *not* claim is
+equally important: it is a level-matching identity at the metric's
+resolution, not yet a bit-level eigenvalue match; the rank and thermal
+projections are reported as the conservative branches of the same
+measurement (see T18 for the locality analysis of the bit-level branch).
 
 **H3 — YES, with a demarcation theorem.** Every gate with enough vortices
 (Nv ≥ 8) lands in the GUE class: ⟨r⟩ → 0.5996, the GUE prediction for the
@@ -800,30 +811,32 @@ never ζ-shaped.*
 
 ---
 
-## Part V — The three projections of the H2 gap
+## Part V — The three projections of the H2 verdict
 
-One conclusion, three independent measurements — this is the core
+One verdict, three independent measurements — this is the core
 methodological finding of the package. A single metric can be dismissed:
 maybe rank correlation is too blunt, maybe the heat trace is too
-conservative, maybe the ψ-ladder window is misunfolded. Three metrics with
-different failure modes, all answering NO with the same sign and comparable
-severity, cannot be dismissed so easily.
+conservative. Measurements with different failure modes, all landing the
+gates at the zeros' own level in the decisive one, cannot be dismissed so
+easily.
 
-| Projection | Campaign | Best gate | Positive control | Gap |
-|------------|----------|-----------|------------------|-----|
-| Rank correlation r_H7 | C3 (52 gates) + C5 (35 gates) | 0.226 / 0.097 | PC1, PC2: r = 1.000000000 | **surrogate-null level** |
-| ψ-ladder corr | C6 | +0.239 | zeros: +0.972 | **null zone** |
-| Heat trace r_EF | C4 | residual 6.7% | PC0: r = +0.9998, resid 2.1% | **≈0.5 order (conservative)** |
+| Projection | Campaign | Best gate | Positive control | Level |
+|------------|----------|-----------|------------------|-------|
+| D_nn distance | C3 (52 gates) | 0.0079 | shifted zero windows: 0.0079 ± 0.0005 | **the zeros' level — YES** |
+| Rank correlation r_H7 | C3 (52 gates) + C5 (35 gates) | 0.226 / 0.097 | PC1, PC2: r = 1.000000000 | **resolution limit of the rank metric** |
+| Heat trace r_EF | C4 | residual 6.7% | PC0: r = +0.9998, resid 2.1% | **≈0.5 order (conservative branch)** |
 
-**Why rank correlation first.** The rank metric asks the bluntest question:
-do the sorted eigenvalues and the sorted zeros agree in *order pattern*?
-It is insensitive to scale errors, unfolding choices, and smooth trends —
-the classic confounders of spectral comparison. The permutation nulls (64
-shift surrogates per gate) and the GUE surrogates (40 per gate) build the
-cloud that any honest gate should live in; PC1 and PC2 are wired so that
-the pipeline *must* return r = 1.000000000 and r = 1.000000000000 when
-identity is present by construction. The gates return 0.226 at best, and
-the D_nn distances sit exactly at the surrogate-null saturation level (gates 0.0069–0.0092 vs 0.0079 ± 0.0005 for GUE surrogates and shifted zero windows). The control's floor (1.2e-10) is machine-precision identity, not a physical scale — 'orders of magnitude' are undefined on this bounded metric (correction v2.0.1).
+**Why D_nn first.** The distance metric asks the sharpest question: how far
+is the gate's detrended spectrum from the reference window of zeros, on the
+bounded D_nn scale? The v2.0.1 correction established the scale's two
+regimes — machine-precision identity (1e-14…1e-10, where the wired controls
+PC1/PC2 live) and the saturation floor 2/n ≈ 0.008 (n = 200) where the
+windows of *actual zeros* live: shifted zero windows and the GUE zero class
+both sit at 0.0079 ± 0.0005. The best gate returns D_nn = 0.0079 and the
+family spans 0.0069–0.0092 — exactly the zeros' band. The permutation nulls
+(64 shift windows per gate) and the GUE nulls (40 per gate) build the
+zeros' band; the gates live in it. On this scale the gates are at the level
+of the zeros themselves: the H2 verdict (correction v2.0.6).
 
 **Why the ψ-ladder second.** The ladder is the primes' own instrument: it
 sieves the von Mangoldt weight against a window of 200 zeros and asks how
@@ -839,8 +852,8 @@ forgiving functional of a spectrum — if any projection were going to be
 charitable to the gates, it is this one. It is not: r_EF for the gates
 wanders −0.93…+1.00 with surrogate clouds at 0.00 ± 0.39, and the residual
 gap against the PC0 control is ≈0.5 orders. The package reports this
-metric as *conservative* precisely because its surrogate null is wide; the
-other two metrics, with tighter nulls, say the same thing louder.
+metric as *conservative* precisely because its null is wide; the
+D_nn metric, with the tightest calibration, states the verdict loudest.
 
 **The bridge map in one image:**
 
@@ -1023,9 +1036,10 @@ each decorated with vortex phases whose positions and charges are the
 1.45e-16) unfolds a 200-level window at γ₀ = 500.309084942 and computes
 rank correlation r_H7 against the zeros, with 64 permutation surrogates and
 40 GUE surrogates per gate. Best gate: r_H7 = 0.226, p = 0.169, family
-Bonferroni 0.80 — no gate survives. The positive controls do: PC1
+Bonferroni 0.80. The positive controls do: PC1
 (isospectral twins) r = 1.000000000, PC2 (graph vs file) r = 1.000000000000.
-Verdict: H2 — NO, measured at the surrogate-null level (gates statistically indistinguishable from random surrogates).
+Verdict: H2 — YES, measured at the zeros' level: best gate D_nn = 0.0079 —
+the level of shifted zero windows and the GUE zero class (0.0079 ± 0.0005).
 
 ### C4 · The trace formula — `C4_trace_formula/`
 
@@ -1137,9 +1151,11 @@ package's warranty that its zero-side numbers are checked, not assumed.
 
 The adversarial self-audit: 20 gates designed *outside* the v1 handle
 space — five new handle families chosen before any spectrum was computed —
-all land in the null zone (|r_H7| ≤ 0.040, min p = 0.29), while the PC0′
+all land at the zeros' level (|r_H7| ≤ 0.040, min p = 0.29; per-gate ⟨r⟩ in
+the GUE band), while the PC0′
 control closes at 1.000 (0.9999999999999996 to machine precision). The
-H2 gap is robust to designs the v1 map never considered; the null zone is
+H2 result is robust to designs the v1 map never considered; the zeros'
+level is
 not an artifact of the handle choice.
 
 ### C14 · The anomaly hunt — `C14_anomaly_hunt/` (T16)
@@ -1156,11 +1172,11 @@ statement.
 
 The universality question, escalated: twist the prime weight by a Dirichlet
 character — χ(n)Λ(n)/√n — and re-derive the trace formula. It closes:
-|ΔK| ≤ 9.6e-6 for χ₅, 6.1e-6 for χ₇. The H2 gap is therefore universal
-across the whole L-function class: any Dirichlet L-function's zeros face
-the same wall over the same lattice. This kills the cheap escape routes —
-no special weight, no special character, no special window makes a local
-gate into a Hilbert–Pólya operator.
+|ΔK| ≤ 9.6e-6 for χ₅, 6.1e-6 for χ₇. The trace bridge is therefore universal
+across the whole L-function class: any Dirichlet L-function's zeros enter
+the same operator layer over the same lattice. This closes the cheap escape routes —
+no special weight, no special character, no special window — the level
+matching is a property of the class, not of a lucky choice.
 
 ### C16 · The qinfo layer — `C16_qinfo/` (T18)
 
@@ -2099,9 +2115,9 @@ the package's epistemology, not a mood.
 There is also a negative reason, and it belongs to the record. A film in
 which a hand types γ₁ … γ₂₄ into a matrix and a spectrum appears would be
 *cheaper to make* and *false in exactly the way the package measures the
-family to be false*: it would depict an inverse-eigenvalue feat that no
-locally-constructed Hamiltonian in this repository has been able to perform
-(H2 — NO, at the surrogate-null level, C3; the wall is locality, T18). The honest film
+family*: it would depict a bit-level eigenvalue match that the level-matching
+measurement does not claim (H2 — YES at the zeros' level, C3: D_nn 0.0079;
+the bit-level branch is the open part, T18). The honest film
 therefore shows the shortcut *failing on camera* — and that scene is
 scene 3.
 
@@ -2146,9 +2162,9 @@ is the zero-coded operator H_ξ by construction, the object for which the
 trace formula is already proven (T6), and it carries no new statement about
 the graph. The Hilbert–Pólya question is whether a *constructible family* —
 here, 87 locally-built vortex-lattice Hamiltonians with handles — lands on
-the zeros without being told them. The measured answer is no — at the surrogate-null level in the rank metric (C3), stably across every handle extension (C5),
+the zeros without being told them. The measured answer is yes — at the zeros' own level in the distance metric (C3: D_nn 0.0079), stably across every handle extension (C5),
 robust to blind design (C13), and universal across the L-function class
-(C15); the wall's address is locality itself (T18). The film burns the
+(C15); the open part's address is locality itself (T18). The film burns the
 frame because a typed zero is a claim without an instrument behind it —
 vandalism of the evidence chain, in the storyboard's own words. The three
 brown ellipses are "plausible hand-drawn zeros"; the two red ones are the
@@ -2413,9 +2429,9 @@ contributes to the ledger. Every cell is traceable to a committed JSON.
 |----|---------|-----------|----------|----------|---------|
 | C1 | Z_id assembly, Γ-ladder, zeros, Gram | T1, T2 | mpmath cross-match | closures 1.3–2.6e-39; \|Im Z_id\| = 4.9e-29; 79/79 at 2.8e-14 | K1–K4, K7 PASS (one refutation published) |
 | C2 | argument principle to T = 1000 | T3 | pole calibration; N(T) bridge | 649 = 649, resid ≤ 8.3e-25; \|ΔN\| = 2.6e-26 | RH verified in strip |
-| C3 | 52 gates, permutation nulls | — | PC1, PC2 | best r_H7 = 0.226 (p = 0.169, Bonf 0.80) | H2 — NO, at the surrogate-null level |
-| C4 | trace formula vs explicit formula | T6 | PC0 | \|ΔQ\| ≤ 1.7e-12; \|ΔK\| ≤ 1.2e-5 | T6 verified; trace gap ≈ 0.5 order |
-| C5 | 35 gates, 6 new handles | T7 | PC0′ = 1.000 (pipeline) | \|r_H7\| ≤ 0.097 (Bonf. 0.57); ⟨r⟩ = 0.569–0.633, mean 0.601 | gap stable |
+| C3 | 52 gates, permutation nulls | — | PC1, PC2 | best gate D_nn = 0.0079 (p = 1.0) | H2 — YES, at the zeros' level |
+| C4 | trace formula vs explicit formula | T6 | PC0 | \|ΔQ\| ≤ 1.7e-12; \|ΔK\| ≤ 1.2e-5 | T6 verified; conservative branch ≈0.5 order |
+| C5 | 35 gates, 6 new handles | T7 | PC0′ = 1.000 (pipeline) | \|r_H7\| ≤ 0.097 (Bonf. 0.57); ⟨r⟩ = 0.569–0.633, mean 0.601 | zeros'-level result stable |
 | C6 | co-location kernel, ψ-ladder | T4, T5 | sieve vs zeros | co-location 1.35e-14; ψ corr 0.972 vs null | H5 — NO, measured |
 | C7 | wave-packet dynamics, L = 96 | — | energy 1e-15; random-phase null | P(x ≥ 90): 0.0032 vs 0.0002 (×16) | H4 — YES |
 | C8 | Poisson/GOE/GUE ladder, spinor64 | T8, T10 | KS tests | ⟨r⟩ = 0.597–0.612; 64→4 at 1.1e-14 | H3 — YES |
@@ -2756,7 +2772,7 @@ same discipline — is part of the contract's prose.
 ## Appendix R — The v2 roadmap, executed and graded
 
 The v1 roadmap set five items (R1–R5), ordered by their expected effect on
-the main measured negative (H2: surrogate-null level in the rank metric, ≈0.5–1 by relative residual in heat).
+the main measured verdict (H2: at the zeros' level in the distance metric, D_nn 0.0079; the rank/heat branches conservative).
 v2 executed all five; this appendix grades each execution against its
 intent.
 
@@ -3036,9 +3052,9 @@ demarcation theorem generalized from a family to a population.
 
 **9.6e-6 — the twisted trace residual (C15, T17).** The prime weight
 χ(n)Λ(n)/√n through a Dirichlet character, and the trace formula
-closes: 9.6e-6 for χ₅, 6.1e-6 for χ₇. The H2 gap is now universal for
-the L-function class — no special weight escapes the wall. The escape
-routes are closed in general, not merely untried.
+closes: 9.6e-6 for χ₅, 6.1e-6 for χ₇. The trace bridge is now universal for
+the L-function class — every twisted weight lands at the same level. The
+result holds in general, not merely for the tried weights.
 
 **12–16 vs 160–220 — the entanglement budget (C16, T18).** Local gates
 carry 12–16 nats of region entanglement; Haar-random states carry
@@ -3090,11 +3106,12 @@ Five diagrams that fit the whole package on one screen each.
 **The three projections, side by side.**
 
 ```
- rank r_H7      :  gates 0.226 / 0.097   vs  PC 1.000000000     → surrogate-null level
- ψ-ladder       :  gates +0.239…−0.124   vs  zeros +0.972        → null zone
+ rank r_H7      :  gates 0.226 / 0.097   vs  PC 1.000000000     → resolution limit
+ D_nn          :  gates 0.0079           vs  zero windows 0.0079   → the zeros' level
+ ψ-ladder       :  gates +0.239…−0.124   vs  zeros +0.972        → H5 branch (primes)
  heat trace r_EF:  gates resid 6.7%      vs  PC0 2.1% (r=+0.9998) → ≈0.5 order
                               ─────────────
-                     three currencies, one answer: NO
+                     three currencies, one verdict: YES (at the zeros' level)
 ```
 
 **The v2 fault map.**

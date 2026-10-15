@@ -33,6 +33,14 @@ KEY DESIGN DECISIONS:
     comparison — to show whether AB-cloud is special or just generic
     disordered Hermitian.
 """
+# NOTE (portability fix, 2026-10-15): this runner was authored against a
+# private `python/` package layout whose modules `ab_cloud_sigma`,
+# `ab_cloud_dirac`, `ab_cloud_plots` (and the v2 API of `ab_cloud_zeta`)
+# were NOT committed to the repository. The package prefix was corrected
+# to `code.*` (this directory). Importing this module will fail until the
+# missing modules are committed; the core library (80+ modules) imports
+# cleanly -- see code/README.md, "Known gaps".
+
 from __future__ import annotations
 
 import sys
@@ -44,14 +52,14 @@ import numpy as np
 # allow running both as module and as script
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HERE))
-from python.ab_cloud_hamiltonian import (
+from code.ab_cloud_hamiltonian import (
     build_ab_cloud_hamiltonian, build_pure_hofstadter,
     build_random_anderson, build_random_gue, VortexConfig,
 )
-from python.ab_cloud_zeta import (
+from code.ab_cloud_zeta import (
     fetch_riemann_zeros, unfold_rvm, unfolded_spacings, sanity_check_unfolding,
 )
-from python.ab_cloud_stats import (
+from code.ab_cloud_stats import (
     mean_level_spacing_ratio, spacings_from_levels,
     sigma2_statistic, delta3_statistic,
     sigma2_GUE_exact, delta3_GUE_exact,
@@ -61,13 +69,13 @@ from python.ab_cloud_stats import (
     bootstrap_mean, sigma_r_bk_correct,
     wigner_dyson_pdf,
 )
-from python.ab_cloud_spinor import classify_all_spinors, psl27_action_on_spinors_quick
-from python.ab_cloud_sigma import sigma_scan
-from python.ab_cloud_dirac import (
+from code.ab_cloud_spinor import classify_all_spinors, psl27_action_on_spinors_quick
+from code.ab_cloud_sigma import sigma_scan
+from code.ab_cloud_dirac import (
     dirac_cone_spectrum, check_linear_dispersion,
     dirac_cone_with_vortices, r_stat_at_alpha_half,
 )
-from python import ab_cloud_plots as plots
+from code import ab_cloud_plots as plots
 
 
 # ============================================================
@@ -466,7 +474,7 @@ def V15_bsd_e49(ver: Verifier):
 def V16_riemann_von_mangoldt(ver: Verifier):
     zs = get_zeta_zeros(N_ZETA)
     T = zs[-1]
-    from python.ab_cloud_zeta import riemann_von_mangoldt_N
+    from code.ab_cloud_zeta import riemann_von_mangoldt_N
     N_pred = riemann_von_mangoldt_N(float(T))
     N_actual = N_ZETA
     err = abs(N_pred - N_actual)

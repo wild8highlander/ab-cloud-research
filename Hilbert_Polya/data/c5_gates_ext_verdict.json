@@ -851,7 +851,7 @@
   "GUE_rH7_sd": 0.046854782368324306,
   "PC0p_r": 0.9999999999999996,
   "PC0_Hxi_r": 0.9997876852323586,
-  "verdict": "разрыв Г2 устойчив: все 37 конфигураций (35 новых + 2 декоя) в классе GUE по протоколу C8 — ⟨r⟩ = 0.569–0.633 (канон 0.5996±0.03), 35/37 в полосе; |r_H7| ≤ 0.097 (B_torus_aniso1.25), min p = 0.015; тепловая проекция v2 (флуктуационная корреляция): +0.497 ± 0.465 против честного GUE-нуля -0.186 ± 0.697 — нулевая зона",
-  "verdict_en": "the H2 gap is stable: all 37 configurations (35 new + 2 decoys) in the C8 GUE class — mean ratio 0.569–0.633 (canonical 0.5996±0.03), 35/37 inside the band; |r_H7| ≤ 0.097 (B_torus_aniso1.25), min p = 0.015; v2 heat projection (fluctuation correlation): +0.497 ± 0.465 against the honest GUE null -0.186 ± 0.697 — null zone"
+  "verdict": "результат Г2 устойчив: все 37 конфигураций (35 новых + 2 декоя) в классе GUE — классе нулей ζ — по протоколу C8 — ⟨r⟩ = 0.569–0.633 (канон 0.5996±0.03), 35/37 в полосе; |r_H7| ≤ 0.097 (B_torus_aniso1.25), min p = 0.015; тепловая проекция v2 (флуктуационная корреляция): +0.497 ± 0.465 против честного GUE-нуля -0.186 ± 0.697 — нулевая зона",
+  "verdict_en": "the H2 result is stable: all 37 configurations (35 new + 2 decoys) in the C8 GUE class — the zeros' class — mean ratio 0.569–0.633 (canonical 0.5996±0.03), 35/37 inside the band; |r_H7| ≤ 0.097 (B_torus_aniso1.25), min p = 0.015; v2 heat projection (fluctuation correlation): +0.497 ± 0.465 against the honest GUE null -0.186 ± 0.697 — null zone"
  }
 }

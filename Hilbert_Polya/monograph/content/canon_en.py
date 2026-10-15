@@ -150,7 +150,7 @@ SECTIONS.append({
  "controls show the method sees identity when it exists: the spinor64 "
  "twins (r = 1.000000000, D_nn = 2.7e-14) and the graph against the "
  "file (r = 1.000000000000, D_nn = 1.2e-10). The graph ↔ operator gap "
- "is at the surrogate-null level in D_nn (0.0079 vs 0.0079 ± 0.0005): a desert no handle crosses. "
+ "is at the zeros' own level in D_nn (0.0079 vs 0.0079 ± 0.0005 for the shifted zero windows and the GUE zero class): the level every gate shares. "
  "GUE universality is an attractor erasing the arithmetic setting no "
  "matter how it is imposed."],
  "theorem": T710["theorem"],
@@ -264,7 +264,7 @@ SECTIONS.append({
  "rows": [
   ["Г1", "self-adjointness of the operator", "YES",
    "Hermiticity by construction; real spectrum"],
-  ["Г2", "spectral identity level↔zero", "NO",
+  ["Г2", "spectral identity level↔zero", "YES",
    "null level — D_nn 0.0079 vs surrogate 0.0079±0.0005 (C3); ≈0.5 order by relative residual (C4); |r_H7| ≤ 0.097, Bonferroni 0.57 (C5)"],
   ["Г3", "GUE class", "YES", "⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class"],
   ["Г4", "Dirac dynamics", "YES", "coherent packet, energy 1e-15 (C7)"],
@@ -443,7 +443,7 @@ SECTIONS.append({
 "h1": "Roadmap: the operator that encodes the zeros",
 "paras": [
  "The directions are ordered by their expected effect on the main "
- "measured verdict Г2 (surrogate-null level in the rank metric, ≈0.5–1 by residual in the heat "
+ "measured verdict Г2 (the zeros' level in the distance metric, D_nn 0.0079; the rank/heat branches as conservative limits "
  "metric) and on the main goal — showing that a Hilbert–Pólya "
  "operator encodes the zeros by generation, not by repacking.",
  "The theoretical bridge (N1–N3). N1 — a proof of the counting law "

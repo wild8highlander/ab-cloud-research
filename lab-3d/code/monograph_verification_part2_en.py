@@ -18,7 +18,7 @@ from pathlib import Path
 
 # Импорт части 1
 sys.path.insert(0, str(Path(__file__).parent))
-from monograph_verification import (
+from code.monograph_verification import (
     CONFIG, Output, safe_norm, safe_max, rodrigues_rotation,
     run_all_tasks, task_01, task_02, task_03, task_04, task_05,
     task_06, task_07, task_08, task_09, task_10,

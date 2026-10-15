@@ -24,7 +24,7 @@ plt.rcParams['font.sans-serif'] = ['DejaVu Sans', 'Liberation Sans']
 plt.rcParams['axes.unicode_minus'] = False
 plt.rcParams['mathtext.fontset'] = 'cm'
 
-OUTDIR = "/home/z/my-project/work/figs"
+OUTDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "figs")
 
 print("="*70)
 print("TASK 3: FULL AB-CLOUD SIMULATION (Kerr-Schwarzschild)")
@@ -413,7 +413,7 @@ results = {
         'CPT_is_Choptuuk_correction': True,
     }
 }
-with open('/home/z/my-project/work/full_simulation_results.json', 'w', encoding='utf-8') as f:
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'figs', 'full_simulation_results.json'), 'w', encoding='utf-8') as f:
     json.dump(results, f, ensure_ascii=False, indent=2, default=str)
 
 print("\n" + "="*70)

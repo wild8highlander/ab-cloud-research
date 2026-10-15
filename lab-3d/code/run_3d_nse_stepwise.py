@@ -1,8 +1,8 @@
 """Run 3D NSE experiments one model at a time, saving partial results."""
-import sys, os, json, time, gc
-sys.path.insert(0, "/home/z/my-project/scripts")
-import numpy as np
 from pathlib import Path
+import sys, os, json, time, gc
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import numpy as np
 
 from nse3d_core import (
     make_grid_3d, dealias_mask_3d, taylor_green_vortex, curl,
@@ -10,8 +10,8 @@ from nse3d_core import (
 )
 from scipy.fft import rfftn, irfftn
 
-RESULTS_PATH = Path("/home/z/my-project/download/results.json")
-PARTIAL_PATH = Path("/home/z/my-project/download/3d_nse_partial.json")
+RESULTS_PATH = Path("../outputs/results.json")
+PARTIAL_PATH = Path("../outputs/3d_nse_partial.json")
 
 # Load existing
 if PARTIAL_PATH.exists():
@@ -43,7 +43,7 @@ for mname in models_to_run:
 
     # Save final u field separately as npz
     u_final = res["u_save"][-1].copy()
-    np.savez_compressed(f"/home/z/my-project/download/3d_nse_u_final_{mname}.npz",
+    np.savez_compressed(f"../outputs/3d_nse_u_final_{mname}.npz",
                          u_final=u_final)
     # Save diagnostics to partial
     partial["results"][mname] = {

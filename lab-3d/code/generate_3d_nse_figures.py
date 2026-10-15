@@ -1,12 +1,12 @@
 """Generate all 3D NSE figures from saved partial results."""
+from pathlib import Path
 import sys, os, json
-sys.path.insert(0, "/home/z/my-project/scripts")
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-from pathlib import Path
 from scipy.fft import rfftn, irfftn
 
 from nse3d_core import (
@@ -18,8 +18,8 @@ from nse3d_core import (
 from kdv_core import B_UNIVERSAL, THETA_B
 from run_experiments import FIG_DIR, save_fig, PALETTE, RESULTS
 
-RESULTS_PATH = Path("/home/z/my-project/download/results.json")
-PARTIAL_PATH = Path("/home/z/my-project/download/3d_nse_partial.json")
+RESULTS_PATH = Path(__file__).resolve().parent.parent / "outputs" / "results.json"
+PARTIAL_PATH = Path(__file__).resolve().parent.parent / "outputs" / "3d_nse_partial.json"
 if RESULTS_PATH.exists():
     RESULTS.update(json.loads(RESULTS_PATH.read_text()))
 
@@ -39,7 +39,7 @@ for mname in models:
     r["omega_rms"] = np.array(r["omega_rms"])
     r["energy"] = np.array(r["energy"])
     # Load final u field
-    npz = np.load(f"/home/z/my-project/download/3d_nse_u_final_{mname}.npz")
+    npz = np.load(Path(__file__).resolve().parent.parent / "outputs" / f"3d_nse_u_final_{mname}.npz")
     r["u_final"] = npz["u_final"]
     results[mname] = r
 

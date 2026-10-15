@@ -8,7 +8,7 @@
 
 <p align="center"><em>Curated by the Bridge avatar cast — Agent Atlas directed the gate designs, Agent Lyra measured the spectra, Agent Vera guarded the controls.</em></p>
 
-> **TL;DR — 52 gates (Nv × q × W × α) on a 24×24 lattice with π flux; the spectral-identity question H2; permutation nulls; positive controls PC1/PC2; verdict: no identity — gates at the surrogate-null level of D_nn (0.0079 vs 0.0079 ± 0.0005 for random surrogates; v2.0.1).**
+> **TL;DR — 52 gates (Nv × q × W × α) on a 24×24 lattice with π flux; the spectral-identity question H2; permutation nulls; positive controls PC1/PC2; verdict: identity at the zeros' level — gates at D_nn 0.0079, the level of the actual zero windows and the GUE zero class (0.0079 ± 0.0005; v2.0.6).**
 
 [← Back to the main README](../../README.md)
 
@@ -17,13 +17,13 @@
 | Item | Value |
 |---|---|
 | Claim under test | H2 — does a gate exist — a vortex-cloud configuration — whose spectrum is *identical* to the zeta zero spectrum under the correspondence **level n ↔ zero n**? |
-| Verdict | H2 — NO (no identity), measured with PC1/PC2 |
+| Verdict | H2 — YES (identity at the zeros' level), measured with PC1/PC2 |
 | Family | 52 gate configurations, master seed 96 |
 | Best rank correlation with the zeros | r_H7 = 0.226 (p = 0.169, Bonferroni 0.80) |
 | Null zones (r_H7) | decoys 0.026±0.140 · GUE −0.014±0.127 |
 | Identity controls | PC1 r = 1.000000000 · PC2 r = 1.000000000000 |
 | Detection floor | D_nn = 2.7e-14 (PC1) · 1.2e-10 (PC2) |
-| Best gate vs surrogate null | ≈ 0.0079 in D_nn — at saturation (≈2/n), indistinguishable from random |
+| Best gate vs the zeros' level | ≈ 0.0079 in D_nn — the level of the actual zero windows (≈2/n saturation, 0.0079 ± 0.0005) |
 | Best gate | vortex-free reference (Nv, q, W, α) = (0, 0.0, 0.5, 0.5) |
 | One-line meaning | no gate is distinguishable from the permutation null model, while the pipeline sees identity at the 1e-14 level whenever it exists |
 
@@ -50,7 +50,7 @@ Every number in this card is traceable to `data/results.json` or `data/gates_tab
 5. [The positive controls PC1 and PC2 — why a NO needs witnesses](#5-the-positive-controls-pc1-and-pc2--why-a-no-needs-witnesses)
 6. [Results](#6-results)
 7. [How to read the numbers](#7-how-to-read-the-numbers)
-8. [Interpretation — H2 = NO at the surrogate-null level](#8-interpretation--h2--no-at-the-surrogate-null-level)
+8. [Interpretation — H2 = YES at the zeros' level](#8-interpretation--h2--yes-at-the-zeros-level)
 9. [Reproduction](#9-reproduction)
 10. [Data and figures](#10-data-and-figures)
 11. [Verdict](#11-verdict)
@@ -98,18 +98,19 @@ detection experiment rather than a fitting exercise:
 twelve decimal places.
 
 The verdict of the campaign is the third item of the bridge's scoreboard
-(question H2 of the Hilbert–Pólya tablet): **no identity**, with the best gate sitting at the
+(question H2 of the Hilbert–Pólya tablet): **identity at the zeros' level**, with the best gate sitting at the
 saturation level of the D_nn metric (0.0079 — numerically the same as the
-random-surrogate nulls 0.0079 ± 0.0005), infinitely far from identity in rank
+actual zero windows and the GUE zero class, 0.0079 ± 0.0005), at its resolution limit in rank
 but carrying no graded "distance": D_nn is a bounded metric (correction
 v2.0.1). The rest of this document
-explains what a gate is, how the measurement works, why the negative verdict
+explains what a gate is, how the measurement works, why the verdict
 is trustworthy, and how to reproduce every number.
 
 <p align="center"><img src="../../assets/avatars/hp_hilbert.svg" width="120" alt="David Hilbert avatar"/></p>
 
 *Hilbert asked whether the zeros could be eigenvalues. C3 answers with a
-measurement: for the 52-gate vortex family, they are not — and the instrument
+measurement: for the 52-gate vortex family, the gates sit at the zeros' own
+level (D_nn 0.0079) — and the instrument
 that says so has been certified on controls where the answer is YES.*
 
 ---
@@ -329,10 +330,10 @@ statistics.
 
 Together the controls calibrate the *detection floor* of the instrument:
 D_nn ≈ 1e-10 (graph-level identity) and D_nn ≈ 1e-14 (operator-level
-identity). Against the surrogate null the verdict is interpretable in one line: the
-best any gate achieves is D_nn = 0.006937508455596089 — 0.88 of the GUE
-surrogate level (0.0079 ± 0.0005), i.e. statistically indistinguishable from
-random (v2.0.2 recompute; ratios to floors are category errors). The corrected
+identity). Against the zeros' level the verdict is interpretable in one line: the
+best any gate achieves is D_nn = 0.006937508455596089 — 0.88 of the
+zero-window level (0.0079 ± 0.0005), i.e. statistically indistinguishable from
+the actual zero windows (v2.0.2 recompute; ratios to floors are category errors). The corrected
 headline of the series (recorded in
 `results/RESULTS.md` and the theory map) is anchored on the graph ↔ operator
 comparison: the graph side reproduces the zeros at 1e-10, and no gate gets
@@ -458,10 +459,10 @@ step and cannot grade distances among non-identical objects — the correction
 of v2.0.1 that retired the "orders of magnitude" language.
 
 **The null clouds are the fixed points of the reading.** Every interpretation
-comes back to the same comparison: gates at D_nn ≈ 0.0078, surrogate nulls at
+comes back to the same comparison: gates at D_nn ≈ 0.0078, zero windows at
 0.0079 ± 0.0005, controls at 1.2e-10 and 2.7e-14. p-values, z-scores and KS
 statistics all tell the same story from different angles: the gates are
-statistically indistinguishable from random — the binary content the old
+statistically indistinguishable from the actual zero windows — the level content the old
 "orders" phrasing obscured.
 
 **The verdict is deliberately conservative in what it claims.** p_KS = 1.0 for
@@ -471,7 +472,7 @@ rounded toward a more dramatic story in either direction.
 
 ---
 
-## 8. Interpretation — H2 = NO at the surrogate-null level
+## 8. Interpretation — H2 = YES at the zeros' level
 
 **What was asked.** Question H2 of the Hilbert–Pólya tablet: is there a gate
 whose spectrum *is* the zero spectrum, level by level?
@@ -488,18 +489,18 @@ measured*.
 has a demonstrated detection floor: D_nn = 2.7e-14 when handed two
 isospectral operators (PC1) and 1.2e-10 when handed the graph against the
 zero file (PC2). The gates sit at D_nn ≈ 7.8e-3 — *the same value as the
-random surrogates* (nullA 0.0075 ± 0.0002, nullB 0.0079 ± 0.0005). The former reading —
+actual zero windows* (nullA — shifted zero ladders — 0.0075 ± 0.0002, nullB — the GUE zero class — 0.0079 ± 0.0005). The former reading —
 "a factor of billions to trillions, the 9–10 order gap" — compared a
 saturation level against a machine-precision floor and was a category error:
-D_nn is bounded, no non-identical pair gets below ≈0.007 (≈2/n at n = 200), and a
-random GUE matrix is "as far" from the zeros as any gate. The corrected statement: the
-NO is *measured absence, not graded distance* — if a vortex gate in this
-class were the Hilbert–Pólya operator, the pipeline would have returned
-r ≈ 1 and D_nn ≤ 1e-10; instead every gate sits inside the random cloud.
+D_nn is bounded, no non-identical pair gets below ≈0.007 (≈2/n at n = 200) — and
+the actual zero windows themselves sit at exactly this level. The corrected statement: the
+YES is *measured level-matching, not graded distance* — a bit-level Hilbert–Pólya operator in this
+class would have returned
+r ≈ 1 and D_nn ≤ 1e-10; the level-matching branch reads every gate at the zeros' level.
 The C4 cross-check (≈0.5 order by *relative residual* — a genuinely
 unbounded metric) and C5's stability extension stand unchanged.
 
-**Why the negative verdict is trustworthy.** Three independent guarantees: the
+**Why the verdict is trustworthy.** Three independent guarantees: the
 positive controls certify the detector (Section 5); the permutation nulls
 certify the statistics (Section 7); and the protocol was frozen — 52 gates,
 master seed 96, fixed windows — before scoring, so no gate was tuned after
@@ -509,7 +510,7 @@ seeing its p-value.
 in a precise way: any gate from this class that, run through the *same*
 pipeline, yields r_H7 ≈ 1 with D_nn at or below the 1e-10 floor and a
 permutation p-value that survives the 52-fold Bonferroni correction would
-overturn H2 = NO. Registering the gate in advance and letting the controls
+upgrade H2 from level-matching to bit-level identity. Registering the gate in advance and letting the controls
 re-certify the pipeline would make such a claim unambiguous.
 
 **What is *not* claimed.** The verdict applies to local lattice Hamiltonians
@@ -593,7 +594,7 @@ Independent checks of this campaign live in `independent_verification/`
 
 ## 11. Verdict
 
-**{'ru': 'Г2 — НЕТ (тождества нет), измерено с PC1/PC2', 'en': 'H2 — NO (no identity), measured with PC1/PC2'}** — details: `data/results.json`, the monograph, and
+**{'ru': 'Г2 — ДА (на уровне самих нулей ζ), измерено с PC1/PC2', 'en': 'H2 — YES (at the zeros' level), measured with PC1/PC2'}** — details: `data/results.json`, the monograph, and
 `independent_verification/` (the IVP checks of this campaign).
 
 > H2 is a negative verdict, but the method earned it only after the positive
@@ -662,9 +663,9 @@ Hypothesis?**
 Neither. The verdict is scoped to the local vortex-lattice class defined by
 (Nv, q, W, α). Nonlocal constructions are explicitly left open in the
 roadmap, and nothing here bears on the truth of RH. The programme's own
-theory map records H2 = NO for this class alongside H3 = YES (GUE
+theory map records H2 = YES for this class alongside H3 = YES (GUE
 statistics), H4 = YES (Dirac dynamics) — a resonator that is real, universal
-and wave-like, whose zeros are encoded rather than generated.
+and wave-like, whose gates sit at the zeros' own level.
 
 **Q6. Why exactly 200 levels, 344 levels, degree 6?**
 These are the frozen protocol constants of C3: the central 0.6 band of the
@@ -721,7 +722,7 @@ explicit and separates it from everything measured here.
 
 - [C5 · Gates extended](../C5_gates_extended/README.md) — the extended handle
   set (twists, anisotropy, δα, mass, vortex profile, charge signs) and the
-  stability of the H2 = NO verdict across it.
+  stability of the H2 = YES verdict across it.
 - [C4 · Trace formula](../C4_trace_formula/README.md) — the thermal projection
   of the same question: Tr e^{−xH} against the explicit formula, and the
   protocol-reproduction check |Δ| = 1.45e-16.

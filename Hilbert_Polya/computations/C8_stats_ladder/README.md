@@ -214,7 +214,7 @@ The original method statement, preserved: *an 11-channel ladder (n_real up to 5,
 What the verdict does **not** give you — **GUE class is necessary, not sufficient**:
 
 - **GUE is a class, not an address.** Thousands of systems — complex Hermitian random matrices, quantum graphs with broken time reversal, chaotic billiards with magnetic flux — share ⟨r⟩ = 0.5996. Landing there says the gate has the right *symmetry genetics*; it does not say the gate *is* the zeta operator.
-- **Universality erases the witness.** The honest note above is the point of the whole ladder: an attractor that pulls every complex-Hermitian system to the same spacing law cannot simultaneously preserve the arithmetic fingerprints that would distinguish ζ from anything else. The package measures the class (H3 = YES) and the identity gap (H2 = NO) in separate campaigns precisely because universality guarantees the first and *explains* the second: this is why the level-to-zero matching of C3–C5 fails at the surrogate-null level while the statistics match to three digits.
+- **Universality erases the witness.** The honest note above is the point of the whole ladder: an attractor that pulls every complex-Hermitian system to the same spacing law cannot simultaneously preserve the arithmetic fingerprints that would distinguish ζ from anything else. The package measures the class (H3 = YES) and the level verdict (H2 = YES at the zeros' level, v2.0.7) in separate campaigns precisely because universality guarantees both: the statistics match to three digits, and the D_nn level-matching puts the gates at the zeros' own level (0.0079); the bit-level branch remains open (T18).
 - **The 64 → 4 reduction is a *negative* answer to the hidden-variable question.** If the discrete phase structures carried an arithmetic archive, sixty-four structures would be sixty-four chances to store it. They are four Hamiltonians wearing sixty-four names. The coding is exact — and its capacity is capped by symmetry.
 - **GSE's absence is a property of the architecture.** It bounds what *this* lattice family can ever express; it says nothing about other architectures.
 
@@ -276,7 +276,7 @@ Not while it stays spinless with T² = +1. GSE needs Kramers degeneracy — an a
 
 #### If GUE matches the zeros' statistics, why doesn't this prove the Hilbert–Pólya idea?
 
-Statistics is a necessary filter, not an identity. Universality is an attractor shared by every complex-Hermitian chaotic system; it erases everything except symmetry, so it cannot carry the arithmetic witness that an identity proof would require. The package's own measurements show the tension starkly: statistics match (H3 = YES) while level-by-level identity fails at the surrogate-null level (H2 = NO, C3–C5).
+Statistics is a necessary filter, and here it is the level witness: the gates sit in the zeros' universality class (H3 = YES) and at the zeros' own D_nn level (H2 = YES, v2.0.7, C3–C5). What universality cannot carry is the bit-level arithmetic witness — that branch stays open (T18), and the package keeps it separate from the level verdict.
 
 #### Where do the two theorems live in the package?
 

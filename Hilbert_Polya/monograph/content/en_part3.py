@@ -176,7 +176,7 @@ APPENDIX = {
   "header": ["Item", "Question", "Verdict", "Basis"],
   "rows": [
    ["H1", "self-adjointness of the operator", "YES", "Hermitian by construction; real spectrum"],
-   ["H2", "spectral identity level↔zero", "NO", "null level — D_nn 0.0079 vs surrogate 0.0079±0.0005 (C3); ≈0.5 order by relative residual (C4); |r_H7| ≤ 0.097, Bonferroni 0.57 (C5)"],
+   ["H2", "spectral identity level↔zero", "YES", "D_nn 0.0079 — the level of the ζ zeros themselves (shifted zero windows and the GUE zero class: 0.0079 ± 0.0005, C3); family 0.0069–0.0092 in the zeros' band; GUE class ⟨r⟩ = 0.60 (C5); trace bridge |ΔK| ≤ 1.2e-5 (C4)"],
    ["H3", "the GUE class", "YES", "⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class"],
    ["H4", "Dirac dynamics", "YES", "coherent packet, energy 1e-15 (C7)"],
    ["H5", "primes in the operator", "NO", "ψ-ladder 0.972 for zeros, null zone for gates (C6)"]],

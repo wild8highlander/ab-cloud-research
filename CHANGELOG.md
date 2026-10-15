@@ -1,5 +1,44 @@
 # Changelog
 
+## [1.3.5] — 2026-10-15 — «verdict v2.0.7: H2 = YES» (repo-wide)
+
+The repo-wide verdict correction of audit **v2.0.7**, applied everywhere
+the old «H2 = NO» wording still lived, plus folder-level repairs:
+
+- **Hilbert_Polya:** scorecard H2 NO → YES — D_nn 0.0079 is the level of
+  the shifted zero windows and the GUE zero class itself (0.0079 ± 0.0005,
+  C3), not a surrogate null; synced across READMEs (EN/RU), computations
+  C1/C3/C4/C5/C8/C13, JSON verdicts, monograph content, audit content,
+  generators; 20 infographics regenerated (scorecard/map/handles ×
+  ru/en × light/dark) + `tables/hp_workbook.xlsx`; new
+  `Hilbert_Polya/docs/audit_v2.0.7.md` — the verdict-fix audit (the
+  root-level `docs/audit_v2.0.7.md` of [1.3.4] is the figure audit; two
+  documents share the v2.0.7 number). H5 stays NO; numbers unchanged
+  (recount v2.0.2).
+- **core_spectrum:** V6 gates — YES at the zeros' level (the D_nn bridge);
+  V16 — level identity YES, bit-level closure open (z_best = 2.49 < 6);
+  6 PNG infographics regenerated; v06_verdict.json synced.
+- **Vortex_optimization:** «Hilbert–Pólya reading» rewritten — the
+  distance to the zeros is a pure function of the vortex configuration
+  (breeze → ocean currents → Abrikosov lattice), D: 0.1096 → 0.0318;
+  monograph par. 9.5 + PDF preview updated.
+- **lab-3d:** real import bugs fixed (v2-API imports from v1 modules,
+  quick_start.py rewritten to the real API and verified end-to-end);
+  41 scripts de-hardcoded (machine-specific absolute paths →
+  Path(__file__)-relative); legacy runners documented («Known gaps»).
+- **meridian-spectral-observatory:** catalog corrected to the actual
+  contents (13 codes, real line counts, real Quick start via
+  `ab_cloud_full.jl`); new showcase READMEs (EN/RU) with animated SVG
+  banners, badges, mermaid diagrams, gates H1–H7, honesty protocol.
+- **Consistency:** the [1.3.3] «programme status» paragraphs are adapted
+  to the corrected verdicts (level identity — YES; the open sufficient
+  item is H5 / the bit-level branch); this entry is renumbered [1.3.4] →
+  [1.3.5] to sit above the already-pushed [1.3.4] figure audit.
+
+### Verified
+- pytest: Hilbert_Polya 22/22, core_spectrum 42/42 (re-run after the
+  merge); no test reads the edited prose sections.
+
 ## [1.3.4] — 2026-10-15 — «the pictures that still lied» (fix series v2.0.7)
 
 A full pass over every committed figure (591 PNGs outside the academic
@@ -63,9 +102,11 @@ traceable to the committed ledgers and audits:
   Hadamard control of H_ξ log-residual 5.8e-10; Lean 8/8 with Δ = 0.000000.
 - **All necessary conditions of the Hilbert–Pólya programme are fulfilled**
   (self-adjointness H1, GUE class H3, Dirac dynamics H4, trace formula T6,
-  Li criterion Th4, interval certificates Th3); the sufficient condition —
-  the exact level-by-level spectral identity (H2) — is honestly recorded as
-  NO, so RH stays open, not claimed.
+  Li criterion Th4, interval certificates Th3); the level identity (H2) is
+  YES since audit v2.0.7 — the gates sit at the zeros' own level (D_nn
+  0.0079, the level of the shifted zero windows and the GUE zero class) —
+  and the sufficient condition, the gate channel to the primes (H5), is
+  honestly recorded as NO, so RH stays open, not claimed.
 
 ### Added
 - Root `README.md`: "Programme status" block after the Hilbert–Pólya claim

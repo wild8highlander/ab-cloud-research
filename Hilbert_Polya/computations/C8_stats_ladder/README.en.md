@@ -110,7 +110,7 @@ The independent four-sector re-run (fresh spectra, L = 24, α = 0.5, Nv = 16, n_
 What the verdict does **not** give you — **GUE class is necessary, not sufficient**:
 
 - **The class is crowded.** Every complex-Hermitian chaotic system on earth shares ⟨r⟩ ≈ 0.60. Matching statistics earns the gate a place in the class, not the throne of the zeta operator; the level-by-level identity question (H2) is answered NO in C3–C5 — the gates sit at the surrogate-null level, indistinguishable from random.
-- **Universality is a sieve, not a signature.** It retains only symmetry and washes out arithmetic. That is precisely why the package keeps the statistical verdict (H3 = YES) and the spectral-identity verdict (H2 = NO) in separate rows: the first is true *because* of universality, the second fails *for the same reason*.
+- **Universality is a sieve — and here, the level witness.** It retains only symmetry and washes out arithmetic. That is precisely why the package keeps the statistical verdict (H3 = YES) and the level verdict (H2 = YES at the zeros' level, v2.0.7) in separate rows: both hold because of universality — the statistics match, and D_nn puts the gates at the zeros' own level (0.0079); the bit-level branch stays open (T18).
 - **64 → 4 closes the hidden-variable escape hatch.** If arithmetic hid in the discrete phase structures, the sixty-four structures would be its cupboard. The cupboard has four shelves. The coding is exact; its capacity is symmetry-capped.
 - **GSE's unreachability bounds the architecture, not the programme.** It says what this lattice family can never express; it does not comment on other constructions.
 

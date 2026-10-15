@@ -7,10 +7,18 @@ Executes 60+ verification tasks (V1-V96) with parameter sweeps, generates
 PNG plots for each, and produces a final JSON report.
 
 Usage:
-    cd /home/z/my-project/download/ab_cloud_monumental
+    cd /home/z/repo-fix/lab-3d/code/
     python -m python.run_monumental            # full run
     python -m python.run_monumental --quick    # quick smoke test
 """
+# NOTE (portability fix, 2026-10-15): this runner was authored against a
+# private `python/` package layout whose modules `ab_cloud_sigma`,
+# `ab_cloud_dirac`, `ab_cloud_plots` (and the v2 API of `ab_cloud_zeta`)
+# were NOT committed to the repository. The package prefix was corrected
+# to `code.*` (this directory). Importing this module will fail until the
+# missing modules are committed; the core library (80+ modules) imports
+# cleanly -- see code/README.md, "Known gaps".
+
 import argparse
 import json
 import sys
@@ -25,31 +33,31 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
-from python.ab_cloud_hamiltonian import (
+from code.ab_cloud_hamiltonian_v2 import (
     build_ab_cloud_hamiltonian, build_pure_hofstadter,
     build_hofstadter_with_disorder, central_gap, band_energies,
     default_vortex_config,
     fast_central_eigs, fast_central_eigsys,
 )
-from python.ab_cloud_stats import (
+from code.ab_cloud_stats_v2 import (
     spacing_ratios, mean_spacing_ratio, polynomial_unfold,
     number_variance, spectral_form_factor, f_GUE_score,
     R_GUE, R_POISSON, R_GOE,
     p_GUE, p_GOE, p_Poisson, R2_GUE, R2_Montgomery, R2_Poisson,
     empirical_R2, spacing_distribution, chirality_index,
 )
-from python.ab_cloud_zeta import (
+from code.ab_cloud_zeta import (
     compute_zeta_zeros, riemann_von_mangoldt_N, unfold_zeta_zeros,
     pair_correlation_zeta, bogomolny_keating_sigma, zeta_form_factor,
 )
-from python.ab_cloud_spinor import spinor_classification
-from python.ab_cloud_sigma import sigma_bk_bootstrap, compare_with_old_C
-from python.ab_cloud_sweeps import (
+from code.ab_cloud_spinor import spinor_classification
+from code.ab_cloud_sigma import sigma_bk_bootstrap, compare_with_old_C
+from code.ab_cloud_sweeps import (
     sweep_alpha, sweep_W, sweep_L, sweep_sigma,
     sweep_alpha_W_2d, sweep_L_sigma_2d, sweep_alpha_L_2d,
     DEFAULT_ALPHA_GRID, DEFAULT_W_GRID, DEFAULT_L_GRID, DEFAULT_SIGMA_GRID,
 )
-from python.ab_cloud_advanced import (
+from code.ab_cloud_advanced import (
     rg_block_spin, lyapunov_exponent, lyapunov_sweep_W,
     multifractal_spectrum, multifractal_Dq_sweep_alpha,
     topological_entanglement_entropy,
@@ -60,7 +68,7 @@ from python.ab_cloud_advanced import (
     gue_transition_scaling, hofstadter_butterfly_with_vortices,
     entanglement_spectrum_level_stats, entanglement_spectrum_alpha_sweep,
 )
-from python.ab_cloud_plots import (
+from code.ab_cloud_plots import (
     plot_sweep_alpha, plot_sweep_W, plot_sweep_L, plot_sweep_sigma,
     plot_sweep_alpha_W_2d, plot_sweep_L_sigma_2d, plot_sweep_alpha_L_2d,
     plot_rg_flow, plot_lyapunov_sweep_W,
@@ -954,7 +962,7 @@ def v65():
     L_vals = np.linspace(0.5, 8, 12)
     Sig = number_variance(xi, L_vals)
     # GUE prediction
-    from python.ab_cloud_stats import Sigma2_GUE, Sigma2_Poisson
+    from code.ab_cloud_stats_v2 import Sigma2_GUE, Sigma2_Poisson
     return {"L_vals": L_vals.tolist(),
             "Sigma2_empirical": Sig.tolist(),
             "Sigma2_GUE": Sigma2_GUE(L_vals).tolist(),
@@ -965,7 +973,7 @@ register("V65", "Sigma^2 comparison", v65, desc="GUE vs Poisson vs empirical")
 
 def v66():
     """Local <r> across spectrum (energy-resolved)."""
-    from python.ab_cloud_stats import local_mean_r
+    from code.ab_cloud_stats_v2 import local_mean_r
     H = build_ab_cloud_hamiltonian(L=42, alpha=0.5, W=2.0, sigma=0.5, seed=0)
     eigs = np.linalg.eigvalsh(H)
     local_r = local_mean_r(eigs, window=30)

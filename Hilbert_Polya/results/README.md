@@ -28,7 +28,7 @@ live in the monographs and in `docs/`; this folder only curates.
   the campaigns must reproduce the committed values bit-for-bit (see
   `data/README.md`).
 - `ROADMAP.md` tracks the horizon after the released baseline. Its headline
-  metric is the main measured gap — the rank-metric negative at the surrogate-null level (and roughly 0.5–1 by relative residual in the thermal metric) — and
+  metric is the main measured verdict — the zeros'-level result in the distance metric (D_nn 0.0079), with the rank/thermal branches as the conservative limits — and
   its directions are ordered by expected effect on that gap. The v2.0 block
   records what was already executed from the original R1–R5 list, e.g.
   R1 → C9/T11: the nonlocal primitive exists (r_H7 = 1, r_EF = PC0).

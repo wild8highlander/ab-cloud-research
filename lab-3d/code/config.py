@@ -14,6 +14,7 @@ Usage:
 """
 from __future__ import annotations
 
+import os
 import json
 from dataclasses import dataclass, field, asdict
 from pathlib import Path
@@ -116,7 +117,7 @@ class Config:
     ])
 
     # ===== Paths =====
-    output_dir: str = "/home/z/my-project/download/verification_suite"
+    output_dir: str = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "outputs", "verification_suite")
     figures_dir: str = "figures"
     reports_dir: str = "reports"
     results_dir: str = "results"
@@ -238,11 +239,11 @@ def get_preset(name: str) -> Config:
 if __name__ == "__main__":
     cfg = Config.default()
     print(cfg.summary())
-    cfg.save_json("/home/z/my-project/download/verification_suite/config/default.json")
+    cfg.save_json("../outputs/verification_suite/config/default.json")
     print("\nSaved to config/default.json")
 
     # Also save presets
     for name in PRESETS:
         preset_cfg = get_preset(name)
-        preset_cfg.save_json(f"/home/z/my-project/download/verification_suite/config/preset_{name}.json")
+        preset_cfg.save_json(f"../outputs/verification_suite/config/preset_{name}.json")
         print(f"Saved preset_{name}.json")

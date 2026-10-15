@@ -20,13 +20,13 @@ from dataclasses import dataclass
 from typing import List, Dict, Optional, Tuple
 import time
 
-from .ab_cloud_hamiltonian import (
+from .ab_cloud_hamiltonian_v2 import (
     build_ab_cloud_hamiltonian,
     build_pure_hofstadter,
     build_hofstadter_with_disorder,
     default_vortex_config,
 )
-from .ab_cloud_stats import (
+from .ab_cloud_stats_v2 import (
     spacing_ratios,
     polynomial_unfold,
     R_GUE,
@@ -656,8 +656,8 @@ def gue_transition_scaling(L_grid: List[int], alpha: float = 0.5, W: float = 2.0
     using the central 30% of eigenvalues. Returns the convergence trajectory
     and an extrapolated L->infinity value via 1/L fit.
     """
-    from .ab_cloud_hamiltonian import fast_central_eigs
-    from .ab_cloud_stats import spacing_ratios, R_GUE
+    from .ab_cloud_hamiltonian_v2 import fast_central_eigs
+    from .ab_cloud_stats_v2 import spacing_ratios, R_GUE
     r_means = []
     r_sems = []
     for L in L_grid:
@@ -774,7 +774,7 @@ def entanglement_spectrum_level_stats(L: int = 28, alpha: float = 0.5,
     Monograph prediction: <r> -> R_GUE for entanglement spectrum at alpha=1/2
     (topological phase inherited from CFT).
     """
-    from .ab_cloud_stats import spacing_ratios, R_GUE, R_POISSON
+    from .ab_cloud_stats_v2 import spacing_ratios, R_GUE, R_POISSON
     H = build_ab_cloud_hamiltonian(L, alpha, W=W, sigma=sigma, seed=seed)
     eigs, vecs = np.linalg.eigh(H)
     e_centered = eigs - np.mean(eigs)

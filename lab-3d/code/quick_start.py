@@ -12,14 +12,17 @@ Shows how to:
 import sys
 from pathlib import Path
 
-# Make package importable
+# Make the lab-3d package importable (code/ is the package; its modules
+# use relative imports, so they must be imported as code.<module>)
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from python.ab_cloud_hamiltonian import build_ab_cloud_hamiltonian, default_vortex_config
-from python.ab_cloud_stats import spacing_ratios, mean_spacing_ratio, R_GUE
-from python.ab_cloud_sweeps import sweep_alpha, DEFAULT_ALPHA_GRID
-from python.ab_cloud_plots import plot_sweep_alpha
+from code.ab_cloud_hamiltonian_v2 import build_ab_cloud_hamiltonian, default_vortex_config
+from code.ab_cloud_stats_v2 import spacing_ratios, mean_spacing_ratio, R_GUE
+from code.ab_cloud_sweeps_v2 import sweep_alpha, DEFAULT_ALPHA_GRID
 import numpy as np
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 
 
 def main():
@@ -60,13 +63,27 @@ def main():
     for a, r in zip(res.param_values[0], res.statistics["r_mean"]):
         print(f"     alpha={a:.4f}  <r>={r:.4f}")
 
-    # 4. Generate plot
+    # 4. Generate plot (inline matplotlib; figures land in code/figs/)
     print("\n4. Generating plot...")
-    plot_path = plot_sweep_alpha(res, name="quick_start_sweep_alpha")
+    outdir = Path(__file__).resolve().parent / "figs"
+    outdir.mkdir(exist_ok=True)
+    fig, ax = plt.subplots(figsize=(7.0, 4.2))
+    ax.errorbar(res.param_values[0], res.statistics["r_mean"],
+                yerr=res.std_errors.get("r_mean"), fmt="o-", capsize=3,
+                color="#0E7C86", label="AB-Cloud $\\langle r\\rangle$")
+    ax.axhline(R_GUE, color="k", ls="--", lw=1.0, label="GUE 0.5996")
+    ax.set_xlabel(r"$\alpha$ (flux per plaquette)")
+    ax.set_ylabel(r"$\langle r \rangle$")
+    ax.set_title("AB-Cloud quick start: alpha sweep")
+    ax.legend()
+    fig.tight_layout()
+    plot_path = outdir / "quick_start_sweep_alpha.png"
+    fig.savefig(plot_path, dpi=150)
+    plt.close(fig)
     print(f"   Saved: {plot_path}")
 
     print("\n" + "=" * 60)
-    print("Done! See results/plots/ for the generated figure.")
+    print("Done! See code/figs/ for the generated figure.")
     print("=" * 60)
 
 

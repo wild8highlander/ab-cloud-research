@@ -1,8 +1,8 @@
 """Quick re-run of E6, E9, E10, E12 to save numerical summary data."""
-import sys, os, json, time
-sys.path.insert(0, "/home/z/my-project/scripts")
-import numpy as np
 from pathlib import Path
+import sys, os, json, time
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import numpy as np
 
 from kdv_core import (
     THETA_B, make_grid, dealias_mask, single_soliton, two_solitons,

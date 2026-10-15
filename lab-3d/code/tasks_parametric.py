@@ -6,16 +6,17 @@ of the monograph's claims across a range of parameters.
 """
 from __future__ import annotations
 
+import os
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-from config import Config
-from verifier_core import register_task, make_result, TaskResult
+from code.config import Config
+from code.verifier_core import register_task, make_result, TaskResult
 import sys
-sys.path.insert(0, "/home/z/my-project/scripts")
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from kdv_core import (
     make_grid, dealias_mask, single_soliton, invariants, integrate,
     B_UNIVERSAL, THETA_B,

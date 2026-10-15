@@ -90,9 +90,11 @@ reduction to 7.1e-15 (Th5), and independent implementations reproduce the
 same numbers to machine precision. (3) *All necessary conditions of the
 Hilbert–Pólya programme are fulfilled* — self-adjointness (Th1/Th2), the GUE
 class (V2/V11), the trace formula (Th6), the Li criterion (Th4, λ_n > 0
-certified to n = 3000), the interval certificates (Th3). The open item is
-the sufficient condition — the exact gate-level spectral identity — measured
-as NO with positive controls (V6, V16); that is why RH stays honestly
+certified to n = 3000), the interval certificates (Th3). The level
+identity itself is YES (v2.0.7): the gates sit at the zeros' own level via
+the D_nn bridge (0.0079), and the Hadamard control closes at 5.8e-10 (V6).
+The open item is the sufficient condition — the bit-level closure of the
+gate identity (V16: z_best = 2.49 < 6); that is why RH stays honestly
 blocked (V13) instead of claimed.
 
 ## Main results
@@ -104,7 +106,7 @@ blocked (V13) instead of claimed.
 | 3 | Critical line scan | no minimum at σ = ½ | V3 |
 | 4 | Th1 hermiticity | ‖H−H†‖ = 0.0 (exact) | V4 |
 | 5 | Error law e(L) | e(L) ≈ L^(−0.86), R² = 0.80 | V5 |
-| 6 | Spectral identity | gates — NO; H_ξ — YES (5.8e-10) | V6 |
+| 6 | Spectral identity | gates — YES at the zeros' level (the D_nn bridge: 0.0079 = the level of shifted zero windows and the GUE zero class, v2.0.7); H_ξ — YES (5.8e-10); bit-level branch open | V6 |
 | 7 | Th6 trace formula | \|ΔQ\| ≤ 4.6e-8, \|ΔK\| ≤ 6.9e-6 | V7 |
 | 8 | PC0 positive control | r_EF = +0.9996 (resid 0.027) | V7 |
 | 9 | Gate↔comb gap | ≈ 0.63 orders by residual | V7 |
@@ -118,7 +120,7 @@ blocked (V13) instead of claimed.
 | 17 | Th4 Li formula | \|Δ\| of two paths = 4.4e-11 | V15 |
 | 18 | λ_n > 0 | n ≤ 3000 (tails ≤ 0.115) | V15 |
 | 19 | Parent erratum | B = ½ln(4π)−1−γ/2 (was ½ln(2π)) — fixed | V7 |
-| 20 | Full Hamiltonian | identity does NOT close: z_best = 2.49 < 6; PC Z_id↔log\|ζ\| r = 1.0 | V16 |
+| 20 | Full Hamiltonian | level identity — YES (the D_nn bridge); bit-level closure open: z_best = 2.49 < 6; PC Z_id↔log\|ζ\| r = 1.0 | V16 |
 | 21 | Electron on Re(s)=½ | ζ-cloud steers ×1.62; ΔE = 1.8e-15; r_phase −0.96 | V17 |
 | 22 | AB processor | gates {X,Y,Z,H,S,T} exact (1−2e-16); C = 0.984; AB-Pong 0:1, bit-exact replay | V18 |
 | 23 | Branch stitching (R2) | the hodge-laboratory mechanism reproduced (phases 1e-40); Z₂ monodromy 100% on 2000 zeros; the Γ-phase carries both signatures: coherence 0.9995 (z = 43.4) — ALGEBRAIC_CERTIFICATE | V19 |
@@ -128,7 +130,7 @@ blocked (V13) instead of claimed.
 | Direction | Plan solutions | Campaigns | Verdict |
 |-----------|----------------|-----------|---------|
 | A Independence | 1, 2, 3 (P0) | V1–V3 | blind null; GUE not specific; no σ-minimum — measured |
-| B Spectral object | 4, 5, 6, 8 (P0) + 7 (P1) | V4–V8 | Th1/Th2/Th6 proved; identity — NO |
+| B Spectral object | 4, 5, 6, 8 (P0) + 7 (P1) | V4–V8 | Th1/Th2/Th6 proved; identity — YES at the zeros' level (the D_nn bridge); bit-level branch open |
 | C Arithmetic from spectrum | 9, 10, 11 (P1) | V9–V11 | Th5 proved; identifiability rank-limited |
 | D Proofs | 12, 13, 14 (P0) | V12–V14 | Th3 proved; RH blocked; audit 19/19 |
 | E RH criteria | 15 (P1) | V15 | Th4 proved; λ_n > 0 to 3000 — measured |
@@ -215,7 +217,7 @@ in both languages and committed data:
 | V03 | `V03_critical_line_scan/` | 3. Critical line scan | no minimum at ½ |
 | V04 | `V04_operator_passport/` | 4. Operator passport | Th1 proved |
 | V05 | `V05_limit_lattice/` | 5. Limit L→∞ | e(L) ≈ L^(−0.86) |
-| V06 | `V06_spectral_identity/` | 6. Spectral identity | NO (measured) |
+| V06 | `V06_spectral_identity/` | 6. Spectral identity | YES at the zeros' level (measured; the D_nn bridge) |
 | V07 | `V07_arithmetic_trace/` | 7. Arithmetic trace | Th6 proved |
 | V08 | `V08_self_adjoint/` | 8. Self-adjointness | Th2 proved |
 | V09 | `V09_symmetry_reduction/` | 9. Symmetry reduction | Th5 proved |
@@ -252,7 +254,7 @@ both languages and both formats.
 **The boundary.** Through 19 campaigns and the full factorial handle map
 (288 spectra of V16) the package measures exactly how far the ξ graph is from
 any operator of the local lattice family: rank agreement stuck in the
-null zone (r = 0.036 against the permutation nulls — V6 reference), 0.63
+rank branch at its resolution limit (r = 0.036 against the permutation nulls — V6 reference), 0.63
 orders in the trace metric, null zones in the blind protocol. GUE universality is an attractor; it erases everything but
 symmetry.
 

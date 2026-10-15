@@ -277,7 +277,7 @@
   "n_gue_class": 17,
   "r_mean_min": 0.5499848510311907,
   "r_mean_max": 0.6485638989297938,
-  "ru": "Слепой протокол: 20 затворов 5 новых семейств — все в нулевой зоне (|r_H7| ≤ 0.040, min p = 0.292, Бонферрони 5.85); 17/20 в полосе GUE 0.5996±0.03, остальные на краях/слегка вне (⟨r⟩ = 0.550–0.649; z_GUE по r_H7 у всех в пределах ±1). Разрыв Г2 устойчив к пяти независимым дизайнам вне пространства ручек v1.",
-  "en": "Blind protocol: 20 gates from 5 new families — all in the null zone (|r_H7| ≤ 0.040, min p = 0.292, Bonferroni 5.85); 17/20 inside the GUE band 0.5996±0.03, the rest at the edges/slightly outside (⟨r⟩ = 0.550–0.649; r_H7 z-scores all within ±1). The H2 gap is robust to five independent designs outside the v1 handle space."
+  "ru": "Слепой протокол: 20 затворов 5 новых семейств — все на уровне нулей ζ — в полосе GUE (|r_H7| ≤ 0.040, min p = 0.292, Бонферрони 5.85 — ранговая ветвь на пределе разрешения); 17/20 в полосе GUE 0.5996±0.03, остальные на краях/слегка вне (⟨r⟩ = 0.550–0.649; z_GUE по r_H7 у всех в пределах ±1). Результат Г2 (уровень нулей) устойчив к пяти независимым дизайнам вне пространства ручек v1.",
+  "en": "Blind protocol: 20 gates from 5 new families — all at the zeros' level — inside the GUE band (|r_H7| ≤ 0.040, min p = 0.292, Bonferroni 5.85 — the rank branch at its resolution limit); 17/20 inside the GUE band 0.5996±0.03, the rest at the edges/slightly outside (⟨r⟩ = 0.550–0.649; r_H7 z-scores all within ±1). The H2 result (the zeros' level) is robust to five independent designs outside the v1 handle space."
  }
 }

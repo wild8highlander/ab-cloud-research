@@ -1,12 +1,12 @@
 """Run only E15 (universality) and generate final summary figures."""
+from pathlib import Path
 import sys, os, time, json
-sys.path.insert(0, "/home/z/my-project/scripts")
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from scipy.fft import fft, ifft
-from pathlib import Path
 
 from kdv_core import (
     THETA_B, make_grid, dealias_mask, single_soliton,
@@ -16,7 +16,7 @@ import monograph_constants as mc
 from run_experiments import FIG_DIR, save_fig, PALETTE, RESULTS
 
 # Load existing results
-results_path = Path("/home/z/my-project/download/results.json")
+results_path = Path("../outputs/results.json")
 if results_path.exists():
     RESULTS.update(json.loads(results_path.read_text()))
 

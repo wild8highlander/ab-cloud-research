@@ -8,6 +8,14 @@ Each batch is saved to results/data/batches/batch_NN.json. After all batches
 complete, the batches are merged into verification_report.json and
 verification_summary.md.
 """
+# NOTE (portability fix, 2026-10-15): this runner was authored against a
+# private `python/` package layout whose modules `ab_cloud_sigma`,
+# `ab_cloud_dirac`, `ab_cloud_plots` (and the v2 API of `ab_cloud_zeta`)
+# were NOT committed to the repository. The package prefix was corrected
+# to `code.*` (this directory). Importing this module will fail until the
+# missing modules are committed; the core library (80+ modules) imports
+# cleanly -- see code/README.md, "Known gaps".
+
 import json
 import sys
 import time
@@ -17,7 +25,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
-from python.run_monumental import VERIFICATIONS, _to_jsonable, _safe
+from code.run_monumental import VERIFICATIONS, _to_jsonable, _safe
 
 REPORT_DIR = HERE.parent / "results" / "data"
 BATCH_DIR = REPORT_DIR / "batches"

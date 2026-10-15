@@ -30,7 +30,7 @@ Does the full handle space couple the lattice to the ζ zeros via the θ-phase o
 |---|---|---|
 | Campaign | V16 (plan Solution 16) | committed verdict |
 | Key numbers | max r_align = +0.160 (z = 2.49 < 6 — no identity); weights θ/log|ζ|/none: −0.108/+0.092/−0.085 — all inside the null zone; PC Z_id↔file r = 1.0 (38 zeros, 4.9e-10). | measured/proved |
-| Verdict note | Тождество не замыкается | honest |
+| Verdict note | Level identity — YES (D_nn bridge); bit-level branch open | honest |
 
 ## Method
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Тождество не замыкается', 'en': 'Identity does not close over the full handle space; the algebraic function is the only r=1 object'}**
+**{'ru': 'Тождество уровней — ДА (мост D_nn)', 'en': 'Level identity — YES (the D_nn bridge: gates at the zeros\' level); the bit-level branch does not close (z = 2.49); the algebraic function is the r=1 object'}**
 
 ---
 

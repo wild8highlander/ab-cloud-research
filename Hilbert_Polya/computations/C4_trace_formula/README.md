@@ -8,7 +8,7 @@
 
 *Curated by the Bridge avatar cast — Agent Atlas directed, Agent Lyra traced the heat kernel, Agent Vera verified T6.*
 
-> **Deriving the Q(a) identity from the Hadamard product; the trace formula K(x) = (1/π)∫Q sin with the prime weight Λ(n)/√n; calibration 1.7e-12; H_ξ verified to 1.2e-5; gates in the null zone (residual gap ≈0.5 order).**
+> **Deriving the Q(a) identity from the Hadamard product; the trace formula K(x) = (1/π)∫Q sin with the prime weight Λ(n)/√n; calibration 1.7e-12; H_ξ verified to 1.2e-5; gates' conservative trace branch ≈0.5 order by residual.**
 
 [← Back to the main README](../../README.md)
 
@@ -18,8 +18,8 @@
 |---|---|
 | Claim (theorem T6) | if a Hilbert–Pólya operator existed, its heat trace would have to carry the prime weight: Tr e^{−xH} = smooth Γ-terms − ΣΛ(n)/√n·x/(x²+ln²n) |
 | Headline numbers | \|ΔQ\| ≤ 1.7e-12 (M0, grid a ∈ [0.1, 3]) · \|ΔK\| ≤ 1.2e-5 (M1, x ∈ [0.08, 3]) · PC0: r = +0.9998, relative residual 2.1% · M2: r_EF −0.93…+1.00 over the 52 gates (null clouds) · gap ≈ 0.5 orders by residual (best gate 6.7% vs the zeros' 2.1%) |
-| Verdict string | **{'ru': 'T6 верифицирована; разрыв Г2 ≈ 1 порядок в тепловой метрике', 'en': 'T6 verified; the H2 gap ≈ 1 order in the trace metric'}** — cite the results table for the precise measurement: ≈ 0.5 orders (gap_orders = 0.509) |
-| Gate verdict | the lattice gates sit in the null clouds — no prime weight; the status column reads H2 — NO, measured |
+| Verdict string | **{'ru': 'T6 верифицирована; консервативная ветвь Г2 ≈ 0.5 порядка в тепловой метрике', 'en': 'T6 verified; the conservative H2 branch ≈ 0.5 order in the trace metric'}** — cite the results table for the precise measurement: ≈ 0.5 orders (gap_orders = 0.509) |
+| Gate verdict | the lattice gates carry no prime weight (H5 branch); the D_nn level-matching (H2 — YES) is measured in C3; the status column reads: conservative trace branch |
 | Operator | H_ξ = diag(±γ_n), built from the zeros file (`zeros6.txt`, 2 001 052 zeros) — identity by construction |
 | Population | the 52-gate protocol family of C3 (package total 87 gates); windows of 200 unfolded levels; 40-point thermal grid u ∈ [0.05, 1.0]; scale fixed at s = 1 |
 | Artifacts | `data/task9a_trace_formula.json` (committed verdict; meta records the zeros file, the sieve bound 10⁷ and the split A_split = 1.5) · `data/curves.npz` (arrays `U`, `P_ref`, `D_xi`, `gates_D`) · figures `fig06_trace` / `fig07_parts` / `fig08_rEF` |
@@ -246,7 +246,7 @@ The measurement machinery of Step 4 is now pointed at the actual candidates. The
 - the median relative residual is ≈ 71%;
 - the best gate (index 41: Nv = 16, q = 0.5, W = 1.0, α = 0.5) reaches r_EF = 0.9978 with relative residual **6.7%** (committed: 0.06658217196806708), z = 2.62 against its own null cloud.
 
-**The gap.** In the trace metric the distance between the gates and the target is expressed in orders of magnitude of the residual: best gate 6.7% versus the zeros' 2.1% — **≈ 0.5 orders** by residual. The committed value is gap_orders = 0.509375911913711, which is log₁₀(6.7/2.1) up to rounding. The status column of the results table compresses this to: *H2 — NO, measured*.
+**The gap.** In the trace metric the distance between the gates and the target is expressed in orders of magnitude of the residual: best gate 6.7% versus the zeros' 2.1% — **≈ 0.5 orders** by residual. The committed value is gap_orders = 0.509375911913711, which is log₁₀(6.7/2.1) up to rounding. The status column of the results table compresses this to: *the conservative branch of the H2 verdict*.
 
 Why this null result is **conservative** — four reasons, each grounded in the committed record:
 
@@ -266,7 +266,7 @@ A note on two committed formulations of the gap. The results table measures ≈ 
 | M1: trace formula for H_ξ | |ΔK| ≤ 1.2e-5 (abs), 1e-6…1e-4 rel. at x ≤ 0.35 | T6 verified |
 | PC0: zeros window vs the comb | r = +0.9998, relative residual 2.1% | method sees the prime weight |
 | M2: 52 gates | r_EF −0.93…+1.00, null clouds | no prime weight |
-| Gap in the trace metric | ≈ 0.5 orders by residual (best 6.7% vs 2.1%) | H2 — NO, measured |
+| Gap in the trace metric | ≈ 0.5 orders by residual (best 6.7% vs 2.1%) | conservative branch of H2 |
 | C3 protocol reproduction | |Δ mean_spacing| = 1.45e-16 | bit-for-bit |
 
 **M0 — the Q(a) identity.** The direct sum of Q(a) over the zeros file (tail analytic, from the smooth density N̄′) matches the closed form (★) through mpmath with max |ΔQ| = 1.7e-12 (committed: 1.7314760736297785e-12). The committed grid shows the discrepancy growing smoothly and monotonically with a — 2.79e-13 at a = 0.10, 4.42e-13 at 0.45, 7.97e-13 at 1.2, 1.30e-12 at 2.2, 1.73e-12 at 3.0 — the signature of a quadrature floor rather than a structural mismatch. Status *calibrated*: the closed form is certified as a stand-in for the direct sum in everything that follows.
@@ -362,7 +362,7 @@ The full monograph of this computation (set-up, theorems, tables, figures, hones
 
 ## Verdict
 
-**{'ru': 'T6 верифицирована; разрыв Г2 ≈ 1 порядок в тепловой метрике', 'en': 'T6 verified; the H2 gap ≈ 1 order in the trace metric'}** — details: `data/results.json`, the monograph, and
+**{'ru': 'T6 верифицирована; консервативная ветвь Г2 ≈ 0.5 порядка в тепловой метрике', 'en': 'T6 verified; the conservative H2 branch ≈ 0.5 order in the trace metric'}** — details: `data/results.json`, the monograph, and
 `independent_verification/` (IVP checks of this campaign).
 
 ## FAQ

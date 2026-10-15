@@ -23,8 +23,8 @@ Pipeline:
   6. GUE-preservation test on the spectrum (Chapter 4 connection).
   7. Generate high-resolution figures (>= 300 dpi).
 
-All figures are saved under /home/z/my-project/download/figures/ and
-results (numerical tables) under /home/z/my-project/download/results/.
+All figures are saved under ../outputs/figures/ and
+results (numerical tables) under ../outputs/results/.
 
 Author: Z.ai (Chapter 14 extension of AB-Cloud Monograph)
 Date  : 2026-07-22

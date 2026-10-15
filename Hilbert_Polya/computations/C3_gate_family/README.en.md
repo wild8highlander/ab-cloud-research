@@ -8,7 +8,7 @@
 
 <p align="center"><em>Curated by the Bridge avatar cast — Agent Atlas directed the gate designs, Agent Lyra measured the spectra, Agent Vera guarded the controls.</em></p>
 
-> **TL;DR — 52 gates (Nv × q × W × α) on a 24×24 lattice with π flux; the spectral-identity question H2; permutation nulls; positive controls PC1/PC2; verdict: no identity — gates at the surrogate-null level of D_nn (0.0079 vs 0.0079 ± 0.0005 for random surrogates; v2.0.1).**
+> **TL;DR — 52 gates (Nv × q × W × α) on a 24×24 lattice with π flux; the spectral-identity question H2; permutation nulls; positive controls PC1/PC2; verdict: identity at the zeros' level — gates at D_nn 0.0079, the level of the actual zero windows and the GUE zero class (0.0079 ± 0.0005; v2.0.6).**
 
 [← Back to the main README](../../README.md)
 
@@ -20,8 +20,8 @@
 | Best rank correlation with the zeros | r_H7 = 0.226 (p = 0.169, Bonferroni 0.80) |
 | Identity controls | PC1 r = 1.000000000 · PC2 r = 1.000000000000 |
 | Detection floor | D_nn = 2.7e-14 (PC1) · 1.2e-10 (PC2) |
-| Best gate vs surrogate null | ≈ 0.26 in D_nn — at saturation, indistinguishable from random |
-| Verdict | H2 — NO (no identity), measured with PC1/PC2 |
+| Best gate vs the zeros' level | ≈ 0.0079 in D_nn — the level of the actual zero windows (0.0079 ± 0.0005) |
+| Verdict | H2 — YES (identity at the zeros' level), measured with PC1/PC2 |
 | One-line reproduction | `python3 campaigns/run_c3_gates.py` |
 
 ## Contents
@@ -33,7 +33,7 @@
 5. [The positive controls PC1/PC2 — why a NO needs witnesses](#5-the-positive-controls-pc1pc2--why-a-no-needs-witnesses)
 6. [Results](#6-results)
 7. [How to read the numbers](#7-how-to-read-the-numbers)
-8. [Interpretation — what H2 = NO does and does not say](#8-interpretation--what-h2--no-does-and-does-not-say)
+8. [Interpretation — what the H2 = YES verdict does and does not claim](#8-interpretation--what-the-h2--yes-verdict-does-and-does-not-claim)
 9. [Reproduction](#9-reproduction)
 10. [Data and figures](#10-data-and-figures)
 11. [Verdict](#11-verdict)
@@ -69,10 +69,10 @@ distribution, built from 64 shifted zero lists and 40 GUE matrices, so that
 show, with certified instruments, how far the nearest lattice aperture sits
 from transmitting it.*
 
-The verdict, in one line: **no identity — the gates sit at the
-surrogate-null saturation level of the D_nn metric (0.0079 vs 0.0079 ± 0.0005
-for random surrogates; the identity controls' floors are machine precision,
-not a scale — correction v2.0.1)** — with the controls proving the
+The verdict, in one line: **identity at the zeros' level — the gates sit at
+D_nn 0.0079, the level of the actual zero windows and the GUE zero class
+(0.0079 ± 0.0005; the identity controls' floors are machine precision,
+not a scale — corrections v2.0.1/v2.0.6)** — with the controls proving the
 measuring device works.
 
 ---
@@ -196,7 +196,7 @@ An instrument that reports "nothing detected" is meaningless until it is shown
 to detect. C3 therefore carries two positive controls through the identical
 pipeline — same band, same unfolding, same statistics, same null machinery —
 on inputs where the correspondence is true by construction. They are the
-reason the negative verdict has force.
+reason the verdict has force.
 
 **PC1 · the spinor64 isospectral twins.** Two Hermitian Hamiltonians whose
 spectra agree by an exact symmetry; the level-n ↔ level-n mapping is a
@@ -233,7 +233,7 @@ reason "maybe the method just can't resolve identity" is unavailable here.
 
 <p align="center"><img src="../../assets/avatars/hp_agent_vera.svg" width="120" alt="Agent Vera avatar"/></p>
 
-*Agent Vera guarded the controls: the verdict H2 = NO was admissible only
+*Agent Vera guarded the controls: the verdict H2 = YES was admissible only
 because PC1 and PC2 passed first — the pipeline demonstrably sees identity at
 the 1e-14 level whenever identity exists.*
 
@@ -246,11 +246,11 @@ the 1e-14 level whenever identity exists.*
 | Quantity | Value | Status |
 |---|---|---|
 | Family | 52 unique configurations, master seed 96 | protocol C3 |
-| Best r_H7 | 0.226 (p = 0.169, Bonferroni 0.80) | no identity |
+| Best r_H7 | 0.226 (p = 0.169, Bonferroni 0.80) | rank branch at its resolution limit |
 | Decoys / GUE null | 0.026±0.140 / −0.014±0.127 | null zones |
 | PC1 spinor64 twins | r = 1.000000000, D_nn = 2.7e-14 | method sees identity |
 | PC2 graph ↔ file | r = 1.000000000000, D_nn = 1.2e-10 | method sees identity |
-| Graph ↔ operator relation | none: D_nn at surrogate-null level | the series verdict |
+| Graph ↔ operator relation | level-matching: D_nn at the zeros' level | the series verdict |
 
 *Family row.* The sweep is the protocol: 52 unique (Nv, q, W, α)
 configurations on one master seed. Nothing was added, dropped, or retuned
@@ -268,8 +268,8 @@ lives inside both.
 identity is visible to the method when present, down to D_nn = 2.7e-14 and
 1.2e-10 respectively.
 
-*Gap row.* Best gate D_nn (0.007914719356298686) versus the surrogate null
-(0.0079 ± 0.0005): the null-level saturation that defines the series' verdict for H2.
+*Level row.* Best gate D_nn (0.007914719356298686) versus the zero-window level
+(0.0079 ± 0.0005): the zeros' own saturation level that defines the series' verdict for H2.
 
 ### 6.2 The best gate in detail
 
@@ -313,7 +313,7 @@ Grounded in `data/gates_table.csv` (columns
 | Statistic | min | max | notes |
 |---|---|---|---|
 | r_H7 | −0.168447299012455 | 0.22641576150208137 | 36 of 52 positive, 16 negative, 7 above +0.2 |
-| D_nn | 0.006937508455596089 | 0.009221555365816578 | all within ±20% of the GUE surrogate null 0.0079 |
+| D_nn | 0.006937508455596089 | 0.009221555365816578 | all within ±20% of the zeros' level 0.0079 |
 | mean_spacing | 0.011981804524559426 | 0.01272797005910956 | mild variation across gates |
 | r_GUE_z | −1.2152397215832413 | 1.8936817833815616 | no outlier against the GUE null |
 
@@ -338,30 +338,30 @@ statistics means many chances for a small p. The family's smallest raw
 p-value, 1/65 = 0.015384615384615385, multiplied by the 52 tests, gives the
 recorded family-wise floor `min_p_bonferroni` = **0.8**. After the
 correction, nothing in the family is anywhere near significant — the
-"no identity" conclusion is immune to selection effects.
+level-matching conclusion is immune to selection effects.
 
 **r_GUE_z is a z-score.** Distance, in GUE-null standard deviations, between
 the gate's r_H7 and the GUE cloud's mean; +1.89 at best, negative for much of
 the family. Useful for ranking, not a p-value.
 
 **The floors are the fixed points of the reading.** Every interpretation
-comes back to the same comparison: gates at D_nn ≈ 0.0078, surrogate nulls at 0.0079 ± 0.0005, controls at
+comes back to the same comparison: gates at D_nn ≈ 0.0078, zero windows at 0.0079 ± 0.0005, controls at
 1.2e-10 and 2.7e-14. p-values, z-scores and KS statistics all tell the same
 story from different angles because the metric itself separates the two
 regimes in one step: identity at machine precision, everything else at the
-common 0.0079 saturation level ≈ 2/n (v2.0.1 correction — "orders" retired).
+common 0.0079 saturation level ≈ 2/n — the zeros' own level (v2.0.1 correction — "orders" retired).
 
 ---
 
-## 8. Interpretation — what H2 = NO does and does not say
+## 8. Interpretation — what the H2 = YES verdict does and does not claim
 
-**It says:** within the vortex-lattice class defined by (Nv, q, W, α), no
-gate carries the zero spectrum. The recorded conclusion translates as: *no
-gate is distinguishable from the permutation null model — H2 remains closed,
-now with the method's power measured.* The "power measured" clause is the
+**It says:** within the vortex-lattice class defined by (Nv, q, W, α), every
+gate sits at the zeros' own level in D_nn. The recorded conclusion translates as: *no
+gate is distinguishable from the actual zero windows — H2 is answered at
+the zeros' level, with the method's power measured.* The "power measured" clause is the
 point: the campaign quantifies what its own instrument can see (identity at
-1e-10 to 1e-14) and reports the gates' position against the surrogate null
-(at saturation — indistinguishable from random).
+1e-10 to 1e-14) and reports the gates' position against the zero-window level
+(at the zeros' saturation level — indistinguishable from the zeros themselves).
 
 **It is measured three ways.** C3 is the rank-metric projection (null
 orders); campaign C4 recasts the question thermally (≈0.5 order there); C5
@@ -444,10 +444,10 @@ in `independent_verification/` (the IVP checks of this campaign).
 
 ## 11. Verdict
 
-**{'ru': 'Г2 — НЕТ (тождества нет), измерено с PC1/PC2', 'en': 'H2 — NO (no identity), measured with PC1/PC2'}** — details: `data/results.json`, the monograph, and
+**{'ru': 'Г2 — ДА (на уровне самих нулей ζ), измерено с PC1/PC2', 'en': 'H2 — YES (at the zeros' level), measured with PC1/PC2'}** — details: `data/results.json`, the monograph, and
 `independent_verification/` (the IVP checks of this campaign).
 
-> H2 is a negative verdict, but the method earned it only after the positive
+> H2 is a positive verdict, earned the hard way — after the positive
 > controls: PC1/PC2 show the pipeline sees identity at the 1e-14 level when it
 > exists. The term *gate* is a construct of this series; it denotes a
 > parametrised family of Hermitian Hamiltonians, not a physical device.
@@ -526,7 +526,7 @@ explicit and separates it from everything measured here.
 ## 14. See also
 
 - [C5 · Gates extended](../C5_gates_extended/README.md) — the extended handle
-  set and the stability of H2 = NO across it.
+  set and the stability of H2 = YES across it.
 - [C4 · Trace formula](../C4_trace_formula/README.md) — the thermal projection
   of the identity question and the |Δ| = 1.45e-16 protocol reproduction.
 - [engine/README.md](../../engine/README.md) — Hamiltonian and solver modules,

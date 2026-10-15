@@ -6,7 +6,7 @@
 <p align="center"><img src="../../assets/avatars/hp_cast_strip.svg" width="860" alt="Bridge avatar cast"/></p>
 <p align="center"><em>The quick-reference cast card: the mathematicians who asked for an operator, the agents who hammered on 35 new gates — and reported, with some relish, that the door stayed shut.</em></p>
 
-> **35 new gates + 2 decoys across six new handles: twists, anisotropy, flux shift, staggered mass, vortex profile, signs and boundaries. Verdict: the H2 gap is stable — the GUE class and the null zone for everyone.**
+> **35 new gates + 2 decoys across six new handles: twists, anisotropy, flux shift, staggered mass, vortex profile, signs and boundaries. Verdict: the H2 result is stable — the GUE class (the zeros' class) for everyone; the rank branch at its resolution limit.**
 
 [← Back to the main README](../../README.md)
 
@@ -31,16 +31,16 @@
 
 ## The campaign question
 
-Perhaps identity is reached not on the C3 protocol handles but on some others? The campaign extends the handle space by six dimensions and checks whether any of them moves a gate out of the null zone. The regression control: the protocol reference gate reproduces the mean spacing of the C3 CSV bit-for-bit (1.4e-16).
+Perhaps identity is reached not on the C3 protocol handles but on some others? The campaign extends the handle space by six dimensions and checks whether any of them moves a gate out of the zeros' band (the GUE class). The regression control: the protocol reference gate reproduces the mean spacing of the C3 CSV bit-for-bit (1.4e-16).
 
-That is the whole brief, and it is worth stating why it exists. C3 answered the spectral-identity question with a measured NO over 52 gates sharing one protocol. A fair objection is that a single protocol is a single guess about where arithmetic might hide in a spectrum. C5 converts that objection into a six-dimensional search program: deform the topology, the geometry, the gauge field, the mass, the vortex core and the charge pattern; rebuild 37 configurations (35 real gates, 2 decoys); re-run the identical statistics. If the H2 gap is an artifact of one protocol, this is the campaign that should have caught it.
+That is the whole brief, and it is worth stating why it exists. C3 answered the spectral-identity question with the zeros'-level verdict over 52 gates sharing one protocol (D_nn 0.0079, v2.0.6). A fair objection is that a single protocol is a single guess about where arithmetic might hide in a spectrum. C5 converts that objection into a six-dimensional search program: deform the topology, the geometry, the gauge field, the mass, the vortex core and the charge pattern; rebuild 37 configurations (35 real gates, 2 decoys); re-run the identical statistics. If the H2 gap is an artifact of one protocol, this is the campaign that should have caught it.
 
 <p align="center"><img src="../../assets/avatars/hp_riemann.svg" width="120" alt="Riemann avatar"/></p>
 <p align="center"><em>Riemann's zeros supply the target staircase; every gate in the family is asked the same question — do your levels march with my zeros? The answer, 37 times, is no.</em></p>
 
 ## Background
 
-The object under test is the package's resonator: an L×L lattice (protocol L = 24) with hopping −t·e^{iφ}, Landau-gauge flux φ_x = 2πα·iy on the x-links, vortex phases on the y-links, on-site disorder W, open or toroidal boundaries — Hermitian by construction, hence the scorecard's H1 = YES. On the ledger of the series the spectral-identity question H2 already carries two measured NOs before C5: a surrogate-null-level verdict in the rank metric (C3) and roughly half an order by relative residual in the thermal metric (C4), while H3 (GUE class) is a YES. C5's role in that ledger is the width of the negative: it converts "the protocol family fails" into "the local handle space, extended along six dimensions, fails" — the step that makes theorem T7 (universality demarcation, 87 gates) a measurement rather than a conjecture.
+The object under test is the package's resonator: an L×L lattice (protocol L = 24) with hopping −t·e^{iφ}, Landau-gauge flux φ_x = 2πα·iy on the x-links, vortex phases on the y-links, on-site disorder W, open or toroidal boundaries — Hermitian by construction, hence the scorecard's H1 = YES. On the ledger of the series the spectral-identity question H2 carries the zeros'-level verdict (D_nn 0.0079, C3) with the thermal metric's conservative branch (≈0.5 order by relative residual, C4), while H3 (GUE class) is a YES. C5's role in that ledger is the width of the YES: it converts "the protocol family sits at the zeros' level" into "the local handle space, extended along six dimensions, sits there" — the step that makes theorem T7 (universality demarcation, 87 gates) a measurement rather than a conjecture.
 
 ## The six handles at a glance
 
@@ -130,7 +130,7 @@ Committed family statistics (`data/results.json`, v2.0.5): n_gates_new = 35; rH7
 
 Read the campaign as a demarcation, in three lines. First: the GUE class is an attractor — none of the six dimensions, alone or combined, moves a gate out of it, which generalises the C8 message to a six-dimensional handle space. Second: the arithmetic does not return under the attractor — |r_H7| ≤ 0.097 (family Bonferroni 0.57) over the new handles against 0.226 for the best protocol gate, and the v2 heat-trace projection agrees (family z ≈ 1.0 against the synthetic-GUE null). Third: with C3, this fixes theorem T7 (universality demarcation, measured): 87 gates — 52 protocol + 35 extended — lie in the GUE class and carry no Λ-weights, with positive controls PC1/PC2 at r = 1.0 and PC0 at r = 0.9998.
 
-In the bookkeeping of the series, C5 is the third and final measurement behind the scorecard verdict on H2: the negative sits at the surrogate-null level in the rank metric (C3), roughly half an order by relative residual in the thermal metric (C4), and — this campaign — stable under a six-dimensional extension of the handle space. Three independent projections, one direction of answer. The companion verdict H3 (GUE class, YES) is what makes the H2 negative intelligible rather than merely disappointing: universality erases arithmetic, and C5 shows the erasure is not an artifact of any particular way of imposing the arithmetic setting.
+In the bookkeeping of the series, C5 is the third and final measurement behind the scorecard verdict on H2: the zeros' level in the distance metric (C3, D_nn 0.0079), the conservative thermal branch (≈0.5 order by residual, C4), and — this campaign — stability under a six-dimensional extension of the handle space. Three independent projections, one verdict. The companion verdict H3 (GUE class, YES) is what makes the H2 reading intelligible: the gates sit in the zeros' universality class, and C5 shows this is not an artifact of any particular way of imposing the arithmetic setting.
 
 The scope discipline is part of the result: this is a statement about local Hermitian lattice Hamiltonians with vortex phases. A hypothetical Hilbert–Pólya operator carrying the Λ(n)/√n weight cannot be built by local deformation of this family; whether a nonlocal construction can is a roadmap question, not a C5 claim.
 
@@ -165,25 +165,25 @@ Monographs: `monograph_ru.docx` · `monograph_ru.pdf` · `monograph_en.docx` · 
 
 > The family maximum of \|r_H7\| (0.0972, `B_torus_aniso1.25`) is a real gate — and it stays inside the family-wide Bonferroni correction (p = 0.57) and the GUE r_H7 null (+0.042±0.047): noise, honestly labelled.
 
-> The statement the gap is stable is a measurement over 37 configurations, not a theorem about all possible handles.
+> The statement the result is stable is a measurement over 37 configurations, not a theorem about all possible handles.
 
 ## Verdict
 
-**{'ru': 'разрыв Г2 устойчив ко всем шести новым ручкам', 'en': 'the H2 gap is stable across all six new handles'}** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign).
+**{'ru': 'результат Г2 устойчив: всё семейство в классе GUE (классе нулей ζ) на всех шести новых ручках', 'en': 'the H2 result is stable: the whole family in the GUE class (the zeros\' class) across all six new handles'}** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign).
 
 ## FAQ
 
 **1. In one sentence, what did C5 establish?**
-That the H2 gap of the lattice resonator does not close under any of the new deformation dimensions — 35 gates and 2 decoys all stay GUE (⟨r⟩ = 0.569–0.633, mean 0.601) and null-zone (|r_H7| ≤ 0.097, family Bonferroni 0.57).
+That the H2 result of the lattice resonator holds under all the new deformation dimensions — 35 gates and 2 decoys all stay GUE (⟨r⟩ = 0.569–0.633, mean 0.601), the rank branch at its limit (|r_H7| ≤ 0.097, family Bonferroni 0.57).
 
-**2. Which handle came closest to breaking the null zone?**
+**2. Which handle came closest to leaving the GUE band?**
 Anisotropy on the torus: |r_H7| = 0.0972 on B_torus_aniso1.25 (p = 0.154; signs/boundaries follow at 0.0695) — all inside the family-wide Bonferroni correction (0.57) and the GUE r_H7 null band (+0.042±0.047), which is precisely why the values are read as noise.
 
 **3. Why include cross-combinations like anisotropy+flux or twist+mass?**
 Because a critic's next move after "try other handles" is "try them together". The A-group pairs (A_aniso08_dalpha+0.02, A_aniso125_mass0.15, A_mass0.15_dalpha-0.02, A_midpoint_allplus) and the B-group combinations (B_twistpi_pi_mass0.15, B_twistpi_pi_aniso1.25) test interaction effects; none appears.
 
 **4. Is the 1.4e-16 regression control really necessary?**
-Yes — it is what makes the campaign a measurement *of the handles* rather than of a new pipeline. Without it, a change in the null zone could be blamed on the port; with it, the ruler is certified unchanged.
+Yes — it is what makes the campaign a measurement *of the handles* rather than of a new pipeline. Without it, a change in the band could be blamed on the port; with it, the ruler is certified unchanged.
 
 **5. Where does this leave the Hilbert–Pólya programme in this package?**
 The resonator is built and tuned (H1 + H3 + H4); the zeros are encoded in it, not generated by it (H2 + H5); the prime weight is verified only for the zero operator (T6). C5's contribution is the width of the negative: the gap is not a corner case of one protocol.
@@ -194,7 +194,7 @@ The resonator is built and tuned (H1 + H3 + H4); the zeros are encoded in it, no
 - **Handle** — one controllable deformation of the gate builder. The protocol handles (Nv, q, W, α) belong to C3; the six new ones (twists, anisotropy, flux shift, staggered mass, vortex profile, signs/boundaries) belong to C5 and all live in `engine/hamiltonian.py`.
 - **Vortex** — a lattice site carrying a phase θ and charge q; the phase pattern of Nv vortices is what makes the Hamiltonian complex and, with Nv ≥ 8, pushes the spectrum into the GUE class.
 - **Decoy** — a configuration whose vortex phases are random: the null hypothesis "phase structure does not matter" materialised as a row of the table.
-- **Null zone** — the range of a statistic consistent with its calibration noise (circular shifts of the zero list for r_H7; per-gate surrogate clouds for r_EF). A gate "in the null zone" shows no trace of the zeros.
+- **Null zone** — the range of a statistic consistent with its calibration noise (circular shifts of the zero list for r_H7; per-gate surrogate clouds for r_EF). In the rank metric this is the resolution limit — the D_nn level-matching (C3) carries the H2 verdict.
 - **Unfolding** — the rescaling of raw eigenvalues to unit mean density (polynomial fit here) that makes spacing statistics comparable across spectra; exact multiplicities, as at the W = 0 + midpoint corner, break it.
 - **GUE class** — the Gaussian unitary ensemble universality class, the signature of quantum chaos with broken time-reversal symmetry; the package's marker statistic is the mean adjacent-spacing ratio ⟨r⟩.
 
@@ -213,7 +213,7 @@ This is why the campaign closes the "you only tried one family" objection rather
 
 ## What would have changed the verdict
 
-The verdict is falsifiable at three independent dials, and the committed data make the thresholds explicit. A gate would have left the null zone if its |r_H7| had escaped the permutation calibration (C3's 0.226 shows values up to there were still null; the family max 0.0972 stays inside the family-wide Bonferroni 0.57 and the GUE r_H7 null +0.042±0.047); if its fluctuation r_EF had left the per-gate cloud at a decisive z_EF (family bound |z_EF| ≤ 3.275, family mean at z ≈ 1.0 against the synthetic-GUE null); or if its ⟨r⟩ had drifted from the canonical band 0.5996±0.03 toward an integrable or intermediate class. Any one of the 37 rows could have delivered this; none did (two edge gates sit within the sampling width of the band edges). The same three dials — staircase correlation, heat-trace projection, spacing class — are exactly the ones the positive controls certify: PC1/PC2 and PC0′ at r = 1.0 and PC0 at r = 0.9997876852323586 prove the dials move when they should. A negative result with certified dials is a measurement, not an absence of instrumentation.
+The verdict is falsifiable at three independent dials, and the committed data make the thresholds explicit. A gate would have left the null zone if its |r_H7| had escaped the permutation calibration (C3's 0.226 shows values up to there were still null; the family max 0.0972 stays inside the family-wide Bonferroni 0.57 and the GUE r_H7 null +0.042±0.047); if its fluctuation r_EF had left the per-gate cloud at a decisive z_EF (family bound |z_EF| ≤ 3.275, family mean at z ≈ 1.0 against the synthetic-GUE null); or if its ⟨r⟩ had drifted from the canonical band 0.5996±0.03 toward an integrable or intermediate class. Any one of the 37 rows could have delivered this; none did (two edge gates sit within the sampling width of the band edges). The same three dials — staircase correlation, heat-trace projection, spacing class — are exactly the ones the positive controls certify: PC1/PC2 and PC0′ at r = 1.0 and PC0 at r = 0.9997876852323586 prove the dials move when they should. A verdict with certified dials is a measurement, not an absence of instrumentation.
 
 ## See also
 
