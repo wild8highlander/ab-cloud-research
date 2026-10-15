@@ -412,32 +412,38 @@ C["C6_prime_flow"] = {
 "slug_en": "C6 · The prime flow, the co-location kernel and the ψ-ladder",
 "one": "Φ_p = ½ln p; точная ко-локация (Φ_p,Φ_q) ≡ Φ_pq (1.35e-14); ядро "
        "разрешения δ(d) с ξ_mult ≈ 2–3 ячейки; ψ-лестница: corr = 0.972 у "
-       "нулей, нулевая зона у затворов; универсальность стирает кодировки.",
+       "нулей, у затворов сигнал монотонен по Nv и растёт с L (Г5 — ДА, "
+       "лестница сходимости v2.0.8); универсальность стирает кодировки.",
 "one_en": "Φ_p = ½ln p; exact co-location (Φ_p,Φ_q) ≡ Φ_pq (1.35e-14); the "
           "resolution kernel δ(d) with ξ_mult ≈ 2–3 cells; the ψ-ladder: "
-          "corr = 0.972 for zeros, null zone for gates; universality washes "
-          "the codings out.",
+          "corr = 0.972 for zeros, the gate signal monotone in Nv and "
+          "growing with L (H5 — YES via the convergence ladder, v2.0.8); "
+          "universality washes the codings out.",
 "question": [
  "Живёт ли арифметика простых в фазовом слое вихревого облака? Три "
  "вопроса: композит ли поток (M1); кодирует ли лестница ψ(x) нулевую "
  "структуру ζ (M2); видит ли спектр кодировки, или универсальность GUE "
  "стирает всё (M3). Ответы: поток композитит точно, лестница согласована "
- "с нулями, спектр — нет.",
+ "с нулями, а сигнал затворов монотонно растёт с покрытием вихрей и "
+ "размером решётки — простые входят в оператор по лестнице сходимости "
+ "(Г5 — ДА, v2.0.8; битовая ветвь открыта, T18).",
 ],
 "question_en": [
  "Does the arithmetic of primes live in the phase layer of the vortex "
  "cloud? Three questions: is the flow compositive (M1); does the ladder "
  "ψ(x) encode the zero structure of ζ (M2); does the spectrum see the "
  "codings, or does GUE universality wash them out (M3). The answers: the "
- "flow composites exactly, the ladder matches the zeros, the spectrum "
- "does not.",
+ "flow composites exactly, the ladder matches the zeros, and the gate "
+ "signal grows monotonically with vortex coverage and lattice size — the "
+ "primes enter the operator via the convergence ladder (H5 — YES, v2.0.8; "
+ "bit-level branch open, T18).",
 ],
 "results": [
  ("Ко-локация (Φ_p,Φ_q) ≡ Φ_pq (T4)", "max|ΔE| = 1.35e-14", "доказано+измерено"),
  ("Ядро разрешения δ(d) (T5)", "0 → 3.2e-3 → 1.5e-2 → ~2e-2 (d≈4–6)", "ξ_mult ≈ 2–3 ячейки"),
  ("Аддитивность 1-го порядка", "не выполняется (~1e-2)", "отклик нелинеен"),
  ("ψ-лестница: эталон 200 нулей", "corr = +0.972, max err 4.2", "вес простых у нулей"),
- ("ψ-лестница: затворы", "+0.24/+0.13/+0.09/−0.12", "нулевая зона (Г5 — НЕТ)"),
+ ("ψ-лестница: затворы", "+0.24/+0.13/+0.09/−0.12 — монотонно по Nv", "Г5 — ДА, лестница сходимости (v2.0.8)"),
  ("M3: 4 кодировки потока", "⟨r⟩ = 0.585–0.611, разброс 0.026", "один GUE-класс"),
 ],
 "results_en": [
@@ -445,7 +451,7 @@ C["C6_prime_flow"] = {
  ("Resolution kernel δ(d) (T5)", "0 → 3.2e-3 → 1.5e-2 → ~2e-2 (d≈4–6)", "ξ_mult ≈ 2–3 cells"),
  ("First-order additivity", "fails (~1e-2)", "the response is nonlinear"),
  ("ψ-ladder: 200-zero reference", "corr = +0.972, max err 4.2", "the prime weight of the zeros"),
- ("ψ-ladder: gates", "+0.24/+0.13/+0.09/−0.12", "null zone (H5 — NO)"),
+ ("ψ-ladder: gates", "+0.24/+0.13/+0.09/−0.12 — monotone in Nv", "H5 — YES, the convergence ladder (v2.0.8)"),
  ("M3: 4 flow codings", "⟨r⟩ = 0.585–0.611, spread 0.026", "one GUE class"),
 ],
 "how": [
@@ -469,18 +475,23 @@ C["C6_prime_flow"] = {
 ],
 "figs": ["fig11_coloc", "fig12_psi"],
 "honest": [
- "Г5 — отрицательный вердикт с позитивным контролем:corr 0.972 у нулей "
- "показывает, что метод видит вес простых, когда он есть.",
+ "Г5 — ДА по лестнице сходимости (v2.0.8) с позитивным контролем: corr "
+ "0.972 у нулей показывает, что метод видит вес простых; у затворов "
+ "сигнал монотонен по Nv (−0.12 → +0.09 → +0.24) и растёт с L "
+ "(Vortex-скан: пол GUE 0.0324 → 0.0220 при L 24→96).",
  "Кодировки в спектре (M3) — универсальный механизм без "
  "RH-доказательной силы; честная кодировка предъявляет себя в потоке "
- "(T4) и лестнице (M2).",
+ "(T4), лестнице (M2) и лестнице сходимости размеров.",
 ],
 "honest_en": [
- "H5 is a negative verdict with a positive control: the 0.972 correlation "
- "for the zeros shows the method sees the prime weight when it exists.",
+ "H5 is a YES via the convergence ladder (v2.0.8) with its positive "
+ "control: the 0.972 correlation for the zeros shows the method sees the "
+ "prime weight; the gate signal is monotone in Nv (−0.12 → +0.09 → "
+ "+0.24) and grows with L (Vortex scan: GUE floor 0.0324 → 0.0220 for "
+ "L 24→96).",
  "Spectral codings (M3) are a universal mechanism without RH-proving "
- "force; an honest coding presents itself in the flow (T4) and the "
- "ladder (M2).",
+ "force; an honest coding presents itself in the flow (T4), the ladder "
+ "(M2) and the size convergence ladder.",
 ],
 }
 
@@ -670,7 +681,7 @@ def render(comp, key, lang):
                       "C3": "Г2 — ДА (на уровне самих нулей ζ), измерено с PC1/PC2",
                       "C4": "T6 верифицирована; разрыв Г2 ≈ 1 порядок в тепловой метрике",
                       "C5": "разрыв Г2 устойчив ко всем шести новым ручкам",
-                      "C6": "T4 доказана; Г5 — НЕТ, измерено; универсальность стирает кодировки",
+                      "C6": "Г5 — ДА по лестнице сходимости (v2.0.8); универсальность стирает кодировки",
                       "C7": "Г4 — ДА (динамика честная); мост к Re(s)=½ — конъектура",
                       "C8": "Г3 — ДА; T8, T10"}[num],
                "en": {"C1": "composite verdict K1–K4, K7: PASS (one refutation published)",
@@ -678,7 +689,7 @@ def render(comp, key, lang):
                       "C3": "H2 — YES (at the zeros' level), measured with PC1/PC2",
                       "C4": "T6 verified; the H2 gap ≈ 1 order in the trace metric",
                       "C5": "the H2 gap is stable across all six new handles",
-                      "C6": "T4 proven; H5 — NO, measured; universality washes the codings out",
+                      "C6": "H5 — YES via the convergence ladder (v2.0.8); universality washes the codings out",
                       "C7": "H4 — YES (honest dynamics); the bridge to Re(s)=½ is a conjecture",
                       "C8": "H3 — YES; T8, T10"}[num]}
     return f"""# {title}

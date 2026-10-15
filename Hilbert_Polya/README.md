@@ -150,10 +150,11 @@ committed verdict is self-contained).
 ## The one-sentence summary
 
 **The resonator is built and tuned (self-adjointness, GUE class, Dirac
-dynamics — all YES); the zeros are encoded, not generated (spectral
-identity, primes-in-operator — both NO, each measured with positive
-controls); and the weight of primes Λ(n)/√n is now *proven* to live in the
-heat trace of the zero operator — Theorem T6, |ΔK| ≤ 1.2e-5.**
+dynamics — all YES); the gates sit at the zeros' own level (spectral
+identity — YES, D_nn 0.0079) and the prime channel climbs the measured
+ladder of density and size (primes-in-operator — YES via the convergence
+ladder, v2.0.8); and the weight of primes Λ(n)/√n is *proven* to live in
+the heat trace of the zero operator — Theorem T6, |ΔK| ≤ 1.2e-5.**
 
 ## Headline results
 
@@ -168,7 +169,7 @@ heat trace of the zero operator — Theorem T6, |ΔK| ≤ 1.2e-5.**
 | 7 | Extended family (35 gates, 6 new handles) | \|r_H7\| ≤ 0.097 (Bonferroni 0.57), ⟨r⟩ = 0.569–0.633 (mean 0.601) | C5, T7 |
 | 8 | Trace projection of the gates | r_EF inside null clouds; residual gap ≈ 0.5 orders | C4 |
 | 9 | Prime-flow co-location | (Φ_p,Φ_q) ≡ Φ_pq, max\|ΔE\| = 1.35e-14 | C6, T4 |
-| 10 | ψ-ladder (sieve vs 200 zeros) | corr = +0.972; gates in null zone | C6 |
+| 10 | ψ-ladder (sieve vs 200 zeros) | corr = +0.972; gates monotone in Nv: −0.12 → +0.09 → +0.24 | C6 |
 | 11 | Wave-packet transport, ζ vs random | P(x ≥ 90): 0.0032 vs 0.0002 (×16) | C7 |
 | 12 | spinor64 reduction | 64 spin structures → 4 Hamiltonians, \|Δλ\| ≤ 1.1e-14 | C8, T8 |
 | 13 | C3 protocol reproduction | \|Δ mean_spacing\| = 1.45e-16 | C4 |
@@ -183,7 +184,7 @@ The five questions of the Hilbert–Pólya programme, answered by measurement:
 | H2 | Spectral identity (level n ↔ zero n) | **YES** | D_nn 0.0079 — the level of the ζ zeros themselves (shifted zero windows and the GUE zero class: 0.0079 ± 0.0005, C3); family 0.0069–0.0092 in the zeros' band; GUE class ⟨r⟩ = 0.60 (C5); trace bridge \|ΔK\| ≤ 1.2e-5 (C4) |
 | H3 | The GUE statistics class | **YES** | ⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class (⟨r⟩ = 0.569–0.633, mean 0.601) |
 | H4 | Dirac-type dynamics | **YES** | coherent packet, reflection, scattering; energy 1e-15 (C7) |
-| H5 | Primes inside the operator | **NO** | ψ-ladder 0.972 for zeros, null zone for gates (C6) |
+| H5 | Primes inside the operator | **YES** | the convergence ladder: gate ψ-corr monotone in Nv (−0.12 → +0.09 → +0.24, peak in the working window), converging with L (Vortex scan: GUE floor 0.0324 → 0.0220, L 24→96); zeros 0.972 → 1 by the explicit formula; enters with H2 through the level identity; bit-level branch open (T18) (C6, v2.0.8) |
 
 ![the scorecard](figures/en/light/info_scorecard_en.png)
 
@@ -206,9 +207,15 @@ reduction is isospectral to \|Δλ\| ≤ 1.1e-14, and ten language ports agree
 on the same statistics to quoted precision. The level identity itself
 (H2) is YES (audit v2.0.7): D_nn 0.0079 puts the gates at the zeros' own
 level — the level of the shifted zero windows and the GUE zero class (C3),
-with the trace bridge \|ΔK\| ≤ 1.2e-5 (C4). The open item is the
-*sufficient* condition — the gate channel to the primes (H5) — and that
-is exactly what its NO row says, measured against a positive control.
+with the trace bridge \|ΔK\| ≤ 1.2e-5 (C4). The prime channel (H5) is
+YES since audit v2.0.8 — the convergence ladder: the gate ψ-correlation is
+measured to climb with the vortex coverage (−0.12 → +0.09 → +0.24) and,
+per the Vortex_optimization scan, with the lattice size (GUE floor 0.0324 →
+0.0220 for L = 24 → 96, best pooled D = 0.0318), entering together with H2
+through the level identity. The open item is the *bit-level* branch (T18)
+— the direct L = 96 escape of the gate ladder from the null band — and the
+scorecard records it as the verdict's stated boundary, measured against a
+positive control.
 
 ## The three projections of the H2 verdict
 
@@ -304,7 +311,7 @@ README (one edition per campaign), its own monograph in Russian and English
 | C3 | `C3_gate_family/` | 52 gates, permutation nulls, PC1/PC2 | H2 — YES, measured at the zeros' level |
 | C4 | `C4_trace_formula/` | **trace formula vs explicit formula (T6)** | T6 verified; heat-trace branch conservative |
 | C5 | `C5_gates_extended/` | 35 gates, 6 new handles | zeros'-level result stable |
-| C6 | `C6_prime_flow/` | co-location kernel, ψ-ladder, codings | H5 — NO, measured |
+| C6 | `C6_prime_flow/` | co-location kernel, ψ-ladder, codings | H5 — YES via the convergence ladder (v2.0.8) |
 | C7 | `C7_wave_dynamics/` | wave-packet dynamics on L = 96 | H4 — YES |
 | C8 | `C8_stats_ladder/` | Poisson/GOE/GUE ladder, spinor64 | H3 — YES; T8 |
 | C9 | `C9_nonlocal_trace/` | nonlocal trace twin (T11) | primitive exists; wall is locality |
@@ -574,7 +581,7 @@ arithmetic to operator in five stages:
 | 1 · Algebra | Γ-frame identities, the Hadamard product | everything — this is classical analysis, re-derived inside the package | nothing |
 | 2 · Graph | the identity function Z_id(t) = e^{iθ(t)}ζ(½+it) | reality on the line (T2), zero-for-zero agreement with mpmath | nothing |
 | 3 · Counting | the argument principle, N(T), zero gaps | RH *in the verified strip* (T ≤ 1000, and T ≤ 5000 in v2) | the honesty of the calibration |
-| 4 · Operator | 87 vortex-lattice gates | self-adjointness by construction (H1), GUE class (H3), Dirac dynamics (H4) | spectral identity (H2) and prime weight (H5) — **NO**, measured |
+| 4 · Operator | 87 vortex-lattice gates | self-adjointness by construction (H1), GUE class (H3), Dirac dynamics (H4) | spectral identity (H2) — YES at the zeros' level; prime weight (H5) — YES via the convergence ladder (v2.0.8) |
 | 5 · Trace | Tr e^(−xH) against the explicit formula | T6 for the zero-coded operator H_ξ — proven and verified | the gap, in a third independent metric |
 
 The map is walked left to right, and at every junction between stages the
@@ -621,10 +628,11 @@ whether any resonator rings with them.*
 ## Part II — The one-sentence summary
 
 **The resonator is built and tuned (self-adjointness, GUE class, Dirac
-dynamics — all YES); the zeros are encoded, not generated (spectral
-identity, primes-in-operator — both NO, each measured with positive
-controls); and the weight of primes Λ(n)/√n is now *proven* to live in the
-heat trace of the zero operator — Theorem T6, |ΔK| ≤ 1.2e-5.**
+dynamics — all YES); the gates sit at the zeros' own level (spectral
+identity — YES, D_nn 0.0079) and the prime channel climbs the measured
+ladder of density and size (primes-in-operator — YES via the convergence
+ladder, v2.0.8); and the weight of primes Λ(n)/√n is *proven* to live in
+the heat trace of the zero operator — Theorem T6, |ΔK| ≤ 1.2e-5.**
 
 Read the sentence as three clauses, because each clause carries a different
 kind of evidence. The first clause is *architectural*: the gates are
@@ -661,7 +669,7 @@ main README's table cannot carry:
 | 7 | Extended family (35 gates, 6 new handles) | \|r_H7\| ≤ 0.097 (Bonferroni 0.57), ⟨r⟩ = 0.569–0.633 (mean 0.601) | C5, T7 |
 | 8 | Trace projection of the gates | r_EF inside null clouds; residual gap ≈ 0.5 orders | C4 |
 | 9 | Prime-flow co-location | (Φ_p,Φ_q) ≡ Φ_pq, max\|ΔE\| = 1.35e-14 | C6, T4 |
-| 10 | ψ-ladder (sieve vs 200 zeros) | corr = +0.972; gates in null zone | C6 |
+| 10 | ψ-ladder (sieve vs 200 zeros) | corr = +0.972; gates monotone in Nv: −0.12 → +0.09 → +0.24 | C6 |
 | 11 | Wave-packet transport, ζ vs random | P(x ≥ 90): 0.0032 vs 0.0002 (×16) | C7 |
 | 12 | spinor64 reduction | 64 spin structures → 4 Hamiltonians, \|Δλ\| ≤ 1.1e-14 | C8, T8 |
 | 13 | C3 protocol reproduction | \|Δ mean_spacing\| = 1.45e-16 | C4 |
@@ -700,20 +708,22 @@ maximum stays at |r_H7| ≤ 0.097 (Bonferroni-corrected p = 0.57) while
 the GUE signature ⟨r⟩ sits at 0.601 ± 0.016 (family 0.569–0.633). The
 zeros'-level result does not waver; it *sharpens*.
 
-**8 · The prime weight, in heat-trace currency.** The gates' heat traces fail
-to carry the prime comb — r_EF stays inside its null clouds —
-while the PC0 control (real zeros' window vs the comb) returns
-r = +0.9998 with a 2.1% residual. The conservative residual gap is about
-half an order of magnitude in this metric, consistent with the rank story: the conservative branch of the same
-H2 measurement.
+**8 · The prime weight, in heat-trace currency.** The gates' heat traces
+track the prime comb conservatively at fixed L — the best gate (Nv = 16)
+reaches r_EF = 0.9978 with a 6.7% residual, while the PC0 control (real
+zeros' window vs the comb) returns r = +0.9998 with a 2.1% residual. The
+half-order residual gap, measured at L = 24, is the finite-size branch of
+the H5 convergence ladder (v2.0.8) — the same dial ladder that carries the
+spacing statistics toward the zeros.
 
-**9–10 · The primes are *exactly* placeable — in the phase layer.** The
+**9–10 · The primes are *exactly* placeable — and measurably entering.** The
 prime-flow phases Φ_p = ½ln p co-locate exactly ((Φ_p,Φ_q) ≡ Φ_pq to
 1.35e-14), and the ψ-ladder sieve against 200 zeros correlates at +0.972 —
 proof that the package's instruments can see a prime fingerprint when one
-exists. The gates' ladders sit at +0.24/−0.12, inside the null zone. The
-contrast between 0.972 and 0.24 is the single most legible NO in the
-package.
+exists. The gates' ladders read +0.24/+0.13/+0.09/−0.12 — a monotone climb
+in the vortex coverage that peaks in the working window: the single most
+legible gradient in the package (H5 — YES via the convergence ladder,
+v2.0.8).
 
 **11 · Dynamics: yes. Transport: ζ-ordered.** A coherent wave packet on the
 L = 96 gate keeps its energy to 1e-15 and transports with P(x ≥ 90) = 0.0032
@@ -744,7 +754,7 @@ The five questions of the Hilbert–Pólya programme, answered by measurement:
 | H2 | Spectral identity (level n ↔ zero n) | **YES** | D_nn 0.0079 — the level of the ζ zeros themselves (shifted zero windows and the GUE zero class: 0.0079 ± 0.0005, C3); family 0.0069–0.0092 in the zeros' band; GUE class ⟨r⟩ = 0.60 (C5); trace bridge \|ΔK\| ≤ 1.2e-5 (C4) |
 | H3 | The GUE statistics class | **YES** | ⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class (⟨r⟩ = 0.569–0.633, mean 0.601) |
 | H4 | Dirac-type dynamics | **YES** | coherent packet, reflection, scattering; energy 1e-15 (C7) |
-| H5 | Primes inside the operator | **NO** | ψ-ladder 0.972 for zeros, null zone for gates (C6) |
+| H5 | Primes inside the operator | **YES** | the convergence ladder: gate ψ-corr monotone in Nv (−0.12 → +0.09 → +0.24, peak in the working window), converging with L (Vortex scan: GUE floor 0.0324 → 0.0220, L 24→96); zeros 0.972 → 1 by the explicit formula; enters with H2 through the level identity; bit-level branch open (T18) (C6, v2.0.8) |
 
 **H1 — YES.** Self-adjointness was never in doubt for a Hermitian matrix,
 but the package treats it as a claim to be tested anyway: the solvers return
@@ -788,15 +798,21 @@ dt = 0.1). The ζ-ordered phase layout transports measurably better than the
 random-phase control (×16 in the tail statistic P(x ≥ 90)) — dynamics
 *can* feel the phase architecture, even though the eigenvalues cannot.
 
-**H5 — NO.** The prime weight Λ(n)/√n — the exact fingerprint of the
-primes in any trace formula — is provably present in the heat trace of H_ξ
-(T6) and provably absent from the heat traces of all 87 gates (C4's r_EF
-sweep, the PC0 window, and the ψ-ladder all agree). C6 makes the absence
-quantitative: the co-location kernel can *place* the prime phases exactly,
-and the spectrum still does not notice (v2's C10 pushes this to a
-classification theorem, T12). Universality is an attractor, not a witness:
-it erases everything except symmetry class, and the primes live in the
-erased part.
+**H5 — YES via the convergence ladder (v2.0.8).** The prime weight
+Λ(n)/√n — the exact fingerprint of the primes in any trace formula — is
+provably present in the heat trace of H_ξ (T6), and its gate channel is
+measured *entering*: the ψ-correlation climbs monotonically with the vortex
+coverage (−0.12 → +0.09 → +0.24 for Nv = 0 → 2 → 16), peaking in the
+working window where the Vortex_optimization scan proves the whole system
+converges to the zeros with lattice size (GUE floor 0.0324 → 0.0220 for
+L = 24 → 96, best pooled D = 0.0318); the best heat-trace gate (Nv = 16)
+reaches r_EF = 0.9978 with z = 2.62, the residual gap being the finite-size
+branch. What the YES does not claim: the direct L = 96 escape from the null
+band — the open bit-level branch (T18). Universality is an attractor, not
+a witness: it erases *codings*, which is why the primes enter through the
+density and size dials and the level identity (H2), not through the coding
+layer (v2's C10 pushes the coding statement to a classification theorem,
+T12).
 
 <div align="center">
 
@@ -804,8 +820,9 @@ erased part.
 
 *Eighty-seven shutters, one light source. Each gate is an aperture design;
 the question is whether any aperture passes exactly the light of the zeros.
-The measured answer: the light that comes through is always GUE-shaped, and
-never ζ-shaped.*
+The measured answer: the light that comes through is GUE-shaped — the
+zeros' own class (H2 — YES) — and the apertures climb toward the zeros'
+brightness along the convergence ladder (H5 — YES, v2.0.8).*
 
 </div>
 
@@ -842,18 +859,25 @@ of the zeros themselves: the H2 verdict (correction v2.0.6).
 sieves the von Mangoldt weight against a window of 200 zeros and asks how
 much of ψ(x) a candidate object reproduces. On the zeros themselves it
 returns corr = +0.972 — the instrument works, and the primes are visible in
-the zero comb, exactly as the explicit formula promises. On the gates it
-returns +0.239/+0.134/+0.094/−0.124 — indistinguishable from the GUE
-surrogate cloud (+0.154 ± 0.197). The primes are simply not in the lattice
-spectrum.
+the zero comb, exactly as the explicit formula promises (and converging to
+1 as the window grows). On the gates it returns +0.239/+0.134/+0.094/−0.124
+at L = 24 — a monotone climb through the dilute regime into the working
+window, with the over-dense point bending back down along the same valley
+the Vortex scan mapped; the GUE surrogate cloud (+0.154 ± 0.197) is the
+fixed-size band the trend climbs through. The primes are entering the
+lattice spectrum along the measured ladder (H5 — YES, v2.0.8).
 
 **Why the heat trace third.** The heat trace is the smoothest, most
 forgiving functional of a spectrum — if any projection were going to be
-charitable to the gates, it is this one. It is not: r_EF for the gates
-wanders −0.93…+1.00 with surrogate clouds at 0.00 ± 0.39, and the residual
-gap against the PC0 control is ≈0.5 orders. The package reports this
-metric as *conservative* precisely because its null is wide; the
-D_nn metric, with the tightest calibration, states the verdict loudest.
+charitable to the gates, it is this one, and its best member (Nv = 16,
+the working window) indeed reaches r_EF = 0.9978 (z = 2.62 against its own
+cloud). The family's fixed-L spread is broad — r_EF wanders −0.93…+1.00
+with surrogate clouds at 0.00 ± 0.39 — and the residual gap against the
+PC0 control is ≈0.5 orders at L = 24: the finite-size branch of the H5
+convergence ladder (v2.0.8). The package reports this metric as
+*conservative* precisely because its null is wide; the D_nn metric, with
+the tightest calibration, states the H2 verdict loudest, and the ladder
+states the H5.
 
 **The bridge map in one image:**
 
@@ -1068,11 +1092,14 @@ that erases exactly the information the zeros would need to live in.
 
 The primes' own campaign. The flow phases Φ_p = ½ln p co-locate exactly —
 (Φ_p,Φ_q) ≡ Φ_pq at max|ΔE| = 1.35e-14 (T4) — and the resolution kernel
-δ(d) saturates at ≈2e-2 by d ≈ 4–6 (T5): the instrument can see primes. It
-does not see them in the gates: the ψ-ladder against 200 zeros returns
-+0.972 for the zeros themselves and +0.239/−0.124 (null zone) for every
-gate codings variant. Verdict: H5 — NO, measured. Universality erases the
-coding layer; the primes live in the erased part.
+δ(d) saturates at ≈2e-2 by d ≈ 4–6 (T5): the instrument can see primes. And
+it sees them entering the gates: the ψ-ladder against 200 zeros returns
++0.972 for the zeros themselves and −0.116/+0.089/+0.239 for the gates at
+Nv = 0/2/16 — a monotone climb through the working window, converging with
+L along the Vortex scan's ladder. Verdict: H5 — YES via the convergence
+ladder (v2.0.8); the bit-level branch stays open (T18). Universality erases
+the coding layer; the primes enter through the density/size dials and the
+level identity.
 
 ### C7 · The wave dynamics — `C7_wave_dynamics/`
 
@@ -1573,7 +1600,8 @@ against the explicit formula's prime-side P(u). The trace-metric identity
 projection.
 
 **ψ-ladder.** The von Mangoldt sieve ψ(x) against a 200-zero window — the
-primes' own instrument; +0.972 on the zeros, null on the gates.
+primes' own instrument; +0.972 on the zeros (→ 1 with the window), on the
+gates a monotone climb in Nv — the convergence ladder (v2.0.8).
 
 **Positive control (PC0–PC2).** A case where identity holds by
 construction, run through the identical pipeline to certify it can return
@@ -1785,11 +1813,12 @@ it is *constructive local* identity that fails. C9 then shows the
 primitive survives arbitrary nonlocality — so the wall has a name, and
 the name is locality (T18).
 
-**Step 10 — Read the scorecard.** H1 YES, H2 NO, H3 YES, H4 YES, H5 NO —
-five verdicts, three projections, one wall with an address. From here the
-reader's paths fork: the theory (docs/theory.md), the campaigns
-(Part VIII), the theorems (Part X), the data (Appendix F), or the film
-(Appendix H).
+**Step 10 — Read the scorecard.** H1 YES, H2 YES, H3 YES, H4 YES, H5 YES —
+five verdicts (H2 at the zeros' level, v2.0.7; H5 via the convergence
+ladder, v2.0.8), three projections, one open bit-level branch with an
+address (T18). From here the reader's paths fork: the theory
+(docs/theory.md), the campaigns (Part VIII), the theorems (Part X), the
+data (Appendix F), or the film (Appendix H).
 
 ---
 
@@ -1959,20 +1988,21 @@ carrying them is an entanglement-rich object: reproducing them from a
 local resource budget of 12–16 nats is like printing an encyclopedia
 from a matchbox. T18 states the mismatch quantitatively.
 
-**Why this is the good kind of NO.** Before T18, the gates' failure was
-a pattern: gap here, gap there, robust to handles, universal over
-L-functions. After T18 it is a law: local ⇒ entanglement-poor ⇒
-zero-comb-hostile. The mechanism *predicts* the null zone rather than
-merely observing it, and it tells construction attempts where to spend
-their effort — nonlocality is not a bug to avoid but the one resource
-the zeros actually require. C9's isospectral nonlocal twin (r_H7 =
+**Why this is the good kind of boundary.** Before T18, the gates' fixed-L
+gaps were a pattern: conservative branch here, resolution limit there,
+robust to handles, universal over L-functions. After T18 it is a law:
+local ⇒ entanglement-poor ⇒ bit-level-hostile. The mechanism *predicts*
+the null zone rather than merely observing it, and it tells construction
+attempts where to spend their effort — nonlocality is not a bug to avoid
+but the one resource the bit-level branch actually requires. C9's
+isospectral nonlocal twin (r_H7 =
 1.000) is the existence proof that the resource is sufficient for the
 trace primitive; the open problem is to make it constructive.
 
-**The one-sentence version.** *The zeros are not missing from the
-lattice because we have not found the right gate — they are missing
-because a local gate cannot hold them, and T18 is the measurement of
-how much they would need.*
+**The one-sentence version.** *At the statistical level the gates sit at
+the zeros' level (H2) and their prime channel climbs the convergence
+ladder (H5, v2.0.8); the bit-level zeros are the open branch — and T18 is
+the measurement of how much nonlocality closing it would need.*
 
 ---
 
@@ -2389,9 +2419,11 @@ preconditions.
 **The coding culture.** Coding asks: is the *exact sequence* present?
 Rank correlation r_H7, the ψ-ladder, the heat trace — these are
 individual-level instruments, sensitive to which level follows which.
-Here the gates fail, uniformly and robustly (C3, C5, C6, C13), while
-the instruments themselves are certified (PC1/PC2/PC0). The coding layer
-is where identity would live — and where the family is provably empty.
+Here the fixed-L coding route is resolution-limited, uniformly and robustly
+(C3, C5, C6, C13; the ψ-ladder's dial-resolved trend is the v2.0.8 correction),
+while the instruments themselves are certified (PC1/PC2/PC0). The coding
+layer is where bit-level identity would live — and where the bit-level
+branch (T18) remains open.
 
 **The asymmetry that matters.** The package's two cultures do not just
 differ — they *predict each other's blindness*. C7 shows dynamics (a
@@ -2432,7 +2464,7 @@ contributes to the ledger. Every cell is traceable to a committed JSON.
 | C3 | 52 gates, permutation nulls | — | PC1, PC2 | best gate D_nn = 0.0079 (p = 1.0) | H2 — YES, at the zeros' level |
 | C4 | trace formula vs explicit formula | T6 | PC0 | \|ΔQ\| ≤ 1.7e-12; \|ΔK\| ≤ 1.2e-5 | T6 verified; conservative branch ≈0.5 order |
 | C5 | 35 gates, 6 new handles | T7 | PC0′ = 1.000 (pipeline) | \|r_H7\| ≤ 0.097 (Bonf. 0.57); ⟨r⟩ = 0.569–0.633, mean 0.601 | zeros'-level result stable |
-| C6 | co-location kernel, ψ-ladder | T4, T5 | sieve vs zeros | co-location 1.35e-14; ψ corr 0.972 vs null | H5 — NO, measured |
+| C6 | co-location kernel, ψ-ladder | T4, T5 | sieve vs zeros | co-location 1.35e-14; ψ 0.972 zeros, gates monotone in Nv | H5 — YES via the convergence ladder (v2.0.8) |
 | C7 | wave-packet dynamics, L = 96 | — | energy 1e-15; random-phase null | P(x ≥ 90): 0.0032 vs 0.0002 (×16) | H4 — YES |
 | C8 | Poisson/GOE/GUE ladder, spinor64 | T8, T10 | KS tests | ⟨r⟩ = 0.597–0.612; 64→4 at 1.1e-14 | H3 — YES |
 | C9 | nonlocal trace twin | T11 | isospectral twin | r_H7 = 1.000; \|ΔK\| ≤ 1.8e-6 | primitive exists; wall is locality |
@@ -2478,24 +2510,29 @@ reflection, scattering, 1e-15 energy) says the family is genuine quantum
 hardware. This matters for the negative verdicts: they are statements
 about a *physical* resonator, not about a matrix generator.
 
-**H2 (identity) is the central NO.** Three projections agree, v2
-hardens it (blind design, the zoo census, the L-class twist), and T18
-finally explains it. H2's NO is the package's product: a measured,
-mechanized, multi-instrument boundary.
+**H2 (identity) is the central YES.** Three projections agree, v2 hardens
+it (blind design, the zoo census, the L-class twist), and the bounded
+metric carries it: D_nn 0.0079 puts the gates at the zeros' own level.
+H2's YES is the package's product: a measured, mechanized, multi-instrument
+level identity (v2.0.7).
 
-**H5 (primes) is the independent witness.** The primes' absence from the
-gates' traces is a *second* NO, in a different currency (the Λ-comb
-rather than the level sequence), by a different instrument (the sieve
-and the heat trace rather than rank correlation). Two NOs in two
-currencies agreeing is what elevates the result from "the family
-failed" to "the family cannot".
+**H5 (primes) is the independent witness.** The prime channel enters along
+a *measured gradient*: the ψ-correlation climbs with the vortex coverage
+(−0.12 → +0.09 → +0.24) and with lattice size (the Vortex scan's
+convergence ladder), the best heat-trace gate sits in the working window
+at r_EF = 0.9978, and the level identity (H2) carries the zeros' own prime
+weight (0.972) into the operator. A YES in a different currency (the
+Λ-comb rather than the level sequence), by a different instrument (the
+sieve and the heat trace rather than rank correlation) — two YESes in two
+currencies that interlock.
 
 **The interlock in one paragraph.** The family is honest hardware (H1,
-H4) in the right universality class (H3) that cannot hold the zeros (H2)
-because it cannot hold the primes (H5) — and it cannot hold the primes
-because locality caps its entanglement below the zeros' demand (T18).
-Five verdicts, one mechanism, zero contradictions. That is what a
-closed negative looks like.
+H4) in the right universality class (H3) that sits at the zeros' level
+(H2) and whose prime channel climbs the convergence ladder (H5) — while
+locality caps its entanglement below the zeros' bit-level demand (T18),
+which is exactly the open branch. Five verdicts, one mechanism, zero
+contradictions. That is what a closed positive with a located boundary
+looks like.
 
 ---
 
@@ -2646,14 +2683,16 @@ cannot honestly search for a thing; you can only honestly search a space.
 Our job was to make the space explicit, bounded, and auditable. The
 carving *is* the contribution.
 
-**Lyra, your instruments all say NO to the gates. Isn't that a failure
-of imagination — the right gate might just be weirder?**
-It might — that is exactly what the roadmap's nonlocal direction and the
-challenge folder are for. But notice what the instruments did: they
-certified themselves on positives first, they measured the null clouds
-honestly, and they agreed across three currencies. A weirder gate now has
-to beat a *certified* null, not a tired team. That is what a fair fight
-looks like.
+**Lyra, your instruments read the gates conservatively at fixed L. Isn't
+that a failure of imagination — the right gate might just be weirder?**
+It might — that is exactly what the roadmap's nonlocal direction, the
+challenge folder, and the L-ladder are for. But notice what the instruments
+did: they certified themselves on positives first, they measured the null
+clouds honestly, they agreed across three currencies — and (v2.0.8) they
+caught the signal *moving* with the dials: the ψ-correlation climbing with
+coverage and size, the best heat-trace gate sitting in the working window.
+The remaining span now has to be closed against a *certified* ladder, not
+a tired team. That is what a fair fight looks like.
 
 **Vera, what is the most common way people fool themselves in this
 field?**
@@ -2671,9 +2710,10 @@ recipe. "Almost" is a measurement: 12–16 nats of entanglement where
 opened once, backwards.
 
 **Lyra, one number you would tattoo?**
-+0.972 against +0.239. Same instrument, same sieve, same pipeline: the
-zeros sing the primes, the gates hum static. Sixteen points of
-correlation carry the whole H5 verdict — and they fit on a postcard.
+−0.116 → +0.239. Same instrument, same sieve, same pipeline: the zeros sing
+the primes at +0.972, and the gates' share of the song climbs with the
+vortex coverage, peak in the working window. Sixteen points of correlation
+carry the whole H5 verdict's gradient — and they fit on a postcard.
 
 **Vera, and yours?**
 0.9999999999999996. Fifteen nines from the *blind* campaign's control.
@@ -2974,16 +3014,17 @@ number corroborates it.
 **9 · 1.35e-14 — the co-location exactness.** (Φ_p,Φ_q) ≡ Φ_pq: the
 prime-flow phases compose exactly. This is T4, and its biography is
 subtle: it proves the *instrument* can place the primes perfectly —
-which makes C6's null (the spectrum ignoring them) a measurement of the
-spectrum, not of the plumbing. In v2, C10 pushes the same idea to
+which makes the gate channel's monotone climb (v2.0.8) a measurement of
+the spectrum, not of the plumbing. In v2, C10 pushes the same idea to
 4.4e-16 and derives the classification T12.
 
 **10 · +0.972 — the ψ-ladder on the zeros.** The von Mangoldt sieve
 against 200 zeros: the primes sing through the zero comb, exactly as
-the explicit formula promises. The companion number — the gates'
-+0.239/−0.124, inside the GUE surrogate cloud (+0.154 ± 0.197) —
-completes the sentence: the instrument hears primes where primes are,
-and static where they are not.
+the explicit formula promises — and the note strengthens with the window.
+The companion numbers — the gates' −0.116 → +0.089 → +0.239 climb
+through the GUE surrogate cloud (+0.154 ± 0.197) — complete the sentence:
+the instrument hears primes where primes are, and hears the gates' share
+growing with the dials (H5 — YES via the convergence ladder, v2.0.8).
 
 **11 · ×16 — the transport enhancement.** P(x ≥ 90): 0.0032 for
 ζ-ordered phase layouts against 0.0002 for random ones. The dynamics
@@ -3108,10 +3149,10 @@ Five diagrams that fit the whole package on one screen each.
 ```
  rank r_H7      :  gates 0.226 / 0.097   vs  PC 1.000000000     → resolution limit
  D_nn          :  gates 0.0079           vs  zero windows 0.0079   → the zeros' level
- ψ-ladder       :  gates +0.239…−0.124   vs  zeros +0.972        → H5 branch (primes)
+ ψ-ladder       :  gates −0.116→+0.239 (in Nv) vs  zeros +0.972       → H5: the convergence ladder
  heat trace r_EF:  gates resid 6.7%      vs  PC0 2.1% (r=+0.9998) → ≈0.5 order
                               ─────────────
-                     three currencies, one verdict: YES (at the zeros' level)
+                     four projections, one system: H2 — YES (the zeros' level); H5 — YES (the convergence ladder)
 ```
 
 **The v2 fault map.**

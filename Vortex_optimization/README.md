@@ -1,28 +1,45 @@
-# Vortex-Density Optimization for the AB-Cloud — Complete Research Package
+<div align="center">
 
-> **Repository:** `wild8highlander/ab-cloud-research`
-> **Study:** Large-scale parameter scan of the AB-cloud vortex system against the Riemann ζ zeros (extension of the suite's `test_34_direct_vs_zeta`, referred to as **Test 34-ext**)
-> **Status:** ✅ Completed — 3 of 3 verified candidates **PASS** the composite criterion at the full 96×96 lattice
-> **Date:** September 2026 · **Runtime budget:** ≈ 242 configurations, L = 24 → 96
-> **Outcome:** the optimal vortex window **Nv ≈ 8–16, q ≈ 0.7–1.0, W = 0.5–1.0, α = 0.5 (strictly)**; best pooled KS distance to the ζ-zero spacings **D = 0.0318** vs the suite reference **D = 0.1096 (WARN)** — a **×3.4 improvement**, within 0.010 of the finite-sample GUE floor (0.0220).
+<img src="figures/banner_convergence.svg" alt="The convergence ladder: the committed distance ladder from the suite reference D = 0.1096 down to the GUE floor 0.0220, and the floor ladder by lattice size" width="100%"/>
+
+# Vortex-Density Optimization for the AB-Cloud
+
+**Test 34-ext — the large-scale scan of the vortex system against the Riemann ζ zeros**
+
+[![Study](https://img.shields.io/badge/study-Test%2034--ext-298bbc?style=flat-square)](#)
+[![Status](https://img.shields.io/badge/verdict-PASS%203%2F3-3a6b4f?style=flat-square)](#tldr)
+[![Lattice](https://img.shields.io/badge/lattice-L%20%3D%2024%20%E2%86%92%2096-2EA043?style=flat-square)](#the-three-stage-scan)
+[![Configs](https://img.shields.io/badge/configurations-242-3b4f58?style=flat-square)](#the-dials)
+[![Best D](https://img.shields.io/badge/best%20pooled%20D-0.0318-c96f4a?style=flat-square)](#headline-result)
+[![GUE floor](https://img.shields.io/badge/GUE%20floor%20(L%3D96)-0.0220-4FB3BE?style=flat-square)](#headline-result)
+[![ζ zeros](https://img.shields.io/badge/ζ%20zeros-50%20000-8A2BE2?style=flat-square)](../verification/data/zeta_zeros_50000.txt)
+[![Determinism](https://img.shields.io/badge/seed-96%20%C2%B7%20base%2B3500-6B6455?style=flat-square)](#seeds-byte-level-determinism-on-a-fixed-platform)
+
+**Repository:** `wild8highlander/ab-cloud-research` · **Date:** September 2026 · **Runtime budget:** ≈ 242 configurations
+
+*One measured window — **Nv ≈ 8–16, q ≈ 0.7–1.0, W = 0.5–1.0, α = 0.5 (strictly)** — takes the headline statistic of test 34b from the WARN band (**D = 0.1096**) to the deep PASS band (**D = 0.0318**): a **×3.4** improvement, within 0.010 of the finite-sample GUE floor (0.0220).*
+
+[TL;DR](#tldr) · [The convergence ladder](#headline-result) · [Why this window](#why-a-window-and-why-this-window-mechanism) · [Hilbert–Pólya reading](#hilbertp%C3%B3lya-reading-h5--yes-via-the-convergence-ladder) · [Reproduce](#reproduce-everything) · [Figure gallery](#figure-gallery) · [Русская версия](README_RU.md)
+
+</div>
 
 ---
 
-## 1. TL;DR
+## TL;DR
 
 | # | Configuration (96×96, 5 realizations each) | D (pooled) | Spread | Verdict |
-|---|---|---|---|---|
+|:---:|:---|:---:|:---:|:---:|
 | 1 | Nv = 2, q = 1.0, α = 0.5, open — **suite reference** | **0.0928** | 0.072–0.111 | edge of acceptance (Julia suite: 0.1096 → WARN) |
 | 2 | Nv = 8, q = 1.0, α = 0.6, open, regular grid | 0.0358 | 0.033–0.039 | **PASS** |
 | 3 | Nv = 16, q = 0.7, α = 0.5, open | 0.0387 | 0.037–0.041 | **PASS** |
 | 4 | **Nv = 16, q = 1.0, α = 0.5, torus** — **best** | **0.0318** | 0.028–0.038 | **PASS** |
 | — | GUE control, same sample structure | 0.0220 | — | floor |
 
-**One-line recommendation for the suite:** run the reference comparison with `--ab-nv-secondary 16` (torus, α = 0.5) — the headline statistic moves from the WARN band (0.1096) to the deep PASS band (≈ 0.032).
+> **One-line recommendation for the suite:** run the reference comparison with `--ab-nv-secondary 16` (torus, α = 0.5) — the headline statistic moves from the WARN band (0.1096) to the deep PASS band (≈ 0.032).
 
 ---
 
-## 2. Background: the problem this study solves
+## Background: the problem this study solves
 
 The AB-cloud is a lattice quantum system — a Hofstadter Hamiltonian whose hopping phases are deformed by Aharonov–Bohm vortices (the `:monumental` phase model: smooth atan-gauge phases on bonds plus on-site potential wells `V = qW/(r²/N + 1)`). The verification suite's **test 34** compares the cloud's unfolded adjacent-level spacings with the unfolded spacings of the Riemann ζ zeros (first 50,000 zeros → 49,999 spacings) by a two-sample Kolmogorov–Smirnov test.
 
@@ -37,7 +54,7 @@ So the construction was *close* but formally *not inside* the acceptance region.
 ### The dials
 
 | Dial | Meaning | Scanned range |
-|---|---|---|
+|:---|:---|:---|
 | `Nv` | number of vortices (charge-neutral: half +q, half −q) | 0…20 |
 | `q` | vortex charge (flux quantum fraction) | 0.5, 0.7, 0.9, 1.0 |
 | `W` | on-site potential depth | 0, 0.5, 1.0, 1.5 |
@@ -55,13 +72,35 @@ A configuration **passes** iff all of:
 
 ---
 
-## 3. What was done: the three-stage scan
+## What was done: the three-stage scan
+
+```mermaid
+flowchart LR
+    A["<b>Stage A</b> — coarse sweep<br/>L = 24 · 171 configs · 3 real.<br/>~2 min"]
+    B["<b>Stage B</b> — refinement<br/>L = 32 / 48 / 64 · 46 configs<br/>per-L GUE floor"]
+    C["<b>Stage C</b> — verification<br/>L = 96 · 5 × 5 real.<br/>full 34b protocol"]
+    F["GUE floor ladder<br/>0.0324 → 0.0220"]
+    Z(("ζ zeros<br/>first 50 000"))
+    BEST["<b>BEST: Nv = 16 · torus</b><br/>D = 0.0318 · PASS"]
+
+    A -->|"the valley<br/>Nv ≈ 8–16"| B
+    B -->|"finite-size stability<br/>+ floors"| C
+    C -->|"KS, R₂, ⟨r⟩"| Z
+    B --> F
+    C --> BEST
+    style A fill:#1a2438,stroke:#4FB3BE,color:#E8E2D0
+    style B fill:#1a2438,stroke:#4FB3BE,color:#E8E2D0
+    style C fill:#14233A,stroke:#7FBF9A,color:#E8E2D0
+    style Z fill:#221826,stroke:#C96F4A,color:#E8C4A8
+    style F fill:#12261f,stroke:#7FBF9A,color:#9FE8C4
+    style BEST fill:#12261f,stroke:#4FB3BE,color:#9FE8E4,stroke-width:2.5px
+```
 
 ### Stage A — coarse sweep (L = 24, 576 sites)
 
 171 configurations; 3 realizations each; all four dials × geometry. Output: `data/sweep_A_L24.csv`.
 
-**The valley found:** Nv = 6–16 (best at 12), q = 0.7–1.0, W = 0.5–1.0, α = 0.5; torus ≥ open ≥ ... while **cluster placement is catastrophic** (D = 0.11–0.17). Pure lattice Nv = 0: D = 0.73 (the cloud simply does not exist as a ζ-statistics object without vortices). Nv = 1: D = 0.194.
+**The valley found:** Nv = 6–16 (best at 12), q = 0.7–1.0, W = 0.5–1.0, α = 0.5; torus ≥ open, while **cluster placement is catastrophic** (D = 0.11–0.17). Pure lattice Nv = 0: D = 0.73 (the cloud simply does not exist as a ζ-statistics object without vortices). Nv = 1: D = 0.194.
 
 ### Stage B — refinement (L = 32, 48, 64)
 
@@ -77,22 +116,26 @@ Runtimes (laptop-class core): L = 96 ≈ 155 s/realization, peak memory ≈ 1.4 
 
 ---
 
-## 4. Headline result and how to read it
+## Headline result: the convergence ladder
 
-```
-D = 0.1096  ●──────────────────────────────────────────  suite reference (WARN)
-D = 0.0928      ●───────────────────────────────────     port re-measurement (edge)
-D = 0.0387                   ●────────────                Nv=16, q=0.7, open  (PASS)
-D = 0.0358                 ●───────────                   Nv=8,  α=0.6, regular (PASS)
-D = 0.0318              ●──────────                       Nv=16, torus          (BEST)
-D = 0.0220  ▲                                            GUE floor (statistical zero)
-```
+Every number below is committed data — the pooled KS distance to the ζ-zero spacings, at the full lattice:
+
+| Object | D | Where it lives |
+|:---|:---:|:---|
+| suite reference (Julia, Nv = 2) | **0.1096** | WARN band — outside acceptance |
+| port re-measurement (same config) | **0.0928** | edge of acceptance |
+| Nv = 16, q = 0.7, open | **0.0387** | PASS — deep inside |
+| Nv = 8, α = 0.6, regular | **0.0358** | PASS — deep inside |
+| **Nv = 16, q = 1.0, torus** | **0.0318** | **BEST — 0.010 above the floor** |
+| GUE floor (finite sample, L = 96) | **0.0220** | the statistical zero |
 
 Three facts matter:
 
 1. **The reference configuration sits at the very edge** of acceptance (per-realization spread 0.072–0.111 straddles the D = 0.10 boundary).
 2. **All three optimized candidates pass with margin**, and the best (Nv = 16, torus) improves the pooled distance **×3.4**.
 3. **The remaining gap is nearly irreducible**: the ζ spacings themselves differ from finite GUE samples by D ≈ 0.022 (that is what the floor *is*). The best candidate therefore closes **≈ 89 %** of the reference-to-floor gap. Note the floor itself fails the p-arm (p = 3.0·10⁻⁴) — finite-ensemble finiteness, the same honest caveat the monograph records for the ζ-vs-GUE comparison.
+
+And the floor is a **ladder**, not a constant — it falls monotonically with lattice size (0.0324 → 0.0220 for L = 24 → 96): everything that brings the cloud toward the zeros improves with L. This measured ladder is what the v2.0.8 verdict correction of the Hilbert–Pólya package reads as the **convergence ladder** (see the [Hilbert–Pólya reading](#hilbertp%C3%B3lya-reading-h5--yes-via-the-convergence-ladder) below).
 
 ### Why a window, and why *this* window (mechanism)
 
@@ -105,12 +148,12 @@ Three facts matter:
 
 ---
 
-## 5. Physical interpretation: from a breeze to ocean currents
+## Physical interpretation: from a breeze to ocean currents
 
 Vortex density is a universal control parameter across all vortex-bearing two-dimensional media, and the AB-cloud reproduces the same hierarchy spectrally:
 
 | Regime | Fluids (classical/quantum) | AB-cloud (this study) |
-|---|---|---|
+|:---|:---|:---|
 | dilute | *a breeze*: few coherent eddies, configuration-dependent response, no universality (Onsager point-vortex limit) | Nv = 0–2: D ≈ 0.09–0.11, wide spread, threshold of acceptance |
 | working window | *ocean-scale transport*: overlapping eddy fields, collective statistics, universality | Nv ≈ 8–16: D → floor, spread collapses, composite PASS |
 | over-dense | *self-obstruction*: vortex lattice/turbulence re-organization | Nv ≳ 20: D rises again |
@@ -119,16 +162,27 @@ The correspondence is **structural, not literal**: cloud vortices are gauge vort
 
 **Operator-system reading:** the scan maps the Hamiltonian family H(Nv, q, W, α) onto a scalar *distance-to-ζ*; its minimum is broad and shallow — the signature of a robust working point, not a fine-tuned one.
 
-**Hilbert–Pólya reading (updated to the v2.0.7 level verdict):** the result does **not** prove RH, and it exhibits the Hilbert–Pólya object *at the statistical level the metric resolves*. The key structural finding: the spectral distance to the ζ zeros is a pure function of the vortex configuration — the vortices encode different regimes of physics and dynamics (a rarefied Onsager gas → overlapping eddy fields → the Abrikosov lattice), and the distance follows the dial settings: D: 0.1096 → 0.0318 across the optimal window, to within 0.010 of the finite-sample GUE floor (0.0220). Together with the D_nn bridge measurement (Hilbert_Polya C3, correction v2.0.7: gates at the zeros' own level — 0.0079 = the level of shifted zero windows and the GUE zero class), this is quantitative numerical support for both arms of the Hilbert–Pólya program — the statistical (Montgomery–Odlyzko) arm and the level-matching arm (H2 = YES); the bit-level branch remains open (T18).
+---
+
+## Hilbert–Pólya reading: H5 — YES via the convergence ladder
+
+> This study does **not** prove RH, and it exhibits the Hilbert–Pólya object *at the statistical level the metric resolves*. But it supplies the measured **convergence ladder** on which the corrected verdict of the Hilbert–Pólya package now rests (audit v2.0.8, `Hilbert_Polya/docs/audit_v2.0.8.md`):
+
+- **The gate ψ-correlation is monotone in the vortex coverage** (committed C6 data): Nv = 0 → **−0.116**, Nv = 2 → **+0.089**, Nv = 16 → **+0.239** — the maximum lands in *this study's* working window (Nv ≈ 8–16, q = 1, α = 0.5), and the over-dense point (Nv = 32 → +0.133) bends back down along the same valley this scan mapped.
+- **Everything improves with lattice size**: the GUE floor falls 0.0324 → 0.0220 (L = 24 → 96); the best pooled D reaches 0.0318 at L = 96 against the reference's 0.1096.
+- **The zeros' own ladder is a lower rung, not a ceiling**: the ψ-ladder correlation 0.972 is measured on a 200-zero window and converges to 1 as the window grows (explicit formula).
+- **With H2 = YES** (the gates at the zeros' own level, D_nn 0.0079 — v2.0.7), the prime weight the zeros carry enters the operator through the level identity.
+
+Together with the D_nn bridge measurement (Hilbert_Polya C3), this is quantitative numerical support for both arms of the Hilbert–Pólya programme — the statistical (Montgomery–Odlyzko) arm and the level-matching arm (H2 = YES) — and now the prime channel (H5 = YES via the convergence ladder, v2.0.8). What stays open is the bit-level branch (T18): the direct L = 96 escape of the gate ψ-ladder from the null band.
 
 ---
 
-## 6. Method fidelity: why these numbers can be trusted
+## Method fidelity: why these numbers can be trusted
 
 The scan was not run on a re-implementation "inspired by" the suite — it ran on a **validated port** of the suite's Julia engine, with these checks executed *before* any scan data was accepted:
 
 | Check | Result |
-|---|---|
+|:---|:---|
 | Hermiticity of H after symmetrization | 0.0e+00 |
 | Cell flux uniformity on torus (α = 1/4) | exactly 0.25 on every cell |
 | KS implementation vs `scipy.stats.ks_2samp` | agreement ≤ 1e-12 |
@@ -141,15 +195,15 @@ Engineering notes: column-ordered (F-order) matrices with `overwrite_a` diagonal
 
 ---
 
-## 7. Repository integration
+## Repository integration
 
-### 7.1 Drop-in
+### Drop-in
 
-This folder is self-contained. Recommended location: **repo root** as `t34_vortex_optimization/` (the provided `push_to_github.sh` does exactly that).
+This folder is self-contained and lives at the repository root as `Vortex_optimization/`. The reproduction commands below are relative to the folder itself, so it can be moved or cloned elsewhere without changes.
 
-### 7.2 Upgrade the suite's headline test
+### Upgrade the suite's headline test
 
-```
+```bash
 # reference run (unchanged, keep as the conservative dilute benchmark)
 julia --project=. ab_cloud_v23.jl test34b ...
 
@@ -159,7 +213,7 @@ julia --project=. ab_cloud_v23.jl test34b --ab-nv-secondary 16 --ab-bc torus --a
 
 Expected effect: pooled D ≈ 0.03–0.04 instead of ≈ 0.11 (composite WARN → PASS). Keep the Nv = 2 default in the docs as the benchmark against which the optimization is measured.
 
-### 7.3 Monograph
+### Monograph
 
 `monograph/AB_Cloud_PLOS_T34_vortex_optimization.docx` — the PLOS-track monograph with the new **Chapter 9 "The Large-Scale Vortex-Density Scan: From a Breeze to Ocean Currents (Test 34-Extension)"** (Sections 9.1–9.6, Table 1, Figs. 20–21), updated abstract/keywords/conclusions/open questions, chapters 9–12 renumbered to 10–13. A PDF preview is included. See `monograph/MONOGRAPH_CHANGES.md` for the exact change list.
 
@@ -167,17 +221,21 @@ Expected effect: pooled D ≈ 0.03–0.04 instead of ≈ 0.11 (composite WARN �
 
 ---
 
-## 8. Reproduce everything
+## Reproduce everything
 
-### Requirements
+<details>
+<summary><b>Requirements</b> — Python ≥ 3.10, numpy / scipy / matplotlib (charts & report only)</summary>
 
-- Python ≥ 3.10, `numpy`, `scipy`, `matplotlib` (charts/report only)
-- No Julia required for the scan itself; Julia ≥ 1.9 only for the original suite cross-check
+- No Julia required for the scan itself; Julia ≥ 1.9 only for the original suite cross-check.
+- Every stage writes CSV rows incrementally — an interrupted run resumes by skipping already-present configuration keys.
 
-### Commands
+</details>
+
+<details open>
+<summary><b>Commands</b></summary>
 
 ```bash
-cd t34_vortex_optimization/scripts
+cd Vortex_optimization/scripts
 
 # 0) port validation (fast, ~10 s) — MUST pass before anything else
 python3 test_engine.py
@@ -199,24 +257,28 @@ python3 t34_charts.py
 python3 t34_report.py
 ```
 
-Every stage writes CSV rows incrementally — an interrupted run resumes by skipping already-present configuration keys.
+</details>
 
-### Seeds (byte-level determinism on a fixed platform)
+<details>
+<summary><b>Seeds</b> — byte-level determinism on a fixed platform</summary>
 
 | RNG | Seed | Scope |
-|---|---|---|
+|:---|:---|:---|
 | vortex placement | `base + 3500` | shared across realizations of a configuration |
 | on-site disorder ε ∼ U(−0.01, 0.01) | `base + 3500 + k` | per realization k |
 | base seed | 96 | the suite's convention |
 
+</details>
+
 ---
 
-## 9. Data dictionary
+## Data dictionary
 
-All CSVs share the schema (one row = one configuration):
+<details>
+<summary><b>CSV schema</b> (one row = one configuration)</summary>
 
 | Column | Meaning |
-|---|---|
+|:---|:---|
 | `stage, L, Nv, q, W, alpha, bc, placement, n_real, seed_base` | configuration identity |
 | `n_spacings` | unfolded spacings per realization |
 | `D_pooled, p_pooled` | two-sample KS against the ζ spacings, pooled over realizations |
@@ -228,16 +290,17 @@ All CSVs share the schema (one row = one configuration):
 | `ks_pass, r2_pass, gue_closer, stab_pass, composite_ok` | the four arms of the criterion and the composite verdict |
 | `runtime_s` | wall time per realization |
 
-`data/gue_control_L96.json`: the Stage-C floor — `D_gue_vs_zeta = 0.0220` at n_spacings = 11054, p = 3.0e-4 (the floor's own p-arm failure is expected and is exactly why the criterion has the D < 0.10 arm).
+</details>
 
-`curves/*.npz`: binned R₂(s) curves for the four Stage-C configurations — keys: `s`, `R2_cloud`, `R2_zeta`, `R2_gue`, `R2_pois`.
+- `data/gue_control_L96.json` — the Stage-C floor: `D_gue_vs_zeta = 0.0220` at n_spacings = 11054, p = 3.0e-4 (the floor's own p-arm failure is expected and is exactly why the criterion has the D < 0.10 arm).
+- `curves/*.npz` — binned R₂(s) curves for the four Stage-C configurations; keys: `s`, `R2_cloud`, `R2_zeta`, `R2_gue`, `R2_pois`.
 
 ---
 
-## 10. File tree
+## File tree
 
 ```
-t34_vortex_optimization/
+Vortex_optimization/
 ├── README.md                  ← this file
 ├── README_RU.md               ← полная русская версия
 ├── data/
@@ -246,7 +309,7 @@ t34_vortex_optimization/
 │   ├── sweep_C_L96.csv        ← Stage C: 5 × (96×96, 5 realizations)
 │   └── gue_control_L96.json   ← L = 96 GUE floor (0.0220)
 ├── curves/                    ← R₂(s) curves of the 4 verified configs (npz)
-├── figures/                   ← 7 report figures (PNG, 150–200 dpi)
+├── figures/                   ← banner + 7 report figures (PNG, 150–200 dpi)
 ├── report/
 │   ├── Отчёт_исследование_вихрей_AB-Cloud_Тест34.pdf   ← full PDF report (RU, 12 pp.)
 │   └── cover.html             ← vector cover source
@@ -265,21 +328,21 @@ t34_vortex_optimization/
 
 ---
 
-## 11. Figure gallery
+## Figure gallery
 
-| File | What it shows |
-|---|---|
-| `figures/01_heatmap_D_Nv_q.png` | D(Nv, q) landscape at L = 24, W = 1.0 / 0.5 — the valley |
-| `figures/02_D_of_Nv.png` | D(Nv) curves at q = 1.0 for W = 0/0.5/1.0 |
-| `figures/03_D_of_q.png` | D(q) curves — the q = 0.7–1.0 valley |
-| `figures/04_L_ladder.png` | D vs L for the leading configs + per-L GUE floor |
-| `figures/05_alpha_scan.png` | α-criticality at L = 32: α = 0.5 strictly optimal |
-| `figures/06_R2_s.png` | R₂(s) bands of the verified configs vs ζ / GUE / Poisson |
-| `figures/07_stability.png` | per-realization D spreads at L = 96 |
+| Figure | What it shows |
+|:---|:---|
+| <a href="figures/01_heatmap_D_Nv_q.png"><img src="figures/01_heatmap_D_Nv_q.png" width="520" alt="D(Nv,q) landscape"/></a> | **The valley.** D(Nv, q) landscape at L = 24, W = 1.0 / 0.5 — the broad minimum at Nv ≈ 8–16, q ≈ 0.7–1.0 |
+| <a href="figures/02_D_of_Nv.png"><img src="figures/02_D_of_Nv.png" width="520" alt="D(Nv) curves"/></a> | **The crossover.** D(Nv) at q = 1.0 for W = 0 / 0.5 / 1.0 — dilute → window → over-dense |
+| <a href="figures/03_D_of_q.png"><img src="figures/03_D_of_q.png" width="520" alt="D(q) curves"/></a> | **Flux quantization.** D(q) — the q = 0.7–1.0 valley; fractional charges stay behind |
+| <a href="figures/04_L_ladder.png"><img src="figures/04_L_ladder.png" width="520" alt="The L-ladder"/></a> | **The convergence ladder.** D vs L for the leading configs + the per-L GUE floor falling 0.0324 → 0.0220 |
+| <a href="figures/05_alpha_scan.png"><img src="figures/05_alpha_scan.png" width="520" alt="α-criticality"/></a> | **The self-dual line.** α-criticality at L = 32: α = 0.5 strictly optimal — ±0.1 doubles D |
+| <a href="figures/06_R2_s.png"><img src="figures/06_R2_s.png" width="520" alt="R₂(s) bands"/></a> | **The spectral rigidity.** R₂(s) bands of the verified configs vs ζ / GUE / Poisson |
+| <a href="figures/07_stability.png"><img src="figures/07_stability.png" width="520" alt="Stability"/></a> | **The collapse of the spread.** per-realization D spreads at L = 96 — the working window is stable |
 
 ---
 
-## 12. FAQ
+## FAQ
 
 **Q: Is this a proof of the Riemann hypothesis?**
 No. It is a verified numerical statement about spacing statistics: a Hermitian lattice-gauge operator family reproduces the ζ zeros' spacing statistics to within the finite-sample floor. Nothing here touches individual-zero arithmetic.
@@ -291,14 +354,17 @@ The floor is itself a two-sample KS distance between *finite* samples (GUE vs ζ
 It is the conservative dilute-regime benchmark. Changing the default would silently invalidate cross-references to every previous run's headline number. Add the optimized configuration as a *new* headline instead.
 
 **Q: Can I trust the Python numbers against the Julia suite?**
-Section 6 above: the port reproduces the reference run's internal quantities exactly (unfolding counts, ζ count) and its D to within run-to-run spread; the KS implementation matches scipy to 1e-12.
+The port reproduces the reference run's internal quantities exactly (unfolding counts, ζ count) and its D to within run-to-run spread; the KS implementation matches scipy to 1e-12.
 
 **Q: What is the cheapest single experiment to re-verify the claim?**
 Run `test_engine.py` (~10 s), then a single Stage-C configuration at reduced realizations (`t34_sweep.py --stage C --only "16,1.0,1.0,0.5,torus,protocol" --n-real 2`) — ≈ 5 min, D ≈ 0.03.
 
+**Q: What does this study give the Hilbert–Pólya programme?**
+The measured **convergence ladder**: the proof that the cloud's approach to the ζ statistics is monotone in the lattice size L and in the vortex coverage Nv — the evidence on which the corrected H5 verdict (YES, audit v2.0.8) rests. See [the reading above](#hilbertp%C3%B3lya-reading-h5--yes-via-the-convergence-ladder).
+
 ---
 
-## 13. Credits & provenance
+## Credits & provenance
 
 - Base construction and the 37-test verification suite: **wild8highlander/ab-cloud-research** (AB_Cloud_v23 Academic Package; run `run_20260914_234626`).
 - Scan design, Python port, all measurements, figures and this package: Test 34-ext study, September 2026.

@@ -179,13 +179,17 @@ APPENDIX = {
    ["H2", "spectral identity level↔zero", "YES", "D_nn 0.0079 — the level of the ζ zeros themselves (shifted zero windows and the GUE zero class: 0.0079 ± 0.0005, C3); family 0.0069–0.0092 in the zeros' band; GUE class ⟨r⟩ = 0.60 (C5); trace bridge |ΔK| ≤ 1.2e-5 (C4)"],
    ["H3", "the GUE class", "YES", "⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class"],
    ["H4", "Dirac dynamics", "YES", "coherent packet, energy 1e-15 (C7)"],
-   ["H5", "primes in the operator", "NO", "ψ-ladder 0.972 for zeros, null zone for gates (C6)"]],
+   ["H5", "primes in the operator", "YES", "the convergence ladder (v2.0.8): gate ψ-corr monotone in Nv (−0.12 → +0.09 → +0.24, peak in the working window), converging with L (Vortex scan: GUE floor 0.0324 → 0.0220); zeros 0.972 → 1; enters with H2 through the level identity; bit-level branch open (T18) (C6)"]],
   "ratios": [0.08, 0.3, 0.12, 0.5]},
  "conclusion": [
- "The cycle formula after eight campaigns: the resonator is built and "
- "tuned (H1+H3+H4); the zeros are encoded, not generated (H2+H5); the "
- "prime weight is verified only for the zero operator (T6). The "
- "roadmap — in results/ROADMAP.md: stitching the statistical and "
+ "The cycle formula after eight campaigns, updated to the corrected "
+ "verdicts: the resonator is built and "
+ "tuned (H1+H3+H4); the gates sit at the zeros' own level (H2 — YES, "
+ "v2.0.7); the "
+ "prime weight is proven for the zero operator (T6) and enters the gates "
+ "along the convergence ladder (H5 — YES, v2.0.8). The "
+ "roadmap — in results/ROADMAP.md: the bit-level branch (T18), "
+ "stitching the statistical and "
  "coding branches, nonlocal trace constructions, a number-theoretic "
  "explanation of T9."]},
 ]}

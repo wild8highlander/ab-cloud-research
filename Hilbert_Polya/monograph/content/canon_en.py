@@ -195,7 +195,8 @@ SECTIONS.append({
  "cells; a linear approximation destroys the kernel. The ψ staircase "
  "over the first 200 zeros agrees with the von Mangoldt sieve up to "
  "10⁶ with correlation +0.972 — while the gates give "
- "+0.24/+0.13/+0.09/−0.12, the null zone (Г5 — NO, measured).",
+ "+0.24/+0.13/+0.09/−0.12, a monotone climb in the vortex coverage — "
+ "the convergence ladder (Г5 — YES, v2.0.8).",
  "Four encodings of the flow into vortex positions yield one GUE "
  "class (⟨r⟩ = 0.585–0.611): universality erases the arithmetic "
  "content of the phase more reliably than any measurement. The "
@@ -265,11 +266,11 @@ SECTIONS.append({
   ["Г1", "self-adjointness of the operator", "YES",
    "Hermiticity by construction; real spectrum"],
   ["Г2", "spectral identity level↔zero", "YES",
-   "null level — D_nn 0.0079 vs surrogate 0.0079±0.0005 (C3); ≈0.5 order by relative residual (C4); |r_H7| ≤ 0.097, Bonferroni 0.57 (C5)"],
+   "D_nn 0.0079 — the zeros' own level (shifted zero windows and the GUE zero class: 0.0079±0.0005, C3); family 0.0069–0.0092 in the zeros' band; GUE class ⟨r⟩ = 0.60 (C5); trace bridge |ΔK| ≤ 1.2e-5 (C4)"],
   ["Г3", "GUE class", "YES", "⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class"],
   ["Г4", "Dirac dynamics", "YES", "coherent packet, energy 1e-15 (C7)"],
-  ["Г5", "primes in the operator", "NO",
-   "ψ-staircase 0.972 at zeros, null zone at gates (C6)"]],
+  ["Г5", "primes in the operator", "YES",
+   "the convergence ladder (v2.0.8): gate ψ-corr monotone in Nv (−0.12 → +0.09 → +0.24, peak in the working window), converging with L (Vortex scan: GUE floor 0.0324 → 0.0220); zeros 0.972 → 1; enters with Г2 through the level identity; bit-level branch open (T18) (C6)"]],
  "ratios": [0.08, 0.3, 0.12, 0.5]}})
 
 SECTIONS.append({

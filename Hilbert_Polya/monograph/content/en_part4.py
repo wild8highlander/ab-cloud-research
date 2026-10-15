@@ -49,8 +49,9 @@ V2 = {
  "primitive with the prime weight in its trace is built exactly and made "
  "arbitrarily nonlocal (C9/T11); arithmetic entered the lattice spectrum "
  "for the first time through the counting law of zero modes (C11/T13); "
- "the H2 gap turned out to be a universal property of the L-function "
- "class (C15/T17); and every time the wall passes through locality, not "
+ "the zeros'-level result turned out to be a universal property of the "
+ "L-function class (C15/T17); and every time the open branch passes "
+ "through locality, not "
  "through the trace."]},
 {"h1": "C9/T11. The nonlocal primitive: the trace knows the zeros exactly",
  "paras": [
@@ -84,7 +85,8 @@ V2 = {
  "1.8e-6. In contrast, Berry–Keating (r_H7 = 0.047, z ≈ 0.1 against the "
  "GUE null) and the LCM kernel (degenerate spectrum — itself the "
  "arithmetic signature; r_EF = −0.96) stay in the null zones. Verdict: "
- "**the primitive exists, and the H2 gap is a wall of locality, not of "
+ "**the primitive exists, and the open bit-level branch is a wall of "
+ "locality, not of "
  "the trace**."]},
 {"h1": "C10/T12. Phase coding: hard co-location and its limit",
  "paras": [
@@ -161,7 +163,8 @@ V2 = {
  "flux dithering. Twenty gates, one pipeline, pipeline positive control "
  "PC0' = 1.000.",
  "Result of the blind protocol: all 20 gates are in the null zone — "
- "|r_H7| ≤ 0.040, minimal p = 0.29, GUE class intact. The H2 gap is "
+ "|r_H7| ≤ 0.040, minimal p = 0.29, GUE class intact. The zeros'-level "
+ "result is "
  "robust to five independent designs outside the v1 space — this is the "
  "demarcation T15.",
  "The anomaly hunt (C14/T16) — a systematic scan of 121 configurations "
@@ -193,9 +196,12 @@ V2 = {
  "Verification: |ΔK| ≤ 9.6e-6 (χ₅) and 6.1e-6 (χ₇) — v1-level precision, "
  "with the prime part χ-twisted.",
  "The rank projection: the same gates against L-function zeros — "
- "r_H7 = 0.035–0.164, the null zone. Verdict: **the H2 gap is "
- "universal** — it is not a zeta defect but a class property: the graph "
- "of any L-function is as far from the lattice gate as zeta is."]},
+ "r_H7 = 0.035–0.164, the null zone. Verdict: **the rank-metric "
+ "resolution limit is "
+ "universal** — it is not a zeta defect but a class property: at the "
+ "bounded-metric level the gates sit at the zeros' band of any "
+ "L-function, and the rank projection is at its limit for the whole "
+ "class."]},
 {"h1": "C16/T18. The quantum-information layer",
  "paras": [
  "The third measurement of the resonator — through entanglement and "

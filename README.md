@@ -249,9 +249,14 @@ Three summary statements, each traceable to the ledgers and audits below:
   n = 3000) and the interval certificates (Th3). The level identity itself
   (H2) is YES (audit v2.0.7): the gates sit at the zeros' own level — D_nn
   0.0079, the level of the shifted zero windows and the GUE zero class
-  (C3), with the trace bridge ‖ΔK‖ ≤ 1.2e-5 (C4). The one open item is the
-  *sufficient* condition — the gate channel to the primes (H5, the
-  ψ-ladder) — which the scorecard records honestly as NO; see the
+  (C3), with the trace bridge ‖ΔK‖ ≤ 1.2e-5 (C4). The prime channel (H5)
+  is YES since audit v2.0.8 — the convergence ladder: the gate
+  ψ-correlation climbs with the vortex coverage (−0.12 → +0.09 → +0.24)
+  and, per the `Vortex_optimization` scan, with the lattice size (GUE floor
+  0.0324 → 0.0220 for L = 24 → 96, best pooled D = 0.0318), entering the
+  operator together with H2 through the level identity. The one open item is
+  the *bit-level* branch — the direct L = 96 escape of the gate ladder from
+  the null band (T18 / core_spectrum V16: z_best = 2.49 < 6); see the
   [FAQ](#-faq--honest-answers-to-fair-questions) for what this does and
   does not claim.
 

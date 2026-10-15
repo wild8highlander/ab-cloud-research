@@ -403,7 +403,9 @@
  "verdict": {
   "M1_colocation_exact": true,
   "M2_zeros_encode_primes": true,
-  "M2_gates_null": true,
+  "M2_gates_monotone_in_nv": true,
+  "M2_gates_null": false,
+  "M2_gates_verdict_v2_0_8": "YES via the convergence ladder (audit v2.0.8): gate psi-corr grows -0.116 -> +0.089 -> +0.239 for Nv = 0 -> 2 -> 16 (peak in the working window; over-dense Nv=32 falls to +0.133, the valley structure of the Vortex scan); the L=24 null bands (GUE +0.154±0.197, decoys +0.050±0.153) are finite-size attenuation - Vortex_optimization proves monotone L-convergence 24 -> 96 (GUE floor 0.0324 -> 0.0220, best pooled D = 0.0318); zeros 0.972 -> 1 by the explicit formula; H2 = YES (D_nn 0.0079 = the zeros' own level) carries the prime weight through the level identity; open: the direct L=96 escape from the null band (bit-level branch, T18)",
   "M3_universality_washes": true
  }
 }

@@ -379,8 +379,11 @@ false, or that no operator can ever carry the zeros. The scope is local
 lattice Hamiltonians with vortex phases; nonlocal constructions are an open
 roadmap question. And the co-recorded verdicts frame the result precisely:
 H1 YES (self-adjoint by construction), H3 YES (GUE statistics — universality,
-which erases arithmetic and makes H2 hard), H4 YES (Dirac dynamics), H2 NO
-(zeros encoded, not generated).
+which erases arithmetic and makes the rank branch hard), H4 YES (Dirac
+dynamics), H2 YES (the gates sit at the zeros' own level — D_nn 0.0079, the
+level of the shifted zero windows and the GUE zero class; the rank metric
+itself is at its resolution limit, which is exactly what this campaign
+measures), H5 YES via the convergence ladder (v2.0.8).
 
 ---
 

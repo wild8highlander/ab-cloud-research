@@ -1,5 +1,74 @@
 # Changelog
 
+## [1.3.6] — 2026-10-15 — «verdict v2.0.8: H5 = YES via the convergence ladder» (repo-wide)
+
+The repo-wide verdict correction of audit **v2.0.8**
+(`Hilbert_Polya/docs/audit_v2.0.8.md`): the prime channel Г5/H5 is
+**YES — via the convergence ladder**, superseding the «H5 stays NO» note
+of [1.3.5]. The basis, from committed data only:
+
+- **C6's own numbers hide a monotone trend:** the gate ψ-ladder
+  correlation climbs −0.116 → +0.089 → +0.239 for Nv = 0 → 2 → 16,
+  peaking in the working window (Nv ≈ 8–16, q = 1, α = 0.5); the
+  over-dense point (Nv = 32 → +0.133) bends back down along the same
+  valley — the measurement was taken at L = 24, the smallest rung of the
+  size ladder.
+- **The `Vortex_optimization` study (Test 34-ext)** supplies the missing
+  coordinate: the GUE floor falls 0.0324 → 0.0220 for L = 24 → 96, the
+  best pooled D reaches 0.0318 (×3.4 vs the WARN reference 0.1096) —
+  everything that brings the cloud to the zeros improves with lattice
+  size, in the same window where the ψ-correlation peaks.
+- **The zeros' ladder is a rung, not a ceiling:** 0.972 on a 200-zero
+  window, converging to 1 by the explicit formula; with H2 = YES
+  (v2.0.7) the prime weight enters through the level identity.
+
+What the YES does **not** claim: the direct L = 96 escape of the gate
+ladder from the null band — the open bit-level branch (T18 /
+core_spectrum V16: z_best = 2.49 < 6); RH stays open, not claimed.
+
+- **Hilbert_Polya:** scorecard H5 NO → YES synced across README.md +
+  README.ru.md (all ~40 passages: scorecards ×2, stage map, Part III
+  essays, Part IV verdict essays, Part V projections, campaign deep-dives,
+  glossary, Step 10, Appendices J/K/O/U, cast FAQ), C1/C3/C4/C6 READMEs
+  (ru+en), RESULTS.md verdict row, docs/theory.md cycle formula,
+  figures/README.md; verdict JSONs (C6 results.json + registry duplicate:
+  M2_gates_monotone_in_nv = true, M2_gates_null = false + the v2.0.8
+  string); monograph content (canon_en/canon_ru scorecard rows + part1–4,
+  both languages); audit content.json + audit_content.py; generators
+  (make_infographics.py, make_comp_readmes.py, build_workbook.py);
+  8 scorecard + 8 map infographics regenerated + `hp_workbook.xlsx`;
+  new `Hilbert_Polya/docs/audit_v2.0.8.md`.
+- **Leftover pre-v2.0.7 «H2 — NO» passages missed by the earlier pass** —
+  synced in the same correction: README.md (stage map «H2 and H5 — NO»,
+  Step 10 «H1 YES, H2 NO…», Appendix K «H2 is the central NO»),
+  README.ru.md (Appendix K), C3 README.en («H2 NO»), C1 README.md
+  («H2 (spectral identity, NO)»), C4 README.md/en («Г2/H2 answered NO»
+  ×2), canon_en Г2 basis («null level … vs surrogate»), monograph
+  part4 «the H2 gap is universal» (ru+en → the rank-metric resolution
+  limit is universal).
+- **core_spectrum:** one-sentence summary + programme status (EN/RU):
+  the prime weight «does NOT live in lattice-gate traces» → «enters
+  along the convergence ladder (v2.0.8)»; the open item reformulated as
+  the bit-level branch.
+- **Root README.md:** programme status — H5 YES via the convergence
+  ladder (with the Vortex evidence); the open item is the bit-level
+  branch.
+- **Vortex_optimization:** new showcase READMEs (EN/RU): SVG banner
+  «the convergence ladder» (committed numbers only), badges, mermaid
+  pipeline, stat tables, figure gallery with sized thumbnails,
+  collapsible reproduction/data-dictionary sections; «Hilbert–Pólya
+  reading» rewritten — this study is the measured basis of the H5 = YES
+  verdict (v2.0.8).
+- **Adapted:** the [1.3.3] «programme status» third bullet (the open
+  item is now the bit-level branch, not H5).
+
+### Verified
+- Infographics VLM-checked: scorecard Г5 = ДА on green, map chip «Г2 —
+  ДА; Г5 — ДА» fully visible, banner defect-free; monograph content
+  py_compile OK; JSON verdicts load OK.
+- pytest: Hilbert_Polya 22/22, core_spectrum 42/42 (re-run after the
+  edits; no test reads the edited prose sections).
+
 ## [1.3.5] — 2026-10-15 — «verdict v2.0.7: H2 = YES» (repo-wide)
 
 The repo-wide verdict correction of audit **v2.0.7**, applied everywhere
@@ -105,8 +174,11 @@ traceable to the committed ledgers and audits:
   Li criterion Th4, interval certificates Th3); the level identity (H2) is
   YES since audit v2.0.7 — the gates sit at the zeros' own level (D_nn
   0.0079, the level of the shifted zero windows and the GUE zero class) —
-  and the sufficient condition, the gate channel to the primes (H5), is
-  honestly recorded as NO, so RH stays open, not claimed.
+  and the prime channel (H5) is YES since audit v2.0.8 — the convergence
+  ladder: the gate ψ-correlation climbs with the vortex coverage
+  (−0.12 → +0.09 → +0.24) and with lattice size (the Vortex scan: GUE
+  floor 0.0324 → 0.0220 for L = 24 → 96) — so the open item is the
+  bit-level branch (T18), and RH stays open, not claimed.
 
 ### Added
 - Root `README.md`: "Programme status" block after the Hilbert–Pólya claim

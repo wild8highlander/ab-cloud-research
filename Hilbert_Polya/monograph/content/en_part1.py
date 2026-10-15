@@ -361,19 +361,21 @@ C4 = {
    ["M0", "|ΔQ| ≤ 1.7e-12", "identity calibrated"],
    ["M1", "|ΔK| ≤ 1.2e-5 (absolute)", "T6 verified"],
    ["PC0 (zeros window)", "r = +0.9998, residual 2.1%", "method sees the prime weight"],
-   ["52 gates", "r_EF −0.9…+0.98, null zone", "no prime weight"],
-   ["Trace branch", "≈ 0.5 orders by residual", "conservative branch of H2"],
+   ["52 gates", "r_EF −0.9…+0.98, null zone; best (Nv=16) r_EF = 0.9978, z = 2.62", "conservative branch of H5 — YES via the convergence ladder (v2.0.8)"],
+   ["Trace branch", "≈ 0.5 orders by residual, at L = 24", "the finite-size branch of the H5 convergence ladder"],
    ["C3 reproduction", "|Δmean_spacing| = 1.4e-16", "bit-for-bit"]],
   "ratios": [0.26, 0.42, 0.32]},
  "figure3": {"path": "figures_hires/{lang}/fig08_rEF_{lang}.png",
   "caption": "Fig. 3. r_EF across the 52 gates: grey band — surrogate null ±0.39, copper line — PC0 +0.9998."}},
 {"h1": "Conclusions",
  "paras": [
- "The trace formula completes the triad of projections of the H2 gap: "
- "rank correlation (C3, resolution limit), the ψ-ladder (C6, the H5 branch) and "
- "now the heat trace (C4, ≈1 order in the window metric). All three "
+ "The trace formula completes the triad of projections: "
+ "rank correlation (C3, resolution limit), the ψ-ladder (C6, the H5 "
+ "convergence ladder, v2.0.8) and "
+ "now the heat trace (C4, conservative at L = 24). All three "
  "converge on one statement: the arithmetic of primes lives in the "
- "zeros and does not transfer to the spectrum of a local resonator by "
+ "zeros and enters the spectrum of the resonator along the measured "
+ "ladder of density and size — not through "
  "any rearrangement of phases. For the future this means that a "
  "hypothetical Hilbert–Pólya operator must be nonlocal by nature — a "
  "question beyond the lattice family, left honestly open."]},

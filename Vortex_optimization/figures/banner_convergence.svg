@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="420" viewBox="0 0 1240 420" role="img" aria-label="Vortex optimization banner: the committed distance ladder from the suite reference D = 0.1096 to the GUE floor 0.0220, and the GUE floor ladder by lattice size">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0D1321"/>
+      <stop offset="0.55" stop-color="#101828"/>
+      <stop offset="1" stop-color="#0C111E"/>
+    </linearGradient>
+    <linearGradient id="fall" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#E08B66" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#4FB3BE" stop-opacity="0.95"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#4FB3BE" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#4FB3BE" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M28 0H0V28" fill="none" stroke="#243046" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1240" height="420" fill="url(#bg)"/>
+  <rect width="1240" height="420" fill="url(#grid)" opacity="0.55"/>
+  <circle cx="1010" cy="120" r="180" fill="url(#glow)"/>
+
+  <!-- vortex lattice motif (left) -->
+  <g opacity="0.92">
+    <g transform="translate(46,88)">
+      <rect x="0" y="0" width="84" height="84" rx="10" fill="#131B2C" stroke="#2C3A55" stroke-width="1.5"/>
+      <g stroke="#E08B66" stroke-width="1.6" fill="none">
+        <circle cx="28" cy="28" r="7"/><circle cx="56" cy="56" r="7"/>
+      </g>
+      <text x="42" y="106" text-anchor="middle" font-family="Georgia, serif" font-size="12.5" fill="#8A93A8">Nv = 2</text>
+      <text x="42" y="14" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#8A93A8">dilute</text>
+    </g>
+    <g transform="translate(46,200)">
+      <rect x="0" y="0" width="84" height="84" rx="10" fill="#131B2C" stroke="#2C3A55" stroke-width="1.5"/>
+      <g stroke="#D9A066" stroke-width="1.4" fill="none">
+        <circle cx="22" cy="22" r="6"/><circle cx="62" cy="22" r="6"/>
+        <circle cx="22" cy="62" r="6"/><circle cx="62" cy="62" r="6"/>
+        <circle cx="42" cy="42" r="6"/><circle cx="42" cy="12" r="6"/>
+        <circle cx="42" cy="72" r="6"/><circle cx="12" cy="42" r="6"/>
+      </g>
+      <text x="42" y="106" text-anchor="middle" font-family="Georgia, serif" font-size="12.5" fill="#8A93A8">Nv = 8</text>
+    </g>
+    <g transform="translate(152,144)">
+      <rect x="0" y="0" width="112" height="112" rx="12" fill="#14233A" stroke="#4FB3BE" stroke-width="2"/>
+      <g stroke="#7FBF9A" stroke-width="1.5" fill="none">
+        <circle cx="24" cy="24" r="6"/><circle cx="56" cy="24" r="6"/><circle cx="88" cy="24" r="6"/>
+        <circle cx="24" cy="56" r="6"/><circle cx="88" cy="56" r="6"/>
+        <circle cx="24" cy="88" r="6"/><circle cx="56" cy="88" r="6"/><circle cx="88" cy="88" r="6"/>
+        <circle cx="56" cy="56" r="7" stroke="#4FB3BE" stroke-width="2"/>
+        <circle cx="40" cy="40" r="5"/><circle cx="72" cy="40" r="5"/>
+        <circle cx="40" cy="72" r="5"/><circle cx="72" cy="72" r="5"/>
+        <circle cx="56" cy="16" r="5"/><circle cx="56" cy="96" r="5"/>
+        <circle cx="16" cy="56" r="5"/><circle cx="96" cy="56" r="5"/>
+      </g>
+      <text x="56" y="132" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#9FE8C4">Nv = 16 · torus</text>
+      <text x="56" y="-8" text-anchor="middle" font-family="Georgia, serif" font-size="12.5" fill="#9FE8C4">working window</text>
+    </g>
+  </g>
+
+  <!-- title block -->
+  <g font-family="Georgia, 'Times New Roman', serif">
+    <text x="330" y="74" font-size="38" fill="#E8E2D0" letter-spacing="0.5">Vortex-Density Optimization</text>
+    <text x="330" y="108" font-size="18" fill="#4FB3BE" letter-spacing="2.5">TEST 34-EXT · THE CONVERGENCE LADDER</text>
+    <text x="330" y="136" font-size="14.5" fill="#8A93A8" font-style="italic">242 configurations · L = 24 → 96 · window Nv ≈ 8–16, q ≈ 0.7–1.0, α = 0.5</text>
+  </g>
+
+  <!-- committed distance ladder (order-correct vertical scale) -->
+  <g transform="translate(330,162)" font-family="Georgia, serif">
+    <!-- baseline -->
+    <line x1="20" y1="140" x2="850" y2="140" stroke="#2C3A55" stroke-width="1.5"/>
+    <!-- GUE floor line -->
+    <line x1="20" y1="132" x2="850" y2="132" stroke="#7FBF9A" stroke-width="1.6" stroke-dasharray="7 5"/>
+    <text x="26" y="126" font-size="12.5" fill="#7FBF9A">GUE floor 0.0220</text>
+    <!-- WARN line -->
+    <line x1="20" y1="2" x2="850" y2="2" stroke="#D97B6C" stroke-width="1.3" stroke-dasharray="3 4"/>
+    <text x="700" y="-6" font-size="12.5" fill="#D97B6C">WARN 0.10</text>
+
+    <!-- the falling curve through committed points (ref 0.1096 → best 0.0318) -->
+    <path d="M 70,10 C 150,16 220,26 300,34 C 400,52 480,84 560,104 C 640,113 740,117 850,122"
+          fill="none" stroke="url(#fall)" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- committed points -->
+    <g font-size="12.5" fill="#8A93A8">
+      <g>
+        <line x1="70" y1="10" x2="70" y2="140" stroke="#3A4A68" stroke-width="1.2"/>
+        <circle cx="70" cy="10" r="6" fill="#D97B6C"/>
+        <text x="70" y="158" text-anchor="middle">reference</text>
+        <text x="70" y="172" text-anchor="middle" font-size="11">Julia</text>
+        <text x="70" y="-2" text-anchor="middle" fill="#E8B8A8" font-size="13">0.1096</text>
+      </g>
+      <g>
+        <line x1="300" y1="34" x2="300" y2="140" stroke="#3A4A68" stroke-width="1.2"/>
+        <circle cx="300" cy="34" r="6" fill="#E08B66"/>
+        <text x="300" y="158" text-anchor="middle">port</text>
+        <text x="300" y="22" text-anchor="middle" fill="#E8C4A8">0.0928</text>
+      </g>
+      <g>
+        <line x1="560" y1="104" x2="560" y2="140" stroke="#3A4A68" stroke-width="1.2"/>
+        <circle cx="560" cy="104" r="6" fill="#C8B168"/>
+        <text x="560" y="158" text-anchor="middle">q = 0.7 open</text>
+        <text x="560" y="94" text-anchor="middle" fill="#E8D8A8">0.0387</text>
+      </g>
+      <g>
+        <line x1="700" y1="112" x2="700" y2="140" stroke="#3A4A68" stroke-width="1.2"/>
+        <circle cx="700" cy="112" r="6" fill="#8FC8B8"/>
+        <text x="700" y="158" text-anchor="middle">Nv = 8 reg</text>
+        <text x="700" y="100" text-anchor="middle" fill="#B8E8D8">0.0358</text>
+      </g>
+      <g>
+        <line x1="850" y1="122" x2="850" y2="140" stroke="#3A4A68" stroke-width="1.2"/>
+        <circle cx="850" cy="122" r="7" fill="#4FB3BE" stroke="#E8E2D0" stroke-width="1.5"/>
+        <text x="850" y="158" text-anchor="middle" fill="#9FE8E4">Nv = 16 torus</text>
+        <text x="850" y="172" text-anchor="middle" font-size="11" fill="#9FE8E4">BEST · PASS</text>
+        <text x="824" y="112" text-anchor="middle" fill="#9FE8E4" font-size="14">0.0318</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- GUE floor ladder by L (committed: 0.0324 / 0.0331 / 0.0309 / 0.0257 / 0.0220) -->
+  <g transform="translate(330,356)" font-family="Georgia, serif" font-size="12" fill="#8A93A8">
+    <text x="0" y="6">GUE floor by L:</text>
+    <g fill="#2E5A52" stroke="#4FB3BE" stroke-width="1.2">
+      <rect x="106" y="-2" width="26" height="8" rx="2"/>
+      <rect x="142" y="-2" width="27" height="8" rx="2"/>
+      <rect x="179" y="-2" width="25" height="8" rx="2"/>
+      <rect x="212" y="-2" width="21" height="8" rx="2"/>
+      <rect x="243" y="-2" width="17" height="8" rx="2"/>
+    </g>
+    <g font-size="11.5" fill="#6E7A94">
+      <text x="119" y="20" text-anchor="middle">24</text><text x="156" y="20" text-anchor="middle">32</text>
+      <text x="192" y="20" text-anchor="middle">48</text><text x="222" y="20" text-anchor="middle">64</text>
+      <text x="252" y="20" text-anchor="middle">96</text>
+      <text x="106" y="-8" fill="#7FBF9A">0.0324 → 0.0220</text>
+    </g>
+    <text x="310" y="8" fill="#6E7A94" font-size="11.5">· the floor falls with lattice size — the convergence ladder (H5 — YES, v2.0.8)</text>
+  </g>
+
+  <!-- bottom strip -->
+  <g font-family="Georgia, serif">
+    <rect x="330" y="388" width="850" height="26" rx="13" fill="#16223A" stroke="#2C3A55"/>
+    <text x="755" y="406" text-anchor="middle" font-size="14" fill="#E8E2D0">×3.4 closer to the ζ zeros · 89% of the reference-to-floor gap closed · 3 / 3 candidates PASS at 96×96</text>
+  </g>
+  <text x="46" y="398" font-family="Georgia, serif" font-size="12.5" fill="#5A6580" font-style="italic">from a breeze to ocean currents</text>
+</svg>

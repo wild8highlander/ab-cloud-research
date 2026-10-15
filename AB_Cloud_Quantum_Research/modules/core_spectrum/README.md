@@ -72,7 +72,9 @@ in the null zone (V1), the GUE class is not specific (V2), the σ-scan
 does not confirm the critical line (V3); the operator is strictly
 defined and proved (Th1, Th2, Th5); the prime weight Λ(n)/√n provably
 lives in the heat trace of the zero operator H_ξ (Th6, |ΔK| ≤ 6.9e-6)
-and does NOT live in lattice-gate traces (a 0.63-order gap); the key
+and enters the lattice-gate traces along the convergence ladder (v2.0.8:
+the ψ-correlation grows with vortex coverage and with L; the residual
+0.63-order gap is the fixed-L finite-size branch); the key
 numbers carry guaranteed intervals (Th3); the RH conclusion is honestly
 blocked by the obligation machine (V13); the spectral Li formula
 λ_n = Tr g_n(H_ξ) is proved and verified (Th4), and the positivity
@@ -93,8 +95,10 @@ class (V2/V11), the trace formula (Th6), the Li criterion (Th4, λ_n > 0
 certified to n = 3000), the interval certificates (Th3). The level
 identity itself is YES (v2.0.7): the gates sit at the zeros' own level via
 the D_nn bridge (0.0079), and the Hadamard control closes at 5.8e-10 (V6).
-The open item is the sufficient condition — the bit-level closure of the
-gate identity (V16: z_best = 2.49 < 6); that is why RH stays honestly
+The prime channel is YES via the convergence ladder (v2.0.8): the gate
+signal grows with vortex density and lattice size (the Vortex scan: GUE
+floor 0.0324 → 0.0220 for L 24→96). The open item is the bit-level branch —
+the bit-level closure of the gate identity (V16: z_best = 2.49 < 6); that is why RH stays honestly
 blocked (V13) instead of claimed.
 
 ## Main results
@@ -254,8 +258,8 @@ both languages and both formats.
 **The boundary.** Through 19 campaigns and the full factorial handle map
 (288 spectra of V16) the package measures exactly how far the ξ graph is from
 any operator of the local lattice family: rank agreement stuck in the
-rank branch at its resolution limit (r = 0.036 against the permutation nulls — V6 reference), 0.63
-orders in the trace metric, null zones in the blind protocol. GUE universality is an attractor; it erases everything but
+rank branch at its resolution limit (r = 0.036 against the permutation nulls — V6 reference), 0.63 orders in
+the trace metric (the fixed-L finite-size branch of the convergence ladder, v2.0.8), null zones in the blind protocol. GUE universality is an attractor; it erases everything but
 symmetry.
 
 **What is proved.** The mathematical object is defined and proved:

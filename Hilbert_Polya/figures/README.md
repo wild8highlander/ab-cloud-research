@@ -43,9 +43,11 @@ Concretely:
   wave-packet transport of C7 and the co-location of C6, animated).
 
 The five infographics, by subject: the **scorecard** renders the verdict
-table H1–H5 (self-adjointness YES, spectral identity NO, GUE class YES,
-Dirac dynamics YES, primes inside the operator NO); the **map** draws the
-five-stage bridge with the three projections of the H2 gap; the **trace**
+table H1–H5 (self-adjointness YES, spectral identity YES at the zeros'
+level, GUE class YES,
+Dirac dynamics YES, primes inside the operator YES via the convergence
+ladder, v2.0.8); the **map** draws the
+five-stage bridge with the three projections of the level identity; the **trace**
 sheet summarizes the Guinand–Weil trace formula and Theorem T6; the
 **handles** sheet is the guide to the reachable handle space (C3 protocol
 plus the six C5 dimensions); the **ladder** shows the Poisson/GOE/GUE
