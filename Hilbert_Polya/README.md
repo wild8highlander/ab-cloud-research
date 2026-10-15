@@ -734,7 +734,7 @@ Dirac resonator whose transport statistics know the difference between a
 **12 · Symmetry, audited.** The 64 spin structures of the Klein quartic
 collapse to exactly 4 distinct Hamiltonians — a proven reduction (T8) —
 with pairwise spectral agreement at |Δλ| ≤ 1.1e-14. Symmetry bookkeeping of
-this quality is what makes the family's negative verdicts trustworthy: if
+this quality is what makes the family's conservative verdicts trustworthy: if
 the isospectrality accounting were sloppy, the null clouds would be too.
 
 **13 · The pipeline is bit-reproducible.** C4's independent re-run of the
@@ -1317,7 +1317,7 @@ algebra, graph, counting, operator, trace — and measures the distance at
 each junction. The algebra-to-graph junction is exact (T1, T2). The
 graph-to-counting junction is exact in the strip (T3, C2). The
 counting-to-operator junction is where the package's central measurement
-lives: the gap, in three projections (Part V). The operator-to-trace
+lives: the verdict, in three projections (Part V). The operator-to-trace
 junction closes exactly for H_ξ (T6) and fails by ≈0.5 orders for the
 gates. v2's contribution is to walk the *edges* of the gap — nonlocality
 (T11), phase coding (T12), flux change (T13), strip extension (T14), blind

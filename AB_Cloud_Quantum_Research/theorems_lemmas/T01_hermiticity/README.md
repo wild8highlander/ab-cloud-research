@@ -33,4 +33,4 @@ Th1 ничего не говорит о соответствии спектра 
 
 **Figure dimensions.** a) ‖H−H†‖ across gates L = 12/16/24/32 — exactly 0.0 (log scale); b) spectrum-realness residuals ≤ 8.8e−15; c) λ ↔ −λ pairing to 8.2e−15; d) eigenpair residuals ≤ 8.8e−15. The ε = 1e−12 threshold is marked on every panel.
 
-**Boundaries.** Th1 says nothing about matching the spectrum to the ζ zeros (negative verdicts V1, V3, V6, V16). The λ ↔ −λ symmetry breaks at W > 0 and is not restored by vortices.
+**Boundaries.** Th1 says nothing about matching the spectrum to the ζ zeros: the series' verdicts there are the level identity — YES at the zeros' level (V6/V16, the D_nn bridge, v2.0.7) with the bit-level branch open (V16) and the blind-coding / σ-scan design claims refuted (V1, V3). The λ ↔ −λ symmetry breaks at W > 0 and is not restored by vortices.

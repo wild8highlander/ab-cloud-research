@@ -99,7 +99,7 @@ The original method statement, preserved: *a sparse 96×96 Hamiltonian (open bc)
 
 **H4 — YES (honest dynamics).** The gate carries a coherent, ballistic, energy-conserving Dirac-type wave, and its ζ-phases produce transport that a random-phase medium of the same density does not. The resonator is a physical object, not just a matrix.
 
-> The identification of the self-dual line α = ½ with Re(s) = ½ is a conjectural bridge: statistical support exists (D7/D10), identity does not.
+> The identification of the self-dual line α = ½ with Re(s) = ½ is a conjectural bridge: statistical support exists (D7/D10), the zeros' level — yes (H2, v2.0.7), the bit-level branch open.
 > The electron motion is confirmed in the dynamical sense; it is not a statement about the spectrum (see C3–C5).
 
 What H4 does **not** give you:

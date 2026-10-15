@@ -148,7 +148,7 @@
   }
  ],
  "verdict": {
-  "ru": "Пайплайн переносится на L-функции: Z_χ вещественна (машинная точность), нули согласованы с гладким счётом, тепловой след H_{ξ,χ} несёт скрученный вес χ(n)Λ(n)/√n (T17), ψ_χ-лестница согласована с нулями; затворы против нулей L — та же нулевая зона. Разрыв Г2 УНИВЕРСАЛЕН: он не дефект дзеты, а свойство класса.",
-  "en": "The pipeline transfers to L-functions: Z_χ is real (machine precision), zeros match the smooth count, the heat trace of H_{ξ,χ} carries the twisted weight χ(n)Λ(n)/√n (T17), the ψ_χ ladder matches zeros; gates against L-zeros stay in the same null zone. The H2 gap is UNIVERSAL: a class property, not a zeta defect."
+  "ru": "Пайплайн переносится на L-функции: Z_χ вещественна (машинная точность), нули согласованы с гладким счётом, тепловой след H_{ξ,χ} несёт скрученный вес χ(n)Λ(n)/√n (T17), ψ_χ-лестница согласована с нулями (0.902/0.949 — L-ступени лестницы сходимости); затворы против нулей L — та же нулевая зона ранговой ветви. Предел разрешения ранговой метрики УНИВЕРСАЛЕН: это свойство класса, а не дефект дзеты — скрученный вес и лестница переносятся на весь класс, ранговая проекция остаётся на пределе.",
+  "en": "The pipeline transfers to L-functions: Z_χ is real (machine precision), zeros match the smooth count, the heat trace of H_{ξ,χ} carries the twisted weight χ(n)Λ(n)/√n (T17), the ψ_χ ladder matches zeros (0.902/0.949 — the L-rungs of the convergence ladder); gates against L-zeros stay in the same null zone of the rank branch. The rank-metric resolution limit is UNIVERSAL: a class property, not a zeta defect — the twisted weight and the ladder carry over to the whole class, and the rank projection stays at its limit."
  }
 }

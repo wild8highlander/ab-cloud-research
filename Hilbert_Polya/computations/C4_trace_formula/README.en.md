@@ -57,7 +57,7 @@ The Hilbert–Pólya programme asks whether the imaginary parts γ_n of the zeta
 
     Tr e^{−xH} = smooth Γ-terms − ΣΛ(n)/√n·x/(x²+ln²n),
 
-where Λ(n) = ln p on prime powers and 0 elsewhere. The campaign derives this rigorously (**theorem T6**), verifies it for the zero-coded operator H_ξ = diag(±γ_n), and then measures what survives for the lattice gates. This is the **third projection of the H2 gap** — after the rank correlation (C3) and the ψ-ladder (C6) — and the only one equipped with a proven positive control.
+where Λ(n) = ln p on prime powers and 0 elsewhere. The campaign derives this rigorously (**theorem T6**), verifies it for the zero-coded operator H_ξ = diag(±γ_n), and then measures what survives for the lattice gates. This is the **third projection of the H2 question** — after the rank correlation (C3) and the ψ-ladder (C6) — and the only one equipped with a proven positive control.
 
 A heat trace, Tr e^{−xH} = Σ_n e^{−xλ_n}, is the Laplace transform of the spectral density: each level contributes one exponentially damped term, high levels suppressed first. That damping is the point — it smooths a discrete list of levels into a continuous curve, and curves can be matched against the continuous prime side of number theory.
 
@@ -248,7 +248,7 @@ Six terms, each with a fixed role and none with a free parameter: the first term
 
 ## 18. See also
 
-- [../C3_gate_family/README.md](../C3_gate_family/README.md) — the gate family measured here; the rank-correlation projection of the H2 gap.
+- [../C3_gate_family/README.md](../C3_gate_family/README.md) — the gate family measured here; the rank-correlation projection of the H2 question.
 - [../../docs/trace_formula.md](../../docs/trace_formula.md) — the complete derivation of T6 with every constant derived.
 - [../../results/RESULTS.md](../../results/RESULTS.md) — the committed registry of numbers, the Г1–Г5/H1–H5 verdicts, and the honesty registry.
 

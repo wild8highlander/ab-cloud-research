@@ -41,9 +41,9 @@ verdicts of the corresponding `computations/<ID>/data/` folders.
 | C10 | phase coding | does the spectrum see the rigid co-location? | co-location exact (4.4e-16), the spectrum is blind | T12 |
 | C11 | α=1/3 | what is the arithmetic of the zero modes? | N₀ = 2L−6·[L≡0 (mod 12)], index −2 | T13 |
 | C12 | band T=5000 | does the counting machine scale? | yes: N = 4520 = N_strip | T14 |
-| C13 | blind families | is the gap stable against new designs? | yes (20 gates, null zone) | T15 |
+| C13 | blind families | is the H2 result stable against new designs? | yes (20 gates, the rank branch's null zone) | T15 |
 | C14 | anomalies outside GUE | is there an exit from universality? | no; the pool is structured | T16 |
-| C15 | Dirichlet L | is the H2 gap universal? | yes; the trace formula carries χ(n)Λ(n)/√n | T17 |
+| C15 | Dirichlet L | is the rank-metric resolution limit universal? | yes; the trace formula carries χ(n)Λ(n)/√n, the rank branch stays at its limit | T17 |
 | C16 | the quantum layer | what do entanglement and complexity see? | an echo of locality; no arithmetic | T18 |
 
 ### The v2 metric conventions

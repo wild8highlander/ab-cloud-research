@@ -78,9 +78,11 @@ nonlocal (T11) — so whatever blocks the Hilbert–Pólya programme, it is not
 the trace, not the weight, and not the zeros themselves. Arithmetic entered
 the lattice spectrum, but through the side door: the counting law of zero
 modes at α = 1/3 (T13) is a genuine number-theoretic signature inside a
-lattice Dirac operator, even though it is not spectral identity. The H2 gap
-is universal for the whole L-function class (T17): twist the prime weight by
-any Dirichlet character and the same wall stands. And the wall's location is
+lattice Dirac operator, even though it is not spectral identity. The
+rank-metric resolution limit is universal for the whole L-function class
+(T17): twist the prime weight by any Dirichlet character and the twisted
+identities carry, while the same wall stands for the rank projection. And
+the wall's location is
 now pinned: it passes through **locality**, not through the trace (T11 vs
 T18) — a local lattice simply cannot host the entanglement structure that
 the zero-comb spectrum demands. This is the most precise negative statement
@@ -317,7 +319,7 @@ Dirac resonator whose transport statistics know the difference between a
 **12 · Symmetry, audited.** The 64 spin structures of the Klein quartic
 collapse to exactly 4 distinct Hamiltonians — a proven reduction (T8) —
 with pairwise spectral agreement at |Δλ| ≤ 1.1e-14. Symmetry bookkeeping of
-this quality is what makes the family's negative verdicts trustworthy: if
+this quality is what makes the family's conservative verdicts trustworthy: if
 the isospectrality accounting were sloppy, the null clouds would be too.
 
 **13 · The pipeline is bit-reproducible.** C4's independent re-run of the
@@ -757,9 +759,9 @@ package's warranty that its zero-side numbers are checked, not assumed.
 
 The adversarial self-audit: 20 gates designed *outside* the v1 handle
 space — five new handle families chosen before any spectrum was computed —
-all land in the null zone (|r_H7| ≤ 0.040, min p = 0.29), while the PC0′
+all land in the null zone of the rank branch (|r_H7| ≤ 0.040, min p = 0.29), while the PC0′
 control closes at 1.000 (0.9999999999999996 to machine precision). The
-H2 gap is robust to designs the v1 map never considered; the null zone is
+H2 result — the zeros' level — is robust to designs the v1 map never considered; the null zone is
 not an artifact of the handle choice.
 
 ### C14 · The anomaly hunt — `C14_anomaly_hunt/` (T16)
@@ -776,9 +778,11 @@ statement.
 
 The universality question, escalated: twist the prime weight by a Dirichlet
 character — χ(n)Λ(n)/√n — and re-derive the trace formula. It closes:
-|ΔK| ≤ 9.6e-6 for χ₅, 6.1e-6 for χ₇. The H2 gap is therefore universal
-across the whole L-function class: any Dirichlet L-function's zeros face
-the same wall over the same lattice. This kills the cheap escape routes —
+|ΔK| ≤ 9.6e-6 for χ₅, 6.1e-6 for χ₇. The rank-metric resolution limit is
+therefore universal across the whole L-function class: any Dirichlet
+L-function's zeros face the same wall over the same lattice, while the
+twisted trace and ψ_χ ladder carry the class's primes. This kills the cheap
+escape routes —
 no special weight, no special character, no special window makes a local
 gate into a Hilbert–Pólya operator.
 
@@ -2420,8 +2424,9 @@ demarcation theorem generalized from a family to a population.
 
 **9.6e-6 — the twisted trace residual (C15, T17).** The prime weight
 χ(n)Λ(n)/√n through a Dirichlet character, and the trace formula
-closes: 9.6e-6 for χ₅, 6.1e-6 for χ₇. The H2 gap is now universal for
-the L-function class — no special weight escapes the wall. The escape
+closes: 9.6e-6 for χ₅, 6.1e-6 for χ₇. The rank-metric resolution limit is
+now universal for the L-function class — no special weight escapes the
+wall, and every twisted identity carries. The escape
 routes are closed in general, not merely untried.
 
 **12–16 vs 160–220 — the entanglement budget (C16, T18).** Local gates

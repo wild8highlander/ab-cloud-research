@@ -366,6 +366,9 @@ def main():
         w.write(f)
     os.remove(BODY_PDF)
     os.remove(COVER_PDF)
+    cov_html = os.path.join(OUT_DIR, '_cover.html')
+    if os.path.exists(cov_html):
+        os.remove(cov_html)
     print('PDF OK:', FINAL_PDF)
 
 

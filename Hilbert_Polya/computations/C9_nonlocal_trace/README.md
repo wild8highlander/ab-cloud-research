@@ -25,7 +25,7 @@ If some operator — any operator — carries Λ(n)/√n in its heat trace BY CO
 
 ## Where it sits in the v2 roadmap
 
-C9 executes **R1** of the v1 roadmap — "nonlocal trace constructions: the T6 lesson applied to candidate operators beyond the lattice" — and settles theorem **T11** (heat-trace uniqueness). It is the first pillar of the v2 verdict *The Operator That Almost Exists*: the primitive with the prime weight in its trace exists and can be made arbitrarily nonlocal at will; what the lattice family cannot supply is a *local* realization of it. Within the volume it works in tandem with C10 (the phase-coding layer is equally blameless) and C13 (fresh local designs stay in the null zone), so that the wall is triangulated from three independent sides.
+C9 executes **R1** of the v1 roadmap — "nonlocal trace constructions: the T6 lesson applied to candidate operators beyond the lattice" — and settles theorem **T11** (heat-trace uniqueness). It is the first pillar of the v2 verdict *The Operator That Almost Exists*: the primitive with the prime weight in its trace exists and can be made arbitrarily nonlocal at will; what the lattice family cannot supply is a *local* realization of it. Within the volume it works in tandem with C10 (the phase-coding layer is equally blameless) and C13 (fresh local designs stay in the rank branch's null zone), so that the wall is triangulated from three independent sides.
 
 <p align="center">
   <img src="../../assets/avatars/hp_hilbert.svg" width="110" alt="Hilbert"/>
@@ -44,7 +44,7 @@ C9 executes **R1** of the v1 roadmap — "nonlocal trace constructions: the T6 l
 
 ## Results
 
-> N2/N3 twins: r_H7 = 1.000, r_EF(fluct) = 0.999 — the primitive exists; xp and LCM kernel stay in null zones. T11: heat-trace uniqueness ⇒ the H2 gap is a wall of LOCALITY, not of the trace.
+> N2/N3 twins: r_H7 = 1.000, r_EF(fluct) = 0.999 — the primitive exists; xp and LCM kernel stay in the rank branch's null zones. T11: heat-trace uniqueness ⇒ the open bit-level branch is a wall of LOCALITY, not of the trace.
 
 | Member | r_H7 (matched) | r_EF raw | r_EF (fluct) | Class / reading |
 |---|---|---|---|---|
@@ -92,7 +92,7 @@ In this campaign folder the committed payload is `data/results.json` (the N1–N
 See `data/results.json` (verdict, RU+EN), the v2 monograph
 (`monograph/v2_volume/`) and `independent_verification/` (IVP11–18).
 
-Committed verdict (EN, verbatim): "The primitive exists: any ispectral [sic] nonlocal operator carries Λ(n)/√n in its trace by construction (r_EF at PC0 level, r_H7 = 1); off-class candidates (xp, LCM kernel) stay in null zones. H2 is a wall of LOCALITY, not of the trace (T11)." The full statement and proof sketch of T11 live in `monograph/theorems_v2_volume/`; the independent protocol re-derives the twin construction and the trace re-check as IVP11–18.
+Committed verdict (EN, verbatim): "The primitive exists: any isospectral nonlocal operator carries Λ(n)/√n in its trace by construction (r_EF at PC0 level, r_H7 = 1); off-class candidates (xp, LCM kernel) stay in the rank branch's null zones. The open bit-level branch is a wall of LOCALITY, not of the trace (T11)." The full statement and proof sketch of T11 live in `monograph/theorems_v2_volume/`; the independent protocol re-derives the twin construction and the trace re-check as IVP11–18.
 
 ## FAQ
 
@@ -105,7 +105,7 @@ Committed verdict (EN, verbatim): "The primitive exists: any ispectral [sic] non
 
 - [C4 · Trace formula (T6)](../C4_trace_formula/README.md) — the parent identity, abs ΔK ≤ 1.2e-5 in v1.
 - [C3 · Gate family](../C3_gate_family/README.md) — the 52-gate measurement in which the wall was first quantified.
-- [C13 · Blind families (T15)](../C13_blind_families/README.md) — twenty gates with new designs, same null zone.
+- [C13 · Blind families (T15)](../C13_blind_families/README.md) — twenty gates with new designs, same null zone of the rank branch.
 - `../../docs/trace_formula.md` — the full T6 derivation (Hadamard product → Q(a) → sine transform).
 - `../../results/ROADMAP.md` — R1 as written and as executed.
 - [Back to the main README](../../README.md).

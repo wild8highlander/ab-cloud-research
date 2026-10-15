@@ -37,7 +37,7 @@ At the band edges (ν = 0.25, 0.75) the gate reaches S_A = 12.76 and 12.75 nats,
 
 ## Why it matters
 
-T18 completes the v2 verdict with a statement about *states*, not only spectra. Arithmetic enters the lattice spectrum through the counting law of zero modes (T13) but never through spectral identity (C3–C5, C13); C16 shows it never enters the states' information content either: no Haar volume law, no zero-window MI, complexity stopping at GUE. The wall of locality is visible in the entanglement structure. Any future bridge must be an object whose locality is not of this kind.
+T18 completes the v2 verdict with a statement about *states*, not only spectra. Arithmetic enters the lattice spectrum through the counting law of zero modes (T13) but not through the rank channel (C3–C5, C13 — the rank branch at its resolution limit, with the level identity at the zeros' band); C16 shows it never enters the states' information content either: no Haar volume law, no zero-window MI, complexity stopping at GUE. The wall of locality is visible in the entanglement structure. Any future bridge must be an object whose locality is not of this kind.
 
 ## Reproduction
 

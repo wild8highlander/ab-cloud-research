@@ -184,7 +184,7 @@ C6 (primes), C7 (dynamics), C8 (statistics).
   (|ΔQ| ≤ 1.7e-12), M1 the trace formula (|ΔK| ≤ 1.2e-5 absolute), M2 the
   trace-metric gap of the gates.
 - **r_H7** — Pearson correlation of rank-fluctuations between a gate
-  window and the zero window; the rank projection of the H2 gap.
+  window and the zero window; the rank projection of the H2 question.
 - **D_nn** — the nearest-neighbour spacing statistic after an optimal
   global shift; floor 1e-14 for isospectral twins (below it, only
   diagonalization noise).

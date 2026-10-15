@@ -29,8 +29,8 @@ Does the prime weight live in the heat trace? Guinand–Weil for H_ξ with a con
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V07 (plan Solution 7) | committed verdict |
-| Key numbers | |ΔQ| ≤ 4.6e-8; |ΔK| ≤ 6.9e-6; B + C₀ = 2.5e-10; PC0 r = +0.9996 (resid 0.027); gates: resid ≥ 0.115 — a 0.63-order gap. | measured/proved |
-| Verdict note | вес простых Λ(n)/√n доказательно живёт в тепловом следе H_ξ (Th6: |ΔK| ≤ 5e-5); в следах решёточных затворов гребёнка невидима (r_EF в нулевых облаках) — арифметика не порождается универсальностью | honest |
+| Key numbers | |ΔQ| ≤ 4.6e-8; |ΔK| ≤ 6.9e-6; B + C₀ = 2.5e-10; PC0 r = +0.9996 (resid 0.027); gates: resid ≥ 0.115, best (Nv = 16, the working window) r_EF = 0.993 — a 0.63-order gap by residual (the conservative branch of the convergence ladder). | measured/proved |
+| Verdict note | вес простых Λ(n)/√n доказательно живёт в тепловом следе H_ξ (Th6: |ΔK| ≤ 5e-5); следовая ветвь затворов консервативна (v2.0.8): лучший затвор батареи (Nv = 16) достигает r_EF = 0.993 при невязке 11.5% против 2.7% у эталона нулей (≈0.63 порядка — конечноразмерная ветвь лестницы сходимости); семейство в среднем — в нулевых облаках (0.76 ± 0.24) | honest |
 
 ## Method
 

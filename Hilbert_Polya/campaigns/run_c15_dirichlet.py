@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Кампания C15 — пайплайн C1–C4 + C6 для L-функций Дирихле (T17).
 
-Вопрос: универсален ли измеренный разрыв Г2, или он — дефект дзеты?
+Вопрос: универсален ли предел разрешения ранговой метрики Г2, или он — дефект дзеты?
+(скрученный вес и ψ_χ-лестница переносятся на класс вместе с тождеством следа)
 Характеры: χ₅ (чётный, mod 5), χ₇ (нечётный, mod 7).
 Ветви:
   D1  Z_χ(t) = e^{iθ_χ(t)}L(½+it,χ) — вещественность на линии (K2-аналог);
@@ -10,7 +11,8 @@
       Q_χ(a) = Λ'/Λ(½+a,χ) − B_χ — СКРУЧЕННЫЙ вес χ(n)Λ(n)/√n (T17);
   D4  ψ_χ-лестница: сито Σχ(n)Λ(n) против эталона первых нулей (M2-аналог);
   D5  ранговая проекция: r_H7 решёточных затворов против нулей L —
-      универсальность разрыва Г2 (нулевая зона ожидаемо и у L-функций).
+      универсальность предела ранговой метрики (нулевая зона ранговой
+      ветви ожидаемо и у L-функций).
 """
 import json, os, sys, time
 import numpy as np
@@ -135,15 +137,23 @@ def main():
             "ru": "Пайплайн переносится на L-функции: Z_χ вещественна "
                   "(машинная точность), нули согласованы с гладким счётом, "
                   "тепловой след H_{ξ,χ} несёт скрученный вес "
-                  "χ(n)Λ(n)/√n (T17), ψ_χ-лестница согласована с нулями; "
-                  "затворы против нулей L — та же нулевая зона. Разрыв Г2 "
-                  "УНИВЕРСАЛЕН: он не дефект дзеты, а свойство класса.",
+                  "χ(n)Λ(n)/√n (T17), ψ_χ-лестница согласована с нулями "
+                  "(0.902/0.949 — L-ступени лестницы сходимости); затворы "
+                  "против нулей L — та же нулевая зона ранговой ветви. "
+                  "Предел разрешения ранговой метрики УНИВЕРСАЛЕН: это "
+                  "свойство класса, а не дефект дзеты — скрученный вес и "
+                  "лестница переносятся на весь класс, ранговая проекция "
+                  "остаётся на пределе.",
             "en": "The pipeline transfers to L-functions: Z_χ is real "
                   "(machine precision), zeros match the smooth count, the "
                   "heat trace of H_{ξ,χ} carries the twisted weight "
-                  "χ(n)Λ(n)/√n (T17), the ψ_χ ladder matches zeros; gates "
-                  "against L-zeros stay in the same null zone. The H2 gap "
-                  "is UNIVERSAL: a class property, not a zeta defect.",
+                  "χ(n)Λ(n)/√n (T17), the ψ_χ ladder matches zeros "
+                  "(0.902/0.949 — the L-rungs of the convergence ladder); "
+                  "gates against L-zeros stay in the same null zone of the "
+                  "rank branch. The rank-metric resolution limit is "
+                  "UNIVERSAL: a class property, not a zeta defect — the "
+                  "twisted weight and the ladder carry over to the whole "
+                  "class, and the rank projection stays at its limit.",
         },
     }
     out = f"{R}/computations/C15_dirichlet/data/results.json"

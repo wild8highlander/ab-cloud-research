@@ -35,11 +35,17 @@ THM = [
                "scale); b) spectrum-realness residuals ≤ 8.8e−15; c) λ ↔ −λ "
                "pairing to 8.2e−15; d) eigenpair residuals ≤ 8.8e−15. The "
                "ε = 1e−12 threshold is marked on every panel."),
-      bounds_ru=("Th1 ничего не говорит о соответствии спектра нулям ζ "
-                 "(отрицательные вердикты V1, V3, V6, V16). Симметрия λ ↔ −λ "
-                 "нарушается уже при W > 0 и не восстанавливается вихрями."),
-      bounds_en=("Th1 says nothing about matching the spectrum to the ζ zeros "
-                 "(negative verdicts V1, V3, V6, V16). The λ ↔ −λ symmetry "
+      bounds_ru=("Th1 ничего не говорит о соответствии спектра нулям ζ: "
+                 "вердикты серии — тождество уровней ДА на уровне самих нулей "
+                 "(V6/V16, мост D_nn, v2.0.7), битовая ветвь открыта (V16), "
+                 "дизайны слепого кодирования и σ-скана опровергнуты (V1, V3). "
+                 "Симметрия λ ↔ −λ нарушается уже при W > 0 и не "
+                 "восстанавливается вихрями."),
+      bounds_en=("Th1 says nothing about matching the spectrum to the ζ zeros: "
+                 "the series' verdicts there are the level identity — YES at "
+                 "the zeros' level (V6/V16, the D_nn bridge, v2.0.7) with the "
+                 "bit-level branch open (V16) and the blind-coding / σ-scan "
+                 "design claims refuted (V1, V3). The λ ↔ −λ symmetry "
                  "breaks at W > 0 and is not restored by vortices."),
       files=("test_th1_passport.py (сертификат, Nv = 16/64/256, сид 96); "
              "computations/V04_operator_passport/ (монографии, фигуры); "

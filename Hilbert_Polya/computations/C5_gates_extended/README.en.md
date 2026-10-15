@@ -33,10 +33,10 @@
 
 Perhaps identity is reached not on the C3 protocol handles but on some others? The campaign extends the handle space by six dimensions and checks whether any of them moves a gate out of the zeros' band (the GUE class). The regression control: the protocol reference gate reproduces the mean spacing of the C3 CSV bit-for-bit (1.4e-16).
 
-That is the whole brief, and it is worth stating why it exists. C3 answered the spectral-identity question with the zeros'-level verdict over 52 gates sharing one protocol (D_nn 0.0079, v2.0.6). A fair objection is that a single protocol is a single guess about where arithmetic might hide in a spectrum. C5 converts that objection into a six-dimensional search program: deform the topology, the geometry, the gauge field, the mass, the vortex core and the charge pattern; rebuild 37 configurations (35 real gates, 2 decoys); re-run the identical statistics. If the H2 gap is an artifact of one protocol, this is the campaign that should have caught it.
+That is the whole brief, and it is worth stating why it exists. C3 answered the spectral-identity question with the zeros'-level verdict over 52 gates sharing one protocol (D_nn 0.0079, v2.0.6). A fair objection is that a single protocol is a single guess about where arithmetic might hide in a spectrum. C5 converts that objection into a six-dimensional search program: deform the topology, the geometry, the gauge field, the mass, the vortex core and the charge pattern; rebuild 37 configurations (35 real gates, 2 decoys); re-run the identical statistics. If the H2 verdict were an artifact of one protocol, this is the campaign that should have caught it.
 
 <p align="center"><img src="../../assets/avatars/hp_riemann.svg" width="120" alt="Riemann avatar"/></p>
-<p align="center"><em>Riemann's zeros supply the target staircase; every gate in the family is asked the same question — do your levels march with my zeros? The answer, 37 times, is no.</em></p>
+<p align="center"><em>Riemann's zeros supply the target staircase; every gate in the family is asked the same question — do your levels march with my zeros? In the rank order the answer, 37 times, is no; in the level band they stand together — the zeros' class.</em></p>
 
 ## Background
 

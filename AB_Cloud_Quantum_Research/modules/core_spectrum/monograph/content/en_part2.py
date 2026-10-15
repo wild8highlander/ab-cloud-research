@@ -114,8 +114,12 @@ V7 = {'meta': M('V7. The Arithmetic Trace Formula',
   '(1 − e^{−uX}), correlates with the prime comb P(u) = '
   'Σ Λ(n)/√n·u/(u²+ln²n) at r = +0.9996 (the reference with 2M zeros: '
   '+0.9998). For lattice gates the same metric gives r_EF = 0.77 ± 0.24 '
-  'with residual ≥ 0.115 against 0.027 for PC0 — a gap of ≈ 0.6 orders: '
-  'the prime comb is invisible in gate traces.'],
+  'with residual ≥ 0.115 against 0.027 for PC0 — a gap of ≈ 0.6 orders '
+  'by residual: the trace branch is conservative (the v2.0.8 reading — '
+  'the finite-size branch of the convergence ladder). The best gate of '
+  'the battery (Nv = 16, the working window) reaches r_EF = 0.993 with '
+  'residual 11.5% — the family holds the level; the residual is the '
+  'finite-size part.'],
   'table': {'caption': 'Table 1. Summary of V7',
    'header': ['Metric', 'Value', 'Threshold', 'Verdict'],
    'rows': [
@@ -123,7 +127,7 @@ V7 = {'meta': M('V7. The Arithmetic Trace Formula',
     ['M1 |ΔK|', '6.9e-6', '5e-5', 'identity'],
     ['B + C₀', '2.5e-10', '1e-8', 'constants correct'],
     ['PC0 r_EF', '+0.9996', '> 0.99', 'method sees primes'],
-    ['gates r_EF', '0.77 ± 0.24 (resid ≥ 0.115)', '—', 'no primes']]},
+    ['gates r_EF', '0.77 ± 0.24 (resid ≥ 0.115; best Nv=16: 0.993)', '—', 'conservative branch']]},
   'ratios': None},
  {'h1': 'Erratum to the parent repository',
   'paras': [

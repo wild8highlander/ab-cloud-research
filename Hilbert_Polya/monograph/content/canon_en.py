@@ -222,7 +222,8 @@ SECTIONS.append({
  "the ζ cloud is 16 times higher than for a random one (0.0032 vs "
  "0.0002) — the dynamical face of Montgomery's pair correlations. The "
  "identification of the line α = ½ with Re(s) = ½ remains a "
- "conjecture: statistical support exists, identity does not.",
+ "conjecture: statistical support exists, the zeros' level — yes (H2), "
+ "the bit-level branch open.",
  "C8 fixes the statistical frame (T10): the class is set by symmetry "
  "— the clean lattice is Poisson, real disorder GOE, complex vortices "
  "GUE (⟨r⟩ = 0.597–0.612), strong disorder Anderson–Poisson; GSE is "

@@ -1,5 +1,61 @@
 # Changelog
 
+## [1.3.8] — 2026-10-15 — «verdict propagation completeness across the remaining runs»
+
+The third consistency wave: the v2.0.7/v2.0.8 verdicts had reached the
+central surfaces but not the remaining runs and generators. Plus three
+real defects found on the way. Details: `Hilbert_Polya/docs/audit_v2.0.9.md`.
+
+- **V07 `gap_orders` computed by the wrong formula**
+  (`log10(pc0_r/max r_EF)` = 0.0027 — a correlation-units gap — while every
+  document says «0.63 orders by residual»). Fixed to
+  `log10(min_resid/pc0_resid)` = 0.6250, recomputed from the same committed
+  residuals; no measurement touched.
+- **V07's verdict note hid the best gate** («the comb is invisible») —
+  the battery's best gate (Nv = 16, the working window) reaches r_EF =
+  0.993 with residual 11.5% vs the zeros' 2.7% (z ≈ 2.4): the same
+  conservative/finite-size branch pattern as C4's best gate. Rewritten to
+  the conservative-branch reading (family mean 0.76 ± 0.24 in the null
+  clouds is retained).
+- **C13's README pointed to a non-existent runner**
+  (`run_c13_blind_families.py`; the real one is `run_c13_blind.py`), and
+  `make_figures_v2.py` wrote «16 gates» for the 20-gate C13 cohort in
+  fig25_map — the figure is redrawn (VLM-verified) together with its
+  stale «H2 gap is UNIVERSAL» / «H2 = wall of LOCALITY» cells.
+- **The C9/C13/C15 verdict strings were out of sync between the runners,
+  the JSONs and the README quotes** — the runners still wrote the
+  pre-v2.0.7 verdicts (the JSONs had been hand-fixed earlier); all three
+  layers now agree: «the open bit-level branch is a wall of LOCALITY»
+  (C9), «the H2 result (the zeros' level) is robust» (C13), «the
+  rank-metric resolution limit is UNIVERSAL … the twisted weight and the
+  ladder carry over» (C15, with the ψ_χ rungs 0.902/0.949 named as the
+  L-rungs of the convergence ladder).
+- **`make_comp_readmes.py` had drifted from its own outputs** (~12 stale
+  verdict strings, including «H2 is a negative verdict» and «разрыв Г2 ≈
+  1 порядок» at the committed 0.5): a regeneration would have rolled the
+  campaign READMEs back to «H2 — NO». Synchronized.
+- **The stale «H2 = NO era» phrasing is gone from the remaining live
+  surfaces:** campaign READMEs C7 («identity does not» → the zeros' level
+  is yes), C11 («every other verdict is a negative» → resolution-limited
+  branches), C16 («never through spectral identity» → not through the
+  rank channel), C4/C6-EN («projection of the H2 gap» → of the H2
+  question), README.ru.md ×4, README.md ×2, monograph content
+  (part2/canon/part4 ru+en — the C15 chapter heads and the C7 bridge),
+  preprint.tex ×5 + abstract, explorer (streamlit map + README), docs/v2
+  tables, data/README, and the audit canonization report content
+  (audit_content*.py + content.json, rebuilt PDF+DOCX).
+- **AB_Cloud_Quantum_Research:** Th1's boundaries no longer say «negative
+  verdicts (V1, V3, V6, V16)» — the verdicts are the level identity YES
+  (V6/V16, the D_nn bridge), the open bit-level branch (V16) and the
+  refuted design claims (V1, V3); fixed in all five carriers (Th1 json
+  ru/en, T01 README, the generator, the core_spectrum monograph ru/en).
+  core_spectrum RESULTS.md rows 8/28 and ROADMAP.md updated to the
+  level-identity reading.
+- **Regenerated:** Hilbert_Polya monographs C5/C7/canon/v2 × ru/en (8),
+  preprint.pdf (tectonic), the audit report (PDF + DOCX), fig25_map
+  (ru/en + campaign copies), core_spectrum V7/theorems/appendix/Th1 ×
+  ru/en (8). Tests: Hilbert_Polya 22/22, core_spectrum 42/42.
+
 ## [1.3.7] — 2026-10-15 — «artifacts & CI synced to v2.0.8; hp_audit v24.3-SA»
 
 The follow-up to [1.3.6]: every derived artifact and gate is now in sync

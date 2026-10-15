@@ -284,19 +284,19 @@ def fig_map(t):
     ax.axis("off")
     items = [
         ("C9 nonlocal trace", "T11 · r_H7=1.000, r_EF=0.999 — primitive exists",
-         "H2 = wall of LOCALITY"),
+         "rank limit = wall of LOCALITY"),
         ("C10 phase coding", "T12 · co-location 4.4e-16, spectrum blind",
          "universality erases hard codings"),
         ("C11 α=1/3", "T13 · N₀=2L−6·[L≡0 mod 12], index −2",
          "first arithmetic→spectrum bridge"),
         ("C12 band T=5000", "T14 · N=4520=4520, S_max=0.91",
          "RH verified in wider band"),
-        ("C13 blind families", "T15 · 16 gates, all null, GUE",
-         "gap robust to new designs"),
+        ("C13 blind families", "T15 · 20 gates, at the zeros' level, GUE",
+         "H2 result robust to new designs"),
         ("C14 anomaly hunt", "T16 · 97 GUE / 18 integrable / 6 intermediate",
          "attractor global, basin structured"),
         ("C15 Dirichlet L", "T17 · |ΔK|≤9.6e-6 twisted weights",
-         "H2 gap is UNIVERSAL"),
+         "rank-metric limit is UNIVERSAL"),
         ("C16 qinfo", "T18 · locality suppresses entanglement",
          "complexity erases arithmetic"),
     ]

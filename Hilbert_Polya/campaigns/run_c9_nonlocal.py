@@ -147,13 +147,15 @@ def main():
             "ru": "Примитив существует: любой изоспектральный нелокальный "
                   "оператор несёт Λ(n)/√n в следе по построению (r_EF на "
                   "уровне PC0, r_H7 = 1); внеклассовые кандидаты (xp, "
-                  "LCM-ядро) остаются в нулевых зонах. Г2 — стена "
-                  "ЛОКАЛЬНОСТИ, не следа (T11).",
-            "en": "The primitive exists: any ispectral nonlocal operator "
+                  "LCM-ядро) остаются в нулевых зонах ранговой ветви. "
+                  "Открытая битовая ветвь — стена ЛОКАЛЬНОСТИ, а не следа "
+                  "(T11).",
+            "en": "The primitive exists: any isospectral nonlocal operator "
                   "carries Λ(n)/√n in its trace by construction (r_EF at "
                   "PC0 level, r_H7 = 1); off-class candidates (xp, LCM "
-                  "kernel) stay in null zones. H2 is a wall of LOCALITY, "
-                  "not of the trace (T11).",
+                  "kernel) stay in the rank branch's null zones. The open "
+                  "bit-level branch is a wall of LOCALITY, not of the trace "
+                  "(T11).",
         },
     }
 

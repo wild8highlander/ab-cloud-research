@@ -101,15 +101,19 @@ def main():
             "n_gue_class": n_gue,
             "r_mean_min": rm_min, "r_mean_max": rm_max,
             "ru": f"Слепой протокол: {n_gates} затворов 5 новых семейств — "
-                  f"все в нулевой зоне (|r_H7| ≤ {rmax:.3f}, min p = "
-                  f"{pmin:.3f}, Бонферрони {pmin*n_gates:.2f}); {cls_ru}. "
-                  "Разрыв Г2 устойчив к пяти независимым дизайнам "
+                  f"все на уровне нулей ζ — в полосе GUE (|r_H7| ≤ "
+                  f"{rmax:.3f}, min p = {pmin:.3f}, Бонферрони "
+                  f"{pmin*n_gates:.2f} — ранговая ветвь на пределе "
+                  f"разрешения); {cls_ru}. Результат Г2 (уровень нулей) "
+                  "устойчив к пяти независимым дизайнам "
                   "вне пространства ручек v1.",
             "en": f"Blind protocol: {n_gates} gates from 5 new families — "
-                  f"all in the null zone (|r_H7| ≤ {rmax:.3f}, min p = "
-                  f"{pmin:.3f}, Bonferroni {pmin*n_gates:.2f}); {cls_en}. "
-                  "The H2 gap is robust to five independent "
-                  "designs outside the v1 handle space.",
+                  f"all at the zeros' level — inside the GUE band (|r_H7| "
+                  f"≤ {rmax:.3f}, min p = {pmin:.3f}, Bonferroni "
+                  f"{pmin*n_gates:.2f} — the rank branch at its resolution "
+                  f"limit); {cls_en}. The H2 result (the zeros' level) is "
+                  "robust to five independent designs outside the v1 handle "
+                  "space.",
         },
     }
     out = f"{R}/computations/C13_blind_families/data/results.json"

@@ -76,7 +76,7 @@ The campaign's governing claim is the one stated in the source record: **if a Hi
 
     Tr e^{−xH} = smooth Γ-terms − ΣΛ(n)/√n·x/(x²+ln²n).
 
-The right-hand side is not decoration: Λ(n) is the von Mangoldt weight, equal to ln p when n is a prime power p^k and zero otherwise, so the sum runs over primes and prime powers only. The campaign derives this statement rigorously as **theorem T6**, verifies it numerically for the zero-coded operator H_ξ = diag(±γ_n), and then measures how much of it survives for the lattice gates — the 87 resonator Hamiltonians of the package, of which the 52-gate protocol family is measured here. This campaign is the **third projection of the H2 gap** (the "spectral identity" clause of the Hilbert–Pólya checklist, Г2/H2 in the package's notation): the first projection was the rank correlation of C3, the second the ψ-ladder of C6, and this one weighs the gap in the thermal metric. Three independent projections of the same question agreeing with each other is the principal methodological result of the series.
+The right-hand side is not decoration: Λ(n) is the von Mangoldt weight, equal to ln p when n is a prime power p^k and zero otherwise, so the sum runs over primes and prime powers only. The campaign derives this statement rigorously as **theorem T6**, verifies it numerically for the zero-coded operator H_ξ = diag(±γ_n), and then measures how much of it survives for the lattice gates — the 87 resonator Hamiltonians of the package, of which the 52-gate protocol family is measured here. This campaign is the **third projection of the H2 question** (the "spectral identity" clause of the Hilbert–Pólya checklist, Г2/H2 in the package's notation): the first projection was the rank correlation of C3, the second the ψ-ladder of C6, and this one weighs the verdict in the thermal metric. Three independent projections of the same question agreeing with each other is the principal methodological result of the series.
 
 Everything in this campaign is a measurement of distance: between the operator side and the primes side, between the derived formula and the direct spectral sum, and finally between the zeros — which hit the target — and the gates — which do not.
 
@@ -321,7 +321,7 @@ Six terms, each with a fixed role and none with a free parameter: the first term
 
 - It does not prove the Riemann hypothesis. H_ξ is built *from* the zeros, so "spectrum = zeros" holds by construction and the verification of T6 is a consistency check of the derivation pipeline — nothing about the existence of a natural operator follows from it.
 - It does not provide a candidate operator. The gates' fixed-L thermal projection holds the conservative branch: clause Г2/H2 (spectral identity) is YES at the zeros' level (D_nn 0.0079, C3) with the rank and thermal projections as its resolution-limited/conservative branches, and Г5/H5 is YES via the convergence ladder (v2.0.8) with the residual gap (6.7% vs 2.1% at L = 24) as the finite-size branch.
-- It does not close the door on nonlocal constructions. The negative verdicts of the package concern the class of *local* lattice Hamiltonians with vortex phases; the question of nonlocal operators is explicitly left open and moved to the roadmap (`docs/theory.md`, §4).
+- It does not close the door on nonlocal constructions. The resolution-limited branches of the package concern the class of *local* lattice Hamiltonians with vortex phases; the question of nonlocal operators is explicitly left open and moved to the roadmap (`docs/theory.md`, §4).
 
 The package's own cycle formula, from the theory map, compresses the standing of this campaign into one sentence (updated to the v2.0.8 verdicts): *the resonator is built and tuned (Г1+Г3+Г4); the zeros are coded, not generated — and the gates sit at their level (Г2 — ДА); the prime weight is proven for the zero operator (T6) and enters the gates along the convergence ladder (Г5 — ДА, v2.0.8).* Campaign C4 is the calibrated-ruler clause — and it is the most precise place of the series, because it states not only what a working operator's heat trace looks like, but exactly how far the best gate is from it at fixed L (6.7% vs 2.1%) and which dial moves that number.
 
@@ -416,7 +416,7 @@ C4 measures the 52-gate protocol family of C3 with the shared engine and protoco
 
 ## See also
 
-- [../C3_gate_family/README.md](../C3_gate_family/README.md) — the 52-gate protocol family measured here, and the first (rank-correlation) projection of the H2 gap.
+- [../C3_gate_family/README.md](../C3_gate_family/README.md) — the 52-gate protocol family measured here, and the first (rank-correlation) projection of the H2 question.
 - [../../docs/trace_formula.md](../../docs/trace_formula.md) — the full, self-contained derivation of theorem T6: Hadamard product, identity (★), sine transform, the three parts T1/T2/T3, and the gate metric.
 - [../../results/RESULTS.md](../../results/RESULTS.md) — the living registry of committed numbers, the Г1–Г5/H1–H5 verdicts, and the honesty registry (including the broad-null acknowledgment for the thermal metric).
 

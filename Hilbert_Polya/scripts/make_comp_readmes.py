@@ -200,7 +200,7 @@ C["C3_gate_family"] = {
  ("Декуи / GUE-нуль", "0.026±0.140 / −0.014±0.127", "нулевые зоны"),
  ("PC1 близнецы spinor64", "r = 1.000000000, D_nn = 2.7e-14", "метод видит тождество"),
  ("PC2 график ↔ файл", "r = 1.000000000000, D_nn = 1.2e-10", "метод видит тождество"),
- ("Связь график ↔ оператор", "нулевая — D_nn на уровне суррогата", "итог серии"),
+ ("Связь график ↔ оператор", "тождество уровней — D_nn на уровне нулей", "итог серии"),
 ],
 "results_en": [
  ("Family", "52 unique configurations, master seed 96", "protocol C3"),
@@ -230,14 +230,15 @@ C["C3_gate_family"] = {
 ],
 "figs": ["fig05_gates"],
 "honest": [
- "Г2 — отрицательный вердикт, но метод допущен к нему только после "
+ "Г2 — ДА на уровне самих нулей ζ (D_nn 0.0079, мост тождества уровней), но метод допущен к нему только после "
  "позитивных контролей: PC1/PC2 показывают, что конвейер видит тождество "
  "на уровне 1e-14, когда оно есть.",
  "Термин «затвор» — конструкция серии; он означает параметризованное "
  "семейство эрмитовых гамильтонианов, а не физический прибор.",
 ],
 "honest_en": [
- "H2 is a negative verdict, but the method earned it only after the "
+ "H2 is a YES at the zeros' level (D_nn 0.0079, the level-identity "
+ "bridge), and the method earned it only after the "
  "positive controls: PC1/PC2 show the pipeline sees identity at the 1e-14 "
  "level when it exists.",
  "The term gate is a construct of this series; it denotes a parametrised "
@@ -250,17 +251,19 @@ C["C4_trace_formula"] = {
 "slug_en": "C4 · The trace formula: Tr e^{−uH} versus the explicit formula",
 "one": "Вывод тождества Q(a) из произведения Адамара; следовая формула "
        "K(x) = (1/π)∫Q sin с весом простых Λ(n)/√n; калибровка 1.7e-12; "
-       "H_ξ верифицирован до 1.2e-5; затворы — в нулевой зоне (разрыв ≈0.5 порядка).",
+       "H_ξ верифицирован до 1.2e-5; у затворов — консервативная следовая ветвь "
+       "(≈0.5 порядка по невязке, конечноразмерная ветвь лестницы сходимости).",
 "one_en": "Deriving the Q(a) identity from the Hadamard product; the trace "
           "formula K(x) = (1/π)∫Q sin with the prime weight Λ(n)/√n; "
-          "calibration 1.7e-12; H_ξ verified to 1.2e-5; gates in the null "
-          "zone (residual gap ≈0.5 order).",
+          "calibration 1.7e-12; H_ξ verified to 1.2e-5; the gates hold the "
+          "conservative trace branch (≈0.5 order by residual — the finite-size "
+          "branch of the convergence ladder).",
 "question": [
  "Если бы оператор Гильберта–Пойа существовал, его тепловой след обязан "
  "был бы нести вес простых: Tr e^{−xH} = гладкие Γ-члены − ΣΛ(n)/√n·"
  "x/(x²+ln²n). Кампания выводит это строго (теорема T6), верифицирует "
  "для оператора H_ξ = diag(±γ_n) и затем меряет, что остаётся у решёточных "
- "затворов. Это третья проекция разрыва Г2 — после ранговой корреляции "
+ "затворов. Это третья проекция вопроса Г2 — после ранговой корреляции "
  "(C3) и ψ-лестницы (C6).",
 ],
 "question_en": [
@@ -268,7 +271,7 @@ C["C4_trace_formula"] = {
  "the prime weight: Tr e^{−xH} = smooth Γ-terms − ΣΛ(n)/√n·x/(x²+ln²n). "
  "The campaign derives this rigorously (theorem T6), verifies it for the "
  "operator H_ξ = diag(±γ_n), and then measures what survives for the "
- "lattice gates. This is the third projection of the H2 gap — after the "
+ "lattice gates. This is the third projection of the H2 question — after the "
  "rank correlation (C3) and the ψ-ladder (C6).",
 ],
 "results": [
@@ -334,13 +337,13 @@ C["C5_gates_extended"] = {
 "slug_en": "C5 · The extended gate family",
 "one": "35 новых затворов + 2 декуя по шести новым ручкам: твисты, "
        "анизотропия, флакс-сдвиг, стэггерд-масса, профиль вихря, знаки и "
-       "границы. Вердикт: разрыв Г2 устойчив — GUE-класс по канону C8 "
+       "границы. Вердикт: результат Г2 устойчив — GUE-класс по канону C8 "
        "(⟨r⟩ = 0.569–0.633, среднее 0.601 — класс нулей ζ; ранговая ветвь на пределе (|r_H7| ≤ 0.097, "
        "Бонферрони 0.57) у всех (v2.0.5).",
 "one_en": "35 new gates + 2 decoys across six new handles: twists, "
           "anisotropy, flux shift, staggered mass, vortex profile, signs and "
-          "boundaries. Verdict: the H2 gap is stable — the GUE class and the "
-          "null zone for everyone.",
+          "boundaries. Verdict: the H2 result is stable — the whole family in "
+          "the GUE class (the zeros' class) with the rank branch at its limit.",
 "question": [
  "Может быть, тождество достигается не на протокольных ручках C3, а на "
  "какой-нибудь другой? Кампания расширяет пространство ручек шестью "
@@ -554,7 +557,8 @@ C["C7_wave_dynamics"] = {
 ],
 "honest_en": [
  "The identification of the self-dual line α = ½ with Re(s) = ½ is a "
- "conjectural bridge: statistical support exists (D7/D10), identity does not.",
+ "conjectural bridge: statistical support exists (D7/D10), the zeros' "
+ "level — yes (H2), the bit-level branch open.",
  "The electron motion is confirmed in the dynamical sense; it is not a "
  "statement about the spectrum (see C3–C5).",
 ],
@@ -679,16 +683,16 @@ def render(comp, key, lang):
     verdict = {"ru": {"C1": "композитный вердикт K1–K4, K7: PASS (одно опровержение опубликовано)",
                       "C2": "RH верифицирована в полосе до T = 1000 (649 = 649)",
                       "C3": "Г2 — ДА (на уровне самих нулей ζ), измерено с PC1/PC2",
-                      "C4": "T6 верифицирована; разрыв Г2 ≈ 1 порядок в тепловой метрике",
-                      "C5": "разрыв Г2 устойчив ко всем шести новым ручкам",
+                      "C4": "T6 верифицирована; консервативная ветвь Г2 ≈ 0.5 порядка в тепловой метрике",
+                      "C5": "результат Г2 устойчив: семейство в классе GUE (классе нулей ζ) на всех шести новых ручках",
                       "C6": "Г5 — ДА по лестнице сходимости (v2.0.8); универсальность стирает кодировки",
                       "C7": "Г4 — ДА (динамика честная); мост к Re(s)=½ — конъектура",
                       "C8": "Г3 — ДА; T8, T10"}[num],
                "en": {"C1": "composite verdict K1–K4, K7: PASS (one refutation published)",
                       "C2": "RH verified in the strip up to T = 1000 (649 = 649)",
                       "C3": "H2 — YES (at the zeros' level), measured with PC1/PC2",
-                      "C4": "T6 verified; the H2 gap ≈ 1 order in the trace metric",
-                      "C5": "the H2 gap is stable across all six new handles",
+                      "C4": "T6 verified; the conservative H2 branch ≈ 0.5 order in the trace metric",
+                      "C5": "the H2 result is stable: the whole family in the GUE class (the zeros' class) across all six new handles",
                       "C6": "H5 — YES via the convergence ladder (v2.0.8); universality washes the codings out",
                       "C7": "H4 — YES (honest dynamics); the bridge to Re(s)=½ is a conjecture",
                       "C8": "H3 — YES; T8, T10"}[num]}

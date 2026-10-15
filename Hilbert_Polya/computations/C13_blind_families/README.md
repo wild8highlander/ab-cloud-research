@@ -11,11 +11,11 @@
 
 ## The question
 
-Every v1 measurement of the H2 gap walked the same corridor: the vortex-lattice gate family, deformed along the six handles that C5 added. A sceptic could argue the null result — no gate spectrum correlates with the zeta zeros — is a property of *that* family, not of local lattices at large. C13 answers on the objection's own terms: five families designed *outside* the v1 handle space, fixed before any ranking was computed, pushed through the v1 pipeline. One of the twenty gates escaping the null zone would vindicate the objection; every gate landing in it dissolves the objection.
+Every v1 measurement of the H2 question walked the same corridor: the vortex-lattice gate family, deformed along the six handles that C5 added. A sceptic could argue the null result — no gate's rank correlation with the zeta zeros leaves the null zone — is a property of *that* family, not of local lattices at large. C13 answers on the objection's own terms: five families designed *outside* the v1 handle space, fixed before any ranking was computed, pushed through the v1 pipeline. One of the twenty gates escaping the rank branch's null zone would vindicate the objection; every gate landing in it dissolves the objection.
 
 ## Where it sits in the v2 roadmap
 
-This campaign executes roadmap item **R5** and settles **Theorem T15** of the v2 layer "The Operator That Almost Exists". It closes the gate branch C3 → C5 → C8 → C13: the gap measured, stabilized across six handles, classified, now shown robust to blind design. With C14 it seals universality from both sides: C13 asks whether *new* designs can escape the null zone, C14 whether *old* configurations can escape the GUE attractor. Neither exit exists.
+This campaign executes roadmap item **R5** and settles **Theorem T15** of the v2 layer "The Operator That Almost Exists". It closes the gate branch C3 → C5 → C8 → C13: the question measured, the answer stabilized across six handles, classified, now shown robust to blind design. With C14 it seals universality from both sides: C13 asks whether *new* designs can escape the rank branch's null zone, C14 whether *old* configurations can escape the GUE attractor. Neither exit exists.
 
 ## Method in brief
 
@@ -33,7 +33,7 @@ Hermiticity is verified gate by gate (`herm_dev = 0.0` for all twenty). One pipe
 
 ## Results
 
-All in the null zone: |r_H7| ≤ 0.040, min p = 0.29 (Bonferroni 5.85). GUE class: 17/20 inside the canonical band 0.5996±0.03, three families drift to the edges (⟨r⟩ = 0.550, 0.559, 0.649) with r_H7 z-scores within ±1 — statistically consistent with GUE, outside the hard band. The H2 gap is robust to designs outside the v1 space.
+All in the null zone of the rank branch: |r_H7| ≤ 0.040, min p = 0.29 (Bonferroni 5.85). GUE class: 17/20 inside the canonical band 0.5996±0.03, three families drift to the edges (⟨r⟩ = 0.550, 0.559, 0.649) with r_H7 z-scores within ±1 — statistically consistent with GUE, outside the hard band. The H2 result — the zeros' level — is robust to designs outside the v1 space.
 
 The committed ledger makes the headline precise: the largest rank correlation among the twenty gates is |r_H7| = 0.0403 (`BF5_dither0.02`), the smallest p-value is 0.292, the Bonferroni floor is 5.85 — all recorded in the verdict alongside PC0' = 1.000. The cohort sits an order of magnitude below the best v1 gate (r_H7 = 0.226 in C3) and far below any identity threshold.
 
@@ -42,12 +42,12 @@ The committed ledger makes the headline precise: the largest rank correlation am
 
 ## Why it matters
 
-Blind design removes the last methodological escape route from the H2 verdict. After C9/T11 localized the obstruction — the wall passes through locality, not the trace — the open question was whether "locality" meant merely *this* lattice. C13 answers: every local design the package can write down lands in the null zone. The gap is robust to blind design, which is what the roadmap demanded before it could be called a class property.
+Blind design removes the last methodological escape route from the H2 verdict. After C9/T11 localized the obstruction — the wall passes through locality, not the trace — the open question was whether "locality" meant merely *this* lattice. C13 answers: every local design the package can write down lands in the rank branch's null zone. The resolution limit is robust to blind design, which is what the roadmap demanded before it could be called a class property.
 
 ## Reproduction
 
 ```bash
-python3 campaigns/run_c13_blind_families.py
+python3 campaigns/run_c13_blind.py
 ```
 
 Fresh runs are self-contained: the zeta zeros come from the internal
@@ -70,7 +70,7 @@ The committed run completes in 7.1 s.
 See `data/results.json` (verdict, RU+EN), the v2 monograph
 (`monograph/v2_volume/`) and `independent_verification/` (IVP11–18).
 
-The committed English verdict reads: *"Blind protocol: 20 gates from 5 new families — all in the null zone (|r_H7| ≤ 0.040, min p = 0.292, Bonferroni 5.85); 17/20 inside the GUE band 0.5996±0.03, the rest at the edges/slightly outside (⟨r⟩ = 0.550–0.649; r_H7 z-scores all within ±1). The H2 gap is robust to five independent designs outside the v1 handle space."*  *(v2.0.5: the earlier committed string said "all in the GUE class" — a hard-coded phrase that contradicted the per-gate `gue_class` flags, three of which are false; see `docs/audit_v2.0.5.md`.)*
+The committed English verdict reads: *"Blind protocol: 20 gates from 5 new families — all at the zeros' level — inside the GUE band (|r_H7| ≤ 0.040, min p = 0.292, Bonferroni 5.85 — the rank branch at its resolution limit); 17/20 inside the GUE band 0.5996±0.03, the rest at the edges/slightly outside (⟨r⟩ = 0.550–0.649; r_H7 z-scores all within ±1). The H2 result (the zeros' level) is robust to five independent designs outside the v1 handle space."*  *(v2.0.5: the earlier committed string said "all in the GUE class" — a hard-coded phrase that contradicted the per-gate `gue_class` flags, three of which are false; see `docs/audit_v2.0.5.md`.)*
 
 ## FAQ
 
@@ -84,11 +84,11 @@ The same number at different printing precision: the headline rounds to three de
 Because the test is not the symmetry class but the *rank correlation with the zero sequence*. The blind families do drift statistically (⟨r⟩ = 0.550–0.649; three gates sit outside the hard C8 band 0.5996±0.03), yet their spectra carry no trace of the zero order.
 
 **Does C13 prove that no Hilbert–Pólya operator exists?**
-No — the package never claims otherwise. The gap survives every local design tested; with T11 the obstruction is architectural: locality itself, not any particular lattice.
+No — the package never claims otherwise. The rank limit survives every local design tested; with T11 the obstruction is architectural: locality itself, not any particular lattice.
 
 ## See also
 
-- [C3 · Gate family](../C3_gate_family/README.md) — the original 52-gate measurement of the gap.
+- [C3 · Gate family](../C3_gate_family/README.md) — the original 52-gate measurement of the rank branch.
 - [C5 · Gates extended](../C5_gates_extended/README.md) — the handle sweep, |r_H7| ≤ 0.097 (family Bonferroni 0.57).
 - [C9 · Nonlocal trace primitive](../C9_nonlocal_trace/README.md) — the wall passes through locality, not the trace (T11).
 - [C14 · Anomaly hunt](../C14_anomaly_hunt/README.md) — the companion scan inside the GUE attractor.

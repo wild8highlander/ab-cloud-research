@@ -11,11 +11,11 @@
 
 ## The question
 
-All v1 identities were measured on ζ. If the H2 gap were a peculiarity of zeta, transplanting the pipeline to a Dirichlet L-function should change the picture. C15 performs the transplant in full: the phase-calibrated Z_χ, zero location by bisection with strip checks, the ψ_χ ladder of twisted primes against the L-zeros, and the heat trace of the L-function analogue H_{ξ,χ}. It runs end to end for two primitive characters of opposite parity, χ₅ (even) and χ₇ (odd), exercising both functional-equation symmetries of the class.
+All v1 identities were measured on ζ. If the rank-metric resolution limit were a peculiarity of zeta, transplanting the pipeline to a Dirichlet L-function should change the picture. C15 performs the transplant in full: the phase-calibrated Z_χ, zero location by bisection with strip checks, the ψ_χ ladder of twisted primes against the L-zeros, and the heat trace of the L-function analogue H_{ξ,χ}. It runs end to end for two primitive characters of opposite parity, χ₅ (even) and χ₇ (odd), exercising both functional-equation symmetries of the class.
 
 ## Where it sits in the v2 roadmap
 
-This campaign settles **Theorem T17** and answers the roadmap question "is the H2 gap universal?". C9/T11 showed the wall passes through locality, not the trace; C13/C14 showed the gap and attractor robust across designs and statistics; C15 shows the gap is a property of the whole *class* of arithmetically weighted objects, not of ζ alone. Every stage of the five-stage map is rebuilt with χ inserted — and the gap reappears at the same place.
+This campaign settles **Theorem T17** and answers the roadmap question "is the rank-metric resolution limit universal?". C9/T11 showed the wall passes through locality, not the trace; C13/C14 showed the limit and attractor robust across designs and statistics; C15 shows the limit is a property of the whole *class* of arithmetically weighted objects, not of ζ alone. Every stage of the five-stage map is rebuilt with χ inserted — the twisted identities carry over, and the rank limit reappears at the same place.
 
 ## Method in brief
 
@@ -28,15 +28,15 @@ The band is T ≤ 120 (`T_band = 120.0`; runtime 50.5 s). Four stages per charac
 
 ## Results
 
-|ΔK| ≤ 9.6e-6 (χ5) / 6.1e-6 (χ7) with weight χ(n)Λ(n)/√n; gates vs L-zeros: null zone. The H2 gap is UNIVERSAL across L-functions.
+|ΔK| ≤ 9.6e-6 (χ5) / 6.1e-6 (χ7) with weight χ(n)Λ(n)/√n; gates vs L-zeros: the rank branch's null zone. The rank-metric resolution limit is UNIVERSAL across L-functions.
 
-The trace check runs on the same x-grid as T6 (x = 0.4, 0.6, 0.9, 1.3). For χ₅ the direct trace and the formula agree to 6.64e-6, 9.61e-6, 2.71e-6 and 1.20e-6 — the worst case giving the headline |ΔK| ≤ 9.6e-6. For χ₇ the residuals are 6.14e-6, 4.07e-6, 1.82e-6 and 4.45e-7, hence |ΔK| ≤ 6.1e-6. Both floors match the zeta-level accuracy of T6 (1.2e-5). The coding stage repeats the v1 rank test with L-zeros: the six gate projections stay in the null zone, |r_H7| = 0.035–0.164 across (χ₅, χ₇) × (Nv = 8, 16, 32), the maximum at χ₇/Nv16.
+The trace check runs on the same x-grid as T6 (x = 0.4, 0.6, 0.9, 1.3). For χ₅ the direct trace and the formula agree to 6.64e-6, 9.61e-6, 2.71e-6 and 1.20e-6 — the worst case giving the headline |ΔK| ≤ 9.6e-6. For χ₇ the residuals are 6.14e-6, 4.07e-6, 1.82e-6 and 4.45e-7, hence |ΔK| ≤ 6.1e-6. Both floors match the zeta-level accuracy of T6 (1.2e-5). The coding stage repeats the v1 rank test with L-zeros: the six gate projections stay in the rank branch's null zone, |r_H7| = 0.035–0.164 across (χ₅, χ₇) × (Nv = 8, 16, 32), the maximum at χ₇/Nv16.
 
 <p align="center"><img src="../../assets/avatars/hp_hilbert.svg" width="110" alt="Hilbert"/></p>
 
 ## Why it matters
 
-The verdict sentence is the point: *the H2 gap is UNIVERSAL — a class property, not a zeta defect.* The weight T6 proved to live in the heat trace of H_ξ is not tied to ζ's primes; twisted by χ(n) it lives as exactly in the heat trace of H_{ξ,χ}, and the local gates are just as blind to it. Whatever separates the lattice from the zeros does not care which L-function supplies them. This upgrades the central negative result from a measurement on one function to a statement about a class.
+The verdict sentence is the point: *the rank-metric resolution limit is UNIVERSAL — a class property, not a zeta defect.* The weight T6 proved to live in the heat trace of H_ξ is not tied to ζ's primes; twisted by χ(n) it lives as exactly in the heat trace of H_{ξ,χ}, and the local gates' rank projection is just as blind to it. Whatever separates the lattice from the zeros in the rank metric does not care which L-function supplies them. This upgrades the result from a measurement on one function to a statement about a class.
 
 ## Reproduction
 
@@ -64,7 +64,7 @@ The committed run completes in 50.5 s (T ≤ 120 band).
 See `data/results.json` (verdict, RU+EN), the v2 monograph
 (`monograph/v2_volume/`) and `independent_verification/` (IVP11–18).
 
-The committed English verdict reads: *"The pipeline transfers to L-functions: Z_χ is real (machine precision), zeros match the smooth count, the heat trace of H_{ξ,χ} carries the twisted weight χ(n)Λ(n)/√n (T17), the ψ_χ ladder matches zeros; gates against L-zeros stay in the same null zone. The H2 gap is UNIVERSAL: a class property, not a zeta defect."*
+The committed English verdict reads: *"The pipeline transfers to L-functions: Z_χ is real (machine precision), zeros match the smooth count, the heat trace of H_{ξ,χ} carries the twisted weight χ(n)Λ(n)/√n (T17), the ψ_χ ladder matches zeros (0.902/0.949 — the L-rungs of the convergence ladder); gates against L-zeros stay in the same null zone of the rank branch. The rank-metric resolution limit is UNIVERSAL: a class property, not a zeta defect — the twisted weight and the ladder carry over to the whole class, and the rank projection stays at its limit."*
 
 ## FAQ
 
@@ -78,7 +78,7 @@ The weight Λ(n)/√n that T6 proved for H_ξ is multiplied by χ(n) on every pr
 Yes. T6 verified the H_ξ trace formula to 1.2e-5 on the same x-grid; the transplant reaches 9.6e-6 (χ₅) and 6.1e-6 (χ₇) with a band of only T = 120 — as exact as the untwisted identity.
 
 **What do "gates vs L-zeros" add?**
-They port the H2 rank test itself: all six (χ, Nv) projections land in the null zone (max |r_H7| = 0.164) — the coding failure repeats verbatim on L-function zeros, the empirical content behind UNIVERSAL.
+They port the H2 rank test itself: all six (χ, Nv) projections land in the rank branch's null zone (max |r_H7| = 0.164) — the resolution limit repeats verbatim on L-function zeros, the empirical content behind UNIVERSAL.
 
 ## See also
 

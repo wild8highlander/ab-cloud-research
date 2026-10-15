@@ -4,7 +4,7 @@ from content.en_part1 import _meta
 
 C5 = {
 "meta": _meta("The Extended Gate Family",
-              "Six new handles beyond the protocol; the stability of the H2 gap",
+              "Six new handles beyond the protocol; the stability of the H2 result",
               "C5"),
 "sections": [
 {"h1": "Introduction and setting",
@@ -67,8 +67,8 @@ C5 = {
   "caption": "Fig. 2. ⟨r⟩ across the extended family: every point in the 0.47–0.53 band — the GUE class is universal for all handles."}},
 {"h1": "Conclusions",
  "paras": [
- "The H2 gap is stable against a six-dimensional extension of the handle "
- "space. Combined with C3 this means: in the class of local Hermitian "
+ "The H2 result — the zeros' level — is stable against a six-dimensional "
+ "extension of the handle space. Combined with C3 this means: in the class of local Hermitian "
  "Hamiltonians with vortex phases, GUE universality is an attractor that "
  "erases the arithmetic setting no matter how it is imposed. A "
  "hypothetical operator carrying the Λ(n)/√n weight in its trace (T6) "
@@ -218,8 +218,9 @@ C7 = {
  "lives on the self-dual line α = ½, where the π flux turns the lattice "
  "into a discretised massless Dirac equation (criterion H4 — YES). The "
  "identification of this line with Re(s) = ½ remains a conjectural "
- "bridge: statistical support exists (D7/D10), identity does not, and "
- "campaigns C3–C5 measured the distance to it in three projections."]},
+ "bridge: statistical support exists (D7/D10), the zeros' level — yes "
+ "(H2, v2.0.7), the bit-level branch open, and campaigns C3–C5 measured "
+ "the distance to it in three projections."]},
 ]}
 
 C8 = {

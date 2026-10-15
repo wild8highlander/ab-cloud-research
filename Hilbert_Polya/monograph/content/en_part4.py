@@ -176,9 +176,10 @@ V2 = {
  "vortex-carrying configurations**, but its basin has a measurable "
  "structure in (Nv, q, W) — a map of the approach to universality, not a "
  "sensation outside it."]},
-{"h1": "C15/T17. Dirichlet L-functions: the gap is universal",
+{"h1": "C15/T17. Dirichlet L-functions: the rank-metric resolution limit is universal",
  "paras": [
- "The main question of plan item 12: is the measured H2 gap universal, "
+ "The main question of plan item 12: is the measured rank-metric "
+ "resolution limit universal, "
  "or a defect of zeta specifically? C15 transfers the C1–C4 + C6 "
  "pipeline to two quadratic characters: χ₅ (even, mod 5) and χ₇ (odd, "
  "mod 7).",

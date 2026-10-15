@@ -90,6 +90,40 @@
 #    clean include, preset state-leak / cost-estimator / soft-warn runtime
 #    tests, and a live SMOKE battery across all 7 gates.
 #
+#  v25-PLASMA — «супер-оформление» visual layer (2026-10-15, user spec):
+#    A spectral-visual shell over the existing HP·MERIDIAN console — every
+#    audit number is unchanged; only the presentation gets a plasma skin.
+#      1) PLASMA BANNER — ASCII solar system on startup: nucleus «(H)» in the
+#         center, three elliptical orbits with H1–H7 satellites (each gate has
+#         a stable Greek sigil: λ ρ β q α 𝒩 ζ + 256-color), an outer ζ-belt
+#         populated with the REAL ζ-zero count (≤60 sampled dots), and a
+#         caption strip carrying seed · L · L²-sites · ζ-zeros. Visible at
+#         every `hp_console()` opening and at the top of every batch battery.
+#      2) PLASMA PROGRESS BAR — the v23.8 ▰▱ block is replaced by a 28-cell
+#         orbit ring with a comet head (◉) that advances around it + a 4-cell
+#         dimming tail (•···) trailing behind; above the orbit a 28-cell ζ
+#         signal trace (Braille glyphs ⠁⠃⠇) wobbles with elapsed time so the
+#         bar visibly pulses EVEN when a long LAPACK call freezes frac — the
+#         v23.8 heartbeat made visual. T+ and ETA stay.
+#      3) GATE TELESCOPE FRAME — each H1..H7 gate now opens with a 72-col
+#         double border «telescope»: orbit sigil ⤬···H1···PRIME-TRACE···⤬,
+#         dotted rail, title + about one-liner. The verdict ribbon at the
+#         battery end is one color-coded cell per gate (✓ / ! / ✗) — the
+#         whole run's shape at a glance.
+#      4) DARK-HTML REPORT — final_report.html rewritten with a dark
+#         plasma theme (bg #0b0d1a, accent #00d7af, gate palette matching
+#         the console), a hero banner with an ANIMATED SVG solar system
+#         (H nucleus + H1–H7 satellites + ζ-belt, all rotating at different
+#         rates; prefers-reduced-motion respected), a parameters strip, a
+#         verdict ribbon row, and one CARD PER GATE (sigil + verdict pill
+#         + sub-check table + plot + notes). Self-contained — no external
+#         CSS/JS/fonts. The MD report (two-files contract) is unchanged.
+#    Every plasma helper is wrapped in try/catch — a decoration failure
+#    NEVER kills a gate (the audit's numbers are the deliverable; the
+#    visuals are the suit they ride in). Fall-back behavior on non-TTY:
+#    the banner prints the plain-ASCII skeleton, the bar emits one-line
+#    updates instead of in-place redraws, the HTML is fully self-rendered.
+#
 #  START — THREE WAYS
 #    1) REPL:      julia> include("hp_audit_standalone.jl")
 #                  → the HP·MERIDIAN console OPENS ITSELF.
@@ -135,7 +169,7 @@ using Statistics
 using Printf
 using Dates
 
-const HP_SA_VERSION = "24.3.1-SA"   # console identity: HP·MERIDIAN
+const HP_SA_VERSION = "25.1-PLASMA"   # console identity: HP·MERIDIAN
 export hp_console, hp_menu, main, make_hp_config, apply_preset!,
        hp_params_menu!, run_battery_core, load_zeros, register_audits!,
        HPConfig, HP_AUDITS
@@ -2112,12 +2146,23 @@ const SLUGS = Dict{Int,String}()
 msg(cfg, key::String) = key == "pass" ? "PASS" : key == "warn" ? "WARN" :
                          key == "fail" ? "FAIL" : key
 
-"""LIVE progress bar (v23.8). Draws IN PLACE on a terminal (\r + erase-to-EOL)
+"""LIVE progress bar (v25-PLASMA). Draws IN PLACE on a terminal (\r + erase-to-EOL)
 through the tee-bypassing _live_write channel, so it is visible while the gate
 runs — not replayed after it. Updates are TIME-throttled (≥ 0.8 s between
 frames), so the ≤ 40-solve H5 (v24.1 budget) draws one frame per solve
 instead of being silenced by the old 2%-step rule. Shows elapsed,
-ETA (linear extrapolation from frac) and the current sub-step text."""
+ETA (linear extrapolation from frac) and the current sub-step text.
+
+The user's spec (2026-10-15): «Плазменный прогресс-бар: вместо ▰▱▱ — орбита,
+по ней бежит спутник, хвост кометы, подпись с ETA; плюс фоновый "сигнал ζ"».
+We render:
+  · a 28-cell orbit ring, with the comet head (◉) at angle = 2π·frac;
+  · a 4-cell comet tail (···) trailing the head;
+  · a faint ζ-signal trace (the noise dots ABOVE the orbit) that wobbles as
+    a function of `frac + el/4`, so the bar visibly pulses even when a long
+    LAPACK call freezes frac at one value — the user can see the gate is alive;
+  · the %, label, T+ and ETA stay from v23.8 — the science text is unchanged.
+"""
 function prog_update(frac::Real, extra::AbstractString = "")
     f = clamp(Float64(frac), 0.0, 1.0)
     now = time()
@@ -2127,18 +2172,77 @@ function prog_update(frac::Real, extra::AbstractString = "")
     _PROG_LAST_T[] = now
     el = now - _PROG_T0[]
     eta = 0.02 < f < 1.0 ? el * (1.0 - f) / f : NaN
-    pct = clamp(round(Int, 100f), 0, 100)
-    full = pct ÷ 10
+    # ── ORBIT RENDER ──────────────────────────────────────────────────────
+    # 28-cell ellipse; the satellite comet head advances around it.
+    orb_n = 28
+    head_idx = clamp(round(Int, f * orb_n), 1, orb_n)
+    # comet trail of 4 dots behind the head (one is the head itself)
+    tail_len = 4
+    # the orbit ring: ring chars at "·", head "◉", trail "·" (dimmer) behind.
+    ring = Vector{String}(undef, orb_n)
+    fill!(ring, _mr_c("·", "dim"))
+    # paint the comet head + tail (tail trails BEHIND the head, decreasing)
+    for t in 0:tail_len
+        idx = head_idx - t
+        idx < 1 && (idx += orb_n)   # wrap around the ring
+        if t == 0
+            ring[idx] = _mr_c("◉", "accent")
+        else
+            # tail cells: progressively dimmer
+            tail_key = t <= 2 ? "gold" : "dim"
+            ring[idx] = _mr_c(t == 1 ? "•" : "·", tail_key)
+        end
+    end
+    # mark the START (⊙) and END (⊙) cells so the user can see the loop
+    ring[1] = (head_idx == 1) ? _mr_c("◉", "accent") : _mr_c("⊙", "title")
+    ring[orb_n] = (head_idx == orb_n) ? _mr_c("◉", "accent") : _mr_c("⊙", "ok")
+    orbit_str = _mr_c("[", "dim") * join(ring) * _mr_c("]", "dim")
+
+    # ── ζ-SIGNAL TRACE (above the orbit) ─────────────────────────────────
+    # 28 cells of faint flicker — a synthetic ζ-signal "alive" indicator.
+    # The trace wobbles from `el` (so it visibly moves even when frac is
+    # frozen by a LAPACK call) — this is the v23.8 heartbeat made visual.
+    trace_n = 28
+    trace = Vector{String}(undef, trace_n)
+    for i in 1:trace_n
+        # phase from elapsed time + position; amplitude small (4 levels)
+        ph = (el / 3.5) + (i - 1) * 0.45
+        amp = sin(ph) + 0.4 * sin(ph * 2.3 + 1.1)
+        a = clamp(round(Int, amp + 1.0), 0, 3)
+        glyph = a == 0 ? " " : a == 1 ? _mr_c("⠁", "dim") :
+                          a == 2 ? _mr_c("⠃", "accent") : _mr_c("⠇", "title")
+        trace[i] = glyph
+    end
+    trace_str = _mr_c("ζ ", "dim") * join(trace) * _mr_c("  ", "dim")
+
+    # ── assemble the body: trace above, orbit below + percent/ETA/tag ────
     body = string(
-        _mr_c("▰"^full * "▱"^(10 - full), "accent"), " ",
-        _mr_c(@sprintf("%5.1f%%", 100f), "bold"), " ",
+        trace_str, "\n  ",
+        orbit_str, "  ",
+        _mr_c(@sprintf("%5.1f%%", 100f), "bold"), "  ",
         _mr_c(_PROG_LABEL[], "title"),
         _mr_c(" · T+" * _prog_hms(el), "dim"),
         isnan(eta) ? "" : _mr_c(" · ETA " * _prog_hms(eta), "dim"),
         isempty(_PROG_TAG[]) ? "" : _mr_c(" · " * _PROG_TAG[], "warn"),
         isempty(extra) ? "" : _mr_c(" · " * extra, "gold"))
     if _prog_tty()
-        _live_write("\r\033[K  " * body) # in-place redraw: one line, always current
+        # two-line in-place redraw. First frame writes fresh; subsequent
+        # frames move up + clear + rewrite both lines. \r\033[K clears a row
+        # from col 0 to EOL; \033[1A moves up 1 row. The \r before \n is needed
+        # because raw-mode TTYs don't reset column on \n (cooked-mode TTYs do
+        # but the explicit \r makes us safe in both worlds).
+        tail = orbit_str * "  " *
+               _mr_c(@sprintf("%5.1f%%", 100f), "bold") * "  " *
+               _mr_c(_PROG_LABEL[], "title") *
+               _mr_c(" · T+" * _prog_hms(el), "dim") *
+               (isnan(eta) ? "" : _mr_c(" · ETA " * _prog_hms(eta), "dim")) *
+               (isempty(_PROG_TAG[]) ? "" : _mr_c(" · " * _PROG_TAG[], "warn")) *
+               (isempty(extra) ? "" : _mr_c(" · " * extra, "gold"))
+        if first || !_LIVE_DRAWN[]
+            _live_write("  " * trace_str * "\r\n  " * tail)
+        else
+            _live_write("\r\033[1A\033[K" * trace_str * "\r\n\033[K  " * tail)
+        end
         _LIVE_DRAWN[] = true
     else
         _live_write("  " * body * "\n") # non-tty (file/pipe): append-only lines
@@ -5166,8 +5270,15 @@ function _hp_run_all!(cfg::HPConfig, zeta_zeros::Vector{Float64}, sel::Vector{In
         idx = findfirst(x -> x.id == 300 + k, HP_AUDITS)
         idx === nothing && (println("no audit H$k"); continue)
         a = HP_AUDITS[idx]
-        println("\n" * _mr_c("▶ GATE H" * string(k), "gold") *
-                "  " * _mr_c(replace(a.title, r"^H\d+\.\s*" => ""), "bold"))
+        # v25-PLASMA: per-gate «telescope» frame — orbit sigil (λ/ρ/β/q/α/𝒩/ζ)
+        # in the gate's plasma palette color, double border «telescope» look.
+        # All decoration is wrapped — the original line below stays.
+        try
+            _hp_gate_telescope(k, a)
+        catch
+            println("\n" * _mr_c("▶ GATE H" * string(k), "gold") *
+                    "  " * _mr_c(replace(a.title, r"^H\d+\.\s*" => ""), "bold"))
+        end
         _hp_print_gate_cost(cfg, k) # visible NOW — the gate's own header replays only when the gate ends
         flush(stdout)
         res = _hp_run!(a, cfg, zeta_zeros)
@@ -5186,7 +5297,121 @@ function _hp_run_all!(cfg::HPConfig, zeta_zeros::Vector{Float64}, sel::Vector{In
         @sprintf("%s %d/%d gates PASS (detector-validity verdicts; physics headlines inside)",
                  npass == length(sel) ? "✓" : "!", npass, length(sel)),
     ])
+    # v25-PLASMA: color-coded verdict ribbon — one cell per gate, colored by
+    # verdict (PASS=green · WARN=amber · FAIL=red · RUN=dim), with the gate's
+    # emblem letter on top. A glance at the bottom of the battery shows the
+    # whole run's shape.
+    _hp_verdict_ribbon(sel)
     return npass
+end
+
+# ── §PLASMA-GATE: per-gate «telescope» frame + verdict ribbon ───────────
+# The user's spec (2026-10-15):
+#   «Оформление гейтов: у каждого H1–H7 своя орбита-эмблема, цвет из палитры,
+#    рамка-"телескоп", сводная "лента" вердиктов в конце батареи».
+#
+# Telescope frame: a 72-col double border with the gate sigil orbiting around
+# the codename (e.g. «λ ⤬ H1 ⤬ PRIME-TRACE»). The orbit sigil is the gate's
+# Greek letter (from _PLASMA_ANSI), in the gate's plasma color, so each gate
+# has a stable visual identity across runs.
+
+"""Per-gate «telescope» frame. The orbit sigil λ/ρ/β/q/α/𝒩/ζ sits between
+two ⤬ separators around the codename — the user said «рамка-телескоп», so
+we use the ⤬ (cross-star) bracket to evoke an eyepiece. The bottom line is
+the gate's `about` text (one-liner from HPAudit)."""
+function _hp_gate_telescope(k::Int, a::HPAudit)
+    W = 72
+    sigil = _PLASMA_ANSI[k][2]      # Greek letter
+    gname = _PLASMA_ANSI[k][3]      # codename
+    codename = "H" * string(k) * " · " * gname
+    # top frame — sigil orbit + codename
+    println()
+    println(_hp_pc("╔" * "═"^W * "╗", "nucleus"))
+    # line: «[···λ···H1···PRIME-TRACE···]» centered
+    inner = sigil * "  " * codename
+    pad = max(0, W - textwidth(inner) - 2)   # -2 for the two ⤬
+    pad_l = pad ÷ 2
+    pad_r = pad - pad_l
+    eyepiece = _hp_pc("⤬", "nucleus") *
+               _hp_pc("·"^pad_l, "orbit") * " " * _hp_pc(inner, k) * " " *
+               _hp_pc("·"^pad_r, "orbit") * _hp_pc("⤬", "nucleus")
+    println(_hp_pc("║", "nucleus") * eyepiece * _hp_pc("║", "nucleus"))
+    # divider line — dotted «telescope» rail
+    println(_hp_pc("╟", "nucleus") * _hp_pc("·"^W, "orbit") * _hp_pc("╢", "nucleus"))
+    # title (wrapped)
+    title_clean = replace(a.title, r"^H\d+\.\s*" => "")
+    for ln in _mr_wrap(title_clean, W - 4)
+        pad_t = max(0, W - textwidth(ln))
+        println(_hp_pc("║", "nucleus") * "  " * _mr_c(ln, "bold") *
+                " "^pad_t * _hp_pc("║", "nucleus"))
+    end
+    # about line (dim)
+    about = a.about
+    for ln in _mr_wrap(about, W - 4)
+        pad_a = max(0, W - textwidth(ln))
+        println(_hp_pc("║", "nucleus") * "  " * _mr_c(ln, "dim") *
+                " "^pad_a * _hp_pc("║", "nucleus"))
+    end
+    println(_hp_pc("╚" * "═"^W * "╝", "nucleus"))
+    return nothing
+end
+
+"""Color-coded verdict ribbon at the end of a battery. Each gate gets a
+single fixed-width cell showing its sigil + verdict glyph, colored by
+verdict (PASS=green, WARN=amber, FAIL=red, RUN-not-finished=dim). The
+result is a 7-cell ribbon the user can read at a glance:
+  λ✓  ρ✓  β!  q✓  α✓  𝒩✓  ζ✓   →  6/7 PASS, 1 WARN
+"""
+function _hp_verdict_ribbon(sel::Vector{Int})
+    try
+        W = 72
+        # find the most recent state per gate id (the console may run a gate
+        # several times in one session; we want the LAST verdict)
+        last_state = Dict{Int,MiniTestState}()
+        for st in ALL_STATES
+            k = st.id - 300
+            last_state[k] = st
+        end
+        println(_mr_c("─"^W, "dim"))
+        println(_mr_c("  VERDICT RIBBON", "title"))
+        # build the ribbon — one cell per selected gate
+        cells = String[]
+        for k in sel
+            st = get(last_state, k, nothing)
+            verdict = st === nothing ? "—" : st.status
+            sigil = _PLASMA_ANSI[k][2]
+            # verdict glyph + color
+            if verdict == "PASS"
+                vg, vk = "✓", "ok"
+            elseif verdict == "WARN"
+                vg, vk = "!", "warn"
+            elseif verdict == "FAIL"
+                vg, vk = "✗", "err"
+            else
+                vg, vk = "·", "dim"
+            end
+            cell = _hp_pc(sigil, k) * _mr_c(vg, vk)
+            push!(cells, cell)
+        end
+        ribbon = join(cells, "  ")
+        println("  " * ribbon)
+        # legend strip — pass/warn/fail counts
+        n_pass = count(last_state[k].status == "PASS" for k in sel
+                       if haskey(last_state, k))
+        n_warn = count(last_state[k].status == "WARN" for k in sel
+                       if haskey(last_state, k))
+        n_fail = count(last_state[k].status == "FAIL" for k in sel
+                       if haskey(last_state, k))
+        n_unknown = length(sel) - n_pass - n_warn - n_fail
+        summary = @sprintf("  %d/%d PASS · %d WARN · %d FAIL · %d —",
+                          n_pass, length(sel), n_warn, n_fail, n_unknown)
+        println(_mr_c(summary, n_pass == length(sel) ? "ok" : "warn"))
+        println(_mr_c("─"^W, "dim"))
+    catch err
+        # never let the ribbon fail the run
+        println("  [verdict ribbon unavailable: ", sprint(showerror, err), "]")
+    end
+    return nothing
 end
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -5289,44 +5514,431 @@ function write_run_reports(run_dir::String, cfg::HPConfig, tag::String, t_wall::
         print(io, String(take!(md)))
     end
 
-    # 4) final_report.html — same content, minimal self-contained styling
-    html = IOBuffer()
-    println(html, "<!DOCTYPE html><html><head><meta charset=\"utf-8\">")
-    println(html, "<title>HP deep audit — $(basename(run_dir))</title>")
-    println(html, "<style>body{font-family:Georgia,serif;max-width:1100px;margin:2em auto;padding:0 1em;color:#1a1a2e;background:#fafafa}",
-            "h1,h2,h3{font-family:'Helvetica Neue',Arial,sans-serif}h2{border-bottom:2px solid #16324f;padding-bottom:.2em;margin-top:2em}",
-            "table{border-collapse:collapse;width:100%;font-size:.92em}td,th{border:1px solid #bbb;padding:.35em .5em;vertical-align:top}",
-            "th{background:#16324f;color:#fff;text-align:left}.pass{color:#0a7d32;font-weight:bold}.warn{color:#b8860b;font-weight:bold}",
-            "code,pre{background:#eef1f4;border-radius:4px;padding:.1em .3em}img{max-width:100%;border:1px solid #ccc;margin:.4em 0}",
-            "blockquote{border-left:4px solid #16324f;margin:0;padding:.1em 1em;color:#333}</style></head><body>")
-    println(html, "<h1>Hilbert-Pólya Deep Audit — standalone battery</h1>")
-    @printf(html, "<p><b>Run:</b> %s · <b>preset:</b> %s · <b>date:</b> %s · <b>wall:</b> %s · ζ zeros: <b>%s</b></p>",
-            basename(run_dir), tag, _prog_now_str(), _prog_hms(t_wall), zeta_loaded ? "yes" : "NO")
-    @printf(html, "<p><b>Battery verdict:</b> %d/%d PASS + %d WARN (detector-validity semantics)</p>",
-            n_pass, length(ALL_STATES), length(ALL_STATES) - n_pass)
-    for st in ALL_STATES
-        println(html, "<h2>", st.title, " — <span class=\"", st.status == "PASS" ? "pass" : "warn", "\">", st.status, "</span></h2>")
-        isempty(st.headline) || println(html, "<blockquote>", st.headline, "</blockquote>")
-        isempty(st.rows) || begin
-            println(html, "<table><tr><th>sub-check</th><th>status</th><th>detail</th></tr>")
-            for (name, ok, note) in st.rows
-                @printf(html, "<tr><td>%s</td><td class=\"%s\">%s</td><td>%s</td></tr>",
-                        name, ok ? "pass" : "warn", ok ? "PASS" : "WARN", note)
-            end
-            println(html, "</table>")
-        end
-        for p in st.pngs
-            println(html, "<img src=\"", relpath(p, run_dir), "\" alt=\"plot\">")
-        end
-        for n in st.notes
-            println(html, "<p><i>", n, "</i></p>")
-        end
-    end
-    println(html, "</body></html>")
+    # 4) final_report.html — v25-PLASMA dark theme: hero banner with animated
+    #    SVG orbits (H nucleus + H1–H7 satellites + ζ-belt), gate tiles (one
+    #    per gate with verdict color + sub-check table + plots + notes).
+    #    Self-contained — no external CSS/JS, no fonts beyond system stacks.
+    html = _plasma_html_report(cfg, run_dir, tag, t_wall, zeta_loaded, n_pass)
     open(joinpath(run_dir, "final_report.html"), "w") do io
-        print(io, String(take!(html)))
+        print(io, html)
     end
     return nothing
+end
+
+# ═════════════════════════════════════════════════════════════════════════════
+# §PLASMA-HTML. Dark-theme final_report.html with hero banner + animated SVG
+#     orbits + gate tiles. The user's spec (2026-10-15):
+#       «Оформление отчётов: final_report.html с тёмной темой, hero-баннером,
+#        анимированными SVG-орбитами и врезками-плитками по гейтам».
+# ═════════════════════════════════════════════════════════════════════════════
+
+# HTML escape — names contain Greek (α, ρ), Cyrillic, etc.
+_plasma_h_esc(s) = replace(replace(replace(replace(String(s),
+    "&" => "&amp;"), "<" => "&lt;"), ">" => "&gt;"), "\"" => "&quot;")
+
+# per-gate CSS hex colors matching _PLASMA_ANSI (256-color mapping to hex)
+const _PLASMA_HEX = Dict{Int,String}(
+    1 => "#00d7af",  # cyan-green   (38;5;45)
+    2 => "#00afff",  # sky-blue     (38;5;39)
+    3 => "#ffaf00",  # orange       (38;5;214)
+    4 => "#ff5fd7",  # magenta      (38;5;213)
+    5 => "#ff5faf",  # pink-violet  (38;5;212)
+    6 => "#875fff",  # indigo       (38;5;99)
+    7 => "#5fd787",  # mint         (38;5;120)
+)
+
+"""Build the full HTML document. Returns a String."""
+function _plasma_html_report(cfg::HPConfig, run_dir::String, tag::String,
+                            t_wall::Float64, zeta_loaded::Bool, n_pass::Int)
+    n_states = length(ALL_STATES)
+    n_warn = n_states - n_pass
+    zeta_n = 0
+    try
+        zeta_n = length(load_zeros(_hp_discover_zeros()))
+    catch
+    end
+    io = IOBuffer()
+    println(io, "<!DOCTYPE html>")
+    println(io, "<html lang=\"en\"><head><meta charset=\"utf-8\">")
+    println(io, "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">")
+    println(io, "<title>HP·Meridian — Hilbert–Pólya Audit · ", _plasma_h_esc(basename(run_dir)), "</title>")
+    println(io, "<style>")
+    # ── dark theme palette ────────────────────────────────────────────────────
+    println(io, """
+      :root {
+        --bg: #0b0d1a;
+        --bg-elev: #131628;
+        --bg-card: #181b30;
+        --fg: #e6e8f0;
+        --fg-dim: #9099b3;
+        --fg-muted: #5b6280;
+        --border: #232844;
+        --accent: #00d7af;
+        --pass: #2ecc71;
+        --warn: #f1c40f;
+        --fail: #e74c3c;
+        --h1: #ffaf00;
+        --h2: #00afff;
+        --h3: #ff5fd7;
+        --h4: #ff5fd7;
+        --h5: #ff5faf;
+        --h6: #875fff;
+        --h7: #5fd787;
+        --nucleus: #ffd700;
+        --orbit: #2a2f50;
+        --orbit2: #3a4070;
+        --belt: #1a2a55;
+        --zeros: #66c5ff;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        background: var(--bg);
+        background-image:
+          radial-gradient(circle at 20% 10%, rgba(0,215,175,.04) 0, transparent 40%),
+          radial-gradient(circle at 80% 30%, rgba(255,95,215,.03) 0, transparent 45%),
+          radial-gradient(circle at 50% 90%, rgba(135,95,255,.04) 0, transparent 40%);
+        color: var(--fg);
+        font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        line-height: 1.55;
+        padding: 0;
+        min-height: 100vh;
+      }
+      .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5em; }
+      code, pre, .mono { font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace; }
+
+      /* HERO */
+      .hero {
+        position: relative;
+        margin-top: 1.5em;
+        padding: 2.2em 1.5em 1.2em;
+        border-radius: 18px;
+        background: linear-gradient(135deg, rgba(20,24,40,.95) 0%, rgba(10,12,26,.95) 100%);
+        border: 1px solid var(--border);
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute; inset: 0;
+        background-image: radial-gradient(ellipse at top, rgba(0,215,175,.08) 0, transparent 50%);
+        pointer-events: none;
+      }
+      .hero-grid { display: grid; grid-template-columns: minmax(360px, 1fr) 2fr; gap: 2em; align-items: center; }
+      @media (max-width: 800px) { .hero-grid { grid-template-columns: 1fr; } }
+      .hero-orbit { width: 100%; max-width: 360px; aspect-ratio: 1; }
+      .hero-text h1 {
+        font-family: 'Inter', sans-serif;
+        font-weight: 800;
+        font-size: clamp(1.6em, 3.5vw, 2.4em);
+        letter-spacing: -.01em;
+        background: linear-gradient(135deg, #ffd700 0%, #ff5fd7 50%, #00d7af 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: .2em;
+      }
+      .hero-text .tagline { color: var(--fg-dim); font-size: 1.05em; margin-bottom: 1.2em; }
+      .hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: .8em; margin-top: 1em; }
+      .stat { padding: .8em 1em; background: rgba(0,0,0,.25); border: 1px solid var(--border); border-radius: 10px; }
+      .stat .label { color: var(--fg-muted); font-size: .75em; letter-spacing: .08em; text-transform: uppercase; }
+      .stat .value { color: var(--fg); font-size: 1.4em; font-weight: 700; margin-top: .15em; font-family: 'JetBrains Mono', monospace; }
+      .stat .value.pass { color: var(--pass); }
+      .stat .value.warn { color: var(--warn); }
+      .stat .value.fail { color: var(--fail); }
+
+      /* PARAMETERS strip */
+      .params-strip {
+        margin: 1.5em 0;
+        padding: 1em 1.4em;
+        background: var(--bg-elev);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        color: var(--fg-dim);
+      }
+      .params-strip .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: .6em; }
+      .params-strip .k { color: var(--fg-muted); font-size: .85em; }
+      .params-strip .v { color: var(--fg); font-family: 'JetBrains Mono', monospace; }
+
+      /* VERDICT RIBBON */
+      .ribbon-row {
+        margin: 1em 0 2em;
+        padding: 1em 1.4em;
+        background: var(--bg-elev);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        display: flex; flex-wrap: wrap; gap: 1em; align-items: center;
+      }
+      .ribbon-cell {
+        display: inline-flex; align-items: center; gap: .35em;
+        padding: .4em .8em;
+        border-radius: 999px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: .95em;
+        border: 2px solid currentColor;
+      }
+      .ribbon-cell.pass { color: var(--pass); background: rgba(46,204,113,.08); }
+      .ribbon-cell.warn { color: var(--warn); background: rgba(241,196,15,.08); }
+      .ribbon-cell.fail { color: var(--fail); background: rgba(231,76,60,.08); }
+      .ribbon-cell.dim  { color: var(--fg-muted); border-color: var(--border); }
+
+      /* GATE TILES */
+      .gates {
+        display: grid; gap: 1.5em;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 580px), 1fr));
+      }
+      .gate-tile {
+        background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-elev) 100%);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 1.5em 1.5em 1.2em;
+        position: relative;
+        overflow: hidden;
+      }
+      .gate-tile::before {
+        content: "";
+        position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        background: var(--gate-color);
+      }
+      .gate-head { display: flex; align-items: baseline; gap: .6em; margin-bottom: .5em; flex-wrap: wrap; }
+      .gate-head .sigil {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.6em; font-weight: 800;
+        color: var(--gate-color);
+        text-shadow: 0 0 12px currentColor;
+      }
+      .gate-head .num { font-family: 'JetBrains Mono', monospace; color: var(--fg-muted); font-size: .85em; }
+      .gate-head .name { font-weight: 700; color: var(--fg); font-size: 1.15em; letter-spacing: -.01em; }
+      .gate-head .verdict {
+        margin-left: auto;
+        padding: .25em .7em;
+        border-radius: 999px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: .85em; font-weight: 700;
+        border: 1px solid currentColor;
+      }
+      .gate-head .verdict.pass { color: var(--pass); background: rgba(46,204,113,.08); }
+      .gate-head .verdict.warn { color: var(--warn); background: rgba(241,196,15,.08); }
+      .gate-head .verdict.fail { color: var(--fail); background: rgba(231,76,60,.08); }
+      .gate-head .verdict.dim  { color: var(--fg-muted); border-color: var(--border); }
+      .gate-headline {
+        color: var(--fg-dim); font-size: .98em; margin: .6em 0 1em;
+        padding-left: .8em; border-left: 2px solid var(--gate-color);
+      }
+      .gate-table { width: 100%; border-collapse: collapse; font-size: .92em; margin-bottom: .8em; }
+      .gate-table th, .gate-table td { text-align: left; padding: .5em .7em; border-bottom: 1px solid var(--border); }
+      .gate-table th { color: var(--fg-muted); font-weight: 600; font-size: .8em; text-transform: uppercase; letter-spacing: .06em; }
+      .gate-table td.status { width: 5em; font-family: 'JetBrains Mono', monospace; }
+      .gate-table td.status.pass { color: var(--pass); font-weight: 700; }
+      .gate-table td.status.warn { color: var(--warn); font-weight: 700; }
+      .gate-table td.detail { color: var(--fg-dim); }
+      .gate-plot {
+        margin: .8em 0;
+        border-radius: 8px; overflow: hidden;
+        border: 1px solid var(--border);
+      }
+      .gate-plot img { display: block; max-width: 100%; height: auto; background: #fff; }
+      .gate-notes { color: var(--fg-dim); font-size: .88em; font-style: italic; margin-top: .6em; padding-left: .8em; border-left: 2px solid var(--border); }
+      .gate-notes p { margin: .25em 0; }
+
+      /* footer */
+      footer {
+        margin: 3em 0 2em; padding-top: 1.5em;
+        border-top: 1px solid var(--border);
+        color: var(--fg-muted); font-size: .85em;
+        display: flex; flex-wrap: wrap; gap: 1.5em; justify-content: space-between;
+      }
+      footer a { color: var(--accent); text-decoration: none; }
+
+      /* small SVG orbit animation */
+      @keyframes orbit-rot { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+      @keyframes orbit-rot-rev { from { transform: rotate(0); } to { transform: rotate(-360deg); } }
+      @keyframes pulse { 0%, 100% { opacity: .6; } 50% { opacity: 1; } }
+      .orbit-inner  { animation: orbit-rot 14s linear infinite; transform-origin: 200px 200px; }
+      .orbit-mid   { animation: orbit-rot-rev 22s linear infinite; transform-origin: 200px 200px; }
+      .orbit-outer { animation: orbit-rot 32s linear infinite; transform-origin: 200px 200px; }
+      .belt-rot    { animation: orbit-rot-rev 48s linear infinite; transform-origin: 200px 200px; }
+      .nucleus-pulse { animation: pulse 3.5s ease-in-out infinite; transform-origin: 200px 200px; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .orbit-inner, .orbit-mid, .orbit-outer, .belt-rot, .nucleus-pulse { animation: none; }
+      }
+    """)
+    println(io, "</style></head><body>")
+    println(io, "<div class=\"container\">")
+
+    # ── HERO ───────────────────────────────────────────────────────────────
+    println(io, "<section class=\"hero\">")
+    println(io, "<div class=\"hero-grid\">")
+    # left: animated SVG solar system
+    println(io, """
+      <svg class=\"hero-orbit\" viewBox=\"0 0 400 400\" xmlns=\"http://www.w3.org/2000/svg\" aria-label=\"Hilbert–Pólya solar system\">
+        <!-- soft gradient backdrop -->
+        <defs>
+          <radialGradient id=\"halo\" cx=\"50%\" cy=\"50%\" r=\"50%\">
+            <stop offset=\"0%\" stop-color=\"#ffd700\" stop-opacity=\".35\"/>
+            <stop offset=\"50%\" stop-color=\"#ff5faf\" stop-opacity=\".10\"/>
+            <stop offset=\"100%\" stop-color=\"#00d7af\" stop-opacity=\"0\"/>
+          </radialGradient>
+          <linearGradient id=\"nuc-g\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">
+            <stop offset=\"0%\" stop-color=\"#ffd700\"/>
+            <stop offset=\"100%\" stop-color=\"#ff8c00\"/>
+          </linearGradient>
+        </defs>
+        <circle cx=\"200\" cy=\"200\" r=\"180\" fill=\"url(#halo)\"/>
+        <!-- belt -->
+        <g class=\"belt-rot\">
+          <ellipse cx=\"200\" cy=\"200\" rx=\"188\" ry=\"100\" fill=\"none\" stroke=\"#1a2a55\" stroke-width=\"1\" stroke-dasharray=\"2 4\"/>""")
+    # ζ-zero dots on belt
+    belt_n = min(zeta_n, 60)
+    for i in 1:belt_n
+        θ = 2π * (i - 1) / max(1, belt_n)
+        x = 200 + 188 * cos(θ)
+        y = 200 + 100 * sin(θ)
+        println(io, "<circle cx=\"$x\" cy=\"$y\" r=\"1.6\" fill=\"#66c5ff\" opacity=\".7\"/>")
+    end
+    println(io, "</g>")
+    # outer orbit (H6, H7)
+    println(io, """
+      <g class=\"orbit-outer\">
+        <ellipse cx=\"200\" cy=\"200\" rx=\"150\" ry=\"78\" fill=\"none\" stroke=\"#3a4070\" stroke-width=\"1\"/>
+        <circle cx=\"350\" cy=\"200\" r=\"6\" fill=\"#875fff\"><title>H6 HERMIT-STRESS</title></circle>
+        <circle cx=\"50\"  cy=\"200\" r=\"6\" fill=\"#5fd787\"><title>H7 SEQ-CORR</title></circle>
+      </g>""")
+    # middle orbit (H4, H5)
+    println(io, """
+      <g class=\"orbit-mid\">
+        <ellipse cx=\"200\" cy=\"200\" rx=\"108\" ry=\"56\" fill=\"none\" stroke=\"#2a2f50\" stroke-width=\"1\"/>
+        <circle cx=\"308\" cy=\"200\" r=\"6\" fill=\"#ff5fd7\"><title>H4 CRITICAL-Q</title></circle>
+        <circle cx=\"92\"  cy=\"200\" r=\"6\" fill=\"#ff5faf\"><title>H5 REGIME-2×2</title></circle>
+      </g>""")
+    # inner orbit (H1, H2, H3)
+    println(io, """
+      <g class=\"orbit-inner\">
+        <ellipse cx=\"200\" cy=\"200\" rx=\"60\" ry=\"32\" fill=\"none\" stroke=\"#3a4070\" stroke-width=\"1\"/>
+        <circle cx=\"260\" cy=\"200\" r=\"5\" fill=\"#00d7af\"><title>H1 PRIME-TRACE</title></circle>
+        <circle cx=\"170\" cy=\"168\" r=\"5\" fill=\"#00afff\"><title>H2 WEYL-DOS</title></circle>
+        <circle cx=\"170\" cy=\"232\" r=\"5\" fill=\"#ffaf00\"><title>H3 POWER-LAW</title></circle>
+      </g>""")
+    # nucleus
+    println(io, """
+      <g class=\"nucleus-pulse\">
+        <circle cx=\"200\" cy=\"200\" r=\"18\" fill=\"url(#nuc-g)\"/>
+        <text x=\"200\" y=\"206\" text-anchor=\"middle\" font-family=\"JetBrains Mono, monospace\" font-weight=\"800\" font-size=\"18\" fill=\"#0b0d1a\">H</text>
+      </g>
+    </svg>""")
+    # right: title + stats
+    println(io, "<div class=\"hero-text\">")
+    println(io, "<h1>HP·MERIDIAN — Hilbert–Pólya Deep Audit</h1>")
+    println(io, "<p class=\"tagline\">Arithmetic specificity, not just universality — 7 falsifiable gates H1–H7 between prime arithmetic and GUE spectral statistics.</p>")
+    println(io, "<div class=\"hero-stats\">")
+    println(io, "<div class=\"stat\"><div class=\"label\">PASS</div><div class=\"value pass\">", n_pass, "/", n_states, "</div></div>")
+    println(io, "<div class=\"stat\"><div class=\"label\">WARN</div><div class=\"value warn\">", n_warn, "</div></div>")
+    println(io, "<div class=\"stat\"><div class=\"label\">ζ zeros</div><div class=\"value\">", zeta_n, "</div></div>")
+    println(io, "<div class=\"stat\"><div class=\"label\">Lattice L</div><div class=\"value\">", cfg.hp_L, "</div></div>")
+    println(io, "<div class=\"stat\"><div class=\"label\">Seed</div><div class=\"value\">", cfg.hp_seed, "</div></div>")
+    println(io, "<div class=\"stat\"><div class=\"label\">Wall</div><div class=\"value\">", _prog_hms(t_wall), "</div></div>")
+    println(io, "</div>")
+    println(io, "<p style=\"margin-top:.8em;color:var(--fg-muted);font-size:.85em;\">",
+            "Run: <span class=\"mono\">", _plasma_h_esc(basename(run_dir)), "</span> · ",
+            "preset: <span class=\"mono\">", _plasma_h_esc(tag), "</span> · ",
+            "date: <span class=\"mono\">", _plasma_h_esc(_prog_now_str()), "</span> · ",
+            "ζ loaded: <span class=\"mono\">", zeta_loaded ? "yes" : "NO", "</span></p>")
+    println(io, "</div>")  # /hero-text
+    println(io, "</div>")  # /hero-grid
+    println(io, "</section>")  # /hero
+
+    # ── PARAMETERS STRIP ───────────────────────────────────────────────────
+    println(io, "<div class=\"params-strip\">")
+    println(io, "<div class=\"row\">")
+    println(io, "<div><div class=\"k\">L · L_weyl</div><div class=\"v\">", cfg.hp_L, " · ", cfg.hp_L_weyl, "</div></div>")
+    println(io, "<div><div class=\"k\">ensemble · seed</div><div class=\"v\">", cfg.hp_n_ensemble, " · ", cfg.hp_seed, "</div></div>")
+    println(io, "<div><div class=\"k\">α / W_eff</div><div class=\"v\">", @sprintf("%.4f", cfg.ab_alpha_test16), " · ", @sprintf("%.2f", ab_w_eff(cfg)), "</div></div>")
+    println(io, "<div><div class=\"k\">deep-nulls · configs</div><div class=\"v\">", cfg.hp_deep_nulls, " · ", cfg.hp_deep_configs, "</div></div>")
+    println(io, "<div><div class=\"k\">α-profile</div><div class=\"v\">", cfg.hp_alpha_scan, " (n=", cfg.hp_alpha_scan_n, ")</div></div>")
+    println(io, "<div><div class=\"k\">primes</div><div class=\"v\">", join(cfg.hp_primes, ","), "</div></div>")
+    println(io, "<div><div class=\"k\">q-grid</div><div class=\"v\">", cfg.hp_n_q_grid, " pts on [", @sprintf("%.2f", cfg.hp_q_min), ", ", @sprintf("%.2f", cfg.hp_q_max), "]</div></div>")
+    println(io, "<div><div class=\"k\">ladder</div><div class=\"v\">", join(cfg.hp_L_ladder, " → "), "</div></div>")
+    println(io, "<div><div class=\"k\">t_max · dt</div><div class=\"v\">", @sprintf("%.0f", cfg.hp_t_max), " · ", @sprintf("%.3f", cfg.hp_dt), "</div></div>")
+    println(io, "</div></div>")
+
+    # ── VERDICT RIBBON ─────────────────────────────────────────────────────
+    println(io, "<div class=\"ribbon-row\">")
+    println(io, "<span style=\"color:var(--fg-muted);font-size:.8em;letter-spacing:.08em;text-transform:uppercase;\">Verdict Ribbon</span>")
+    for st in ALL_STATES
+        k = st.id - 300
+        if k < 1 || k > 7
+            continue
+        end
+        sigil = _PLASMA_ANSI[k][2]
+        vclass = st.status == "PASS" ? "pass" : st.status == "WARN" ? "warn" :
+                 st.status == "FAIL" ? "fail" : "dim"
+        vg = st.status == "PASS" ? "✓" : st.status == "WARN" ? "!" :
+             st.status == "FAIL" ? "✗" : "·"
+        println(io, "<span class=\"ribbon-cell ", vclass, "\"><span style=\"color:var(--h", k, ");\">",
+                sigil, "</span> ", vg, " H", k, "</span>")
+    end
+    println(io, "</div>")
+
+    # ── GATE TILES ─────────────────────────────────────────────────────────
+    println(io, "<section class=\"gates\">")
+    for st in ALL_STATES
+        k = st.id - 300
+        # gate color hex
+        gate_hex = get(_PLASMA_HEX, k, "#9099b3")
+        sigil = (1 <= k <= 7) ? _PLASMA_ANSI[k][2] : "·"
+        title_clean = replace(st.title, r"^H\d+\.\s*" => "")
+        vclass = st.status == "PASS" ? "pass" : st.status == "WARN" ? "warn" :
+                 st.status == "FAIL" ? "fail" : "dim"
+        println(io, "<article class=\"gate-tile\" style=\"--gate-color:", gate_hex, ";\">")
+        # head
+        println(io, "<div class=\"gate-head\">")
+        println(io, "<span class=\"sigil\">", sigil, "</span>")
+        println(io, "<span class=\"num\">H", k, "</span>")
+        println(io, "<span class=\"name\">", _plasma_h_esc(title_clean), "</span>")
+        println(io, "<span class=\"verdict ", vclass, "\">", st.status, "</span>")
+        println(io, "</div>")
+        # headline
+        isempty(st.headline) || println(io, "<div class=\"gate-headline\">",
+                                        _plasma_h_esc(st.headline), "</div>")
+        # sub-check table
+        if !isempty(st.rows)
+            println(io, "<table class=\"gate-table\">")
+            println(io, "<thead><tr><th>sub-check</th><th>status</th><th>detail</th></tr></thead><tbody>")
+            for (name, ok, note) in st.rows
+                println(io, "<tr><td>", _plasma_h_esc(name), "</td>",
+                        "<td class=\"status ", ok ? "pass" : "warn", "\">",
+                        ok ? "PASS" : "WARN", "</td>",
+                        "<td class=\"detail\">", _plasma_h_esc(note), "</td></tr>")
+            end
+            println(io, "</tbody></table>")
+        end
+        # plots
+        for p in st.pngs
+            println(io, "<div class=\"gate-plot\">")
+            println(io, "<img src=\"", _plasma_h_esc(relpath(p, run_dir)), "\" alt=\"", _plasma_h_esc(st.title), " plot\">")
+            println(io, "</div>")
+        end
+        # notes
+        if !isempty(st.notes)
+            println(io, "<div class=\"gate-notes\">")
+            for n in st.notes
+                println(io, "<p>", _plasma_h_esc(n), "</p>")
+            end
+            println(io, "</div>")
+        end
+        println(io, "</article>")
+    end
+    println(io, "</section>")  # /gates
+
+    # ── FOOTER ─────────────────────────────────────────────────────────────
+    println(io, "<footer>")
+    println(io, "<div>HP·Meridian v", HP_SA_VERSION, " · standalone Hilbert–Pólya audit · ",
+            "detector-validity verdicts (physics headlines live inside the tests)</div>")
+    println(io, "<div>Author: Isaev Iskhak Khamzatovich · ORCID 0009-0003-7299-0701</div>")
+    println(io, "</footer>")
+
+    println(io, "</div>")  # /container
+    println(io, "</body></html>")
+    return String(take!(io))
 end
 
 # ═════════════════════════════════════════════════════════════════════════
@@ -5426,6 +6038,88 @@ function _color_init!()
 end
 _hpc(s::AbstractString, key::String) =
     _COLOR_ON[] ? string("\e[", _ANSI[key], "m", s, "\e[0m") : String(s)
+
+# ═════════════════════════════════════════════════════════════════════════════
+# §PLASMA. PLASMA·ORBIT DECOR (v25-PLASMA, 2026-10-15)
+#     A spectral-visual layer over the existing HP·MERIDIAN console:
+#       • plasma banner  — ASCII solar system (H nucleus · elliptical orbits ·
+#                          H1–H7 satellites · ζ-zero outer belt), driven by
+#                          REAL run data (seed, L, ζ count);
+#       • plasma bar     — orbit-bound satellite w/ comet tail instead of ▰▱,
+#                          with a background ζ-signal trace;
+#       • gate emblems   — per-Hk orbit sigil + palette color + telescope frame;
+#       • verdict ribbon — color-coded summary strip after a battery;
+#       • dark HTML      — final_report.html with hero banner, animated SVG
+#                          orbits, gate tiles (replaces the bare Georgia page).
+#     Every helper is wrapped in try/catch — a decoration failure must NEVER
+#     kill a gate (the audit's numbers are the deliverable; the visuals are
+#     the suit they ride in).
+# ═════════════════════════════════════════════════════════════════════════════
+
+# ── plasma palette: per-gate 256-color + emblem sigil. Each Hk has a stable
+#    identity the user can recognize across runs (color-blind safe — hue
+#    spreads ~45° around the wheel, value held near 0.5). The Greek letters
+#    pick a physics mnemonic: λ=wavelength, ρ=density, β=power, q=critical,
+#    α=regime, 𝒩=Hermitian, ρ′=sequence — the user's own vocabulary.
+const _PLASMA_ANSI = Dict{Int,Tuple{String,String,String}}(
+    1 => ("38;5;45",  "λ", "PRIME-TRACE"),   # cyan-green   — Bragg comb
+    2 => ("38;5;39",  "ρ", "WEYL-DOS"),       # sky-blue     — staircase N(E)
+    3 => ("38;5;214", "β", "POWER-LAW"),      # orange       — exponent ladder
+    4 => ("38;5;213", "q", "CRITICAL-Q"),     # magenta      — sharpness scan
+    5 => ("38;5;212", "α", "REGIME-2×2"),     # pink-violet  — ensemble showdown
+    6 => ("38;5;99",  "𝒩", "HERMIT-STRESS"),  # indigo       — self-adjointness
+    7 => ("38;5;120", "ζ", "SEQ-CORR"),        # mint         — level↔zero
+)
+# core plasma accents (not gate-specific): nucleus, orbit, comet, ζ-belt
+const _PLASMA_CORE_ANSI = Dict{String,String}(
+    "nucleus" => "1;38;5;226",   # bright yellow — the H core
+    "orbit"   => "38;5;238",     # dim slate     — orbit ring
+    "orbit2"  => "38;5;60",      # dim blue-grey — inner orbit
+    "comet"  => "1;38;5;208",    # bright orange — comet head
+    "tail"   => "38;5;94",       # burnt orange  — comet tail
+    "belt"   => "38;5;24",      # deep blue     — ζ belt ring
+    "zeros"  => "38;5;75",       # light blue    — ζ zero dots
+    "halo"   => "38;5;58",      # olive glow    — nucleus halo
+)
+
+"""Colored string by plasma key (gate id or core-key) — falls back to plain
+string when color is off, so a redirected log file stays clean ASCII."""
+_hp_pc(s::AbstractString, gate::Int) =
+    _COLOR_ON[] ? string("\e[", _PLASMA_ANSI[gate][1], "m", s, "\e[0m") : String(s)
+_hp_pc(s::AbstractString, key::String) =
+    _COLOR_ON[] ? string("\e[", _PLASMA_CORE_ANSI[key], "m", s, "\e[0m") : String(s)
+
+"""Stable orbital radius for gate Hk — three elliptical orbits, satellites
+spaced ~51° apart on each ring so they never collide visually. Returns
+(r_x, r_y, θ) where r_* are character-cell radii and θ is the start angle."""
+function _plasma_orbit_params(k::Int)
+    # H1,H2,H3 inner · H4,H5 middle · H6,H7 outer — matches group semantics
+    ring = k <= 3 ? (10, 5, (k - 1) * 2.0944) :        # 120° apart
+            k <= 5 ? (18, 9, (k - 4) * 3.1416) :        # 180° apart
+                    (26, 13, (k - 6) * 2.0944)          # 120° apart
+    return ring
+end
+
+"""Gated-safe paint: write a colored cell at canvas (x,y) into a 1-indexed
+character grid of size (h,w). Out-of-bounds writes are silently dropped —
+the orbits naturally extend past the canvas on small terminals and the
+banner degrades gracefully instead of erroring."""
+function _plasma_paint!(canvas::Matrix{String}, x::Float64, y::Float64, glyph::String,
+                        ansi_key::String; w::Int, h::Int)
+    ix = round(Int, x); iy = round(Int, y)
+    (1 <= ix <= w && 1 <= iy <= h) || return
+    canvas[iy, ix] = _COLOR_ON[] ?
+        string("\e[", _PLASMA_CORE_ANSI[ansi_key], "m", glyph, "\e[0m") : glyph
+    return
+end
+function _plasma_paint_gate!(canvas::Matrix{String}, x::Float64, y::Float64, k::Int;
+                             w::Int, h::Int)
+    ix = round(Int, x); iy = round(Int, y)
+    (1 <= ix <= w && 1 <= iy <= h) || return
+    g = _PLASMA_ANSI[k][2]
+    canvas[iy, ix] = _hp_pc(g, k)
+    return
+end
 
 # true when fd 0 is a terminal — the ground truth for "a human is typing"
 # (Base has no isatty in 1.10; ccall works on linux/windows/mac alike)
@@ -5793,12 +6487,167 @@ function _hp_hpcenter(t::AbstractString, w::Int)
     return " "^l * String(t) * " "^(pad - l)
 end
 
+# ═════════════════════════════════════════════════════════════════════════════
+# §PLASMA-BANNER. ASCII solar system — the visual identity of a run.
+#     The user's spec (2026-10-15):
+#       «Плазменный баннер при старте: ядро-H в центре, эллиптические орбиты,
+#        спутники-гейты H1…H7 на орбитах, ζ-нули как точки на внешнем поясе, с
+#        привязкой к реальным данным (seed, L, число нулей)».
+#     Driven by REAL run data: the nucleus shows L² + seed, the outer belt is
+#     populated with the actual count of ζ zeros (capped at 60 dots so the
+#     banner fits on a 72-col terminal). Every paint goes through the gated
+#     helpers, so a non-TTY log file gets the plain-ASCII skeleton — the
+#     scientific content survives the channel.
+# ═════════════════════════════════════════════════════════════════════════════
+
+"""Number of ζ zeros to actually draw on the outer belt. The user has up to
+50 000 ordinates; rendering all would push the banner past the terminal. We
+sample a stable equi-spaced subset of ≤60 — the BELT COUNT is shown to the
+right of the nucleus so the real number is still visible."""
+function _plasma_belt_sample(n_zeros::Int, cap::Int = 60)
+    n_zeros <= 0 && return Int[]
+    n_zeros <= cap && return collect(1:n_zeros)
+    # stable stride — same n_zeros ⇒ same belt every run
+    return [round(Int, 1 + (i - 1) * (n_zeros - 1) / (cap - 1)) for i in 1:cap]
+end
+
+"""Render the plasma solar system into a (h × w) character grid and return
+it as a Vector{String} ready to print. Geometry: nucleus at (cx,cy); three
+elliptical orbits; H1–H7 satellites placed at their stable (r,θ); an outer
+ζ-belt ring with sampled zero dots. The grid is sized 25 × 70 by default —
+fits the 72-col terminal the rest of the console already targets."""
+function _plasma_render_solar(cfg::HPConfig, zeros_path::String; w::Int = 70, h::Int = 25)
+    canvas = fill(" ", h, w)
+    cx = w / 2; cy = h / 2 + 0.5
+
+    # 1) NUCLEUS HALO — three concentric faint rings, painted first so the
+    #    orbits and satellites land on top
+    for r in (2.0, 1.5, 1.0)
+        for θ in 0:0.35:6.283
+            _plasma_paint!(canvas, cx + r * cos(θ), cy + r * 0.45 * sin(θ),
+                           "·", "halo"; w = w, h = h)
+        end
+    end
+    # nucleus glyph — draw a 3-char-wide marker "(" "H" ")" centered.
+    # The double-husk evokes an atomic nucleus (the user's «ядро-H» spec).
+    for (dx, dy, g) in ((-1, 0, "("), (0, 0, "H"), (1, 0, ")"))
+        ix = round(Int, cx + dx); iy = round(Int, cy + dy)
+        (1 <= ix <= w && 1 <= iy <= h) || continue
+        canvas[iy, ix] = _hp_pc(g, "nucleus")
+    end
+
+    # 2) ORBIT RINGS — three elliptical orbits, dim color
+    orbit_specs = [(10.0, 5.0, "orbit2"), (18.0, 9.0, "orbit"), (26.0, 13.0, "orbit")]
+    for (rx, ry, key) in orbit_specs
+        # step so each orbit has ≈ 2*(rx+ry) cells — smooth ellipse
+        θs = 0:0.18:6.283
+        for θ in θs
+            x = cx + rx * cos(θ)
+            y = cy + ry * sin(θ) * 0.55   # squash y for terminal aspect
+            _plasma_paint!(canvas, x, y, "·", key; w = w, h = h)
+        end
+    end
+
+    # 3) SATELLITES — H1..H7 on their orbits
+    for k in 1:7
+        rx, ry, θ0 = _plasma_orbit_params(k)
+        # place at the orbital θ0
+        x = cx + rx * cos(θ0)
+        y = cy + ry * sin(θ0) * 0.55
+        _plasma_paint_gate!(canvas, x, y, k; w = w, h = h)
+        # tiny tail trailing the satellite (3 cells behind, on the orbit)
+        for t in (1.0, 2.0, 3.0)
+            tx = cx + rx * cos(θ0 - 0.18 * t)
+            ty = cy + ry * sin(θ0 - 0.18 * t) * 0.55
+            ix = round(Int, tx); iy = round(Int, ty)
+            (1 <= ix <= w && 1 <= iy <= h) || continue
+            if canvas[iy, ix] == " " || canvas[iy, ix] == _hp_pc("·", "orbit2")
+                canvas[iy, ix] = _hp_pc("·", "tail")
+            end
+        end
+    end
+
+    # 4) ζ-ZERO OUTER BELT — sample real zeros as dots on a ring just outside
+    #    the outermost orbit (rx+8, ry+4). The belt itself is drawn as a faint
+    #    dotted ring; the zeros sit on it.
+    n_zeros = 0
+    try
+        n_zeros = isfile(zeros_path) ? length(load_zeros(zeros_path)) : 0
+    catch
+        n_zeros = 0
+    end
+    belt_rx, belt_ry = 32.0, 16.0
+    # faint belt ring
+    for θ in 0:0.25:6.283
+        x = cx + belt_rx * cos(θ)
+        y = cy + belt_ry * sin(θ) * 0.55
+        _plasma_paint!(canvas, x, y, "·", "belt"; w = w, h = h)
+    end
+    # zero dots
+    idxs = _plasma_belt_sample(n_zeros)
+    nidx = length(idxs)
+    for (i, _) in enumerate(idxs)
+        θ = 2π * (i - 1) / max(1, nidx) + 0.1
+        x = cx + belt_rx * cos(θ)
+        y = cy + belt_ry * sin(θ) * 0.55
+        _plasma_paint!(canvas, x, y, "∘", "zeros"; w = w, h = h)
+    end
+
+    # 5) assemble rows — every row is a single println-able string
+    return [join(canvas[y, :], "") for y in 1:h]
+end
+
+"""The plasma banner: solar system + a one-line caption carrying the REAL
+run numbers (seed, L, L² sites, ζ count). Printed once before the command
+menu so the user sees their universe at a glance."""
+function _hp_plasma_banner(cfg::HPConfig, zeros_path::String)
+    try
+        rows = _plasma_render_solar(cfg, zeros_path)
+        n_zeros = 0
+        try
+            n_zeros = isfile(zeros_path) ? length(load_zeros(zeros_path)) : 0
+        catch
+        end
+        # caption strip — the four real numbers the user named in the spec
+        cap_l = "  ⟡ HILBERT–PÓLYA SPECTRAL UNIVERSE"
+        cap_r = @sprintf("seed=%d · L=%d · %d sites · ζ-zeros=%d ⟡",
+                         cfg.hp_seed, cfg.hp_L, cfg.hp_L^2, n_zeros)
+        # pad cap_r to the right edge
+        pad = max(0, 70 - textwidth(cap_l) - textwidth(cap_r))
+        println(_hpc(cap_l * " "^pad * cap_r, "title"))
+        println(_hpc("  " * "─"^68, "dim"))
+        for r in rows
+            println(r)
+        end
+        println(_hpc("  " * "─"^68, "dim"))
+        # legend — per-gate color swatch + name, two rows of four
+        leg_left = join([_hp_pc("$(k)", k) * _hp_pc("=", "dim") *
+                        _hp_pc(_PLASMA_ANSI[k][2], k) *
+                        _hp_pc(":" * _PLASMA_ANSI[k][3], "dim") for k in 1:4], "  ")
+        leg_right = join([_hp_pc("$(k)", k) * _hp_pc("=", "dim") *
+                         _hp_pc(_PLASMA_ANSI[k][2], k) *
+                         _hp_pc(":" * _PLASMA_ANSI[k][3], "dim") for k in 5:7], "  ")
+        println("  " * leg_left)
+        println("  " * leg_right)
+        println(_hpc("  ⟟ " * _hp_pc("∘", "zeros") *
+                     " = real ζ-zero ordinate on the outer belt (sampled, see ζ-zeros count above)",
+                     "dim"))
+    catch err
+        # never let a decoration error kill the console — fall back to plain
+        println("  [plasma banner unavailable: ", sprint(showerror, err), "]")
+    end
+    return nothing
+end
+
 function _hp_banner(cfg::HPConfig, preset::Symbol, zeros_path::String)
     W = 72
     println(_hpc("╔" * "═"^W * "╗", "title"))
     println(_hpc("║", "title") * _hp_hpcenter("HP·MERIDIAN — Hilbert–Pólya Audit Console", W) * _hpc("║", "title"))
     println(_hpc("║", "title") * _hp_hpcenter("7 gates between prime arithmetic and GUE spectral statistics", W) * _hpc("║", "title"))
     println(_hpc("╚" * "═"^W * "╝", "title"))
+    # v25-PLASMA: the solar system banner rides under the title frame, driven
+    # by REAL run data (seed, L, ζ count). Falls back silently on any error.
+    _hp_plasma_banner(cfg, zeros_path)
     for a in HP_AUDITS
         k = a.id - 300
         short = replace(a.title, r"^H\d+\.\s*" => "")
@@ -6052,6 +6901,11 @@ function main(args::Vector{String} = ARGS)
                "core from ab_cloud_v23_v2.jl (suite) · ABPlotV23 journal engine")
     apply_preset!(cfg, mode)
     register_audits!()
+    # v25-PLASMA: ride the solar-system banner in batch mode too — the user's
+    # visual identity, present wherever the suite runs. Use auto-discovery if
+    # the user didn't pass zeros=path explicitly.
+    _color_init!()
+    _hp_plasma_banner(cfg, isempty(zeros_path) ? _hp_discover_zeros() : zeros_path)
     params_banner(cfg)
 
     run_battery_core(cfg, sel, string(mode); zeros_path = zeros_path)

@@ -34,8 +34,12 @@ THEOREMS = {'meta': _meta('Theorems of the AB Research Program',
    'phase pair) or the diagonal (staying real). This makes Th1 an '
    'architectural property, not a property of a single configuration.',
    'Boundaries: Th1 says nothing about the correspondence of the '
-   'spectrum to the ζ zeros — that is the H2/H5 question, on which '
-   'the series delivers negative verdicts (V1, V3, V6, V16). The '
+   'spectrum to the ζ zeros — that is the H2/H5 question, where the '
+   "series' verdicts are: the level identity holds at the zeros' level "
+   '(V6/V16 — YES via the D_nn bridge, v2.0.7) with the bit-level branch '
+   'open (V16, z = 2.49 < 6), and the specific design claims refuted '
+   '(V1: the blind coding is invisible; V3: σ = ½ is not optimal in '
+   'D_KS). The '
    'pairing λ ↔ −λ breaks already at W > 0 (the vortex potential is '
    'asymmetric) and is not restored by vortices.']},
  {'h1': 'Th2. Finite-dimensional self-adjointness',

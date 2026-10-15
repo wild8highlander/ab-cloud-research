@@ -6,7 +6,7 @@
 
 *The interactive v2.0 companion to the committed verdicts — turn the
 handles, watch the resonator rebuild, and see the three projections of the
-H2 gap react in real time.*
+H2 question react in real time.*
 
 [← Back to the main README](../README.md)
 
@@ -35,7 +35,7 @@ Three tabs:
 
 1. **Live gate** — turn the handles (Nv, q, W, α, mass, δα, phase-coding β)
    → `eigvalsh` rebuilds the 576×576 resonator and re-measures the three
-   projections of the H2 gap (rank r_H7, heat r_EF fluct, statistics class
+   projections of the H2 question (rank r_H7, heat r_EF fluct, statistics class
    ⟨r⟩) against the internal zero cache, with the positive controls stated.
 2. **Verdicts C9–C16** — the committed campaign verdicts (RU/EN) and metadata.
 3. **Bridge map** — the v2.0 map: eight new campaigns, eight new theorems.
@@ -88,7 +88,8 @@ streamlit run explorer/streamlit_app.py
   the handles to the values recorded in the verdict JSONs; the measured
   triplet (r_H7, r_EF, ⟨r⟩) must agree with the campaign's protocol.
 - Compare the live null clouds with the positive controls: the distance
-  between "a gate" and "an isospectral twin" *is* the measured H2 gap.
+  between "a gate" and "an isospectral twin" *is* the measured resolution
+  limit of the rank metric.
 - The explorer is a viewer, not a verdict factory: fresh verdicts are
   produced by the campaign scripts and committed, never by the app.
 

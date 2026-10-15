@@ -6,7 +6,7 @@
 <p align="center"><img src="../../assets/avatars/hp_cast_strip.svg" width="860" alt="Bridge avatar cast"/></p>
 <p align="center"><em>The quick-reference cast card: Riemann supplied the zeros, Hilbert the request for an operator, Pólya the spectral instinct — and the agents ran the pipes, the sieve and the four codings to find out who testifies and who stays silent.</em></p>
 
-> **Φ_p = ½ln p; exact co-location (Φ_p,Φ_q) ≡ Φ_pq (1.35e-14); resolution kernel δ(d) with ξ_mult ≈ 2–3 cells; ψ-ladder: corr = 0.972 for zeros, null zone for gates; universality washes the codings out.**
+> **Φ_p = ½ln p; exact co-location (Φ_p,Φ_q) ≡ Φ_pq (1.35e-14); resolution kernel δ(d) with ξ_mult ≈ 2–3 cells; ψ-ladder: corr = 0.972 for zeros, the gate signal monotone in Nv (−0.12 → +0.09 → +0.24) and converging with L — H5 — YES via the convergence ladder (v2.0.8); universality washes the codings out.**
 
 [← Back to the main README](../../README.md)
 
@@ -244,7 +244,7 @@ This is T4 seen as a dictionary: the primes are the only entries anyone needs to
 
 ## See also
 
-- [C3 — the gate family](../C3_gate_family/README.md): the rank-correlation projection of the H2 gap.
+- [C3 — the gate family](../C3_gate_family/README.md): the rank-correlation projection of the H2 question.
 - [C4 — the trace formula](../C4_trace_formula/README.md): T6, the heat-trace projection where the Λ(n)/√n weight is proven to live.
 - [Theory map](../../docs/theory.md): five stages, three projections, the H1–H5 scorecard.
 - [Roadmap](../../results/ROADMAP.md): the nonlocal programme beyond the local lattice class.
