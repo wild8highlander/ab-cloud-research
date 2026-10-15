@@ -67,22 +67,30 @@
 #       Verified on sandbox julia 1.10.4 AND 1.12.0 under a real pty.
 #
 #  v24.3-SA — audit-pass fixes (2026-10-15, external review):
-    1) PRESET STATE LEAK: apply_preset! only overwrote its own fields, so the
-       console's SMOKE→FAST switch silently kept validation-grade controls
-       (ζ cap 2000 instead of 20000, h1_configs 2, deep 4/4, jitter 2, ladder
-       [16,20,24], gue_calib 3, t_max 20). Every preset now starts from the
-       code defaults — a preset is a complete parameter set.
-    2) H1 COST ESTIMATE undercounted: the two stage-3 GUE nulls, the per-regime
-       GUE null of the sweep and the PER-MARGINAL-REGIME DEEPEN block were
-       missing (67 promised vs ≈172 actual at defaults, worst case).
-    3) GATE_MIN's :fast column still carried pre-v24.1 smoke-grade minutes
-       (H5 «2 min» at L=72 where ONE 5184×5184 solve takes minutes) — now
-       honest orders of magnitude, consistent with the v23.8 «hours, NOT a
-       hang» note and the live cost banner.
-    4) H3: duplicated v23.6 comment block removed.
-    5) _hp_soft_warn: dense-solve growth L³ → L⁶ (was understated ~90×).
-
-  START — THREE WAYS
+#    1) PRESET STATE LEAK: apply_preset! only overwrote its own fields, so the
+#       console's SMOKE→FAST switch silently kept validation-grade controls
+#       (ζ cap 2000 instead of 20000, h1_configs 2, deep 4/4, jitter 2, ladder
+#       [16,20,24], gue_calib 3, t_max 20). Every preset now starts from the
+#       code defaults — a preset is a complete parameter set.
+#    2) H1 COST ESTIMATE undercounted: the two stage-3 GUE nulls, the per-regime
+#       GUE null of the sweep and the PER-MARGINAL-REGIME DEEPEN block were
+#       missing (67 promised vs ≈172 actual at defaults, worst case).
+#    3) GATE_MIN's :fast column still carried pre-v24.1 smoke-grade minutes
+#       (H5 «2 min» at L=72 where ONE 5184×5184 solve takes minutes) — now
+#       honest orders of magnitude, consistent with the v23.8 «hours, NOT a
+#       hang» note and the live cost banner.
+#    4) H3: duplicated v23.6 comment block removed.
+#    5) _hp_soft_warn: dense-solve growth L³ → L⁶ (was understated ~90×).
+#
+#  v24.3.1-SA — hotfix (2026-10-15, same day): the v24.3 header block above was
+#    inserted WITHOUT the leading '#' on its continuation lines, and the START
+#    line below lost its '#' — every include() died at line 70 with ParseError
+#    «extra tokens after end of expression» (the file could not load at all).
+#    Comments only, zero code changes. Verified end-to-end on julia 1.10.4:
+#    clean include, preset state-leak / cost-estimator / soft-warn runtime
+#    tests, and a live SMOKE battery across all 7 gates.
+#
+#  START — THREE WAYS
 #    1) REPL:      julia> include("hp_audit_standalone.jl")
 #                  → the HP·MERIDIAN console OPENS ITSELF.
 #                    q / Ctrl-C returns to the REPL, code stays loaded;
@@ -127,7 +135,7 @@ using Statistics
 using Printf
 using Dates
 
-const HP_SA_VERSION = "24.3-SA"   # console identity: HP·MERIDIAN
+const HP_SA_VERSION = "24.3.1-SA"   # console identity: HP·MERIDIAN
 export hp_console, hp_menu, main, make_hp_config, apply_preset!,
        hp_params_menu!, run_battery_core, load_zeros, register_audits!,
        HPConfig, HP_AUDITS
