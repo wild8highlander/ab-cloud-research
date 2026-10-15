@@ -1685,10 +1685,10 @@ compared to GUE, which is consistent with the influence of prime numbers
 11.3.2 Monte Carlo two-scale model
 
 The Monte Carlo model with parameter η = τ_slow/τ_fast shows how
-adding a "slow" component to the GUE spectrum reduces ⟨r⟩: at η=0
-(pure GUE) ⟨r⟩=0.3859, at η=0.10 ⟨r⟩=0.3867, at η=0.30 ⟨r⟩=0.3783,
+adding a "slow" component to the spectrum lowers ⟨r⟩: at η=0
+the model baseline is ⟨r⟩=0.3859 — at the Poisson level (0.3863), not the GUE one (0.5992); at η=0.10 ⟨r⟩=0.3867, at η=0.30 ⟨r⟩=0.3783,
 at η=0.50 ⟨r⟩=0.3618. The model demonstrates that even a small impurity
-of long-lived states systematically shifts ⟨r⟩ towards Poisson
+of long-lived states systematically lowers ⟨r⟩ below the Poisson level
 (0.3863), which is qualitatively consistent with the nuclear analogy: a
 mixture of GOE/GUE spectra with different resonance widths gives
 intermediate statistics.
