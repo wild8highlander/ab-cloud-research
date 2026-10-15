@@ -1849,10 +1849,10 @@ GUE из-за нарушенных дальнодействующих корре
 
 Для N=200 нулей дзета-функции вычислены Σ²(L) и Δ₃(L). Результаты
 подтверждают систематическое отклонение от GUE: Σ²(2.0) = 0.0434 при GUE
-0.2005 (отклонение -78.4%), Σ²(10.0) = 0.0637 при GUE 0.5266 (отклонение
--87.9%). Спектральная жёсткость: Δ₃(2.0) = 0.0015 при GUE 0.0702
-(отклонение -97.9%), Δ₃(10.0) = 0.0028 при GUE 0.2333 (отклонение
--98.8%). Наблюдается качественно иная картина по сравнению с
+0.4157 (отклонение -89.6%), Σ²(10.0) = 0.0637 при GUE 0.5793 (отклонение
+-89.0%). Спектральная жёсткость: Δ₃(2.0) = 0.0015 при GUE 0.0941
+(отклонение -98.4%), Δ₃(10.0) = 0.0028 при GUE 0.1757 (отклонение
+-98.4%). Наблюдается качественно иная картина по сравнению с
 GUE-ансамблем: Σ² подавлена (не усилена), а Δ₃ сильно подавлена. Это
 указывает на то, что нули ζ на данном масштабе демонстрируют избыточную
 регулярность по сравнению с GUE, что согласуется с влиянием простых
@@ -3393,30 +3393,31 @@ uniformity of r-values).
 
 The number variance Σ²(L) measures fluctuations in the count of unfolded
 eigenvalues within windows of length L. For GUE, the asymptotic
-prediction is Σ²_GUE(L) ≈ (2/π²)·ln(L) + const. With 100 zeta zeros, the
-computed values are systematically above the GUE prediction, which is
-expected for finite samples: the leading correction is O(1/N) from the
-endpoints. The qualitative logarithmic growth is confirmed.
+prediction is Σ²_GUE(L) ≈ (1/π²)·ln(2πL) + const. With 100 zeta zeros, the
+computed values track the corrected GUE curve within ±30%: below it at
+L ≤ 5 (0.79–0.96 of theory — finite-sample suppression) and above it at
+L ≥ 7 (1.13–1.29 — endpoint saturation of a 100-zero list). The
+qualitative logarithmic growth is confirmed.
 
 **Table D.3: Number Variance Σ²(L) — Zeta Zeros vs GUE**
 
 |       |                   |                   |
 |-------|-------------------|-------------------|
 | **L** | **Σ² (computed)** | **Σ² (GUE pred)** |
-| 1.0   | 0.2717            | 0.0600            |
-| 2.0   | 0.3283            | 0.2005            |
-| 3.0   | 0.4025            | 0.2826            |
-| 5.0   | 0.4876            | 0.3861            |
-| 7.0   | 0.6157            | 0.4543            |
-| 10.0  | 0.7452            | 0.5266            |
+| 1.0   | 0.2717            | 0.3442            |
+| 2.0   | 0.3283            | 0.4157            |
+| 3.0   | 0.4025            | 0.4571            |
+| 5.0   | 0.4876            | 0.5090            |
+| 7.0   | 0.6157            | 0.5431            |
+| 10.0  | 0.7452            | 0.5793            |
 
 #### D.2.2 Spectral Rigidity Δ3(L)
 
 The spectral rigidity Δ3(L) = ⟨min\_{a,b} (1/L)∫₀ᴸ (N(E+x)−a−bx)² dx⟩
 measures the least-squares deviation of the counting function from a
-straight line. For GUE, Δ3(L) ≈ (1/π²)·ln(L) for large L. The v9 fixed
+straight line. For GUE, Δ3(L) ≈ (1/2π²)·(ln(2πL) + γ − 5/4) for large L. The v9 fixed
 computation (using counting function regression on the unfolded
-eigenvalue grid) yields values ~30-40% below the GUE prediction,
+eigenvalue grid) yields values 15–41% below the GUE prediction,
 consistent with finite-N effects. The logarithmic growth is
 qualitatively confirmed: Δ3(3)=0.0678, Δ3(5)=0.1016, Δ3(10)=0.1496.
 
@@ -3425,10 +3426,10 @@ qualitatively confirmed: Δ3(3)=0.0678, Δ3(5)=0.1016, Δ3(10)=0.1496.
 |       |                   |                   |
 |-------|-------------------|-------------------|
 | **L** | **Δ3 (computed)** | **Δ3 (GUE pred)** |
-| 3.0   | 0.0678            | 0.1113            |
-| 5.0   | 0.1016            | 0.1631            |
-| 7.0   | 0.1266            | 0.1972            |
-| 10.0  | 0.1496            | 0.2333            |
+| 3.0   | 0.0678            | 0.1147            |
+| 5.0   | 0.1016            | 0.1406            |
+| 7.0   | 0.1266            | 0.1576            |
+| 10.0  | 0.1496            | 0.1757            |
 
 #### D.2.3 GUE Ensemble Verification
 
@@ -3450,7 +3451,7 @@ below GUE due to finite-size effects, not a fundamental discrepancy.
 | GOE          | 1           | Time-reversal symmetric | 0.5359         |
 | GUE          | 2           | Broken time-reversal    | 0.5992         |
 | GSE          | 4           | Half-integer spin       | 0.6765         |
-| Poisson      | —           | Integrable              | 1.3863         |
+| Poisson      | —           | Integrable              | 0.3863         |
 
 *Figure D.2: OH ratio distribution for zeta zeros and GUE ensemble;
 number variance Σ²(L).*

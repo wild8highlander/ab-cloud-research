@@ -2339,7 +2339,7 @@ Spectral rigidity Δ₃(L) (Dyson–Mehta statistic): mean squared deviation of 
 (unfolded) staircase function from its best local straight-line fit, averaged
 over window placements.
  Poisson: Δ₃(L) = L/15.
- GUE: ~ (1/π²)·ln L for large L — again dramatically more rigid than Poisson.
+ GUE: ~ (1/2π²)·ln(2πL) for large L — again dramatically more rigid than Poisson.
 Computed via direct least-squares fit on a fine grid inside each window
 (reuses `linreg`), rather than a closed-form derivation — this avoids relying
 on a from-memory closed form and was validated against exact Poisson theory
@@ -12739,7 +12739,7 @@ end
 function test14_spectral_rigidity(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 14: $(msg(cfg, "obj2plus_title")) — Spectral Rigidity Δ₃(L)")
- println("Poisson: Δ₃(L)=L/15. GUE: ~(1/π²)ln L. (Paper's rel_err ≈ 0.97.)")
+ println("Poisson: Δ₃(L)=L/15. GUE: ~(1/2π²)ln L. (Paper's rel_err ≈ 0.13.)")
  println(repeat("─",60))
 
  # L-grid sanity check (same as Test 13 — Δ₃ uses the same GUE reference).
@@ -20171,7 +20171,7 @@ end
 t3_10(cfg) = begin r1 = _h3_r(_h3_eig(h3d_cfg(cfg; W = 0.0))); r2 = _h3_r(_h3_eig(h3d_cfg(cfg; W = 2.0))); @printf("   ⟨r⟩: W=0 → %.4f | W=2 → %.4f (decorrelation)\n", r1, r2); true end
 t3_11(cfg) = begin
  # Σ²(L) curve on the unit-mean central band (window L = 1..12)
-    # with the Poisson line and the GUE asymptotic (2/π²)(ln 2πL + γ + ½).
+    # with the Poisson line and the GUE asymptotic (1/π²)(ln 2πL + γ + 1).
     # The verdict keeps the historical full-spectrum Σ²(5) value byte-identical.
     ev = _h3_eig(h3d_cfg(cfg)); ks = length(ev); L5 = 5
     s2 = mean([(sum(ev[i+1:i+L5]) - sum(ev[i:i+L5-1]) - L5)^2 for i in 1:(ks-L5)])
@@ -20182,7 +20182,7 @@ t3_11(cfg) = begin
     p = RepPlot("3D-11: number variance Σ²(L) — unit-mean central band", "L", "Σ²(L)")
     add_series!(p, "Σ²(L) band", Float64.(Ls11), s2s, 'L')
     add_series!(p, "Poisson L", Float64.([Ls11[1], Ls11[end]]), Float64.([Ls11[1], Ls11[end]]), 'l')
-    gue_l = [2.0 / π^2 * (log(2π * L) + 0.5 + Base.MathConstants.eulergamma) for L in Ls11]
+    gue_l = [1.0 / π^2 * (log(2π * L) + 1.0 + Base.MathConstants.eulergamma) for L in Ls11]
     add_series!(p, "GUE asymp", Float64.(Ls11), gue_l, 'l')
     rep_plot!(p)
     @printf("   Σ²(L=5) = %.3f (3D GUE ≈ 0.5-0.7)\n", s2); true

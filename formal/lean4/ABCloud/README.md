@@ -77,8 +77,8 @@ Expected tail of a healthy run:
 | Orbits 28/21/7 divide 168 | theorem (`decide`) | `Basic.klein_orbits_divide_168` |
 | Tr(AB) = Tr(BA) for 2×2 matrices | theorem (`simp`) | `Basic.mat2_trace_mul_comm` |
 | b(N) ladder reproduces b(100…5000) | executable check, tol 1e-6 | `Verify` |
-| KS D = 0.099187 on 4999 spacings | executable check, tol 5e-4 | `Verify` |
-| Cramér–von Mises W² = 17.6049 | executable check, tol 5e-3 | `Verify` |
+| KS D = 0.031048 on 4999 spacings | executable check, tol 5e-4 | `Verify` |
+| Cramér–von Mises W² = 1.5383 | executable check, tol 5e-3 | `Verify` |
 | Decay slope −0.1831, R² = 0.9946 | executable check, tol 1e-3 | `Verify` |
 
 The frozen reference constants in `ABCloud/Embed.lean` are produced by

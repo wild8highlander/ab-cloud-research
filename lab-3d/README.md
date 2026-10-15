@@ -153,7 +153,7 @@ Berry's rigidity saturation for the first 5000 zeros; Σ² saturates around
 ### Run 3 — `3d_bridge_2026-07-31_15-36-37` (Mode I)
 
 Nine visualizations: spectral staircase, (α,σ) topological phase diagram
-(⟨r⟩ from 0.238 Poisson-like to 0.629 GUE with the RH line σ = 1/2 on the
+(⟨r⟩ from 0.238 (strongly clustered) to 0.629 (GUE ridge) with the RH line σ = 1/2 on the
 GUE-optimal ridge), Dirac-cone family (σ waterfall), form-factor surfaces
 K(τ, N) for Riemann + AB-Cloud, wavefunction density, decay-time manifold,
 pair-correlation landscape, S(T) overlay.

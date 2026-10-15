@@ -371,24 +371,24 @@ The deviation $|\rh - \rh_{\mathrm{GUE}}| = 0.0163$ (i.e.\ $2.7\%$) is consisten
 
 \begin{table}[!h]
 \centering
-\caption{Spectral rigidity $\Delta_3(L)$ and number variance $\Sigma^2(L)$: relative $L_2$ error against the GUE asymptotic forms. $\Sigma^2$ is the more robust diagnostic at this system size.}
+\caption{Spectral rigidity $\Delta_3(L)$ and number variance $\Sigma^2(L)$: relative $L_2$ error against the GUE asymptotic forms. After the v2.0.3 estimator repair $\Delta_3$ is the more robust diagnostic at this system size.}
 \label{tab:rigidity}
 \small
 \begin{tabular*}{0.7\textwidth}{@{\extracolsep{\fill}} l l}
 \toprule
 Metric & Value \\
 \midrule
-Relative error $\Delta_3$ & $0.9722201912472507$ \\
-Relative error $\Sigma^2$ & $0.48097344493926386$ \\
+Relative error $\Delta_3$ & $0.12622522414124057$ \\
+Relative error $\Sigma^2$ & $0.41223888957858934$ \\
 \bottomrule
 \end{tabular*}
 \end{table}
 
 The Dyson--Mehta spectral rigidity $\Delta_3(L)$ measures the average squared deviation of the spectral staircase from a linear fit over a window of length $L$ (in units of mean level spacing). For GUE in the large-$L$ limit,
 \begin{equation}
-    \Delta_3^{\mathrm{GUE}}(L) \sim \frac{1}{\pi^2}\!\left(\ln L + \gamma - \frac{5}{4}\right),
+    \Delta_3^{\mathrm{GUE}}(L) \sim \frac{1}{2\pi^2}\!\left(\ln (2\pi L) + \gamma - \frac{5}{4}\right),
 \end{equation}
-with $\gamma = 0.5772\ldots$ the Euler--Mascheroni constant. The number variance $\Sigma^2(L)$ is the variance of the number of levels in such a window, with GUE asymptotic form $\Sigma^2(L) \sim (2/\pi^2)\bigl(\ln(2\pi L) + \gamma - \mathrm{Ci}(2\pi L)\bigr)$. Both curves are shown in Figs.~\ref{fig:delta3} and \ref{fig:sigma2}. The relative error of $\Delta_3$ is large ($0.97$) — this is the known finite-$N$ deviation of the spectral rigidity, which is sensitive to the spectral edges. The relative error of $\Sigma^2$ is much smaller ($0.48$), confirming that the pair-counting statistic is the more robust diagnostic at this system size.
+with $\gamma = 0.5772\ldots$ the Euler--Mascheroni constant. The number variance $\Sigma^2(L)$ is the variance of the number of levels in such a window, with GUE asymptotic form $\Sigma^2(L) \sim (1/\pi^2)\bigl(\ln(2\pi L) + \gamma + 1\bigr)$. Both curves are shown in Figs.~\ref{fig:delta3} and \ref{fig:sigma2}. The relative error of $\Delta_3$ is $0.13$ — the v2.0.3 estimator repair (non-cyclic windows, incommensurate stride) brought the rigidity curve onto the GUE reference; the residual deviation is the known finite-$N$ edge sensitivity. The relative error of $\Sigma^2$ is $0.41$, so at this system size the pair-counting statistic is the less accurate of the two after the repair.
 
 \begin{figure}[!h]
     \centering

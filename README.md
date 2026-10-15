@@ -1241,7 +1241,7 @@ $ python3 run_verify.py --zeros 5000 --objection all --lang en   # in verificati
   Objection 1: Numerical Stability of b(N)
     b(5000) = 1.4942244142  → WARN (b(N) < 2.0 threshold met)
   Objection 2: GUE Spacing Statistical Significance
-    Kolmogorov-Smirnov:  D = 0.099187,  p-value = 0.000000
+    Kolmogorov-Smirnov:  D = 0.031048,  p-value = 0.000130
     H₀ (GUE distribution): REJECTED  (α = 0.05) — finite-T effect, see deep-dive
   Objection 3: Large-T Decay Rate
     Linear fit  log(b(N)) = -0.1896 · log(N) + 1.9881, R² = 0.995104
@@ -1256,7 +1256,7 @@ $ python3 run_verify.py --zeros 5000 --objection all --lang en   # in verificati
 $ lake exe abcloud-verify        # in formal/lean4/
   mode: DATASET (5000 zeros)  ·  zeros: 5000  ·  T ∈ [14.134725, 5447.861998]
   b(5000) = 1.494224   ref 1.494224   Δ = 0.000000  (tol 0.000001)  PASS
-  KS D = 0.099187   ref 0.099187   Δ = 0.000000  (tol 0.000500)  PASS
+  KS D = 0.031048   ref 0.031048   Δ = 0.000000  (tol 0.000500)  PASS
   decay R² = 0.994609   ref 0.994609   Δ = 0.000000  (tol 0.001000)  PASS
  RESULT: 8/8 checks PASS — Lean 4 re-derives the frozen numbers
 ```

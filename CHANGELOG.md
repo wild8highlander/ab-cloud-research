@@ -1,5 +1,76 @@
 # Changelog
 
+## [1.3.2] — 2026-10-15 — «the rigidity-slope purge» (fix series v2.0.4)
+
+A full pass over every README, table and monograph of the repository
+(following v2.0.1–v2.0.3). Full findings, validation transcripts and the
+per-file fix map: **`docs/audit_v2.0.4.md`**.
+
+### Fixed — the GOE rigidity law shipped as "GUE" in monographs and docs
+- **Δ₃ slope**: the canonical v22 monograph (all three languages, all
+  formats: md/tex/html/pdf/docx, base and v221 builds) stated
+  `Δ₃^GUE ≈ (1/π²)ln L` — the **GOE** slope. Direct simulation
+  (GOE/GUE 140×140×40, exact Dyson–Mehta window integral) re-confirms
+  **Δ₃^GOE = (1/π²)(ln 2πL + γ − 5/4 − π²/8)** and
+  **Δ₃^GUE = (1/2π²)(ln 2πL + γ − 5/4)**; all statements corrected.
+- **Σ² slope**: the v21 monograph (Appendix D, EN+RU, md/html/docx/pdf)
+  stated `Σ²_GUE ≈ (2/π²)ln L + const` — again the GOE slope — and its
+  Tables D.3/D.4 "GUE pred" columns carried GOE-flavoured values
+  ((2/π²)(ln L + 0.296) and (1/π²)ln L). Correct GUE theory columns
+  regenerated from the exact closed form validated in v2.0.3.
+- **Impossible Poisson ⟨r⟩**: Table D.5 of the v21 monograph listed
+  Poisson ⟨r⟩ = **1.3863** (a value > 1 is impossible for r ∈ [0,1];
+  1.3863 = 2ln2 is the raw constant). Corrected to **0.3863**
+  (= 2ln2 − 1) in all editions and builds.
+- **Section 11.3.1 (v21, EN+RU)**: quoted "GUE" references for the
+  N=200 rigidity check were the wrong GOE-slope numbers (0.2005/0.5266/
+  0.0702/0.2333); replaced by the correct GUE values (0.4157/0.5793/
+  0.0941/0.1757) with recomputed deviations (−89.6/−89.0/−98.4/−98.4%).
+- **Root README / formal READMEs**: stale KS/CvM evidence from the
+  pre-v2.0.3 era (KS D = 0.099187, p = 0.000000; W² = 17.6049) still
+  quoted as current output; updated to the corrected-law values
+  (D = 0.031048, p = 0.000130; W² = 1.5383). The F_GUE display formula
+  in `formal/README.md` was the GOE CDF `1 − e^{−πs²/4}`; now the
+  correct `erf(2s/√π) − (4s/π)e^{−4s²/π}`.
+- **v23 Monograph (MG/ROOT, Academic Package)**: "GOE follows the
+  1/15th-power law" (no such law exists — Poisson is L/15, GOE is
+  logarithmic) and the GOE rigidity formula mislabeled as GUE; the
+  arithmetic claim "0.5798 sits 81% of the way from GOE to GUE"
+  (correct value: **71%**); the quoted `delta3_rigidity` docstring and
+  the Test-14 console listing carried the same wrong slope and the
+  stale "Paper's rel_err ≈ 0.97" (now 0.13). All fixed in docx + pdf.
+- **Julia suite (`ab_cloud_v23.jl`, 5 copies)**: the t3_11 "GUE asymp"
+  reference curve was `(2/π²)(ln 2πL + γ + ½)` — the GOE slope with a
+  wrong constant — nearly 2× above the true GUE curve; now
+  `(1/π²)(ln 2πL + γ + 1)`. The Test-14 header printout and the
+  `delta3_rigidity` docstring carried the same wrong slope.
+- **lab-3d preprint (`ab_cloud_preprint.tex`)**: pre-repair rel_err
+  values (0.972/0.481) in the rigidity table; the Δ₃ equation with the
+  GOE slope; a garbled Σ² "asymptotic" form mixing Ci into the slope;
+  the "Σ² is the more robust diagnostic" claim (after the v2.0.3
+  estimator repair Δ₃ is the more accurate one: 0.126 vs 0.412).
+- **Poisson-like mislabel**: `lab-3d/README.md` described the phase
+  diagram edge ⟨r⟩ = 0.238 as "Poisson-like" (Poisson is 0.3863;
+  0.238 is strongly clustered) — reworded. The test-16 README had a
+  digit typo "0.3869" for the Poisson ⟨r⟩ — corrected to 0.3863.
+- Rebuilt: v22 base PDFs (tectonic/LaTeX, ZH with proper CJK via
+  Noto Serif SC), v221 PDFs (WeasyPrint), v21 corrected/with_Verification
+  PDFs, v23 MG/ROOT PDFs (LibreOffice), the academic-package preprint
+  PDF (tectonic). Academic-package SHA256SUMS updated for the touched
+  files. All narrative table/wording fixes propagated to md, tex, html,
+  docx and pdf editions alike.
+
+### Verified
+- Δ₃/Σ² theory forms re-validated by direct GOE/GUE simulation with the
+  exact window integral (GOE-B ratio 0.96–1.02, GUE ratio 0.96–1.01).
+- Hilbert_Polya test suite: 21/21 passed; AB_Cloud_Quantum_Research:
+  42/42 passed. Python verification suite re-run: KS D = 0.031048,
+  p = 0.000130, W² = 1.538304 on 5000 zeros (matches Lean REF_MAIND/
+  REF_MAINW2 exactly).
+- Every replacement applied byte-exactly with occurrence-count
+  assertions; zero old-value occurrences remain in READMEs, tables,
+  monographs or their builds.
+
 ## [1.3.1] — 2026-10-15 — «the GOE-as-GUE purge» (fix series v2.0.3)
 
 A repo-wide audit of every GOE/GUE formula, committed dataset and committed

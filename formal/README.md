@@ -64,7 +64,7 @@ b(N) \;=\; \frac{1}{N}\sum_{k=1}^{N}\bigl|\gamma_k-\tilde\gamma_k\bigr|,
 \qquad
 \tilde\gamma_k \;=\; \frac{2\pi k}{W(k/e)},
 \qquad
-F_{\mathrm{GUE}}(s) \;=\; 1-e^{-\pi s^2/4}
+F_{\mathrm{GUE}}(s) \;=\; \mathrm{erf}\bigl(2s/\sqrt{\pi}\bigr) - \tfrac{4s}{\pi}\,e^{-4s^2/\pi}
 $$
 
 ---
@@ -141,7 +141,7 @@ Console output of a healthy run (trimmed):
   mode: DATASET (5000 zeros)  ·  zeros: 5000  ·  T ∈ [14.134725, 5447.861998]
   ...
   b(5000) = 1.494224   ref 1.494224   Δ = 0.000000  (tol 0.000001)  PASS
-  KS D = 0.099187   ref 0.099187   Δ = 0.000000  (tol 0.000500)  PASS
+  KS D = 0.031048   ref 0.031048   Δ = 0.000000  (tol 0.000500)  PASS
  RESULT: 8/8 checks PASS — Lean 4 re-derives the frozen numbers
 ══════════════════════════════════════════════════════════════
 ```

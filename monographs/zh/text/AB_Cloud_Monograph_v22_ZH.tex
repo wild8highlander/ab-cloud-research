@@ -6,6 +6,13 @@
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
+% v2.0.4 rebuild: CJK font setup (matches the original pandoc xelatex build)
+\ifPDFTeX\else
+  \usepackage{xeCJK}
+  \setCJKmainfont{Noto Serif SC}
+  \setCJKsansfont{Noto Sans SC}
+  \setCJKmonofont{Sarasa Mono SC}
+\fi
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
@@ -315,7 +322,7 @@ Wigner 预测比较：统计量 \(D\) 为两曲线最大绝对差；\(n\) 个间
 \(\Sigma^2 \approx (1/\pi^2)\ln(2\pi L) + \ldots\)------对数而非线性增长。谱刚性
 \(\Delta_3(L)\) 是其积分版本：窗口 \(L\)
 内谱阶梯的最佳直线拟合的均方偏差；泊松 \(L/15\)，GUE
-\(\approx (1/\pi^2)\ln L\)。两者均在共同的九点 \(L\) 网格上对数据和模拟
+\(\approx (1/(2\pi^2))\ln(2\pi L)\)。两者均在共同的九点 \(L\) 网格上对数据和模拟
 GUE 参考计算（测试 13、14）。
 
 \textbf{对关联 \(R_2(s)\)}------在距给定能级 \(s\)
@@ -491,7 +498,7 @@ GUE 的超刚性。}
 \(\Sigma^2 \approx 0.33\text{–}0.41\)------近乎常数；而泊松预测线性增长至
 1400，模拟 GUE 参考对数增长至 \(0.61\text{–}0.72\)。数据在全部 9/9
 个点上都比泊松更接近 GUE；但在大 \(L\) 处它们甚至比模拟 GUE
-\textbf{更刚}（更小）------数据 \(\Delta_3\) 相对 GUE 参考的超额从
+\textbf{更刚}（更小）------数据 \(\Delta_3\) 与 GUE 参考的比值从
 \(L=2\) 的 \(0.99\) 降到 \(L=1400\) 的 \(0.48\)。这种超刚性是真实 ζ
 零点的已知特征（算术系统的谱刚性高于矩阵系统）；展析伪影只会抬高
 \(\Delta_3\) 与 \(\Sigma^2\) 而非压低，因此其复现是展析质量的独立证明。
