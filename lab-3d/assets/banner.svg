@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="LAB-3D — THE 3D BRANCH — animated banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#160c08"/>
+      <stop offset="0.55" stop-color="#241410"/>
+      <stop offset="1" stop-color="#100806"/>
+    </linearGradient>
+    <linearGradient id="tg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff9c5c"/>
+      <stop offset="0.5" stop-color="#fff0e6"/>
+      <stop offset="1" stop-color="#4fb3be"/>
+      <animate attributeName="x1" values="-0.6;0.4" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="0.4;1.4" dur="6s" repeatCount="indefinite"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0.3" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#8a3a1a" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#8a3a1a" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M28 0H0V28" fill="none" stroke="#241610" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="300" rx="14" fill="url(#bg)"/>
+  <rect width="1200" height="300" rx="14" fill="url(#grid)" opacity="0.5"/>
+  <rect width="1200" height="300" rx="14" fill="url(#halo)"/>
+  <rect x="1.5" y="1.5" width="1197" height="297" rx="13" fill="none" stroke="#4a2e1e" stroke-width="1.4" opacity="0.8"/>
+
+  <text x="64" y="74" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-weight="700" letter-spacing="2.2" fill="url(#tg)">LAB-3D — THE 3D BRANCH</text>
+  <text x="66" y="104" font-family="Georgia, serif" font-size="16.5" font-style="italic" fill="#c8a898">a 36³ non-Hermitian Hofstadter Hamiltonian with 5000 embedded ζ zeros — the universal lattice operating system</text>
+
+  <g transform="translate(220,190)">
+    <g stroke="#ff9c5c" stroke-width="1.8" fill="none">
+      <path d="M-70 -28 L0 -62 L70 -28 L0 6 Z"/>
+      <path d="M-70 28 L0 -6 L70 28 L0 62 Z" opacity="0.7"/>
+      <path d="M-70 -28 L-70 28 M0 -62 L0 -6 M70 -28 L70 28 M0 6 L0 62" opacity="0.5"/>
+    </g>
+    <g fill="#ffd9a0">
+      <circle cx="0" cy="-62" r="3.4"><animate attributeName="r" values="2.4;4.6;2.4" dur="2.2s" repeatCount="indefinite"/></circle>
+      <circle cx="70" cy="-28" r="3.4"><animate attributeName="r" values="2.4;4.6;2.4" dur="2.2s" begin="0.4s" repeatCount="indefinite"/></circle>
+      <circle cx="-70" cy="-28" r="3.4"><animate attributeName="r" values="2.4;4.6;2.4" dur="2.2s" begin="0.8s" repeatCount="indefinite"/></circle>
+      <circle cx="0" cy="62" r="3.4"><animate attributeName="r" values="2.4;4.6;2.4" dur="2.2s" begin="1.2s" repeatCount="indefinite"/></circle>
+      <circle cx="0" cy="-6" r="4" fill="#4fb3be"><animate attributeName="r" values="3;5.4;3" dur="1.7s" repeatCount="indefinite"/></circle>
+      <circle cx="-70" cy="28" r="3.4"><animate attributeName="r" values="2.4;4.6;2.4" dur="2.2s" begin="1.6s" repeatCount="indefinite"/></circle>
+      <circle cx="70" cy="28" r="3.4"><animate attributeName="r" values="2.4;4.6;2.4" dur="2.2s" begin="0.2s" repeatCount="indefinite"/></circle>
+    </g>
+    <ellipse cx="0" cy="-6" rx="96" ry="30" fill="none" stroke="#4fb3be" stroke-width="1.2" stroke-dasharray="6 5" opacity="0.65">
+      <animateTransform attributeName="transform" type="rotate" values="0;360" dur="11s" repeatCount="indefinite"/>
+    </ellipse>
+    <text x="-104" y="92" font-family="Georgia,serif" font-size="13" font-style="italic" fill="#8a6858">36 × 36 × 36 Hofstadter lattice · σ = 0.5 · α = 2.0</text>
+  </g>  <g transform="translate(520,140)">
+    <rect x="0" y="0" width="26" height="118" fill="#1c1008" stroke="#c96f4a" stroke-width="1.4"/>
+    <line x1="13" y1="0" x2="13" y2="118" stroke="#c96f4a" stroke-width="1.2" stroke-dasharray="4 4"/>
+    <g fill="#8fe3ff">
+      <circle cx="6" cy="14" r="2.2"><animate attributeName="opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite"/></circle>
+      <circle cx="20" cy="24" r="2.2"><animate attributeName="opacity" values="0.2;1;0.2" dur="2s" begin="0.5s" repeatCount="indefinite"/></circle>
+      <circle cx="6" cy="38" r="2.2"><animate attributeName="opacity" values="0.2;1;0.2" dur="2s" begin="1s" repeatCount="indefinite"/></circle>
+      <circle cx="20" cy="48" r="2.2"><animate attributeName="opacity" values="0.2;1;0.2" dur="2s" begin="1.5s" repeatCount="indefinite"/></circle>
+      <circle cx="6" cy="62" r="2.2"><animate attributeName="opacity" values="0.2;1;0.2" dur="2s" begin="0.3s" repeatCount="indefinite"/></circle>
+      <circle cx="20" cy="74" r="2.2"><animate attributeName="opacity" values="0.2;1;0.2" dur="2s" begin="0.8s" repeatCount="indefinite"/></circle>
+      <circle cx="6" cy="88" r="2.2"><animate attributeName="opacity" values="0.2;1;0.2" dur="2s" begin="1.3s" repeatCount="indefinite"/></circle>
+      <circle cx="20" cy="102" r="2.2"><animate attributeName="opacity" values="0.2;1;0.2" dur="2s" begin="1.8s" repeatCount="indefinite"/></circle>
+    </g>
+    <text x="-8" y="136" font-family="Georgia,serif" font-size="12.5" font-style="italic" fill="#8a6858">critical strip · 5000 zeros embedded</text>
+  </g>  <g transform="translate(700,180)">
+    <circle r="34" fill="none" stroke="#8a6858" stroke-width="1.8"/>
+    <path d="M0 0 L24 -22" stroke="#ff9c5c" stroke-width="2.4" stroke-linecap="round">
+      <animateTransform attributeName="transform" type="rotate" values="-38;38;-38" dur="4s" repeatCount="indefinite"/>
+    </path>
+    <circle r="3.4" fill="#ff9c5c"/>
+    <text x="-34" y="-42" font-family="'Courier New',monospace" font-size="11" fill="#a88878">GOE</text>
+    <text x="26" y="-42" font-family="'Courier New',monospace" font-size="11" fill="#4caf50">GUE</text>
+    <text x="-18" y="56" font-family="Georgia,serif" font-size="12.5" font-style="italic" fill="#8a6858">ensemble switch: σ</text>
+  </g>
+  <text x="800" y="140" font-family="Georgia,serif" font-size="13" font-style="italic" fill="#8a6858">⟨r⟩ = 0.6159 (2.7% from GUE 0.5996)</text>
+  <text x="800" y="162" font-family="Georgia,serif" font-size="13" font-style="italic" fill="#8a6858">Klein quartic · Arf invariant protection</text>
+  <text x="800" y="184" font-family="Georgia,serif" font-size="13" font-style="italic" fill="#8a6858">deterministic switching GUE / GOE / Poisson</text>
+  <text x="800" y="206" font-family="Georgia,serif" font-size="13" font-style="italic" fill="#8a6858">preprint + complete reproducibility package</text>
+  <text x="800" y="232" font-family="'Courier New',monospace" font-size="12" fill="#a88878">make lab3d · python3 code/run_modes.py A–J</text>
+
+  <g font-family="'Courier New',monospace" font-size="13.5" fill="#a88878">
+    <text x="64" y="278">⟨r⟩ = 0.6159 · σ = 0.5 · α = 2.0 · W = 1.0 · Arf protection · modes A–J · preprint committed</text>
+  </g>
+</svg>

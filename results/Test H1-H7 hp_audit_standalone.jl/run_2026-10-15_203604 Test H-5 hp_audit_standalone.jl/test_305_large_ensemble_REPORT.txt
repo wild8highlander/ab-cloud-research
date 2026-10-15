@@ -1,0 +1,122 @@
+=====================================================================
+REPORT — H5. Large ensemble × parameter-regime showdown (density × α, 2×2)   [WARN]
+=====================================================================
+
+╔══════════════════════════════════════════════════════════════╗
+║                     GATE H5 · REGIME-2×2                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ Large ensemble × parameter-regime showdown — 4 regime(s) × 7 ║
+║                 configs (≤ 40-solve budget)                  ║
+╚══════════════════════════════════════════════════════════════╝
+  ⟨r⟩/KS-D distributions per regime across {vortex density ×
+  screening α} — model property or parameter artifact?
+ GUE band: ⟨r⟩ ∈ [0.5772, 0.6212] (monograph §11.1 ±0.022) | KS pass: p > 0.01
+ Regime pass rule: in-band ≥ 90% AND (KS-pass ≥ 90% OR median KS_D < 0.10) — scored PER regime
+   (v23.5 transparency, reviewer round 2: the RAW individual KS-pass % is always shown; a regime
+    passing only via the median-D OR-clause is flagged 'OR-clause only' — 0% individual passes on 7
+    seeds is a systematic, reproducible deviation, not noise)
+ Regimes (2×2 factorial, reviewer action 2026-09-06; W fixed at the HP standard):
+   [A] baseline (published run) — Nv=4 (0.08% of sites), α=0.5000
+   [B] monograph density Nv=L²/36 — Nv=144 (2.78% of sites, L²/36 anchor), α=0.5000
+   [C] sharp-flux α=25/900 — Nv=4 (0.08% of sites), α=0.0278, 25/900 sharp-flux
+   [D] combined (density + sharp-flux) — Nv=144 (2.78% of sites, L²/36 anchor), α=0.0278, 25/900 sharp-flux
+ Cost: 40 independent dense diagonalizations at 72×72 (switch hp_regime_mode to :baseline for the single-regime fast run)
+   solve budget (v24.1 cap = 40, user 2026-09-09 «максимум 40»): config asked ≈ 640 solves → plan 4 regime(s) × 7 configs + 6 α-points × 2 = 40 (per-config KS granularity 1/7)
+
+ ── Regime [A] baseline (published run) — Nv=4 (0.08% of sites), α=0.5000
+   ⟨r⟩:  mean 0.5898 | σ 0.0102 | range [0.5705, 0.5985] | median 0.5940
+   in GUE band: 6/7 = 85.7%  (95% Wald CI 59.8%–100.0%)
+   KS vs GUE (p > 0.01): 0/7 = 0.0%  (95% Wald CI 0.0%–0.0%) | median KS_D 0.3531
+
+ ── Regime [B] monograph density Nv=L²/36 — Nv=144 (2.78% of sites, L²/36 anchor), α=0.5000
+   ⟨r⟩:  mean 0.6000 | σ 0.0052 | range [0.5934, 0.6080] | median 0.6003
+   in GUE band: 7/7 = 100.0%  (95% Wald CI 100.0%–100.0%)
+   KS vs GUE (p > 0.01): 1/7 = 14.3%  (95% Wald CI 0.0%–40.2%) | median KS_D 0.0559
+
+ ── Regime [C] sharp-flux α=25/900 — Nv=4 (0.08% of sites), α=0.0278, 25/900 sharp-flux
+   ⟨r⟩:  mean 0.5937 | σ 0.0041 | range [0.5856, 0.5971] | median 0.5945
+   in GUE band: 7/7 = 100.0%  (95% Wald CI 100.0%–100.0%)
+   KS vs GUE (p > 0.01): 0/7 = 0.0%  (95% Wald CI 0.0%–0.0%) | median KS_D 0.0646
+
+ ── Regime [D] combined (density + sharp-flux) — Nv=144 (2.78% of sites, L²/36 anchor), α=0.0278, 25/900 sharp-flux
+   ⟨r⟩:  mean 0.6003 | σ 0.0050 | range [0.5949, 0.6081] | median 0.5979
+   in GUE band: 7/7 = 100.0%  (95% Wald CI 100.0%–100.0%)
+   KS vs GUE (p > 0.01): 7/7 = 100.0%  (95% Wald CI 100.0%–100.0%) | median KS_D 0.0148
+ → for comparison: the standard suite averages rest on n_realizations = 5 (Tests 28/32 family)
+
+ ── Regime synthesis (robust failure vs parameter-dependence vs finetuning?) ──
+   [A] baseline (published run),      ⟨r⟩ 0.5898±0.0102 | in-band 85.7% | KS-pass 0.0% (raw, individual) | median D 0.3531 → misses GUE
+   [B] monograph density Nv=L²/36,    ⟨r⟩ 0.6000±0.0052 | in-band 100.0% | KS-pass 14.3% (raw, individual) | median D 0.0559 → GUE reached — OR-clause only
+   [C] sharp-flux α=25/900,           ⟨r⟩ 0.5937±0.0041 | in-band 100.0% | KS-pass 0.0% (raw, individual) | median D 0.0646 → GUE reached — OR-clause only
+   [D] combined (density + sharp-flux), ⟨r⟩ 0.6003±0.0050 | in-band 100.0% | KS-pass 100.0% (raw, individual) | median D 0.0148 → GUE REACHED (clean)
+  ◆ PARAMETER-DEPENDENT — GUE recovers at regime(s) B,C,D, but
+  CLEAN pass (raw individual KS-pass ≥ 90%, no OR-clause)
+  only at [D] = Nv=144 (2.78% of sites, L²/36 anchor),
+  α=0.0278, 25/900 sharp-flux; OR-clause-only: B,C → GUE
+  quality appears only at a specifically tuned parameter
+  point — a finetuning story (Test-38 flavor), NOT evidence
+  against it
+
+ ── α-PROFILE (v23.6, finetuning vs plateau): 6 α-points × 2 configs at FIXED sparse Nv=4 — where along the screening axis does GUE live?
+   (clean pass across the small-α side → PLATEAU: 'sharp-flux regime is GUE-universal, the α=0.5 baseline is the outlier';
+    clean pass only near 25/900 → NARROW: finetuning confirmed; the α=0.5 endpoint independently replicates regime A)
+   α=0.0278: ⟨r⟩ 0.6019±0.0045 | in-band 100% | KS-pass 0/2 = 0% | median D 0.0584 → misses GUE
+   α=0.0500: ⟨r⟩ 0.5908±0.0053 | in-band 100% | KS-pass 0/2 = 0% | median D 0.0846 → misses GUE
+   α=0.1000: ⟨r⟩ 0.6325±0.0369 | in-band 50% | KS-pass 0/2 = 0% | median D 0.1843 → misses GUE
+   α=0.2000: ⟨r⟩ 0.5962±0.0011 | in-band 100% | KS-pass 0/2 = 0% | median D 0.3701 → misses GUE
+   α=0.3500: ⟨r⟩ 0.5994±0.0001 | in-band 100% | KS-pass 0/2 = 0% | median D 0.5258 → misses GUE
+   α=0.5000: ⟨r⟩ 0.5893±0.0076 | in-band 100% | KS-pass 0/2 = 0% | median D 0.3447 → misses GUE
+  ◆ α-PROFILE NONE — no clean pass anywhere on the α-line (contradicts regime C's clean pass?! check seeds/protocol)
+╭─◆ Test H5  ·  9 sub-checks → WARN                            ╮
+│✓ solve plan ≤ 40 eigensolves (v24.1 budget) — plan: 7        │
+│config(s) × 4 regime(s) + 12 α-profile = 40 diagonalizations  │
+│(user cap 2026-09-09 — the old «N ≥ 30» row retired: a cap    │
+│must not be a silent auto-FAIL; per-config KS granularity 1/7)│
+│⚠ [A] baseline (published run) — ⟨r⟩ 0.5898±0.0102, in-band   │
+│85.7% (6/7, CI 59.8–100.0%) | RAW individual KS-pass 0.0%     │
+│(0/7) | median D 0.3531 → misses GUE                          │
+│✓ [B] monograph density Nv=L²/36 — ⟨r⟩ 0.6000±0.0052, in-band │
+│100.0% (7/7, CI 100.0–100.0%) | RAW individual KS-pass 14.3%  │
+│(1/7) | median D 0.0559 → GUE reached via OR-clause ONLY —    │
+│median D < 0.10 hides a systematic per-realization shift (raw │
+│KS-pass tells the truth)                                      │
+│✓ [C] sharp-flux α=25/900 — ⟨r⟩ 0.5937±0.0041, in-band 100.0% │
+│(7/7, CI 100.0–100.0%) | RAW individual KS-pass 0.0% (0/7) |  │
+│median D 0.0646 → GUE reached via OR-clause ONLY — median D < │
+│0.10 hides a systematic per-realization shift (raw KS-pass    │
+│tells the truth)                                              │
+│✓ [D] combined (density + sharp-flux) — ⟨r⟩ 0.6003±0.0050,    │
+│in-band 100.0% (7/7, CI 100.0–100.0%) | RAW individual KS-pass│
+│100.0% (7/7) | median D 0.0148 → GUE reached (clean)          │
+│✓ ⟨r⟩ scatter (worst regime) — max σ = 0.0102 over 4 regime(s)│
+│(limit 0.02 — a lucky seed would show σ ≈ its own deviation)  │
+│✓ clean GUE pass (no OR-clause) — clean at [D] (raw individual│
+│KS-pass ≥ 90%); OR-clause-only at [B,C]                       │
+│✓ synthesis (headline, never scored) — PARAMETER-DEPENDENT —  │
+│GUE recovers at regime(s) B,C,D, but CLEAN pass (raw          │
+│individual KS-pass ≥ 90%, no OR-clause) only at [D] = Nv=144  │
+│(2.78% of sites, L²/36 anchor), α=0.0278, 25/900 sharp-flux;  │
+│OR-clause-only: B,C → GUE quality appears only at a           │
+│specifically tuned parameter point — a finetuning story       │
+│(Test-38 flavor), NOT evidence against it                     │
+│✓ α-profile (headline, never scored) — NONE — no clean pass   │
+│anywhere on the α-line (contradicts regime C's clean pass?!   │
+│check seeds/protocol) — α=0.0278: KS-pass 0% (0/2), median D  │
+│0.0584, in-band 100%; α=0.0500: KS-pass 0% (0/2), median D    │
+│0.0846, in-band 100%; α=0.1000: KS-pass 0% (0/2), median D    │
+│0.1843, in-band 50%; α=0.2000: KS-pass 0% (0/2), median D     │
+│0.3701, in-band 100%; α=0.3500: KS-pass 0% (0/2), median D    │
+│0.5258, in-band 100%; α=0.5000: KS-pass 0% (0/2), median D    │
+│0.3447, in-band 100%                                          │
+╰──────────────────────────────────────────────────────────────╯
+
+---------------------------------------------------------------------
+NOTES / METHODOLOGY
+ • Placement AND residual-disorder patterns vary across realizations (independent MersenneTwister streams), so the scatter σ is the honest realization noise of the model, not a bootstrap resample of one configuration; the Wald CI quantifies the binomial uncertainty of each in-band fraction. REGIME DESIGN (reviewer action 2026-09-06): a PRE-REGISTERED 2×2 factorial — {sparse Nv | monograph density Nv = L²/36 (the 25/900 = 2.78% anchor; the same lever that lifted the Test-32 comparison row to GUE)} × {α = ab_alpha_test16 | sharp-flux α = 25/900 ≈ 0.0278 (the ORIGINAL design default of ab_alpha_test16)}; regime A reproduces the published baseline bit-for-bit (identical seed streams) and W stays at the HP standard everywhere. The headline contrasts a REGIME-ROBUST failure (model-class property at every tested point) against a PARAMETER-DEPENDENT outcome; the regime TABLE is the evidence, the 'best' regime is reported for orientation, and best-of-4 selection is pre-registered, not post hoc. A model-class property needs ≥ 90% of realizations inside the band at a regime. STATUS SEMANTICS v23.5 (reviewer round 2): the test status is the strict AND of all scored rows — a regime that misses GUE (e.g. the published baseline) propagates to the test status instead of being silently overridden by the synthesis ('1 failed → WARN' and the final line now always agree). A 'GUE reached' via the median-D OR-clause is flagged separately from a CLEAN pass, because 0/40→near-0% individual KS passes is a systematic, reproducible deviation, not noise; and the only clean pass in the 2×2 sits at the doubly-tuned point (density AND sharp-flux together), which reads as finetuning — consistent with the Test-38 story — rather than as evidence against it. v23.6 α-PROFILE (reviewer round 3): run 185208 showed the clean pass rides on α = 25/900 in BOTH densities ([C],[D]), so the missing experiment is the GUE-quality profile ALONG the screening axis at fixed sparse Nv — α ∈ {25/900, 0.05, 0.1, 0.2, 0.35, 0.5} × ≤2 configs under the v24.1 ≤40-solve budget on a disjoint seed stream. PLATEAU-LOW (clean for all α ≤ α*) reads as 'the sharp-flux side is GUE-universal — the published α = 0.5 baseline is the outlier'; NARROW (clean only at 25/900) confirms finetuning along the axis; the α = 0.5 endpoint independently replicates regime A from a different stream (internal consistency check). The α-profile is a READOUT row (never scored) — the regime table remains the scored evidence.
+
+PLOTS:
+   results/run_2026-10-15_203604/test_305_large_ensemble/plots/plot_1.png
+   results/run_2026-10-15_203604/test_305_large_ensemble/plots/plot_2.png
+   results/run_2026-10-15_203604/test_305_large_ensemble/plots/plot_3.png
+   results/run_2026-10-15_203604/test_305_large_ensemble/plots/plot_4.png
+   results/run_2026-10-15_203604/test_305_large_ensemble/plots/plot_5.png

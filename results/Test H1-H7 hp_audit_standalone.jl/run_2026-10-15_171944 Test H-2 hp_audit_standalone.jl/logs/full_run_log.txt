@@ -1,0 +1,40 @@
+FULL RUN LOG — run_2026-10-15_171944 (hp_audit_standalone v23.6, menu)
+ONE consolidated file: every test's computation log + console capture, in run order
+(two-files contract: the whole run is readable from final_report.md/html + this log)
+
+═════════════════════════════════════════════════════════════════════
+test_302_weyl_law_density — H2. Weyl-law density test (raw N(E), never unfolded)   [PASS]
+═════════════════════════════════════════════════════════════════════
+--- computation log (every log_comp while this test ran) ---
+[2026-10-15 17:19:48]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2127)
+[2026-10-15 17:19:48]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:20:17]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2128)
+[2026-10-15 17:20:18]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+--- console capture (the REPORT) ---
+
+╔══════════════════════════════════════════════════════════════╗
+║                      GATE H2 · WEYL-DOS                      ║
+╠══════════════════════════════════════════════════════════════╣
+║  Weyl-law density — raw N(E) of the AB-cloud (no unfolding)  ║
+╚══════════════════════════════════════════════════════════════╝
+  ζ-type {E·lnE, E, 1} counting ansatz vs the natural lattice
+  DOS — R²/AICc showdown
+ Raw spectrum: 72×72, 5184 levels total, positive branch 2602 levels on E ∈ [0.0073, 3.2512]
+ Staircase: 60 grid points | models fitted on the SAME grid
+
+ Model A (ζ-type):  N(E) = 731.8·E·lnE -32.78·E +223.4   R² = 0.98416  AICc = 579.5
+   (ζ's own Weyl coefficient would be 1/2π ≈ 0.1592 — here the coefficient is FREE: this is a shape test)
+ Model B (lattice): N(E) = 0.9462·N_ref(E) -2487                R² = 0.99384  AICc = 520.7
+ ΔAICc (A−B) = +58.9  (|Δ| > 10 = decisive; negative favors the ζ ansatz)
+  ◆ RAW density follows: LATTICE DOS (Model B)
+╭─◆ Test H2  ·  4 sub-checks → PASS                            ╮
+│✓ both fits computed — n = 60 grid points, models A (3-par) / │
+│B (2-par)                                                     │
+│✓ fit quality floor — R²_A = 0.98416, R²_B = 0.99384 (floor   │
+│0.95)                                                         │
+│✓ decisive separation — ΔAICc = +58.9                         │
+│✓ winner (headline) — lattice DOS wins by 58.9 AICc — raw     │
+│density is ORDINARY lattice physics                           │
+╰──────────────────────────────────────────────────────────────╯
+--- notes ---
+ • Model A embeds the Riemann–Weil smooth counting form N̄(T)=(T/2π)ln(T/2π)−T/2+7/8 with free coefficients — a pure shape test. Model B is the vortex-free Hofstadter cumulative spectrum (same L, α, t; W=0): the 'ordinary lattice' hypothesis. The everywhere-used local-mean unfolding would force unit mean spacing and make this comparison impossible — that is why the test runs on the raw spectrum.

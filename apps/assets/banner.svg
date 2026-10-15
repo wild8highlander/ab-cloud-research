@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="APPS — THE INTERACTIVE LAYER — animated banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1321"/>
+      <stop offset="0.55" stop-color="#12203a"/>
+      <stop offset="1" stop-color="#0d1728"/>
+    </linearGradient>
+    <linearGradient id="tg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#61dafb"/>
+      <stop offset="0.5" stop-color="#eaf6ff"/>
+      <stop offset="1" stop-color="#4fb3be"/>
+      <animate attributeName="x1" values="-0.6;0.4" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="0.4;1.4" dur="6s" repeatCount="indefinite"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#1d5f8a" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#1d5f8a" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M28 0H0V28" fill="none" stroke="#1a2438" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="300" rx="14" fill="url(#bg)"/>
+  <rect width="1200" height="300" rx="14" fill="url(#grid)" opacity="0.5"/>
+  <rect width="1200" height="300" rx="14" fill="url(#halo)"/>
+  <rect x="1.5" y="1.5" width="1197" height="297" rx="13" fill="none" stroke="#243046" stroke-width="1.4" opacity="0.8"/>
+
+  <text x="64" y="74" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-weight="700" letter-spacing="2.2" fill="url(#tg)">APPS — THE INTERACTIVE LAYER</text>
+  <text x="66" y="104" font-family="Georgia, serif" font-size="16.5" font-style="italic" fill="#8fa8c0">two React 18 + Vite applications: the 37-test verdict dashboard and the WebGL 3-D lattice laboratory</text>
+
+  <!-- окно дашборда -->
+  <g transform="translate(70,140)">
+    <rect x="0" y="0" width="380" height="140" rx="10" fill="#101a2e" stroke="#3f5a80" stroke-width="1.8"/>
+    <rect x="0" y="0" width="380" height="26" rx="10" fill="#1a2a44"/>
+    <rect x="0" y="16" width="380" height="10" fill="#1a2a44"/>
+    <circle cx="16" cy="13" r="4" fill="#ff5f57"><animate attributeName="opacity" values="1;0.35;1" dur="2.2s" begin="0s" repeatCount="indefinite"/></circle>
+    <circle cx="32" cy="13" r="4" fill="#febc2e"><animate attributeName="opacity" values="1;0.35;1" dur="2.2s" begin="0.3s" repeatCount="indefinite"/></circle>
+    <circle cx="48" cy="13" r="4" fill="#28c840"><animate attributeName="opacity" values="1;0.35;1" dur="2.2s" begin="0.6s" repeatCount="indefinite"/></circle>
+    <text x="120" y="17.5" font-family="'Courier New',monospace" font-size="11" fill="#7c88a8">ab-cloud-dashboard · 37 verdicts</text>
+    <!-- растущие бары -->
+    <g>
+      <rect x="30" y="96" width="18" height="0" fill="#4fb3be"><animate attributeName="height" values="0;52;52;34;52" dur="6s" repeatCount="indefinite"/><animate attributeName="y" values="96;44;44;62;44" dur="6s" repeatCount="indefinite"/></rect>
+      <rect x="58" y="96" width="18" height="0" fill="#61dafb"><animate attributeName="height" values="0;70;70;46;70" dur="6s" begin="0.5s" repeatCount="indefinite"/><animate attributeName="y" values="96;26;26;50;26" dur="6s" begin="0.5s" repeatCount="indefinite"/></rect>
+      <rect x="86" y="96" width="18" height="0" fill="#4fb3be"><animate attributeName="height" values="0;40;40;58;40" dur="6s" begin="1s" repeatCount="indefinite"/><animate attributeName="y" values="96;56;56;38;56" dur="6s" begin="1s" repeatCount="indefinite"/></rect>
+      <rect x="114" y="96" width="18" height="0" fill="#2ea043"><animate attributeName="height" values="0;62;62;30;62" dur="6s" begin="1.5s" repeatCount="indefinite"/><animate attributeName="y" values="96;34;34;66;34" dur="6s" begin="1.5s" repeatCount="indefinite"/></rect>
+      <path d="M28 100 H140" stroke="#5d6b7a" stroke-width="1"/>
+    </g>
+    <!-- сетка вердиктов -->
+    <g transform="translate(170,44)" font-family="'Courier New',monospace" font-size="10.5">
+      <rect width="14" height="11" fill="#2ea043"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" begin="0.2s" repeatCount="indefinite"/></rect>
+      <rect x="18" width="14" height="11" fill="#2ea043"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" begin="0.5s" repeatCount="indefinite"/></rect>
+      <rect x="36" width="14" height="11" fill="#e3b341"><animate attributeName="opacity" values="1;0.3;1" dur="1.6s" begin="0.8s" repeatCount="indefinite"/></rect>
+      <rect y="15" width="14" height="11" fill="#2ea043"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" begin="1.1s" repeatCount="indefinite"/></rect>
+      <rect x="18" y="15" width="14" height="11" fill="#2ea043"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" begin="1.4s" repeatCount="indefinite"/></rect>
+      <rect x="36" y="15" width="14" height="11" fill="#2ea043"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" begin="0.3s" repeatCount="indefinite"/></rect>
+      <rect y="30" width="14" height="11" fill="#2ea043"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" begin="0.7s" repeatCount="indefinite"/></rect>
+      <rect x="18" y="30" width="14" height="11" fill="#2ea043"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" begin="1.0s" repeatCount="indefinite"/></rect>
+      <rect x="36" y="30" width="14" height="11" fill="#2ea043"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" begin="1.3s" repeatCount="indefinite"/></rect>
+      <rect y="45" width="14" height="11" fill="#2ea043"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" begin="0.9s" repeatCount="indefinite"/></rect>
+      <rect x="18" y="45" width="14" height="11" fill="#2ea043"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" begin="1.2s" repeatCount="indefinite"/></rect>
+      <rect x="36" y="45" width="14" height="11" fill="#2ea043"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" begin="0.4s" repeatCount="indefinite"/></rect>
+      <text x="58" y="9" fill="#7c88a8">PASS</text>
+      <text x="58" y="24" fill="#7c88a8">PASS</text>
+      <text x="58" y="39" fill="#7c88a8">PASS</text>
+      <text x="58" y="54" fill="#7c88a8">PASS</text>
+    </g>
+    <text x="170" y="118" font-family="'Courier New',monospace" font-size="10.5" fill="#7c88a8">⟨r⟩ = 0.5848 ± 0.0260 · live Web Worker</text>
+  </g>  <!-- окно 3D-лаборатории -->
+  <g transform="translate(700,150)">
+    <rect x="0" y="0" width="430" height="130" rx="10" fill="#0f1c30" stroke="#35708c" stroke-width="1.8"/>
+    <rect x="0" y="0" width="430" height="26" rx="10" fill="#16283e"/>
+    <rect x="0" y="16" width="430" height="10" fill="#16283e"/>
+    <circle cx="16" cy="13" r="4" fill="#ff5f57"/>
+    <circle cx="32" cy="13" r="4" fill="#febc2e"/>
+    <circle cx="48" cy="13" r="4" fill="#28c840"/>
+    <text x="120" y="17.5" font-family="'Courier New',monospace" font-size="11" fill="#7c88a8">ab-cloud-lab3d · WebGL · Three.js</text>
+    <!-- изометричный куб-решётка с орбитой -->
+    <g transform="translate(120,74)">
+      <path d="M0 -34 L34 -17 L34 17 L0 34 L-34 17 L-34 -17 Z" fill="none" stroke="#61dafb" stroke-width="1.8"/>
+      <path d="M0 -34 L0 0 M34 -17 L0 0 L-34 -17 M0 34 L0 0" fill="none" stroke="#61dafb" stroke-width="1.2" opacity="0.7"/>
+      <circle cx="0" cy="-34" r="3" fill="#ffb35c"><animate attributeName="r" values="2.2;4.2;2.2" dur="2s" repeatCount="indefinite"/></circle>
+      <circle cx="34" cy="-17" r="3" fill="#ffb35c"><animate attributeName="r" values="2.2;4.2;2.2" dur="2s" begin="0.4s" repeatCount="indefinite"/></circle>
+      <circle cx="34" cy="17" r="3" fill="#ffb35c"><animate attributeName="r" values="2.2;4.2;2.2" dur="2s" begin="0.8s" repeatCount="indefinite"/></circle>
+      <circle cx="0" cy="34" r="3" fill="#ffb35c"><animate attributeName="r" values="2.2;4.2;2.2" dur="2s" begin="1.2s" repeatCount="indefinite"/></circle>
+      <circle cx="-34" cy="17" r="3" fill="#ffb35c"><animate attributeName="r" values="2.2;4.2;2.2" dur="2s" begin="1.6s" repeatCount="indefinite"/></circle>
+      <circle cx="-34" cy="-17" r="3" fill="#ffb35c"><animate attributeName="r" values="2.2;4.2;2.2" dur="2s" begin="0.2s" repeatCount="indefinite"/></circle>
+      <ellipse cx="0" cy="0" rx="52" ry="20" fill="none" stroke="#4fb3be" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.7">
+        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="9s" repeatCount="indefinite"/>
+      </ellipse>
+      <circle r="3.2" fill="#eaf6ff">
+        <animateMotion dur="9s" repeatCount="indefinite" path="M -52 0 A 52 20 0 1 0 52 0 A 52 20 0 1 0 -52 0"/>
+      </circle>
+    </g>
+    <!-- критическая полоса -->
+    <g transform="translate(300,42)">
+      <rect x="0" y="0" width="20" height="76" fill="#13233c" stroke="#4fa3c9" stroke-width="1"/>
+      <line x1="10" y1="0" x2="10" y2="76" stroke="#4fa3c9" stroke-width="1" stroke-dasharray="3 3"/>
+      <circle cx="10" cy="14" r="2" fill="#8fe3ff"><animate attributeName="opacity" values="0.2;1;0.2" dur="1.8s" repeatCount="indefinite"/></circle>
+      <circle cx="10" cy="30" r="2" fill="#8fe3ff"><animate attributeName="opacity" values="0.2;1;0.2" dur="1.8s" begin="0.45s" repeatCount="indefinite"/></circle>
+      <circle cx="10" cy="42" r="2" fill="#8fe3ff"><animate attributeName="opacity" values="0.2;1;0.2" dur="1.8s" begin="0.9s" repeatCount="indefinite"/></circle>
+      <circle cx="10" cy="60" r="2" fill="#8fe3ff"><animate attributeName="opacity" values="0.2;1;0.2" dur="1.8s" begin="1.35s" repeatCount="indefinite"/></circle>
+      <text x="-6" y="90" font-family="Georgia,serif" font-size="11.5" font-style="italic" fill="#5d6b7a">Re(s) = ½</text>
+    </g>
+  </g>
+
+  <g font-family="'Courier New',monospace" font-size="13.5" fill="#7c88a8">
+    <text x="64" y="278">prebuilt dist/ committed · GitHub Pages ready · no server · no build step · 50 000 zeros bundled in each app</text>
+  </g>
+</svg>

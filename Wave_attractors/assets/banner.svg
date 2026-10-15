@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="HYPERBOLIC WAVE ATTRACTORS — animated banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#081218"/>
+      <stop offset="0.55" stop-color="#0e2233"/>
+      <stop offset="1" stop-color="#0a161e"/>
+    </linearGradient>
+    <linearGradient id="tg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6fe3d4"/>
+      <stop offset="0.5" stop-color="#e6f4f2"/>
+      <stop offset="1" stop-color="#4fa3c9"/>
+      <animate attributeName="x1" values="-0.6;0.4" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="0.4;1.4" dur="6s" repeatCount="indefinite"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0.6" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#0e7c86" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#0e7c86" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M28 0H0V28" fill="none" stroke="#12242e" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="300" rx="14" fill="url(#bg)"/>
+  <rect width="1200" height="300" rx="14" fill="url(#grid)" opacity="0.5"/>
+  <rect width="1200" height="300" rx="14" fill="url(#halo)"/>
+  <rect x="1.5" y="1.5" width="1197" height="297" rx="13" fill="none" stroke="#1f3a4a" stroke-width="1.4" opacity="0.8"/>
+
+  <text x="64" y="74" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-weight="700" letter-spacing="2.2" fill="url(#tg)">HYPERBOLIC WAVE ATTRACTORS</text>
+  <text x="66" y="104" font-family="Georgia, serif" font-size="16.5" font-style="italic" fill="#93b8c4">study W1 — waves self-organize into closed chiral routes · numerical reproduction of the Nature Physics 2026 experiment</text>
+
+  <polygon points="470,140 950,140 1010,262 410,262" fill="#0c1a24" stroke="#3f6f80" stroke-width="2" stroke-linejoin="round"/>
+  <text x="470" y="132" font-family="Georgia,serif" font-size="13" font-style="italic" fill="#4f6f7a">anisotropic cavity · ky² − kx²/η = K² · η = 100</text>  <rect x="600" y="168" width="240" height="86" rx="16" fill="none" stroke="#ffb35c" stroke-width="3">
+    <animate attributeName="stroke-width" values="2;4;2" dur="2.6s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.75;1;0.75" dur="2.6s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="600" y="168" width="240" height="86" rx="16" fill="#7a5220" opacity="0.22"/>  <rect x="640" y="196" width="240" height="86" rx="16" fill="none" stroke="#5f8fa0" stroke-width="1.4" stroke-dasharray="6 5" opacity="0.55"/>  <path id="w-ray" d="M 486 168 L 560 226 L 700 172 L 836 232 L 726 254 L 636 210 L 700 176 L 836 232 L 726 254 L 636 210 L 700 172" fill="none" stroke="#6fe3d4" stroke-width="0" opacity="0"/>
+  <g>
+    <circle r="4.6" fill="#6fe3d4">
+      <animateMotion dur="5.2s" repeatCount="indefinite" path="M 486 168 L 560 226 L 700 172 L 836 232 L 726 254 L 636 210 L 700 176 L 836 232 L 726 254 L 636 210 L 700 172"/>
+      <animate attributeName="opacity" values="1;1;0.2;1" dur="5.2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <path d="M 486 168 L 560 226 L 700 172 L 836 232 L 726 254 L 636 210 L 700 176" fill="none" stroke="#6fe3d4" stroke-width="1.1" opacity="0.4" stroke-dasharray="4 4"/>
+    <circle cx="860" cy="211" r="20" fill="none" stroke="#4fd0c4" stroke-width="1.6" opacity="0.8">
+      <animate attributeName="r" values="12;58" dur="2.8s" begin="0.0s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8;0" dur="2.8s" begin="0.0s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="860" cy="211" r="20" fill="none" stroke="#4fd0c4" stroke-width="1.6" opacity="0.8">
+      <animate attributeName="r" values="12;58" dur="3.1s" begin="0.9s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8;0" dur="3.1s" begin="0.9s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="860" cy="211" r="20" fill="none" stroke="#4fd0c4" stroke-width="1.6" opacity="0.8">
+      <animate attributeName="r" values="12;58" dur="3.4s" begin="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8;0" dur="3.4s" begin="1.8s" repeatCount="indefinite"/>
+    </circle>  <g transform="translate(190,205)">
+    <path d="M0 0 L96 -44 M0 0 L96 44" stroke="#4fa3c9" stroke-width="1.6" opacity="0.75"/>
+    <path d="M0 0 L96 -44 M0 0 L96 44" stroke="#4fa3c9" stroke-width="1.6" opacity="0.75" transform="scale(-1,1) translate(-6,0)"/>
+    <path d="M-88 0 H-6" stroke="#4f6f7a" stroke-width="1" stroke-dasharray="3 4"/>
+    <text x="-84" y="-10" font-family="Georgia,serif" font-size="12.5" font-style="italic" fill="#4f6f7a">group-velocity cone ±5.71°</text>
+    <circle cx="0" cy="0" r="3.4" fill="#6fe3d4">
+      <animate attributeName="r" values="2.6;4.6;2.6" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <text x="600" y="282" font-family="'Courier New',monospace" font-size="11.5" fill="#6f97a4">attractor route · C = ±0.4683 · mirror twin dashed</text>
+
+  <g font-family="'Courier New',monospace" font-size="13.5" fill="#6f97a4">
+    <text x="64" y="278">lock-in 24/24 · η = 100 · cascade ×7.6 · chirality machine-zero · Python ↔ Julia 3.45e-15 · 24 rays × 1600 bounces</text>
+  </g>
+</svg>

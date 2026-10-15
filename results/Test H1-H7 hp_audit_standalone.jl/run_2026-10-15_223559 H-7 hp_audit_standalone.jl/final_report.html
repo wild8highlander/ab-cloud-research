@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HP·Meridian — Hilbert–Pólya Audit · run_2026-10-15_223559</title>
+<style>
+  :root {
+    --bg: #0b0d1a;
+    --bg-elev: #131628;
+    --bg-card: #181b30;
+    --fg: #e6e8f0;
+    --fg-dim: #9099b3;
+    --fg-muted: #5b6280;
+    --border: #232844;
+    --accent: #00d7af;
+    --pass: #2ecc71;
+    --warn: #f1c40f;
+    --fail: #e74c3c;
+    --h1: #ffaf00;
+    --h2: #00afff;
+    --h3: #ff5fd7;
+    --h4: #ff5fd7;
+    --h5: #ff5faf;
+    --h6: #875fff;
+    --h7: #5fd787;
+    --nucleus: #ffd700;
+    --orbit: #2a2f50;
+    --orbit2: #3a4070;
+    --belt: #1a2a55;
+    --zeros: #66c5ff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(0,215,175,.04) 0, transparent 40%),
+      radial-gradient(circle at 80% 30%, rgba(255,95,215,.03) 0, transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(135,95,255,.04) 0, transparent 40%);
+    color: var(--fg);
+    font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.55;
+    padding: 0;
+    min-height: 100vh;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5em; }
+  code, pre, .mono { font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    margin-top: 1.5em;
+    padding: 2.2em 1.5em 1.2em;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(20,24,40,.95) 0%, rgba(10,12,26,.95) 100%);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: radial-gradient(ellipse at top, rgba(0,215,175,.08) 0, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-grid { display: grid; grid-template-columns: minmax(360px, 1fr) 2fr; gap: 2em; align-items: center; }
+  @media (max-width: 800px) { .hero-grid { grid-template-columns: 1fr; } }
+  .hero-orbit { width: 100%; max-width: 360px; aspect-ratio: 1; }
+  .hero-text h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.6em, 3.5vw, 2.4em);
+    letter-spacing: -.01em;
+    background: linear-gradient(135deg, #ffd700 0%, #ff5fd7 50%, #00d7af 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: .2em;
+  }
+  .hero-text .tagline { color: var(--fg-dim); font-size: 1.05em; margin-bottom: 1.2em; }
+  .hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: .8em; margin-top: 1em; }
+  .stat { padding: .8em 1em; background: rgba(0,0,0,.25); border: 1px solid var(--border); border-radius: 10px; }
+  .stat .label { color: var(--fg-muted); font-size: .75em; letter-spacing: .08em; text-transform: uppercase; }
+  .stat .value { color: var(--fg); font-size: 1.4em; font-weight: 700; margin-top: .15em; font-family: 'JetBrains Mono', monospace; }
+  .stat .value.pass { color: var(--pass); }
+  .stat .value.warn { color: var(--warn); }
+  .stat .value.fail { color: var(--fail); }
+
+  /* PARAMETERS strip */
+  .params-strip {
+    margin: 1.5em 0;
+    padding: 1em 1.4em;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--fg-dim);
+  }
+  .params-strip .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: .6em; }
+  .params-strip .k { color: var(--fg-muted); font-size: .85em; }
+  .params-strip .v { color: var(--fg); font-family: 'JetBrains Mono', monospace; }
+
+  /* VERDICT RIBBON */
+  .ribbon-row {
+    margin: 1em 0 2em;
+    padding: 1em 1.4em;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex; flex-wrap: wrap; gap: 1em; align-items: center;
+  }
+  .ribbon-cell {
+    display: inline-flex; align-items: center; gap: .35em;
+    padding: .4em .8em;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .95em;
+    border: 2px solid currentColor;
+  }
+  .ribbon-cell.pass { color: var(--pass); background: rgba(46,204,113,.08); }
+  .ribbon-cell.warn { color: var(--warn); background: rgba(241,196,15,.08); }
+  .ribbon-cell.fail { color: var(--fail); background: rgba(231,76,60,.08); }
+  .ribbon-cell.dim  { color: var(--fg-muted); border-color: var(--border); }
+
+  /* GATE TILES */
+  .gates {
+    display: grid; gap: 1.5em;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 580px), 1fr));
+  }
+  .gate-tile {
+    background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-elev) 100%);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5em 1.5em 1.2em;
+    position: relative;
+    overflow: hidden;
+  }
+  .gate-tile::before {
+    content: "";
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--gate-color);
+  }
+  .gate-head { display: flex; align-items: baseline; gap: .6em; margin-bottom: .5em; flex-wrap: wrap; }
+  .gate-head .sigil {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.6em; font-weight: 800;
+    color: var(--gate-color);
+    text-shadow: 0 0 12px currentColor;
+  }
+  .gate-head .num { font-family: 'JetBrains Mono', monospace; color: var(--fg-muted); font-size: .85em; }
+  .gate-head .name { font-weight: 700; color: var(--fg); font-size: 1.15em; letter-spacing: -.01em; }
+  .gate-head .verdict {
+    margin-left: auto;
+    padding: .25em .7em;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .85em; font-weight: 700;
+    border: 1px solid currentColor;
+  }
+  .gate-head .verdict.pass { color: var(--pass); background: rgba(46,204,113,.08); }
+  .gate-head .verdict.warn { color: var(--warn); background: rgba(241,196,15,.08); }
+  .gate-head .verdict.fail { color: var(--fail); background: rgba(231,76,60,.08); }
+  .gate-head .verdict.dim  { color: var(--fg-muted); border-color: var(--border); }
+  .gate-headline {
+    color: var(--fg-dim); font-size: .98em; margin: .6em 0 1em;
+    padding-left: .8em; border-left: 2px solid var(--gate-color);
+  }
+  .gate-table { width: 100%; border-collapse: collapse; font-size: .92em; margin-bottom: .8em; }
+  .gate-table th, .gate-table td { text-align: left; padding: .5em .7em; border-bottom: 1px solid var(--border); }
+  .gate-table th { color: var(--fg-muted); font-weight: 600; font-size: .8em; text-transform: uppercase; letter-spacing: .06em; }
+  .gate-table td.status { width: 5em; font-family: 'JetBrains Mono', monospace; }
+  .gate-table td.status.pass { color: var(--pass); font-weight: 700; }
+  .gate-table td.status.warn { color: var(--warn); font-weight: 700; }
+  .gate-table td.detail { color: var(--fg-dim); }
+  .gate-plot {
+    margin: .8em 0;
+    border-radius: 8px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .gate-plot img { display: block; max-width: 100%; height: auto; background: #fff; }
+  .gate-notes { color: var(--fg-dim); font-size: .88em; font-style: italic; margin-top: .6em; padding-left: .8em; border-left: 2px solid var(--border); }
+  .gate-notes p { margin: .25em 0; }
+
+  /* footer */
+  footer {
+    margin: 3em 0 2em; padding-top: 1.5em;
+    border-top: 1px solid var(--border);
+    color: var(--fg-muted); font-size: .85em;
+    display: flex; flex-wrap: wrap; gap: 1.5em; justify-content: space-between;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* small SVG orbit animation */
+  @keyframes orbit-rot { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+  @keyframes orbit-rot-rev { from { transform: rotate(0); } to { transform: rotate(-360deg); } }
+  @keyframes pulse { 0%, 100% { opacity: .6; } 50% { opacity: 1; } }
+  .orbit-inner  { animation: orbit-rot 14s linear infinite; transform-origin: 200px 200px; }
+  .orbit-mid   { animation: orbit-rot-rev 22s linear infinite; transform-origin: 200px 200px; }
+  .orbit-outer { animation: orbit-rot 32s linear infinite; transform-origin: 200px 200px; }
+  .belt-rot    { animation: orbit-rot-rev 48s linear infinite; transform-origin: 200px 200px; }
+  .nucleus-pulse { animation: pulse 3.5s ease-in-out infinite; transform-origin: 200px 200px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .orbit-inner, .orbit-mid, .orbit-outer, .belt-rot, .nucleus-pulse { animation: none; }
+  }
+
+</style></head><body>
+<div class="container">
+<section class="hero">
+<div class="hero-grid">
+<svg class="hero-orbit" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-label="Hilbert–Pólya solar system">
+  <!-- soft gradient backdrop -->
+  <defs>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffd700" stop-opacity=".35"/>
+      <stop offset="50%" stop-color="#ff5faf" stop-opacity=".10"/>
+      <stop offset="100%" stop-color="#00d7af" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="nuc-g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffd700"/>
+      <stop offset="100%" stop-color="#ff8c00"/>
+    </linearGradient>
+  </defs>
+  <circle cx="200" cy="200" r="180" fill="url(#halo)"/>
+  <!-- belt -->
+  <g class="belt-rot">
+    <ellipse cx="200" cy="200" rx="188" ry="100" fill="none" stroke="#1a2a55" stroke-width="1" stroke-dasharray="2 4"/>
+<circle cx="388.0" cy="200.0" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="386.97011632923534" cy="210.45284632676535" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="383.89174893795547" cy="220.79116908177593" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="378.7986250634889" cy="230.90169943749473" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="371.7465460368089" cy="240.67366430758" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="362.8127759114745" cy="250.0" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="352.09519494249014" cy="258.7785252292473" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="339.7112271897501" cy="266.9130606358858" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="325.79655399546533" cy="274.31448254773943" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="310.5036274309849" cy="280.90169943749476" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="294.0" cy="286.60254037844385" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="276.4664888982505" cy="291.3545457642601" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="258.09519494249014" cy="295.10565162951536" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="239.08739787373872" cy="297.81476007338057" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="219.65135109431884" cy="299.45218953682735" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="200.00000000000006" cy="300.0" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="180.34864890568116" cy="299.45218953682735" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="160.91260212626125" cy="297.81476007338057" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="141.9048050575099" cy="295.10565162951536" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="123.53351110174958" cy="291.3545457642601" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="106.00000000000004" cy="286.6025403784439" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="89.49637256901507" cy="280.90169943749476" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="74.20344600453471" cy="274.31448254773943" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="60.288772810249895" cy="266.9130606358858" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="47.90480505750989" cy="258.7785252292473" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="37.18722408852551" cy="250.0" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="28.25345396319102" cy="240.67366430758" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="21.201374936511144" cy="230.90169943749476" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="16.10825106204453" cy="220.79116908177593" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="13.029883670764605" cy="210.45284632676533" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="12.0" cy="200.00000000000006" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="13.029883670764605" cy="189.5471536732347" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="16.10825106204453" cy="179.2088309182241" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="21.201374936511115" cy="169.09830056250527" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="28.25345396319105" cy="159.32633569241997" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="37.18722408852551" cy="150.00000000000003" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="47.90480505750989" cy="141.2214747707527" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="60.288772810249895" cy="133.0869393641142" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="74.20344600453461" cy="125.6855174522606" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="89.49637256901502" cy="119.09830056250527" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="105.99999999999991" cy="113.39745962155615" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="123.53351110174943" cy="108.64545423573995" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="141.90480505750986" cy="104.89434837048465" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="160.91260212626116" cy="102.18523992661945" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="180.348648905681" cy="100.54781046317267" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="199.99999999999997" cy="100.0" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="219.65135109431876" cy="100.54781046317267" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="239.08739787373878" cy="102.18523992661945" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="258.0951949424901" cy="104.89434837048464" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="276.46648889825036" cy="108.64545423573989" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="294.0" cy="113.39745962155614" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="310.5036274309849" cy="119.09830056250524" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="325.7965539954654" cy="125.6855174522606" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="339.7112271897501" cy="133.0869393641142" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="352.09519494249014" cy="141.22147477075265" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="362.8127759114745" cy="150.00000000000003" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="371.746546036809" cy="159.32633569242" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="378.7986250634889" cy="169.09830056250524" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="383.89174893795547" cy="179.2088309182241" r="1.6" fill="#66c5ff" opacity=".7"/>
+<circle cx="386.97011632923534" cy="189.54715367323465" r="1.6" fill="#66c5ff" opacity=".7"/>
+</g>
+<g class="orbit-outer">
+  <ellipse cx="200" cy="200" rx="150" ry="78" fill="none" stroke="#3a4070" stroke-width="1"/>
+  <circle cx="350" cy="200" r="6" fill="#875fff"><title>H6 HERMIT-STRESS</title></circle>
+  <circle cx="50"  cy="200" r="6" fill="#5fd787"><title>H7 SEQ-CORR</title></circle>
+</g>
+<g class="orbit-mid">
+  <ellipse cx="200" cy="200" rx="108" ry="56" fill="none" stroke="#2a2f50" stroke-width="1"/>
+  <circle cx="308" cy="200" r="6" fill="#ff5fd7"><title>H4 CRITICAL-Q</title></circle>
+  <circle cx="92"  cy="200" r="6" fill="#ff5faf"><title>H5 REGIME-2×2</title></circle>
+</g>
+<g class="orbit-inner">
+  <ellipse cx="200" cy="200" rx="60" ry="32" fill="none" stroke="#3a4070" stroke-width="1"/>
+  <circle cx="260" cy="200" r="5" fill="#00d7af"><title>H1 PRIME-TRACE</title></circle>
+  <circle cx="170" cy="168" r="5" fill="#00afff"><title>H2 WEYL-DOS</title></circle>
+  <circle cx="170" cy="232" r="5" fill="#ffaf00"><title>H3 POWER-LAW</title></circle>
+</g>
+  <g class="nucleus-pulse">
+    <circle cx="200" cy="200" r="18" fill="url(#nuc-g)"/>
+    <text x="200" y="206" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="800" font-size="18" fill="#0b0d1a">H</text>
+  </g>
+</svg>
+<div class="hero-text">
+<h1>HP·MERIDIAN — Hilbert–Pólya Deep Audit</h1>
+<p class="tagline">Arithmetic specificity, not just universality — 7 falsifiable gates H1–H7 between prime arithmetic and GUE spectral statistics.</p>
+<div class="hero-stats">
+<div class="stat"><div class="label">PASS</div><div class="value pass">5/6</div></div>
+<div class="stat"><div class="label">WARN</div><div class="value warn">1</div></div>
+<div class="stat"><div class="label">ζ zeros</div><div class="value">50000</div></div>
+<div class="stat"><div class="label">Lattice L</div><div class="value">72</div></div>
+<div class="stat"><div class="label">Seed</div><div class="value">2026</div></div>
+<div class="stat"><div class="label">Wall</div><div class="value">00:02:15</div></div>
+</div>
+<p style="margin-top:.8em;color:var(--fg-muted);font-size:.85em;">Run: <span class="mono">run_2026-10-15_223559</span> · preset: <span class="mono">menu</span> · date: <span class="mono">2026-10-15 22:38:14</span> · ζ loaded: <span class="mono">yes</span></p>
+</div>
+</div>
+</section>
+<div class="params-strip">
+<div class="row">
+<div><div class="k">L · L_weyl</div><div class="v">72 · 72</div></div>
+<div><div class="k">ensemble · seed</div><div class="v">100 · 2026</div></div>
+<div><div class="k">α / W_eff</div><div class="v">0.5000 · 1.00</div></div>
+<div><div class="k">deep-nulls · configs</div><div class="v">20 · 10</div></div>
+<div><div class="k">α-profile</div><div class="v">true (n=40)</div></div>
+<div><div class="k">primes</div><div class="v">2,3,5,7,11,13</div></div>
+<div><div class="k">q-grid</div><div class="v">21 pts on [0.05, 1.00]</div></div>
+<div><div class="k">ladder</div><div class="v">28 → 36 → 44 → 52 → 60</div></div>
+<div><div class="k">t_max · dt</div><div class="v">40 · 0.025</div></div>
+</div></div>
+<div class="ribbon-row">
+<span style="color:var(--fg-muted);font-size:.8em;letter-spacing:.08em;text-transform:uppercase;">Verdict Ribbon</span>
+<span class="ribbon-cell pass"><span style="color:var(--h2);">ρ</span> ✓ H2</span>
+<span class="ribbon-cell pass"><span style="color:var(--h3);">β</span> ✓ H3</span>
+<span class="ribbon-cell pass"><span style="color:var(--h4);">q</span> ✓ H4</span>
+<span class="ribbon-cell warn"><span style="color:var(--h5);">α</span> ! H5</span>
+<span class="ribbon-cell pass"><span style="color:var(--h6);">𝒩</span> ✓ H6</span>
+<span class="ribbon-cell pass"><span style="color:var(--h7);">ζ</span> ✓ H7</span>
+</div>
+<section class="gates">
+<article class="gate-tile" style="--gate-color:#00afff;">
+<div class="gate-head">
+<span class="sigil">ρ</span>
+<span class="num">H2</span>
+<span class="name">Weyl-law density test (raw N(E), never unfolded)</span>
+<span class="verdict pass">PASS</span>
+</div>
+<div class="gate-headline"> Test H2: R²_A=0.98416, R²_B=0.99384, ΔAICc=+58.9 → LATTICE DOS (Model B) → PASS</div>
+<table class="gate-table">
+<thead><tr><th>sub-check</th><th>status</th><th>detail</th></tr></thead><tbody>
+<tr><td>both fits computed</td><td class="status pass">PASS</td><td class="detail">n = 60 grid points, models A (3-par) / B (2-par)</td></tr>
+<tr><td>fit quality floor</td><td class="status pass">PASS</td><td class="detail">R²_A = 0.98416, R²_B = 0.99384 (floor 0.95)</td></tr>
+<tr><td>decisive separation</td><td class="status pass">PASS</td><td class="detail">ΔAICc = +58.9</td></tr>
+<tr><td>winner (headline)</td><td class="status pass">PASS</td><td class="detail">lattice DOS wins by 58.9 AICc — raw density is ORDINARY lattice physics</td></tr>
+</tbody></table>
+<div class="gate-plot">
+<img src="../run_2026-10-15_171944/test_302_weyl_law_density/plots/plot_1.png" alt="H2. Weyl-law density test (raw N(E), never unfolded) plot">
+</div>
+<div class="gate-notes">
+<p>Model A embeds the Riemann–Weil smooth counting form N̄(T)=(T/2π)ln(T/2π)−T/2+7/8 with free coefficients — a pure shape test. Model B is the vortex-free Hofstadter cumulative spectrum (same L, α, t; W=0): the 'ordinary lattice' hypothesis. The everywhere-used local-mean unfolding would force unit mean spacing and make this comparison impossible — that is why the test runs on the raw spectrum.</p>
+</div>
+</article>
+<article class="gate-tile" style="--gate-color:#ffaf00;">
+<div class="gate-head">
+<span class="sigil">β</span>
+<span class="num">H3</span>
+<span class="name">Power-law exponent on the REAL lattice spectrum</span>
+<span class="verdict pass">PASS</span>
+</div>
+<div class="gate-headline"> Test H3: per-L min|p̂−2| = 1.328 (≥ 155σ), p_∞ note: low=0.524±7.547 / bulk=0.396±6.280 → dictionary REJECTED (expected negative) → PASS</div>
+<table class="gate-table">
+<thead><tr><th>sub-check</th><th>status</th><th>detail</th></tr></thead><tbody>
+<tr><td>low-window fit quality</td><td class="status pass">PASS</td><td class="detail">min R² over ladder = 0.98166 (floor 0.98)</td></tr>
+<tr><td>bulk-window fit quality</td><td class="status pass">PASS</td><td class="detail">min R² over ladder = 0.99812 (floor 0.98)</td></tr>
+<tr><td>per-L falsification (decisive)</td><td class="status pass">PASS</td><td class="detail">min |p̂−2| = 1.328 at ≥ 155σ (every rung/window; se ≤ 0.0086) — the rejection does NOT rest on the L→∞ extrapolation</td></tr>
+<tr><td>L→∞ extrapolation (note)</td><td class="status pass">PASS</td><td class="detail">UNSTABLE (informational): p_∞ = 0.3958 ± 6.2795, se ≫ estimate — non-monotone rung scatter; the verdict rests on the per-L fits, NOT on this extrapolation (reviewer sync 2026-09-06)</td></tr>
+<tr><td>dictionary verdict</td><td class="status pass">PASS</td><td class="detail">REJECTED (expected honest negative, status synced with H1/H7) — |p_∞−2|: low 1.476 / bulk 1.604; the real 2D spectrum is not (n−q)² lattice physics</td></tr>
+<tr><td>Dirac-cone readout (low window)</td><td class="status pass">PASS</td><td class="detail">mean |p̂−1/2|: low 0.077 &lt; bulk 0.106 → the near-edge (vortex-dominated) spectrum is Dirac-cone-like, not dictionary-like — reviewer observation 2026-09-06, promoted to a headline</td></tr>
+</tbody></table>
+<div class="gate-plot">
+<img src="../run_2026-10-15_172357/test_303_power_law_real_spectrum/plots/plot_1.png" alt="H3. Power-law exponent on the REAL lattice spectrum plot">
+</div>
+<div class="gate-notes">
+<p>Fitting the REAL spectrum (not the toy ring of lab E8) answers the reviewer's question directly: if the (n−q)² dictionary were the lattice physics, p̂(L) would extrapolate to 2. The honest 2D alternatives are p = 1/2 (Dirac cone: N(E) ∝ E² near E = 0) in the low window and p ≈ 1 (constant DOS of a quadratic band) in the bulk — both falsify the dictionary claim. VERDICT SEMANTICS (reviewer sync 2026-09-06): a REJECTED dictionary is the EXPECTED honest negative and PASSES the audit exactly like H1's absent fingerprint and H7's zero correlation (one and the same outcome class must not split into PASS and WARN across tests); the test fails only on method grounds — fit quality below floor, too few rungs, or the spectrum actually approaching p = 2. The unstable L→∞ extrapolation (5 rungs, non-monotone scatter, se ≫ estimate) is reported as an INFORMATIONAL note because the verdict rests on the per-L fits, each ≫5σ from the dictionary anchor; the Dirac-cone proximity of the low window is stated as its own physics headline rather than being buried inside the rejection.</p>
+</div>
+</article>
+<article class="gate-tile" style="--gate-color:#ff5fd7;">
+<div class="gate-head">
+<span class="sigil">q</span>
+<span class="num">H4</span>
+<span class="name">Critical-q sharpness scan (falsifying the 'critical line' analogy)</span>
+<span class="verdict pass">PASS</span>
+</div>
+<div class="gate-headline"> Test H4: 21 q-points, KS_D min 0.4810 at q*=0.193, z=6.85 → sharp, NOT at a claimed critical (real but unpredicted) → PASS</div>
+<table class="gate-table">
+<thead><tr><th>sub-check</th><th>status</th><th>detail</th></tr></thead><tbody>
+<tr><td>scan completed</td><td class="status pass">PASS</td><td class="detail">21 q-points × 2 seeds, all metrics finite</td></tr>
+<tr><td>noise floor resolved</td><td class="status pass">PASS</td><td class="detail">σ(noise) = 0.00211 from per-point seed pairs</td></tr>
+<tr><td>sharp-feature verdict</td><td class="status pass">PASS</td><td class="detail">SHARP: z = 6.85 at q* = 0.193, width 0.10 span (nearest claimed 0.3)</td></tr>
+<tr><td>location vs claimed criticals</td><td class="status pass">PASS</td><td class="detail">resonance at q* = 0.193 does NOT coincide with any claimed critical (nearest 0.3, off by 0.107 = 11% of span) → the sharp feature is real but UNPREDICTED — the analogy is NOT corroborated (reviewer sync 2026-09-06)</td></tr>
+<tr><td>⟨r⟩ scan range</td><td class="status pass">PASS</td><td class="detail">0.3905 … 0.5955 across the grid</td></tr>
+</tbody></table>
+<div class="gate-plot">
+<img src="../run_2026-10-15_172445/test_304_critical_q_scan/plots/plot_1.png" alt="H4. Critical-q sharpness scan (falsifying the 'critical line' analogy) plot">
+</div>
+<div class="gate-plot">
+<img src="../run_2026-10-15_172445/test_304_critical_q_scan/plots/plot_2.png" alt="H4. Critical-q sharpness scan (falsifying the 'critical line' analogy) plot">
+</div>
+<div class="gate-notes">
+<p>Design: vortex POSITIONS are frozen across the grid so the profile responds only to the charge; two disorder seeds per point give the honest noise floor. Prominence = largest baseline-corrected dip of the cubic-smoothed profile in units of that floor, AND the half-prominence width must stay below 35% of the scan span — a wide residual hump is baseline curvature, not a critical point. A smooth profile is the expected outcome for a generic vortex model and FALSIFIES the 'q plays the role of 1/2' analogy. LOCATION HONESTY (reviewer sync 2026-09-06): the scan answers 'is there sharp structure' — it does NOT answer 'does the structure sit where the theory needs it'; a resonance away from every claimed critical is reported as real-but-unpredicted, and the analog claim is scored by the dedicated location row. Noise-floor caveat: 2 seeds per point make σ a 1-parameter estimate — z is indicative, not distribution-level proof.</p>
+</div>
+</article>
+<article class="gate-tile" style="--gate-color:#ff5faf;">
+<div class="gate-head">
+<span class="sigil">α</span>
+<span class="num">H5</span>
+<span class="name">Large ensemble × parameter-regime showdown (density × α, 2×2)</span>
+<span class="verdict warn">WARN</span>
+</div>
+<div class="gate-headline"> Test H5: 4 regime(s) × N=7, GUE reached in 3/4 (clean: D; OR-clause only: B,C) → failure PARAMETER-DEPENDENT (finetuning-flavored); α-profile: NONE — no clean pass anywhere on the α-line (contradicts regime C's clean pass?! check seeds/protocol) → WARN</div>
+<table class="gate-table">
+<thead><tr><th>sub-check</th><th>status</th><th>detail</th></tr></thead><tbody>
+<tr><td>solve plan ≤ 40 eigensolves (v24.1 budget)</td><td class="status pass">PASS</td><td class="detail">plan: 7 config(s) × 4 regime(s) + 12 α-profile = 40 diagonalizations (user cap 2026-09-09 — the old «N ≥ 30» row retired: a cap must not be a silent auto-FAIL; per-config KS granularity 1/7)</td></tr>
+<tr><td>[A] baseline (published run)</td><td class="status warn">WARN</td><td class="detail">⟨r⟩ 0.5898±0.0102, in-band 85.7% (6/7, CI 59.8–100.0%) | RAW individual KS-pass 0.0% (0/7) | median D 0.3531 → misses GUE</td></tr>
+<tr><td>[B] monograph density Nv=L²/36</td><td class="status pass">PASS</td><td class="detail">⟨r⟩ 0.6000±0.0052, in-band 100.0% (7/7, CI 100.0–100.0%) | RAW individual KS-pass 14.3% (1/7) | median D 0.0559 → GUE reached via OR-clause ONLY — median D &lt; 0.10 hides a systematic per-realization shift (raw KS-pass tells the truth)</td></tr>
+<tr><td>[C] sharp-flux α=25/900</td><td class="status pass">PASS</td><td class="detail">⟨r⟩ 0.5937±0.0041, in-band 100.0% (7/7, CI 100.0–100.0%) | RAW individual KS-pass 0.0% (0/7) | median D 0.0646 → GUE reached via OR-clause ONLY — median D &lt; 0.10 hides a systematic per-realization shift (raw KS-pass tells the truth)</td></tr>
+<tr><td>[D] combined (density + sharp-flux)</td><td class="status pass">PASS</td><td class="detail">⟨r⟩ 0.6003±0.0050, in-band 100.0% (7/7, CI 100.0–100.0%) | RAW individual KS-pass 100.0% (7/7) | median D 0.0148 → GUE reached (clean)</td></tr>
+<tr><td>⟨r⟩ scatter (worst regime)</td><td class="status pass">PASS</td><td class="detail">max σ = 0.0102 over 4 regime(s) (limit 0.02 — a lucky seed would show σ ≈ its own deviation)</td></tr>
+<tr><td>clean GUE pass (no OR-clause)</td><td class="status pass">PASS</td><td class="detail">clean at [D] (raw individual KS-pass ≥ 90%); OR-clause-only at [B,C]</td></tr>
+<tr><td>synthesis (headline, never scored)</td><td class="status pass">PASS</td><td class="detail">PARAMETER-DEPENDENT — GUE recovers at regime(s) B,C,D, but CLEAN pass (raw individual KS-pass ≥ 90%, no OR-clause) only at [D] = Nv=144 (2.78% of sites, L²/36 anchor), α=0.0278, 25/900 sharp-flux; OR-clause-only: B,C → GUE quality appears only at a specifically tuned parameter point — a finetuning story (Test-38 flavor), NOT evidence against it</td></tr>
+<tr><td>α-profile (headline, never scored)</td><td class="status pass">PASS</td><td class="detail">NONE — no clean pass anywhere on the α-line (contradicts regime C's clean pass?! check seeds/protocol) — α=0.0278: KS-pass 0% (0/2), median D 0.0584, in-band 100%; α=0.0500: KS-pass 0% (0/2), median D 0.0846, in-band 100%; α=0.1000: KS-pass 0% (0/2), median D 0.1843, in-band 50%; α=0.2000: KS-pass 0% (0/2), median D 0.3701, in-band 100%; α=0.3500: KS-pass 0% (0/2), median D 0.5258, in-band 100%; α=0.5000: KS-pass 0% (0/2), median D 0.3447, in-band 100%</td></tr>
+</tbody></table>
+<div class="gate-plot">
+<img src="../run_2026-10-15_203604/test_305_large_ensemble/plots/plot_1.png" alt="H5. Large ensemble × parameter-regime showdown (density × α, 2×2) plot">
+</div>
+<div class="gate-plot">
+<img src="../run_2026-10-15_203604/test_305_large_ensemble/plots/plot_2.png" alt="H5. Large ensemble × parameter-regime showdown (density × α, 2×2) plot">
+</div>
+<div class="gate-plot">
+<img src="../run_2026-10-15_203604/test_305_large_ensemble/plots/plot_3.png" alt="H5. Large ensemble × parameter-regime showdown (density × α, 2×2) plot">
+</div>
+<div class="gate-plot">
+<img src="../run_2026-10-15_203604/test_305_large_ensemble/plots/plot_4.png" alt="H5. Large ensemble × parameter-regime showdown (density × α, 2×2) plot">
+</div>
+<div class="gate-plot">
+<img src="../run_2026-10-15_203604/test_305_large_ensemble/plots/plot_5.png" alt="H5. Large ensemble × parameter-regime showdown (density × α, 2×2) plot">
+</div>
+<div class="gate-notes">
+<p>Placement AND residual-disorder patterns vary across realizations (independent MersenneTwister streams), so the scatter σ is the honest realization noise of the model, not a bootstrap resample of one configuration; the Wald CI quantifies the binomial uncertainty of each in-band fraction. REGIME DESIGN (reviewer action 2026-09-06): a PRE-REGISTERED 2×2 factorial — {sparse Nv | monograph density Nv = L²/36 (the 25/900 = 2.78% anchor; the same lever that lifted the Test-32 comparison row to GUE)} × {α = ab_alpha_test16 | sharp-flux α = 25/900 ≈ 0.0278 (the ORIGINAL design default of ab_alpha_test16)}; regime A reproduces the published baseline bit-for-bit (identical seed streams) and W stays at the HP standard everywhere. The headline contrasts a REGIME-ROBUST failure (model-class property at every tested point) against a PARAMETER-DEPENDENT outcome; the regime TABLE is the evidence, the 'best' regime is reported for orientation, and best-of-4 selection is pre-registered, not post hoc. A model-class property needs ≥ 90% of realizations inside the band at a regime. STATUS SEMANTICS v23.5 (reviewer round 2): the test status is the strict AND of all scored rows — a regime that misses GUE (e.g. the published baseline) propagates to the test status instead of being silently overridden by the synthesis ('1 failed → WARN' and the final line now always agree). A 'GUE reached' via the median-D OR-clause is flagged separately from a CLEAN pass, because 0/40→near-0% individual KS passes is a systematic, reproducible deviation, not noise; and the only clean pass in the 2×2 sits at the doubly-tuned point (density AND sharp-flux together), which reads as finetuning — consistent with the Test-38 story — rather than as evidence against it. v23.6 α-PROFILE (reviewer round 3): run 185208 showed the clean pass rides on α = 25/900 in BOTH densities ([C],[D]), so the missing experiment is the GUE-quality profile ALONG the screening axis at fixed sparse Nv — α ∈ {25/900, 0.05, 0.1, 0.2, 0.35, 0.5} × ≤2 configs under the v24.1 ≤40-solve budget on a disjoint seed stream. PLATEAU-LOW (clean for all α ≤ α*) reads as 'the sharp-flux side is GUE-universal — the published α = 0.5 baseline is the outlier'; NARROW (clean only at 25/900) confirms finetuning along the axis; the α = 0.5 endpoint independently replicates regime A from a different stream (internal consistency check). The α-profile is a READOUT row (never scored) — the regime table remains the scored evidence.</p>
+</div>
+</article>
+<article class="gate-tile" style="--gate-color:#875fff;">
+<div class="gate-head">
+<span class="sigil">𝒩</span>
+<span class="num">H6</span>
+<span class="name">Self-adjointness &amp; stability stress test</span>
+<span class="verdict pass">PASS</span>
+</div>
+<div class="gate-headline"> Test H6: boundary ok, jitter ok, hermiticity 0.0e+00 → PASS</div>
+<table class="gate-table">
+<thead><tr><th>sub-check</th><th>status</th><th>detail</th></tr></thead><tbody>
+<tr><td>(a) open↔torus bulk</td><td class="status pass">PASS</td><td class="detail">|Δ⟨r⟩| = 0.0061 ≤ 0.022</td></tr>
+<tr><td>(b) jitter stability</td><td class="status pass">PASS</td><td class="detail">⟨r⟩ drift 0.0195, spectral drift 0.0019·BW over 12 trials</td></tr>
+<tr><td>(c) hermiticity every rung</td><td class="status pass">PASS</td><td class="detail">worst max|H−H†| = 0.00e+00 (machine-ε limit 1e-9)</td></tr>
+<tr><td>(c) ⟨r⟩ bounded on ladder</td><td class="status pass">PASS</td><td class="detail">0.5702 … 0.6084 over L = 28,36,44,52,60</td></tr>
+</tbody></table>
+<div class="gate-plot">
+<img src="../run_2026-10-15_221845/test_306_stability_stress/plots/plot_1.png" alt="H6. Self-adjointness &amp; stability stress test plot">
+</div>
+<div class="gate-notes">
+<p>A Hilbert–Pólya operator must survive the three probes that would break a fine-tuned artifact: a boundary switch (edge states must stay OUTSIDE the bulk window), parameter jitter (the spectrum may shift rigidly but must not deform — measured as the aligned-quantile drift in units of the bandwidth), and lattice growth with the hermiticity defect max|H−H†| re-verified at machine ε on EVERY rung (the systematic version of the one-off 3D hardcore H1 check).</p>
+</div>
+</article>
+<article class="gate-tile" style="--gate-color:#5fd787;">
+<div class="gate-head">
+<span class="sigil">ζ</span>
+<span class="num">H7</span>
+<span class="name">Sequence-level correlation vs γₙ (Pearson/Spearman)</span>
+<span class="verdict pass">PASS</span>
+</div>
+<div class="gate-headline"> Test H7: Pearson r=-0.00229 (band 0.20161), Spearman ρ=-0.00605 → sequence independence confirmed → PASS</div>
+<table class="gate-table">
+<thead><tr><th>sub-check</th><th>status</th><th>detail</th></tr></thead><tbody>
+<tr><td>calibration pairs</td><td class="status pass">PASS</td><td class="detail">5 independent GUE–GUE pairs, max |r| = 0.20161</td></tr>
+<tr><td>shuffled control</td><td class="status pass">PASS</td><td class="detail">|r_shuffled| = 0.00424 within the band</td></tr>
+<tr><td>sequence correlation</td><td class="status pass">PASS</td><td class="detail">|r| = 0.00229 ≤ band 0.20161 → independence confirmed (honest expected result)</td></tr>
+<tr><td>Spearman consistency</td><td class="status pass">PASS</td><td class="detail">ρ = -0.00605 (rank-level agreement with the Pearson verdict)</td></tr>
+</tbody></table>
+<div class="gate-plot">
+<img src="test_307_sequence_correlation/plots/plot_1.png" alt="H7. Sequence-level correlation vs γₙ (Pearson/Spearman) plot">
+</div>
+<div class="gate-plot">
+<img src="test_307_sequence_correlation/plots/plot_2.png" alt="H7. Sequence-level correlation vs γₙ (Pearson/Spearman) plot">
+</div>
+<div class="gate-notes">
+<p>Raw level-index correlations are trivially ≈ 1 (both sequences increase) — the honest statistic correlates the FLUCTUATIONS around the respective mean densities, with the outer 10% of the sequence trimmed and a moving-average high-pass applied to BOTH sides of every correlation (the local-window estimator leaves a slow common bias: untrimmed independent GUE–GUE pairs falsely correlate at |r| ≈ 0.65, edge-trimming alone still 0.2–0.5 — measured during calibration; the high-pass restores the theoretical 1/√m band). A genuine pointwise H-P identification would be a LOCAL, high-frequency feature and survives the filter. The null band is EMPIRICAL: independent GUE–GUE pairs of the same length processed by the identical pipeline. ζ uses the exact Riemann–Weil unfolding N̄; the AB side necessarily uses the local window estimate (its true counting function is the thing under test). Independent GUE realizations correlate at zero — that is exactly why GUE universality is compatible with NO pointwise H-P identification.</p>
+</div>
+</article>
+</section>
+<footer>
+<div>HP·Meridian v25.1-PLASMA · standalone Hilbert–Pólya audit · detector-validity verdicts (physics headlines live inside the tests)</div>
+<div>Author: Isaev Iskhak Khamzatovich · ORCID 0009-0003-7299-0701</div>
+</footer>
+</div>
+</body></html>

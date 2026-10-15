@@ -1,0 +1,434 @@
+FULL RUN LOG — run_2026-10-15_125845 (hp_audit_standalone v23.6, menu)
+ONE consolidated file: every test's computation log + console capture, in run order
+(two-files contract: the whole run is readable from final_report.md/html + this log)
+
+═════════════════════════════════════════════════════════════════════
+test_301_prime_oscillations — H1. Prime oscillations (Berry–Keating fingerprint)   [WARN]
+═════════════════════════════════════════════════════════════════════
+--- computation log (every log_comp while this test ran) ---
+[2026-10-15 12:58:57]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2127)
+[2026-10-15 12:58:57]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 12:59:44]   H1: config seed=2127 raw FT + K(t) accumulated (5184 levels)
+[2026-10-15 12:59:44]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2128)
+[2026-10-15 12:59:44]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 13:00:32]   H1: config seed=2128 raw FT + K(t) accumulated (5184 levels)
+[2026-10-15 13:00:32]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2129)
+[2026-10-15 13:00:32]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 13:01:23]   H1: config seed=2129 raw FT + K(t) accumulated (5184 levels)
+[2026-10-15 13:01:26]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2737)
+[2026-10-15 13:01:27]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:02:14]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2738)
+[2026-10-15 13:02:14]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:04:58]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43027)
+[2026-10-15 13:04:58]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 13:05:57]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43028)
+[2026-10-15 13:05:58]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 13:07:05]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43029)
+[2026-10-15 13:07:06]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 13:09:50]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43926)
+[2026-10-15 13:09:51]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:14:09]   H1 regime B: 5184 raw levels/config, max prime-SNR 6.75, regime null ceiling 3.84 (MARGINAL (above regime nulls))
+[2026-10-15 13:14:10]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44027)
+[2026-10-15 13:14:10]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 13:16:15]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44028)
+[2026-10-15 13:16:15]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 13:19:26]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44029)
+[2026-10-15 13:19:26]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 13:20:45]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44926)
+[2026-10-15 13:20:45]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:23:34]   H1 regime C: 5184 raw levels/config, max prime-SNR 7.66, regime null ceiling 6.99 (MARGINAL (above regime nulls))
+[2026-10-15 13:23:35]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45027)
+[2026-10-15 13:23:35]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 13:24:51]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45028)
+[2026-10-15 13:24:51]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 13:25:53]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45029)
+[2026-10-15 13:25:53]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 13:27:04]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45926)
+[2026-10-15 13:27:04]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:30:34]   H1 regime D: 5184 raw levels/config, max prime-SNR 30.62, regime null ceiling 6.99 (MARGINAL (above regime nulls))
+[2026-10-15 13:30:36]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43727)
+[2026-10-15 13:30:36]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:32:36]   H1 deepen [B] vortex-free null 1/20: max prime-SNR 2.11
+[2026-10-15 13:32:36]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43728)
+[2026-10-15 13:32:37]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:34:23]   H1 deepen [B] vortex-free null 2/20: max prime-SNR 2.11
+[2026-10-15 13:34:23]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43729)
+[2026-10-15 13:34:23]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:36:11]   H1 deepen [B] vortex-free null 3/20: max prime-SNR 2.11
+[2026-10-15 13:36:11]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43730)
+[2026-10-15 13:36:11]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:37:29]   H1 deepen [B] vortex-free null 4/20: max prime-SNR 2.11
+[2026-10-15 13:37:29]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43731)
+[2026-10-15 13:37:29]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:39:56]   H1 deepen [B] vortex-free null 5/20: max prime-SNR 2.11
+[2026-10-15 13:39:56]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43732)
+[2026-10-15 13:39:56]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:42:29]   H1 deepen [B] vortex-free null 6/20: max prime-SNR 2.11
+[2026-10-15 13:42:29]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43733)
+[2026-10-15 13:42:29]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:43:46]   H1 deepen [B] vortex-free null 7/20: max prime-SNR 2.11
+[2026-10-15 13:43:46]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43734)
+[2026-10-15 13:43:46]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:45:50]   H1 deepen [B] vortex-free null 8/20: max prime-SNR 2.11
+[2026-10-15 13:45:50]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43735)
+[2026-10-15 13:45:50]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:47:05]   H1 deepen [B] vortex-free null 9/20: max prime-SNR 2.11
+[2026-10-15 13:47:05]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43736)
+[2026-10-15 13:47:06]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:48:20]   H1 deepen [B] vortex-free null 10/20: max prime-SNR 2.11
+[2026-10-15 13:48:20]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43737)
+[2026-10-15 13:48:20]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:49:29]   H1 deepen [B] vortex-free null 11/20: max prime-SNR 2.11
+[2026-10-15 13:49:29]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43738)
+[2026-10-15 13:49:30]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:50:24]   H1 deepen [B] vortex-free null 12/20: max prime-SNR 2.11
+[2026-10-15 13:50:24]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43739)
+[2026-10-15 13:50:24]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:51:20]   H1 deepen [B] vortex-free null 13/20: max prime-SNR 2.11
+[2026-10-15 13:51:20]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43740)
+[2026-10-15 13:51:20]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:52:30]   H1 deepen [B] vortex-free null 14/20: max prime-SNR 2.11
+[2026-10-15 13:52:30]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43741)
+[2026-10-15 13:52:30]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:53:30]   H1 deepen [B] vortex-free null 15/20: max prime-SNR 2.11
+[2026-10-15 13:53:30]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43742)
+[2026-10-15 13:53:31]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:54:37]   H1 deepen [B] vortex-free null 16/20: max prime-SNR 2.11
+[2026-10-15 13:54:37]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43743)
+[2026-10-15 13:54:37]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:55:37]   H1 deepen [B] vortex-free null 17/20: max prime-SNR 2.11
+[2026-10-15 13:55:37]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43744)
+[2026-10-15 13:55:37]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:56:45]   H1 deepen [B] vortex-free null 18/20: max prime-SNR 2.11
+[2026-10-15 13:56:45]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43745)
+[2026-10-15 13:56:45]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:57:41]   H1 deepen [B] vortex-free null 19/20: max prime-SNR 2.11
+[2026-10-15 13:57:41]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43746)
+[2026-10-15 13:57:41]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 13:59:46]   H1 deepen [B] vortex-free null 20/20: max prime-SNR 2.11
+[2026-10-15 14:02:52]   H1 deepen [B] GUE null 1/20: max prime-SNR 3.18
+[2026-10-15 14:06:07]   H1 deepen [B] GUE null 2/20: max prime-SNR 1.58
+[2026-10-15 14:09:04]   H1 deepen [B] GUE null 3/20: max prime-SNR 4.13
+[2026-10-15 14:11:13]   H1 deepen [B] GUE null 4/20: max prime-SNR 7.45
+[2026-10-15 14:13:04]   H1 deepen [B] GUE null 5/20: max prime-SNR 3.98
+[2026-10-15 14:14:59]   H1 deepen [B] GUE null 6/20: max prime-SNR 7.32
+[2026-10-15 14:16:41]   H1 deepen [B] GUE null 7/20: max prime-SNR 5.46
+[2026-10-15 14:18:40]   H1 deepen [B] GUE null 8/20: max prime-SNR 4.82
+[2026-10-15 14:19:45]   H1 deepen [B] GUE null 9/20: max prime-SNR 4.31
+[2026-10-15 14:20:47]   H1 deepen [B] GUE null 10/20: max prime-SNR 4.69
+[2026-10-15 14:21:52]   H1 deepen [B] GUE null 11/20: max prime-SNR 6.36
+[2026-10-15 14:22:54]   H1 deepen [B] GUE null 12/20: max prime-SNR 1.83
+[2026-10-15 14:24:03]   H1 deepen [B] GUE null 13/20: max prime-SNR 3.97
+[2026-10-15 14:25:13]   H1 deepen [B] GUE null 14/20: max prime-SNR 1.11
+[2026-10-15 14:26:19]   H1 deepen [B] GUE null 15/20: max prime-SNR 3.43
+[2026-10-15 14:27:34]   H1 deepen [B] GUE null 16/20: max prime-SNR 6.43
+[2026-10-15 14:28:44]   H1 deepen [B] GUE null 17/20: max prime-SNR 4.06
+[2026-10-15 14:29:49]   H1 deepen [B] GUE null 18/20: max prime-SNR 3.13
+[2026-10-15 14:30:51]   H1 deepen [B] GUE null 19/20: max prime-SNR 11.81
+[2026-10-15 14:31:51]   H1 deepen [B] GUE null 20/20: max prime-SNR 3.42
+[2026-10-15 14:31:51]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43627)
+[2026-10-15 14:31:51]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 14:32:57]   H1 deepen [B] AB config 1/10 (seed=43627)
+[2026-10-15 14:32:57]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43628)
+[2026-10-15 14:32:57]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 14:34:32]   H1 deepen [B] AB config 2/10 (seed=43628)
+[2026-10-15 14:34:32]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43629)
+[2026-10-15 14:34:33]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 14:35:44]   H1 deepen [B] AB config 3/10 (seed=43629)
+[2026-10-15 14:35:44]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43630)
+[2026-10-15 14:35:45]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 14:36:48]   H1 deepen [B] AB config 4/10 (seed=43630)
+[2026-10-15 14:36:48]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43631)
+[2026-10-15 14:36:48]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 14:38:04]   H1 deepen [B] AB config 5/10 (seed=43631)
+[2026-10-15 14:38:04]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43632)
+[2026-10-15 14:38:04]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 14:39:34]   H1 deepen [B] AB config 6/10 (seed=43632)
+[2026-10-15 14:39:34]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43633)
+[2026-10-15 14:39:34]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 14:40:45]   H1 deepen [B] AB config 7/10 (seed=43633)
+[2026-10-15 14:40:45]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43634)
+[2026-10-15 14:40:45]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 14:42:00]   H1 deepen [B] AB config 8/10 (seed=43634)
+[2026-10-15 14:42:00]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43635)
+[2026-10-15 14:42:00]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 14:43:14]   H1 deepen [B] AB config 9/10 (seed=43635)
+[2026-10-15 14:43:14]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43636)
+[2026-10-15 14:43:15]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 14:44:21]   H1 deepen [B] AB config 10/10 (seed=43636)
+[2026-10-15 14:44:22]   H1 deepen [B]: deep AB max 6.10, null P95 7.32 (40 draws) → absent
+[2026-10-15 14:44:23]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44727)
+[2026-10-15 14:44:23]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 14:45:17]   H1 deepen [C] vortex-free null 1/20: max prime-SNR 6.99
+[2026-10-15 14:45:17]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44728)
+[2026-10-15 14:45:17]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 14:46:21]   H1 deepen [C] vortex-free null 2/20: max prime-SNR 6.99
+[2026-10-15 14:46:21]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44729)
+[2026-10-15 14:46:21]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 14:47:32]   H1 deepen [C] vortex-free null 3/20: max prime-SNR 6.99
+[2026-10-15 14:47:32]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44730)
+[2026-10-15 14:47:33]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 14:49:22]   H1 deepen [C] vortex-free null 4/20: max prime-SNR 6.99
+[2026-10-15 14:49:22]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44731)
+[2026-10-15 14:49:22]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 14:50:35]   H1 deepen [C] vortex-free null 5/20: max prime-SNR 6.99
+[2026-10-15 14:50:35]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44732)
+[2026-10-15 14:50:35]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 14:52:03]   H1 deepen [C] vortex-free null 6/20: max prime-SNR 6.99
+[2026-10-15 14:52:03]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44733)
+[2026-10-15 14:52:03]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 14:53:30]   H1 deepen [C] vortex-free null 7/20: max prime-SNR 6.99
+[2026-10-15 14:53:30]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44734)
+[2026-10-15 14:53:31]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 14:55:07]   H1 deepen [C] vortex-free null 8/20: max prime-SNR 6.99
+[2026-10-15 14:55:07]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44735)
+[2026-10-15 14:55:07]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 14:57:42]   H1 deepen [C] vortex-free null 9/20: max prime-SNR 6.99
+[2026-10-15 14:57:42]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44736)
+[2026-10-15 14:57:43]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 14:59:52]   H1 deepen [C] vortex-free null 10/20: max prime-SNR 6.99
+[2026-10-15 14:59:52]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44737)
+[2026-10-15 14:59:53]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 15:02:14]   H1 deepen [C] vortex-free null 11/20: max prime-SNR 6.99
+[2026-10-15 15:02:14]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44738)
+[2026-10-15 15:02:14]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 15:05:06]   H1 deepen [C] vortex-free null 12/20: max prime-SNR 6.99
+[2026-10-15 15:05:06]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44739)
+[2026-10-15 15:05:07]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 15:07:11]   H1 deepen [C] vortex-free null 13/20: max prime-SNR 6.99
+[2026-10-15 15:07:11]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44740)
+[2026-10-15 15:07:11]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 15:09:12]   H1 deepen [C] vortex-free null 14/20: max prime-SNR 6.99
+[2026-10-15 15:09:12]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44741)
+[2026-10-15 15:09:13]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 15:10:40]   H1 deepen [C] vortex-free null 15/20: max prime-SNR 6.99
+[2026-10-15 15:10:40]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44742)
+[2026-10-15 15:10:41]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 15:12:17]   H1 deepen [C] vortex-free null 16/20: max prime-SNR 6.99
+[2026-10-15 15:12:17]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44743)
+[2026-10-15 15:12:17]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 15:13:36]   H1 deepen [C] vortex-free null 17/20: max prime-SNR 6.99
+[2026-10-15 15:13:36]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44744)
+[2026-10-15 15:13:36]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 15:15:02]   H1 deepen [C] vortex-free null 18/20: max prime-SNR 6.99
+[2026-10-15 15:15:02]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44745)
+[2026-10-15 15:15:02]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 15:16:06]   H1 deepen [C] vortex-free null 19/20: max prime-SNR 6.99
+[2026-10-15 15:16:06]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44746)
+[2026-10-15 15:16:06]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 15:17:13]   H1 deepen [C] vortex-free null 20/20: max prime-SNR 6.99
+[2026-10-15 15:18:16]   H1 deepen [C] GUE null 1/20: max prime-SNR 5.57
+[2026-10-15 15:19:25]   H1 deepen [C] GUE null 2/20: max prime-SNR 2.22
+[2026-10-15 15:21:09]   H1 deepen [C] GUE null 3/20: max prime-SNR 1.56
+[2026-10-15 15:22:33]   H1 deepen [C] GUE null 4/20: max prime-SNR 3.47
+[2026-10-15 15:23:34]   H1 deepen [C] GUE null 5/20: max prime-SNR 15.82
+[2026-10-15 15:24:55]   H1 deepen [C] GUE null 6/20: max prime-SNR 3.90
+[2026-10-15 15:25:59]   H1 deepen [C] GUE null 7/20: max prime-SNR 12.40
+[2026-10-15 15:26:57]   H1 deepen [C] GUE null 8/20: max prime-SNR 2.77
+[2026-10-15 15:27:53]   H1 deepen [C] GUE null 9/20: max prime-SNR 4.17
+[2026-10-15 15:28:53]   H1 deepen [C] GUE null 10/20: max prime-SNR 1.52
+[2026-10-15 15:30:06]   H1 deepen [C] GUE null 11/20: max prime-SNR 6.09
+[2026-10-15 15:31:08]   H1 deepen [C] GUE null 12/20: max prime-SNR 2.86
+[2026-10-15 15:32:39]   H1 deepen [C] GUE null 13/20: max prime-SNR 5.42
+[2026-10-15 15:34:05]   H1 deepen [C] GUE null 14/20: max prime-SNR 3.48
+[2026-10-15 15:35:22]   H1 deepen [C] GUE null 15/20: max prime-SNR 5.52
+[2026-10-15 15:36:25]   H1 deepen [C] GUE null 16/20: max prime-SNR 5.12
+[2026-10-15 15:37:35]   H1 deepen [C] GUE null 17/20: max prime-SNR 5.39
+[2026-10-15 15:38:43]   H1 deepen [C] GUE null 18/20: max prime-SNR 4.89
+[2026-10-15 15:40:22]   H1 deepen [C] GUE null 19/20: max prime-SNR 3.04
+[2026-10-15 15:41:26]   H1 deepen [C] GUE null 20/20: max prime-SNR 4.73
+[2026-10-15 15:41:26]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44627)
+[2026-10-15 15:41:26]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 15:42:30]   H1 deepen [C] AB config 1/10 (seed=44627)
+[2026-10-15 15:42:30]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44628)
+[2026-10-15 15:42:30]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 15:43:49]   H1 deepen [C] AB config 2/10 (seed=44628)
+[2026-10-15 15:43:49]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44629)
+[2026-10-15 15:43:49]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 15:45:10]   H1 deepen [C] AB config 3/10 (seed=44629)
+[2026-10-15 15:45:10]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44630)
+[2026-10-15 15:45:11]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 15:46:34]   H1 deepen [C] AB config 4/10 (seed=44630)
+[2026-10-15 15:46:34]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44631)
+[2026-10-15 15:46:34]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 15:48:03]   H1 deepen [C] AB config 5/10 (seed=44631)
+[2026-10-15 15:48:03]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44632)
+[2026-10-15 15:48:03]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 15:49:32]   H1 deepen [C] AB config 6/10 (seed=44632)
+[2026-10-15 15:49:32]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44633)
+[2026-10-15 15:49:32]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 15:51:51]   H1 deepen [C] AB config 7/10 (seed=44633)
+[2026-10-15 15:51:51]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44634)
+[2026-10-15 15:51:52]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 15:53:23]   H1 deepen [C] AB config 8/10 (seed=44634)
+[2026-10-15 15:53:23]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44635)
+[2026-10-15 15:53:24]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 15:54:28]   H1 deepen [C] AB config 9/10 (seed=44635)
+[2026-10-15 15:54:28]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44636)
+[2026-10-15 15:54:28]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 15:55:28]   H1 deepen [C] AB config 10/10 (seed=44636)
+[2026-10-15 15:55:28]   H1 deepen [C]: deep AB max 7.48, null P95 7.26 (40 draws) → MARGINAL
+[2026-10-15 15:55:28]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45727)
+[2026-10-15 15:55:29]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 15:56:51]   H1 deepen [D] vortex-free null 1/20: max prime-SNR 6.99
+[2026-10-15 15:56:51]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45728)
+[2026-10-15 15:56:52]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 15:59:06]   H1 deepen [D] vortex-free null 2/20: max prime-SNR 6.99
+[2026-10-15 15:59:06]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45729)
+[2026-10-15 15:59:07]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:00:54]   H1 deepen [D] vortex-free null 3/20: max prime-SNR 6.99
+[2026-10-15 16:00:54]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45730)
+[2026-10-15 16:00:54]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:03:05]   H1 deepen [D] vortex-free null 4/20: max prime-SNR 6.99
+[2026-10-15 16:03:05]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45731)
+[2026-10-15 16:03:05]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:06:52]   H1 deepen [D] vortex-free null 5/20: max prime-SNR 6.99
+[2026-10-15 16:06:52]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45732)
+[2026-10-15 16:06:53]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:08:47]   H1 deepen [D] vortex-free null 6/20: max prime-SNR 6.99
+[2026-10-15 16:08:47]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45733)
+[2026-10-15 16:08:48]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:11:15]   H1 deepen [D] vortex-free null 7/20: max prime-SNR 6.99
+[2026-10-15 16:11:15]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45734)
+[2026-10-15 16:11:16]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:13:57]   H1 deepen [D] vortex-free null 8/20: max prime-SNR 6.99
+[2026-10-15 16:13:57]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45735)
+[2026-10-15 16:13:57]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:15:26]   H1 deepen [D] vortex-free null 9/20: max prime-SNR 6.99
+[2026-10-15 16:15:26]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45736)
+[2026-10-15 16:15:26]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:16:29]   H1 deepen [D] vortex-free null 10/20: max prime-SNR 6.99
+[2026-10-15 16:16:29]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45737)
+[2026-10-15 16:16:29]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:18:03]   H1 deepen [D] vortex-free null 11/20: max prime-SNR 6.99
+[2026-10-15 16:18:03]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45738)
+[2026-10-15 16:18:04]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:19:18]   H1 deepen [D] vortex-free null 12/20: max prime-SNR 6.99
+[2026-10-15 16:19:18]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45739)
+[2026-10-15 16:19:18]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:20:10]   H1 deepen [D] vortex-free null 13/20: max prime-SNR 6.99
+[2026-10-15 16:20:10]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45740)
+[2026-10-15 16:20:11]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:21:05]   H1 deepen [D] vortex-free null 14/20: max prime-SNR 6.99
+[2026-10-15 16:21:05]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45741)
+[2026-10-15 16:21:05]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:22:04]   H1 deepen [D] vortex-free null 15/20: max prime-SNR 6.99
+[2026-10-15 16:22:04]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45742)
+[2026-10-15 16:22:04]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:23:24]   H1 deepen [D] vortex-free null 16/20: max prime-SNR 6.99
+[2026-10-15 16:23:24]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45743)
+[2026-10-15 16:23:25]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:24:44]   H1 deepen [D] vortex-free null 17/20: max prime-SNR 6.99
+[2026-10-15 16:24:44]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45744)
+[2026-10-15 16:24:45]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:25:35]   H1 deepen [D] vortex-free null 18/20: max prime-SNR 6.99
+[2026-10-15 16:25:35]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45745)
+[2026-10-15 16:25:35]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:26:38]   H1 deepen [D] vortex-free null 19/20: max prime-SNR 6.99
+[2026-10-15 16:26:38]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45746)
+[2026-10-15 16:26:39]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 16:27:39]   H1 deepen [D] vortex-free null 20/20: max prime-SNR 6.99
+[2026-10-15 16:28:35]   H1 deepen [D] GUE null 1/20: max prime-SNR 5.92
+[2026-10-15 16:30:04]   H1 deepen [D] GUE null 2/20: max prime-SNR 6.48
+[2026-10-15 16:31:21]   H1 deepen [D] GUE null 3/20: max prime-SNR 1.94
+[2026-10-15 16:32:47]   H1 deepen [D] GUE null 4/20: max prime-SNR 8.44
+[2026-10-15 16:33:41]   H1 deepen [D] GUE null 5/20: max prime-SNR 7.30
+[2026-10-15 16:34:42]   H1 deepen [D] GUE null 6/20: max prime-SNR 7.61
+[2026-10-15 16:35:35]   H1 deepen [D] GUE null 7/20: max prime-SNR 2.32
+[2026-10-15 16:36:50]   H1 deepen [D] GUE null 8/20: max prime-SNR 5.18
+[2026-10-15 16:37:49]   H1 deepen [D] GUE null 9/20: max prime-SNR 2.36
+[2026-10-15 16:38:39]   H1 deepen [D] GUE null 10/20: max prime-SNR 2.25
+[2026-10-15 16:39:34]   H1 deepen [D] GUE null 11/20: max prime-SNR 9.43
+[2026-10-15 16:40:27]   H1 deepen [D] GUE null 12/20: max prime-SNR 3.38
+[2026-10-15 16:41:25]   H1 deepen [D] GUE null 13/20: max prime-SNR 6.59
+[2026-10-15 16:42:16]   H1 deepen [D] GUE null 14/20: max prime-SNR 2.04
+[2026-10-15 16:43:07]   H1 deepen [D] GUE null 15/20: max prime-SNR 4.79
+[2026-10-15 16:43:58]   H1 deepen [D] GUE null 16/20: max prime-SNR 3.21
+[2026-10-15 16:44:47]   H1 deepen [D] GUE null 17/20: max prime-SNR 3.99
+[2026-10-15 16:45:44]   H1 deepen [D] GUE null 18/20: max prime-SNR 2.12
+[2026-10-15 16:46:40]   H1 deepen [D] GUE null 19/20: max prime-SNR 2.93
+[2026-10-15 16:47:35]   H1 deepen [D] GUE null 20/20: max prime-SNR 0.52
+[2026-10-15 16:47:35]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45627)
+[2026-10-15 16:47:36]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 16:48:33]   H1 deepen [D] AB config 1/10 (seed=45627)
+[2026-10-15 16:48:33]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45628)
+[2026-10-15 16:48:33]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 16:49:32]   H1 deepen [D] AB config 2/10 (seed=45628)
+[2026-10-15 16:49:32]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45629)
+[2026-10-15 16:49:32]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 16:51:48]   H1 deepen [D] AB config 3/10 (seed=45629)
+[2026-10-15 16:51:48]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45630)
+[2026-10-15 16:51:48]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 16:52:52]   H1 deepen [D] AB config 4/10 (seed=45630)
+[2026-10-15 16:52:52]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45631)
+[2026-10-15 16:52:53]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 16:54:19]   H1 deepen [D] AB config 5/10 (seed=45631)
+[2026-10-15 16:54:19]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45632)
+[2026-10-15 16:54:19]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 16:55:27]   H1 deepen [D] AB config 6/10 (seed=45632)
+[2026-10-15 16:55:27]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45633)
+[2026-10-15 16:55:28]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 16:56:25]   H1 deepen [D] AB config 7/10 (seed=45633)
+[2026-10-15 16:56:25]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45634)
+[2026-10-15 16:56:26]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 16:57:23]   H1 deepen [D] AB config 8/10 (seed=45634)
+[2026-10-15 16:57:23]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45635)
+[2026-10-15 16:57:23]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 16:58:21]   H1 deepen [D] AB config 9/10 (seed=45635)
+[2026-10-15 16:58:21]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45636)
+[2026-10-15 16:58:21]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 16:59:31]   H1 deepen [D] AB config 10/10 (seed=45636)
+[2026-10-15 16:59:31]   H1 deepen [D]: deep AB max 19.44, null P95 7.65 (40 draws) → MARGINAL
+--- console capture (the REPORT) ---
+
+╔══════════════════════════════════════════════════════════════╗
+║                    GATE H1 · PRIME-TRACE                     ║
+╠══════════════════════════════════════════════════════════════╣
+║  Prime oscillations — Berry-Keating fingerprint (arithmetic  ║
+║                         specificity)                         ║
+╚══════════════════════════════════════════════════════════════╝
+  Does the 1-level density oscillate EXACTLY at ω = log(p)
+  once generic structure is removed?
+ AB spectrum: 3 configs on 72×72 (FULL raw spectrum, no unfolding) | ζ control: first 20000 zeros
+ D1 scan: ω ∈ [0.3, 3.0] step 0.004 (auto-extended to every target, v23.6) | thresholds: fingerprint ≥ 50, control ≥ 100, null ceiling < 10
+ Prime targets (6): log(2)=0.6931  log(3)=1.0986  log(5)=1.6094  log(7)=1.9459  log(11)=2.3979  log(13)=2.5649
+ ζ control D1 (20000 zeros): SNR at log p = 1.5e+08 / 5.0e+07 / 3.6e+07 / 2.5e+07 / 2.3e+07 / 2.3e+09
+   → 6/6 primes ≥ 100 → Bragg structure at prime logs CONFIRMED (Riemann–Weil expectation)
+ ζ control D2 (K-residual route): SNR = 1.4 / 1.7 / 1.7 / 1.2 / 0.4 / 2.0 → does NOT fire at this scale — the 1-level signal enters the 2-level K(t) only at subleading order (reported honestly)
+ Nulls D1: vortex-free #1: max 2.1 | vortex-free #2: max 2.1 | GUE #1: max 1.4 | GUE #2: max 3.1 → empirical ceiling 3.1 (limit 10)
+
+ AB-cloud D1 (3-config ensemble, 5184 raw levels): SNR at log p = 1.3 / 0.0 / 1.8 / 2.1 / 0.7 / 0.3
+   → 0/6 primes ≥ 50 (threshold 50 = max(50, 10× ceiling 3.1))
+  ● ARITHMETIC FINGERPRINT ABSENT — no prime-log signature above the noise ceiling (GUE-universal statistics only)
+ Cross-check vs Test 35: RMS(K_AB − K_box, t ≥ 0.3) = 0.3172 (Test 35 target < 0.30)
+
+ Regime sweep (reviewer actions): 3 extra parameter points × 3 configs, each vs its OWN regime-matched nulls
+   (the ζ fingerprint signature is a simultaneous Bragg comb on ALL primes at SNR ≥ 10²; an isolated
+    log(2) bump is the classic generic resonance — the regime-matched nulls below decide which it is)
+ regime B (Nv=144 (2.78% of sites, L²/36 anchor), α=0.5000): max prime-SNR 6.8 at log(2) | regime nulls: vortex-free 2.1, GUE 3.8 → ceiling 3.8 → fingerprint MARGINAL (above regime nulls)
+ regime C (Nv=4 (0.08% of sites), α=0.0278, 25/900 sharp-flux): max prime-SNR 7.7 at log(2) | regime nulls: vortex-free 7.0, GUE 4.9 → ceiling 7.0 → fingerprint MARGINAL (above regime nulls)
+ regime D (Nv=144 (2.78% of sites, L²/36 anchor), α=0.0278, 25/900 sharp-flux): max prime-SNR 30.6 at log(2) | regime nulls: vortex-free 7.0, GUE 4.0 → ceiling 7.0 → fingerprint MARGINAL (above regime nulls)
+
+ DEEPEN protocol (v23.6): 3 regime(s) at/above their 1+1-realization ceiling (B,C,D) → null distribution from 20 vortex-free + 20 GUE realizations, AB ensemble +10 configs; pre-registered rule: deep AB bump ≤ P95(null maxima) → generic artifact → absent
+   [B] deep AB max prime-SNR 6.1 at log(2) (13 configs) | deep nulls: min 1.1 / median 2.1 / P95 7.3 / max 11.8 (40 draws) → bump ≤ P95 → GENERIC FLUX-GEOMETRY ARTIFACT — fingerprint absent (the reviewer's question closed by data)
+   [C] deep AB max prime-SNR 7.5 at log(2) (13 configs) | deep nulls: min 1.5 / median 7.0 / P95 7.3 / max 15.8 (40 draws) → bump > P95 → unexplained even vs deep nulls — ESCALATE (zoom scan around the bump, per-config persistence)
+   [D] deep AB max prime-SNR 19.4 at log(2) (13 configs) | deep nulls: min 0.5 / median 7.0 / P95 7.7 / max 9.4 (40 draws) → bump > P95 → unexplained even vs deep nulls — ESCALATE (zoom scan around the bump, per-config persistence)
+╭─◆ Test H1  ·  5 sub-checks → WARN                            ╮
+│✓ ζ control fires (D1) — 6/6 prime Bragg peaks with SNR ≥ 100 │
+│(Riemann–Weil expectation)                                    │
+│✓ nulls silent (D1) — vortex-free + GUE ceiling = 3.1 (abs    │
+│limit 10; weakest ζ peak 2.3e+07 — 100× margin ok)            │
+│✓ AB fingerprint verdict — ABSENT — max SNR 2.1 < threshold 50│
+│⚠ fingerprint regime-robust (sweep) — max SNR per regime (own │
+│null ceiling in parens): [B] 6.1 (7.3) [C] 7.5 (7.3) [D] 19.4 │
+│(7.7) → MARGINAL above regime nulls at [C] 7.5 vs ceiling 7.3,│
+│[D] 19.4 vs ceiling 7.7 → NOT explained by non-arithmetic     │
+│spectra at the same parameters — deepen before any claim      │
+│(reviewer round 2) DEEPENED (v23.6, pre-registered P95 rule): │
+│[B] deep AB 6.1 vs P95 7.3 → absent; [C] deep AB 7.5 vs P95   │
+│7.3 → MARGINAL; [D] deep AB 19.4 vs P95 7.7 → MARGINAL        │
+│⚠ Envelope cross-check (D2) — RMS(K−K_box, t≥0.3) = 0.3172    │
+│(Test-35 family target < 0.30; gates the test status)         │
+╰──────────────────────────────────────────────────────────────╯
+--- notes ---
+ • D1 (primary) is the 1-level raw-position Fourier transform: the Riemann–Weil explicit formula puts the arithmetic information into pure tones ω = k·log(p) of the RAW density, so a spectrum carrying it shows Bragg peaks there. Empirical calibration at v23.3 defaults: ζ control fires at SNR 10⁶–10⁹ (log 2, log 3, log 5, log 13 AND harmonics 3·log 2, 4·log 2 — the explicit-formula signature), vortex-free Hofstadter nulls ≤ 2.1, GUE nulls ≤ 5.2. D2 (the K(t)-residual route) is the two-level cross-check: intrinsically less sensitive because the 1-level explicit-formula signal enters the 2-level statistic only at subleading order — its ζ control honestly does NOT fire at suite scale, which the report states explicitly. The AB verdict compares against the EMPIRICAL null ceiling with a 10× margin. REGIME SWEEP (reviewer actions 2026-09-06, rounds 1+2): the AB spectra are re-measured at the H5 showdown's parameter points — monograph density Nv = L²/36, sharp-flux α = 25/900, and both combined — because an ABSENT fingerprint counts as a model-class statement only if it survives the model's best-faith points. Round 2: each extra regime ALSO runs its own regime-matched null controls (vortex-free lattice at the same α + GUE at matched size, fresh seeds), and the regime bump is judged against THAT ceiling: an isolated log(2) bump that the nulls reproduce at the same parameters is a generic lattice/flux-geometry artifact (the ζ signature is a simultaneous comb on ALL primes at SNR 10⁷+, not a single-prime bump), while a bump above the regime nulls earns an honest WARN and deeper study; the sweep status enters the test status — no PASS painted over MARGINAL content. v23.6 (reviewer round 3): (a) the D1 window AUTO-EXTENDS to every target and the target list SPLITS into primes vs composite DECOYS — the ζ Bragg comb must be silent on the decoys (specificity clause folded into zeta_ok), and the AB decoy SNR is reported alongside; (b) a MARGINAL/PRESENT regime triggers the DEEPEN protocol: the regime null ceiling is re-estimated from hp_deep_nulls vortex-free + hp_deep_nulls GUE realizations (the round-2 ceiling came from ONE of each — an extreme-value statistic whose single-draw noise is comparable to the observed 7.6-vs-6.8 margin), the AB ensemble is extended by hp_deep_configs configs, and the pre-registered rule fires: deep bump ≤ P95(null maxima) → generic flux-geometry artifact → regime absent (question closed by data); bump > P95 → unexplained even vs deep nulls → honest WARN with escalation.

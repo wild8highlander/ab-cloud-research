@@ -1,3 +1,7 @@
+<div align="center">
+
+<img src="assets/banner.svg" alt="AB-Cloud 3D — animated banner: the rotating 36³ lattice wireframe with the pulsing vortex node and orbit, the critical strip with blinking zeros, and the σ-ensemble dial" width="100%"/>
+
 # AB-Cloud 3D — Universal Lattice Operating System for the Riemann Zeros
 
 Numerical verification framework accompanying the preprint *"AB-Cloud: A
@@ -8,8 +12,12 @@ non-trivial zeros of the Riemann zeta function.
 
 [![Language: Python + Julia](https://img.shields.io/badge/Languages-Python%20%7C%20Julia-blue.svg)](./code/)
 [![Zeros: 5000 embedded](https://img.shields.io/badge/Zeros-5000%20embedded-green.svg)](./data/)
-[![Lattice: 36³](https://img.shields.io/badge/Lattice-36%C2%B3-orange.svg)]()
+[![Lattice: 36³](https://img.shields.io/badge/Lattice-36%C2%B3-orange.svg)](./code/)
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](../LICENSE)
+
+<img src="assets/avatars.svg" alt="The lab-3d cast: the 36³ lattice, the 5000 embedded zeros, the σ-dial and the preprint" width="620"/>
+
+</div>
 
 ---
 

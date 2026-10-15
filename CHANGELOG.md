@@ -1,5 +1,45 @@
 # Changelog
 
+## [1.3.9] — 2026-10-16 — «every folder gets its showcase» (README beautification wave)
+
+The presentation-layer wave: the showcase treatment that
+`meridian-spectral-observatory/`, `Vortex_optimization/` and `Hilbert_Polya/`
+already had is extended to **every remaining top-level folder** — animated
+SVG banners, component avatar strips, badge rows, collapsible tables of
+contents, mermaid diagrams and cross-layer link tables. All factual content
+of the previous READMEs is preserved verbatim; no number was touched.
+
+- **Ten new animated banners + avatar strips** (SMIL SVG, VLM-verified
+  render, XML-validated): `AB_Cloud_Academic_Package` (the sealed v34 box,
+  SHA-256 seal, ζ-stream), `Wave_attractors` (the cavity, the cascading ray,
+  the attractor route + mirror twin), `apps` (the two browser windows —
+  verdict dashboard, WebGL 3-D lab), `docs` (the site window, nav filling
+  in, MathJax glow), `monographs` (RU/EN/ZH spines, flipping page, edition
+  timeline), `results` (the run terminal, FINAL_REPORT stamp), `verification`
+  (the 10-language ring around ζ), `code` (the suite terminal, progress
+  bar), `dirac-lab` (Dirac cone + Zitterbewegung + Landau ladder + Berry
+  dial), `lab-3d` (the 36³ lattice, critical strip, σ-dial).
+- **Eight READMEs rewritten** in the house style (banner, badges, cast
+  avatars, collapsible TOC, tables, mermaid, footer epigraph; English
+  primary + «Кратко (по-русски)» preserved): `AB_Cloud_Academic_Package`,
+  `Wave_attractors`, `apps`, `docs`, `monographs`, `results`,
+  `verification`, `code`. `dirac-lab` and `lab-3d` received the banner +
+  avatar inserts over their existing rich texts.
+- **Real defects found and fixed on the way:**
+  - `dirac-lab/README.md` linked five artifacts of a non-existent folder
+    `results/run_20261006_full_v13/` (REPORT_EXTENSIONS*.md, results.json);
+    the real canonical run is `results/run_20261006_081031/` (confirmed by
+    `results/CROSS_VERIFICATION.md`), and the extension ledgers are
+    `results/cross_verification_ext{,2,3}.json` — all links repointed.
+  - `CHANGELOG.md` [1.3.8] line «`Path(__file__)`-relative» was flagged by
+    markdownlint MD050 (`__file__` parsed as underscore strong); now wrapped
+    as inline code.
+  - `lab-3d/README.md` lattice badge had an empty link target `()`.
+  - markdownlint over the full CI surface (`.markdownlint-cli2.jsonc`):
+    **0 issues**; all relative links in the ten touched READMEs resolve;
+    all seven new mermaid diagrams pass mmdc; all twenty SVGs are
+    XML-valid and render-verified.
+
 ## [1.3.8] — 2026-10-15 — «verdict propagation completeness across the remaining runs»
 
 The third consistency wave: the v2.0.7/v2.0.8 verdicts had reached the
@@ -202,7 +242,7 @@ the old «H2 = NO» wording still lived, plus folder-level repairs:
 - **lab-3d:** real import bugs fixed (v2-API imports from v1 modules,
   quick_start.py rewritten to the real API and verified end-to-end);
   41 scripts de-hardcoded (machine-specific absolute paths →
-  Path(__file__)-relative); legacy runners documented («Known gaps»).
+  `Path(__file__)`-relative); legacy runners documented («Known gaps»).
 - **meridian-spectral-observatory:** catalog corrected to the actual
   contents (13 codes, real line counts, real Quick start via
   `ab_cloud_full.jl`); new showcase READMEs (EN/RU) with animated SVG

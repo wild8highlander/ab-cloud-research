@@ -1,0 +1,37 @@
+=====================================================================
+REPORT — H6. Self-adjointness & stability stress test   [PASS]
+=====================================================================
+
+╔══════════════════════════════════════════════════════════════╗
+║                   GATE H6 · HERMIT-STRESS                    ║
+╠══════════════════════════════════════════════════════════════╣
+║   Self-adjointness & stability stress test around the H-P    ║
+║                          parameters                          ║
+╚══════════════════════════════════════════════════════════════╝
+  (a) open↔torus (b) vortex/α jitter ×12 (c) L-growth with
+  hermiticity audit
+ (a) boundary: ⟨r⟩ open = 0.5983 | torus = 0.5922 | |Δ| = 0.0061 (limit 0.022; edge states live OUTSIDE the bulk window)
+ (b) jitter: 12 trials, σ_pos = 0.35, |Δα| ≤ 0.02
+     ⟨r⟩ drift ≤ 0.0195 | aligned-band spectral drift ≤ 0.0019·BW (limits 0.05 / 0.05)
+ (c) L=28: max|H−H†| = 0.00e+00 | ⟨r⟩ = 0.5879
+ (c) L=36: max|H−H†| = 0.00e+00 | ⟨r⟩ = 0.5702
+ (c) L=44: max|H−H†| = 0.00e+00 | ⟨r⟩ = 0.5933
+ (c) L=52: max|H−H†| = 0.00e+00 | ⟨r⟩ = 0.6084
+ (c) L=60: max|H−H†| = 0.00e+00 | ⟨r⟩ = 0.5939
+ (c) hermiticity worst-case: 0.00e+00 (limit 1e-9) | ⟨r⟩ ladder inside [0.53, 0.67] at every rung
+╭─◆ Test H6  ·  4 sub-checks → PASS                            ╮
+│✓ (a) open↔torus bulk — |Δ⟨r⟩| = 0.0061 ≤ 0.022               │
+│✓ (b) jitter stability — ⟨r⟩ drift 0.0195, spectral drift     │
+│0.0019·BW over 12 trials                                      │
+│✓ (c) hermiticity every rung — worst max|H−H†| = 0.00e+00     │
+│(machine-ε limit 1e-9)                                        │
+│✓ (c) ⟨r⟩ bounded on ladder — 0.5702 … 0.6084 over L =        │
+│28,36,44,52,60                                                │
+╰──────────────────────────────────────────────────────────────╯
+
+---------------------------------------------------------------------
+NOTES / METHODOLOGY
+ • A Hilbert–Pólya operator must survive the three probes that would break a fine-tuned artifact: a boundary switch (edge states must stay OUTSIDE the bulk window), parameter jitter (the spectrum may shift rigidly but must not deform — measured as the aligned-quantile drift in units of the bandwidth), and lattice growth with the hermiticity defect max|H−H†| re-verified at machine ε on EVERY rung (the systematic version of the one-off 3D hardcore H1 check).
+
+PLOTS:
+   results/run_2026-10-15_221845/test_306_stability_stress/plots/plot_1.png

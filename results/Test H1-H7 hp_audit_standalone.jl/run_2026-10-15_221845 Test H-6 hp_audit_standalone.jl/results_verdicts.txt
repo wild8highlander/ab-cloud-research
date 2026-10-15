@@ -1,0 +1,11 @@
+ONE-LINE VERDICTS (standalone HP audit, menu)
+ Test H2 [HP audit]: 4 sub-checks, 0 failed → PASS
+ Test H2: R²_A=0.98416, R²_B=0.99384, ΔAICc=+58.9 → LATTICE DOS (Model B) → PASS
+ Test H3 [HP audit]: 6 sub-checks, 0 failed → PASS
+ Test H3: per-L min|p̂−2| = 1.328 (≥ 155σ), p_∞ note: low=0.524±7.547 / bulk=0.396±6.280 → dictionary REJECTED (expected negative) → PASS
+ Test H4 [HP audit]: 5 sub-checks, 0 failed → PASS
+ Test H4: 21 q-points, KS_D min 0.4810 at q*=0.193, z=6.85 → sharp, NOT at a claimed critical (real but unpredicted) → PASS
+ Test H5 [HP audit]: 9 sub-checks, 1 failed → WARN
+ Test H5: 4 regime(s) × N=7, GUE reached in 3/4 (clean: D; OR-clause only: B,C) → failure PARAMETER-DEPENDENT (finetuning-flavored); α-profile: NONE — no clean pass anywhere on the α-line (contradicts regime C's clean pass?! check seeds/protocol) → WARN
+ Test H6 [HP audit]: 4 sub-checks, 0 failed → PASS
+ Test H6: boundary ok, jitter ok, hermiticity 0.0e+00 → PASS

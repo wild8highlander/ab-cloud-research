@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="DOCS — MKDOCS MATERIAL SITE — animated banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c0f2a"/>
+      <stop offset="0.55" stop-color="#161b4a"/>
+      <stop offset="1" stop-color="#0c0e26"/>
+    </linearGradient>
+    <linearGradient id="tg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8b9dff"/>
+      <stop offset="0.5" stop-color="#f0f2ff"/>
+      <stop offset="1" stop-color="#00c8e0"/>
+      <animate attributeName="x1" values="-0.6;0.4" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="0.4;1.4" dur="6s" repeatCount="indefinite"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#3b47b8" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#3b47b8" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M28 0H0V28" fill="none" stroke="#1a1f42" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="300" rx="14" fill="url(#bg)"/>
+  <rect width="1200" height="300" rx="14" fill="url(#grid)" opacity="0.5"/>
+  <rect width="1200" height="300" rx="14" fill="url(#halo)"/>
+  <rect x="1.5" y="1.5" width="1197" height="297" rx="13" fill="none" stroke="#2a3060" stroke-width="1.4" opacity="0.8"/>
+
+  <text x="64" y="74" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-weight="700" letter-spacing="2.2" fill="url(#tg)">DOCS — MKDOCS MATERIAL SITE</text>
+  <text x="66" y="104" font-family="Georgia, serif" font-size="16.5" font-style="italic" fill="#9aa2c8">the narrative layer of the project — the GitHub Pages documentation site, auto-deployed on every push</text>
+
+
+  <!-- окно документации -->
+  <g transform="translate(430,128)">
+    <rect x="0" y="0" width="700" height="150" rx="10" fill="#0f1338" stroke="#4550a0" stroke-width="1.8"/>
+    <rect x="0" y="0" width="700" height="24" rx="10" fill="#191f4e"/>
+    <rect x="0" y="14" width="700" height="10" fill="#191f4e"/>
+    <circle cx="15" cy="12" r="4" fill="#ff5f57"/>
+    <circle cx="30" cy="12" r="4" fill="#febc2e"/>
+    <circle cx="45" cy="12" r="4" fill="#28c840"/>
+    <rect x="196" y="4" width="312" height="15" rx="7.5" fill="#0a0d26" stroke="#3a4488" stroke-width="0.8"/>
+    <text x="208" y="15.5" font-family="'Courier New',monospace" font-size="9" fill="#7f88b0">wild8highlander.github.io/ab-cloud-research</text>
+    <!-- сайдбар -->
+    <rect x="10" y="32" width="132" height="110" rx="6" fill="#131848"/>
+      <text x="14" y="20.0" font-family="'Courier New',monospace" font-size="11.5">
+        <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.00s" fill="freeze"/>
+      </text>
+      <text x="14" y="20.0" font-family="'Courier New',monospace" font-size="11.5" fill="#aab4e0" opacity="0.92">index</text>
+      <text x="14" y="35.6" font-family="'Courier New',monospace" font-size="11.5">
+        <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.28s" fill="freeze"/>
+      </text>
+      <text x="14" y="35.6" font-family="'Courier New',monospace" font-size="11.5" fill="#aab4e0" opacity="0.92">quickstart</text>
+      <text x="14" y="51.2" font-family="'Courier New',monospace" font-size="11.5" fill="#eaf2ff" font-weight="700">
+        <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.56s" fill="freeze"/>
+      </text>
+      <text x="14" y="51.2" font-family="'Courier New',monospace" font-size="11.5" fill="#aab4e0" opacity="0.92">julia-suite</text>
+      <text x="14" y="66.8" font-family="'Courier New',monospace" font-size="11.5">
+        <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.84s" fill="freeze"/>
+      </text>
+      <text x="14" y="66.8" font-family="'Courier New',monospace" font-size="11.5" fill="#aab4e0" opacity="0.92">verification</text>
+      <text x="14" y="82.4" font-family="'Courier New',monospace" font-size="11.5">
+        <animate attributeName="opacity" values="0;1" dur="0.5s" begin="1.12s" fill="freeze"/>
+      </text>
+      <text x="14" y="82.4" font-family="'Courier New',monospace" font-size="11.5" fill="#aab4e0" opacity="0.92">monographs</text>
+      <text x="14" y="98.0" font-family="'Courier New',monospace" font-size="11.5">
+        <animate attributeName="opacity" values="0;1" dur="0.5s" begin="1.40s" fill="freeze"/>
+      </text>
+      <text x="14" y="98.0" font-family="'Courier New',monospace" font-size="11.5" fill="#aab4e0" opacity="0.92">results</text>
+      <text x="14" y="113.6" font-family="'Courier New',monospace" font-size="11.5">
+        <animate attributeName="opacity" values="0;1" dur="0.5s" begin="1.68s" fill="freeze"/>
+      </text>
+      <text x="14" y="113.6" font-family="'Courier New',monospace" font-size="11.5" fill="#aab4e0" opacity="0.92">lab3d</text>
+      <text x="14" y="129.2" font-family="'Courier New',monospace" font-size="11.5">
+        <animate attributeName="opacity" values="0;1" dur="0.5s" begin="1.96s" fill="freeze"/>
+      </text>
+      <text x="14" y="129.2" font-family="'Courier New',monospace" font-size="11.5" fill="#aab4e0" opacity="0.92">citation</text>
+      <text x="14" y="144.8" font-family="'Courier New',monospace" font-size="11.5">
+        <animate attributeName="opacity" values="0;1" dur="0.5s" begin="2.24s" fill="freeze"/>
+      </text>
+      <text x="14" y="144.8" font-family="'Courier New',monospace" font-size="11.5" fill="#aab4e0" opacity="0.92">faq</text>
+      <text x="14" y="160.4" font-family="'Courier New',monospace" font-size="11.5">
+        <animate attributeName="opacity" values="0;1" dur="0.5s" begin="2.52s" fill="freeze"/>
+      </text>
+      <text x="14" y="160.4" font-family="'Courier New',monospace" font-size="11.5" fill="#aab4e0" opacity="0.92">license</text>
+    <!-- контент -->
+    <rect x="158" y="38" width="240" height="9" rx="4.5" fill="#e6eaff" opacity="0.85"/>
+    <rect x="158" y="54" width="190" height="6" rx="3" fill="#3a4488" opacity="0.6"/>
+    <rect x="158" y="66" width="210" height="6" rx="3" fill="#3a4488" opacity="0.6"/>
+    <rect x="158" y="78" width="160" height="6" rx="3" fill="#3a4488" opacity="0.6"/>
+    <rect x="158" y="100" width="250" height="44" rx="6" fill="#0e1230" stroke="#00c8e0" stroke-width="1">
+      <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="3.6s" repeatCount="indefinite"/>
+    </rect>
+    <g transform="translate(158,124)">    <text x="14" y="34" font-family="Georgia,serif" font-size="19" font-style="italic" fill="#7fe8f5">ζ(s) = Σ n<tspan font-size="12" dy="5">−s</tspan><tspan dy="-5"> ,  s = ½ + it</tspan></text>
+      <animate attributeName="opacity" values="0.55;1;0.55" dur="3.6s" repeatCount="indefinite"/>
+    </g>
+    <!-- правая колонка: страницы-карточки -->
+    <rect x="440" y="38" width="120" height="48" rx="6" fill="#121640" stroke="#3a4488" stroke-width="1"/>
+    <rect x="440" y="94" width="120" height="48" rx="6" fill="#121640" stroke="#3a4488" stroke-width="1"/>
+    <text x="452" y="58" font-family="'Courier New',monospace" font-size="10" fill="#7f88b0">MathJax</text>
+    <text x="452" y="114" font-family="'Courier New',monospace" font-size="10" fill="#7f88b0">search</text>
+    <rect x="575" y="38" width="112" height="104" rx="6" fill="#121640" stroke="#3a4488" stroke-width="1"/>
+    <text x="587" y="58" font-family="'Courier New',monospace" font-size="10" fill="#7f88b0">mkdocs build</text>
+    <rect x="587" y="68" width="88" height="7" rx="3.5" fill="#7fe8f5">
+      <animate attributeName="width" values="8;88;8" dur="4s" repeatCount="indefinite"/>
+    </rect>
+    <text x="587" y="92" font-family="'Courier New',monospace" font-size="9.5" fill="#5a6188">12 pages</text>
+    <text x="587" y="106" font-family="'Courier New',monospace" font-size="9.5" fill="#5a6188">auto-deploy</text>
+  </g>
+  <!-- страницы, поднимающиеся к сайту -->
+  <g transform="translate(250,142)">
+    <path d="M0 60 C0 30 10 24 30 20 M60 60 C60 34 50 28 36 24" fill="none" stroke="#5a6188" stroke-width="1" stroke-dasharray="3 4" opacity="0.6"/>
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 22;0 -6;0 22" dur="5s" repeatCount="indefinite"/>
+      <rect x="14" y="0" width="34" height="42" rx="3" fill="#141a48" stroke="#8b9dff" stroke-width="1.4"/>
+      <line x1="20" y1="12" x2="42" y2="12" stroke="#8b9dff" stroke-width="1.4"/>
+      <line x1="20" y1="20" x2="38" y2="20" stroke="#8b9dff" stroke-width="1.1" opacity="0.7"/>
+      <line x1="20" y1="28" x2="42" y2="28" stroke="#8b9dff" stroke-width="1.1" opacity="0.7"/>
+    </g>
+    <text x="-18" y="80" font-family="Georgia,serif" font-size="12.5" font-style="italic" fill="#5a6188">pages link into the repository</text>
+  </g>
+
+  <g font-family="'Courier New',monospace" font-size="13.5" fill="#7f88b0">
+    <text x="64" y="278">12 pages · MathJax formulas · MkDocs Material · wild8highlander.github.io/ab-cloud-research</text>
+  </g>
+</svg>

@@ -1,17 +1,65 @@
-# apps — Two Interactive React Applications
+<div align="center">
 
-Two self-contained web apps (React 18 + Vite) that make the project's
-results explorable in a browser — no server, no Python, no Julia required.
-Both ship **prebuilt static bundles** in `dist/` (committed, GitHub Pages
-ready, relative base `./`), so you can serve them with any static file
-server or open the Pages deployment directly.
+<img src="assets/banner.svg" alt="Apps — animated banner: the two browser windows — the verdict dashboard with live bars and the PASS grid, and the WebGL 3-D lattice laboratory with the orbiting node and the critical strip" width="100%"/>
+
+# 📱 Apps — Two Interactive React Applications
+
+**Two self-contained web apps (React 18 + Vite) that make the project's results explorable
+in a browser — no server, no Python, no Julia required.**
+
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=white)](ab-cloud-dashboard/)
+[![Vite](https://img.shields.io/badge/Vite-bundler-FFB74D?style=flat-square&logo=vite&logoColor=white)](ab-cloud-dashboard/)
+[![Apps](https://img.shields.io/badge/apps-2-0E7C86?style=flat-square)](#-the-two-applications)
+[![Prebuilt](https://img.shields.io/badge/dist-committed%20%C2%B7%20Pages--ready-2EA043?style=flat-square)](#-deploying-to-github-pages)
+[![Dashboard](https://img.shields.io/badge/dashboard-37%20verdicts-4FB3BE?style=flat-square)](ab-cloud-dashboard/)
+[![3D lab](https://img.shields.io/badge/3D%20lab-WebGL%20%C2%B7%20Three.js-C96F4A?style=flat-square)](ab-cloud-lab3d/)
+[![Zeros](https://img.shields.io/badge/%CE%B6%20zeros-50%20000%20bundled-9558B2?style=flat-square)](#-run-from-source)
+[![Node](https://img.shields.io/badge/rebuild%20needs-Node%2018%2B-3E515B?style=flat-square)](#-serving-locally)
+
+[The two applications](#-the-two-applications) · [Run from source](#-run-from-source) · [Deploying](#-deploying-to-github-pages) · [Deep dive](#-deep-dive--what-the-two-applications-are-for) · [Кратко (по-русски)](#-кратко-по-русски)
+
+</div>
+
+---
+
+## 🗂 Table of contents
+
+<details open>
+<summary><strong>Expand / collapse</strong></summary>
+
+1. [🖥 The two applications](#-the-two-applications)
+2. [⚡ Run from source](#-run-from-source)
+3. [🚀 Deploying to GitHub Pages](#-deploying-to-github-pages)
+4. [🧭 Serving locally](#-serving-locally)
+5. [🔬 Deep dive — what the two applications are for](#-deep-dive--what-the-two-applications-are-for)
+6. [📁 Complete file inventory](#-complete-file-inventory)
+7. [🇷🇺 Кратко (по-русски)](#-кратко-по-русски)
+8. [🔗 Related layers of the project](#-related-layers-of-the-project)
+
+</details>
+
+---
+
+## 🖥 The two applications
+
+<div align="center">
+
+<img src="assets/avatars.svg" alt="The apps cast: the verdict dashboard, the 3-D laboratory and the Pages-ready static bundles" width="560"/>
+
+</div>
 
 | App | What it shows | Source | Prebuilt |
 |---|---|---|---|
 | [`ab-cloud-dashboard/`](ab-cloud-dashboard) | 37-test verdict dashboard + real-time ζ statistics (Web Worker) + in-browser 64-spinor Jacobi verification | `src/` | `dist/` |
 | [`ab-cloud-lab3d/`](ab-cloud-lab3d) | WebGL 3D laboratory: Hofstadter lattice with vortices, Dirac cone, ζ critical strip (Three.js) | `src/` | `dist/` |
 
-## Run from source
+Both ship **prebuilt static bundles** in `dist/` (committed, GitHub Pages ready, relative
+base `./`), so you can serve them with any static file server or open the Pages deployment
+directly.
+
+---
+
+## ⚡ Run from source
 
 ```bash
 # app 1 — dashboard
@@ -26,26 +74,63 @@ cd ../ab-cloud-lab3d
 npm install && npm run dev
 ```
 
-No environment variables, no backend; the heavy data (50 000 zeros, run
-summary, frozen spinor data) is bundled into each app's `public/data/` and
-`dist/data/`.
+No environment variables, no backend; the heavy data (50 000 zeros, run summary, frozen
+spinor data) is bundled into each app's `public/data/` and `dist/data/`.
 
-## Deploying to GitHub Pages
+---
 
-Each `dist/` is built with a relative base, so the folders can be served
-from any path — e.g. via Pages from the `/docs` root, from a `gh-pages`
-branch, or by copying `dist/` to any static host. Serving locally:
-`npm run preview` or `python3 -m http.server -d apps/ab-cloud-dashboard/dist`.
+## 🚀 Deploying to GitHub Pages
 
-## Кратко (по-русски)
+Each `dist/` is built with a relative base, so the folders can be served from any path —
+e.g. via Pages from the `/docs` root, from a `gh-pages` branch, or by copying `dist/` to any
+static host.
 
-- Два React-приложения (React 18 + Vite): дашборд 37 тестов с реальным
-  временем (Web Worker) и браузерная спинор-проверка; и 3D-лаборатория на
-  Three.js.
-- Собранные статики уже в `dist/` (GitHub Pages-совместимы); из исходников —
-  `npm install && npm run dev`.
-- Данные (50 000 нулей, сводка прогона, замороженные спинор-данные)
-  включены в приложение.
+## 🧭 Serving locally
+
+```bash
+cd apps/ab-cloud-dashboard && python3 -m http.server 8080 -d dist
+cd apps/ab-cloud-lab3d   && python3 -m http.server 8081 -d dist
+```
+
+Then open `http://localhost:8080` / `:8081`. Rebuilding from source requires Node 18+:
+`npm ci && npm run build` inside the app folder.
+
+---
+
+## 🔬 Deep dive — what the two applications are for
+
+The repository ships **two independent React applications**, and a subtle design decision
+matters here: **both apps are committed prebuilt** (`ab-cloud-dashboard/dist/` and
+`ab-cloud-lab3d/dist/`). That means the apps can be served as static files — GitHub Pages,
+any static host, or a local `python3 -m http.server` — **without Node, without npm, without a
+build step**. On a phone, in a review meeting, or ten years from now, the bundles still open;
+the source next to them guarantees they can be rebuilt, audited and modified.
+
+The division of labour between the two apps mirrors the division between *reading the
+evidence* and *playing with the physics*:
+
+```mermaid
+flowchart LR
+    R["committed evidence<br/>runs · logs · datasets"] --> D1["ab-cloud-dashboard<br/>the evidence reader<br/>37 verdicts · live ζ stats<br/>64-spinor Jacobi check"]
+    R --> D2["ab-cloud-lab3d<br/>the physics playground<br/>Hofstadter surfaces · vortices<br/>rotate · zoom · re-parameterise"]
+    D1 -.->|"same numbers,<br/>same artifacts"| D2
+    D2 -.->|"matches the offline<br/>lab-3d/ pipelines"| L["lab-3d/"]
+```
+
+- **ab-cloud-dashboard** is the evidence reader: the verification results, the test ledger,
+  the dataset charter and the monograph metadata in a point-and-click interface. If a number
+  in a talk looks suspicious, the dashboard is the fastest way to trace it to the artifact
+  that produced it.
+- **ab-cloud-lab3d** is the physics playground: the 3D lattice laboratory in the browser —
+  Hofstadter surfaces and vortex textures you can rotate, zoom and re-parameterise, matching
+  the offline pipelines in [`lab-3d/`](../lab-3d/README.md).
+
+Both apps read from the same committed evidence as everything else in the repository; neither
+contains private copies of the numbers. A figure in the dashboard and the corresponding PNG in
+the monograph directory trace back to the same run artifact — that is the whole integrity
+model of the project, extended to the browser.
+
+---
 
 ## 📁 Complete file inventory
 
@@ -56,40 +141,31 @@ branch, or by copying `dist/` to any static host. Serving locally:
 | `README.md` | 2.1 KB | markdown guide |
 | **Total (files)** | **2.1 KB** | 1 files + 2 subdirectories |
 
-## 🔬 Deep dive — what the two applications are for
+---
 
-The repository ships **two independent React applications**, and a subtle
-design decision matters here: **both apps are committed prebuilt**
-(`ab-cloud-dashboard/dist/` and `ab-cloud-lab3d/dist/`). That means the
-apps can be served as static files — GitHub Pages, any static host, or a
-local `python3 -m http.server` — **without Node, without npm, without a
-build step**. On a phone, in a review meeting, or ten years from now, the
-bundles still open; the source next to them guarantees they can be
-rebuilt, audited and modified.
+## 🇷🇺 Кратко (по-русски)
 
-The division of labour between the two apps mirrors the division between
-*reading the evidence* and *playing with the physics*:
+- Два React-приложения (React 18 + Vite): дашборд 37 тестов с реальным временем (Web Worker)
+  и браузерная спинор-проверка; и 3D-лаборатория на Three.js.
+- Собранные статики уже в `dist/` (GitHub Pages-совместимы); из исходников —
+  `npm install && npm run dev`.
+- Данные (50 000 нулей, сводка прогона, замороженные спинор-данные) включены в приложение.
+- Локально: `python3 -m http.server 8080 -d apps/ab-cloud-dashboard/dist` (порт 8081 для
+  3D-лаборатории); пересборка требует Node 18+.
 
-- **ab-cloud-dashboard** is the evidence reader: the verification results,
-  the test ledger, the dataset charter and the monograph metadata in a
-  point-and-click interface. If a number in a talk looks suspicious, the
-  dashboard is the fastest way to trace it to the artifact that produced it.
-- **ab-cloud-lab3d** is the physics playground: the 3D lattice laboratory
-  in the browser — Hofstadter surfaces and vortex textures you can rotate,
-  zoom and re-parameterise, matching the offline pipelines in `lab-3d/`.
+---
 
-Both apps read from the same committed evidence as everything else in the
-repository; neither contains private copies of the numbers. A figure in
-the dashboard and the corresponding PNG in the monograph directory trace
-back to the same run artifact — that is the whole integrity model of the
-project, extended to the browser.
+## 🔗 Related layers of the project
 
-### Serving locally
+| Layer | What it adds |
+|---|---|
+| [`docs/`](../docs/README.md) | the MkDocs Material documentation site (the narrative layer) |
+| [`lab-3d/`](../lab-3d/README.md) | the offline 3D branch the WebGL laboratory mirrors |
+| [`results/`](../results/README.md) | the committed run artifacts the dashboard reads from |
+| [`verification/`](../verification/README.md) | the 10-language verification package |
 
-```bash
-cd apps/ab-cloud-dashboard && python3 -m http.server 8080 -d dist
-cd apps/ab-cloud-lab3d   && python3 -m http.server 8081 -d dist
-```
+---
 
-Then open `http://localhost:8080` / `:8081`. Rebuilding from source
-requires Node 18+: `npm ci && npm run build` inside the app folder.
+<p align="center">
+  <sub><em>Reading the evidence and playing with the physics — same numbers, two windows.</em></sub>
+</p>

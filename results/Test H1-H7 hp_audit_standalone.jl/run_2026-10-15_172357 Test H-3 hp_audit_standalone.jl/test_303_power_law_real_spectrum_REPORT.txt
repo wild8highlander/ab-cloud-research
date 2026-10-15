@@ -1,0 +1,52 @@
+=====================================================================
+REPORT — H3. Power-law exponent on the REAL lattice spectrum   [PASS]
+=====================================================================
+
+╔══════════════════════════════════════════════════════════════╗
+║                     GATE H3 · POWER-LAW                      ║
+╠══════════════════════════════════════════════════════════════╣
+║     Power-law exponent of the REAL spectrum (dictionary      ║
+║                        falsification)                        ║
+╚══════════════════════════════════════════════════════════════╝
+  Eₙ ~ n^p on the independently-diagonalized lattice; p→2
+  (dictionary) vs p=1/2 (Dirac) vs p=1 (band)
+ L=28: M= 393 | low window [9..79]: p̂=0.4557±0.0025 (R²=0.99796) | bulk [118..275]: p̂=0.3190±0.0008 (R²=0.99892)
+ L=36: M= 651 | low window [14..130]: p̂=0.6718±0.0086 (R²=0.98166) | bulk [195..456]: p̂=0.4926±0.0012 (R²=0.99840)
+ L=44: M= 969 | low window [20..194]: p̂=0.6235±0.0052 (R²=0.98789) | bulk [291..678]: p̂=0.4720±0.0010 (R²=0.99822)
+ L=52: M=1352 | low window [28..270]: p̂=0.4795±0.0010 (R²=0.99898) | bulk [406..946]: p̂=0.3292±0.0006 (R²=0.99812)
+ L=60: M=1802 | low window [37..360]: p̂=0.4759±0.0010 (R²=0.99848) | bulk [541..1261]: p̂=0.3561±0.0002 (R²=0.99966)
+
+ Theory anchors: dictionary (n−q)² → p = 2 | 2D Dirac DOS (N(E)∝E²) → p = 1/2 | quadratic band bottom → p = 1
+ (the Eₙ=(n−q)² dictionary of lab E8 is a 1D-ring identity — the REAL 2D spectrum decides)
+ Physics readout: mean |p̂ − 1/2| = 0.077 (low window) vs 0.106 (bulk) → the near-edge spectrum hugs the 2D-Dirac cone anchor (vortex-dominated DOS) — the honest alternative to the rejected dictionary
+
+ L→∞ extrapolation:  low window:  p_∞ = 0.5242 ± 7.5471
+                     bulk window: p_∞ = 0.3958 ± 6.2795
+  ● Dictionary check (|p_∞ − 2|): low = 1.476, bulk = 1.604 → REJECTED — expected honest negative: the real spectrum is not (n−q)² lattice physics
+╭─◆ Test H3  ·  6 sub-checks → PASS                            ╮
+│✓ low-window fit quality — min R² over ladder = 0.98166 (floor│
+│0.98)                                                         │
+│✓ bulk-window fit quality — min R² over ladder = 0.99812      │
+│(floor 0.98)                                                  │
+│✓ per-L falsification (decisive) — min |p̂−2| = 1.328 at ≥ 155σ│
+│(every rung/window; se ≤ 0.0086) — the rejection does NOT rest│
+│on the L→∞ extrapolation                                      │
+│✓ L→∞ extrapolation (note) — UNSTABLE (informational): p_∞ =  │
+│0.3958 ± 6.2795, se ≫ estimate — non-monotone rung scatter;   │
+│the verdict rests on the per-L fits, NOT on this extrapolation│
+│(reviewer sync 2026-09-06)                                    │
+│✓ dictionary verdict — REJECTED (expected honest negative,    │
+│status synced with H1/H7) — |p_∞−2|: low 1.476 / bulk 1.604;  │
+│the real 2D spectrum is not (n−q)² lattice physics            │
+│✓ Dirac-cone readout (low window) — mean |p̂−1/2|: low 0.077 < │
+│bulk 0.106 → the near-edge (vortex-dominated) spectrum is     │
+│Dirac-cone-like, not dictionary-like — reviewer observation   │
+│2026-09-06, promoted to a headline                            │
+╰──────────────────────────────────────────────────────────────╯
+
+---------------------------------------------------------------------
+NOTES / METHODOLOGY
+ • Fitting the REAL spectrum (not the toy ring of lab E8) answers the reviewer's question directly: if the (n−q)² dictionary were the lattice physics, p̂(L) would extrapolate to 2. The honest 2D alternatives are p = 1/2 (Dirac cone: N(E) ∝ E² near E = 0) in the low window and p ≈ 1 (constant DOS of a quadratic band) in the bulk — both falsify the dictionary claim. VERDICT SEMANTICS (reviewer sync 2026-09-06): a REJECTED dictionary is the EXPECTED honest negative and PASSES the audit exactly like H1's absent fingerprint and H7's zero correlation (one and the same outcome class must not split into PASS and WARN across tests); the test fails only on method grounds — fit quality below floor, too few rungs, or the spectrum actually approaching p = 2. The unstable L→∞ extrapolation (5 rungs, non-monotone scatter, se ≫ estimate) is reported as an INFORMATIONAL note because the verdict rests on the per-L fits, each ≫5σ from the dictionary anchor; the Dirac-cone proximity of the low window is stated as its own physics headline rather than being buried inside the rejection.
+
+PLOTS:
+   results/run_2026-10-15_172357/test_303_power_law_real_spectrum/plots/plot_1.png

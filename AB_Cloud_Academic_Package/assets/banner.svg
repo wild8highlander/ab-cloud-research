@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="AB-CLOUD ACADEMIC PACKAGE — animated banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a1410"/>
+      <stop offset="0.55" stop-color="#2a2014"/>
+      <stop offset="1" stop-color="#160f08"/>
+    </linearGradient>
+    <linearGradient id="tg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e8c584"/>
+      <stop offset="0.5" stop-color="#f2e8d4"/>
+      <stop offset="1" stop-color="#c98f4a"/>
+      <animate attributeName="x1" values="-0.6;0.4" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="0.4;1.4" dur="6s" repeatCount="indefinite"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0.32" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#8a5a20" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#8a5a20" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M28 0H0V28" fill="none" stroke="#2e2418" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="300" rx="14" fill="url(#bg)"/>
+  <rect width="1200" height="300" rx="14" fill="url(#grid)" opacity="0.5"/>
+  <rect width="1200" height="300" rx="14" fill="url(#halo)"/>
+  <rect x="1.5" y="1.5" width="1197" height="297" rx="13" fill="none" stroke="#4a3a24" stroke-width="1.4" opacity="0.8"/>
+
+  <text x="64" y="74" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-weight="700" letter-spacing="2.2" fill="url(#tg)">AB-CLOUD ACADEMIC PACKAGE</text>
+  <text x="66" y="104" font-family="Georgia, serif" font-size="16.5" font-style="italic" fill="#c4b092">the complete self-contained GitHub edition — the v23 SUPERCOMBO submission package (v34)</text>
+
+
+  <!-- поток нулей ζ в коробку -->
+  <path d="M 84 212 H 330" stroke="#c9a86a" stroke-width="1.2" opacity="0.4" stroke-dasharray="2 6"/>
+      <circle cx="90" cy="212" r="2.6" fill="#e8c584">
+        <animate attributeName="cx" values="90;240" dur="3.4s" begin="0.00s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" dur="3.4s" begin="0.00s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="124" cy="212" r="2.6" fill="#e8c584">
+        <animate attributeName="cx" values="124;274" dur="3.4s" begin="0.38s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" dur="3.4s" begin="0.38s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="158" cy="212" r="2.6" fill="#e8c584">
+        <animate attributeName="cx" values="158;308" dur="3.4s" begin="0.76s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" dur="3.4s" begin="0.76s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="192" cy="212" r="2.6" fill="#e8c584">
+        <animate attributeName="cx" values="192;342" dur="3.4s" begin="1.14s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" dur="3.4s" begin="1.14s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="226" cy="212" r="2.6" fill="#e8c584">
+        <animate attributeName="cx" values="226;376" dur="3.4s" begin="1.52s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" dur="3.4s" begin="1.52s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="260" cy="212" r="2.6" fill="#e8c584">
+        <animate attributeName="cx" values="260;410" dur="3.4s" begin="1.90s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" dur="3.4s" begin="1.90s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="294" cy="212" r="2.6" fill="#e8c584">
+        <animate attributeName="cx" values="294;444" dur="3.4s" begin="2.28s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" dur="3.4s" begin="2.28s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="328" cy="212" r="2.6" fill="#e8c584">
+        <animate attributeName="cx" values="328;478" dur="3.4s" begin="2.66s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" dur="3.4s" begin="2.66s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="362" cy="212" r="2.6" fill="#e8c584">
+        <animate attributeName="cx" values="362;512" dur="3.4s" begin="3.04s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" dur="3.4s" begin="3.04s" repeatCount="indefinite"/>
+      </circle>
+  <text x="84" y="196" font-family="Georgia,serif" font-size="13" font-style="italic" fill="#7c6a4e">V01–V112 · monograph · run archives</text>
+
+  <!-- коробка пакета -->
+  <g transform="translate(330,168)">
+    <path d="M0 22 L38 0 L76 22 V78 L38 100 L0 78 Z" fill="#241a10" stroke="#d4a55c" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M0 22 L38 44 L76 22 M38 44 V100" fill="none" stroke="#d4a55c" stroke-width="1.6" opacity="0.8"/>
+    <path d="M38 0 L38 44" stroke="#a8814a" stroke-width="2.4" opacity="0.85"/>
+    <circle cx="38" cy="60" r="13" fill="none" stroke="#7fb069" stroke-width="2">
+      <animate attributeName="r" values="11.5;14.5;11.5" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.95;0.55;0.95" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <path d="M31.5 60 L36 65 L45 54.5" fill="none" stroke="#7fb069" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="-4" y="118" font-family="'Courier New',monospace" font-size="12" fill="#a89070">v34 · frozen 2026-09-19</text>
+  </g>
+
+  <!-- дерево файлов направо -->
+  <g transform="translate(872,150)" font-family="'Courier New',monospace" font-size="12.5" fill="#a89070">
+    <text x="0" y="14" fill="#e0cba0">zip_archive/  <tspan fill="#7fb069">SHA-256 ✓</tspan></text>
+    <text x="0" y="34">unpacked/  <tspan fill="#7c6a4e">every folder has its own README</tspan></text>
+    <text x="0" y="54">FILE_INDEX.md  ·  SHA256SUMS.txt</text>
+    <text x="0" y="74" fill="#e0cba0">38 tests · 79 verdict entries</text>
+    <rect x="-14" y="0" width="8" height="74" rx="3" fill="#d4a55c" opacity="0.5">
+      <animate attributeName="opacity" values="0.25;0.75;0.25" dur="4s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <g font-family="'Courier New',monospace" font-size="13.5" fill="#a89070">
+    <text x="64" y="278">zip 39.4 MB · bit-for-bit · SHA-256 · v34 frozen 2026-09-19 · 38 tests · 79 verdict entries · DOI 10.5281/zenodo.21825394</text>
+  </g>
+</svg>

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="118" viewBox="0 0 860 118" role="img" aria-label="component avatars">
+    <g transform="translate(132,44)">
+      <circle r="30" fill="#241a10" stroke="#e8b56a" stroke-width="2">
+        <animate attributeName="stroke-width" values="2;3.4;2" dur="2.80s" repeatCount="indefinite"/>
+      </circle>
+      <circle r="34.5" fill="none" stroke="#e8b56a" stroke-width="0.8" opacity="0.55" stroke-dasharray="3 5">
+        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="14s" repeatCount="indefinite"/>
+      </circle>
+      <g transform="translate(-12,-12)" opacity="0.95"><path d="M5 4 H11 V20 H5 Z M13 4 H19 V20 H13 Z M11 4 C9 3 7 3 5 4 M13 4 C15 3 17 3 19 4" fill="none" stroke="#f2e8d4" stroke-width="1.8" stroke-linejoin="round"/></g>
+    </g>
+    <text x="132" y="96" text-anchor="middle" font-family="Georgia, serif" font-size="14.5" font-weight="700" fill="#f7ecd8">v22 · RU</text>
+    <text x="132" y="114" text-anchor="middle" font-family="'Courier New',monospace" font-size="11.5" fill="#a88a5e">canonical edition</text>
+    <g transform="translate(281,44)">
+      <circle r="30" fill="#241a10" stroke="#e8b56a" stroke-width="2">
+        <animate attributeName="stroke-width" values="2;3.4;2" dur="3.15s" repeatCount="indefinite"/>
+      </circle>
+      <circle r="34.5" fill="none" stroke="#e8b56a" stroke-width="0.8" opacity="0.55" stroke-dasharray="3 5">
+        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="16s" repeatCount="indefinite"/>
+      </circle>
+      <g transform="translate(-12,-12)" opacity="0.95"><path d="M5 4 H11 V20 H5 Z M13 4 H19 V20 H13 Z M11 4 C9 3 7 3 5 4 M13 4 C15 3 17 3 19 4" fill="none" stroke="#f2e8d4" stroke-width="1.8" stroke-linejoin="round"/></g>
+    </g>
+    <text x="281" y="96" text-anchor="middle" font-family="Georgia, serif" font-size="14.5" font-weight="700" fill="#f7ecd8">v22 · EN</text>
+    <text x="281" y="114" text-anchor="middle" font-family="'Courier New',monospace" font-size="11.5" fill="#a88a5e">canonical edition</text>
+    <g transform="translate(430,44)">
+      <circle r="30" fill="#241a10" stroke="#e8b56a" stroke-width="2">
+        <animate attributeName="stroke-width" values="2;3.4;2" dur="3.50s" repeatCount="indefinite"/>
+      </circle>
+      <circle r="34.5" fill="none" stroke="#e8b56a" stroke-width="0.8" opacity="0.55" stroke-dasharray="3 5">
+        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="18s" repeatCount="indefinite"/>
+      </circle>
+      <g transform="translate(-12,-12)" opacity="0.95"><path d="M5 4 H11 V20 H5 Z M13 4 H19 V20 H13 Z M11 4 C9 3 7 3 5 4 M13 4 C15 3 17 3 19 4" fill="none" stroke="#f2e8d4" stroke-width="1.8" stroke-linejoin="round"/></g>
+    </g>
+    <text x="430" y="96" text-anchor="middle" font-family="Georgia, serif" font-size="14.5" font-weight="700" fill="#f7ecd8">v22 · ZH</text>
+    <text x="430" y="114" text-anchor="middle" font-family="'Courier New',monospace" font-size="11.5" fill="#a88a5e">canonical edition</text>
+    <g transform="translate(579,44)">
+      <circle r="30" fill="#241a10" stroke="#e8b56a" stroke-width="2">
+        <animate attributeName="stroke-width" values="2;3.4;2" dur="3.85s" repeatCount="indefinite"/>
+      </circle>
+      <circle r="34.5" fill="none" stroke="#e8b56a" stroke-width="0.8" opacity="0.55" stroke-dasharray="3 5">
+        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="20s" repeatCount="indefinite"/>
+      </circle>
+      <g transform="translate(-12,-12)" opacity="0.95"><path d="M12 3 V21 M12 8 C9 8 7 6 7 3 M12 8 C15 8 17 6 17 3 M12 14 C9 14 7 12 7 9 M12 14 C15 14 17 12 17 9" fill="none" stroke="#f2e8d4" stroke-width="1.7" stroke-linecap="round"/></g>
+    </g>
+    <text x="579" y="96" text-anchor="middle" font-family="Georgia, serif" font-size="14.5" font-weight="700" fill="#f7ecd8">v21 / v21.1</text>
+    <text x="579" y="114" text-anchor="middle" font-family="'Courier New',monospace" font-size="11.5" fill="#a88a5e">history + errata</text>
+    <g transform="translate(728,44)">
+      <circle r="30" fill="#241a10" stroke="#e8b56a" stroke-width="2">
+        <animate attributeName="stroke-width" values="2;3.4;2" dur="4.20s" repeatCount="indefinite"/>
+      </circle>
+      <circle r="34.5" fill="none" stroke="#e8b56a" stroke-width="0.8" opacity="0.55" stroke-dasharray="3 5">
+        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="22s" repeatCount="indefinite"/>
+      </circle>
+      <g transform="translate(-12,-12)" opacity="0.95"><path d="M6 3 H14 L19 8 V21 H6 Z M14 3 V8 H19 M9 12 H16 M9 15.5 H16 M9 19 H13" fill="none" stroke="#f2e8d4" stroke-width="1.7" stroke-linejoin="round"/></g>
+    </g>
+    <text x="728" y="96" text-anchor="middle" font-family="Georgia, serif" font-size="14.5" font-weight="700" fill="#f7ecd8">7 formats</text>
+    <text x="728" y="114" text-anchor="middle" font-family="'Courier New',monospace" font-size="11.5" fill="#a88a5e">per language</text>
+</svg>

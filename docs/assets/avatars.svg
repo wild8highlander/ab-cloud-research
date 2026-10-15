@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="118" viewBox="0 0 860 118" role="img" aria-label="component avatars">
+    <g transform="translate(175,44)">
+      <circle r="30" fill="#0f1338" stroke="#8b9dff" stroke-width="2">
+        <animate attributeName="stroke-width" values="2;3.4;2" dur="2.80s" repeatCount="indefinite"/>
+      </circle>
+      <circle r="34.5" fill="none" stroke="#8b9dff" stroke-width="0.8" opacity="0.55" stroke-dasharray="3 5">
+        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="14s" repeatCount="indefinite"/>
+      </circle>
+      <g transform="translate(-12,-12)" opacity="0.95"><path d="M6 3 H14 L19 8 V21 H6 Z M14 3 V8 H19 M9 12 H16 M9 15.5 H16 M9 19 H13" fill="none" stroke="#dfe4ff" stroke-width="1.7" stroke-linejoin="round"/></g>
+    </g>
+    <text x="175" y="96" text-anchor="middle" font-family="Georgia, serif" font-size="14.5" font-weight="700" fill="#f0f2ff">12 pages</text>
+    <text x="175" y="114" text-anchor="middle" font-family="'Courier New',monospace" font-size="11.5" fill="#7f88b0">quickstart → faq</text>
+    <g transform="translate(345,44)">
+      <circle r="30" fill="#0f1338" stroke="#8b9dff" stroke-width="2">
+        <animate attributeName="stroke-width" values="2;3.4;2" dur="3.15s" repeatCount="indefinite"/>
+      </circle>
+      <circle r="34.5" fill="none" stroke="#8b9dff" stroke-width="0.8" opacity="0.55" stroke-dasharray="3 5">
+        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="16s" repeatCount="indefinite"/>
+      </circle>
+      <g transform="translate(-12,-12)" opacity="0.95"><path d="M6 4 C6 10 8 13 12 13 C16 13 18 10 18 4 M12 13 V21 M8 21 H16" fill="none" stroke="#dfe4ff" stroke-width="1.8" stroke-linecap="round"/></g>
+    </g>
+    <text x="345" y="96" text-anchor="middle" font-family="Georgia, serif" font-size="14.5" font-weight="700" fill="#f0f2ff">MathJax</text>
+    <text x="345" y="114" text-anchor="middle" font-family="'Courier New',monospace" font-size="11.5" fill="#7f88b0">inline ζ-formulas</text>
+    <g transform="translate(515,44)">
+      <circle r="30" fill="#0f1338" stroke="#8b9dff" stroke-width="2">
+        <animate attributeName="stroke-width" values="2;3.4;2" dur="3.50s" repeatCount="indefinite"/>
+      </circle>
+      <circle r="34.5" fill="none" stroke="#8b9dff" stroke-width="0.8" opacity="0.55" stroke-dasharray="3 5">
+        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="18s" repeatCount="indefinite"/>
+      </circle>
+      <g transform="translate(-12,-12)" opacity="0.95"><circle cx="12" cy="12" r="8.5" fill="none" stroke="#dfe4ff" stroke-width="1.8"/><ellipse cx="12" cy="12" rx="3.6" ry="8.5" fill="none" stroke="#dfe4ff" stroke-width="1.4"/><path d="M3.8 12 H20.2" stroke="#dfe4ff" stroke-width="1.4"/></g>
+    </g>
+    <text x="515" y="96" text-anchor="middle" font-family="Georgia, serif" font-size="14.5" font-weight="700" fill="#f0f2ff">GitHub Pages</text>
+    <text x="515" y="114" text-anchor="middle" font-family="'Courier New',monospace" font-size="11.5" fill="#7f88b0">deploy-docs workflow</text>
+    <g transform="translate(685,44)">
+      <circle r="30" fill="#0f1338" stroke="#8b9dff" stroke-width="2">
+        <animate attributeName="stroke-width" values="2;3.4;2" dur="3.85s" repeatCount="indefinite"/>
+      </circle>
+      <circle r="34.5" fill="none" stroke="#8b9dff" stroke-width="0.8" opacity="0.55" stroke-dasharray="3 5">
+        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="20s" repeatCount="indefinite"/>
+      </circle>
+      <g transform="translate(-12,-12)" opacity="0.95"><circle cx="12" cy="12" r="4" fill="none" stroke="#dfe4ff" stroke-width="1.8"/><path d="M12 4 V7 M12 17 V20 M4 12 H7 M17 12 H20 M6.3 6.3 L8.4 8.4 M15.6 15.6 L17.7 17.7 M17.7 6.3 L15.6 8.4 M8.4 15.6 L6.3 17.7" stroke="#dfe4ff" stroke-width="1.8" stroke-linecap="round"/></g>
+    </g>
+    <text x="685" y="96" text-anchor="middle" font-family="Georgia, serif" font-size="14.5" font-weight="700" fill="#f0f2ff">mkdocs.yml</text>
+    <text x="685" y="114" text-anchor="middle" font-family="'Courier New',monospace" font-size="11.5" fill="#7f88b0">nav + link-checker</text>
+</svg>

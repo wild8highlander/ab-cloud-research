@@ -1,0 +1,63 @@
+=====================================================================
+REPORT — H1. Prime oscillations (Berry–Keating fingerprint)   [WARN]
+=====================================================================
+
+╔══════════════════════════════════════════════════════════════╗
+║                    GATE H1 · PRIME-TRACE                     ║
+╠══════════════════════════════════════════════════════════════╣
+║  Prime oscillations — Berry-Keating fingerprint (arithmetic  ║
+║                         specificity)                         ║
+╚══════════════════════════════════════════════════════════════╝
+  Does the 1-level density oscillate EXACTLY at ω = log(p)
+  once generic structure is removed?
+ AB spectrum: 3 configs on 72×72 (FULL raw spectrum, no unfolding) | ζ control: first 20000 zeros
+ D1 scan: ω ∈ [0.3, 3.0] step 0.004 (auto-extended to every target, v23.6) | thresholds: fingerprint ≥ 50, control ≥ 100, null ceiling < 10
+ Prime targets (6): log(2)=0.6931  log(3)=1.0986  log(5)=1.6094  log(7)=1.9459  log(11)=2.3979  log(13)=2.5649
+ ζ control D1 (20000 zeros): SNR at log p = 1.5e+08 / 5.0e+07 / 3.6e+07 / 2.5e+07 / 2.3e+07 / 2.3e+09
+   → 6/6 primes ≥ 100 → Bragg structure at prime logs CONFIRMED (Riemann–Weil expectation)
+ ζ control D2 (K-residual route): SNR = 1.4 / 1.7 / 1.7 / 1.2 / 0.4 / 2.0 → does NOT fire at this scale — the 1-level signal enters the 2-level K(t) only at subleading order (reported honestly)
+ Nulls D1: vortex-free #1: max 2.1 | vortex-free #2: max 2.1 | GUE #1: max 1.4 | GUE #2: max 3.1 → empirical ceiling 3.1 (limit 10)
+
+ AB-cloud D1 (3-config ensemble, 5184 raw levels): SNR at log p = 1.3 / 0.0 / 1.8 / 2.1 / 0.7 / 0.3
+   → 0/6 primes ≥ 50 (threshold 50 = max(50, 10× ceiling 3.1))
+  ● ARITHMETIC FINGERPRINT ABSENT — no prime-log signature above the noise ceiling (GUE-universal statistics only)
+ Cross-check vs Test 35: RMS(K_AB − K_box, t ≥ 0.3) = 0.3172 (Test 35 target < 0.30)
+
+ Regime sweep (reviewer actions): 3 extra parameter points × 3 configs, each vs its OWN regime-matched nulls
+   (the ζ fingerprint signature is a simultaneous Bragg comb on ALL primes at SNR ≥ 10²; an isolated
+    log(2) bump is the classic generic resonance — the regime-matched nulls below decide which it is)
+ regime B (Nv=144 (2.78% of sites, L²/36 anchor), α=0.5000): max prime-SNR 6.8 at log(2) | regime nulls: vortex-free 2.1, GUE 3.8 → ceiling 3.8 → fingerprint MARGINAL (above regime nulls)
+ regime C (Nv=4 (0.08% of sites), α=0.0278, 25/900 sharp-flux): max prime-SNR 7.7 at log(2) | regime nulls: vortex-free 7.0, GUE 4.9 → ceiling 7.0 → fingerprint MARGINAL (above regime nulls)
+ regime D (Nv=144 (2.78% of sites, L²/36 anchor), α=0.0278, 25/900 sharp-flux): max prime-SNR 30.6 at log(2) | regime nulls: vortex-free 7.0, GUE 4.0 → ceiling 7.0 → fingerprint MARGINAL (above regime nulls)
+
+ DEEPEN protocol (v23.6): 3 regime(s) at/above their 1+1-realization ceiling (B,C,D) → null distribution from 20 vortex-free + 20 GUE realizations, AB ensemble +10 configs; pre-registered rule: deep AB bump ≤ P95(null maxima) → generic artifact → absent
+   [B] deep AB max prime-SNR 6.1 at log(2) (13 configs) | deep nulls: min 1.1 / median 2.1 / P95 7.3 / max 11.8 (40 draws) → bump ≤ P95 → GENERIC FLUX-GEOMETRY ARTIFACT — fingerprint absent (the reviewer's question closed by data)
+   [C] deep AB max prime-SNR 7.5 at log(2) (13 configs) | deep nulls: min 1.5 / median 7.0 / P95 7.3 / max 15.8 (40 draws) → bump > P95 → unexplained even vs deep nulls — ESCALATE (zoom scan around the bump, per-config persistence)
+   [D] deep AB max prime-SNR 19.4 at log(2) (13 configs) | deep nulls: min 0.5 / median 7.0 / P95 7.7 / max 9.4 (40 draws) → bump > P95 → unexplained even vs deep nulls — ESCALATE (zoom scan around the bump, per-config persistence)
+╭─◆ Test H1  ·  5 sub-checks → WARN                            ╮
+│✓ ζ control fires (D1) — 6/6 prime Bragg peaks with SNR ≥ 100 │
+│(Riemann–Weil expectation)                                    │
+│✓ nulls silent (D1) — vortex-free + GUE ceiling = 3.1 (abs    │
+│limit 10; weakest ζ peak 2.3e+07 — 100× margin ok)            │
+│✓ AB fingerprint verdict — ABSENT — max SNR 2.1 < threshold 50│
+│⚠ fingerprint regime-robust (sweep) — max SNR per regime (own │
+│null ceiling in parens): [B] 6.1 (7.3) [C] 7.5 (7.3) [D] 19.4 │
+│(7.7) → MARGINAL above regime nulls at [C] 7.5 vs ceiling 7.3,│
+│[D] 19.4 vs ceiling 7.7 → NOT explained by non-arithmetic     │
+│spectra at the same parameters — deepen before any claim      │
+│(reviewer round 2) DEEPENED (v23.6, pre-registered P95 rule): │
+│[B] deep AB 6.1 vs P95 7.3 → absent; [C] deep AB 7.5 vs P95   │
+│7.3 → MARGINAL; [D] deep AB 19.4 vs P95 7.7 → MARGINAL        │
+│⚠ Envelope cross-check (D2) — RMS(K−K_box, t≥0.3) = 0.3172    │
+│(Test-35 family target < 0.30; gates the test status)         │
+╰──────────────────────────────────────────────────────────────╯
+
+---------------------------------------------------------------------
+NOTES / METHODOLOGY
+ • D1 (primary) is the 1-level raw-position Fourier transform: the Riemann–Weil explicit formula puts the arithmetic information into pure tones ω = k·log(p) of the RAW density, so a spectrum carrying it shows Bragg peaks there. Empirical calibration at v23.3 defaults: ζ control fires at SNR 10⁶–10⁹ (log 2, log 3, log 5, log 13 AND harmonics 3·log 2, 4·log 2 — the explicit-formula signature), vortex-free Hofstadter nulls ≤ 2.1, GUE nulls ≤ 5.2. D2 (the K(t)-residual route) is the two-level cross-check: intrinsically less sensitive because the 1-level explicit-formula signal enters the 2-level statistic only at subleading order — its ζ control honestly does NOT fire at suite scale, which the report states explicitly. The AB verdict compares against the EMPIRICAL null ceiling with a 10× margin. REGIME SWEEP (reviewer actions 2026-09-06, rounds 1+2): the AB spectra are re-measured at the H5 showdown's parameter points — monograph density Nv = L²/36, sharp-flux α = 25/900, and both combined — because an ABSENT fingerprint counts as a model-class statement only if it survives the model's best-faith points. Round 2: each extra regime ALSO runs its own regime-matched null controls (vortex-free lattice at the same α + GUE at matched size, fresh seeds), and the regime bump is judged against THAT ceiling: an isolated log(2) bump that the nulls reproduce at the same parameters is a generic lattice/flux-geometry artifact (the ζ signature is a simultaneous comb on ALL primes at SNR 10⁷+, not a single-prime bump), while a bump above the regime nulls earns an honest WARN and deeper study; the sweep status enters the test status — no PASS painted over MARGINAL content. v23.6 (reviewer round 3): (a) the D1 window AUTO-EXTENDS to every target and the target list SPLITS into primes vs composite DECOYS — the ζ Bragg comb must be silent on the decoys (specificity clause folded into zeta_ok), and the AB decoy SNR is reported alongside; (b) a MARGINAL/PRESENT regime triggers the DEEPEN protocol: the regime null ceiling is re-estimated from hp_deep_nulls vortex-free + hp_deep_nulls GUE realizations (the round-2 ceiling came from ONE of each — an extreme-value statistic whose single-draw noise is comparable to the observed 7.6-vs-6.8 margin), the AB ensemble is extended by hp_deep_configs configs, and the pre-registered rule fires: deep bump ≤ P95(null maxima) → generic flux-geometry artifact → regime absent (question closed by data); bump > P95 → unexplained even vs deep nulls → honest WARN with escalation.
+
+PLOTS:
+   results/run_2026-10-15_125845/test_301_prime_oscillations/plots/plot_1.png
+   results/run_2026-10-15_125845/test_301_prime_oscillations/plots/plot_2.png
+   results/run_2026-10-15_125845/test_301_prime_oscillations/plots/plot_3.png
+   results/run_2026-10-15_125845/test_301_prime_oscillations/plots/plot_4.png

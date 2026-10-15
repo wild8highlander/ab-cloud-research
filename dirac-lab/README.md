@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/banner.svg" alt="AB-Cloud Dirac Laboratory — animated banner: the Dirac cone with the Zitterbewegung wave packet shuttling across it, the relativistic Landau ladder Eₙ² ∝ n, the Berry phase π dial and the ζ-decorated zeros" width="100%"/>
+
 # ⚛️ AB-Cloud Dirac Laboratory
 
 ### *The Dirac skeleton of the AB-Cloud — a verification laboratory connecting the Hofstadter-vortex realization of the Hilbert–Pólya programme to the Dirac equation*
@@ -39,6 +41,12 @@
 > supertansmission (T = 0.978 vs 0.0010 for the Schrödinger control — factor 977) and Zitterbewegung at ω = 2E,
 > and the **ζ-decorated Dirac operator** — the actual bridge — lifts the bulk statistics from the GOE ceiling to
 > the GUE value (⟨r⟩ 0.608 vs theory 0.5992) while preserving {H,Γ} = 0 and E ↔ −E pairing to 4·10⁻¹⁵.
+
+<div align="center">
+
+<img src="assets/avatars.svg" alt="The Dirac laboratory cast: the D1–D6 cone/tower/Berry block, the D7–D11 ζ/chiral/index block, the D12–D14 ladder/wall/Odlyzko block and the Julia cross-check" width="700"/>
+
+</div>
 
 **D9** — the index-restoring Jackiw–Rossi decoration
 > (a mass wall binds chiral-pair zero modes pinned 4·10⁸ below the bulk gap and *survives inside the full
@@ -206,11 +214,11 @@ $$
 | D13 | D9+D11 pairing — JR wall under the conjugating drive (v1.3, beyond §8) | **PASS** | 10/10 | [`tests/D13…`](tests/D13_wall_under_conjugation_drive/) |
 | D14 | Second form factor à la Odlyzko at large heights (v1.3, beyond §8) | **PASS** | 10/10 | [`tests/D14…`](tests/D14_odlyzko_form_factor/) |
 
-Full per-check details: [`results/run_20261006_full_v13/REPORT.md`](results/run_20261006_full_v13/REPORT.md) +
-[`REPORT_EXTENSIONS.md`](results/run_20261006_full_v13/REPORT_EXTENSIONS.md) +
-[`REPORT_EXTENSIONS2.md`](results/run_20261006_full_v13/REPORT_EXTENSIONS2.md) +
-[`REPORT_EXTENSIONS3.md`](results/run_20261006_full_v13/REPORT_EXTENSIONS3.md) ·
-machine-readable: [`results.json`](results/run_20261006_full_v13/results.json) (+ extension JSONs) ·
+Full per-check details: [`results/run_20261006_081031/REPORT.md`](results/run_20261006_081031/REPORT.md) ·
+machine-readable: [`results.json`](results/run_20261006_081031/results.json) ·
+extension ledgers: [`CROSS_VERIFICATION.md`](results/CROSS_VERIFICATION.md) +
+[`cross_verification_ext.json`](results/cross_verification_ext.json) ·
+[`ext2`](results/cross_verification_ext2.json) · [`ext3`](results/cross_verification_ext3.json) ·
 cross-check: [`results/CROSS_VERIFICATION.md`](results/CROSS_VERIFICATION.md) ·
 per-test ledgers: [`tests/*/results.json`](tests/README.md).
 
@@ -566,9 +574,11 @@ claim is load-bearing. `tools/run_into_folder.py` automates the folder wiring.
 
 - **Seed 96** everywhere; the only stochastic elements (random-coded vortex
   controls, synthetic GUE references) are seeded and documented at point of use.
-- The **canonical run** `results/run_20261006_full_v13/` holds the master
-  ledgers (`REPORT*.md`), machine-readable verdicts (`results*.json`) and the
-  per-test CSV tables; earlier canonical runs (v1.0–v1.2) are preserved for
+- The **canonical run** `results/run_20261006_081031/` holds the master
+  ledger (`REPORT.md`), machine-readable verdicts (`results.json`) and the
+  per-test CSV tables; the extension and cross-check ledgers live in
+  `results/CROSS_VERIFICATION.md` and `results/cross_verification_*.json`;
+  earlier canonical runs (v1.0–v1.2) are preserved for
   provenance.
 - The **ζ-zero data** carry provenance headers: the main 2000-zero band, the
   low control band and the Odlyzko t ≈ 10⁵ band (zeros № 137 300–139 299 of the

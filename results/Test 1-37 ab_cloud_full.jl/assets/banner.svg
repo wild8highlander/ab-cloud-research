@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="RESULTS — RUN ARTIFACTS — animated banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1208"/>
+      <stop offset="0.55" stop-color="#122112"/>
+      <stop offset="1" stop-color="#081006"/>
+    </linearGradient>
+    <linearGradient id="tg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8ee08a"/>
+      <stop offset="0.5" stop-color="#eaf4e6"/>
+      <stop offset="1" stop-color="#c9a86a"/>
+      <animate attributeName="x1" values="-0.6;0.4" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="0.4;1.4" dur="6s" repeatCount="indefinite"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#2a7a1a" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#2a7a1a" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M28 0H0V28" fill="none" stroke="#142414" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="300" rx="14" fill="url(#bg)"/>
+  <rect width="1200" height="300" rx="14" fill="url(#grid)" opacity="0.5"/>
+  <rect width="1200" height="300" rx="14" fill="url(#halo)"/>
+  <rect x="1.5" y="1.5" width="1197" height="297" rx="13" fill="none" stroke="#233a24" stroke-width="1.4" opacity="0.8"/>
+
+  <text x="64" y="74" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-weight="700" letter-spacing="2.2" fill="url(#tg)">RESULTS — RUN ARTIFACTS</text>
+  <text x="66" y="104" font-family="Georgia, serif" font-size="16.5" font-style="italic" fill="#a4c4a0">everything the Julia suite produced on paper-worthy runs — committed so the numbers are checkable without running anything</text>
+
+
+  <!-- терминал прогона -->
+  <g transform="translate(64,138)">
+    <rect x="0" y="0" width="520" height="150" rx="10" fill="#0c160c" stroke="#3a5a3c" stroke-width="1.8"/>
+    <rect x="0" y="0" width="520" height="24" rx="10" fill="#142414"/>
+    <rect x="0" y="14" width="520" height="10" fill="#142414"/>
+    <circle cx="15" cy="12" r="4" fill="#ff5f57"/>
+    <circle cx="30" cy="12" r="4" fill="#febc2e"/>
+    <circle cx="45" cy="12" r="4" fill="#28c840"/>
+    <text x="150" y="16" font-family="'Courier New',monospace" font-size="11" fill="#7c9a78">run_20260902_134759 · Julia 1.12.0</text>
+      <text x="14" y="30" font-family="'Courier New',monospace" font-size="13" fill="#c8e0c4">
+        <animate attributeName="opacity" values="0;1" dur="0.4s" begin="0.00s" fill="freeze"/>
+      </text>
+      <text x="14" y="30" font-family="'Courier New',monospace" font-size="13" fill="#c8e0c4">[✓] test_01 bN_convergence  <tspan fill="#4caf50" font-weight="700">PASS</tspan></text>
+      <text x="14" y="54" font-family="'Courier New',monospace" font-size="13" fill="#c8e0c4">
+        <animate attributeName="opacity" values="0;1" dur="0.4s" begin="0.55s" fill="freeze"/>
+      </text>
+      <text x="14" y="54" font-family="'Courier New',monospace" font-size="13" fill="#c8e0c4">[✓] test_04 gue_ks_full  <tspan fill="#4caf50" font-weight="700">PASS</tspan></text>
+      <text x="14" y="78" font-family="'Courier New',monospace" font-size="13" fill="#c8e0c4">
+        <animate attributeName="opacity" values="0;1" dur="0.4s" begin="1.10s" fill="freeze"/>
+      </text>
+      <text x="14" y="78" font-family="'Courier New',monospace" font-size="13" fill="#c8e0c4">[✓] test_09 pair_correlation  <tspan fill="#4caf50" font-weight="700">PASS</tspan></text>
+      <text x="14" y="102" font-family="'Courier New',monospace" font-size="13" fill="#c8e0c4">
+        <animate attributeName="opacity" values="0;1" dur="0.4s" begin="1.65s" fill="freeze"/>
+      </text>
+      <text x="14" y="102" font-family="'Courier New',monospace" font-size="13" fill="#c8e0c4">[✓] test_23 arf_invariant  <tspan fill="#4caf50" font-weight="700">PASS</tspan></text>
+      <text x="14" y="126" font-family="'Courier New',monospace" font-size="13" fill="#c8e0c4">
+        <animate attributeName="opacity" values="0;1" dur="0.4s" begin="2.20s" fill="freeze"/>
+      </text>
+      <text x="14" y="126" font-family="'Courier New',monospace" font-size="13" fill="#c8e0c4">[✓] test_37 half_factorial_gamma  <tspan fill="#4caf50" font-weight="700">PASS</tspan></text>
+    <rect x="14" y="146" width="9" height="15" fill="#8ee08a">
+      <animate attributeName="opacity" values="1;0;1" dur="1.1s" repeatCount="indefinite"/>
+    </rect>
+    <text x="30" y="158" font-family="'Courier New',monospace" font-size="11.5" fill="#5c7a58">pass 2 · HARDCORE · 96×96</text>
+  </g>
+
+  <!-- ящик архива со штампом FINAL_REPORT -->
+  <g transform="translate(680,148)">
+    <rect x="0" y="10" width="300" height="128" rx="10" fill="#0e180e" stroke="#3a5a3c" stroke-width="1.8"/>
+    <line x1="0" y1="52" x2="300" y2="52" stroke="#3a5a3c" stroke-width="1" opacity="0.6"/>
+    <line x1="0" y1="96" x2="300" y2="96" stroke="#3a5a3c" stroke-width="1" opacity="0.6"/>
+    <rect x="18" y="24" width="264" height="8" rx="4" fill="#4caf50">
+      <animate attributeName="width" values="0;264" dur="1.6s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="18" y="68" width="230" height="8" rx="4" fill="#c9a86a">
+      <animate attributeName="width" values="0;230" dur="1.6s" begin="0.4s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="18" y="112" width="180" height="8" rx="4" fill="#6f9a6f">
+      <animate attributeName="width" values="0;180" dur="1.6s" begin="0.8s" repeatCount="indefinite"/>
+    </rect>
+    <g transform="rotate(-8 150 74)">
+      <rect x="70" y="52" width="160" height="44" rx="6" fill="none" stroke="#e3b341" stroke-width="2.4"/>
+      <text x="150" y="72" text-anchor="middle" font-family="'Courier New',monospace" font-size="13.5" font-weight="700" fill="#e3b341">FINAL_REPORT</text>
+      <text x="150" y="88" text-anchor="middle" font-family="'Courier New',monospace" font-size="10.5" fill="#e3b341">37 / 37 · two passes</text>
+      <animate attributeName="opacity" values="0.65;1;0.65" dur="3.2s" repeatCount="indefinite"/>
+    </g>
+  </g>
+  <text x="680" y="118" font-family="Georgia,serif" font-size="13" font-style="italic" fill="#5c7a58">456 committed files · 453 in the run tree · plots regenerate deterministically</text>
+  <!-- бус zero-ленты -->
+  <g transform="translate(1020,200)">
+    <line x1="0" y1="0" x2="0" y2="60" stroke="#3a5a3c" stroke-width="1.4" opacity="0.7"/>
+    <circle cy="8" cx="0" r="2.4" fill="#8ee08a"><animate attributeName="cy" values="8;52" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;0" dur="2.2s" repeatCount="indefinite"/></circle>
+    <circle cy="8" cx="0" r="2.4" fill="#8ee08a"><animate attributeName="cy" values="8;52" dur="2.2s" begin="0.7s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;0" dur="2.2s" begin="0.7s" repeatCount="indefinite"/></circle>
+    <circle cy="8" cx="0" r="2.4" fill="#8ee08a"><animate attributeName="cy" values="8;52" dur="2.2s" begin="1.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;0" dur="2.2s" begin="1.4s" repeatCount="indefinite"/></circle>
+    <text x="-72" y="76" font-family="'Courier New',monospace" font-size="11" fill="#5c7a58">50 000 zeros in</text>
+  </g>
+
+  <g font-family="'Courier New',monospace" font-size="13.5" fill="#7c9a78">
+    <text x="64" y="278">run_20260902_134759 · 37 tests · two passes (HARDCORE 96×96) · 50 000 Odlyzko zeros · 456 files, 8.4 MB</text>
+  </g>
+</svg>

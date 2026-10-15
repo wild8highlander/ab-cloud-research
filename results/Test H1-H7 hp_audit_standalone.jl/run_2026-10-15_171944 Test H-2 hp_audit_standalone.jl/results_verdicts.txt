@@ -1,0 +1,3 @@
+ONE-LINE VERDICTS (standalone HP audit, menu)
+ Test H2 [HP audit]: 4 sub-checks, 0 failed → PASS
+ Test H2: R²_A=0.98416, R²_B=0.99384, ΔAICc=+58.9 → LATTICE DOS (Model B) → PASS

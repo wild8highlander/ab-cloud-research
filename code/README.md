@@ -1,25 +1,65 @@
-# Canonical Julia Suite — `ab_cloud_v23.jl` (39 Tests, Two-Pass Protocol)
+<div align="center">
 
-![Julia](https://img.shields.io/badge/Julia-1.10%2B-9558B2?style=flat-square&logo=julia&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-39%20%C3%97%202%20passes-2EA043?style=flat-square)
-![Deps](https://img.shields.io/badge/dependencies-stdlib%20only-2EA043?style=flat-square)
-![CI](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/julia.yml?branch=main&style=flat-square&label=Julia%20CI)
+<img src="assets/banner.svg" alt="Code — animated banner: the suite terminal with the test ledger appearing line by line and the animated progress bar, the Julia triple-loop emblem and the headline numbers" width="100%"/>
 
-This folder holds the **canonical numerical program** of the project: a
-single-file, dependency-free Julia suite that produces every number the
-monographs quote. Language: Julia ≥ 1.10 (reference runs: Julia 1.12.0);
-stdlib only — nothing to `Pkg.add()`.
+# ⌨️ Code — The Canonical Julia Suite
 
-## Files
+**`ab_cloud_v23.jl` — the single-file, dependency-free numerical program that produces every
+number the monographs quote.**
+
+[![Julia](https://img.shields.io/badge/Julia-1.10%2B-9558B2?style=flat-square&logo=julia&logoColor=white)](https://julialang.org)
+[![Tests](https://img.shields.io/badge/tests-39%20%C3%97%202%20passes-2EA043?style=flat-square)](#-the-39-tests-grouped)
+[![Lines](https://img.shields.io/badge/lines-32%20095%20%C2%B7%20one%20file-C96F4A?style=flat-square)](#-files)
+[![Deps](https://img.shields.io/badge/dependencies-stdlib%20only-3A6B4F?style=flat-square)](#-files)
+[![CI](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/julia.yml?branch=main&style=flat-square&label=Julia%20CI)](https://github.com/wild8highlander/ab-cloud-research/actions/workflows/julia.yml)
+[![bN](https://img.shields.io/badge/b(50000)-1.2126-4FB3BE?style=flat-square)](#-the-39-tests-grouped)
+[![KS](https://img.shields.io/badge/Montgomery%20KS-0.047%20%C2%B7%20p%3D0.27-8C6D1F?style=flat-square)](#-the-39-tests-grouped)
+[![Seeds](https://img.shields.io/badge/seeds-fixed%20%C2%B7%20byte--identical-3E515B?style=flat-square)](#-running)
+
+[Files](#-files) · [The 39 tests](#-the-39-tests-grouped) · [Running](#-running) · [CLI flags](#-cli-flags-selection) · [Two-pass protocol](#-two-pass-protocol) · [Historical note](#-historical-note)
+
+</div>
+
+---
+
+## 🗂 Table of contents
+
+<details open>
+<summary><strong>Expand / collapse</strong></summary>
+
+1. [📁 Files](#-files)
+2. [🧪 The 39 tests, grouped](#-the-39-tests-grouped)
+3. [🚀 Running](#-running)
+4. [🎚 CLI flags (selection)](#-cli-flags-selection)
+5. [🔁 Two-pass protocol](#-two-pass-protocol)
+6. [📜 Historical note](#-historical-note)
+7. [🔗 Related layers of the project](#-related-layers-of-the-project)
+
+</details>
+
+---
+
+## 📁 Files
+
+<div align="center">
+
+<img src="assets/avatars.svg" alt="The code cast: the canonical suite, the 39 tests, the H1–H7 gates, the Test 34G geometry sweep and the RH benches" width="760"/>
+
+</div>
+
+This folder holds the **canonical numerical program** of the project. Language: Julia ≥ 1.10
+(reference runs: Julia 1.12.0); stdlib only — nothing to `Pkg.add()`.
 
 | File | Size | What it is |
 |---|---|---|
 | `ab_cloud_v23.jl` | 32 095 lines | **canonical suite (v23)** — 39 registered tests, two-pass protocol, report engine (md/html/pdf/docx/png/gif), interactive menu, Physics Lab (H1–H7 gates), 3D lab, Test-34G geometry sweep |
 | `RH_Unified_D.jl` · `RH_Sweep_Pro_D.jl` | ~8 800 lines | standalone RH sweep benches |
 | `hp_audit_standalone.jl` | 6 054 lines | standalone Hilbert–Pólya audit battery |
-| `julia/` | v23 provenance copy | suite provenance archive — see `julia/README.md` |
+| `julia/` | v23 provenance copy | suite provenance archive — see [`julia/README.md`](julia/README.md) |
 
-## The 39 tests, grouped
+---
+
+## 🧪 The 39 tests, grouped
 
 | Group | Tests | Verifies |
 |---|---|---|
@@ -30,10 +70,12 @@ stdlib only — nothing to `Pkg.add()`.
 | Robustness | 29–38 | chaos/decay rate, half-factorial γ, byte-level robustness, form factor K(τ), residual diagnostics, Test 38 — 64-spinor isospectrality |
 | Geometry sweep | 39 | **TEST 34G** — Test 34 laboratory ported onto 7 closed surfaces: torus, Klein bottle, pillow orbifold, cube sphere, Hurwitz PSL(2,7)/PSL(2,8)/PSL(2,13) magnetic Cayley graphs |
 
-(Verdict semantics: PASS / WARN / FAIL against thresholds printed with each
-test; the WARN band is calibration, documented in the run reports.)
+(Verdict semantics: PASS / WARN / FAIL against thresholds printed with each test; the WARN
+band is calibration, documented in the run reports.)
 
-## Running
+---
+
+## 🚀 Running
 
 ```bash
 # smoke run: one test on the embedded 50 000-zero dataset, ~1 min
@@ -52,10 +94,12 @@ julia code/ab_cloud_v23.jl --test 39 --t34g-l 96 --t34g-reps 2 --t34g-geoms all
 julia code/ab_cloud_v23.jl
 ```
 
-The embedded 50 000-zero dataset means the suite runs out of the box; to
-point it at larger frozen datasets use `--data-dir verification/data`.
+The embedded 50 000-zero dataset means the suite runs out of the box; to point it at larger
+frozen datasets use `--data-dir verification/data`.
 
-## CLI flags (selection)
+---
+
+## 🎚 CLI flags (selection)
 
 | Flag | Effect |
 |---|---|
@@ -68,19 +112,47 @@ point it at larger frozen datasets use `--data-dir verification/data`.
 | `--lang en / ru` | UI language |
 | `--help` | full flag list |
 
-## Two-pass protocol
+---
 
-Every test runs twice: a fast **pass 1**, then a **hardcore pass 2** with
-tightened tolerances and sub-check decomposition; selected tests add a
-**series pass 3**. A WARN in pass 1 is not a failure — it flags a
-finite-size/calibration effect that pass 2 re-derives at sub-check level.
-The stored flagship run (v19 era, 2026-09-02) is documented in
+## 🔁 Two-pass protocol
+
+Every test runs twice: a fast **pass 1**, then a **hardcore pass 2** with tightened
+tolerances and sub-check decomposition; selected tests add a **series pass 3**. A WARN in
+pass 1 is not a failure — it flags a finite-size/calibration effect that pass 2 re-derives at
+sub-check level. The stored flagship run (v19 era, 2026-09-02) is documented in
 [`results/README.md`](../results/README.md) with 202 machine verdict lines.
 
-## Historical note
+```mermaid
+flowchart LR
+    S["ab_cloud_v23.jl<br/>39 registered tests"] --> P1["pass 1 — fast<br/>72×72 · verdict + WARN band"]
+    P1 --> P2["pass 2 — HARDCORE<br/>96×96 · tightened tolerances<br/>sub-check decomposition"]
+    P2 --> P3["series pass 3<br/>(selected tests)"]
+    P2 --> R["report engine<br/>md · html · pdf · docx · png · gif"]
+    R --> A["results/<br/>committed artifacts"]
+```
 
-The v19/v20/v21 historical sources were consolidated: the canonical suite is
-now v23 (the change history lives in the file header — v3.1 → v3.7
-changelogs), and the flagship-run artifacts of the v19 era remain committed
-under `results/` exactly as produced. The v23 provenance copy lives in
-[`code/julia/`](julia/).
+---
+
+## 📜 Historical note
+
+The v19/v20/v21 historical sources were consolidated: the canonical suite is now v23 (the
+change history lives in the file header — v3.1 → v3.7 changelogs), and the flagship-run
+artifacts of the v19 era remain committed under `results/` exactly as produced. The v23
+provenance copy lives in [`code/julia/`](julia/).
+
+---
+
+## 🔗 Related layers of the project
+
+| Layer | What it adds |
+|---|---|
+| [`meridian-spectral-observatory/`](../meridian-spectral-observatory/README.md) | the standalone observatory — the current supercombo and the H1–H7 audit |
+| [`results/`](../results/README.md) | the committed run artifacts of the suite |
+| [`verification/`](../verification/README.md) | the 10-language independent verification |
+| [`dirac-lab/`](../dirac-lab/README.md) | the Dirac-skeleton laboratory (D1–D14) |
+
+---
+
+<p align="center">
+  <sub><em>One file, thirty-two thousand lines, every quoted number — reproducible.</em></sub>
+</p>

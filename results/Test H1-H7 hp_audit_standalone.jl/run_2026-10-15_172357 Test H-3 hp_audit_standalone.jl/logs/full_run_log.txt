@@ -1,0 +1,105 @@
+FULL RUN LOG — run_2026-10-15_172357 (hp_audit_standalone v23.6, menu)
+ONE consolidated file: every test's computation log + console capture, in run order
+(two-files contract: the whole run is readable from final_report.md/html + this log)
+
+═════════════════════════════════════════════════════════════════════
+test_302_weyl_law_density — H2. Weyl-law density test (raw N(E), never unfolded)   [PASS]
+═════════════════════════════════════════════════════════════════════
+--- computation log (every log_comp while this test ran) ---
+[2026-10-15 17:19:48]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2127)
+[2026-10-15 17:19:48]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:20:17]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2128)
+[2026-10-15 17:20:18]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+--- console capture (the REPORT) ---
+
+╔══════════════════════════════════════════════════════════════╗
+║                      GATE H2 · WEYL-DOS                      ║
+╠══════════════════════════════════════════════════════════════╣
+║  Weyl-law density — raw N(E) of the AB-cloud (no unfolding)  ║
+╚══════════════════════════════════════════════════════════════╝
+  ζ-type {E·lnE, E, 1} counting ansatz vs the natural lattice
+  DOS — R²/AICc showdown
+ Raw spectrum: 72×72, 5184 levels total, positive branch 2602 levels on E ∈ [0.0073, 3.2512]
+ Staircase: 60 grid points | models fitted on the SAME grid
+
+ Model A (ζ-type):  N(E) = 731.8·E·lnE -32.78·E +223.4   R² = 0.98416  AICc = 579.5
+   (ζ's own Weyl coefficient would be 1/2π ≈ 0.1592 — here the coefficient is FREE: this is a shape test)
+ Model B (lattice): N(E) = 0.9462·N_ref(E) -2487                R² = 0.99384  AICc = 520.7
+ ΔAICc (A−B) = +58.9  (|Δ| > 10 = decisive; negative favors the ζ ansatz)
+  ◆ RAW density follows: LATTICE DOS (Model B)
+╭─◆ Test H2  ·  4 sub-checks → PASS                            ╮
+│✓ both fits computed — n = 60 grid points, models A (3-par) / │
+│B (2-par)                                                     │
+│✓ fit quality floor — R²_A = 0.98416, R²_B = 0.99384 (floor   │
+│0.95)                                                         │
+│✓ decisive separation — ΔAICc = +58.9                         │
+│✓ winner (headline) — lattice DOS wins by 58.9 AICc — raw     │
+│density is ORDINARY lattice physics                           │
+╰──────────────────────────────────────────────────────────────╯
+--- notes ---
+ • Model A embeds the Riemann–Weil smooth counting form N̄(T)=(T/2π)ln(T/2π)−T/2+7/8 with free coefficients — a pure shape test. Model B is the vortex-free Hofstadter cumulative spectrum (same L, α, t; W=0): the 'ordinary lattice' hypothesis. The everywhere-used local-mean unfolding would force unit mean spacing and make this comparison impossible — that is why the test runs on the raw spectrum.
+
+═════════════════════════════════════════════════════════════════════
+test_303_power_law_real_spectrum — H3. Power-law exponent on the REAL lattice spectrum   [PASS]
+═════════════════════════════════════════════════════════════════════
+--- computation log (every log_comp while this test ran) ---
+[2026-10-15 17:23:58]   heevr values-only solve: N=784 — _hp_spectrum (28x28, seed=2254)
+[2026-10-15 17:23:58]   build_ab_cloud_hamiltonian: 28x28 (N=784), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:23:59]   H3: L=28 p_low=0.4557 (R²=0.99796) p_bulk=0.3190 (R²=0.99892)
+[2026-10-15 17:23:59]   heevr values-only solve: N=1296 — _hp_spectrum (36x36, seed=2262)
+[2026-10-15 17:23:59]   build_ab_cloud_hamiltonian: 36x36 (N=1296), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:24:00]   H3: L=36 p_low=0.6718 (R²=0.98166) p_bulk=0.4926 (R²=0.99840)
+[2026-10-15 17:24:00]   heevr values-only solve: N=1936 — _hp_spectrum (44x44, seed=2270)
+[2026-10-15 17:24:00]   build_ab_cloud_hamiltonian: 44x44 (N=1936), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:24:02]   H3: L=44 p_low=0.6235 (R²=0.98789) p_bulk=0.4720 (R²=0.99822)
+[2026-10-15 17:24:03]   heevr values-only solve: N=2704 — _hp_spectrum (52x52, seed=2278)
+[2026-10-15 17:24:03]   build_ab_cloud_hamiltonian: 52x52 (N=2704), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:24:07]   H3: L=52 p_low=0.4795 (R²=0.99898) p_bulk=0.3292 (R²=0.99812)
+[2026-10-15 17:24:08]   heevr values-only solve: N=3600 — _hp_spectrum (60x60, seed=2286)
+[2026-10-15 17:24:08]   build_ab_cloud_hamiltonian: 60x60 (N=3600), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:24:17]   H3: L=60 p_low=0.4759 (R²=0.99848) p_bulk=0.3561 (R²=0.99966)
+--- console capture (the REPORT) ---
+
+╔══════════════════════════════════════════════════════════════╗
+║                     GATE H3 · POWER-LAW                      ║
+╠══════════════════════════════════════════════════════════════╣
+║     Power-law exponent of the REAL spectrum (dictionary      ║
+║                        falsification)                        ║
+╚══════════════════════════════════════════════════════════════╝
+  Eₙ ~ n^p on the independently-diagonalized lattice; p→2
+  (dictionary) vs p=1/2 (Dirac) vs p=1 (band)
+ L=28: M= 393 | low window [9..79]: p̂=0.4557±0.0025 (R²=0.99796) | bulk [118..275]: p̂=0.3190±0.0008 (R²=0.99892)
+ L=36: M= 651 | low window [14..130]: p̂=0.6718±0.0086 (R²=0.98166) | bulk [195..456]: p̂=0.4926±0.0012 (R²=0.99840)
+ L=44: M= 969 | low window [20..194]: p̂=0.6235±0.0052 (R²=0.98789) | bulk [291..678]: p̂=0.4720±0.0010 (R²=0.99822)
+ L=52: M=1352 | low window [28..270]: p̂=0.4795±0.0010 (R²=0.99898) | bulk [406..946]: p̂=0.3292±0.0006 (R²=0.99812)
+ L=60: M=1802 | low window [37..360]: p̂=0.4759±0.0010 (R²=0.99848) | bulk [541..1261]: p̂=0.3561±0.0002 (R²=0.99966)
+
+ Theory anchors: dictionary (n−q)² → p = 2 | 2D Dirac DOS (N(E)∝E²) → p = 1/2 | quadratic band bottom → p = 1
+ (the Eₙ=(n−q)² dictionary of lab E8 is a 1D-ring identity — the REAL 2D spectrum decides)
+ Physics readout: mean |p̂ − 1/2| = 0.077 (low window) vs 0.106 (bulk) → the near-edge spectrum hugs the 2D-Dirac cone anchor (vortex-dominated DOS) — the honest alternative to the rejected dictionary
+
+ L→∞ extrapolation:  low window:  p_∞ = 0.5242 ± 7.5471
+                     bulk window: p_∞ = 0.3958 ± 6.2795
+  ● Dictionary check (|p_∞ − 2|): low = 1.476, bulk = 1.604 → REJECTED — expected honest negative: the real spectrum is not (n−q)² lattice physics
+╭─◆ Test H3  ·  6 sub-checks → PASS                            ╮
+│✓ low-window fit quality — min R² over ladder = 0.98166 (floor│
+│0.98)                                                         │
+│✓ bulk-window fit quality — min R² over ladder = 0.99812      │
+│(floor 0.98)                                                  │
+│✓ per-L falsification (decisive) — min |p̂−2| = 1.328 at ≥ 155σ│
+│(every rung/window; se ≤ 0.0086) — the rejection does NOT rest│
+│on the L→∞ extrapolation                                      │
+│✓ L→∞ extrapolation (note) — UNSTABLE (informational): p_∞ =  │
+│0.3958 ± 6.2795, se ≫ estimate — non-monotone rung scatter;   │
+│the verdict rests on the per-L fits, NOT on this extrapolation│
+│(reviewer sync 2026-09-06)                                    │
+│✓ dictionary verdict — REJECTED (expected honest negative,    │
+│status synced with H1/H7) — |p_∞−2|: low 1.476 / bulk 1.604;  │
+│the real 2D spectrum is not (n−q)² lattice physics            │
+│✓ Dirac-cone readout (low window) — mean |p̂−1/2|: low 0.077 < │
+│bulk 0.106 → the near-edge (vortex-dominated) spectrum is     │
+│Dirac-cone-like, not dictionary-like — reviewer observation   │
+│2026-09-06, promoted to a headline                            │
+╰──────────────────────────────────────────────────────────────╯
+--- notes ---
+ • Fitting the REAL spectrum (not the toy ring of lab E8) answers the reviewer's question directly: if the (n−q)² dictionary were the lattice physics, p̂(L) would extrapolate to 2. The honest 2D alternatives are p = 1/2 (Dirac cone: N(E) ∝ E² near E = 0) in the low window and p ≈ 1 (constant DOS of a quadratic band) in the bulk — both falsify the dictionary claim. VERDICT SEMANTICS (reviewer sync 2026-09-06): a REJECTED dictionary is the EXPECTED honest negative and PASSES the audit exactly like H1's absent fingerprint and H7's zero correlation (one and the same outcome class must not split into PASS and WARN across tests); the test fails only on method grounds — fit quality below floor, too few rungs, or the spectrum actually approaching p = 2. The unstable L→∞ extrapolation (5 rungs, non-monotone scatter, se ≫ estimate) is reported as an INFORMATIONAL note because the verdict rests on the per-L fits, each ≫5σ from the dictionary anchor; the Dirac-cone proximity of the low window is stated as its own physics headline rather than being buried inside the rejection.

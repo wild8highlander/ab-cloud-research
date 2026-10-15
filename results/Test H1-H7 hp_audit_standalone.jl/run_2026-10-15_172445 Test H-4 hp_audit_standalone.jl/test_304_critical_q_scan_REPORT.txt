@@ -1,0 +1,40 @@
+=====================================================================
+REPORT — H4. Critical-q sharpness scan (falsifying the 'critical line' analogy)   [PASS]
+=====================================================================
+
+╔══════════════════════════════════════════════════════════════╗
+║                     GATE H4 · CRITICAL-Q                     ║
+╠══════════════════════════════════════════════════════════════╣
+║    Critical-q sharpness scan — is GUE quality peaked at a    ║
+║                       critical charge?                       ║
+╚══════════════════════════════════════════════════════════════╝
+  Fine q-grid, fixed vortex positions, 2 disorder seeds per
+  point → profile vs noise floor
+ Scan: 21 charges on q ∈ [0.050, 1.000] × 2 seeds, 72×72 lattice, 4 vortices (fixed positions)
+ Claimed criticals marked on the profile: q = 1/2 (self-dual analog), 0.3 (toy dictionary), 1.0 (Byers–Yang)
+
+ KS_D profile: min 0.4810 at q* = 0.193 | cubic-baseline dip = 0.0145 | noise floor σ = 0.0021
+  ◆ Sharpness: z = dip/σ = 6.85, half-prominence width = 0.10 of the scan span → SHARP feature — narrow dip beyond the seed noise
+  ● Nearest claimed critical to q*: q = 0.3 (|q* − q_c| = 0.107) → OFF-PREDICTION (11% of the scan span) — real but UNPREDICTED, the critical-line analogy is NOT corroborated
+ ⟨r⟩ profile: mean 0.5385, range [0.3905, 0.5955] (smooth drift expected — ⟨r⟩ is a coarse statistic)
+╭─◆ Test H4  ·  5 sub-checks → PASS                            ╮
+│✓ scan completed — 21 q-points × 2 seeds, all metrics finite  │
+│✓ noise floor resolved — σ(noise) = 0.00211 from per-point    │
+│seed pairs                                                    │
+│✓ sharp-feature verdict — SHARP: z = 6.85 at q* = 0.193, width│
+│0.10 span (nearest claimed 0.3)                               │
+│✓ location vs claimed criticals — resonance at q* = 0.193 does│
+│NOT coincide with any claimed critical (nearest 0.3, off by   │
+│0.107 = 11% of span) → the sharp feature is real but          │
+│UNPREDICTED — the analogy is NOT corroborated (reviewer sync  │
+│2026-09-06)                                                   │
+│✓ ⟨r⟩ scan range — 0.3905 … 0.5955 across the grid            │
+╰──────────────────────────────────────────────────────────────╯
+
+---------------------------------------------------------------------
+NOTES / METHODOLOGY
+ • Design: vortex POSITIONS are frozen across the grid so the profile responds only to the charge; two disorder seeds per point give the honest noise floor. Prominence = largest baseline-corrected dip of the cubic-smoothed profile in units of that floor, AND the half-prominence width must stay below 35% of the scan span — a wide residual hump is baseline curvature, not a critical point. A smooth profile is the expected outcome for a generic vortex model and FALSIFIES the 'q plays the role of 1/2' analogy. LOCATION HONESTY (reviewer sync 2026-09-06): the scan answers 'is there sharp structure' — it does NOT answer 'does the structure sit where the theory needs it'; a resonance away from every claimed critical is reported as real-but-unpredicted, and the analog claim is scored by the dedicated location row. Noise-floor caveat: 2 seeds per point make σ a 1-parameter estimate — z is indicative, not distribution-level proof.
+
+PLOTS:
+   results/run_2026-10-15_172445/test_304_critical_q_scan/plots/plot_1.png
+   results/run_2026-10-15_172445/test_304_critical_q_scan/plots/plot_2.png

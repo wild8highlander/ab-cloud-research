@@ -1,0 +1,331 @@
+FULL RUN LOG — run_2026-10-15_172445 (hp_audit_standalone v23.6, menu)
+ONE consolidated file: every test's computation log + console capture, in run order
+(two-files contract: the whole run is readable from final_report.md/html + this log)
+
+═════════════════════════════════════════════════════════════════════
+test_302_weyl_law_density — H2. Weyl-law density test (raw N(E), never unfolded)   [PASS]
+═════════════════════════════════════════════════════════════════════
+--- computation log (every log_comp while this test ran) ---
+[2026-10-15 17:19:48]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2127)
+[2026-10-15 17:19:48]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:20:17]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2128)
+[2026-10-15 17:20:18]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+--- console capture (the REPORT) ---
+
+╔══════════════════════════════════════════════════════════════╗
+║                      GATE H2 · WEYL-DOS                      ║
+╠══════════════════════════════════════════════════════════════╣
+║  Weyl-law density — raw N(E) of the AB-cloud (no unfolding)  ║
+╚══════════════════════════════════════════════════════════════╝
+  ζ-type {E·lnE, E, 1} counting ansatz vs the natural lattice
+  DOS — R²/AICc showdown
+ Raw spectrum: 72×72, 5184 levels total, positive branch 2602 levels on E ∈ [0.0073, 3.2512]
+ Staircase: 60 grid points | models fitted on the SAME grid
+
+ Model A (ζ-type):  N(E) = 731.8·E·lnE -32.78·E +223.4   R² = 0.98416  AICc = 579.5
+   (ζ's own Weyl coefficient would be 1/2π ≈ 0.1592 — here the coefficient is FREE: this is a shape test)
+ Model B (lattice): N(E) = 0.9462·N_ref(E) -2487                R² = 0.99384  AICc = 520.7
+ ΔAICc (A−B) = +58.9  (|Δ| > 10 = decisive; negative favors the ζ ansatz)
+  ◆ RAW density follows: LATTICE DOS (Model B)
+╭─◆ Test H2  ·  4 sub-checks → PASS                            ╮
+│✓ both fits computed — n = 60 grid points, models A (3-par) / │
+│B (2-par)                                                     │
+│✓ fit quality floor — R²_A = 0.98416, R²_B = 0.99384 (floor   │
+│0.95)                                                         │
+│✓ decisive separation — ΔAICc = +58.9                         │
+│✓ winner (headline) — lattice DOS wins by 58.9 AICc — raw     │
+│density is ORDINARY lattice physics                           │
+╰──────────────────────────────────────────────────────────────╯
+--- notes ---
+ • Model A embeds the Riemann–Weil smooth counting form N̄(T)=(T/2π)ln(T/2π)−T/2+7/8 with free coefficients — a pure shape test. Model B is the vortex-free Hofstadter cumulative spectrum (same L, α, t; W=0): the 'ordinary lattice' hypothesis. The everywhere-used local-mean unfolding would force unit mean spacing and make this comparison impossible — that is why the test runs on the raw spectrum.
+
+═════════════════════════════════════════════════════════════════════
+test_303_power_law_real_spectrum — H3. Power-law exponent on the REAL lattice spectrum   [PASS]
+═════════════════════════════════════════════════════════════════════
+--- computation log (every log_comp while this test ran) ---
+[2026-10-15 17:23:58]   heevr values-only solve: N=784 — _hp_spectrum (28x28, seed=2254)
+[2026-10-15 17:23:58]   build_ab_cloud_hamiltonian: 28x28 (N=784), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:23:59]   H3: L=28 p_low=0.4557 (R²=0.99796) p_bulk=0.3190 (R²=0.99892)
+[2026-10-15 17:23:59]   heevr values-only solve: N=1296 — _hp_spectrum (36x36, seed=2262)
+[2026-10-15 17:23:59]   build_ab_cloud_hamiltonian: 36x36 (N=1296), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:24:00]   H3: L=36 p_low=0.6718 (R²=0.98166) p_bulk=0.4926 (R²=0.99840)
+[2026-10-15 17:24:00]   heevr values-only solve: N=1936 — _hp_spectrum (44x44, seed=2270)
+[2026-10-15 17:24:00]   build_ab_cloud_hamiltonian: 44x44 (N=1936), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:24:02]   H3: L=44 p_low=0.6235 (R²=0.98789) p_bulk=0.4720 (R²=0.99822)
+[2026-10-15 17:24:03]   heevr values-only solve: N=2704 — _hp_spectrum (52x52, seed=2278)
+[2026-10-15 17:24:03]   build_ab_cloud_hamiltonian: 52x52 (N=2704), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:24:07]   H3: L=52 p_low=0.4795 (R²=0.99898) p_bulk=0.3292 (R²=0.99812)
+[2026-10-15 17:24:08]   heevr values-only solve: N=3600 — _hp_spectrum (60x60, seed=2286)
+[2026-10-15 17:24:08]   build_ab_cloud_hamiltonian: 60x60 (N=3600), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:24:17]   H3: L=60 p_low=0.4759 (R²=0.99848) p_bulk=0.3561 (R²=0.99966)
+--- console capture (the REPORT) ---
+
+╔══════════════════════════════════════════════════════════════╗
+║                     GATE H3 · POWER-LAW                      ║
+╠══════════════════════════════════════════════════════════════╣
+║     Power-law exponent of the REAL spectrum (dictionary      ║
+║                        falsification)                        ║
+╚══════════════════════════════════════════════════════════════╝
+  Eₙ ~ n^p on the independently-diagonalized lattice; p→2
+  (dictionary) vs p=1/2 (Dirac) vs p=1 (band)
+ L=28: M= 393 | low window [9..79]: p̂=0.4557±0.0025 (R²=0.99796) | bulk [118..275]: p̂=0.3190±0.0008 (R²=0.99892)
+ L=36: M= 651 | low window [14..130]: p̂=0.6718±0.0086 (R²=0.98166) | bulk [195..456]: p̂=0.4926±0.0012 (R²=0.99840)
+ L=44: M= 969 | low window [20..194]: p̂=0.6235±0.0052 (R²=0.98789) | bulk [291..678]: p̂=0.4720±0.0010 (R²=0.99822)
+ L=52: M=1352 | low window [28..270]: p̂=0.4795±0.0010 (R²=0.99898) | bulk [406..946]: p̂=0.3292±0.0006 (R²=0.99812)
+ L=60: M=1802 | low window [37..360]: p̂=0.4759±0.0010 (R²=0.99848) | bulk [541..1261]: p̂=0.3561±0.0002 (R²=0.99966)
+
+ Theory anchors: dictionary (n−q)² → p = 2 | 2D Dirac DOS (N(E)∝E²) → p = 1/2 | quadratic band bottom → p = 1
+ (the Eₙ=(n−q)² dictionary of lab E8 is a 1D-ring identity — the REAL 2D spectrum decides)
+ Physics readout: mean |p̂ − 1/2| = 0.077 (low window) vs 0.106 (bulk) → the near-edge spectrum hugs the 2D-Dirac cone anchor (vortex-dominated DOS) — the honest alternative to the rejected dictionary
+
+ L→∞ extrapolation:  low window:  p_∞ = 0.5242 ± 7.5471
+                     bulk window: p_∞ = 0.3958 ± 6.2795
+  ● Dictionary check (|p_∞ − 2|): low = 1.476, bulk = 1.604 → REJECTED — expected honest negative: the real spectrum is not (n−q)² lattice physics
+╭─◆ Test H3  ·  6 sub-checks → PASS                            ╮
+│✓ low-window fit quality — min R² over ladder = 0.98166 (floor│
+│0.98)                                                         │
+│✓ bulk-window fit quality — min R² over ladder = 0.99812      │
+│(floor 0.98)                                                  │
+│✓ per-L falsification (decisive) — min |p̂−2| = 1.328 at ≥ 155σ│
+│(every rung/window; se ≤ 0.0086) — the rejection does NOT rest│
+│on the L→∞ extrapolation                                      │
+│✓ L→∞ extrapolation (note) — UNSTABLE (informational): p_∞ =  │
+│0.3958 ± 6.2795, se ≫ estimate — non-monotone rung scatter;   │
+│the verdict rests on the per-L fits, NOT on this extrapolation│
+│(reviewer sync 2026-09-06)                                    │
+│✓ dictionary verdict — REJECTED (expected honest negative,    │
+│status synced with H1/H7) — |p_∞−2|: low 1.476 / bulk 1.604;  │
+│the real 2D spectrum is not (n−q)² lattice physics            │
+│✓ Dirac-cone readout (low window) — mean |p̂−1/2|: low 0.077 < │
+│bulk 0.106 → the near-edge (vortex-dominated) spectrum is     │
+│Dirac-cone-like, not dictionary-like — reviewer observation   │
+│2026-09-06, promoted to a headline                            │
+╰──────────────────────────────────────────────────────────────╯
+--- notes ---
+ • Fitting the REAL spectrum (not the toy ring of lab E8) answers the reviewer's question directly: if the (n−q)² dictionary were the lattice physics, p̂(L) would extrapolate to 2. The honest 2D alternatives are p = 1/2 (Dirac cone: N(E) ∝ E² near E = 0) in the low window and p ≈ 1 (constant DOS of a quadratic band) in the bulk — both falsify the dictionary claim. VERDICT SEMANTICS (reviewer sync 2026-09-06): a REJECTED dictionary is the EXPECTED honest negative and PASSES the audit exactly like H1's absent fingerprint and H7's zero correlation (one and the same outcome class must not split into PASS and WARN across tests); the test fails only on method grounds — fit quality below floor, too few rungs, or the spectrum actually approaching p = 2. The unstable L→∞ extrapolation (5 rungs, non-monotone scatter, se ≫ estimate) is reported as an INFORMATIONAL note because the verdict rests on the per-L fits, each ≫5σ from the dictionary anchor; the Dirac-cone proximity of the low window is stated as its own physics headline rather than being buried inside the rejection.
+
+═════════════════════════════════════════════════════════════════════
+test_304_critical_q_scan — H4. Critical-q sharpness scan (falsifying the 'critical line' analogy)   [PASS]
+═════════════════════════════════════════════════════════════════════
+--- computation log (every log_comp while this test ran) ---
+[2026-10-15 17:24:47]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2437)
+[2026-10-15 17:24:47]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:25:21]   calc: KS D = 0.641320, p_asymptotic = 0.000000e+00 (n=3110, λ=35.8430)
+[2026-10-15 17:25:21]   calc: ⟨r⟩ = 0.393647 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:25:21]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2438)
+[2026-10-15 17:25:21]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:25:57]   calc: KS D = 0.641289, p_asymptotic = 0.000000e+00 (n=3110, λ=35.8412)
+[2026-10-15 17:25:57]   calc: ⟨r⟩ = 0.387403 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:25:57]   H4: q=0.0500 KS_D=[0.6413, 0.6413] ⟨r⟩=[0.3936, 0.3874]
+[2026-10-15 17:25:58]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2447)
+[2026-10-15 17:25:58]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:26:36]   calc: KS D = 0.568942, p_asymptotic = 0.000000e+00 (n=3110, λ=31.7978)
+[2026-10-15 17:26:36]   calc: ⟨r⟩ = 0.404888 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:26:36]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2448)
+[2026-10-15 17:26:36]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:27:17]   calc: KS D = 0.571696, p_asymptotic = 0.000000e+00 (n=3110, λ=31.9517)
+[2026-10-15 17:27:17]   calc: ⟨r⟩ = 0.428248 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:27:17]   H4: q=0.0975 KS_D=[0.5689, 0.5717] ⟨r⟩=[0.4049, 0.4282]
+[2026-10-15 17:27:18]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2457)
+[2026-10-15 17:27:18]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:28:03]   calc: KS D = 0.519570, p_asymptotic = 0.000000e+00 (n=3110, λ=29.0385)
+[2026-10-15 17:28:03]   calc: ⟨r⟩ = 0.434705 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:28:03]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2458)
+[2026-10-15 17:28:03]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:29:02]   calc: KS D = 0.515607, p_asymptotic = 0.000000e+00 (n=3110, λ=28.8169)
+[2026-10-15 17:29:02]   calc: ⟨r⟩ = 0.446968 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:29:02]   H4: q=0.1450 KS_D=[0.5196, 0.5156] ⟨r⟩=[0.4347, 0.4470]
+[2026-10-15 17:29:03]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2467)
+[2026-10-15 17:29:03]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:29:59]   calc: KS D = 0.479228, p_asymptotic = 0.000000e+00 (n=3110, λ=26.7837)
+[2026-10-15 17:29:59]   calc: ⟨r⟩ = 0.469754 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:29:59]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2468)
+[2026-10-15 17:29:59]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:30:55]   calc: KS D = 0.482759, p_asymptotic = 0.000000e+00 (n=3110, λ=26.9811)
+[2026-10-15 17:30:55]   calc: ⟨r⟩ = 0.473812 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:30:55]   H4: q=0.1925 KS_D=[0.4792, 0.4828] ⟨r⟩=[0.4698, 0.4738]
+[2026-10-15 17:30:56]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2477)
+[2026-10-15 17:30:56]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:31:55]   calc: KS D = 0.465144, p_asymptotic = 0.000000e+00 (n=3110, λ=25.9966)
+[2026-10-15 17:31:55]   calc: ⟨r⟩ = 0.489351 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:31:55]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2478)
+[2026-10-15 17:31:55]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:32:45]   calc: KS D = 0.459180, p_asymptotic = 0.000000e+00 (n=3110, λ=25.6632)
+[2026-10-15 17:32:45]   calc: ⟨r⟩ = 0.492648 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:32:45]   H4: q=0.2400 KS_D=[0.4651, 0.4592] ⟨r⟩=[0.4894, 0.4926]
+[2026-10-15 17:32:46]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2487)
+[2026-10-15 17:32:46]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:33:36]   calc: KS D = 0.442076, p_asymptotic = 0.000000e+00 (n=3110, λ=24.7073)
+[2026-10-15 17:33:36]   calc: ⟨r⟩ = 0.509477 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:33:36]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2488)
+[2026-10-15 17:33:37]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:34:34]   calc: KS D = 0.436898, p_asymptotic = 0.000000e+00 (n=3110, λ=24.4180)
+[2026-10-15 17:34:34]   calc: ⟨r⟩ = 0.507044 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:34:34]   H4: q=0.2875 KS_D=[0.4421, 0.4369] ⟨r⟩=[0.5095, 0.5070]
+[2026-10-15 17:34:35]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2497)
+[2026-10-15 17:34:35]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:35:32]   calc: KS D = 0.426788, p_asymptotic = 0.000000e+00 (n=3110, λ=23.8529)
+[2026-10-15 17:35:32]   calc: ⟨r⟩ = 0.527890 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:35:32]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2498)
+[2026-10-15 17:35:33]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:36:37]   calc: KS D = 0.423517, p_asymptotic = 0.000000e+00 (n=3110, λ=23.6701)
+[2026-10-15 17:36:37]   calc: ⟨r⟩ = 0.527042 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:36:37]   H4: q=0.3350 KS_D=[0.4268, 0.4235] ⟨r⟩=[0.5279, 0.5270]
+[2026-10-15 17:36:39]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2507)
+[2026-10-15 17:36:39]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:37:33]   calc: KS D = 0.402526, p_asymptotic = 0.000000e+00 (n=3110, λ=22.4969)
+[2026-10-15 17:37:33]   calc: ⟨r⟩ = 0.532828 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:37:33]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2508)
+[2026-10-15 17:37:33]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:38:25]   calc: KS D = 0.408811, p_asymptotic = 0.000000e+00 (n=3110, λ=22.8482)
+[2026-10-15 17:38:25]   calc: ⟨r⟩ = 0.533789 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:38:25]   H4: q=0.3825 KS_D=[0.4025, 0.4088] ⟨r⟩=[0.5328, 0.5338]
+[2026-10-15 17:38:26]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2517)
+[2026-10-15 17:38:26]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:39:24]   calc: KS D = 0.397661, p_asymptotic = 0.000000e+00 (n=3110, λ=22.2250)
+[2026-10-15 17:39:24]   calc: ⟨r⟩ = 0.550959 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:39:24]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2518)
+[2026-10-15 17:39:24]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:40:21]   calc: KS D = 0.394290, p_asymptotic = 0.000000e+00 (n=3110, λ=22.0366)
+[2026-10-15 17:40:21]   calc: ⟨r⟩ = 0.547268 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:40:21]   H4: q=0.4300 KS_D=[0.3977, 0.3943] ⟨r⟩=[0.5510, 0.5473]
+[2026-10-15 17:40:22]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2527)
+[2026-10-15 17:40:22]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:41:17]   calc: KS D = 0.383842, p_asymptotic = 0.000000e+00 (n=3110, λ=21.4527)
+[2026-10-15 17:41:17]   calc: ⟨r⟩ = 0.564572 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:41:17]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2528)
+[2026-10-15 17:41:17]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:42:14]   calc: KS D = 0.385049, p_asymptotic = 0.000000e+00 (n=3110, λ=21.5201)
+[2026-10-15 17:42:14]   calc: ⟨r⟩ = 0.559600 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:42:14]   H4: q=0.4775 KS_D=[0.3838, 0.3850] ⟨r⟩=[0.5646, 0.5596]
+[2026-10-15 17:42:15]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2537)
+[2026-10-15 17:42:15]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:43:16]   calc: KS D = 0.382201, p_asymptotic = 0.000000e+00 (n=3110, λ=21.3610)
+[2026-10-15 17:43:16]   calc: ⟨r⟩ = 0.561737 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:43:16]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2538)
+[2026-10-15 17:43:17]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:44:42]   calc: KS D = 0.379840, p_asymptotic = 0.000000e+00 (n=3110, λ=21.2290)
+[2026-10-15 17:44:42]   calc: ⟨r⟩ = 0.563324 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:44:42]   H4: q=0.5250 KS_D=[0.3822, 0.3798] ⟨r⟩=[0.5617, 0.5633]
+[2026-10-15 17:44:43]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2547)
+[2026-10-15 17:44:43]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:45:44]   calc: KS D = 0.370278, p_asymptotic = 0.000000e+00 (n=3110, λ=20.6946)
+[2026-10-15 17:45:44]   calc: ⟨r⟩ = 0.574406 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:45:44]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2548)
+[2026-10-15 17:45:45]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:47:01]   calc: KS D = 0.372941, p_asymptotic = 0.000000e+00 (n=3110, λ=20.8434)
+[2026-10-15 17:47:01]   calc: ⟨r⟩ = 0.573374 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:47:01]   H4: q=0.5725 KS_D=[0.3703, 0.3729] ⟨r⟩=[0.5744, 0.5734]
+[2026-10-15 17:47:02]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2557)
+[2026-10-15 17:47:02]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:47:55]   calc: KS D = 0.367455, p_asymptotic = 0.000000e+00 (n=3110, λ=20.5368)
+[2026-10-15 17:47:55]   calc: ⟨r⟩ = 0.580573 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:47:55]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2558)
+[2026-10-15 17:47:56]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:48:56]   calc: KS D = 0.371963, p_asymptotic = 0.000000e+00 (n=3110, λ=20.7888)
+[2026-10-15 17:48:56]   calc: ⟨r⟩ = 0.578744 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:48:56]   H4: q=0.6200 KS_D=[0.3675, 0.3720] ⟨r⟩=[0.5806, 0.5787]
+[2026-10-15 17:48:57]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2567)
+[2026-10-15 17:48:57]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:49:55]   calc: KS D = 0.365770, p_asymptotic = 0.000000e+00 (n=3110, λ=20.4427)
+[2026-10-15 17:49:55]   calc: ⟨r⟩ = 0.585895 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:49:55]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2568)
+[2026-10-15 17:49:56]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:50:51]   calc: KS D = 0.364858, p_asymptotic = 0.000000e+00 (n=3110, λ=20.3917)
+[2026-10-15 17:50:51]   calc: ⟨r⟩ = 0.578899 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:50:51]   H4: q=0.6675 KS_D=[0.3658, 0.3649] ⟨r⟩=[0.5859, 0.5789]
+[2026-10-15 17:50:52]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2577)
+[2026-10-15 17:50:52]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:52:01]   calc: KS D = 0.363777, p_asymptotic = 0.000000e+00 (n=3110, λ=20.3313)
+[2026-10-15 17:52:01]   calc: ⟨r⟩ = 0.578658 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:52:01]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2578)
+[2026-10-15 17:52:02]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:53:14]   calc: KS D = 0.363621, p_asymptotic = 0.000000e+00 (n=3110, λ=20.3225)
+[2026-10-15 17:53:14]   calc: ⟨r⟩ = 0.582442 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:53:14]   H4: q=0.7150 KS_D=[0.3638, 0.3636] ⟨r⟩=[0.5787, 0.5824]
+[2026-10-15 17:53:15]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2587)
+[2026-10-15 17:53:15]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:54:21]   calc: KS D = 0.354183, p_asymptotic = 0.000000e+00 (n=3110, λ=19.7951)
+[2026-10-15 17:54:21]   calc: ⟨r⟩ = 0.587135 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:54:21]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2588)
+[2026-10-15 17:54:21]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:55:29]   calc: KS D = 0.353898, p_asymptotic = 0.000000e+00 (n=3110, λ=19.7791)
+[2026-10-15 17:55:29]   calc: ⟨r⟩ = 0.592577 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:55:29]   H4: q=0.7625 KS_D=[0.3542, 0.3539] ⟨r⟩=[0.5871, 0.5926]
+[2026-10-15 17:55:30]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2597)
+[2026-10-15 17:55:30]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:56:35]   calc: KS D = 0.342953, p_asymptotic = 1.549983e-319 (n=3110, λ=19.1674)
+[2026-10-15 17:56:35]   calc: ⟨r⟩ = 0.590413 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:56:35]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2598)
+[2026-10-15 17:56:35]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:57:44]   calc: KS D = 0.347261, p_asymptotic = 0.000000e+00 (n=3110, λ=19.4082)
+[2026-10-15 17:57:44]   calc: ⟨r⟩ = 0.591264 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:57:44]   H4: q=0.8100 KS_D=[0.3430, 0.3473] ⟨r⟩=[0.5904, 0.5913]
+[2026-10-15 17:57:45]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2607)
+[2026-10-15 17:57:45]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 17:58:56]   calc: KS D = 0.346683, p_asymptotic = 0.000000e+00 (n=3110, λ=19.3759)
+[2026-10-15 17:58:56]   calc: ⟨r⟩ = 0.584837 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 17:58:56]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2608)
+[2026-10-15 17:58:57]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 18:00:04]   calc: KS D = 0.349341, p_asymptotic = 0.000000e+00 (n=3110, λ=19.5245)
+[2026-10-15 18:00:04]   calc: ⟨r⟩ = 0.584242 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 18:00:04]   H4: q=0.8575 KS_D=[0.3467, 0.3493] ⟨r⟩=[0.5848, 0.5842]
+[2026-10-15 18:00:05]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2617)
+[2026-10-15 18:00:05]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 18:01:09]   calc: KS D = 0.339406, p_asymptotic = 5.711590e-313 (n=3110, λ=18.9692)
+[2026-10-15 18:01:09]   calc: ⟨r⟩ = 0.591685 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 18:01:09]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2618)
+[2026-10-15 18:01:10]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 18:02:24]   calc: KS D = 0.339835, p_asymptotic = 9.239974e-314 (n=3110, λ=18.9932)
+[2026-10-15 18:02:24]   calc: ⟨r⟩ = 0.599338 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 18:02:24]   H4: q=0.9050 KS_D=[0.3394, 0.3398] ⟨r⟩=[0.5917, 0.5993]
+[2026-10-15 18:02:24]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2627)
+[2026-10-15 18:02:25]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 18:03:40]   calc: KS D = 0.340471, p_asymptotic = 6.196901e-315 (n=3110, λ=19.0287)
+[2026-10-15 18:03:40]   calc: ⟨r⟩ = 0.590212 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 18:03:40]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2628)
+[2026-10-15 18:03:40]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 18:05:01]   calc: KS D = 0.343254, p_asymptotic = 4.259834e-320 (n=3110, λ=19.1843)
+[2026-10-15 18:05:01]   calc: ⟨r⟩ = 0.587438 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 18:05:01]   H4: q=0.9525 KS_D=[0.3405, 0.3433] ⟨r⟩=[0.5902, 0.5874]
+[2026-10-15 18:05:02]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2637)
+[2026-10-15 18:05:02]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 18:05:56]   calc: KS D = 0.341458, p_asymptotic = 9.262884e-317 (n=3110, λ=19.0838)
+[2026-10-15 18:05:56]   calc: ⟨r⟩ = 0.588563 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 18:05:56]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2638)
+[2026-10-15 18:05:57]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 18:07:01]   calc: KS D = 0.335424, p_asymptotic = 1.116486e-305 (n=3110, λ=18.7466)
+[2026-10-15 18:07:01]   calc: ⟨r⟩ = 0.591337 (n_r=3109, n_eigs=3111) [refs: GUE=0.5996 Poisson=0.3863]
+[2026-10-15 18:07:01]   H4: q=1.0000 KS_D=[0.3415, 0.3354] ⟨r⟩=[0.5886, 0.5913]
+--- console capture (the REPORT) ---
+
+╔══════════════════════════════════════════════════════════════╗
+║                     GATE H4 · CRITICAL-Q                     ║
+╠══════════════════════════════════════════════════════════════╣
+║    Critical-q sharpness scan — is GUE quality peaked at a    ║
+║                       critical charge?                       ║
+╚══════════════════════════════════════════════════════════════╝
+  Fine q-grid, fixed vortex positions, 2 disorder seeds per
+  point → profile vs noise floor
+ Scan: 21 charges on q ∈ [0.050, 1.000] × 2 seeds, 72×72 lattice, 4 vortices (fixed positions)
+ Claimed criticals marked on the profile: q = 1/2 (self-dual analog), 0.3 (toy dictionary), 1.0 (Byers–Yang)
+
+ KS_D profile: min 0.4810 at q* = 0.193 | cubic-baseline dip = 0.0145 | noise floor σ = 0.0021
+  ◆ Sharpness: z = dip/σ = 6.85, half-prominence width = 0.10 of the scan span → SHARP feature — narrow dip beyond the seed noise
+  ● Nearest claimed critical to q*: q = 0.3 (|q* − q_c| = 0.107) → OFF-PREDICTION (11% of the scan span) — real but UNPREDICTED, the critical-line analogy is NOT corroborated
+ ⟨r⟩ profile: mean 0.5385, range [0.3905, 0.5955] (smooth drift expected — ⟨r⟩ is a coarse statistic)
+╭─◆ Test H4  ·  5 sub-checks → PASS                            ╮
+│✓ scan completed — 21 q-points × 2 seeds, all metrics finite  │
+│✓ noise floor resolved — σ(noise) = 0.00211 from per-point    │
+│seed pairs                                                    │
+│✓ sharp-feature verdict — SHARP: z = 6.85 at q* = 0.193, width│
+│0.10 span (nearest claimed 0.3)                               │
+│✓ location vs claimed criticals — resonance at q* = 0.193 does│
+│NOT coincide with any claimed critical (nearest 0.3, off by   │
+│0.107 = 11% of span) → the sharp feature is real but          │
+│UNPREDICTED — the analogy is NOT corroborated (reviewer sync  │
+│2026-09-06)                                                   │
+│✓ ⟨r⟩ scan range — 0.3905 … 0.5955 across the grid            │
+╰──────────────────────────────────────────────────────────────╯
+--- notes ---
+ • Design: vortex POSITIONS are frozen across the grid so the profile responds only to the charge; two disorder seeds per point give the honest noise floor. Prominence = largest baseline-corrected dip of the cubic-smoothed profile in units of that floor, AND the half-prominence width must stay below 35% of the scan span — a wide residual hump is baseline curvature, not a critical point. A smooth profile is the expected outcome for a generic vortex model and FALSIFIES the 'q plays the role of 1/2' analogy. LOCATION HONESTY (reviewer sync 2026-09-06): the scan answers 'is there sharp structure' — it does NOT answer 'does the structure sit where the theory needs it'; a resonance away from every claimed critical is reported as real-but-unpredicted, and the analog claim is scored by the dedicated location row. Noise-floor caveat: 2 seeds per point make σ a 1-parameter estimate — z is indicative, not distribution-level proof.
