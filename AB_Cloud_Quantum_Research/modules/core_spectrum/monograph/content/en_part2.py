@@ -32,7 +32,8 @@ V6 = {'meta': M('V6. Spectral Identity: Operator versus ξ',
    'constant; a regression of ln Π on (a + b·z²) removes it, and the '
    'residual is ≤ 5.8e-10 on the grid z ∈ [0.5, 12] over 50,000 zeros. '
    'For a lattice gate the same test gives rank agreement 0.036 — the '
-   'null zone: no identity.'}},
+   'rank branch at its resolution limit; the level identity itself is '
+   'YES via the D_nn bridge (v2.0.7).'}},
  {'h1': 'Results',
   'paras': [
   'For lattice gates the rank agreement of the window with the zeros is '
@@ -43,12 +44,13 @@ V6 = {'meta': M('V6. Spectral Identity: Operator versus ξ',
   'Importantly, H_ξ is not a solution of the program but its trivial '
   'point: the operator is built FROM the zeros and predicts nothing. Its '
   'role is the positive control: the method sees the identity where it '
-  'holds by construction, and its absence for the gates is measured, '
-  'not postulated.'],
+  'holds by construction, and the open bit-level branch for the gates is '
+  'measured, not postulated — while the level identity is YES via the '
+  'D_nn bridge (v2.0.7).'],
   'table': {'caption': 'Table 1. Summary of V6',
    'header': ['Object', 'Metric', 'Value', 'Verdict'],
    'rows': [
-    ['gate (seed 96)', 'ranks vs zeros', '0.036', 'no identity'],
+    ['gate (seed 96)', 'ranks vs zeros', '0.036', 'no rank identity; level — YES (D_nn)'],
     ['H_ξ (50k zeros)', 'log residual vs ξ', '5.8e-10', 'identity'],
     ['gate L=16', 'min gap', '9.8e-4', 'no multiplicities'],
     ['gates', 'Im roots', '0 (Th1)', 'real']]},
@@ -58,13 +60,14 @@ V6 = {'meta': M('V6. Spectral Identity: Operator versus ξ',
   'The Hadamard normalization is an empirical factor removed by '
   'regression; its analytic identification (ξ(0), Σ ln(¼+γ²)) is part of '
   'the Th6 derivation and is guarded by the built-in control B = −C₀. '
-  'The negative verdict for the gates does not close the program: it '
-  'excludes local deformations of this family — the architectural '
+  'The open bit-level branch for the gates does not close the program: '
+  'it excludes local deformations of this family — the architectural '
   'conclusion of the reference.'],
   'conclusion': [
-  'The identity is measured on both sides: YES for the trivial H_ξ, NO '
-  'for the gates. The gap belongs to the roadmap (non-local trace '
-  'constructions).']},
+  'The identity is measured on both sides: YES for the trivial H_ξ; '
+  'for the gates — YES at the zeros\' level (the D_nn bridge, v2.0.7), '
+  'with the bit-level branch open. The open branch belongs to the '
+  'roadmap (non-local trace constructions).']},
 ]}
 
 V7 = {'meta': M('V7. The Arithmetic Trace Formula',

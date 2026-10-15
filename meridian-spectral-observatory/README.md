@@ -151,11 +151,11 @@ function of the vortex configuration* — is exactly what the companion
 > [`code/julia/`](../code/julia/) and [`verification/julia/`](../verification/julia/).
 > This folder keeps the *current* supercombo.
 
-### 🎯 HP·MERIDIAN — `hp_audit_standalone.jl` (v24.2-SA)
+### 🎯 HP·MERIDIAN — `hp_audit_standalone.jl` (v24.3-SA)
 
 | File | Lines | What it is |
 |---|---:|---|
-| **`hp_audit_standalone.jl`** | **6 054** | ⭐ Compact standalone audit of **gates H1–H7 only** — the Hilbert–Pólya hypothesis, nothing else. The core is lifted VERBATIM from the v23 supercombo (equal seeds → bit-identical numbers). H5 budget ≤ 40 diagonalizations (v24.1); the targeted **FOCUS-D** mode (`hp_regime_mode = :regime_d`, command `5d`, v24.2); live progress bar during LAPACK calls; 60 s heartbeat (v23.8); environment doctor; battery-cost estimator. Config profile: `p_myset.cfg`. |
+| **`hp_audit_standalone.jl`** | **6087** | ⭐ Compact standalone audit of **gates H1–H7 only** — the Hilbert–Pólya hypothesis, nothing else. The core is lifted VERBATIM from the v23 supercombo (equal seeds → bit-identical numbers). H5 budget ≤ 40 diagonalizations (v24.1); the targeted **FOCUS-D** mode (`hp_regime_mode = :regime_d`, command `5d`, v24.2); live progress bar during LAPACK calls; 60 s heartbeat (v23.8); environment doctor; battery-cost estimator. Config profile: `p_myset.cfg`. |
 
 ### 🌀 RH line — maximizing the cloud ↔ zeros correlation
 
@@ -197,7 +197,7 @@ flowchart TD
     ORIG["original RMT study<br/>61 magic α-points"] --> RHU["RH_Unified.jl<br/>500 zeros · 6 vortices"]
     RHU --> RHU5["RH_Unified_v5.jl"]
     RHU --> RHSP["RH_Sweep_Pro.jl<br/>13 661 zeros · 8-parameter sweep"]
-    SUITE["ab_cloud_full.jl<br/>THE SUITE v23.3+<br/>39 tests · 32 095 lines"] -- "H1–H7 core<br/>lifted VERBATIM<br/>(same seeds → same numbers)" --> HPA["hp_audit_standalone.jl<br/>v24.2-SA · gates only"]
+    SUITE["ab_cloud_full.jl<br/>THE SUITE v23.3+<br/>39 tests · 32 095 lines"] -- "H1–H7 core<br/>lifted VERBATIM<br/>(same seeds → same numbers)" --> HPA["hp_audit_standalone.jl<br/>v24.3-SA · gates only"]
     PYMON["Python monograph code base<br/>V01–V112"] -- "Julia port" --> MON["AB_Cloud_Monumental_v6_3.jl"]
     T11["Test 11 (AD GOF)<br/>suite statistic"] --> T11H["test11_honest.jl / .py<br/>recalibrated null"]
     SUITE --> T11

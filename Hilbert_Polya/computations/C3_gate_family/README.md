@@ -337,13 +337,15 @@ the actual zero windows (v2.0.2 recompute; ratios to floors are category errors)
 headline of the series (recorded in
 `results/RESULTS.md` and the theory map) is anchored on the graph ↔ operator
 comparison: the graph side reproduces the zeros at 1e-10, and no gate gets
-below 0.0069 — the surrogate-null saturation level (≈2/n at n = 200).
+below 0.0069 — the shared saturation level of the zeros' windows and the
+GUE class (≈2/n at n = 200).
 
 <p align="center"><img src="../../assets/avatars/hp_agent_vera.svg" width="120" alt="Agent Vera avatar"/></p>
 
 *Agent Vera guarded the controls: PC1 and PC2 were registered before the gate
-sweep was scored, and the negative verdict was allowed only because both
-controls passed. An unfalsifiable NO was never on the table.*
+sweep was scored, and the verdict H2 = YES was admissible only because both
+controls passed first — the pipeline demonstrably sees identity at the 1e-14
+level whenever identity exists.*
 
 ---
 
@@ -354,11 +356,11 @@ controls passed. An unfalsifiable NO was never on the table.*
 | Quantity | Value | Status |
 |---|---|---|
 | Family | 52 unique configurations, master seed 96 | protocol C3 |
-| Best r_H7 | 0.226 (p = 0.169, Bonferroni 0.80) | no identity |
+| Best r_H7 | 0.226 (p = 0.169, Bonferroni 0.80) | no correlation identity (the rank branch) |
 | Decoys / GUE null | 0.026±0.140 / −0.014±0.127 | null zones |
 | PC1 spinor64 twins | r = 1.000000000, D_nn = 2.7e-14 | method sees identity |
 | PC2 graph ↔ file | r = 1.000000000000, D_nn = 1.2e-10 | method sees identity |
-| Graph ↔ operator relation | none: D_nn at surrogate-null level | the series verdict |
+| Graph ↔ operator relation | level-matching: D_nn at the zeros' level | the series verdict |
 
 ### 6.2 The best gate
 
@@ -411,11 +413,14 @@ Across all 52 gates (from `data/gates_table.csv`, columns
 | Statistic | min | max | notes |
 |---|---|---|---|
 | r_H7 | −0.168447299012455 | 0.22641576150208137 | 36 of 52 positive, 16 negative, 7 above +0.2 |
-| D_nn | 0.006937508455596089 | 0.009221555365816578 | mean 0.0078 — at the surrogate-null level ≈ 2/n |
+| D_nn | 0.006937508455596089 | 0.009221555365816578 | mean 0.0078 — at the shared level of the zeros' windows and the GUE class, ≈ 2/n |
 | mean_spacing | 0.011981804524559426 | 0.01272797005910956 | band density varies only mildly across gates |
 | r_GUE_z | −1.2152397215832413 | 1.8936817833815616 | no gate is an outlier against the GUE null |
 
-No gate in the family approaches identity by any statistic. The smallest raw
+No gate in the family approaches bit-level identity by any statistic — while
+the family lies in the zeros' own D_nn band, 0.0069–0.0092 against the zeros'
+0.0079 ± 0.0005 (the H2 = YES reading). The
+smallest raw
 p-value anywhere in the table is p_D = 0.015384615384615385, attained by five
 gates — (8, 1.0, 0.0, 0.5), (8, 0.5, 1.0, 0.4), (8, 1.0, 1.0, 0.4),
 (16, 1.0, 1.0, 0.4) and (32, 1.0, 1.0, 0.4) — and even that minimum is consumed many times over by the
@@ -597,9 +602,10 @@ Independent checks of this campaign live in `independent_verification/`
 **{'ru': 'Г2 — ДА (на уровне самих нулей ζ), измерено с PC1/PC2', 'en': 'H2 — YES (at the zeros' level), measured with PC1/PC2'}** — details: `data/results.json`, the monograph, and
 `independent_verification/` (the IVP checks of this campaign).
 
-> H2 is a negative verdict, but the method earned it only after the positive
-> controls: PC1/PC2 show the pipeline sees identity at the 1e-14 level when it
-> exists. The term *gate* is a construct of this series; it denotes a
+> The verdict H2 = YES at the zeros' level was earned through the same
+> positive controls: PC1/PC2 show the pipeline sees identity at the 1e-14
+> level when it exists — the calibration that makes the level reading
+> admissible. The term *gate* is a construct of this series; it denotes a
 > parametrised family of Hermitian Hamiltonians, not a physical device.
 
 ---

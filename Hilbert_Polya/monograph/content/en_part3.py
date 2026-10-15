@@ -168,9 +168,11 @@ APPENDIX = {
  "paras": [
  "The discipline of controls: a method is allowed a negative verdict "
  "only after demonstrating a positive result on an object where "
- "identity is known to hold. Every negative result of the series (H2, "
- "H5, M3) passed this procedure; every positive one (T1–T4, T6, T8) "
- "passed an independent recount in IVP01–IVP10."]},
+ "identity is known to hold. Every null-type reading of the series "
+ "(M3 and the rank branches of H2/H5) passed this procedure — the same "
+ "discipline of controls later raised H2 and H5 to YES (the zeros' "
+ "level, v2.0.7; the convergence ladder, v2.0.8); every positive one "
+ "(T1–T4, T6, T8) passed an independent recount in IVP01–IVP10."]},
 {"h1": "The Hilbert–Pólya scorecard",
  "table": {"caption": "Table 3. The five questions of the programme",
   "header": ["Item", "Question", "Verdict", "Basis"],

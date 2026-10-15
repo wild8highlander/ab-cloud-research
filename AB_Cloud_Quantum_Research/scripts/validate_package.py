@@ -36,7 +36,7 @@ def main():
     v_qp = open(os.path.join(ROOT, "modules/processor_ab/VERSION")).read().strip()
     v_jl = open(os.path.join(ROOT, "modules/verifier_multilang/results",
                              "ROADMAP.md")).read()
-    check("core 1.2.2", v_core == "1.2.2", v_core)
+    check("core 1.2.3", v_core == "1.2.3", v_core)
     check("processor 0.1.2", v_qp == "0.1.2", v_qp)
     check("verifier 0.4.0 (класс B исполнен)", "O-J2 (класс B) — ИСПОЛНЕНО в v0.4.0" in v_jl)
     check("VERSION корня допустима (1.0.0 / 1.1.0)",

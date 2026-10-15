@@ -23,10 +23,14 @@
 ## Как пересобрать отчёт
 
 ```bash
-python3 audit/src/audit_build.py                                  # PDF
+python3 audit/src/audit_build.py                                  # PDF (вывод — в audit/)
 node   audit/src/audit_docx.js audit/HPB_audit_canonization_2026-10-13_ru.docx
-python3 scripts/add_toc_placeholders.py  # docx-оглавление (см. src/audit_docx.js)
 ```
+
+Вывод PDF идёт в `audit/` репозитория (переменные окружения `PDF_SKILL` и
+`AUDIT_OUT_DIR` позволяют переопределить путь к скиллу обложки и каталог
+вывода). Оглавление DOCX строится самим `audit_docx.js`; отдельный скрипт
+плейсхолдеров не требуется.
 
 Источники контента отчёта — `src/audit_content*.py`; правки текста вносятся
 только туда с последующей пересборкой.

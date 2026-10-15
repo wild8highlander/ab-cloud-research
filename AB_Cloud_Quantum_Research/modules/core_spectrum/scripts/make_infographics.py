@@ -7,6 +7,7 @@ info_trace (теоремы Th1–Th6). Формат карточек — matplot
 import json
 import os
 import sys
+import textwrap
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -25,8 +26,11 @@ def _card(ax, x, y, w, h, title, body, verdict, ok, t):
                                facecolor=t['slate'], alpha=0.9))
     ax.text(x + 0.14, y + h - 0.21, title, fontsize=8.6, color='white',
             va='center', fontweight='bold')
-    ax.text(x + 0.14, y + h - 0.75, body, fontsize=7.4, color=t['ink'],
-            va='top', wrap=True)
+    # перенос по ширине карточки (matplotlib wrap=True считает только от
+    # края фигуры, и длинный текст уезжает на соседние карточки)
+    body_wrapped = textwrap.fill(body, width=36)
+    ax.text(x + 0.14, y + h - 0.75, body_wrapped, fontsize=7.4,
+            color=t['ink'], va='top')
     ax.text(x + 0.14, y + 0.16, verdict, fontsize=8.6,
             color=t['ok'] if ok else t['bad'], fontweight='bold')
 
@@ -41,7 +45,7 @@ def info_scorecard(t, lang):
              'ИЗМЕРЕНО'),
             ('V4 Паспорт T1', '‖H−H†‖ = 0; спектр вещественен', 'ДОКАЗАНО'),
             ('V5 Предел', 'e(L) ≈ L^{−0.86}, R² = 0.80', 'ИЗМЕРЕНО'),
-            ('V6 Тождество', 'затворы: НЕТ; H_ξ: ДА (остаток 5.8e-10)',
+            ('V6 Тождество', 'затворы на уровне нулей (мост D_nn); H_ξ: ДА (остаток 5.8e-10)',
              'ИЗМЕРЕНО'),
             ('V7 След T6', '|ΔK| ≤ 6.9e-6; PC0 r = +0.9996', 'ДОКАЗАНО'),
             ('V8 Самосопр. T2', 'дефекты (0,0); унитарность 1e-13', 'ДОКАЗАНО'),
@@ -55,7 +59,7 @@ def info_scorecard(t, lang):
             ('V14 Аудит', '19/19 claims по схеме', 'ИЗМЕРЕНО'),
             ('V15 Ли T4', 'λ_n = Tr g_n(H_ξ); λ_n > 0, n ≤ 3000', 'ДОКАЗАНО'),
             ('V16 Полный гамильтониан',
-             'z_best = 2.49 < 6; тождество открыто; ПК r = 1.0', 'ИЗМЕРЕНО'),
+             'тождество уровней ДА (мост D_nn); битовая ветвь открыта: z_best = 2.49 < 6; ПК r = 1.0', 'ИЗМЕРЕНО'),
             ('V17 Электрон', 'ζ-облако ×1.62; ΔE = 1.8e-15; r −0.96',
              'ИЗМЕРЕНО'),
             ('V18 AB-процессор',

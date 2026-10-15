@@ -1,5 +1,57 @@
 # Changelog
 
+## [1.3.7] — 2026-10-15 — «artifacts & CI synced to v2.0.8; hp_audit v24.3-SA»
+
+The follow-up to [1.3.6]: every derived artifact and gate is now in sync
+with the corrected verdicts, and two CI-blocking defects are fixed.
+
+- **Hilbert_Polya monographs (26 documents) regenerated** from the updated
+  content sources: C1–C8 × ru/en, theorems/appendix/v2/canon volumes —
+  the DOCX/PDF layer no longer carries the pre-v2.0.7/v2.0.8 verdict text
+  («H2 — NO», «H5 — NO», «the zeros are encoded, not generated», «the 'NO'
+  of Г2 and Г5», «Every negative result (H2, H5, M3)», the stale C3/C4
+  verdict passages). `make_monographs.py` now also renders the previously
+  ORPHANED `theorems_v2_volume` (parts_theorems_v2.py was never wired into
+  the pipeline — a reproducibility gap).
+- **The preprint gained a dated «Note added»**: H2 = YES at the zeros'
+  level (v2.0.7) and H5 = YES via the convergence ladder (v2.0.8), with the
+  v2.0 text preserved as the dated record.
+- **core_spectrum monographs (V06/V16/V19 × ru/en + v06/v16 verdict JSONs)
+  synced to the level-identity reading** — the session-2 fix had reached the
+  READMEs/JSONs only partially and never the monograph content layer.
+- **AB_Cloud_Quantum_Research/MONOGRAPH_ARCHIVE rebuilt** (main monograph
+  ru/en + Program_Core ru/en): 13 stale verdict statements in the tex
+  sources corrected («lattice direction closed (negative)» → «level
+  identity — YES, D_nn bridge; bit-level branch open»); the LaTeX image
+  paths pointed 7 directories up instead of 3 — every rebuild silently
+  lost all 28 figures; now resolved and the DOCX/PDF regenerated
+  (publication-quality palette-quantized figures, VLM-verified).
+- **The RU info_scorecard of core_spectrum still said «V6 … затворы: НЕТ»**
+  (the EN row was fixed in session 2, the RU row was not) — regenerated
+  with proper in-card text wrapping (the old `wrap=True` measured only the
+  figure edge, letting long text spill onto neighboring cards).
+- **Vortex_optimization monograph §9.5** extended with the v2.0.8 reading
+  (the scan is the measured basis of the H5 verdict); PREVIEW.pdf
+  regenerated; MONOGRAPH_CHANGES.md §6.
+- **The audit report `HPB_audit_canonization` rebuilt from its updated
+  sources** — the PDF/DOCX had been left at their 2026-10-13 build while
+  `audit/src/content.json` already carried the corrected verdicts; also
+  fixed `audit_build.py`'s hardcoded output path (an old clone location —
+  the documented rebuild command wrote outside the repo) and the README's
+  reference to a non-existent TOC script.
+- **CI unblocked (2 defects):** (a) ruff F821 — `Pprev` used before its
+  loop-carried assignment in `run_c17_blind_phaseB.py` (the ruff.toml gate
+  targets exactly this defect class; main was red); (b)
+  `validate_package.py` still expected core 1.2.2 after the 1.2.3 bump —
+  `tests/test_unified.py` failed. Both fixed; ruff clean, all 5 suites
+  green (11 + 19 + 42 + 11 + 22).
+- **`hp_audit_standalone.jl` → v24.3-SA** (5 defects, full static audit of
+  all 6 087 lines): the console preset state leak (SMOKE→FAST kept
+  validation-grade controls), the H1 cost-estimate undercount (GUE nulls
+  and per-regime DEEPEN missing), the :fast column of GATE_MIN still on
+  smoke-grade minutes, a duplicated v23.6 comment in H3, and the L³→L⁶
+  growth note. meridian docs/READMEs updated to v24.3-SA.
+
 ## [1.3.6] — 2026-10-15 — «verdict v2.0.8: H5 = YES via the convergence ladder» (repo-wide)
 
 The repo-wide verdict correction of audit **v2.0.8**

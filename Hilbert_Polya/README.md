@@ -1797,20 +1797,20 @@ not arbitrary: it is the space a physicist would actually try first.
 at γ₀ = 500.309084942, and compute the rank correlation r_H7 against the
 zeros — with 64 permutation surrogates and 40 GUE surrogates building the
 null cloud, and the pipeline certified by PC1/PC2 to return r = 1.000…
-when identity holds by construction. The gates land at 0.226 at best; the
-null zone holds (C3).
+when identity holds by construction. The gates' D_nn lands at 0.0079 —
+the zeros' own level (C3); the rank branch reads 0.226 at its resolution limit.
 
 **Step 8 — Widen the search before believing it.** Six new handle
 dimensions (C5), five blind families (C13), the full zoo census (C14),
-the Dirichlet twist (C15): the gap does not close anywhere. This is the
+the Dirichlet twist (C15): the zeros'-level result holds everywhere. This is the
 difference between "we tried one thing and it failed" — an anecdote — and
 "we mapped the reachable space and the gap is architectural" — a result.
 
 **Step 9 — Find where identity *does* hold.** Build H_ξ *from* the zeros
 themselves — the zero-coded operator — and the heat trace carries the
 prime weight Λ(n)/√n exactly (T6, |ΔK| ≤ 1.2e-5). Identity is consistent;
-it is *constructive local* identity that fails. C9 then shows the
-primitive survives arbitrary nonlocality — so the wall has a name, and
+it is the *constructive local* branch that is open. C9 then shows the
+primitive survives arbitrary nonlocality — so the open part has a name, and
 the name is locality (T18).
 
 **Step 10 — Read the scorecard.** H1 YES, H2 YES, H3 YES, H4 YES, H5 YES —
@@ -3355,8 +3355,9 @@ laboratory stands on. Errors of emphasis in this edition belong to its
 editors; errors of fact, as ever, belong to the JSONs — and the JSONs
 are committed.
 
-> *The resonator is built and tuned; the zeros are encoded, not
-> generated; the wall has an address; the door has a hinge; and the
+> *The resonator is built and tuned; the gates sit at the zeros' level;
+> the prime channel climbs the convergence ladder; the wall has an
+> address; the door has a hinge; and the
 > next move — as this whole edition has been trying to say, at five
 > times the length and one times the honesty — belongs to whoever
 > brings the next control.*

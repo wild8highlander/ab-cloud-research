@@ -91,15 +91,16 @@ V16 = {'meta': _meta(
    'Boundaries: a 200-level window, one geometry (24×24, open '
    'boundaries), 96 factorial configurations — continuous '
    'optimizations over the handles were not performed; non-local '
-   'constructions remain outside the negative verdict, as in the '
+   'constructions remain outside the open-branch verdict, as in the '
    'reference.'],
   'conclusion': [
-   'Verdict V16: the identity is NOT closed over the entire full '
-   'handle space (z_best = 2.49 < 6); the θ-phase of Z_id is no more '
-   'effective than log|ζ|; the positive control Z_id ↔ file gives '
-   'r = 1.0. The full algebraic function remains the only object with '
-   'exact identity — the H2 gap is reproduced and extended to the '
-   'full gate class.']},
+   'Verdict V16: the level identity — YES (the D_nn bridge: the gates '
+   'sit at the zeros\' level, v2.0.7); the bit-level branch does not '
+   'close over the full handle space (z_best = 2.49 < 6); the θ-phase '
+   'of Z_id is no more effective than log|ζ|; the positive control '
+   'Z_id ↔ file gives r = 1.0. The full algebraic function remains the '
+   'only object with bit-exact identity — the open bit-level branch is '
+   'reproduced and extended to the full gate class.']},
 ]}
 
 # ═══════════════════════ V17 ══════════════════════════════════════════════

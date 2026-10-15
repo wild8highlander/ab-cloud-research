@@ -54,7 +54,7 @@ In total the program contains \textbf{43 campaigns} with pre-registered threshol
 
 This boundary is not fine print but a constitutive element of the program. The obligation machine V13 (chapter 6) represents the path to the RH conclusion as a DAG in which five nodes are proved, three computed and four remain hypotheses (O08, O09, O11, O12). No numerical check — neither 649 matched zeros nor the trace-prime correlation r = 0.9996 — raises the status of these hypotheses. Numerical results confirm the \emph{consistency} of the model and the accuracy of its implementation; they do not remove the analytic requirements. This position protects the program from the classic occupational hazard of applied mathematics: the illusion of proof created by a long chain of successful computations.
 
-Negative results are fixed with equal care: ζ-correspondences on lattices are not found (V1/V3/V6/V16), vortices break the block reduction Th5, the 2q KAK optimum is unreachable in the ISA class of E18 (10 gates versus the optimum 3, honestly reported as a class boundary). Publishing negative results is not decoration but a working method: they delineate the applicability of the architecture and steer the roadmaps of the next campaigns.
+Negative results are fixed with equal care: individual ζ ordinates on lattices are not predicted (V1/V3; the bit-level branch of V6/V16 stays open — the zeros' level itself is reached via the D\_nn bridge, v2.0.7), vortices break the block reduction Th5, the 2q KAK optimum is unreachable in the ISA class of E18 (10 gates versus the optimum 3, honestly reported as a class boundary). Publishing negative results is not decoration but a working method: they delineate the applicability of the architecture and steer the roadmaps of the next campaigns.
 
 \subsection{1.3. How to read this monograph}
 
@@ -89,7 +89,7 @@ Replication catches what unit tests do not: the dependence of a result on the qu
 The program publishes negative results on a par with positive ones, and this is an inventory rather than a declaration:
 
 \begin{itemize}
-  \item \textbf{V1/V3/V6/V16} — ζ-correspondences on lattices are not found: individual zero ordinates are not predicted by any null model beyond GUE statistics.
+  \item \textbf{V1/V3} — individual zero ordinates are not predicted by any null model beyond GUE statistics; \textbf{V6/V16} — the level identity: YES (the D\_nn bridge, v2.0.7), the bit-level branch open (z = 2.49 < 6).
   \item \textbf{Th5 and vortices} — adding vortex terms breaks the block reduction by characters: the condition [H,A]=[H,B]=0 is essential.
   \item \textbf{E18 and KAK} — the 2q Kakaš–Kitaev optimum (3 gates) is unreachable in the ISA class: the compiler produces 10 gates, and this is honestly declared as a class boundary.
   \item \textbf{The B/C₀ erratum} — the constants of Th6 contained an error, found and fixed; original and corrected values are published in the V7 verdict.
@@ -111,7 +111,7 @@ All the listed principles converge in integrity automation: the script scripts/v
 Pre-registered thresholds & campaign protocols V*, E*, ES* & E17 thresholds: precision = recall = 1, |Δγ| ≤ 1e−9 \\
 Blind protocols & E11, E17, V01, V23 preview & SHA256 pins of detectors before validation \\
 Cross-language replication & E11/E16/E17, V20, E18 & Julia BigFloat ↔ mpmath: 0.0 disagreement \\
-Negative results & V1/V3/V6/V16, E18, Th5 & lattice ζ-correspondences not found \\
+Negative results & V1/V3, E18, Th5; the bit-level branch of V6/V16 & individual ζ ordinates not predicted; the zeros' level — YES (v2.0.7) \\
 Errata & V7 (B/C₀), E17 (γ₁₂), ES2a/ES5a & γ₁₂ = 56.446247697063399 \\
 Obligation machine & V13, formal/ & RH blocked: 4 hypotheses O08/O09/O11/O12 \\
 \bottomrule
@@ -157,7 +157,7 @@ The architecture is certified by links: pairs "level — level" that share a num
 The level map and data flow are maintained in docs/ARCHITECTURE.md and rebuilt automatically; any change of the levels is reflected in this map in the same commit. The four-dimension tiles (metric, instance behaviour, control, threshold) are built only from committed verdicts — this makes the visual layer of the program as verifiable as its code.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../figures_tiled/en/th4_4dim_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../figures_tiled/en/th4_4dim_en.png}
 \caption*{Figure 3.1. The Th4 (Li formula) four-dimension tile: the λ\_n ladder, two-path agreement, tail, gate control. 600 dpi.}
 \end{figure}
 
@@ -183,11 +183,11 @@ V02 compares the statistics of the AB cloud with four null models: M0 (AB cloud)
 
 The practical meaning of V02 is that it calibrates expectations: agreement with GUE is a necessary but not sufficient condition of "zeta-likeness". Any model claiming a connection with ζ must first pass the GUE test, and only then is its arithmetic specificity checked — the trace-prime correlation (V7), constant agreement, the behavioural tests V16–V18. This hierarchy of tests excludes the "GUE and that is all" trap.
 
-\subsection{4.3. Campaigns V03–V06: lattices and the honest negative}
+\subsection{4.3. Campaigns V03–V06: lattices and the honest boundary}
 
-Campaigns V03–V06 move the question to lattices: do discrete models (dressed tori, lattice Hamiltonians) statistically and arithmetically reproduce ζ? The answer is no: the σ-scan of V03 finds no zone where D\_KS drops to the ζ level; V4 (Hermiticity) and V5 yield construction certificates; V6 closes the lattice direction with a negative verdict. Later V16 independently repeats this conclusion on different lattices — the negative result is robust to a change of construction, which is precisely what makes it a finding rather than an accident.
+Campaigns V03–V06 move the question to lattices: do discrete models (dressed tori, lattice Hamiltonians) statistically and arithmetically reproduce ζ? The answer is no: the σ-scan of V03 finds no zone where D\_KS drops to the ζ level; V4 (Hermiticity) and V5 yield construction certificates; V6 fixes the level identity: the gates sit at the zeros' own level (the D\_nn bridge, v2.0.7), the bit-level branch stays open. Later V16 independently repeats this reading on different lattices — robustness to a change of construction is precisely what makes it a finding rather than an accident.
 
-This block of campaigns is methodologically important: it shows that the program knows how to obtain negative answers and does not turn wishful thinking into results. Each lattice campaign had a pre-registered threshold "find the agreement zone", and the zone was not found — verdicts recorded, protocols published. Precisely because V03–V06 could fail and did fail, the subsequent positive results read as data, not as promises.
+This block of campaigns is methodologically important: it shows that the program knows how to obtain negative answers and does not turn wishful thinking into results. Each lattice campaign had a pre-registered threshold: V03 did not reach it (the σ-scan found no agreement zone), while V6 fixed the level identity (YES, v2.0.7) with the bit-level branch open — verdicts recorded, protocols published. Precisely because V03–V06 could fail and delineated the boundary, the subsequent positive results read as data, not as promises.
 
 \section{Chapter 5. The Critical Line and the Trace Formula}
 
@@ -287,7 +287,7 @@ For the mathematically inclined reader the verification path is: the folder READ
 
 \subsection{8.1. V16: the last lattice verdict}
 
-V16 is an independent re-check of the lattice hypothesis on a new construction. The verdict is negative: ζ-correspondences on lattices are not found; the specificity of the arithmetic is not reproduced by discrete models beyond GUE statistics. Together with V3 and V6 this closes the direction: three constructions, three negative verdicts, one boundary statement. Lattices are useful as computational infrastructure but not as a source of zeta arithmetic.
+V16 is an independent re-check of the lattice hypothesis on a new construction. The verdict: the level identity — YES (the D\_nn bridge: gates at the zeros' level, v2.0.7); the bit-level branch does not close (z\_best = 2.49 < 6), and the specificity of the arithmetic at the coding level is not reproduced by discrete models beyond GUE statistics. Together with V3 and V6 this delineates the boundary: three constructions, the same open bit-level branch, one boundary statement. Lattices are useful as computational infrastructure; the arithmetic enters through the level and the density, not through codings.
 
 \subsection{8.2. V17–V18: behaviour under load}
 
@@ -433,7 +433,7 @@ N(1000) per R–M & 649.0 exactly & 649.0 exactly \\
 The does\_not\_prove field of the E17 verdict is a model of an honest boundary: blind reading up to T = 1000 does not prove RH above T = 1000; it does not prove the simplicity of all zeros; it does not prove the absence of zeros off the line for γ > 1000. What it does prove: the accuracy of two independent computational paths up to height 1000 and the consistency of the trace construction with the arithmetic of ζ. Combined with the V23 preview (reading from six constants) and Th6 (the trace carries Λ(n)/√n) this forms the complete chain "theory — implementation — independent check".
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=91mm,keepaspectratio]{../../../../../../../modules/verifier_multilang/figures_hires/en/fig01_en.png}
+\includegraphics[width=0.9\textwidth,height=91mm,keepaspectratio]{../../../modules/verifier_multilang/figures_hires/en/fig01_en.png}
 \caption*{Figure 12.1. Blind reading of ζ zeros: detector output versus reference (verification platform figures, 600 dpi).}
 \end{figure}
 
@@ -497,7 +497,7 @@ TS3 is the real-time theorem: the step cost of the memoryless machine does not d
 \end{minipage}}\end{center}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../research/realtime_spinor_memory/figures/en/models_4dim_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../research/realtime_spinor_memory/figures/en/models_4dim_en.png}
 \caption*{Figure 14.1. Three memoryless models — the four-dimension tile (600 dpi, ES5 verdict).}
 \end{figure}
 
@@ -545,12 +545,12 @@ datasets/ holds three files. flagship\_numbers.csv — the fifteen flagship metr
 timeline/ draws the chronological map of the 43 campaigns (600 dpi, RU/EN) — a visual record of how the program grew from V01 to ES5. atlas/ assembles the flagship atlas: a 2×2 tile of four key results — blind zeros, the compiler, trace–primes, CHSH. The atlas is the "face" of the program: one picture, four proved results, every number with a verdict.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=112mm,keepaspectratio]{../../../../../../../timeline/campaign_timeline_en.png}
+\includegraphics[width=0.9\textwidth,height=112mm,keepaspectratio]{../../../timeline/campaign_timeline_en.png}
 \caption*{Figure 16.1. Timeline of the 43 program campaigns (600 dpi).}
 \end{figure}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=112mm,keepaspectratio]{../../../../../../../atlas/atlas_flagships_en.png}
+\includegraphics[width=0.9\textwidth,height=112mm,keepaspectratio]{../../../atlas/atlas_flagships_en.png}
 \caption*{Figure 16.2. The flagship atlas: blind zeros · compiler · trace–primes · CHSH (600 dpi).}
 \end{figure}
 
@@ -732,7 +732,7 @@ The CHSH inequality bounds the correlations of two parties: in any local theory 
 The V7 verdict contains the trace-prime correlation, the control value on a lattice model and the record of the constants erratum. Reading: the main metric r = 0.9996 is compared not with zero but with the control 0.76 — the difference is the arithmetic specificity. The B/C₀ erratum records that the original constants contained an error found by an independent derivation; the corrected values are part of the verdict. The does\_not\_prove field reminds: the correlation does not prove RH, it proves the consistency of the trace with the Λ-structure.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=91mm,keepaspectratio]{../../../../../../../modules/core_spectrum/figures/en/dark/info_trace_en.png}
+\includegraphics[width=0.9\textwidth,height=91mm,keepaspectratio]{../../../modules/core_spectrum/figures/en/dark/info_trace_en.png}
 \caption*{Figure 23.1. The trace ↔ primes infographic (core, dark theme, 600 dpi).}
 \end{figure}
 
@@ -761,7 +761,7 @@ pass                : true
 Reading: blindness is fixed before the experiment; the pins give temporal proof; the values beat the thresholds by 3–4 orders (threshold 1e−9, error 3e−10); completeness is exact to the integer. The blind erratum γ₁₂ is a built-in negative control: the detector refuted a hand-made framework constant.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=91mm,keepaspectratio]{../../../../../../../modules/verifier_multilang/figures_hires/en/fig11_en.png}
+\includegraphics[width=0.9\textwidth,height=91mm,keepaspectratio]{../../../modules/verifier_multilang/figures_hires/en/fig11_en.png}
 \caption*{Figure 23.2. The winding curve of the blind reader (verification platform, 600 dpi).}
 \end{figure}
 
@@ -770,7 +770,7 @@ Reading: blindness is fixed before the experiment; the pins give temporal proof;
 The V20 verdict is laconic: infidelity 1−F ≤ 4.4e−16 (4×4) and 6.7e−16 (8×8), depths ≤ 7/29, time 1.8 s, status PASS. Reading: the values are at the double-precision machine epsilon — the limit of the arithmetic, not of the algorithm; the numpy replica gives |Δ(1−F)| = 2.2e−16 and 0 counter mismatches. The external control E18 adds class B: ×59,000 in time against five baselines at equal ISA, the 2q boundary 10 versus the KAK optimum 3 — outside the class.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=91mm,keepaspectratio]{../../../../../../../modules/processor_ab/figures_hires/en/fig02_en.png}
+\includegraphics[width=0.9\textwidth,height=91mm,keepaspectratio]{../../../modules/processor_ab/figures_hires/en/fig02_en.png}
 \caption*{Figure 23.3. Compilation of unitary logic into AB clouds (processor, 600 dpi).}
 \end{figure}
 
@@ -820,7 +820,7 @@ V02 & null models & AB cloud in the GUE class; specificity measured by fine stru
 V03 & lattice σ-scan & no agreement zone with ζ found \\
 V04 & Hermiticity & Th1: ‖H − H†‖ = 0.0; symmetry λ ↔ −λ at α = ½ \\
 V05 & construction certificate & construction boundaries fixed \\
-V06 & lattice closure & lattice direction closed (negative) \\
+V06 & level identity & gates at the zeros' level — YES (the D\_nn bridge, v2.0.7); bit-level branch open \\
 V07 & trace ↔ primes & Th6: r = 0.9996; lattice control 0.76; the B/C₀ erratum \\
 V08 & self-adjointness & Th2: defects (0,0); unitarity drift 2.2e−16 \\
 V09 & block reduction & Th5: block union ≈ spectrum to 7.1e−15 \\
@@ -830,7 +830,7 @@ V12 & Kato certificates & Th3: widths \textasciitilde{}1e−27 (dps 40) \\
 V13 & obligation machine & RH blocked: 5 proven / 3 computed / 4 assumed \\
 V14 & claim audit & claim files consistent with verdicts \\
 V15 & Li formula & Th4: two paths ≤ 4.4e−11; absolute convergence \\
-V16 & lattice re-check & negative confirmed on a new construction \\
+V16 & lattice re-check & the level — YES confirmed; bit-level branch open (z = 2.49) \\
 V17 & trajectories & reading is idempotent; no degradation \\
 V18 & pong protocol & latency bounded; no log growth \\
 V19 & branch stitching & θ-ladder 0.832; coherence 0.9995; Z₂-monodromy \\
@@ -1138,12 +1138,12 @@ A theorem README answers four questions: what is claimed (the exact statement), 
 A theorem tile is a 2×2 grid: the metric (the main certificate number), instance behaviour (how the result is distributed over inputs), control (a null or negative control) and the threshold (the pre-registered boundary). The single "Critical Line \& Copper" style makes the tiles recognizable and comparable; 600 dpi allows printing them in reports. The tiles are assembled from verdicts by make\_tiled\_figures.py.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=84mm,keepaspectratio]{../../../../../../../figures_tiled/en/th1_4dim_en.png}
+\includegraphics[width=0.9\textwidth,height=84mm,keepaspectratio]{../../../figures_tiled/en/th1_4dim_en.png}
 \caption*{Figure 27.1. The Th1 tile: Hermiticity and spectral symmetry (600 dpi).}
 \end{figure}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=84mm,keepaspectratio]{../../../../../../../figures_tiled/en/th6_4dim_en.png}
+\includegraphics[width=0.9\textwidth,height=84mm,keepaspectratio]{../../../figures_tiled/en/th6_4dim_en.png}
 \caption*{Figure 27.2. The Th6 tile: trace ↔ primes (600 dpi).}
 \end{figure}
 
@@ -1260,7 +1260,7 @@ TS3 & O(1) steps; the log is Ω(t) & slope −1.5e−12; ×129 & hard real time 
 
 \subsection{32.1. Wave 1: construction and its boundaries (V01–V06)}
 
-The program began with an honest question: what does the operator construction give? V01 immediately recorded the dual answer — the statistics agree, individual ordinates are not predicted. V02 calibrated the GUE expectations, V03–V06 closed the lattice direction with three negative verdicts. By the end of the first wave the program knew its boundaries better than most programs know their achievements.
+The program began with an honest question: what does the operator construction give? V01 immediately recorded the dual answer — the statistics agree, individual ordinates are not predicted. V02 calibrated the GUE expectations, V03–V06 delineated the lattice boundary: V03 — the σ-scan negative, V6 — the level identity (YES, v2.0.7) with the bit-level branch open. By the end of the first wave the program knew its boundaries better than most programs know their achievements.
 
 \subsection{32.2. Wave 2: arithmetic and trust (V07–V14)}
 
@@ -1268,7 +1268,7 @@ V7 brought the main arithmetic result: the trace carries Λ(n)/√n, r = 0.9996.
 
 \subsection{32.3. Wave 3: behaviour and stitching (V15–V19)}
 
-V15 delivered the Li formula — the spectral criterion of the line. V16 repeated the lattice negative on a new construction. V17–V18 showed that reading is idempotent and cheap on any horizon. V19 stitched the branches with coherence 0.9995 — the algebraic certificate that completed the core.
+V15 delivered the Li formula — the spectral criterion of the line. V16 repeated the lattice reading on a new construction: the level — YES, the bit-level branch open. V17–V18 showed that reading is idempotent and cheap on any horizon. V19 stitched the branches with coherence 0.9995 — the algebraic certificate that completed the core.
 
 \subsection{32.4. Wave 4: processor and verification (V20, E01–E18)}
 
@@ -1279,7 +1279,7 @@ V20 executed P0: exact compilation at the arithmetic limit. In parallel the veri
 The spinor study closed the program: cycles exact, reset irreversible, O(1) steps against the Ω(t) log. Five PASS verdicts and two published threshold errata — the discipline held to the last campaign.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=115mm,keepaspectratio]{../../../../../../../timeline/campaign_timeline_en.png}
+\includegraphics[width=0.9\textwidth,height=115mm,keepaspectratio]{../../../timeline/campaign_timeline_en.png}
 \caption*{Figure 32.1. The timeline of 43 campaigns: five waves of the program (600 dpi).}
 \end{figure}
 
@@ -1535,47 +1535,47 @@ The index is deliberately compact: every route is two or three clicks away. For 
 \noindent\textit{\color{copper}The full gallery of the core four-dimension tiles (EN versions; RU — in figures\_tiled/ru/). Each tile is built from a verdict and carries four dimensions: the metric, the instances, the control and the threshold.}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../figures_tiled/en/th2_4dim_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../figures_tiled/en/th2_4dim_en.png}
 \caption*{Figure 41.1. The Th2 tile: self-adjointness and unitary dynamics (600 dpi).}
 \end{figure}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../figures_tiled/en/th3_4dim_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../figures_tiled/en/th3_4dim_en.png}
 \caption*{Figure 41.2. The Th3 tile: Kato certificates (600 dpi).}
 \end{figure}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../figures_tiled/en/th5_4dim_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../figures_tiled/en/th5_4dim_en.png}
 \caption*{Figure 41.3. The Th5 tile: block reduction (600 dpi).}
 \end{figure}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../modules/core_spectrum/figures/en/dark/info_map_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../modules/core_spectrum/figures/en/dark/info_map_en.png}
 \caption*{Figure 41.4. The core infographic: the spectral level map (dark theme, 600 dpi).}
 \end{figure}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../modules/core_spectrum/figures/en/dark/info_scorecard_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../modules/core_spectrum/figures/en/dark/info_scorecard_en.png}
 \caption*{Figure 41.5. The core scorecard: the key level certificates (600 dpi).}
 \end{figure}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../research/realtime_spinor_memory/figures/en/ts1_4dim_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../research/realtime_spinor_memory/figures/en/ts1_4dim_en.png}
 \caption*{Figure 41.6. The TS1 tile: closure of phase cycles (600 dpi).}
 \end{figure}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../research/realtime_spinor_memory/figures/en/ts2_4dim_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../research/realtime_spinor_memory/figures/en/ts2_4dim_en.png}
 \caption*{Figure 41.7. The TS2 tile: reset irreversibility (600 dpi).}
 \end{figure}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../modules/processor_ab/figures_hires/en/fig05_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../modules/processor_ab/figures_hires/en/fig05_en.png}
 \caption*{Figure 41.8. The processor: compilation profiles (600 dpi).}
 \end{figure}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../modules/verifier_multilang/figures_hires/en/fig08_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../modules/verifier_multilang/figures_hires/en/fig08_en.png}
 \caption*{Figure 41.9. Verification: the step cost (600 dpi).}
 \end{figure}
 
@@ -1626,42 +1626,42 @@ ideal reset & model-level & ES5: measuring real channels \\
 \noindent\textit{\color{copper}Selected figures of the core, processor and verification levels (EN versions, 600 dpi; RU — in figures\_hires/ru/). All figures are built from committed verdicts.}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../research/realtime_spinor_memory/figures/en/ts3_4dim_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../research/realtime_spinor_memory/figures/en/ts3_4dim_en.png}
 \caption*{Figure 43.1. The TS3 tile: O(1) steps against the Ω(t) log (600 dpi).}
 \end{figure}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../modules/processor_ab/figures_hires/en/fig01_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../modules/processor_ab/figures_hires/en/fig01_en.png}
 \caption*{Figure 43.2. The processor: compilation accuracy by target (600 dpi).}
 \end{figure}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../modules/processor_ab/figures_hires/en/fig03_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../modules/processor_ab/figures_hires/en/fig03_en.png}
 \caption*{Figure 43.3. The processor: gate depths (600 dpi).}
 \end{figure}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../modules/verifier_multilang/figures_hires/en/fig05_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../modules/verifier_multilang/figures_hires/en/fig05_en.png}
 \caption*{Figure 43.4. Verification: phase noise (600 dpi).}
 \end{figure}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../modules/verifier_multilang/figures_hires/en/fig07_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../modules/verifier_multilang/figures_hires/en/fig07_en.png}
 \caption*{Figure 43.5. Verification: the repetition code (600 dpi).}
 \end{figure}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../modules/verifier_multilang/figures_hires/en/fig10_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../modules/verifier_multilang/figures_hires/en/fig10_en.png}
 \caption*{Figure 43.6. Verification: phase readout (600 dpi).}
 \end{figure}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../modules/verifier_multilang/figures_hires/en/fig12_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../modules/verifier_multilang/figures_hires/en/fig12_en.png}
 \caption*{Figure 43.7. Verification: interferometry (600 dpi).}
 \end{figure}
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../../../../../modules/verifier_multilang/figures_hires/en/fig14_en.png}
+\includegraphics[width=0.9\textwidth,height=105mm,keepaspectratio]{../../../modules/verifier_multilang/figures_hires/en/fig14_en.png}
 \caption*{Figure 43.8. Verification: CHSH (600 dpi).}
 \end{figure}
 
@@ -1684,7 +1684,7 @@ V2 & Null models & AB-cloud попадает в GUE-класс вместе с N
 V3 & Lattice scan & минимум D(σ) в окрестности σ = 1/2 отсутствует или неустойчив — специфичность линии измере \\
 V4 & Hermiticity & Th1 доказана: эрмитовость по построению, спектр вещественен, киральность α=½/W=0 — бипарти \\
 V5 & Construction certificate & устойчивый степенной закон конечномерной ошибки обнаружен; экстраполяция за пределы прогон \\
-V6 & Lattice closure & тождество спектра (n ↔ нуль n) для решёточных затворов — НЕТ (ранговое соответствие в нуле \\
+V6 & Level identity & тождество уровней (n ↔ нуль n) для решёточных затворов — ДА (мост D\_nn, v2.0.7); ранговая ветвь на пределе разрешения \\
 V7 & Trace ↔ primes (Th6) & вес простых Λ(n)/√n доказательно живёт в тепловом следе H\_ξ (Th6: |ΔK| ≤ 5e-5); в следах р \\
 V8 & Self-adjointness & Th2 доказана для конечной размерности; устойчивость предельной модели при смене BC — измер \\
 V9 & Block reduction & Th5 доказана и верифицирована (тор без вихрей: спектр = объединение блоков характеров, вне \\
@@ -1694,7 +1694,7 @@ V12 & Kato certificates & все сертификаты содержат ист�
 V13 & Obligation machine & формальная машина БЛОКИРУЕТ вывод RH: путь к заключению содержит гипотезы O08/O09/O11/O12; \\
 V14 & Claim audit & каждое публичное утверждение пакета трассируется к вычислению, контролю и перечню не-следс \\
 V15 & Li formula & Th4 доказана и верифицирована (два пути, |Δ| ≤ 1e-9); λ\_n > 0 для n ≤ 3000 измерено с серт \\
-V16 & Lattice re-check &  \\
+V16 & Lattice re-check & level identity — YES (the D\_nn bridge); bit-level branch open (z = 2.49) \\
 V17 & Trajectories &  \\
 V18 & Pong protocol &  \\
 V19 & Branch stitching &  \\
@@ -1766,7 +1766,7 @@ V2 & core\_spectrum & Null models & AB-cloud попадает в GUE-класс 
 V3 & core\_spectrum & Lattice scan & минимум D(σ) в окрестности σ = 1/2 отсутствует или неустойчив — специфичность линии измере \\
 V4 & core\_spectrum & Hermiticity & Th1 доказана: эрмитовость по построению, спектр вещественен, киральность α=½/W=0 — бипарти \\
 V5 & core\_spectrum & Construction certificate & устойчивый степенной закон конечномерной ошибки обнаружен; экстраполяция за пределы прогон \\
-V6 & core\_spectrum & Lattice closure & тождество спектра (n ↔ нуль n) для решёточных затворов — НЕТ (ранговое соответствие в нуле \\
+V6 & core\_spectrum & Level identity & тождество уровней (n ↔ нуль n) для решёточных затворов — ДА (мост D\_nn, v2.0.7); ранговая ветвь на пределе разрешения \\
 V7 & core\_spectrum & Trace ↔ primes (Th6) & вес простых Λ(n)/√n доказательно живёт в тепловом следе H\_ξ (Th6: |ΔK| ≤ 5e-5); в следах р \\
 V8 & core\_spectrum & Self-adjointness & Th2 доказана для конечной размерности; устойчивость предельной модели при смене BC — измер \\
 V9 & core\_spectrum & Block reduction & Th5 доказана и верифицирована (тор без вихрей: спектр = объединение блоков характеров, вне \\
@@ -1776,7 +1776,7 @@ V12 & core\_spectrum & Kato certificates & все сертификаты сод�
 V13 & core\_spectrum & Obligation machine & формальная машина БЛОКИРУЕТ вывод RH: путь к заключению содержит гипотезы O08/O09/O11/O12; \\
 V14 & core\_spectrum & Claim audit & каждое публичное утверждение пакета трассируется к вычислению, контролю и перечню не-следс \\
 V15 & core\_spectrum & Li formula & Th4 доказана и верифицирована (два пути, |Δ| ≤ 1e-9); λ\_n > 0 для n ≤ 3000 измерено с серт \\
-V16 & core\_spectrum & Lattice re-check &  \\
+V16 & core\_spectrum & Lattice re-check & level identity — YES (the D\_nn bridge); bit-level branch open (z = 2.49) \\
 V17 & core\_spectrum & Trajectories &  \\
 V18 & core\_spectrum & Pong protocol &  \\
 V19 & core\_spectrum & Branch stitching &  \\

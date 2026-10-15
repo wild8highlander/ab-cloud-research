@@ -427,6 +427,7 @@ def stieltjes_wall(mus_ld, N):
             h += P[i] * P[j] * mus_ld[i + j]
     hs = [h]
     alphas, beta2, wall = [], [], None
+    Pprev = None  # заносится первым поворотом (используется при n >= 1)
     for n in range(N):
         xP = [np.longdouble(0.0)] + P
         num = np.longdouble(0.0)

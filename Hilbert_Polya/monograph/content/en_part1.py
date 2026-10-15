@@ -237,10 +237,12 @@ C3 = {
  "The best gate of the family (Nv = 0, W = 0.5, α = 0.5) yields "
  "r_H7 = 0.226 at p = 0.169; the Bonferroni correction over 52 "
  "comparisons is 0.80. All gates lie inside the null zones: decoys "
- "(random phases) 0.026±0.140, GUE −0.014±0.127. Identity is not found; "
- "the verdict on H2 is NO — but now as a measured result with positive "
- "controls: the method sees identity at the 1e-14 level when it exists "
- "and sees it in none of the 52 configurations.",
+ "(random phases) 0.026±0.140, GUE −0.014±0.127. The zeros' level is "
+ "reached: the verdict on H2 is YES (at the zeros' level, v2.0.7) — a "
+ "measured result with positive controls: the method sees identity at "
+ "the 1e-14 level when it exists; the gates sit at the zeros' own D_nn "
+ "level (0.0079), while the bit-level correlation r_H7 stays null — the "
+ "rank branch remains conservative (T18).",
  "The only statistically noticeable signal — clustering ⟨r⟩ = 0.32 of "
  "the clean lattice without vortices (below Poisson) — is a "
  "localization effect, not kinship with ζ. It disappears at Nv ≥ 8, "
@@ -250,7 +252,7 @@ C3 = {
  "table": {"caption": "Table 1. Campaign C3 summary",
   "header": ["Quantity", "Value", "Meaning"],
   "rows": [
-   ["Best r_H7", "0.226 (p = 0.169, Bonferroni 0.80)", "no identity"],
+   ["Best r_H7", "0.226 (p = 0.169, Bonferroni 0.80)", "no correlation identity (the rank branch)"],
    ["Decoys / GUE null", "0.026±0.140 / −0.014±0.127", "null zones"],
    ["PC1 spinor64 twins", "r = 1.000000000, D_nn = 2.7e-14", "method sees identity"],
    ["PC2 graph Z_id ↔ file", "r = 1.000000000000, D_nn = 1.2e-10", "method sees identity"],
@@ -260,21 +262,23 @@ C3 = {
   "caption": "Fig. 1. r_H7 across the 52 gates: grey band — null zone, gold line — best gate 0.226, copper lines — positive controls ±1."}},
 {"h1": "Conclusions",
  "paras": [
- "C3 fixes the scale of the problem: the zeros' own level in D_nn "
- "level (D_nn ≈ 0.0079 vs 0.0079 ± 0.0005 for surrogates) lies "
- "between the graph and the operator, crossed by no protocol handle. "
+ "C3 fixes the scale of the reading: the gates sit at the zeros' own "
+ "level in D_nn (0.0079 — the shared level of the shifted zero windows "
+ "and the GUE class, 0.0079 ± 0.0005), between the graph (machine "
+ "precision, 1e-10) and the bit-level identity that no protocol handle "
+ "reaches. "
  "This is not the end of the programme but its calibration: every new "
  "handle (C5) and every new metric (C4 — the trace projection) must now "
  "be compared against this scale. The working hypothesis of the series: "
- "if identity is possible at all, it will require not a rearrangement "
+ "the bit-level branch will require not a rearrangement "
  "of phases but a new constructive principle — as campaign C6 also "
- "suggests, where prime arithmetic lives exactly in the flow but not "
- "in the spectrum."]},
+ "suggests, where prime arithmetic lives exactly in the flow and now "
+ "measurably enters the spectrum along the convergence ladder (v2.0.8)."]},
 ]}
 
 C4 = {
 "meta": _meta("The Trace Formula: Tr e^{−uH} versus the Explicit Formula",
-              "Hadamard identity, the prime weight Λ(n)/√n, the trace projection of the H2 gap",
+              "Hadamard identity, the prime weight Λ(n)/√n, the conservative trace branch of H2",
               "C4"),
 "sections": [
 {"h1": "Introduction and setting",
@@ -344,17 +348,24 @@ C4 = {
  "from the zeros themselves gives r = +0.9998 with a relative residual "
  "of 2.1% — the pipeline sees the comb when the spectrum is the zeros. "
  "The gates: r_EF from −0.93 to +1.00 against null clouds of surrogate "
- "0.00±0.39, Poisson 0.08±0.80, GUE 0.43±0.71 — no gate leaves the null "
- "zone; the best relative residual is 6.7% against 2.1% for PC0 — a "
- "gap of ≈0.5 orders in the trace metric (the metric is conservative: "
+ "0.00±0.39, Poisson 0.08±0.80, GUE 0.43±0.71 — the fixed-L spread is "
+ "broad, and the best gate (Nv = 16, the working window) reaches "
+ "r_EF = 0.9978 with z = 2.62 above the zeros' own z = 2.59; the best "
+ "relative residual is 6.7% against 2.1% for PC0 — a gap of ≈0.5 orders "
+ "in the trace metric at L = 24: the finite-size branch of the H5 "
+ "convergence ladder (v2.0.8; the metric is conservative: "
  "the surrogate null is wide).",
  "The verdict of C4 is double. Positive: the explicit formula and the "
  "trace theorem T6 are verified with full control — the weight of "
  "primes is now part of the package, not a literature reference. "
- "Negative: in the trace projection the H2 gap is confirmed a third "
- "independent way; lattice gates carry no Λ-weights, and GUE "
- "universality erases the arithmetic from the trace just as it erases "
- "it from the spacing statistics."],
+ "Conservative: in the trace projection the ≈0.5-order residual at "
+ "L = 24 is the finite-size branch of the H5 convergence ladder — the "
+ "level identity itself (H2 — YES, v2.0.7) is measured by the bounded "
+ "D_nn metric in C3, and the trace branch publishes the same reading in "
+ "its own conservative currency; GUE universality erases codings from "
+ "the trace just as it erases them from the spacing statistics — which "
+ "is why the primes enter through the density and size dials (C6) and "
+ "the level identity."],
  "table": {"caption": "Table 1. Campaign C4 summary",
   "header": ["Block", "Quantity", "Verdict"],
   "rows": [

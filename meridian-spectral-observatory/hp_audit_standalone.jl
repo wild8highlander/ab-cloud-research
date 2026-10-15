@@ -66,7 +66,23 @@
 #       append-only lines; the check is now the TTY type itself.
 #       Verified on sandbox julia 1.10.4 AND 1.12.0 under a real pty.
 #
-#  START — THREE WAYS
+#  v24.3-SA — audit-pass fixes (2026-10-15, external review):
+    1) PRESET STATE LEAK: apply_preset! only overwrote its own fields, so the
+       console's SMOKE→FAST switch silently kept validation-grade controls
+       (ζ cap 2000 instead of 20000, h1_configs 2, deep 4/4, jitter 2, ladder
+       [16,20,24], gue_calib 3, t_max 20). Every preset now starts from the
+       code defaults — a preset is a complete parameter set.
+    2) H1 COST ESTIMATE undercounted: the two stage-3 GUE nulls, the per-regime
+       GUE null of the sweep and the PER-MARGINAL-REGIME DEEPEN block were
+       missing (67 promised vs ≈172 actual at defaults, worst case).
+    3) GATE_MIN's :fast column still carried pre-v24.1 smoke-grade minutes
+       (H5 «2 min» at L=72 where ONE 5184×5184 solve takes minutes) — now
+       honest orders of magnitude, consistent with the v23.8 «hours, NOT a
+       hang» note and the live cost banner.
+    4) H3: duplicated v23.6 comment block removed.
+    5) _hp_soft_warn: dense-solve growth L³ → L⁶ (was understated ~90×).
+
+  START — THREE WAYS
 #    1) REPL:      julia> include("hp_audit_standalone.jl")
 #                  → the HP·MERIDIAN console OPENS ITSELF.
 #                    q / Ctrl-C returns to the REPL, code stays loaded;
@@ -111,7 +127,7 @@ using Statistics
 using Printf
 using Dates
 
-const HP_SA_VERSION = "24.2-SA"   # console identity: HP·MERIDIAN
+const HP_SA_VERSION = "24.3-SA"   # console identity: HP·MERIDIAN
 export hp_console, hp_menu, main, make_hp_config, apply_preset!,
        hp_params_menu!, run_battery_core, load_zeros, register_audits!,
        HPConfig, HP_AUDITS
@@ -4166,10 +4182,6 @@ function hp_h03_power_law(cfg::HPConfig, zeta_zeros::Vector{Float64})
     # v23.6: extrap_finite added — the table's "L→∞ (note)" row must never
     # disagree with the runner verdict (needs ≥ 3 ladder rungs; ALWAYS true at
     # the real-scale 5-rung ladder, so real-scale semantics are unchanged;
-    # the done-line, the aggregate line and the runner now share one verdict). && extrap_finite
-    # v23.6: extrap_finite added — the table's "L→∞ (note)" row must never
-    # disagree with the runner verdict (needs ≥ 3 ladder rungs; ALWAYS true at
-    # the real-scale 5-rung ladder, so real-scale semantics are unchanged;
     # the done-line, the aggregate line and the runner now share one verdict).
     log_result(@sprintf(" Test H3: per-L min|p̂−2| = %.3f (≥ %.0fσ), p_∞ note: low=%.3f±%.3f / bulk=%.3f±%.3f → dictionary %s (expected negative) → %s",
                         perL_min_dev, perL_min_sigma, p_inf_lo, se_inf_lo, p_inf_bu, se_inf_bu,
@@ -5095,8 +5107,14 @@ the gate runs — banner and reality can never drift apart again)."""
 function _hp_diag_est(cfg::HPConfig, k::Int)::Int
     n_sweep = cfg.hp_regime_mode === :showdown ? 3 : 0 # regimes B/C/D in H1's sweep (H1 sweeps ONLY in :showdown — v24.2 honesty for :regime_d too)
     if k == 1
-        return cfg.hp_h1_configs + 2 + n_sweep * (cfg.hp_h1_configs + 1) +
-               2 * cfg.hp_deep_nulls + cfg.hp_deep_configs
+        # v24.3 FIX (cost honesty): the old formula missed (a) the two SIZE-MATCHED
+        # GUE nulls of stage 3 and the one GUE null per sweep regime — each is a
+        # full n_raw×n_raw dense eigensolve, NOT a cheap side quantity — and
+        # (b) the DEEPEN block runs PER MARGINAL REGIME (up to n_sweep times),
+        # not once. Worst case at defaults: 67 promised vs ≈172 actual.
+        return cfg.hp_h1_configs + 4 +
+               n_sweep * (cfg.hp_h1_configs + 2 +
+                          2 * cfg.hp_deep_nulls + cfg.hp_deep_configs)
     elseif k == 2
         return 2
     elseif k == 3
@@ -5311,6 +5329,16 @@ end
 # ═════════════════════════════════════════════════════════════════════════
 
 function apply_preset!(cfg::HPConfig, which::Symbol)
+    # v24.3 FIX (state leak): a preset is a COMPLETE parameter set. The old code
+    # only overwrote its own fields, so switching SMOKE→FAST in the console kept
+    # the smoke-shrunk controls (ζ cap 2000 instead of 20000, h1_configs 2,
+    # deep 4/4, jitter 2, ladder [16,20,24], gue_calib 3, t_max 20) — a «FAST»
+    # run silently rode validation-grade controls. Every preset now starts from
+    # the code defaults; fields the preset does not name keep their default.
+    _defaults = make_hp_config()
+    for f in fieldnames(HPConfig)
+        setfield!(cfg, f, getfield(_defaults, f))
+    end
     if which === :fast
         cfg.hp_L = 72; cfg.hp_L_weyl = 72; cfg.hp_n_ensemble = 100
         cfg.hp_alpha_scan_n = 40; cfg.hp_regime_mode = :showdown
@@ -5359,9 +5387,13 @@ const GATE_NAME = Dict{Int,String}(
     1 => "PRIME-TRACE", 2 => "WEYL-DOS", 3 => "POWER-LAW", 4 => "CRITICAL-Q",
     5 => "REGIME-2×2", 6 => "HERMIT-STRESS", 7 => "SEQ-CORR")
 const GATE_MIN = Dict{Int,Tuple{Float64,Float64,Float64}}( # (smoke, fast, full), minutes
-    1 => (0.4, 0.5, 25.0), 2 => (0.15, 0.05, 2.0), 3 => (0.3, 0.4, 20.0),
-    4 => (0.2, 0.2, 15.0), 5 => (0.4, 2.0, 90.0), 6 => (0.5, 0.5, 45.0),
-    7 => (0.05, 0.05, 5.0))
+    # v24.3 FIX: the :fast column still carried pre-v24.1 smoke-grade numbers
+    # (H5 «2 min» at L=72, where ONE 5184×5184 dense solve already takes
+    # minutes) — contradicting the file's own v23.8 note «hours, NOT a hang».
+    # Orders below assume ~1–3 min per 5184² solve, ~15–40 s per 3136² solve.
+    1 => (0.4, 120.0, 30.0), 2 => (0.15, 5.0, 2.0), 3 => (0.3, 10.0, 8.0),
+    4 => (0.2, 75.0, 20.0), 5 => (0.4, 80.0, 25.0), 6 => (0.5, 40.0, 12.0),
+    7 => (0.05, 5.0, 3.0))
 
 function _fmt_min(m::Float64)
     m <= 0 && return "—"
@@ -5536,7 +5568,7 @@ function _hp_soft_warn(cfg::HPConfig, name::Symbol)::String
         (cfg.hp_q_min <= 0.3 && cfg.hp_q_max >= 1.0) ||
             return "q-window [$(cfg.hp_q_min), $(cfg.hp_q_max)] misses the claimed criticals 0.3…1.0 — the H4 domain guard will fire"
     end
-    name === :hp_L && cfg.hp_L > 60 && return "L>60: run time grows ≈ L³ — record-grade territory, plan hours"
+    name === :hp_L && cfg.hp_L > 60 && return "L>60: dense-solve time grows ≈ L⁶ (16→72 ≈ 8000×) — record-grade territory, plan hours"
     name === :hp_L && cfg.hp_L < 12 && return "L<12: too few levels for unfolding statistics"
     name === :hp_n_ensemble && cfg.hp_n_ensemble > 7 &&
         return "ensemble > 7/regime: the v24.1 H5 plan caps it (≤ 40 dense solves total, user cap 2026-09-09)"

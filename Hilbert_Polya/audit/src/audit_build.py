@@ -9,8 +9,10 @@ import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-PDF_SKILL = '/home/z/my-project/skills/pdf'
-OUT_DIR = '/home/z/my-project/repo_ab_cloud/Hilbert_Polya/audit'
+PDF_SKILL = os.environ.get('PDF_SKILL', '/home/z/my-project/skills/pdf')
+# вывод — в audit/ репозитория (скрипт лежит в <repo>/Hilbert_Polya/audit/src)
+AUDIT_DIR = os.path.dirname(HERE)
+OUT_DIR = os.environ.get('AUDIT_OUT_DIR', AUDIT_DIR)
 BODY_PDF = os.path.join(OUT_DIR, '_body.pdf')
 COVER_PDF = os.path.join(OUT_DIR, '_cover.pdf')
 FINAL_PDF = os.path.join(OUT_DIR, 'HPB_audit_canonization_2026-10-13_ru.pdf')

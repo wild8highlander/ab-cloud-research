@@ -97,7 +97,8 @@ V19 = {'meta': _meta(
    'speculation: a gate with charges q_k = sign(cos θ(γ̃_k)) gives '
    'D_KS 0.041–0.095 (GUE class) and r_align 0.053–0.135 (z up to '
    '1.83, below significance) — the lesson of V16 is confirmed: the '
-   'identity does not close on the gate handles, but the phase '
+   'bit-level identity does not close on the gate handles (the level '
+   'identity holds via the D_nn bridge), but the phase '
    'stitching of the object closes exactly.',
    'Layer D — the regression. R1 flagship: N = 15, (a, b, r, s) = '
    '(7, 3, 5, 11) — the phase-law residual is 4.5e-40. R2 property '

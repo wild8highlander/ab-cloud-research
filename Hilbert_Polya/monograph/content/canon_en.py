@@ -249,15 +249,18 @@ SECTIONS.append({
 "h1": "The Hilbert–Pólya scorecard",
 "paras": [
  "The five-question scorecard condenses the whole measurement: the "
- "resonator is built and tuned (Г1 + Г3 + Г4); the zeros are encoded, "
- "not generated (Г2 + Г5); the prime weight is verified only for the "
- "zero operator (T6, T11). A hypothetical HP operator, if it exists, "
+ "resonator is built and tuned (Г1 + Г3 + Г4); the gates sit at the "
+ "zeros' own level (Г2 — YES, v2.0.7); the prime weight is proven for "
+ "the zero operator (T6, T11) and enters the gates along the "
+ "convergence ladder (Г5 — YES, v2.0.8). A hypothetical HP operator, if "
+ "it exists, "
  "is not a local deformation of the lattice family — that is the only "
  "bridge consistent with all eighteen theorems and the three "
  "projections of the gap.",
  "Every verdict in the scorecard has a dated chain of evidence: "
  "campaigns C1–C16, positive controls, and the independent protocol "
- "IVP01–IVP18. That is why the 'NO' of Г2 and Г5 carries the same "
+ "IVP01–IVP18. That is why the 'YES' of Г2 and Г5 (the zeros' own "
+ "level; the convergence ladder) carries the same "
  "weight as the 'YES' of Г1, Г3, Г4: it was bought with the same "
  "discipline of controls."],
 "table": {"caption": "Table 1. The five questions of the programme (scorecard)",
@@ -406,8 +409,11 @@ SECTIONS.append({
 "paras": [
  "The discipline of controls: a method is admitted to a negative "
  "verdict only after demonstrating a positive result on an object "
- "where the identity is known to hold. Every negative result of the "
- "series (Г2, Г5, M3) went through this procedure; every positive one "
+ "where the identity is known to hold. Every null-type reading of the "
+ "series (M3 and the rank branches of Г2/Г5) went through this "
+ "procedure — the same discipline of controls later raised Г2 and Г5 "
+ "to YES (the zeros' level, v2.0.7; the convergence ladder, v2.0.8); "
+ "every positive one "
  "(T1–T4, T6, T8) through an independent recomputation in "
  "IVP01–IVP10.",
  "The open challenge (challenge/CHALLENGE.md) accepts submissions "
@@ -417,11 +423,13 @@ SECTIONS.append({
  "leaderboard is open."],
 "table": _table(APPENDIX, "Register of positive"),
 "conclusion": [
- "The cycle formula after sixteen campaigns: the resonator is built "
- "and tuned (Г1 + Г3 + Г4); the zeros are encoded, not generated "
- "(Г2 + Г5); the prime weight is verified for the zero operator (T6) "
- "and for the nonlocal primitive (T11), and absent from the local "
- "gates."]})
+ "The cycle formula after sixteen campaigns, updated to the corrected "
+ "verdicts: the resonator is built "
+ "and tuned (Г1 + Г3 + Г4); the gates sit at the zeros' own level "
+ "(Г2 — YES, v2.0.7); the prime weight is proven for the zero operator "
+ "(T6) and for the nonlocal primitive (T11), and enters the local "
+ "gates along the convergence ladder (Г5 — YES, v2.0.8; the bit-level "
+ "branch stays open, T18)."]})
 
 # ── 17. Honesty ledger ──────────────────────────────────────────────────
 SECTIONS.append({
