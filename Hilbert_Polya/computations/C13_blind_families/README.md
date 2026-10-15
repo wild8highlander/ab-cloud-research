@@ -5,7 +5,7 @@
 <p align="center"><img src="../../assets/avatars/hp_cast_strip.svg" width="760" alt="Bridge avatar cast"/></p>
 *The cast before the blind trial: five families no v1 handle could have drawn, one pipeline they all must pass.*
 
-> Five families absent from the v1 handle space: imaginary x-hoppings, golden quasiperiodic vortices, dimers, power-law hoppings, flux dithering. 20 gates, one pipeline, PC0' = 1.000.
+> Five families absent from the v1 handle space: imaginary x-hoppings, golden quasiperiodic vortices, dimers, power-law hoppings, flux dithering. 20 gates, one pipeline, PC0' = 1.000; 17/20 in the GUE band, 3 at the edges.
 
 [← Back to the main README](../../README.md)
 
@@ -27,13 +27,13 @@ The resonator lattice (L = 24) is dressed with five blind handle families:
 - **BF4 — power-law hoppings**: long-range couplings, Nv = 16/32 (two gates);
 - **BF5 — flux dithering**: the flux α perturbed by 0.01/0.02 (two gates).
 
-Hermiticity is verified gate by gate (`herm_dev = 0.0` for all twenty). One pipeline runs over all of them: the rank correlation r_H7 against the window of 800 internal-cache zeros, calibrated by 64 random shifts and 40 GUE surrogates; mean gap ratios ⟨r⟩ and GUE z-scores; and the positive control PC0' — the isospectral twin, obliged to return r = 1.000 and doing so: the committed value is r = 0.9999999999999996.
+Hermiticity is verified gate by gate (`herm_dev = 0.0` for all twenty). One pipeline runs over all of them: the rank correlation r_H7 against the window of 800 internal-cache zeros, calibrated by 64 random shifts and 40 GUE surrogates; mean spacing ratios ⟨r⟩ with the hard GUE band (0.5996±0.03, C8 canon) and GUE z-scores; and the positive control PC0' — the isospectral twin, obliged to return r = 1.000 and doing so: the committed value is r = 0.9999999999999996.
 
 <p align="center"><img src="../../assets/avatars/hp_agent_atlas.svg" width="110" alt="Agent Atlas"/></p>
 
 ## Results
 
-All in the null zone: |r_H7| ≤ 0.040, min p = 0.29, GUE class intact. The H2 gap is robust to designs outside the v1 space.
+All in the null zone: |r_H7| ≤ 0.040, min p = 0.29 (Bonferroni 5.85). GUE class: 17/20 inside the canonical band 0.5996±0.03, three families drift to the edges (⟨r⟩ = 0.550, 0.559, 0.649) with r_H7 z-scores within ±1 — statistically consistent with GUE, outside the hard band. The H2 gap is robust to designs outside the v1 space.
 
 The committed ledger makes the headline precise: the largest rank correlation among the twenty gates is |r_H7| = 0.0403 (`BF5_dither0.02`), the smallest p-value is 0.292, the Bonferroni floor is 5.85 — all recorded in the verdict alongside PC0' = 1.000. The cohort sits an order of magnitude below the best v1 gate (r_H7 = 0.226 in C3) and far below any identity threshold.
 
@@ -70,7 +70,7 @@ The committed run completes in 7.1 s.
 See `data/results.json` (verdict, RU+EN), the v2 monograph
 (`monograph/v2_volume/`) and `independent_verification/` (IVP11–18).
 
-The committed English verdict reads: *"Blind protocol: 20 gates from 5 new families — all in the null zone (|r_H7| ≤ 0.040, min p = 0.292, Bonferroni 5.85), all in the GUE class. The H2 gap is robust to five independent designs outside the v1 handle space."*
+The committed English verdict reads: *"Blind protocol: 20 gates from 5 new families — all in the null zone (|r_H7| ≤ 0.040, min p = 0.292, Bonferroni 5.85); 17/20 inside the GUE band 0.5996±0.03, the rest at the edges/slightly outside (⟨r⟩ = 0.550–0.649; r_H7 z-scores all within ±1). The H2 gap is robust to five independent designs outside the v1 handle space."*  *(v2.0.5: the earlier committed string said "all in the GUE class" — a hard-coded phrase that contradicted the per-gate `gue_class` flags, three of which are false; see `docs/audit_v2.0.5.md`.)*
 
 ## FAQ
 
@@ -81,7 +81,7 @@ No. Blind means the five families and all parameters were fixed before the pipel
 The same number at different printing precision: the headline rounds to three decimals, `data/results.json` stores the full double.
 
 **Imaginary hoppings and power-law tails are far from Hofstadter — why does nothing change?**
-Because the test is not the symmetry class but the *rank correlation with the zero sequence*. The blind families do drift statistically (⟨r⟩ ≈ 0.55–0.65), yet their spectra carry no trace of the zero order.
+Because the test is not the symmetry class but the *rank correlation with the zero sequence*. The blind families do drift statistically (⟨r⟩ = 0.550–0.649; three gates sit outside the hard C8 band 0.5996±0.03), yet their spectra carry no trace of the zero order.
 
 **Does C13 prove that no Hilbert–Pólya operator exists?**
 No — the package never claims otherwise. The gap survives every local design tested; with T11 the obstruction is architectural: locality itself, not any particular lattice.
@@ -89,7 +89,7 @@ No — the package never claims otherwise. The gap survives every local design t
 ## See also
 
 - [C3 · Gate family](../C3_gate_family/README.md) — the original 52-gate measurement of the gap.
-- [C5 · Gates extended](../C5_gates_extended/README.md) — six handle dimensions, |r_H7| ≤ 0.043.
+- [C5 · Gates extended](../C5_gates_extended/README.md) — the handle sweep, |r_H7| ≤ 0.097 (family Bonferroni 0.57).
 - [C9 · Nonlocal trace primitive](../C9_nonlocal_trace/README.md) — the wall passes through locality, not the trace (T11).
 - [C14 · Anomaly hunt](../C14_anomaly_hunt/README.md) — the companion scan inside the GUE attractor.
 - `docs/v2/overview.md`, `monograph/v2_volume/`, `results/RESULTS.md` (row 27).

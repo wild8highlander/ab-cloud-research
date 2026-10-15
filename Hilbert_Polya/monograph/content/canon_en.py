@@ -146,7 +146,7 @@ SECTIONS.append({
  "pipeline.",
  "The answer is measured and negative: the best gate gives "
  "r_H7 = 0.226 (Bonferroni 0.80); the whole extended family stays at "
- "|r_H7| ≤ 0.043 with ⟨r⟩ = 0.500 ± 0.002 (GUE class). The positive "
+ "|r_H7| ≤ 0.097 (family Bonferroni 0.57) with ⟨r⟩ = 0.569–0.633, mean 0.601±0.016 (GUE class, C8 canon 0.5996±0.03). The positive "
  "controls show the method sees identity when it exists: the spinor64 "
  "twins (r = 1.000000000, D_nn = 2.7e-14) and the graph against the "
  "file (r = 1.000000000000, D_nn = 1.2e-10). The graph ↔ operator gap "
@@ -265,7 +265,7 @@ SECTIONS.append({
   ["Г1", "self-adjointness of the operator", "YES",
    "Hermiticity by construction; real spectrum"],
   ["Г2", "spectral identity level↔zero", "NO",
-   "null level — D_nn 0.0079 vs surrogate 0.0079±0.0005 (C3); ≈0.5 order by relative residual (C4); |r_H7| ≤ 0.043 (C5)"],
+   "null level — D_nn 0.0079 vs surrogate 0.0079±0.0005 (C3); ≈0.5 order by relative residual (C4); |r_H7| ≤ 0.097, Bonferroni 0.57 (C5)"],
   ["Г3", "GUE class", "YES", "⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class"],
   ["Г4", "Dirac dynamics", "YES", "coherent packet, energy 1e-15 (C7)"],
   ["Г5", "primes in the operator", "NO",

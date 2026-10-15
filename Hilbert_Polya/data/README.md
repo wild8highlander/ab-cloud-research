@@ -189,7 +189,8 @@ C6 (primes), C7 (dynamics), C8 (statistics).
   global shift; floor 1e-14 for isospectral twins (below it, only
   diagonalization noise).
 - **⟨r⟩, GUE class** — the statistics class of a spectrum; GUE means
-  ⟨r⟩ ≈ 0.5 (C5 measured 0.498–0.505 within the ±0.03 band).
+  ⟨r⟩ ≈ 0.6 (C5 v2.0.5 measured 0.569–0.633, mean 0.601, against the
+  canonical GUE band 0.5996±0.03).
 - **spinor64** — the C8 reduction: 64 spin structures collapse to 4
   Hamiltonians with |Δλ| ≤ 1.1e-14.
 - **ZFILE** — the path variable for the external Odlyzko zero file

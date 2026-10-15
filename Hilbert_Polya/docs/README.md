@@ -32,6 +32,8 @@ the reference layer a newcomer reads first and returns to constantly:
 | [methods.md](methods.md) | pipelines: sweeps, statistics, sieves, trace |
 | [trace_formula.md](trace_formula.md) | full derivation of Theorem T6 (Hadamard → Q(a) → sine transform) |
 | [validation.md](validation.md) | thresholds, machine floors, registry of controls |
+| [metric_correction_v2.0.1.md](metric_correction_v2.0.1.md) | the D_nn category-error correction (surrogate null) |
+| [audit_v2.0.5.md](audit_v2.0.5.md) | the v2.0.5 audit: the fabricated C5 r_mean column, the self-passing r_EF null, the hard-coded C13 verdict |
 
 Monographs (full, RU/EN, DOCX+PDF): monograph/ and computations/*/.
 

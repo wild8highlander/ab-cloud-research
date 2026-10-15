@@ -172,7 +172,8 @@ the translation into the next language? Stage 1 to 2 loses nothing — the
 3 loses nothing — Z_id and the argument principle agree zero for zero.
 Stage 3 to 4 loses *almost everything*: the best gate in the family
 correlates with the zeros at r_H7 = 0.226 (p = 0.169, Bonferroni-corrected
-0.80), and the extended v1+v2 families land at |r_H7| ≤ 0.043 — while the
+0.80), and the extended v1+v2 families land at |r_H7| ≤ 0.097 (family
+Bonferroni 0.57) — while the
 positive controls, run through the identical pipeline, return r = 1.000000000
 and 1.000000000000. Stage 4 to 5 closes the loop: for the one operator
 sewn from the zeros themselves, the heat trace carries the prime weight
@@ -245,7 +246,7 @@ main README's table cannot carry:
 | 4 | Explicit-formula identity Q(a) | \|ΔQ\| ≤ 1.7e-12 | C4, T6 |
 | 5 | Trace formula for H_ξ | \|ΔK\| ≤ 1.2e-5 (abs) | C4, T6 |
 | 6 | Best gate correlation (52 gates) | r_H7 = 0.226, p = 0.169, Bonferroni 0.80 | C3 |
-| 7 | Extended family (35 gates, 6 new handles) | \|r_H7\| ≤ 0.043, ⟨r⟩ = 0.500±0.001 | C5, T7 |
+| 7 | Extended family (35 gates, 6 new handles) | \|r_H7\| ≤ 0.097 (Бонферрони 0.57), ⟨r⟩ = 0.569–0.633 (среднее 0.601) | C5, T7 |
 | 8 | Trace projection of the gates | r_EF inside null clouds; residual gap ≈ 0.5 orders | C4 |
 | 9 | Prime-flow co-location | (Φ_p,Φ_q) ≡ Φ_pq, max\|ΔE\| = 1.35e-14 | C6, T4 |
 | 10 | ψ-ladder (sieve vs 200 zeros) | corr = +0.972; gates in null zone | C6 |
@@ -283,8 +284,9 @@ correlation with the zeros is 0.226 — individually unremarkable (p = 0.169)
 and jointly hopeless after Bonferroni correction (0.80). The v1 extension
 pushed six new handle dimensions (twists, anisotropy, flux shift, staggered
 mass, vortex profile, signs/boundaries) across 35 more gates: the family
-minimum drops to |r_H7| ≤ 0.043 while the GUE signature ⟨r⟩ sits at
-0.500 ± 0.001. The gap does not close; it *sharpens*.
+maximum stays at |r_H7| ≤ 0.097 (Bonferroni-corrected p = 0.57) while
+the GUE signature ⟨r⟩ sits at 0.601 ± 0.016 (family 0.569–0.633). The gap
+does not close; it *sharpens*.
 
 **8 · The same gap, in heat-trace currency.** The gates' heat traces fail
 to carry the prime comb — r_EF stays inside the surrogate null clouds —
@@ -326,8 +328,8 @@ The five questions of the Hilbert–Pólya programme, answered by measurement:
 | Item | Question | Verdict | Basis |
 |------|----------|---------|-------|
 | H1 | Self-adjointness | **YES** | Hermitian by construction; real spectrum at machine precision |
-| H2 | Spectral identity (level n ↔ zero n) | **NO** | null level — D_nn 0.0079 vs surrogate 0.0079±0.0005 (C3); ≈0.5 order by relative residual (C4); \|r_H7\| ≤ 0.043 (C5) |
-| H3 | The GUE statistics class | **YES** | ⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class |
+| H2 | Spectral identity (level n ↔ zero n) | **NO** | null level — D_nn 0.0079 vs surrogate 0.0079±0.0005 (C3); ≈0.5 order by relative residual (C4); \|r_H7\| ≤ 0.097, Бонферрони 0.57 (C5) |
+| H3 | The GUE statistics class | **YES** | ⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class (⟨r⟩ = 0.569–0.633, mean 0.601) |
 | H4 | Dirac-type dynamics | **YES** | coherent packet, reflection, scattering; energy 1e-15 (C7) |
 | H5 | Primes inside the operator | **NO** | ψ-ladder 0.972 for zeros, null zone for gates (C6) |
 
@@ -403,7 +405,7 @@ severity, cannot be dismissed so easily.
 
 | Projection | Campaign | Best gate | Positive control | Gap |
 |------------|----------|-----------|------------------|-----|
-| Rank correlation r_H7 | C3 (52 gates) + C5 (35 gates) | 0.226 / 0.043 | PC1, PC2: r = 1.000000000 | **surrogate-null level** |
+| Rank correlation r_H7 | C3 (52 gates) + C5 (35 gates) | 0.226 / 0.097 | PC1, PC2: r = 1.000000000 | **surrogate-null level** |
 | ψ-ladder corr | C6 | +0.239 | zeros: +0.972 | **null zone** |
 | Heat trace r_EF | C4 | residual 6.7% | PC0: r = +0.9998, resid 2.1% | **≈0.5 order (conservative)** |
 
@@ -634,8 +636,9 @@ trace currency is ≈0.5 orders, conservative.
 The "you only tried one family" objection, answered with six new handle
 dimensions — twists, anisotropy, flux shift, staggered mass, vortex profile,
 signs and boundaries — across 35 new gates (plus 2 decoys). The verdict is
-unchanged and sharper: every gate lands in the GUE class (⟨r⟩ = 0.500±0.001)
-and in the null zone (|r_H7| ≤ 0.043). Theorem T7 — universality
+unchanged and sharper: the family lands in the GUE class (⟨r⟩ =
+0.569–0.633, mean 0.601±0.016 — canonical band 0.5996±0.03)
+and in the null zone (|r_H7| ≤ 0.097, family Bonferroni 0.57). Theorem T7 — universality
 demarcation — formalizes the lesson: the statistics class is an attractor
 that erases exactly the information the zeros would need to live in.
 
@@ -1755,7 +1758,7 @@ contributes to the ledger. Every cell is traceable to a committed JSON.
 | C2 | argument principle to T = 1000 | T3 | pole calibration; N(T) bridge | 649 = 649, resid ≤ 8.3e-25; \|ΔN\| = 2.6e-26 | RH verified in strip |
 | C3 | 52 gates, permutation nulls | — | PC1, PC2 | best r_H7 = 0.226 (p = 0.169, Bonf 0.80) | H2 — NO, at the surrogate-null level |
 | C4 | trace formula vs explicit formula | T6 | PC0 | \|ΔQ\| ≤ 1.7e-12; \|ΔK\| ≤ 1.2e-5 | T6 verified; trace gap ≈ 0.5 order |
-| C5 | 35 gates, 6 new handles | T7 | PC0 re-run | \|r_H7\| ≤ 0.043; ⟨r⟩ = 0.500±0.001 | gap stable |
+| C5 | 35 gates, 6 new handles | T7 | PC0′ = 1.000 (pipeline) | \|r_H7\| ≤ 0.097 (Бонф. 0.57); ⟨r⟩ = 0.569–0.633, mean 0.601 | gap stable |
 | C6 | co-location kernel, ψ-ladder | T4, T5 | sieve vs zeros | co-location 1.35e-14; ψ corr 0.972 vs null | H5 — NO, measured |
 | C7 | wave-packet dynamics, L = 96 | — | energy 1e-15; random-phase null | P(x ≥ 90): 0.0032 vs 0.0002 (×16) | H4 — YES |
 | C8 | Poisson/GOE/GUE ladder, spinor64 | T8, T10 | KS tests | ⟨r⟩ = 0.597–0.612; 64→4 at 1.1e-14 | H3 — YES |
@@ -2279,9 +2282,10 @@ seed, 200-level windows at γ₀ = 500.309084942: the strongest sequence
 agreement any gate achieved with the zeros. With p = 0.169 raw and
 0.80 after Bonferroni, the correct reading is: not even a rumor of
 identity. Its biography continues in C5, where the family minimum falls
-to 0.043 — the gap *sharpens* as the search widens.
+at 0.097 under the family-wide Bonferroni correction — the gap
+*sharpens* as the search widens.
 
-**7 · 0.043 — the extended family's |r_H7| maximum.** Thirty-five new
+**7 · 0.097 — the extended family's |r_H7| maximum.** Thirty-five new
 gates across six new handle dimensions, and the best correlation
 *dropped*. The gap is not a property of an unlucky first family; it is
 a property of the space. T7's demarcation theorem is this number
@@ -2429,7 +2433,7 @@ Five diagrams that fit the whole package on one screen each.
 **The three projections, side by side.**
 
 ```
- rank r_H7      :  gates 0.226 / 0.043   vs  PC 1.000000000     → surrogate-null level
+ rank r_H7      :  gates 0.226 / 0.097   vs  PC 1.000000000     → surrogate-null level
  ψ-ladder       :  gates +0.239…−0.124   vs  zeros +0.972        → null zone
  heat trace r_EF:  gates resid 6.7%      vs  PC0 2.1% (r=+0.9998) → ≈0.5 order
                               ─────────────
@@ -2526,7 +2530,7 @@ matrices.
 </div>
 
 **Stamp three — "The sequence is not there."** *(Pólya cautioned; Lyra
-confirmed.)* Best rank correlation 0.226 → 0.043 across widening
+confirmed.)* Best rank correlation 0.226 → 0.097 across widening
 searches; at the surrogate-null level (the control floor being machine-precision identity); null zone across blind
 designs; the zoo holds no outliers; the L-class twist changes nothing.
 Authority: C3, C5, C13, C14, C15; T7, T15, T16, T17. The package's

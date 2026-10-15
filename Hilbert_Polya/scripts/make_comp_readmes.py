@@ -334,8 +334,9 @@ C["C5_gates_extended"] = {
 "slug_en": "C5 · The extended gate family",
 "one": "35 новых затворов + 2 декуя по шести новым ручкам: твисты, "
        "анизотропия, флакс-сдвиг, стэггерд-масса, профиль вихря, знаки и "
-       "границы. Вердикт: разрыв Г2 устойчив — GUE-класс (⟨r⟩ = 0.500±0.001) "
-       "и нулевая зона (|r_H7| ≤ 0.043) у всех.",
+       "границы. Вердикт: разрыв Г2 устойчив — GUE-класс по канону C8 "
+       "(⟨r⟩ = 0.569–0.633, среднее 0.601) и нулевая зона (|r_H7| ≤ 0.097, "
+       "Бонферрони 0.57) у всех (v2.0.5).",
 "one_en": "35 new gates + 2 decoys across six new handles: twists, "
           "anisotropy, flux shift, staggered mass, vortex profile, signs and "
           "boundaries. Verdict: the H2 gap is stable — the GUE class and the "
@@ -361,7 +362,7 @@ C["C5_gates_extended"] = {
  ("Стэггерд-масса m", "0.15; 0.35", "|r_H7| ≤ 0.032"),
  ("Профиль вихря", "site | midpoint", "|r_H7| ≤ 0.033"),
  ("Знаки и границы", "neutral/all_plus/random · open/torus", "|r_H7| ≤ 0.044"),
- ("Семейство в целом", "⟨r⟩ = 0.498–0.502 (0.500±0.001)", "GUE-класс у всех"),
+ ("Семейство в целом", "⟨r⟩ = 0.569–0.633 (среднее 0.601)", "GUE-класс (полоса 0.5996±0.03)"),
 ],
 "results_en": [
  ("Twists (φx, φy)", "3 spin-structure classes", "|r_H7| ≤ 0.033"),
@@ -370,7 +371,7 @@ C["C5_gates_extended"] = {
  ("Staggered mass m", "0.15; 0.35", "|r_H7| ≤ 0.032"),
  ("Vortex profile", "site | midpoint", "|r_H7| ≤ 0.033"),
  ("Signs and boundaries", "neutral/all_plus/random · open/torus", "|r_H7| ≤ 0.044"),
- ("Family overall", "⟨r⟩ = 0.498–0.502 (0.500±0.001)", "GUE class for all"),
+ ("Family overall", "⟨r⟩ = 0.569–0.633 (mean 0.601)", "GUE class (band 0.5996±0.03)"),
 ],
 "how": [
  "Все ручки реализованы в engine/hamiltonian.py: твисты — фазы на "

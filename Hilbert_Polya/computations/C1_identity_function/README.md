@@ -261,7 +261,7 @@ The package's scorecard answers the five questions of the Hilbert–Pólya progr
 | Item | Question | Verdict | Basis |
 |---|---|---|---|
 | H1 | Self-adjointness | **YES** | Hermitian by construction; real spectrum at machine precision |
-| H2 | Spectral identity (level n ↔ zero n) | **NO** | null level — D_nn 0.0079 vs surrogate 0.0079±0.0005 (C3); ≈0.5 order by relative residual (C4); \|r_H7\| ≤ 0.043 (C5) |
+| H2 | Spectral identity (level n ↔ zero n) | **NO** | null level — D_nn 0.0079 vs surrogate 0.0079±0.0005 (C3); ≈0.5 order by relative residual (C4); \|r_H7\| ≤ 0.097, Bonferroni 0.57 (C5) |
 | H3 | The GUE statistics class | **YES** | ⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class |
 | H4 | Dirac-type dynamics | **YES** | coherent packet, reflection, scattering; energy 1e-15 (C7) |
 | H5 | Primes inside the operator | **NO** | ψ-ladder 0.972 for zeros, null zone for gates (C6) |
@@ -271,7 +271,7 @@ The package's scorecard answers the five questions of the Hilbert–Pólya progr
 C1 decides none of the five rows alone, but it touches all of them:
 
 - **H1 (self-adjointness, YES).** C1 contributes the graph-side mirror of self-adjointness: the reality (T2) and evenness of Z_id at 4.9e-29. A real target function is what makes "eigenvalue ↔ zero" comparisons meaningful in the first place.
-- **H2 (spectral identity, NO).** C1 supplies the boundary statement that the later campaigns then measure: *the algebraic envelope does not generate zeros — it merely wraps ζ in a smooth phase.* Whatever is true of Z_id is true by identity; whatever Z_id cannot do, no rearrangement of the phase can do either. When C3 and C5 find the gates at the surrogate-null level in the rank metric (best \|r_H7\| = 0.226 then ≤ 0.043) and C4's heat-trace projection shows ≈0.5 order, C1's lesson explains *why* such gaps were always going to be found: matching by identity is not matching by generation.
+- **H2 (spectral identity, NO).** C1 supplies the boundary statement that the later campaigns then measure: *the algebraic envelope does not generate zeros — it merely wraps ζ in a smooth phase.* Whatever is true of Z_id is true by identity; whatever Z_id cannot do, no rearrangement of the phase can do either. When C3 and C5 find the gates at the surrogate-null level in the rank metric (best \|r_H7\| = 0.226 then ≤ 0.097, family Bonferroni 0.57) and C4's heat-trace projection shows ≈0.5 order, C1's lesson explains *why* such gaps were always going to be found: matching by identity is not matching by generation.
 - **H3 (GUE class, YES).** The four Gram violations among 220 points are the classical trace of non-rigid interlacing — the zeros do not sit on the θ-lattice like beads on an abacus. The statistical campaigns turn that observation into the quantitative ⟨r⟩ = 0.60 at Nv ≥ 8; C1's Gram block is where the phenomenon first appears in the series.
 - **H4 (Dirac dynamics, YES).** Not touched directly. The resonator is built and driven later (C7, coherent packet at energy 1e-15); C1's role is to have made the target function available.
 - **H5 (primes inside the operator, NO).** C1 assembles Xi_id exactly — ξ(½+it) = −½(t²+¼)·π^{−s/2}·Γ(s/2)·ζ(s) — and it is precisely this completed ξ whose Hadamard structure the trace stage exploits: Theorem T6 proves the prime weight Λ(n)/√n lives in the heat trace of the zero-coded operator H_ξ (|ΔK| ≤ 1.2e-5) and in no gate. The exact assembly built here is what makes that later proof possible.
@@ -362,7 +362,7 @@ A: The committed verdict file archives the counting-identity (K5) and second-mom
 | "Z_id proves the Riemann Hypothesis" | It proves reality (T2) and exact algebra (T1); the zero coincidence holds on the line by rephasing and generates nothing. |
 | "0.765 is a numerical residual" | It is the structural mismatch of the refuted candidate form for the single modulus \|Γ(¼+iu)\| — a published refutation, not an error. |
 | "The 4 Gram violations are campaign defects" | They are the classical exceptions to Gram's law in this window; K7 reproduces them deliberately. |
-| "C1 decided H2" | C1 built the graph side; the H2 verdict (NO) is measured in C3/C4/C5 (surrogate-null level; ≈0.5 order by residual; \|r_H7\| ≤ 0.043). |
+| "C1 decided H2" | C1 built the graph side; the H2 verdict (NO) is measured in C3/C4/C5 (surrogate-null level; ≈0.5 order by residual; \|r_H7\| ≤ 0.097). |
 | "2.8e-14 is the bisection precision" | It is the float64 comparison floor (≈ 2⁻⁴⁵ at γ ≈ 100–200); the bisection runs at dps = 25. |
 | "K5/K6 numbers belong to C1's verdict" | They are archived in the same results.json but reported under C2; C1's composite covers K1–K4, K7. |
 

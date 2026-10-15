@@ -69,6 +69,23 @@ def main():
     rmax = max(abs(r0["r_H7"]) for r0 in rows)
     pmin = min(r0["p_r"] for r0 in rows)
     n_gates = len(rows)
+    n_gue = sum(1 for r0 in rows if r0["gue_class"])
+    rm_min = min(r0["r_mean"] for r0 in rows)
+    rm_max = max(r0["r_mean"] for r0 in rows)
+    # v2.0.5: формулировка класса — по фактическим данным (раньше был
+    # хардкод «все в классе GUE» при 3/20 затворах вне полосы C8).
+    if n_gue == n_gates:
+        cls_ru = (f"все {n_gates} в классе GUE (⟨r⟩ = {rm_min:.3f}–"
+                  f"{rm_max:.3f}, полоса 0.5996±0.03)")
+        cls_en = (f"all {n_gates} in the GUE class (⟨r⟩ = {rm_min:.3f}–"
+                  f"{rm_max:.3f}, band 0.5996±0.03)")
+    else:
+        cls_ru = (f"{n_gue}/{n_gates} в полосе GUE 0.5996±0.03, остальные "
+                  f"на краях/слегка вне (⟨r⟩ = {rm_min:.3f}–{rm_max:.3f}; "
+                  "z_GUE по r_H7 у всех в пределах ±1)")
+        cls_en = (f"{n_gue}/{n_gates} inside the GUE band 0.5996±0.03, the "
+                  f"rest at the edges/slightly outside (⟨r⟩ = {rm_min:.3f}–"
+                  f"{rm_max:.3f}; r_H7 z-scores all within ±1)")
     verdict = {
         "meta": {
             "campaign": "C13 blind families (5 new handles)",
@@ -81,15 +98,17 @@ def main():
         },
         "gates": rows,
         "verdict": {
+            "n_gue_class": n_gue,
+            "r_mean_min": rm_min, "r_mean_max": rm_max,
             "ru": f"Слепой протокол: {n_gates} затворов 5 новых семейств — "
                   f"все в нулевой зоне (|r_H7| ≤ {rmax:.3f}, min p = "
-                  f"{pmin:.3f}, Бонферрони {pmin*n_gates:.2f}), все в классе "
-                  "GUE. Разрыв Г2 устойчив к пяти независимым дизайнам "
+                  f"{pmin:.3f}, Бонферрони {pmin*n_gates:.2f}); {cls_ru}. "
+                  "Разрыв Г2 устойчив к пяти независимым дизайнам "
                   "вне пространства ручек v1.",
             "en": f"Blind protocol: {n_gates} gates from 5 new families — "
                   f"all in the null zone (|r_H7| ≤ {rmax:.3f}, min p = "
-                  f"{pmin:.3f}, Bonferroni {pmin*n_gates:.2f}), all in the "
-                  "GUE class. The H2 gap is robust to five independent "
+                  f"{pmin:.3f}, Bonferroni {pmin*n_gates:.2f}); {cls_en}. "
+                  "The H2 gap is robust to five independent "
                   "designs outside the v1 handle space.",
         },
     }

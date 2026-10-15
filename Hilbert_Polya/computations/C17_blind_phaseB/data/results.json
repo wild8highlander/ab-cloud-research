@@ -24,7 +24,7 @@
    ]
   },
   "zeros_source": "hpbridge.zeros_mp.ensure_zeros(60), mpmath 1.3.0",
-  "runtime_s": 50.6
+  "runtime_s": 55.4
  },
  "blind": {
   "W1": {

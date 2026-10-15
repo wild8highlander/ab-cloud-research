@@ -79,7 +79,7 @@ T16 is scoped to the extended zoo as scanned — the protocol grid plus the blin
 
 - [C8 · Statistics ladder](../C8_stats_ladder/README.md) — the Poisson/GOE/GUE ladder and spinor64 (T8, T10).
 - [C13 · Blind families](../C13_blind_families/README.md) — the design side of the same two-sided check (T15).
-- [C5 · Gates extended](../C5_gates_extended/README.md) — ⟨r⟩ = 0.500 ± 0.001 across the six-handle family.
+- [C5 · Gates extended](../C5_gates_extended/README.md) — ⟨r⟩ = 0.569–0.633 (mean 0.601) across the six-handle family (v2.0.5 regeneration).
 - `docs/v2/overview.md`, `monograph/v2_volume/`, `results/RESULTS.md` (row 28).
 
 ---

@@ -6,7 +6,7 @@
 <p align="center"><img src="../../assets/avatars/hp_cast_strip.svg" width="860" alt="Bridge avatar cast"/></p>
 <p align="center"><em>The standing cast of the Bridge — Riemann, Hilbert, Pólya, and the agents Atlas, Lyra and Vera — convenes for the six-dimensional stress test of the gate protocol.</em></p>
 
-> **35 new gates + 2 decoys across six new handles: twists, anisotropy, flux shift, staggered mass, vortex profile, signs and boundaries. Verdict: the H2 gap is stable — GUE class (⟨r⟩ = 0.500±0.001) and null zone (|r_H7| ≤ 0.043) for all.**
+> **35 new gates + 2 decoys across six new handles: twists, anisotropy, flux shift, staggered mass, vortex profile, signs and boundaries. Verdict: the H2 gap is stable — GUE class by the C8 canon (⟨r⟩ = 0.569–0.633, mean 0.601±0.016) and null zone (|r_H7| ≤ 0.097, family Bonferroni 0.57) for all. Data regenerated in v2.0.5 — see the regeneration note below.**
 
 [← Back to the main README](../../README.md)
 
@@ -17,8 +17,8 @@
 | Campaign | C5 · The Extended Gate Family — six new handle dimensions and the stability of the H2 gap |
 | Claim under test | "Perhaps identity is reached not on the C3 protocol handles but on some others?" — the campaign extends the handle space by six dimensions and checks whether any of them moves a gate out of the null zone |
 | Scale | 35 new gates + 2 decoys = 37 configurations, six new handles: twists, anisotropy, flux shift, staggered mass, vortex profile, signs and boundaries |
-| Headline statistics | GUE class for all: ⟨r⟩ = 0.498–0.502 (0.500±0.001); \|r_H7\| family max 0.0434730569109078 (`C_Nv8_allplus`), five times below the C3 protocol best 0.226; r_EF family: mean 0.6112285569902335, sd 0.3452702369140134, max 0.9911878822153721 (`A_mass0.15`, inside its null cloud) |
-| Controls | Regression vs the C3 CSV: deviation 1.4e-16, bit-for-bit; positive control PC0 (H_ξ window vs Λ-comb): r = 0.9997540255853161; decoys indistinguishable from real gates |
+| Headline statistics | GUE class by the C8 canon: ⟨r⟩ = 0.569–0.633, mean 0.601±0.016 (band 0.5996±0.03; 35/37 strictly inside, two edge gates); \|r_H7\| family max 0.0972 (`B_torus_aniso1.25`, family Bonferroni 0.57), below the C3 protocol best 0.226; r_EF (v2 fluctuation) family: mean +0.497, sd 0.465, against the honest GUE null −0.186±0.697 (v2.0.5 regeneration) |
+| Controls | Spectra regenerate bit-for-bit from the committed engine (v1 raw r_EF reproduces to ±0.002); pipeline control PC0′ (isospectral twin): r = 0.9999999999999996; trace control PC0 (H_ξ window vs Λ-comb, C4 committed): r = 0.9997876852323586 |
 | Verdict | `{'ru': 'разрыв Г2 устойчив ко всем шести новым ручкам', 'en': 'the H2 gap is stable across all six new handles'}` |
 | Demarcation | With C3, theorem T7: 87 gates (52 protocol + 35 extended) in the GUE class, no Λ-weights; positive controls PC1/PC2 at r = 1.0 |
 | Artifacts | `data/gates_table.csv` (37 rows) · `data/results.json` · `../data/c5_gates_ext_verdict.json` · `fig09_handles` / `fig10_gue_ext` (ru + en, 600 dpi + screen) · monographs ru/en (docx + pdf) |
@@ -33,6 +33,45 @@ python3 campaigns/run_c5_gates_ext.py
 #   figures_hires/ru/fig09_handles.png · figures_hires/en/fig09_handles_en.png
 #   figures_hires/ru/fig10_gue_ext.png · figures_hires/en/fig10_gue_ext_en.png
 ```
+
+## v2.0.5 · The regeneration note
+
+The committed v1 table carried a column that could not be true: `r_mean` =
+0.498–0.502 for **all 37 configurations** — including the W = 0 gate and both
+decoys — presented as "the GUE class (⟨r⟩ = 0.500±0.001)". The canonical GUE
+value of the mean adjacent-spacing ratio is **0.5996** (C8's own ladder, Atas
+et al. 2013); the same base configuration (Nv = 16, q = 1, W = 0.5, α = 0.5,
+L = 24) measures ⟨r⟩ = 0.5972 in C8, and the blind families of C13 measure
+0.550–0.649. A uniform 0.500 contradicts both.
+
+The v2.0.5 audit (docs/audit_v2.0.5.md) regenerated all 37 spectra bit-exactly
+with the committed engine (validated: the v1 raw r_EF values reproduce to
+±0.002, so the *spectra* were always real) and recomputed every statistic with
+the documented v2 pipeline:
+
+- **⟨r⟩** — the C8 protocol (`spacing_ratio_mean`, central band 0.6): the
+  family lands at **0.569–0.633, mean 0.601±0.016** — genuinely inside the GUE
+  class (35/37 strictly within 0.5996±0.03; the two edge gates: C_Nv32_allplus
+  0.5690, C_q0.5_dalpha+0.02 0.6328);
+- **r_H7** — the v2 convention (ZeroReference k0 = 224, unfolded-to-unfolded):
+  family max **0.0972** (`B_torus_aniso1.25`), min p = 0.015, family-wide
+  Bonferroni **0.57** — the null zone holds;
+- **r_EF** — the v2 **fluctuation** correlation (detrended curves), replacing
+  the v1 raw statistic that was trend-dominated: family **+0.497 ± 0.465**
+  against the honest synthetic-GUE null **−0.186 ± 0.697** (the v1 "GUE null"
+  of the raw statistic was centred at 0.788±0.376 — a null that itself
+  "passes" is not a null);
+- **Controls** — PC0′ (isospectral twin through the r_H7 pipeline) returns
+  r = 0.9999999999999996; PC0 (H_ξ vs Λ-comb, C4 committed) r = 0.9997876852323586.
+
+Two further v1 defects are documented rather than patched: the **vortex
+profile handle is inert** (the midpoint branch of `engine/hamiltonian.py`
+computes the midpoint coordinates and never applies them — the profile gates
+duplicate their site-twins bit-for-bit, in v1 and v2 alike), and **the decoy
+`D_decoy_signs_random` is bit-identical to `C_Nv16_random_signs`** (the v1
+labelling did not change the RNG stream). The verdict is unchanged by both:
+the null zone and the GUE class survive the regeneration; only the numbers
+telling the story were wrong.
 
 ## Contents
 
@@ -80,7 +119,7 @@ That is the design logic of C5. The six new dimensions are not a random grab-bag
 - **vortex-core regularization** — where in the link the vortex angle is read;
 - **charge disorder** — the sign pattern of the vortex charges.
 
-If the H2 gap were an artifact of one particular protocol, a six-dimensional sweep with 37 configurations should expose it. It does not: every configuration lands in the GUE class, and none leaves the null zone. Combined with C3, the demarcation now covers 87 gates — this is exactly the empirical content of theorem T7 (universality demarcation, measured), formalised in the theorems volume: 87 gates (52 protocol + 35 extended) lie in the GUE class (⟨r⟩ = 0.498–0.612 across the campaigns) and carry no Λ-weights — r_H7 ≤ 0.226 over the protocol family, |r_H7| ≤ 0.043 over the new handles, and r_EF inside the null clouds, with positive controls PC1/PC2 at r = 1.0 and PC0 at r = 0.9998.
+If the H2 gap were an artifact of one particular protocol, a six-dimensional sweep with 37 configurations should expose it. It does not: every configuration lands in the GUE class, and none leaves the null zone. Combined with C3, the demarcation now covers 87 gates — this is exactly the empirical content of theorem T7 (universality demarcation, measured), formalised in the theorems volume: 87 gates (52 protocol + 35 extended) lie in the GUE class (⟨r⟩ = 0.569–0.649 across the campaigns, canonical band 0.5996±0.03) and carry no Λ-weights — r_H7 ≤ 0.226 over the protocol family, |r_H7| ≤ 0.097 over the new handles (family Bonferroni 0.57), and r_EF (v2 fluctuation) inside the honest nulls, with positive controls PC1/PC2 at r = 1.0 and PC0 at r = 0.9998.
 
 <p align="center"><img src="../../assets/avatars/hp_hilbert.svg" width="120" alt="Hilbert avatar"/></p>
 <p align="center"><em>Hilbert's programme asked for an operator whose spectrum *is* the sequence of zeros. C5 measures how far the lattice resonator family is from that request — and shows the distance does not shrink under deformation.</em></p>
@@ -124,8 +163,8 @@ The campaign is a single deterministic pipeline; every step is committed and rep
 2. **Handle grid.** The six dimensions above are combined into 35 new gates: group A (12 gates) varies one handle at a time on the open protocol base, including cross-combinations `A_aniso08_dalpha+0.02`, `A_aniso125_mass0.15`, `A_mass0.15_dalpha-0.02`, `A_midpoint_allplus`; group B (13 gates) re-runs the handles on the torus, adds the three twist classes and their combinations with mass and anisotropy; group C (10 gates) shifts the cross-cutting parameters Nv ∈ {8, 32, 64}, q = 0.5, W ∈ {0, 0.1}, α = 0.4; group D holds the 2 decoys (random phases at Nv = 16 and Nv = 32).
 3. **Regression control.** The reference gate Nv = 0, W = 0.5, α = 0.5 is rebuilt through the C5 port of the pipeline and its mean level spacing is compared bit-for-bit against the C3 CSV: deviation 1.4e-16.
 4. **Spectral conveyor.** Each Hamiltonian is diagonalised (`eigvalsh`), the central band is extracted, unfolded by a polynomial fit and windowed to exactly 200 levels — the same conveyor as C3, so that the statistics are comparable gate by gate.
-5. **Statistics.** For every gate: the mean adjacent-spacing ratio ⟨r⟩ (GUE class marker), the zero-correlation r_H7 (level n ↔ zero n, detrended), and the heat-trace projection r_EF with its null cloud (mean, sd) and z-score z_EF.
-6. **Positive controls.** PC0 — the thermal projection of the H_ξ window against the Λ-comb — gives r = 0.9997540255853161 in the committed data: the method sees prime weight when it is present.
+5. **Statistics (v2.0.5).** For every gate: the mean adjacent-spacing ratio ⟨r⟩ (GUE class marker, C8 canon 0.5996±0.03), the zero-correlation r_H7 (level n ↔ zero n, detrended, v2 window convention k0 = 224) with its permutation p-value p_r (64 random zero windows), and the heat-trace projection in two currencies: r_EF_raw (the v1 raw correlation, kept for transparency) and r_EF (the v2 fluctuation correlation — detrended curves), with its block-shuffle null cloud (mean, sd) and z-score z_EF.
+6. **Positive controls.** PC0′ — the isospectral twin through the r_H7 pipeline — returns r = 0.9999999999999996; PC0 — the thermal projection of the H_ξ window against the Λ-comb (C4 committed) — r = 0.9997876852323586: the methods see what they must when it is present.
 7. **Commit.** All 37 rows, the verdict statistics and the meta block are written to `data/gates_table.csv` and `data/results.json`; the verdict is duplicated in the shared registry `../data/c5_gates_ext_verdict.json`.
 
 The degenerate corner W = 0 + midpoint is replaced by W = 0.1 with a note, as described above — exact multiplicities would flatter or distort the unfolding, and the campaign prefers an honest neighbour value to a broken statistic.
@@ -135,9 +174,9 @@ The degenerate corner W = 0 + midpoint is replaced by W = 0.1 with a note, as de
 C5 runs four kinds of controls, and the verdict is only as strong as they are.
 
 - **Regression control (bit-for-bit).** The protocol reference gate reproduces the mean spacing of the C3 CSV with |Δ| = 1.4e-16 — the extended pipeline has not shifted the base.
-- **Positive control PC0 (heat trace).** The H_ξ window against the Λ-comb yields r = 0.9997540255853161 (the registry lists it as +0.9998 with residual 2.1%): when prime weight exists in an operator, this pipeline detects it at essentially unit correlation.
-- **Null clouds per gate.** Each gate carries its own null mean and sd for r_EF (`null_EF_mean`, `null_EF_sd` in the CSV) plus the z-score z_EF; no gate leaves its cloud. Across the family the committed verdict block records rEF_mean = 0.6112285569902335 and rEF_sd = 0.3452702369140134 — a textbook null distribution, with rEF_max = 0.9911878822153721 attained by the staggered-mass gate `A_mass0.15` and still consistent with its own cloud (z_EF = 2.455031478585997).
-- **Decoys.** Two decoys with random vortex phases (`D_decoy_signs_random`, `D_decoy_Nv32_random`) anchor the noise floor: they behave exactly like the real gates, which is the point. The family maximum of |r_H7| is reached on a random-sign decoy — the expected noise maximum, not a signal.
+- **Positive control PC0 (heat trace).** The H_ξ window against the Λ-comb yields r = 0.9997876852323586 in the committed C4 data (the registry lists it as +0.9998 with residual 2.1%): when prime weight exists in an operator, this pipeline detects it at essentially unit correlation. The C5 pipeline additionally carries PC0′ — the isospectral twin through the r_H7 conveyor — at r = 0.9999999999999996.
+- **Null clouds per gate (v2.0.5).** Each gate carries its own block-shuffle null mean and sd for the *fluctuation* statistic r_EF (`null_EF_mean`, `null_EF_sd` in the CSV) plus the z-score z_EF. The family r_EF distributes as +0.497 ± 0.465 with \|z_EF\| ≤ 3.275 (`A_mass0.15_dalpha-0.02`) — and against the synthetic-GUE null of the same statistic (−0.186 ± 0.697) the family-level z is ≈ 1.0: the null zone. (The v1 numbers — a "GUE null" of the raw statistic centred at 0.788±0.376 and z-scores comparing a trend-dominated value against a trend-destroyed null — were statistically incoherent and are retired.)
+- **Decoys (v2.0.5 honesty note).** `D_decoy_Nv32_random` is a genuine random-phase gate and behaves exactly like the real gates. `D_decoy_signs_random`, however, is bit-identical to `C_Nv16_random_signs` — the v1 labelling did not change the RNG stream, so the "16-vortex decoy" adds no new configuration. The family maximum of \|r_H7\| = 0.0972 belongs to a *real* gate (`B_torus_aniso1.25`, Bonferroni-corrected p = 0.57 — noise, but not hosted by a decoy).
 
 ## Results
 
@@ -145,101 +184,99 @@ The committed results table of the campaign, reproduced exactly:
 
 | Quantity | Value | Status |
 |---|---|---|
-| Twists (φx, φy) | 3 spin-structure classes | \|r_H7\| ≤ 0.033 |
-| Anisotropy t_x/t_y | 0.8; 1.25 | \|r_H7\| ≤ 0.030 |
-| Flux shift δα | ±0.02; ±1/24 on the torus | \|r_H7\| ≤ 0.034 |
-| Staggered mass m | 0.15; 0.35 | \|r_H7\| ≤ 0.032 |
-| Vortex profile | site \| midpoint | \|r_H7\| ≤ 0.033 |
-| Signs and boundaries | neutral/all_plus/random · open/torus | \|r_H7\| ≤ 0.044 |
-| Family overall | ⟨r⟩ = 0.498–0.502 (0.500±0.001) | GUE class for all |
+| Twists (φx, φy) | 3 spin-structure classes | \|r_H7\| ≤ 0.073 |
+| Anisotropy t_x/t_y | 0.8; 1.25 | \|r_H7\| ≤ 0.097 |
+| Flux shift δα | ±0.02; ±1/24 on the torus | \|r_H7\| ≤ 0.048 |
+| Staggered mass m | 0.15; 0.35 | \|r_H7\| ≤ 0.036 |
+| Vortex profile | site \| midpoint — inert in the engine (v2.0.5) | duplicates the site twins |
+| Signs and boundaries | neutral/all_plus/random · open/torus | \|r_H7\| ≤ 0.070 |
+| Family overall | ⟨r⟩ = 0.569–0.633, mean 0.601±0.016 | GUE class (band 0.5996±0.03, 35/37 strict) |
 
 Row by row.
 
-**Twists.** The three non-trivial spin-structure classes on the torus stay at |r_H7| ≤ 0.033; the largest absolute value in the group is B_twist3_3 at −0.03301495046331931, and the (0, π) class B_twist0_3 sits at +0.001815546323399943, essentially zero. The global phase bookkeeping of the boundary condition does not reach the level-n ↔ zero-n comparison.
+**Twists.** The three non-trivial spin-structure classes on the torus stay at |r_H7| ≤ 0.073; the largest absolute value in the group is B_twist3_3 at +0.073191 (p = 0.031, family Bonferroni 0.57), and the (0, π) class B_twist0_3 sits at +0.017674. The global phase bookkeeping of the boundary condition does not reach the level-n ↔ zero-n comparison.
 
-**Anisotropy.** Both deformations of the hopping ratio (t_x/t_y = 0.8 and 1.25) give |r_H7| ≤ 0.030, the quietest handle in the family. The mean ratios ⟨r⟩ are 0.5002209850116544 and 0.4992803588243496 — square in the middle of the GUE window.
+**Anisotropy.** Both deformations of the hopping ratio (t_x/t_y = 0.8 and 1.25) give |r_H7| ≤ 0.050 open / ≤ 0.097 torus. The mean ratios ⟨r⟩ are 0.588530 and 0.597095 (open), 0.601899 and 0.588355 (torus) — inside the canonical GUE band 0.5996±0.03, two at its lower edge.
 
-**Flux shift.** The admissible torus shifts ±1/24 and the open-boundary nudges ±0.02 give |r_H7| ≤ 0.034. Notably, δα = −0.02 yields r_H7 = 8.334933248494393e-05, the single smallest zero correlation in the entire campaign: leaving the self-dual line does not create arithmetic, it just moves the noise.
+**Flux shift.** The admissible torus shifts ±1/24 and the open-boundary nudges ±0.02 give |r_H7| ≤ 0.048. Notably, δα = −0.02 yields r_H7 = −0.002063 (open) and the torus δα = −1/24 yields −0.002658 — leaving the self-dual line does not create arithmetic, it just moves the noise.
 
-**Staggered mass.** Both masses give |r_H7| ≤ 0.032 (m = 0.15: +0.018988358449378486; m = 0.35: +0.01448110766274665). The heat-trace correlations r_EF = 0.9911878822153721 and 0.9865888932396799 are the two largest in the family and remain inside their null clouds — a useful reminder that a large raw correlation is meaningless without its null reference.
+**Staggered mass.** Both masses give |r_H7| ≤ 0.026 (m = 0.15: +0.025595; m = 0.35: +0.022975). The v1 raw heat-trace correlations (0.9905 and 0.9865) were trend-dominated and are retired; the v2 fluctuation values +0.877805 and +0.510269 sit within the broad honest null (GUE fluct null −0.186±0.697) — a useful reminder that a large raw correlation is meaningless without its null reference.
 
-**Vortex profile.** The midpoint core gives |r_H7| ≤ 0.033 (A_profile_midpoint: +0.03256480942017184). On the torus the midpoint profile coincides with the site values to the last digit (`B_torus_midpoint` duplicates `B_torus_base` exactly in the committed CSV) — on a torus the profile choice is immaterial, another hint that the statistics are set by symmetry, not by core cosmetics.
+**Vortex profile — an inert handle (v2.0.5).** The midpoint branch of `engine/hamiltonian.py` computes the link-midpoint coordinates and then never applies them: the phase is always taken from the site angles. The profile gates therefore duplicate their site twins bit-for-bit (`A_profile_midpoint` ≡ the open base, `A_midpoint_allplus` ≡ `A_signs_allplus`, `B_torus_midpoint` ≡ `B_torus_base`) — in v1 and in v2 alike (the v1 committed CSV shows the same identical rows). The dimension contributes no independent configurations; the campaign keeps the rows for provenance and flags the handle as inert. What v1 read as "the profile is immaterial on the torus" was in fact dead code everywhere.
 
-**Signs and boundaries.** The noisiest dimension, |r_H7| ≤ 0.044, with the family maximum at C_Nv8_allplus (−0.0434730569109078): an all-plus sign pattern on the smallest lattice (Nv = 8). Even this maximum is five times smaller than the best protocol value 0.226 of C3, and the random-sign gates behave like the decoys — as they should.
+**Signs and boundaries.** The noisiest genuine dimension, |r_H7| ≤ 0.070, with the in-group maximum at C_Nv8_allplus (+0.069515, p = 0.031): an all-plus sign pattern on the smallest lattice (Nv = 8). The family maximum overall is 0.0972 (B_torus_aniso1.25, anisotropy on the torus, p = 0.154); every value stays inside the family-wide Bonferroni correction (0.57), and the random-sign gates behave like the decoys — as they should.
 
-**Family overall.** ⟨r⟩ = 0.498–0.502 (0.500±0.001), GUE class for all: every one of the 37 configurations lands in a band a tenth of a percent wide. Whatever the handles do to the Hamiltonian matrix, they do not move it out of the universal class.
+**Family overall.** ⟨r⟩ = 0.569–0.633 (mean 0.601±0.016), GUE class by the C8 canon: 35 of 37 configurations land strictly inside the band 0.5996±0.03, the two edge gates (C_Nv32_allplus 0.569, C_q0.5_dalpha+0.02 0.633) miss it by less than the sampling width. Whatever the handles do to the Hamiltonian matrix, they do not move it out of the universal class.
 
 ### The committed per-gate table
 
-All 37 rows of `data/gates_table.csv`, values rounded to six decimals; the CSV carries full precision. Columns: ⟨r⟩ = r_mean, r_H7 = zero correlation, r_EF = heat-trace correlation.
+All 37 rows of `data/gates_table.csv` (v2.0.5 regeneration), values rounded to six decimals; the CSV carries full precision. Columns: ⟨r⟩ = r_mean (C8 protocol), r_H7 = zero correlation (v2 convention, k0 = 224), r_EF = heat-trace **fluctuation** correlation (v2), p_r = permutation p-value (64 random zero windows).
 
-| Gate | Handle change | ⟨r⟩ | r_H7 | r_EF |
-|---|---|---|---|---|
-| A_aniso0.8 | aniso 0.8 | 0.500221 | +0.002616 | 0.808533 |
-| A_aniso1.25 | aniso 1.25 | 0.499280 | −0.009176 | 0.704904 |
-| A_dalpha-0.02 | δα = −0.02 | 0.500288 | +0.000083 | 0.978381 |
-| A_dalpha+0.02 | δα = +0.02 | 0.501066 | −0.033538 | 0.959337 |
-| A_mass0.15 | mass 0.15 | 0.500624 | +0.018988 | 0.991188 |
-| A_mass0.35 | mass 0.35 | 0.500344 | +0.014481 | 0.986589 |
-| A_profile_midpoint | midpoint core | 0.499375 | +0.032565 | 0.952809 |
-| A_signs_allplus | all-plus signs | 0.499674 | +0.013159 | 0.547357 |
-| A_aniso08_dalpha+0.02 | aniso 0.8 + δα +0.02 | 0.500764 | +0.029568 | 0.754706 |
-| A_aniso125_mass0.15 | aniso 1.25 + mass 0.15 | 0.499778 | −0.025720 | 0.713761 |
-| A_mass0.15_dalpha-0.02 | mass 0.15 + δα −0.02 | 0.500102 | −0.000327 | 0.979535 |
-| A_midpoint_allplus | midpoint + all-plus | 0.499674 | +0.013159 | 0.547357 |
-| B_torus_base | torus base | 0.500180 | −0.025928 | 0.484949 |
-| B_twist3_0 | twist (π, 0) | 0.499887 | −0.025492 | 0.914057 |
-| B_twist0_3 | twist (0, π) | 0.498143 | +0.001816 | 0.735324 |
-| B_twist3_3 | twist (π, π) | 0.499711 | −0.033015 | 0.221711 |
-| B_torus_aniso0.8 | torus, aniso 0.8 | 0.499361 | −0.009631 | 0.735015 |
-| B_torus_aniso1.25 | torus, aniso 1.25 | 0.499121 | +0.006168 | 0.759888 |
-| B_torus_dalpha+0.0417 | torus, δα +1/24 | 0.498481 | −0.004102 | 0.301775 |
-| B_torus_dalpha-0.0417 | torus, δα −1/24 | 0.499141 | −0.003245 | 0.840169 |
-| B_torus_mass0.15 | torus, mass 0.15 | 0.500409 | −0.026000 | 0.418220 |
-| B_torus_midpoint | torus, midpoint | 0.500180 | −0.025928 | 0.484949 |
-| B_torus_allplus | torus, all-plus | 0.498542 | +0.007999 | 0.724552 |
-| B_twistpi_pi_mass0.15 | twist (π,π) + mass 0.15 | 0.499153 | −0.019047 | 0.299809 |
-| B_twistpi_pi_aniso1.25 | twist (π,π) + aniso 1.25 | 0.501781 | +0.022340 | 0.124648 |
-| C_Nv8_allplus | Nv = 8, all-plus | 0.499237 | −0.043473 | 0.351375 |
-| C_Nv32_allplus | Nv = 32, all-plus | 0.498077 | −0.020808 | 0.825231 |
-| C_Nv16_random_signs | random signs | 0.499175 | −0.018555 | 0.692253 |
-| C_q0.5_mass0.15 | q = 0.5, mass 0.15 | 0.498512 | +0.015509 | −0.617819 |
-| C_q0.5_dalpha+0.02 | q = 0.5, δα +0.02 | 0.499914 | −0.020146 | 0.941967 |
-| C_W0_mass0.15 | W = 0, mass 0.15 | 0.499920 | −0.031596 | 0.203941 |
-| C_W0.1_midpoint | W = 0.1, midpoint | 0.499329 | −0.010839 | −0.090584 |
-| C_alpha0.4_allplus | α = 0.4, all-plus | 0.499889 | +0.013537 | 0.771227 |
-| C_alpha0.4_dalpha+0.02 | α = 0.4, δα +0.02 | 0.501059 | +0.004770 | 0.683918 |
-| C_Nv64_midpoint | Nv = 64, midpoint | 0.499473 | −0.023645 | 0.661968 |
-| D_decoy_signs_random | decoy, random phases | 0.499175 | −0.018555 | 0.692253 |
-| D_decoy_Nv32_random | decoy, Nv = 32 random | 0.499121 | −0.020663 | 0.916640 |
-
-Representative rows with the verdict-bearing z-score (the same `data/gates_table.csv`, six-decimal rounding; full precision in the CSV). The z_EF column is the only verdict-bearing number for r_EF: the distance from the gate's own null cloud — every gate stays inside its cloud.
-
-| Gate | Change | ⟨r⟩ | r_H7 | r_EF | z_EF |
+| Gate | Handle change | ⟨r⟩ | r_H7 | r_EF (fluct) | p_r |
 |---|---|---|---|---|---|
-| A_aniso0.8 | aniso 0.8 | 0.500221 | +0.002616 | 0.808533 | 2.726267 |
-| A_dalpha-0.02 | δα −0.02 | 0.500288 | +0.000083 | 0.978381 | 2.565831 |
-| A_mass0.15 | mass 0.15 | 0.500624 | +0.018988 | 0.991188 | 2.455031 |
-| A_profile_midpoint | midpoint | 0.499375 | +0.032565 | 0.952809 | 2.564990 |
-| A_signs_allplus | all-plus | 0.499674 | +0.013159 | 0.547357 | 3.456305 |
-| B_twist3_3 | twist (π, π) | 0.499711 | −0.033015 | 0.221711 | 1.008321 |
-| B_torus_dalpha+0.0417 | torus, δα +1/24 | 0.498481 | −0.004102 | 0.301775 | 1.316571 |
-| B_twistpi_pi_aniso1.25 | twist + aniso | 0.501781 | +0.022340 | 0.124648 | 0.652364 |
-| C_Nv8_allplus | Nv 8, all-plus | 0.499237 | −0.043473 | 0.351375 | 2.797747 |
-| C_W0.1_midpoint | W 0.1, midpoint | 0.499329 | −0.010839 | −0.090584 | −0.357152 |
-| C_q0.5_mass0.15 | q 0.5, mass 0.15 | 0.498512 | +0.015509 | −0.617819 | −2.241932 |
-| D_decoy_Nv32_random | decoy | 0.499121 | −0.020663 | 0.916640 | 2.013028 |
+| A_aniso0.8 | aniso 0.8 | 0.588550 | +0.050195 | +0.754251 | 0.323 |
+| A_aniso1.25 | aniso 1.25 | 0.597110 | +0.014940 | +0.671997 | 0.646 |
+| A_dalpha-0.02 | δα = −0.02 | 0.607940 | −0.002125 | +0.953209 | 0.800 |
+| A_dalpha+0.02 | δα = +0.02 | 0.589880 | +0.048275 | +0.964499 | 0.138 |
+| A_mass0.15 | mass 0.15 | 0.615238 | +0.025612 | +0.878305 | 0.523 |
+| A_mass0.35 | mass 0.35 | 0.607999 | +0.023018 | +0.510125 | 0.554 |
+| A_profile_midpoint | midpoint core | 0.622855 | +0.029439 | +0.962199 | 0.446 |
+| A_signs_allplus | all-plus signs | 0.593352 | +0.055519 | +0.362900 | 0.277 |
+| A_aniso08_dalpha+0.02 | aniso 0.8 + δα +0.02 | 0.620460 | +0.010090 | +0.809554 | 0.754 |
+| A_aniso125_mass0.15 | aniso 1.25 + mass 0.15 | 0.590337 | +0.022788 | +0.655966 | 0.508 |
+| A_mass0.15_dalpha-0.02 | mass 0.15 + δα −0.02 | 0.618648 | −0.002745 | +0.958216 | 0.831 |
+| A_midpoint_allplus | midpoint + all-plus | 0.593352 | +0.055519 | +0.362900 | 0.277 |
+| B_torus_base | torus base | 0.622073 | +0.013519 | +0.533000 | 0.615 |
+| B_twist3_0 | twist (π, 0) | 0.607636 | +0.052305 | +0.874028 | 0.092 |
+| B_twist0_3 | twist (0, π) | 0.603776 | +0.017737 | +0.826127 | 0.508 |
+| B_twist3_3 | twist (π, π) | 0.604604 | +0.073245 | +0.440528 | 0.031 |
+| B_torus_aniso0.8 | torus, aniso 0.8 | 0.601919 | +0.009345 | +0.776056 | 0.631 |
+| B_torus_aniso1.25 | torus, aniso 1.25 | 0.588371 | +0.097224 | +0.681474 | 0.154 |
+| B_torus_dalpha+0.0417 | torus, δα +1/24 | 0.577498 | +0.007234 | +0.531582 | 0.431 |
+| B_torus_dalpha-0.0417 | torus, δα −1/24 | 0.573569 | −0.002716 | +0.756644 | 0.800 |
+| B_torus_mass0.15 | torus, mass 0.15 | 0.619550 | +0.011988 | +0.535780 | 0.631 |
+| B_torus_midpoint | torus, midpoint | 0.622073 | +0.013519 | +0.533000 | 0.615 |
+| B_torus_allplus | torus, all-plus | 0.583386 | +0.003445 | +0.878154 | 0.769 |
+| B_twistpi_pi_mass0.15 | twist (π,π) + mass 0.15 | 0.604618 | +0.059166 | +0.408904 | 0.046 |
+| B_twistpi_pi_aniso1.25 | twist (π,π) + aniso 1.25 | 0.582602 | +0.067813 | +0.221376 | 0.123 |
+| C_Nv8_allplus | Nv = 8, all-plus | 0.602202 | +0.069541 | +0.277968 | 0.031 |
+| C_Nv32_allplus | Nv = 32, all-plus | 0.569044 | +0.049352 | +0.856929 | 0.200 |
+| C_Nv16_random_signs | random signs | 0.595673 | −0.004311 | +0.778586 | 0.923 |
+| C_q0.5_mass0.15 | q = 0.5, mass 0.15 | 0.601644 | +0.036214 | −0.699783 | 0.323 |
+| C_q0.5_dalpha+0.02 | q = 0.5, δα +0.02 | 0.632844 | +0.017684 | +0.222408 | 0.477 |
+| C_W0_mass0.15 | W = 0, mass 0.15 | 0.610154 | +0.019052 | −0.475277 | 0.538 |
+| C_W0.1_midpoint | W = 0.1, midpoint | 0.597462 | −0.006519 | −0.470285 | 0.938 |
+| C_alpha0.4_allplus | α = 0.4, all-plus | 0.616470 | +0.050825 | +0.721133 | 0.015 |
+| C_alpha0.4_dalpha+0.02 | α = 0.4, δα +0.02 | 0.591549 | +0.032220 | +0.675644 | 0.031 |
+| C_Nv64_midpoint | Nv = 64, midpoint | 0.572014 | +0.038597 | −0.635098 | 0.523 |
+| D_decoy_signs_random | decoy, random phases | 0.595673 | −0.004311 | +0.778586 | 0.923 |
+| D_decoy_Nv32_random | decoy, Nv = 32 random | 0.610275 | +0.016576 | −0.500665 | 0.692 |
+Representative rows with the verdict-bearing z-score (the same `data/gates_table.csv`, six-decimal rounding; full precision in the CSV). The z_EF column is the distance of the v2 fluctuation statistic from the gate's own block-shuffle null cloud; \|z_EF\| ≤ 3.275 across the family, and the honest synthetic-GUE null (−0.186±0.697) contains the family mean (+0.497) at z ≈ 1.0 — the null zone.
 
+| Gate | Change | ⟨r⟩ | r_H7 | r_EF (fluct) | z_EF |
+|---|---|---|---|---|---|
+| A_aniso0.8 | aniso 0.8 | 0.588550 | +0.050195 | +0.754251 | +2.500569 |
+| A_dalpha-0.02 | δα −0.02 | 0.607940 | −0.002125 | +0.953209 | +2.986025 |
+| A_mass0.15 | mass 0.15 | 0.615238 | +0.025612 | +0.878305 | +2.763855 |
+| A_profile_midpoint | midpoint | 0.622855 | +0.029439 | +0.962199 | +2.999669 |
+| A_signs_allplus | all-plus | 0.593352 | +0.055519 | +0.362900 | +1.525105 |
+| B_twist3_3 | twist (π, π) | 0.604604 | +0.073245 | +0.440528 | +1.880603 |
+| B_torus_dalpha+0.0417 | torus, δα +1/24 | 0.577498 | +0.007234 | +0.531582 | +2.293605 |
+| B_twistpi_pi_aniso1.25 | twist + aniso | 0.582602 | +0.067813 | +0.221376 | +0.894239 |
+| C_Nv8_allplus | Nv 8, all-plus | 0.602202 | +0.069541 | +0.277968 | +1.344857 |
+| C_W0.1_midpoint | W 0.1, midpoint | 0.597462 | −0.006519 | −0.470285 | −2.128342 |
+| C_q0.5_mass0.15 | q 0.5, mass 0.15 | 0.601644 | +0.036214 | −0.699783 | −2.796536 |
+| D_decoy_Nv32_random | decoy | 0.610275 | +0.016576 | −0.500665 | −2.044398 |
 ### Family statistics from the committed verdict
 
-The verdict block of `data/results.json` records: n_gates_new = 35; rH7_abs_max = 0.0434730569109078; rEF_max = 0.9911878822153721; rEF_mean = 0.6112285569902335; rEF_sd = 0.3452702369140134; PC0_Hxi_r = 0.9997540255853161; GUE_mean = 0.7880407730570796; GUE_sd = 0.3758286233259756 (the GUE null cloud of the heat-trace statistic). The committed verdict string reads: "разрыв Г2 устойчив: ни одна новая ручка не выводит r_EF/r_H7 из нулевой зоны" — the H2 gap is stable: no new handle moves r_EF/r_H7 out of the null zone.
+The verdict block of `data/results.json` (v2.0.5) records: n_gates_new = 35; rH7_abs_max = 0.0972 (`B_torus_aniso1.25`), p_r_min = 0.015, family Bonferroni 0.57; r_mean 0.5690–0.6328, mean 0.6009±0.0155 (canonical band 0.5996±0.03, 35/37 strict); rEF_fluct mean +0.4965, sd 0.4652, min −0.6998, max +0.9645; z_EF_abs_max = 3.275; GUE_mean = −0.1856, GUE_sd = 0.6967 (the honest synthetic-GUE null of the **fluctuation** statistic; the v1 raw-statistic null 0.788±0.376 is retired); PC0p_r = 0.9999999999999996; PC0_Hxi_r = 0.9997876852323586 (C4 committed). The committed verdict string reads: "разрыв Г2 устойчив: все 37 конфигураций (35 новых + 2 декоя) в классе GUE по протоколу C8 — ⟨r⟩ = 0.569–0.633…" — the H2 gap is stable: no new handle moves r_EF/r_H7 out of the null zone.
 
 ## How to read the numbers
 
-- **⟨r⟩ (r_mean)** — the mean adjacent-spacing ratio of the unfolded spectrum, the campaign's GUE class marker; the C5 calibration places the universal value at 0.500, and integrable (Poisson-like) statistics would drift the average systematically away from it. The whole family sits in 0.498–0.502.
-- **r_H7** — the Pearson correlation between the detrended spectral staircase of the gate and the detrended zero staircase (the level-n ↔ zero-n comparison; the label is the C3 pipeline's channel name for this statistic). Detrending removes the ramps so that only the fluctuations are compared. The null zone is calibrated by circular shifts of the zero list; C3's best protocol gate reached 0.226, and the entire C5 family stays under 0.0435.
-- **r_EF** — the heat-trace projection introduced in C4: the fluctuation D(u) = Σ e^{−u·x_n} minus its smooth part, correlated against the explicit-formula prime comb P with a fixed scale and an OLS-fitted amplitude. A large r_EF means nothing by itself; the gate's own null cloud (`null_EF_mean`, `null_EF_sd`) and z-score (`z_EF`) decide whether the value is signal or weather.
-- **z_EF** — the standardised distance of r_EF from its null cloud. All 37 gates stay within their clouds (|z_EF| ≤ 3.4563051301961507 across the family, with the null sd ranging from 0.12906723550210084 to 0.499555297750286).
+- **⟨r⟩ (r_mean)** — the mean adjacent-spacing ratio of the central band (C8 protocol); the canonical GUE value is 0.5996 (Atas et al. 2013, the same constant C8's ladder uses), with the class band 0.5996±0.03. Integrable (Poisson-like) statistics would drift the average to 0.386. The whole family sits in 0.569–0.633, mean 0.601±0.016. (v1 quoted 0.498–0.502 as "the campaign's GUE marker 0.500" — a fabricated column; see the regeneration note.)
+- **r_H7** — the Pearson correlation between the detrended spectral staircase of the gate and the detrended zero staircase (the level-n ↔ zero-n comparison), computed on the v2 unfolded-to-unfolded window convention (ZeroReference k0 = 224, γ800 mpmath cache). The null zone is calibrated by 64 random zero windows (p_r) and by 40 synthetic GUE spectra (GUE r_H7 null +0.0416±0.0469 — the max-over-shifts bias makes even GUE spectra show ≈ +0.04); C3's best protocol gate reached 0.226, and the entire C5 family stays under 0.097 (family Bonferroni 0.57).
+- **r_EF** — the heat-trace projection in the v2 currency: the fluctuation D(u) = Σ e^{−u·x_n} minus its smooth part, **detrended** (rampless) and correlated against the detrended explicit-formula prime comb. The v1 raw correlation (r_EF_raw, kept in the CSV for transparency) catches the common decaying trend of two smooth curves and is not verdict-bearing — the v1 "GUE null" of that raw statistic was centred at 0.788, i.e. the null itself "passed". A large r_EF means nothing by itself; the gate's own block-shuffle null cloud (`null_EF_mean`, `null_EF_sd`) and z-score (`z_EF`) decide whether the value is signal or weather.
+- **z_EF** — the standardised distance of the fluctuation r_EF from its null cloud: |z_EF| ≤ 3.275 across the family, and the family mean sits at z ≈ 1.0 against the synthetic-GUE null of the same statistic — the null zone.
 - **Scale convention.** The heat-trace correlation uses a fixed scale (scale_EF = 1.0 in every row): scale optimisation is excluded because it systematically inflates r — the C4 lesson, kept here.
 
 ## Interpretation: what stability means
@@ -249,11 +286,11 @@ The verdict block of `data/results.json` records: n_gates_new = 35; rH7_abs_max 
 
 The verdict "the H2 gap is stable across all six new handles" is a three-layer statement.
 
-**Layer 1 — universality is an attractor.** All 37 configurations land in the GUE class with ⟨r⟩ = 0.500±0.001. The six dimensions include perturbations that in other contexts break universality (a mass term, a flux change, topology change); here none of them moves the spectral statistics. The class is set by the complex-vortex architecture, not by the parameters — the same message as theorem T10 in C8, now confirmed across a six-dimensional handle space.
+**Layer 1 — universality is an attractor.** All 37 configurations land in the GUE class with ⟨r⟩ = 0.569–0.633 (mean 0.601±0.016, canonical band 0.5996±0.03). The five *active* dimensions include perturbations that in other contexts break universality (a mass term, a flux change, topology change); here none of them moves the spectral statistics. The class is set by the complex-vortex architecture, not by the parameters — the same message as theorem T10 in C8, now confirmed across the handle space (the sixth dimension, the vortex profile, is inert engine code; see the regeneration note).
 
-**Layer 2 — the arithmetic does not return.** Universality would be harmless if the zero correlation survived underneath it. It does not: |r_H7| ≤ 0.043 over the new handles against 0.226 for the best protocol gate — the extended family is, if anything, *quieter* than the protocol family. The heat-trace projection agrees: r_EF distributed as 0.611 ± 0.345, inside the null clouds, decoys indistinguishable from real gates.
+**Layer 2 — the arithmetic does not return.** Universality would be harmless if the zero correlation survived underneath it. It does not: |r_H7| ≤ 0.097 over the new handles (family Bonferroni 0.57) against 0.226 for the best protocol gate — the extended family is *quieter* than the protocol family. The heat-trace projection agrees: the v2 fluctuation r_EF distributes as +0.497 ± 0.465 against the honest GUE null −0.186 ± 0.697 (family z ≈ 1.0), decoys indistinguishable from real gates.
 
-**Layer 3 — the demarcation is now wide.** Theorems T1–T6 fixed what the zeros do; theorem T7 fixes what the 87 gates do: 52 protocol gates (C3) plus 35 extended gates (C5) lie in the GUE class and carry no Λ-weights, with positive controls at r = 1.0 (PC1/PC2) and r = 0.9998 (PC0). The conclusion the package draws is deliberately modest and deliberately sharp: a hypothetical Hilbert–Pólya operator carrying the Λ(n)/√n weight in its trace cannot be obtained by *local* deformation of the lattice resonator. The question of nonlocal constructions remains open and belongs to the roadmap — the negative verdict covers the class of local Hermitian lattice Hamiltonians with vortex phases, and the campaign is careful to claim exactly that and no more.
+**Layer 3 — the demarcation is now wide.** Theorems T1–T6 fixed what the zeros do; theorem T7 fixes what the 87 gates do: 52 protocol gates (C3) plus 35 extended gates (C5) lie in the GUE class and carry no Λ-weights, with positive controls at r = 1.0 (PC1/PC2, PC0′) and r = 0.9998 (PC0). The conclusion the package draws is deliberately modest and deliberately sharp: a hypothetical Hilbert–Pólya operator carrying the Λ(n)/√n weight in its trace cannot be obtained by *local* deformation of the lattice resonator. The question of nonlocal constructions remains open and belongs to the roadmap — the negative verdict covers the class of local Hermitian lattice Hamiltonians with vortex phases, and the campaign is careful to claim exactly that and no more.
 
 In the bookkeeping of the series, C5 is the third and final measurement behind the scorecard verdict on H2: the negative sits at the surrogate-null level in the rank metric (C3), roughly half an order by relative residual in the thermal metric (C4), and — this campaign — stable under a six-dimensional extension of the handle space. Three independent projections, one direction of answer. The companion verdict H3 (GUE class, YES) is what makes the H2 negative intelligible rather than merely disappointing: universality erases arithmetic, and C5 shows the erasure is not an artifact of any particular way of imposing the arithmetic setting.
 
@@ -266,7 +303,7 @@ The honest frame matters as much as the result. "Stability" is a measurement ove
 python3 campaigns/run_c5_gates_ext.py
 ```
 
-The series seed is 96; the RNG streams are fixed inside `engine/hamiltonian.py`. All dependencies are listed in `requirements.txt`. The script replays the committed verdict — new gates count, ⟨r⟩ statistics, the |r_H7| maximum against the C3 best value 0.226, the r_EF cloud and the verdict string — straight from `data/c5_gates_ext_table.csv` and `data/c5_gates_ext_verdict.json`, so the excursion takes seconds and does not require the zeros file. Full recomputation of the spectra uses the same engine and seed and is expected to reproduce the committed tables bit-for-bit (see `data/README.md` and the registry discipline in `../../results/RESULTS.md`).
+The series seed is 96; the RNG streams are fixed inside `engine/hamiltonian.py`. All dependencies are listed in `requirements.txt`. The script replays the committed verdict — new gates count, ⟨r⟩ statistics against the C8 canon, the |r_H7| maximum against the C3 best value 0.226, the r_EF fluctuation cloud and the verdict string — straight from `data/c5_gates_ext_table.csv` and `data/c5_gates_ext_verdict.json`, so the excursion takes seconds and does not require the zeros file. Full recomputation of the spectra uses the same engine and seed and reproduces the committed tables bit-for-bit (the v2.0.5 regeneration itself is the existence proof; see `data/README.md` and the registry discipline in `../../results/RESULTS.md`).
 
 ## Data and figures
 
@@ -284,17 +321,17 @@ Figures, both renders:
 | `fig09_handles.png` / `fig09_handles_en.png` | 600 dpi — `figures_hires/ru/fig09_handles.png` · `figures_hires/en/fig09_handles_en.png`; screen — `figures/ru/` · `figures/en/` |
 | `fig10_gue_ext.png` / `fig10_gue_ext_en.png` | 600 dpi — `figures_hires/ru/fig10_gue_ext.png` · `figures_hires/en/fig10_gue_ext_en.png`; screen — `figures/ru/` · `figures/en/` |
 
-`fig09_handles` draws |r_H7| across the 37 extended gates: the gold line marks the best protocol value 0.226, the copper lines the positive controls at 1.000, the red bars the decoys. `fig10_gue_ext` draws ⟨r⟩ across the extended family: every point inside the 0.47–0.53 band — the GUE class is universal for all handles.
+`fig09_handles` draws |r_H7| across the 37 extended gates: the gold line marks the best protocol value 0.226, the copper lines the positive controls at 1.000, the red bars the decoys. `fig10_gue_ext` draws ⟨r⟩ across the extended family against the canonical GUE band 0.5996±0.03 (v2.0.5: previously a spurious 0.47–0.53 band around 0.5): every point inside or at the edge of the band (0.569–0.633) — the GUE class is universal for all handles.
 
 Monographs: `monograph_ru.docx` · `monograph_ru.pdf` · `monograph_en.docx` · `monograph_en.pdf`. The full monograph of this computation (setup, theorems, tables, figures, honest limitations): 7–9 pages, identical content in both languages.
 
 ## Honest notes
 
-> The family maximum of \|r_H7\| is reached on a random-sign decoy — the expected noise maximum, not a signal.
+> The family maximum of \|r_H7\| (0.0972, `B_torus_aniso1.25`) is a real gate, not a decoy — and it stays inside the family-wide Bonferroni correction (p = 0.57): noise, but the campaign no longer hides it behind a decoy label.
 
 > The statement "the gap is stable" is a measurement over 37 configurations, not a theorem about all possible handles.
 
-Both notes are load-bearing. The first prevents over-reading the largest correlation in the family: it belongs to a decoy, and a decoy exists precisely to host such maxima. The second prevents over-reading the verdict itself: C5 closes the "one family" objection for the six dimensions tested and the 37 configurations committed — it does not prove that every conceivable lattice Hamiltonian fails. What it does establish, together with C3, is the T7 demarcation over 87 gates; where to go beyond the local class is the business of the roadmap, not of this campaign.
+Both notes are load-bearing. The first prevents over-reading the largest correlation in the family: 0.0972 is indistinguishable from the GUE r_H7 null (+0.042±0.047, z ≈ 1.2) once the max-over-shifts bias is calibrated — and the v1 claim that the maximum "belongs to a decoy" was itself wrong (the v1 "16-vortex decoy" was a bit-identical duplicate of C_Nv16_random_signs). The second prevents over-reading the verdict itself: C5 closes the "one family" objection for the six dimensions tested and the 37 configurations committed — it does not prove that every conceivable lattice Hamiltonian fails. What it does establish, together with C3, is the T7 demarcation over 87 gates; where to go beyond the local class is the business of the roadmap, not of this campaign.
 
 ## Verdict
 
@@ -305,8 +342,8 @@ Both notes are load-bearing. The first prevents over-reading the largest correla
 **1. Thirty-seven configurations — is that enough to claim "the gap is stable"?**
 Enough for the claim C5 actually makes: a measured negative over the six tested dimensions, with per-gate null clouds, decoys and a bit-for-bit regression control. The campaign explicitly does not claim a theorem over all possible handles. Combined with the 52 protocol gates of C3, the T7 demarcation covers 87 configurations of one architectural class — local Hermitian lattice Hamiltonians with vortex phases.
 
-**2. Why does the family table quote ⟨r⟩ = 0.500±0.001?**
-Because every gate of the family was run through the same statistics as C3, and in this campaign's window the mean adjacent-spacing ratio sits in 0.498–0.502 for all 37 configurations. The number that matters is the width: a tenth of a percent across twists, anisotropy, flux shifts, masses, profiles, signs and two boundary geometries. The class-level calibration across the series (Poisson / GOE / GUE ladders) is theorem T10 in C8.
+**2. Why did the v1 table quote ⟨r⟩ = 0.500±0.001, and why is it 0.569–0.633 now?**
+The v1 column could not be true: a uniform 0.500 for all 37 configurations (including W = 0 and both decoys) contradicts C8's own measurement of the same base configuration (0.5972) and the C13 blind families (0.550–0.649). The v2.0.5 audit proved the spectra were always real (the v1 raw r_EF reproduces to ±0.002) and regenerated the statistics with the C8 protocol: the family sits at 0.569–0.633, mean 0.601±0.016 — genuinely the GUE class. The class-level calibration across the series (Poisson / GOE / GUE ladders) is theorem T10 in C8.
 
 **3. Why was the corner W = 0 + midpoint replaced by W = 0.1?**
 At W = 0 with the midpoint profile the Hamiltonian develops exact spectral multiplicities, which break the polynomial unfolding and would corrupt the statistics. Replacing the corner with W = 0.1 keeps the gate meaningful; the substitution is flagged with an explicit note in the data table and recorded in the honesty registry.
@@ -315,16 +352,16 @@ At W = 0 with the midpoint profile the Hamiltonian develops exact spectral multi
 Flux quantisation: on the 24-lattice the constraint α·Ny ∈ ℤ is rigid, and ±1/24 are the realisable neighbouring points of the self-dual line α = ½. They are exact values, not rounded ones; using ±0.02 on the torus would violate the quantisation the model itself imposes.
 
 **5. What exactly is a decoy, and why two?**
-A decoy is a gate whose vortex phases are random — the null hypothesis "the structure of the phases is not important" made into a configuration. Two decoys (Nv = 16 and Nv = 32) anchor the noise floor of both r_H7 and r_EF. Their behaviour is statistically indistinguishable from the real gates, which is the strongest single sentence in the campaign.
+A decoy is a gate whose vortex phases are random — the null hypothesis "the structure of the phases is not important" made into a configuration. Of the two committed decoys only `D_decoy_Nv32_random` is genuinely distinct: `D_decoy_signs_random` reuses the same configuration and RNG stream as `C_Nv16_random_signs` and is bit-identical to it (a v1 labelling defect, documented in v2.0.5). The honest statement is: the random-phase gates — C_Nv16_random_signs and D_decoy_Nv32_random — are statistically indistinguishable from the structured real gates.
 
 **6. Does C5 say no lattice operator can ever encode the zeros?**
 No. It says no *local* deformation of this resonator family — six dimensions, 37 configurations, 87 gates with C3 — moves the statistics toward the zeros. Nonlocal constructions are explicitly outside the verdict and are kept open in the roadmap.
 
 **7. In one sentence, what did C5 establish?**
-That the H2 gap of the lattice resonator does not close under any of six new deformation dimensions — 35 gates and 2 decoys all stay GUE (⟨r⟩ = 0.500±0.001) and null-zone (|r_H7| ≤ 0.043).
+That the H2 gap of the lattice resonator does not close under any of the new deformation dimensions — 35 gates and 2 decoys all stay GUE (⟨r⟩ = 0.569–0.633, mean 0.601) and null-zone (|r_H7| ≤ 0.097, Bonferroni 0.57).
 
 **8. Which handle came closest to breaking the null zone?**
-Signs and boundaries, at |r_H7| = 0.0434730569109078 on the all-plus, Nv = 8 gate — and the decoys sit at the same level, which is precisely why the value is read as noise.
+Anisotropy on the torus: |r_H7| = 0.0972 on `B_torus_aniso1.25` (p = 0.154; signs/boundaries follow at 0.0695, p = 0.031, C_alpha0.4_allplus p = 0.015) — all inside the family-wide Bonferroni correction (0.57) and inside the GUE r_H7 null band (+0.042±0.047), which is precisely why the values are read as noise.
 
 **9. Why include cross-combinations like anisotropy+flux or twist+mass?**
 Because a critic's next move after "try other handles" is "try them together". The A-group pairs (A_aniso08_dalpha+0.02, A_aniso125_mass0.15, A_mass0.15_dalpha-0.02, A_midpoint_allplus) and the B-group combinations (B_twistpi_pi_mass0.15, B_twistpi_pi_aniso1.25) test interaction effects; none appears.
@@ -360,7 +397,7 @@ This is why the campaign closes the "you only tried one family" objection rather
 
 ## What would have changed the verdict
 
-The verdict is falsifiable at three independent dials, and the committed data make the thresholds explicit. A gate would have left the null zone if its |r_H7| had escaped the circular-shift calibration (C3's 0.226 shows values up to there were still null; the family max 0.0434730569109078 is far inside); if its r_EF had left the per-gate cloud at a decisive z_EF (family bound |z_EF| ≤ 3.4563051301961507 against clouds with sd up to 0.499555297750286); or if its ⟨r⟩ had drifted from the 0.498–0.502 band toward an integrable or intermediate class. Any one of the 37 rows could have delivered this; none did. The same three dials — staircase correlation, heat-trace projection, spacing class — are exactly the ones the positive controls certify: PC1/PC2 at r = 1.0 and PC0 at r = 0.9997540255853161 prove the dials move when they should. A negative result with certified dials is a measurement, not an absence of instrumentation.
+The verdict is falsifiable at three independent dials, and the committed data make the thresholds explicit. A gate would have left the null zone if its |r_H7| had escaped the permutation calibration (C3's 0.226 shows values up to there were still null; the family max 0.0972 stays inside the family-wide Bonferroni 0.57 and the GUE r_H7 null +0.042±0.047); if its fluctuation r_EF had left the per-gate cloud at a decisive z_EF (family bound |z_EF| ≤ 3.275, family mean at z ≈ 1.0 against the synthetic-GUE null); or if its ⟨r⟩ had drifted from the canonical band 0.5996±0.03 toward an integrable or intermediate class. Any one of the 37 rows could have delivered this; none did (two edge gates sit within the sampling width of the band edges). The same three dials — staircase correlation, heat-trace projection, spacing class — are exactly the ones the positive controls certify: PC1/PC2 and PC0′ at r = 1.0 and PC0 at r = 0.9997876852323586 prove the dials move when they should. A negative result with certified dials is a measurement, not an absence of instrumentation.
 
 ## See also
 

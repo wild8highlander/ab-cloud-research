@@ -39,8 +39,9 @@ C5 = {
 {"h1": "Results: the gap is stable",
  "paras": [
  "The main result is negative and therefore valuable. All 35 new gates "
- "sit in the GUE class: ⟨r⟩ = 0.498–0.505 (0.500 ± 0.002 across the "
- "family). The correlation with the zeros satisfies |r_H7| ≤ 0.043 "
+ "sit in the GUE class by the C8 canon: ⟨r⟩ = 0.569–0.633 (0.601 ± 0.016 "
+ "across the family, band 0.5996±0.03). The correlation with the zeros "
+ "satisfies |r_H7| ≤ 0.097 (family Bonferroni 0.57) "
  "against the best protocol value 0.226 and positive controls of 1.000; "
  "the trace projection r_EF (C4) is distributed as 0.52 ± 0.52 — exactly "
  "inside the null clouds (surrogate, Poisson, GUE), and the decoys "

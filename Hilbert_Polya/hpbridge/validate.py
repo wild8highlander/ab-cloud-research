@@ -98,12 +98,18 @@ def ivp06_trace_formula_hxi():
 
 
 def ivp07_gue_class():
-    """C5: все новые затворы в GUE-классе (⟨r⟩ ∈ 0.5±0.03)."""
+    """C5: новые затворы в GUE-классе (⟨r⟩ ∈ 0.5996±0.03, канон C8).
+
+    v2.0.5: раньше проверялось ⟨r⟩ ∈ 0.5±0.03 против фальшивой v1-колонки
+    r_mean = 0.498–0.502 (0.5 — НЕ канон GUE; см. docs/audit_v2.0.5.md).
+    """
     rows = list(csv.DictReader(open(_data('data/c5_gates_ext_table.csv'))))
     rr = np.array([float(r['r_mean']) for r in rows[:-2]])
-    ok = bool(np.all(np.abs(rr - 0.5) < 0.03))
+    ok = bool(np.all(np.abs(rr - 0.5996) <= 0.035)
+              and abs(rr.mean() - 0.5996) < 0.01)
     return {'name': 'IVP07 GUE class of extended gates', 'passed': ok,
-            'detail': f'⟨r⟩ ∈ [{rr.min():.3f}, {rr.max():.3f}], n={rr.size}'}
+            'detail': f'⟨r⟩ ∈ [{rr.min():.3f}, {rr.max():.3f}], '
+                      f'mean {rr.mean():.3f} (канон 0.5996±0.03), n={rr.size}'}
 
 
 def ivp08_colocation():

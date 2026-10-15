@@ -49,7 +49,7 @@ Registry of checks (thresholds exactly as fixed in `PROTOCOL.md`):
 | IVP04 | argument-principle anchors (T3) | 0/3/10/29/79/649 | data/c2 |
 | IVP05 | count vs Riemann–von Mangoldt N̄ | S(T) ≤ 1.8 | data/c2 |
 | IVP06 | trace formula T6 | \|ΔQ\| ≤ 1e-10, \|ΔK\| ≤ 5e-5 | data/c4 |
-| IVP07 | GUE class of the extended family | ⟨r⟩ ∈ 0.5±0.03 | data/c5 |
+| IVP07 | GUE class of the extended family | ⟨r⟩ ∈ 0.5996±0.03 (C8 canon) | data/c5 |
 | IVP08 | flow co-location (T4) | ≤ 1e-13 | data/c6 |
 | IVP09 | ψ-ladder | corr ≥ 0.95 | data/c6 |
 | IVP10 | multilanguage twin (C) | γ ≤ 1e-12; Λ match | multilang/c |

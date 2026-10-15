@@ -74,7 +74,7 @@ A JSON gate specification (one file per gate):
   at the trace level; the open problem is a **local** realization);
 - Metrics with free fitted scales or windows chosen post hoc (the C4/M2
   lesson: fixed scale only);
-- Submissions breaking the GUE class (⟨r⟩ outside 0.5±0.03) — those are
+- Submissions breaking the GUE class (⟨r⟩ outside 0.5996±0.03, the C8 canon) — those are
   interesting, but belong to the anomaly hunt (C14/T16), not to H2.
 
 ## How to run the scorer

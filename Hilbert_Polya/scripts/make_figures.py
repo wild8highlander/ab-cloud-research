@@ -305,12 +305,19 @@ def fig10_gue_ext(t):
             tok = apply(theme)
             fig, ax = plt.subplots(figsize=(7.0, 3.4),
                                    constrained_layout=True)
-            ax.axhspan(0.47, 0.53, color=tok["grid"], alpha=0.5)
+            # v2.0.5: полоса GUE — канон C8 (0.5996±0.03), НЕ 0.5±0.03
+            ax.axhspan(0.5996 - 0.03, 0.5996 + 0.03, color=tok["grid"],
+                       alpha=0.5)
             ax.plot(rm, "o", ms=4, color=tok["line"], lw=0)
-            ax.axhline(0.5, color=tok["muted"], lw=1.0, ls="--")
+            ax.axhline(0.5996, color=tok["copper"], lw=1.2, ls="-.",
+                       label=L["gue"])
+            ax.axhline(0.531, color=tok["slate"], lw=1.0, ls="--",
+                       label=L["goe"])
+            ax.set_ylim(0.52, 0.67)
             ax.set_xlabel("gate #")
             ax.set_ylabel(L["ladder_y"])
             ax.set_title(L["ladder_title2"] + " — C5")
+            ax.legend(loc="upper right")
             clean_axis(ax)
             save_all(fig, "fig10_gue_ext", ROOT)
             plt.close(fig)

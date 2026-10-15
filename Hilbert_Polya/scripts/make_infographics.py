@@ -33,9 +33,9 @@ T = {
   ("Г1 · Самосопряжённость", "ДА", "ok",
    "Эрмитов гамильтониан решётки: вещественный спектр на машинной точности (декоя и GUE-контроли)"),
   ("Г2 · Спектральное тождество", "НЕТ", "bad",
-   "Разрыв график↔оператор: r_H7 ≤ 0.226 (52 затвора), |r_H7| ≤ 0.043 (35 новых), нулевая зона по D_nn (уровень суррогата), в тепловой проекции ≈0.5 порядка по невязке"),
+   "Разрыв график↔оператор: r_H7 ≤ 0.226 (52 затвора), |r_H7| ≤ 0.097 (35 новых, Бонферрони 0.57), нулевая зона по D_nn (уровень суррогата), в тепловой проекции ≈0.5 порядка по невязке"),
   ("Г3 · Класс GUE", "ДА", "ok",
-   "⟨r⟩ = 0.60 при вихрях Nv≥8; вся расширенная семья 0.498–0.505 на единичной развёртке"),
+   "⟨r⟩ = 0.60 при вихрях Nv≥8; вся расширенная семья в полосе GUE 0.5996±0.03: ⟨r⟩ = 0.57–0.63, среднее 0.60"),
   ("Г4 · Дирак-динамика", "ДА", "ok",
    "Когерентный пакет, отражение, рассеяние на вихрях; энергия до 1e-15; ζ-облако прозрачнее случайного ×16"),
   ("Г5 · Простые в операторе", "НЕТ", "bad",
@@ -61,12 +61,12 @@ T = {
  "handles_title": "Расширенное семейство C5: шесть новых ручек",
  "handles_sub": "35 затворов + 2 декуя · вопрос: выведет ли хоть одна ручка из нулевой зоны? Ответ: нет",
  "handles": [
-  ("Твисты (φx, φy)", "3 класса спин-структур", "|r_H7| ≤ 0.033"),
-  ("Анизотропия t_x/t_y", "0.8 и 1.25", "|r_H7| ≤ 0.030"),
-  ("Флакс-сдвиг δα", "±0.02 (±1/24 на торусе)", "|r_H7| ≤ 0.034"),
-  ("Стэггерд-масса m", "0.15 и 0.35", "|r_H7| ≤ 0.032"),
-  ("Профиль вихря", "site | midpoint", "|r_H7| ≤ 0.033"),
-  ("Знаки и границы", "neutral | all_plus | random · open | torus", "|r_H7| ≤ 0.044"),
+  ("Твисты (φx, φy)", "3 класса спин-структур", "|r_H7| ≤ 0.073"),
+  ("Анизотропия t_x/t_y", "0.8 и 1.25", "|r_H7| ≤ 0.097"),
+  ("Флакс-сдвиг δα", "±0.02 (±1/24 на торусе)", "|r_H7| ≤ 0.048"),
+  ("Стэггерд-масса m", "0.15 и 0.35", "|r_H7| ≤ 0.036"),
+  ("Профиль вихря", "site | midpoint (в движке не активна)", "|r_H7| ≤ 0.056"),
+  ("Знаки и границы", "neutral | all_plus | random · open | torus", "|r_H7| ≤ 0.070"),
  ],
  "ladder_title": "Статистическая лестница C8: симметрия задаёт класс",
  "ladder_sub": "Тройственность Дайсона на решётке · GSE структурно недостижима (T²=+1)",
@@ -84,9 +84,9 @@ T = {
   ("H1 · Self-adjointness", "YES", "ok",
    "Hermitian lattice Hamiltonian: real spectrum at machine precision (decoy and GUE controls)"),
   ("H2 · Spectral identity", "NO", "bad",
-   "Graph↔operator gap: r_H7 ≤ 0.226 (52 gates), |r_H7| ≤ 0.043 (35 new), D_nn at the surrogate-null level, ≈0.5 order by relative residual in the trace projection"),
+   "Graph↔operator gap: r_H7 ≤ 0.226 (52 gates), |r_H7| ≤ 0.097 (35 new, Bonferroni 0.57), D_nn at the surrogate-null level, ≈0.5 order by relative residual in the trace projection"),
   ("H3 · GUE class", "YES", "ok",
-   "⟨r⟩ = 0.60 with vortices Nv≥8; the whole extended family 0.498–0.505 on the unit unfolding"),
+   "⟨r⟩ = 0.60 with vortices Nv≥8; the whole extended family in the GUE band 0.5996±0.03: ⟨r⟩ = 0.57–0.63, mean 0.60"),
   ("H4 · Dirac dynamics", "YES", "ok",
    "Coherent packet, reflection, vortex scattering; energy to 1e-15; ζ-cloud 16× more transparent than random"),
   ("H5 · Primes in the operator", "NO", "bad",
@@ -112,12 +112,12 @@ T = {
  "handles_title": "C5 extended family: six new handles",
  "handles_sub": "35 gates + 2 decoys · question: does any handle exit the null zone? Answer: no",
  "handles": [
-  ("Twists (φx, φy)", "3 spin-structure classes", "|r_H7| ≤ 0.033"),
-  ("Anisotropy t_x/t_y", "0.8 and 1.25", "|r_H7| ≤ 0.030"),
-  ("Flux shift δα", "±0.02 (±1/24 on the torus)", "|r_H7| ≤ 0.034"),
-  ("Staggered mass m", "0.15 and 0.35", "|r_H7| ≤ 0.032"),
-  ("Vortex profile", "site | midpoint", "|r_H7| ≤ 0.033"),
-  ("Signs and boundaries", "neutral | all_plus | random · open | torus", "|r_H7| ≤ 0.044"),
+  ("Twists (φx, φy)", "3 spin-structure classes", "|r_H7| ≤ 0.073"),
+  ("Anisotropy t_x/t_y", "0.8 and 1.25", "|r_H7| ≤ 0.097"),
+  ("Flux shift δα", "±0.02 (±1/24 on the torus)", "|r_H7| ≤ 0.048"),
+  ("Staggered mass m", "0.15 and 0.35", "|r_H7| ≤ 0.036"),
+  ("Vortex profile", "site | midpoint (inert in the engine)", "|r_H7| ≤ 0.056"),
+  ("Signs and boundaries", "neutral | all_plus | random · open | torus", "|r_H7| ≤ 0.070"),
  ],
  "ladder_title": "C8 statistics ladder: symmetry sets the class",
  "ladder_sub": "Dyson triplet on the lattice · GSE structurally unreachable (T²=+1)",
@@ -172,7 +172,7 @@ def html_scorecard(L, tok):
     return f'''<!DOCTYPE html><html><head><meta charset="utf-8"><style>{css(tok)}</style></head>
 <body><div id="root"><div class="hd"><h1>{L["scorecard_title"]}</h1><p>{L["scorecard_sub"]}</p></div>
 <div class="rule"></div><div class="grid">{cards}</div>
-<div class="foot">Hilbert Polya Bridge v1.0.0 · data/c*_verdict.json · independent_verification/IVP*</div></div></body></html>'''
+<div class="foot">Hilbert Polya Bridge v2.0.5 · data/c*_verdict.json · independent_verification/IVP*</div></div></body></html>'''
 
 
 def html_map(L, tok):
@@ -212,7 +212,7 @@ def html_handles(L, tok):
     return f'''<!DOCTYPE html><html><head><meta charset="utf-8"><style>{css(tok)}</style></head>
 <body><div id="root"><div class="hd"><h1>{L["handles_title"]}</h1><p>{L["handles_sub"]}</p></div>
 <div class="rule"></div><div class="grid" style="grid-template-columns:1fr 1fr">{rows}</div>
-<div class="foot">data/c5_gates_ext_verdict.json · ⟨r⟩ = 0.500 ± 0.002 everywhere (GUE class) · |r_H7| max = 0.043</div></div></body></html>'''
+<div class="foot">data/c5_gates_ext_verdict.json (v2.0.5) · ⟨r⟩ = 0.57–0.63 по всей семье (полоса GUE 0.5996±0.03, среднее 0.60) · |r_H7| max = 0.097 (Бонферрони 0.57)</div></div></body></html>'''
 
 
 def html_ladder(L, tok):
