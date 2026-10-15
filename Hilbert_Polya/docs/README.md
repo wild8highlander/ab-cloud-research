@@ -34,6 +34,7 @@ the reference layer a newcomer reads first and returns to constantly:
 | [validation.md](validation.md) | thresholds, machine floors, registry of controls |
 | [metric_correction_v2.0.1.md](metric_correction_v2.0.1.md) | the D_nn category-error correction (surrogate null) |
 | [audit_v2.0.5.md](audit_v2.0.5.md) | the v2.0.5 audit: the fabricated C5 r_mean column, the self-passing r_EF null, the hard-coded C13 verdict |
+| [audit_v2.0.6.md](audit_v2.0.6.md) | the v2.0.6 audit: language hygiene of the infographics, the EN scorecard embedded in the EN README, the stale core_spectrum scorecard/map (15→19) |
 
 Monographs (full, RU/EN, DOCX+PDF): monograph/ and computations/*/.
 

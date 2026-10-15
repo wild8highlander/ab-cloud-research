@@ -351,16 +351,20 @@ def fig16(t, lang):
                 'V5 предел', 'V6 тождество', 'V7 след T6', 'V8 самосопр. T2',
                 'V9 редукция T5', 'V10 обратная', 'V11 универс.',
                 'V12 сертификаты T3', 'V13 формальный', 'V14 аудит',
-                'V15 Ли T4']
+                'V15 Ли T4', 'V16 полн. гамильт.', 'V17 электрон',
+                'V18 процессор', 'V19 сшивка']
     names_en = ['V1 blind', 'V2 nulls', 'V3 σ-scan', 'V4 passport T1',
                 'V5 limit', 'V6 identity', 'V7 trace T6', 'V8 self-adj T2',
                 'V9 reduction T5', 'V10 inverse', 'V11 universality',
-                'V12 certificates T3', 'V13 formal', 'V14 audit', 'V15 Li T4']
+                'V12 certificates T3', 'V13 formal', 'V14 audit',
+                'V15 Li T4', 'V16 full H', 'V17 electron',
+                'V18 processor', 'V19 stitching']
     names = names_ru if lang == 'ru' else names_en
     # статусы: proven → ok, measured → gold
     statuses = ['measured', 'measured', 'measured', 'proven', 'measured',
                 'measured', 'proven', 'proven', 'proven', 'measured',
-                'measured', 'proven', 'measured', 'measured', 'proven']
+                'measured', 'proven', 'measured', 'measured', 'proven',
+                'measured', 'measured', 'measured', 'measured']
     fig, ax = plt.subplots(figsize=(9.6, 4.4), constrained_layout=True)
     cols = [t['ok'] if s == 'proven' else t['gold'] for s in statuses]
     ax.bar(range(len(names)), [1] * len(names), color=cols, alpha=0.85)

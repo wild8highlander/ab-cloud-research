@@ -162,7 +162,8 @@ RU = {
      '5 частей + аудитор.',
    m='rpbridge/audit.py: claim-JSON (statement/premises/code/controls/'
      'does_not_prove); A1/A2/A3; запрет p-значений в роли доказательств.',
-   h='15/15 claims по схеме; покрытие вердиктов полное; статус-гигиена '
+   h='19/19 claims по схеме (V1–V19); покрытие вердиктов полное; '
+     'статус-гигиена '
      'соблюдена.',
    v="{'ru': 'Каждое утверждение трассируется; автоповышение статуса "
      "заблокировано', 'en': 'Every statement is traced; automatic "
@@ -367,7 +368,8 @@ EN = {
      '+ auditor.',
    m='rpbridge/audit.py: claim JSON (statement/premises/code/controls/'
      'does_not_prove); A1/A2/A3; p-values banned as proofs.',
-   h='15/15 claims per the schema; full verdict coverage; status '
+   h='19/19 claims per the schema (V1–V19); full verdict coverage; '
+     'status '
      'hygiene observed.',
    v="{'ru': 'Утверждения трассируются', 'en': 'Every statement is "
      "traced; automatic promotion is blocked'}"),

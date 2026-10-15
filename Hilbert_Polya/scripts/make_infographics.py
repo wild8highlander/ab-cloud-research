@@ -43,6 +43,7 @@ T = {
  ],
  "map_title": "Карта моста: от алгебраических тождеств к оператору",
  "map_sub": "Что доказано, что измерено, где проходит граница",
+ "map_foot": "T = теорема · K = критерий · Г1–Г5 = пункты табеля Гильберта–Пойа · C = кампания",
  "stages": [
   ("1 · Алгебра", "Γ-лестница: 3 замыкания · dps=40 · невязки ~1e-39", "Доказано (T1)"),
   ("2 · График", "Z_id = e^{iθ}ζ(½+it) · вещественность 5e-29 · 79 нулей", "Доказано (K2, K3)"),
@@ -60,6 +61,7 @@ T = {
  "trace_note": "Калибровка тождества: |ΔQ| ≤ 1.7e-12 · следовая формула H_ξ: |ΔK| ≤ 1.2e-5 · PC0 r = +0.9998",
  "handles_title": "Расширенное семейство C5: шесть новых ручек",
  "handles_sub": "35 затворов + 2 декуя · вопрос: выведет ли хоть одна ручка из нулевой зоны? Ответ: нет",
+ "handles_foot": "data/c5_gates_ext_verdict.json (v2.0.5) · ⟨r⟩ = 0.57–0.63 по всей семье (полоса GUE 0.5996±0.03, среднее 0.60) · |r_H7| max = 0.097 (Бонферрони 0.57)",
  "handles": [
   ("Твисты (φx, φy)", "3 класса спин-структур", "|r_H7| ≤ 0.073"),
   ("Анизотропия t_x/t_y", "0.8 и 1.25", "|r_H7| ≤ 0.097"),
@@ -94,6 +96,7 @@ T = {
  ],
  "map_title": "Bridge map: from algebraic identities to the operator",
  "map_sub": "What is proven, what is measured, where the boundary runs",
+ "map_foot": "T = theorem · K = criterion · H1–H5 = Hilbert–Pólya scorecard items · C = campaign",
  "stages": [
   ("1 · Algebra", "Γ-ladder: 3 closures · dps=40 · residuals ~1e-39", "Proven (T1)"),
   ("2 · Graph", "Z_id = e^{iθ}ζ(½+it) · reality 5e-29 · 79 zeros", "Proven (K2, K3)"),
@@ -111,6 +114,7 @@ T = {
  "trace_note": "Identity calibration: |ΔQ| ≤ 1.7e-12 · trace formula for H_ξ: |ΔK| ≤ 1.2e-5 · PC0 r = +0.9998",
  "handles_title": "C5 extended family: six new handles",
  "handles_sub": "35 gates + 2 decoys · question: does any handle exit the null zone? Answer: no",
+ "handles_foot": "data/c5_gates_ext_verdict.json (v2.0.5) · ⟨r⟩ = 0.57–0.63 across the whole family (GUE band 0.5996±0.03, mean 0.60) · |r_H7| max = 0.097 (Bonferroni 0.57)",
  "handles": [
   ("Twists (φx, φy)", "3 spin-structure classes", "|r_H7| ≤ 0.073"),
   ("Anisotropy t_x/t_y", "0.8 and 1.25", "|r_H7| ≤ 0.097"),
@@ -185,7 +189,7 @@ def html_map(L, tok):
     return f'''<!DOCTYPE html><html><head><meta charset="utf-8"><style>{css(tok)}</style></head>
 <body><div id="root"><div class="hd"><h1>{L["map_title"]}</h1><p>{L["map_sub"]}</p></div>
 <div class="rule"></div>{stages}
-<div class="foot">T = theorem · K = criterion · Г/Н = Hilbert–Pólya scorecard item · C = campaign</div></div></body></html>'''
+<div class="foot">{L["map_foot"]}</div></div></body></html>'''
 
 
 def html_trace(L, tok):
@@ -212,7 +216,7 @@ def html_handles(L, tok):
     return f'''<!DOCTYPE html><html><head><meta charset="utf-8"><style>{css(tok)}</style></head>
 <body><div id="root"><div class="hd"><h1>{L["handles_title"]}</h1><p>{L["handles_sub"]}</p></div>
 <div class="rule"></div><div class="grid" style="grid-template-columns:1fr 1fr">{rows}</div>
-<div class="foot">data/c5_gates_ext_verdict.json (v2.0.5) · ⟨r⟩ = 0.57–0.63 по всей семье (полоса GUE 0.5996±0.03, среднее 0.60) · |r_H7| max = 0.097 (Бонферрони 0.57)</div></div></body></html>'''
+<div class="foot">{L["handles_foot"]}</div></div></body></html>'''
 
 
 def html_ladder(L, tok):

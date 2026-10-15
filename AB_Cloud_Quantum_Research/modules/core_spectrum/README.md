@@ -37,7 +37,7 @@ in the package.
 1. [What this is](#what-this-is)
 2. [One-sentence summary](#one-sentence-summary)
 3. [Main results](#main-results)
-4. [Scorecard of the 15 solutions](#scorecard-of-the-15-solutions)
+4. [Scorecard of the 19 solutions](#scorecard-of-the-19-solutions)
 5. [Quick start](#quick-start)
 6. [Package structure](#package-structure)
 7. [Computations (V1–V19)](#computations-v1v19)
@@ -53,10 +53,12 @@ in the package.
 
 ## What this is
 
-The package turns a 15-solution research program (see docs/plan15.md)
-into executable form: every campaign V1–V19 implements exactly one
-solution — with pre-registered metrics, positive controls, a committed
-verdict and a monograph (RU/EN × DOCX/PDF). The object is the AB-cloud
+The package turns a 19-solution research program into executable
+form: every campaign V1–V19 implements exactly one solution — with
+pre-registered metrics, positive controls, a committed verdict and a
+monograph (RU/EN × DOCX/PDF). The original fifteen solutions are traced
+one-to-one in docs/plan15.md; V16–V19 extend the program in v1.1.0–1.2.0.
+The object is the AB-cloud
 resonator: a Hermitian Hofstadter-type lattice at half flux with vortex
 phases; the zero side is the ξ function on the critical line. Everything
 is derived from first principles inside the package; the only external
@@ -104,7 +106,7 @@ blocked by the obligation machine (V13); the spectral Li formula
 | 22 | AB processor | gates {X,Y,Z,H,S,T} exact (1−2e-16); C = 0.984; AB-Pong 0:1, bit-exact replay | V18 |
 | 23 | Branch stitching (R2) | the hodge-laboratory mechanism reproduced (phases 1e-40); Z₂ monodromy 100% on 2000 zeros; the Γ-phase carries both signatures: coherence 0.9995 (z = 43.4) — ALGEBRAIC_CERTIFICATE | V19 |
 
-## Scorecard of the 15 solutions
+## Scorecard of the 19 solutions
 
 | Direction | Plan solutions | Campaigns | Verdict |
 |-----------|----------------|-----------|---------|
@@ -127,7 +129,7 @@ python3 -m pip install -r requirements.txt
 # 1. a tour over the committed verdicts (seconds)
 make tour            # or python3 campaigns/run_v01_...py one by one
 
-# 2. a fresh full recomputation of all 15 campaigns (~2 min, zeros included)
+# 2. a fresh full recomputation of all 19 campaigns (~2 min, zeros included)
 python3 scripts/compute_all.py
 
 # 3. theorem machinery + committed verdicts
@@ -230,8 +232,8 @@ both languages and both formats.
 
 ## The science in brief
 
-**The boundary.** Through 15 campaigns and 87 gate-equivalent
-configurations the package measures exactly how far the ξ graph is from
+**The boundary.** Through 19 campaigns and the full factorial handle map
+(288 spectra of V16) the package measures exactly how far the ξ graph is from
 any operator of the local lattice family: rank agreement stuck in the
 null zone (r = 0.036 against the permutation nulls — V6 reference), 0.63
 orders in the trace metric, null zones in the blind protocol. GUE universality is an attractor; it erases everything but
@@ -273,8 +275,8 @@ the certified Li zone, compiling the formal layer.
 
 | Document | Content |
 |----------|---------|
-| `docs/plan15.md` | traceability of the 15 solutions → campaigns (1-to-1) |
-| `docs/theory.md` | the A–E direction map, status logic |
+| `docs/plan15.md` | traceability of the original 15 solutions → campaigns V1–V15, plus the v1.1.0+ additions V16–V19 |
+| `docs/theory.md` | the A–G direction map, status logic |
 | `docs/methods.md` | lattice, unfolding, statistics, trace pipeline |
 | `docs/validation.md` | thresholds, machine floors, controls, episodes |
 | `results/RESULTS.md` | the living registry of 27 headline numbers |

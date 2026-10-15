@@ -29,7 +29,7 @@
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V14 (plan Solution 14) | committed verdict |
-| Key numbers | 15/15 claims по схеме; покрытие вердиктов полное; статус-гигиена соблюдена. | measured/proved |
+| Key numbers | 19/19 claims по схеме (V1–V19); покрытие вердиктов полное; статус-гигиена соблюдена. | measured/proved |
 | Verdict note | каждое публичное утверждение пакета трассируется к вычислению, контролю и перечню не-следствий; автоповышение гипотезы до теоремы заблокировано | honest |
 
 ## Method

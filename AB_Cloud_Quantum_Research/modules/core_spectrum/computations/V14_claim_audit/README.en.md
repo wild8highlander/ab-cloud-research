@@ -29,7 +29,7 @@ Is every statement traced to data and controls? The 5-part schema + auditor.
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V14 (plan Solution 14) | committed verdict |
-| Key numbers | 15/15 claims per the schema; full verdict coverage; status hygiene observed. | measured/proved |
+| Key numbers | 19/19 claims per the schema (V1–V19); full verdict coverage; status hygiene observed. | measured/proved |
 | Verdict note | каждое публичное утверждение пакета трассируется к вычислению, контролю и перечню не-следствий; автоповышение гипотезы до теоремы заблокировано | honest |
 
 ## Method

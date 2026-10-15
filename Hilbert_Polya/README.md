@@ -181,7 +181,7 @@ The five questions of the Hilbert–Pólya programme, answered by measurement:
 | H4 | Dirac-type dynamics | **YES** | coherent packet, reflection, scattering; energy 1e-15 (C7) |
 | H5 | Primes inside the operator | **NO** | ψ-ladder 0.972 for zeros, null zone for gates (C6) |
 
-![the scorecard](figures/ru/light/info_scorecard_ru.png)
+![the scorecard](figures/en/light/info_scorecard_en.png)
 
 ## The three projections of the H2 gap
 
