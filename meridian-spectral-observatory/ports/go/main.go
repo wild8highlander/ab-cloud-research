@@ -842,7 +842,7 @@ func buildAbCloudHamiltonian(cfg AbCloudConfig) []complex128 {
 	H := make([]complex128, N*N)
 	for iy := 1; iy <= ny; iy++ {
 		for ix := 1; ix <= nx; ix++ {
-			i := (iy - 1) * nx + ix - 1
+			i := (iy-1)*nx + ix - 1
 			ri := [2]float64{float64(ix), float64(iy)}
 			// right neighbour
 			{
@@ -855,7 +855,7 @@ func buildAbCloudHamiltonian(cfg AbCloudConfig) []complex128 {
 					}
 				}
 				if jx != 0 {
-					j := (iy - 1) * nx + jx - 1
+					j := (iy-1)*nx + jx - 1
 					phi := 2 * PI * cfg.Alpha * float64(iy)
 					if cfg.Model == "dirac" {
 						x := float64(jx)
@@ -883,7 +883,7 @@ func buildAbCloudHamiltonian(cfg AbCloudConfig) []complex128 {
 					}
 				}
 				if jy != 0 {
-					j := (jy - 1) * nx + ix - 1
+					j := (jy-1)*nx + ix - 1
 					phi := 0.0
 					if wrap {
 						phi = 2 * PI * cfg.Alpha * float64(ny)
@@ -990,10 +990,10 @@ func plaquetteFlux(H []complex128, nx, ny, ix, iy int, torus bool) float64 {
 		ixR = (ix % nx) + 1
 		iyT = (iy % ny) + 1
 	}
-	iBl := (iy - 1) * nx + ix - 1
-	iBr := (iy - 1) * nx + ixR - 1
-	iTr := (iyT - 1) * nx + ixR - 1
-	iTl := (iyT - 1) * nx + ix - 1
+	iBl := (iy-1)*nx + ix - 1
+	iBr := (iy-1)*nx + ixR - 1
+	iTr := (iyT-1)*nx + ixR - 1
+	iTl := (iyT-1)*nx + ix - 1
 	fb := cmplx.Phase(-H[iBr*N+iBl])
 	fr := cmplx.Phase(-H[iTr*N+iBr])
 	ft := cmplx.Phase(-H[iTl*N+iTr])
@@ -1043,7 +1043,7 @@ func chiralSymmetryDefect(H []complex128, nx, ny int) float64 {
 			if (((c%nx)+1)+(c/nx+1))%2 == 0 {
 				sc = 1.0
 			}
-			v := H[r*N+c] * complex(sr*sc, 0) + H[r*N+c]
+			v := H[r*N+c]*complex(sr*sc, 0) + H[r*N+c]
 			num += real(v * cmplx.Conj(v))
 			den += real(H[r*N+c] * cmplx.Conj(H[r*N+c]))
 		}
@@ -1075,6 +1075,338 @@ func timeReversalAsymmetry(H []complex128) float64 {
 // ─────────────────────────────────────────────────────────────────────────────
 // Golden selftest (compute_all — 1:1 with gen_golden.jl / golden.py)
 // ─────────────────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// §8 numpy/LAPACK tier: Jacobi WITH eigenvector accumulation + observables
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Cyclic Jacobi with U accumulation (column-major: U[j*n+k] = k-th component
+// of eigenvector j).  Same rotation sequence as jacobiEigvals; observables of
+// this tier depend only on |ψ_i| → phase convention irrelevant (§8.2).
+func jacobiEigFull(Hin []complex128, n int) ([]float64, []complex128) {
+	H := append([]complex128(nil), Hin...)
+	U := make([]complex128, n*n)
+	for i := 0; i < n; i++ {
+		U[i*n+i] = complex(1, 0)
+	}
+	maxSweeps := 60
+	off0 := offNorm(H, n)
+	thresh := 1e-15 * math.Sqrt(2.0*off0+1e-300)
+	for sweep := 0; sweep < maxSweeps; sweep++ {
+		off := offNorm(H, n)
+		if math.Sqrt(2.0*off) < thresh {
+			break
+		}
+		for p := 0; p < n-1; p++ {
+			for q := p + 1; q < n; q++ {
+				apq := H[p*n+q]
+				if cmplx.Abs(apq) <= thresh {
+					continue
+				}
+				app := real(H[p*n+p])
+				aqq := real(H[q*n+q])
+				tau := (aqq - app) / (2.0 * cmplx.Abs(apq))
+				sgn := 1.0
+				if tau < 0 {
+					sgn = -1.0
+				}
+				t := sgn / (math.Abs(tau) + math.Sqrt(1.0+tau*tau))
+				c := 1.0 / math.Sqrt(1.0+t*t)
+				s := t * c // normalized rotation
+				phase := apq / complex(cmplx.Abs(apq), 0)
+				se := phase * complex(s, 0)
+				sec := cmplx.Conj(se)
+				for k := 0; k < n; k++ {
+					if k == p || k == q {
+						continue
+					}
+					akp := H[k*n+p]
+					akq := H[k*n+q]
+					nkp := akp*complex(c, 0) - sec*akq
+					nkq := se*akp + akq*complex(c, 0)
+					H[k*n+p] = nkp
+					H[p*n+k] = cmplx.Conj(nkp)
+					H[k*n+q] = nkq
+					H[q*n+k] = cmplx.Conj(nkq)
+				}
+				npp := app - t*cmplx.Abs(apq)
+				nqq := aqq + t*cmplx.Abs(apq)
+				H[p*n+p] = complex(npp, 0)
+				H[q*n+q] = complex(nqq, 0)
+				H[p*n+q] = 0
+				H[q*n+p] = 0
+				for k := 0; k < n; k++ {
+					ukp := U[p*n+k]
+					ukq := U[q*n+k]
+					U[p*n+k] = ukp*complex(c, 0) - sec*ukq
+					U[q*n+k] = se*ukp + ukq*complex(c, 0)
+				}
+			}
+		}
+	}
+	type dv struct {
+		v float64
+		i int
+	}
+	diag := make([]dv, n)
+	for r := 0; r < n; r++ {
+		diag[r] = dv{real(H[r*n+r]), r}
+	}
+	sort.Slice(diag, func(a, b int) bool { return diag[a].v < diag[b].v })
+	ev := make([]float64, n)
+	Us := make([]complex128, n*n)
+	for j, d := range diag {
+		ev[j] = d.v
+		for i := 0; i < n; i++ {
+			Us[j*n+i] = U[d.i*n+i]
+		}
+	}
+	return ev, Us
+}
+
+// Julia round(Int, x) — round-half-to-EVEN (PORT_SPEC §8.4). 2.5→2, 3.5→4.
+func roundHalfEven(x float64) int64 {
+	return int64(math.RoundToEven(x))
+}
+
+// von_neumann_entropy 1:1 (Monumental V77): rank-1 C_A = ψ_A ψ_A†,
+// clamps [1e-12, 1−1e-12], natural log; full Jacobi pass — no shortcut.
+func vneRank1(psi []complex128, l int, frac float64) float64 {
+	la := roundHalfEven(float64(l) * frac)
+	if la < 1 {
+		la = 1
+	}
+	if la > int64(l-1) {
+		la = int64(l - 1)
+	}
+	na := int64(l) * la
+	psiA := make([]complex128, na)
+	for c := 0; c < l; c++ {
+		for r := int64(0); r < la; r++ {
+			psiA[int64(c)*la+r] = psi[int64(c)*int64(l)+r]
+		}
+	}
+	CA := make([]complex128, na*na)
+	for i := int64(0); i < na; i++ {
+		for j := int64(0); j < na; j++ {
+			CA[i*na+j] = psiA[i] * cmplx.Conj(psiA[j])
+		}
+	}
+	evA := jacobiEigvals(CA, int(na))
+	S := 0.0
+	for _, lam0 := range evA {
+		lam := lam0
+		if lam < 1e-12 {
+			lam = 1e-12
+		}
+		if lam > 1.0-1e-12 {
+			lam = 1.0 - 1e-12
+		}
+		S += lam*math.Log(lam) + (1.0-lam)*math.Log(1.0-lam)
+	}
+	return -S
+}
+
+// IPR of a state: Σᵢ (|ψᵢ|²)²
+func iprVec(psi []complex128) float64 {
+	acc := 0.0
+	for _, z := range psi {
+		p2 := real(z)*real(z) + imag(z)*imag(z)
+		acc += p2 * p2
+	}
+	return acc
+}
+
+// Least squares [b, 1]·x ≈ s via Householder QR (n×2) — PORT_SPEC §8.6.
+func lsfit2(b, s []float64) (float64, float64) {
+	n := len(b)
+	a1 := make([]float64, n)
+	for i := range a1 {
+		a1[i] = 1.0
+	}
+	rhs := append([]float64(nil), s...)
+	normx := 0.0
+	for _, v := range b {
+		normx += v * v
+	}
+	normx = math.Sqrt(normx)
+	if normx == 0 {
+		m := 0.0
+		for _, v := range s {
+			m += v
+		}
+		m /= float64(n)
+		return 0.0, m
+	}
+	alpha := -normx
+	if b[0] < 0 {
+		alpha = normx
+	}
+	v := make([]float64, n)
+	v[0] = b[0] - alpha
+	for i := 1; i < n; i++ {
+		v[i] = b[i]
+	}
+	vtv := 0.0
+	for _, vi := range v {
+		vtv += vi * vi
+	}
+	house := func(x []float64) {
+		dot := 0.0
+		for i := 0; i < n; i++ {
+			dot += v[i] * x[i]
+		}
+		w := 2.0 * dot / vtv
+		for i := 0; i < n; i++ {
+			x[i] -= w * v[i]
+		}
+	}
+	house(a1)
+	house(rhs)
+	c1 := a1[1]
+	normy := 0.0
+	for i := 1; i < n; i++ {
+		normy += a1[i] * a1[i]
+	}
+	normy = math.Sqrt(normy)
+	if normy == 0 {
+		return 0.0, rhs[0] / alpha
+	}
+	alpha2 := -normy
+	if c1 < 0 {
+		alpha2 = normy
+	}
+	u := make([]float64, n-1)
+	u[0] = c1 - alpha2
+	for i := 2; i < n; i++ {
+		u[i-1] = a1[i]
+	}
+	utu := 0.0
+	for _, ui := range u {
+		utu += ui * ui
+	}
+	dot := u[0] * rhs[1]
+	for i := 2; i < n; i++ {
+		dot += u[i-1] * rhs[i]
+	}
+	w2 := 2.0 * dot / utu
+	rhs[1] -= w2 * u[0]
+	for i := 2; i < n; i++ {
+		rhs[i] -= w2 * u[i-1]
+	}
+	r01 := a1[0]
+	intercept := rhs[1] / alpha2
+	slope := (rhs[0] - r01*intercept) / alpha
+	return slope, intercept
+}
+
+// Fractions — verbatim list from Monumental V90.
+var teeFracs = []float64{
+	0.25, 0.35, 0.5, 0.65, 0.75, 0.76, 0.77, 0.78, 0.79, 0.80,
+	0.81, 0.82, 0.83, 0.84, 0.85, 0.86, 0.87, 0.88, 0.89, 0.9,
+	0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 1.0,
+	2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 12.0,
+	14.0, 16.0, 18.0, 20.0, 24.0, 28.0, 32.0, 36.0, 40.0, 44.0,
+	48.0, 56.0, 64.0,
+}
+var monFracs = []float64{0.25, 0.5, 0.75}
+
+// indices of 0.25/0.5/0.75 inside teeFracs
+var monTeeIdx = []int{0, 2, 4}
+
+type hamTier struct {
+	ev              []float64
+	psi             [][]complex128
+	s               []float64
+	ipr             []float64
+	sMean, sStd     []float64
+	slope, gammaTop float64
+}
+
+func hamTierCompute(cfg AbCloudConfig, l int) hamTier {
+	n := cfg.Nx * cfg.Ny
+	H := buildAbCloudHamiltonian(cfg)
+	ev, U := jacobiEigFull(H, n)
+	mean := 0.0
+	for _, e := range ev {
+		mean += e
+	}
+	mean /= float64(n)
+	type ordi struct {
+		v float64
+		i int
+	}
+	ord := make([]ordi, n)
+	for i, e := range ev {
+		ord[i] = ordi{math.Abs(e - mean), i}
+	}
+	sort.Slice(ord, func(a, b int) bool { return ord[a].v < ord[b].v })
+	t := hamTier{ev: ev, sMean: make([]float64, 53), sStd: make([]float64, 53)}
+	for c := 0; c < 3; c++ {
+		k := ord[c].i
+		psi := append([]complex128(nil), U[k*n:(k+1)*n]...)
+		t.psi = append(t.psi, psi)
+		t.ipr = append(t.ipr, iprVec(psi))
+		for fi := 0; fi < 3; fi++ {
+			t.s = append(t.s, vneRank1(psi, l, monFracs[fi]))
+		}
+	}
+	for fi := 0; fi < 53; fi++ {
+		v0 := vneRank1(t.psi[0], l, teeFracs[fi])
+		v1 := vneRank1(t.psi[1], l, teeFracs[fi])
+		v2 := vneRank1(t.psi[2], l, teeFracs[fi])
+		m := (v0 + v1 + v2) / 3.0
+		t.sMean[fi] = m
+		t.sStd[fi] = math.Sqrt(((v0-m)*(v0-m) + (v1-m)*(v1-m) + (v2-m)*(v2-m)) / 2.0)
+	}
+	boundaries := make([]float64, 53)
+	for fi, f := range teeFracs {
+		boundaries[fi] = float64(l) * f
+	}
+	slope, intercept := lsfit2(boundaries, t.sMean)
+	t.slope = slope
+	t.gammaTop = -intercept
+	return t
+}
+
+// TEST 16 local-mean unfolding → KS (D, p) for a lattice central band.
+func rhBandKs(rmt *RmtTable, central []float64) (float64, float64) {
+	nC := len(central)
+	if nC == 0 {
+		return math.NaN(), math.NaN()
+	}
+	win := roundHalfEven(0.05 * float64(nC))
+	if win < 5 {
+		win = 5
+	}
+	var f []float64
+	for i := 0; i+1 < nC; i++ {
+		jLo := int64(i) - win
+		if jLo < 0 {
+			jLo = 0
+		}
+		jHi := int64(i) + win
+		if jHi > int64(nC-2) {
+			jHi = int64(nC - 2)
+		}
+		acc, cnt := 0.0, int64(0)
+		for j := jLo; j <= jHi; j++ {
+			acc += central[j+1] - central[j]
+			cnt++
+		}
+		lm := acc / float64(cnt)
+		if lm > 1e-12 {
+			s := (central[i+1] - central[i]) / lm
+			if s > 0 && s < 10 {
+				f = append(f, s)
+			}
+		}
+	}
+	if len(f) > 10 {
+		return ksTest(rmt, f)
+	}
+	return math.NaN(), math.NaN()
+}
+
 func shortest(v float64) string {
 	for prec := 1; prec <= 17; prec++ {
 		s := strconv.FormatFloat(v, 'g', prec, 64)
@@ -1355,7 +1687,7 @@ func computeAll(zeta []float64, golden map[string]interface{}) map[string]Sec {
 			for j+1 < len(ord) && v[ord[j+1]] == v[ord[i]] {
 				j++
 			}
-			avg := (float64(i) + float64(j)) / 2.0 + 1.0
+			avg := (float64(i)+float64(j))/2.0 + 1.0
 			for kk := i; kk <= j; kk++ {
 				ranks[ord[kk]] = avg
 			}
@@ -1383,6 +1715,45 @@ func computeAll(zeta []float64, golden map[string]interface{}) map[string]Sec {
 
 	sp2 := normalizedSpacings(zeta)
 	put("test11", "A2_full", andersonDarlingStat(rmt, sp2))
+	// 12 — §8 numpy/LAPACK tier: mon_entropy / topo_tee / rh_metrics
+	{
+		type scn struct {
+			name string
+			cfg  AbCloudConfig
+			l    int
+		}
+		scns := []scn{
+			{"L8_open_a025_2vort", NewConfig(8, 8,
+				[]Vortex{{X: 3.5, Y: 3.5, Q: 1.0}, {X: 6.5, Y: 6.5, Q: -1.0}},
+				0.25, 1.0, "open", 0.0).With(96, "monumental"), 8},
+			{"L10_open_a03_clean", NewConfig(10, 10, nil,
+				0.3, 1.0, "open", 0.0).With(96, "monumental"), 10},
+			{"L12_open_a03_clean", NewConfig(12, 12, nil,
+				0.3, 1.0, "open", 0.0).With(96, "monumental"), 12},
+		}
+		for _, sc := range scns {
+			t := hamTierCompute(sc.cfg, sc.l)
+			for c := 0; c < 3; c++ {
+				for fi := 0; fi < 3; fi++ {
+					put("mon_entropy", fmt.Sprintf("%s_c%d_f%s", sc.name, c, shortest(monFracs[fi])), t.s[c*3+fi])
+				}
+				put("mon_entropy", fmt.Sprintf("%s_ipr_c%d", sc.name, c), t.ipr[c])
+			}
+			put("topo_tee", sc.name+"_slope_alpha", t.slope)
+			put("topo_tee", sc.name+"_gamma_top", t.gammaTop)
+			for fi := 0; fi < 3; fi++ {
+				put("topo_tee", fmt.Sprintf("%s_S_mean_f%s", sc.name, shortest(monFracs[fi])), t.sMean[monTeeIdx[fi]])
+			}
+			put("topo_tee", sc.name+"_S_std_f0.5", t.sStd[monTeeIdx[1]])
+			cb := centralBandEigs(t.ev, 0.6)
+			dks, pks := rhBandKs(rmt, cb)
+			r, ncb := meanAdjacentSpacingRatio(cb)
+			put("rh_metrics", sc.name+"_D", dks)
+			put("rh_metrics", sc.name+"_p", pks)
+			put("rh_metrics", sc.name+"_r", r)
+			put("rh_metrics", sc.name+"_n_cb", float64(ncb))
+		}
+	}
 	return sec
 }
 
@@ -1410,6 +1781,7 @@ func runSelftest(zeta []float64, goldenPath string) bool {
 		"byers_yang": {1e-6, 1e-10}, "connes": {1e-5, 1e-8}, "chiral": {1e-5, 1e-9},
 		"dirac_flux": {1e-6, 1e-10}, "unfold": {1e-8, 0}, "linreg": {1e-8, 0},
 		"aicc": {1e-8, 0}, "wald": {1e-9, 0}, "spearman": {1e-8, 0}, "test11": {1e-6, 0},
+		"mon_entropy": {1e-6, 1e-10}, "topo_tee": {1e-6, 1e-10}, "rh_metrics": {1e-7, 0},
 	}
 	fmt.Println("==============================================================================")
 	fmt.Println("ABCLOUD GO PORT — GOLDEN SELFTEST")
@@ -1926,695 +2298,9 @@ func lyLog(v []float64) []float64 {
 	return out
 }
 
-// ============================================================================
-// STACK LAYER (Go) — golden-stack subset: rng_semantics · mon_nt · mon_zeta ·
-// mon_spec_* · mon_stats. The remaining sections stay Python-canonical this
-// iteration (see PORT_SPEC.md provenance tiers). Mirrors abcloud_port.cpp and
-// the Rust port.
-// ============================================================================
-
-// jroundHalfEven — banker's rounding (Julia round(Int, x) / C nearbyint)
-func jroundHalfEven(x float64) int64 {
-	f := math.Floor(x)
-	diff := x - f
-	if diff > 0.5 {
-		return int64(f) + 1
-	} else if diff < 0.5 {
-		return int64(f)
-	}
-	if int64(f)%2 == 0 {
-		return int64(f)
-	}
-	return int64(f) + 1
-}
-
-func mtRandnRedraw(rng *MT19937) float64 {
-	u1 := rng.Random()
-	for u1 <= 0.0 {
-		u1 = rng.Random()
-	}
-	u2 := rng.Random()
-	return math.Sqrt(-2.0*math.Log(u1)) * math.Cos(2*math.Pi*u2)
-}
-
-func secRngSemantics() map[string]float64 {
-	d := map[string]float64{}
-	rr := NewMT19937(9)
-	for i := 0; i < 5; i++ {
-		d[fmt.Sprintf("doubles_v%d", i)] = rr.Random()
-	}
-	rr = NewMT19937(11)
-	for i := 0; i < 5; i++ {
-		d[fmt.Sprintf("randn_v%d", i)] = mtRandnRedraw(rr)
-	}
-	rr = NewMT19937(13)
-	lo := []int64{1, 2, 1}
-	hi := []int64{7, 9, 40}
-	for i := 0; i < 3; i++ {
-		d[fmt.Sprintf("range_v%d", i)] = float64(lo[i]) +
-			math.Floor(rr.Random()*float64(hi[i]-lo[i]+1))
-	}
-	rr = NewMT19937(17)
-	vec := []float64{1.0, -1.0}
-	for i := 0; i < 4; i++ {
-		d[fmt.Sprintf("vecpick_v%d", i)] = vec[int(math.Floor(rr.Random()*2))]
-	}
-	rr = NewMT19937(19)
-	for i := 0; i < 4; i++ {
-		d[fmt.Sprintf("u8_v%d", i)] = float64(rr.NextU32() >> 24)
-	}
-	rr = NewMT19937(23)
-	for i := 0; i < 8; i++ {
-		d[fmt.Sprintf("u8array_v%d", i)] = float64(rr.NextU32() >> 24)
-	}
-	return d
-}
-
-func monSieve(n int64) []int64 {
-	out := []int64{}
-	if n < 2 {
-		return out
-	}
-	s := make([]bool, n+1)
-	for i := range s {
-		s[i] = true
-	}
-	s[0], s[1] = false, false
-	for i := int64(2); i*i <= n; i++ {
-		if s[i] {
-			for j := i * i; j <= n; j += i {
-				s[j] = false
-			}
-		}
-	}
-	for k := int64(2); k <= n; k++ {
-		if s[k] {
-			out = append(out, k)
-		}
-	}
-	return out
-}
-
-func monGcd(a, b int64) int64 {
-	for b != 0 {
-		a, b = b, a%b
-	}
-	return a
-}
-
-func secMonNt() map[string]float64 {
-	d := map[string]float64{}
-	d["pi_50"] = float64(len(monSieve(50)))
-	{
-		n := int64(100)
-		s := make([]bool, n+1)
-		for i := range s {
-			s[i] = true
-		}
-		s[0], s[1] = false, false
-		piArr := make([]int64, n+1)
-		count := int64(0)
-		for k := int64(1); k <= n; k++ {
-			if s[k] {
-				count++
-				if k*k <= n {
-					for j := k * k; j <= n; j += k {
-						s[j] = false
-					}
-				}
-			}
-			piArr[k] = count
-		}
-		d["pi_100"] = float64(piArr[n])
-	}
-	{
-		n := int64(100)
-		mu := make([]int64, n+1)
-		for i := range mu {
-			mu[i] = 1
-		}
-		mu[0] = 0
-		for _, p := range monSieve(n) {
-			for k := 2 * p; k <= n; k += p {
-				mu[k] = -mu[k]
-			}
-			if p*p <= n {
-				for k := p * p; k <= n; k += p * p {
-					mu[k] = 0
-				}
-			}
-		}
-		sum1 := int64(0)
-		for k := int64(1); k <= n; k++ {
-			sum1 += mu[k]
-		}
-		d["mobius_sum100"] = float64(sum1)
-		d["mertens_100"] = float64(sum1)
-	}
-	{
-		primes := monSieve(100)
-		gaps := []float64{}
-		for i := 0; i+1 < len(primes); i++ {
-			gaps = append(gaps, float64(primes[i+1]-primes[i]))
-		}
-		d["gaps_n"] = float64(len(gaps))
-		for i := 0; i < len(gaps) && i < 5; i++ {
-			d[fmt.Sprintf("gaps_head_v%d", i)] = gaps[i]
-		}
-	}
-	return d
-}
-
-// lstsqQrStdFit — Householder QR least squares with column standardization;
-// returns the FITTED VALUES (the projection of y onto the column span).
-func lstsqQrStdFit(a []float64, m, kd int, y []float64) []float64 {
-	anorm := make([]float64, m*kd)
-	mu := make([]float64, kd)
-	sd := make([]float64, kd)
-	for k := 0; k < kd; k++ {
-		for i := 0; i < m; i++ {
-			mu[k] += a[i*kd+k]
-		}
-		mu[k] /= float64(m)
-		for i := 0; i < m; i++ {
-			dv := a[i*kd+k] - mu[k]
-			sd[k] += dv * dv
-		}
-		sd[k] = math.Sqrt(sd[k] / float64(m-1))
-		if !(sd[k] > 1e-300) {
-			sd[k] = 1.0
-			mu[k] = 0.0
-		}
-		for i := 0; i < m; i++ {
-			anorm[i*kd+k] = (a[i*kd+k] - mu[k]) / sd[k]
-		}
-	}
-	q := append([]float64(nil), anorm...)
-	yv := append([]float64(nil), y...)
-	for k := 0; k < kd; k++ {
-		nrm := 0.0
-		for i := k; i < m; i++ {
-			nrm += q[i*kd+k] * q[i*kd+k]
-		}
-		nrm = math.Sqrt(nrm)
-		if nrm < 1e-300 {
-			continue
-		}
-		alpha := -nrm
-		if q[k*kd+k] <= 0 {
-			alpha = nrm
-		}
-		v0 := q[k*kd+k] - alpha
-		v := make([]float64, m-k)
-		v[0] = v0
-		for i := k + 1; i < m; i++ {
-			v[i-k] = q[i*kd+k]
-		}
-		vnorm2 := v0 * v0
-		for _, vi := range v[1:] {
-			vnorm2 += vi * vi
-		}
-		if vnorm2 < 1e-300 {
-			continue
-		}
-		for c := k; c < kd; c++ {
-			dot := 0.0
-			for i := k; i < m; i++ {
-				dot += v[i-k] * q[i*kd+c]
-			}
-			dot = 2.0 * dot / vnorm2
-			for i := k; i < m; i++ {
-				q[i*kd+c] -= dot * v[i-k]
-			}
-		}
-		ydot := 0.0
-		for i := k; i < m; i++ {
-			ydot += v[i-k] * yv[i]
-		}
-		ydot = 2.0 * ydot / vnorm2
-		for i := k; i < m; i++ {
-			yv[i] -= ydot * v[i-k]
-		}
-	}
-	cstd := make([]float64, kd)
-	for r := kd - 1; r >= 0; r-- {
-		s := yv[r]
-		for c := r + 1; c < kd; c++ {
-			s -= q[r*kd+c] * cstd[c]
-		}
-		cstd[r] = s / q[r*kd+r]
-	}
-	fit := make([]float64, m)
-	for i := 0; i < m; i++ {
-		v := 0.0
-		for k := 0; k < kd; k++ {
-			v += anorm[i*kd+k] * cstd[k]
-		}
-		fit[i] = v
-	}
-	return fit
-}
-
-func secMonZeta(dataDir string) map[string]float64 {
-	d := map[string]float64{}
-	t := 50.0
-	d["rvN_50"] = t/(2*math.Pi)*math.Log(t/(2*math.Pi*math.E)) + 7.0/8.0
-	d["bk_sigma_1000"] = 0.27 / math.Sqrt(1000)
-	raw, err := os.ReadFile(filepath.Join(dataDir, "monumental_zeta_zeros_1000.txt"))
-	if err != nil {
-		return d
-	}
-	fields := strings.Fields(string(raw))
-	zz := []float64{}
-	for _, w := range fields {
-		if v, e := strconv.ParseFloat(w, 64); e == nil {
-			zz = append(zz, v)
-		}
-	}
-	if len(zz) < 100 {
-		return d
-	}
-	zz = zz[:100]
-	lz := make([]float64, len(zz))
-	for i, z := range zz {
-		lz[i] = math.Log(z)
-	}
-	m := len(zz)
-	a := make([]float64, m*3)
-	y := make([]float64, m)
-	for i := 0; i < m; i++ {
-		a[i*3] = 1.0
-		a[i*3+1] = lz[i]
-		a[i*3+2] = lz[i] * lz[i]
-		y[i] = float64(i + 1)
-	}
-	xif := lstsqQrStdFit(a, m, 3, y)
-	for i := 0; i < 3; i++ {
-		d[fmt.Sprintf("unfold_head_v%d", i)] = xif[i]
-	}
-	dif := []float64{}
-	for i := 0; i+1 < len(xif); i++ {
-		dif = append(dif, xif[i+1]-xif[i])
-	}
-	for g, sg := range []float64{1.0, 2.0, 3.0} {
-		cnt := int64(0)
-		for j := 0; j < len(dif); j++ {
-			for k := 0; k < len(dif); k++ {
-				if j != k && math.Abs(float64(j-k)-sg) < 0.5 {
-					cnt++
-				}
-			}
-		}
-		d[fmt.Sprintf("paircorr_v%d", g)] = float64(cnt) / float64(len(dif))
-	}
-	return d
-}
-
-type monVortexCfg struct {
-	px, py []float64
-	q      []int64
-}
-
-func monRationalAlpha(alpha float64) (int64, int64) {
-	for qq := int64(1); qq <= 50; qq++ {
-		pp := jroundHalfEven(alpha * float64(qq))
-		if pp > 0 && monGcd(pp, qq) == 1 {
-			return pp, qq
-		}
-	}
-	return 1, 2
-}
-
-func monDefaultVortexConfig(L int64, alpha float64) monVortexCfg {
-	_, q := monRationalAlpha(alpha)
-	nPos := q/2 + q%2
-	nNeg := q / 2
-	nTotal := nPos + nNeg
-	side := int64(math.Ceil(math.Sqrt(float64(nTotal))))
-	if side < 1 {
-		side = 1
-	}
-	c := monVortexCfg{}
-	for k := int64(1); k <= nTotal; k++ {
-		i := (k - 1) % side
-		j := (k - 1) / side
-		c.px = append(c.px, (float64(i)+0.5)*float64(L)/float64(side))
-		c.py = append(c.py, (float64(j)+0.5)*float64(L)/float64(side))
-		if k <= nPos {
-			c.q = append(c.q, 1)
-		} else {
-			c.q = append(c.q, -1)
-		}
-	}
-	return c
-}
-
-func monBuildHamiltonian(L int64, alpha, w, sigma float64, seed uint32) []complex128 {
-	N := int(L * L)
-	h := make([]complex128, N*N)
-	rng := NewMT19937(seed)
-	vc := monDefaultVortexConfig(L, alpha)
-	for x := int64(0); x < L; x++ {
-		for y := int64(0); y < L; y++ {
-			i := int((x%L)*L + (y % L))
-			j := int(((x+1)%L)*L + (y % L))
-			phx := 2.0 * math.Pi * alpha * float64(y)
-			h[i*N+j] += complex(-math.Cos(phx), -math.Sin(phx))
-			h[j*N+i] += complex(-math.Cos(phx), math.Sin(phx))
-		}
-	}
-	for x := int64(0); x < L; x++ {
-		for y := int64(0); y < L; y++ {
-			i := int((x%L)*L + (y % L))
-			j := int((x%L)*L + (y+1)%L)
-			phy := 0.0
-			for k := range vc.px {
-				qk := float64(vc.q[k])
-				dx1 := float64(x) - vc.px[k]
-				dy1 := float64(y) - vc.py[k]
-				dx2 := float64(x) - vc.px[k]
-				dy2 := float64(y) + 1.0 - vc.py[k]
-				a1 := 0.0
-				if dx1 != 0 || dy1 != 0 {
-					a1 = math.Atan2(dy1, dx1)
-				}
-				a2 := 0.0
-				if dx2 != 0 || dy2 != 0 {
-					a2 = math.Atan2(dy2, dx2)
-				}
-				phy += qk * (a2 - a1) * 0.5
-			}
-			h[i*N+j] += complex(-math.Cos(phy), -math.Sin(phy))
-			h[j*N+i] += complex(-math.Cos(phy), math.Sin(phy))
-		}
-	}
-	for i := int64(0); i < L*L; i++ {
-		xi := i / L
-		yi := i % L
-		ii := int(i)
-		v := 0.0
-		for k := range vc.px {
-			qk := float64(vc.q[k])
-			r2 := (float64(xi)-vc.px[k])*(float64(xi)-vc.px[k]) +
-				(float64(yi)-vc.py[k])*(float64(yi)-vc.py[k])
-			v += qk * w / (r2/float64(L*L) + 1.0)
-		}
-		eps := (rng.Random() - 0.5) * 2.0 * sigma
-		h[ii*N+ii] += complex(v+eps, 0)
-	}
-	return h
-}
-
-func monPolynomialUnfold(eigs []float64, deg int) []float64 {
-	n := len(eigs)
-	kd := deg + 1
-	a := make([]float64, n*kd)
-	y := make([]float64, n)
-	for i := 0; i < n; i++ {
-		a[i*kd] = 1.0
-		for k := 1; k < kd; k++ {
-			a[i*kd+k] = a[i*kd+k-1] * eigs[i]
-		}
-		y[i] = float64(i + 1)
-	}
-	fit := lstsqQrStdFit(a, n, kd, y)
-	x0 := fit[0]
-	out := make([]float64, n)
-	for i := range fit {
-		out[i] = fit[i] - x0
-	}
-	return out
-}
-
-func runStackSelftest(goldenPath, dataDir string) bool {
-	raw, err := os.ReadFile(goldenPath)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "ERROR: stack golden not found: %s\n", goldenPath)
-		os.Exit(2)
-	}
-	var goldenRaw map[string]interface{}
-	if e := json.Unmarshal(raw, &goldenRaw); e != nil {
-		fmt.Fprintf(os.Stderr, "ERROR: stack golden parse: %v\n", e)
-		os.Exit(2)
-	}
-	golden := map[string]map[string]interface{}{}
-	for name, val := range goldenRaw {
-		if obj, ok := val.(map[string]interface{}); ok {
-			golden[name] = obj
-		}
-	}
-	results := map[string]map[string]float64{}
-	results["rng_semantics"] = secRngSemantics()
-	results["mon_nt"] = secMonNt()
-	results["mon_zeta"] = secMonZeta(dataDir)
-	{
-		type specDef struct {
-			name          string
-			L             int64
-			alpha, w, sig float64
-			seed          uint32
-		}
-		defs := []specDef{
-			{"mon_spec_L12a13", 12, 1.0 / 3.0, 2.0, 0.0, 0},
-			{"mon_spec_L12a12", 12, 0.5, 2.0, 0.0, 0},
-			{"mon_spec_L16a25", 16, 0.4, 2.0, 0.0, 0},
-			{"mon_spec_L16a13_s05_seed7", 16, 1.0 / 3.0, 2.0, 0.5, 7},
-		}
-		var e12 []float64
-		for _, sd := range defs {
-			h := monBuildHamiltonian(sd.L, sd.alpha, sd.w, sd.sig, sd.seed)
-			ev := jacobiEigvals(h, int(sd.L*sd.L))
-			d := map[string]float64{
-				"head_v0": ev[0], "head_v1": ev[1], "head_v2": ev[2],
-				"mid": ev[len(ev)/2-1],
-				"tail_v0": ev[len(ev)-3], "tail_v1": ev[len(ev)-2],
-				"tail_v2": ev[len(ev)-1],
-			}
-			results[sd.name] = d
-			if sd.L == 12 && math.Abs(sd.alpha-1.0/3.0) < 1e-12 {
-				e12 = ev
-			}
-		}
-		d := map[string]float64{}
-		{
-			s := append([]float64(nil), e12...)
-			sort.Float64s(s)
-			ratios := []float64{}
-			for i := 0; i+2 < len(s); i++ {
-				a1, b1 := s[i+1]-s[i], s[i+2]-s[i+1]
-				mn, mx := a1, b1
-				if b1 < mn {
-					mn = b1
-				}
-				if a1 > mx {
-					mx = a1
-				}
-				ratios = append(ratios, mn/mx)
-			}
-			rmean := 0.0
-			for _, v := range ratios {
-				rmean += v
-			}
-			rmean /= float64(len(ratios))
-			d["r_L12a13"] = rmean
-			f1 := math.Abs(rmean - 0.5996)
-			f2 := math.Abs(rmean - 0.3863)
-			if f2 > f1 {
-				f1 = f2
-			}
-			d["fGUE_L12a13"] = 1.0 - 2.0*f1
-		}
-		{
-			n := int64(len(e12))
-			chi := 0.0
-			sums := []float64{}
-			for i := int64(1); i <= n/2; i++ {
-				chi += (e12[i-1] + e12[n-i]) / 2.0
-				sums = append(sums, e12[i-1]+e12[n-i])
-			}
-			chi /= float64(n / 2)
-			m := 0.0
-			for _, v := range sums {
-				m += v
-			}
-			m /= float64(len(sums))
-			variance := 0.0
-			for _, v := range sums {
-				variance += (v - m) * (v - m)
-			}
-			variance /= float64(len(sums) - 1)
-			d["chirality_mean"] = chi
-			d["chirality_spread"] = math.Sqrt(variance)
-		}
-		{
-			xi := monPolynomialUnfold(e12, 4)
-			for g, l := range []float64{1.0, 2.0, 4.0} {
-				span := xi[len(xi)-1] - xi[0]
-				counts := []float64{}
-				if l > 0 && l <= span/2 {
-					for i := 0; i < len(xi); i++ {
-						if xi[i] > xi[len(xi)-1]-l {
-							continue
-						}
-						c := int64(0)
-						for _, v := range xi {
-							if v >= xi[i] && v < xi[i]+l {
-								c++
-							}
-						}
-						counts = append(counts, float64(c))
-					}
-				}
-				if len(counts) > 1 {
-					mu := 0.0
-					for _, c := range counts {
-						mu += c
-					}
-					mu /= float64(len(counts))
-					variance := 0.0
-					for _, c := range counts {
-						variance += (c - mu) * (c - mu)
-					}
-					variance /= float64(len(counts) - 1)
-					d[fmt.Sprintf("numvar_v%d", g)] = variance
-				}
-			}
-			for g, t := range []float64{0.5, 1.0, 2.0} {
-				re, im := 0.0, 0.0
-				for _, v := range xi {
-					re += math.Cos(t * v)
-					im += math.Sin(t * v)
-				}
-				d[fmt.Sprintf("sff_v%d", g)] = (re*re + im*im) / float64(len(xi))
-			}
-		}
-		results["mon_stats"] = d
-	}
-
-	fmt.Println("==============================================================================")
-	fmt.Println("ABCLOUD GO PORT — STACK GOLDEN SELFTEST (portable subset)")
-	fmt.Println("==============================================================================")
-	nOk, nAll := 0, 0
-	sectionNames := []string{}
-	for name := range golden {
-		sectionNames = append(sectionNames, name)
-	}
-	sort.Strings(sectionNames)
-	for _, section := range sectionNames {
-		gsec := golden[section]
-		csec, computed := results[section]
-		if !computed {
-			fmt.Printf(" [SKIP] %-28s (not in the Go subset this iteration)\n", section)
-			continue
-		}
-		rtol, atol := 1e-6, 1e-9
-		switch section {
-		case "rng_semantics":
-			// bit-exact semantics; Go's pure-math Log/Cos may differ from
-			// glibc/openlibm by 1-2 ULP — the honest cross-libm allowance
-			rtol, atol = 4e-16, 0.0
-		case "mon_nt":
-			rtol, atol = 0.0, 1e-12
-		case "mon_zeta":
-			rtol, atol = 1e-7, 1e-10
-		case "mon_stats":
-			rtol, atol = 1e-6, 1e-9
-		default:
-			rtol, atol = 1e-7, 1e-9
-		}
-		keys := []string{}
-		for k := range gsec {
-			keys = append(keys, k)
-		}
-		sort.Strings(keys)
-		secOk, secAll := 0, 0
-		firstFail := ""
-		for _, key := range keys {
-			isNumvar := section == "mon_stats" && strings.HasPrefix(key, "numvar")
-			krtol, katol := rtol, atol
-			if isNumvar {
-				krtol, katol = 5e-2, 1e-9
-			}
-			switch gv := gsec[key].(type) {
-			case []interface{}:
-				for i, it := range gv {
-					g, okNum := it.(float64)
-					if !okNum {
-						continue
-					}
-					secAll++
-					nAll++
-					ckey := fmt.Sprintf("%s_v%d", key, i)
-					cv, ok2 := csec[ckey]
-					if !ok2 {
-						if firstFail == "" {
-							firstFail = ckey + " (missing)"
-						}
-						continue
-					}
-					ok := false
-					if g == 0.0 && cv == 0.0 {
-						ok = true
-					} else if g == 0.0 {
-						ok = math.Abs(cv) <= katol+krtol
-					} else {
-						ok = math.Abs(cv-g)/math.Abs(g) <= krtol ||
-							math.Abs(cv-g) <= katol
-					}
-					if ok {
-						secOk++
-						nOk++
-					} else if firstFail == "" {
-						firstFail = fmt.Sprintf("%s[%d] g=%v p=%v", key, i, g, cv)
-					}
-				}
-			case float64:
-				secAll++
-				nAll++
-				cv, ok2 := csec[key]
-				if !ok2 {
-					if firstFail == "" {
-						firstFail = key + " (missing)"
-					}
-					continue
-				}
-				ok := false
-				if gv == 0.0 && cv == 0.0 {
-					ok = true
-				} else if gv == 0.0 {
-					ok = math.Abs(cv) <= katol+krtol
-				} else {
-					ok = math.Abs(cv-gv)/math.Abs(gv) <= krtol ||
-						math.Abs(cv-gv) <= katol
-				}
-				if ok {
-					secOk++
-					nOk++
-				} else if firstFail == "" {
-					firstFail = fmt.Sprintf("%s g=%v p=%v", key, gv, cv)
-				}
-			}
-		}
-		if secOk == secAll && secAll > 0 {
-			fmt.Printf(" [PASS] %-28s (%d anchors)\n", section, secAll)
-		} else {
-			fmt.Printf(" [FAIL] %-28s %s\n", section, firstFail)
-		}
-	}
-	fmt.Println("------------------------------------------------------------------------------")
-	fmt.Printf(" RESULT: %d/%d computed anchors passed (rest: Python-canonical tier)\n", nOk, nAll)
-	fmt.Println("==============================================================================")
-	if nOk == nAll {
-		fmt.Println("STACK SELFTEST: PASS (Go subset)")
-		return true
-	}
-	fmt.Println("STACK SELFTEST: FAIL")
-	return false
-}
-
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "usage: abcloud <selftest|zeros|suite|bN|gram|test11|hp|sweep|stack> [options]")
+		fmt.Fprintln(os.Stderr, "usage: abcloud <selftest|zeros|suite|ham|bN|gram|test11|hp|sweep> [options]")
 		os.Exit(2)
 	}
 	cmd := os.Args[1]
@@ -2682,28 +2368,6 @@ func main() {
 	}
 
 	switch cmd {
-	case "stack":
-		dataDir := data
-		if dataDir == "" {
-			for _, cand := range []string{"../data", "../../../data", "../../../../data", "data"} {
-				if _, err := os.Stat(filepath.Join(exeDir, cand)); err == nil {
-					dataDir = filepath.Join(exeDir, cand)
-					break
-				}
-			}
-		}
-		sg := golden
-		if sg == "" {
-			for _, cand := range []string{"../golden/abcloud_golden_stack.json", "../../../golden/abcloud_golden_stack.json", "../../../../golden/abcloud_golden_stack.json"} {
-				if _, err := os.Stat(filepath.Join(exeDir, cand)); err == nil {
-					sg = filepath.Join(exeDir, cand)
-					break
-				}
-			}
-		}
-		if !runStackSelftest(sg, dataDir) {
-			os.Exit(1)
-		}
 	case "selftest":
 		z := loadZeros(zerosPath)
 		if !runSelftest(z, goldenPath) {
@@ -2712,6 +2376,36 @@ func main() {
 	case "suite":
 		z := loadZeros(zerosPath)
 		runSuite(z)
+	case "ham":
+		type scn struct {
+			name string
+			cfg  AbCloudConfig
+			l    int
+		}
+		scns := []scn{
+			{"L8_open_a025_2vort", NewConfig(8, 8,
+				[]Vortex{{X: 3.5, Y: 3.5, Q: 1.0}, {X: 6.5, Y: 6.5, Q: -1.0}},
+				0.25, 1.0, "open", 0.0).With(96, "monumental"), 8},
+			{"L10_open_a03_clean", NewConfig(10, 10, nil,
+				0.3, 1.0, "open", 0.0).With(96, "monumental"), 10},
+			{"L12_open_a03_clean", NewConfig(12, 12, nil,
+				0.3, 1.0, "open", 0.0).With(96, "monumental"), 12},
+		}
+		for _, sc := range scns {
+			t := hamTierCompute(sc.cfg, sc.l)
+			fmt.Printf("%s  (L=%d, N=%d)\n", sc.name, sc.l, sc.cfg.Nx*sc.cfg.Ny)
+			for c := 0; c < 3; c++ {
+				fmt.Printf("  c%d: S(f=0.25)=%.9f  S(f=0.5)=%.9f  S(f=0.75)=%.9f  IPR=%.9f\n",
+					c, t.s[c*3], t.s[c*3+1], t.s[c*3+2], t.ipr[c])
+			}
+			fmt.Printf("  TEE: slope=%.9f  gamma_top=%.9f  S_mean(f=0.5)=%.9f  S_std(f=0.5)=%.9f\n",
+				t.slope, t.gammaTop, t.sMean[monTeeIdx[1]], t.sStd[monTeeIdx[1]])
+			cb := centralBandEigs(t.ev, 0.6)
+			rmt2 := &RmtTable{}
+			dks, pks := rhBandKs(rmt2, cb)
+			r, ncb := meanAdjacentSpacingRatio(cb)
+			fmt.Printf("  RH metrics (central 0.6): n=%d  D=%.6f  p=%.4e  <r>=%.6f\n", ncb, dks, pks, r)
+		}
 	case "bN":
 		z := loadZeros(zerosPath)
 		if len(ns) == 0 {

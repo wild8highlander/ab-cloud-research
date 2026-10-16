@@ -284,6 +284,132 @@ put!("spearman", "xy", cor(_hp_rankdata(xr), _hp_rankdata(yr)))
 # ── 11. test11 honest: exact A² ─────────────────────────────────────────────
 put!("test11", "A2_full", anderson_darling_stat(normalized_spacings(zeta)))
 
+# ── 12. numpy/LAPACK tier (PORT_SPEC §8): mon_entropy / topo_tee / rh_metrics
+# Verbatim kernels from AB_Cloud_Monumental_v6_3.jl (V77/V90); the ONLY
+# adaptation: topological_entanglement_entropy receives H from the SAME
+# ab_cloud_full builder that produced the ham_* goldens (config-based),
+# instead of calling the Monumental-file builder signature.
+function von_neumann_entropy(psi::AbstractVector{<:Number}, L::Int,
+                              subsystem_fraction::Real=0.5)
+    n_states = 1
+    N = L * L
+    @assert length(psi) == N
+    L_A = max(1, min(L - 1, round(Int, L * subsystem_fraction)))
+    n_A = L * L_A
+    psi_mat = reshape(psi, L, L)
+    psi_A = reshape(psi_mat[1:L_A, :], n_A)
+    C_A = psi_A * psi_A'
+    eigs = eigvals(Hermitian(C_A))
+    eigs = clamp.(eigs, 1e-12, 1.0 - 1e-12)
+    return -sum(eigs .* log.(eigs) .+ (1 .- eigs) .* log.(1 .- eigs))
+end
+
+TEE_FRACTIONS = [0.25, 0.35, 0.5, 0.65, 0.75, 0.76, 0.77, 0.78, 0.79, 0.80,
+                 0.81, 0.82, 0.83, 0.84, 0.85, 0.86, 0.87, 0.88, 0.89, 0.9,
+                 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 1, 2,
+                 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36,
+                 40, 44, 48, 56, 64]
+
+function topological_entanglement_entropy_gen(H::AbstractMatrix{<:Number},
+                                              L::Int; n_states::Int=3,
+                                              subsystem_fractions=TEE_FRACTIONS)::Dict{String,Any}
+    eigs, vecs = eigen(Hermitian(H))
+    e_centered = eigs .- mean(eigs)
+    central_idx = sortperm(abs.(e_centered))[1:n_states]
+    S_mean = zeros(length(subsystem_fractions))
+    S_std = zeros(length(subsystem_fractions))
+    for (fi, frac) in enumerate(subsystem_fractions)
+        vals = [von_neumann_entropy(vecs[:, k], L, frac) for k in central_idx]
+        S_mean[fi] = mean(vals)
+        S_std[fi] = length(vals) > 1 ? std(vals) : 0.0
+    end
+    boundaries = Float64[L * f for f in subsystem_fractions]
+    slope = 0.0; gamma_top = 0.0
+    if length(boundaries) >= 2
+        coeffs = [boundaries ones(length(boundaries))] \ S_mean
+        slope = coeffs[1]
+        gamma_top = -coeffs[2]
+    end
+    return Dict(
+        "S_mean" => S_mean, "S_std" => S_std,
+        "slope_alpha" => slope, "gamma_top" => gamma_top,
+    )
+end
+
+# §8.8 — lattice KS via the TEST 16 local-mean unfolding protocol.
+# NOT normalized_spacings: that kernel is the ζ-specific von-Mangoldt form
+# (×log(γ/2π)/2π) and is meaningless for a lattice spectrum.
+function rh_band_ks(central::Vector{Float64}; unfold_win::Float64=0.05)
+    n_c = length(central)
+    n_c == 0 && return (NaN, NaN)
+    win = max(5, round(Int, unfold_win * n_c))
+    usp = Float64[]
+    for i in 1:(n_c - 1)
+        j_lo = max(1, i - win)
+        j_hi = min(n_c - 1, i + win)
+        lm = mean(diff(central[j_lo:(j_hi + 1)]))
+        if lm > 1e-12
+            push!(usp, (central[i + 1] - central[i]) / lm)
+        end
+    end
+    filter!(s -> 0 < s < 10, usp)
+    return length(usp) > 10 ? ks_test(usp) : (NaN, NaN)
+end
+
+# §8.3 — vector-tier anchors: three OPEN scenarios, W=0, degeneracy-guarded.
+# α=0.5 scenarios are EXCLUDED: chiral AIII symmetry produces EXACT doublets
+# (probed gap ~4e-16) → LAPACK/Jacobi eigenvector bases differ. Probed gaps:
+#   L8_open_a025_2vort 2.9e-2, L10_open_a03_clean 6.0e-3, L12_open_a03_clean 9.6e-3.
+tee_scenarios = [
+    ("L8_open_a025_2vort", ABCloudConfig(8, 8, [Vortex(3.5, 3.5, 1.0), Vortex(6.5, 6.5, -1.0)],
+                                          0.25, 1.0, :open, 0.0, 96, :monumental), 8),
+    ("L10_open_a03_clean", ABCloudConfig(10, 10, Vortex[], 0.3, 1.0, :open, 0.0, 96, :monumental), 10),
+    ("L12_open_a03_clean", ABCloudConfig(12, 12, Vortex[], 0.3, 1.0, :open, 0.0, 96, :monumental), 12),
+]
+for (sname, cfg_s, L) in tee_scenarios
+    Hs = build_ab_cloud_hamiltonian(cfg_s)
+    Fs = eigen(Hermitian(Hs))
+    ev_s = Fs.values                      # ascending (LAPACK)
+    ms = mean(ev_s)
+    ord = sortperm(abs.(ev_s .- ms))
+    window = sort(ord[1:8])               # 8 central eigenvalue indices
+    gap = minimum(diff(ev_s[window]))
+    @assert gap > 1e-9 "vector-tier scenario $sname has degeneracy (gap=$gap) — not LAPACK/Jacobi comparable"
+    central_idx = sortperm(abs.(ev_s .- ms))[1:3]
+
+    # mon_entropy: S of central states at f=0.25/0.5/0.75 + IPR
+    for (c, k) in enumerate(central_idx)
+        psi = Fs.vectors[:, k]
+        for f in (0.25, 0.5, 0.75)
+            put!("mon_entropy", "$(sname)_c$(c - 1)_f$(f)",
+                 von_neumann_entropy(psi, L, f))
+        end
+        put!("mon_entropy", "$(sname)_ipr_c$(c - 1)",
+             sum(abs2.(abs2.(psi))))
+    end
+
+    # topo_tee: full 53-fraction run (slope/gamma integrate everything)
+    tee = topological_entanglement_entropy_gen(Hs, L)
+    put!("topo_tee", "$(sname)_slope_alpha", tee["slope_alpha"])
+    put!("topo_tee", "$(sname)_gamma_top", tee["gamma_top"])
+    for f in (0.25, 0.5, 0.75)
+        i = findfirst(==(f), TEE_FRACTIONS)
+        put!("topo_tee", "$(sname)_S_mean_f$(f)", tee["S_mean"][i])
+    end
+    i5 = findfirst(==(0.5), TEE_FRACTIONS)
+    put!("topo_tee", "$(sname)_S_std_f0.5", tee["S_std"][i5])
+
+    # rh_metrics: values-only tier — central band 0.6 → KS (test16 unfolding) + ⟨r⟩
+    cb = central_band_eigs(ev_s, 0.6)
+    D_cb, p_cb = rh_band_ks(cb)
+    r_cb, n_cb = mean_adjacent_spacing_ratio(cb)
+    put!("rh_metrics", "$(sname)_D", D_cb)
+    put!("rh_metrics", "$(sname)_p", p_cb)
+    put!("rh_metrics", "$(sname)_r", r_cb)
+    puti!("rh_metrics", "$(sname)_n_cb", n_cb)
+    println("§8 tier done: ", sname, "  (central gap=", gap, ")")
+end
+
 # ── write JSON ───────────────────────────────────────────────────────────────
 function to_json(x::Any, ind::Int=0)
     pad = " " ^ ind

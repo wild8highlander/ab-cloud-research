@@ -16,28 +16,31 @@
 | Rust | `cargo build --release` | `./target/release/abcloud selftest` |
 | Go | `go build -o abcloud .` | `./abcloud selftest` |
 
-Каждый `selftest` пересчитывает **133 контрольных числа** из
+Каждый `selftest` пересчитывает контрольные числа из
 `ports/golden/abcloud_golden.json` — файла эталонов, сгенерированного из
 оригинального Julia-кода генератором `ports/golden/gen_golden.jl` — и
-печатает PASS/FAIL по каждой контрольной точке.
+печатает PASS/FAIL по каждой контрольной точке: **199 проверок** в
+C++/Rust/Go (133 базовых + 66 векторного яруса §8); Python-пакет
+покрывает базовые 133.
 
 Статус верификации (эталонная сверка `selftest`):
 
 | Порт | Golden selftest | Suite (25 тестов) |
 |------|-----------------|-------------------|
-| Python | **133/133 PASS** | 19 PASS, 0 FAIL, 3 WARN, 3 INFO |
-| C++ | **133/133 PASS** | 19 PASS, 0 FAIL, 3 WARN, 3 INFO |
-| Rust | **133/133 PASS** | 19 PASS, 0 FAIL, 3 WARN, 3 INFO |
-| Go | **133/133 PASS** | 20 PASS, 0 FAIL, 2 WARN, 3 INFO |
+| Python | **133/133 PASS** (базовый ярус) | 19 PASS, 0 FAIL, 3 WARN, 3 INFO |
+| C++ | **199/199 PASS** (вкл. §8) | 19 PASS, 0 FAIL, 3 WARN, 3 INFO |
+| Rust | **199/199 PASS** (вкл. §8) | 19 PASS, 0 FAIL, 3 WARN, 3 INFO |
+| Go | **199/199 PASS** (вкл. §8) | 20 PASS, 0 FAIL, 2 WARN, 3 INFO |
 
 ## CLI (одинаков на всех языках)
 
 ```
-selftest                      — эталонная сверка с Julia-оригиналами (133 проверки)
+selftest                      — эталонная сверка с Julia-оригиналами (199 проверок)
 zeros  [--data P] [--n N]     — полная батарея анализа нулей
                                 (KS / CvM / A² / χ² / ⟨r⟩ / Σ² / Δ₃ / K(t) / H1-SNR)
 suite  [--test N|all]         — переносимое подмножество 39-тестовой сюиты
-ham    (только Python)        — сценарии гамильтониана + точные теоремы
+ham                           — векторный ярус §8: энтропия/ТЭЭ/IPR/RH-метрики
+                                трёх дегенеративно-безопасных сценариев
 bN     --N n… [--offset k]    — статистика b(N)
 gram   --n n…                 — точки Грама
 test11 --mc N --seed S        — честный тест Андерсона–Дарлинга + MC-null
@@ -89,6 +92,27 @@ sweep  --N n…                  — лестница b(N)
   выше SNR 10 / все выше 100), GUE-огибающая K_box(t)=t(1−sinc(2πt)),
   AICc, Wald-CI, Спирмен (средние ранги), флуктуационный high-pass.
 
+## Векторный ярус §8 (numpy/LAPACK-ярус) — C++/Rust/Go
+
+Ярус, требующий эйгенвекторов и МНК-фита; в Python опирался на
+`numpy.linalg`, в C++/Rust/Go работает на собственном циклическом
+Якоби-солвере с накоплением матрицы вращений U (PORT_SPEC §8):
+
+* **mon_entropy** — энтропия фон Неймана ранг-1 редуцированной матрицы
+  C_A = ψ_A ψ_A† (клампы [1e-12, 1−1e-12], натуральный логарифм,
+  round(Int,·) = half-even) центральных трёх состояний при f=0.25/0.5/0.75
+  + IPR = Σ|ψ|⁴;
+* **topo_tee** — топологическая энтропия запутанности (V90): полный
+  эйгенразложение H, 53 fraction из оригинала, фит
+  `[boundaries ones] \ S_mean` через Householder QR → slope_alpha, gamma_top;
+* **rh_metrics** — KS D/p на центральной полосе 0.6 (разворотка local-mean,
+  протокол Теста 16) + ⟨r⟩.
+
+Сценарии (W=0, open, проверены гард-ом вырождений gap > 1e-9):
+`L8_open_a025_2vort`, `L10_open_a03_clean`, `L12_open_a03_clean`.
+α=0.5-сценарии и торус L10 исключены: точные дуплеты делают базис
+векторов несравнимым между LAPACK и Якоби.
+
 ## Точные теоремы (сверены против оригинала)
 
 | Теорема | Golden-якорь |
@@ -118,6 +142,10 @@ sweep  --N n…                  — лестница b(N)
 4. **Сюита**: портировано 25 из 39 тестов (вычислительное ядро);
    остальные 14 печатают честный `[SKIP]` с причиной (графика,
    специализированные протоколы, dSFMT-зависимый беспорядок).
+5. **Векторный ярус §8**: наблюдаемые зависят только от модулей
+   компонент эйгенвекторов, поэтому фаза/знак вектора не фиксируется;
+   легально ТОЛЬКО на невырожденных спектрах — генератор эталона
+   проверяет зазор и падает при нарушении (см. PORT_SPEC §8.3).
 
 ## Структура
 
@@ -125,7 +153,7 @@ sweep  --N n…                  — лестница b(N)
 ports/
 ├── golden/
 │   ├── gen_golden.jl           — генератор эталонов из НЕмодифицированного Julia
-│   └── abcloud_golden.json     — 133 эталонных числа + сетки ω/t
+│   └── abcloud_golden.json     — 199 эталонных чисел + сетки ω/t
 ├── python/abcloud/             — канонический пакет (mt19937, special,
 │                                 rmt_table, gof, lattice, unfold, hp_audit,
 │                                 golden, suite, cli)
@@ -146,31 +174,3 @@ julia ports/golden/gen_golden.jl <meridian_dir> <out.json>
 
 Требуется Julia 1.10+ с stdlib (LinearAlgebra, DelimitedFiles, Printf) и
 файл `zeros50k.txt` в корне meridian-каталога.
-
----
-
-## Stack-слой (v1.1): девять программ стека на четырёх языках
-
-Помимо ядра, порты покрывают вычислительную поверхность полного стека
-(`AB_Cloud_Monumental_v6_3[_D].jl`, `RH_Sweep_Pro[_D].jl`,
-`RH_Unified[_D/_v5].jl`, `hp_audit_standal_one/hp_audit_standalone.jl`)
-через **второй эталон**: `ports/golden/abcloud_golden_stack.json`
-(27 секций), который генерируют `gen_golden_stack.jl` и чекпоинт
-smoke-батареи `gen_hp_battery.jl` — всё под той же подменой ГПСЧ на
-классический MT19937.
-
-| Порт | Ядро (selftest) | Stack-selftest | Команда |
-|------|-----------------|----------------|---------|
-| Python | **133/133 PASS** | **279/279 PASS** (все 27 секций, включая вердикты HP-гейтов, RH SP/v5-метрики, галерею Monumental) | `python3 -c "from abcloud.stack_golden import run_stack_selftest; run_stack_selftest('../golden/abcloud_golden_stack.json')"` |
-| C++ | **133/133 PASS** | **85/85 PASS** (переносимое подмножество) | `./abcloud stack` |
-| Rust | **133/133 PASS** | **85/85 PASS** (переносимое подмножество) | `./target/release/abcloud stack` |
-| Go | **133/133 PASS** | **85/85 PASS** (переносимое подмножество) | `./abcloud stack` |
-
-Ярусы provenance и честные межъязыковые допуски (дискретные окна Σ²,
-чувствительная к базису LAPACK vne_mid, консольный f01..f40-поток
-HP-батареи) специфицированы в **PORT_SPEC.md §8**. Канонический полный
-stack-порт в этой итерации — Python (`abcloud/hp_standalone.py`,
-`abcloud/rh_stack.py`, `abcloud/mon_stack.py`, `abcloud/stack_golden.py`);
-подмножество C++/Rust/Go покрывает RNG-семантику, теорию чисел, ζ-минилаб,
-монументальные спектры и спектральные статистики; остальное зеркалируется
-по чек-листу PORT_SPEC.
