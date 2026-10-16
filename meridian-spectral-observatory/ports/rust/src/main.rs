@@ -1044,6 +1044,7 @@ enum Json {
     Arr(Vec<Json>),
     Num(f64),
     Str(String),
+    Bool(bool),
 }
 
 struct JsonParser<'a> {
@@ -1118,6 +1119,19 @@ impl<'a> JsonParser<'a> {
             }
             b'"' => Json::Str(self.parse_string()),
             _ => {
+                // booleans / null (the stack golden carries true/false anchors)
+                if self.b[self.p..].starts_with(b"true") {
+                    self.p += 4;
+                    return Json::Bool(true);
+                }
+                if self.b[self.p..].starts_with(b"false") {
+                    self.p += 5;
+                    return Json::Bool(false);
+                }
+                if self.b[self.p..].starts_with(b"null") {
+                    self.p += 4;
+                    return Json::Bool(false);
+                }
                 let start = self.p;
                 while self.p < self.b.len()
                     && (self.b[self.p].is_ascii_digit()
@@ -1981,10 +1995,662 @@ fn run_suite(zeta: &[f64]) {
     println!("==============================================================================");
 }
 
+// ============================================================================
+// STACK LAYER (Rust) — golden-stack subset: rng_semantics · mon_nt · mon_zeta ·
+// mon_spec_* · mon_stats. The remaining sections stay Python-canonical this
+// iteration (see PORT_SPEC.md provenance tiers). Mirrors abcloud_port.cpp.
+// ============================================================================
+
+// banker's rounding (Julia round(Int, x) / Python round / C nearbyint)
+fn jround_half_even(x: f64) -> i64 {
+    let f = x.floor();
+    let diff = x - f;
+    if diff > 0.5 {
+        (f + 1.0) as i64
+    } else if diff < 0.5 {
+        f as i64
+    } else if (f as i64) % 2 == 0 {
+        f as i64
+    } else {
+        (f + 1.0) as i64
+    }
+}
+
+fn mt_randn_redraw(rng: &mut Mt19937) -> f64 {
+    let mut u1: f64 = rng.random();
+    while u1 <= 0.0 {
+        u1 = rng.random();
+    }
+    let u2: f64 = rng.random();
+    (-2.0 * u1.ln()).sqrt() * (2.0 * std::f64::consts::PI * u2).cos()
+}
+
+fn sec_rng_semantics() -> Sec {
+    let mut d = Sec(std::collections::BTreeMap::new());
+    let mut put = |d: &mut Sec, k: String, v: f64| d.0.insert(k, v);
+    {
+        let mut rr = Mt19937::new(9);
+        for i in 0..5 {
+            put(&mut d, format!("doubles_v{}", i), rr.random());
+        }
+    }
+    {
+        let mut rr = Mt19937::new(11);
+        for i in 0..5 {
+            put(&mut d, format!("randn_v{}", i), mt_randn_redraw(&mut rr));
+        }
+    }
+    {
+        let mut rr = Mt19937::new(13);
+        let lo = [1i64, 2, 1];
+        let hi = [7i64, 9, 40];
+        for i in 0..3 {
+            let v = lo[i] as f64 + (rr.random() * ((hi[i] - lo[i] + 1) as f64)).floor();
+            put(&mut d, format!("range_v{}", i), v);
+        }
+    }
+    {
+        let mut rr = Mt19937::new(17);
+        let vec = [1.0, -1.0];
+        for i in 0..4 {
+            let v = vec[(rr.random() * 2.0).floor() as usize];
+            put(&mut d, format!("vecpick_v{}", i), v);
+        }
+    }
+    {
+        let mut rr = Mt19937::new(19);
+        for i in 0..4 {
+            put(&mut d, format!("u8_v{}", i), (rr.next_u32() >> 24) as f64);
+        }
+    }
+    {
+        let mut rr = Mt19937::new(23);
+        for i in 0..8 {
+            put(&mut d, format!("u8array_v{}", i), (rr.next_u32() >> 24) as f64);
+        }
+    }
+    d
+}
+
+fn mon_sieve(n: i64) -> Vec<i64> {
+    let mut out = Vec::new();
+    if n < 2 {
+        return out;
+    }
+    let mut s = vec![true; (n + 1) as usize];
+    s[0] = false;
+    s[1] = false;
+    let mut i = 2i64;
+    while i * i <= n {
+        if s[i as usize] {
+            let mut j = i * i;
+            while j <= n {
+                s[j as usize] = false;
+                j += i;
+            }
+        }
+        i += 1;
+    }
+    for k in 2..=n {
+        if s[k as usize] {
+            out.push(k);
+        }
+    }
+    out
+}
+
+fn mon_gcd(a: i64, b: i64) -> i64 {
+    if b == 0 {
+        a
+    } else {
+        mon_gcd(b, a % b)
+    }
+}
+
+fn sec_mon_nt() -> Sec {
+    let mut d = Sec(std::collections::BTreeMap::new());
+    d.0.insert("pi_50".to_string(), mon_sieve(50).len() as f64);
+    {
+        let n = 100i64;
+        let mut s = vec![true; (n + 1) as usize];
+        s[0] = false;
+        s[1] = false;
+        let mut pi_arr = vec![0i64; (n + 1) as usize];
+        let mut count = 0i64;
+        for k in 1..=n {
+            if s[k as usize] {
+                count += 1;
+                if k * k <= n {
+                    let mut j = k * k;
+                    while j <= n {
+                        s[j as usize] = false;
+                        j += k;
+                    }
+                }
+            }
+            pi_arr[k as usize] = count;
+        }
+        d.0.insert("pi_100".to_string(), pi_arr[n as usize] as f64);
+    }
+    {
+        let n = 100i64;
+        let mut mu = vec![1i64; (n + 1) as usize];
+        mu[0] = 0;
+        for p in mon_sieve(n) {
+            let mut k = 2 * p;
+            while k <= n {
+                mu[k as usize] = -mu[k as usize];
+                k += p;
+            }
+            if p * p <= n {
+                let mut k = p * p;
+                while k <= n {
+                    mu[k as usize] = 0;
+                    k += p * p;
+                }
+            }
+        }
+        let mut sum1 = 0i64;
+        for k in 1..=n {
+            sum1 += mu[k as usize];
+        }
+        d.0.insert("mobius_sum100".to_string(), sum1 as f64);
+        d.0.insert("mertens_100".to_string(), sum1 as f64);
+    }
+    {
+        let primes = mon_sieve(100);
+        let gaps: Vec<f64> = (0..primes.len() - 1)
+            .map(|i| (primes[i + 1] - primes[i]) as f64)
+            .collect();
+        d.0.insert("gaps_n".to_string(), gaps.len() as f64);
+        for (i, g) in gaps.iter().take(5).enumerate() {
+            d.0.insert(format!("gaps_head_v{}", i), *g);
+        }
+    }
+    d
+}
+
+// Householder QR least squares with column standardization -> fitted values
+fn lstsq_qr_std_fit(a_rowmajor: &[f64], m: usize, k_dim: usize, y: &[f64]) -> Vec<f64> {
+    let mut anorm = vec![0.0f64; m * k_dim];
+    let mut mu = vec![0.0f64; k_dim];
+    let mut sd = vec![0.0f64; k_dim];
+    for k in 0..k_dim {
+        for i in 0..m {
+            mu[k] += a_rowmajor[i * k_dim + k];
+        }
+        mu[k] /= m as f64;
+        for i in 0..m {
+            let dv = a_rowmajor[i * k_dim + k] - mu[k];
+            sd[k] += dv * dv;
+        }
+        sd[k] = (sd[k] / (m as f64 - 1.0)).sqrt();
+        if !(sd[k] > 1e-300) {
+            sd[k] = 1.0;
+            mu[k] = 0.0;
+        }
+        for i in 0..m {
+            anorm[i * k_dim + k] = (a_rowmajor[i * k_dim + k] - mu[k]) / sd[k];
+        }
+    }
+    let mut q = anorm.clone();
+    let mut yv: Vec<f64> = y.to_vec();
+    for k in 0..k_dim {
+        let mut nrm = 0.0f64;
+        for i in k..m {
+            nrm += q[i * k_dim + k] * q[i * k_dim + k];
+        }
+        nrm = nrm.sqrt();
+        if nrm < 1e-300 {
+            continue;
+        }
+        let alpha = if q[k * k_dim + k] > 0.0 { -nrm } else { nrm };
+        let v0 = q[k * k_dim + k] - alpha;
+        let mut v = vec![0.0f64; m - k];
+        v[0] = v0;
+        for i in (k + 1)..m {
+            v[i - k] = q[i * k_dim + k];
+        }
+        let mut vnorm2 = v0 * v0;
+        for vi in v.iter().skip(1) {
+            vnorm2 += vi * vi;
+        }
+        if vnorm2 < 1e-300 {
+            continue;
+        }
+        for c in k..k_dim {
+            let mut dot = 0.0f64;
+            for i in k..m {
+                dot += v[i - k] * q[i * k_dim + c];
+            }
+            dot = 2.0 * dot / vnorm2;
+            for i in k..m {
+                q[i * k_dim + c] -= dot * v[i - k];
+            }
+        }
+        let mut ydot = 0.0f64;
+        for i in k..m {
+            ydot += v[i - k] * yv[i];
+        }
+        ydot = 2.0 * ydot / vnorm2;
+        for i in k..m {
+            yv[i] -= ydot * v[i - k];
+        }
+    }
+    let mut cstd = vec![0.0f64; k_dim];
+    for r in (0..k_dim).rev() {
+        let mut s = yv[r];
+        for c in (r + 1)..k_dim {
+            s -= q[r * k_dim + c] * cstd[c];
+        }
+        cstd[r] = s / q[r * k_dim + r];
+    }
+    let mut fit = vec![0.0f64; m];
+    for i in 0..m {
+        let mut val = 0.0f64;
+        for k in 0..k_dim {
+            val += anorm[i * k_dim + k] * cstd[k];
+        }
+        fit[i] = val;
+    }
+    fit
+}
+
+fn sec_mon_zeta(data_dir: &std::path::Path) -> Sec {
+    let mut d = Sec(std::collections::BTreeMap::new());
+    let t = 50.0f64;
+    d.0.insert(
+        "rvN_50".to_string(),
+        t / (2.0 * std::f64::consts::PI) * (t / (2.0 * std::f64::consts::PI * std::f64::consts::E)).ln()
+            + 7.0 / 8.0,
+    );
+    d.0.insert("bk_sigma_1000".to_string(), 0.27 / 1000f64.sqrt());
+    let path = data_dir.join("monumental_zeta_zeros_1000.txt");
+    let text = std::fs::read_to_string(&path).unwrap_or_default();
+    let mut zz: Vec<f64> = text
+        .split_whitespace()
+        .filter_map(|w| w.parse::<f64>().ok())
+        .collect();
+    if zz.len() < 100 {
+        return d;
+    }
+    zz.truncate(100);
+    let lz: Vec<f64> = zz.iter().map(|z| z.ln()).collect();
+    let m = zz.len();
+    let mut a = vec![0.0f64; m * 3];
+    let mut y = vec![0.0f64; m];
+    for i in 0..m {
+        a[i * 3] = 1.0;
+        a[i * 3 + 1] = lz[i];
+        a[i * 3 + 2] = lz[i] * lz[i];
+        y[i] = (i + 1) as f64;
+    }
+    let xif = lstsq_qr_std_fit(&a, m, 3, &y);
+    for i in 0..3 {
+        d.0.insert(format!("unfold_head_v{}", i), xif[i]);
+    }
+    let dif: Vec<f64> = (0..xif.len() - 1).map(|i| xif[i + 1] - xif[i]).collect();
+    for (g, sg) in [1.0f64, 2.0, 3.0].iter().enumerate() {
+        let mut cnt = 0i64;
+        for j in 0..dif.len() {
+            for k in 0..dif.len() {
+                if j != k && ((j as f64 - k as f64) - sg).abs() < 0.5 {
+                    cnt += 1;
+                }
+            }
+        }
+        d.0.insert(format!("paircorr_v{}", g), cnt as f64 / dif.len() as f64);
+    }
+    d
+}
+
+struct MonVortexCfg {
+    px: Vec<f64>,
+    py: Vec<f64>,
+    q: Vec<i64>,
+}
+
+fn mon_rational_alpha(alpha: f64) -> (i64, i64) {
+    for qq in 1..=50i64 {
+        let pp = jround_half_even(alpha * qq as f64);
+        if pp > 0 && mon_gcd(pp, qq) == 1 {
+            return (pp, qq);
+        }
+    }
+    (1, 2)
+}
+
+fn mon_default_vortex_config(l: i64, alpha: f64) -> MonVortexCfg {
+    let (_p, q) = mon_rational_alpha(alpha);
+    let n_pos = q / 2 + (q % 2);
+    let n_neg = q / 2;
+    let n_total = n_pos + n_neg;
+    let side = ((n_total.max(1)) as f64).sqrt().ceil() as i64;
+    let mut c = MonVortexCfg {
+        px: Vec::new(),
+        py: Vec::new(),
+        q: Vec::new(),
+    };
+    for k in 1..=n_total {
+        let i = (k - 1) % side;
+        let j = (k - 1) / side;
+        c.px.push((i as f64 + 0.5) * l as f64 / side as f64);
+        c.py.push((j as f64 + 0.5) * l as f64 / side as f64);
+        c.q.push(if k <= n_pos { 1 } else { -1 });
+    }
+    c
+}
+
+fn mon_build_hamiltonian(
+    l: i64,
+    alpha: f64,
+    w: f64,
+    sigma: f64,
+    seed: u32,
+) -> Vec<Cx> {
+    let n = (l * l) as usize;
+    let mut h = vec![Cx { re: 0.0, im: 0.0 }; n * n];
+    let mut rng = Mt19937::new(seed);
+    let vc = mon_default_vortex_config(l, alpha);
+    let pi = std::f64::consts::PI;
+    for x in 0..l {
+        for y in 0..l {
+            let i = (x % l) as usize * l as usize + (y % l) as usize;
+            let j = (((x + 1) % l) as usize) * l as usize + (y % l) as usize;
+            let phx = 2.0 * pi * alpha * y as f64;
+            let hop = Cx { re: -phx.cos(), im: -phx.sin() };
+            h[i * n + j].re += hop.re;
+            h[i * n + j].im += hop.im;
+            h[j * n + i].re += hop.re;
+            h[j * n + i].im -= hop.im;
+        }
+    }
+    for x in 0..l {
+        for y in 0..l {
+            let i = (x % l) as usize * l as usize + (y % l) as usize;
+            let j = (x % l) as usize * l as usize + ((y + 1) % l) as usize;
+            let mut phy = 0.0f64;
+            for k in 0..vc.px.len() {
+                let qk = vc.q[k] as f64;
+                let dx1 = x as f64 - vc.px[k];
+                let dy1 = y as f64 - vc.py[k];
+                let dx2 = x as f64 - vc.px[k];
+                let dy2 = y as f64 + 1.0 - vc.py[k];
+                let a1 = if dx1 != 0.0 || dy1 != 0.0 { dy1.atan2(dx1) } else { 0.0 };
+                let a2 = if dx2 != 0.0 || dy2 != 0.0 { dy2.atan2(dx2) } else { 0.0 };
+                phy += qk * (a2 - a1) * 0.5;
+            }
+            let hop = Cx { re: -phy.cos(), im: -phy.sin() };
+            h[i * n + j].re += hop.re;
+            h[i * n + j].im += hop.im;
+            h[j * n + i].re += hop.re;
+            h[j * n + i].im -= hop.im;
+        }
+    }
+    for i in 0..(l * l) {
+        let xi = i / l;
+        let yi = i % l;
+        let mut v = 0.0f64;
+        for k in 0..vc.px.len() {
+            let qk = vc.q[k] as f64;
+            let r2 = (xi as f64 - vc.px[k]).powi(2) + (yi as f64 - vc.py[k]).powi(2);
+            v += qk * w / (r2 / (l * l) as f64 + 1.0);
+        }
+        let eps = (rng.random() - 0.5) * 2.0 * sigma;
+        h[i as usize * n + i as usize].re += v + eps;
+    }
+    h
+}
+
+fn mon_polynomial_unfold(eigs: &[f64], deg: usize) -> Vec<f64> {
+    let n = eigs.len();
+    let kd = deg + 1;
+    let mut a = vec![0.0f64; n * kd];
+    let mut y = vec![0.0f64; n];
+    for i in 0..n {
+        a[i * kd] = 1.0;
+        for k in 1..kd {
+            a[i * kd + k] = a[i * kd + k - 1] * eigs[i];
+        }
+        y[i] = (i + 1) as f64;
+    }
+    let fit = lstsq_qr_std_fit(&a, n, kd, &y);
+    let x0 = fit[0];
+    fit.iter().map(|v| v - x0).collect()
+}
+
+fn run_stack_selftest(golden_path: &str, data_dir: &std::path::Path) -> bool {
+    let text = fs::read_to_string(golden_path).unwrap_or_else(|_| {
+        eprintln!("ERROR: stack golden not found: {}", golden_path);
+        exit(2);
+    });
+    let golden = JsonParser::new(&text).parse();
+    let mut results: std::collections::BTreeMap<String, Sec> =
+        std::collections::BTreeMap::new();
+    results.insert("rng_semantics".to_string(), sec_rng_semantics());
+    results.insert("mon_nt".to_string(), sec_mon_nt());
+    results.insert("mon_zeta".to_string(), sec_mon_zeta(data_dir));
+    {
+        let defs: [(&str, i64, f64, f64, f64, u32); 4] = [
+            ("mon_spec_L12a13", 12, 1.0 / 3.0, 2.0, 0.0, 0),
+            ("mon_spec_L12a12", 12, 0.5, 2.0, 0.0, 0),
+            ("mon_spec_L16a25", 16, 0.4, 2.0, 0.0, 0),
+            ("mon_spec_L16a13_s05_seed7", 16, 1.0 / 3.0, 2.0, 0.5, 7),
+        ];
+        let mut e12: Vec<f64> = Vec::new();
+        for (name, l, alpha, w, sigma, seed) in defs.iter() {
+            let h = mon_build_hamiltonian(*l, *alpha, *w, *sigma, *seed);
+            let ev = jacobi_eigvals(&h, (*l * *l) as usize);
+            let mut d = Sec(std::collections::BTreeMap::new());
+            d.0.insert("head_v0".to_string(), ev[0]);
+            d.0.insert("head_v1".to_string(), ev[1]);
+            d.0.insert("head_v2".to_string(), ev[2]);
+            d.0.insert("mid".to_string(), ev[ev.len() / 2 - 1]);
+            d.0.insert("tail_v0".to_string(), ev[ev.len() - 3]);
+            d.0.insert("tail_v1".to_string(), ev[ev.len() - 2]);
+            d.0.insert("tail_v2".to_string(), ev[ev.len() - 1]);
+            results.insert(name.to_string(), d);
+            if *l == 12 && (*alpha - 1.0 / 3.0).abs() < 1e-12 {
+                e12 = ev;
+            }
+        }
+        // mon_stats
+        let mut d = Sec(std::collections::BTreeMap::new());
+        {
+            let mut s = e12.clone();
+            s.sort_by(|a, b| a.partial_cmp(b).unwrap());
+            let mut ratios: Vec<f64> = Vec::new();
+            for i in 0..s.len() - 2 {
+                let a = s[i + 1] - s[i];
+                let b = s[i + 2] - s[i + 1];
+                ratios.push(a.min(b) / a.max(b));
+            }
+            let rmean = ratios.iter().sum::<f64>() / ratios.len() as f64;
+            d.0.insert("r_L12a13".to_string(), rmean);
+            d.0.insert(
+                "fGUE_L12a13".to_string(),
+                1.0 - 2.0 * ((rmean - 0.5996).abs()).max((rmean - 0.3863).abs()),
+            );
+        }
+        {
+            let n = e12.len() as i64;
+            let mut chi = 0.0f64;
+            let mut sums: Vec<f64> = Vec::new();
+            for i in 1..=(n / 2) {
+                chi += (e12[(i - 1) as usize] + e12[(n - i) as usize]) / 2.0;
+                sums.push(e12[(i - 1) as usize] + e12[(n - i) as usize]);
+            }
+            chi /= (n / 2) as f64;
+            let m = sums.iter().sum::<f64>() / sums.len() as f64;
+            let var = sums.iter().map(|v| (v - m).powi(2)).sum::<f64>() / (sums.len() - 1) as f64;
+            d.0.insert("chirality_mean".to_string(), chi);
+            d.0.insert("chirality_spread".to_string(), var.sqrt());
+        }
+        {
+            let xi = mon_polynomial_unfold(&e12, 4);
+            for (g, l) in [1.0f64, 2.0, 4.0].iter().enumerate() {
+                let span = xi[xi.len() - 1] - xi[0];
+                let mut counts: Vec<f64> = Vec::new();
+                if *l > 0.0 && *l <= span / 2.0 {
+                    for i in 0..xi.len() {
+                        if xi[i] > xi[xi.len() - 1] - l {
+                            continue;
+                        }
+                        let mut c = 0i64;
+                        for v in xi.iter() {
+                            if *v >= xi[i] && *v < xi[i] + l {
+                                c += 1;
+                            }
+                        }
+                        counts.push(c as f64);
+                    }
+                }
+                if counts.len() > 1 {
+                    let mu = counts.iter().sum::<f64>() / counts.len() as f64;
+                    let var = counts
+                        .iter()
+                        .map(|c| (c - mu).powi(2))
+                        .sum::<f64>()
+                        / (counts.len() - 1) as f64;
+                    d.0.insert(format!("numvar_v{}", g), var);
+                }
+            }
+            for (g, t) in [0.5f64, 1.0, 2.0].iter().enumerate() {
+                let mut re = 0.0f64;
+                let mut im = 0.0f64;
+                for v in xi.iter() {
+                    re += (t * v).cos();
+                    im += (t * v).sin();
+                }
+                d.0.insert(
+                    format!("sff_v{}", g),
+                    (re * re + im * im) / xi.len() as f64,
+                );
+            }
+        }
+        results.insert("mon_stats".to_string(), d);
+    }
+
+    println!("==============================================================================");
+    println!("ABCLOUD RUST PORT — STACK GOLDEN SELFTEST (portable subset)");
+    println!("==============================================================================");
+    let mut n_ok = 0usize;
+    let mut n_all = 0usize;
+    if let Json::Obj(sections) = &golden {
+        for (section, gsec) in sections.iter() {
+            let gobj = match gsec {
+                Json::Obj(pairs) => pairs,
+                _ => continue,
+            };
+            let computed = results.get(section);
+            if computed.is_none() {
+                println!(" [SKIP] {:<28} (not in the Rust subset this iteration)", section);
+                continue;
+            }
+            let (rtol, atol) = match section.as_str() {
+                "rng_semantics" => (0.0, 0.0),
+                "mon_nt" => (0.0, 1e-12),
+                "mon_zeta" => (1e-7, 1e-10),
+                "mon_stats" => (1e-6, 1e-9),
+                _ => (1e-7, 1e-9),
+            };
+            let csec = computed.unwrap();
+            let mut sec_ok = 0usize;
+            let mut sec_all = 0usize;
+            let mut first_fail = String::new();
+            for (key, gv) in gobj.iter() {
+                let is_numvar = section == "mon_stats" && key.starts_with("numvar");
+                let krtol = if is_numvar { 5e-2 } else { rtol };
+                let katol = if is_numvar { 1e-9 } else { atol };
+                match gv {
+                    Json::Arr(items) => {
+                        for (i, it) in items.iter().enumerate() {
+                            let g = match it {
+                                Json::Num(v) => *v,
+                                _ => continue,
+                            };
+                            sec_all += 1;
+                            n_all += 1;
+                            let ckey = format!("{}_v{}", key, i);
+                            match csec.0.get(&ckey) {
+                                None => {
+                                    if first_fail.is_empty() {
+                                        first_fail = format!("{} (missing)", ckey);
+                                    }
+                                }
+                                Some(&cv) => {
+                                    let ok = if g == 0.0 && cv == 0.0 {
+                                        true
+                                    } else if g == 0.0 {
+                                        cv.abs() <= katol + krtol
+                                    } else {
+                                        (cv - g).abs() / g.abs() <= krtol
+                                            || (cv - g).abs() <= katol
+                                    };
+                                    if ok {
+                                        sec_ok += 1;
+                                        n_ok += 1;
+                                    } else if first_fail.is_empty() {
+                                        first_fail =
+                                            format!("{}[{}] g={:.17e} p={:.17e}", key, i, g, cv);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Json::Num(g) => {
+                        sec_all += 1;
+                        n_all += 1;
+                        match csec.0.get(key) {
+                            None => {
+                                if first_fail.is_empty() {
+                                    first_fail = format!("{} (missing)", key);
+                                }
+                            }
+                            Some(&cv) => {
+                                let ok = if *g == 0.0 && cv == 0.0 {
+                                    true
+                                } else if *g == 0.0 {
+                                    cv.abs() <= katol + krtol
+                                } else {
+                                    (cv - g).abs() / g.abs() <= krtol
+                                        || (cv - g).abs() <= katol
+                                };
+                                if ok {
+                                    sec_ok += 1;
+                                    n_ok += 1;
+                                } else if first_fail.is_empty() {
+                                    first_fail = format!("{} g={:.17e} p={:.17e}", key, g, cv);
+                                }
+                            }
+                        }
+                    }
+                    _ => {}
+                }
+            }
+            if sec_ok == sec_all && sec_all > 0 {
+                println!(" [PASS] {:<28} ({} anchors)", section, sec_all);
+            } else {
+                println!(" [FAIL] {:<28} {}", section, first_fail);
+            }
+        }
+    }
+    println!("------------------------------------------------------------------------------");
+    println!(" RESULT: {}/{} computed anchors passed (rest: Python-canonical tier)", n_ok, n_all);
+    println!("==============================================================================");
+    if n_ok == n_all {
+        println!("STACK SELFTEST: PASS (Rust subset)");
+        true
+    } else {
+        println!("STACK SELFTEST: FAIL");
+        false
+    }
+}
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
-        eprintln!("usage: abcloud <selftest|zeros|suite|bN|gram|test11|hp|sweep> [options]");
+        eprintln!("usage: abcloud <selftest|zeros|suite|bN|gram|test11|hp|sweep|stack> [options]");
         exit(2);
     }
     let cmd = args[1].clone();
@@ -2050,6 +2716,22 @@ fn main() {
     let golden_path = golden_path.to_string_lossy().to_string();
 
     match cmd.as_str() {
+        "stack" => {
+            let data_dir = std::path::PathBuf::from(&data);
+            let data_dir = if data.is_empty() {
+                exe_dir.join("../../../data")
+            } else {
+                data_dir
+            };
+            let sg = if golden.is_empty() {
+                exe_dir.join("../../../golden/abcloud_golden_stack.json")
+            } else {
+                std::path::PathBuf::from(&golden)
+            };
+            if !run_stack_selftest(&sg.to_string_lossy(), &data_dir) {
+                exit(1);
+            }
+        }
         "selftest" => {
             let z = load_zeros(&zeros_path);
             if !run_selftest(&z, &golden_path) {

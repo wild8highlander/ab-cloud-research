@@ -146,3 +146,31 @@ julia ports/golden/gen_golden.jl <meridian_dir> <out.json>
 
 Требуется Julia 1.10+ с stdlib (LinearAlgebra, DelimitedFiles, Printf) и
 файл `zeros50k.txt` в корне meridian-каталога.
+
+---
+
+## Stack-слой (v1.1): девять программ стека на четырёх языках
+
+Помимо ядра, порты покрывают вычислительную поверхность полного стека
+(`AB_Cloud_Monumental_v6_3[_D].jl`, `RH_Sweep_Pro[_D].jl`,
+`RH_Unified[_D/_v5].jl`, `hp_audit_standal_one/hp_audit_standalone.jl`)
+через **второй эталон**: `ports/golden/abcloud_golden_stack.json`
+(27 секций), который генерируют `gen_golden_stack.jl` и чекпоинт
+smoke-батареи `gen_hp_battery.jl` — всё под той же подменой ГПСЧ на
+классический MT19937.
+
+| Порт | Ядро (selftest) | Stack-selftest | Команда |
+|------|-----------------|----------------|---------|
+| Python | **133/133 PASS** | **279/279 PASS** (все 27 секций, включая вердикты HP-гейтов, RH SP/v5-метрики, галерею Monumental) | `python3 -c "from abcloud.stack_golden import run_stack_selftest; run_stack_selftest('../golden/abcloud_golden_stack.json')"` |
+| C++ | **133/133 PASS** | **85/85 PASS** (переносимое подмножество) | `./abcloud stack` |
+| Rust | **133/133 PASS** | **85/85 PASS** (переносимое подмножество) | `./target/release/abcloud stack` |
+| Go | **133/133 PASS** | **85/85 PASS** (переносимое подмножество) | `./abcloud stack` |
+
+Ярусы provenance и честные межъязыковые допуски (дискретные окна Σ²,
+чувствительная к базису LAPACK vne_mid, консольный f01..f40-поток
+HP-батареи) специфицированы в **PORT_SPEC.md §8**. Канонический полный
+stack-порт в этой итерации — Python (`abcloud/hp_standalone.py`,
+`abcloud/rh_stack.py`, `abcloud/mon_stack.py`, `abcloud/stack_golden.py`);
+подмножество C++/Rust/Go покрывает RNG-семантику, теорию чисел, ζ-минилаб,
+монументальные спектры и спектральные статистики; остальное зеркалируется
+по чек-листу PORT_SPEC.

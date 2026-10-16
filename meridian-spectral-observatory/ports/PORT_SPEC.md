@@ -111,3 +111,66 @@ Julia `Random.MersenneTwister` — это dSFMT и **не** совместим �
   горизонтальные несут чистую Ландау-фазу 2πα·iy.
 - На торе фаза вихря/Ландау берётся с НЕразвёрнутой координатой
   (iy+1, а не 1) — магнитная трансляция.
+
+---
+
+## 8. Stack-слой: второй эталон и ярусы provenance (v1.1)
+
+Помимо ядра (§1, 133/133) эталонизирован **stack-слой** — вычислительная
+поверхность девяти программ стека (`AB_Cloud_Monumental_v6_3[_D].jl`,
+`RH_Sweep_Pro[_D].jl`, `RH_Unified[_D/_v5].jl`, `hp_audit_standal_one/
+hp_audit_standalone.jl`):
+
+- **Эталон** — `ports/golden/abcloud_golden_stack.json` (27 секций),
+  генераторы `gen_golden_stack.jl` + `gen_hp_battery.jl` (чекпоинт
+  smoke-батареи). RNG — тот же классический MT19937 через глобальную
+  подмену `MersenneTwister` (+ канонический `randperm`: Fisher–Yates,
+  `j = 1 + floor(u·i)`, один res53-double на шаг).
+- **Проверка**: `python3 -m`-уровень — `abcloud.stack_golden.
+  run_stack_selftest()`; C++/Rust/Go — подкоманда `stack`.
+
+### 8.1. Ярусы паритета stack-слоя
+
+| Ярус | Секции | Статус по языкам |
+|------|--------|------------------|
+| bit-exact / tolerance | `rng_semantics`, `mon_nt`, `mon_zeta`, `mon_spec_*`×4, `mon_stats` | Python 279/279 (в составе полного счёта), C++ 85/85, Rust 85/85, Go 85/85 |
+| tolerance (numpy/LAPACK) | `rh`, `rh_metrics_sp`, `rh_metrics_v5`, `rh_byte`, `rh_presets`, `rh_alphas`, `mon_entropy`, `mon_topology`, `mon_sweep`, `mon_tasks` | Python-канонично в этой итерации; зеркалирование в C++/Rust/Go — по чек-листу §7 |
+| verdict-ярус | `hp_gate_H1..H8` — вердикты детекторов smoke-батареи (H1 WARN, H2 PASS, H3 PASS, H4 PASS, H5 WARN, H6 WARN, H7 PASS, H8 WARN) | Python (полная батарея H1–H8 в `hp_standalone.py`); в золоте кроме вердиктов лежит f01..f40-поток — это текстовый provenance консоли Julia (rows+notes+console) и в порты сознательно не входит |
+
+### 8.2. Специфичные допуски stack-слоя
+
+| Секции | rtol | atol | Источник разброса |
+|--------|------|------|-------------------|
+| rng_semantics | 0 | 0 | бит-в-бит (Go: 4e-16 — 1-2 ULP pure-Go Log/Cos) |
+| mon_nt | 0 | 1e-12 | целочисленная арифметика |
+| mon_zeta | 1e-7 | 1e-10 | deg-2 fit, QR vs SVD |
+| mon_spec_* | 1e-7 | 1e-9 | LAPACK vs Jacobi |
+| mon_stats: numvar | 5e-2 | 1e-9 | Σ² дискретна: сдвиг unfold ~1e-6 перебрасывает граничную точку окна |
+| mon_stats: прочее | 1e-6 | 1e-9 | — |
+| mon_entropy: vne_mid | 2e-2 | 1e-8 | энтропия собственного вектора в (почти) вырожденной области — базис LAPACK-конвенция |
+| hp_gate_* | — | — | строковые вердикты, сравнение точное |
+
+### 8.3. Задокументированные ловушки stack-слоя
+
+1. **Рационализатор α** (`AB_Cloud_Monumental_v6_3.jl::_rational_alpha(::Float64)`):
+   точная бинарная дробь float почти всегда имеет знаменатель > 50, поэтому
+   решает эвклидов цикл `qq = 1..50`: 1/3 → (1,2), 2/3 → (1,1), 1/π → (1,2).
+   Число вихрей и размер Bloch-решётки следуют из этой пары.
+2. **Монументальный билдер** — 0-базные координаты, тор-обёртка по ОБОИМ
+   направлениям, x-major порядок сайтов (site = x·L + y), per-site расход
+   `rand()` на disorder ε (даже при σ=0).
+3. **mobius_function** не переворачивает знак самого простого (цикл от 2p) —
+   bug-for-bug; µ(2) = +1 в эталоне.
+4. **unfold_zeta_zeros** фитируется по ПЕРВЫМ 100 нулям
+   (`unfold_zeta_zeros(zeta_zeros(100))`).
+5. **Δ₃ (RH-стек)**: окна с `i_end − i_start < 3` пропускаются (guard
+   Julia); v5-метрики используют polynomial-unfold (не local).
+6. **mid-спектра**: `e[div(n,2)]` в 1-базной индексации Julia → 0-базной
+   `e[n//2 − 1]`; аналогично `chirality_index` и `bott` E_fermi.
+7. **chiral_winding** — целочисленное winding по 60 ИЗОЛИРОВАНным LAPACK-
+   решениям: фазовый скачок между соседними сэмплами добавляет/убирает 2π
+   оборот → якорь является provenance конкретной LAPACK-сборки.
+8. **Julia-квирк monkey-patching**: повторное `function rep_begin!(...)`
+   на том же имени ПЕРЕЗАПИСЫВАЕТ метод того же generic-объекта — трюк
+   «сохранить оригинал в const и вызвать его» даёт бесконечную рекурсию.
+   Захват вердиктов батареи — через `HPMeridian.ALL_STATES`.

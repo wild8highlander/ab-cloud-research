@@ -1,8 +1,9 @@
-# build artifacts
-target/
+# build artifacts (binary paths are anchored so they cannot shadow the
+# ports/python/abcloud/ package directory — the old bare `abcloud` pattern
+# silently excluded the whole Python package from git add!)
+cpp/abcloud
+go/abcloud
+rust/target/
 __pycache__/
 *.pyc
-abcloud
-abcloud.exe
-abcloud_port
 *.o
