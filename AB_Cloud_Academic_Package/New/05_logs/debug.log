@@ -1,0 +1,9 @@
+build pipeline detail:
+- pandoc -f markdown+tex_math_dollars -t latex --top-level-division=chapter (bodies)
+- tectonic x2 runs per language (TOC resolution)
+- covers: Template 03 (Academic Vertical Anchor), html2poster.js --width 794px
+- merge: pypdf with A4 normalization (595.28 x 841.89) + metadata
+- docx: docx-js R5 academic cover, 3 sections (cover / TOC-roman / body-arabic),
+  add_toc_placeholders.py --auto (59 entries), footer instrText patched for WPS
+- validators run: poster_validate check-html (PASS), cover_validate.js (PASS),
+  pdf_qa.py (--skip-cover: WARN only), postcheck.py (0 errors)

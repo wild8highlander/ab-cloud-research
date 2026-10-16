@@ -1,0 +1,11 @@
+2026-10-14T00:00:00Z [INFO] unified edition build started
+2026-10-14T00:00:00Z [INFO] skeleton created: 00_meta..10_notebooks + docs + paper
+2026-10-14T00:00:00Z [INFO] research_registry.json consolidated (24 flagship results, 6 verdicts, 20 registry rows)
+2026-10-14T00:00:00Z [INFO] monograph RU written (7422 words) -> pdf (22 pages, tectonic) + docx (postcheck 0 errors)
+2026-10-14T00:00:00Z [INFO] monograph EN written (8388 words) -> pdf (20 pages) + docx (postcheck 0 errors)
+2026-10-14T00:00:00Z [INFO] 5 language abstracts written (zh/de/es/fr/ar)
+2026-10-14T00:00:00Z [INFO] raw data copied: spectral_core (3 csv), dirac (3 txt), hilbert_polya (verdicts+gates)
+2026-10-14T00:00:00Z [INFO] figures copied: dirac (14), hilbert_polya (en+ru), spectral_core tiles (en+ru)
+2026-10-14T00:00:00Z [INFO] checksums.sha256 written over 02_data
+2026-10-14T00:00:00Z [INFO] RH status: blocked (V13) — carried through all artefacts
+2026-10-14T00:00:00Z [INFO] build complete

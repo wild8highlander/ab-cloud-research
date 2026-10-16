@@ -1,0 +1,6 @@
+2026-10-14 AUDIT package-build: structure created per unified spec (no version numbers)
+2026-10-14 AUDIT data-copy: 02_data/raw <- sources (byte-identical; checksums registered)
+2026-10-14 AUDIT figures-copy: 03_figures/static <- sources (byte-identical)
+2026-10-14 AUDIT registry: research_registry.json written; funnel rule active
+2026-10-14 AUDIT honesty: rh_status=blocked propagated to README/monograph/report/web-lab/CLI
+2026-10-14 AUDIT licence: MIT+CC-BY+ODbL+umbrella written; honesty clause §3 included

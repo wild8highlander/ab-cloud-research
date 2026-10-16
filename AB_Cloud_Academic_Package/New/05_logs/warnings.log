@@ -1,0 +1,3 @@
+2026-10-14 [WARN] pdf_qa (RU monograph): Russian em-dash line starts flagged by generic punctuation checker — acceptable for Russian typography
+2026-10-14 [WARN] pdf_qa (RU monograph): table-page margin asymmetry within tolerance (longtable column balancing)
+2026-10-14 [WARN] docx postcheck: font fallback note — Cambria Math (ships with Word), Liberation Mono (Linux systems)
