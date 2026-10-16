@@ -4,7 +4,7 @@
 
 # ⌨️ Code — The Canonical Julia Suite
 
-**`ab_cloud_v23.jl` — the single-file, dependency-free numerical program that produces every
+**`ab_cloud_full.jl` — the single-file, dependency-free numerical program that produces every
 number the monographs quote.**
 
 [![Julia](https://img.shields.io/badge/Julia-1.10%2B-9558B2?style=flat-square&logo=julia&logoColor=white)](https://julialang.org)
@@ -52,10 +52,10 @@ This folder holds the **canonical numerical program** of the project. Language: 
 
 | File | Size | What it is |
 |---|---|---|
-| `ab_cloud_v23.jl` | 32 095 lines | **canonical suite (v23)** — 39 registered tests, two-pass protocol, report engine (md/html/pdf/docx/png/gif), interactive menu, Physics Lab (H1–H7 gates), 3D lab, Test-34G geometry sweep |
+| `ab_cloud_full.jl` | 32 095 lines | **canonical suite** — 39 registered tests, two-pass protocol, report engine (md/html/pdf/docx/png/gif), interactive menu, Physics Lab (H1–H7 gates), 3D lab, Test-34G geometry sweep |
 | `RH_Unified_D.jl` · `RH_Sweep_Pro_D.jl` | ~8 800 lines | standalone RH sweep benches |
 | `hp_audit_standalone.jl` | 6 054 lines | standalone Hilbert–Pólya audit battery |
-| `julia/` | v23 provenance copy | suite provenance archive — see [`julia/README.md`](julia/README.md) |
+| `julia/` | provenance copy | suite provenance archive — see [`julia/README.md`](julia/README.md) |
 
 ---
 
@@ -79,19 +79,19 @@ band is calibration, documented in the run reports.)
 
 ```bash
 # smoke run: one test on the embedded 50 000-zero dataset, ~1 min
-julia code/ab_cloud_v23.jl --test 1
+julia code/ab_cloud_full.jl --test 1
 
 # the full two-pass 39-test suite (30–60 min, 50 000 zeros, 72×72 → 96×96)
-julia code/ab_cloud_v23.jl --test all
+julia code/ab_cloud_full.jl --test all
 
 # one test only, single pass
-julia code/ab_cloud_v23.jl --test 33 --no-two-pass
+julia code/ab_cloud_full.jl --test 33 --no-two-pass
 
 # TEST 34G geometry sweep with knobs
-julia code/ab_cloud_v23.jl --test 39 --t34g-l 96 --t34g-reps 2 --t34g-geoms all
+julia code/ab_cloud_full.jl --test 39 --t34g-l 96 --t34g-reps 2 --t34g-geoms all
 
 # interactive menu: 39 tests + Physics Lab (H-gates) + 3D lab
-julia code/ab_cloud_v23.jl
+julia code/ab_cloud_full.jl
 ```
 
 The embedded 50 000-zero dataset means the suite runs out of the box; to point it at larger
@@ -119,27 +119,17 @@ frozen datasets use `--data-dir verification/data`.
 Every test runs twice: a fast **pass 1**, then a **hardcore pass 2** with tightened
 tolerances and sub-check decomposition; selected tests add a **series pass 3**. A WARN in
 pass 1 is not a failure — it flags a finite-size/calibration effect that pass 2 re-derives at
-sub-check level. The stored flagship run (v19 era, 2026-09-02) is documented in
+sub-check level. The stored flagship run (era, 2026-09-02) is documented in
 [`results/README.md`](../results/README.md) with 202 machine verdict lines.
 
 ```mermaid
 flowchart LR
-    S["ab_cloud_v23.jl<br/>39 registered tests"] --> P1["pass 1 — fast<br/>72×72 · verdict + WARN band"]
+    S["ab_cloud_full.jl<br/>39 registered tests"] --> P1["pass 1 — fast<br/>72×72 · verdict + WARN band"]
     P1 --> P2["pass 2 — HARDCORE<br/>96×96 · tightened tolerances<br/>sub-check decomposition"]
     P2 --> P3["series pass 3<br/>(selected tests)"]
     P2 --> R["report engine<br/>md · html · pdf · docx · png · gif"]
     R --> A["results/<br/>committed artifacts"]
 ```
-
----
-
-## 📜 Historical note
-
-The v19/v20/v21 historical sources were consolidated: the canonical suite is now v23 (the
-change history lives in the file header — v3.1 → v3.7 changelogs), and the flagship-run
-artifacts of the v19 era remain committed under `results/` exactly as produced. The v23
-provenance copy lives in [`code/julia/`](julia/).
-
 ---
 
 ## 🔗 Related layers of the project

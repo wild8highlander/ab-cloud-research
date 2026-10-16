@@ -1,11 +1,11 @@
 module AB_Cloud_Monumental
 
-# =====================================================================
-# AB_Cloud_Monumental.jl — Julia port of the Python monumental codebase
-# v6: clean CSV (one row per task), JSON dump with full arrays,
-#     per-task PNG plots, dashboard PNG.
-# =====================================================================
-#
+# ═══════════════════════════════════════════════════════════════════════════════════════
+#   ╔═══════════════════════════════════════════════════════════════════════╗
+#   ║  AB·MONUMENTAL — Julia port of the Python monumental codebase       ║
+#   ║  v6.3 · AURORA console · clean CSV · JSON dump · PNG plots          ║
+#   ╚═══════════════════════════════════════════════════════════════════════╝
+# ═══════════════════════════════════════════════════════════════════════════════════════
 # Synchronized with python/run_monumental.py — implements V01-V115
 # verifications of the AB-Cloud monograph.
 #
@@ -32,13 +32,20 @@ using Printf
 using Dates
 using DelimitedFiles
 # ══════════════════════════════════════════════════════════════════════════
-# MERIDIAN DESIGN SYSTEM v1.0 — общая консольная айдентика (self-contained)
+# STRATOCUMULUS DESIGN SYSTEM v2.0 «AURORA» — консольная айдентика файла
+#   (перенесено с hp_audit_standal_one.jl · HP·MERIDIAN v25.1 и адаптировано
+#    под тему AB·MONUMENTAL; полная обратная совместимость с v1.0)
 #
-#   Тот же визуальный язык, что и HP·MERIDIAN console: двойные рамки-баннеры,
-#   ◆-секции, ✓/✗/⚠ статусы, живые прогресс-бары ▰▰▰▱▱, выровненные kv-строки.
-#   Только Base (никаких зависимостей), префикс _mr_ (нет коллизий), каждый
-#   принтер fail-safe (любая ошибка → обычный текст). Цвета — только на
-#   настоящем TTY; форс: ENV["MERIDIAN_COLOR_FORCE"]="1", выкл: "0".
+#   Палитра темы: emerald → teal → azure → periwinkle → gold. Стек: 16-цвет SGR → truecolor/256-куб с
+#   деградацией до plain-текста (байт-в-байт как до-AURORA вывод).
+#   Градиентные линейки, wordmark ANSI Shadow, ASCII-облако с карточкой данных, бейджи ⟦…⟧,
+#   волна ▁▂▃▄▅▆▇█, панели ╭─◆─╮, живой Брайль-прогресс ⣿⣷⣶⣦⣤⣄⣀.
+#   Только Base (никаких зависимостей), префикс _mr_ (без коллизий), каждый
+#   принтер fail-safe (любая ошибка → обычный текст). Цвет — только на
+#   настоящем TTY; форс: ENV["ABM_COLOR_FORCE"]="1" (или MERIDIAN_COLOR_FORCE),
+#   выкл: ENV["ABM_COLOR"]="0" (или MERIDIAN_COLOR="0").
+#   Дисциплина отчётов: в файлы/редиректы ANSI не попадает — движок сам
+#   деградирует до plain (проверка stdout isa Base.TTY).
 # ══════════════════════════════════════════════════════════════════════════
 
 _MR_W = 62  # ширина рамок (помещается даже на телефоне)
@@ -47,21 +54,330 @@ _MR_ANSI = Dict{String,String}(
     "warn" => "1;33", "err" => "1;31", "accent" => "36", "bold" => "1",
     "violet" => "35")
 _MR_COLOR = Ref{Bool}(false)
-_MR_PROG_LAST = Ref{Int}(-1)
+const _MR_BOOTED = Ref{Bool}(false)
 
 function _mr_init_color!()
-    force = get(ENV, "MERIDIAN_COLOR_FORCE", "0") == "1"
-    off   = get(ENV, "MERIDIAN_COLOR", "1") == "0"
+    force = get(ENV, "ABM_COLOR_FORCE", "0") == "1" ||
+            get(ENV, "MERIDIAN_COLOR_FORCE", "0") == "1"
+    off   = get(ENV, "ABM_COLOR", "1") == "0" ||
+            get(ENV, "MERIDIAN_COLOR", "1") == "0"
     dumb  = get(ENV, "TERM", "xterm") in ("dumb", "")
     win   = Sys.iswindows() && !haskey(ENV, "WT_SESSION") &&
             !haskey(ENV, "TERM_PROGRAM") && !haskey(ENV, "ANSICON")
-    _MR_COLOR[] = !off &&
-                  (force || (!dumb && !win && stdout isa Base.TTY))
+    _MR_COLOR[] = !off && (force || (!dumb && !win && stdout isa Base.TTY))
+    _MR_BOOTED[] = true
     return _MR_COLOR[]
 end
 
-_mr_c(s::AbstractString, key::String) =
-    _MR_COLOR[] ? string("\e[", _MR_ANSI[key], "m", s, "\e[0m") : String(s)
+function _mr_c(s::AbstractString, key::String)
+    _MR_BOOTED[] || _mr_init_color!()
+    return _MR_COLOR[] ? string("\e[", _MR_ANSI[key], "m", s, "\e[0m") : String(s)
+end
+
+"""Strip ANSI SGR — file reports/logs stay plain under any pipeline."""
+_mr_strip_ansi(s::AbstractString) =
+    replace(String(s), r"\e\[[0-9;]*m" => "")
+
+# ══════════════════════════════════════════════════════════════════════════
+# AURORA COLOR ENGINE — truecolor/256 detection with graceful degradation:
+#   :truecolor → 24-bit RGB, :c256 → xterm cube, :none → plain text.
+#   Layered ON TOP of the classic _mr_c system (never replacing it).
+# ══════════════════════════════════════════════════════════════════════════
+
+const _MR_MODE = Ref{Symbol}(:none)   # :truecolor | :c256 | :none
+
+"""Detect the terminal's color depth (truecolor → 256-cube → none).
+Honors every off-switch plus ABM_COLOR_FORCE=1 (promotes to truecolor)."""
+function _mr_color_mode!()
+    _mr_init_color!()
+    if !_MR_COLOR[]
+        _MR_MODE[] = :none
+        return :none
+    end
+    ct = lowercase(get(ENV, "COLORTERM", ""))
+    force = get(ENV, "ABM_COLOR_FORCE", "0") == "1" ||
+            get(ENV, "MERIDIAN_COLOR_FORCE", "0") == "1"
+    if ct in ("truecolor", "24bit") || force
+        _MR_MODE[] = :truecolor
+    else
+        # any color-capable TTY of the last decade does ≥ 256 colors
+        _MR_MODE[] = :c256
+    end
+    return _MR_MODE[]
+end
+
+"""Nearest xterm-256 cube index for an RGB triple (6×6×6 cube, 16..231)."""
+function _mr_cube256(r::Int, g::Int, b::Int)
+    qr = round(Int, clamp(r, 0, 255) * 5 / 255)
+    qg = round(Int, clamp(g, 0, 255) * 5 / 255)
+    qb = round(Int, clamp(b, 0, 255) * 5 / 255)
+    return 16 + 36 * qr + 6 * qg + qb
+end
+
+"""Truecolor/256-cube FOREGROUND escape for an RGB triple ("" when :none)."""
+function _mr_rgb(r::Int, g::Int, b::Int)
+    if _MR_MODE[] === :none
+        _mr_color_mode!()
+    end
+    if _MR_MODE[] === :truecolor
+        return @sprintf("\e[38;2;%d;%d;%dm", r, g, b)
+    elseif _MR_MODE[] === :c256
+        return @sprintf("\e[38;5;%dm", _mr_cube256(r, g, b))
+    end
+    return ""
+end
+
+"""Truecolor/256-cube BACKGROUND escape for an RGB triple ("" when :none)."""
+function _mr_bgb(r::Int, g::Int, b::Int)
+    if _MR_MODE[] === :none
+        _mr_color_mode!()
+    end
+    if _MR_MODE[] === :truecolor
+        return @sprintf("\e[48;2;%d;%d;%dm", r, g, b)
+    elseif _MR_MODE[] === :c256
+        return @sprintf("\e[48;5;%dm", _mr_cube256(r, g, b))
+    end
+    return ""
+end
+
+_mr_reset() = _MR_MODE[] === :none ? "" : "\e[0m"
+
+# the STRATOCUMULUS palette: emerald → teal → azure → periwinkle → gold
+const _MR_GRAD = [(94, 255, 190), (66, 214, 214), (86, 158, 245), (150, 132, 252),
+                  (255, 205, 96)]
+
+"""Gradient color at t ∈ [0,1], as an RGB triple."""
+function _mr_grad_rgb(t::Float64)
+    n = length(_MR_GRAD) - 1
+    t = clamp(t, 0.0, 1.0) * n
+    i = min(n - 1, floor(Int, t))
+    u = t - i
+    a, b = _MR_GRAD[i + 1], _MR_GRAD[i + 2]
+    return (round(Int, a[1] + (b[1] - a[1]) * u),
+            round(Int, a[2] + (b[2] - a[2]) * u),
+            round(Int, a[3] + (b[3] - a[3]) * u))
+end
+
+"""A run of `n` copies of `ch`, each cell colored along the gradient
+(theme start at the left edge → gold at the right). Falls back to ch^n."""
+function _mr_grad_line(ch::String, n::Int)
+    n <= 0 && return ""
+    if _MR_MODE[] === :none
+        _mr_color_mode!()
+    end
+    _MR_MODE[] === :none && return ch^n
+    io = IOBuffer()
+    for i in 1:n
+        r, g, b = _mr_grad_rgb((i - 0.5) / n)
+        print(io, _mr_rgb(r, g, b), ch)
+    end
+    print(io, _mr_reset())
+    return String(take!(io))
+end
+
+"""The ▁▂▃▄▅▆▇█ wave — the closing ornament: rises and falls over `n`
+cells, each tinted along the gradient. Plain ramp when color is off."""
+function _mr_wave(n::Int)
+    n <= 0 && return ""
+    ramp = ("▁", "▂", "▃", "▄", "▅", "▆", "▇", "█")
+    if _MR_MODE[] === :none
+        _mr_color_mode!()
+    end
+    io = IOBuffer()
+    for i in 1:n
+        t = 2 * (i - 0.5) / n
+        k = t <= 1.0 ? t : 2.0 - t
+        cell = ramp[clamp(1 + floor(Int, k * 8), 1, 8)]
+        if _MR_MODE[] === :none
+            print(io, cell)
+        else
+            r, g, b = _mr_grad_rgb((i - 0.5) / n)
+            print(io, _mr_rgb(r, g, b), cell)
+        end
+    end
+    _MR_MODE[] === :none || print(io, _mr_reset())
+    return String(take!(io))
+end
+
+"""Badge chip: ⟦ TEXT ⟧ in the given palette key. Plain when color is off."""
+function _mr_badge(txt::AbstractString, key::String)
+    _mr_c("⟦ ", "dim") * _mr_c(String(txt), key) * _mr_c(" ⟧", "dim")
+end
+
+"""Version badge text: "v6.3" and "6.3" both render as ⟦ v6.3 ⟧."""
+_vtag(v::AbstractString) = begin
+    s = String(v)
+    isempty(s) ? "v" : (s[1] == 'v' ? s : "v" * s)
+end
+
+# ══════════════════════════════════════════════════════════════════════════
+# AURORA IDENTITY LOGO — the wordmark in hand-set ANSI Shadow block letters
+#   (the classic «huge banner» style: ██╗ ╔══╝ ╚═╝ glyphs), shaded
+#   column-by-column through the theme gradient, with the data card — live
+#   numbers from the config — floating under the letters. Pure string work:
+#   no engine, no deps. Print targets: run entry points — NEVER inside
+#   per-task loops (file logs must stay plain).
+# ══════════════════════════════════════════════════════════════════════════
+
+const _MR_BIGFONT = Dict{Char,Vector{String}}(
+    'A' => [" █████╗ ", "██╔══██╗", "███████║", "██╔══██║", "██║  ██║", "╚═╝  ╚═╝"],
+    'B' => ["██████╗ ", "██╔══██╗", "███████║", "██╔══██╗", "███████║", "╚═════╝ "],
+    'C' => [" ██████╗", "██╔════╝", "██║     ", "██║     ", " ██████╗", "╚══════╝"],
+    'D' => ["██████╗ ", "██╔══██╗", "██║  ██║", "██║  ██║", "██████╔╝", "╚═════╝ "],
+    'E' => ["███████╗", "██╔════╝", "█████╗  ", "██╔══╝  ", "███████╗", "╚══════╝"],
+    'F' => ["███████╗", "██╔════╝", "█████╗  ", "██║     ", "██║     ", "╚═╝     "],
+    'H' => ["██╗  ██╗", "██║  ██║", "███████║", "██╔══██║", "██║  ██║", "╚═╝  ╚═╝"],
+    'I' => ["██╗", "██║", "██║", "██║", "██║", "╚═╝"],
+    'L' => ["██║     ", "██║     ", "██║     ", "██║     ", "███████╗", "╚══════╝"],
+    'M' => ["███╗   ███╗", "████╗ ████║", "██╔████╔██║", "██║╚██╔╝██║", "██║ ╚═╝ ██║", "╚═╝     ╚═╝"],
+    'N' => ["███╗   ██╗", "████╗  ██║", "██╔██╗ ██║", "██║╚██╗██║", "██║ ╚████║", "╚═╝  ╚═══╝"],
+    'O' => [" ██████╗ ", "██╔═══██╗", "██║   ██║", "██║   ██║", "╚██████╔╝", " ╚═════╝ "],
+    'P' => ["██████╗ ", "██╔══██╗", "██████╔╝", "██╔═══╝ ", "██║     ", "╚═╝     "],
+    'R' => ["██████╗ ", "██╔══██╗", "██████╔╝", "██╔══██╗", "██║  ██║", "╚═╝  ╚═╝"],
+    'S' => ["███████╗ ", "██╔════╝ ", "███████╗ ", "╚════██║ ", "██████╔╝ ", " ╚═════╝ "],
+    'T' => ["████████╗", "╚══██╔══╝", "   ██║   ", "   ██║   ", "   ██║   ", "   ╚═╝   "],
+    'U' => ["██╗   ██╗", "██║   ██║", "██║   ██║", "██║   ██║", "╚██████╔╝", " ╚═════╝ "],
+    'W' => ["╚═╝     ╚═╝", "██║ ╚═╝ ██║", "██║╚██╔╝██║", "██╔████╔██║", "████╗ ████║", "███╗   ███╗"],
+    '·' => [" ", " ", "◆", " ", " ", " "])
+
+"""Render `word` in the ANSI Shadow face — 6 rows, one space between
+glyphs, every row the same width. Unmapped characters are skipped."""
+function _mr_bigtext(word::AbstractString)
+    rows = fill("", 6)
+    fst = true
+    for ch in word
+        gl = get(_MR_BIGFONT, ch, nothing)
+        gl === nothing && continue
+        if !fst
+            for i in 1:6; rows[i] *= " "; end
+        end
+        for i in 1:6; rows[i] *= gl[i]; end
+        fst = false
+    end
+    return rows
+end
+
+"""Paint a plain row through the gradient column by column (spaces pass
+through uncolored — fewer escapes, no background seams)."""
+function _mr_grad_text(s::AbstractString)
+    if _MR_MODE[] === :none
+        _mr_color_mode!()
+    end
+    _MR_MODE[] === :none && return String(s)
+    io = IOBuffer()
+    n = textwidth(s)
+    col = 0
+    for ch in s
+        cw = textwidth(ch)
+        if ch == ' '
+            col += cw
+            print(io, ch)
+            continue
+        end
+        r, g, b = _mr_grad_rgb(n <= 1 ? 0.5 : (col + cw / 2) / n)
+        print(io, _mr_rgb(r, g, b), ch)
+        col += cw
+    end
+    print(io, _mr_reset())
+    return String(take!(io))
+end
+
+"""The data cloud — a hand-drawn ASCII cumulus whose hollow carries the
+run's live numbers in a rounded card (thematic for AB-Cloud).
+Geometry ported from HP·MERIDIAN v25.1 (verified there in a preview
+render) and recolored for @@THEME_NAME@@: W = content+2 card width,
+T = W+14 total; three top bumps centered; side edges bulge past the card.
+Returns (rows, plain_width)."""
+function _mr_card(lines::Vector{String})
+    w = max(maximum(textwidth, lines), 18)
+    W = w + 2
+    T = W + 14
+    bumps = T - 23 ≥ 4 ? ".-~~~-.  .-~~~-.  .-~~-." : ".-~~~-.  .-~~~-."
+    b0 = max((T - textwidth(bumps)) ÷ 2, 2)
+    em(s::AbstractString) = _mr_rgb(110, 255, 200) * String(s) * _mr_reset()
+    gold(s::AbstractString) = _mr_rgb(255, 205, 96) * String(s) * _mr_reset()
+    mint(s::AbstractString) = _mr_rgb(190, 255, 235) * String(s) * _mr_reset()
+    rows = String[]
+    push!(rows, " "^b0 * em(bumps))
+    push!(rows, "   " * em(".-(") * " "^(W + 2) * em(")-."))
+    push!(rows, " " * em("(") * " "^(W + 10) * em(")"))
+    push!(rows, em("(    ╭") * gold("─"^W) * em("╮" * " "^6 * ")"))
+    for x in lines
+        pad = W - textwidth(x)
+        pl = pad ÷ 2
+        pr = pad - pl
+        push!(rows, em("(    ") * gold("│") * mint(" "^pl * x * " "^pr) *
+              gold("│") * em("      )"))
+    end
+    push!(rows, em("(    ╰") * gold("─"^W) * em("╯" * " "^6 * ")"))
+    push!(rows, " " * em("(") * " "^(W + 10) * em(")"))
+    push!(rows, "   " * em("` - . ") * em("_"^(W - 4)) * em(" . - '"))
+    return rows, T
+end
+
+"""The card's payload — numbers straight from the live config, so the logo
+doubles as the run card. Duck-typed on purpose: the config struct is
+declared further down the file."""
+_mr_card_data(cfg) = String[
+    "AB·CLOUD MONOGRAPH",
+    @sprintf("V01–V115 · %d verifications", length(VERIFICATIONS)),
+    @sprintf("L=%d · %d threads", CONFIG.L_default, Threads.nthreads()),
+    @sprintf("R_GUE %.4f · R_GOE %.4f", R_GUE, R_GOE)]
+
+const _MR_CARD_DEFAULT = String["AB·CLOUD MONOGRAPH", "V01–V115 · HOFSTADTER",
+                                 "VORTICES · GUE SPECTRUM", "R_GUE 0.5996 · R_GOE 0.5359"]
+
+"""AURORA identity logo — decoration only, NEVER throws: any hiccup
+degrades to false → the plain banner path, so a run can no longer die on
+its own artwork."""
+function _mr_logo(card::Vector{String} = _MR_CARD_DEFAULT)
+    try
+        return _mr_logo_render(card)
+    catch
+        return false
+    end
+end
+
+function _mr_logo_render(card::Vector{String})
+    _mr_color_mode!()
+    _MR_MODE[] === :none && return false
+    # width tiers: full wordmark on wide terminals, short one on ≥ 68
+    # cols, plain banner below that
+    ncols = try
+        sz = displaysize(stdout)
+        sz[2]::Int
+    catch
+        80
+    end
+    word = ncols ≥ 124 ? "AB·MONUMENTAL" : ncols ≥ 68 ? "AB·CLOUD" : ""
+    isempty(word) && return false
+    rows = _mr_bigtext(word)
+    isempty(rows[1]) && return false
+    bw = textwidth(rows[1])
+    crows, T = _mr_card(card)
+    (T ≤ ncols - 2) || return false # the card must fit too, else plain banner
+    cpad = max((bw - T) ÷ 2, 0) + 2
+    println()
+    println("  " * _mr_grad_line("▄", bw))
+    for r in rows
+        println("  " * _mr_grad_text(r))
+    end
+    println("  " * _mr_grad_line("▀", bw))
+    println()
+    for r in crows
+        println(" "^cpad * r)
+    end
+    println()
+    println(_mr_c("   AB·MONUMENTAL — AB-Cloud monograph verification core · V01–V115", "bold"))
+    println(_mr_c("   Hofstadter · vortices · GUE spectral statistics · dynamic config", "dim"))
+    print("   ", _mr_badge(_vtag(_MR_BRAND.version), "title"), "  ",
+           _mr_badge("AURORA", "violet"), "  ",
+           _mr_badge(_MR_BRAND.badge3, "accent"))
+    println()
+    println()
+    flush(stdout)
+    return true
+end
 
 function _mr_fit(s::AbstractString, w::Int)
     s = String(s)
@@ -86,23 +402,43 @@ function _mr_center(s::AbstractString, w::Int = _MR_W)
     return " "^l * String(s) * " "^(pad - l)
 end
 
-"""
-    _mr_banner(title, version, subtitle...) — большая рамка айдентики.
+"""Word-wrap a string to width w (textwidth-aware, no hyphenation)."""
+function _mr_wrap(s::AbstractString, w::Int)
+    out = String[]
+    for para in split(String(s), '\n')
+        isempty(strip(para)) && (push!(out, ""); continue)
+        cur = ""
+        for word in split(para)
+            wd = String(word)
+            if isempty(cur)
+                cur = wd
+            elseif textwidth(cur) + 1 + textwidth(wd) <= w
+                cur *= " " * wd
+            else
+                push!(out, cur); cur = wd
+            end
+        end
+        isempty(cur) || push!(out, cur)
+    end
+    return out
+end
 
-Двойная линия ╔═╗, золотой ◆, жирный циан-заголовок, dim-подзаголовки и
-нижняя строка окружения (julia X.Y.Z · N threads). Печатается один раз.
-"""
+"""Big identity frame — printed once by the run entry.
+The double-rule border carries the theme gradient; a ❖-style mid ornament
+splits the rules; a badge row (version · AURORA) closes the frame."""
 function _mr_banner(title::AbstractString, version::AbstractString,
                     subtitle::AbstractString...; brand::AbstractString = "◆")
     try
         _mr_init_color!()
         W = _MR_W
         hdr = string(brand, " ", title, "  ", version)
+        a = (W - 1) ÷ 2 # the mid ornament splits the rules
         println()
-        println(_mr_c("╔" * "═"^W * "╗", "title"))
+        println(_mr_c("╔", "title") * _mr_grad_line("═", a) * _mr_c("◆", "gold") *
+                _mr_grad_line("═", W - 1 - a) * _mr_c("╗", "title"))
         println(_mr_c("║", "title") * _mr_c(_mr_center(hdr, W), "title") *
                 _mr_c("║", "title"))
-        println(_mr_c("╠" * "═"^W * "╣", "title"))
+        println(_mr_c("╠", "title") * _mr_grad_line("═", W) * _mr_c("╣", "title"))
         for s in subtitle
             isempty(s) && continue
             println(_mr_c("║", "title") * _mr_c(_mr_center(s, W), "dim") *
@@ -111,7 +447,10 @@ function _mr_banner(title::AbstractString, version::AbstractString,
         env = string("julia ", VERSION, " · ", Sys.CPU_THREADS, " threads")
         println(_mr_c("║", "title") * _mr_c(_mr_center(env, W), "dim") *
                 _mr_c("║", "title"))
-        println(_mr_c("╚" * "═"^W * "╝", "title"))
+        println(_mr_c("╚", "title") * _mr_grad_line("═", a) * _mr_c("◆", "gold") *
+                _mr_grad_line("═", W - 1 - a) * _mr_c("╝", "title"))
+        println("  " * _mr_badge(_vtag(String(version)), "title") * "  " *
+                _mr_badge("AURORA", "violet"))
         flush(stdout)
     catch
         println(title, " — ", version)
@@ -119,15 +458,14 @@ function _mr_banner(title::AbstractString, version::AbstractString,
     return nothing
 end
 
-"""
-    _mr_section(name) — заголовок секции:   ── ◆ NAME ─────────────
-"""
+"""Section header:   ── ◆ NAME ─────────────
+The trailing rule is gradient-shaded on color terminals."""
 function _mr_section(name::AbstractString)
     try
         n = uppercase(String(name))
         rest = max(4, _MR_W - 6 - textwidth(n))
         println("  " * _mr_c("── ", "dim") * _mr_c("◆ " * n * " ", "gold") *
-                _mr_c("─"^rest, "dim"))
+                _mr_grad_line("─", rest))
         flush(stdout)
     catch
         println("\n── ", name, " ──")
@@ -135,11 +473,44 @@ function _mr_section(name::AbstractString)
     return nothing
 end
 
+"""Gradient horizontal rule."""
 function _mr_rule()
     try
-        println("  " * _mr_c("─"^( _MR_W - 2), "dim"))
+        println("  " * _mr_grad_line("─", _MR_W - 2))
     catch
         println("  " * "─"^40)
+    end
+    return nothing
+end
+
+"""Framed head — a double box for a major run phase, with the codename and
+a dim question line. The badge row under the box: ⟦ UNIT k ⟧ ⟦ codename ⟧."""
+function _mr_gate_head(k::Int, codename::AbstractString, title::AbstractString,
+                       question::AbstractString; total::Union{Nothing,Int} = nothing)
+    try
+        println()
+        W = _MR_W
+        head = string(uppercase(_MR_BRAND.unit), " ", string(k), " · ", String(codename))
+        println(_mr_c("╔", "title") * _mr_grad_line("═", W) * _mr_c("╗", "title"))
+        println(_mr_c("║", "title") *
+                _mr_c(_mr_center(head, W), "title") *
+                _mr_c("║", "title"))
+        println(_mr_c("╠", "title") * _mr_grad_line("═", W) * _mr_c("╣", "title"))
+        for ln in _mr_wrap(String(title), W - 2)
+            println(_mr_c("║", "title") * _mr_c(_mr_center(ln, W), "gold") *
+                    _mr_c("║", "title"))
+        end
+        println(_mr_c("╚", "title") * _mr_grad_line("═", W) * _mr_c("╝", "title"))
+        tag = total === nothing ? string(_MR_BRAND.unit, " ", k) :
+              @sprintf("%s %d/%d", _MR_BRAND.unit, k, total)
+        println("  " * _mr_badge(tag, "title") * " " *
+                _mr_badge(String(codename), "accent"))
+        for ln in _mr_wrap(String(question), W - 2)
+            println("  " * _mr_c(ln, "dim"))
+        end
+        flush(stdout)
+    catch
+        println("\n── ", title, " ──")
     end
     return nothing
 end
@@ -158,9 +529,7 @@ _mr_warn(m) = _mr_status("⚠", "warn",  m)
 _mr_fail(m) = _mr_status("✗", "err",   m)
 _mr_info(m) = _mr_status("●", "accent", m)
 
-"""
-    _mr_kv(key, value) — выровненная строка «ключ : значение».
-"""
+"""Aligned «key : value» line."""
 function _mr_kv(k::AbstractString, v; w::Int = 26)
     try
         println("  " * _mr_c(_mr_fit(string(k) * ":", w), "accent") * " " *
@@ -171,29 +540,29 @@ function _mr_kv(k::AbstractString, v; w::Int = 26)
     return nothing
 end
 
-"""
-    _mr_panel(title, rows) — скруглённая панель результата.
-Строка с ведущим "✓" зеленеет, "✗" — краснеет, "!" → ⚠ жёлтым, остальное dim.
-"""
+"""Rounded result panel. Leading ✓ green, ! → ⚠ yellow, ✗ red, else dim.
+Long rows wrap to the frame width (word-wise)."""
 function _mr_panel(title::AbstractString, rows::Vector{<:AbstractString})
     try
         W = _MR_W
         println(_mr_c("╭─", "title") * _mr_c("◆ ", "gold") *
-                _mr_c(_mr_fit(uppercase(String(title)), W - 3), "title") *
+                _mr_c(_mr_fit(String(title), W - 3), "title") *
                 _mr_c("╮", "title"))
         for r in rows
             s = String(r)
             if startswith(s, "!")
                 body = "  ⚠ " * s[nextind(s, 1):end]; key = "warn"
-            elseif startswith(s, "✓")
-                body = "  " * s; key = "ok"
             elseif startswith(s, "✗")
                 body = "  " * s; key = "err"
+            elseif startswith(s, "✓")
+                body = "  " * s; key = "ok"
             else
                 body = "  " * s; key = "dim"
             end
-            println(_mr_c("│", "title") * _mr_c(_mr_fit(body, W), key) *
-                    _mr_c("│", "title"))
+            for ln in _mr_wrap(body, W)
+                println(_mr_c("│", "title") * _mr_c(_mr_fit(ln, W), key) *
+                        _mr_c("│", "title"))
+            end
         end
         println(_mr_c("╰" * "─"^W * "╯", "title"))
         flush(stdout)
@@ -204,52 +573,8 @@ function _mr_panel(title::AbstractString, rows::Vector{<:AbstractString})
     return nothing
 end
 
-"""
-    _mr_prog(label, i, n; t0=nothing, extra="") — живой прогресс.
-
-На TTY — одна строка in-place:  ▰▰▰▰▱▱▱ 45%  label · 12s/~15s
-При редиректе в лог — вехи каждые 10% (первая и последняя — всегда).
-"""
-function _mr_prog(label::AbstractString, i::Int, n::Int;
-                  t0::Union{Nothing,Float64} = nothing,
-                  extra::AbstractString = "")
-    try
-        n <= 0 && return nothing
-        i = clamp(i, 1, n)
-        frac = i / n
-        pct = round(Int, 100 * frac)
-        tty = stdout isa Base.TTY
-        if !tty
-            if i == n || i == 1 || (pct ÷ 10) > (_MR_PROG_LAST[] ÷ 10)
-                _MR_PROG_LAST[] = pct
-                println("  ▰ [", label, "] ", lpad(pct, 3), "%  (",
-                        i, "/", n, ")")
-                flush(stdout)
-            end
-            return nothing
-        end
-        filled = round(Int, frac * 20)
-        bar = "▰"^filled * "▱"^(20 - filled)
-        el = t0 === nothing ? "" :
-             string(" · ", lpad(round(Int, time() - t0), 4), "s")
-        eta = (t0 === nothing || i < 2) ? "" :
-              string("/~", lpad(round(Int, (time() - t0) * (n - i) / max(1, i)), 4), "s")
-        ex = isempty(extra) ? "" : string(" · ", extra)
-        line = "  " * _mr_c(bar, "accent") * " " * lpad(string(pct), 3) * "%  " *
-               _mr_c(String(label), "bold") * _mr_c(el * eta, "dim") *
-               _mr_c(ex, "gold") * "   "
-        print("\r", line)
-        flush(stdout)
-        i >= n && println()
-    catch
-        # прогресс не имеет права падать — молча выходим
-    end
-    return nothing
-end
-
-"""
-    _mr_table(headers, rows) — компактная box-таблица с цветной шапкой.
-"""
+"""Compact box table with a gradient top/bottom rule and a title-colored
+header row. Rows carrying a leading ✓/✗/! inherit the status color."""
 function _mr_table(headers::Vector{String}, rows::Vector{Vector{String}})
     try
         ncol = length(headers)
@@ -265,11 +590,16 @@ function _mr_table(headers::Vector{String}, rows::Vector{Vector{String}})
         rowline(cells) = "│" * join(
             [_mr_fit(j <= length(cells) ? cells[j] : "", widths[j]) for j in 1:ncol],
             "│") * "│"
+        rowkey(cells) = begin
+            c0 = isempty(cells) ? "" : cells[1]
+            startswith(c0, "✓") ? "ok" : startswith(c0, "✗") ? "err" :
+            startswith(c0, "!") ? "warn" : "dim"
+        end
         println("  " * _mr_c(top, "dim"))
         println("  " * _mr_c(rowline(headers), "title"))
         println("  " * _mr_c(mid, "dim"))
         for r in rows
-            println("  " * rowline(r))
+            println("  " * _mr_c(rowline(r), rowkey(r)))
         end
         println("  " * _mr_c(bot, "dim"))
         flush(stdout)
@@ -280,8 +610,119 @@ function _mr_table(headers::Vector{String}, rows::Vector{Vector{String}})
     return nothing
 end
 
+# ══════════════════════════════════════════════════════════════════════════
+# LIVE PROGRESS — AURORA edition. On a color TTY draws IN PLACE (\r +
+# erase-to-EOL): gradient Braille bar (⣿ with a 7-step dot ladder for the
+# partial cell), spinner cycling per frame (✓ on the done frame), % ·
+# label · elapsed · ETA. Time-throttled (≥ 0.8 s between frames).
+# Non-TTY (redirect to a log file): milestone lines every 10% — ANSI-free,
+# so file logs stay clean. Signature-compatible with the v1.0 _mr_prog.
+# ══════════════════════════════════════════════════════════════════════════
+
+const _MR_PROG_SPIN = ("⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏")
+const _MR_PROG_BRAILLE = ("⣀", "⣄", "⣤", "⣦", "⣶", "⣷", "⣿") # dot ladder → full ⣿
+const _MR_PROG_ST = Ref{NTuple{4,Any}}((-1.0, -1.0, 0, "")) # pct·t·frame·label
+
+function _mr_prog(label::AbstractString, i::Int, n::Int;
+                  t0::Union{Nothing,Float64} = nothing,
+                  extra::AbstractString = "")
+    try
+        n <= 0 && return nothing
+        i = clamp(i, 1, n)
+        frac = i / n
+        pct = 100 * frac
+        now = time()
+        lp, lt, fr, ll = _MR_PROG_ST[]
+        ll != String(label) && ((lp, lt) = (-1.0, -1.0)) # new loop → reset
+        if !(stdout isa Base.TTY)
+            # milestone path for file logs: first/last + every 10%
+            if i == n || i == 1 || (round(Int, pct) ÷ 10) > (round(Int, lp) ÷ 10)
+                _MR_PROG_ST[] = (pct, now, fr, String(label))
+                println("  " * _mr_c("▰", "accent") * " [" * String(label) *
+                        "] " * lpad(round(Int, pct), 3) * "%  (" *
+                        string(i) * "/" * string(n) * ")")
+                flush(stdout)
+            else
+                _MR_PROG_ST[] = (pct, now, fr, String(label))
+            end
+            return nothing
+        end
+        first = lp < 0
+        done = i >= n
+        (first || done || (frac != lp && now - lt >= 0.8)) || return nothing
+        _MR_PROG_ST[] = (pct, now, fr + 1, String(label))
+        el = t0 === nothing ? (lt < 0 ? 0.0 : now - lt) : now - t0
+        eta = (t0 === nothing || i < 2) ? NaN :
+              (now - t0) * (n - i) / max(1, i)
+        hms(s) = begin
+            s = max(0, round(Int, s))
+            @sprintf("%02d:%02d:%02d", s ÷ 3600, (s % 3600) ÷ 60, s % 60)
+        end
+        if _mr_color_mode!() !== :none
+            ncell = 24
+            bar = IOBuffer()
+            x = frac * ncell
+            nfull = floor(Int, x)
+            for c in 1:ncell
+                r, g, b = _mr_grad_rgb((c - 0.5) / ncell)
+                if c <= nfull
+                    print(bar, _mr_rgb(r, g, b), "⣿")
+                elseif c == nfull + 1 && !done
+                    k = clamp(ceil(Int, (x - nfull) * 7), 1, 7)
+                    print(bar, _mr_rgb(r, g, b), _MR_PROG_BRAILLE[k])
+                else
+                    print(bar, _mr_rgb(70, 88, 118), "⣀")
+                end
+            end
+            print(bar, _mr_reset())
+            body = string(
+                _mr_c(done ? "✓" : _MR_PROG_SPIN[((fr + 1) % 10) + 1],
+                      done ? "ok" : "gold"), " ",
+                String(take!(bar)), " ",
+                _mr_c(@sprintf("%5.1f%%", pct), "bold"), " ",
+                _mr_c(String(label), "title"),
+                _mr_c(t0 === nothing ? "" : " · T+" * hms(el), "dim"),
+                done ? _mr_c(" · done", "ok") :
+                       (isnan(eta) ? "" : _mr_c(" · ETA " * hms(eta), "dim")),
+                isempty(extra) ? "" : _mr_c(" · " * extra, "gold"))
+            print("\r\033[K  ", body)
+        else
+            full = clamp(round(Int, pct) ÷ 10, 0, 10)
+            body = string(
+                _mr_c("▰"^full * "▱"^(10 - full), "accent"), " ",
+                _mr_c(@sprintf("%5.1f%%", pct), "bold"), " ",
+                _mr_c(String(label), "title"),
+                _mr_c(t0 === nothing ? "" : " · T+" * hms(el), "dim"),
+                isnan(eta) ? "" : _mr_c(" · ETA " * hms(eta), "dim"),
+                isempty(extra) ? "" : _mr_c(" · " * extra, "gold"))
+            print("\r\033[K  ", body)
+        end
+        flush(stdout)
+        done && println()
+    catch
+        # прогресс не имеет права падать — молча выходим
+    end
+    return nothing
+end
+
+"""Closing ornament: the gradient wave + optional one-line footer."""
+function _mr_wave_footer(msg::AbstractString = "")
+    try
+        println()
+        isempty(msg) || println("  " * _mr_c(msg, "dim"))
+        println("  " * _mr_wave(_MR_W))
+        println()
+        flush(stdout)
+    catch
+        println()
+    end
+    return nothing
+end
+
 const _MR_BRAND = (title = "AB·MONUMENTAL", version = "v6.3",
-                   subtitle = "V01–V115 monograph verification core (DYNAMIC)")
+                   subtitle = "V01–V115 monograph verification core (DYNAMIC)",
+                   badge3 = "V01–V115", unit = "TASK",
+                   tagline1 = "AB·MONUMENTAL — AB-Cloud monograph verification core · V01–V115", tagline2 = "Hofstadter · vortices · GUE spectral statistics · dynamic config")
 
 # Optional: Arpack for large-L sparse eigenvalues
 try
@@ -6539,7 +6980,8 @@ function _run_one(vid::String, name::String, fn, kwargs::Dict{Symbol};
         r = _apply_kwargs(fn, kwargs)
         elapsed = time() - t0
         if verbose
-            _log_txt_block(log, [@sprintf("  done (%.2fs)", elapsed)], true)
+            _mr_ok(@sprintf("done (%.2fs)", elapsed))
+            _log_txt_block(log, [@sprintf("  done (%.2fs)", elapsed)], false)
             fields = _interesting_fields(r, 10)
             if !isempty(fields)
                 lines = [@sprintf("    %-22s = %s", string(k), _fmt_val(v)) for (k, v) in fields]
@@ -6549,8 +6991,12 @@ function _run_one(vid::String, name::String, fn, kwargs::Dict{Symbol};
             if r isa NamedTuple || r isa AbstractDict
                 for k in _PASS_FLAG_KEYS
                     if haskey(r, k)
+                        v = r[k]
+                        _mr_status(v isa Bool ? (v ? "✓" : "✗") : "●",
+                                   v isa Bool ? (v ? "ok" : "err") : "accent",
+                                   @sprintf("%-24s = %s", string(k), v))
                         _log_txt_block(log,
-                            [@sprintf("  -> %-22s = %s", string(k), r[k])], true)
+                            [@sprintf("  -> %-22s = %s", string(k), v)], true)
                     end
                 end
             end
@@ -6569,6 +7015,7 @@ function _run_one(vid::String, name::String, fn, kwargs::Dict{Symbol};
         bt = catch_backtrace()
         bt_str = sprint((io, b) -> showerror(io, e, b), e, bt)
         if verbose
+            _mr_fail(@sprintf("%s ERROR: %s", vid, _truncate(err_msg, 58)))
             _log_txt_block(log, ["  ERROR",
                                  "  " * _truncate(err_msg, 76)], true)
         end
@@ -6632,8 +7079,9 @@ function run_all(; quick::Bool=false, only_ids=nothing,
                  tag::AbstractString="run",
                  task_overrides::Dict=Dict{String,Dict{Symbol,Any}}(),
                  global_overrides::Dict=Dict{Symbol,Any}())
-    _mr_banner("AB·MONUMENTAL", "v6.3",
-               "V01–V115 monograph verification core (DYNAMIC)")
+    _mr_logo(_mr_card_data(nothing)) ||
+        _mr_banner(_MR_BRAND.title, _MR_BRAND.version, _MR_BRAND.subtitle)
+
     # --- Open file logger ---
     log = _FileLogger()
     log.enabled = log_to_files
@@ -6669,6 +7117,10 @@ function run_all(; quick::Bool=false, only_ids=nothing,
     _log_txt_block(log, header_lines, true)
 
     t_start = now()
+    t_start_epoch = time()
+    n_planned = only_ids === nothing ? length(VERIFICATIONS) :
+                count(v -> v[1] in only_ids, VERIFICATIONS)
+    n_done = 0
     results = []
     try
         for (i, (vid, name, fn)) in enumerate(VERIFICATIONS)
@@ -6683,19 +7135,22 @@ function run_all(; quick::Bool=false, only_ids=nothing,
                 _log_txt_block(log, ["="^78,
                     @sprintf("[Task %3d / %d]  %s — %s", i, length(VERIFICATIONS), vid, name)], false)
             else
+                _mr_prog("V-tasks", n_done + 1, n_planned;
+                         t0 = t_start_epoch, extra = string(vid))
                 _log_txt_block(log, [@sprintf("[%3d/%d] %s: %s ... ", i, length(VERIFICATIONS), vid, name)], true)
             end
             desc = get(VERIFICATION_DESCRIPTIONS, vid, "")
             r = _run_one(vid, name, fn, merged; verbose=verbose, desc=desc, log=log)
             if !verbose
                 if r.status == "ok"
-                    _log_txt_block(log, [@sprintf("OK (%.2fs)", r.elapsed)], true)
+                    _log_txt_block(log, [@sprintf("OK (%.2fs)", r.elapsed)], false)
                 else
                     _log_txt_block(log, [@sprintf("ERROR (%.2fs)", r.elapsed),
                                          "  " * r.error], true)
                 end
             end
             push!(results, r)
+            n_done += 1
             if quick && i >= 20
                 _log_txt_block(log, ["\n[quick mode] Stopping after 20 verifications."], true)
                 break
@@ -6708,7 +7163,7 @@ function run_all(; quick::Bool=false, only_ids=nothing,
 
         _mr_panel("run complete", [
             @sprintf("%d/%d tasks OK · %d errors · %.1fs total", n_ok, length(results), n_err, elapsed_total),
-            log.make_plots ? "dashboard PNG: rebuilt" : "plots: off",
+            log.make_plots ? "✓ dashboard PNG: rebuilt" : "! plots: off",
         ])
 
         # Generate dashboard plots.
@@ -6739,6 +7194,9 @@ function run_all(; quick::Bool=false, only_ids=nothing,
         end
         push!(footer_lines, "="^78 * "\n")
         _log_txt_block(log, footer_lines, true)
+        _mr_wave_footer(@sprintf("%s %s · done · %d/%d ok · %.1fs",
+                                 _MR_BRAND.title, _vtag(_MR_BRAND.version),
+                                 n_ok, length(results), elapsed_total))
     finally
         _close_logger!(log)
     end
@@ -6838,11 +7296,10 @@ function run_all_arf1(; verbose::Bool=true,
     end
     # Print a short banner so the user knows the Arf=1 mode is active.
     if verbose
-        println("="^78)
-        println("AB-Cloud Monumental — Arf = 1 mode (critical flux alpha = 1/2)")
-        println("Global overrides: $arf1_overrides")
-        println("Per-task overrides: keys = $(sort(collect(keys(task_overrides))))")
-        println("="^78)
+        _mr_panel("Arf = 1 mode — критический поток α = 1/2", [
+            "global overrides: $arf1_overrides",
+            "per-task overrides: keys = $(sort(collect(keys(task_overrides))))",
+        ])
     end
     return run_all(quick=false, only_ids=nothing,
                    verbose=verbose,

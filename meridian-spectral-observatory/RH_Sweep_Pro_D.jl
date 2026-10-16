@@ -41,13 +41,20 @@ using Statistics
 using Printf
 using Dates
 # ══════════════════════════════════════════════════════════════════════════
-# MERIDIAN DESIGN SYSTEM v1.0 — общая консольная айдентика (self-contained)
+# HORIZON SWEEP DESIGN SYSTEM v2.0 «AURORA» — консольная айдентика файла
+#   (перенесено с hp_audit_standal_one.jl · HP·MERIDIAN v25.1 и адаптировано
+#    под тему RH·SWEEP PRO; полная обратная совместимость с v1.0)
 #
-#   Тот же визуальный язык, что и HP·MERIDIAN console: двойные рамки-баннеры,
-#   ◆-секции, ✓/✗/⚠ статусы, живые прогресс-бары ▰▰▰▱▱, выровненные kv-строки.
-#   Только Base (никаких зависимостей), префикс _mr_ (нет коллизий), каждый
-#   принтер fail-safe (любая ошибка → обычный текст). Цвета — только на
-#   настоящем TTY; форс: ENV["MERIDIAN_COLOR_FORCE"]="1", выкл: "0".
+#   Палитра темы: turquoise → sky → cornflower → fuchsia → gold. Стек: 16-цвет SGR → truecolor/256-куб с
+#   деградацией до plain-текста (байт-в-байт как до-AURORA вывод).
+#   Градиентные линейки, wordmark ANSI Shadow, ось sweep с карточкой данных, бейджи ⟦…⟧,
+#   волна ▁▂▃▄▅▆▇█, панели ╭─◆─╮, живой Брайль-прогресс ⣿⣷⣶⣦⣤⣄⣀.
+#   Только Base (никаких зависимостей), префикс _mr_ (без коллизий), каждый
+#   принтер fail-safe (любая ошибка → обычный текст). Цвет — только на
+#   настоящем TTY; форс: ENV["RSP_COLOR_FORCE"]="1" (или MERIDIAN_COLOR_FORCE),
+#   выкл: ENV["RSP_COLOR"]="0" (или MERIDIAN_COLOR="0").
+#   Дисциплина отчётов: в файлы/редиректы ANSI не попадает — движок сам
+#   деградирует до plain (проверка stdout isa Base.TTY).
 # ══════════════════════════════════════════════════════════════════════════
 
 _MR_W = 62  # ширина рамок (помещается даже на телефоне)
@@ -56,21 +63,364 @@ _MR_ANSI = Dict{String,String}(
     "warn" => "1;33", "err" => "1;31", "accent" => "36", "bold" => "1",
     "violet" => "35")
 _MR_COLOR = Ref{Bool}(false)
-_MR_PROG_LAST = Ref{Int}(-1)
+const _MR_BOOTED = Ref{Bool}(false)
 
 function _mr_init_color!()
-    force = get(ENV, "MERIDIAN_COLOR_FORCE", "0") == "1"
-    off   = get(ENV, "MERIDIAN_COLOR", "1") == "0"
+    force = get(ENV, "RSP_COLOR_FORCE", "0") == "1" ||
+            get(ENV, "MERIDIAN_COLOR_FORCE", "0") == "1"
+    off   = get(ENV, "RSP_COLOR", "1") == "0" ||
+            get(ENV, "MERIDIAN_COLOR", "1") == "0"
     dumb  = get(ENV, "TERM", "xterm") in ("dumb", "")
     win   = Sys.iswindows() && !haskey(ENV, "WT_SESSION") &&
             !haskey(ENV, "TERM_PROGRAM") && !haskey(ENV, "ANSICON")
-    _MR_COLOR[] = !off &&
-                  (force || (!dumb && !win && stdout isa Base.TTY))
+    _MR_COLOR[] = !off && (force || (!dumb && !win && stdout isa Base.TTY))
+    _MR_BOOTED[] = true
     return _MR_COLOR[]
 end
 
-_mr_c(s::AbstractString, key::String) =
-    _MR_COLOR[] ? string("\e[", _MR_ANSI[key], "m", s, "\e[0m") : String(s)
+function _mr_c(s::AbstractString, key::String)
+    _MR_BOOTED[] || _mr_init_color!()
+    return _MR_COLOR[] ? string("\e[", _MR_ANSI[key], "m", s, "\e[0m") : String(s)
+end
+
+"""Strip ANSI SGR — file reports/logs stay plain under any pipeline."""
+_mr_strip_ansi(s::AbstractString) =
+    replace(String(s), r"\e\[[0-9;]*m" => "")
+
+# ══════════════════════════════════════════════════════════════════════════
+# AURORA COLOR ENGINE — truecolor/256 detection with graceful degradation:
+#   :truecolor → 24-bit RGB, :c256 → xterm cube, :none → plain text.
+#   Layered ON TOP of the classic _mr_c system (never replacing it).
+# ══════════════════════════════════════════════════════════════════════════
+
+const _MR_MODE = Ref{Symbol}(:none)   # :truecolor | :c256 | :none
+
+"""Detect the terminal's color depth (truecolor → 256-cube → none).
+Honors every off-switch plus RSP_COLOR_FORCE=1 (promotes to truecolor)."""
+function _mr_color_mode!()
+    _mr_init_color!()
+    if !_MR_COLOR[]
+        _MR_MODE[] = :none
+        return :none
+    end
+    ct = lowercase(get(ENV, "COLORTERM", ""))
+    force = get(ENV, "RSP_COLOR_FORCE", "0") == "1" ||
+            get(ENV, "MERIDIAN_COLOR_FORCE", "0") == "1"
+    if ct in ("truecolor", "24bit") || force
+        _MR_MODE[] = :truecolor
+    else
+        # any color-capable TTY of the last decade does ≥ 256 colors
+        _MR_MODE[] = :c256
+    end
+    return _MR_MODE[]
+end
+
+"""Nearest xterm-256 cube index for an RGB triple (6×6×6 cube, 16..231)."""
+function _mr_cube256(r::Int, g::Int, b::Int)
+    qr = round(Int, clamp(r, 0, 255) * 5 / 255)
+    qg = round(Int, clamp(g, 0, 255) * 5 / 255)
+    qb = round(Int, clamp(b, 0, 255) * 5 / 255)
+    return 16 + 36 * qr + 6 * qg + qb
+end
+
+"""Truecolor/256-cube FOREGROUND escape for an RGB triple ("" when :none)."""
+function _mr_rgb(r::Int, g::Int, b::Int)
+    if _MR_MODE[] === :none
+        _mr_color_mode!()
+    end
+    if _MR_MODE[] === :truecolor
+        return @sprintf("\e[38;2;%d;%d;%dm", r, g, b)
+    elseif _MR_MODE[] === :c256
+        return @sprintf("\e[38;5;%dm", _mr_cube256(r, g, b))
+    end
+    return ""
+end
+
+"""Truecolor/256-cube BACKGROUND escape for an RGB triple ("" when :none)."""
+function _mr_bgb(r::Int, g::Int, b::Int)
+    if _MR_MODE[] === :none
+        _mr_color_mode!()
+    end
+    if _MR_MODE[] === :truecolor
+        return @sprintf("\e[48;2;%d;%d;%dm", r, g, b)
+    elseif _MR_MODE[] === :c256
+        return @sprintf("\e[48;5;%dm", _mr_cube256(r, g, b))
+    end
+    return ""
+end
+
+_mr_reset() = _MR_MODE[] === :none ? "" : "\e[0m"
+
+# the HORIZON SWEEP palette: turquoise → sky → cornflower → fuchsia → gold
+const _MR_GRAD = [(64, 224, 208), (72, 184, 252), (140, 130, 252), (225, 110, 230),
+                  (255, 196, 87)]
+
+"""Gradient color at t ∈ [0,1], as an RGB triple."""
+function _mr_grad_rgb(t::Float64)
+    n = length(_MR_GRAD) - 1
+    t = clamp(t, 0.0, 1.0) * n
+    i = min(n - 1, floor(Int, t))
+    u = t - i
+    a, b = _MR_GRAD[i + 1], _MR_GRAD[i + 2]
+    return (round(Int, a[1] + (b[1] - a[1]) * u),
+            round(Int, a[2] + (b[2] - a[2]) * u),
+            round(Int, a[3] + (b[3] - a[3]) * u))
+end
+
+"""A run of `n` copies of `ch`, each cell colored along the gradient
+(theme start at the left edge → gold at the right). Falls back to ch^n."""
+function _mr_grad_line(ch::String, n::Int)
+    n <= 0 && return ""
+    if _MR_MODE[] === :none
+        _mr_color_mode!()
+    end
+    _MR_MODE[] === :none && return ch^n
+    io = IOBuffer()
+    for i in 1:n
+        r, g, b = _mr_grad_rgb((i - 0.5) / n)
+        print(io, _mr_rgb(r, g, b), ch)
+    end
+    print(io, _mr_reset())
+    return String(take!(io))
+end
+
+"""The ▁▂▃▄▅▆▇█ wave — the closing ornament: rises and falls over `n`
+cells, each tinted along the gradient. Plain ramp when color is off."""
+function _mr_wave(n::Int)
+    n <= 0 && return ""
+    ramp = ("▁", "▂", "▃", "▄", "▅", "▆", "▇", "█")
+    if _MR_MODE[] === :none
+        _mr_color_mode!()
+    end
+    io = IOBuffer()
+    for i in 1:n
+        t = 2 * (i - 0.5) / n
+        k = t <= 1.0 ? t : 2.0 - t
+        cell = ramp[clamp(1 + floor(Int, k * 8), 1, 8)]
+        if _MR_MODE[] === :none
+            print(io, cell)
+        else
+            r, g, b = _mr_grad_rgb((i - 0.5) / n)
+            print(io, _mr_rgb(r, g, b), cell)
+        end
+    end
+    _MR_MODE[] === :none || print(io, _mr_reset())
+    return String(take!(io))
+end
+
+"""Badge chip: ⟦ TEXT ⟧ in the given palette key. Plain when color is off."""
+function _mr_badge(txt::AbstractString, key::String)
+    _mr_c("⟦ ", "dim") * _mr_c(String(txt), key) * _mr_c(" ⟧", "dim")
+end
+
+"""Version badge text: "v6.3" and "6.3" both render as ⟦ v6.3 ⟧."""
+_vtag(v::AbstractString) = begin
+    s = String(v)
+    isempty(s) ? "v" : (s[1] == 'v' ? s : "v" * s)
+end
+
+# ══════════════════════════════════════════════════════════════════════════
+# AURORA IDENTITY LOGO — the wordmark in hand-set ANSI Shadow block letters
+#   (the classic «huge banner» style: ██╗ ╔══╝ ╚═╝ glyphs), shaded
+#   column-by-column through the theme gradient, with the data card — live
+#   numbers from the config — floating under the letters. Pure string work:
+#   no engine, no deps. Print targets: run entry points — NEVER inside
+#   per-task loops (file logs must stay plain).
+# ══════════════════════════════════════════════════════════════════════════
+
+const _MR_BIGFONT = Dict{Char,Vector{String}}(
+    'A' => [" █████╗ ", "██╔══██╗", "███████║", "██╔══██║", "██║  ██║", "╚═╝  ╚═╝"],
+    'B' => ["██████╗ ", "██╔══██╗", "███████║", "██╔══██╗", "███████║", "╚═════╝ "],
+    'C' => [" ██████╗", "██╔════╝", "██║     ", "██║     ", " ██████╗", "╚══════╝"],
+    'D' => ["██████╗ ", "██╔══██╗", "██║  ██║", "██║  ██║", "██████╔╝", "╚═════╝ "],
+    'E' => ["███████╗", "██╔════╝", "█████╗  ", "██╔══╝  ", "███████╗", "╚══════╝"],
+    'F' => ["███████╗", "██╔════╝", "█████╗  ", "██║     ", "██║     ", "╚═╝     "],
+    'H' => ["██╗  ██╗", "██║  ██║", "███████║", "██╔══██║", "██║  ██║", "╚═╝  ╚═╝"],
+    'I' => ["██╗", "██║", "██║", "██║", "██║", "╚═╝"],
+    'L' => ["██║     ", "██║     ", "██║     ", "██║     ", "███████╗", "╚══════╝"],
+    'M' => ["███╗   ███╗", "████╗ ████║", "██╔████╔██║", "██║╚██╔╝██║", "██║ ╚═╝ ██║", "╚═╝     ╚═╝"],
+    'N' => ["███╗   ██╗", "████╗  ██║", "██╔██╗ ██║", "██║╚██╗██║", "██║ ╚████║", "╚═╝  ╚═══╝"],
+    'O' => [" ██████╗ ", "██╔═══██╗", "██║   ██║", "██║   ██║", "╚██████╔╝", " ╚═════╝ "],
+    'P' => ["██████╗ ", "██╔══██╗", "██████╔╝", "██╔═══╝ ", "██║     ", "╚═╝     "],
+    'R' => ["██████╗ ", "██╔══██╗", "██████╔╝", "██╔══██╗", "██║  ██║", "╚═╝  ╚═╝"],
+    'S' => ["███████╗ ", "██╔════╝ ", "███████╗ ", "╚════██║ ", "██████╔╝ ", " ╚═════╝ "],
+    'T' => ["████████╗", "╚══██╔══╝", "   ██║   ", "   ██║   ", "   ██║   ", "   ╚═╝   "],
+    'U' => ["██╗   ██╗", "██║   ██║", "██║   ██║", "██║   ██║", "╚██████╔╝", " ╚═════╝ "],
+    'W' => ["╚═╝     ╚═╝", "██║ ╚═╝ ██║", "██║╚██╔╝██║", "██╔████╔██║", "████╗ ████║", "███╗   ███╗"],
+    '·' => [" ", " ", "❖", " ", " ", " "])
+
+"""Render `word` in the ANSI Shadow face — 6 rows, one space between
+glyphs, every row the same width. Unmapped characters are skipped."""
+function _mr_bigtext(word::AbstractString)
+    rows = fill("", 6)
+    fst = true
+    for ch in word
+        gl = get(_MR_BIGFONT, ch, nothing)
+        gl === nothing && continue
+        if !fst
+            for i in 1:6; rows[i] *= " "; end
+        end
+        for i in 1:6; rows[i] *= gl[i]; end
+        fst = false
+    end
+    return rows
+end
+
+"""Paint a plain row through the gradient column by column (spaces pass
+through uncolored — fewer escapes, no background seams)."""
+function _mr_grad_text(s::AbstractString)
+    if _MR_MODE[] === :none
+        _mr_color_mode!()
+    end
+    _MR_MODE[] === :none && return String(s)
+    io = IOBuffer()
+    n = textwidth(s)
+    col = 0
+    for ch in s
+        cw = textwidth(ch)
+        if ch == ' '
+            col += cw
+            print(io, ch)
+            continue
+        end
+        r, g, b = _mr_grad_rgb(n <= 1 ? 0.5 : (col + cw / 2) / n)
+        print(io, _mr_rgb(r, g, b), ch)
+        col += cw
+    end
+    print(io, _mr_reset())
+    return String(take!(io))
+end
+
+"""The sweep-axis card — the α axis: gradient rail with sampled ● points
+and the gold ▶ sweep arrow, over a tick ruler beneath the data card.
+Geometry: W = content+2 card width; the α axis runs three cells past the
+card on each side (T = W+6). Returns (rows, plain_width)."""
+function _mr_card(lines::Vector{String})
+    w = max(maximum(textwidth, lines), 18)
+    W = w + 2
+    T = W + 6
+    gold(s::AbstractString) = _mr_rgb(255, 196, 87) * String(s) * _mr_reset()
+    mint(s::AbstractString) = _mr_rgb(200, 255, 240) * String(s) * _mr_reset()
+    marks = Set([max(2, T ÷ 6), (T + 1) ÷ 2, T - max(2, T ÷ 6)])
+    function axis()
+        if _MR_MODE[] === :none
+            _mr_color_mode!()
+        end
+        if _MR_MODE[] === :none
+            return join((i == T ? "▶" : i in marks ? "●" : "─" for i in 1:T))
+        end
+        io = IOBuffer()
+        for i in 1:T
+            if i == T
+                print(io, _mr_rgb(255, 196, 87), "▶")
+            elseif i in marks
+                print(io, _mr_rgb(255, 196, 87), "●")
+            else
+                r, g, b = _mr_grad_rgb((i - 0.5) / T)
+                print(io, _mr_rgb(r, g, b), "─")
+            end
+        end
+        print(io, _mr_reset())
+        return String(take!(io))
+    end
+    function ruler()
+        if _MR_MODE[] === :none
+            _mr_color_mode!()
+        end
+        if _MR_MODE[] === :none
+            return " "^(T - 2)
+        end
+        io = IOBuffer()
+        for i in 1:(T - 2)
+            if i % 3 == 0
+                r, g, b = _mr_grad_rgb((i - 0.5) / (T - 2))
+                print(io, _mr_rgb(r, g, b), "╵")
+            else
+                print(io, " ")
+            end
+        end
+        print(io, _mr_reset())
+        return String(take!(io))
+    end
+    rows = String[]
+    push!(rows, "  " * axis() * _mr_c(" α", "gold"))
+    push!(rows, "  " * gold("╭" * "─"^W * "╮"))
+    for x in lines
+        pad = W - textwidth(x)
+        pl = pad ÷ 2
+        pr = pad - pl
+        push!(rows, "  " * gold("│") * mint(" "^pl * x * " "^pr) * gold("│"))
+    end
+    push!(rows, "  " * gold("╰" * "─"^W * "╯"))
+    push!(rows, "   " * ruler())
+    return rows, T
+end
+
+"""The card's payload — numbers straight from the live config, so the logo
+doubles as the run card. Duck-typed on purpose: the config struct is
+declared further down the file."""
+_mr_card_data(cfg) = String[
+    "8-PARAM DYNAMIC SWEEP",
+    @sprintf("L=%d · %d seeds · %d ζ-zeros",
+             cfg.L, cfg.n_seeds, cfg.n_zeta_zeros),
+    @sprintf("vortices %d–%d · %s", cfg.min_vortices, cfg.max_vortices,
+             cfg.vortex_layout),
+    @sprintf("⟨r⟩ target R_GUE = %.4f", R_GUE)]
+
+const _MR_CARD_DEFAULT = String["8-PARAM DYNAMIC SWEEP", "13 661 REAL ζ-ZEROS",
+                                 "61 MAGIC α · PRESETS · FINE GRIDS", "⟨r⟩ TARGET R_GUE = 0.5996"]
+
+"""AURORA identity logo — decoration only, NEVER throws: any hiccup
+degrades to false → the plain banner path, so a run can no longer die on
+its own artwork."""
+function _mr_logo(card::Vector{String} = _MR_CARD_DEFAULT)
+    try
+        return _mr_logo_render(card)
+    catch
+        return false
+    end
+end
+
+function _mr_logo_render(card::Vector{String})
+    _mr_color_mode!()
+    _MR_MODE[] === :none && return false
+    # width tiers: full wordmark on wide terminals, short one on ≥ 50
+    # cols, plain banner below that
+    ncols = try
+        sz = displaysize(stdout)
+        sz[2]::Int
+    catch
+        80
+    end
+    word = ncols ≥ 80 ? "SWEEP·PRO" : ncols ≥ 50 ? "SWEEP" : ""
+    isempty(word) && return false
+    rows = _mr_bigtext(word)
+    isempty(rows[1]) && return false
+    bw = textwidth(rows[1])
+    crows, T = _mr_card(card)
+    (T ≤ ncols - 2) || return false # the card must fit too, else plain banner
+    cpad = max((bw - T) ÷ 2, 0) + 2
+    println()
+    println("  " * _mr_grad_line("▄", bw))
+    for r in rows
+        println("  " * _mr_grad_text(r))
+    end
+    println("  " * _mr_grad_line("▀", bw))
+    println()
+    for r in crows
+        println(" "^cpad * r)
+    end
+    println()
+    println(_mr_c("   RH·SWEEP PRO — динамическая максимизация корреляции AB-облака с ζ(s)", "bold"))
+    println(_mr_c("   13 661 реальный ζ-нуль · 61 магическая α · пресеты · тонкие сетки", "dim"))
+    print("   ", _mr_badge(_vtag(_MR_BRAND.version), "title"), "  ",
+           _mr_badge("AURORA", "violet"), "  ",
+           _mr_badge(_MR_BRAND.badge3, "accent"))
+    println()
+    println()
+    flush(stdout)
+    return true
+end
 
 function _mr_fit(s::AbstractString, w::Int)
     s = String(s)
@@ -95,23 +445,43 @@ function _mr_center(s::AbstractString, w::Int = _MR_W)
     return " "^l * String(s) * " "^(pad - l)
 end
 
-"""
-    _mr_banner(title, version, subtitle...) — большая рамка айдентики.
+"""Word-wrap a string to width w (textwidth-aware, no hyphenation)."""
+function _mr_wrap(s::AbstractString, w::Int)
+    out = String[]
+    for para in split(String(s), '\n')
+        isempty(strip(para)) && (push!(out, ""); continue)
+        cur = ""
+        for word in split(para)
+            wd = String(word)
+            if isempty(cur)
+                cur = wd
+            elseif textwidth(cur) + 1 + textwidth(wd) <= w
+                cur *= " " * wd
+            else
+                push!(out, cur); cur = wd
+            end
+        end
+        isempty(cur) || push!(out, cur)
+    end
+    return out
+end
 
-Двойная линия ╔═╗, золотой ◆, жирный циан-заголовок, dim-подзаголовки и
-нижняя строка окружения (julia X.Y.Z · N threads). Печатается один раз.
-"""
+"""Big identity frame — printed once by the run entry.
+The double-rule border carries the theme gradient; a ❖-style mid ornament
+splits the rules; a badge row (version · AURORA) closes the frame."""
 function _mr_banner(title::AbstractString, version::AbstractString,
-                    subtitle::AbstractString...; brand::AbstractString = "◆")
+                    subtitle::AbstractString...; brand::AbstractString = "❖")
     try
         _mr_init_color!()
         W = _MR_W
         hdr = string(brand, " ", title, "  ", version)
+        a = (W - 1) ÷ 2 # the mid ornament splits the rules
         println()
-        println(_mr_c("╔" * "═"^W * "╗", "title"))
+        println(_mr_c("╔", "title") * _mr_grad_line("═", a) * _mr_c("❖", "gold") *
+                _mr_grad_line("═", W - 1 - a) * _mr_c("╗", "title"))
         println(_mr_c("║", "title") * _mr_c(_mr_center(hdr, W), "title") *
                 _mr_c("║", "title"))
-        println(_mr_c("╠" * "═"^W * "╣", "title"))
+        println(_mr_c("╠", "title") * _mr_grad_line("═", W) * _mr_c("╣", "title"))
         for s in subtitle
             isempty(s) && continue
             println(_mr_c("║", "title") * _mr_c(_mr_center(s, W), "dim") *
@@ -120,7 +490,10 @@ function _mr_banner(title::AbstractString, version::AbstractString,
         env = string("julia ", VERSION, " · ", Sys.CPU_THREADS, " threads")
         println(_mr_c("║", "title") * _mr_c(_mr_center(env, W), "dim") *
                 _mr_c("║", "title"))
-        println(_mr_c("╚" * "═"^W * "╝", "title"))
+        println(_mr_c("╚", "title") * _mr_grad_line("═", a) * _mr_c("❖", "gold") *
+                _mr_grad_line("═", W - 1 - a) * _mr_c("╝", "title"))
+        println("  " * _mr_badge(_vtag(String(version)), "title") * "  " *
+                _mr_badge("AURORA", "violet"))
         flush(stdout)
     catch
         println(title, " — ", version)
@@ -128,15 +501,14 @@ function _mr_banner(title::AbstractString, version::AbstractString,
     return nothing
 end
 
-"""
-    _mr_section(name) — заголовок секции:   ── ◆ NAME ─────────────
-"""
+"""Section header:   ── ❖ NAME ─────────────
+The trailing rule is gradient-shaded on color terminals."""
 function _mr_section(name::AbstractString)
     try
         n = uppercase(String(name))
         rest = max(4, _MR_W - 6 - textwidth(n))
-        println("  " * _mr_c("── ", "dim") * _mr_c("◆ " * n * " ", "gold") *
-                _mr_c("─"^rest, "dim"))
+        println("  " * _mr_c("── ", "dim") * _mr_c("❖ " * n * " ", "gold") *
+                _mr_grad_line("─", rest))
         flush(stdout)
     catch
         println("\n── ", name, " ──")
@@ -144,11 +516,44 @@ function _mr_section(name::AbstractString)
     return nothing
 end
 
+"""Gradient horizontal rule."""
 function _mr_rule()
     try
-        println("  " * _mr_c("─"^( _MR_W - 2), "dim"))
+        println("  " * _mr_grad_line("─", _MR_W - 2))
     catch
         println("  " * "─"^40)
+    end
+    return nothing
+end
+
+"""Framed head — a double box for a major run phase, with the codename and
+a dim question line. The badge row under the box: ⟦ UNIT k ⟧ ⟦ codename ⟧."""
+function _mr_gate_head(k::Int, codename::AbstractString, title::AbstractString,
+                       question::AbstractString; total::Union{Nothing,Int} = nothing)
+    try
+        println()
+        W = _MR_W
+        head = string(uppercase(_MR_BRAND.unit), " ", string(k), " · ", String(codename))
+        println(_mr_c("╔", "title") * _mr_grad_line("═", W) * _mr_c("╗", "title"))
+        println(_mr_c("║", "title") *
+                _mr_c(_mr_center(head, W), "title") *
+                _mr_c("║", "title"))
+        println(_mr_c("╠", "title") * _mr_grad_line("═", W) * _mr_c("╣", "title"))
+        for ln in _mr_wrap(String(title), W - 2)
+            println(_mr_c("║", "title") * _mr_c(_mr_center(ln, W), "gold") *
+                    _mr_c("║", "title"))
+        end
+        println(_mr_c("╚", "title") * _mr_grad_line("═", W) * _mr_c("╝", "title"))
+        tag = total === nothing ? string(_MR_BRAND.unit, " ", k) :
+              @sprintf("%s %d/%d", _MR_BRAND.unit, k, total)
+        println("  " * _mr_badge(tag, "title") * " " *
+                _mr_badge(String(codename), "accent"))
+        for ln in _mr_wrap(String(question), W - 2)
+            println("  " * _mr_c(ln, "dim"))
+        end
+        flush(stdout)
+    catch
+        println("\n── ", title, " ──")
     end
     return nothing
 end
@@ -167,9 +572,7 @@ _mr_warn(m) = _mr_status("⚠", "warn",  m)
 _mr_fail(m) = _mr_status("✗", "err",   m)
 _mr_info(m) = _mr_status("●", "accent", m)
 
-"""
-    _mr_kv(key, value) — выровненная строка «ключ : значение».
-"""
+"""Aligned «key : value» line."""
 function _mr_kv(k::AbstractString, v; w::Int = 26)
     try
         println("  " * _mr_c(_mr_fit(string(k) * ":", w), "accent") * " " *
@@ -180,29 +583,29 @@ function _mr_kv(k::AbstractString, v; w::Int = 26)
     return nothing
 end
 
-"""
-    _mr_panel(title, rows) — скруглённая панель результата.
-Строка с ведущим "✓" зеленеет, "✗" — краснеет, "!" → ⚠ жёлтым, остальное dim.
-"""
+"""Rounded result panel. Leading ✓ green, ! → ⚠ yellow, ✗ red, else dim.
+Long rows wrap to the frame width (word-wise)."""
 function _mr_panel(title::AbstractString, rows::Vector{<:AbstractString})
     try
         W = _MR_W
-        println(_mr_c("╭─", "title") * _mr_c("◆ ", "gold") *
-                _mr_c(_mr_fit(uppercase(String(title)), W - 3), "title") *
+        println(_mr_c("╭─", "title") * _mr_c("❖ ", "gold") *
+                _mr_c(_mr_fit(String(title), W - 3), "title") *
                 _mr_c("╮", "title"))
         for r in rows
             s = String(r)
             if startswith(s, "!")
                 body = "  ⚠ " * s[nextind(s, 1):end]; key = "warn"
-            elseif startswith(s, "✓")
-                body = "  " * s; key = "ok"
             elseif startswith(s, "✗")
                 body = "  " * s; key = "err"
+            elseif startswith(s, "✓")
+                body = "  " * s; key = "ok"
             else
                 body = "  " * s; key = "dim"
             end
-            println(_mr_c("│", "title") * _mr_c(_mr_fit(body, W), key) *
-                    _mr_c("│", "title"))
+            for ln in _mr_wrap(body, W)
+                println(_mr_c("│", "title") * _mr_c(_mr_fit(ln, W), key) *
+                        _mr_c("│", "title"))
+            end
         end
         println(_mr_c("╰" * "─"^W * "╯", "title"))
         flush(stdout)
@@ -213,52 +616,8 @@ function _mr_panel(title::AbstractString, rows::Vector{<:AbstractString})
     return nothing
 end
 
-"""
-    _mr_prog(label, i, n; t0=nothing, extra="") — живой прогресс.
-
-На TTY — одна строка in-place:  ▰▰▰▰▱▱▱ 45%  label · 12s/~15s
-При редиректе в лог — вехи каждые 10% (первая и последняя — всегда).
-"""
-function _mr_prog(label::AbstractString, i::Int, n::Int;
-                  t0::Union{Nothing,Float64} = nothing,
-                  extra::AbstractString = "")
-    try
-        n <= 0 && return nothing
-        i = clamp(i, 1, n)
-        frac = i / n
-        pct = round(Int, 100 * frac)
-        tty = stdout isa Base.TTY
-        if !tty
-            if i == n || i == 1 || (pct ÷ 10) > (_MR_PROG_LAST[] ÷ 10)
-                _MR_PROG_LAST[] = pct
-                println("  ▰ [", label, "] ", lpad(pct, 3), "%  (",
-                        i, "/", n, ")")
-                flush(stdout)
-            end
-            return nothing
-        end
-        filled = round(Int, frac * 20)
-        bar = "▰"^filled * "▱"^(20 - filled)
-        el = t0 === nothing ? "" :
-             string(" · ", lpad(round(Int, time() - t0), 4), "s")
-        eta = (t0 === nothing || i < 2) ? "" :
-              string("/~", lpad(round(Int, (time() - t0) * (n - i) / max(1, i)), 4), "s")
-        ex = isempty(extra) ? "" : string(" · ", extra)
-        line = "  " * _mr_c(bar, "accent") * " " * lpad(string(pct), 3) * "%  " *
-               _mr_c(String(label), "bold") * _mr_c(el * eta, "dim") *
-               _mr_c(ex, "gold") * "   "
-        print("\r", line)
-        flush(stdout)
-        i >= n && println()
-    catch
-        # прогресс не имеет права падать — молча выходим
-    end
-    return nothing
-end
-
-"""
-    _mr_table(headers, rows) — компактная box-таблица с цветной шапкой.
-"""
+"""Compact box table with a gradient top/bottom rule and a title-colored
+header row. Rows carrying a leading ✓/✗/! inherit the status color."""
 function _mr_table(headers::Vector{String}, rows::Vector{Vector{String}})
     try
         ncol = length(headers)
@@ -274,11 +633,16 @@ function _mr_table(headers::Vector{String}, rows::Vector{Vector{String}})
         rowline(cells) = "│" * join(
             [_mr_fit(j <= length(cells) ? cells[j] : "", widths[j]) for j in 1:ncol],
             "│") * "│"
+        rowkey(cells) = begin
+            c0 = isempty(cells) ? "" : cells[1]
+            startswith(c0, "✓") ? "ok" : startswith(c0, "✗") ? "err" :
+            startswith(c0, "!") ? "warn" : "dim"
+        end
         println("  " * _mr_c(top, "dim"))
         println("  " * _mr_c(rowline(headers), "title"))
         println("  " * _mr_c(mid, "dim"))
         for r in rows
-            println("  " * rowline(r))
+            println("  " * _mr_c(rowline(r), rowkey(r)))
         end
         println("  " * _mr_c(bot, "dim"))
         flush(stdout)
@@ -289,8 +653,120 @@ function _mr_table(headers::Vector{String}, rows::Vector{Vector{String}})
     return nothing
 end
 
+# ══════════════════════════════════════════════════════════════════════════
+# LIVE PROGRESS — AURORA edition. On a color TTY draws IN PLACE (\r +
+# erase-to-EOL): gradient Braille bar (⣿ with a 7-step dot ladder for the
+# partial cell), spinner cycling per frame (✓ on the done frame), % ·
+# label · elapsed · ETA. Time-throttled (≥ 0.8 s between frames).
+# Non-TTY (redirect to a log file): milestone lines every 10% — ANSI-free,
+# so file logs stay clean. Signature-compatible with the v1.0 _mr_prog.
+# ══════════════════════════════════════════════════════════════════════════
+
+const _MR_PROG_SPIN = ("⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏")
+const _MR_PROG_BRAILLE = ("⣀", "⣄", "⣤", "⣦", "⣶", "⣷", "⣿") # dot ladder → full ⣿
+const _MR_PROG_ST = Ref{NTuple{4,Any}}((-1.0, -1.0, 0, "")) # pct·t·frame·label
+
+function _mr_prog(label::AbstractString, i::Int, n::Int;
+                  t0::Union{Nothing,Float64} = nothing,
+                  extra::AbstractString = "")
+    try
+        n <= 0 && return nothing
+        i = clamp(i, 1, n)
+        frac = i / n
+        pct = 100 * frac
+        now = time()
+        lp, lt, fr, ll = _MR_PROG_ST[]
+        ll != String(label) && ((lp, lt) = (-1.0, -1.0)) # new loop → reset
+        if !(stdout isa Base.TTY)
+            # milestone path for file logs: first/last + every 10%
+            if i == n || i == 1 || (round(Int, pct) ÷ 10) > (round(Int, lp) ÷ 10)
+                _MR_PROG_ST[] = (pct, now, fr, String(label))
+                println("  " * _mr_c("▰", "accent") * " [" * String(label) *
+                        "] " * lpad(round(Int, pct), 3) * "%  (" *
+                        string(i) * "/" * string(n) * ")")
+                flush(stdout)
+            else
+                _MR_PROG_ST[] = (pct, now, fr, String(label))
+            end
+            return nothing
+        end
+        first = lp < 0
+        done = i >= n
+        (first || done || (frac != lp && now - lt >= 0.8)) || return nothing
+        _MR_PROG_ST[] = (pct, now, fr + 1, String(label))
+        el = t0 === nothing ? (lt < 0 ? 0.0 : now - lt) : now - t0
+        eta = (t0 === nothing || i < 2) ? NaN :
+              (now - t0) * (n - i) / max(1, i)
+        hms(s) = begin
+            s = max(0, round(Int, s))
+            @sprintf("%02d:%02d:%02d", s ÷ 3600, (s % 3600) ÷ 60, s % 60)
+        end
+        if _mr_color_mode!() !== :none
+            ncell = 24
+            bar = IOBuffer()
+            x = frac * ncell
+            nfull = floor(Int, x)
+            for c in 1:ncell
+                r, g, b = _mr_grad_rgb((c - 0.5) / ncell)
+                if c <= nfull
+                    print(bar, _mr_rgb(r, g, b), "⣿")
+                elseif c == nfull + 1 && !done
+                    k = clamp(ceil(Int, (x - nfull) * 7), 1, 7)
+                    print(bar, _mr_rgb(r, g, b), _MR_PROG_BRAILLE[k])
+                else
+                    print(bar, _mr_rgb(70, 88, 118), "⣀")
+                end
+            end
+            print(bar, _mr_reset())
+            body = string(
+                _mr_c(done ? "✓" : _MR_PROG_SPIN[((fr + 1) % 10) + 1],
+                      done ? "ok" : "gold"), " ",
+                String(take!(bar)), " ",
+                _mr_c(@sprintf("%5.1f%%", pct), "bold"), " ",
+                _mr_c(String(label), "title"),
+                _mr_c(t0 === nothing ? "" : " · T+" * hms(el), "dim"),
+                done ? _mr_c(" · done", "ok") :
+                       (isnan(eta) ? "" : _mr_c(" · ETA " * hms(eta), "dim")),
+                isempty(extra) ? "" : _mr_c(" · " * extra, "gold"))
+            print("\r\033[K  ", body)
+        else
+            full = clamp(round(Int, pct) ÷ 10, 0, 10)
+            body = string(
+                _mr_c("▰"^full * "▱"^(10 - full), "accent"), " ",
+                _mr_c(@sprintf("%5.1f%%", pct), "bold"), " ",
+                _mr_c(String(label), "title"),
+                _mr_c(t0 === nothing ? "" : " · T+" * hms(el), "dim"),
+                isnan(eta) ? "" : _mr_c(" · ETA " * hms(eta), "dim"),
+                isempty(extra) ? "" : _mr_c(" · " * extra, "gold"))
+            print("\r\033[K  ", body)
+        end
+        flush(stdout)
+        done && println()
+    catch
+        # прогресс не имеет права падать — молча выходим
+    end
+    return nothing
+end
+
+"""Closing ornament: the gradient wave + optional one-line footer."""
+function _mr_wave_footer(msg::AbstractString = "")
+    try
+        println()
+        isempty(msg) || println("  " * _mr_c(msg, "dim"))
+        println("  " * _mr_wave(_MR_W))
+        println()
+        flush(stdout)
+    catch
+        println()
+    end
+    return nothing
+end
+
 const _MR_BRAND = (title = "RH·SWEEP PRO", version = "1.0",
-                   subtitle = "8-parameter dynamic sweep · 13 661 verified ζ-zeros")
+                   subtitle = "динамический sweep · 8 параметров · 13 661 ζ-нуль",
+                   badge3 = "13661 ζ-zeros", unit = "PHASE",
+                   tagline1 = "RH·SWEEP PRO — динамическая максимизация корреляции AB-облака с ζ(s)", tagline2 = "13 661 реальный ζ-нуль · 61 магическая α · пресеты · тонкие сетки")
+
 using DelimitedFiles
 
 # Опциональные пакеты — используем @eval чтобы обойти ограничение Julia 1.12+
@@ -5021,44 +5497,39 @@ function preset_auto(n_zeta_zeros::Int;
     best_N_aligned = n_blocks * 250
     
     if verbose
-        println("\n" * "="^78)
-        println("  АВТО-ПОДБОР параметров AB-облака")
-        println("="^78)
-        println("  ζ-нулей:              $n_zeta_zeros")
-        println("  Целевое N_AB:         $N_target (ratio=$target_ratio)")
+        _mr_section("авто-подбор параметров AB-облака")
+        _mr_kv("ζ-нулей", n_zeta_zeros)
+        _mr_kv("целевое N_AB", "$N_target (ratio=$target_ratio)")
         println()
-        println("  РЕКОМЕНДУЕМЫЕ ПАРАМЕТРЫ:")
-        println("    L                  = $best_L (матрица $(best_L*best_L)×$(best_L*best_L))")
-        println("    n_seeds            = $best_seeds")
-        println("    window             = $window")
-        println("    eigs_per_seed      = $(Int(floor(window * best_L * best_L)))")
-        println("    N_AB (total)       = $best_N")
-        println("    N_AB (aligned 250) = $best_N_aligned")
-        println("    n_blocks (B=250)   = $n_blocks")
+        _mr_section("рекомендуемые параметры")
+        _mr_kv("L", "$best_L (матрица $(best_L*best_L)×$(best_L*best_L))")
+        _mr_kv("n_seeds", best_seeds)
+        _mr_kv("window", window)
+        _mr_kv("eigs_per_seed", Int(floor(window * best_L * best_L)))
+        _mr_kv("N_AB (total)", best_N)
+        _mr_kv("N_AB (aligned 250)", best_N_aligned)
+        _mr_kv("n_blocks (B=250)", n_blocks)
         println()
         
         # Оценка времени
         t_per_seed = (best_L / 56)^6 * 8  # ~8с для L=56
         t_total = t_per_seed * best_seeds
-        if t_total < 60
-            println("  Оценка времени:      $(round(t_total, digits=1))с")
-        elseif t_total < 3600
-            println("  Оценка времени:      $(round(t_total/60, digits=1))мин")
-        else
-            println("  Оценка времени:      $(round(t_total/3600, digits=1))ч")
-        end
+        _tstr = t_total < 60 ? "$(round(t_total, digits=1))с" :
+                t_total < 3600 ? "$(round(t_total/60, digits=1))мин" :
+                "$(round(t_total/3600, digits=1))ч"
+        _mr_kv("оценка времени", _tstr)
         
         # Качество корреляции
         if n_blocks >= 20
-            println("  Ожидаемая K corr(ζ): 0.90-0.95 ✓ (n_blocks=$n_blocks ≥ 20)")
+            _mr_ok("ожидаемая K corr(ζ): 0.90–0.95 (n_blocks=$n_blocks ≥ 20)")
         elseif n_blocks >= 10
-            println("  Ожидаемая K corr(ζ): 0.85-0.90 ✓ (n_blocks=$n_blocks ≥ 10)")
+            _mr_ok("ожидаемая K corr(ζ): 0.85–0.90 (n_blocks=$n_blocks ≥ 10)")
         elseif n_blocks >= 5
-            println("  Ожидаемая K corr(ζ): 0.75-0.85 ~ (n_blocks=$n_blocks ≥ 5)")
+            _mr_info("ожидаемая K corr(ζ): 0.75–0.85 (n_blocks=$n_blocks ≥ 5)")
         else
-            println("  Ожидаемая K corr(ζ): 0.60-0.75 ⚠ (n_blocks=$n_blocks < 5, мало)")
+            _mr_warn("ожидаемая K corr(ζ): 0.60–0.75 (n_blocks=$n_blocks < 5, мало)")
         end
-        println("="^78)
+        _mr_rule()
     end
     
     cfg = default_config()
@@ -5829,6 +6300,8 @@ function run(cfg::RHConfig)
     t_start_total = time()
     dt_start = now()
 
+    _mr_logo(_mr_card_data(cfg)) ||
+        _mr_banner(_MR_BRAND.title, _MR_BRAND.version, _MR_BRAND.subtitle)
     _mr_section("запуск — конфигурация")
     _mr_kv("время начала", Dates.format(dt_start, "yyyy-mm-dd HH:MM:SS"))
     _mr_kv("L", "$(cfg.L)  (матрица $(cfg.L*cfg.L)×$(cfg.L*cfg.L))")
@@ -5876,7 +6349,7 @@ function run(cfg::RHConfig)
     println("  Всего точек α: $n_alphas")
 
     t_step1 = time()
-    println("\n    ⏱  Начало sweep: $(Dates.format(now(), "HH:MM:SS"))")
+    _mr_info("начало sweep: $(Dates.format(now(), "HH:MM:SS"))")
 
     results = MetricsResult[]
     best_score = -1.0
@@ -5925,7 +6398,7 @@ function run(cfg::RHConfig)
         end
     end
 
-    println("\n    ⏱  Конец sweep: $(Dates.format(now(), "HH:MM:SS"))  (заняло $(round(time()-t_step1, digits=1))s)")
+    _mr_info("конец sweep: $(Dates.format(now(), "HH:MM:SS")) · заняло $(round(time()-t_step1, digits=1))s")
 
     _mr_panel("best α — лучшая конфигурация", [
         "α = $best_label ($best_alpha)",
@@ -5998,10 +6471,10 @@ function _final_run(cfg::RHConfig, alpha_opt::Float64, W_opt::Float64, sigma_opt
         ["Composite Score", round(final_result.composite_score, digits=2), "→ 100"],
         ["Тестов", "$(final_result.tests_passed)/$(final_result.tests_total)", "6/6"]
     ]
-    println(format_table(headers, rows))
+    _mr_table(headers, [[string(c) for c in r] for r in rows])
 
     # Графики
-    println("\n>>> Генерация графиков <<<")
+    _mr_section("генерация графиков")
     t_step3 = time()
     best_params = (alpha_opt, W_opt, sigma_opt)
     # Убедимся что папка plots существует
@@ -6019,29 +6492,27 @@ function _final_run(cfg::RHConfig, alpha_opt::Float64, W_opt::Float64, sigma_opt
         plot_optimization_progress(all_results;
                                     savepath=joinpath(plots_dir, "04_optimization_progress.png"))
     end
-    println("    ⏱  Графики готовы ($(round(time()-t_step3, digits=1))s)")
+    _mr_ok("графики готовы ($(round(time()-t_step3, digits=1))s)")
 
     # Отчёты
-    println("\n>>> Сохранение отчётов <<<")
+    _mr_section("сохранение отчётов")
     t_step4 = time()
     save_csv_report(final_result, all_results, joinpath(csv_dir, "metrics.csv"))
     save_txt_report(final_result, all_results, joinpath(txt_dir, "report.txt"), best_params)
     save_json_report(final_result, all_results, joinpath(json_dir, "results.json"), best_params)
     writedlm(joinpath(csv_dir, "zeta_zeros.txt"), zeta_zeros)
     writedlm(joinpath(csv_dir, "ab_eigs.txt"), sort(eigs_final))
-    println("    ⏱  Отчёты готовы ($(round(time()-t_step4, digits=1))s)")
+    _mr_ok("отчёты готовы ($(round(time()-t_step4, digits=1))s)")
 
-    # Вердикт
-    println("\n" * "═"^78)
-    println("  ИТОГОВЫЙ ВЕРДИКТ")
-    println("═"^78)
-    println("\n  Тесты RMT (основные):")
-    println("    1. ⟨r⟩ ≈ R_GUE                    : $(final_result.d_GUE < 0.05 ? "✓ PASS" : "✗ FAIL")")
-    println("    2. R₂(s) ближе к GUE чем к Poi    : $(final_result.R2_match_GUE ? "✓ PASS" : "✗ FAIL")")
-    println("    3. K(t) коррелирует с K(ζ)        : $(final_result.K_match_GUE ? "✓ PASS" : "✗ FAIL")")
-    println("    4. Σ²(L) ближе к GUE чем к Poi    : $(final_result.Sigma2_match_GUE ? "✓ PASS" : "✗ FAIL")")
-    println("    5. Δ₃(L) RMS < 0.5                : $((!isnan(final_result.Delta3_rms_GUE) && final_result.Delta3_rms_GUE < 0.5) ? "✓ PASS" : "✗ FAIL")")
-    println("    6. p(s) RMS < 0.2                  : $((!isnan(final_result.p_rms_GUE) && final_result.p_rms_GUE < 0.2) ? "✓ PASS" : "✗ FAIL")")
+    # Вердикт (AURORA: панели с построчной ✓/✗-окраской + kv + бейдж)
+    _mr_panel("итоговый вердикт — тесты RMT (основные)", [
+        (final_result.d_GUE < 0.05 ? "✓" : "✗") * " 1. ⟨r⟩ ≈ R_GUE",
+        (final_result.R2_match_GUE ? "✓" : "✗") * " 2. R₂(s) ближе к GUE, чем к Poisson",
+        (final_result.K_match_GUE ? "✓" : "✗") * " 3. K(t) коррелирует с K(ζ)",
+        (final_result.Sigma2_match_GUE ? "✓" : "✗") * " 4. Σ²(L) ближе к GUE, чем к Poisson",
+        ((!isnan(final_result.Delta3_rms_GUE) && final_result.Delta3_rms_GUE < 0.5) ? "✓" : "✗") * " 5. Δ₃(L) RMS < 0.5",
+        ((!isnan(final_result.p_rms_GUE) && final_result.p_rms_GUE < 0.2) ? "✓" : "✗") * " 6. p(s) RMS < 0.2",
+    ])
 
     # === НОВЫЕ ТЕСТЫ ===
     chi2_pass = final_result.chi2_wigner < 0.5
@@ -6050,26 +6521,29 @@ function _final_run(cfg::RHConfig, alpha_opt::Float64, W_opt::Float64, sigma_opt
     gap_pass = abs(final_result.gap_prob_E1 - 0.171) < 0.1  # corrected target
     rtilde_pass = !isnan(final_result.r_tilde_mean) && abs(final_result.r_tilde_mean - 0.3997) < 0.05
     sym_pass = abs(final_result.symmetry_parameter - 1.496) < 0.2
-    
+
     n_new_pass = sum([chi2_pass, brody_pass, comp_pass, gap_pass, rtilde_pass, sym_pass])
-    
-    println("\n  Тесты RMT (новые):")
-    println("    7. χ² Wigner < 0.5                : $(chi2_pass ? "✓ PASS" : "✗ FAIL")  (значение: $(round(final_result.chi2_wigner, digits=4)))")
-    println("    8. Brody β ≈ 2.0 (±0.5)           : $(brody_pass ? "✓ PASS" : "✗ FAIL")  (значение: $(round(final_result.brody_beta, digits=4)))")
-    println("    9. Compressibility < 0.3           : $(comp_pass ? "✓ PASS" : "✗ FAIL")  (значение: $(round(final_result.spectral_compressibility, digits=4)))")
-    println("   10. E(s=1) ≈ 0.171 (±0.15)         : $(gap_pass ? "✓ PASS" : "✗ FAIL")  (значение: $(round(final_result.gap_prob_E1, digits=4)))")
-    println("   11. ⟨r̃⟩ ≈ 0.3602 (±0.05)          : $(rtilde_pass ? "✓ PASS" : "✗ FAIL")  (значение: $(round(final_result.r_tilde_mean, digits=4)))")
-    println("   12. Symmetry S ≈ 1.496 (±0.2)      : $(sym_pass ? "✓ PASS" : "✗ FAIL")  (значение: $(round(final_result.symmetry_parameter, digits=4)))")
-    
+
+    _mr_panel("итоговый вердикт — тесты RMT (новые)", [
+        (chi2_pass ? "✓" : "✗") * @sprintf("  7. χ² Wigner < 0.5  · значение: %.4f", final_result.chi2_wigner),
+        (brody_pass ? "✓" : "✗") * @sprintf("  8. Brody β ≈ 2.0 (±0.5)  · значение: %.4f", final_result.brody_beta),
+        (comp_pass ? "✓" : "✗") * @sprintf("  9. Compressibility < 0.3  · значение: %.4f", final_result.spectral_compressibility),
+        (gap_pass ? "✓" : "✗") * @sprintf(" 10. E(s=1) ≈ 0.171 (±0.15)  · значение: %.4f", final_result.gap_prob_E1),
+        (rtilde_pass ? "✓" : "✗") * @sprintf(" 11. ⟨r̃⟩ ≈ 0.3602 (±0.05)  · значение: %.4f", final_result.r_tilde_mean),
+        (sym_pass ? "✓" : "✗") * @sprintf(" 12. Symmetry S ≈ 1.496 (±0.2)  · значение: %.4f", final_result.symmetry_parameter),
+    ])
+
     n_old_pass = final_result.tests_passed
     n_total = 12
-    println("\n  ИТОГО ТЕСТОВ: $(final_result.tests_passed)/$(final_result.tests_total) (Score: $(round(final_result.composite_score, digits=1))/100)")
-    println("  (Старые: $(n_old_pass)/6, Новые: $(n_new_pass)/5, Symmetry S: информационная)")
+    _mr_info("итого тестов: $(final_result.tests_passed)/$(final_result.tests_total) · Score: $(round(final_result.composite_score, digits=1))/100")
+    _mr_kv("старые / новые", "$(n_old_pass)/6 · новые: $(n_new_pass)/5 · Symmetry S: информационная")
 
-    println("\n  Корреляция с ζ-нулями:")
-    println("    K(AB) corr K(ζ)  = $(round(final_result.K_corr_zeta, digits=4))")
-    println("    ⟨r⟩(AB) = $(round(final_result.r_mean, digits=4))  vs  ⟨r⟩(ζ) = $(round(mean_r(zeta_zeros), digits=4))")
-    println("\n  Composite Score: $(round(final_result.composite_score, digits=2))/100")
+    _mr_section("корреляция с ζ-нулями")
+    _mr_kv("K(AB) corr K(ζ)", round(final_result.K_corr_zeta, digits=4))
+    _mr_kv("⟨r⟩(AB) vs ⟨r⟩(ζ)", "$(round(final_result.r_mean, digits=4))  vs  $(round(mean_r(zeta_zeros), digits=4))")
+    println("  " * _mr_badge(
+        "Composite Score: $(round(final_result.composite_score, digits=2))/100",
+        final_result.tests_passed >= 6 ? "ok" : "warn"))
 
     # Время
     t_end = time()
@@ -6079,15 +6553,14 @@ function _final_run(cfg::RHConfig, alpha_opt::Float64, W_opt::Float64, sigma_opt
                   elapsed < 3600 ? "$(round(elapsed/60, digits=1))m $(round(elapsed % 60, digits=0))s" :
                   "$(Int(elapsed ÷ 3600))h $(Int((elapsed % 3600) ÷ 60))m"
 
-    println("\n" * "═"^78)
-    println("  ⏱  ВРЕМЕННАЯ СВОДКА")
-    println("  ────────────────────────────────────────────────────────────────────────────")
-    println("  Начало:    $(Dates.format(dt_start, "yyyy-mm-dd HH:MM:SS"))")
-    println("  Конец:     $(Dates.format(dt_end,   "yyyy-mm-dd HH:MM:SS"))")
-    println("  ────────────────────────────────────────────────────────────────────────────")
-    println("  ⚡ ПОЛНАЯ ДЛИТЕЛЬНОСТЬ: $elapsed_str")
-    println("═"^78)
-    println("\n  Результаты: $(cfg.output_dir)/")
+    _mr_panel("временная сводка", [
+        "начало:    $(Dates.format(dt_start, "yyyy-mm-dd HH:MM:SS"))",
+        "конец:     $(Dates.format(dt_end,   "yyyy-mm-dd HH:MM:SS"))",
+        "✓ ПОЛНАЯ ДЛИТЕЛЬНОСТЬ: $elapsed_str",
+    ])
+    _mr_info("результаты: $(cfg.output_dir)/")
+    _mr_wave_footer(_MR_BRAND.title * " v" * _MR_BRAND.version *
+                    " · run complete · " * elapsed_str)
 
     return Dict(
         "best_params" => best_params,
@@ -6107,9 +6580,7 @@ end
 # =====================================================================
 
 function show_config(cfg::RHConfig)
-    println("\n" * "═"^78)
-    println("  КОНФИГУРАЦИЯ RHConfig")
-    println("═"^78)
+    _mr_section("конфигурация RHConfig")
     headers = ["Параметр", "Значение", "Описание"]
     rows = [
         ["L", cfg.L, "Размер решётки (L² сайтов)"],
@@ -6135,14 +6606,12 @@ function show_config(cfg::RHConfig)
         ["optimize", cfg.optimize, "2-этапная оптимизация"],
         ["fine_grid", cfg.fine_grid, "Тонкий grid"]
     ]
-    println(format_table(headers, rows))
-    println("═"^78)
+    _mr_table(headers, [[string(c) for c in r] for r in rows])
+    _mr_rule()
 end
 
 function list_presets()
-    println("\n" * "═"^78)
-    println("  ДОСТУПНЫЕ PRESETS")
-    println("═"^78)
+    _mr_section("доступные presets")
     presets = [
         ("preset_quick()", "Быстрый тест (L=24, 1 seed, ~1 мин)"),
         ("preset_full()", "Полный анализ (L=84, 3 seeds, оптимизация)"),
@@ -6155,14 +6624,13 @@ function list_presets()
         ("preset_custom()", "Кастомный пресет")
     ]
     headers = ["Preset", "Описание"]
-    println(format_table(headers, [collect(p) for p in presets]))
-    println()
-    println("  Использование:")
-    println("    cfg = preset_quick()       # получить конфигурацию")
-    println("    cfg.L = 56                  # изменить параметр")
-    println("    cfg.alpha_jitter = 0.1      # добавить дрожание")
-    println("    run(cfg)                    # запустить")
-    println("═"^78)
+    _mr_table(headers, [String[p[1], p[2]] for p in presets])
+    _mr_section("использование")
+    _mr_kv("cfg = preset_quick()", "получить конфигурацию")
+    _mr_kv("cfg.L = 56", "изменить параметр")
+    _mr_kv("cfg.alpha_jitter = 0.1", "добавить дрожание")
+    _mr_kv("run(cfg)", "запустить")
+    _mr_rule()
 end
 
 function help_dynamic()
@@ -6435,13 +6903,14 @@ function sweep_top10_pro(; output_dir::String="RH_Sweep_Pro_$(Dates.format(now()
     
     base_cfg = preset_auto(5000, verbose=false)
     
-    println("\n" * "█"^78)
-    println("█ SWEEP TOP-10 PRO: 10 точек × 8 параметров + визуализация")
-    println("█"^78)
-    println("█ Точки: [0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 6.0, 8.0]")
-    println("█ Параметров: 8, всего прогонов: 80")
-    println("█ Ожидаемое время: ~2-3 часа")
-    println("█"^78)
+    _mr_logo() || _mr_banner(_MR_BRAND.title, _MR_BRAND.version,
+                            _MR_BRAND.subtitle)
+    _mr_gate_head(1, "TOP-10 PRO", "10 точек × 8 параметров + визуализация",
+                  "какие из 8 параметров сильнее всего влияют на корреляцию с ζ(s)?";
+                  total = 1)
+    _mr_kv("точки", "[0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 6.0, 8.0]")
+    _mr_kv("параметров / прогонов", "8 / 80")
+    _mr_kv("ожидаемое время", "~2-3 часа")
     
     mkpath(output_dir)
     t_start = time()
@@ -6454,7 +6923,8 @@ function sweep_top10_pro(; output_dir::String="RH_Sweep_Pro_$(Dates.format(now()
               :sigma_jitter, :vortex_pos_jitter, :vortex_charge_flip]
     
     for (p_idx, param) in enumerate(params)
-        println("\n>>> Параметр $p_idx/8: $param <<<")
+        _mr_prog("param-sweep", p_idx, length(params); extra = string(param))
+        _mr_section(@sprintf("параметр %d/8: %s", p_idx, param))
         
         if param == :vortex_charge_flip
             vals = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 1.0]
@@ -6549,12 +7019,13 @@ function sweep_combined_quick(; output_dir::String="RH_Sweep_Quick_$(Dates.forma
     params = [:alpha, :W, :sigma, :alpha_jitter, :W_jitter, 
               :sigma_jitter, :vortex_pos_jitter, :vortex_charge_flip]
     
-    println("\n" * "█"^78)
-    println("█ БЫСТРЫЙ SWEEP: 3 значения × 8 параметров = 24 прогона")
-    println("█"^78)
-    println("█ Значения: $key_values")
-    println("█ Ожидаемое время: ~30 минут")
-    println("█"^78)
+    _mr_logo() || _mr_banner(_MR_BRAND.title, _MR_BRAND.version,
+                            _MR_BRAND.subtitle)
+    _mr_gate_head(2, "QUICK SWEEP", "3 значения × 8 параметров = 24 прогона",
+                  "быстрая разведка влияния параметров перед полным sweep-ом";
+                  total = 1)
+    _mr_kv("значения", "$key_values")
+    _mr_kv("ожидаемое время", "~30 минут")
     
     mkpath(output_dir)
     t_start = time()
@@ -6658,10 +7129,10 @@ end
 # ВЫВОД ПРИ ЗАГРУЗКЕ
 # =====================================================================
 
-_mr_banner("RH·SWEEP PRO", "1.0",
-           "8-parameter dynamic sweep · AB-cloud ↔ ζ-zeros",
-           "$N_ZETA_ZEROS_AVAILABLE verified ζ-zeros · 61 magic α points",
-           "vortices 2–100+ · jitter · hex / ring / random / grid")
+_mr_logo() || _mr_banner(_MR_BRAND.title, _MR_BRAND.version,
+                         "8-parameter dynamic sweep · AB-cloud ↔ ζ-zeros",
+                         "$N_ZETA_ZEROS_AVAILABLE verified ζ-zeros · 61 magic α points",
+                         "vortices 2–100+ · jitter · hex / ring / random / grid")
 _mr_section("sweep-функции")
 println("  " * _mr_c("sweep_top10_pro()", "bold") * _mr_c("        — PRO sweep (10 точек × 8 параметров + графики)", "dim"))
 println("  " * _mr_c("sweep_combined_quick()", "bold") * _mr_c("     — быстрый sweep (3 × 8 параметров, ~30 мин)", "dim"))
@@ -6671,7 +7142,7 @@ println("  " * _mr_c("sweep_final_combined(bp)", "bold") * _mr_c("     — фи�
 _mr_section("пресеты")
 println("  " * _mr_c("cfg = preset_auto(5000); run(cfg)", "bold") * _mr_c("  — быстрый анализ", "dim"))
 println("  " * _mr_c("cfg = preset_full(); run(cfg)", "bold") * _mr_c("       — полный анализ", "dim"))
-println()
+_mr_wave_footer()
 
 if abspath(PROGRAM_FILE) == @__FILE__
     println("Запуск preset_auto(5000) по умолчанию...")
