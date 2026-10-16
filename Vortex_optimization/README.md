@@ -205,10 +205,10 @@ This folder is self-contained and lives at the repository root as `Vortex_optimi
 
 ```bash
 # reference run (unchanged, keep as the conservative dilute benchmark)
-julia --project=. ab_cloud_v23.jl test34b ...
+julia --project=. ab_cloud_full.jl test34b ...
 
 # optimized configuration (recommended headline)
-julia --project=. ab_cloud_v23.jl test34b --ab-nv-secondary 16 --ab-bc torus --ab-alpha 0.5
+julia --project=. ab_cloud_full.jl test34b --ab-nv-secondary 16 --ab-bc torus --ab-alpha 0.5
 ```
 
 Expected effect: pooled D ≈ 0.03–0.04 instead of ≈ 0.11 (composite WARN → PASS). Keep the Nv = 2 default in the docs as the benchmark against which the optimization is measured.

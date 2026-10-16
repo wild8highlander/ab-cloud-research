@@ -19,7 +19,7 @@ Every `test_NN_<name>/` folder follows the same layout: `report.md` / `report.ht
 
 ## 🔁 Reproducing the run
 
-Run `julia --project=. code/ab_cloud_v23.jl` from the repository root (v23 is the current estimator-valid code state; the v19-era artifacts here were produced by the suite state documented in [`code/julia/`](../../../code/julia/)). A full two-pass run takes hours and is CPU-bound; `--quick` shrinks it for smoke tests. Any discrepancy against this folder is a bug report by the rules of [`CONTRIBUTING.md`](../../../CONTRIBUTING.md).
+Run `julia --project=. code/ab_cloud_full.jl` from the repository root (v23 is the current estimator-valid code state; the v19-era artifacts here were produced by the suite state documented in [`code/julia/`](../../../code/julia/)). A full two-pass run takes hours and is CPU-bound; `--quick` shrinks it for smoke tests. Any discrepancy against this folder is a bug report by the rules of [`CONTRIBUTING.md`](../../../CONTRIBUTING.md).
 
 ## 📁 Contents
 

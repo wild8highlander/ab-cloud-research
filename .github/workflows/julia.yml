@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   smoke:
-    name: v23 suite — parse check + smoke test
+    name: full suite — parse check + smoke test
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -22,11 +22,11 @@ jobs:
       - uses: julia-actions/setup-julia@v3
         with:
           version: "1.10"
-      - name: Parse check (silent library load of the v23 suite)
-        run: julia -e 'Base.include(Main, "code/ab_cloud_v23.jl"); println("INCLUDE OK")'
+      - name: Parse check (silent library load of the full suite)
+        run: julia -e 'Base.include(Main, "code/ab_cloud_full.jl"); println("INCLUDE OK")'
         timeout-minutes: 10
       - name: Smoke run — Test 1, b(N) convergence ladder (embedded 50 000 zeros)
-        run: julia code/ab_cloud_v23.jl --test 1
+        run: julia code/ab_cloud_full.jl --test 1
         timeout-minutes: 25
       - name: Upload run reports
         if: always()
@@ -42,7 +42,7 @@ jobs:
   # The full two-pass 39-test protocol takes 30-60+ min on CI hardware —
   # run it on demand from the Actions tab (Run workflow -> Julia suite).
   full:
-    name: v23 suite — full 39-test two-pass protocol (manual)
+    name: full suite — 39-test two-pass protocol (manual)
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 150
@@ -52,7 +52,7 @@ jobs:
         with:
           version: "1.10"
       - name: Full two-pass suite (all 39 tests, embedded 50 000 zeros)
-        run: julia code/ab_cloud_v23.jl --test all
+        run: julia code/ab_cloud_full.jl --test all
         timeout-minutes: 140
       - name: Upload run reports
         if: always()

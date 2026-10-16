@@ -57,7 +57,7 @@ corrected v21.1 editions with the errata note — every number bound to a named 
 | Rebuilt v22.1 (updated Appendix B, new Appendix D, LaTeX sources) | `*/text/*_v221.*` + `*/text/*.tex` | RU, EN, ZH | current build |
 
 Every number printed in any of these documents traces to a named test of the 37-test
-verification suite ([`code/ab_cloud_v23.jl`](../code/README.md)) or to the spinor64
+verification suite ([`code/ab_cloud_full.jl`](../code/README.md)) or to the spinor64
 experiment ([`verification/spinor64/`](../verification/spinor64/README.md)) with a full
 computation log.
 
@@ -133,7 +133,7 @@ flowchart LR
 
 The library is deliberately versioned as **editions**, not as a pile of PDFs. The canonical
 line is **v22 → v22.1** (three parallel languages), rewritten from scratch on the verified
-37-test suite so that every printed number resolves to a named test in `code/ab_cloud_v23.jl`
+37-test suite so that every printed number resolves to a named test in `code/ab_cloud_full.jl`
 or to the spinor64 experiment with its full log. **v22.1** is the current build of the same
 text: Appendix B now documents the two-pass run `run_20260902_134759` (Julia 1.12.0,
 50 000 Odlyzko zeros, pass 2 "HARDCORE" at 96×96), and the new Appendix D integrates the

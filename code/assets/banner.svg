@@ -27,7 +27,7 @@
   <rect x="1.5" y="1.5" width="1197" height="297" rx="13" fill="none" stroke="#33244f" stroke-width="1.4" opacity="0.8"/>
 
   <text x="64" y="74" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-weight="700" letter-spacing="2.2" fill="url(#tg)">CODE — THE CANONICAL SUITE</text>
-  <text x="66" y="104" font-family="Georgia, serif" font-size="16.5" font-style="italic" fill="#a894c4">ab_cloud_v23.jl — the single-file numerical program that produces every number the monographs quote</text>
+  <text x="66" y="104" font-family="Georgia, serif" font-size="16.5" font-style="italic" fill="#a894c4">ab_cloud_full.jl — the single-file numerical program that produces every number the monographs quote</text>
 
   <g transform="translate(64,138)">
     <rect x="0" y="0" width="470" height="150" rx="10" fill="#160e26" stroke="#4a3a6c" stroke-width="1.8"/>
@@ -36,7 +36,7 @@
     <circle cx="15" cy="12" r="4" fill="#ff5f57"/>
     <circle cx="30" cy="12" r="4" fill="#febc2e"/>
     <circle cx="45" cy="12" r="4" fill="#28c840"/>
-    <text x="130" y="16" font-family="'Courier New',monospace" font-size="11" fill="#8a7aa8">julia code/ab_cloud_v23.jl --test all</text>
+    <text x="130" y="16" font-family="'Courier New',monospace" font-size="11" fill="#8a7aa8">julia code/ab_cloud_full.jl --test all</text>
     <g font-family="'Courier New',monospace" font-size="12.5" fill="#d8ccf0">
       <text x="16" y="44">◆ AB-CLOUD v23 · SUITE · 39 tests · two-pass</text>
       <text x="16" y="66">[1–3]  b(N) convergence ....... <tspan fill="#4caf50">PASS</tspan></text>

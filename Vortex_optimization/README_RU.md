@@ -205,10 +205,10 @@ flowchart LR
 
 ```bash
 # референсный прогон (не трогаем — консервативный разреженный бенчмарк)
-julia --project=. ab_cloud_v23.jl test34b ...
+julia --project=. ab_cloud_full.jl test34b ...
 
 # оптимизированная конфигурация (рекомендуемый «головной» прогон)
-julia --project=. ab_cloud_v23.jl test34b --ab-nv-secondary 16 --ab-bc torus --ab-alpha 0.5
+julia --project=. ab_cloud_full.jl test34b --ab-nv-secondary 16 --ab-bc torus --ab-alpha 0.5
 ```
 
 Ожидаемый эффект: pooled D ≈ 0.03–0.04 вместо ≈ 0.11 (композит WARN → PASS). Дефолт Nv = 2 в документации сохраняется как бенчмарк, относительно которого измерена оптимизация.

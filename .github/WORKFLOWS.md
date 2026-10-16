@@ -8,7 +8,7 @@ runs locally; it is read by GitHub Apps and Actions.
 | Workflow | File | What it does |
 |---|---|---|
 | CI | `ci.yml` | canonical-artifact presence checks (v23 suite, formal layer, monographs, CITATION.cff), CITATION.cff validation (cffconvert), markdownlint (curated surface, `.markdownlint-cli2.jsonc`), workflow YAML lint (yamllint, `.yamllint.yaml`), **ruff** (real-defect gate: `ruff.toml`), **pytest** (all four Python test suites) |
-| Julia suite | `julia.yml` | parse check of `code/ab_cloud_v23.jl` + smoke run (`--test 1`, ~1 min) on every push/PR/week; the **full two-pass 39-test suite** runs on demand via `workflow_dispatch` |
+| Julia suite | `julia.yml` | parse check of `code/ab_cloud_full.jl` + smoke run (`--test 1`, ~1 min) on every push/PR/week; the **full two-pass 39-test suite** runs on demand via `workflow_dispatch` |
 | Formal verification | `formal.yml` | compiles the formal layer in **four proof assistants**: Lean 4 (`lean-action` → `lake build` + `lake exe abcloud-verify` — the 8/8 frozen-reference gate), Coq (`coq_makefile && make`), Agda (`agda -i . -i .`), Isabelle/HOL (`isabelle build -D formal/isabelle`, official docker image) |
 | Docs deploy | `deploy-docs.yml` | builds the MkDocs Material site (`docs/`) with **pinned versions** (mkdocs 1.6.1 / material 9.7.7) and publishes it to GitHub Pages |
 | CodeQL | `codeql.yml` | static security analysis of the Python code |
@@ -55,7 +55,7 @@ make lint                                    # markdownlint + YAML sanity
 ruff check .                                 # Python real-defect gate
 python3 -m pytest AB_Cloud_Quantum_Research/tests -q     # unified suite
 python3 -m pytest AB_Cloud_Quantum_Research/modules -q   # module suites
-julia code/ab_cloud_v23.jl --test 1          # the same smoke run julia.yml executes
+julia code/ab_cloud_full.jl --test 1          # the same smoke run julia.yml executes
 cd formal/lean4 && lake build && lake exe abcloud-verify   # the formal gate
 python3 verification/sections/section3_ab_cloud/python/verify.py   # smoke test
 ```
@@ -82,7 +82,7 @@ Some GitHub features are repository settings, not files — flip them once in
   новичков, авто-мерж Dependabot), шаблоны issue/PR, dependabot
   (actions + pip + npm), авторазметка, CODEOWNERS.
 - Локально повторяются: `make lint`, `ruff check .`, `pytest`,
-  `julia code/ab_cloud_v23.jl --test 1` и `lake exe abcloud-verify`
+  `julia code/ab_cloud_full.jl --test 1` и `lake exe abcloud-verify`
   в `formal/lean4/`.
 - Разово в Settings: защита ветки `main`, secret scanning, squash-merge
   и авто-удаление головных веток.

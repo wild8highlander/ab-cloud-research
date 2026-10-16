@@ -1,6 +1,6 @@
 # AB-Cloud Research — Top-level Makefile
 #
-# Canonical numerics live in code/ab_cloud_v23.jl (dependency-free Julia).
+# Canonical numerics live in code/ab_cloud_full.jl (dependency-free Julia).
 # The 10-language verification stack lives in verification/.
 # The formal layer (Lean 4 · Coq · Agda · Isabelle) lives in formal/.
 # The 3D lattice laboratory lives in lab-3d/.
@@ -20,16 +20,16 @@ help: ## Show help
                 awk 'BEGIN {FS = ":.*?## "}; {printf "  \033%-18s\033 %s\n", $$1, $$2}'
 
 smoke: ## One-test smoke run of the v23 suite (Test 1, embedded zeros, ~1 min)
-        $(JULIA) code/ab_cloud_v23.jl --test 1
+        $(JULIA) code/ab_cloud_full.jl --test 1
 
 quick-test: ## Fast Julia check: 16x16 -> 32x32, zeta <= 5000, both passes (~3-5 min)
-        $(JULIA) code/ab_cloud_v23.jl --test 1
+        $(JULIA) code/ab_cloud_full.jl --test 1
 
 test-all: ## Full two-pass 39-test Julia suite (30-60 min)
-        $(JULIA) code/ab_cloud_v23.jl --test all
+        $(JULIA) code/ab_cloud_full.jl --test all
 
 menu: ## Interactive Julia menu (tests + Physics Lab + 3D lab)
-        $(JULIA) code/ab_cloud_v23.jl
+        $(JULIA) code/ab_cloud_full.jl
 
 verify: ## 10-language verification (Python reference implementation)
         cd verification/python && $(PYTHON) run_verify.py --zeros 5000 --objection all --lang en

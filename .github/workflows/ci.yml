@@ -18,10 +18,13 @@ jobs:
       - uses: actions/checkout@v7
       - name: Check canonical artifacts exist
         run: |
-          test -f code/ab_cloud_v23.jl
+          test -f code/ab_cloud_full.jl
+          test -f code/julia/ab_cloud_full.jl
           test -f code/RH_Unified_D.jl
           test -f code/RH_Sweep_Pro_D.jl
           test -f code/hp_audit_standalone.jl
+          test -f code/hp_audit_standal_one.jl
+          test -f meridian-spectral-observatory/ab_cloud_full.jl
           test -f verification/python/ab_cloud_verify.py
           test -f formal/lean4/lakefile.lean
           test -f formal/coq/ABCloud/Core.v

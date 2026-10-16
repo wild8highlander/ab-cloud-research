@@ -8,10 +8,12 @@ authors:
 doi: 10.5281/zenodo.21825394
 version: v23.6 / v24.2-SA
 date-released: "2026-09-09"
-license: NONE
+license-url: "https://github.com/wild8highlander/ab-cloud-research/blob/main/LICENSE"
 repository-code: "https://github.com/wild8highlander/ab-cloud-research"
-related-resources:
-  - "https://github.com/wild8highlander/research-papers"
+identifiers:
+  - type: url
+    value: "https://github.com/wild8highlander/research-papers"
+    description: "Related papers repository"
 keywords:
   - Riemann zeta function
   - Hilbert-Pólya conjecture

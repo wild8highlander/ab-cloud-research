@@ -6,7 +6,7 @@
 This subfolder preserves the **provenance copy of the canonical suite**, so
 that every number in the reports can be traced to the exact code version
 that produced it. Nothing here is required to run the project — use the
-canonical suite [`../ab_cloud_v23.jl`](../ab_cloud_full.jl) — but the folder
+canonical suite [`../ab_cloud_full.jl`](../ab_cloud_full.jl) — but the folder
 is kept for reproducibility archaeology.
 
 ## Files

@@ -39,7 +39,7 @@
 [![Dirac](https://img.shields.io/badge/Dirac%20cone-v_F%E2%88%980.125%2C%20R%C2%B2%3D0.9997-FFB74D?style=for-the-badge&label=Dynamics)](results/Test%201-37%20ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt)
 [![Zeros](https://img.shields.io/badge/%CE%B6%20zeros-2%2C001%2C058%20embedded-4FC3F7?style=for-the-badge&label=Data)](verification/data/)
 [![Lattice](https://img.shields.io/badge/3D%20lattice-36%C2%B3%20Hofstadter-4FC3F7?style=for-the-badge&label=Lab3D)](lab-3d/)
-[![Suite](https://img.shields.io/badge/Julia%20suite-v23%20·%2039%20tests%2C%20two--pass-2EA043?style=for-the-badge&label=Suite)](code/ab_cloud_v23.jl)
+[![Suite](https://img.shields.io/badge/Julia%20suite-v23%20·%2039%20tests%2C%20two--pass-2EA043?style=for-the-badge&label=Suite)](code/ab_cloud_full.jl)
 [![Formal](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/formal.yml?branch=main&style=for-the-badge&logo=lean&label=Formal%20%C2%B7%20Lean4%2FCoq%2FAgda%2FIsabelle&color=2E7D32)](formal/)
 [![Lean4](https://img.shields.io/badge/Lean4-verify%3A%208%2F8%20PASS-2E7D32?style=for-the-badge&logo=lean&label=%CE%BE%20re-derivation)](formal/lean4/)
 
@@ -171,7 +171,7 @@ the number, produced by the named run; re-running the command from the
 |---|--------|-------|-----------------|
 | 1 | ζ zeros embedded in the repo (Odlyzko tables) | **2,001,058** | [verification/data/zeta_zeros_2M_odlyzko.txt](verification/data/zeta_zeros_2M_odlyzko.txt) |
 | 2 | Frozen reference dataset (single source of truth) | **91 MB, 8 files** | [verification/data/](verification/data/) |
-| 3 | Canonical Julia suite | **v23 · 39 registered tests × 2 passes** (+ pass 3 series on selected tests) | [code/ab_cloud_v23.jl](code/ab_cloud_v23.jl) |
+| 3 | Canonical Julia suite | **v23 · 39 registered tests × 2 passes** (+ pass 3 series on selected tests) | [code/ab_cloud_full.jl](code/ab_cloud_full.jl) |
 | 4 | Machine verdict lines in the flagship run | **202** (171 PASS · 22 WARN · 9 FAIL/WARN completions re-examined by pass 2) | [results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt](results/Test%201-37%20ab_cloud_full.jl/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt) |
 | 5 | Flagship run wall time | **≈ 9 h 46 min** (2026-09-02 13:47 → 23:33) | same report, timing stamps |
 | 6 | Per-test artifact directories of the flagship run | **39** | [results/run_20260902_134759/](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/) |
@@ -300,7 +300,7 @@ flowchart LR
     end
 
     subgraph CORE["🧮 Canonical numerics"]
-        J["Julia v23 suite<br/>39 tests · two-pass<br/>code/ab_cloud_v23.jl"]
+        J["Julia v23 suite<br/>39 tests · two-pass<br/>code/ab_cloud_full.jl"]
     end
 
     subgraph CROSS["🌐 Cross-language verification"]
@@ -381,7 +381,7 @@ results, and the RH conclusion honestly **blocked**.
 The repository ships **three independent verification stacks** that agree with
 each other:
 
-1. **Julia v23 two-pass suite** (`code/ab_cloud_v23.jl`) — the canonical
+1. **Julia v23 two-pass suite** (`code/ab_cloud_full.jl`) — the canonical
    numerics: 39 registered tests covering topology at machine precision,
    GUE/GOE/Poisson diagnostics, Berry finite-sample corrections,
    Hatano–Nelson skin effect, the Test-34G geometry sweep over seven closed
@@ -414,7 +414,7 @@ each other:
 
 ## 🧾 Full test ledger — the two-pass flagship run
 
-The canonical suite is `code/ab_cloud_v23.jl`: **39 registered tests**
+The canonical suite is `code/ab_cloud_full.jl`: **39 registered tests**
 (the v19-era flagship run of 2026-09-02 below executed the 37-test protocol
 of that era; the Test-34G geometry sweep and the estimator patches came
 later, and `results/` preserves the historical artifacts unchanged). Each
@@ -807,9 +807,9 @@ generated output reports (July 2026 runs) in `lab-3d/outputs/`.
 ```bash
 git clone https://github.com/wild8highlander/ab-cloud-research.git
 cd ab-cloud-research
-julia code/ab_cloud_v23.jl --test 1       # smoke run: Test 1, b(N) ladder (~1 min)
-julia code/ab_cloud_v23.jl --test all     # full two-pass 39-test suite (30–60 min)
-julia code/ab_cloud_v23.jl                # interactive menu (39 tests + Physics Lab + 3D lab)
+julia code/ab_cloud_full.jl --test 1       # smoke run: Test 1, b(N) ladder (~1 min)
+julia code/ab_cloud_full.jl --test all     # full two-pass 39-test suite (30–60 min)
+julia code/ab_cloud_full.jl                # interactive menu (39 tests + Physics Lab + 3D lab)
 ```
 
 **10-language verification (pick any language):**
@@ -1162,7 +1162,7 @@ author's written consent (see the license section).
 ```text
 ab-cloud-research/
 ├── code/
-│   ├── ab_cloud_v23.jl           # canonical 39-test two-pass Julia suite (menu, labs)
+│   ├── ab_cloud_full.jl          # canonical 39-test two-pass Julia suite (menu, labs)
 │   ├── RH_Unified_D.jl · RH_Sweep_Pro_D.jl · hp_audit_standalone.jl
 │   └── julia/                    # v23 suite provenance copy
 ├── formal/                       # NEW: formal verification layer
@@ -1249,7 +1249,7 @@ guard the repository; their live status is the first badge row of this page.
 | Workflow | Trigger | What it verifies |
 |----------|---------|------------------|
 | **CI** (`ci.yml`) | every push / PR | canonical-artifact presence, CITATION.cff validation (cffconvert), markdownlint, workflow YAML lint (yamllint) |
-| **Julia suite** (`julia.yml`) | push / PR / weekly | parse check of `code/ab_cloud_v23.jl` + Test 1 smoke run on the embedded zeros; the full two-pass suite runs on demand |
+| **Julia suite** (`julia.yml`) | push / PR / weekly | parse check of `code/ab_cloud_full.jl` + Test 1 smoke run on the embedded zeros; the full two-pass suite runs on demand |
 | **Docs deploy** (`deploy-docs.yml`) | push to main | builds the MkDocs Material site (pinned versions) and publishes it to GitHub Pages |
 | **Formal verification** (`formal.yml`) | push / PR | compiles the formal layer in all four assistants and runs the Lean re-derivation gate (8 checks vs frozen references) |
 | **CodeQL** (`codeql.yml`) | push / PR / weekly | static security analysis of the Python surface |

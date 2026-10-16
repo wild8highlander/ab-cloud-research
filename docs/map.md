@@ -11,7 +11,7 @@ flowchart LR
         Z["verification/data/<br/>2 001 058 ζ zeros · SHA-256"]
     end
     subgraph CORE["Canonical numerics"]
-        J["code/ab_cloud_v23.jl<br/>39 tests · two-pass"]
+        J["code/ab_cloud_full.jl<br/>39 tests · two-pass"]
     end
     subgraph CROSS["Cross-language verification"]
         V["10 languages<br/>verification/"]
