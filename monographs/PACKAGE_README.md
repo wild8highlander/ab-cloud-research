@@ -14,7 +14,8 @@ ab-cloud-monograph-v22/
 ├── code/
 │   └── ab_cloud_v19.jl              ← FIXED verification suite (see FIX-R1…R5 below)
 ├── results/
-│   └── verification_run_v18_37tests_2026-08-28.txt   ← the full 37-test run this monograph is based on
+│   └── Test 1-37 ab_cloud_full.jl/
+│       └── verification_run_v18_37tests_2026-08-28.txt   ← the full 37-test run this monograph is based on
 ├── monographs/
 │   ├── ru/  ┐
 │   ├── en/  ├─ text/    AB_Cloud_Monograph_v22_<LANG>.{md,html,docx,pdf}

@@ -1,0 +1,39 @@
+<div align="center">
+
+[![Shelf](https://img.shields.io/badge/Shelf-labs-7FC8A8?style=flat-square)](../README.md)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21825394-blue?style=flat-square)](https://doi.org/10.5281/zenodo.21825394)
+
+</div>
+
+# 🔭 Meridian Spectral Observatory — documentation
+
+> **The observatory's manual in six numbered chapters — обзор, каталог, запуск, физика, гейт H5, данные.**
+
+The documentation set of the Meridian Spectral Observatory, numbered in reading order: `01` — project overview, `02` — the code catalogue, `03` — the launch guide, `04` — the physics & mathematics, `05` — the H5 gate regimes, `06` — the ζ-zero data. The chapters are self-contained Markdown in Russian; start with `01` for the map of the observatory and with `03` when you just want to run it.
+
+The chapters deliberately mirror the package's honesty rules: regime tables state their thresholds, and the H5 gate chapter (`05`) documents both the passing and the non-passing regimes without pruning the latter.
+
+## 📁 Contents
+
+| Item | Kind | Size | What it is |
+|---|---|---|---|
+| [`01_obzor_proekta.md`](01_obzor_proekta.md) | Markdown | 16.0 KB | — |
+| [`02_katalog_kodov.md`](02_katalog_kodov.md) | Markdown | 27.1 KB | — |
+| [`03_rukovodstvo_zapuska.md`](03_rukovodstvo_zapuska.md) | Markdown | 10.9 KB | — |
+| [`04_fizika_matematika.md`](04_fizika_matematika.md) | Markdown | 16.5 KB | — |
+| [`05_gate_H5_regimy.md`](05_gate_H5_regimy.md) | Markdown | 18.2 KB | — |
+| [`06_dannye_zeta_nulej.md`](06_dannye_zeta_nulej.md) | Markdown | 7.6 KB | — |
+| [`07_hronologiya_versij.md`](07_hronologiya_versij.md) | Markdown | 16.9 KB | — |
+| [`08_reproduciuemost.md`](08_reproduciuemost.md) | Markdown | 10.0 KB | — |
+
+## 🧭 Navigation
+
+[⬅ meridian-spectral-observatory/](../README.md) · [🏠 Repo root](../../README.md)
+
+---
+
+<div align="center">
+
+*Part of the [AB-Cloud Research](../../README.md) repository · DOI [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394) · © 2026 Isaev Iskhak Khamzatovich — personal proprietary use, see the [license terms](../../LICENSE).*
+
+</div>

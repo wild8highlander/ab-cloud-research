@@ -96,7 +96,7 @@ a paper and the raw run can be cross-examined in seconds:
   the artifact path printed next to each value.
 - **Test ledger** — all 37 + 1 tests with pass-1 / hardcore-pass-2 verdicts
   and per-test timing stamps, mirroring
-  `results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt`.
+  `results/Test 1-37 ab_cloud_full.jl/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt`.
 - **Spinor64 panel** — the 64-structure orbit table (28/21/7/7/1), the E2
   holonomy classes and the 64/64 GUE-consistency verdict.
 - **Dataset charter** — the frozen ζ dataset inventory with checksums,

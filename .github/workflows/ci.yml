@@ -26,8 +26,8 @@ jobs:
           test -f formal/lean4/lakefile.lean
           test -f formal/coq/ABCloud/Core.v
           test -f formal/isabelle/ABCloud.thy
-          test -f results/verification_run_v18_37tests_2026-08-28.txt
-          test -f results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt
+          test -f "results/Test 1-37 ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt"
+          test -f "results/Test 1-37 ab_cloud_full.jl/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt"
           test -f monographs/ru/text/AB_Cloud_Monograph_v22_RU.pdf
           test -f monographs/en/text/AB_Cloud_Monograph_v22_EN.pdf
           test -f monographs/zh/text/AB_Cloud_Monograph_v22_ZH.pdf

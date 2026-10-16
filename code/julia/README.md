@@ -30,9 +30,9 @@ documented here so the provenance story stays complete:
 | **v23 (current)** | 39 registered tests; estimator-validity patch series (Patches A–G, v3.2) and the TEST 34G geometry sweep over seven closed surfaces (v3.3) |
 
 The flagship-run artifacts of the v19 era remain committed under
-[`../../results/run_20260902_134759/`](../../results/run_20260902_134759/)
+[`../../results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/`](../../results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/)
 exactly as produced, and the raw report log
-[`../../results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt`](../../results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt)
+[`../../results/Test 1-37 ab_cloud_full.jl/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt`](../../results/Test%201-37%20ab_cloud_full.jl/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt)
 documents that run line by line.
 
 ## Running the canonical suite

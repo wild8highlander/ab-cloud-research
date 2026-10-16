@@ -46,7 +46,7 @@ julia code/ab_cloud_v23.jl --test all       # full two-pass suite (30-60 min)
 ## Reporting numerical discrepancies
 
 If ⟨r⟩, KS or any other number differs from
-[`results/verification_run_v18_37tests_2026-08-28.txt`](results/verification_run_v18_37tests_2026-08-28.txt):
+[`results/verification_run_v18_37tests_2026-08-28.txt`](results/Test%201-37%20ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt):
 
 1. State your Julia version (`julia --version`), OS and CPU;
 2. Attach the **full log** of your run (the suite writes it next to the report);
