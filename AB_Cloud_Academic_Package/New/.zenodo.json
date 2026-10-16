@@ -8,7 +8,7 @@
     }
   ],
   "upload_type": "software",
-  "license": "other-open",
+  "license": "other-closed",
   "keywords": [
     "Riemann zeta",
     "Hilbert-Polya",
@@ -25,7 +25,7 @@
     }
   ],
   "communities": [],
-  "access_right": "open",
+  "access_right": "closed",
   "doi": "10.5281/zenodo.21825394",
   "publication_date": "2026-10-14",
   "language": [

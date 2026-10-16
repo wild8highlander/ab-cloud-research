@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1152" height="300" viewBox="0 0 1152 300" role="img" aria-label="Journal submission banner: three sealed submission packages travelling along dashed flight paths toward three journal houses — NSR JINR, SciPost Physics and arXiv — under a pulsing zeta node">
+  <title>AB-Cloud — Journal Submission Deliverables</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#081527"/>
+      <stop offset="50%" stop-color="#0B1F35"/>
+      <stop offset="100%" stop-color="#123252"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8B7E5A"/>
+      <stop offset="50%" stop-color="#E8DDB8"/>
+      <stop offset="100%" stop-color="#8B7E5A"/>
+    </linearGradient>
+    <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#E8DDB8" stop-opacity="0.5"/>
+      <stop offset="45%" stop-color="#C9B97E" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#C9B97E" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="scan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00E5FF" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#00E5FF" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#00E5FF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- base -->
+  <rect width="1152" height="300" rx="16" fill="url(#bg)"/>
+
+  <!-- faint grid -->
+  <g stroke="#7FA8D0" stroke-width="1" opacity="0.12" fill="none">
+    <path d="M96 64 H1056"/><path d="M96 128 H1056"/><path d="M96 192 H1056"/><path d="M96 248 H1056"/>
+    <path d="M192 28 V272"/><path d="M384 28 V272"/><path d="M576 28 V272"/><path d="M768 28 V272"/><path d="M960 28 V272"/>
+  </g>
+
+  <!-- central zeta node -->
+  <circle cx="576" cy="54" r="48" fill="url(#nodeGlow)">
+    <animate attributeName="r" values="42;56;42" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="576" cy="54" r="22" fill="#0B1F35" stroke="url(#gold)" stroke-width="2.2"/>
+  <text x="576" y="64" font-family="Georgia, 'Times New Roman', serif" font-size="27" fill="#E8DDB8" text-anchor="middle" font-style="italic">&#950;</text>
+
+  <!-- three journal houses -->
+  <g font-family="'Inter','Helvetica Neue',Arial,sans-serif" text-anchor="middle">
+    <!-- NSR JINR -->
+    <g>
+      <path d="M208 128 L288 128 L248 96 Z" fill="none" stroke="#7FC8A8" stroke-width="2"/>
+      <line x1="216" y1="128" x2="216" y2="176" stroke="#7FC8A8" stroke-width="2"/>
+      <line x1="280" y1="128" x2="280" y2="176" stroke="#7FC8A8" stroke-width="2"/>
+      <line x1="200" y1="180" x2="296" y2="180" stroke="#7FC8A8" stroke-width="2.4"/>
+      <g stroke="#7FC8A8" stroke-width="1.6" opacity="0.75">
+        <line x1="240" y1="136" x2="240" y2="176"/>
+        <line x1="256" y1="136" x2="256" y2="176"/>
+      </g>
+      <text x="248" y="202" font-size="12.5" font-weight="700" fill="#7FC8A8" letter-spacing="1.5">NSR (JINR)</text>
+      <text x="248" y="218" font-size="9.5" fill="#9FB8CC">nsr.jinr.int · 100 pp.</text>
+    </g>
+    <!-- SciPost -->
+    <g>
+      <path d="M496 128 L576 128 L536 96 Z" fill="none" stroke="#E8DDB8" stroke-width="2"/>
+      <line x1="504" y1="128" x2="504" y2="176" stroke="#E8DDB8" stroke-width="2"/>
+      <line x1="568" y1="128" x2="568" y2="176" stroke="#E8DDB8" stroke-width="2"/>
+      <line x1="488" y1="180" x2="584" y2="180" stroke="#E8DDB8" stroke-width="2.4"/>
+      <g stroke="#E8DDB8" stroke-width="1.6" opacity="0.75">
+        <line x1="528" y1="136" x2="528" y2="176"/>
+        <line x1="544" y1="136" x2="544" y2="176"/>
+      </g>
+      <text x="536" y="202" font-size="12.5" font-weight="700" fill="#E8DDB8" letter-spacing="1.5">SciPost PHYSICS</text>
+      <text x="536" y="218" font-size="9.5" fill="#9FB8CC">scipost.org · 60 + 11 pp.</text>
+    </g>
+    <!-- arXiv -->
+    <g>
+      <path d="M784 128 L864 128 L824 96 Z" fill="none" stroke="#7FA8D0" stroke-width="2"/>
+      <line x1="792" y1="128" x2="792" y2="176" stroke="#7FA8D0" stroke-width="2"/>
+      <line x1="856" y1="128" x2="856" y2="176" stroke="#7FA8D0" stroke-width="2"/>
+      <line x1="776" y1="180" x2="872" y2="180" stroke="#7FA8D0" stroke-width="2.4"/>
+      <g stroke="#7FA8D0" stroke-width="1.6" opacity="0.75">
+        <line x1="816" y1="136" x2="816" y2="176"/>
+        <line x1="832" y1="136" x2="832" y2="176"/>
+      </g>
+      <text x="824" y="202" font-size="12.5" font-weight="700" fill="#7FA8D0" letter-spacing="1.5">arXiv</text>
+      <text x="824" y="218" font-size="9.5" fill="#9FB8CC">math-ph · main.tex</text>
+    </g>
+  </g>
+
+  <!-- sealed packages travelling the dashed flight paths -->
+  <path id="flightL" d="M120 250 Q 184 200, 248 186" fill="none" stroke="#7FC8A8" stroke-width="1.2" stroke-dasharray="4 6" opacity="0.55">
+    <animate attributeName="stroke-dashoffset" from="0" to="-60" dur="2.4s" repeatCount="indefinite"/>
+  </path>
+  <path id="flightC" d="M576 250 Q 556 224, 536 186" fill="none" stroke="#E8DDB8" stroke-width="1.2" stroke-dasharray="4 6" opacity="0.55">
+    <animate attributeName="stroke-dashoffset" from="0" to="-60" dur="2.4s" begin="-0.8s" repeatCount="indefinite"/>
+  </path>
+  <path id="flightR" d="M1032 250 Q 928 208, 824 186" fill="none" stroke="#7FA8D0" stroke-width="1.2" stroke-dasharray="4 6" opacity="0.55">
+    <animate attributeName="stroke-dashoffset" from="0" to="-60" dur="2.4s" begin="-1.6s" repeatCount="indefinite"/>
+  </path>
+  <g>
+    <g transform="translate(0,0)">
+      <rect x="-13" y="-9" width="26" height="18" rx="3" fill="#0B1F35" stroke="#7FC8A8" stroke-width="1.6"/>
+      <path d="M-13 -9 L0 1 L13 -9" fill="none" stroke="#7FC8A8" stroke-width="1.6"/>
+      <animateMotion dur="5s" repeatCount="indefinite" path="M120 250 Q 184 200, 248 186"/>
+      <animate attributeName="opacity" values="0;1;1;0" dur="5s" repeatCount="indefinite" keyTimes="0;0.15;0.85;1"/>
+    </g>
+    <g>
+      <rect x="-13" y="-9" width="26" height="18" rx="3" fill="#0B1F35" stroke="#E8DDB8" stroke-width="1.6"/>
+      <path d="M-13 -9 L0 1 L13 -9" fill="none" stroke="#E8DDB8" stroke-width="1.6"/>
+      <animateMotion dur="5s" begin="-1.7s" repeatCount="indefinite" path="M576 250 Q 556 224, 536 186"/>
+      <animate attributeName="opacity" values="0;1;1;0" dur="5s" begin="-1.7s" repeatCount="indefinite" keyTimes="0;0.15;0.85;1"/>
+    </g>
+    <g>
+      <rect x="-13" y="-9" width="26" height="18" rx="3" fill="#0B1F35" stroke="#7FA8D0" stroke-width="1.6"/>
+      <path d="M-13 -9 L0 1 L13 -9" fill="none" stroke="#7FA8D0" stroke-width="1.6"/>
+      <animateMotion dur="5s" begin="-3.4s" repeatCount="indefinite" path="M1032 250 Q 928 208, 824 186"/>
+      <animate attributeName="opacity" values="0;1;1;0" dur="5s" begin="-3.4s" repeatCount="indefinite" keyTimes="0;0.15;0.85;1"/>
+    </g>
+  </g>
+
+  <!-- manuscript sheet with the wave of zeros -->
+  <g transform="translate(576 246)" font-family="'Courier New',monospace">
+    <rect x="-160" y="-12" width="320" height="26" rx="6" fill="#0E2740" stroke="#7FA8D0" stroke-width="1" opacity="0.9"/>
+    <text x="-148" y="5" font-size="11" fill="#9FB8CC">48 figures · supplemental · SHA256SUMS</text>
+    <circle cx="128" cy="0" r="2.6" fill="#00E5FF">
+      <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- vertical scan sweep -->
+  <rect x="0" y="0" width="3" height="300" fill="url(#scan)" opacity="0">
+    <animate attributeName="x" from="60" to="1092" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.5;0" dur="12s" repeatCount="indefinite" keyTimes="0;0.5;1"/>
+  </rect>
+
+  <!-- typography -->
+  <text x="576" y="40" font-family="'Inter','Helvetica Neue',Arial,sans-serif" font-size="30" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="3">JOURNAL SUBMISSION DELIVERABLES</text>
+  <text x="576" y="60" font-family="'Inter','Helvetica Neue',Arial,sans-serif" font-size="12.5" fill="#C9B97E" text-anchor="middle" letter-spacing="4">SEALED PACKAGES &#183; PREVIEW PDFs &#183; SUBMISSION WIZARDS</text>
+  <text x="576" y="297" font-family="Georgia, serif" font-size="11" fill="#7FA8D0" text-anchor="middle" font-style="italic">v23 packages &#183; nsr.cls v1.5 &#183; SciPost.cls &#183; arXiv article class &#183; SHA-256 sealed</text>
+
+  <!-- gold frame -->
+  <rect x="0" y="0" width="1152" height="7" rx="3.5" fill="url(#gold)" opacity="0.9">
+    <animate attributeName="opacity" values="0.65;1;0.65" dur="5s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="0" y="293" width="1152" height="7" rx="3.5" fill="url(#gold)" opacity="0.9">
+    <animate attributeName="opacity" values="1;0.65;1" dur="5s" repeatCount="indefinite"/>
+  </rect>
+</svg>

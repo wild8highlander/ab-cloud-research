@@ -32,11 +32,11 @@
 <!-- SCIENCE BADGES (static, traceable to results/) -->
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 
-[![GUE](https://img.shields.io/badge/%E2%9F%A8r%E2%9F%A9-0.5848%20%C2%B1%200.0260%20vs%20GUE%200.5992-9558B2?style=for-the-badge&logo=julia&logoColor=white&label=%E2%9F%A8r%E2%9F%A9)](results/verification_run_v18_37tests_2026-08-28.txt)
+[![GUE](https://img.shields.io/badge/%E2%9F%A8r%E2%9F%A9-0.5848%20%C2%B1%200.0260%20vs%20GUE%200.5992-9558B2?style=for-the-badge&logo=julia&logoColor=white&label=%E2%9F%A8r%E2%9F%A9)](results/Test%201-37%20ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt)
 [![Montgomery](https://img.shields.io/badge/Montgomery%20KS-0.047%2C%20p%3D0.27-9558B2?style=for-the-badge&label=KS)](monographs/en/text/AB_Cloud_Monograph_v22_EN.pdf)
-[![Byers–Yang](https://img.shields.io/badge/Byers%E2%80%93Yang%20defect-3.5e--15-2EA043?style=for-the-badge&label=Flux)](results/verification_run_v18_37tests_2026-08-28.txt)
-[![Connes](https://img.shields.io/badge/Connes%20self--duality-4%20zero%20modes-2EA043?style=for-the-badge&label=Topology)](results/verification_run_v18_37tests_2026-08-28.txt)
-[![Dirac](https://img.shields.io/badge/Dirac%20cone-v_F%E2%88%980.125%2C%20R%C2%B2%3D0.9997-FFB74D?style=for-the-badge&label=Dynamics)](results/verification_run_v18_37tests_2026-08-28.txt)
+[![Byers–Yang](https://img.shields.io/badge/Byers%E2%80%93Yang%20defect-3.5e--15-2EA043?style=for-the-badge&label=Flux)](results/Test%201-37%20ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt)
+[![Connes](https://img.shields.io/badge/Connes%20self--duality-4%20zero%20modes-2EA043?style=for-the-badge&label=Topology)](results/Test%201-37%20ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt)
+[![Dirac](https://img.shields.io/badge/Dirac%20cone-v_F%E2%88%980.125%2C%20R%C2%B2%3D0.9997-FFB74D?style=for-the-badge&label=Dynamics)](results/Test%201-37%20ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt)
 [![Zeros](https://img.shields.io/badge/%CE%B6%20zeros-2%2C001%2C058%20embedded-4FC3F7?style=for-the-badge&label=Data)](verification/data/)
 [![Lattice](https://img.shields.io/badge/3D%20lattice-36%C2%B3%20Hofstadter-4FC3F7?style=for-the-badge&label=Lab3D)](lab-3d/)
 [![Suite](https://img.shields.io/badge/Julia%20suite-v23%20·%2039%20tests%2C%20two--pass-2EA043?style=for-the-badge&label=Suite)](code/ab_cloud_v23.jl)
@@ -74,9 +74,9 @@
 [![FAIR](https://img.shields.io/badge/FAIR-Compliant-2EA043?style=for-the-badge&logo=openaccess&logoColor=white)](https://fair-software.eu)
 [![Version](https://img.shields.io/badge/Version-v1.2.1-2EA043?style=for-the-badge&logo=git&label=Version)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/License-Strictly%20Personal%20%C2%B7%20Custom%20Research-D97706?style=for-the-badge&label=License)](LICENSE)
-[![Run](https://img.shields.io/badge/Julia%20Suite-37%20%C3%97%202%20passes%20%2B%20Test%2038-9558B2?style=for-the-badge&logo=julia&label=Run)](results/run_20260902_134759/)
+[![Run](https://img.shields.io/badge/Julia%20Suite-37%20%C3%97%202%20passes%20%2B%20Test%2038-9558B2?style=for-the-badge&logo=julia&label=Run)](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/)
 [![Zeta Data](https://img.shields.io/badge/%CE%B6%20zeros%20embedded-2%2C001%2C058-4FC3F7?style=for-the-badge&label=Frozen%20Data)](verification/data/)
-[![Artifacts](https://img.shields.io/badge/Flagship%20artifacts-453%20files%20%2F%2039%20directories-orange?style=for-the-badge&label=Evidence)](results/run_20260902_134759/)
+[![Artifacts](https://img.shields.io/badge/Flagship%20artifacts-453%20files%20%2F%2039%20directories-orange?style=for-the-badge&label=Evidence)](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/)
 [![Spinor64](https://img.shields.io/badge/Spinor%20structures-64%2F64%20GUE--consistent-2EA043?style=for-the-badge&label=Spinor64)](verification/spinor64/)
 
 ---
@@ -157,7 +157,7 @@ GUE random-matrix universality · 39-test two-pass Julia verification suite ·
 | Critical line optimality | σ = 1/2 minimises KS (0.152) | GUE-optimal | v21 monograph §6 |
 
 Every number above traces to a named test in the
-[reference 37-test log](results/verification_run_v18_37tests_2026-08-28.txt) —
+[reference 37-test log](results/Test%201-37%20ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt) —
 full computation logs ship with every run of the suite.
 
 ## 📊 Computation data at a glance
@@ -172,10 +172,10 @@ the number, produced by the named run; re-running the command from the
 | 1 | ζ zeros embedded in the repo (Odlyzko tables) | **2,001,058** | [verification/data/zeta_zeros_2M_odlyzko.txt](verification/data/zeta_zeros_2M_odlyzko.txt) |
 | 2 | Frozen reference dataset (single source of truth) | **91 MB, 8 files** | [verification/data/](verification/data/) |
 | 3 | Canonical Julia suite | **v23 · 39 registered tests × 2 passes** (+ pass 3 series on selected tests) | [code/ab_cloud_v23.jl](code/ab_cloud_v23.jl) |
-| 4 | Machine verdict lines in the flagship run | **202** (171 PASS · 22 WARN · 9 FAIL/WARN completions re-examined by pass 2) | [results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt](results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt) |
+| 4 | Machine verdict lines in the flagship run | **202** (171 PASS · 22 WARN · 9 FAIL/WARN completions re-examined by pass 2) | [results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt](results/Test%201-37%20ab_cloud_full.jl/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt) |
 | 5 | Flagship run wall time | **≈ 9 h 46 min** (2026-09-02 13:47 → 23:33) | same report, timing stamps |
-| 6 | Per-test artifact directories of the flagship run | **39** | [results/run_20260902_134759/](results/run_20260902_134759/) |
-| 7 | Files in the flagship artifact bundle | **453** (FINAL_REPORT in md/docx/html/pdf + logs + per-test data) | [results/run_20260902_134759/FINAL_REPORT/](results/run_20260902_134759/FINAL_REPORT/) |
+| 6 | Per-test artifact directories of the flagship run | **39** | [results/run_20260902_134759/](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/) |
+| 7 | Files in the flagship artifact bundle | **453** (FINAL_REPORT in md/docx/html/pdf + logs + per-test data) | [results/run_20260902_134759/FINAL_REPORT/](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/FINAL_REPORT/) |
 | 8 | Spinor structures verified | **64 of 64 GUE-consistent** | [verification/spinor64/output/spinor64_report.md](verification/spinor64/output/spinor64_report.md) |
 | 9 | Klein quartic {3,7} orbit signature | **28 / 21 / 7 / 7 / 1** under PSL(2,7), order 168 | same report, experiment E1 |
 | 10 | Worst pairwise spectral distance over all 64 structures | **8.88 × 10⁻¹⁵** (machine precision) | E1 table |
@@ -187,7 +187,7 @@ the number, produced by the named run; re-running the command from the
 | 16 | Connes self-duality zero modes | **4 / 4**, C₁ = 2 | Test 17 |
 | 17 | Dirac-string flux emptiness | **5040 / 5040** empty plaquettes exact 0.0 | Test 24 |
 | 18 | Byers–Yang flux-defect sensitivity | **Δ(q = 1→0) = 0.0**; Δ(q = 0.3→0) = 0.0032 > 10⁻³ | Test 25 |
-| 19 | Montgomery pair correlation at α = 1/2 | **KS = 0.047, p = 0.27** (v18 reference run) | [results/verification_run_v18_37tests_2026-08-28.txt](results/verification_run_v18_37tests_2026-08-28.txt) |
+| 19 | Montgomery pair correlation at α = 1/2 | **KS = 0.047, p = 0.27** (v18 reference run) | [results/verification_run_v18_37tests_2026-08-28.txt](results/Test%201-37%20ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt) |
 | 20 | Byte-robust ratio statistics (Test 36) | **H = 7.9991 bits**, n = 55,288, multi-window \|Δr\| = 0.0009 over 120 windows | Test 36 |
 | 21 | Plateau of [r] in L-scaling (L = 16…80) | **0.6004, χ²/dof = 0.01** | Test 33 |
 | 22 | DOS dip at the Dirac point | **ρ(α = 0.5) = 0.0193 vs ρ(±0.097 off) = 0.1944** (~10× dip) | Test 29 |
@@ -475,13 +475,13 @@ instead of hiding it.
 Totals for the stored run: **202 machine verdict lines** — 171 PASS,
 22 WARN, 9 FAIL/WARN completion markers, each of them re-examined by the
 hardcore pass; **no unexplained failure**. Full log:
-[results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt](results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt);
+[results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt](results/Test%201-37%20ab_cloud_full.jl/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt);
 per-test plots, tables and machine-readable artifacts:
-[results/run_20260902_134759/](results/run_20260902_134759/).
+[results/run_20260902_134759/](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/).
 
 The previous reference run (v18, 2026-08-28) is kept side-by-side for
 diffing:
-[results/verification_run_v18_37tests_2026-08-28.txt](results/verification_run_v18_37tests_2026-08-28.txt).
+[results/verification_run_v18_37tests_2026-08-28.txt](results/Test%201-37%20ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt).
 
 <div style="background: linear-gradient(135deg, #000000 0%, #111111 50%, #000000 100%); border: 2px solid #D4AF37; border-radius: 18px; padding: 24px; color: #F5D76E; font-family: Georgia, 'Times New Roman', serif; box-shadow: 0 0 24px rgba(212,175,55,0.35);">
 
@@ -672,7 +672,7 @@ matrix is a set of files you can open right here.
 | **v2.2.1** corrections | RU · EN | pdf · docx · html | same directories, `*_v221.*` files |
 | **v21 originals** (archived) | RU · EN | pdf — two variants each: *with verification appendix* and *corrected* | [monographs/original-v21/](monographs/original-v21/) |
 | **Preprints** | RU · EN | pdf + tex sources | [monographs/*/text/preprint/](monographs/en/text/preprint/) |
-| **Final report** of the flagship run | EN | md · pdf · docx · html | [results/run_20260902_134759/FINAL_REPORT/](results/run_20260902_134759/FINAL_REPORT/) |
+| **Final report** of the flagship run | EN | md · pdf · docx · html | [results/run_20260902_134759/FINAL_REPORT/](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/FINAL_REPORT/) |
 
 Figure apparatus: **19 plates per language × 3 languages** in
 [monographs/*/figures/](monographs/ru/figures/), all rendered at **600 dpi**;
@@ -1005,14 +1005,14 @@ Typical uses:
 ## 📊 Results & reproducibility
 
 - **Full two-pass run artifacts**:
-  [`results/run_20260902_134759/`](results/run_20260902_134759/) — the
+  [`results/run_20260902_134759/`](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/) — the
   complete v19 run of 2026-09-02 (37 tests, two-pass 72×72 → 96×96 with the
   HARDCORE audit, Julia 1.12.0): per-test reports (md/pdf/docx/html),
   computation logs, FINAL_REPORT and index.html — 32 PASS / 5 WARN on the
   first pass (the Wigner-surmise floor, calibrated), all HARDCORE pass-2
   runs PASS;
 - Reference single-pass baseline log:
-  [`results/verification_run_v18_37tests_2026-08-28.txt`](results/verification_run_v18_37tests_2026-08-28.txt)
+  [`results/verification_run_v18_37tests_2026-08-28.txt`](results/Test%201-37%20ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt)
   (all 37 tests, machine-readable verdicts);
 - The suite is **deterministic**: fixed seeds (`MersenneTwister(12345)`),
   certified ζ zeros (mpmath, 50 digits), and every run writes full computation
@@ -1398,7 +1398,7 @@ repository, each starting where *you* are:
 [Highlights](#-highlights) → [Computation data at a glance](#-computation-data-at-a-glance)
 → the [test ledger](#-full-test-ledger--the-two-pass-flagship-run-2026-09-02)
 → spot-check two numbers of your choice against
-[FINAL_REPORT](results/run_20260902_134759/FINAL_REPORT/final_report.md)
+[FINAL_REPORT](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/FINAL_REPORT/final_report.md)
 → the [license](#-license) if the verdict matters to your use case.
 
 **🧑‍🔬 The physicist (half a day).**

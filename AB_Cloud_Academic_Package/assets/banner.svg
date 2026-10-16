@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1152" height="300" viewBox="0 0 1152 300" role="img" aria-label="AB-Cloud Academic Package banner: three glowing pillars New, Old and Journal standing on a golden plinth under a pulsing zeta node, with zeros drifting along the critical line and a neon scan sweep">
+  <title>AB-Cloud Academic Package</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#081527"/>
+      <stop offset="50%" stop-color="#0B1F35"/>
+      <stop offset="100%" stop-color="#123252"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8B7E5A"/>
+      <stop offset="50%" stop-color="#E8DDB8"/>
+      <stop offset="100%" stop-color="#8B7E5A"/>
+    </linearGradient>
+    <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#E8DDB8" stop-opacity="0.5"/>
+      <stop offset="45%" stop-color="#C9B97E" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#C9B97E" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cyanGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00E5FF" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#00E5FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="scan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00E5FF" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#00E5FF" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#00E5FF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="pillar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#16324F"/>
+      <stop offset="100%" stop-color="#0B1F35"/>
+    </linearGradient>
+  </defs>
+
+  <!-- base -->
+  <rect width="1152" height="300" rx="16" fill="url(#bg)"/>
+
+  <!-- faint blueprint grid -->
+  <g stroke="#7FA8D0" stroke-width="1" opacity="0.13" fill="none">
+    <path d="M96 64 H1056"/><path d="M96 128 H1056"/><path d="M96 192 H1056"/><path d="M96 248 H1056"/>
+    <path d="M192 28 V272"/><path d="M384 28 V272"/><path d="M576 28 V272"/><path d="M768 28 V272"/><path d="M960 28 V272"/>
+  </g>
+
+  <!-- the three pillars of the package -->
+  <g font-family="'Inter','Helvetica Neue',Arial,sans-serif" text-anchor="middle">
+    <!-- NEW -->
+    <g>
+      <rect x="286" y="118" width="104" height="118" rx="10" fill="url(#pillar)" stroke="#7FC8A8" stroke-width="1.6" opacity="0.95"/>
+      <rect x="286" y="118" width="104" height="26" rx="10" fill="#7FC8A8" opacity="0.16"/>
+      <text x="338" y="136" font-size="13" font-weight="700" fill="#7FC8A8" letter-spacing="2">NEW</text>
+      <text x="338" y="176" font-family="Georgia, serif" font-size="30" fill="#E8DDB8" font-style="italic">&#950;</text>
+      <g stroke="#7FC8A8" stroke-width="1.4" opacity="0.65">
+        <line x1="302" y1="196" x2="374" y2="196"><animate attributeName="opacity" values="0.65;0.25;0.65" dur="4s" repeatCount="indefinite"/></line>
+        <line x1="302" y1="208" x2="360" y2="208"/>
+        <line x1="302" y1="220" x2="368" y2="220"/>
+      </g>
+      <circle cx="338" cy="112" r="3" fill="#7FC8A8">
+        <animate attributeName="opacity" values="0.2;1;0.2" dur="3.6s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    <!-- OLD -->
+    <g>
+      <rect x="524" y="118" width="104" height="118" rx="10" fill="url(#pillar)" stroke="#C9B97E" stroke-width="1.6" opacity="0.95"/>
+      <rect x="524" y="118" width="104" height="26" rx="10" fill="#C9B97E" opacity="0.16"/>
+      <text x="576" y="136" font-size="13" font-weight="700" fill="#E8DDB8" letter-spacing="2">OLD</text>
+      <rect x="552" y="164" width="48" height="56" rx="6" fill="none" stroke="#E8DDB8" stroke-width="1.6" opacity="0.9"/>
+      <line x1="552" y1="180" x2="600" y2="180" stroke="#E8DDB8" stroke-width="1.2" opacity="0.6"/>
+      <circle cx="576" cy="200" r="9" fill="none" stroke="#E8DDB8" stroke-width="1.2" opacity="0.8">
+        <animate attributeName="r" values="8;10;8" dur="4.2s" repeatCount="indefinite"/>
+      </circle>
+      <text x="576" y="204" font-size="9" fill="#E8DDB8" font-family="'Courier New',monospace">SHA</text>
+      <circle cx="576" cy="112" r="3" fill="#C9B97E">
+        <animate attributeName="opacity" values="1;0.2;1" dur="3.6s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    <!-- JOURNAL -->
+    <g>
+      <rect x="762" y="118" width="104" height="118" rx="10" fill="url(#pillar)" stroke="#7FA8D0" stroke-width="1.6" opacity="0.95"/>
+      <rect x="762" y="118" width="104" height="26" rx="10" fill="#7FA8D0" opacity="0.16"/>
+      <text x="814" y="136" font-size="13" font-weight="700" fill="#7FA8D0" letter-spacing="2">JOURNAL</text>
+      <rect x="784" y="162" width="60" height="40" rx="4" fill="none" stroke="#7FA8D0" stroke-width="1.5" opacity="0.9"/>
+      <path d="M784 162 L814 186 L844 162" fill="none" stroke="#7FA8D0" stroke-width="1.5" opacity="0.9"/>
+      <g stroke="#7FA8D0" stroke-width="1.2" opacity="0.55">
+        <line x1="790" y1="210" x2="838" y2="210"/>
+        <line x1="790" y1="220" x2="826" y2="220">
+          <animate attributeName="opacity" values="0.55;0.15;0.55" dur="3.8s" repeatCount="indefinite"/>
+        </line>
+      </g>
+      <circle cx="814" cy="112" r="3" fill="#7FA8D0">
+        <animate attributeName="opacity" values="0.2;1;0.2" dur="4.4s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </g>
+
+  <!-- golden plinth under the pillars -->
+  <rect x="256" y="240" width="640" height="10" rx="5" fill="url(#gold)" opacity="0.85">
+    <animate attributeName="opacity" values="0.85;0.55;0.85" dur="5s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="276" y="254" width="600" height="4" rx="2" fill="#8B7E5A" opacity="0.5"/>
+
+  <!-- central zeta node above the pillars -->
+  <circle cx="576" cy="52" r="52" fill="url(#nodeGlow)">
+    <animate attributeName="r" values="46;60;46" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </circle>
+  <circle cx="576" cy="52" r="24" fill="#0B1F35" stroke="url(#gold)" stroke-width="2.2"/>
+  <text x="576" y="63" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#E8DDB8" text-anchor="middle" font-style="italic">&#950;</text>
+
+  <!-- critical line with drifting zeros -->
+  <line x1="96" y1="52" x2="256" y2="52" stroke="#E8DDB8" stroke-width="1.2" stroke-dasharray="3 7" opacity="0.55">
+    <animate attributeName="stroke-dashoffset" from="0" to="-40" dur="6s" repeatCount="indefinite"/>
+  </line>
+  <line x1="896" y1="52" x2="1056" y2="52" stroke="#E8DDB8" stroke-width="1.2" stroke-dasharray="3 7" opacity="0.55">
+    <animate attributeName="stroke-dashoffset" from="-40" to="0" dur="6s" repeatCount="indefinite"/>
+  </line>
+  <g fill="#7FC8A8">
+    <circle cx="176" cy="52" r="3.4">
+      <animate attributeName="cx" values="176;256;176" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="976" cy="52" r="3.4" fill="#00E5FF">
+      <animate attributeName="cx" values="1056;896;1056" dur="10s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="10s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- travelling circuit pulses along the plinth -->
+  <circle cx="0" cy="245" r="2.8" fill="#00E5FF">
+    <animate attributeName="cx" from="256" to="896" dur="6s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.9;0" dur="6s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="0" cy="245" r="2.8" fill="#E8DDB8">
+    <animate attributeName="cx" from="896" to="256" dur="9s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.8;0" dur="9s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- vertical scan sweep -->
+  <rect x="0" y="0" width="3" height="300" fill="url(#scan)" opacity="0">
+    <animate attributeName="x" from="60" to="1092" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.5;0" dur="12s" repeatCount="indefinite" keyTimes="0;0.5;1"/>
+  </rect>
+
+  <!-- typography -->
+  <text x="576" y="40" font-family="'Inter','Helvetica Neue',Arial,sans-serif" font-size="30" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="3">AB-CLOUD ACADEMIC PACKAGE</text>
+  <text x="576" y="284" font-family="'Inter','Helvetica Neue',Arial,sans-serif" font-size="12.5" fill="#C9B97E" text-anchor="middle" letter-spacing="4">UNIFIED EDITION &#183; HERITAGE ARCHIVE &#183; JOURNAL DELIVERABLES</text>
+  <text x="576" y="297" font-family="Georgia, serif" font-size="11" fill="#7FA8D0" text-anchor="middle" font-style="italic">00_meta &#8230; 10_notebooks &#183; v34 archive &#183; NSR (JINR) &#183; SciPost &#183; arXiv</text>
+
+  <!-- gold frame with breathing glow -->
+  <rect x="0" y="0" width="1152" height="7" rx="3.5" fill="url(#gold)" opacity="0.9">
+    <animate attributeName="opacity" values="0.65;1;0.65" dur="5s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="0" y="293" width="1152" height="7" rx="3.5" fill="url(#gold)" opacity="0.9">
+    <animate attributeName="opacity" values="1;0.65;1" dur="5s" repeatCount="indefinite"/>
+  </rect>
+</svg>

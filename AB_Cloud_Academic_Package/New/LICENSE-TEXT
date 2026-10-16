@@ -1,32 +1,68 @@
-CC BY 4.0 DEED — ATTRIBUTION 4.0 INTERNATIONAL
+# PROPRIETARY TEXT ADDENDUM — UNIFIED ACADEMIC PACKAGE
+# (Ведомственная лицензия текстов — строго личная проприетарная)
 
-Copyright (c) 2026 Isaev Iskhak Khamzatovich — text components of the AB-Cloud Research
-Programme unified academic package (monographs, reports, README texts,
-glossary, documentation).
+**Copyright (c) 2026 Isaev Iskhak Khamzatovich (ORCID 0009-0003-7299-0701).**
+**ALL RIGHTS RESERVED. Все права принадлежат автору полностью и исключительно.**
 
-You are free to:
+---
 
-- **Share** — copy and redistribute the material in any medium or format for
-  any purpose, even commercially;
-- **Adapt** — remix, transform, and build upon the material for any purpose,
-  even commercially.
+## ENGLISH
 
-The licensor cannot revoke these freedoms as long as you follow the license
-terms.
+This addendum governs the **text components** of the unified academic package:
+the monographs (full and MAX editions, all languages), the theorems and lemmas,
+the reports and summaries, the README files, the documentation, the glossaries
+and all other written content. It is **not** a Creative Commons licence: this is
+not CC BY, CC BY-SA, CC BY-NC or any other CC licence.
 
-Under the following terms:
+The **umbrella licence** — [`LICENSE`](LICENSE) (Strictly Personal Proprietary
+Licence) — governs everything; this addendum only makes the text-specific
+consequences explicit:
 
-- **Attribution** — You must give appropriate credit, provide a link to the
-  license, and indicate if changes were made. You may do so in any reasonable
-  manner, but not in any way that suggests the licensor endorses you or your
-  use. Recommended credit: "Isaev Iskhak Khamzatovich, AB-Cloud Research Programme: Unified
-  Academic Package, DOI 10.5281/zenodo.21825394."
-- **No additional restrictions** — You may not apply legal terms or
-  technological measures that legally restrict others from doing anything the
-  license permits.
+1. **The only permitted text use** is viewing and reading in place, plus
+   citation of short excerpts of **at most 400 characters per excerpt** with
+   full attribution, the DOI
+   [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394) and a
+   link to this package (umbrella §2).
+2. **Republication, translation, adaptation, abridgement or public posting** of
+   any substantial part of the text — including on preprint servers, blogs,
+   mirrors, archives or in teaching materials — is **not licensed** (umbrella
+   §3.1–3.2).
+3. **Inclusion of the text in corpora** for machine learning, search indexing
+   beyond the official repository page, or dataset products is **not licensed**
+   (umbrella §3.4).
+4. **The honesty boundary travels with the text**: any permitted quotation must
+   preserve the `does_not_prove` fields, the blocked verdicts and the negative
+   results it touches; stripping them voids the permission (umbrella §4).
+5. Any use beyond §2 of the umbrella licence requires a separate signed written
+   agreement with the Author (umbrella §8).
 
-Full legal text: https://creativecommons.org/licenses/by/4.0/legalcode
+---
 
-Honesty clause (from the umbrella LICENSE, inviolable): the honesty layer —
-`does_not_prove` fields, blocked verdicts, negative-results register — is
-part of the scientific record and must be preserved verbatim in derivatives.
+## РУССКИЙ
+
+Настоящее дополнение регулирует **текстовые компоненты** единого академического
+пакета: монографии (полные и MAX-редакции, все языки), теоремы и леммы, отчёты
+и резюме, README-файлы, документацию, глоссарии и всё остальное письменное
+содержимое. Это **не** лицензия Creative Commons: это не CC BY, не CC BY-SA,
+не CC BY-NC и никакая иная CC-лицензия.
+
+Действует **зонтичная лицензия** — [`LICENSE`](LICENSE) (строго личная
+проприетарная лицензия); настоящее дополнение лишь уточняет текстовые следствия:
+
+1. **Единственное разрешённое использование текстов** — просмотр и чтение по
+   месту публикации, а также цитирование выдержек **не более 400 знаков на одну
+   цитату** с полной атрибуцией, DOI
+   [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394) и ссылкой
+   на пакет (зонтик §2).
+2. **Переиздание, перевод, адаптация, сокращение или публичная публикация**
+   существенных частей текста — включая препринт-серверы, блоги, зеркала,
+   архивы и учебные материалы — **не лицензируются** (зонтик §3.1–3.2).
+3. **Включение текстов в корпуса** для машинного обучения, поисковое
+   индексирование за пределами официальной страницы репозитория или наборы
+   данных **не лицензируются** (зонтик §3.4).
+4. **Честная граница следует вместе с текстом**: любая разрешённая цитата
+   обязана сохранять затрагиваемые ею поля `does_not_prove`, заблокированные
+   вердикты и отрицательные результаты; их удаление лишает цитирование силы
+   (зонтик §4).
+5. Любое использование сверх §2 зонтичной лицензии требует отдельного
+   подписанного письменного соглашения с Автором (зонтик §8).

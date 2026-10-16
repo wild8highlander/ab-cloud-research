@@ -1,87 +1,247 @@
 # AB-CLOUD RESEARCH — UNIFIED ACADEMIC PACKAGE LICENSE
-# (Personal author research licence / Личная лицензия автора)
+# (Strictly Personal Proprietary Licence / Строго личная проприетарная лицензия)
 
 **Copyright (c) 2026 Isaev Iskhak Khamzatovich (ORCID 0009-0003-7299-0701).**
-**All rights reserved. Все права принадлежат автору полностью и исключительно.**
+**ALL RIGHTS RESERVED. Все права принадлежат автору полностью и исключительно.**
 
 ---
 
 ## ENGLISH
 
-This unified academic package is distributed under a three-component scheme:
-**code** under MIT (see `LICENSE-CODE`), **text** under CC BY 4.0 (see
-`LICENSE-TEXT`), and **data** under ODbL 1.0 (see `LICENSE-DATA`). This
-umbrella file states the research-integrity conditions that apply on top of
-the three component licences.
+### 0. Nature of this licence
 
-### 1. Ownership
+This is a **strictly personal, individual, fully proprietary licence**. The
+package is published for **viewing, reading and scholarly verification only**.
+Nothing in this publication shall be construed as an open-source, free or
+permissive licence, as a waiver of any right, or as an offer to contract. Every
+right not expressly granted below is **reserved** by the Author.
 
-All copyright, related and neighbouring rights to the research content of
-this package — the monographs, the verification suites, the figures, the data
-compilations, the presentations and the documentation — belong **fully and
-exclusively** to **Isaev Iskhak Khamzatovich** (the "Author"). No joint ownership, licence
-back, or implied transfer arises from publication of this package.
+### 1. Owner of all rights
 
-### 2. Permissions granted
+All copyright, related, neighbouring and other exclusive rights to the whole
+unified academic package — the monographs and their MAX editions, the
+verification suites and verdict ledgers, the source code in every implementation
+language, the figures and animations, the data compilations and schemas, the
+presentations, the web laboratory, the documentation and this licence text —
+belong **fully and exclusively** to:
 
-Without a separate written agreement you may:
+> **Isaev Iskhak Khamzatovich** (the "Author")
+> ORCID [0009-0003-7299-0701](https://orcid.org/0009-0003-7299-0701)
+> AB-Cloud Research Laboratory, Independent Researcher,
+> Prospekt Lenina 29, Apt. 140, Nalchik, Kabardino-Balkarian Republic,
+> Russian Federation · [aslan08_05@mail.ru](mailto:aslan08_05@mail.ru)
 
-1. **View and read** any part of this package;
-2. **Clone and fork** for private, non-commercial academic study;
-3. **Run** the code locally for scholarly verification and reproducibility
-   checks;
-4. **Cite** the work and quote short excerpts (with full attribution to the
-   Author, the DOI [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394) and a link to this package);
-5. **Redistribute** code under the terms of MIT, text under CC BY 4.0 and
-   data under ODbL, subject to the component licences.
+No joint ownership, licence back, implied licence, or transfer of any right
+arises from the publication of this package on GitHub or on any archive.
 
-### 3. The honesty clause (inviolable)
+### 2. The only rights granted
+
+Without a separate signed written agreement with the Author, you may — and may
+only:
+
+1. **View and read** any part of this package, in place, through the official
+   GitHub repository page;
+2. **Run** the code locally, unmodified, for scholarly verification and
+   reproducibility checks;
+3. **Cite** the work and quote short excerpts of **at most 400 characters per
+   excerpt**, each with full attribution to the Author, the DOI
+   [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394) and a
+   link to this package.
+
+That is the entire grant. There is no other permission, express or implied.
+
+### 3. Absolute prohibitions
+
+Without a separate signed written agreement with the Author, it is **strictly
+forbidden** to:
+
+1. **Redistribute, republish, mirror or re-upload** any substantial part of the
+   package — in source, derived, translated, reformatted or compiled form — on
+   any forge, hosting, preprint server, archive, mirror or file-sharing service;
+2. **Make public any fork** of this repository or publish any modified,
+   translated or derivative version of its content;
+3. **Use the content commercially** — sell it, charge for access to it, place it
+   behind a paywall, bundle it into paid products, courses, services or datasets;
+4. **Use the content for machine learning** — dataset curation, training,
+   fine-tuning, retrieval-augmented generation or evaluation of any model,
+   whether open or proprietary, except transient, non-persisted processing for
+   the scholarly verification permitted by §2;
+5. **Remove, alter or obscure** any attribution, copyright notice, honesty
+   boundary, `does_not_prove` field, blocked verdict, DOI or provenance record;
+6. **Misrepresent the results** — in particular, to present any numerical or
+   formal result of this programme as a proof of the Riemann hypothesis, which
+   the package itself keeps blocked by design;
+7. **Use the Author's name, ORCID, imagery or branding** to endorse any product,
+   service or derivative work.
+
+### 4. The honesty clause (inviolable)
 
 The honesty layer of this package — the `does_not_prove` fields, the blocked
-verdicts of the V13 obligation machine, the negative-results register — is
-**part of the scientific record**. Any derivative work that presents the
-numerical results of this programme without the corresponding honest boundary
-statements misrepresents the science and violates the licence. When in doubt:
+verdicts of the V13 obligation machine, the negative-results register, the WARN
+rows of the audits — is **part of the scientific record**. Quoting the positive
+results of this programme while stripping their honest boundaries misrepresents
+the science and **voids the quotation permission** of §2.3. When in doubt:
 quote the boundary verbatim.
 
-### 4. Restrictions
+### 5. Term; termination on breach
 
-You may NOT, without separate written permission from the Author:
+The permissions of §2 are granted for the duration of copyright and **terminate
+automatically, worldwide, upon any breach** of §§3–4, without the need for any
+notice or cure period. Upon termination you must delete all copies obtained.
+The Author reserves every remedy provided by the applicable law, including the
+laws of the Russian Federation (Part IV of the Civil Code) and, where
+applicable, international copyright treaties.
 
-1. Present the numerical or formal results of this programme as a proof of the
-   Riemann hypothesis (the package itself blocks this conclusion);
-2. Commercialize the monographs or their translations;
-3. Remove or alter attribution, the honesty clause, or the provenance records.
+### 6. Third-party data
 
-### 5. Everything else
+Zeta-zero tables and other third-party datasets included in this package are
+compiled from publicly available sources (A. Odlyzko and others) and remain
+governed by the terms of their original sources; the Author claims no ownership
+over the underlying zero values themselves, only over the compilation,
+curation and packaging.
 
-Requests: through the repository issue tracker. The Author grants no warrant-
-ies; the package is provided "as is", for scholarly study.
+### 7. No warranty
+
+THE PACKAGE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. THE AUTHOR IS NOT LIABLE FOR ANY
+DAMAGES ARISING FROM USE OF THE PACKAGE, TO THE FULLEST EXTENT PERMITTED BY LAW.
+
+### 8. Contact
+
+Any use beyond §2 — including republication, translation, adaptation,
+inclusion in corpora, or commercial licensing — requires a separate signed
+written agreement with the Author:
+
+**Isaev Iskhak Khamzatovich** · AB-Cloud Research Laboratory, Independent
+Researcher, Prospekt Lenina 29, Apt. 140, Nalchik, Kabardino-Balkarian
+Republic, Russian Federation ·
+[aslan08_05@mail.ru](mailto:aslan08_05@mail.ru) ·
+[ORCID 0009-0003-7299-0701](https://orcid.org/0009-0003-7299-0701) ·
+DOI [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394)
 
 ---
 
-## РУССКИЙ
+## РУССКИЙ (полный текст)
 
-Данный единый академический пакет распространяется по трёхкомпонентной
-схеме: **код** под MIT (см. `LICENSE-CODE`), **тексты** под CC BY 4.0 (см.
-`LICENSE-TEXT`), **данные** под ODbL 1.0 (см. `LICENSE-DATA`). Этот общий
-файл фиксирует условия научной добросовестности, действующие поверх трёх
-компонентных лицензий.
+### 0. Природа лицензии
 
-1. **Права.** Все авторские и смежные права на исследовательское содержание
-   пакета — монографии, верификационные наборы, фигуры, компиляции данных,
-   презентации и документацию — принадлежат **полностью и исключительно**
-   **Isaev Iskhak Khamzatovich** («Автору»).
-2. **Разрешено:** читать, клонировать для частного некоммерческого
-   академического изучения, запускать код для научной проверки, цитировать
-   с полным указанием авторства, DOI и ссылки на пакет.
-3. **Пункт честности (неотменимый).** Слой честности — поля
-   `does_not_prove`, заблокированные вердикты машины обязательств V13,
-   реестр отрицательных результатов — является **частью научной записи**.
-   Любая производная работа, представляющая численные результаты программы
-   без соответствующих честных ограничений, искажает науку и нарушает
-   лицензию.
-4. **Запрещено** без отдельного письменного разрешения Автора: выдавать
-   результаты программы за доказательство гипотезы Римана; коммерциализировать
-   монографии и их переводы; удалять или изменять атрибуцию, пункт честности
-   или записи провенанса.
+Настоящая лицензия является **строго личной, индивидуальной, полностью
+проприетарной**. Пакет опубликован исключительно для **просмотра, чтения и
+научной проверки**. Ничто в публикации не может толковаться как
+свободная или разрешительная лицензия, как отказ от каких-либо прав или как
+оферта. Все права, прямо не предоставленные ниже, **зарезервированы** Автором.
+
+### 1. Обладатель всех прав
+
+Все авторские, смежные и иные исключительные права на весь единый
+академический пакет — монографии и их MAX-редакции, верификационные наборы и
+реестры вердиктов, исходный код на всех языках реализации, фигуры и анимации,
+подборки данных и схемы, презентации, веб-лабораторию, документацию и текст
+этой лицензии — принадлежат **в полном объёме и исключительно**:
+
+> **Исаеву Исхаку Хамзатовичу** (далее — «Автор»)
+> ORCID [0009-0003-7299-0701](https://orcid.org/0009-0003-7299-0701)
+> Лаборатория AB-Cloud Research, независимый исследователь,
+> г. Нальчик, пр. Ленина, 29, кв. 140, Кабардино-Балкарская Республика,
+> Российская Федерация · [aslan08_05@mail.ru](mailto:aslan08_05@mail.ru)
+
+Публикация пакета на GitHub или в любом архиве не создаёт совместной
+собственности, обратной лицензии, подразумеваемой лицензии или передачи
+каких-либо прав.
+
+### 2. Единственные предоставленные права
+
+Без отдельного подписанного письменного соглашения с Автором Вы вправе — и
+только вправе:
+
+1. **Просматривать и читать** любые материалы пакета по месту публикации, через
+   официальную страницу репозитория на GitHub;
+2. **Запускать** код локально, без изменений, в целях научной проверки и
+   воспроизводимости;
+3. **Цитировать** работу с выдержками **не более 400 знаков на одну цитату**,
+   с обязательной атрибуцией Автора, DOI
+   [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394) и ссылкой
+   на пакет.
+
+Это весь объём предоставленных прав. Иных разрешений, явных или подразумеваемых,
+нет.
+
+### 3. Абсолютные запреты
+
+Без отдельного подписанного письменного соглашения с Автором **строго
+запрещено**:
+
+1. **Распространять, переопубликовывать, зеркалировать или перезаливать**
+   существенные части пакета — в исходном, производном, переведённом,
+   переформатированном или компилированном виде — на любых хостингах,
+   препринт-серверах, в архивах, зеркалах и файлообменниках;
+2. **Публиковать форки** настоящего репозитория или публиковать изменённые,
+   переведённые или производные версии содержимого;
+3. **Использовать содержимое в коммерческих целях** — продавать его, брать
+   плату за доступ, помещать за пейволл, включать в платные продукты, курсы,
+   услуги или наборы данных;
+4. **Использовать содержимое для машинного обучения** — формирования наборов
+   данных, обучения, дообучения, поиска с дополненной генерацией или оценки
+   любых моделей, открытых или проприетарных, кроме временной неперсистентной
+   обработки в рамках разрешённой §2 научной проверки;
+5. **Удалять, изменять или скрывать** атрибуцию, уведомления об авторских
+   правах, честные ограничения, поля `does_not_prove`, заблокированные
+   вердикты, DOI или записи провенанса;
+6. **Искажать результаты** — в частности, выдавать любые численные или
+   формальные результаты программы за доказательство гипотезы Римана, которую
+   пакет по построению держит в заблокированном состоянии;
+7. **Использовать имя Автора, его ORCID, графику или брендинг** для одобрения
+   любых продуктов, услуг или производных работ.
+
+### 4. Пункт честности (неотменимый)
+
+Слой честности пакета — поля `does_not_prove`, заблокированные вердикты машины
+обязательств V13, реестр отрицательных результатов, строки WARN аудитов —
+является **частью научной записи**. Цитирование положительных результатов
+программы с удалением их честных ограничений искажает науку и **лишает силы
+разрешение на цитирование** (§2.3). При сомнении: цитируйте ограничение
+дословно.
+
+### 5. Срок действия; прекращение при нарушении
+
+Разрешения §2 действуют в течение срока действия авторских прав и
+**прекращаются автоматически, во всём мире, при любом нарушении** §§3–4, без
+необходимости уведомления или срока на устранение. При прекращении Вы обязаны
+удалить все полученные копии. Автор сохраняет все средства защиты,
+предусмотренные применимым правом, включая часть четвёртую Гражданского кодекса
+Российской Федерации и, где применимо, международные договоры об авторском
+праве.
+
+### 6. Сторонние данные
+
+Таблицы нулей дзета-функции и иные сторонние наборы данных, включённые в пакет,
+составлены из общедоступных источников (А. Одлыжко и др.) и регулируются
+условиями их исходных источников; Автор не заявляет прав на сами значения
+нулей — только на компиляцию, курирование и упаковку.
+
+### 7. Отказ от гарантий
+
+ПАКЕТ ПРЕДОСТАВЛЯЕТСЯ «КАК ЕСТЬ», БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ, ЯВНЫХ ИЛИ
+ПОДРАЗУМЕВАЕМЫХ, ВКЛЮЧАЯ, ПОМИМО ПРОЧЕГО, ГАРАНТИИ ТОВАРНОЙ ПРИГОДНОСТИ,
+ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ И ОТСУТСТВИЯ НАРУШЕНИЙ ПРАВ ТРЕТЬИХ ЛИЦ. АВТОР
+НЕ НЕСЁТ ОТВЕТСТВЕННОСТИ ЗА ЛЮБОЙ УЩЕРБ, ВОЗНИКШИЙ В РЕЗУЛЬТАТЕ ИСПОЛЬЗОВАНИЯ
+ПАКЕТА, В МАКСИМАЛЬНО ДОПУСТИМОЙ ПРАВОМ СТЕПЕНИ.
+
+### 8. Контакты
+
+Любое использование сверх §2 — включая переиздание, перевод, адаптацию,
+включение в корпуса данных и коммерческое лицензирование — требует отдельного
+подписанного письменного соглашения с Автором:
+
+**Исаев Исхак Хамзатович** · Лаборатория AB-Cloud Research, независимый
+исследователь, г. Нальчик, пр. Ленина, 29, кв. 140, Кабардино-Балкарская
+Республика, Российская Федерация ·
+[aslan08_05@mail.ru](mailto:aslan08_05@mail.ru) ·
+[ORCID 0009-0003-7299-0701](https://orcid.org/0009-0003-7299-0701)
+
+---
+
+*This licence is provided in English and Russian; in case of ambiguity the
+English text shall prevail. / Лицензия составлена на английском и русском
+языках; при разночтениях преимущественную силу имеет английский текст.*

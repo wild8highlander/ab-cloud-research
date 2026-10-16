@@ -4,9 +4,8 @@ title: "AB-Cloud Research Programme: Unified Academic Package (spectral core, Di
 authors:
   - family-names: "Isaev"
     given-names: "Iskhak Khamzatovich"
-    orcid: "0009-0003-7299-0701"
+    orcid: "https://orcid.org/0009-0003-7299-0701"
 date-released: "2026-10-14"
-license: other-md
 repository-code: "https://github.com/wild8highlander/ab-cloud-research/tree/main/AB_Cloud_Academic_Package"
 abstract: >-
   The unified academic edition of the AB-Cloud research programme: one study
@@ -36,11 +35,11 @@ keywords:
   - numerical verification
   - reproducibility
 preferred-citation:
-  type: dataset
+  type: data
   authors:
     - family-names: "Isaev"
       given-names: "Iskhak Khamzatovich"
-      orcid: "0009-0003-7299-0701"
+      orcid: "https://orcid.org/0009-0003-7299-0701"
   title: "AB-Cloud Research Programme: Unified Academic Package"
   year: 2026
   doi: "10.5281/zenodo.21825394"

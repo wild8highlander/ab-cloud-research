@@ -1,26 +1,70 @@
-MIT License
+# PROPRIETARY CODE ADDENDUM — UNIFIED ACADEMIC PACKAGE
+# (Ведомственная лицензия кода — строго личная проприетарная)
 
-Copyright (c) 2026 Isaev Iskhak Khamzatovich (ORCID 0009-0003-7299-0701) — code components of the
-AB-Cloud Research Programme unified academic package.
+**Copyright (c) 2026 Isaev Iskhak Khamzatovich (ORCID 0009-0003-7299-0701).**
+**ALL RIGHTS RESERVED. Все права принадлежат автору полностью и исключительно.**
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+---
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+## ENGLISH
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+This addendum governs the **code components** of the unified academic package
+(the `06_code/` tree in every implementation language — Python, Julia, Rust, Go,
+JavaScript, Bash — together with the web laboratory, the test suites, the build
+and reproduction scripts, and all other executable content). It is **not** an
+open-source licence: this is not MIT, BSD, GPL or any other permissive or
+copyleft licence.
 
-Scope note: this licence covers the code under 06_code/, 09_tests/,
-07_web_lab/ app sources and 10_notebooks/ code cells. Research texts and
-data are licensed separately (LICENSE-TEXT, LICENSE-DATA, LICENSE).
+The **umbrella licence** — [`LICENSE`](LICENSE) (Strictly Personal Proprietary
+Licence) — governs everything; this addendum only makes the code-specific
+consequences explicit:
+
+1. **The only permitted code use** is viewing, reading and running the code
+   locally, unmodified, for scholarly verification and reproducibility checks
+   (umbrella §2).
+2. **Copying, reuse, adaptation, integration** of any part of this code into
+   any other project, product, corpus, pipeline or model-training set is
+   **not licensed** and is prohibited (umbrella §3.2–3.4).
+3. **No sublicensing, no redistribution, no public forks, no commercial use**
+   of the code or of its outputs in source or binary form (umbrella §3.1–3.3).
+4. **Copyright notices, licence headers and attribution strings** embedded in
+   the code must remain intact in every view, log and output (umbrella §3.5).
+5. Any use of the code beyond §2 of the umbrella licence requires a separate
+   signed written agreement with the Author (umbrella §8).
+
+The honesty layer of the code — the `does_not_prove` fields, the blocked
+verdict machinery of the V13 obligation machine — must not be disabled,
+patched around or removed in any permitted run (umbrella §4).
+
+---
+
+## РУССКИЙ
+
+Настоящее дополнение регулирует **кодовые компоненты** единого академического
+пакета (дерево `06_code/` на всех языках реализации — Python, Julia, Rust, Go,
+JavaScript, Bash — вместе с веб-лабораторией, тестовыми наборами, сборочными и
+репродукционными скриптами и всем остальным исполняемым содержимым). Это
+**не** лицензия открытого исходного кода: это не MIT, не BSD, не GPL и никакая
+иная разрешительная или copyleft-лицензия.
+
+Действует **зонтичная лицензия** — [`LICENSE`](LICENSE) (строго личная
+проприетарная лицензия); настоящее дополнение лишь уточняет кодовые следствия:
+
+1. **Единственное разрешённое использование кода** — просмотр, чтение и запуск
+   локально, без изменений, в целях научной проверки и воспроизводимости
+   (зонтик §2).
+2. **Копирование, повторное использование, адаптация, включение** любой части
+   кода в любые другие проекты, продукты, корпуса, конвейеры или наборы для
+   обучения моделей **не лицензируются** и запрещены (зонтик §3.2–3.4).
+3. **Никакого сублицензирования, распространения, публичных форков,
+   коммерческого использования** кода или его результатов в исходном или
+   двоичном виде (зонтик §3.1–3.3).
+4. **Уведомления об авторских правах, лицензионные заголовки и строки
+   атрибуции**, встроенные в код, должны оставаться неизменными при любом
+   просмотре, в любых журналах и выходных данных (зонтик §3.5).
+5. Любое использование кода сверх §2 зонтичной лицензии требует отдельного
+   подписанного письменного соглашения с Автором (зонтик §8).
+
+Слой честности кода — поля `does_not_prove`, механизм заблокированных вердиктов
+машины обязательств V13 — не подлежит отключению, обходу или удалению ни в
+одном разрешённом запуске (зонтик §4).

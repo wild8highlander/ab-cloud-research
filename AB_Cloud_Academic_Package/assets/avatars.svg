@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="220" viewBox="0 0 700 220" role="img" aria-label="The academic package cast: the New unified edition, the Old sealed archive and the Journal submission deliverables">
+  <title>The academic package cast</title>
+  <defs>
+    <radialGradient id="gNew" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7FC8A8" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#7FC8A8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gOld" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#C9B97E" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#C9B97E" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gJour" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7FA8D0" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#7FA8D0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- NEW: the unified living edition -->
+  <g text-anchor="middle" font-family="'Inter','Helvetica Neue',Arial,sans-serif">
+    <circle cx="130" cy="92" r="82" fill="url(#gNew)"/>
+    <circle cx="130" cy="92" r="56" fill="#0B1F35" stroke="#7FC8A8" stroke-width="2"/>
+    <circle cx="130" cy="92" r="56" fill="none" stroke="#7FC8A8" stroke-width="1" stroke-dasharray="4 6" opacity="0.6">
+      <animateTransform attributeName="transform" type="rotate" from="0 130 92" to="360 130 92" dur="18s" repeatCount="indefinite"/>
+    </circle>
+    <text x="130" y="106" font-family="Georgia, serif" font-size="44" font-style="italic" fill="#E8DDB8">&#950;</text>
+    <circle cx="130" cy="92" r="4" fill="#7FC8A8">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <text x="130" y="176" font-size="14" font-weight="700" fill="#7FC8A8" letter-spacing="2">NEW</text>
+    <text x="130" y="194" font-size="10.5" fill="#9FB8CC">unified edition · 00&#8230;10</text>
+  </g>
+
+  <!-- OLD: the sealed v34 archive -->
+  <g text-anchor="middle" font-family="'Inter','Helvetica Neue',Arial,sans-serif">
+    <circle cx="350" cy="92" r="82" fill="url(#gOld)"/>
+    <circle cx="350" cy="92" r="56" fill="#0B1F35" stroke="#C9B97E" stroke-width="2"/>
+    <circle cx="350" cy="92" r="56" fill="none" stroke="#C9B97E" stroke-width="1" stroke-dasharray="4 6" opacity="0.6">
+      <animateTransform attributeName="transform" type="rotate" from="360 350 92" to="0 350 92" dur="18s" repeatCount="indefinite"/>
+    </circle>
+    <rect x="322" y="74" width="56" height="38" rx="5" fill="none" stroke="#E8DDB8" stroke-width="1.8"/>
+    <line x1="322" y1="86" x2="378" y2="86" stroke="#E8DDB8" stroke-width="1.4" opacity="0.7"/>
+    <circle cx="350" cy="104" r="9" fill="none" stroke="#E8DDB8" stroke-width="1.4">
+      <animate attributeName="r" values="8;10;8" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <text x="350" y="107.5" font-size="8" font-family="'Courier New',monospace" fill="#E8DDB8">SHA</text>
+    <text x="350" y="176" font-size="14" font-weight="700" fill="#C9B97E" letter-spacing="2">OLD</text>
+    <text x="350" y="194" font-size="10.5" fill="#9FB8CC">v34 archive · SHA-256</text>
+  </g>
+
+  <!-- JOURNAL: the three submission packages -->
+  <g text-anchor="middle" font-family="'Inter','Helvetica Neue',Arial,sans-serif">
+    <circle cx="570" cy="92" r="82" fill="url(#gJour)"/>
+    <circle cx="570" cy="92" r="56" fill="#0B1F35" stroke="#7FA8D0" stroke-width="2"/>
+    <circle cx="570" cy="92" r="56" fill="none" stroke="#7FA8D0" stroke-width="1" stroke-dasharray="4 6" opacity="0.6">
+      <animateTransform attributeName="transform" type="rotate" from="0 570 92" to="360 570 92" dur="18s" repeatCount="indefinite"/>
+    </circle>
+    <rect x="544" y="72" width="52" height="34" rx="4" fill="none" stroke="#7FA8D0" stroke-width="1.8"/>
+    <path d="M544 72 L570 92 L596 72" fill="none" stroke="#7FA8D0" stroke-width="1.8"/>
+    <g fill="#7FA8D0">
+      <circle cx="556" cy="118" r="2.6"><animate attributeName="opacity" values="1;0.2;1" dur="2.4s" repeatCount="indefinite"/></circle>
+      <circle cx="570" cy="118" r="2.6"><animate attributeName="opacity" values="0.2;1;0.2" dur="2.4s" begin="-0.8s" repeatCount="indefinite"/></circle>
+      <circle cx="584" cy="118" r="2.6"><animate attributeName="opacity" values="1;0.2;1" dur="2.4s" begin="-1.6s" repeatCount="indefinite"/></circle>
+    </g>
+    <text x="570" y="176" font-size="14" font-weight="700" fill="#7FA8D0" letter-spacing="2">JOURNAL</text>
+    <text x="570" y="194" font-size="10.5" fill="#9FB8CC">NSR · SciPost · arXiv</text>
+  </g>
+</svg>

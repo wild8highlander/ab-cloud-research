@@ -41,3 +41,9 @@ addopts = "-q"
 [tool.ruff]
 line-length = 100
 target-version = "py310"
+
+# Mirror the repository-root ruff philosophy: gate on *real defects* only
+# (syntax errors, undefined names, shadowing, late __future__, redefinitions),
+# not on style — see ruff.toml at the repository root.
+[tool.ruff.lint]
+select = ["E9", "F821", "F402", "F404", "F811"]

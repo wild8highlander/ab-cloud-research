@@ -1,6 +1,4 @@
 """The monograph must keep its honesty structure and full section skeleton."""
-import re
-from pathlib import Path
 
 
 SECTIONS_RU = ["Аннотация", "Введение", "Связанные работы", "Архитектура",

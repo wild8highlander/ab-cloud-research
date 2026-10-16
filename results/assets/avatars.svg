@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="220" viewBox="0 0 700 220" role="img" aria-label="The results cast: the v19 flagship two-pass run, the H1-H8 standalone audit gates and the FINAL_REPORT in four formats">
+  <title>The results cast</title>
+  <defs>
+    <radialGradient id="gRun" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#9558B2" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#9558B2" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gGates" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7FC8A8" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#7FC8A8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gReport" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#E8DDB8" stop-opacity="0.24"/>
+      <stop offset="100%" stop-color="#E8DDB8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- v19 flagship run -->
+  <g text-anchor="middle" font-family="'Inter','Helvetica Neue',Arial,sans-serif">
+    <circle cx="130" cy="92" r="82" fill="url(#gRun)"/>
+    <circle cx="130" cy="92" r="56" fill="#0B1F35" stroke="#9558B2" stroke-width="2"/>
+    <circle cx="130" cy="92" r="56" fill="none" stroke="#9558B2" stroke-width="1" stroke-dasharray="4 6" opacity="0.6">
+      <animateTransform attributeName="transform" type="rotate" from="0 130 92" to="360 130 92" dur="18s" repeatCount="indefinite"/>
+    </circle>
+    <text x="130" y="100" font-size="26" font-weight="800" fill="#E8DDB8" font-family="'Courier New',monospace">37&#215;2</text>
+    <text x="130" y="120" font-size="10" fill="#9FB8CC" font-family="'Courier New',monospace">two passes</text>
+    <text x="130" y="176" font-size="14" font-weight="700" fill="#B98CD0" letter-spacing="2">V19 FLAGSHIP</text>
+    <text x="130" y="194" font-size="10.5" fill="#9FB8CC">66 PASS · 11 honest FAIL</text>
+  </g>
+
+  <!-- H1-H8 gates -->
+  <g text-anchor="middle" font-family="'Inter','Helvetica Neue',Arial,sans-serif">
+    <circle cx="350" cy="92" r="82" fill="url(#gGates)"/>
+    <circle cx="350" cy="92" r="56" fill="#0B1F35" stroke="#7FC8A8" stroke-width="2"/>
+    <circle cx="350" cy="92" r="56" fill="none" stroke="#7FC8A8" stroke-width="1" stroke-dasharray="4 6" opacity="0.6">
+      <animateTransform attributeName="transform" type="rotate" from="360 350 92" to="0 350 92" dur="18s" repeatCount="indefinite"/>
+    </circle>
+    <g font-size="11" font-weight="800" font-family="'Courier New',monospace">
+      <text x="326" y="86" fill="#7FC8A8">H1</text>
+      <text x="350" y="78" fill="#FFD166"><animate attributeName="opacity" values="1;0.35;1" dur="3s" repeatCount="indefinite"/>H5</text>
+      <text x="374" y="86" fill="#7FC8A8">H7</text>
+      <text x="350" y="104" fill="#FFD166"><animate attributeName="opacity" values="0.35;1;0.35" dur="3s" repeatCount="indefinite"/>H8</text>
+      <text x="326" y="112" fill="#7FC8A8" opacity="0.7">H2</text>
+      <text x="374" y="112" fill="#7FC8A8" opacity="0.7">H6</text>
+    </g>
+    <text x="350" y="176" font-size="14" font-weight="700" fill="#7FC8A8" letter-spacing="2">H1&#8211;H8 AUDIT</text>
+    <text x="350" y="194" font-size="10.5" fill="#9FB8CC">standalone battery · 2026-10-15</text>
+  </g>
+
+  <!-- FINAL_REPORT -->
+  <g text-anchor="middle" font-family="'Inter','Helvetica Neue',Arial,sans-serif">
+    <circle cx="570" cy="92" r="82" fill="url(#gReport)"/>
+    <circle cx="570" cy="92" r="56" fill="#0B1F35" stroke="#C9B97E" stroke-width="2"/>
+    <circle cx="570" cy="92" r="56" fill="none" stroke="#C9B97E" stroke-width="1" stroke-dasharray="4 6" opacity="0.6">
+      <animateTransform attributeName="transform" type="rotate" from="0 570 92" to="360 570 92" dur="18s" repeatCount="indefinite"/>
+    </circle>
+    <rect x="534" y="66" width="72" height="52" rx="6" fill="none" stroke="#E8DDB8" stroke-width="1.8"/>
+    <g stroke="#E8DDB8" stroke-width="1.3" opacity="0.7">
+      <line x1="544" y1="80" x2="596" y2="80"/>
+      <line x1="544" y1="92" x2="586" y2="92"/>
+      <line x1="544" y1="104" x2="592" y2="104"/>
+    </g>
+    <text x="570" y="140" font-size="9.5" fill="#C9B97E" letter-spacing="1" font-family="'Courier New',monospace">md·pdf·docx·html</text>
+    <text x="570" y="176" font-size="14" font-weight="700" fill="#E8DDB8" letter-spacing="2">FINAL_REPORT</text>
+    <text x="570" y="194" font-size="10.5" fill="#9FB8CC">453 files · 4 formats</text>
+  </g>
+</svg>

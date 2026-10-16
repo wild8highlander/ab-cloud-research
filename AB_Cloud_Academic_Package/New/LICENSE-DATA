@@ -1,28 +1,73 @@
-ODbL 1.0 — OPEN DATABASE LICENSE (summary for this package)
+# PROPRIETARY DATA ADDENDUM — UNIFIED ACADEMIC PACKAGE
+# (Ведомственная лицензия данных — строго личная проприетарная)
 
-Copyright (c) 2026 Isaev Iskhak Khamzatovich — data components of the AB-Cloud Research
-Programme unified academic package (02_data/, 05_logs/metrics.json,
-checksums, registry JSON files).
+**Copyright (c) 2026 Isaev Iskhak Khamzatovich (ORCID 0009-0003-7299-0701).**
+**ALL RIGHTS RESERVED. Все права принадлежат автору полностью и исключительно.**
 
-The data in this package is made available under the Open Database License
-(http://opendatacommons.org/licenses/odbl/1.0/). You are free:
+---
 
-- **To Share**: to copy, distribute and use the database;
-- **To Create**: to produce works from the database;
-- **To Adapt**: to modify, transform and build upon the database.
+## ENGLISH
 
-As long as you:
+This addendum governs the **data components** of the unified academic package:
+the curated datasets, the raw and processed run data, the verdict ledgers and
+JSON registries, the schemas and codebooks, the checksums, the 50,000-zero
+tables and all other structured content. It is **not** an open-data licence:
+this is not ODbL, CC0, CC BY or any other open database/content licence.
 
-- **Attribute**: you must attribute any public use of the database, or works
-  produced from it, in the manner specified (see below);
-- **Share-Alike**: if you publicly use any adapted version of this database,
-  or works produced from it, you must also offer those works under the ODbL;
-- **Keep open**: if you redistribute the database, or an adapted version of
-  it, then you must make it available under the ODbL.
+The **umbrella licence** — [`LICENSE`](LICENSE) (Strictly Personal Proprietary
+Licence) — governs everything; this addendum only makes the data-specific
+consequences explicit:
 
-Recommended attribution: "Isaev Iskhak Khamzatovich, AB-Cloud Research Programme: Unified
-Academic Package, DOI 10.5281/zenodo.21825394, data under ODbL 1.0."
+1. **The only permitted data use** is viewing, reading and downloading for
+   **personal scholarly verification** of the package's claims — checking a
+   quoted number against the committed table it names (umbrella §2).
+2. **Redistribution of the datasets** — re-uploading, mirroring, publishing
+   extracts, converting to other formats for sharing, or including them in
+   other corpora, repositories or data products — is **not licensed**
+   (umbrella §3.1).
+3. **Machine-consumption beyond verification** — bulk harvesting, dataset
+   curation, model training, retrieval-augmented generation or evaluation —
+   is **not licensed** (umbrella §3.4).
+4. **Schemas, codebooks and provenance records** are integral to the data and
+   inherit the same restrictions; their removal or alteration voids any
+   permitted use (umbrella §3.5).
+5. **Third-party zero tables** (A. Odlyzko and others) remain governed by the
+   terms of their original sources; the Author claims ownership only of the
+   compilation, curation and packaging (umbrella §6).
+6. Any use beyond §2 of the umbrella licence requires a separate signed written
+   agreement with the Author (umbrella §8).
 
-Individual contents (figures, embedded text excerpts) may carry their own
-licences (CC BY 4.0 for text) — the ODbL applies to the database as an
-assemblage and to the data files as such.
+---
+
+## РУССКИЙ
+
+Настоящее дополнение регулирует **данные** единого академического пакета:
+курированные наборы данных, сырые и обработанные данные прогонов, реестры
+вердиктов и JSON-реестры, схемы и кодбуки, контрольные суммы, таблицы 50 000
+нулей и всё остальное структурированное содержимое. Это **не** лицензия
+открытых данных: это не ODbL, не CC0, не CC BY и никакая иная открытая
+лицензия на базы данных или контент.
+
+Действует **зонтичная лицензия** — [`LICENSE`](LICENSE) (строго личная
+проприетарная лицензия); настоящее дополнение лишь уточняет следствия для
+данных:
+
+1. **Единственное разрешённое использование данных** — просмотр, чтение и
+   скачивание **в целях личной научной проверки** утверждений пакета —
+   сверка цитируемого числа с той самой таблицей, на которую оно ссылается
+   (зонтик §2).
+2. **Распространение наборов данных** — перезаливка, зеркалирование,
+   публикация извлечений, конвертация в другие форматы для передачи или
+   включение в иные корпуса, репозитории и дата-продукты — **не
+   лицензируется** (зонтик §3.1).
+3. **Машинное потребление сверх проверки** — массовый сбор, формирование
+   наборов для обучения, обучение моделей, поиск с дополненной генерацией,
+   оценка — **не лицензируется** (зонтик §3.4).
+4. **Схемы, кодбуки и записи провенанса** являются неотъемлемой частью данных
+   и наследуют те же ограничения; их удаление или изменение лишает силы любое
+   разрешённое использование (зонтик §3.5).
+5. **Сторонние таблицы нулей** (А. Одлыжко и др.) регулируются условиями их
+   исходных источников; Автор заявляет права только на компиляцию, кураторство
+   и упаковку (зонтик §6).
+6. Любое использование сверх §2 зонтичной лицензии требует отдельного
+   подписанного письменного соглашения с Автором (зонтик §8).

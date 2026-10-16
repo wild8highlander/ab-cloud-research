@@ -9,7 +9,7 @@ computational fabric, its Dirac skeleton, the Hilbert–Pólya bridge, the blind
 verification apparatus, the reference runs, the meridian observatory, the
 vortex-density window and the hyperbolic wave attractors.**
 
-*Unified edition · no version numbers · open data · honest boundaries*
+*Unified edition · no version numbers · honest boundaries*
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=Fira+Code&size=15&pause=1400&color=E8DDB8&center=true&vCenter=true&random=false&width=640&height=34&lines=One+study+%C2%B7+ten+levels+%C2%B7+honest+boundaries;Blind+%CE%B6-zero+reading%3A+649%2F649+%2B+639%2F639+%C2%B7+cross-engine+0.0;RH+status%3A+BLOCKED+by+design+%C2%B7+Lean%2FCoq+guaranteed;44%2B+campaigns+%C2%B7+410%2B+tests+%C2%B7+9+implementation+languages">
@@ -29,7 +29,7 @@ vortex-density window and the hyperbolic wave attractors.**
 [![i18n](https://img.shields.io/badge/i18n-7%20languages-7FA8D0?style=for-the-badge)](#-language-switcher)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21825394-blue?style=for-the-badge)](https://doi.org/10.5281/zenodo.21825394)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0003--7299--0701-a6ce39?style=for-the-badge)](https://orcid.org/0009-0003-7299-0701)
-[![License](https://img.shields.io/badge/license-research--open-8B7E5A?style=for-the-badge)](#-license)
+[![License](https://img.shields.io/badge/license-strictly__personal-8B7E5A?style=for-the-badge)](#-license)
 
 </div>
 
@@ -237,11 +237,24 @@ field — what the result does **NOT** prove. The unified verdict ledger:
 
 ## 🔒 License
 
-Code — MIT ([LICENSE-CODE](LICENSE-CODE)); text — CC BY 4.0
-([LICENSE-TEXT](LICENSE-TEXT)); data — ODbL ([LICENSE-DATA](LICENSE-DATA));
-the umbrella research licence — [LICENSE](LICENSE). The honesty layer
-(`does_not_prove` fields, blocked verdicts) is part of the scientific record
-and must be preserved verbatim in any derivative.
+**Strictly personal proprietary licence** — all copyright, related and
+neighbouring rights belong fully and exclusively to the Author, **Isaev Iskhak
+Khamzatovich** ([ORCID 0009-0003-7299-0701](https://orcid.org/0009-0003-7299-0701)).
+Everything here is published for **viewing, reading and scholarly verification
+only**: you may run the code locally, unmodified, and cite with attribution
+(short excerpts of ≤ 400 characters, with the DOI). Redistribution, republishing,
+public forks, derivative publications, commercial use and ML training on the
+content are **not licensed** without a separate signed written agreement; the
+permissions terminate automatically on breach.
+
+Umbrella: [`LICENSE`](LICENSE) — Strictly Personal Proprietary Licence (EN + RU).
+Component addenda: code — [`LICENSE-CODE`](LICENSE-CODE),
+text — [`LICENSE-TEXT`](LICENSE-TEXT), data — [`LICENSE-DATA`](LICENSE-DATA).
+Contact: AB-Cloud Research Laboratory, Prospekt Lenina 29, Apt. 140, Nalchik,
+Kabardino-Balkarian Republic, Russian Federation ·
+[aslan08_05@mail.ru](mailto:aslan08_05@mail.ru).
+The honesty layer (`does_not_prove` fields, blocked verdicts) is part of the
+scientific record and must be preserved verbatim in any permitted quotation.
 
 ---
 
