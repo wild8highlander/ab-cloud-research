@@ -1,0 +1,9 @@
+#compdef abcloud-run
+_abcloud() {
+  _arguments -S \
+    '--lang[messages: ru|en]' \
+    '--theme[light|dark|neon|dracula|nord|catppuccin|solarized|gruvbox]' \
+    '--output[json|yaml|table|md]' \
+    '1:command:(init doctor explain plan fetch validate preprocess analyze visualize report monograph lab api test bench lint docs package publish clean version cite)'
+}
+_abcloud "$@"

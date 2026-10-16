@@ -1,0 +1,14 @@
+{
+  "banner_title": "AB-CLOUD PROGRAMME · UNIFIED EDITION",
+  "banner_sub": "four levels · one registry · honest boundaries",
+  "steps": [
+    "Environment check",
+    "Loading configuration",
+    "Reading the registry",
+    "Computing metrics",
+    "Summary"
+  ],
+  "done": "Done",
+  "rh": "RH status",
+  "verdicts": "Verdicts"
+}

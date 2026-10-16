@@ -1,0 +1,90 @@
+{
+  "@context": "https://w3id.org/ro/crate/1.1/context",
+  "@graph": [
+    {
+      "@type": "CreativeWork",
+      "@id": "ro-crate-metadata.json",
+      "about": {
+        "@id": "./"
+      },
+      "conformsTo": {
+        "@id": "https://w3id.org/ro/crate/1.1"
+      }
+    },
+    {
+      "@type": "Dataset",
+      "@id": "./",
+      "name": "AB-Cloud Research Programme: Unified Academic Package",
+      "author": {
+        "@id": "https://orcid.org/0009-0003-7299-0701"
+      },
+      "datePublished": "2026-10-14",
+      "description": "One study in four levels: spectral core, Dirac skeleton, Hilbert-Polya bridge, blind verification; plus the spinor study. Unified edition, no version numbers. RH: blocked by design.",
+      "license": [
+        "https://opensource.org/licenses/MIT",
+        "https://creativecommons.org/licenses/by/4.0/",
+        "https://opendatacommons.org/licenses/odbl/1-0/"
+      ],
+      "hasPart": [
+        {
+          "@id": "00_meta/"
+        },
+        {
+          "@id": "01_monographs/"
+        },
+        {
+          "@id": "02_data/"
+        },
+        {
+          "@id": "03_figures/"
+        },
+        {
+          "@id": "04_reports/"
+        },
+        {
+          "@id": "05_logs/"
+        },
+        {
+          "@id": "06_code/"
+        },
+        {
+          "@id": "07_web_lab/"
+        },
+        {
+          "@id": "08_assets/"
+        },
+        {
+          "@id": "09_tests/"
+        },
+        {
+          "@id": "10_notebooks/"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://orcid.org/0009-0003-7299-0701",
+      "name": "Isaev Iskhak Khamzatovich",
+      "familyName": "Isaev",
+      "givenName": "Iskhak Khamzatovich"
+    },
+    {
+      "@type": "File",
+      "@id": "02_data/processed/research_registry.json",
+      "name": "the unified research registry (the funnel)",
+      "encodingFormat": "application/json"
+    },
+    {
+      "@type": "File",
+      "@id": "01_monographs/ru/monograph_ru.pdf",
+      "name": "the unified monograph (Russian volume)",
+      "encodingFormat": "application/pdf"
+    },
+    {
+      "@type": "File",
+      "@id": "01_monographs/en/monograph_en.pdf",
+      "name": "the unified monograph (English volume)",
+      "encodingFormat": "application/pdf"
+    }
+  ]
+}

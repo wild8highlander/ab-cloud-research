@@ -1,0 +1,5 @@
+out
+node_modules
+rust/target
+go/run
+__pycache__

@@ -1,0 +1,40 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "AB-Cloud Web Lab API",
+    "version": "unified (versionless)",
+    "description": "Read-only view of the unified research registry. RH status: blocked (V13)."
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "root"
+      }
+    },
+    "/registry": {
+      "get": {
+        "summary": "the full registry"
+      }
+    },
+    "/verdicts": {
+      "get": {
+        "summary": "the verdict ledger"
+      }
+    },
+    "/flagship": {
+      "get": {
+        "summary": "flagship results"
+      }
+    },
+    "/numbers": {
+      "get": {
+        "summary": "numbers registry"
+      }
+    },
+    "/lab": {
+      "get": {
+        "summary": "serve the offline laboratory (index.html)"
+      }
+    }
+  }
+}

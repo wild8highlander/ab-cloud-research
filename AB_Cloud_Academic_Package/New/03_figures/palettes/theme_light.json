@@ -1,0 +1,10 @@
+{
+  "name": "light",
+  "bg": "#FFFFFF",
+  "fg": "#162032",
+  "accent": "#1F4E79",
+  "muted": "#5B6B7B",
+  "ok": "#2E7D32",
+  "warn": "#B26A00",
+  "err": "#B3261E"
+}

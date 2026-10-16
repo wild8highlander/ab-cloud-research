@@ -1,0 +1,9 @@
+{"namespace": "abcloud.package",
+ "type": "record", "name": "Verdict",
+ "fields": [
+   {"name": "id", "type": "string"},
+   {"name": "verdict", "type": {"type": "enum", "name": "VerdictKind",
+      "symbols": ["YES", "NO", "BLOCKED"]}},
+   {"name": "basis", "type": "string"},
+   {"name": "does_not_prove", "type": ["null", "string"], "default": null}
+ ]}

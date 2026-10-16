@@ -1,0 +1,12 @@
+[package]
+name = "abcloud-run"
+version = "0.0.0"
+edition = "2021"
+description = "Rust runner of the AB-Cloud unified CLI contract"
+license = "MIT"
+
+[[bin]]
+name = "abcloud-run"
+path = "run.rs"
+
+[dependencies]

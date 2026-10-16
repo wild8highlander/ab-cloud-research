@@ -1,0 +1,9 @@
+# bash completion for the AB-Cloud unified CLI
+_abcloud() {
+  local cmds="init doctor explain plan fetch validate preprocess analyze visualize report monograph lab api test bench lint docs package publish clean version cite"
+  local opts="--lang --theme --mode --seed --config --output --verbose --quiet --dry-run --explain"
+  local cur="${COMP_WORDS[COMP_CWORD]}"
+  if [[ "$cur" == --* ]]; then COMPREPLY=($(compgen -W "$opts" -- "$cur"))
+  else COMPREPLY=($(compgen -W "$cmds" -- "$cur")); fi
+}
+complete -F _abcloud abcloud-run 06_code/cli/run.sh

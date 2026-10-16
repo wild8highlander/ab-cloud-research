@@ -1,0 +1,5 @@
+stage,L,Nv,q,W,alpha,bc,placement,n_real,seed_base,n_spacings,D_pooled,p_pooled,D_min,D_med,D_max,mean_abs_dR2,d_GUE,d_Pois,r_mean,D_excess,ks_pass,r2_pass,gue_closer,stab_pass,composite_ok,runtime_s
+C(96x96),96,8,1.0,1.0,0.6,open,regular,5,96,27635,0.0357787,2.99104e-20,0.0328148,0.0376384,0.0387471,0.0486663,0.0309234,0.138028,0.597656,nan,True,True,True,True,True,760.898
+C(96x96),96,16,1.0,1.0,0.5,torus,protocol,5,96,27635,0.0318403,3.98271e-16,0.0276022,0.0345144,0.0382251,0.03566,0.0218107,0.130747,0.597929,nan,True,True,True,True,True,742.597
+C(96x96),96,16,0.7,1.0,0.5,open,protocol,5,96,27635,0.0386558,1.44249e-23,0.0373493,0.0407168,0.0414258,0.0335864,0.0230703,0.125219,0.594868,nan,True,True,True,True,True,774.542
+C(96x96),96,2,1.0,1.0,0.5,open,protocol,5,96,27635,0.0928204,7.41402e-134,0.0722427,0.0983026,0.111408,0.0549372,0.0453633,0.108682,0.573794,nan,True,True,True,True,True,752.132

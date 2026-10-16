@@ -1,0 +1,61 @@
+{
+  "@context": "https://codemeta.github.io/codemeta/3.0/",
+  "@type": "SoftwareSourceCode",
+  "identifier": "AB_Cloud_Academic_Package",
+  "name": "AB-Cloud Research Programme: Unified Academic Package",
+  "description": "One study in four levels: the algebraic AB (Aharonov-Bohm) architecture as a computing fabric, its Dirac skeleton, the Hilbert-Polya bridge, and the blind verification apparatus. Unified edition with no version numbers, full RU/EN monographs, web laboratory, six-language CLI and a complete honesty layer.",
+  "author": {
+    "@type": "Person",
+    "givenName": "Iskhak Khamzatovich",
+    "familyName": "Isaev",
+    "identifier": "https://orcid.org/0009-0003-7299-0701"
+  },
+  "dateCreated": "2026-10-14",
+  "datePublished": "2026-10-14",
+  "license": [
+    "https://spdx.org/licenses/MIT",
+    "https://creativecommons.org/licenses/by/4.0/",
+    "https://opendatacommons.org/licenses/odbl/1-0/"
+  ],
+  "programmingLanguage": [
+    "Python",
+    "Julia",
+    "Rust",
+    "Go",
+    "JavaScript",
+    "Bash",
+    "C",
+    "C++",
+    "Lean 4",
+    "Coq"
+  ],
+  "keywords": [
+    "Riemann zeta",
+    "Hilbert-Polya",
+    "Aharonov-Bohm",
+    "lattice Dirac",
+    "random matrix theory",
+    "GUE",
+    "verification",
+    "reproducibility"
+  ],
+  "codeRepository": "https://github.com/wild8highlander/ab-cloud-research/tree/main/AB_Cloud_Academic_Package",
+  "identifierProperty": "https://doi.org/10.5281/zenodo.21825394",
+  "developmentStatus": "active — living academic structure (versionless)",
+  "isPartOf": "ab-cloud-research",
+  "hasPart": [
+    "00_meta",
+    "01_monographs",
+    "02_data",
+    "03_figures",
+    "04_reports",
+    "05_logs",
+    "06_code",
+    "07_web_lab",
+    "08_assets",
+    "09_tests",
+    "10_notebooks"
+  ],
+  "readme": "README.md",
+  "contIntegration": ".github/workflows/tests.yml"
+}

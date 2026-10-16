@@ -1,0 +1,16 @@
+id,pref_label, broader,source_level
+AB,AB cloud architecture,programme,core
+SpectralCore,spectral core,AB,level_I
+ABProcessor,AB processor,AB,level_I_prime
+DiracSkeleton,Dirac skeleton,AB,level_II
+HPBridge,Hilbert-Polya bridge,AB,level_III
+BlindVerification,blind verification,AB,level_IV
+SpinorStudy,spinor study,AB,level_V
+Campaign,campaign,AB,any
+Theorem,theorem,AB,any
+Verdict,verdict,Campaign,any
+HonestyLayer,honesty layer,AB,programme
+LocalityWall,locality wall,HPBridge,T18
+TraceFormula,trace formula,HPBridge,T6
+CountingLaw,counting law,HPBridge,T13
+ZetaDecoration,zeta decoration,DiracSkeleton,D7

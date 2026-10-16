@@ -1,0 +1,19 @@
+{
+  "flagship_results": 37,
+  "levels": 10,
+  "verdicts_yes": 8,
+  "verdicts_no": 2,
+  "verdicts_blocked": 1,
+  "rh_status": "blocked",
+  "blind_zeros": 649,
+  "cross_engine": 0.0,
+  "gue_r_decorated": 0.608,
+  "gue_r_theory": 0.5992,
+  "klein_factor": 977,
+  "trace_primes_r": 0.9996,
+  "class_b_speedup": 59000,
+  "sa_local": 14.0,
+  "sa_haar": 190.0,
+  "seed": 42,
+  "_note": "the canonical cross-language metric set; all six runners must emit these exactly; counts synced to research_registry.json (hp sync 2026-10-16: G2/G5 -> YES, C17 + algebraic_map added)"
+}

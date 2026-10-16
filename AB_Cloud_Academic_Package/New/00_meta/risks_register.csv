@@ -1,0 +1,8 @@
+id,category,risk,likelihood,impact,mitigation,status
+R1,scientific,overclaiming by downstream users,certain if unmanaged,high,LICENSE honesty clause + does_not_prove fields + README boundary repeated,open
+R2,scientific,convention drift between sources misread as contradiction,low,medium,disagreements documented side by side (dossier §3),managed
+R3,technical,language runners diverge from the contract,medium,medium,contract.json schema + cross-language tests in 09_tests,managed
+R4,technical,checksum rot after partial clones,medium,low,update_checksums.py --verify-only in reproduce.sh,managed
+R5,editorial,translation drift in the 5 abstract languages,medium,medium,abstracts marked as abstracts; RU/EN are the record,managed
+R6,editorial,loss of the heritage run archive context,low,high,provenance.jsonl + dossier §3 + CHANGELOG heritage section,managed
+R7,scientific,RH-adjacent hype cycle (external),medium,high,the package never claims; blocked verdict is the brand,open

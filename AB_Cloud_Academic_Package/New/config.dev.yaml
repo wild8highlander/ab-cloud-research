@@ -1,0 +1,11 @@
+# config.dev.yaml — variant of config.yaml (inherits everything else from the base file)
+# Merge order: config.yaml <- config.{env}.yaml
+{
+  "cli": {
+    "mode": "demo",
+    "verbosity": 3
+  },
+  "output": {
+    "root": "./out_dev"
+  }
+}

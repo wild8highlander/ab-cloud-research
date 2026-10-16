@@ -1,0 +1,5 @@
+{
+  "applicable": false,
+  "reason": "no personal or human-subject data; mathematical research data only",
+  "note": "\u03b6 zeros, lattice spectra and campaign verdicts contain no information about individuals; differential-privacy mechanisms are not applicable."
+}

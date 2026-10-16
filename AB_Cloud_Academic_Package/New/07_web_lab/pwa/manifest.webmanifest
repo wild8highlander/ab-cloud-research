@@ -1,0 +1,16 @@
+{
+  "name": "AB-Cloud Web Laboratory",
+  "short_name": "AB-Cloud Lab",
+  "start_url": "../index.html",
+  "display": "standalone",
+  "background_color": "#162032",
+  "theme_color": "#162032",
+  "description": "The AB-Cloud Research Programme interactive laboratory (offline).",
+  "icons": [
+    {
+      "src": "../../08_assets/logos/logo_unified.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

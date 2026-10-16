@@ -1,0 +1,87 @@
+# AB-CLOUD RESEARCH — UNIFIED ACADEMIC PACKAGE LICENSE
+# (Personal author research licence / Личная лицензия автора)
+
+**Copyright (c) 2026 Isaev Iskhak Khamzatovich (ORCID 0009-0003-7299-0701).**
+**All rights reserved. Все права принадлежат автору полностью и исключительно.**
+
+---
+
+## ENGLISH
+
+This unified academic package is distributed under a three-component scheme:
+**code** under MIT (see `LICENSE-CODE`), **text** under CC BY 4.0 (see
+`LICENSE-TEXT`), and **data** under ODbL 1.0 (see `LICENSE-DATA`). This
+umbrella file states the research-integrity conditions that apply on top of
+the three component licences.
+
+### 1. Ownership
+
+All copyright, related and neighbouring rights to the research content of
+this package — the monographs, the verification suites, the figures, the data
+compilations, the presentations and the documentation — belong **fully and
+exclusively** to **Isaev Iskhak Khamzatovich** (the "Author"). No joint ownership, licence
+back, or implied transfer arises from publication of this package.
+
+### 2. Permissions granted
+
+Without a separate written agreement you may:
+
+1. **View and read** any part of this package;
+2. **Clone and fork** for private, non-commercial academic study;
+3. **Run** the code locally for scholarly verification and reproducibility
+   checks;
+4. **Cite** the work and quote short excerpts (with full attribution to the
+   Author, the DOI [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394) and a link to this package);
+5. **Redistribute** code under the terms of MIT, text under CC BY 4.0 and
+   data under ODbL, subject to the component licences.
+
+### 3. The honesty clause (inviolable)
+
+The honesty layer of this package — the `does_not_prove` fields, the blocked
+verdicts of the V13 obligation machine, the negative-results register — is
+**part of the scientific record**. Any derivative work that presents the
+numerical results of this programme without the corresponding honest boundary
+statements misrepresents the science and violates the licence. When in doubt:
+quote the boundary verbatim.
+
+### 4. Restrictions
+
+You may NOT, without separate written permission from the Author:
+
+1. Present the numerical or formal results of this programme as a proof of the
+   Riemann hypothesis (the package itself blocks this conclusion);
+2. Commercialize the monographs or their translations;
+3. Remove or alter attribution, the honesty clause, or the provenance records.
+
+### 5. Everything else
+
+Requests: through the repository issue tracker. The Author grants no warrant-
+ies; the package is provided "as is", for scholarly study.
+
+---
+
+## РУССКИЙ
+
+Данный единый академический пакет распространяется по трёхкомпонентной
+схеме: **код** под MIT (см. `LICENSE-CODE`), **тексты** под CC BY 4.0 (см.
+`LICENSE-TEXT`), **данные** под ODbL 1.0 (см. `LICENSE-DATA`). Этот общий
+файл фиксирует условия научной добросовестности, действующие поверх трёх
+компонентных лицензий.
+
+1. **Права.** Все авторские и смежные права на исследовательское содержание
+   пакета — монографии, верификационные наборы, фигуры, компиляции данных,
+   презентации и документацию — принадлежат **полностью и исключительно**
+   **Isaev Iskhak Khamzatovich** («Автору»).
+2. **Разрешено:** читать, клонировать для частного некоммерческого
+   академического изучения, запускать код для научной проверки, цитировать
+   с полным указанием авторства, DOI и ссылки на пакет.
+3. **Пункт честности (неотменимый).** Слой честности — поля
+   `does_not_prove`, заблокированные вердикты машины обязательств V13,
+   реестр отрицательных результатов — является **частью научной записи**.
+   Любая производная работа, представляющая численные результаты программы
+   без соответствующих честных ограничений, искажает науку и нарушает
+   лицензию.
+4. **Запрещено** без отдельного письменного разрешения Автора: выдавать
+   результаты программы за доказательство гипотезы Римана; коммерциализировать
+   монографии и их переводы; удалять или изменять атрибуцию, пункт честности
+   или записи провенанса.

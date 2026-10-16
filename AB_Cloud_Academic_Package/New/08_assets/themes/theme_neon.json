@@ -1,0 +1,10 @@
+{
+  "name": "neon",
+  "bg": "#0A0E1A",
+  "fg": "#00E5FF",
+  "accent": "#FF4081",
+  "muted": "#5D737E",
+  "ok": "#00E676",
+  "warn": "#FFEA00",
+  "err": "#FF1744"
+}

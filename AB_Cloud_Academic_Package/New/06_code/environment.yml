@@ -1,0 +1,12 @@
+name: abcloud-unified
+channels: [conda-forge]
+dependencies:
+  - python=3.12
+  - numpy
+  - pyyaml
+  - pip
+  - pip:
+      - typer>=0.9
+      - rich>=13.0
+      - pytest>=7.0
+      - jsonschema>=4.18

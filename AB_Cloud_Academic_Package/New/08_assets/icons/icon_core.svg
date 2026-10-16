@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-label="Spectral core level icon">
+  <circle cx="24" cy="24" r="19" fill="none" stroke="#C9B97E" stroke-width="2.4"/>
+  <g stroke="#7FA8D0" stroke-width="1.5" opacity="0.75">
+    <path d="M15 17 H33"/><path d="M15 24 H33"/><path d="M15 31 H33"/>
+    <path d="M19 13 V35"/><path d="M29 13 V35"/>
+  </g>
+  <text x="24" y="31" font-family="Georgia, serif" font-size="21" fill="#E8DDB8" text-anchor="middle" font-style="italic">&#950;</text>
+</svg>

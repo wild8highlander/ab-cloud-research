@@ -1,0 +1,23 @@
+codebook: AB-Cloud unified package
+verdicts:
+  YES: claim supported within numerical certificates
+  NO: claim not supported; failure measured and documented
+  BLOCKED: RH-only; V13 obligation machine; never changed by numbers
+campaign_series:
+  V: spectral core / processor (AB_Cloud_Quantum_Research)
+  E: blind verification (Julia platform)
+  ES: spinor study
+  D: Dirac skeleton (dirac-lab)
+  C: Hilbert-Pólya bridge (Hilbert_Polya)
+  heritage: superseded 38-test reference run + addenda
+  H: Meridian observatory gates (H1-H7)
+  RH: meridian RH line (zeros sweeps, magic alpha-points)
+  MV: meridian monumental line (V01-V112, Julia port)
+  T34: vortex-density optimization (Test 34-ext, stages A/B/C)
+  W1: wave-attractor study (experiments E1-E7 + AB water companion)
+  v19: the two-pass reference run of 2026-09-02 (37 tests / 77 rows)
+precision_conventions:
+  verbatim_scientific: "2.59e-39 style, copied not reformatted"
+  equality_checks: "'649 = 649' means both counts agree"
+  controls: "'x vs y (×N)' means measured vs control and ratio"
+  convention_conflicts: "both values recorded, dossier §4"

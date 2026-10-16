@@ -1,0 +1,884 @@
+{
+  "programme": {
+    "name": "AB-Cloud Research Programme",
+    "package": "AB_Cloud_Academic_Package",
+    "edition": "unified edition (versionless)",
+    "compiled": "2026-10-16",
+    "author": "Isaev I. Kh. (Исаев Исхак Хамзатович)",
+    "orcid": "0009-0003-7299-0701",
+    "doi": "10.5281/zenodo.21825394",
+    "repository": "https://github.com/wild8highlander/ab-cloud-research",
+    "one_line": "One study in eight levels: the algebraic AB (Aharonov-Bohm) architecture as a computing fabric, its Dirac skeleton, the Hilbert-Polya bridge, the blind verification apparatus, the Meridian spectral observatory, the vortex-density optimization, and the hyperbolic wave attractors.",
+    "honest_boundary": {
+      "statement": "Everything in this package is a numerical and formal study of a mathematical model. It does NOT prove the Riemann hypothesis. The V13 obligation machine keeps the RH conclusion blocked (verdict: blocked) while the analytic prerequisites remain assumed.",
+      "blocked_verdict": "blocked",
+      "negative_results_published": true,
+      "rh_status": "blocked"
+    }
+  },
+  "sources": {
+    "AB_Cloud_Quantum_Research": {
+      "role": "Level I - Spectral core and AB processor",
+      "path": "../AB_Cloud_Quantum_Research",
+      "campaigns": "V01-V20, E01-E18, ES1-ES5",
+      "theorems": "Th1-Th6, TS1-TS3",
+      "languages": "Python / Julia / C / C++ / Rust / Go / JS / Lean 4 / Coq"
+    },
+    "dirac-lab": {
+      "role": "Level II - Dirac skeleton",
+      "path": "../dirac-lab",
+      "campaigns": "D1-D14 (96 checks, ALL PASS)",
+      "cross_verification": "Python canonical + independent Julia ports (4 cross-check scripts)"
+    },
+    "Hilbert_Polya": {
+      "role": "Level III - Hilbert-Pólya bridge",
+      "path": "../Hilbert_Polya",
+      "campaigns": "C1-C17",
+      "theorems": "T1-T18",
+      "note": "v2.0.10 state: verdicts G2 (v2.0.7) and G5 (v2.0.8) corrected to YES; C5 regenerated honestly (v2.0.5); new campaign C17 (blind phase B, NEGATIVE by the letter, blind valley windows read the count exactly); new algebraic_map section (the Jacobi map of the encoding as an explicit algebraic function)"
+    },
+    "AB_Cloud_Academic_Package_legacy": {
+      "role": "Level IV - verification heritage (v23/v34 GitHub edition, superseded by this package)",
+      "path": "(superseded)",
+      "record": "38-test verification suite, reference run 2026-09-14 (26.04 h, Julia 1.12), 79 verdict entries, Klein quartic PSL(2,7) pass at 100,000 zeros"
+    },
+    "meridian-spectral-observatory": {
+      "role": "Level VI - Meridian Spectral Observatory (verification codes, gates H1-H7, RH line, monumental line)",
+      "path": "../meridian-spectral-observatory",
+      "campaigns": "gates H1-H7, RH_Sweep (13,661 zeros), Monumental V01-V112, Magic Alpha (61 points)",
+      "languages": "Julia (24 self-contained codes) + Python (test11_honest)"
+    },
+    "Vortex_optimization": {
+      "role": "Level VII - vortex-density optimization (Test 34-ext)",
+      "path": "../Vortex_optimization",
+      "campaigns": "T34-ext stages A/B/C (242 configurations, L = 24 -> 96)",
+      "languages": "Python (validated port of the Julia suite engine)"
+    },
+    "Wave_attractors": {
+      "role": "Level VIII - hyperbolic wave attractors (study W1)",
+      "path": "../Wave_attractors",
+      "campaigns": "W1 experiments E1-E7 + AB water-wave companion",
+      "languages": "Python + independent Julia port (stdlib only)"
+    },
+    "results": {
+      "role": "Level IV heritage extension - the v19 two-pass reference run (37 tests)",
+      "path": "../results",
+      "record": "run_20260902_134759: 37 tests, 77 verdict rows (66 PASS / 11 WARN+FAIL), Julia 1.12.0, 50,000 Odlyzko zeros, wall 35146 s (585.8 min); plus the v18 37-test log of 2026-08-28"
+    }
+  },
+  "levels": [
+    {
+      "id": "I",
+      "name": "Spectral core",
+      "name_ru": "Спектральное ядро",
+      "campaigns": "V01-V19",
+      "essence": "Blind spectrum, null models, critical line, the V13 obligation machine, branch stitching V19; theorems Th1-Th6"
+    },
+    {
+      "id": "I+",
+      "name": "AB processor",
+      "name_ru": "AB-процессор",
+      "campaigns": "V20 (+V23/V24 previews)",
+      "essence": "AB-cloud ISA, exact Givens-QR compiler, 'reads, does not carry', no-signaling nonlocality (CHSH S = 2*sqrt(2) - 4.4e-16)"
+    },
+    {
+      "id": "II",
+      "name": "Dirac skeleton",
+      "name_ru": "Дираковский скелет",
+      "campaigns": "D1-D14",
+      "essence": "The pi-flux lattice is a discretized massless Dirac equation; the zeta-decorated Dirac operator lifts bulk statistics GOE->GUE"
+    },
+    {
+      "id": "III",
+      "name": "Hilbert-Pólya bridge",
+      "name_ru": "Мост Гильберта-Поли",
+      "campaigns": "C1-C17",
+      "theorems": "T1-T18",
+      "essence": "Graph-to-operator passage: identity function, argument principle to T=1000, gate family, Guinand-Weil trace; the level identity holds at the zeros' own level (G2 YES, v2.0.7) and the prime channel enters via the convergence ladder (G5 YES, v2.0.8); the bit-level locality branch (T18) remains open"
+    },
+    {
+      "id": "IV",
+      "name": "Blind verification",
+      "name_ru": "Слепая верификация",
+      "campaigns": "E01-E18",
+      "essence": "Julia platform: blind zeta-zero reading by two engines, independent Riemann-Siegel, class-B compiler benchmark; 18/18 pre-registered verdicts"
+    },
+    {
+      "id": "V",
+      "name": "Spinor study",
+      "name_ru": "Спинор-исследование",
+      "campaigns": "ES1-ES5",
+      "theorems": "TS1-TS3",
+      "essence": "The machine with no long-term memory: three phase models (theta = pi/2, pi/3, pi/7), O(1) steps vs Omega(t) logs"
+    },
+    {
+      "id": "IV+",
+      "name": "v19 reference run (heritage)",
+      "name_ru": "эталонный прогон v19 (наследие)",
+      "campaigns": "Tests 1-37 (two-pass, 77 verdict rows)",
+      "essence": "The complete two-pass verification run of the Julia suite: 37 tests, primary 72x72 + HARDCORE 96x96, 50,000 Odlyzko zeros, wall duration 35146 s; 66 PASS / 11 WARN+FAIL rows, negative rows published as first-class citizens"
+    },
+    {
+      "id": "VI",
+      "name": "Meridian Spectral Observatory",
+      "name_ru": "Меридианская спектральная обсерватория",
+      "campaigns": "gates H1-H7 · RH line · Monumental V01-V112",
+      "essence": "The laboratory of 24 standalone Julia codes + one Python code: GUE gates H1-H7 (H5 regime 2x2 showdown), the RH line (500 / 13,661 real zeros, magic alpha-points), and the monumental line V01-V112; the 50,000-zero reference table lives here"
+    },
+    {
+      "id": "VII",
+      "name": "Vortex-density optimization",
+      "name_ru": "Оптимизация плотности вихрей",
+      "campaigns": "T34-ext (stages A/B/C)",
+      "essence": "The large-scale scan of the AB-cloud dials (Nv, q, W, alpha, geometry) against the zeta zeros: the working window Nv ~ 8-16, q ~ 0.7-1.0, W ~ 0.5-1.0, alpha = 0.5 strictly; best pooled D = 0.0318 vs suite reference 0.1096 (x3.4), within 0.010 of the finite-sample GUE floor 0.0220"
+    },
+    {
+      "id": "VIII",
+      "name": "Hyperbolic wave attractors",
+      "name_ru": "Гиперболические волновые аттракторы",
+      "campaigns": "W1 (E1-E7) + AB water-wave companion",
+      "essence": "The numerical reproduction of the Nature Physics 2026 experiment: waves in a hyperbolic cavity self-organize into closed chiral broadband routes; attractor lock-in 24/24 vs 0/24 (isotropic control), Python-Julia identity 3.45e-15; the AB effect with water waves is reproduced as the classical-fluid root of the AB-phase theme"
+    }
+  ],
+  "flagship_results": [
+    {
+      "id": 1,
+      "result": "Blind reading of zeta zeros up to T=1000 by two independent engines",
+      "numbers": "649/649 (EM) + 639/639 (RS); cross-engine 0.0 bit-exact; N(1000)=649.0",
+      "level": "E17"
+    },
+    {
+      "id": 2,
+      "result": "Independent Riemann-Siegel (Arias de Reyna)",
+      "numbers": "agreement <= 3.8e-15 (threshold 1e-9)",
+      "level": "E16"
+    },
+    {
+      "id": 3,
+      "result": "Compiler vs 5 strong baselines under equal ISA (class B)",
+      "numbers": "max 1-F = 4.4e-16; x59,000 in time",
+      "level": "E18"
+    },
+    {
+      "id": 4,
+      "result": "Exact compilation of unitary logic into AB clouds",
+      "numbers": "1-F <= 4.4e-16 (4x4) / 6.7e-16 (8x8); depth <= 7/29 gates",
+      "level": "V20"
+    },
+    {
+      "id": 5,
+      "result": "'Reads, does not carry': zeta zeros from 6 formula constants",
+      "numbers": "12/12 zeros exactly; storage = 0",
+      "level": "V23 preview"
+    },
+    {
+      "id": 6,
+      "result": "No-signaling nonlocality",
+      "numbers": "CHSH S = 2*sqrt(2) - 4.4e-16; protection 1000/1000",
+      "level": "V24 preview"
+    },
+    {
+      "id": 7,
+      "result": "Branch stitching",
+      "numbers": "theta-ladder 0.832; coherence 0.9995 (z = 43.4)",
+      "level": "V19"
+    },
+    {
+      "id": 8,
+      "result": "Trace <-> primes (Th6)",
+      "numbers": "r = 0.9996 (lattice control 0.76)",
+      "level": "V7/Th6"
+    },
+    {
+      "id": 9,
+      "result": "The machine with no long-term memory",
+      "numbers": "cycles 4/6/14 = 2k; reset to chance; O(1) vs Omega(t) x129",
+      "level": "ES1-ES3"
+    },
+    {
+      "id": 10,
+      "result": "Dirac continuum limit",
+      "numbers": "v_F = 1.9347 > 2t = 2.0; E_1*L -> 4pi; R^2 = 0.9997",
+      "level": "D1"
+    },
+    {
+      "id": 11,
+      "result": "Klein supertunneling",
+      "numbers": "T(0 deg) = 0.978 vs 0.0010 Schrodinger control - factor 977",
+      "level": "D5"
+    },
+    {
+      "id": 12,
+      "result": "Zeta-decorated Dirac statistics",
+      "numbers": "<r>_zeta = 0.608 vs GUE theory 0.5992; {H,Gamma} = 0; E<->-E to 4e-15",
+      "level": "D7-D8"
+    },
+    {
+      "id": 13,
+      "result": "JR index restoration in full zeta background",
+      "numbers": "min|E_0| = 3.9e-9; contrast 7e6",
+      "level": "D9"
+    },
+    {
+      "id": 14,
+      "result": "Berry-Keating/Connes conjugation on the lattice",
+      "numbers": "spectrum to 1.7e-13; recognition 4.6e-13; staircase tracks 2000 zeros to 2.3 units",
+      "level": "D11"
+    },
+    {
+      "id": 15,
+      "result": "Infinite BK ladder at fixed density",
+      "numbers": "peak = N_u exact; off-peak envelope 1.9e-4 at N_u = 32768",
+      "level": "D12"
+    },
+    {
+      "id": 16,
+      "result": "Odlyzko form factor at t ~ 1e5",
+      "numbers": "K(2) = 0.962 (plateau exact)",
+      "level": "D14"
+    },
+    {
+      "id": 17,
+      "result": "Nonlocal isospectral twin (trace primitive)",
+      "numbers": "r_H7 = 1.000000, r_EF = 0.999",
+      "level": "C9/T11"
+    },
+    {
+      "id": 18,
+      "result": "Counting law of zero modes at alpha = 1/3",
+      "numbers": "N_0 = 2L - 6*[L = 0 mod 12]; index -2 (L=36 -> 66, L=48 -> 90)",
+      "level": "C11/T13"
+    },
+    {
+      "id": 19,
+      "result": "Verified RH strip extended five-fold",
+      "numbers": "T = 5000: N_online = N_strip = 4520; S_max = 0.91",
+      "level": "C12/T14"
+    },
+    {
+      "id": 20,
+      "result": "Twisted trace formula universality",
+      "numbers": "|Delta K| <= 9.6e-6 (chi_5), 6.1e-6 (chi_7)",
+      "level": "C15/T17"
+    },
+    {
+      "id": 21,
+      "result": "Quantum-information wall: locality suppresses entanglement",
+      "numbers": "S_A 12-16 nats vs 160-220 (Haar); MI-null corr -0.018",
+      "level": "C16/T18"
+    },
+    {
+      "id": 22,
+      "result": "Klein quartic PSL(2,7) ensemble pass",
+      "numbers": "100,000 zeros; pooled D = 0.0808, d_GUE = 0.0044 (GUE-CONSISTENT)",
+      "level": "heritage Add.1-8"
+    },
+    {
+      "id": 23,
+      "result": "Gamma-closure identity machine",
+      "numbers": "max residual 2.59e-39 (dps 40); zeros 79/79 vs mpmath to 2.8e-14",
+      "level": "C1"
+    },
+    {
+      "id": 24,
+      "result": "Argument principle across arithmetics",
+      "numbers": "|Delta N| = 2.6e-26; RH in strip to T=1000: 649 = 649",
+      "level": "C2"
+    },
+    {
+      "id": 25,
+      "result": "Gate H5 regime showdown at L=72: only the combined regime [D] passes cleanly",
+      "numbers": "A: <r>=0.5898+-0.0102, KS_D 0.3531 (misses GUE); B: 0.6000+-0.0052 (OR-clause); C: 0.5937+-0.0041 (OR-clause); D (Nv=144, alpha=25/900): 0.6003+-0.0050, median KS_D 0.0148, 7/7 individual KS pass",
+      "level": "H5"
+    },
+    {
+      "id": 26,
+      "result": "RH sweep line: 13,661 real zeta zeros verified, magic alpha-points grid",
+      "numbers": "mpmath.zetazero 25 digits; <r> = 0.6144 vs R_GUE 0.5996; 61 magic alpha-points (pi/30...pi*5, sqrt(2)...sqrt(15), phi, e, ln 2, 1/e, 1/pi)",
+      "level": "RH_Sweep"
+    },
+    {
+      "id": 27,
+      "result": "Monumental line: the full monograph verification battery ported to Julia",
+      "numbers": "V01-V112 verifications of the AB-Cloud monograph, run_all()/run_only(...) protocol",
+      "level": "Monumental"
+    },
+    {
+      "id": 28,
+      "result": "Vortex-density scan: the working window found and verified at 96x96",
+      "numbers": "242 configurations, L = 24 -> 96; optimal Nv ~ 8-16, q ~ 0.7-1.0, W ~ 0.5-1.0, alpha = 0.5 (strictly); best pooled D = 0.0318 (Nv=16, q=1.0, torus) vs suite reference D = 0.1096 (WARN) - x3.4",
+      "level": "T34-ext"
+    },
+    {
+      "id": 29,
+      "result": "The GUE floor measured per lattice size (the statistical zero of the method)",
+      "numbers": "L=24: 0.0324; L=32: 0.0331; L=48: 0.0309; L=64: 0.0257; L=96: 0.0220; the best candidate closes ~89% of the reference-to-floor gap",
+      "level": "T34-ext"
+    },
+    {
+      "id": 30,
+      "result": "Wave attractor lock-in: hyperbolic vs isotropic control",
+      "numbers": "24/24 (1.00) vs 0/24 (0.00); wavelength cascade mean x7.6 (transient), max x65; geometric convergence q = 0.992 (median)",
+      "level": "W1/E1-E2"
+    },
+    {
+      "id": 31,
+      "result": "Attractor chirality and frequency invariance",
+      "numbers": "mirror pair C + C_mir = 0.0 (machine precision), Hausdorff 0.0; coexisting senses C = +-0.4683, +-0.0317, 0; K = 1 vs K = 7 max deviation 0.0 (exact)",
+      "level": "W1/E3-E4"
+    },
+    {
+      "id": 32,
+      "result": "Universal attractor window across two decades of anisotropy",
+      "numbers": "u1 = 0.176 +- 0.041, u2 = 0.490 +- 0.084 in u = s*sqrt(eta), eta = 9...400; the naive resonance s* = 1/sqrt(eta) (u = 1) overestimates the window; TD corridor capture 1.43x, capture growth x10 (32 -> 192 cells)",
+      "level": "W1/E6-E7"
+    },
+    {
+      "id": 33,
+      "result": "Python <-> Julia cross-verification of the wave-attractor kernels",
+      "numbers": "ray trajectories: max deviation 3.45e-15 over 1200 bounce points; TD kernel: 2.4e-15 over 400 steps",
+      "level": "W1/cross"
+    },
+    {
+      "id": 34,
+      "result": "v19 reference run: the two-pass verdict ledger",
+      "numbers": "37 tests / 77 verdict rows: 66 PASS, 0 WARN-class, 11 FAIL-class rows recorded honestly (Tests 4/5/6/11/12 pass-1 edges, 28b/29b/34b/35 hardcore rejects); wall 35146 s, Julia 1.12.0, 50,000 Odlyzko zeros",
+      "level": "heritage"
+    },
+    {
+      "id": 35,
+      "result": "v19 decisive per-test quantities (selected)",
+      "numbers": "b(50000) = 1.2126; Test 16 <r> = 0.594; Test 32 <r> = 0.5991+-0.0075 vs GUE 0.5992; Test 33b plateau weighted <r> = 0.6004, chi2/dof = 0.01; v_F scaling R^2 = 0.9997; zero_modes(alpha=1/2) = 4; Phi_AB = pi/7 exact; (1/2)! = sqrt(pi)/2 rel.err 0.0",
+      "level": "heritage"
+    },
+    {
+      "id": 36,
+      "result": "C17 blind phase B (closed explicit-formula density): NEGATIVE by the letter of the criterion",
+      "numbers": "improvement over the primes-free null 1.04x, z_GUE = -3.3, r = 0.9903; the exploratory C17b blind valley-window stage reads the blind count exactly (19.0004 -> 19; 25.00005 -> 25) and its nodes reproduce the true comb quadrature to RMS 0.0021-0.0088 vs 0.44-0.75 for nulls",
+      "level": "C17"
+    },
+    {
+      "id": 37,
+      "result": "algebraic_map: the Jacobi map of the encoding raised to an explicit algebraic function",
+      "numbers": "exact closure in Q on 24 zeros: char-poly from (alpha, beta^2) matches Prod(lambda - gamma_n) in all 25 coefficients exactly, D_25 = 0; two independent branches of Phi agree to 1e-303; Weyl bound ||Delta J||_2 = 2.04e-7 >= max|Delta gamma| = 1.26e-7; algebraic checksum Sigma alpha^2 + 2 Sigma beta^2 = Sigma gamma^2 amplifies a single canvas quantum 2^15 times",
+      "level": "III/algebraic_map"
+    }
+  ],
+  "theorems": [
+    {
+      "id": "Th1",
+      "where": "V4",
+      "statement": "H_L = H_L^dagger implies spec in R; lambda <-> -lambda at alpha = 1/2, W = 0",
+      "certificate": "||H - H^dagger|| = 0.0 exactly"
+    },
+    {
+      "id": "Th2",
+      "where": "V8",
+      "statement": "Finite-dimensional self-adjointness: defects (0,0), e^{-iHt} unitary",
+      "certificate": "drift 2.2e-16"
+    },
+    {
+      "id": "Th3",
+      "where": "V12",
+      "statement": "Kato |lambda_hat - lambda_tilde| <= delta^2/gap + Gershgorin",
+      "certificate": "widths ~1e-27 (dps 40)"
+    },
+    {
+      "id": "Th4",
+      "where": "V15",
+      "statement": "lambda_n = Tr g_n(H_xi); absolute convergence",
+      "certificate": "two paths <= 4.4e-11"
+    },
+    {
+      "id": "Th5",
+      "where": "V9",
+      "statement": "[H,A] = [H,B] = 0 implies block reduction by characters",
+      "certificate": "union = spectrum to 7.1e-15"
+    },
+    {
+      "id": "Th6",
+      "where": "V7",
+      "statement": "Guinand-Weil: Q(a) <-> zeta'/zeta; K(x) = Tr e^{-x H_xi}",
+      "certificate": "the trace carries Lambda(n)/sqrt(n), r = 0.9996"
+    },
+    {
+      "id": "TS1",
+      "where": "ES1",
+      "statement": "Rotation cycle theta = pi/k closes after exactly N = 2k steps; gap 2pi/N",
+      "certificate": "periods 4/6/14 exactly"
+    },
+    {
+      "id": "TS2",
+      "where": "ES2",
+      "statement": "Reset erases everything: I(pre;post) = 0; reconstruction <= 1/N",
+      "certificate": "0.2501/0.1674/0.0717 = 1/N"
+    },
+    {
+      "id": "TS3",
+      "where": "ES3",
+      "statement": "The step is O(1) for all t; an eternal log implies Omega(t)",
+      "certificate": "slope -1.5e-12 ms/step; x129 growth"
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "G1",
+      "claim_ru": "Самосопряжённость",
+      "claim_en": "Self-adjointness",
+      "verdict": "YES",
+      "basis": "machine-zero hermiticity, real spectrum (Th1, Th2, D2)"
+    },
+    {
+      "id": "G2",
+      "claim_ru": "Спектральное тождество",
+      "claim_en": "Spectral identity",
+      "verdict": "YES",
+      "basis": "D_nn 0.0079 — the level of the zeta zeros themselves (shifted zero windows and the GUE zero class: 0.0079 ± 0.0005, C3); family 0.0069–0.0092 in the zeros' band; GUE class <r> = 0.60 (C5); trace bridge |Delta K| <= 1.2e-5 (C4); audit v2.0.7"
+    },
+    {
+      "id": "G3",
+      "claim_ru": "Класс GUE",
+      "claim_en": "GUE class",
+      "verdict": "YES",
+      "basis": "<r> = 0.60 at N_v >= 8; all of C5 in class (v2.0.5 honest regeneration: <r> = 0.569–0.633, mean 0.601, canonical band 0.5996 ± 0.03; D7: 0.608 vs 0.5992)"
+    },
+    {
+      "id": "G4",
+      "claim_ru": "Дираковская динамика",
+      "claim_en": "Dirac dynamics",
+      "verdict": "YES",
+      "basis": "coherent packet, energy 1e-15; Klein x977; ZB at omega = 2E (D1-D6)"
+    },
+    {
+      "id": "G5",
+      "claim_ru": "Простые в операторе",
+      "claim_en": "Primes in the operator",
+      "verdict": "YES",
+      "basis": "the convergence ladder (audit v2.0.8): gate psi-corr monotone in Nv (−0.12 → +0.09 → +0.24 at Nv = 0 → 2 → 16, peak in the working window), converging with L (Vortex scan: GUE floor 0.0324 → 0.0220 at L = 24 → 96, best pooled D = 0.0318); zeros 0.972 → 1 by the explicit formula; enters with G2 through the level identity; bit-level branch open (T18, C6)"
+    },
+    {
+      "id": "RH",
+      "claim_ru": "Гипотеза Римана",
+      "claim_en": "Riemann hypothesis",
+      "verdict": "BLOCKED",
+      "basis": "V13 obligation machine; analytic prerequisites remain assumed"
+    },
+    {
+      "id": "G6",
+      "claim_ru": "Комбинированный режим D гейта H5 достигает GUE чисто",
+      "claim_en": "Combined regime D of gate H5 reaches GUE cleanly",
+      "verdict": "YES",
+      "basis": "<r> = 0.6003 +- 0.0050; median KS_D = 0.0148 (2x below d_crit = 0.031); 7/7 individual KS pass (meridian H5, L=72, 2026-09-09)"
+    },
+    {
+      "id": "G7",
+      "claim_ru": "Базовая линия A — систематический выброс",
+      "claim_en": "Baseline A is a systematic outlier",
+      "verdict": "NO",
+      "basis": "median D ~ 0.35, worsening with L; OR-clause regimes B/C reach <r> but fail individual KS (meridian H5)"
+    },
+    {
+      "id": "G8",
+      "claim_ru": "Оптимизированное вихревое окно закрывает 89% разрыва до GUE-пола",
+      "claim_en": "The optimized vortex window closes 89% of the gap to the GUE floor",
+      "verdict": "YES",
+      "basis": "D = 0.0318 vs floor 0.0220 and reference 0.1096 (T34-ext, 96x96, 5 realizations, pooled 27,640 spacings)"
+    },
+    {
+      "id": "G9",
+      "claim_ru": "Волновые аттракторы воспроизводятся из первых принципов",
+      "claim_en": "Wave attractors reproduce from first principles",
+      "verdict": "YES",
+      "basis": "lock-in 24/24 vs 0/24 control; chirality mirror-sum 0.0; frequency invariance exact; Python-Julia 3.45e-15 (W1)"
+    },
+    {
+      "id": "G10",
+      "claim_ru": "Сканирование вихрей доказывает гипотезу Гильберта-Поли",
+      "claim_en": "The vortex scan proves the Hilbert-Polya conjecture",
+      "verdict": "NO",
+      "basis": "does_not_prove: the scan establishes a necessary statistical condition (D -> finite-sample floor) any H-P candidate must satisfy; it neither proves RH nor exhibits the H-P operator"
+    }
+  ],
+  "numbers_registry": [
+    {
+      "n": 1,
+      "metric_ru": "Гамма-замыкания, макс. невязка (dps 40)",
+      "metric_en": "Gamma-closures, max residual (dps 40)",
+      "value": "2.59e-39",
+      "campaign": "C1"
+    },
+    {
+      "n": 2,
+      "metric_ru": "Нули Z_id на [0,200] против mpmath",
+      "metric_en": "Z_id zeros on [0,200] vs mpmath",
+      "value": "79/79, max|dgamma| = 2.8e-14",
+      "campaign": "C1"
+    },
+    {
+      "n": 3,
+      "metric_ru": "Мост арифметик N(T)",
+      "metric_en": "Arithmetic bridge N(T)",
+      "value": "|Delta N| = 2.6e-26",
+      "campaign": "C2"
+    },
+    {
+      "n": 4,
+      "metric_ru": "RH в полосе до T = 1000",
+      "metric_en": "RH in strip to T = 1000",
+      "value": "649 = 649",
+      "campaign": "C2"
+    },
+    {
+      "n": 5,
+      "metric_ru": "Тождество Q(a)",
+      "metric_en": "Identity Q(a)",
+      "value": "|Delta Q| <= 1.7e-12",
+      "campaign": "C4"
+    },
+    {
+      "n": 6,
+      "metric_ru": "Следовая формула H_xi",
+      "metric_en": "Trace formula H_xi",
+      "value": "|Delta K| <= 1.2e-5",
+      "campaign": "C4"
+    },
+    {
+      "n": 7,
+      "metric_ru": "Ко-локация фазовых кодировок",
+      "metric_en": "Phase-coding co-location",
+      "value": "max|dE| = 1.35e-14 (C6); 4.4e-16 any beta (C10)",
+      "campaign": "C6/C10"
+    },
+    {
+      "n": 8,
+      "metric_ru": "Транспорт P(x >= 90)",
+      "metric_en": "Transport P(x >= 90)",
+      "value": "zeta 0.0032 vs random 0.0002 (x16)",
+      "campaign": "C7"
+    },
+    {
+      "n": 9,
+      "metric_ru": "spinor64 редукция",
+      "metric_en": "spinor64 reduction",
+      "value": "64 -> 4, |dlambda| <= 1.1e-14",
+      "campaign": "C8"
+    },
+    {
+      "n": 10,
+      "metric_ru": "Счётный закон alpha=1/3",
+      "metric_en": "Counting law alpha = 1/3",
+      "value": "N_0 = 2L - 6*[L = 0 mod 12]",
+      "campaign": "C11"
+    },
+    {
+      "n": 11,
+      "metric_ru": "Таксономия аттрактора",
+      "metric_en": "Attractor taxonomy",
+      "value": "97 GUE / 18 integrable / 6 intermediate; no outliers",
+      "campaign": "C14"
+    },
+    {
+      "n": 12,
+      "metric_ru": "Скрученная следовая формула",
+      "metric_en": "Twisted trace formula",
+      "value": "|Delta K| <= 9.6e-6 (chi_5)",
+      "campaign": "C15"
+    },
+    {
+      "n": 13,
+      "metric_ru": "Дираковский континуальный предел",
+      "metric_en": "Dirac continuum limit",
+      "value": "v_F = 1.9347; E_1 at L=16/24/32 cross-verified 1e-7",
+      "campaign": "D1"
+    },
+    {
+      "n": 14,
+      "metric_ru": "Башня нулевых мод",
+      "metric_en": "Zero-mode tower",
+      "value": "4 for all L; ||{H,Gamma}|| = 0 exact",
+      "campaign": "D2"
+    },
+    {
+      "n": 15,
+      "metric_ru": "Фаза Берри",
+      "metric_en": "Berry phase",
+      "value": "gamma = pi exact",
+      "campaign": "D3"
+    },
+    {
+      "n": 16,
+      "metric_ru": "Релятивистские уровни Ландау",
+      "metric_en": "Relativistic Landau levels",
+      "value": "E_n^2 ~ n, R^2 >= 0.9998",
+      "campaign": "D4"
+    },
+    {
+      "n": 17,
+      "metric_ru": "Кросс-верификация Julia (ядро)",
+      "metric_en": "Julia cross-verification (core)",
+      "value": "all decisive quantities reproduced (D1/D2/D7/D8)",
+      "campaign": "dirac-lab"
+    },
+    {
+      "n": 18,
+      "metric_ru": "Слепые нули ζ до T=1000",
+      "metric_en": "Blind zeta zeros to T=1000",
+      "value": "649/649 (EM) + 639/639 (RS), cross-engine 0.0",
+      "campaign": "E17"
+    },
+    {
+      "n": 19,
+      "metric_ru": "Трасса ↔ простые",
+      "metric_en": "Trace <-> primes",
+      "value": "r = 0.9996",
+      "campaign": "V7/Th6"
+    },
+    {
+      "n": 20,
+      "metric_ru": "Компилятор против 5 бейзлайнов",
+      "metric_en": "Compiler vs 5 baselines",
+      "value": "x59,000 at equal ISA",
+      "campaign": "E18"
+    },
+    {
+      "n": 21,
+      "metric_ru": "Гейт H5, режим A (базовая линия, Nv=4)",
+      "metric_en": "Gate H5, regime A (baseline, Nv=4)",
+      "value": "<r> = 0.5898 +- 0.0102; median KS_D = 0.3531 (6/7 in band, 0/7 individual KS)",
+      "campaign": "H5"
+    },
+    {
+      "n": 22,
+      "metric_ru": "Гейт H5, режим B (плотность монографии, Nv=144)",
+      "metric_en": "Gate H5, regime B (monograph density, Nv=144)",
+      "value": "<r> = 0.6000 +- 0.0052; median KS_D = 0.0559 (OR-clause only)",
+      "campaign": "H5"
+    },
+    {
+      "n": 23,
+      "metric_ru": "Гейт H5, режим C (острый поток, alpha = 25/900)",
+      "metric_en": "Gate H5, regime C (sharp flux, alpha = 25/900)",
+      "value": "<r> = 0.5937 +- 0.0041; median KS_D = 0.0646 (OR-clause only)",
+      "campaign": "H5"
+    },
+    {
+      "n": 24,
+      "metric_ru": "Гейт H5, режим D (комбинированный)",
+      "metric_en": "Gate H5, regime D (combined)",
+      "value": "<r> = 0.6003 +- 0.0050; median KS_D = 0.0148; 7/7 individual KS pass (p > 0.01)",
+      "campaign": "H5"
+    },
+    {
+      "n": 25,
+      "metric_ru": "Гейт H5: 40 плотных диагонализаций 5184x5184",
+      "metric_en": "Gate H5: 40 dense eigensolves of 5184x5184",
+      "value": "4 regimes x 7 realizations + alpha-profile; 46 min on a smartphone",
+      "campaign": "H5"
+    },
+    {
+      "n": 26,
+      "metric_ru": "RH-линейка: верифицированные нули ζ",
+      "metric_en": "RH line: verified zeta zeros",
+      "value": "13,661 нулей (mpmath, 25 знаков); <r> = 0.6144",
+      "campaign": "RH_Sweep_Pro"
+    },
+    {
+      "n": 27,
+      "metric_ru": "Магические α-точки (сетка универсальности)",
+      "metric_en": "Magic alpha-points (universality grid)",
+      "value": "61 точка: pi/30...pi*5, sqrt(2)...sqrt(15), рациональные, phi, e, ln 2, 1/e, 1/pi",
+      "campaign": "Magic_Alpha"
+    },
+    {
+      "n": 28,
+      "metric_ru": "Таблица 50 000 нулей ζ (эталон обсерватории)",
+      "metric_en": "The 50,000-zero zeta table (observatory reference)",
+      "value": "gamma_1 = 14.134725142 ... gamma_50000 = 40433.687385462; одинакова в двух форматах",
+      "campaign": "zeros50k"
+    },
+    {
+      "n": 29,
+      "metric_ru": "Статистика r таблицы 50k (проверка пакета)",
+      "metric_en": "r-statistics of the 50k table (package check)",
+      "value": "<r> = 0.6119 +- 0.0010 (n = 49,998); блоки по 5000 нулей: 0.6095-0.6160",
+      "campaign": "zeros50k (derived)"
+    },
+    {
+      "n": 30,
+      "metric_ru": "KS таблицы 50k к сюрмизе Вигнера (локальный анфолдинг)",
+      "metric_en": "KS of the 50k table vs Wigner surmise (local unfolding)",
+      "value": "D = 0.0223 (окно 500) - конечная выборка, тот же эффект, что у GUE-пола",
+      "campaign": "zeros50k (derived)"
+    },
+    {
+      "n": 31,
+      "metric_ru": "Тест 34-ext: эталонная конфигурация (Nv=2, 96x96)",
+      "metric_en": "Test 34-ext: suite reference configuration (Nv=2, 96x96)",
+      "value": "pooled D = 0.1096 (p = 2.24e-186) -> WARN; повторное измерение порта: D = 0.0928, разброс 0.072-0.111",
+      "campaign": "T34-ext"
+    },
+    {
+      "n": 32,
+      "metric_ru": "Тест 34-ext: лучшая конфигурация (Nv=16, q=1.0, торус)",
+      "metric_en": "Test 34-ext: best configuration (Nv=16, q=1.0, torus)",
+      "value": "pooled D = 0.0318, разброс 0.028-0.038 (PASS); x3.4 к эталону",
+      "campaign": "T34-ext"
+    },
+    {
+      "n": 33,
+      "metric_ru": "Тест 34-ext: кандидат Nv=8, q=1.0, alpha=0.6, сетка",
+      "metric_en": "Test 34-ext: candidate Nv=8, q=1.0, alpha=0.6, grid",
+      "value": "pooled D = 0.0358, разброс 0.033-0.039 (PASS)",
+      "campaign": "T34-ext"
+    },
+    {
+      "n": 34,
+      "metric_ru": "Тест 34-ext: кандидат Nv=16, q=0.7, открытые границы",
+      "metric_en": "Test 34-ext: candidate Nv=16, q=0.7, open",
+      "value": "pooled D = 0.0387, разброс 0.037-0.041 (PASS)",
+      "campaign": "T34-ext"
+    },
+    {
+      "n": 35,
+      "metric_ru": "GUE-пол по размерам решётки",
+      "metric_en": "GUE floor per lattice size",
+      "value": "L=24: 0.0324; 32: 0.0331; 48: 0.0309; 64: 0.0257; 96: 0.0220 (пол сам не проходит p-плечо: p = 3.0e-4 - честная оговорка)",
+      "campaign": "T34-ext"
+    },
+    {
+      "n": 36,
+      "metric_ru": "Крайние случаи скана (физика окна)",
+      "metric_en": "Scan edge cases (window physics)",
+      "value": "Nv=0: D = 0.73; Nv=1: D = 0.194; кластерная компоновка: D = 0.11-0.17",
+      "campaign": "T34-ext"
+    },
+    {
+      "n": 37,
+      "metric_ru": "Валидация порта движка до скана",
+      "metric_en": "Engine port validation before the scan",
+      "value": "эрмитовость 0.0; равномерность потока на торе (alpha=1/4) точно; KS против scipy <= 1e-12; 49,999 зазоров ζ-стороны; 5528/5527 на L=96",
+      "campaign": "T34-ext"
+    },
+    {
+      "n": 38,
+      "metric_ru": "W1: захват в аттрактор (гиперболика vs изотропия)",
+      "metric_en": "W1: attractor lock-in (hyperbolic vs isotropic)",
+      "value": "24/24 (1.00) против 0/24 (0.00)",
+      "campaign": "W1/E2"
+    },
+    {
+      "n": 39,
+      "metric_ru": "W1: каскад длин волн на отражениях от склона",
+      "metric_en": "W1: wavelength cascade at slope reflections",
+      "value": "средний рост |k| x7.6 (переходный), максимальный x65; стационарный x4.19; сходимость q = 0.992 (медиана)",
+      "campaign": "W1/E1"
+    },
+    {
+      "n": 40,
+      "metric_ru": "W1: киральность зеркальной пары",
+      "metric_en": "W1: mirror-pair chirality",
+      "value": "C + C_mir = 0.0 (машинная точность, 2.8e-16); Hausdorff 1.0e-14; сосуществующие смыслы C = +-0.4683, +-0.0317, 0",
+      "campaign": "W1/E3"
+    },
+    {
+      "n": 41,
+      "metric_ru": "W1: инвариантность лучевой карты к частоте",
+      "metric_en": "W1: frequency invariance of the ray map",
+      "value": "K = 1 vs K = 7: максимальное отклонение 0.0 (точно)",
+      "campaign": "W1/E4a"
+    },
+    {
+      "n": 42,
+      "metric_ru": "W1: контраст коридора плотности лучей",
+      "metric_en": "W1: ray-density corridor contrast",
+      "value": "x5.47 на маршруте",
+      "campaign": "W1/E4c"
+    },
+    {
+      "n": 43,
+      "metric_ru": "W1: универсальное окно аттрактора",
+      "metric_en": "W1: universal attractor window",
+      "value": "u1 = 0.176 +- 0.041, u2 = 0.490 +- 0.084 (u = s*sqrt(eta), eta = 9...400); резонанс s* = 1/sqrt(eta) завышает окно",
+      "campaign": "W1/E6"
+    },
+    {
+      "n": 44,
+      "metric_ru": "W1: волновые карты и анизотропия каналирования",
+      "metric_en": "W1: wave maps and channeling anisotropy",
+      "value": "контраст 0.95-1.14; анизотропия H: 0.779 (eta=4) -> 0.866 (eta=16); конус 26.6° -> 14.0°",
+      "campaign": "W1/E6"
+    },
+    {
+      "n": 45,
+      "metric_ru": "W1: временной домен (Drude-дисперсия)",
+      "metric_en": "W1: time domain (Drude dispersion)",
+      "value": "захват коридора 1.43x против изотропного контроля; рост захвата x10 (32 -> 192 ячейки)",
+      "campaign": "W1/E7"
+    },
+    {
+      "n": 46,
+      "metric_ru": "W1: кросс-верификация Python ↔ Julia",
+      "metric_en": "W1: Python <-> Julia cross-verification",
+      "value": "лучевые траектории: 3.45e-15 (1200 точек отражения); TD-ядро: 2.4e-15 (400 шагов)",
+      "campaign": "W1/cross"
+    },
+    {
+      "n": 47,
+      "metric_ru": "W1: AB-эффект на волнах воды (спутник)",
+      "metric_en": "W1: AB effect with water waves (companion)",
+      "value": "фазовая намотка W(-alpha) = -W(alpha) точно; зеркальная корреляция 1.0",
+      "campaign": "W1/AB_water"
+    },
+    {
+      "n": 48,
+      "metric_ru": "Прогон v19: суммарный вердиктный слой",
+      "metric_en": "v19 run: the verdict layer total",
+      "value": "37 тестов / 77 вердиктных строк: 66 PASS / 11 FAIL-класс (все зафиксированы); Julia 1.12.0; 35146 с",
+      "campaign": "v19"
+    },
+    {
+      "n": 49,
+      "metric_ru": "Прогон v19: критические числа тестов",
+      "metric_en": "v19 run: decisive per-test numbers",
+      "value": "b(50000)=1.2126; <r>=0.594 (T16); 0.5991+-0.0075 (T32); плато 0.6004, chi2/dof=0.01 (T33b); L-лестница 0.434->0.6 (T33)",
+      "campaign": "v19"
+    },
+    {
+      "n": 50,
+      "metric_ru": "Прогон v19: точный слой конструкции",
+      "metric_en": "v19 run: the exact layer of the construction",
+      "value": "эрмитовость OK; нулевые моды (alpha=1/2) = 4; Phi_AB = pi/7 точно; (1/2)! = sqrt(pi)/2 (rel.err 0.0); флюкс Byers-Yang 3.5e-15",
+      "campaign": "v19"
+    },
+    {
+      "n": 51,
+      "metric_ru": "C5 (v2.0.5, честная регенерация): расширенная семья затворов",
+      "metric_en": "C5 (v2.0.5 honest regeneration): the extended gate family",
+      "value": "|r_H7| max 0.097, Bonferroni 0.57; <r> = 0.569-0.633, mean 0.601",
+      "campaign": "C5"
+    },
+    {
+      "n": 52,
+      "metric_ru": "C17 слепая фаза B: улучшение над null-моделью без простых",
+      "metric_en": "C17 blind phase B: improvement over the primes-free null",
+      "value": "1.04x (NEGATIVE по букве критерия); z_GUE = -3.29; r = 0.9903; слепой счёт точен: 19.0004 -> 19, 25.00005 -> 25; RMS узлов 0.0021-0.0088 vs 0.44-0.75 у null",
+      "campaign": "C17"
+    },
+    {
+      "n": 53,
+      "metric_ru": "algebraic_map: точное замыкание якобиевой карты в Q",
+      "metric_en": "algebraic_map: exact closure of the Jacobi map in Q",
+      "value": "все 25 коэффициентов char-полинома совпадают точно, D_25 = 0; ветви Ф совпадают до 1e-303; граница Вейля 2.04e-7 >= 1.26e-7; контр. сумма усиливает квант в 2^15 раз",
+      "campaign": "algebraic_map"
+    }
+  ],
+  "statistics": {
+    "campaigns_total": "44+ (V01-V20, C1-C17, D1-D14) plus E01-E18, ES1-ES5, gates H1-H7, RH line, Monumental V01-V112, T34-ext (242 configs), W1 (E1-E7)",
+    "theorems_total": "27 (Th1-Th6, TS1-TS3, T1-T18)",
+    "tests_total": "410+ across the laboratories plus the v19 two-pass run (37 tests / 77 verdict rows) and the W1 reproduction battery (31/31 data files, 12/12 figures)",
+    "languages": "9 (Python, Julia, C, C++, Rust, Go, JS, Lean 4, Coq)",
+    "documents": "36+ monograph-level documents (RU/EN, PDF/DOCX) plus the MAX editions (~100k words each)",
+    "heritage_reference_run": "38 tests, 26.04 h, Julia 1.12, 2026-09-14 (legacy); v19 run: 37 tests, 9.76 h wall, 2026-09-02",
+    "zeta_zeros_reference": "50,000 zeros (14.134725142...40433.687385462), <r> = 0.6119 +- 0.0010 (package-derived check)"
+  }
+}

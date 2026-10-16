@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-label="Wave attractors level icon">
+  <path d="M4 30 Q 12 14, 20 30 T 36 30 T 44 30" fill="none" stroke="#7FA8D0" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M4 38 Q 12 22, 20 38 T 36 38" fill="none" stroke="#7FC8A8" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
+  <circle cx="20" cy="30" r="2.6" fill="#00E5FF"/>
+</svg>

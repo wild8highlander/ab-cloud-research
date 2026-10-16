@@ -1,0 +1,14 @@
+FULL COMPUTATION LOG — test 29: Dirac dip in DOS at α=1/2
+every log_comp() entry emitted while this test ran:
+
+[17:57:51.474] [+14986.757s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.3958, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:02:45.467] [+15280.749s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.4271, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:07:46.953] [+15582.235s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.4583, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:12:40.826] [+15876.108s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.4896, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:17:38.995] [+16174.277s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:22:37.999] [+16473.281s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5104, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:27:30.820] [+16766.102s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5417, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:33:06.073] [+17101.353s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.5729, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:38:26.831] [+17422.113s]  build_ab_cloud_hamiltonian: 96x96 (N=9216), α=0.6042, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:43:57.279] [+17752.561s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.5000, t=1.00, W=0.00, torus, 0 vortices, model=:monumental
+[18:44:03.436] [+17758.718s]  build_ab_cloud_hamiltonian: 48x48 (N=2304), α=0.3958, t=1.00, W=0.00, torus, 0 vortices, model=:monumental

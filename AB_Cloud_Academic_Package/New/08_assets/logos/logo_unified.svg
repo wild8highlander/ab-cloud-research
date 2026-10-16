@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="480" viewBox="0 0 480 480" role="img" aria-label="AB-Cloud unified research logo">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="42%" r="65%">
+      <stop offset="0%" stop-color="#1F4E79" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0B1F35" stop-opacity="1"/>
+    </radialGradient>
+    <linearGradient id="band" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8B7E5A"/>
+      <stop offset="100%" stop-color="#C9B97E"/>
+    </linearGradient>
+  </defs>
+  <circle cx="240" cy="240" r="232" fill="url(#glow)"/>
+  <circle cx="240" cy="240" r="232" fill="none" stroke="url(#band)" stroke-width="4"/>
+  <!-- Aharonov-Bohm flux lattice -->
+  <g stroke="#7FA8D0" stroke-width="2.4" opacity="0.85" fill="none">
+    <path d="M120 160 H360"/><path d="M120 240 H360"/><path d="M120 320 H360"/>
+    <path d="M160 120 V360"/><path d="M240 120 V360"/><path d="M320 120 V360"/>
+  </g>
+  <g fill="#C9B97E">
+    <circle cx="160" cy="160" r="6"/><circle cx="240" cy="160" r="6"/><circle cx="320" cy="160" r="6"/>
+    <circle cx="160" cy="240" r="6"/><circle cx="320" cy="240" r="6"/>
+    <circle cx="160" cy="320" r="6"/><circle cx="240" cy="320" r="6"/><circle cx="320" cy="320" r="6"/>
+  </g>
+  <!-- central zeta node -->
+  <circle cx="240" cy="240" r="46" fill="#0B1F35" stroke="url(#band)" stroke-width="3"/>
+  <text x="240" y="258" font-family="'Georgia','Times New Roman',serif" font-size="58" fill="#E8DDB8" text-anchor="middle" font-style="italic">&#950;</text>
+  <!-- orbit of zeros along the critical line -->
+  <g stroke="#E8DDB8" stroke-width="1.6" opacity="0.65" stroke-dasharray="3 6">
+    <line x1="240" y1="46" x2="240" y2="434"/>
+  </g>
+  <g fill="#7FC8A8">
+    <circle cx="240" cy="120" r="4.5"/><circle cx="240" cy="176" r="4.5"/><circle cx="240" cy="304" r="4.5"/><circle cx="240" cy="360" r="4.5"/>
+  </g>
+  <text x="240" y="470" font-family="'Inter','Helvetica',sans-serif" font-size="15" letter-spacing="6" fill="#8898A8" text-anchor="middle">AB-CLOUD RESEARCH</text>
+</svg>

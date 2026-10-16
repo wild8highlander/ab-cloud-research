@@ -1,0 +1,6 @@
+id,assumption,where it is used,what happens if it fails
+A1,the analytic prerequisites of the blocked RH conclusion remain assumptions,V13 obligation machine,nothing - the machine exists to keep this honest
+A2,machine precision (double) is meaningful for the statistical layer,all campaigns' GUE statistics,exact layer uses 256-bit paths as backstop
+A3,mpmath's zeros are a trustworthy oracle,C1/C2/C12 bridges,blind engines cross-check (E16/E17)
+A4,pre-registered windows cannot be re-tuned after results,gue_windows in config.yaml,the programme loses its pre-registration discipline
+A5,locality is the binding constraint (not e.g. symmetry),T18 interpretation,the wall map would need redrawing - the measurement stands either way

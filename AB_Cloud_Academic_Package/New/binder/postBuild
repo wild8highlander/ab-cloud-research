@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+echo 'binder: nothing to build - the notebooks read local files only'

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2384" height="3370" viewBox="0 0 2384 3370" font-family="Inter, Liberation Sans, sans-serif">
+  <rect width="2384" height="3370" fill="#162032"/>
+  <rect x="0" y="0" width="2384" height="12" fill="#8B7E5A"/>
+  <text x="120" y="220" font-size="110" font-weight="800" fill="#FFFFFF">The AB-Cloud Research Programme</text>
+  <text x="120" y="330" font-size="56" font-style="italic" fill="#C9B97E">the resonator is built; the zeros are read; the wall is located</text>
+  <rect x="120" y="430" width="2144" height="4" fill="#8B7E5A"/>
+  <text x="120" y="560" font-size="48" fill="#8898A8">Isaev Iskhak Khamzatovich · ORCID 0009-0003-7299-0701 · DOI 10.5281/zenodo.21825394</text>
+
+  <text x="120" y="760" font-size="64" font-weight="700" fill="#7FA8D0">THE QUESTION</text>
+  <text x="120" y="840" font-size="44" fill="#E8EEF5">If the ζ zeros are a spectrum — whose? Build the candidate, measure the gap, map the wall.</text>
+
+  <text x="120" y="1010" font-size="64" font-weight="700" fill="#7FC8A8">ESTABLISHED</text>
+  <g font-size="42" fill="#E8EEF5">
+    <text x="120" y="1080">• GUE class: ⟨r⟩ 0.60 → 0.608 (ζ-decorated Dirac); Klein quartic D = 0.0808</text>
+    <text x="120" y="1160">• Dirac dynamics: v_F = 2t, R² = 0.9997; Klein tunneling ×977; ZB ω = 2E</text>
+    <text x="120" y="1240">• Trace ↔ primes: r = 0.9996 (Λ(n)/√n in the heat trace)</text>
+    <text x="120" y="1320">• Blind reading: 649/649 + 639/639 zeros to T = 1000; cross-engine 0.0</text>
+    <text x="120" y="1400">• Compiler: class-B benchmark won ×59,000 at 1−F = 4.4·10⁻¹⁶</text>
+  </g>
+
+  <text x="120" y="1580" font-size="64" font-weight="700" fill="#FFB74D">NOT ESTABLISHED</text>
+  <g font-size="42" fill="#E8EEF5">
+    <text x="120" y="1650">• Spectral identity: NO — 9–10 orders; stable on 87+20+121 configurations</text>
+    <text x="120" y="1730">• Primes in gate spectra: NO — the null zone</text>
+    <text x="120" y="1810" font-weight="700" fill="#FFB74D">• RH: BLOCKED — the V13 obligation machine (by construction)</text>
+  </g>
+
+  <text x="120" y="2000" font-size="64" font-weight="700" fill="#E8DDB8">THE WALL IS LOCATED</text>
+  <g font-size="42" fill="#E8EEF5">
+    <text x="120" y="2070">Nonlocal twin: trace identity exact (r_H7 = 1.000000)</text>
+    <text x="120" y="2150">Local lattices: S_A ≈ 12–16 nats vs Haar 160–220</text>
+    <text x="120" y="2230">⇒ locality suppresses the entanglement the zeros demand</text>
+    <text x="120" y="2310">⇒ a positive construction must be nonlocal — or equivalently entangling</text>
+  </g>
+
+  <g stroke="#8B7E5A" stroke-width="3" opacity="0.5" fill="none">
+    <path d="M120 2600 H2264"/><path d="M900 2470 V2990"/>
+  </g>
+  <g fill="#C9B97E">
+    <circle cx="760" cy="2600" r="14"/><circle cx="1040" cy="2600" r="14"/><circle cx="760" cy="2860" r="14"/><circle cx="1040" cy="2860" r="14"/>
+  </g>
+  <circle cx="900" cy="2730" r="70" fill="#0B1F35" stroke="#C9B97E" stroke-width="5"/>
+  <text x="900" y="2760" font-size="86" font-style="italic" fill="#E8DDB8" text-anchor="middle">ζ</text>
+
+  <text x="120" y="3120" font-size="40" fill="#8898A8">Unified academic edition · no version numbers · every number names its campaign · every claim carries its boundary</text>
+  <text x="120" y="3200" font-size="40" fill="#7FC8A8" font-style="italic">RH status: blocked by design — the study maps the wall, it does not claim the summit</text>
+  <text x="120" y="3320" font-size="36" fill="#607080">github.com/wild8highlander/ab-cloud-research · AB_Cloud_Academic_Package</text>
+</svg>

@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The AB-Cloud Research Programme interactive laboratory: levels, campaigns, verdicts, numbers. Fully offline.">
+<meta name="color-scheme" content="dark light">
+<title>AB-Cloud Web Laboratory · unified edition</title>
+<style>
+:root, [data-theme=dark] { --bg:#162032; --panel:#1d2a42; --fg:#e8eef5; --muted:#8898a8; --accent:#c9b97e; --ok:#7fc8a8; --warn:#ffb74d; --err:#ef9a9a; --line:#2c3d5c; }
+[data-theme=light] { --bg:#f7f9fc; --panel:#ffffff; --fg:#162032; --muted:#5b6b7b; --accent:#8b7e5a; --ok:#2e7d32; --warn:#b26a00; --err:#b3261e; --line:#dde5ef; }
+[data-theme=neon] { --bg:#0a0e1a; --panel:#101828; --fg:#00e5ff; --muted:#5d737e; --accent:#ff4081; --ok:#00e676; --warn:#ffea00; --err:#ff1744; --line:#1b2740; }
+[data-theme=dracula] { --bg:#282a36; --panel:#343746; --fg:#f8f8f2; --muted:#6272a4; --accent:#bd93f9; --ok:#50fa7b; --warn:#f1fa8c; --err:#ff5555; --line:#44475a; }
+[data-theme=nord] { --bg:#2e3440; --panel:#3b4252; --fg:#eceff4; --muted:#4c566a; --accent:#88c0d0; --ok:#a3be8c; --warn:#ebcb8b; --err:#bf616a; --line:#434c5e; }
+[data-theme=catppuccin] { --bg:#1e1e2e; --panel:#2a2a3c; --fg:#cdd6f4; --muted:#6c7086; --accent:#f5c2e7; --ok:#a6e3a1; --warn:#f9e2af; --err:#f38ba8; --line:#313244; }
+[data-theme=solarized] { --bg:#002b36; --panel:#073642; --fg:#eee8d5; --muted:#586e75; --accent:#b58900; --ok:#859900; --warn:#cb4b16; --err:#dc322f; --line:#0d4557; }
+[data-theme=gruvbox] { --bg:#282828; --panel:#32302f; --fg:#ebdbb2; --muted:#928374; --accent:#fabd2f; --ok:#b8bb26; --warn:#fe8019; --err:#fb4934; --line:#3c3836; }
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; background:var(--bg); color:var(--fg);
+  font-family: "Inter", "Liberation Sans", system-ui, sans-serif; line-height:1.6; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 22px 60px; }
+a { color: var(--accent); text-decoration: none; } a:hover { text-decoration: underline; }
+header.hero { padding: 54px 0 26px; border-bottom: 1px solid var(--line); position:relative; }
+.hero .kicker { color: var(--accent); letter-spacing: 4px; font-size: 12px; text-transform: uppercase; }
+.hero h1 { font-family: Georgia, "Liberation Serif", serif; font-size: 42px; margin: 12px 0 8px; line-height:1.15; }
+.hero p.tag { color: var(--muted); font-size: 17px; max-width: 760px; margin: 6px 0 16px; font-style: italic; }
+.badges span { display:inline-block; margin: 2px 6px 2px 0; padding: 3px 12px; border:1px solid var(--line);
+  border-radius: 999px; font-size: 12.5px; color: var(--muted); }
+.badges .rh { color: var(--warn); border-color: var(--warn); font-weight: 600; }
+.badges .ok { color: var(--ok); border-color: var(--ok); }
+.controls { display:flex; gap: 10px; flex-wrap: wrap; margin: 26px 0 6px; align-items:center; }
+.controls select, .controls input, .controls button { background: var(--panel); color: var(--fg);
+  border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; font-size: 14px; font-family: inherit; }
+.controls input { min-width: 240px; flex:1; }
+.controls button.explain.on { border-color: var(--accent); color: var(--accent); }
+h2.section { font-family: Georgia, "Liberation Serif", serif; font-size: 27px; margin: 46px 0 6px; }
+h2 .ru { color: var(--accent); font-size: 18px; font-weight: 400; }
+p.secdesc { color: var(--muted); margin-top: 0; }
+.grid { display:grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+.card h3 { margin: 2px 0 6px; font-size: 17px; }
+.card .camp { color: var(--accent); font-size: 13px; letter-spacing: 1px; }
+.card p { color: var(--muted); font-size: 14.5px; margin: 8px 0 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; margin-top: 10px; }
+th { text-align: left; color: var(--muted); font-weight: 600; border-bottom: 2px solid var(--line); padding: 8px 10px; }
+td { border-bottom: 1px solid var(--line); padding: 8px 10px; vertical-align: top; }
+tr:hover td { background: rgba(255,255,255,0.02); }
+.v { font-weight: 700; } .v.yes { color: var(--ok); } .v.no { color: var(--err); } .v.blocked { color: var(--warn); }
+.mono { font-family: "Liberation Mono", monospace; font-size: 13px; }
+.bar-row { display:grid; grid-template-columns: 220px 1fr 120px; gap: 12px; align-items: center; margin: 10px 0; font-size: 14px; }
+.bar { height: 16px; border-radius: 4px; background: repeating-linear-gradient(90deg, var(--line) 0 4px, transparent 4px 7px); overflow:hidden; position:relative; }
+.bar > i { position:absolute; inset: 0 auto 0 0; background: var(--accent); display:block; border-radius: 4px; }
+.bar.warn > i { background: var(--warn); } .bar.ok > i { background: var(--ok); }
+.honesty { border-left: 4px solid var(--warn); padding: 14px 18px; background: var(--panel); border-radius: 0 12px 12px 0; }
+.explain-tip { display:none; margin-top: 6px; color: var(--accent); font-size: 13px; font-style: italic; }
+body.explain .explain-tip { display:block; }
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13.5px; }
+.toc-chips { display:flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+.toc-chips a { border:1px solid var(--line); padding: 4px 12px; border-radius: 999px; font-size: 13px; color: var(--muted); }
+.toc-chips a:hover { border-color: var(--accent); color: var(--accent); text-decoration:none; }
+.kpi { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 18px 0; }
+.kpi .box { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.kpi b { display:block; font-size: 26px; color: var(--accent); font-family: Georgia, serif; }
+.kpi span { color: var(--muted); font-size: 12.5px; }
+@media (max-width: 720px){ .hero h1 { font-size: 30px; } .bar-row { grid-template-columns: 130px 1fr 90px; font-size: 12.5px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">AB-CLOUD RESEARCH PROGRAMME · WEB LABORATORY</div>
+  <h1 data-i18n="title">Four levels of one machine</h1>
+  <p class="tag" data-i18n="tag">The algebraic AB (Aharonov–Bohm) architecture as a computing fabric, its Dirac skeleton, the Hilbert–Pólya bridge, and the blind verification apparatus.</p>
+  <div class="badges">
+    <span class="rh">RH: blocked (V13)</span>
+    <span class="ok">43+ campaigns</span>
+    <span>27 theorems</span><span>410+ tests</span><span>9 languages</span>
+    <span>18/18 pre-registered verdicts</span><span>no version numbers</span>
+  </div>
+  <div class="toc-chips">
+    <a href="#levels" data-i18n="nav_levels">Levels</a>
+    <a href="#kpis" data-i18n="nav_kpis">Key numbers</a>
+    <a href="#verdicts" data-i18n="nav_verdicts">Verdict ledger</a>
+    <a href="#flagship" data-i18n="nav_flagship">Flagship results</a>
+    <a href="#bars" data-i18n="nav_bars">Metrics</a>
+    <a href="#numbers" data-i18n="nav_numbers">Numbers registry</a>
+    <a href="#honesty" data-i18n="nav_honesty">Honesty layer</a>
+  </div>
+</header>
+
+<div class="controls">
+  <select id="lang" aria-label="language">
+    <option value="en">English</option><option value="ru">Русский</option>
+  </select>
+  <select id="theme" aria-label="theme">
+    <option value="dark">theme: dark</option><option value="light">light</option>
+    <option value="neon">neon</option><option value="dracula">dracula</option>
+    <option value="nord">nord</option><option value="catppuccin">catppuccin</option>
+    <option value="solarized">solarized</option><option value="gruvbox">gruvbox</option>
+  </select>
+  <input id="q" type="search" placeholder="" data-i18n-ph="search" aria-label="search">
+  <button class="explain" id="explain" data-i18n="explain">explain mode</button>
+</div>
+
+<section id="levels">
+  <h2 class="section"><span data-i18n="levels_h">The levels</span> <span class="ru" data-i18n="levels_h_ru">· уровни одной машины</span></h2>
+  <p class="secdesc" data-i18n="levels_d">Every level is a campaign series over the same AB-cloud construct; links between levels are certified by shared numbers, not decoration.</p>
+  <div class="grid" id="levels-grid"></div>
+</section>
+
+<section id="kpis">
+  <h2 class="section"><span data-i18n="kpi_h">At a glance</span></h2>
+  <div class="kpi" id="kpi-grid"></div>
+</section>
+
+<section id="verdicts">
+  <h2 class="section"><span data-i18n="ver_h">The verdict ledger</span> <span class="ru" data-i18n="ver_h_ru">· реестр вердиктов</span></h2>
+  <p class="secdesc" data-i18n="ver_d">Pre-registered, with basis and does_not_prove boundaries. RH is blocked by the V13 obligation machine — by construction.</p>
+  <div class="card" style="padding-bottom:6px"><table id="verdict-table"></table></div>
+</section>
+
+<section id="flagship">
+  <h2 class="section"><span data-i18n="fl_h">Flagship results</span> <span class="ru" data-i18n="fl_h_ru">· головные результаты</span></h2>
+  <p class="secdesc" data-i18n="fl_d">Every row names its campaign. Use the search box to filter.</p>
+  <div class="card" style="padding-bottom:6px"><table id="flagship-table"></table></div>
+</section>
+
+<section id="bars">
+  <h2 class="section"><span data-i18n="bars_h">The metrics, drawn</span></h2>
+  <div class="card" id="bars-card"></div>
+</section>
+
+<section id="numbers">
+  <h2 class="section"><span data-i18n="num_h">The numbers registry</span> <span class="ru" data-i18n="num_h_ru">· реестр чисел</span></h2>
+  <p class="secdesc" data-i18n="num_d">Verbatim from the sources' verdict files; disagreements between sources are shown, not resolved.</p>
+  <div class="card" style="padding-bottom:6px"><table id="numbers-table"></table></div>
+</section>
+
+<section id="honesty">
+  <h2 class="section"><span data-i18n="hon_h">The honesty layer</span> <span class="ru" data-i18n="hon_h_ru">· слой честности</span></h2>
+  <div class="honesty">
+    <p id="honesty-text"></p>
+    <p class="explain-tip" data-i18n="hon_tip">Turn off explain mode to hide these notes.</p>
+  </div>
+</section>
+
+<footer>
+  <p><b data-i18n="cite">Citation</b>: Isaev, I. Kh. (2026). AB-Cloud Research Programme: Unified Academic Package. DOI <a href="https://doi.org/10.5281/zenodo.21825394">10.5281/zenodo.21825394</a> · ORCID 0009-0003-7299-0701.</p>
+  <p data-i18n="foot">This laboratory is a single offline HTML file: no CDNs, no telemetry, no cookies. The numbers derive from 02_data/processed/research_registry.json — the funnel. RH status: blocked by design.</p>
+</footer>
+
+</div>
+<script>
+const DATA = {
+ "levels": [
+  {
+   "id": "I",
+   "name": "Spectral core",
+   "name_ru": "Спектральное ядро",
+   "campaigns": "V01-V19",
+   "essence": "Blind spectrum, null models, critical line, the V13 obligation machine, branch stitching V19; theorems Th1-Th6"
+  },
+  {
+   "id": "I+",
+   "name": "AB processor",
+   "name_ru": "AB-процессор",
+   "campaigns": "V20 (+V23/V24 previews)",
+   "essence": "AB-cloud ISA, exact Givens-QR compiler, 'reads, does not carry', no-signaling nonlocality (CHSH S = 2*sqrt(2) - 4.4e-16)"
+  },
+  {
+   "id": "II",
+   "name": "Dirac skeleton",
+   "name_ru": "Дираковский скелет",
+   "campaigns": "D1-D14",
+   "essence": "The pi-flux lattice is a discretized massless Dirac equation; the zeta-decorated Dirac operator lifts bulk statistics GOE->GUE"
+  },
+  {
+   "id": "III",
+   "name": "Hilbert-Pólya bridge",
+   "name_ru": "Мост Гильберта-Поли",
+   "campaigns": "C1-C17",
+   "theorems": "T1-T18",
+   "essence": "Graph-to-operator passage: identity function, argument principle to T=1000, gate family, Guinand-Weil trace; the level identity at the zeros' level (G2 — YES, v2.0.7) and the primes via the convergence ladder (G5 — YES, v2.0.8); the bit-level locality branch (T18) remains open"
+  },
+  {
+   "id": "IV",
+   "name": "Blind verification",
+   "name_ru": "Слепая верификация",
+   "campaigns": "E01-E18",
+   "essence": "Julia platform: blind zeta-zero reading by two engines, independent Riemann-Siegel, class-B compiler benchmark; 18/18 pre-registered verdicts"
+  },
+  {
+   "id": "V",
+   "name": "Spinor study",
+   "name_ru": "Спинор-исследование",
+   "campaigns": "ES1-ES5",
+   "theorems": "TS1-TS3",
+   "essence": "The machine with no long-term memory: three phase models (theta = pi/2, pi/3, pi/7), O(1) steps vs Omega(t) logs"
+  }
+ ],
+ "flagship": [
+  {
+   "id": 1,
+   "result": "Blind reading of zeta zeros up to T=1000 by two independent engines",
+   "numbers": "649/649 (EM) + 639/639 (RS); cross-engine 0.0 bit-exact; N(1000)=649.0",
+   "level": "E17"
+  },
+  {
+   "id": 2,
+   "result": "Independent Riemann-Siegel (Arias de Reyna)",
+   "numbers": "agreement <= 3.8e-15 (threshold 1e-9)",
+   "level": "E16"
+  },
+  {
+   "id": 3,
+   "result": "Compiler vs 5 strong baselines under equal ISA (class B)",
+   "numbers": "max 1-F = 4.4e-16; x59,000 in time",
+   "level": "E18"
+  },
+  {
+   "id": 4,
+   "result": "Exact compilation of unitary logic into AB clouds",
+   "numbers": "1-F <= 4.4e-16 (4x4) / 6.7e-16 (8x8); depth <= 7/29 gates",
+   "level": "V20"
+  },
+  {
+   "id": 5,
+   "result": "'Reads, does not carry': zeta zeros from 6 formula constants",
+   "numbers": "12/12 zeros exactly; storage = 0",
+   "level": "V23 preview"
+  },
+  {
+   "id": 6,
+   "result": "No-signaling nonlocality",
+   "numbers": "CHSH S = 2*sqrt(2) - 4.4e-16; protection 1000/1000",
+   "level": "V24 preview"
+  },
+  {
+   "id": 7,
+   "result": "Branch stitching",
+   "numbers": "theta-ladder 0.832; coherence 0.9995 (z = 43.4)",
+   "level": "V19"
+  },
+  {
+   "id": 8,
+   "result": "Trace <-> primes (Th6)",
+   "numbers": "r = 0.9996 (lattice control 0.76)",
+   "level": "V7/Th6"
+  },
+  {
+   "id": 9,
+   "result": "The machine with no long-term memory",
+   "numbers": "cycles 4/6/14 = 2k; reset to chance; O(1) vs Omega(t) x129",
+   "level": "ES1-ES3"
+  },
+  {
+   "id": 10,
+   "result": "Dirac continuum limit",
+   "numbers": "v_F = 1.9347 > 2t = 2.0; E_1*L -> 4pi; R^2 = 0.9997",
+   "level": "D1"
+  },
+  {
+   "id": 11,
+   "result": "Klein supertunneling",
+   "numbers": "T(0 deg) = 0.978 vs 0.0010 Schrodinger control - factor 977",
+   "level": "D5"
+  },
+  {
+   "id": 12,
+   "result": "Zeta-decorated Dirac statistics",
+   "numbers": "<r>_zeta = 0.608 vs GUE theory 0.5992; {H,Gamma} = 0; E<->-E to 4e-15",
+   "level": "D7-D8"
+  },
+  {
+   "id": 13,
+   "result": "JR index restoration in full zeta background",
+   "numbers": "min|E_0| = 3.9e-9; contrast 7e6",
+   "level": "D9"
+  },
+  {
+   "id": 14,
+   "result": "Berry-Keating/Connes conjugation on the lattice",
+   "numbers": "spectrum to 1.7e-13; recognition 4.6e-13; staircase tracks 2000 zeros to 2.3 units",
+   "level": "D11"
+  },
+  {
+   "id": 15,
+   "result": "Infinite BK ladder at fixed density",
+   "numbers": "peak = N_u exact; off-peak envelope 1.9e-4 at N_u = 32768",
+   "level": "D12"
+  },
+  {
+   "id": 16,
+   "result": "Odlyzko form factor at t ~ 1e5",
+   "numbers": "K(2) = 0.962 (plateau exact)",
+   "level": "D14"
+  },
+  {
+   "id": 17,
+   "result": "Nonlocal isospectral twin (trace primitive)",
+   "numbers": "r_H7 = 1.000000, r_EF = 0.999",
+   "level": "C9/T11"
+  },
+  {
+   "id": 18,
+   "result": "Counting law of zero modes at alpha = 1/3",
+   "numbers": "N_0 = 2L - 6*[L = 0 mod 12]; index -2 (L=36 -> 66, L=48 -> 90)",
+   "level": "C11/T13"
+  },
+  {
+   "id": 19,
+   "result": "Verified RH strip extended five-fold",
+   "numbers": "T = 5000: N_online = N_strip = 4520; S_max = 0.91",
+   "level": "C12/T14"
+  },
+  {
+   "id": 20,
+   "result": "Twisted trace formula universality",
+   "numbers": "|Delta K| <= 9.6e-6 (chi_5), 6.1e-6 (chi_7)",
+   "level": "C15/T17"
+  },
+  {
+   "id": 21,
+   "result": "Quantum-information wall: locality suppresses entanglement",
+   "numbers": "S_A 12-16 nats vs 160-220 (Haar); MI-null corr -0.018",
+   "level": "C16/T18"
+  },
+  {
+   "id": 22,
+   "result": "Klein quartic PSL(2,7) ensemble pass",
+   "numbers": "100,000 zeros; pooled D = 0.0808, d_GUE = 0.0044 (GUE-CONSISTENT)",
+   "level": "heritage Add.1-8"
+  },
+  {
+   "id": 23,
+   "result": "C17 blind phase B (closed explicit-formula density): NEGATIVE by the letter of the criterion",
+   "numbers": "improvement over the primes-free null 1.04x, z_GUE = -3.3, r = 0.9903; the C17b blind valley windows read the blind count exactly (19.0004 -> 19; 25.00005 -> 25), nodes reproduce the true comb quadrature to RMS 0.0021-0.0088 vs 0.44-0.75 for nulls",
+   "level": "C17"
+  },
+  {
+   "id": 24,
+   "result": "algebraic_map: the Jacobi map of the encoding as an explicit algebraic function",
+   "numbers": "exact closure in Q: all 25 char-poly coefficients match exactly, D_25 = 0; two branches of Phi agree to 1e-303; Weyl bound 2.04e-7 >= 1.26e-7; the algebraic checksum amplifies a canvas quantum 2^15 times",
+   "level": "III/algebraic_map"
+  },
+  {
+   "id": 23,
+   "result": "Gamma-closure identity machine",
+   "numbers": "max residual 2.59e-39 (dps 40); zeros 79/79 vs mpmath to 2.8e-14",
+   "level": "C1"
+  },
+  {
+   "id": 24,
+   "result": "Argument principle across arithmetics",
+   "numbers": "|Delta N| = 2.6e-26; RH in strip to T=1000: 649 = 649",
+   "level": "C2"
+  }
+ ],
+ "verdicts": [
+  {
+   "id": "G1",
+   "claim_ru": "Самосопряжённость",
+   "claim_en": "Self-adjointness",
+   "verdict": "YES",
+   "basis": "machine-zero hermiticity, real spectrum (Th1, Th2, D2)"
+  },
+  {
+   "id": "G2",
+   "claim_ru": "Спектральное тождество",
+   "claim_en": "Spectral identity",
+   "verdict": "YES",
+   "basis": "D_nn 0.0079 — the level of the zeta zeros themselves (shifted zero windows and the GUE zero class: 0.0079 ± 0.0005, C3); family 0.0069–0.0092; trace bridge |Delta K| <= 1.2e-5 (C4); audit v2.0.7 — the bit-level branch (T18) remains open"
+  },
+  {
+   "id": "G3",
+   "claim_ru": "Класс GUE",
+   "claim_en": "GUE class",
+   "verdict": "YES",
+   "basis": "<r> = 0.60 at N_v >= 8; all of C5 in class (v2.0.5 honest regeneration: <r> = 0.569–0.633, mean 0.601; D7: 0.608 vs 0.5992)"
+  },
+  {
+   "id": "G4",
+   "claim_ru": "Дираковская динамика",
+   "claim_en": "Dirac dynamics",
+   "verdict": "YES",
+   "basis": "coherent packet, energy 1e-15; Klein x977; ZB at omega = 2E (D1-D6)"
+  },
+  {
+   "id": "G5",
+   "claim_ru": "Простые в операторе",
+   "claim_en": "Primes in the operator",
+   "verdict": "YES",
+   "basis": "the convergence ladder (audit v2.0.8): gate psi-corr monotone in Nv (−0.12 → +0.09 → +0.24), converging with L (Vortex scan: GUE floor 0.0324 → 0.0220 at L = 24 → 96, best pooled D = 0.0318); zeros 0.972 → 1 by the explicit formula; enters with G2 through the level identity; bit-level branch open (T18, C6)"
+  },
+  {
+   "id": "RH",
+   "claim_ru": "Гипотеза Римана",
+   "claim_en": "Riemann hypothesis",
+   "verdict": "BLOCKED",
+   "basis": "V13 obligation machine; analytic prerequisites remain assumed"
+  }
+ ],
+ "numbers": [
+  {
+   "n": 1,
+   "metric_ru": "Гамма-замыкания, макс. невязка (dps 40)",
+   "metric_en": "Gamma-closures, max residual (dps 40)",
+   "value": "2.59e-39",
+   "campaign": "C1"
+  },
+  {
+   "n": 2,
+   "metric_ru": "Нули Z_id на [0,200] против mpmath",
+   "metric_en": "Z_id zeros on [0,200] vs mpmath",
+   "value": "79/79, max|dgamma| = 2.8e-14",
+   "campaign": "C1"
+  },
+  {
+   "n": 3,
+   "metric_ru": "Мост арифметик N(T)",
+   "metric_en": "Arithmetic bridge N(T)",
+   "value": "|Delta N| = 2.6e-26",
+   "campaign": "C2"
+  },
+  {
+   "n": 4,
+   "metric_ru": "RH в полосе до T = 1000",
+   "metric_en": "RH in strip to T = 1000",
+   "value": "649 = 649",
+   "campaign": "C2"
+  },
+  {
+   "n": 5,
+   "metric_ru": "Тождество Q(a)",
+   "metric_en": "Identity Q(a)",
+   "value": "|Delta Q| <= 1.7e-12",
+   "campaign": "C4"
+  },
+  {
+   "n": 6,
+   "metric_ru": "Следовая формула H_xi",
+   "metric_en": "Trace formula H_xi",
+   "value": "|Delta K| <= 1.2e-5",
+   "campaign": "C4"
+  },
+  {
+   "n": 7,
+   "metric_ru": "Ко-локация фазовых кодировок",
+   "metric_en": "Phase-coding co-location",
+   "value": "max|dE| = 1.35e-14 (C6); 4.4e-16 any beta (C10)",
+   "campaign": "C6/C10"
+  },
+  {
+   "n": 8,
+   "metric_ru": "Транспорт P(x >= 90)",
+   "metric_en": "Transport P(x >= 90)",
+   "value": "zeta 0.0032 vs random 0.0002 (x16)",
+   "campaign": "C7"
+  },
+  {
+   "n": 9,
+   "metric_ru": "spinor64 редукция",
+   "metric_en": "spinor64 reduction",
+   "value": "64 -> 4, |dlambda| <= 1.1e-14",
+   "campaign": "C8"
+  },
+  {
+   "n": 10,
+   "metric_ru": "Счётный закон alpha=1/3",
+   "metric_en": "Counting law alpha = 1/3",
+   "value": "N_0 = 2L - 6*[L = 0 mod 12]",
+   "campaign": "C11"
+  },
+  {
+   "n": 11,
+   "metric_ru": "Таксономия аттрактора",
+   "metric_en": "Attractor taxonomy",
+   "value": "97 GUE / 18 integrable / 6 intermediate; no outliers",
+   "campaign": "C14"
+  },
+  {
+   "n": 12,
+   "metric_ru": "Скрученная следовая формула",
+   "metric_en": "Twisted trace formula",
+   "value": "|Delta K| <= 9.6e-6 (chi_5)",
+   "campaign": "C15"
+  },
+  {
+   "n": 13,
+   "metric_ru": "Дираковский континуальный предел",
+   "metric_en": "Dirac continuum limit",
+   "value": "v_F = 1.9347; E_1 at L=16/24/32 cross-verified 1e-7",
+   "campaign": "D1"
+  },
+  {
+   "n": 14,
+   "metric_ru": "Башня нулевых мод",
+   "metric_en": "Zero-mode tower",
+   "value": "4 for all L; ||{H,Gamma}|| = 0 exact",
+   "campaign": "D2"
+  },
+  {
+   "n": 15,
+   "metric_ru": "Фаза Берри",
+   "metric_en": "Berry phase",
+   "value": "gamma = pi exact",
+   "campaign": "D3"
+  },
+  {
+   "n": 16,
+   "metric_ru": "Релятивистские уровни Ландау",
+   "metric_en": "Relativistic Landau levels",
+   "value": "E_n^2 ~ n, R^2 >= 0.9998",
+   "campaign": "D4"
+  },
+  {
+   "n": 17,
+   "metric_ru": "Кросс-верификация Julia (ядро)",
+   "metric_en": "Julia cross-verification (core)",
+   "value": "all decisive quantities reproduced (D1/D2/D7/D8)",
+   "campaign": "dirac-lab"
+  },
+  {
+   "n": 18,
+   "metric_ru": "Слепые нули ζ до T=1000",
+   "metric_en": "Blind zeta zeros to T=1000",
+   "value": "649/649 (EM) + 639/639 (RS), cross-engine 0.0",
+   "campaign": "E17"
+  },
+  {
+   "n": 19,
+   "metric_ru": "Трасса ↔ простые",
+   "metric_en": "Trace <-> primes",
+   "value": "r = 0.9996",
+   "campaign": "V7/Th6"
+  },
+  {
+   "n": 20,
+   "metric_ru": "Компилятор против 5 бейзлайнов",
+   "metric_en": "Compiler vs 5 baselines",
+   "value": "x59,000 at equal ISA",
+   "campaign": "E18"
+  },
+  {
+   "n": 21,
+   "metric_ru": "Тождество уровней: расстояние D_nn лучшего затвора",
+   "metric_en": "Level identity: D_nn distance of the best gate",
+   "value": "0.0079 — the level of the shifted zero windows themselves (0.0079 ± 0.0005); audit v2.0.7",
+   "campaign": "C3"
+  },
+  {
+   "n": 22,
+   "metric_ru": "C5 (v2.0.5, честная регенерация): расширенная семья",
+   "metric_en": "C5 (v2.0.5 honest regeneration): the extended family",
+   "value": "|r_H7| max 0.097, Bonferroni 0.57; <r> = 0.569-0.633, mean 0.601",
+   "campaign": "C5"
+  },
+  {
+   "n": 23,
+   "metric_ru": "C17 слепая фаза B: улучшение над null без простых",
+   "metric_en": "C17 blind phase B: improvement over the primes-free null",
+   "value": "1.04x (NEGATIVE by the letter); z_GUE = -3.29; blind count exact: 19.0004 -> 19, 25.00005 -> 25",
+   "campaign": "C17"
+  },
+  {
+   "n": 24,
+   "metric_ru": "algebraic_map: точное замыкание якобиевой карты",
+   "metric_en": "algebraic_map: exact closure of the Jacobi map",
+   "value": "all 25 char-poly coefficients match exactly in Q, D_25 = 0; branches of Phi agree to 1e-303",
+   "campaign": "algebraic_map"
+  }
+ ],
+ "theorems": [
+  {
+   "id": "Th1",
+   "where": "V4",
+   "statement": "H_L = H_L^dagger implies spec in R; lambda <-> -lambda at alpha = 1/2, W = 0",
+   "certificate": "||H - H^dagger|| = 0.0 exactly"
+  },
+  {
+   "id": "Th2",
+   "where": "V8",
+   "statement": "Finite-dimensional self-adjointness: defects (0,0), e^{-iHt} unitary",
+   "certificate": "drift 2.2e-16"
+  },
+  {
+   "id": "Th3",
+   "where": "V12",
+   "statement": "Kato |lambda_hat - lambda_tilde| <= delta^2/gap + Gershgorin",
+   "certificate": "widths ~1e-27 (dps 40)"
+  },
+  {
+   "id": "Th4",
+   "where": "V15",
+   "statement": "lambda_n = Tr g_n(H_xi); absolute convergence",
+   "certificate": "two paths <= 4.4e-11"
+  },
+  {
+   "id": "Th5",
+   "where": "V9",
+   "statement": "[H,A] = [H,B] = 0 implies block reduction by characters",
+   "certificate": "union = spectrum to 7.1e-15"
+  },
+  {
+   "id": "Th6",
+   "where": "V7",
+   "statement": "Guinand-Weil: Q(a) <-> zeta'/zeta; K(x) = Tr e^{-x H_xi}",
+   "certificate": "the trace carries Lambda(n)/sqrt(n), r = 0.9996"
+  },
+  {
+   "id": "TS1",
+   "where": "ES1",
+   "statement": "Rotation cycle theta = pi/k closes after exactly N = 2k steps; gap 2pi/N",
+   "certificate": "periods 4/6/14 exactly"
+  },
+  {
+   "id": "TS2",
+   "where": "ES2",
+   "statement": "Reset erases everything: I(pre;post) = 0; reconstruction <= 1/N",
+   "certificate": "0.2501/0.1674/0.0717 = 1/N"
+  },
+  {
+   "id": "TS3",
+   "where": "ES3",
+   "statement": "The step is O(1) for all t; an eternal log implies Omega(t)",
+   "certificate": "slope -1.5e-12 ms/step; x129 growth"
+  }
+ ],
+ "statistics": {
+  "campaigns_total": "44+ (V01-V20, C1-C17, D1-D14) plus E01-E18 and ES1-ES5",
+  "theorems_total": "27 (Th1-Th6, TS1-TS3, T1-T18)",
+  "tests_total": "410+ across the three laboratories",
+  "languages": "9 (Python, Julia, C, C++, Rust, Go, JS, Lean 4, Coq)",
+  "documents": "36+ monograph-level documents (RU/EN, PDF/DOCX)",
+  "heritage_reference_run": "38 tests, 26.04 h, Julia 1.12, 2026-09-14"
+ },
+ "programme": {
+  "name": "AB-Cloud Research Programme",
+  "package": "AB_Cloud_Academic_Package",
+  "edition": "unified edition (versionless)",
+  "compiled": "2026-10-14",
+  "author": "Isaev I. Kh. (Исаев Исхак Хамзатович)",
+  "orcid": "0009-0003-7299-0701",
+  "doi": "10.5281/zenodo.21825394",
+  "repository": "https://github.com/wild8highlander/ab-cloud-research",
+  "one_line": "One study in four levels: the algebraic AB (Aharonov-Bohm) architecture as a computing fabric, its Dirac skeleton, the Hilbert-Pólya bridge, and the blind verification apparatus.",
+  "honest_boundary": {
+   "statement": "Everything in this package is a numerical and formal study of a mathematical model. It does NOT prove the Riemann hypothesis. The V13 obligation machine keeps the RH conclusion blocked (verdict: blocked) while the analytic prerequisites remain assumed.",
+   "blocked_verdict": "blocked",
+   "negative_results_published": true,
+   "rh_status": "blocked"
+  }
+ }
+};
+
+const I18N = {
+  en: {
+    title: "Four levels of one machine",
+    tag: "The algebraic AB (Aharonov–Bohm) architecture as a computing fabric, its Dirac skeleton, the Hilbert–Pólya bridge, and the blind verification apparatus.",
+    search: "search campaigns, numbers, theorems…",
+    explain: "explain mode",
+    nav_levels: "Levels", nav_kpis: "Key numbers", nav_verdicts: "Verdict ledger",
+    nav_flagship: "Flagship results", nav_bars: "Metrics", nav_numbers: "Numbers registry", nav_honesty: "Honesty layer",
+    levels_h: "The levels", levels_h_ru: "· уровни одной машины",
+    levels_d: "Every level is a campaign series over the same AB-cloud construct; links between levels are certified by shared numbers, not decoration.",
+    kpi_h: "At a glance",
+    ver_h: "The verdict ledger", ver_h_ru: "· реестр вердиктов",
+    ver_d: "Pre-registered, with basis and does_not_prove boundaries. RH is blocked by the V13 obligation machine — by construction.",
+    fl_h: "Flagship results", fl_h_ru: "· головные результаты",
+    fl_d: "Every row names its campaign. Use the search box to filter.",
+    bars_h: "The metrics, drawn",
+    num_h: "The numbers registry", num_h_ru: "· реестр чисел",
+    num_d: "Verbatim from the sources' verdict files; disagreements between sources are shown, not resolved.",
+    hon_h: "The honesty layer", hon_h_ru: "· слой честности",
+    hon_tip: "Turn off explain mode to hide these notes.",
+    cite: "Citation",
+    foot: "This laboratory is a single offline HTML file: no CDNs, no telemetry, no cookies. The numbers derive from 02_data/processed/research_registry.json — the funnel. RH status: blocked by design.",
+    honesty_text: "Everything here is a numerical and formal study of a mathematical model. It does NOT prove the Riemann hypothesis: the V13 obligation machine keeps the RH conclusion blocked while the analytic prerequisites remain assumed. Negative results are first-class: the locality wall (T18), the null zone at gates, the lattice ζ-correspondence failures (V1/V3/V6/V16).",
+    col_campaign: "campaign", col_result: "result", col_numbers: "numbers", col_level: "level",
+    col_metric: "metric", col_value: "value", col_verdict: "verdict", col_basis: "basis", col_claim: "claim",
+    kpi_labels: { flagship: "flagship results", theorems: "theorems", tests: "tests", campaigns: "campaigns" },
+    bars_note: "The four decisive quantities of the statistical layer, on their pre-registered scales.",
+  },
+  ru: {
+    title: "Четыре уровня одной машины",
+    tag: "Алгебраическая AB-архитектура (Ахаронова–Бома) как вычислительная ткань, её дираковский скелет, мост Гильберта–Поли и слепой верификационный аппарат.",
+    search: "поиск по кампаниям, числам, теоремам…",
+    explain: "режим пояснений",
+    nav_levels: "Уровни", nav_kpis: "Ключевые числа", nav_verdicts: "Реестр вердиктов",
+    nav_flagship: "Головные результаты", nav_bars: "Метрики", nav_numbers: "Реестр чисел", nav_honesty: "Слой честности",
+    levels_h: "Уровни", levels_h_ru: "· одной машины",
+    levels_d: "Каждый уровень — серия кампаний над одной и той же конструкцией AB-облака; связи уровней сертифицированы числами, а не декорациями.",
+    kpi_h: "Краткий обзор",
+    ver_h: "Реестр вердиктов", ver_h_ru: "· предрегистрированных",
+    ver_d: "Предрегистрированные, с основанием и границами does_not_prove. RH заблокирована машиной обязательств V13 — по построению.",
+    fl_h: "Головные результаты", fl_h_ru: "· с указанием кампаний",
+    fl_d: "Каждая строка называет свою кампанию. Используйте поиск для фильтрации.",
+    bars_h: "Метрики в графике",
+    num_h: "Реестр чисел", num_h_ru: "· дословно из вердиктных файлов",
+    num_d: "Числа перенесены дословно из вердиктных файлов источников; расхождения источников показываются, а не разрешаются.",
+    hon_h: "Слой честности", hon_h_ru: "· does_not_prove",
+    hon_tip: "Выключите режим пояснений, чтобы скрыть эти заметки.",
+    cite: "Цитирование",
+    foot: "Эта лаборатория — один автономный HTML-файл: без CDN, телеметрии и куки. Числа происходят из 02_data/processed/research_registry.json — единственной воронки. Статус RH: заблокирована по построению.",
+    honesty_text: "Всё здесь — численное и формальное исследование математической модели. Оно НЕ доказывает гипотезу Римана: машина обязательств V13 держит вывод о RH заблокированным, пока аналитические предпосылки остаются предположениями. Отрицательные результаты — первого класса: стена локальности (T18), нулевая зона затворов, провалы решёточных ζ-соответствий (V1/V3/V6/V16).",
+    col_campaign: "кампания", col_result: "результат", col_numbers: "числа", col_level: "уровень",
+    col_metric: "метрика", col_value: "значение", col_verdict: "вердикт", col_basis: "основание", col_claim: "тезис",
+    kpi_labels: { flagship: "головных результатов", theorems: "теорем", tests: "тестов", campaigns: "кампаний" },
+    bars_note: "Четыре решающие величины статистического слоя на их предрегистрированных шкалах.",
+  }
+};
+
+let LANG = "en", Q = "";
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const t = (k) => (I18N[LANG][k] !== undefined ? I18N[LANG][k] : k);
+
+function render() {
+  document.documentElement.lang = LANG;
+  document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll("[data-i18n-ph]").forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+
+  const q = Q.toLowerCase();
+  const match = (...fields) => !q || fields.join(" ").toLowerCase().includes(q);
+
+  // levels
+  $("#levels-grid").innerHTML = DATA.levels.filter(l => match(l.name, l.name_ru, l.campaigns, l.essence)).map(l => `
+    <div class="card">
+      <div class="camp">${l.id}${l.theorems ? " · " + l.theorems : ""}</div>
+      <h3>${esc(LANG === "ru" && l.name_ru ? l.name_ru : l.name)}</h3>
+      <div class="camp mono">${esc(l.campaigns)}</div>
+      <p>${esc(l.essence)}</p>
+    </div>`).join("");
+
+  // kpis
+  const K = [
+    ["24", t("kpi_labels.flagship")], ["27", t("kpi_labels.theorems")],
+    ["410+", t("kpi_labels.tests")], ["43+", t("kpi_labels.campaigns")],
+    ["649/649", LANG === "ru" ? "слепое чтение нулей" : "blind zero reading"],
+    ["×59,000", LANG === "ru" ? "бенчмарк класса B" : "class-B benchmark"],
+  ];
+  $("#kpi-grid").innerHTML = K.map(([v, l]) => `<div class="box"><b>${v}</b><span>${esc(l)}</span></div>`).join("");
+
+  // verdicts
+  $("#verdict-table").innerHTML =
+    `<tr><th>${t("col_claim")}</th><th>${t("col_verdict")}</th><th>${t("col_basis")}</th></tr>` +
+    DATA.verdicts.filter(v => match(v.claim_en, v.claim_ru, v.basis, v.verdict)).map(v => {
+      const cls = v.verdict === "YES" ? "yes" : v.verdict === "NO" ? "no" : "blocked";
+      const label = v.verdict === "YES" ? (LANG === "ru" ? "ДА" : "YES")
+                  : v.verdict === "NO" ? (LANG === "ru" ? "НЕТ" : "NO")
+                  : (LANG === "ru" ? "ЗАБЛОКИРОВАНО" : "BLOCKED");
+      return `<tr><td>${esc(LANG === "ru" ? v.claim_ru : v.claim_en)}</td>
+        <td class="v ${cls}">${label}</td><td>${esc(v.basis)}</td></tr>`;
+    }).join("");
+
+  // flagship
+  $("#flagship-table").innerHTML =
+    `<tr><th>#</th><th>${t("col_result")}</th><th>${t("col_numbers")}</th><th>${t("col_level")}</th></tr>` +
+    DATA.flagship.filter(f => match(f.result, f.numbers, f.level)).map(f =>
+      `<tr><td class="mono">${f.id}</td><td>${esc(f.result)}</td><td class="mono">${esc(f.numbers)}</td>
+       <td><span style="color:var(--accent)">${esc(f.level)}</span></td></tr>`).join("");
+
+  // bars
+  const bars = [
+    ["GUE ⟨r⟩ ζ-decorated", 0.608, 0.5, 0.7, "0.608", ""],
+    ["GUE ⟨r⟩ theory", 0.5992, 0.5, 0.7, "0.5992", ""],
+    ["trace ↔ primes r", 0.9996, 0.9, 1.0, "0.9996", "ok"],
+    ["locality wall S_A (local/190)", 14/190, 0, 1, "12–16 vs 160–220", "warn"],
+  ];
+  $("#bars-card").innerHTML =
+    bars.map(([label, v, lo, hi, shown, cls]) => {
+      const x = Math.max(0, Math.min(1, (v - lo) / (hi - lo)));
+      return `<div class="bar-row"><span>${esc(label)}</span><span class="bar ${cls}"><i style="width:${(x*100).toFixed(1)}%"></i></span><span class="mono">${shown}</span></div>`;
+    }).join("") + `<p class="secdesc">${t("bars_note")}</p>`;
+
+  // numbers registry
+  $("#numbers-table").innerHTML =
+    `<tr><th>#</th><th>${t("col_metric")}</th><th>${t("col_value")}</th><th>${t("col_campaign")}</th></tr>` +
+    DATA.numbers.filter(n => match(n.metric_en, n.metric_ru, n.value, n.campaign)).map(n =>
+      `<tr><td class="mono">${n.n}</td><td>${esc(LANG === "ru" ? n.metric_ru : n.metric_en)}</td>
+       <td class="mono">${esc(n.value)}</td><td><span style="color:var(--accent)">${esc(n.campaign)}</span></td></tr>`).join("");
+
+  // honesty
+  $("#honesty-text").textContent = t("honesty_text");
+}
+
+// controls
+$("#lang").addEventListener("change", e => { LANG = e.target.value; render(); });
+$("#theme").addEventListener("change", e => { document.documentElement.dataset.theme = e.target.value; });
+$("#q").addEventListener("input", e => { Q = e.target.value; render(); });
+$("#explain").addEventListener("click", e => {
+  document.body.classList.toggle("explain");
+  e.currentTarget.classList.toggle("on");
+});
+render();
+</script>
+</body>
+</html>

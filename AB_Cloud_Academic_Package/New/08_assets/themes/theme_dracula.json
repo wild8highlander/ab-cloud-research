@@ -1,0 +1,10 @@
+{
+  "name": "dracula",
+  "bg": "#282A36",
+  "fg": "#F8F8F2",
+  "accent": "#BD93F9",
+  "muted": "#6272A4",
+  "ok": "#50FA7B",
+  "warn": "#F1FA8C",
+  "err": "#FF5555"
+}

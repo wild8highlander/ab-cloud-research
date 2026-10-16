@@ -1,0 +1,40 @@
+{
+  "title": "AB-Cloud Research Programme: Unified Academic Package",
+  "description": "The unified academic edition of the AB-Cloud research programme: spectral core (V01-V20, Th1-Th6), Dirac skeleton (D1-D14), Hilbert-Polya bridge (C1-C17, T1-T18) and blind verification (E01-E18). Includes the unified monograph (RU/EN full volumes), web laboratory, six-language CLI and a complete honesty layer. RH status: blocked by design.",
+  "creators": [
+    {
+      "name": "Isaev, Iskhak Khamzatovich",
+      "orcid": "0009-0003-7299-0701"
+    }
+  ],
+  "upload_type": "software",
+  "license": "other-open",
+  "keywords": [
+    "Riemann zeta",
+    "Hilbert-Polya",
+    "Aharonov-Bohm",
+    "lattice Dirac operator",
+    "GUE",
+    "numerical verification"
+  ],
+  "related_identifiers": [
+    {
+      "relation": "isPartOf",
+      "identifier": "https://github.com/wild8highlander/ab-cloud-research",
+      "resource_type": "software"
+    }
+  ],
+  "communities": [],
+  "access_right": "open",
+  "doi": "10.5281/zenodo.21825394",
+  "publication_date": "2026-10-14",
+  "language": [
+    "ru",
+    "en",
+    "zh",
+    "de",
+    "es",
+    "fr",
+    "ar"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "title": "AB-Cloud verdict ledger",
+  "uid": "abcloud-ledger",
+  "panels": [
+    {"type": "table", "title": "Verdicts", "targets": [{"query": "verdicts"}]},
+    {"type": "table", "title": "Flagship results", "targets": [{"query": "flagship_results"}]}
+  ],
+  "note": "Skeleton manifest; datasource = research_registry.json via JSON API."
+}

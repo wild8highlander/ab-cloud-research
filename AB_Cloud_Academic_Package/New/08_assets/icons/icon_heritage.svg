@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-label="v19 heritage ledger icon">
+  <rect x="11" y="8" width="26" height="32" rx="3" fill="none" stroke="#C9B97E" stroke-width="2.4"/>
+  <g stroke="#7FA8D0" stroke-width="1.7" opacity="0.85">
+    <path d="M17 17 H31"/><path d="M17 23 H31"/><path d="M17 29 H25"/>
+  </g>
+  <path d="M27 31 L30 34 L36 26" fill="none" stroke="#7FC8A8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

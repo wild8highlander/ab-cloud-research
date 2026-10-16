@@ -1,0 +1,10 @@
+{
+  "name": "catppuccin",
+  "bg": "#1E1E2E",
+  "fg": "#CDD6F4",
+  "accent": "#F5C2E7",
+  "muted": "#6C7086",
+  "ok": "#A6E3A1",
+  "warn": "#F9E2AF",
+  "err": "#F38BA8"
+}

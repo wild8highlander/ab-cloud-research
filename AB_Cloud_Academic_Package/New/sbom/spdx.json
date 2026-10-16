@@ -1,0 +1,46 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "AB_Cloud_Academic_Package",
+  "documentNamespace": "https://github.com/wild8highlander/ab-cloud-research/AB_Cloud_Academic_Package/sbom",
+  "creationInfo": {
+    "created": "2026-10-14",
+    "creators": [
+      "Tool: AB-Cloud build pipeline"
+    ]
+  },
+  "packages": [
+    {
+      "name": "AB_Cloud_Academic_Package",
+      "SPDXID": "SPDXRef-Package",
+      "versionInfo": "unified (versionless)",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MIT AND CC-BY-4.0 AND ODbL-1.0"
+    },
+    {
+      "name": "numpy",
+      "SPDXID": "SPDXRef-numpy",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "BSD-3-Clause"
+    },
+    {
+      "name": "pyyaml",
+      "SPDXID": "SPDXRef-pyyaml",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MIT"
+    },
+    {
+      "name": "typer",
+      "SPDXID": "SPDXRef-typer",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MIT"
+    },
+    {
+      "name": "rich",
+      "SPDXID": "SPDXRef-rich",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MIT"
+    }
+  ]
+}

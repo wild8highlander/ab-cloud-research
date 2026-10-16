@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-label="AB processor level icon">
+  <rect x="13" y="13" width="22" height="22" rx="4" fill="none" stroke="#7FA8D0" stroke-width="2.4"/>
+  <rect x="19" y="19" width="10" height="10" rx="2" fill="none" stroke="#C9B97E" stroke-width="1.8"/>
+  <g stroke="#8898A8" stroke-width="1.8">
+    <path d="M18 13 V6"/><path d="M24 13 V6"/><path d="M30 13 V6"/>
+    <path d="M18 35 V42"/><path d="M24 35 V42"/><path d="M30 35 V42"/>
+    <path d="M13 18 H6"/><path d="M13 24 H6"/><path d="M13 30 H6"/>
+    <path d="M35 18 H42"/><path d="M35 24 H42"/><path d="M35 30 H42"/>
+  </g>
+  <circle cx="24" cy="24" r="2.2" fill="#00E5FF"/>
+</svg>

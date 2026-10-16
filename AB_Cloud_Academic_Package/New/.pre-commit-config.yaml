@@ -1,0 +1,24 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: ["--maxkb=2048"]
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.10
+    hooks:
+      - id: ruff
+        files: ^(06_code/python|09_tests)/.*\.py$
+  - repo: local
+    hooks:
+      - id: package-integrity
+        name: package integrity (pytest 09_tests)
+        entry: python3 -m pytest 09_tests/python -q
+        language: system
+        pass_filenames: false
+        stages: [pre-push]

@@ -1,0 +1,314 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/wild8highlander/ab-cloud-research/AB_Cloud_Academic_Package/config.schema.json",
+  "title": "AB-Cloud unified package configuration schema",
+  "type": "object",
+  "required": [
+    "programme",
+    "seed",
+    "lattice",
+    "zeta",
+    "gue_windows",
+    "output"
+  ],
+  "properties": {
+    "programme": {
+      "type": "object",
+      "required": [
+        "name",
+        "edition",
+        "honest_boundary"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "edition": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "orcid": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$"
+        },
+        "doi": {
+          "type": "string"
+        },
+        "honest_boundary": {
+          "type": "object",
+          "required": [
+            "rh_status",
+            "does_not_prove"
+          ],
+          "properties": {
+            "rh_status": {
+              "const": "blocked"
+            },
+            "does_not_prove": {
+              "type": "string",
+              "minLength": 3
+            },
+            "negative_results_published": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "precision": {
+      "type": "object",
+      "properties": {
+        "dps_default": {
+          "type": "integer",
+          "minimum": 16
+        },
+        "dps_rational_identities": {
+          "type": "integer",
+          "minimum": 64
+        }
+      }
+    },
+    "lattice": {
+      "type": "object",
+      "required": [
+        "alpha",
+        "sizes",
+        "boundary"
+      ],
+      "properties": {
+        "alpha": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "sizes": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 4
+          }
+        },
+        "boundary": {
+          "enum": [
+            "torus",
+            "cylinder",
+            "open"
+          ]
+        },
+        "gauge": {
+          "type": "string"
+        },
+        "mass": {
+          "type": "number"
+        },
+        "disorder": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "strength": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "zeta": {
+      "type": "object",
+      "required": [
+        "zeros_source",
+        "blind_engines",
+        "t_max_blind"
+      ],
+      "properties": {
+        "zeros_source": {
+          "type": "string"
+        },
+        "blind_engines": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "reference_tables": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "t_max_strip": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "t_max_blind": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "monte_carlo": {
+      "type": "object",
+      "properties": {
+        "n_realizations": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "n_events": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "statistics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "gue_windows": {
+      "type": "object",
+      "required": [
+        "r_ratio"
+      ],
+      "properties": {
+        "r_ratio": {
+          "type": "object",
+          "required": [
+            "gue"
+          ],
+          "properties": {
+            "gue": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2
+            },
+            "goe": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "gse": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "nearest_gap": {
+          "type": "object"
+        },
+        "form_factor": {
+          "type": "object"
+        }
+      }
+    },
+    "dirac_layer": {
+      "type": "object"
+    },
+    "bridge": {
+      "type": "object"
+    },
+    "processor": {
+      "type": "object"
+    },
+    "spinor": {
+      "type": "object"
+    },
+    "output": {
+      "type": "object",
+      "required": [
+        "root",
+        "formats"
+      ],
+      "properties": {
+        "root": {
+          "type": "string"
+        },
+        "formats": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "md",
+              "json",
+              "csv",
+              "html",
+              "pdf",
+              "docx"
+            ]
+          }
+        },
+        "figures": {
+          "type": "object"
+        },
+        "logs": {
+          "type": "object"
+        }
+      }
+    },
+    "cli": {
+      "type": "object",
+      "properties": {
+        "lang": {
+          "enum": [
+            "ru",
+            "en"
+          ]
+        },
+        "theme": {
+          "enum": [
+            "light",
+            "dark",
+            "neon",
+            "dracula",
+            "nord",
+            "catppuccin",
+            "solarized",
+            "gruvbox",
+            "accessible"
+          ]
+        },
+        "mode": {
+          "enum": [
+            "demo",
+            "research",
+            "production"
+          ]
+        },
+        "ascii_charts": {
+          "type": "boolean"
+        },
+        "quotes": {
+          "type": "boolean"
+        },
+        "sounds": {
+          "type": "boolean"
+        },
+        "notify": {
+          "enum": [
+            "none",
+            "desktop",
+            "webhook"
+          ]
+        },
+        "verbosity": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "nord",
+  "bg": "#2E3440",
+  "fg": "#ECEFF4",
+  "accent": "#88C0D0",
+  "muted": "#4C566A",
+  "ok": "#A3BE8C",
+  "warn": "#EBCB8B",
+  "err": "#BF616A"
+}

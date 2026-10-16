@@ -1,0 +1,18 @@
+# config.test.yaml — variant of config.yaml (inherits everything else from the base file)
+# Merge order: config.yaml <- config.{env}.yaml
+{
+  "cli": {
+    "mode": "demo",
+    "quotes": false,
+    "sounds": false
+  },
+  "lattice": {
+    "sizes": [
+      16
+    ]
+  },
+  "monte_carlo": {
+    "n_realizations": 8,
+    "n_events": 40
+  }
+}

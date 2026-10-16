@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-label="Dirac skeleton level icon">
+  <g stroke="#7FA8D0" stroke-width="1.6" opacity="0.7" stroke-dasharray="3 3">
+    <path d="M9 20 H39"/><path d="M9 28 H39"/><path d="M16 12 V36"/><path d="M32 12 V36"/>
+  </g>
+  <text x="24" y="30" font-family="Georgia, serif" font-size="24" fill="#E8DDB8" text-anchor="middle" font-style="italic">&#960;</text>
+  <circle cx="24" cy="38" r="2" fill="#7FC8A8"/>
+</svg>

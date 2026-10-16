@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230" width="200" height="230">
+  <!-- Hilbert–Pólya Bridge avatar cast · Pólya · geometric duotone style -->
+  <defs>
+    <clipPath id="badgeClip"><circle cx="100" cy="92" r="86"/></clipPath>
+  </defs>
+  <circle cx="100" cy="92" r="90" fill="#0B1E3A"/>
+  <circle cx="100" cy="92" r="86" fill="#F5EDE0" stroke="#E8A33D" stroke-width="4"/>
+  <g clip-path="url(#badgeClip)">
+    <!-- shoulders: tweed jacket -->
+    <path d="M100 150 C 60 150 34 172 30 210 L 170 210 C 166 172 140 150 100 150 Z" fill="#4A5A52"/>
+    <path d="M100 150 L 86 156 L 100 184 L 114 156 Z" fill="#F5EDE0"/>
+    <path d="M96 152 L 100 180 L 104 152 Z" fill="#8C2F2F"/>
+    <path d="M52 188 L 66 176 M 56 196 L 70 184 M 60 204 L 74 192" stroke="#5F7168" stroke-width="2"/>
+    <path d="M148 188 L 134 176 M 144 196 L 130 184 M 140 204 L 126 192" stroke="#5F7168" stroke-width="2"/>
+    <!-- head -->
+    <ellipse cx="100" cy="96" rx="34" ry="40" fill="#E3BC93"/>
+    <!-- wispy elder hair -->
+    <path d="M66 92 C 62 64 78 48 100 48 C 122 48 138 64 134 92 C 130 74 118 66 100 66 C 82 66 70 74 66 92 Z" fill="#D8D3C8"/>
+    <!-- pince-nez -->
+    <circle cx="85" cy="98" r="10" fill="none" stroke="#7A6A2F" stroke-width="2.6"/>
+    <circle cx="115" cy="98" r="10" fill="none" stroke="#7A6A2F" stroke-width="2.6"/>
+    <path d="M95 96 Q 100 93 105 96" stroke="#7A6A2F" stroke-width="2.6" fill="none"/>
+    <path d="M75 96 L 66 92 M 125 96 L 134 92" stroke="#7A6A2F" stroke-width="2.6"/>
+    <circle cx="85" cy="98" r="3" fill="#0B1E3A"/>
+    <circle cx="115" cy="98" r="3" fill="#0B1E3A"/>
+    <!-- bushy mustache -->
+    <path d="M80 118 C 88 112 96 116 100 116 C 104 116 112 112 120 118 C 112 124 104 121 100 121 C 96 121 88 124 80 118 Z" fill="#D8D3C8"/>
+    <!-- gentle smile -->
+    <path d="M88 128 Q 100 134 112 128" stroke="#A06A45" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <!-- wise brow lines -->
+    <path d="M78 88 Q 85 85 92 88 M 108 88 Q 115 85 122 88" stroke="#B9A88E" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- emblem: eigenvalue -->
+  <circle cx="152" cy="158" r="20" fill="#E8A33D" stroke="#0B1E3A" stroke-width="3"/>
+  <text x="152" y="166" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="24" font-style="italic" fill="#0B1E3A">&#955;</text>
+  <!-- name plate -->
+  <rect x="24" y="196" width="152" height="26" rx="13" fill="#0B1E3A"/>
+  <text x="100" y="214" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" letter-spacing="1.5" fill="#F5EDE0">G. P&#211;LYA</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-label="Hilbert-Polya bridge level icon">
+  <path d="M6 34 Q 24 10, 42 34" fill="none" stroke="#7FC8A8" stroke-width="2.4"/>
+  <path d="M6 34 H42" stroke="#C9B97E" stroke-width="2.4" stroke-linecap="round"/>
+  <g stroke="#7FA8D0" stroke-width="1.8">
+    <path d="M13 34 V25"/><path d="M19 34 V19"/><path d="M29 34 V19"/><path d="M35 34 V25"/>
+  </g>
+  <circle cx="24" cy="12" r="2.2" fill="#00E5FF"/>
+</svg>

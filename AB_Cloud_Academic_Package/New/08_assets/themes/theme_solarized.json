@@ -1,0 +1,10 @@
+{
+  "name": "solarized",
+  "bg": "#002B36",
+  "fg": "#EEE8D5",
+  "accent": "#B58900",
+  "muted": "#586E75",
+  "ok": "#859900",
+  "warn": "#CB4B16",
+  "err": "#DC322F"
+}

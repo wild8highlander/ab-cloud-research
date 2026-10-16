@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-label="Vortex optimization level icon">
+  <path d="M24 24 m0 -1 a1 1 0 0 1 1 1 a2.2 2.2 0 0 1 -2.2 2.2 a5 5 0 0 1 -5 -5 a8.5 8.5 0 0 1 8.5 -8.5 a12.5 12.5 0 0 1 12.5 12.5 a17 17 0 0 1 -17 17 a21 21 0 0 1 -19 -14"
+        fill="none" stroke="#7FC8A8" stroke-width="2.4" stroke-linecap="round"/>
+  <circle cx="24" cy="24" r="2.2" fill="#C9B97E"/>
+</svg>

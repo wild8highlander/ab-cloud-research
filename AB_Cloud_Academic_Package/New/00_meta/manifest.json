@@ -1,0 +1,124 @@
+{
+ "package": "AB_Cloud_Academic_Package",
+ "programme": "AB-Cloud Research Programme",
+ "edition": "unified (versionless)",
+ "generated": "2026-10-16",
+ "author": "Isaev I. Kh. (ORCID 0009-0003-7299-0701)",
+ "doi": "10.5281/zenodo.21825394",
+ "structure": {
+  "sections": [
+   "00_meta",
+   "01_monographs",
+   "02_data",
+   "03_figures",
+   "04_reports",
+   "05_logs",
+   "06_code",
+   "07_web_lab",
+   "08_assets",
+   "09_tests",
+   "10_notebooks"
+  ],
+  "section_purpose": {
+   "00_meta": "manifest, provenance, checklists, glossary, taxonomy, governance",
+   "01_monographs": "unified monograph: full RU/EN volumes + MAX editions (~100k words each) + 5 language abstracts + templates",
+   "02_data": "curated datasets, schemas, dictionaries, datacard, checksums, lineage",
+   "03_figures": "static figures 600 dpi, diagrams, palettes, captions, figure index, alt texts",
+   "04_reports": "unified report, executive/lay summaries, press release, per-audience variants",
+   "05_logs": "run logs, provenance JSONL, metrics.json, sessions",
+   "06_code": "unified CLI in 6 languages, shared contract, i18n, Docker, scripts",
+   "07_web_lab": "interactive web laboratory (offline), Streamlit app, API, PWA",
+   "08_assets": "avatars, badges, logos, themes, animations",
+   "09_tests": "pytest integrity suite + benchmarks + coverage reports",
+   "10_notebooks": "exploration/analysis/report/tutorial notebooks"
+  }
+ },
+ "sources": {
+  "AB_Cloud_Quantum_Research": "levels I/I+/IV/V (V01-V20, Th1-Th6, E01-E18, ES1-ES5)",
+  "dirac-lab": "level II (D1-D14, 96 checks, Python + Julia cross-verification)",
+  "Hilbert_Polya": "level III (C1-C17, T1-T18)",
+  "legacy_package": "heritage: 38-test reference run 2026-09-14 + addenda (superseded structure)",
+  "meridian-spectral-observatory": "level VI (gates H1-H7, RH line 13,661 zeros, Monumental V01-V112, 50k-zero reference table)",
+  "Vortex_optimization": "level VII (Test 34-ext: 242 configurations, best pooled D = 0.0318 vs reference 0.1096)",
+  "Wave_attractors": "level VIII (study W1: experiments E1-E7, AB water-wave companion, Python+Julia)",
+  "results": "level IV heritage (v19 two-pass reference run: 37 tests, 77 verdict rows, 2026-09-02)"
+ },
+ "integrity": {
+  "checksums_file": "02_data/checksums.sha256",
+  "checksum_policy": "sha256 over 02_data/**; verify via 06_code/scripts/update_checksums.py --verify-only",
+  "tests": "09_tests/python (pytest) - structure, schema, i18n parity, checksums, monograph skeleton"
+ },
+ "honesty": {
+  "rh_status": "blocked",
+  "layer": "every verdict carries does_not_prove; negative results are first-class",
+  "index": "00_meta/dossier.md"
+ },
+ "enrichment": {
+  "date": "2026-10-14",
+  "added_sources": [
+   "results",
+   "meridian-spectral-observatory",
+   "Vortex_optimization",
+   "Wave_attractors"
+  ],
+  "new_levels": [
+   "IV+ (v19 heritage run)",
+   "VI (Meridian Spectral Observatory)",
+   "VII (vortex-density optimization)",
+   "VIII (hyperbolic wave attractors)"
+  ],
+  "new_data_folders": [
+   "02_data/raw/results_run",
+   "02_data/raw/meridian",
+   "02_data/raw/vortex_optimization",
+   "02_data/raw/wave_attractors"
+  ],
+  "new_figure_folders": [
+   "03_figures/static/results_run",
+   "03_figures/static/meridian",
+   "03_figures/static/vortex_optimization",
+   "03_figures/static/wave_attractors"
+  ],
+  "new_monographs": [
+   "01_monographs/ru/monograph_ru_max.md (MAX edition)",
+   "01_monographs/en/monograph_en_max.md (MAX edition)"
+  ],
+  "policy": "versionless enrichment: structure preserved, every section updated in place, no version markers introduced"
+ },
+ "sync_2026_10_16": {
+  "source": "repository ab-cloud-research @ 2b5d352 (Hilbert_Polya v2.0.7–v2.0.10)",
+  "verdicts_corrected": [
+   "G2: NO -> YES (level identity at the zeros' level, audit v2.0.7)",
+   "G5: NO -> YES (the convergence ladder, audit v2.0.8)"
+  ],
+  "data_regenerated": [
+   "c3_gates_verdict.json",
+   "c3_gates_table.csv",
+   "c5_gates_ext_verdict.json",
+   "c5_gates_ext_table.csv",
+   "c6_primes_verdict.json"
+  ],
+  "added": [
+   "c17_blind_phaseB_verdict.json (raw)",
+   "figures fig26-28 (algebraic_map, ru+en)",
+   "figures fig29-32 (C17, ru+en)",
+   "flagship results 36-37",
+   "numbers registry 51-53"
+  ],
+  "figures_updated": [
+   "fig09_handles",
+   "fig10_gue_ext",
+   "fig14_ladder",
+   "fig25_map"
+  ],
+  "rebuilt": [
+   "monographs (ru/en, regular + MAX, PDF + DOCX)",
+   "report.pdf/report.docx",
+   "research_registry.json",
+   "metrics.json",
+   "web lab",
+   "dossier",
+   "README x7"
+  ]
+ }
+}

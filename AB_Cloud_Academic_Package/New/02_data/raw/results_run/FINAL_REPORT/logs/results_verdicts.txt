@@ -1,0 +1,82 @@
+ONE-LINE VERDICTS (results_log)
+
+ Test 1: b(N=50000) = 1.2126 → PASS
+ Test 1 [HARDCORE pass 2]: 8 sub-checks, 0 failed, b(50000)=1.2126 → PASS
+ Test 2: Monotonicity violations: 0 / 499 → PASS
+ Test 2 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS
+ Test 3: α = 0.1685 (empirical; no expected value), R²=0.9895 → PASS
+ Test 3 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS
+ Test 4: KS D=0.0216, p=0.0 → WARN
+ Test 4 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS
+ Test 5: Best high-T p-value=0.0 → WARN
+ Test 5 [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS
+ Test 6: χ² p=0.0 → WARN
+ Test 6 [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS
+ Test 7: Slope=-0.1504 (empirical), 95%CI=[-0.1594,-0.1414] → PASS
+ Test 7 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS
+ Test 8: Runs=3 (exp=5.8) → PASS
+ Test 8 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS
+ Test 9: Bootstrap slope=-0.1746 (empirical), 95%CI=[-0.1895,-0.1552] → PASS
+ Test 9 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS
+ Test 10: Max deviation=8.5% → PASS
+ Test 10 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS
+ Test 11: A²=61.4924, MC p=0.0000 → WARN (best high-T subrange T>31351 also rejects, p=0.0000; see height-resolved table)
+ Test 11 [HARDCORE pass 2]: 5 sub-checks, 0 failed → PASS
+ Test 12: 2-sample KS D=0.0233, p=0.010547 → WARN
+ Test 12 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS
+ Test 13: data closer to GUE in 9/9 L-values → PASS
+ Test 13 [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS
+ Test 14: data closer to GUE in 9/9 L-values → PASS
+ Test 14 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS
+ Test 15: Hermiticity=OK, τ_TRB=0.1037, flux_v1=-0.0 [exp -0.0], flux_empty=0.0 → PASS
+ Test 15b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS
+ Test 16 [MONTGOMERY] α=0.5 (α=0.5000 (default)): ⟨r⟩ mean=0.594 n_pass=1/1 → PASS
+ Test 16 [MONTGOMERY] FINAL (last α=0.5): ⟨r⟩=0.594 → PASS
+ Test 16b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS
+ Test 17: zero_modes(α=1/2)=4 (expected 4) → PASS
+ Test 17b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS
+ Test 18: chiral defect (α=1/2)=0.0 [exp 0.000000], (α=1/3)=0.0058 [exp ≠0] → PASS
+ Test 18b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS
+ Test 19: 1/L scaling R²=0.9997, v_F(2π)=1.8998, v_F(π)=3.7995 → PASS
+ Test 19b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS
+ Test 19c [SERIES pass 3]: 3 sub-checks, 0 failed → PASS
+ Test 20: C₁ anchors {1/4,1/3,1/5}=1,1,1 [exp 1,1,1], α=1/2 min gap=0.0 (Dirac touching), mass branch C=0/0 → PASS
+ Test 20b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS
+ Test 21: arg(γ*)=89.874° (≈90°, deviation=0.126°) → PASS
+ Test 21b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS
+ Test 22: Φ_AB=0.4487989505 = π/7 (exact) → PASS
+ Test 22b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS
+ Test 23: |CF_formula|=1.0 (=1 by construction), c_AB=0.02062 (≈0.02063) → PASS
+ Test 23b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS
+ Test 24: vortex flux OK=1/1, empty OK=5040/5040, max_empty=0.0 → PASS
+ Test 24b [HARDCORE pass 2]: 5 sub-checks, 0 failed → PASS
+ Test 25: Δ(q=1→0)=0.0 [exp ~0], Δ(q=0.3→0)=0.0032 [exp >1e-3] → PASS
+ Test 25b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS
+ Test 26: flux_v=-0.0 [exp -0.0], empty_ok=5040/5183, herm=OK, ⟨r⟩=0.6009 → PASS
+ Test 26b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS
+ Test 27: chiral defect (W=0) = 0.0, (W=1.0) = 0.0058 → PASS
+ Test 27b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS
+ Test 28: f_GUE=0.8704, Σ²_data=0.6115 → WARN
+ Test 28b [HARDCORE pass 2]: 2 sub-checks, 1 failed → WARN
+ Test 29: ρ(α=0.5)=0.0193 vs ρ(0.403)=0.1944 / ρ(0.597)=0.1944 → PASS
+ Test 29b [HARDCORE pass 2]: 3 sub-checks, 1 failed → WARN
+ Test 29c [SERIES pass 3]: 3 sub-checks, 0 failed → PASS
+ Test 30: v_F=1.798, R²=0.9977 → PASS
+ Test 30b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS
+ Test 31: max|Im(E)|=0.6397, ⟨r⟩_NH=0.8938 → PASS
+ Test 31b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS
+ Test 31c [SERIES pass 3]: 4 sub-checks, 0 failed → PASS
+ Test 32: ⟨r⟩=0.5991±0.0075 (q=1.0, n=5, W=1.0) vs GUE 0.5992 → PASS
+ Test 32: ⟨r⟩=0.5864±0.003 (q=1.0, n=5, W=1.0) vs GUE 0.5992 → PASS
+ Test 32b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS
+ Test 33: L-scaling to L=80 0.434,0.556,0.593,0.6,0.6 → PASS
+ Test 33: L-scaling to L=80 0.434,0.556,0.593,0.6,0.6 → PASS
+ Test 33b (hardcore): plateau weighted ⟨r⟩=0.6004, χ²/dof=0.01 → PASS
+ Test 34: KS p=0.0, ⟨|ΔR₂|⟩=0.0374, d_GUE=0.796 → PASS
+ Test 34b [HARDCORE pass 2]: 4 sub-checks, 1 failed → WARN
+ Test 35: K(t) ramp+plateau — RMS_GUE=0.4193, corr_GUE=0.8889 → WARN
+ Test 35b [HARDCORE pass 2]: 3 sub-checks, 2 failed → WARN
+ Test 36: byte robust — r_256=0.5894, |Δr|_multi=0.001 (120 windows), |Δr|_1win=0.012 (diag), H=7.9991 bits, χ²_z=-0.234, n=27997 → PASS
+ Test 36: byte robust — r_256=0.5756, |Δr|_multi=0.0009 (120 windows), |Δr|_1win=0.0061 (diag), H=7.9991 bits, χ²_z=-0.234, n=55288 → PASS
+ Test 37: (1/2)!=√π/2 [rel.err 0.0], 32/π² [rel.err 0.0], ∫p₂=1 [|Δ|=0.0], uniqueness ✓ → PASS
+ Test 37b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS

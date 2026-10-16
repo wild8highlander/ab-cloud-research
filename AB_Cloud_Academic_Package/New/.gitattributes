@@ -1,0 +1,19 @@
+* text=auto
+*.md text
+*.yaml text
+*.json text
+*.py text
+*.jl text
+*.rs text
+*.go text
+*.js text
+*.sh text eol=lf
+*.bib text
+*.cff text
+*.svg text
+*.png binary
+*.pdf binary
+*.docx binary
+*.gif binary
+*.parquet binary
+*.zip binary

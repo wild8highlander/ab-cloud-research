@@ -1,0 +1,75 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "AB-Cloud unified CLI contract",
+  "version": "unified (versionless)",
+  "description": "The binding contract implemented identically by python/julia/rust/go/js/bash runners.",
+  "input": {
+    "hypothesis": "string \u2014 'AB-Cloud unified programme'",
+    "params": {
+      "config": "config.yaml",
+      "seed": "int",
+      "lang": "ru|en",
+      "mode": "demo|research|production",
+      "theme": "light|dark|neon|dracula|nord|catppuccin|solarized|gruvbox|accessible"
+    },
+    "data_path": "02_data/ (registry is the funnel)",
+    "seed": 42
+  },
+  "output": {
+    "metrics": "flat dict (see shared/metrics.json for the canonical key set)",
+    "figures": "[] (static byte-copies; see 03_figures)",
+    "logs": [
+      "05_logs/run.log"
+    ],
+    "reports": [
+      "04_reports/report.md"
+    ],
+    "provenance": {
+      "registry": "research_registry.json",
+      "generated_by": "<language>"
+    },
+    "artifacts": [
+      "01_monographs/ru/monograph_ru.pdf",
+      "01_monographs/en/monograph_en.pdf"
+    ]
+  },
+  "errors": {
+    "code": "string",
+    "message": "string",
+    "hint": "string",
+    "docs_url": "string"
+  },
+  "events": "JSONL stream: {ts, event, level, detail} \u2014 progress/warning/error/done",
+  "commands": [
+    "init",
+    "doctor",
+    "explain",
+    "plan",
+    "fetch",
+    "validate",
+    "preprocess",
+    "analyze",
+    "visualize",
+    "report",
+    "monograph",
+    "lab",
+    "api",
+    "test",
+    "bench",
+    "lint",
+    "docs",
+    "package",
+    "publish",
+    "clean",
+    "version",
+    "cite",
+    "secret"
+  ],
+  "invariants": [
+    "all runners emit identical metrics keys and values from shared/metrics.json",
+    "all runners read config.yaml for seed/lang/theme/mode",
+    "JSON mode (--output=json) prints pure JSON on stdout",
+    "rh_status is always 'blocked' \u2014 the V13 obligation machine",
+    "exit code 0 on success, 1 on error, 2 on usage"
+  ]
+}

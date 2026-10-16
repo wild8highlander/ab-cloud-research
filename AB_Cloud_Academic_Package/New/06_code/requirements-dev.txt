@@ -1,0 +1,6 @@
+-r requirements.txt
+pytest>=7.0
+ruff>=0.4
+jsonschema>=4.18
+matplotlib>=3.7
+mpmath>=1.3

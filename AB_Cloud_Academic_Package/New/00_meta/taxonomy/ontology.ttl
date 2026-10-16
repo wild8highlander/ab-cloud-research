@@ -1,0 +1,42 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ab:   <https://github.com/wild8highlander/ab-cloud-research/AB_Cloud_Academic_Package/taxonomy/> .
+
+ab:programme a skos:Concept ;
+    skos:prefLabel "AB-Cloud Research Programme"@en, "Программа AB-Cloud"@ru ;
+    skos:definition "One study in four levels plus a spinor study."@en .
+
+ab:SpectralCore a skos:Concept ; skos:broader ab:programme ;
+    skos:prefLabel "spectral core"@en ; skos:notation "V01-V19" .
+ab:ABProcessor a skos:Concept ; skos:broader ab:programme ;
+    skos:prefLabel "AB processor"@en ; skos:notation "V20" .
+ab:DiracSkeleton a skos:Concept ; skos:broader ab:programme ;
+    skos:prefLabel "Dirac skeleton"@en ; skos:notation "D1-D14" .
+ab:HPBridge a skos:Concept ; skos:broader ab:programme ;
+    skos:prefLabel "Hilbert-Polya bridge"@en ; skos:notation "C1-C17" .
+ab:BlindVerification a skos:Concept ; skos:broader ab:programme ;
+    skos:prefLabel "blind verification"@en ; skos:notation "E01-E18" .
+ab:SpinorStudy a skos:Concept ; skos:broader ab:programme ;
+    skos:prefLabel "spinor study"@en ; skos:notation "ES1-ES5" .
+
+ab:Campaign a skos:Concept ; skos:prefLabel "campaign"@en ;
+    skos:definition "A pre-registered numerical experiment with verdicts."@en .
+ab:Theorem a skos:Concept ; skos:prefLabel "theorem"@en ;
+    skos:definition "A statement with a numerical certificate and a boundary."@en .
+ab:Verdict a skos:Concept ; skos:prefLabel "verdict"@en ;
+    skos:definition "YES / NO / BLOCKED with basis and does_not_prove field."@en .
+
+ab:LocalityWall a skos:Concept ; skos:broader ab:HPBridge ;
+    skos:prefLabel "locality wall"@en ; skos:notation "T18" ;
+    skos:definition "Local lattices cannot host the entanglement the zero comb demands."@en .
+ab:TraceFormula a skos:Concept ; skos:broader ab:HPBridge ;
+    skos:prefLabel "trace formula"@en ; skos:notation "T6" .
+ab:CountingLaw a skos:Concept ; skos:broader ab:HPBridge ;
+    skos:prefLabel "counting law"@en ; skos:notation "T13" .
+ab:ZetaDecoration a skos:Concept ; skos:broader ab:DiracSkeleton ;
+    skos:prefLabel "zeta decoration"@en ; skos:notation "D7" .
+
+ab:HonestyLayer a skos:Concept ; skos:broader ab:programme ;
+    skos:prefLabel "honesty layer"@en ;
+    skos:definition "does_not_prove fields, blocked verdicts, negative results - the inviolable part."@en .

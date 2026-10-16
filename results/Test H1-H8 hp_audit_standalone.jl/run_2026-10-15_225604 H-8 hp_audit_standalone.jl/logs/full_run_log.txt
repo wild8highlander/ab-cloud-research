@@ -1,0 +1,379 @@
+FULL RUN LOG — run_2026-10-15_225604 (hp_audit_standalone 25.2-NUMINA, menu)
+ONE consolidated file: every test's computation log + console capture, in run order
+(two-files contract: the whole run is readable from final_report.md/html + this log)
+
+═════════════════════════════════════════════════════════════════════
+test_308_all_numbers_trace — H8. All-numbers trace (integer comb, counting family, gap arithmetic)   [WARN]
+═════════════════════════════════════════════════════════════════════
+--- computation log (every log_comp while this test ran) ---
+[2026-10-15 22:56:19]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2127)
+[2026-10-15 22:56:20]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 22:56:56]   H8: config seed=2127 raw FT on the integer comb (5184 levels, span 6.27)
+[2026-10-15 22:56:56]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2128)
+[2026-10-15 22:56:56]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 22:57:37]   H8: config seed=2128 raw FT on the integer comb (5184 levels, span 6.27)
+[2026-10-15 22:57:38]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=2129)
+[2026-10-15 22:57:38]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-15 22:58:19]   H8: config seed=2129 raw FT on the integer comb (5184 levels, span 6.27)
+[2026-10-15 22:58:23]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62727)
+[2026-10-15 22:58:23]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 22:59:11]   H8: vortex-free null 1/20 (seed=62727), max target-SNR 9.82
+[2026-10-15 22:59:12]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62728)
+[2026-10-15 22:59:13]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:00:02]   H8: vortex-free null 2/20 (seed=62728), max target-SNR 9.82
+[2026-10-15 23:00:02]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62729)
+[2026-10-15 23:00:03]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:00:56]   H8: vortex-free null 3/20 (seed=62729), max target-SNR 9.82
+[2026-10-15 23:00:57]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62730)
+[2026-10-15 23:00:57]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:01:53]   H8: vortex-free null 4/20 (seed=62730), max target-SNR 9.82
+[2026-10-15 23:01:54]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62731)
+[2026-10-15 23:01:54]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:02:39]   H8: vortex-free null 5/20 (seed=62731), max target-SNR 9.82
+[2026-10-15 23:02:40]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62732)
+[2026-10-15 23:02:40]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:03:33]   H8: vortex-free null 6/20 (seed=62732), max target-SNR 9.82
+[2026-10-15 23:03:34]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62733)
+[2026-10-15 23:03:34]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:04:35]   H8: vortex-free null 7/20 (seed=62733), max target-SNR 9.82
+[2026-10-15 23:04:36]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62734)
+[2026-10-15 23:04:36]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:05:34]   H8: vortex-free null 8/20 (seed=62734), max target-SNR 9.82
+[2026-10-15 23:05:35]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62735)
+[2026-10-15 23:05:35]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:06:31]   H8: vortex-free null 9/20 (seed=62735), max target-SNR 9.82
+[2026-10-15 23:06:31]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62736)
+[2026-10-15 23:06:32]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:07:25]   H8: vortex-free null 10/20 (seed=62736), max target-SNR 9.82
+[2026-10-15 23:07:26]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62737)
+[2026-10-15 23:07:26]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:08:21]   H8: vortex-free null 11/20 (seed=62737), max target-SNR 9.82
+[2026-10-15 23:08:22]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62738)
+[2026-10-15 23:08:22]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:09:17]   H8: vortex-free null 12/20 (seed=62738), max target-SNR 9.82
+[2026-10-15 23:09:18]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62739)
+[2026-10-15 23:09:18]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:10:13]   H8: vortex-free null 13/20 (seed=62739), max target-SNR 9.82
+[2026-10-15 23:10:13]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62740)
+[2026-10-15 23:10:14]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:11:19]   H8: vortex-free null 14/20 (seed=62740), max target-SNR 9.82
+[2026-10-15 23:11:21]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62741)
+[2026-10-15 23:11:21]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:12:19]   H8: vortex-free null 15/20 (seed=62741), max target-SNR 9.82
+[2026-10-15 23:12:20]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62742)
+[2026-10-15 23:12:20]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:13:15]   H8: vortex-free null 16/20 (seed=62742), max target-SNR 9.82
+[2026-10-15 23:13:16]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62743)
+[2026-10-15 23:13:16]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:14:13]   H8: vortex-free null 17/20 (seed=62743), max target-SNR 9.82
+[2026-10-15 23:14:14]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62744)
+[2026-10-15 23:14:14]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:15:08]   H8: vortex-free null 18/20 (seed=62744), max target-SNR 9.82
+[2026-10-15 23:15:09]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62745)
+[2026-10-15 23:15:09]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:16:05]   H8: vortex-free null 19/20 (seed=62745), max target-SNR 9.82
+[2026-10-15 23:16:06]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62746)
+[2026-10-15 23:16:06]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:17:03]   H8: vortex-free null 20/20 (seed=62746), max target-SNR 9.82
+[2026-10-15 23:18:00]   H8: GUE null 1/20 (seed=62827, n=5184), max target-SNR 10.00
+[2026-10-15 23:19:02]   H8: GUE null 2/20 (seed=62828, n=5184), max target-SNR 11.43
+[2026-10-15 23:20:03]   H8: GUE null 3/20 (seed=62829, n=5184), max target-SNR 6.38
+[2026-10-15 23:20:50]   H8: GUE null 4/20 (seed=62830, n=5184), max target-SNR 7.33
+[2026-10-15 23:21:46]   H8: GUE null 5/20 (seed=62831, n=5184), max target-SNR 8.25
+[2026-10-15 23:22:35]   H8: GUE null 6/20 (seed=62832, n=5184), max target-SNR 9.65
+[2026-10-15 23:23:24]   H8: GUE null 7/20 (seed=62833, n=5184), max target-SNR 15.12
+[2026-10-15 23:24:15]   H8: GUE null 8/20 (seed=62834, n=5184), max target-SNR 22.70
+[2026-10-15 23:25:06]   H8: GUE null 9/20 (seed=62835, n=5184), max target-SNR 15.80
+[2026-10-15 23:25:53]   H8: GUE null 10/20 (seed=62836, n=5184), max target-SNR 9.27
+[2026-10-15 23:26:53]   H8: GUE null 11/20 (seed=62837, n=5184), max target-SNR 9.91
+[2026-10-15 23:27:45]   H8: GUE null 12/20 (seed=62838, n=5184), max target-SNR 19.03
+[2026-10-15 23:28:38]   H8: GUE null 13/20 (seed=62839, n=5184), max target-SNR 7.43
+[2026-10-15 23:29:26]   H8: GUE null 14/20 (seed=62840, n=5184), max target-SNR 9.18
+[2026-10-15 23:30:18]   H8: GUE null 15/20 (seed=62841, n=5184), max target-SNR 9.12
+[2026-10-15 23:31:08]   H8: GUE null 16/20 (seed=62842, n=5184), max target-SNR 12.14
+[2026-10-15 23:32:03]   H8: GUE null 17/20 (seed=62843, n=5184), max target-SNR 11.84
+[2026-10-15 23:32:53]   H8: GUE null 18/20 (seed=62844, n=5184), max target-SNR 10.12
+[2026-10-15 23:33:43]   H8: GUE null 19/20 (seed=62845, n=5184), max target-SNR 10.24
+[2026-10-15 23:34:36]   H8: GUE null 20/20 (seed=62846, n=5184), max target-SNR 12.33
+[2026-10-15 23:34:39]   H8: baseline comb ABSENT — coverage primes 0.09 / powers 0.14 / composites 0.01, disc 1.04, false tail 0.048
+[2026-10-15 23:34:39]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43027)
+[2026-10-15 23:34:39]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 23:35:38]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43028)
+[2026-10-15 23:35:39]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 23:36:35]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43029)
+[2026-10-15 23:36:35]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-15 23:37:35]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43727)
+[2026-10-15 23:37:36]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:38:40]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43728)
+[2026-10-15 23:38:40]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:39:36]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43729)
+[2026-10-15 23:39:36]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:40:41]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43730)
+[2026-10-15 23:40:41]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:41:49]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43731)
+[2026-10-15 23:41:49]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:43:03]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43732)
+[2026-10-15 23:43:03]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:44:16]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43733)
+[2026-10-15 23:44:16]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:45:17]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43734)
+[2026-10-15 23:45:17]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:46:09]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43735)
+[2026-10-15 23:46:09]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:47:10]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43736)
+[2026-10-15 23:47:10]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:48:23]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43737)
+[2026-10-15 23:48:24]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:49:53]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43738)
+[2026-10-15 23:49:53]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:51:40]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43739)
+[2026-10-15 23:51:40]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:52:39]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43740)
+[2026-10-15 23:52:39]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:53:33]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43741)
+[2026-10-15 23:53:33]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:54:30]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43742)
+[2026-10-15 23:54:30]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:55:27]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43743)
+[2026-10-15 23:55:27]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:56:23]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43744)
+[2026-10-15 23:56:23]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:57:15]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43745)
+[2026-10-15 23:57:15]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-15 23:58:10]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43746)
+[2026-10-15 23:58:10]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:16:30]   H8 regime B: coverage primes 0.11 / powers 0.21 / composites 0.02 → ISOLATED BUMP
+[2026-10-16 00:16:30]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44027)
+[2026-10-16 00:16:30]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-16 00:17:40]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44028)
+[2026-10-16 00:17:41]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-16 00:18:44]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44029)
+[2026-10-16 00:18:44]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-16 00:19:46]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44727)
+[2026-10-16 00:19:46]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:20:48]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44728)
+[2026-10-16 00:20:48]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:21:45]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44729)
+[2026-10-16 00:21:45]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:22:41]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44730)
+[2026-10-16 00:22:41]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:23:40]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44731)
+[2026-10-16 00:23:40]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:24:39]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44732)
+[2026-10-16 00:24:39]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:25:36]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44733)
+[2026-10-16 00:25:36]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:26:34]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44734)
+[2026-10-16 00:26:34]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:27:32]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44735)
+[2026-10-16 00:27:32]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:28:29]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44736)
+[2026-10-16 00:28:29]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:29:44]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44737)
+[2026-10-16 00:29:44]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:30:42]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44738)
+[2026-10-16 00:30:42]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:31:40]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44739)
+[2026-10-16 00:31:40]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:32:37]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44740)
+[2026-10-16 00:32:37]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:33:45]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44741)
+[2026-10-16 00:33:46]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:36:04]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44742)
+[2026-10-16 00:36:05]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:38:07]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44743)
+[2026-10-16 00:38:07]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:40:29]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44744)
+[2026-10-16 00:40:29]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:42:41]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44745)
+[2026-10-16 00:42:41]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 00:44:53]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=44746)
+[2026-10-16 00:44:53]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:18:47]   H8 regime C: coverage primes 0.09 / powers 0.07 / composites 0.01 → ABSENT
+[2026-10-16 01:18:48]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45027)
+[2026-10-16 01:18:48]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 01:20:42]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45028)
+[2026-10-16 01:20:42]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 01:22:55]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45029)
+[2026-10-16 01:22:55]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 01:24:47]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45727)
+[2026-10-16 01:24:48]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:27:01]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45728)
+[2026-10-16 01:27:01]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:28:15]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45729)
+[2026-10-16 01:28:15]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:29:10]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45730)
+[2026-10-16 01:29:11]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:30:11]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45731)
+[2026-10-16 01:30:11]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:31:06]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45732)
+[2026-10-16 01:31:06]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:32:03]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45733)
+[2026-10-16 01:32:03]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:32:57]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45734)
+[2026-10-16 01:32:57]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:33:53]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45735)
+[2026-10-16 01:33:53]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:34:52]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45736)
+[2026-10-16 01:34:52]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:35:55]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45737)
+[2026-10-16 01:35:55]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:36:57]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45738)
+[2026-10-16 01:36:57]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:37:55]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45739)
+[2026-10-16 01:37:55]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:38:57]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45740)
+[2026-10-16 01:38:57]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:39:55]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45741)
+[2026-10-16 01:39:55]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:40:49]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45742)
+[2026-10-16 01:40:49]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:41:49]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45743)
+[2026-10-16 01:41:49]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:42:46]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45744)
+[2026-10-16 01:42:46]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:43:41]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45745)
+[2026-10-16 01:43:41]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 01:44:37]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45746)
+[2026-10-16 01:44:37]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 02:04:15]   H8 regime D: coverage primes 0.11 / powers 0.21 / composites 0.04 → ISOLATED BUMP
+[2026-10-16 02:04:16]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43627)
+[2026-10-16 02:04:16]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:05:10]   H8 deepen [B] AB config 1/10 (seed=43627)
+[2026-10-16 02:05:10]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43628)
+[2026-10-16 02:05:11]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:06:09]   H8 deepen [B] AB config 2/10 (seed=43628)
+[2026-10-16 02:06:09]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43629)
+[2026-10-16 02:06:09]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:07:05]   H8 deepen [B] AB config 3/10 (seed=43629)
+[2026-10-16 02:07:05]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43630)
+[2026-10-16 02:07:06]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:07:59]   H8 deepen [B] AB config 4/10 (seed=43630)
+[2026-10-16 02:07:59]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43631)
+[2026-10-16 02:07:59]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:08:55]   H8 deepen [B] AB config 5/10 (seed=43631)
+[2026-10-16 02:08:55]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43632)
+[2026-10-16 02:08:55]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:09:46]   H8 deepen [B] AB config 6/10 (seed=43632)
+[2026-10-16 02:09:46]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43633)
+[2026-10-16 02:09:46]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:10:44]   H8 deepen [B] AB config 7/10 (seed=43633)
+[2026-10-16 02:10:44]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43634)
+[2026-10-16 02:10:44]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:11:39]   H8 deepen [B] AB config 8/10 (seed=43634)
+[2026-10-16 02:11:39]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43635)
+[2026-10-16 02:11:39]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:12:33]   H8 deepen [B] AB config 9/10 (seed=43635)
+[2026-10-16 02:12:33]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=43636)
+[2026-10-16 02:12:33]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:13:35]   H8 deepen [B] AB config 10/10 (seed=43636)
+[2026-10-16 02:13:36]   H8 deepen [B]: deep coverage primes 0.11 / composites 0.02 → ISOLATED BUMP
+[2026-10-16 02:13:37]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45627)
+[2026-10-16 02:13:37]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:14:57]   H8 deepen [D] AB config 1/10 (seed=45627)
+[2026-10-16 02:14:57]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45628)
+[2026-10-16 02:14:58]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:16:03]   H8 deepen [D] AB config 2/10 (seed=45628)
+[2026-10-16 02:16:03]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45629)
+[2026-10-16 02:16:03]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:17:00]   H8 deepen [D] AB config 3/10 (seed=45629)
+[2026-10-16 02:17:00]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45630)
+[2026-10-16 02:17:00]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:18:16]   H8 deepen [D] AB config 4/10 (seed=45630)
+[2026-10-16 02:18:16]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45631)
+[2026-10-16 02:18:16]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:19:09]   H8 deepen [D] AB config 5/10 (seed=45631)
+[2026-10-16 02:19:09]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45632)
+[2026-10-16 02:19:09]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:20:03]   H8 deepen [D] AB config 6/10 (seed=45632)
+[2026-10-16 02:20:03]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45633)
+[2026-10-16 02:20:03]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:21:03]   H8 deepen [D] AB config 7/10 (seed=45633)
+[2026-10-16 02:21:03]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45634)
+[2026-10-16 02:21:04]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:22:30]   H8 deepen [D] AB config 8/10 (seed=45634)
+[2026-10-16 02:22:30]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45635)
+[2026-10-16 02:22:30]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:23:29]   H8 deepen [D] AB config 9/10 (seed=45635)
+[2026-10-16 02:23:29]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=45636)
+[2026-10-16 02:23:29]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.0278, t=1.00, W=1.00, open, 144 vortices, model=:monumental
+[2026-10-16 02:24:27]   H8 deepen [D] AB config 10/10 (seed=45636)
+[2026-10-16 02:24:27]   H8 deepen [D]: deep coverage primes 0.09 / composites 0.01 → ISOLATED BUMP
+[2026-10-16 02:24:28]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62127)
+[2026-10-16 02:24:28]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-16 02:25:19]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62128)
+[2026-10-16 02:25:19]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=0.00, open, 0 vortices, model=:monumental
+[2026-10-16 02:26:18]   H8 counting family: best M3 lattice DOS (vortex-free) (AICc 441.9, R² 0.99822), ΔAICc 124.6
+[2026-10-16 02:26:19]   heevr values-only solve: N=5184 — _hp_spectrum (72x72, seed=62626)
+[2026-10-16 02:26:19]   build_ab_cloud_hamiltonian: 72x72 (N=5184), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[2026-10-16 02:27:48]   H8 gaps: max |rho| 0.0440 (σ(n)), band 0.0358, GUE anchor 0.0288, 200 shuffles
+--- console capture (the REPORT) ---
+
+╔══════════════════════════════════════════════════════════════╗
+║                     GATE H8 · NUM-TRACE                      ║
+╠══════════════════════════════════════════════════════════════╣
+║    All-numbers trace — integer comb, counting family, gap    ║
+║                          arithmetic                          ║
+╚══════════════════════════════════════════════════════════════╝
+  Does the AB cloud encode ALL integers n (ω = log n,
+  composites INCLUDED), not just the prime logs H1 scans?
+ Integer comb: 199 targets ω = log(n), n = 2..200 (window [0.3, 5.55] step 0.004) | classes: 46 primes, 14 prime powers, 139 ≥2-prime composites
+ Discriminator class (THE «all numbers» signal — H1's decoys inverted): log(6)=1.7918, log(10)=2.3026, log(21)=3.0445, … log(200)=5.2983
+ Calibration: PER-TARGET P95 of each log(n)'s OWN null distribution (vortex-free same-α + size-matched GUE) — ~199 targets make a H1-style 4-draw max ceiling statistically empty
+ Cross-reference: an H1 lone bump (e.g. regime D at log(2), 19.4 vs P95 7.7) enters here as a LOW-n prime-class target; the question is whether COMPOSITE-class targets join it above their own P95s
+ ζ control D1 (20000 zeros): primes SNR 4.0e+05…2.6e+11 (median 1.4e+07) | prime powers median 3.0e+08 | composites median 1.1e+01 (max 1.0e+04)
+   → 60/60 prime-class targets ≥ 100 → comb CONFIRMED (primes + harmonics) | discrimination ratio 1.3e+06 → detector DISCRIMINATES the classes — valid H8 detector
+
+ AB-cloud integer comb (3-config ensemble, 5184 raw levels, span 6.27): 8/199 targets above their P95 (false-hit expectation ≈ 10, measured null tail 4.8%)
+   coverage: primes 4/46 (9%) | prime powers 2/14 (14%) | composites 2/139 (1%)
+   class SNR medians: prime-class 0.51 vs composite 0.49 → discrimination ratio 1.04 (ζ control: 1.3e+06)
+   null pool: 40 draws (20 vortex-free + 20 GUE) → per-target P95 median 5.37 (min 1.73 / max 9.82)
+   top targets: log(6)=1.792 SNR 10.1 ✓  log(7)=1.946 SNR 9.7 ✓  log(5)=1.609 SNR 8.5 ✓  log(8)=2.079 SNR 8.4 ✓  log(9)=2.197 SNR 6.7 ✓
+   resolution: Hann scale Δω ≈ 1.001 — 0/199 targets individually resolvable (NONE at this span — class statistics carry the verdict); coverage stays null-fair, individual claims need L ≫
+  ● INTEGER COMB VERDICT: ABSENT — 8/199 targets above P95 ≈ the 5% false-hit tail (no arithmetic comb in ANY class)
+
+ Regime sweep (reviewer discipline): 3 extra parameter points × 3 configs, each vs its OWN regime-matched per-target nulls (2×20 draws)
+ regime B (Nv=144 (2.78% of sites, L²/36 anchor), α=0.5000): max target-SNR 79.4 at log(2) | coverage primes 11% / composites 2% (40 null draws) → ISOLATED BUMP
+ regime C (Nv=4 (0.08% of sites), α=0.0278, 25/900 sharp-flux): max target-SNR 52.5 at log(2) | coverage primes 9% / composites 1% (40 null draws) → ABSENT
+ regime D (Nv=144 (2.78% of sites, L²/36 anchor), α=0.0278, 25/900 sharp-flux): max target-SNR 3844.8 at log(2) | coverage primes 11% / composites 4% (40 null draws) → ISOLATED BUMP
+
+ DEEPEN protocol (H1 discipline): 2 regime(s) reading above a robust negative (B,D) → AB ensemble +10 configs, re-classified against the SAME 40-draw null pool; pre-registered: coverage collapsing into the 15% false tail was null noise, a standing coverage is the headline
+   [B] deep AB (13 configs): max target-SNR 50.5 at log(2) | coverage primes 11% / composites 2% vs per-target P95 of 40 draws → ISOLATED BUMP
+   [D] deep AB (13 configs): max target-SNR 390.8 at log(2) | coverage primes 9% / composites 1% vs per-target P95 of 40 draws → ISOLATED BUMP
+
+ Counting-family showdown on the raw N(E) (72×72 lattice, 2591 positive levels, 60 grid points):
+   M0 ⌊E⌋-linear (Σ1: Tₙ↔n)       R² = 0.91611  AICc = +673.2
+   M1 Σd(n) E·lnE-basis (ζ-basis) R² = 0.98636  AICc = +566.4
+   M2 π(E) E/lnE                  R² = 0.28101  AICc = +802.1
+   M3 lattice DOS (vortex-free)   R² = 0.99822  AICc = +441.9  ← best
+   ΔAICc(best ↔ runner-up) = 124.6 (decisive) → winner: M3 lattice DOS (vortex-free)
+   (M1's basis IS H2's ζ-ansatz basis — the FAMILY ordering carries the arithmetic story; ζ's frozen 1/2π coefficients stay H2's business)
+
+ Gap↔arithmetic correlations (central band 3111 levels → 3110 gaps, MA high-pass win=156, Spearman):
+   d(n)   ρ = +0.0289  | null |ρ| P95 = 0.0353 (permutation ∪ GUE anchors) → inside
+   Ω(n)   ρ = +0.0298  | null |ρ| P95 = 0.0358 (permutation ∪ GUE anchors) → inside
+   φ(n)   ρ = -0.0354  | null |ρ| P95 = 0.0309 (permutation ∪ GUE anchors) → OUTSIDE
+   σ(n)   ρ = +0.0440  | null |ρ| P95 = 0.0340 (permutation ∪ GUE anchors) → OUTSIDE
+   ln(n)  ρ = +0.0097  | null |ρ| P95 = 0.0339 (permutation ∪ GUE anchors) → inside
+   max |ρ_AB| = 0.0440 (σ(n)) vs pooled band 0.0358 | GUE anchors max |ρ| = 0.0288 (pooled into the null) → GAP-ARITHMETIC CORRELATION DETECTED
+╭─◆ Test H8  ·  6 sub-checks → WARN                            ╮
+│✓ ζ control discriminates (D1) — prime-class comb confirmed;  │
+│discrimination ratio 1.3e+06 (composites ≥100× quieter) →     │
+│detector valid                                                │
+│✓ null calibration (per-target P95) — 40 draws (20 vortex-free│
+│+ 20 GUE), per-target P95 median 5.37; measured null tail 4.8%│
+│(target ≈ 5%)                                                 │
+│✓ integer comb verdict (headline) — baseline: ABSENT — primes │
+│9%, powers 21%, composites 1% above their P95s; disc 1.04     │
+│⚠ comb regime-robust (sweep) — tokens per regime: [B] ISOLATED│
+│BUMP (composites 2%) [C] ABSENT (composites 1%) [D] ISOLATED  │
+│BUMP (composites 1%) DEEPENED: [B] ISOLATED BUMP, [D] ISOLATED│
+│BUMP                                                          │
+│✓ counting-family fits (N(E)) — winner M3 lattice DOS         │
+│(vortex-free) (R² 0.99822) by 124.6 AICc over the runner-up   │
+│✓ gap↔arithmetic correlations — max |ρ| 0.0440 (σ(n)) vs      │
+│pooled null band 0.0358 (200 shuffles ∪ 2 GUE anchors);       │
+│anchors max 0.0288                                            │
+╰──────────────────────────────────────────────────────────────╯
+--- notes ---
+ • H1 and H8 ask DIFFERENT questions on the SAME detector: H1 — «is there a Bragg comb at ω = log p for PRIMES p?» (the Riemann–Weil zero signature; composite firing there is a specificity FAILURE), H8 — «does the AB cloud encode ALL integers n?» (the user's hypothesis; composite firing is the POSITIVE signal — the decoy semantics are inverted). Under «all numbers» H1's empty prime comb is even EXPECTED, so H1's verdicts neither confirm nor refute this gate. TARGET CLASSES (pre-registered): primes fire under BOTH hypotheses; prime powers p^k are the explicit formula's harmonics k·log p (fire under ζ too); composites with ≥2 DISTINCT prime factors (log 6, log 10, log 21 …) are silent under ζ and loud under «all numbers» — the only class where the predictions differ. CALIBRATION: per-target P95 of each log(n)'s OWN null distribution (vortex-free same-α + size-matched GUE) — with ~200 targets a H1-style 4-draw max ceiling is statistically empty, and per-target percentiles keep the test fair at ANY resolution (the nulls carry the same Hann leakage/merging as the AB spectrum). The measured null tail (~5%) is the calibrated false-hit rate; coverage is judged against it. RESOLUTION HONESTY: the Hann main lobe is 2π/span — at suite L most targets beyond n ≈ 10 are NOT individually separable; COVERAGE stays null-fair, but any POSITIVE headline carries a mandatory L-escalation (span ∝ L ⇒ Δω ∝ 1/L) before individual composite peaks may be claimed. The discrimination ratio (median prime-class SNR / median composite SNR) is the same statistic the ζ control must pass at ≥ 100 to validate the detector — medians, so Hann-skirt bleed of a 10⁷ prime tone into a few neighboring composites cannot flip it. COUNTING FAMILY: M0 (a·E+b) is the ⌊E⌋/Σ1 counting a Tₙ↔n bijection predicts; M1 (a·E·lnE+b·E+c) is the divisor-summatory shape — the SAME basis as H2's ζ-ansatz (the family ordering, not the basis, carries the arithmetic story); M2 (a·E/lnE+b) is the π(E) prime-encoding shape; M3 is the vortex-free lattice DOS. GAP ARITHMETIC: Spearman ρ(gₙ, f(n)) for f ∈ {d, Ω, φ, σ, ln} after a moving-average high-pass on BOTH sides (the slow DOS curvature is common-mode — unfiltered it fakes a trend correlation with the smooth ln n); the null is PERMUTATION (hp_num_shufs shuffles of the feature against the fixed gap series) plus independent GUE gap anchors. REGIME SWEEP + DEEPEN follow H1's reviewer discipline verbatim, with the same seed streams — where H1 deepened a regime, H8's null draws are bit-for-bit the same spectra, so the two gates' headlines are directly comparable.

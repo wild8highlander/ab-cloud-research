@@ -1,0 +1,106 @@
+{
+  "dataset": "AB_Cloud_Academic_Package/02_data",
+  "lineage": [
+    {
+      "step": 1,
+      "action": "byte-copy raw",
+      "from": "AB_Cloud_Quantum_Research/datasets/{flagship_numbers,zeta_zeros_reference,campaign_timeline}.csv",
+      "to": "raw/spectral_core/",
+      "transform": "none (read-only copy)"
+    },
+    {
+      "step": 2,
+      "action": "byte-copy raw",
+      "from": "dirac-lab/data/zeta_zeros_{2000,high_2000,low_600}.txt",
+      "to": "raw/dirac/",
+      "transform": "none"
+    },
+    {
+      "step": 3,
+      "action": "byte-copy raw",
+      "from": "Hilbert_Polya/data/*.json,*.csv",
+      "to": "raw/hilbert_polya/",
+      "transform": "none"
+    },
+    {
+      "step": 4,
+      "action": "consolidate",
+      "from": "the three sources' README/RESULTS/CROSS_VERIFICATION tables",
+      "to": "processed/research_registry.json",
+      "transform": "structured extraction; numbers verbatim; disagreements kept side by side"
+    },
+    {
+      "step": 5,
+      "action": "checksum",
+      "from": "02_data/**",
+      "to": "checksums.sha256",
+      "transform": "sha256 per file"
+    },
+    {
+      "step": 6,
+      "action": "derive displays",
+      "from": "processed/research_registry.json",
+      "to": [
+        "01_monographs (tables)",
+        "04_reports/report.md",
+        "07_web_lab/index.html",
+        "05_logs/metrics.json"
+      ],
+      "transform": "rendering only; no recomputation"
+    },
+    {
+      "step": 7,
+      "action": "byte-copy raw (enrichment)",
+      "from": "results/run_20260902_134759/{FINAL_REPORT,test_*/report.md,test_*/logs}",
+      "to": "raw/results_run/",
+      "transform": "none (verdict layer of the v19 run)"
+    },
+    {
+      "step": 8,
+      "action": "byte-copy raw (enrichment)",
+      "from": "meridian-spectral-observatory/{zeros50k.txt,zeta_zeros_50k.txt,docs/}",
+      "to": "raw/meridian/",
+      "transform": "none (the 50,000-zero reference table + RU docs)"
+    },
+    {
+      "step": 9,
+      "action": "byte-copy raw (enrichment)",
+      "from": "Vortex_optimization/{data,curves}",
+      "to": "raw/vortex_optimization/",
+      "transform": "none (sweep CSVs + GUE control JSON)"
+    },
+    {
+      "step": 10,
+      "action": "byte-copy raw (enrichment)",
+      "from": "Wave_attractors/wave_attractors/data",
+      "to": "raw/wave_attractors/",
+      "transform": "none (E1-E7 summaries + CSVs)"
+    },
+    {
+      "step": 11,
+      "action": "consolidate (enrichment)",
+      "from": "the four sources' README/docs records",
+      "to": "processed/research_registry.json (levels IV+/VI/VII/VIII, flagship 25-35, numbers 21-50, verdicts G6-G10)",
+      "transform": "structured extraction; numbers verbatim; disagreements kept side by side"
+    },
+    {
+      "step": 12,
+      "action": "derive (enrichment)",
+      "from": "raw/meridian/zeros50k.txt + raw/results_run/FINAL_REPORT/final_report.md",
+      "to": "03_figures/static/{meridian,results_run}/{en,ru}/",
+      "transform": "package-computed statistics and figures (600 dpi); documented in derived_stats.json"
+    },
+    {
+      "step": 13,
+      "action": "compose (enrichment)",
+      "from": "research_registry.json (all levels)",
+      "to": "01_monographs/{ru,en}/monograph_{ru,en}_max.md",
+      "transform": "the MAX editions (~100,000 words each); every number traces to the registry"
+    }
+  ],
+  "invariants": [
+    "numbers are copied verbatim from verdict files, never re-typed",
+    "RH verdict constant = blocked (V13)",
+    "negative results preserved with the same standing as positives"
+  ]
+}

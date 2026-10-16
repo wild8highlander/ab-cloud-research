@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CLI contract output",
+  "type": "object",
+  "required": [
+    "hypothesis",
+    "params",
+    "metrics",
+    "provenance",
+    "artifacts"
+  ],
+  "properties": {
+    "hypothesis": {
+      "type": "string"
+    },
+    "params": {
+      "type": "object",
+      "required": [
+        "config",
+        "seed",
+        "lang"
+      ],
+      "properties": {
+        "config": {
+          "type": "string"
+        },
+        "seed": {
+          "type": "integer"
+        },
+        "lang": {
+          "enum": [
+            "ru",
+            "en"
+          ]
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "required": [
+        "rh_status",
+        "flagship_results"
+      ],
+      "properties": {
+        "rh_status": {
+          "const": "blocked"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "generated_by"
+      ]
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

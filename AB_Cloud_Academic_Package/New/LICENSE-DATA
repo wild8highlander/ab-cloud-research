@@ -1,0 +1,28 @@
+ODbL 1.0 — OPEN DATABASE LICENSE (summary for this package)
+
+Copyright (c) 2026 Isaev Iskhak Khamzatovich — data components of the AB-Cloud Research
+Programme unified academic package (02_data/, 05_logs/metrics.json,
+checksums, registry JSON files).
+
+The data in this package is made available under the Open Database License
+(http://opendatacommons.org/licenses/odbl/1.0/). You are free:
+
+- **To Share**: to copy, distribute and use the database;
+- **To Create**: to produce works from the database;
+- **To Adapt**: to modify, transform and build upon the database.
+
+As long as you:
+
+- **Attribute**: you must attribute any public use of the database, or works
+  produced from it, in the manner specified (see below);
+- **Share-Alike**: if you publicly use any adapted version of this database,
+  or works produced from it, you must also offer those works under the ODbL;
+- **Keep open**: if you redistribute the database, or an adapted version of
+  it, then you must make it available under the ODbL.
+
+Recommended attribution: "Isaev Iskhak Khamzatovich, AB-Cloud Research Programme: Unified
+Academic Package, DOI 10.5281/zenodo.21825394, data under ODbL 1.0."
+
+Individual contents (figures, embedded text excerpts) may carry their own
+licences (CC BY 4.0 for text) — the ODbL applies to the database as an
+assemblage and to the data files as such.

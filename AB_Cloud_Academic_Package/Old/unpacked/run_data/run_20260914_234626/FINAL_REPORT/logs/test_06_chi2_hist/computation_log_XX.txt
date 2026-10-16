@@ -1,0 +1,4 @@
+FULL COMPUTATION LOG — test 6: Spacing chi^2 histogram test
+every log_comp() entry emitted while this test ran:
+
+(no log_comp entries)

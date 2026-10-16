@@ -1,0 +1,14 @@
+# config.prod.yaml — variant of config.yaml (inherits everything else from the base file)
+# Merge order: config.yaml <- config.{env}.yaml
+{
+  "cli": {
+    "mode": "production",
+    "verbosity": 1
+  },
+  "output": {
+    "root": "./out",
+    "figures": {
+      "dpi": 600
+    }
+  }
+}

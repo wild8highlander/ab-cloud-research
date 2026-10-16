@@ -1,0 +1,26 @@
+# build outputs
+out/
+out_dev/
+out_test/
+*.pyc
+__pycache__/
+.pytest_cache/
+.venv/
+node_modules/
+dist/
+build/
+*.egg-info/
+
+# editors
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# local secrets - never commit
+.env
+.env.local
+*.key

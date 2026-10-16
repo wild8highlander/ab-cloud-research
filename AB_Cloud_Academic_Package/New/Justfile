@@ -1,0 +1,8 @@
+# AB-Cloud unified academic package - Justfile
+default:            := "doctor"
+run cmd="doctor":   cd 06_code/python && python3 run.py {{cmd}}
+test:               python3 -m pytest 09_tests/python -q
+lab:                cd 07_web_lab && python3 -m http.server 8322
+cli lang="en" theme="neon": ./06_code/cli/run.sh --lang={{lang}} --theme={{theme}}
+checksums:          python3 06_code/scripts/update_checksums.py
+reproduce:          bash reproduce.sh

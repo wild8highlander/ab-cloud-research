@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "research_registry.json — the unified numbers schema",
+  "type": "object",
+  "required": [
+    "programme",
+    "levels",
+    "flagship_results",
+    "verdicts"
+  ],
+  "properties": {
+    "programme": {
+      "type": "object",
+      "required": [
+        "name",
+        "edition",
+        "honest_boundary"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "edition": {
+          "type": "string"
+        },
+        "honest_boundary": {
+          "type": "object",
+          "required": [
+            "rh_status"
+          ],
+          "properties": {
+            "rh_status": {
+              "const": "blocked"
+            }
+          }
+        }
+      }
+    },
+    "levels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "campaigns",
+          "essence"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "name_ru": {
+            "type": "string"
+          },
+          "campaigns": {
+            "type": "string"
+          },
+          "theorems": {
+            "type": "string"
+          },
+          "essence": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "flagship_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "result",
+          "numbers",
+          "level"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "result": {
+            "type": "string"
+          },
+          "numbers": {
+            "type": "string"
+          },
+          "level": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "verdicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "verdict",
+          "basis"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "verdict": {
+            "enum": [
+              "YES",
+              "NO",
+              "BLOCKED"
+            ]
+          },
+          "basis": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

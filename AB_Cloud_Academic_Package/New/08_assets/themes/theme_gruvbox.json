@@ -1,0 +1,10 @@
+{
+  "name": "gruvbox",
+  "bg": "#282828",
+  "fg": "#EBDBB2",
+  "accent": "#FABD2F",
+  "muted": "#928374",
+  "ok": "#B8BB26",
+  "warn": "#FE8019",
+  "err": "#FB4934"
+}

@@ -1,0 +1,5 @@
+# fish completion for the AB-Cloud unified CLI
+complete -c abcloud-run -a "init doctor explain plan fetch validate preprocess analyze visualize report monograph lab api test bench lint docs package publish clean version cite"
+complete -c abcloud-run -l lang -d "ru|en"
+complete -c abcloud-run -l theme -d "light|dark|neon|dracula|nord|catppuccin|solarized|gruvbox"
+complete -c abcloud-run -l output -d "json|yaml|table|md"

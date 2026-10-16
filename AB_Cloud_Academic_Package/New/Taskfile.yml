@@ -1,0 +1,30 @@
+version: '3'
+
+tasks:
+  doctor:
+    desc: check environment + package integrity
+    cmds: [ "python3 06_code/python/run.py doctor" ]
+  test:
+    desc: run the package integrity suite
+    cmds: [ "python3 -m pytest 09_tests/python -q" ]
+  lab:
+    desc: serve the web laboratory on :8322
+    cmds: [ "cd 07_web_lab && python3 -m http.server 8322" ]
+  cli:
+    desc: run the unified CLI with default args
+    cmds: [ "./06_code/cli/run.sh --lang=en --theme=neon" ]
+  monograph:
+    desc: build monographs (PDF + DOCX)
+    cmds: [ "bash 06_code/scripts/build_monograph.sh" ]
+  report:
+    desc: build the unified report
+    cmds: [ "python3 06_code/python/run.py report" ]
+  checksums:
+    desc: refresh data checksums
+    cmds: [ "python3 06_code/scripts/update_checksums.py" ]
+  reproduce:
+    desc: one-button reproduction
+    cmds: [ "bash reproduce.sh" ]
+  clean:
+    desc: remove build artefacts
+    cmds: [ "rm -rf out out_dev .pytest_cache" ]

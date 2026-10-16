@@ -1,0 +1,81 @@
+=====================================================================
+REPORT — H8. All-numbers trace (integer comb, counting family, gap arithmetic)   [WARN]
+=====================================================================
+
+╔══════════════════════════════════════════════════════════════╗
+║                     GATE H8 · NUM-TRACE                      ║
+╠══════════════════════════════════════════════════════════════╣
+║    All-numbers trace — integer comb, counting family, gap    ║
+║                          arithmetic                          ║
+╚══════════════════════════════════════════════════════════════╝
+  Does the AB cloud encode ALL integers n (ω = log n,
+  composites INCLUDED), not just the prime logs H1 scans?
+ Integer comb: 199 targets ω = log(n), n = 2..200 (window [0.3, 5.55] step 0.004) | classes: 46 primes, 14 prime powers, 139 ≥2-prime composites
+ Discriminator class (THE «all numbers» signal — H1's decoys inverted): log(6)=1.7918, log(10)=2.3026, log(21)=3.0445, … log(200)=5.2983
+ Calibration: PER-TARGET P95 of each log(n)'s OWN null distribution (vortex-free same-α + size-matched GUE) — ~199 targets make a H1-style 4-draw max ceiling statistically empty
+ Cross-reference: an H1 lone bump (e.g. regime D at log(2), 19.4 vs P95 7.7) enters here as a LOW-n prime-class target; the question is whether COMPOSITE-class targets join it above their own P95s
+ ζ control D1 (20000 zeros): primes SNR 4.0e+05…2.6e+11 (median 1.4e+07) | prime powers median 3.0e+08 | composites median 1.1e+01 (max 1.0e+04)
+   → 60/60 prime-class targets ≥ 100 → comb CONFIRMED (primes + harmonics) | discrimination ratio 1.3e+06 → detector DISCRIMINATES the classes — valid H8 detector
+
+ AB-cloud integer comb (3-config ensemble, 5184 raw levels, span 6.27): 8/199 targets above their P95 (false-hit expectation ≈ 10, measured null tail 4.8%)
+   coverage: primes 4/46 (9%) | prime powers 2/14 (14%) | composites 2/139 (1%)
+   class SNR medians: prime-class 0.51 vs composite 0.49 → discrimination ratio 1.04 (ζ control: 1.3e+06)
+   null pool: 40 draws (20 vortex-free + 20 GUE) → per-target P95 median 5.37 (min 1.73 / max 9.82)
+   top targets: log(6)=1.792 SNR 10.1 ✓  log(7)=1.946 SNR 9.7 ✓  log(5)=1.609 SNR 8.5 ✓  log(8)=2.079 SNR 8.4 ✓  log(9)=2.197 SNR 6.7 ✓
+   resolution: Hann scale Δω ≈ 1.001 — 0/199 targets individually resolvable (NONE at this span — class statistics carry the verdict); coverage stays null-fair, individual claims need L ≫
+  ● INTEGER COMB VERDICT: ABSENT — 8/199 targets above P95 ≈ the 5% false-hit tail (no arithmetic comb in ANY class)
+
+ Regime sweep (reviewer discipline): 3 extra parameter points × 3 configs, each vs its OWN regime-matched per-target nulls (2×20 draws)
+ regime B (Nv=144 (2.78% of sites, L²/36 anchor), α=0.5000): max target-SNR 79.4 at log(2) | coverage primes 11% / composites 2% (40 null draws) → ISOLATED BUMP
+ regime C (Nv=4 (0.08% of sites), α=0.0278, 25/900 sharp-flux): max target-SNR 52.5 at log(2) | coverage primes 9% / composites 1% (40 null draws) → ABSENT
+ regime D (Nv=144 (2.78% of sites, L²/36 anchor), α=0.0278, 25/900 sharp-flux): max target-SNR 3844.8 at log(2) | coverage primes 11% / composites 4% (40 null draws) → ISOLATED BUMP
+
+ DEEPEN protocol (H1 discipline): 2 regime(s) reading above a robust negative (B,D) → AB ensemble +10 configs, re-classified against the SAME 40-draw null pool; pre-registered: coverage collapsing into the 15% false tail was null noise, a standing coverage is the headline
+   [B] deep AB (13 configs): max target-SNR 50.5 at log(2) | coverage primes 11% / composites 2% vs per-target P95 of 40 draws → ISOLATED BUMP
+   [D] deep AB (13 configs): max target-SNR 390.8 at log(2) | coverage primes 9% / composites 1% vs per-target P95 of 40 draws → ISOLATED BUMP
+
+ Counting-family showdown on the raw N(E) (72×72 lattice, 2591 positive levels, 60 grid points):
+   M0 ⌊E⌋-linear (Σ1: Tₙ↔n)       R² = 0.91611  AICc = +673.2
+   M1 Σd(n) E·lnE-basis (ζ-basis) R² = 0.98636  AICc = +566.4
+   M2 π(E) E/lnE                  R² = 0.28101  AICc = +802.1
+   M3 lattice DOS (vortex-free)   R² = 0.99822  AICc = +441.9  ← best
+   ΔAICc(best ↔ runner-up) = 124.6 (decisive) → winner: M3 lattice DOS (vortex-free)
+   (M1's basis IS H2's ζ-ansatz basis — the FAMILY ordering carries the arithmetic story; ζ's frozen 1/2π coefficients stay H2's business)
+
+ Gap↔arithmetic correlations (central band 3111 levels → 3110 gaps, MA high-pass win=156, Spearman):
+   d(n)   ρ = +0.0289  | null |ρ| P95 = 0.0353 (permutation ∪ GUE anchors) → inside
+   Ω(n)   ρ = +0.0298  | null |ρ| P95 = 0.0358 (permutation ∪ GUE anchors) → inside
+   φ(n)   ρ = -0.0354  | null |ρ| P95 = 0.0309 (permutation ∪ GUE anchors) → OUTSIDE
+   σ(n)   ρ = +0.0440  | null |ρ| P95 = 0.0340 (permutation ∪ GUE anchors) → OUTSIDE
+   ln(n)  ρ = +0.0097  | null |ρ| P95 = 0.0339 (permutation ∪ GUE anchors) → inside
+   max |ρ_AB| = 0.0440 (σ(n)) vs pooled band 0.0358 | GUE anchors max |ρ| = 0.0288 (pooled into the null) → GAP-ARITHMETIC CORRELATION DETECTED
+╭─◆ Test H8  ·  6 sub-checks → WARN                            ╮
+│✓ ζ control discriminates (D1) — prime-class comb confirmed;  │
+│discrimination ratio 1.3e+06 (composites ≥100× quieter) →     │
+│detector valid                                                │
+│✓ null calibration (per-target P95) — 40 draws (20 vortex-free│
+│+ 20 GUE), per-target P95 median 5.37; measured null tail 4.8%│
+│(target ≈ 5%)                                                 │
+│✓ integer comb verdict (headline) — baseline: ABSENT — primes │
+│9%, powers 21%, composites 1% above their P95s; disc 1.04     │
+│⚠ comb regime-robust (sweep) — tokens per regime: [B] ISOLATED│
+│BUMP (composites 2%) [C] ABSENT (composites 1%) [D] ISOLATED  │
+│BUMP (composites 1%) DEEPENED: [B] ISOLATED BUMP, [D] ISOLATED│
+│BUMP                                                          │
+│✓ counting-family fits (N(E)) — winner M3 lattice DOS         │
+│(vortex-free) (R² 0.99822) by 124.6 AICc over the runner-up   │
+│✓ gap↔arithmetic correlations — max |ρ| 0.0440 (σ(n)) vs      │
+│pooled null band 0.0358 (200 shuffles ∪ 2 GUE anchors);       │
+│anchors max 0.0288                                            │
+╰──────────────────────────────────────────────────────────────╯
+
+---------------------------------------------------------------------
+NOTES / METHODOLOGY
+ • H1 and H8 ask DIFFERENT questions on the SAME detector: H1 — «is there a Bragg comb at ω = log p for PRIMES p?» (the Riemann–Weil zero signature; composite firing there is a specificity FAILURE), H8 — «does the AB cloud encode ALL integers n?» (the user's hypothesis; composite firing is the POSITIVE signal — the decoy semantics are inverted). Under «all numbers» H1's empty prime comb is even EXPECTED, so H1's verdicts neither confirm nor refute this gate. TARGET CLASSES (pre-registered): primes fire under BOTH hypotheses; prime powers p^k are the explicit formula's harmonics k·log p (fire under ζ too); composites with ≥2 DISTINCT prime factors (log 6, log 10, log 21 …) are silent under ζ and loud under «all numbers» — the only class where the predictions differ. CALIBRATION: per-target P95 of each log(n)'s OWN null distribution (vortex-free same-α + size-matched GUE) — with ~200 targets a H1-style 4-draw max ceiling is statistically empty, and per-target percentiles keep the test fair at ANY resolution (the nulls carry the same Hann leakage/merging as the AB spectrum). The measured null tail (~5%) is the calibrated false-hit rate; coverage is judged against it. RESOLUTION HONESTY: the Hann main lobe is 2π/span — at suite L most targets beyond n ≈ 10 are NOT individually separable; COVERAGE stays null-fair, but any POSITIVE headline carries a mandatory L-escalation (span ∝ L ⇒ Δω ∝ 1/L) before individual composite peaks may be claimed. The discrimination ratio (median prime-class SNR / median composite SNR) is the same statistic the ζ control must pass at ≥ 100 to validate the detector — medians, so Hann-skirt bleed of a 10⁷ prime tone into a few neighboring composites cannot flip it. COUNTING FAMILY: M0 (a·E+b) is the ⌊E⌋/Σ1 counting a Tₙ↔n bijection predicts; M1 (a·E·lnE+b·E+c) is the divisor-summatory shape — the SAME basis as H2's ζ-ansatz (the family ordering, not the basis, carries the arithmetic story); M2 (a·E/lnE+b) is the π(E) prime-encoding shape; M3 is the vortex-free lattice DOS. GAP ARITHMETIC: Spearman ρ(gₙ, f(n)) for f ∈ {d, Ω, φ, σ, ln} after a moving-average high-pass on BOTH sides (the slow DOS curvature is common-mode — unfiltered it fakes a trend correlation with the smooth ln n); the null is PERMUTATION (hp_num_shufs shuffles of the feature against the fixed gap series) plus independent GUE gap anchors. REGIME SWEEP + DEEPEN follow H1's reviewer discipline verbatim, with the same seed streams — where H1 deepened a regime, H8's null draws are bit-for-bit the same spectra, so the two gates' headlines are directly comparable.
+
+PLOTS:
+   results/run_2026-10-15_225604/test_308_all_numbers_trace/plots/plot_1.png
+   results/run_2026-10-15_225604/test_308_all_numbers_trace/plots/plot_2.png
+   results/run_2026-10-15_225604/test_308_all_numbers_trace/plots/plot_3.png
+   results/run_2026-10-15_225604/test_308_all_numbers_trace/plots/plot_4.png
+   results/run_2026-10-15_225604/test_308_all_numbers_trace/plots/plot_5.png

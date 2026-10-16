@@ -1,0 +1,103 @@
+FULL COMPUTATION LOG — test 33: L-scaling ⟨r⟩ (10→20→30→50→80→112)
+every log_comp() entry emitted while this test ran:
+
+[21:18:17.797] [+27013.080s]  build_ab_cloud_hamiltonian: 10x10 (N=100), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[21:18:18.357] [+27013.639s]  calc: ⟨r⟩ = 0.629404 (n_r=59, n_eigs=61) [refs: GUE=0.5996 Poisson=0.3863]
+[21:18:19.481] [+27014.763s]  build_ab_cloud_hamiltonian: 10x10 (N=100), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[21:18:20.034] [+27015.316s]  calc: ⟨r⟩ = 0.509721 (n_r=59, n_eigs=61) [refs: GUE=0.5996 Poisson=0.3863]
+[21:18:21.171] [+27016.453s]  build_ab_cloud_hamiltonian: 10x10 (N=100), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[21:18:21.721] [+27017.004s]  calc: ⟨r⟩ = 0.574634 (n_r=59, n_eigs=61) [refs: GUE=0.5996 Poisson=0.3863]
+[21:18:22.850] [+27018.132s]  build_ab_cloud_hamiltonian: 10x10 (N=100), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[21:18:23.385] [+27018.667s]  calc: ⟨r⟩ = 0.557955 (n_r=59, n_eigs=61) [refs: GUE=0.5996 Poisson=0.3863]
+[21:18:24.495] [+27019.777s]  build_ab_cloud_hamiltonian: 10x10 (N=100), α=0.5000, t=1.00, W=1.00, torus, 4 vortices, model=:monumental
+[21:18:25.049] [+27020.331s]  calc: ⟨r⟩ = 0.486070 (n_r=59, n_eigs=61) [refs: GUE=0.5996 Poisson=0.3863]
+[21:18:26.189] [+27021.472s]  build_ab_cloud_hamiltonian: 20x20 (N=400), α=0.5000, t=1.00, W=1.00, torus, 12 vortices, model=:monumental
+[21:18:26.787] [+27022.069s]  calc: ⟨r⟩ = 0.593495 (n_r=239, n_eigs=241) [refs: GUE=0.5996 Poisson=0.3863]
+[21:18:27.998] [+27023.280s]  build_ab_cloud_hamiltonian: 20x20 (N=400), α=0.5000, t=1.00, W=1.00, torus, 12 vortices, model=:monumental
+[21:18:28.604] [+27023.886s]  calc: ⟨r⟩ = 0.596397 (n_r=239, n_eigs=241) [refs: GUE=0.5996 Poisson=0.3863]
+[21:18:29.710] [+27024.992s]  build_ab_cloud_hamiltonian: 20x20 (N=400), α=0.5000, t=1.00, W=1.00, torus, 12 vortices, model=:monumental
+[21:18:30.274] [+27025.556s]  calc: ⟨r⟩ = 0.582880 (n_r=239, n_eigs=241) [refs: GUE=0.5996 Poisson=0.3863]
+[21:18:31.321] [+27026.603s]  build_ab_cloud_hamiltonian: 20x20 (N=400), α=0.5000, t=1.00, W=1.00, torus, 12 vortices, model=:monumental
+[21:18:31.864] [+27027.146s]  calc: ⟨r⟩ = 0.588530 (n_r=239, n_eigs=241) [refs: GUE=0.5996 Poisson=0.3863]
+[21:18:32.818] [+27028.100s]  build_ab_cloud_hamiltonian: 20x20 (N=400), α=0.5000, t=1.00, W=1.00, torus, 12 vortices, model=:monumental
+[21:18:33.332] [+27028.614s]  calc: ⟨r⟩ = 0.615185 (n_r=239, n_eigs=241) [refs: GUE=0.5996 Poisson=0.3863]
+[21:18:34.335] [+27029.618s]  build_ab_cloud_hamiltonian: 30x30 (N=900), α=0.5000, t=1.00, W=1.00, torus, 26 vortices, model=:monumental
+[21:18:35.120] [+27030.402s]  calc: ⟨r⟩ = 0.625316 (n_r=539, n_eigs=541) [refs: GUE=0.5996 Poisson=0.3863]
+[21:18:36.129] [+27031.411s]  build_ab_cloud_hamiltonian: 30x30 (N=900), α=0.5000, t=1.00, W=1.00, torus, 26 vortices, model=:monumental
+[21:18:36.862] [+27032.144s]  calc: ⟨r⟩ = 0.610951 (n_r=539, n_eigs=541) [refs: GUE=0.5996 Poisson=0.3863]
+[21:18:37.869] [+27033.151s]  build_ab_cloud_hamiltonian: 30x30 (N=900), α=0.5000, t=1.00, W=1.00, torus, 26 vortices, model=:monumental
+[21:18:38.593] [+27033.875s]  calc: ⟨r⟩ = 0.600825 (n_r=539, n_eigs=541) [refs: GUE=0.5996 Poisson=0.3863]
+[21:18:39.581] [+27034.863s]  build_ab_cloud_hamiltonian: 30x30 (N=900), α=0.5000, t=1.00, W=1.00, torus, 26 vortices, model=:monumental
+[21:18:40.302] [+27035.584s]  calc: ⟨r⟩ = 0.592813 (n_r=539, n_eigs=541) [refs: GUE=0.5996 Poisson=0.3863]
+[21:18:41.270] [+27036.552s]  build_ab_cloud_hamiltonian: 30x30 (N=900), α=0.5000, t=1.00, W=1.00, torus, 26 vortices, model=:monumental
+[21:18:42.004] [+27037.286s]  calc: ⟨r⟩ = 0.605293 (n_r=539, n_eigs=541) [refs: GUE=0.5996 Poisson=0.3863]
+[21:18:43.019] [+27038.302s]  build_ab_cloud_hamiltonian: 50x50 (N=2500), α=0.5000, t=1.00, W=1.00, torus, 70 vortices, model=:monumental
+[21:18:48.015] [+27043.297s]  calc: ⟨r⟩ = 0.597483 (n_r=1499, n_eigs=1501) [refs: GUE=0.5996 Poisson=0.3863]
+[21:18:49.075] [+27044.357s]  build_ab_cloud_hamiltonian: 50x50 (N=2500), α=0.5000, t=1.00, W=1.00, torus, 70 vortices, model=:monumental
+[21:18:54.049] [+27049.331s]  calc: ⟨r⟩ = 0.594415 (n_r=1499, n_eigs=1501) [refs: GUE=0.5996 Poisson=0.3863]
+[21:18:55.096] [+27050.378s]  build_ab_cloud_hamiltonian: 50x50 (N=2500), α=0.5000, t=1.00, W=1.00, torus, 70 vortices, model=:monumental
+[21:19:00.056] [+27055.338s]  calc: ⟨r⟩ = 0.606851 (n_r=1499, n_eigs=1501) [refs: GUE=0.5996 Poisson=0.3863]
+[21:19:01.083] [+27056.365s]  build_ab_cloud_hamiltonian: 50x50 (N=2500), α=0.5000, t=1.00, W=1.00, torus, 70 vortices, model=:monumental
+[21:19:06.087] [+27061.370s]  calc: ⟨r⟩ = 0.574458 (n_r=1499, n_eigs=1501) [refs: GUE=0.5996 Poisson=0.3863]
+[21:19:07.153] [+27062.436s]  build_ab_cloud_hamiltonian: 50x50 (N=2500), α=0.5000, t=1.00, W=1.00, torus, 70 vortices, model=:monumental
+[21:19:12.078] [+27067.360s]  calc: ⟨r⟩ = 0.594551 (n_r=1499, n_eigs=1501) [refs: GUE=0.5996 Poisson=0.3863]
+[21:19:13.463] [+27068.745s]  build_ab_cloud_hamiltonian: 80x80 (N=6400), α=0.5000, t=1.00, W=1.00, torus, 178 vortices, model=:monumental
+[21:20:25.768] [+27141.050s]  calc: ⟨r⟩ = 0.598524 (n_r=3839, n_eigs=3841) [refs: GUE=0.5996 Poisson=0.3863]
+[21:20:27.289] [+27142.571s]  build_ab_cloud_hamiltonian: 80x80 (N=6400), α=0.5000, t=1.00, W=1.00, torus, 178 vortices, model=:monumental
+[21:21:39.539] [+27214.821s]  calc: ⟨r⟩ = 0.593096 (n_r=3839, n_eigs=3841) [refs: GUE=0.5996 Poisson=0.3863]
+[21:21:41.084] [+27216.366s]  build_ab_cloud_hamiltonian: 80x80 (N=6400), α=0.5000, t=1.00, W=1.00, torus, 178 vortices, model=:monumental
+[21:22:54.656] [+27289.938s]  calc: ⟨r⟩ = 0.598961 (n_r=3839, n_eigs=3841) [refs: GUE=0.5996 Poisson=0.3863]
+[21:22:56.054] [+27291.337s]  build_ab_cloud_hamiltonian: 80x80 (N=6400), α=0.5000, t=1.00, W=1.00, torus, 178 vortices, model=:monumental
+[21:24:11.640] [+27366.922s]  calc: ⟨r⟩ = 0.602712 (n_r=3839, n_eigs=3841) [refs: GUE=0.5996 Poisson=0.3863]
+[21:24:13.429] [+27368.711s]  build_ab_cloud_hamiltonian: 80x80 (N=6400), α=0.5000, t=1.00, W=1.00, torus, 178 vortices, model=:monumental
+[21:25:27.096] [+27442.378s]  calc: ⟨r⟩ = 0.600199 (n_r=3839, n_eigs=3841) [refs: GUE=0.5996 Poisson=0.3863]
+[21:25:28.354] [+27443.636s]  build_ab_cloud_hamiltonian: 10x10 (N=100), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[21:25:28.912] [+27444.194s]  calc: ⟨r⟩ = 0.512863 (n_r=59, n_eigs=61) [refs: GUE=0.5996 Poisson=0.3863]
+[21:25:30.090] [+27445.372s]  build_ab_cloud_hamiltonian: 10x10 (N=100), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[21:25:30.645] [+27445.928s]  calc: ⟨r⟩ = 0.408227 (n_r=59, n_eigs=61) [refs: GUE=0.5996 Poisson=0.3863]
+[21:25:31.782] [+27447.064s]  build_ab_cloud_hamiltonian: 10x10 (N=100), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[21:25:32.334] [+27447.616s]  calc: ⟨r⟩ = 0.434605 (n_r=59, n_eigs=61) [refs: GUE=0.5996 Poisson=0.3863]
+[21:25:33.453] [+27448.735s]  build_ab_cloud_hamiltonian: 10x10 (N=100), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[21:25:34.001] [+27449.283s]  calc: ⟨r⟩ = 0.444497 (n_r=59, n_eigs=61) [refs: GUE=0.5996 Poisson=0.3863]
+[21:25:35.115] [+27450.397s]  build_ab_cloud_hamiltonian: 10x10 (N=100), α=0.5000, t=1.00, W=1.00, open, 4 vortices, model=:monumental
+[21:25:35.649] [+27450.931s]  calc: ⟨r⟩ = 0.371493 (n_r=59, n_eigs=61) [refs: GUE=0.5996 Poisson=0.3863]
+[21:25:36.772] [+27452.054s]  build_ab_cloud_hamiltonian: 20x20 (N=400), α=0.5000, t=1.00, W=1.00, open, 12 vortices, model=:monumental
+[21:25:37.377] [+27452.659s]  calc: ⟨r⟩ = 0.552303 (n_r=239, n_eigs=241) [refs: GUE=0.5996 Poisson=0.3863]
+[21:25:38.506] [+27453.789s]  build_ab_cloud_hamiltonian: 20x20 (N=400), α=0.5000, t=1.00, W=1.00, open, 12 vortices, model=:monumental
+[21:25:39.119] [+27454.401s]  calc: ⟨r⟩ = 0.568758 (n_r=239, n_eigs=241) [refs: GUE=0.5996 Poisson=0.3863]
+[21:25:40.260] [+27455.542s]  build_ab_cloud_hamiltonian: 20x20 (N=400), α=0.5000, t=1.00, W=1.00, open, 12 vortices, model=:monumental
+[21:25:40.847] [+27456.129s]  calc: ⟨r⟩ = 0.525701 (n_r=239, n_eigs=241) [refs: GUE=0.5996 Poisson=0.3863]
+[21:25:41.974] [+27457.256s]  build_ab_cloud_hamiltonian: 20x20 (N=400), α=0.5000, t=1.00, W=1.00, open, 12 vortices, model=:monumental
+[21:25:42.526] [+27457.808s]  calc: ⟨r⟩ = 0.549972 (n_r=239, n_eigs=241) [refs: GUE=0.5996 Poisson=0.3863]
+[21:25:43.537] [+27458.819s]  build_ab_cloud_hamiltonian: 20x20 (N=400), α=0.5000, t=1.00, W=1.00, open, 12 vortices, model=:monumental
+[21:25:44.100] [+27459.382s]  calc: ⟨r⟩ = 0.585633 (n_r=239, n_eigs=241) [refs: GUE=0.5996 Poisson=0.3863]
+[21:25:45.054] [+27460.336s]  build_ab_cloud_hamiltonian: 30x30 (N=900), α=0.5000, t=1.00, W=1.00, open, 26 vortices, model=:monumental
+[21:25:45.772] [+27461.054s]  calc: ⟨r⟩ = 0.578164 (n_r=539, n_eigs=541) [refs: GUE=0.5996 Poisson=0.3863]
+[21:25:46.753] [+27462.035s]  build_ab_cloud_hamiltonian: 30x30 (N=900), α=0.5000, t=1.00, W=1.00, open, 26 vortices, model=:monumental
+[21:25:47.487] [+27462.769s]  calc: ⟨r⟩ = 0.588849 (n_r=539, n_eigs=541) [refs: GUE=0.5996 Poisson=0.3863]
+[21:25:48.476] [+27463.758s]  build_ab_cloud_hamiltonian: 30x30 (N=900), α=0.5000, t=1.00, W=1.00, open, 26 vortices, model=:monumental
+[21:25:49.202] [+27464.484s]  calc: ⟨r⟩ = 0.583585 (n_r=539, n_eigs=541) [refs: GUE=0.5996 Poisson=0.3863]
+[21:25:50.205] [+27465.487s]  build_ab_cloud_hamiltonian: 30x30 (N=900), α=0.5000, t=1.00, W=1.00, open, 26 vortices, model=:monumental
+[21:25:50.928] [+27466.210s]  calc: ⟨r⟩ = 0.601887 (n_r=539, n_eigs=541) [refs: GUE=0.5996 Poisson=0.3863]
+[21:25:51.924] [+27467.205s]  build_ab_cloud_hamiltonian: 30x30 (N=900), α=0.5000, t=1.00, W=1.00, open, 26 vortices, model=:monumental
+[21:25:52.656] [+27467.938s]  calc: ⟨r⟩ = 0.614023 (n_r=539, n_eigs=541) [refs: GUE=0.5996 Poisson=0.3863]
+[21:25:53.720] [+27469.003s]  build_ab_cloud_hamiltonian: 50x50 (N=2500), α=0.5000, t=1.00, W=1.00, open, 70 vortices, model=:monumental
+[21:25:58.716] [+27473.998s]  calc: ⟨r⟩ = 0.606783 (n_r=1499, n_eigs=1501) [refs: GUE=0.5996 Poisson=0.3863]
+[21:25:59.762] [+27475.044s]  build_ab_cloud_hamiltonian: 50x50 (N=2500), α=0.5000, t=1.00, W=1.00, open, 70 vortices, model=:monumental
+[21:26:04.716] [+27479.999s]  calc: ⟨r⟩ = 0.602431 (n_r=1499, n_eigs=1501) [refs: GUE=0.5996 Poisson=0.3863]
+[21:26:05.772] [+27481.054s]  build_ab_cloud_hamiltonian: 50x50 (N=2500), α=0.5000, t=1.00, W=1.00, open, 70 vortices, model=:monumental
+[21:26:10.722] [+27486.005s]  calc: ⟨r⟩ = 0.597144 (n_r=1499, n_eigs=1501) [refs: GUE=0.5996 Poisson=0.3863]
+[21:26:11.792] [+27487.074s]  build_ab_cloud_hamiltonian: 50x50 (N=2500), α=0.5000, t=1.00, W=1.00, open, 70 vortices, model=:monumental
+[21:26:16.739] [+27492.021s]  calc: ⟨r⟩ = 0.608952 (n_r=1499, n_eigs=1501) [refs: GUE=0.5996 Poisson=0.3863]
+[21:26:17.808] [+27493.090s]  build_ab_cloud_hamiltonian: 50x50 (N=2500), α=0.5000, t=1.00, W=1.00, open, 70 vortices, model=:monumental
+[21:26:22.798] [+27498.080s]  calc: ⟨r⟩ = 0.586730 (n_r=1499, n_eigs=1501) [refs: GUE=0.5996 Poisson=0.3863]
+[21:26:24.162] [+27499.444s]  build_ab_cloud_hamiltonian: 80x80 (N=6400), α=0.5000, t=1.00, W=1.00, open, 178 vortices, model=:monumental
+[21:27:34.829] [+27570.111s]  calc: ⟨r⟩ = 0.597930 (n_r=3839, n_eigs=3841) [refs: GUE=0.5996 Poisson=0.3863]
+[21:27:36.326] [+27571.608s]  build_ab_cloud_hamiltonian: 80x80 (N=6400), α=0.5000, t=1.00, W=1.00, open, 178 vortices, model=:monumental
+[21:28:48.328] [+27643.610s]  calc: ⟨r⟩ = 0.610283 (n_r=3839, n_eigs=3841) [refs: GUE=0.5996 Poisson=0.3863]
+[21:28:49.848] [+27645.130s]  build_ab_cloud_hamiltonian: 80x80 (N=6400), α=0.5000, t=1.00, W=1.00, open, 178 vortices, model=:monumental
+[21:30:02.856] [+27718.138s]  calc: ⟨r⟩ = 0.595793 (n_r=3839, n_eigs=3841) [refs: GUE=0.5996 Poisson=0.3863]
+[21:30:04.465] [+27719.747s]  build_ab_cloud_hamiltonian: 80x80 (N=6400), α=0.5000, t=1.00, W=1.00, open, 178 vortices, model=:monumental
+[21:31:23.977] [+27799.259s]  calc: ⟨r⟩ = 0.599605 (n_r=3839, n_eigs=3841) [refs: GUE=0.5996 Poisson=0.3863]
+[21:31:26.491] [+27801.773s]  build_ab_cloud_hamiltonian: 80x80 (N=6400), α=0.5000, t=1.00, W=1.00, open, 178 vortices, model=:monumental
+[21:32:42.881] [+27878.163s]  calc: ⟨r⟩ = 0.598340 (n_r=3839, n_eigs=3841) [refs: GUE=0.5996 Poisson=0.3863]

@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "Если вы используете этот код в своей работе, пожалуйста, процитируйте его."
+title: "AB-Cloud Verification Suite: Meridian Spectral Observatory"
+authors:
+  - family-names: Isaev
+    given-names: Iskhak Khamzatovich
+    orcid: "https://orcid.org/0009-0003-7299-0701"
+doi: 10.5281/zenodo.21825394
+version: v23.6 / v24.2-SA
+date-released: "2026-09-09"
+license: NONE
+repository-code: "https://github.com/wild8highlander/ab-cloud-research"
+related-resources:
+  - "https://github.com/wild8highlander/research-papers"
+keywords:
+  - Riemann zeta function
+  - Hilbert-Pólya conjecture
+  - GUE
+  - random matrix theory
+  - Aharonov-Bohm
+  - vortex lattice
+  - Julia
+abstract: >-
+  A self-contained Julia verification laboratory for the AB-Cloud research
+  program: lattice Aharonov-Bohm vortex Hamiltonians whose spectra are audited
+  against the GUE universal statistics of the Riemann zeta zeros. Includes the
+  SUPERCOMBO 38-test suite (ab_cloud_v23_v2), the compact HP·MERIDIAN H1–H7
+  gate audit with the 40-solve budget and FOCUS-D mode, the RH correlation
+  sweeps with 13 661 real zeta zeros, the Monumental V01–V112 verification
+  battery, and the honestly recalibrated Anderson–Darling Test 11.

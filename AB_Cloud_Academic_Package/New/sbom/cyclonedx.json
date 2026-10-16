@@ -1,0 +1,66 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "metadata": {
+    "component": {
+      "type": "application",
+      "name": "AB_Cloud_Academic_Package",
+      "version": "unified (versionless)",
+      "description": "The unified academic package of the AB-Cloud research programme."
+    },
+    "supplier": {
+      "name": "Isaev Iskhak Khamzatovich"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "numpy",
+      "purl": "pkg:pypi/numpy"
+    },
+    {
+      "type": "library",
+      "name": "pyyaml",
+      "purl": "pkg:pypi/pyyaml"
+    },
+    {
+      "type": "library",
+      "name": "typer",
+      "purl": "pkg:pypi/typer"
+    },
+    {
+      "type": "library",
+      "name": "rich",
+      "purl": "pkg:pypi/rich"
+    },
+    {
+      "type": "library",
+      "name": "pytest",
+      "scope": "required",
+      "purl": "pkg:pypi/pytest"
+    },
+    {
+      "type": "framework",
+      "name": "julia-stdlib-LinearAlgebra",
+      "purl": "pkg:generic/julia/LinearAlgebra",
+      "version": "stdlib"
+    },
+    {
+      "type": "library",
+      "name": "node-stdlib",
+      "purl": "pkg:generic/node/builtins",
+      "version": ">=18"
+    },
+    {
+      "type": "library",
+      "name": "rust-std",
+      "purl": "pkg:generic/rust/std"
+    },
+    {
+      "type": "library",
+      "name": "go-std",
+      "purl": "pkg:generic/go/std"
+    }
+  ]
+}

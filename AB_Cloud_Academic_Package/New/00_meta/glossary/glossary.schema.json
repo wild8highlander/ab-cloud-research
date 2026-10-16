@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "glossary markdown table schema (per-row contract)",
+  "description": "Every glossary file must be a markdown table with columns id | term | definition, ids stable across languages.",
+  "type": "object",
+  "required_columns": [
+    "id",
+    "term",
+    "definition"
+  ],
+  "stable_ids": [
+    "AB",
+    "GUE",
+    "HP",
+    "T18",
+    "V13",
+    "D7",
+    "BK",
+    "JR",
+    "TR",
+    "BL",
+    "EX",
+    "NP"
+  ]
+}

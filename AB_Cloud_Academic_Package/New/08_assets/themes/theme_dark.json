@@ -1,0 +1,10 @@
+{
+  "name": "dark",
+  "bg": "#162032",
+  "fg": "#E8EEF5",
+  "accent": "#C9B97E",
+  "muted": "#8898A8",
+  "ok": "#7FC8A8",
+  "warn": "#FFB74D",
+  "err": "#EF9A9A"
+}

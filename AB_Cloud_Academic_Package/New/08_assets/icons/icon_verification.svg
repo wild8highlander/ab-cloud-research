@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-label="Blind verification level icon">
+  <circle cx="21" cy="21" r="12" fill="none" stroke="#7FA8D0" stroke-width="2.4"/>
+  <path d="M30 30 L41 41" stroke="#7FA8D0" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M15.5 21 L20 25.5 L27 16.5" fill="none" stroke="#C9B97E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

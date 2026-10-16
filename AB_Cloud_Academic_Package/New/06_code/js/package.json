@@ -1,0 +1,12 @@
+{
+  "name": "abcloud-unified-cli-js",
+  "version": "0.0.0",
+  "private": true,
+  "description": "JS runner of the AB-Cloud unified CLI contract",
+  "main": "run.js",
+  "scripts": {
+    "analyze": "node run.js analyze",
+    "test": "node run.js doctor"
+  },
+  "license": "MIT"
+}

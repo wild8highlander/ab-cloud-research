@@ -1,0 +1,10 @@
+dataset,format,key_columns,origin,notes
+processed/research_registry.json,JSON,flagship_results|verdicts|numbers_registry,consolidated,single source of numbers for monograph/reports/web-lab/CLI
+raw/spectral_core/flagship_numbers.csv,CSV,"metric,value,source_verdict,module",AB_Cloud_Quantum_Research,RU metric names; verbatim
+raw/spectral_core/zeta_zeros_reference.csv,CSV,"index,ordinate",AB_Cloud_Quantum_Research,reference zeros (mpmath cache dump)
+raw/spectral_core/campaign_timeline.csv,CSV,"campaign,date,status",AB_Cloud_Quantum_Research,programme timeline
+raw/dirac/zeta_zeros_2000.txt,TXT,ordinate,dirac-lab,2000 zeros main band
+raw/dirac/zeta_zeros_high_2000.txt,TXT,ordinate,dirac-lab,high band
+raw/dirac/zeta_zeros_low_600.txt,TXT,ordinate,dirac-lab,low band
+raw/hilbert_polya/c*_verdict.json,JSON,verdict payloads,Hilbert_Polya,campaign verdicts C1-C8
+raw/hilbert_polya/*gates*.csv,CSV,gate parameters,Hilbert_Polya,C3/C5 gate families

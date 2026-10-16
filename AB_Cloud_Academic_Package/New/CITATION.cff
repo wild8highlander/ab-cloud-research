@@ -1,0 +1,49 @@
+cff-version: 1.2.0
+message: "If you use this package, please cite it as below."
+title: "AB-Cloud Research Programme: Unified Academic Package (spectral core, Dirac skeleton, Hilbert-Polya bridge, blind verification)"
+authors:
+  - family-names: "Isaev"
+    given-names: "Iskhak Khamzatovich"
+    orcid: "0009-0003-7299-0701"
+date-released: "2026-10-14"
+license: other-md
+repository-code: "https://github.com/wild8highlander/ab-cloud-research/tree/main/AB_Cloud_Academic_Package"
+abstract: >-
+  The unified academic edition of the AB-Cloud research programme: one study
+  in four levels. The algebraic AB (Aharonov-Bohm) architecture as a computing
+  fabric that reads mathematics in real time and stores nothing (campaigns
+  V01-V20, theorems Th1-Th6, the V13 obligation machine keeping RH honestly
+  blocked); its Dirac skeleton unpacked into a complete cross-verified
+  lattice-Dirac identity (D1-D14: the pi-flux lattice is a discretized
+  massless Dirac equation, the zeta-decorated operator lifts GOE to GUE);
+  the Hilbert-Polya bridge with sixteen campaigns and eighteen theorems
+  (the operator that almost exists - the wall is locality); and the blind
+  verification apparatus (E01-E18: blind reading of all 649 zeta zeros up
+  to T=1000 by two independent engines, bit-exact cross-engine agreement).
+  Includes the unified monograph (full RU/EN volumes plus five language
+  abstracts), the interactive web laboratory, the unified multi-language CLI
+  (Python, Julia, Rust, Go, JS, Bash), curated datasets, and a complete
+  honesty layer with does_not_prove fields on every claim.
+keywords:
+  - Riemann zeta
+  - Hilbert-Polya
+  - Aharonov-Bohm
+  - lattice Dirac operator
+  - random matrix theory
+  - GUE
+  - Berry-Keating
+  - Connes
+  - numerical verification
+  - reproducibility
+preferred-citation:
+  type: dataset
+  authors:
+    - family-names: "Isaev"
+      given-names: "Iskhak Khamzatovich"
+      orcid: "0009-0003-7299-0701"
+  title: "AB-Cloud Research Programme: Unified Academic Package"
+  year: 2026
+  doi: "10.5281/zenodo.21825394"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.21825394"
