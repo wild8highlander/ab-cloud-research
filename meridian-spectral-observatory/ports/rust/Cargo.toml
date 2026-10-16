@@ -1,0 +1,11 @@
+[package]
+name = "abcloud"
+version = "1.0.0"
+edition = "2021"
+
+[[bin]]
+name = "abcloud"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 3

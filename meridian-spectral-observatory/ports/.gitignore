@@ -1,0 +1,8 @@
+# build artifacts
+target/
+__pycache__/
+*.pyc
+abcloud
+abcloud.exe
+abcloud_port
+*.o
