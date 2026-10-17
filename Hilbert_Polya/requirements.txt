@@ -6,4 +6,4 @@ openpyxl>=3.1
 Pillow>=10.0
 pypdf>=6.0
 pytest>=8.0
-streamlit>=1.30; # Bridge Explorer (optional)
+streamlit>=1.66.0; # Bridge Explorer (optional)
