@@ -1,5 +1,5 @@
 # runtime deps of the Python reference runner
 numpy>=1.24
-pyyaml>=6.0
+pyyaml>=6.0.3
 typer>=0.27.3
 rich>=13.0
