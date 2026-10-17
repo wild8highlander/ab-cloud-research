@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1152" height="300" viewBox="0 0 1152 300" role="img" aria-label="Ports banner: a terminal compiling the same computational kernel in four languages with PASS verdicts appearing one by one, a 199/199 selftest stamp pulsing, four language chips breathing in sequence, and the zeta zeros flowing beneath">
+  <title>AB-Cloud Multi-Language Ports — One Kernel, Four Languages, Golden-Verified</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#081527"/>
+      <stop offset="50%" stop-color="#0B1F35"/>
+      <stop offset="100%" stop-color="#123252"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8B7E5A"/>
+      <stop offset="50%" stop-color="#E8DDB8"/>
+      <stop offset="100%" stop-color="#8B7E5A"/>
+    </linearGradient>
+    <linearGradient id="term" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0E2740"/>
+      <stop offset="100%" stop-color="#081527"/>
+    </linearGradient>
+  </defs>
+
+  <!-- base -->
+  <rect width="1152" height="300" rx="16" fill="url(#bg)"/>
+
+  <!-- faint grid -->
+  <g stroke="#7FA8D0" stroke-width="1" opacity="0.12" fill="none">
+    <path d="M96 64 H1056"/><path d="M96 128 H1056"/><path d="M96 192 H1056"/><path d="M96 248 H1056"/>
+    <path d="M192 28 V272"/><path d="M384 28 V272"/><path d="M576 28 V272"/><path d="M768 28 V272"/><path d="M960 28 V272"/>
+  </g>
+
+  <!-- terminal window: one kernel, four compilers -->
+  <g font-family="'Courier New',monospace">
+    <rect x="96" y="72" width="560" height="168" rx="10" fill="url(#term)" stroke="#7FA8D0" stroke-width="1.4" opacity="0.97"/>
+    <rect x="96" y="72" width="560" height="28" rx="10" fill="#16324F"/>
+    <circle cx="116" cy="86" r="5" fill="#FF6B6B"/>
+    <circle cx="134" cy="86" r="5" fill="#FFD166"/>
+    <circle cx="152" cy="86" r="5" fill="#7FC8A8"/>
+    <text x="376" y="90" font-size="11" fill="#9FB8CC" text-anchor="middle" font-family="'Inter','Helvetica Neue',Arial,sans-serif">ports/ — golden selftest, seed 777</text>
+    <!-- the four compilers reporting to the same golden -->
+    <g font-size="12.5">
+      <text x="114" y="122" fill="#E8DDB8">$ python3 -m abcloud selftest ... <tspan fill="#7FC8A8" font-weight="700">199/199</tspan>
+        <animate attributeName="opacity" values="0;1" dur="0.8s" begin="0.4s" fill="freeze"/>
+      </text>
+      <text x="114" y="142" fill="#E8DDB8">$ ./abcloud selftest ............ <tspan fill="#7FC8A8" font-weight="700">199/199</tspan>
+        <animate attributeName="opacity" values="0;1" dur="0.8s" begin="1.2s" fill="freeze"/>
+      </text>
+      <text x="114" y="162" fill="#E8DDB8">$ cargo run -- selftest ......... <tspan fill="#7FC8A8" font-weight="700">199/199</tspan>
+        <animate attributeName="opacity" values="0;1" dur="0.8s" begin="2.0s" fill="freeze"/>
+      </text>
+      <text x="114" y="182" fill="#E8DDB8">$ ./abcloud selftest ............ <tspan fill="#7FC8A8" font-weight="700">199/199</tspan>
+        <animate attributeName="opacity" values="0;1" dur="0.8s" begin="2.8s" fill="freeze"/>
+      </text>
+      <text x="114" y="202" fill="#9FB8CC">golden: abcloud_golden.json &#183; MT19937 &#183; seed 777 <tspan fill="#00E5FF">&#9612;</tspan>
+        <animate attributeName="opacity" values="0;1" dur="0.8s" begin="3.6s" fill="freeze"/>
+      </text>
+      <!-- blinking cursor -->
+      <rect x="497" y="192" width="7" height="13" fill="#00E5FF">
+        <animate attributeName="opacity" values="1;0;1" dur="1.1s" repeatCount="indefinite"/>
+      </rect>
+    </g>
+  </g>
+
+  <!-- 199/199 selftest stamp -->
+  <g transform="rotate(-8 880 150)" font-family="'Inter','Helvetica Neue',Arial,sans-serif" text-anchor="middle">
+    <rect x="780" y="108" width="200" height="84" rx="10" fill="none" stroke="#E8DDB8" stroke-width="2.4" opacity="0.85"/>
+    <rect x="788" y="116" width="184" height="68" rx="7" fill="none" stroke="#C9B97E" stroke-width="1" opacity="0.6"/>
+    <text x="880" y="140" font-size="19" font-weight="800" fill="#E8DDB8" letter-spacing="2">199 / 199</text>
+    <text x="880" y="160" font-size="10" fill="#C9B97E" letter-spacing="1.5">GOLDEN SELFTEST</text>
+    <text x="880" y="175" font-size="10" fill="#7FC8A8" letter-spacing="1.5">4 LANGUAGES &#183; 1 KERNEL</text>
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="4s" repeatCount="indefinite"/>
+  </g>
+
+  <!-- language chips breathing in sequence -->
+  <g font-family="'Courier New',monospace" font-size="12" font-weight="700" text-anchor="middle">
+    <g>
+      <rect x="640" y="228" width="52" height="26" rx="7" fill="#0B1F35" stroke="#9558B2" stroke-width="1.3"/>
+      <text x="666" y="245" fill="#B98CD0">PY</text>
+      <animate attributeName="opacity" values="0.45;1;0.45" dur="4.8s" begin="0s" repeatCount="indefinite"/>
+    </g>
+    <g>
+      <rect x="700" y="228" width="52" height="26" rx="7" fill="#0B1F35" stroke="#7FA8D0" stroke-width="1.3"/>
+      <text x="726" y="245" fill="#7FA8D0">C++</text>
+      <animate attributeName="opacity" values="0.45;1;0.45" dur="4.8s" begin="1.2s" repeatCount="indefinite"/>
+    </g>
+    <g>
+      <rect x="760" y="228" width="52" height="26" rx="7" fill="#0B1F35" stroke="#C96F4A" stroke-width="1.3"/>
+      <text x="786" y="245" fill="#E09B78">RS</text>
+      <animate attributeName="opacity" values="0.45;1;0.45" dur="4.8s" begin="2.4s" repeatCount="indefinite"/>
+    </g>
+    <g>
+      <rect x="820" y="228" width="52" height="26" rx="7" fill="#0B1F35" stroke="#7FC8A8" stroke-width="1.3"/>
+      <text x="846" y="245" fill="#7FC8A8">GO</text>
+      <animate attributeName="opacity" values="0.45;1;0.45" dur="4.8s" begin="3.6s" repeatCount="indefinite"/>
+    </g>
+  </g>
+
+  <!-- zeros stream beneath the terminal -->
+  <g fill="#7FC8A8">
+    <circle cx="0" cy="266" r="2.6">
+      <animate attributeName="cx" from="96" to="656" dur="7s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0.9;0" dur="7s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="274" r="2.2" fill="#C9B97E">
+      <animate attributeName="cx" from="656" to="96" dur="9s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0.8;0" dur="9s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="258" r="2" fill="#00E5FF">
+      <animate attributeName="cx" from="96" to="656" dur="11s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0.7;0" dur="11s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- typography -->
+  <text x="576" y="40" font-family="'Inter','Helvetica Neue',Arial,sans-serif" font-size="30" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="3">MULTI-LANGUAGE PORTS</text>
+  <text x="576" y="60" font-family="'Inter','Helvetica Neue',Arial,sans-serif" font-size="12.5" fill="#C9B97E" text-anchor="middle" letter-spacing="4">ONE KERNEL &#183; FOUR LANGUAGES &#183; GOLDEN-VERIFIED</text>
+  <text x="576" y="288" font-family="Georgia, serif" font-size="10.5" fill="#7FA8D0" text-anchor="middle" font-style="italic">Python &#183; C++ &#183; Rust &#183; Go &#8212; 199 golden anchors &#183; bit-matched MT19937 &#183; honest tolerances</text>
+
+  <!-- gold frame -->
+  <rect x="0" y="0" width="1152" height="7" rx="3.5" fill="url(#gold)" opacity="0.9">
+    <animate attributeName="opacity" values="0.65;1;0.65" dur="5s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="0" y="293" width="1152" height="7" rx="3.5" fill="url(#gold)" opacity="0.9">
+    <animate attributeName="opacity" values="1;0.65;1" dur="5s" repeatCount="indefinite"/>
+  </rect>
+</svg>

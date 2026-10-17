@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="220" viewBox="0 0 760 220" role="img" aria-label="The ports cast: four language seals — Python with the numpy tier, C++17 single file, Rust standard-library-only, Go standard-library-only — each guarding the same 199-anchor golden">
+  <title>The ports cast — Python · C++ · Rust · Go</title>
+  <defs>
+    <radialGradient id="gPy" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#9558B2" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#9558B2" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gCpp" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7FA8D0" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#7FA8D0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gRs" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#C96F4A" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#C96F4A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gGo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7FC8A8" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#7FC8A8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Python — the numpy tier -->
+  <g text-anchor="middle" font-family="'Inter','Helvetica Neue',Arial,sans-serif">
+    <circle cx="110" cy="92" r="78" fill="url(#gPy)"/>
+    <circle cx="110" cy="92" r="54" fill="#0B1F35" stroke="#9558B2" stroke-width="2"/>
+    <circle cx="110" cy="92" r="54" fill="none" stroke="#9558B2" stroke-width="1" stroke-dasharray="4 6" opacity="0.6">
+      <animateTransform attributeName="transform" type="rotate" from="0 110 92" to="360 110 92" dur="18s" repeatCount="indefinite"/>
+    </circle>
+    <text x="110" y="98" font-size="24" font-weight="800" fill="#B98CD0" font-family="'Courier New',monospace">Py</text>
+    <text x="110" y="118" font-size="9.5" fill="#9FB8CC" font-family="'Courier New',monospace">numpy tier</text>
+    <text x="110" y="174" font-size="13.5" font-weight="700" fill="#B98CD0" letter-spacing="2">PYTHON 3.8+</text>
+    <text x="110" y="192" font-size="10" fill="#9FB8CC">199/199 · stack 279/279</text>
+  </g>
+
+  <!-- C++ — the single file -->
+  <g text-anchor="middle" font-family="'Inter','Helvetica Neue',Arial,sans-serif">
+    <circle cx="290" cy="92" r="78" fill="url(#gCpp)"/>
+    <circle cx="290" cy="92" r="54" fill="#0B1F35" stroke="#7FA8D0" stroke-width="2"/>
+    <circle cx="290" cy="92" r="54" fill="none" stroke="#7FA8D0" stroke-width="1" stroke-dasharray="4 6" opacity="0.6">
+      <animateTransform attributeName="transform" type="rotate" from="360 290 92" to="0 290 92" dur="18s" repeatCount="indefinite"/>
+    </circle>
+    <text x="290" y="98" font-size="22" font-weight="800" fill="#7FA8D0" font-family="'Courier New',monospace">C++</text>
+    <text x="290" y="118" font-size="9.5" fill="#9FB8CC" font-family="'Courier New',monospace">one .cpp file</text>
+    <text x="290" y="174" font-size="13.5" font-weight="700" fill="#7FA8D0" letter-spacing="2">C++17</text>
+    <text x="290" y="192" font-size="10" fill="#9FB8CC">199/199 · Jacobi + vectors</text>
+  </g>
+
+  <!-- Rust — std only -->
+  <g text-anchor="middle" font-family="'Inter','Helvetica Neue',Arial,sans-serif">
+    <circle cx="470" cy="92" r="78" fill="url(#gRs)"/>
+    <circle cx="470" cy="92" r="54" fill="#0B1F35" stroke="#C96F4A" stroke-width="2"/>
+    <circle cx="470" cy="92" r="54" fill="none" stroke="#C96F4A" stroke-width="1" stroke-dasharray="4 6" opacity="0.6">
+      <animateTransform attributeName="transform" type="rotate" from="0 470 92" to="360 470 92" dur="18s" repeatCount="indefinite"/>
+    </circle>
+    <text x="470" y="98" font-size="24" font-weight="800" fill="#E09B78" font-family="'Courier New',monospace">Rs</text>
+    <text x="470" y="118" font-size="9.5" fill="#9FB8CC" font-family="'Courier New',monospace">std, no crates</text>
+    <text x="470" y="174" font-size="13.5" font-weight="700" fill="#E09B78" letter-spacing="2">RUST</text>
+    <text x="470" y="192" font-size="10" fill="#9FB8CC">199/199 · cargo build</text>
+  </g>
+
+  <!-- Go — std only -->
+  <g text-anchor="middle" font-family="'Inter','Helvetica Neue',Arial,sans-serif">
+    <circle cx="650" cy="92" r="78" fill="url(#gGo)"/>
+    <circle cx="650" cy="92" r="54" fill="#0B1F35" stroke="#7FC8A8" stroke-width="2"/>
+    <circle cx="650" cy="92" r="54" fill="none" stroke="#7FC8A8" stroke-width="1" stroke-dasharray="4 6" opacity="0.6">
+      <animateTransform attributeName="transform" type="rotate" from="360 650 92" to="0 650 92" dur="18s" repeatCount="indefinite"/>
+    </circle>
+    <text x="650" y="98" font-size="24" font-weight="800" fill="#7FC8A8" font-family="'Courier New',monospace">Go</text>
+    <text x="650" y="118" font-size="9.5" fill="#9FB8CC" font-family="'Courier New',monospace">std, no crates</text>
+    <text x="650" y="174" font-size="13.5" font-weight="700" fill="#7FC8A8" letter-spacing="2">GO</text>
+    <text x="650" y="192" font-size="10" fill="#9FB8CC">199/199 · go build</text>
+  </g>
+</svg>

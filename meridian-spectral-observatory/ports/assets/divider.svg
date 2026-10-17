@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1152" height="14" viewBox="0 0 1152 14" role="img" aria-label="Animated neon divider: a light pulse travelling along a gold-to-cyan line">
+  <title>neon divider — ab-cloud ports</title>
+  <defs>
+    <linearGradient id="dg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8B7E5A" stop-opacity="0.35"/>
+      <stop offset="25%" stop-color="#C9B97E"/>
+      <stop offset="55%" stop-color="#7FA8D0"/>
+      <stop offset="85%" stop-color="#00E5FF"/>
+      <stop offset="100%" stop-color="#00E5FF" stop-opacity="0.35"/>
+    </linearGradient>
+  </defs>
+  <!-- base line -->
+  <line x1="16" y1="7" x2="1136" y2="7" stroke="url(#dg)" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="140 12" opacity="0.5">
+    <animate attributeName="stroke-dashoffset" from="0" to="-152" dur="3.2s" repeatCount="indefinite"/>
+  </line>
+  <!-- travelling pulse -->
+  <circle r="3" cy="7" cx="0" fill="#E8DDB8">
+    <animate attributeName="cx" from="16" to="1136" dur="5.5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;1;0" dur="5.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="2" cy="7" cx="0" fill="#00E5FF">
+    <animate attributeName="cx" from="1136" to="16" dur="7.5s" begin="-3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.9;0" dur="7.5s" begin="-3s" repeatCount="indefinite"/>
+  </circle>
+</svg>
