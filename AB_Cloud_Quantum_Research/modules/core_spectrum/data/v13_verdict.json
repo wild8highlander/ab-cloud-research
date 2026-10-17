@@ -9,7 +9,7 @@
   {
    "id": "O02",
    "status": "proven",
-   "artifact": "tests/test_operator_passport.py",
+   "artifact": "tests/test_th1_passport.py",
    "deps": [
     "O01"
    ]
@@ -25,7 +25,7 @@
   {
    "id": "O04",
    "status": "proven",
-   "artifact": "rpbridge/limits.py (эмпирический закон)",
+   "artifact": "rpbridge/limits.py",
    "deps": [
     "O01"
    ]
@@ -55,7 +55,7 @@
   {
    "id": "O08",
    "status": "assumed",
-   "artifact": "гипотеза: спектр H_L сходится к spec H_ξ",
+   "artifact": "results/ROADMAP.md#R2",
    "deps": [
     "O05"
    ]
@@ -63,7 +63,7 @@
   {
    "id": "O09",
    "status": "assumed",
-   "artifact": "гипотеза: λ_n(AB) → λ_n(ξ) при L→∞",
+   "artifact": "results/ROADMAP.md#R4",
    "deps": [
     "O08"
    ]
@@ -79,7 +79,7 @@
   {
    "id": "O11",
    "status": "assumed",
-   "artifact": "положительность λ_n для всех n (критерий Ли)",
+   "artifact": "results/ROADMAP.md#R4",
    "deps": [
     "O10"
    ]
@@ -87,7 +87,7 @@
   {
    "id": "O12",
    "status": "assumed",
-   "artifact": "вывод RH из критерия Ли (классика, при O11)",
+   "artifact": "docs/plan15.md",
    "deps": [
     "O11"
    ]
@@ -95,6 +95,50 @@
  ],
  "dag_valid": true,
  "dag_messages": [],
+ "artifact_gate": {
+  "ok": true,
+  "messages": []
+ },
+ "formal_audit": {
+  "clean": true,
+  "systems": {
+   "lean": {
+    "files": [
+     "RPBasic.lean",
+     "RPTheorems.lean"
+    ],
+    "unfinished_proofs": [],
+    "n_axioms": 6
+   },
+   "coq": {
+    "files": [
+     "RPBasic.v",
+     "RPTheorems.v"
+    ],
+    "unfinished_proofs": [],
+    "n_axioms": 7
+   },
+   "agda": {
+    "files": [
+     "RPBasic.agda"
+    ],
+    "unfinished_proofs": [],
+    "n_axioms": 4
+   },
+   "isabelle": {
+    "files": [
+     "RPBasic.thy"
+    ],
+    "unfinished_proofs": [],
+    "n_axioms": 1
+   }
+  },
+  "n_axioms_total": 18
+ },
+ "verdict_consistency": {
+  "ok": true,
+  "messages": []
+ },
  "rh_conclusion": "blocked",
  "rh_blockers": [
   "O05",
@@ -110,10 +154,12 @@
  "n_assumed": 4,
  "formal_sources": {
   "lean": [
-   "RPBasic.lean"
+   "RPBasic.lean",
+   "RPTheorems.lean"
   ],
   "coq": [
-   "RPBasic.v"
+   "RPBasic.v",
+   "RPTheorems.v"
   ],
   "agda": [
    "RPBasic.agda"
@@ -122,11 +168,26 @@
    "RPBasic.thy"
   ]
  },
- "verdict_note": "формальная машина БЛОКИРУЕТ вывод RH: путь к заключению содержит гипотезы O08/O09/O11/O12; ни одна численная проверка не повышает статус",
+ "axioms_force_block": true,
+ "machine_sound": true,
+ "machine": {
+  "checks": [
+   "B1 dag",
+   "B2 blocking",
+   "B3 artifacts",
+   "B4 formal audit",
+   "B5 verdict consistency"
+  ],
+  "machine_sound": true,
+  "axioms_force_block": true,
+  "source": "rpbridge/formaloblig.py"
+ },
+ "conclusion_node": "RH",
+ "verdict_note": "the formal machine BLOCKS the RH conclusion: the path to the conclusion contains the hypotheses O08/O09/O11/O12; no numerical check raises the status; the A1-A6 reduction axioms keep the blocking in force by construction",
  "meta": {
   "campaign": "V13",
   "date": "2026-10-10",
-  "package": "AB Research Program 1.1.0",
+  "package": "AB Research Program 1.2.1",
   "runtime_s": 0.0
  }
 }

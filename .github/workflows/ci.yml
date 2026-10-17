@@ -125,6 +125,13 @@ jobs:
       - name: Run the core spectrum module tests
         working-directory: AB_Cloud_Quantum_Research
         run: pytest modules/core_spectrum/tests/ -q
+      # The V13 obligation machine re-runs live on every push: B1 DAG,
+      # B2 blocking, B3 artifact gate, B4 formal audit (sorry/oops = 0),
+      # B5 committed-verdict consistency. Non-zero exit fails the job;
+      # the report lands in the job summary via --ci-summary.
+      - name: Run the V13 obligation machine (formal bridge, live)
+        working-directory: AB_Cloud_Quantum_Research/modules/core_spectrum
+        run: python3 campaigns/run_v13_formal_bridge.py --ci-summary
       - name: Run the realtime spinor memory tests
         working-directory: AB_Cloud_Quantum_Research/research/realtime_spinor_memory
         run: pytest tests/ -q
