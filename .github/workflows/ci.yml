@@ -13,7 +13,7 @@ permissions:
 jobs:
   structure:
     name: Repository structure & metadata
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
       - name: Check canonical artifacts exist
@@ -45,7 +45,7 @@ jobs:
 
   markdown:
     name: Markdown lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
       - name: Lint the curated markdown surface
@@ -65,7 +65,7 @@ jobs:
 
   yaml:
     name: Workflow YAML lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
       - name: yamllint (project config)
@@ -73,10 +73,10 @@ jobs:
 
   ruff:
     name: Python lint (ruff — real-defect gate)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - name: Install ruff
@@ -86,11 +86,11 @@ jobs:
 
   pytest:
     name: Python tests (pytest)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip

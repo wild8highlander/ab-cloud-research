@@ -92,7 +92,7 @@ mean/var: sample variance (divide by n-1)
   + optional empirical power-law fit on the printed grid; state explicitly
   that the decay is EMPIRICAL, not O(1/sqrt(N)).
 - **Obj 2**: statistics on ALL loaded zeros: mean/var, KS D+p, CvM W2, AD A2,
-  <r> vs GUE reference 0.5992. Verdict: p < 0.05 -> H0 rejected, and when
+  `<r>` vs GUE reference 0.5992. Verdict: p < 0.05 -> H0 rejected, and when
   rejected print the honest note (finite-T corrections, mean ~= 1 validates
   the unfolding). NEVER print "GUE confirmed" unconditionally.
 - **Obj 3**: grid N = 50*2^k while <= n, plus n itself if not already there;

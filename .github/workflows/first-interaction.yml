@@ -13,7 +13,7 @@ permissions:
 jobs:
   welcome:
     name: Greet first-time contributors
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/first-interaction@v3
         with:

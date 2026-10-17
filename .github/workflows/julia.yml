@@ -15,7 +15,7 @@ permissions:
 jobs:
   smoke:
     name: full suite — parse check + smoke test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v7
@@ -44,7 +44,7 @@ jobs:
   full:
     name: full suite — 39-test two-pass protocol (manual)
     if: github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 150
     steps:
       - uses: actions/checkout@v7

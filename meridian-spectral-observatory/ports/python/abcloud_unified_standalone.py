@@ -9325,7 +9325,7 @@ Lentz continued fraction), chi2 CDF, Kolmogorov-Smirnov asymptotic p-value,
 GOE/GUE₂ Wigner surmises, Lambert W (Halley), Gram points, b(N) statistic.
 """
 
-from math import log, sin, cos, sqrt, exp, fabs, pi, isnan
+from math import sin, sqrt, exp, fabs, isnan
 
 special__LANCZOS_COEF = (
     0.99999999999980993, 676.5203681218851, -1259.1392167224028,
@@ -9604,7 +9604,7 @@ law, mean adjacent spacing ratio, unfolded positions, number variance S2(L),
 spectral rigidity Delta3(L), two-level form factor K(t).
 """
 
-from math import log, sqrt, fabs, pi, cos, sin, nan, isnan, floor
+from math import nan, floor
 from bisect import bisect_left
 
 
@@ -9886,7 +9886,7 @@ Eigenvalues: cyclic Jacobi for complex Hermitian matrices (no LAPACK;
 agrees with zheevr to ~1e-12, inside the golden tolerances).
 """
 
-from math import pi, fabs, sqrt, atan2, floor, sin, cos, isnan
+from math import atan2
 from cmath import exp as cexp, phase as _carg
 
 
@@ -10188,7 +10188,6 @@ def lattice_time_reversal_asymmetry(H):
 """HP-аудит: развёртка, регрессия и H1-детектор — 1:1 с ab_cloud_full.jl §7
 и hp_audit_standalone.jl (детектор H1 + вспомогательная статистика)."""
 
-from math import log, sqrt, fabs, pi, cos, sin, exp, isnan
 
 
 def unfold_hp_kgue_envelope(t):
@@ -10571,8 +10570,6 @@ surmise (the standalone's own gue_cdf, not the 32768-point table).
 """
 
 import bisect
-import math
-import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -12752,9 +12749,8 @@ Faithful-quirk notes (bug-for-bug with the Julia original):
 
 import math
 from fractions import Fraction
-from math import gcd, log, sqrt, atan2, pi, cos, sin, exp, isnan, isinf, ceil
+from math import gcd, isinf, ceil
 
-import numpy as np
 
 
 mon_stack_PI = math.pi
@@ -13684,7 +13680,6 @@ def mon_stack_v100(alphas=None, n_k=80, band_index=0):
             "alpha_half_band1": mon_stack_first_chern_number(0.5, band_index=1, n_k=n_k)}
 
 
-import os  # noqa: E402  (used by zeta_zeros)
 
 
 # ═══ KERNEL MODULE: rh_stack ═══
@@ -13762,7 +13757,6 @@ import copy
 import gzip
 import json
 import math
-import os
 import re
 import struct
 import time
@@ -13770,7 +13764,6 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
-import numpy as np
 
 
 __all__ = [
@@ -16431,9 +16424,7 @@ names, key formats (Julia string(Float64) semantics) and evaluation order as
 the Julia generator (and the C++/Rust/Go mirrors) are used.
 """
 
-import json
 import os
-from math import log, sin, fabs, sqrt, exp, isnan
 
 import numpy as np
 
@@ -16876,8 +16867,6 @@ ab_cloud_full.jl protocol; the rest are dSFMT-dependent, LAPACK-dependent or
 report-only and are listed as [SKIP] (see PORT_SPEC.md).
 """
 
-import sys
-from math import log, sqrt, fabs, pi, sin, exp, cos, isnan
 
 
 
@@ -17297,11 +17286,8 @@ Provenance tiers (documented in PORT_SPEC.md):
                   eigensolver + libm differences land at 1e-5..1e-3 relative)
 """
 
-import json
 import math
 import os
-import re
-from math import log, sqrt, fabs, pi, isnan, isinf
 
 import numpy as np
 
