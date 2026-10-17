@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "what": "GUE-контроль и пол статистической погрешности (метод Т34 gue_control)",
+    "method": "RMS отклонения двух половин GUE-симуляции (24×300×300, расщепление 12+12) друг от друга, та же методология, что для данных",
+    "pipeline": "poly-unfold deg5 → блоки 250 → KDE bw=0.15, R2-сетка 0:0.05:5",
+    "seed": 20261016,
+    "caveat": "csv/ab_eigs.txt — глобально отсортированное ОБЪЕДИНЕНИЕ 5 сидов: пост-хок метрики по файлу показывают суперпозицию m=5; per-seed метрики прогона (results.json) считались ДО сортировки"
+  },
+  "floor_R2_rms_GUE_vs_GUE": 0.025557,
+  "run_R2_rms_AB_vs_GUE_perseed": 0.020975,
+  "recomputed_R2_rms_ABunion_vs_GUE_theory": 0.167444,
+  "recomputed_R2_rms_ABunion_vs_Poisson": 0.132038,
+  "recomputed_R2_rms_ABunion_vs_zeta": 0.171126,
+  "K_corr_ABunion_zeta": 0.550427,
+  "K_corr_ABunion_GUE_theory": 0.622574,
+  "K_corr_zeta_GUE_theory": 0.954375,
+  "run_K_corr_zeta_perseed": 0.941722,
+  "run_K_corr_GUE_perseed": 0.988179,
+  "Sigma2_rms_ABunion_GUE_Lge10": 1.668763,
+  "Sigma2_rms_ABunion_Poisson_Lge10": 59.153443,
+  "file_union_r_mean": 0.391246,
+  "file_union_rtilde_mean": 0.252719,
+  "zeta_r_mean": 0.615994,
+  "zeta_rtilde_mean": 0.36893,
+  "E1_AB_union": 0.430166,
+  "E1_GUE_surmise": 0.46695,
+  "E1_GUE_exact_tabulated": 0.171,
+  "run_E1_perseed": 0.521,
+  "superposition_check": {
+    "description": "union m независимых GUE-спектров воспроизводит статистику файла при m=5",
+    "sim_r_m1": 0.5981,
+    "sim_r_m5": 0.393,
+    "file_r_m5": 0.3912,
+    "sim_rtilde_m5": 0.2534,
+    "file_rtilde_m5": 0.2527,
+    "verdict": "симуляция union m=5 даёт <r>=0.389±0.002 и <r~>=0.252 — совпадает с файлом (0.3913/0.2527): файл = сортированное объединение 5 сидов"
+  }
+}

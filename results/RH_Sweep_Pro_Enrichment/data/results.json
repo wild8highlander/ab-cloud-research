@@ -1,0 +1,33 @@
+{
+  "best_params": {
+    "sigma": 0.5,
+    "W": 2.0,
+    "alpha": 0.3183098861837907
+  },
+  "metadata": {
+    "script": "RH_Unified.jl",
+    "n_zeta_zeros": 13661,
+    "timestamp": "2026-10-16 12:36:23",
+    "n_zeta_verified": 13661
+  },
+  "best_result": {
+    "label": "final_α=0.3183098861837907",
+    "n_eigs": 6140,
+    "R2_rms_zeta": 0.024520820492247897,
+    "W": 2.0,
+    "L": 64,
+    "r_class": "GUE",
+    "R2_rms_GUE": 0.02097483595644772,
+    "Delta3_rms_GUE": 0.16291539122880627,
+    "sigma": 0.5,
+    "tests_passed": 10,
+    "Sigma2_rms_GUE": 0.3946038815815885,
+    "tests_total": 11,
+    "K_corr_GUE": 0.9881786822242845,
+    "r_mean": 0.5999904255184018,
+    "alpha": 0.3183098861837907,
+    "composite_score": 84.84599872058344,
+    "K_corr_zeta": 0.9417217539420395,
+    "p_rms_GUE": 0.016674419903078892
+  }
+}

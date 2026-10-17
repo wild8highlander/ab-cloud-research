@@ -1,0 +1,6 @@
+# RH_Unified — CSV отчёт
+# Дата: 2026-10-16 12:36:22
+#
+label,L,alpha,W,sigma,n_eigs,r_mean,r_std,r_class,d_GUE,d_GOE,d_GSE,d_Poisson,R2_rms_GUE,R2_rms_Poisson,R2_rms_zeta,R2_match_GUE,K_corr_GUE,K_corr_zeta,K_match_GUE,K_match_zeta,Sigma2_rms_GUE,Sigma2_rms_Poisson,Sigma2_match_GUE,Delta3_rms_GUE,p_rms_GUE,p_mean,chi2_wigner,chi2_pvalue,brody_beta,spectral_compressibility,gap_prob_E1,r_tilde_mean,level_number_dev,symmetry_parameter,composite_score,tests_passed,tests_total
+"α=0.3183098861837907",64,0.3183098861837907,2.0,0.5,6140,0.59999,0.007093,GUE,0.00039,0.06409,0.07621,0.21369,0.020975,0.258933,0.024521,TRUE,0.988179,0.941722,TRUE,TRUE,0.394604,5.431828,TRUE,0.162915,0.016674,0.25,0.113724,0.944724,1.718303,0.083558,0.520917,0.361317,0.871468,1.49994,84.846,10,11
+"final_α=0.3183098861837907",64,0.3183098861837907,2.0,0.5,6140,0.59999,0.007093,GUE,0.00039,0.06409,0.07621,0.21369,0.020975,0.258933,0.024521,TRUE,0.988179,0.941722,TRUE,TRUE,0.394604,5.431828,TRUE,0.162915,0.016674,0.25,0.113724,0.944724,1.718303,0.083558,0.520917,0.361317,0.871468,1.49994,84.846,10,11

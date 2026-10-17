@@ -1,0 +1,65 @@
+{
+  "_comment": "Полная конфигурация прогона RH_Auto_5000_L64_s5 — восстановлена из results.json, txt/report.txt и кода RH_Sweep_Pro_D.jl (preset_auto). Поля, помеченные reconstructed:true, восстановлены из дефолтов кода (в results.json их нет).",
+  "run": {
+    "name": "RH_Auto_5000_L64_s5",
+    "archive_timestamp": "2026-10-16 12:27:39",
+    "report_timestamp": "2026-10-16 12:36:22",
+    "tool": "RH_Unified.jl (семейство RH_Sweep_Pro_D.jl, версия v1.0 AURORA)",
+    "preset": "preset_auto(5000)",
+    "duration_report_sec": null
+  },
+  "hamiltonian": {
+    "L": 64,
+    "matrix_size": "4096x4096",
+    "model": "Hofstadter + AB-поток α + диагональный беспорядок W + вихри (гексагональная решётка)",
+    "alpha": 0.3183098861837907,
+    "alpha_note": "1/π — магическая точка",
+    "W": 2.0,
+    "sigma": 0.5,
+    "vortex_config_reconstructed": true,
+    "min_vortices": 6,
+    "max_vortices": 6,
+    "vortex_layout": "hexagonal",
+    "jitter_reconstructed": true,
+    "alpha_jitter": 0.0,
+    "W_jitter": 0.0,
+    "sigma_jitter": 0.0,
+    "vortex_pos_jitter": 0.0,
+    "vortex_charge_flip": 0.0
+  },
+  "spectra": {
+    "n_seeds": 5,
+    "seeds": [0, 1, 2, 3, 4],
+    "window_fraction": 0.3,
+    "eigs_per_seed": 1228,
+    "n_eigs_total": 6140,
+    "data_layout_caveat": "csv/ab_eigs.txt сохранён ГЛОБАЛЬНО отсортированным: файл = объединение 5 сид-спектров (суперпозиция m=5). Per-seed статистики прогона (⟨r⟩=0.59999) считались в памяти до сортировки. Подробности: DATA_DICTIONARY.md и figures/fig02_superposition.png.",
+    "unfolding": "polynomial deg=5, блоки 250 уровней (как в compute_R2/K/Σ²/Δ₃/p(s) кода)"
+  },
+  "zeta_zeros": {
+    "n_used": 5000,
+    "n_available_verified": 13661,
+    "source": "mpmath.zetazero(), 25 знаков, диапазон t∈[14.1347, 12943.89]",
+    "file": "csv/zeta_zeros.txt"
+  },
+  "metrics_block": {
+    "K_BLOCK_SIZE": 250,
+    "R2_grid": "0:0.05:5, KDE bw=0.15",
+    "K_grid": "0:0.02:2, сглаживание 5, ramp<0.5 защищён",
+    "p_hist": "30 бинов, s∈[0,4]"
+  },
+  "headline": {
+    "composite_score": 84.846,
+    "tests_passed": 10,
+    "tests_total": 11,
+    "r_mean_per_seed": 0.5999904255184018,
+    "r_class": "GUE",
+    "K_corr_zeta": 0.9417217539420395,
+    "K_corr_GUE": 0.9881786822242845,
+    "R2_rms_GUE": 0.02097483595644772,
+    "R2_rms_zeta": 0.024520820492247897,
+    "Sigma2_rms_GUE": 0.3946038815815885,
+    "Delta3_rms_GUE": 0.16291539122880627,
+    "p_rms_GUE": 0.016674419903078892
+  }
+}
