@@ -5043,7 +5043,7 @@ function compute_all_metrics(eigs_ab::AbstractVector{<:Real},
     n_eigs = length(eigs_ab)
     tests_passed = 0
     tests_total = 11  # 6 старых + 5 новых (Symmetry S исключена из подсчёта)
-    
+
     K_BLOCK_SIZE = 250
     ab_chunk = eigs_per_seed > 0 ? min(eigs_per_seed, K_BLOCK_SIZE) : K_BLOCK_SIZE
 
@@ -5209,7 +5209,7 @@ function compute_all_metrics(eigs_ab::AbstractVector{<:Real},
             sorted_e = sort(eigs_seed)
             sp = diff(sorted_e)
             if length(sp) >= 2
-                append!(r_tildes, [min(sp[i], sp[i+1]) / (sp[i] + sp[i+1]) 
+                append!(r_tildes, [min(sp[i], sp[i+1]) / (sp[i] + sp[i+1])
                                    for i in 1:length(sp)-1 if sp[i] > 0 && sp[i+1] > 0])
             end
         end
@@ -5281,7 +5281,7 @@ function compute_all_metrics(eigs_ab::AbstractVector{<:Real},
         println("    [metrics] ⟨r̃⟩ modified:  $(round(r_tilde_mean, digits=4))  (цель: ~0.3602 для GUE)")
         println("    [metrics] ⟨δ²_n⟩ dev:    $(round(level_number_dev, digits=4))  (цель: →0)")
         println("    [metrics] Symmetry S:    $(round(symmetry_parameter, digits=4))  (инфо, цель: ~1.496)")
-        
+
         println("    [metrics] Новые тесты: χ²=$(chi2_pass ? "✓" : "✗") β=$(brody_pass ? "✓" : "✗") χ=$(comp_pass ? "✓" : "✗") E=$(gap_pass ? "✓" : "✗") r̃=$(rtilde_pass ? "✓" : "✗")")
     end
 
@@ -5474,17 +5474,17 @@ function preset_auto(n_zeta_zeros::Int;
 
     # Целевое число собственных значений AB
     N_target = Int(round(n_zeta_zeros * target_ratio))
-    
+
     # Стратегия: начинаем с L=56, увеличиваем n_seeds пока не хватит
     # Если n_seeds > max_seeds, увеличиваем L
-    
+
     # Вариант 1: фиксируем L и подбираем n_seeds
     L_candidates = [64, 72, 80, 88, 96, 104, 112, 120, 128]
-    
+
     best_L = 56
     best_seeds = 2
     best_N = 0
-    
+
     for L in L_candidates
         if L > max_L
             break
@@ -5492,7 +5492,7 @@ function preset_auto(n_zeta_zeros::Int;
         eigs_per_seed = Int(floor(window * L * L))
         # Сколько seeds нужно для достижения N_target?
         n_seeds_needed = max(1, ceil(Int, N_target / eigs_per_seed))
-        
+
         if n_seeds_needed <= max_seeds
             # Этот L подходит — используем минимальное количество seeds
             best_L = L
@@ -5506,11 +5506,11 @@ function preset_auto(n_zeta_zeros::Int;
             best_N = best_seeds * eigs_per_seed
         end
     end
-    
+
     # Округляем best_N до кратного 250 (для binning K(t))
     n_blocks = best_N ÷ 250
     best_N_aligned = n_blocks * 250
-    
+
     if verbose
         _mr_section("авто-подбор параметров AB-облака")
         _mr_kv("ζ-нулей", n_zeta_zeros)
@@ -5525,7 +5525,7 @@ function preset_auto(n_zeta_zeros::Int;
         _mr_kv("N_AB (aligned 250)", best_N_aligned)
         _mr_kv("n_blocks (B=250)", n_blocks)
         println()
-        
+
         # Оценка времени
         t_per_seed = (best_L / 56)^6 * 8  # ~8с для L=56
         t_total = t_per_seed * best_seeds
@@ -5533,7 +5533,7 @@ function preset_auto(n_zeta_zeros::Int;
                 t_total < 3600 ? "$(round(t_total/60, digits=1))мин" :
                 "$(round(t_total/3600, digits=1))ч"
         _mr_kv("оценка времени", _tstr)
-        
+
         # Качество корреляции
         if n_blocks >= 20
             _mr_ok("ожидаемая K corr(ζ): 0.90–0.95 (n_blocks=$n_blocks ≥ 20)")
@@ -5546,13 +5546,13 @@ function preset_auto(n_zeta_zeros::Int;
         end
         _mr_rule()
     end
-    
+
     cfg = default_config()
     cfg.L = best_L
     cfg.n_seeds = best_seeds
     cfg.n_zeta_zeros = min(n_zeta_zeros, N_ZETA_ZEROS_AVAILABLE)
     cfg.output_dir = "RH_Auto_$(n_zeta_zeros)_L$(best_L)_s$(best_seeds)_$(Dates.format(now(), "yyyymmdd_HHMMSS"))"
-    
+
     return cfg
 end
 
@@ -5565,9 +5565,9 @@ end
 function preset_balanced(n_zeta_zeros::Int; max_time_minutes::Int=30)
     # Оценка: L=56 → 8с/seed, L=88 → 160с/seed, L=128 → 1500с/seed
     # Формула: t_per_seed ≈ 8 * (L/56)^6
-    
+
     max_time_sec = max_time_minutes * 60
-    
+
     # Перебираем L от малого к большому
     for L in [64, 72, 80, 88, 96, 104, 112, 120, 128]
         t_per_seed = 8 * (L / 56)^6
@@ -5575,20 +5575,20 @@ function preset_balanced(n_zeta_zeros::Int; max_time_minutes::Int=30)
         n_seeds_needed = max(1, ceil(Int, n_zeta_zeros / eigs_per_seed))
         n_seeds = min(n_seeds_needed, 10)
         t_total = t_per_seed * n_seeds
-        
+
         if t_total <= max_time_sec
             cfg = preset_auto(n_zeta_zeros, verbose=false)
             cfg.L = L
             cfg.n_seeds = n_seeds
             cfg.output_dir = "RH_Balanced_$(n_zeta_zeros)_L$(L)_s$(n_seeds)_$(Dates.format(now(), "yyyymmdd_HHMMSS"))"
-            
+
             println("\n  Сбалансированный пресет: L=$L, n_seeds=$n_seeds")
             println("  N_AB ≈ $(n_seeds * eigs_per_seed), время ≈ $(round(t_total/60, digits=1))мин")
-            
+
             return cfg
         end
     end
-    
+
     # Если ничего не подошло — берём максимальное
     println("WARNING: не удалось уложиться в $max_time_minutes мин, берём L=56, n_seeds=2")
     cfg = preset_auto(n_zeta_zeros, verbose=false)
@@ -6740,15 +6740,15 @@ function plot_sweep_dashboard(all_results::Dict, best_params::Dict, output_dir::
         println("WARNING: Plots.jl не доступен — пропуск визуализации")
         return nothing
     end
-    
+
     mkpath(joinpath(output_dir, "plots"))
-    
+
     # Собираем данные
     param_names = collect(keys(all_results))
     n_params = length(param_names)
-    
+
     # === Панель (a): Score vs параметр ===
-    p1 = plot(title="(a) Composite Score vs параметр", xlabel="Значение параметра", 
+    p1 = plot(title="(a) Composite Score vs параметр", xlabel="Значение параметра",
               ylabel="Score / 100", legend=:outertopright, titlefont=font(11), tickfont=font(8))
     colors = [:steelblue, :crimson, :forestgreen, :darkorange, :purple, :teal, :pink, :brown]
     for (i, param) in enumerate(param_names)
@@ -6757,7 +6757,7 @@ function plot_sweep_dashboard(all_results::Dict, best_params::Dict, output_dir::
         scores = [r["score"] for r in results]
         plot!(p1, values, scores, color=colors[i], lw=2, marker=:circle, ms=3, label=param)
     end
-    
+
     # === Панель (b): K_corr(ζ) vs параметр ===
     p2 = plot(title="(b) K(AB) corr K(ζ) vs параметр", xlabel="Значение параметра",
               ylabel="K corr(ζ)", legend=:outertopright, titlefont=font(11), tickfont=font(8))
@@ -6768,7 +6768,7 @@ function plot_sweep_dashboard(all_results::Dict, best_params::Dict, output_dir::
         plot!(p2, values, k_corr, color=colors[i], lw=2, marker=:diamond, ms=3, label=param)
     end
     hline!(p2, [0.8], color=:green, ls=:dash, lw=1, label="RH threshold")
-    
+
     # === Панель (c): Heatmap параметр × значение ===
     # Нормализуем значения для heatmap
     all_values = sort(unique(vcat([[r["value"] for r in all_results[p]] for p in param_names]...)))
@@ -6786,21 +6786,21 @@ function plot_sweep_dashboard(all_results::Dict, best_params::Dict, output_dir::
                  xlabel="Значение параметра", ylabel="Параметр",
                  title="(c) Heatmap: Score(параметр, значение)",
                  titlefont=font(11), tickfont=font(8), size=(800, 500))
-    
+
     # === Панель (d): Bar chart лучших значений ===
     best_scores = [best_params[p]["score"] for p in param_names]
     p4 = bar(param_names, best_scores, color=colors, alpha=0.7,
              xlabel="Параметр", ylabel="Лучший Score",
              title="(d) Лучший Score для каждого параметра",
              legend=false, titlefont=font(11), tickfont=font(8), xrotation=30)
-    
+
     # Объединяем
     dashboard = plot(p1, p2, p3, p4, layout=(2,2), size=(1600, 1200),
                      plot_title="Sweep Dashboard: все параметры AB-облака",
                      plot_titlefont=font(14), left_margin=10Plots.mm, bottom_margin=8Plots.mm)
     savefig(dashboard, joinpath(output_dir, "plots", "sweep_dashboard.png"))
     println("  Dashboard: $(joinpath(output_dir, "plots", "sweep_dashboard.png"))")
-    
+
     return dashboard
 end
 
@@ -6817,9 +6817,9 @@ function plot_sweep_per_parameter(all_results::Dict, output_dir::String)
     if !HAS_PLOTS[]
         return nothing
     end
-    
+
     mkpath(joinpath(output_dir, "plots", "per_parameter"))
-    
+
     for (param, results) in all_results
         values = [r["value"] for r in results]
         scores = [r["score"] for r in results]
@@ -6827,32 +6827,32 @@ function plot_sweep_per_parameter(all_results::Dict, output_dir::String)
         brody = [r["brody_beta"] for r in results]
         chi2 = [r["chi2"] for r in results]
         r_means = [r["r_mean"] for r in results]
-        
+
         best_idx = argmax(scores)
-        
+
         # 4-панельный график для каждого параметра
         p1 = plot(values, scores, color=:steelblue, lw=2, marker=:circle, ms=4,
                   xlabel=param, ylabel="Score / 100", title="(a) Score",
                   legend=false, titlefont=font(10), tickfont=font(8))
         scatter!(p1, [values[best_idx]], [scores[best_idx]], color=:red, ms=8, marker=:star)
-        annotate!(p1, values[best_idx], scores[best_idx], 
+        annotate!(p1, values[best_idx], scores[best_idx],
                   text("best=$(round(values[best_idx], digits=2))", 8, :left, :bottom))
-        
+
         p2 = plot(values, k_corr, color=:crimson, lw=2, marker=:diamond, ms=4,
                   xlabel=param, ylabel="K corr(ζ)", title="(b) K(AB)↔K(ζ)",
                   legend=false, titlefont=font(10), tickfont=font(8))
         hline!(p2, [0.8], color=:green, ls=:dash, label="RH threshold")
-        
+
         p3 = plot(values, brody, color=:forestgreen, lw=2, marker=:square, ms=4,
                   xlabel=param, ylabel="Brody β", title="(c) Brody β (GUE=2.0)",
                   legend=false, titlefont=font(10), tickfont=font(8))
         hline!(p3, [2.0], color=:green, ls=:dash, label="GUE")
-        
+
         p4 = plot(values, chi2, color=:darkorange, lw=2, marker=:triangle, ms=4,
                   xlabel=param, ylabel="χ² Wigner", title="(d) χ² (GUE→0)",
                   legend=false, titlefont=font(10), tickfont=font(8))
         hline!(p4, [0.5], color=:green, ls=:dash, label="threshold")
-        
+
         plot_title = "Sweep: $param (best=$(round(values[best_idx], digits=3)), score=$(round(scores[best_idx], digits=1)))"
         final_plot = plot(p1, p2, p3, p4, layout=(2,2), size=(1200, 800),
                           plot_title=plot_title, plot_titlefont=font(12))
@@ -6870,34 +6870,34 @@ function plot_sweep_radar(best_params::Dict, output_dir::String)
     if !HAS_PLOTS[]
         return nothing
     end
-    
+
     mkpath(joinpath(output_dir, "plots"))
-    
+
     params = collect(keys(best_params))
     n = length(params)
-    
+
     # Нормализуем score на [0, 1] для radar
     scores = [best_params[p]["score"] / 100 for p in params]
-    
+
     # Углы для radar
     angles = range(0, stop=2π, length=n+1)[1:end-1]
-    
+
     # Замыкаем
     x = vcat(scores .* cos.(angles), scores[1] * cos(angles[1]))
     y = vcat(scores .* sin.(angles), scores[1] * sin(angles[1]))
-    
+
     # Сетка (концентрические круги)
     p = plot(x, y, color=:steelblue, lw=2, fill=:steelblue, alpha=0.3,
              xlabel="", ylabel="", title="Radar: лучшие Score по параметрам",
              legend=false, aspect_ratio=:equal, titlefont=font(12))
-    
+
     # Подписи параметров
     for (i, param) in enumerate(params)
         label_x = 1.15 * cos(angles[i])
         label_y = 1.15 * sin(angles[i])
         annotate!(p, label_x, label_y, text("$param\n$(round(best_params[param]["score"], digits=1))", 7, :center))
     end
-    
+
     savefig(p, joinpath(output_dir, "plots", "sweep_radar.png"))
     println("  Radar: $(joinpath(output_dir, "plots", "sweep_radar.png"))")
 end
@@ -6911,13 +6911,13 @@ PRO-версия sweep: 10 ключевых точек × 8 параметров
   - Отдельный график для каждого параметра
   - Radar chart
   - Финальный прогон с лучшими параметрами
-  
+
 Время: ~2-3 часа (включая графики)
 """
 function sweep_top10_pro(; output_dir::String="RH_Sweep_Pro_$(Dates.format(now(), "yyyymmdd_HHMMSS"))")
-    
+
     base_cfg = preset_auto(5000, verbose=false)
-    
+
     _mr_logo() || _mr_banner(_MR_BRAND.title, _MR_BRAND.version,
                             _MR_BRAND.subtitle)
     _mr_gate_head(1, "TOP-10 PRO", "10 точек × 8 параметров + визуализация",
@@ -6926,21 +6926,21 @@ function sweep_top10_pro(; output_dir::String="RH_Sweep_Pro_$(Dates.format(now()
     _mr_kv("точки", "[0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 6.0, 8.0]")
     _mr_kv("параметров / прогонов", "8 / 80")
     _mr_kv("ожидаемое время", "~2-3 часа")
-    
+
     mkpath(output_dir)
     t_start = time()
-    
+
     all_results = Dict()
     best_params = Dict()
-    
+
     key_values = [0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 6.0, 8.0]
-    params = [:alpha, :W, :sigma, :alpha_jitter, :W_jitter, 
+    params = [:alpha, :W, :sigma, :alpha_jitter, :W_jitter,
               :sigma_jitter, :vortex_pos_jitter, :vortex_charge_flip]
-    
+
     for (p_idx, param) in enumerate(params)
         _mr_prog("param-sweep", p_idx, length(params); extra = string(param))
         _mr_section(@sprintf("параметр %d/8: %s", p_idx, param))
-        
+
         if param == :vortex_charge_flip
             vals = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 1.0]
             results, best_val, best_score, best_result = sweep_parameter(
@@ -6949,25 +6949,25 @@ function sweep_top10_pro(; output_dir::String="RH_Sweep_Pro_$(Dates.format(now()
             results, best_val, best_score, best_result = sweep_parameter(
                 param, range=key_values, base_cfg=base_cfg, verbose=true)
         end
-        
+
         all_results[string(param)] = results
         best_params[string(param)] = Dict(
             "value" => best_val,
             "score" => best_score,
             "result" => best_result
         )
-        
+
         save_sweep_results(all_results, best_params, output_dir)
     end
-    
+
     elapsed = time() - t_start
-    
+
     # === ПРОФЕССИОНАЛЬНАЯ ВИЗУАЛИЗАЦИЯ ===
     println("\n>>> Генерация профессиональных графиков <<<")
     plot_sweep_dashboard(all_results, best_params, output_dir)
     plot_sweep_per_parameter(all_results, output_dir)
     plot_sweep_radar(best_params, output_dir)
-    
+
     # === ФИНАЛЬНЫЙ ПРОГОН С ЛУЧШИМИ ПАРАМЕТРАМИ ===
     println("\n>>> Финальный прогон с лучшими параметрами <<<")
     final_cfg = deepcopy(base_cfg)
@@ -6976,19 +6976,19 @@ function sweep_top10_pro(; output_dir::String="RH_Sweep_Pro_$(Dates.format(now()
         setfield!(final_cfg, param, val)
     end
     final_cfg.output_dir = joinpath(output_dir, "final_run")
-    
+
     println("  Параметры:")
     println("    α=$(round(final_cfg.alpha, digits=4)), W=$(final_cfg.W), σ=$(final_cfg.sigma)")
     println("    α_jitter=$(final_cfg.alpha_jitter), W_jitter=$(final_cfg.W_jitter), σ_jitter=$(final_cfg.sigma_jitter)")
     println("    pos_jitter=$(final_cfg.vortex_pos_jitter), charge_flip=$(final_cfg.vortex_charge_flip)")
-    
+
     final_result = run(final_cfg)
-    
+
     # === ФИНАЛЬНАЯ СВОДКА ===
     println("\n\n" * "="^78)
     println("  ИТОГОВАЯ СВОДКА SWEEP TOP-10 PRO")
     println("="^78)
-    
+
     headers = ["Параметр", "Лучшее значение", "Score", "Тесты", "K(ζ)"]
     rows = []
     for param in params
@@ -7002,14 +7002,14 @@ function sweep_top10_pro(; output_dir::String="RH_Sweep_Pro_$(Dates.format(now()
         ])
     end
     println(format_table(headers, rows))
-    
+
     println("\n  Время sweep: $(round(elapsed/60, digits=1)) мин")
     println("  Финальный Score: $(round(final_result["final_result"].composite_score, digits=2))/100")
     println("  Финальных тестов: $(final_result["final_result"].tests_passed)/11")
     println("="^78)
-    
+
     save_sweep_results(all_results, best_params, output_dir)
-    
+
     return Dict(
         "all_results" => all_results,
         "best_params" => best_params,
@@ -7028,12 +7028,12 @@ end
 Время: ~30 минут.
 """
 function sweep_combined_quick(; output_dir::String="RH_Sweep_Quick_$(Dates.format(now(), "yyyymmdd_HHMMSS"))")
-    
+
     base_cfg = preset_auto(5000, verbose=false)
     key_values = [0.0, 2.0, 4.0]
-    params = [:alpha, :W, :sigma, :alpha_jitter, :W_jitter, 
+    params = [:alpha, :W, :sigma, :alpha_jitter, :W_jitter,
               :sigma_jitter, :vortex_pos_jitter, :vortex_charge_flip]
-    
+
     _mr_logo() || _mr_banner(_MR_BRAND.title, _MR_BRAND.version,
                             _MR_BRAND.subtitle)
     _mr_gate_head(2, "QUICK SWEEP", "3 значения × 8 параметров = 24 прогона",
@@ -7041,42 +7041,42 @@ function sweep_combined_quick(; output_dir::String="RH_Sweep_Quick_$(Dates.forma
                   total = 1)
     _mr_kv("значения", "$key_values")
     _mr_kv("ожидаемое время", "~30 минут")
-    
+
     mkpath(output_dir)
     t_start = time()
-    
+
     all_results = Dict()
     best_params = Dict()
-    
+
     for (p_idx, param) in enumerate(params)
         println("\n[$p_idx/8] $param")
-        
+
         if param == :vortex_charge_flip
             vals = [0.0, 0.3, 0.7]
         else
             vals = key_values
         end
-        
+
         results, best_val, best_score, best_result = sweep_parameter(
             param, range=collect(vals), base_cfg=base_cfg, verbose=false)
-        
+
         all_results[string(param)] = results
         best_params[string(param)] = Dict(
             "value" => best_val,
             "score" => best_score,
             "result" => best_result
         )
-        
+
         println("  Лучшее: $param=$(round(best_val, digits=2)), Score=$(round(best_score, digits=1))")
     end
-    
+
     elapsed = time() - t_start
-    
+
     # Визуализация
     println("\n>>> Графики <<<")
     plot_sweep_dashboard(all_results, best_params, output_dir)
     plot_sweep_radar(best_params, output_dir)
-    
+
     # Финальный прогон
     println("\n>>> Финальный прогон <<<")
     final_cfg = deepcopy(base_cfg)
@@ -7085,22 +7085,22 @@ function sweep_combined_quick(; output_dir::String="RH_Sweep_Quick_$(Dates.forma
     end
     final_cfg.output_dir = joinpath(output_dir, "final_run")
     final_result = run(final_cfg)
-    
+
     # Сводка
     println("\n" * "="^78)
     println("  СВОДКА БЫСТРОГО SWEEP")
     println("="^78)
     headers = ["Параметр", "Лучшее", "Score"]
-    rows = [[p, round(best_params[p]["value"], digits=3), round(best_params[p]["score"], digits=1)] 
+    rows = [[p, round(best_params[p]["value"], digits=3), round(best_params[p]["score"], digits=1)]
             for p in string.(params)]
     println(format_table(headers, rows))
     println("\n  Время: $(round(elapsed/60, digits=1)) мин")
     println("  Финальный Score: $(round(final_result["final_result"].composite_score, digits=2))/100")
     println("="^78)
-    
+
     save_sweep_results(all_results, best_params, output_dir)
-    
-    return Dict("all_results" => all_results, "best_params" => best_params, 
+
+    return Dict("all_results" => all_results, "best_params" => best_params,
                 "final_result" => final_result, "output_dir" => output_dir)
 end
 
@@ -7110,17 +7110,17 @@ end
 Финальный прогон: берёт лучшие параметры из предыдущего sweep
 и запускает полную проверку с L=88 и всеми ζ-нулями.
 """
-function sweep_final_combined(best_params::Dict; 
+function sweep_final_combined(best_params::Dict;
                                output_dir::String="RH_Final_$(Dates.format(now(), "yyyymmdd_HHMMSS"))")
-    
+
     println("\n" * "█"^78)
     println("█ ФИНАЛЬНЫЙ ПРОГОН с лучшими параметрами")
     println("█"^78)
-    
+
     cfg = preset_auto(13661, verbose=false)
     cfg.L = 88
     cfg.n_seeds = 4
-    
+
     # Применяем лучшие параметры
     for (param, bp) in best_params
         sym = Symbol(param)
@@ -7128,13 +7128,13 @@ function sweep_final_combined(best_params::Dict;
             setfield!(cfg, sym, bp["value"])
         end
     end
-    
+
     cfg.output_dir = output_dir
-    
+
     println("  L=$(cfg.L), n_seeds=$(cfg.n_seeds), n_zeta_zeros=$(cfg.n_zeta_zeros)")
     println("  α=$(round(cfg.alpha, digits=4)), W=$(cfg.W), σ=$(cfg.sigma)")
     println("  α_jitter=$(cfg.alpha_jitter), W_jitter=$(cfg.W_jitter), σ_jitter=$(cfg.sigma_jitter)")
-    
+
     result = run(cfg)
     return result
 end

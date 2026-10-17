@@ -28006,7 +28006,7 @@ function test36_direct_ab_vs_zeta5000(zeta_zeros::Vector{Float64}, cfg::Config)
  t_hop = cfg.ab_t
  lat = cfg.ab_lattice
  Nv = resolve_vortex_count(cfg) # single source of truth
- q_mag = isempty(cfg.ab_q_list) ? 1.0 : cfg.ab_q_list[1] # 
+ q_mag = isempty(cfg.ab_q_list) ? 1.0 : cfg.ab_q_list[1] #
  W = ab_w_eff(cfg) # W=1.0 standard
  n_real = cfg.ab_n_realizations
  center_frac = cfg.ab_center_fraction
@@ -28273,14 +28273,14 @@ function test42_spectral_form_factor_Kt(zeta_zeros::Vector{Float64}, cfg::Config
  println(repeat("─", 60))
 
  # Standard configuration: cfg lattice (72×72), W = ab_w_eff ≤ 1.0
- # 
+ #
  Nx = cfg.ab_nx
  Ny = cfg.ab_ny
  α = cfg.ab_alpha_test16
  t_hop = cfg.ab_t
  lat = cfg.ab_lattice
  Nv = resolve_vortex_count(cfg) # single source of truth
- q_mag = isempty(cfg.ab_q_list) ? 1.0 : cfg.ab_q_list[1] # 
+ q_mag = isempty(cfg.ab_q_list) ? 1.0 : cfg.ab_q_list[1] #
  W = ab_w_eff(cfg) # W=1.0 standard
  n_real = cfg.ab_n_realizations
  center_frac = cfg.ab_center_fraction
@@ -28437,7 +28437,7 @@ function test43_byte_robustness(zeta_zeros::Vector{Float64}, cfg::Config)
  t_hop = cfg.ab_t
  lat = cfg.ab_lattice
  Nv = resolve_vortex_count(cfg) # single source of truth
- q_mag = isempty(cfg.ab_q_list) ? 1.0 : cfg.ab_q_list[1] # 
+ q_mag = isempty(cfg.ab_q_list) ? 1.0 : cfg.ab_q_list[1] #
  W = ab_w_eff(cfg) #  effective disorder must NOT exceed W_max (1.0)
  n_real = cfg.ab_n_realizations
  center_frac = cfg.ab_center_fraction
