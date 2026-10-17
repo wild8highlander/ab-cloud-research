@@ -1,6 +1,6 @@
-# monograph/src/ — пользовательские шаблоны
+# monograph/src/ — custom templates
 
-Каталог-заглушка: рендеры живут в `scripts/render_pdf.py` (ReportLab)
-и `scripts/render_docx.py` (python-docx). Оставлено для будущих
-переопределений шаблонов (обложка, стили, колонтитулы) без правки
-конвейера.
+A placeholder directory: the renderers live in `scripts/render_pdf.py`
+(ReportLab) and `scripts/render_docx.py` (python-docx). Reserved for
+future template overrides (cover, styles, headers/footers) without
+touching the pipeline.

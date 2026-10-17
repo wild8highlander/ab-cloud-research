@@ -99,8 +99,8 @@ branch chosen by the computed numbers — no canned verdict strings.
 - If the b(N) table is not monotonically decreasing, an explicit honest
   "NOT confirmed" line is printed instead of the monotone note.
 - No figure export; the runner is console-only.
-- `ab_cloud_verify_en/ru` pin the language even if the caller passes
-  `--lang` (the pinned value is appended last and wins).
+- `ab_cloud_verify_en.m` / `ab_cloud_verify_ru.m` pin the language even if
+  the caller passes `--lang` (the pinned value is appended last and wins).
 
 ## spinor38/ — Test 38 port
 
@@ -114,19 +114,19 @@ cd verification/matlab/spinor38
 spinor38
 ```
 
-## Кратко (по-русски)
+## Summary
 
-- Канонический MATLAB/Octave-порт ядра по `../CANON_SPEC.md` (v3.0),
-  бит-совместим с замороженным эталоном `../data/abcloud_golden.json`.
-- Точки Грама: сид `2πk/W(k/e)` + РОВНО 8 итераций Ньютона по 5-членному
-  тета-разложению; `lambert_w` — Ньютона, допуск `1e-14*(1+|w|)`, до 50 итераций.
-- GUE-CDF через таблицу 32768 точек (SMAX = 5, ленивая сборка + `persistent`-кэш);
-  KS (двусторонний D + p с поправкой λ), Крамер–фон Мизес, Андерсон–Дарлинг
-  с клампами `1e-300 / 1-1e-16`, ⟨r⟩ по соседним промежуткам.
-- Само-проверка по всем замороженным якорям §8 печатает таблицу
-  PASS/FAIL/Δ и код выхода 1 при любом расхождении; `ab_cloud_verify_en/ru`
-  — тонкие обёртки (§10), вся математика в одном ядре.
-- Запуск: `run_verify('--zeros', 50000)` из MATLAB/Octave, либо
-  `octave --eval "run_verify('--zeros', 50000)"` из шелла.
-- `spinor38/` — порт Теста 38: собственный алгоритм Якоби (не `eig`),
-  данные — из `../spinor64/data/`.
+- Canonical MATLAB/Octave port of the kernel per `../CANON_SPEC.md` (v3.0), bit-compatible
+  with the frozen golden reference `../data/abcloud_golden.json`.
+- Gram points: seed `2πk/W(k/e)` + EXACTLY 8 Newton iterations on the 5-term theta
+  expansion; `lambert_w` — Newton, tolerance `1e-14*(1+|w|)`, up to 50 iterations.
+- GUE CDF via the 32768-point table (SMAX = 5, lazy build + `persistent` cache); KS
+  (two-sided D + λ-corrected p), Cramér–von Mises, Anderson–Darling with
+  `1e-300 / 1-1e-16` clamps, ⟨r⟩ over adjacent gaps.
+- The §8 self-check prints a PASS/FAIL/Δ table over all frozen anchors and exits 1 on any
+  mismatch; `ab_cloud_verify_en.m` / `ab_cloud_verify_ru.m` are thin wrappers (§10) with
+  all the math in one kernel.
+- Run: `run_verify('--zeros', 50000)` from MATLAB/Octave, or
+  `octave --eval "run_verify('--zeros', 50000)"` from the shell.
+- `spinor38/` — the Test 38 port: its own Jacobi algorithm (not `eig`), data read from
+  `../spinor64/data/`.

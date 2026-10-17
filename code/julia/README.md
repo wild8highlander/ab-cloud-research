@@ -13,7 +13,7 @@ is kept for reproducibility archaeology.
 
 | File | Lines | What it is |
 |---|---|---|
-| `ab_cloud_full.jl` | 32 095 | byte-identical provenance copy of the canonical full suite (v3.3 line: TEST 34G geometry sweep + estimator-validity patch series) |
+| `ab_cloud_full.jl` | 32 187 | byte-identical provenance copy of the canonical full suite (v3.3 line: TEST 34G geometry sweep + estimator-validity patch series) |
 
 
 ## Running the canonical suite

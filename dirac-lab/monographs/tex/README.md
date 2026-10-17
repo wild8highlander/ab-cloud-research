@@ -9,7 +9,7 @@
 
 > **The bilingual LaTeX sources of the dirac-lab monographs, with covers and compiled PDFs.**
 
-The source layer of the monograph line: `Dirac_Lab_Monograph_{EN,RU}.tex` compile into the PDFs shipped in [`../en/`](../en/) and [`../ru/`](../ru/), and the `cover_{EN}.html/pdf` pair provides the cover pages. The tex files are generated from the JSON content blocks in [`../../scripts_gen/`](../../scripts_gen/) — so the true source is the JSON, the tex is an intermediate, and the PDFs are the artifact.
+The source layer of the monograph line: `Dirac_Lab_Monograph_{EN,RU}.tex` compile into the PDFs shipped in [`../en/`](../en/) and [`../ru/`](../ru/), and the `cover_EN.html/pdf` and `cover_RU.html/pdf` pairs provide the cover pages. The tex files are generated from the JSON content blocks in [`../../scripts_gen/`](../../scripts_gen/) — so the true source is the JSON, the tex is an intermediate, and the PDFs are the artifact.
 
 ## 📁 Contents
 

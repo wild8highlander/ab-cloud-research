@@ -7,7 +7,7 @@ numbers, section structure and verdict ledger are identical across all of them.
 | Edition | Files | Language | Role |
 |---|---|---|---|
 | **LaTeX (canonical typeset)** | [`tex/Dirac_Lab_Monograph_EN.pdf`](tex/Dirac_Lab_Monograph_EN.pdf) · [`tex/Dirac_Lab_Monograph_EN.tex`](tex/Dirac_Lab_Monograph_EN.tex) | English | reference typesetting, compiled with **Tectonic**; sources included |
-| **LaTeX (canonical typeset)** | [`tex/Dirac_Lab_Monograph_RU.pdf`](tex/Dirac_Lab_Monograph_RU.pdf) · [`tex/Dirac_Lab_Monograph_RU.tex`](tex/Dirac_Lab_Monograph_RU.tex) | Русский | full parallel edition, same Tectonic pipeline |
+| **LaTeX (canonical typeset)** | [`tex/Dirac_Lab_Monograph_RU.pdf`](tex/Dirac_Lab_Monograph_RU.pdf) · [`tex/Dirac_Lab_Monograph_RU.tex`](tex/Dirac_Lab_Monograph_RU.tex) | Russian | full parallel edition, same Tectonic pipeline |
 | **DOCX (editable)** | [`en/Dirac_Lab_Monograph_EN.docx`](en/Dirac_Lab_Monograph_EN.docx) · [`ru/Dirac_Lab_Monograph_RU.docx`](ru/Dirac_Lab_Monograph_RU.docx) | EN / RU | editable Word editions (figures embedded) |
 | **DOCX print rendering** | [`en/Dirac_Lab_Monograph_EN.pdf`](en/Dirac_Lab_Monograph_EN.pdf) · [`ru/Dirac_Lab_Monograph_RU.pdf`](ru/Dirac_Lab_Monograph_RU.pdf) | EN / RU | LibreOffice print rendering of the DOCX (30 pp. EN / 33 pp. RU) |
 
@@ -31,7 +31,7 @@ motion D10** · **the conjugation action D11 (Berry–Keating / Connes)** ·
 **the infinite BK ladder D12** · **the D9+D11 pairing D13** · **the second form
 factor D14** · methods · conclusions) → verdict-ledger table (96 checks) →
 24 references. All fourteen laboratory figures are embedded; every number is
-traceable to [`../results/run_20261006_full_v13/`](../results/run_20261006_full_v13/).
+traceable to [`../results/run_20261006_081031/`](../results/run_20261006_081031/).
 
 **Per-test monographs.** In addition to the unified monograph, every one of the
 fourteen tests owns a focused monograph (LaTeX source + compiled PDF, 4–5 pp.)

@@ -6,8 +6,8 @@
 
 # C++17 Verification
 
-Native-speed implementation of the three-objection program. Compiled and
-executed during the v1.1.0 preparation — the binary in `spinor38/` was built
+Native-speed implementation of the three-objection program. The spinor38
+port in `spinor38/` was compiled and executed during the v1.1.0 preparation
 with the exact commands below and reproduced the frozen reference numbers.
 
 ## Files
@@ -18,7 +18,7 @@ with the exact commands below and reproduced the frozen reference numbers.
 | `ab_cloud_verify_en.cpp` | English-only build source |
 | `ab_cloud_verify_ru.cpp` | Russian-only build source |
 | `run_verify.sh` | compiles on the fly (g++ or clang++) and runs the CLI |
-| `spinor38/` | Test 38 port — source + prebuilt Linux binary + README |
+| `spinor38/` | Test 38 port — source + README |
 
 ## Requirements
 
@@ -51,7 +51,6 @@ report file.
 | Item | Value |
 |---|---|
 | Source | `spinor38/spinor38.cpp` |
-| Prebuilt binary | `spinor38/spinor38` (x86-64 Linux, static-ish, g++ -O2) |
 | Verified result | isospectrality **3.4e-14**, ⟨r⟩ = **0.4515710793** — **VERDICT PASS** |
 
 ```bash
@@ -69,32 +68,31 @@ run recorded in `../spinor64/output/run_log.txt`.
 
 - **`g++: command not found`** — install a compiler: Debian/Ubuntu
   `apt install g++`; Termux `pkg install clang`; macOS `xcode-select --install`.
-- **Binary refuses to run after checkout on FAT/exFAT drives** — rebuild it
-  from source (exec bits do not survive on FAT); the same applies to the
-  committed `spinor38` binary on Android shared storage.
+- **A locally built binary refuses to run on FAT/exFAT drives** — rebuild it
+  from source in place (exec bits do not survive on FAT).
 - Windows: build with MSYS2/MinGW-w64 (`pacman -S mingw-w64-ucrt-x86_64-gcc`)
   or WSL; the sources are standard C++17.
 
-## Кратко (по-русски)
+## Summary
 
-- Реализация на C++17 без внешних библиотек; собирается одной командой g++.
-- `./run_verify.sh --zeros 50000 --source 50k --objection 1 --lang en` —
-  компилирует и запускает; CLI и результаты идентичны эталону на Python.
-- `spinor38/` — Порт Test 38: скомпилирован и прогнан при подготовке v1.1.0,
-  изоспектральность 3.4e-14, ⟨r⟩ = 0.4515710793 — ВЕРДИКТ PASS; в папке лежит
-  и готовый бинарник, и исходник.
+- C++17 with no external libraries; a single `g++` command builds the suite.
+- `./run_verify.sh --zeros 50000 --source 50k --objection 1 --lang en`
+  compiles and runs; the CLI and results are identical to the Python reference.
+- `spinor38/` — the Test 38 port, compiled and executed during v1.1.0
+  preparation: isospectrality 3.4e-14, ⟨r⟩ = 0.4515710793 — VERDICT PASS;
+  the folder contains the source and its README.
 
 ## 📁 Complete file inventory
 
 | Entry | Size | Kind |
 |---|---|---|
-| `spinor38/` | 2 files, 8.8 KB | directory |
-| `README.md` | 3.2 KB | file |
-| `ab_cloud_verify.cpp` | 25.2 KB | file |
-| `ab_cloud_verify_en.cpp` | 15.1 KB | file |
-| `ab_cloud_verify_ru.cpp` | 18.5 KB | file |
-| `run_verify.sh` | 5.2 KB | file |
-| **Total (recursive)** | **7 files, 76.0 KB** | |
+| `spinor38/` | 2 files, 10.7 KB | directory |
+| `README.md` | 6.5 KB | file |
+| `ab_cloud_verify.cpp` | 40.8 KB | file |
+| `ab_cloud_verify_en.cpp` | 197 B | file |
+| `ab_cloud_verify_ru.cpp` | 197 B | file |
+| `run_verify.sh` | 956 B | file |
+| **Total (recursive)** | **7 files, 60.2 KB** | |
 
 ## 🔬 Deep dive — the C++ port in the parity matrix
 
@@ -138,17 +136,3 @@ same one-line command shown above. The Test-38 companion lives in
 `spinor38/` where present, and the spinor64 correction experiment — the
 one that established 64/64 GUE-consistency for the Klein-quartic
 structures — lives in `../spinor64/`.
-
-## Кратко (по-русски)
-
-- Порт существует для доказательства паритета: одинаковые замороженные
-  данные, тот же набор тестов, те же эталонные числа (KS = 0.047,
-  p = 0.27; дефект 3.5e-15; ⟨r⟩ = 0.5848 ± 0.0260).
-- Флаги одинаковы во всех десяти реализациях — одна и та же командная
-  строка проигрывается в каждой папке.
-- Расхождение с эталоном трактуется как баг порта, а не как открытие.
-
-- Здесь живёт валидированный эталон spinor38: все прочие порты
-  Теста 38 сверялись с `spinor38/spinor38.cpp` побайтно.
-- Обёртка сама компилирует и запускает; цвета и флаги — на борту.
-- Нативная скорость для прогонов по таблице 2M нулей.

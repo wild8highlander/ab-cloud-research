@@ -28,7 +28,7 @@ imported standalone.
 | RG | `polchinski_rg.py` | Polchinski renormalization-group flow |
 | Isospectral | `isospectral_b.py`, `isospectral_b_en.py` | isospectral *b*-correction verification |
 | FEM | `AB_Cloud_FEM_v6_python.py`, `AB_Cloud_FEM_v8c*.py`, `AB_Cloud_FEM_v8d*.py` | finite-element solvers (versions v6/v8c/v8d, RU/EN) |
-| Vortex systems | `AB_Cloud_Vortex_System_v2.py`, `AB_Cloud_Vortex_System_v2_RU/EN.py`, `ab_cloud_vortex_*.py` | vortex lattice dynamics and searches |
+| Vortex systems | `AB_Cloud_Vortex_System_v2.py`, `AB_Cloud_Vortex_System_v2_RU.py`, `AB_Cloud_Vortex_System_v2_EN.py`, `ab_cloud_vortex_*.py` | vortex lattice dynamics and searches |
 | Verification | `verifier_core.py`, `monograph_verification*.py`, `run_verification*.py`, `AB_CLOUD_ALL_HYPOTHESES.py` | monograph hypothesis checks (parts 1–4), consolidated 11-hypothesis run |
 | Extended studies | `ab_cloud_hybrid_approach*.py`, `ab_cloud_extended_kopt_study*.py`, `ab_cloud_genus_universality*.py`, `ab_cloud_robustness_study*.py`, `ab_cloud_jc_*.py`, `extended_solvers.py`, `large_matrix_demo.py` | kopt scans, genus universality, Jaffe–Choptuik-style checks, robustness |
 | Runners / reports | `run_experiments*.py`, `run_batched.py`, `run_all_75_tasks*.py`, `run_3d_nse_stepwise.py`, `run_final_extensions.py`, `run_monumental.py`, `generate_report*.py` | batch drivers and the JSON/MD/HTML/TXT/CSV report engine |
@@ -36,9 +36,11 @@ imported standalone.
 | Julia originals | `ab_cloud_3d.jl`, `ab_cloud_3d_en.jl`, `Generate_Zeta_Zeros_PythonCall_EN.jl` | the Julia side incl. zero generation via PythonCall |
 
 Naming convention: `_en` suffix = English console output; `_v2` suffix =
-second-generation revision of the same experiment. One quirk preserved from
-the author's upload: `ab_cloud_vortex_powers_final;py` (a stray semicolon in
-the filename) is a duplicate of `ab_cloud_vortex_powers_final.py`.
+second-generation revision of the same experiment.
+
+The `figs/` subfolder holds the figures emitted by the code paths — currently
+`H11_T_symmetry_GUE_summary.png`, the T-symmetry GUE summary of experiment H11
+(see [`figs/README.md`](figs/README.md)); treat it as a build target, not a source.
 
 ## Run examples
 
@@ -52,17 +54,6 @@ julia ab_cloud_3d_en.jl                # Julia original
 ```
 
 Dependencies: `numpy scipy matplotlib sympy mpmath` (see `../requirements.txt`).
-
-## Кратко (по-русски)
-
-- Все модули 3D-лаборатории: гамильтонианы, RMT-статистики, спинор/топология,
-  FEM-солверы, вихревые системы, PDE-эксперименты (Навье–Стокс, KdV, KP),
-  генераторы отчётов.
-- Входные точки: `ab_cloud_3d_en.py` (меню A–J), `quick_start.py`,
-  `AB_CLOUD_ALL_HYPOTHESES.py`; суффикс `_en` — английский вывод, `_v2` —
-  вторая редакция.
-- Зависимости — `numpy scipy matplotlib sympy mpmath` из
-  `../requirements.txt`.
 
 ## 📁 Complete file inventory
 
@@ -116,7 +107,6 @@ Dependencies: `numpy scipy matplotlib sympy mpmath` (see `../requirements.txt`).
 | `ab_cloud_sweeps_v2.py` | 13.7 KB | Python source |
 | `ab_cloud_vortex_fine_search.py` | 12.7 KB | Python source |
 | `ab_cloud_vortex_powers_final.py` | 11.2 KB | Python source |
-| `ab_cloud_vortex_powers_final;py` | 11.0 KB | file |
 | `ab_cloud_vortex_powers_final_en.py` | 11.6 KB | Python source |
 | `ab_cloud_vortex_search.py` | 17.5 KB | Python source |
 | `ab_cloud_vortex_search_en.py` | 17.9 KB | Python source |
@@ -167,7 +157,7 @@ Dependencies: `numpy scipy matplotlib sympy mpmath` (see `../requirements.txt`).
 | `run_verification_extended.py` | 62.1 KB | Python source |
 | `tasks_parametric.py` | 20.0 KB | Python source |
 | `verifier_core.py` | 8.1 KB | Python source |
-| **Total (files)** | **3.7 MB** | 98 files + 1 subdirectories |
+| **Total (files)** | **3.7 MB** | 97 files + 1 subdirectories |
 
 ## 🔬 Deep dive — the rendering and physics pipelines
 

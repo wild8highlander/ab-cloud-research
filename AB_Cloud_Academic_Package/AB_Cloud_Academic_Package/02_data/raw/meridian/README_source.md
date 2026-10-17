@@ -1,6 +1,17 @@
 # 🧭 MERIDIAN SPECTRAL OBSERVATORY
 
-**Language / Язык:** [🇬🇧 English](../../../../meridian-spectral-observatory/README.md) · [🇷🇺 Русский](../../../../meridian-spectral-observatory/README.ru.md)
+**Language:** [🇬🇧 English](../../../../../meridian-spectral-observatory/README.md) · [🇷🇺 Русский](../../../../../meridian-spectral-observatory/README.ru.md)
+
+> [!NOTE]
+> **Bundling scope.** This is a preserved copy of the observatory's own README. This
+> package bundles only the documentation set (`docs/01`–`docs/08` below),
+> `CITATION.cff`, the zero tables (`zeros50k.txt`, `zeta_zeros_50k.txt`), the
+> `p_myset.cfg` profile and this README. The Julia/Python code files named in the
+> tables live in the observatory's repository folder (`meridian-spectral-observatory/`
+> at the repository root); the historical version chain `ab_cloud_v19.jl` …
+> `ab_cloud_v23_v2.jl` and the `test11_honest.jl` / `test11_honest.py` utilities are
+> not part of the repository any more — the current consolidated suite is
+> `ab_cloud_full.jl`.
 
 **A suite of verification codes for the "AB-Cloud" project — from the lattice Aharonov–Bohm model to the statistics of the zeros of the Riemann zeta function.**
 

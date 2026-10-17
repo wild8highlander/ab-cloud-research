@@ -6,9 +6,9 @@
 
 # 🔗 theorems_lemmas — machine-readable theorems
 
-> **Th1–Th12 as bilingual JSON records: the structured twin of the human-readable theorem folders.**
+> **Th1–Th6 as bilingual JSON records: the structured twin of the human-readable theorem folders.**
 
-Every theorem directory one level up ([`../T01_hermiticity/`](../T01_hermiticity/) and friends) has its human-readable statement here in machine-readable form: `ThN_en.json` / `ThN_ru.json` pairs with the statement, dependencies and status fields. The JSON layer is what pages and validators consume, keeping the prose and the structured record from drifting apart.
+Every theorem directory one level up ([`../T01_hermiticity/`](../T01_hermiticity/) and friends) has its human-readable statement here in machine-readable form: `ThN_en.json` / `ThN_ru.json` pairs for N = 1…6, with the statement, dependencies and status fields. The JSON layer is what pages and validators consume, keeping the prose and the structured record from drifting apart.
 
 ## 📁 Contents
 

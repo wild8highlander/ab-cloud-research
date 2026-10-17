@@ -1,8 +1,8 @@
 # data/
 
-| Файл | Содержимое |
+| File | Content |
 |------|-----------|
-| v20_verdict.json | Закоммиченный вердикт кампании V20 (P0) |
+| v20_verdict.json | the committed verdict of campaign V20 (P0) |
 
-Вердикты закоммичены и независимы от свежего пересчёта
-(scripts/compute_v20.py — детерминирован, сиды 96/296).
+Verdicts are committed and independent of a fresh recomputation
+(scripts/compute_v20.py — deterministic, seeds 96/296).

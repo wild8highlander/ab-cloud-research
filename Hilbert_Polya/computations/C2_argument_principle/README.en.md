@@ -180,7 +180,7 @@ Why this builds trust rather than spending it: the formula has no free constants
 
 **Claimed.** Below T = 1000 the critical strip and the critical line hold the same zeros: 649 = 649, at thirteen heights, with winding residuals ≤ 8.3e-25, the arithmetic bridge 2.6e-26, and the classical residual S(T) inside ±1.8 (peak 1.7994 on [0, 1.13e6]). The counting is component-consistent with the rest of the series below that height: phase (C1), counting (C2), zero registry.
 
-**Not claimed.** A proof of RH — verification in the strip up to T = 1000 is a finite check, not an asymptotic theorem; the honest boundary below which the counting agrees component by component. An operator — the Hilbert–Pólya identity remains open, and the package's own verdicts on its lattice gates are negative on spectral identity (Г2: NO, three measurements in C3/C4/C5) even where they are positive on GUE statistics (Г3). An identification of the resonator's self-dual line α = ½ with Re s = ½ — that bridge is conjectural and kept separate from the measurements. A protocol re-count — IVP04/IVP05 check the committed anchors and the S(T) bound, not a fresh run of the campaign.
+**Not claimed.** A proof of RH — verification in the strip up to T = 1000 is a finite check, not an asymptotic theorem; the honest boundary below which the counting agrees component by component. An operator — the Hilbert–Pólya identity remains open, and the package's own verdicts on its lattice gates are negative on spectral identity (H2: NO, three measurements in C3/C4/C5) even where they are positive on GUE statistics (H3). An identification of the resonator's self-dual line α = ½ with Re s = ½ — that bridge is conjectural and kept separate from the measurements. A protocol re-count — IVP04/IVP05 check the committed anchors and the S(T) bound, not a fresh run of the campaign.
 
 <img src="../../assets/avatars/hp_agent_vera.svg" width="120" align="right" alt="Agent Vera"/>
 
@@ -202,7 +202,7 @@ It prints the anchors and blocks with their counts, residuals and on-line number
 Environment and guarantees: series seed — **96**; RNG streams fixed (`engine/hamiltonian.py`); dependencies in `requirements.txt`; reference environment of the release run Python 3.12, numpy 2.1, scipy 1.14, mpmath 1.3; the registry rule requires a repeated run to reproduce the committed values **bit-for-bit** (see `data/README.md`). For the protocol-level cross-check of the committed numbers:
 
 ```bash
-bash independent_verification/RUN_ALL.sh
+python3 -c "from hpbridge.validate import run_all; [print(r) for r in run_all()]"
 ```
 
 with the C2-relevant rows IVP04 (anchors 0/3/10/29/79/649 — PASS) and IVP05 (S(T) ≤ 1.8, measured 1.8 — PASS).
@@ -213,10 +213,10 @@ with the C2-relevant rows IVP04 (anchors 0/3/10/29/79/649 — PASS) and IVP05 (S
 
 | File | Where |
 |---|---|
-| `fig03_argument_en.png` | 600 dpi — `figures_hires/en/fig03_argument_en.png`; screen — `figures/en/` |
-| `fig04_gaps_en.png` | 600 dpi — `figures_hires/en/fig04_gaps_en.png`; screen — `figures/en/` |
+| `fig03_argument_en.png` | 600 dpi — top-level `figures_hires/en/fig03_argument_en.png`; screen — `figures/en/` |
+| `fig04_gaps_en.png` | 600 dpi — top-level `figures_hires/en/fig04_gaps_en.png`; screen — `figures/en/` |
 
-(The Russian-figure variants of the same plots are `fig03_argument.png` and `fig04_gaps.png` under `figures_hires/ru/` and `figures/ru/`.) Captions, as in the monograph: *N(T) (copper) against the smooth count N̄(T) (teal) and the residual S(T) (dashed, right axis): the anchors sit on the curve*; *nearest-neighbour zero gaps below T = 1000: mean 1.521, minimum 0.3104, maximum 6.887*. Numeric substrate: `data/curve.npz` and the `S_curve` block of `data/results.json`.
+(The Russian-labelled variants of the same plots are `fig03_argument_ru.png` and `fig04_gaps_ru.png` under the top-level `figures_hires/ru/` and `figures/ru/`.) Captions, as in the monograph: *N(T) (copper) against the smooth count N̄(T) (teal) and the residual S(T) (dashed, right axis): the anchors sit on the curve*; *nearest-neighbour zero gaps below T = 1000: mean 1.521, minimum 0.3104, maximum 6.887*. Numeric substrate: `data/curve.npz` and the `S_curve` block of `data/results.json`.
 
 Monographs — the full monograph of this computation (setting, theorems, tables, figures, honest limitations): `monograph_ru.docx` · `monograph_ru.pdf` · `monograph_en.docx` · `monograph_en.pdf` — 7–9 pages, the same content in two languages.
 
@@ -230,7 +230,7 @@ Monographs — the full monograph of this computation (setting, theorems, tables
 
 ## Verdict
 
-**{'ru': 'RH верифицирована в полосе до T = 1000 (649 = 649)', 'en': 'RH verified in the strip up to T = 1000 (649 = 649)'}** — details: `data/results.json`, the monograph, and `independent_verification/` (the IVP checks of this campaign).
+**RH verified in the strip up to T = 1000 (649 = 649)** — details: `data/results.json`, the monograph, and `independent_verification/` (the IVP checks of this campaign).
 
 <a id="sec-faq"></a>
 

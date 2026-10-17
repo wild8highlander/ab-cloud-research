@@ -14,9 +14,12 @@ Concurrency-friendly Go implementation — standard library only.
 |---|---|
 | `main.go` | CLI runner + bilingual output |
 | `zeros.go` | the shared `load_zeros(dataDir, count, source)` loader |
+| `objections.go` | the three objection checks — structured, language-agnostic result payloads |
+| `selfcheck.go` | the frozen-anchor self-check (28 golden anchors) |
 | `verify_en.go` | English-only check set |
 | `verify_ru.go` | Russian-only check set |
 | `run_verify.sh` | convenience wrapper (`go run .`) |
+| `go.mod` | module definition — standard library only |
 | `spinor38/` | Test 38 port — own module (`go.mod`) + README |
 
 ## Requirements
@@ -42,8 +45,8 @@ CLI: `--zeros N`, `--source NAME`, `--objection 1/2/3/all`, `--lang en/ru`,
 
 The same verdict set as the Python reference: b(N) convergence table with the
 power-law fit, KS/CvM p-values against the GUE Wigner surmise, ⟨r⟩ with
-bootstrap error, decay slope with 95% CI, timestamped report. Go's deterministic
-`math/rand` seeding keeps bootstrap reruns reproducible.
+bootstrap error, decay slope with 95% CI, timestamped report. Reruns are
+fully deterministic — the port draws no random samples.
 
 ## spinor38/ — Test 38 port
 
@@ -59,27 +62,29 @@ Reads the frozen classes from `../spinor64/data/`, rebuilds the 28 odd-orbit
 spectra with a hand-written cyclic-Jacobi eigensolver; details in
 `spinor38/README.md`.
 
-## Кратко (по-русски)
+## Summary
 
-- Реализация на Go ≥ 1.21, только стандартная библиотека — `go run` работает
-  офлайн.
-- `go run . --zeros 50000 --source 500k --objection all --lang ru` — CLI и
-  вердикты идентичны эталону на Python.
-- `spinor38/` — отдельный Go-модуль порта Test 38 (свой `go.mod`, алгоритм
-  Якоби без LAPACK).
+- Go ≥ 1.21, standard library only — `go run` works fully offline.
+- `go run . --zeros 50000 --source 500k --objection all --lang ru` — the CLI and
+  verdicts are identical to the Python reference.
+- `spinor38/` — a separate Go module for the Test 38 port (own `go.mod`, Jacobi
+  algorithm without LAPACK).
 
 ## 📁 Complete file inventory
 
 | Entry | Size | Kind |
 |---|---|---|
-| `spinor38/` | 3 files, 7.7 KB | directory |
-| `README.md` | 2.0 KB | file |
-| `main.go` | 2.1 KB | file |
-| `run_verify.sh` | 78 B | file |
-| `verify_en.go` | 7.1 KB | file |
-| `verify_ru.go` | 8.0 KB | file |
-| `zeros.go` | 3.5 KB | file |
-| **Total (recursive)** | **9 files, 30.5 KB** | |
+| `spinor38/` | 3 files, 9.5 KB | directory |
+| `README.md` | 5.6 KB | file |
+| `go.mod` | 30 B | file |
+| `main.go` | 2.7 KB | file |
+| `objections.go` | 4.2 KB | file |
+| `run_verify.sh` | 379 B | file |
+| `selfcheck.go` | 2.9 KB | file |
+| `verify_en.go` | 3.4 KB | file |
+| `verify_ru.go` | 4.4 KB | file |
+| `zeros.go` | 9.4 KB | file |
+| **Total (recursive)** | **12 files, 43.3 KB** | |
 
 ## 🔬 Deep dive — the Go port in the parity matrix
 
@@ -125,17 +130,3 @@ same one-line command shown above. The Test-38 companion lives in
 `spinor38/` where present, and the spinor64 correction experiment — the
 one that established 64/64 GUE-consistency for the Klein-quartic
 structures — lives in `../spinor64/`.
-
-## Кратко (по-русски)
-
-- Порт существует для доказательства паритета: одинаковые замороженные
-  данные, тот же набор тестов, те же эталонные числа (KS = 0.047,
-  p = 0.27; дефект 3.5e-15; ⟨r⟩ = 0.5848 ± 0.0260).
-- Флаги одинаковы во всех десяти реализациях — одна и та же командная
-  строка проигрывается в каждой папке.
-- Расхождение с эталоном трактуется как баг порта, а не как открытие.
-
-- Разбит по ролям: main (оркестрация), zeros (загрузчик),
-  verify_en/verify_ru (варианты отчёта) — как в компилируемых портах.
-- Ноль внешних зависимостей: собирается офлайн из свежего клона.
-- Демонстрирует паритет под GC-рантаймом со строгим стилем компилятора.

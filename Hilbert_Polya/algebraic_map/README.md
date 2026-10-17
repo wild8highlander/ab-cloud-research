@@ -1,78 +1,84 @@
-# algebraic_map — алгебраическая функция якобиевой кодировки
+# algebraic_map — the algebraic function of the Jacobi encoding
 
-Этот каталог поднимает пиксельный протокол (`video/pixel_decoding.py`,
-Appendix H.8) от «численного алгоритма» до **явной алгебраической функции**
-и отвечает на вопрос: *какие формулы порождает кодировка и какие из них новы*.
+This directory lifts the pixel protocol (`video/pixel_decoding.py`,
+Appendix H.8) from a "numerical algorithm" to an **explicit algebraic
+function** and answers the question: *which formulas does the encoding
+generate, and which of them are new*.
 
-## Коротко: что такое Φ
+## In short: what Φ is
 
-Кодировка отображает нули и веса в гейты канвы. Оказывается, эта карта —
-классическая якобиева карта (Стилтьес, 1894–95; Грам; современные изложения:
-Szegő 1939, Golub–Meurant 2010, Deift 1999), записанная в явных определителях:
+The encoding maps the zeros and the weights onto the gates of the canvas.
+It turns out that this map is the classical Jacobi map (Stieltjes,
+1894–95; Gram; modern treatments: Szegő 1939, Golub–Meurant 2010, Deift
+1999), written in explicit determinants:
 
 ```
-мера:      ν_n = w_n² / Σ w_j²,   w_n ∝ 1/|ζ'(ρ_n)|        (веса = квадраты вычетов 1/ζ)
-моменты:   μ_k = Σ_n ν_n γ_n^k
-D_n  = det(μ_{i+j})_{i,j=0}^{n−1},  D_0 = 1              (Ханкель)
-S_n  = det(ганкелева с последним столбцом μ_{i+n}),  S_0 = 0
+measure:    ν_n = w_n² / Σ w_j²,   w_n ∝ 1/|ζ'(ρ_n)|        (weights = squares of the 1/ζ residues)
+moments:    μ_k = Σ_n ν_n γ_n^k
+D_n  = det(μ_{i+j})_{i,j=0}^{n−1},  D_0 = 1              (Hankel)
+S_n  = det(Hankel with last column μ_{i+n}),  S_0 = 0
 
-Φ:  α_n = S_{n+1}/D_{n+1} − S_n/D_n                       (диагональ J)
-    β_n² = D_{n+1}·D_{n−1}/D_n²                           (внедиагональ J²)
+Φ:  α_n = S_{n+1}/D_{n+1} − S_n/D_n                       (diagonal of J)
+    β_n² = D_{n+1}·D_{n−1}/D_n²                           (off-diagonal of J²)
 ```
 
-Φ рациональна по (γ, ν); единственный радикал — β_n = √β_n².
-Ланцош в `pixel_decoding.py` — просто численный способ вычислить Φ;
-декодирование (рекуррентность трёхчлена + бисекция) — обратная ветвь Φ⁻¹:
-коэффициенты p_N(λ) = det(λI − J) суть элементарные симметрические
-многочлены узлов γ (тождества Ньютона), корни p_N — исходные нули.
+Φ is rational in (γ, ν); the only radical is β_n = √β_n². The Lanczos in
+`pixel_decoding.py` is simply a numerical way to evaluate Φ; decoding
+(the three-term recurrence + bisection) is the inverse branch Φ⁻¹: the
+coefficients of p_N(λ) = det(λI − J) are the elementary symmetric
+polynomials of the nodes γ (Newton's identities), and the roots of p_N
+are the original zeros.
 
-## Файлы
+## Files
 
-| Файл | Назначение |
-|------|-----------|
-| `jacobi_map.py` | Библиотека: моменты, Ханкель, Φ (две ветви: точная Стилтьес + mpmath-определители), Φ⁻¹, тождества, квантование Q22, эталонный Ланцош |
-| `run_verification.py` | Полная верификация на закоммиченных данных; пишет `data/amap_results.json` и рисунки `figures/{ru,en}/fig26..28` |
-| `data/amap_results.json` | Все числа: точные проверки, log₁₀ D_n/S_n/h_n, профили, границы |
-| `report/` | Отчёт «Алгебраическая карта якобиевой кодировки» (RU, PDF/DOCX) |
+| File | Purpose |
+|------|---------|
+| `jacobi_map.py` | Library: moments, Hankel, Φ (two branches: exact Stieltjes + mpmath determinants), Φ⁻¹, identities, Q22 quantization, reference Lanczos |
+| `run_verification.py` | Full verification on the committed data; writes `data/amap_results.json` and the figures `figures/{ru,en}/fig26..28` |
+| `data/amap_results.json` | All the numbers: exact checks, log₁₀ D_n/S_n/h_n, profiles, bounds |
+| `report/` | Report "The algebraic map of the Jacobi encoding" (RU, PDF/DOCX): `HPB_algebraic_map_2026-10-13_ru.pdf` / `.docx`, the `_cover.html` cover, and `src/` — the build sources (content blocks and assembly scripts) |
 
-## Главные результаты (см. report/ для деталей)
+## Main results (see report/ for details)
 
-1. **Точное замыкание в ℚ.** На реальных данных (24 нуля, веса 1/|ζ′|²):
-   char-полином, собранный из (α, β²), совпадает с Π(λ − γ_n) **во всех 25
-   коэффициентах точно** (Fraction-арифметика); D₂₅ = 0 точно; Σαₙ = Σγₙ
-   точно — в частности, witness-пара `mean_alpha`/`mean_gamma` в канве
-   совпадает на 0.0 (скрытая контрольная сумма протокола).
-2. **Две независимые ветви Φ** (последовательная Стилтьес-процедура и
-   определители D/S при dps = 350) совпадают до 10⁻³⁰³ — формулы
-   D/S доказаны на данных, а не «проверены на глаз».
-3. **Граница Вейля объясняет погрешность декодирования**: ‖ΔJ‖₂ = 2.04·10⁻⁷ ≥
-   max|Δγ| = 1.26·10⁻⁷; каждый гейт точен до половины ультива 2⁻²³.
-4. **Алгебраическая контрольная сумма**: тождество Σα² + 2Σβ² = Σγ²
-   усиливает одиночный квант канвы в 2¹⁵ ≈ 3.3·10⁴ раз — дешёвый тест
-   целостности любых будущих перегенераций данных.
-5. **Новая инстанциация**: мера кодировки — «мера квадратичных вычетов»
-   ν_n ∝ |Res(1/ζ, ρ_n)|²; её якобиева матрица, профили αₙ/βₙ и определители
-   D_n, S_n в литературе не табулированы (насколько нам известно). Классика —
-   сами формулы; новым является объект, на котором они замкнуты, и то,
-   что пиксельная канва = Q22-квантование Φ.
+1. **Exact closure over ℚ.** On the real data (24 zeros, weights
+   1/|ζ′|²): the char-polynomial assembled from (α, β²) coincides with
+   Π(λ − γ_n) **in all 25 coefficients exactly** (Fraction arithmetic);
+   D₂₅ = 0 exactly; Σαₙ = Σγₙ exactly — in particular, the witness pair
+   `mean_alpha`/`mean_gamma` on the canvas agrees to 0.0 (a hidden
+   checksum of the protocol).
+2. **Two independent branches of Φ** (the sequential Stieltjes
+   procedure and the D/S determinants at dps = 350) agree to 10⁻³⁰³ —
+   the D/S formulas are proven on the data, not "checked by eye".
+3. **The Weyl bound explains the decoding error**: ‖ΔJ‖₂ = 2.04·10⁻⁷ ≥
+   max|Δγ| = 1.26·10⁻⁷; each gate is accurate to half an ulp of 2⁻²³.
+4. **An algebraic checksum**: the identity Σα² + 2Σβ² = Σγ²
+   strengthens the single canvas quantum by a factor of 2¹⁵ ≈ 3.3·10⁴ —
+   a cheap integrity test for any future regeneration of the data.
+5. **A new instantiation**: the encoding's measure is the "measure of
+   quadratic residues" ν_n ∝ |Res(1/ζ, ρ_n)|²; its Jacobi matrix, the
+   profiles αₙ/βₙ and the determinants D_n, S_n are not tabulated in the
+   literature (as far as we know). The classics are the formulas
+   themselves; what is new is the object they close on, and the fact
+   that the pixel canvas is the Q22 quantization of Φ.
 
-## Запуск
+## Running
 
 ```bash
 cd algebraic_map
-python3 run_verification.py     # ~30 c: numpy, mpmath, pillow, matplotlib
+python3 run_verification.py     # ~30 s: numpy, mpmath, pillow, matplotlib
 ```
 
-Санкция запуска: Ланцош воспроизводит закоммиченный JSON бит-в-бит
-(dAlpha = dBeta = 0), все точные проверки зелёные — любое отклонение
-означает порчу данных.
+Sanction to run: the Lanczos reproduces the committed JSON bit-for-bit
+(dAlpha = dBeta = 0), all exact checks are green — any deviation means
+the data is corrupted.
 
-## Честные рамки
+## Honest scope
 
-Это не доказательство RH и не «генерация нулей из арифметики»: Φ — обратная
-задача (нули уже входят во вход). Ценность: (а) пиксельный протокол получил
-замкнутую формулу вместо «чёрного ящика» Ланцоша — это готовый инструмент
-для слепого протокола N7 из `results/ROADMAP.md`; (б) данные ζ-меры
-(αₙ, βₙ, Dₙ, Sₙ, hₙ) теперь точно вычислимы и проверяемы в ℚ; (в) найдены
-и доказаны тождества-следствия (K1–K8 в отчёте), включая практические
-контрольные суммы.
+This is not a proof of RH and not "generating zeros from arithmetic":
+Φ is an inverse problem (the zeros are already part of the input). The
+value: (a) the pixel protocol has gained a closed formula instead of a
+Lanczos "black box" — a ready instrument for the blind protocol N7 of
+`results/ROADMAP.md`; (b) the data of the ζ-measure (αₙ, βₙ, Dₙ, Sₙ, hₙ)
+are now exactly computable and verifiable over ℚ; (c) corollary
+identities (K1–K8 in the report) have been found and proven, including
+practical checksums.

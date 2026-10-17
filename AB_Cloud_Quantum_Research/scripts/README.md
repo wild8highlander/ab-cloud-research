@@ -17,50 +17,42 @@
 </div>
 
 > 🧭 **Navigation:** [↑ main README](../README.md) · [📚 monographs](../MONOGRAPH_ARCHIVE/README.md) · [🧪 hypothesis lab](../HYPOTHESIS_LAB/README.md) · [🎞 animations](../VISUAL_ANIMATIONS/README.md)
-# 🔧 scripts/ — пайплайны пакета AB Cloud Quantum Research
+# 🔧 scripts/ — the pipelines of the AB Cloud Quantum Research package
 
-| Скрипт | Что делает |
+| Script | What it does |
 |--------|-----------|
-| `make_tiled_figures.py` | 12 плиточных фигур 2×2 («4 измерения») @600 dpi для Th1–Th6 из закоммиченных вердиктов → `figures_tiled/{ru,en}/` + `theorems_lemmas/T0K_*/figures/` |
-| `make_theorem_docs.py` | 12 документов теорем (RU/EN × PDF/DOCX) с внедрённой плиточной фигурой; рендеры и контент — из `modules/core_spectrum` без дублирования |
-| `make_theorem_readmes.py` | 6 детальных README папок теорем (вывод, 4 измерения, границы, EN summary) |
-| `make_banner.py` | анимированный баннер `assets/banner.gif` (критическая прямая + нули ζ) и логотип `assets/logo*.svg/png` |
-| `make_release.py` | SHA256SUMS.txt + ZIP релиза в `/home/z/my-project/download/` |
-| `validate_package.py` | чистая проверка (95+): структура, версии, вердикты, 36 документов, 20 фигур, веб-лаборатории, формальный слой, витрина |
-| `make_datasets.py` | курируемые данные: flagship_numbers, campaign_timeline (43 кампании), эталон 660 нулей ζ → `datasets/` |
-| `make_atlas.py` | атлас флагманов — плитка 2×2 (слепые нули · компилятор · след·простые · CHSH) @600 dpi → `atlas/` |
-| `make_timeline.py` | хронологическая карта 43 кампаний @600 dpi → `timeline/` |
-| `make_whitepaper.py` | белый отчёт исследования (RU/EN PDF, числа из вердиктов) → `whitepaper/` |
+| `make_tiled_figures.py` | 12 tiled 2×2 figures ("4 dimensions") @600 dpi for Th1–Th6 from committed verdicts → `figures_tiled/{ru,en}/` + `theorems_lemmas/T0K_*/figures/` |
+| `make_theorem_docs.py` | 12 theorem documents (RU/EN × PDF/DOCX) with the embedded tiled figure; the renderers and the content come from `modules/core_spectrum` without duplication |
+| `make_theorem_readmes.py` | 6 detailed READMEs of the theorem folders (derivation, 4 dimensions, boundaries, EN summary) |
+| `make_banner.py` | the animated banner `assets/banner.gif` (the critical line + the ζ zeros) and the logos `assets/logo*.svg/png` |
+| `make_release.py` | SHA256SUMS.txt + the release ZIP in `/home/z/my-project/download/` |
+| `validate_package.py` | the clean check (95+): structure, versions, verdicts, 36 documents, 20 figures, the web labs, the formal layer, the showcase |
+| `make_datasets.py` | curated data: flagship_numbers, campaign_timeline (43 campaigns), the 660-zero ζ reference → `datasets/` |
+| `make_atlas.py` | the flagship atlas — a 2×2 tile (blind zeros · compiler · trace·primes · CHSH) @600 dpi → `atlas/` |
+| `make_timeline.py` | the timeline map of the 43 campaigns @600 dpi → `timeline/` |
+| `make_whitepaper.py` | the research white paper (RU/EN PDF, the numbers from verdicts) → `whitepaper/` |
 
-Скрипты вспомогательного исследования — в
+The scripts of the supplementary study are in
 `research/realtime_spinor_memory/` (`make_figures.py`,
 `make_theorem_docs.py`, `experiments/run_all.py`).
 
-## Быстрый старт
+## Quick start
 
 ```bash
-python3 scripts/make_tiled_figures.py     # фигуры
-python3 scripts/make_theorem_docs.py      # 24 doc-файла (12 док-ов)
-python3 scripts/make_theorem_readmes.py   # README теорем
-python3 scripts/make_banner.py            # assets
-python3 scripts/validate_package.py       # самопроверка
-python3 scripts/make_release.py           # релиз
+python3 scripts/make_tiled_figures.py     # the figures
+python3 scripts/make_theorem_docs.py      # 24 doc files (12 documents)
+python3 scripts/make_theorem_readmes.py   # the theorem READMEs
+python3 scripts/make_banner.py            # the assets
+python3 scripts/validate_package.py       # the self-check
+python3 scripts/make_release.py           # the release
 ```
 
-## Зависимости
+## Dependencies
 
 Python ≥ 3.10: `matplotlib`, `numpy`, `Pillow`, `reportlab`, `python-docx`,
-`openpyxl`, `pypdf` (см. `../requirements.txt`). Рендеры теорем используют
-шрифты FreeSerif из системы. Julia-программа запускается своим стеком:
+`openpyxl`, `pypdf` (see `../requirements.txt`). The theorem renderers use
+the system FreeSerif fonts. The Julia program is run by its own stack:
 `julia modules/verifier_multilang/experiments/run_all.jl all`.
-
-## English summary
-
-`scripts/` builds everything derived in the merged package: tiled 4-dimension
-figures (600 dpi), the 12 bilingual theorem documents with embedded tiles,
-theorem READMEs, the animated banner/logo assets, package validation and the
-release ZIP. Renderers and theorem content are reused from the mother
-package — no source duplication.
 
 ---
 

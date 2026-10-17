@@ -135,8 +135,8 @@ Each tag in `data/results.json` carries `t` (101 frames, 0 → 40 step 0.4), `mx
 
 | File | Where |
 |---|---|
-| `fig13_dynamics_en.png` | 600 dpi — `figures_hires/en/fig13_dynamics_en.png`; screen — `figures/en/` |
-| `fig13_dynamics.png` | 600 dpi — `figures_hires/ru/fig13_dynamics.png`; screen — `figures/ru/` |
+| `fig13_dynamics_en.png` | 600 dpi — top-level `figures_hires/en/fig13_dynamics_en.png`; screen — `figures/en/` |
+| `fig13_dynamics_ru.png` | 600 dpi — top-level `figures_hires/ru/fig13_dynamics_ru.png`; screen — `figures/ru/` |
 
 The motion is also shipped as `anim_wavepacket.mp4` / `anim_wavepacket.gif` in this folder, with a still at `data/wavepacket_dynamics.png`.
 
@@ -146,31 +146,31 @@ The motion is also shipped as `anim_wavepacket.mp4` / `anim_wavepacket.gif` in t
 
 **H4 — YES (honest dynamics); the bridge to Re(s)=½ is a conjecture** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign). Registry entry: row 19 of `results/RESULTS.md` — *Transport P(x ≥ 90): ζ 0.0032 vs random 0.0002 (×16), C7*.
 
-Committed verdict record, verbatim from the source (bilingual dict): **{'ru': 'Г4 — ДА (динамика честная); мост к Re(s)=½ — конъектура', 'en': 'H4 — YES (honest dynamics); the bridge to Re(s)=½ is a conjecture'}**.
+Committed verdict record (EN, verbatim): **H4 — YES (honest dynamics); the bridge to Re(s)=½ is a conjecture**.
 
 ## FAQ
 
-#### What moves on the lattice — an electron, a zero, or what?
+### What moves on the lattice — an electron, a zero, or what?
 
 A wave packet: a Gaussian superposition of eigenstates of the gate Hamiltonian. No individual eigenvalue is tracked and no zero of ζ is simulated. The packet is a probe, the way a test charge probes a field.
 
-#### Why should I believe the ×16 rather than shrug at it?
+### Why should I believe the ×16 rather than shrug at it?
 
 Because the ratio is taken inside a matched pair (`z256` vs `r256`: same density, geometry, disorder and packet) and under a 1e-15 energy certificate. The denominator is the pre-registered null "phase structure does not matter"; the numerator beats it by an order of magnitude on its own turf.
 
-#### The clean lattice transmits more than the ζ-gate — doesn't that weaken the story?
+### The clean lattice transmits more than the ζ-gate — doesn't that weaken the story?
 
 It sharpens it. The claim was never "arithmetic beats emptiness" but "arithmetic beats randomness at equal obstruction": clean 0.0073 > ζ 0.0032 > random 0.0002. Vortices brake; the ζ-ordering leaves doors open that randomness closes.
 
-#### Is the sideways drift (⟨y⟩: 48 → 38) just the vortices pushing the packet?
+### Is the sideways drift (⟨y⟩: 48 → 38) just the vortices pushing the packet?
 
 A random vortex field of the same strength pushes nowhere (48.0 → 47.8). A push with a preferred side requires a preferred direction in the medium — which is exactly what the ordered phases supply and the randomised phases erase.
 
-#### Where is the line between what C7 measured and what it conjectures?
+### Where is the line between what C7 measured and what it conjectures?
 
 Measured: coherent propagation, reflection, braking, drift, far-wing transport with energy conserved to 1e-15, on the line α = ½. Conjectured: that this line *is* the critical line Re(s) = ½. The package prints the two in different typefaces for a reason.
 
-#### I only have five minutes — what do I run?
+### I only have five minutes — what do I run?
 
 `python3 campaigns/run_c7_dynamics.py` — it prints the committed verdict in seconds, no zeros file needed. The figures (`fig13_dynamics_en.png` at 600 dpi) and the animation (`anim_wavepacket.mp4`) do the visual explaining.
 

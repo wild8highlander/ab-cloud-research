@@ -18,7 +18,7 @@ The executable reads the same frozen ζ-zero dataset as the numerical suite and 
 ```bash
 cd formal/lean4
 lake build            # elaborates the whole development, proofs included
-lake exeABCloud  # runs the executable re-derivation; non-zero exit = drift
+lake exe abcloud-verify    # runs the executable re-derivation; non-zero exit = drift
 ```
 CI runs both commands on every push — see the `lean4` job in [`formal.yml`](../../.github/workflows/formal.yml). The pinned toolchain in `lean-toolchain` is what CI installs; any newer toolchain must re-verify cleanly before being pinned here.
 
@@ -27,6 +27,10 @@ CI runs both commands on every push — see the `lean4` job in [`formal.yml`](..
 | Item | Kind | Size | What it is |
 |---|---|---|---|
 | `ABCloud/` · [README](ABCloud/README.md) | folder | 5 items | module namespace for the development's submodules |
+| [`ABCloud/Basic.lean`](ABCloud/Basic.lean) | Lean 4 | 8.7 KB | exact layer — theorems over ℕ/ℤ (b(N) residual, Gram-offset lattice, group orders, orbit decomposition, trace identity) |
+| [`ABCloud/Zeta.lean`](ABCloud/Zeta.lean) | Lean 4 | 7.9 KB | numeric port — Lambert W → Gram points → b(N) ladder → spacings → GUE CDF → regression |
+| [`ABCloud/Embed.lean`](ABCloud/Embed.lean) | Lean 4 | 8.5 KB | generated frozen reference data (golden anchors + embedded 256-zero dataset) |
+| [`ABCloud/Verify.lean`](ABCloud/Verify.lean) | Lean 4 | 10.6 KB | the `abcloud-verify` executable (parser, check battery, CLI) |
 | [`ABCloud.lean`](ABCloud.lean) | Lean 4 | 336 B | root module — exact lemmas + the executable re-derivation with exit-code-gated tolerance checks |
 | [`lake-manifest.json`](lake-manifest.json) | JSON | 113 B | lockfile — intentionally dependency-free |
 | [`lakefile.lean`](lakefile.lean) | Lean 4 | 807 B | Lake build recipe (checked by CI on every push) |

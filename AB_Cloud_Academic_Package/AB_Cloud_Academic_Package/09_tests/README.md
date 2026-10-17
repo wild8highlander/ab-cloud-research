@@ -10,7 +10,8 @@
 | [`python/test_monograph_structure.py`](python/test_monograph_structure.py) | the monograph keeps its section skeleton and honesty boundary; PDF/DOCX built |
 | [`python/test_reports_and_lab.py`](python/test_reports_and_lab.py) | report suite completeness; web lab data injection and offline-ness |
 | `bench_runners.sh` | quick timing of the six runners |
-| `fixtures/` | small fixtures |
+| `python/conftest.py` | shared pytest configuration for the suite |
+| `python/fixtures/` | small fixtures |
 | `reports/` | coverage output |
 
 ## Run

@@ -43,8 +43,9 @@ python3 tools/make_extra_figures.py      # ~25 s, writes into tests/*/
 The LaTeX monograph emitters used during the v1.4 build live outside the
 repository, but their **outputs are fully in-repo**: every
 `tests/*/monograph.tex` compiles standalone (see the root `Makefile`,
-target `make monograph D=D7`), and the two main editions compile from
-`monographs/tex/` (target `make monographs-tex`) with the figures copied
-into `monographs/tex/figures/`. Any TeX distribution with XeTeX support
+target `make monograph D=tests/D07_zeta_decoration`), and the two main editions
+compile from `monographs/tex/` (`cd monographs/tex && tectonic …`) with the
+figures resolved against the canonical `figures/` folder. Any TeX distribution
+with XeTeX support
 (the repository CI used [Tectonic](https://tectonic-typesetting.github.io))
 builds them without extra assets.

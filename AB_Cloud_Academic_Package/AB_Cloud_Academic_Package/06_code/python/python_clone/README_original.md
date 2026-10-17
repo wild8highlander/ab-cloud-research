@@ -1,7 +1,7 @@
 # AB-Cloud v23 SUPERCOMBO — Python Clone
 
 A faithful, dependency-light **Python reimplementation** of the Julia
-verification suite `ab_cloud_v23.jl` (AB-Cloud v23 SUPERCOMBO): all **38
+verification suite `ab_cloud_full.jl` (AB-Cloud v23 SUPERCOMBO): all **38
 tests**, the two-pass verdict algebra, report generation and plotting.
 
 Author of the original suite and of this reimplementation:
@@ -27,7 +27,7 @@ python -m abcloud.cli --test all --full          # reference-scale everything
 ```
 
 Outputs land in `results_py/` (configurable via `--out`): per-test folders
-`test_XX_<slug>/report.md` + `plots/plot_01.png`, `plots/plot_02.png`, and a
+`test_XX_<slug>/report.md` + generated `plots/` PNGs, and a
 master `final_report.md` + `results.json`.
 
 ## What is implemented
@@ -50,7 +50,9 @@ master `final_report.md` + `results.json`.
 
 The clone ships the **same embedded 50,000-zero dataset** as the Julia
 original (`abcloud/data/zeta_zeros_50000.txt`, extracted verbatim from
-`EMBEDDED_ZEROS_50K_STR`, `ab_cloud_v23_v3.jl` line 4679). The reference
+the suite's `EMBEDDED_ZEROS_50K_STR` — line 4760 of
+`06_code/lab_standalone/ab_cloud_full.jl`, the suite build shipped in
+this package). The reference
 run's statistics are therefore recomputed on the identical data. Zeros above
 50,000 (only needed with `--zeros >50000`) are computed via mpmath and cached.
 
@@ -67,8 +69,8 @@ Exactly as in the Julia suite:
 
 A runtime exception in either pass produces a FAIL entry with the exception
 text (Julia parity — cf. the v3 `UndefVarError: R_POISSON` incident of the
-unpatched original, fixed in `ab_cloud_v23_v3.1.jl` (reference build: `ab_cloud_v23_v3.2.jl`) and structurally
-impossible in the clone, which uses `R_MEAN_POISSON`).
+unpatched original, fixed in the suite's v3.1 patch (reference build: v3.2)
+and structurally impossible in the clone, which uses `R_MEAN_POISSON`).
 
 ## Known deviations (documented, by design)
 

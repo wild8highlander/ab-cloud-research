@@ -1,173 +1,155 @@
-# ⚡ Машина без долговременной памяти: спинорные фазовые модели реального времени
+# ⚡ The machine without long-term memory: real-time spinor phase models
 
-**Вспомогательное исследование программы [AB Cloud Quantum Research](../../../README.md)
-· v1.0.0** · 3 модели (θ = π/2 · π/3 · π/7) · 5 кампаний с
-предрегистрированными порогами (все PASS) · 3 теоремы · 12 документов
-(RU/EN × PDF/DOCX) · 8 плиточных фигур @600 dpi · 11 тестов
+**A supplementary study of the [AB Cloud Quantum Research](../../../README.md)
+program · v1.0.0** · 3 models (θ = π/2 · π/3 · π/7) · 5 campaigns with
+pre-registered thresholds (all PASS) · 3 theorems · 12 documents
+(RU/EN × PDF/DOCX) · 8 tiled figures @600 dpi · 11 tests
 
 > [!IMPORTANT]
-> **Центральный тезис.** У AB-компьютера нет долговременной памяти —
-> только оперативное (летучее) состояние, исполняющее шаги в реальном
-> времени. Это не ограничение реализации, а архитектурный принцип:
-> машина **читает** математику (следовую формулу, спектр, нули ζ) и
-> ничего не несёт. Настоящее исследование доводит тезис до отдельных
-> моделей и доказывает три теоремы: замкнутость фазовых циклов (TS1),
-> необратимость стирания (TS2), несовместимость вечного журнала с
-> жёстким реальным временем (TS3).
+> **Central claim.** The AB computer has no long-term memory —
+> only volatile state executing steps in real time. This is not an
+> implementation limitation but an architectural principle: the machine
+> **reads** mathematics (the trace formula, the spectrum, the ζ zeros) and
+> carries nothing. This study reduces the claim to explicit models and
+> proves three theorems: closure of the phase cycles (TS1), irreversibility
+> of erasure (TS2), and the incompatibility of an eternal log with hard
+> real time (TS3).
 
 ---
 
-## 📖 Оглавление
+## 📖 Contents
 
-- [Идея](#-идея)
-- [Три модели](#-три-модели)
-- [Теоремы](#-теоремы)
-- [Кампании ES1–ES5](#-кампании-es1es5)
-- [Связь с материнской программой](#-связь-с-материнской-программой)
-- [Структура папки](#-структура-папки)
-- [Быстрый старт](#-быстрый-старт)
-- [Границы](#-границы)
-- [English](#english)
+- [The idea](#-the-idea)
+- [Three models](#-three-models)
+- [The theorems](#-the-theorems)
+- [Campaigns ES1–ES5](#-campaigns-es1es5)
+- [Relation to the parent program](#-relation-to-the-parent-program)
+- [Folder structure](#-folder-structure)
+- [Quick start](#-quick-start)
+- [Boundaries](#-boundaries)
 
 ---
 
-## 💡 Идея
+## 💡 The idea
 
-Основной результат программы — процессор, который *читает, а не несёт*:
-нули ζ воспроизводятся из шести констант следовой формулы, и в хранилище
-не остаётся ни одного нуля (V23-превью, слепое чтение 649+639 нулей в
-E17). Но у этого принципа есть строгая формулировка, которую нужно
-доказать отдельно: **что значит для вычислителя не иметь долговременной
-памяти и почему это совместимо с исполнением в реальном времени?**
+The main result of the program is a processor that *reads, does not carry*:
+the ζ zeros are reproduced from six constants of the trace formula, and no
+zero remains in storage (the V23 preview; the blind reading of 649+639 zeros
+in E17). But this principle has a strict formulation that must be proved
+separately: **what does it mean for a computer to have no long-term memory,
+and why is that compatible with real-time execution?**
 
-Ответ строится на спинорных фазах. Единственное состояние машины — фаза
-φ единичного спинора на окружности S¹; один шаг реального времени —
-поворот на модельный угол θ. Ничего другого не существует: ни журнала,
-ни истории, ни контрольных точек. Фаза — это одновременно и регистр, и
-счётчик (по модулю N), и носитель результата.
+The answer is built on spinor phases. The machine's only state is the phase
+φ of a unit spinor on the circle S¹; one real-time step is a rotation by the
+model angle θ. Nothing else exists: no log, no history, no checkpoints. The
+phase is simultaneously the register, the counter (mod N), and the carrier
+of the result.
 
-Контрастная модель — «машина с вечным журналом», которая честно
-записывает каждый шаг и периодически всё перепроверяет — демонстрирует
-цену долговременной памяти: линейный рост стоимости верификации и срыв
-дедлайнов. Отсюда главный вывод: **летучесть — не дефект, а условие
-детерминизма реального времени**.
+The contrast model — the "eternal log machine", which honestly records every
+step and periodically re-checks everything — demonstrates the price of
+long-term memory: linear growth of the verification cost and deadline
+misses. Hence the main conclusion: **volatility is not a defect but the
+condition of real-time determinism**.
 
-## 🧩 Три модели
+## 🧩 Three models
 
-| Модель | Фаза θ | Цикл N = 2k | Биты/шаг | Зазор (робастность) |
+| Model | Phase θ | Cycle N = 2k | Bits/step | Gap (robustness) |
 |--------|--------|-------------|----------|---------------------|
-| **S1** · квадрантная | π/2 | 4 | 2.000 | π/2 = 1.571 рад |
-| **S2** · секстантная | π/3 | 6 | 2.585 | π/3 = 1.047 рад |
-| **S3** · 14-фазная | π/7 | 14 | 3.807 | π/7 = 0.449 рад |
+| **S1** · quadrant | π/2 | 4 | 2.000 | π/2 = 1.571 rad |
+| **S2** · sextant | π/3 | 6 | 2.585 | π/3 = 1.047 rad |
+| **S3** · 14-phase | π/7 | 14 | 3.807 | π/7 = 0.449 rad |
 
-Компромисс «ёмкость против робастности» честно опубликован: π/7 несёт
-почти вдвое больше бит на шаг, чем π/2, но её зазор в 3.5 раза уже —
-зона тишины по шуму считывания соответственно уже (σ* = 0.135 / 0.089 /
-0.038 рад).
+The "capacity vs robustness" trade-off is published honestly: π/7 carries
+almost twice as many bits per step as π/2, but its gap is 3.5 times narrower —
+the silence zone under readout noise is narrower accordingly (σ* = 0.135 / 0.089 /
+0.038 rad).
 
-## 📐 Теоремы
+## 📐 The theorems
 
-| Теорема | Утверждение (кратко) | Сертификат |
+| Theorem | Statement (short) | Certificate |
 |---------|---------------------|------------|
-| **TS1** | цикл вращения θ = π/k замыкается ровно через N = 2k шагов; минимальный зазор = 2π/N; решётка равномерна | ES1: периоды 4/6/14 точно; серия k = 2…16 |
-| **TS2** | после сброса I(пре; пост) = 0; реконструкция пре-состояния ≤ 1/N; время сжато до mod N | ES2: 0.2501/0.1674/0.0717 ≈ 1/N на 120k trials |
-| **TS3** | шаг O(1) при любом t; вечный журнал ⇒ Ω(t) ⇒ срыв дедлайнов | ES3: наклон −1.5e−12; 0/200 000 пропусков; ×129 роста |
+| **TS1** | the rotation cycle θ = π/k closes exactly after N = 2k steps; the minimal gap = 2π/N; the lattice is uniform | ES1: periods 4/6/14 exactly; the series k = 2…16 |
+| **TS2** | after a reset I(pre; post) = 0; the reconstruction of the pre-state ≤ 1/N; time is compressed to mod N | ES2: 0.2501/0.1674/0.0717 ≈ 1/N over 120k trials |
+| **TS3** | the step is O(1) for any t; an eternal log ⇒ Ω(t) ⇒ deadline misses | ES3: slope −1.5e−12; 0/200 000 misses; ×129 growth |
 
-Каждая теорема — в собственной папке [`theorems/`](theorems/):
-README с идеей вывода и границами + **4 документа**
-(RU/EN × PDF/DOCX) с внедрённой плиточной фигурой «4 измерения».
+Each theorem lives in its own folder under [`theorems/`](theorems/):
+a README with the derivation idea and boundaries + **4 documents**
+(RU/EN × PDF/DOCX) with the embedded "4 dimensions" tiled figure.
 
-## 🔬 Кампании ES1–ES5
+## 🔬 Campaigns ES1–ES5
 
-| Кампания | Что проверяет | Предрегистрированные пороги | Вердикт |
+| Campaign | What it checks | Pre-registered thresholds | Verdict |
 |----------|---------------|------------------------------|---------|
-| **ES1** cycles | периоды фазовых циклов, зазоры, равномерность | C1–C4 | ✅ PASS |
-| **ES2** volatility | необратимость сброса, I = 0, время → mod N | C1–C4 (+эрратум ES2a) | ✅ PASS |
-| **ES3** realtime | плоский профиль шага, дедлайны, Ω(t) журнала | C1–C4 | ✅ PASS |
-| **ES4** memoryless task | модульный счётчик 300k шагов, след = 1 регистр, хранение = 0 | C1–C4 | ✅ PASS |
-| **ES5** noise | зона тишины σ*, порядок робастности, пробой канала | C1–C5 (+эрратум ES5a) | ✅ PASS |
+| **ES1** cycles | periods of the phase cycles, gaps, uniformity | C1–C4 | ✅ PASS |
+| **ES2** volatility | irreversibility of the reset, I = 0, time → mod N | C1–C4 (+erratum ES2a) | ✅ PASS |
+| **ES3** realtime | flat step profile, deadlines, the Ω(t) of the log | C1–C4 | ✅ PASS |
+| **ES4** memoryless task | the modular counter of 300k steps, trace = 1 register, storage = 0 | C1–C4 | ✅ PASS |
+| **ES5** noise | the silence zone σ*, the robustness order, the channel breakdown | C1–C5 (+erratum ES5a) | ✅ PASS |
 
-Дисциплина — та же, что во всей программе: пороги зафиксированы до
-прогона; все числа в фигурах и документах — только из закоммиченных
-вердиктов; эрратумы публикуются (ES2a: замена порога 3σ-полосой до
-принятия вердикта; ES5a: шум приведён к считывательному по
-предрегистрации, диффузия — отдельная разведка без порогов);
-отрицательные результаты не ретушируются.
+The discipline is the same as in the whole program: thresholds are fixed
+before the run; all numbers in the figures and documents come only from
+committed verdicts; errata are published (ES2a: the threshold replaced by
+a 3σ band before the verdict was accepted; ES5a: the noise was aligned to
+the readout noise by pre-registration, the diffusion is a separate
+exploration without thresholds); negative results are not retouched.
 
-## 🔗 Связь с материнской программой
+## 🔗 Relation to the parent program
 
-| Связь | Механизм |
+| Link | Mechanism |
 |-------|----------|
-| «Читает, а не несёт» (V23 · E17) | настоящее исследование формализует принцип: TS2 доказывает хранение = 0, TS3 — почему это обязательно для реального времени |
-| Следовая формула (Th6, V7) | фазовая машина — минимальный «читатель» следа: состояние = фаза, результат = поток символов |
-| ISA AB-облаков (V20) | фазовые повороты — вырожденный случай PHASE-затворов ISA; модельные фазы π/2, π/3, π/7 — допустимые углы |
-| Дорожная карта P1 (V21, память) | TS3 даёт теоретическую опору этапу P1: память процессора летуча по архитектуре |
-| O-J3 (QEC-память) | контраст «летучая фаза против вечного журнала» — нулевая точка для QEC-сравнения |
+| "Reads, does not carry" (V23 · E17) | this study formalizes the principle: TS2 proves storage = 0, TS3 — why it is mandatory for real time |
+| Trace formula (Th6, V7) | the phase machine is the minimal "reader" of the trace: the state = phase, the output = a stream of symbols |
+| ISA of the AB clouds (V20) | phase rotations are the degenerate case of the ISA PHASE gates; the model phases π/2, π/3, π/7 are admissible angles |
+| Roadmap P1 (V21, memory) | TS3 gives theoretical support to stage P1: the processor memory is volatile by architecture |
+| O-J3 (QEC memory) | the contrast "volatile phase vs eternal log" is the zero point for the QEC comparison |
 
-## 🗂️ Структура папки
+## 🗂️ Folder structure
 
 ```
 realtime_spinor_memory/
-├── README.md · README.en.md        # этот документ (RU/EN)
-├── docs/theory.md (+ .en.md)       # теория: модель, определения, мотивация
-├── spinor/                         # библиотека (core, tasks) — 1 регистр, O(1)
+├── README.md · README.en.md        # this document (RU/EN)
+├── docs/theory.md (+ .en.md)       # theory: the model, definitions, motivation
+├── spinor/                         # the library (core, tasks) — 1 register, O(1)
 ├── experiments/                    # ES1–ES5 + run_all.py + common.py
-├── data/                           # вердикты *_verdict.json + сырые CSV
-├── figures/{ru,en}/                # 8 плиточных фигур 2×2 @600 dpi
+├── data/                           # verdicts *_verdict.json + raw CSVs
+├── figures/{ru,en}/                # 8 tiled 2×2 figures @600 dpi
 ├── theorems/TS1_cycle · TS2_volatility · TS3_realtime
-│   └── README.md + 4 документа (RU/EN × PDF/DOCX) каждый
-└── tests/test_spinor.py            # 11 быстрых инвариантов
+│   └── README.md + 4 documents (RU/EN × PDF/DOCX) each
+└── tests/test_spinor.py            # 11 fast invariants
 ```
 
-## 🚀 Быстрый старт
+## 🚀 Quick start
 
 ```bash
 cd research/realtime_spinor_memory
 
-# все кампании ES1–ES5 (~2.5 мин, все вердикты PASS)
+# all campaigns ES1–ES5 (~2.5 min, all verdicts PASS)
 python3 experiments/run_all.py
 
-# регенерация фигур и документов (только из закоммиченных вердиктов)
+# regeneration of figures and documents (only from committed verdicts)
 python3 make_figures.py
 python3 make_theorem_docs.py
 
-# быстрые инварианты
+# fast invariants
 python3 -m pytest tests/ -q
 ```
 
 > [!TIP]
-> Требования: Python ≥ 3.10, numpy, matplotlib. Никакой сети, никакой
-> Julia и внешних сервисов — исследование самодостаточно.
+> Requirements: Python ≥ 3.10, numpy, matplotlib. No network, no
+> Julia and no external services — the study is self-sufficient.
 
-## 🛑 Границы
+## 🛑 Boundaries
 
-- Модели — абстракции уровня «регистр + поворот»: они не описывают
-  когерентную физику спиноров и не претендуют на квантовое превосходство.
-- TS2 — об информации, а не о термодинамике (принцип Ландауэра не
-  заявляется).
-- ES5 сертифицирует iid-шум считывания; фазовая диффузия измерена как
-  разведка (t* ~ gap²/σ²) без порогов — систематические дрейфы и
-  декогеренция за границей исследования.
-- Исследование не связано с гипотезой Римана и ничего о ней не
-  утверждает; статус RH остаётся заблокированным машиной обязательств V13.
-
-## English
-
-**Supplementary study of AB Cloud Quantum Research v1.0.0.** The AB
-computer has no long-term memory — only volatile state executing steps
-in real time. Three spinor phase models (θ = π/2, π/3, π/7; cycles
-N = 4, 6, 14) formalize the principle: the single phase register is
-simultaneously the memory, the counter (mod N) and the output channel.
-Three theorems — phase cycles close exactly at N = 2k with minimal gap
-2π/N (TS1); reset erases all information, reconstruction stays at chance
-level 1/N and time is compressed to mod N (TS2); the step is O(1) while
-an eternal log forces Ω(t) verification and deadline misses, so hard
-real time and long-term memory are incompatible (TS3). Five campaigns
-ES1–ES5 with pre-registered thresholds — all PASS (two documented
-errata: ES2a, ES5a). Twelve bilingual documents (RU/EN × PDF/DOCX),
-eight 2×2 four-dimension tiles @600 dpi, 11 tests. Honest boundaries:
-no Landauer claims, no coherent-physics claims, no RH connection — the
-RH conclusion remains blocked by the V13 obligation machine.
+- The models are abstractions at the "register + rotation" level: they do
+  not describe the coherent physics of spinors and claim no quantum
+  advantage.
+- TS2 is about information, not thermodynamics (the Landauer principle is
+  not claimed).
+- ES5 certifies iid readout noise; the phase diffusion was measured as an
+  exploration (t* ~ gap²/σ²) without thresholds — systematic drifts and
+  decoherence are outside the scope of the study.
+- The study is not connected to the Riemann hypothesis and states nothing
+  about it; the RH status remains blocked by the obligation machine V13.
 
 ---
 

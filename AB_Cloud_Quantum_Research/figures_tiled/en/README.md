@@ -6,9 +6,9 @@
 
 # 🀫 figures_tiled — EN tiles
 
-> **The English tile-set of theorem figures Th1–Th8 (4-dim renderings).**
+> **The English tile-set of theorem figures Th1–Th6 (4-dim renderings).**
 
-Tiled renders of the theorem figures, one PNG per theorem (`th1…th8`), English labelling — the mirror set with Russian labels lives in [`../ru/`](../ru/). The tiles are consumed by the package's documents and pages; regenerate them from the figure pipeline rather than editing the PNGs.
+Tiled renders of the theorem figures, one PNG per theorem (`th1…th6`), English labelling — the mirror set with Russian labels lives in [`../ru/`](../ru/). The tiles are consumed by the package's documents and pages; regenerate them from the figure pipeline rather than editing the PNGs.
 
 ## 📁 Contents
 

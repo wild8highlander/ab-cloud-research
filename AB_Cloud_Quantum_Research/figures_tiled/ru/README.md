@@ -6,9 +6,9 @@
 
 # 🀪 figures_tiled — RU tiles
 
-> **The Russian tile-set of theorem figures Th1–Th8 (4-dim renderings).**
+> **The Russian tile-set of theorem figures Th1–Th6 (4-dim renderings).**
 
-The Russian-labelled mirror of [`../en/`](../en/): one PNG per theorem (`th1…th8`). Same generation pipeline, same content, different labelling language — the pair exists so that RU and EN documents can embed identical figures without re-lettering at typeset time.
+The Russian-labelled mirror of [`../en/`](../en/): one PNG per theorem (`th1…th6`). Same generation pipeline, same content, different labelling language — the pair exists so that RU and EN documents can embed identical figures without re-lettering at typeset time.
 
 ## 📁 Contents
 

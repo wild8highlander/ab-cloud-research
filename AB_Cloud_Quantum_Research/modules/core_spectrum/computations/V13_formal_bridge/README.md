@@ -1,10 +1,10 @@
-# Функция V13 · Формальный мост
+# V13 · The Formal Bridge
 
 ![version](https://img.shields.io/badge/version-1.2.0-298bbc) ![](https://img.shields.io/badge/series-V01--V19-3b4f58) ![](https://img.shields.io/badge/status-honest-3a6b4f)
 
-> **Заблокирован ли вывод RH формально? DAG обязательств и машина статусов.**
+> **Is the RH conclusion formally blocked? The obligation DAG and the status machine.**
 
-[← Back to the main README](../../README.ru.md)
+[← Back to the main README](../../README.md)
 
 ## Contents
 
@@ -22,25 +22,25 @@
 
 ## Campaign question
 
-Заблокирован ли вывод RH формально? DAG обязательств и машина статусов.
+Is the RH conclusion formally blocked? The obligation DAG and the status machine.
 
 ## Results
 
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V13 (plan Solution 13) | committed verdict |
-| Key numbers | RH: blocked; блокеров 7 (4 assumed, 3 computed); proven 5/12; DAG корректен. | measured/proved |
-| Verdict note | формальная машина БЛОКИРУЕТ вывод RH: путь к заключению содержит гипотезы O08/O09/O11/O12; ни одна численная проверка не повышает статус | honest |
+| Key numbers | RH: blocked; 7 blockers (4 assumed, 3 computed); proven 5/12; the DAG is valid. | measured/proved |
+| Verdict note | the formal machine BLOCKS the RH conclusion: the path to the conclusion contains the hypotheses O08/O09/O11/O12; no numerical check raises the status | honest |
 
 ## Method
 
-rpbridge/formaloblig.py: 12 узлов proven/computed/assumed; ацикличность; блокировка пути O01→O12; formal/ (Lean/Coq/Agda/Isabelle).
+rpbridge/formaloblig.py: 12 nodes proven/computed/assumed; acyclicity; blocking of the path O01→O12; formal/ (Lean/Coq/Agda/Isabelle).
 
 ## Figures
 
 | File | Where |
 |---|---|
-| `fig13_ru.png` | 600 dpi — `figures_hires/ru/`; infographics — `figures/ru/` |
+| `fig13_ru.png` | 600 dpi — `../../figures_hires/ru/`; infographics — `figures/ru/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/formaloblig.py: 12 узлов proven/computed/assumed; ацикличн
 | File | Content |
 |---|---|
 | `data/v13_verdict.json` | committed verdict of the campaign |
-| `computations/V13_formal_bridge/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,8 +75,8 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Вывод RH заблокирован честно и автоматически', 'en': 'The RH conclusion is blocked honestly and automatically'}**
+**The RH conclusion is blocked honestly and automatically**
 
 ---
 
-*AB Research Program v1.1.0 · V13 · Формальный мост*
+*AB Research Program v1.1.0 · V13 · The Formal Bridge*

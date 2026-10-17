@@ -65,11 +65,11 @@ That is Theorem T11, heat-trace uniqueness: the Λ(n)/√n comb belongs to the z
 ## Reproduction
 
 ```bash
-python3 campaigns/run_c9_nonlocal_trace.py
+python3 campaigns/run_c9_nonlocal.py
 ```
 
 Fresh runs are self-contained: the zeta zeros come from the internal
-mpmath cache (`data/zeros/`), no external files. Runtime: seconds to
+mpmath cache (`../../data/zeros/`), no external files. Runtime: seconds to
 minutes (C12 is segmented; see `campaigns/run_c12_band5000.py`).
 
 Top-level quick start (v2 list in the main README): `python3 campaigns/run_c9_nonlocal.py`.
@@ -78,7 +78,7 @@ Top-level quick start (v2 list in the main README): `python3 campaigns/run_c9_no
 
 | File | Where |
 |---|---|
-| `fig17_nonlocal.png` | 600 dpi — `figures_hires/ru|en/fig17_nonlocal_ru|en.png`; copy in `figures/ru|en/` |
+| `fig17_nonlocal_{ru,en}.png` | this folder's `figures/{ru,en}/`; 600 dpi mirrors — top-level `figures_hires/{ru,en}/fig17_nonlocal_{ru,en}.png` |
 
 | File | Content |
 |---|---|
@@ -90,9 +90,9 @@ In this campaign folder the committed payload is `data/results.json` (the N1–N
 ## Verdict
 
 See `data/results.json` (verdict, RU+EN), the v2 monograph
-(`monograph/v2_volume/`) and `independent_verification/` (IVP11–18).
+(`../../monograph/v2_volume/`) and `../../independent_verification/` (IVP11–18).
 
-Committed verdict (EN, verbatim): "The primitive exists: any isospectral nonlocal operator carries Λ(n)/√n in its trace by construction (r_EF at PC0 level, r_H7 = 1); off-class candidates (xp, LCM kernel) stay in the rank branch's null zones. The open bit-level branch is a wall of LOCALITY, not of the trace (T11)." The full statement and proof sketch of T11 live in `monograph/theorems_v2_volume/`; the independent protocol re-derives the twin construction and the trace re-check as IVP11–18.
+Committed verdict (EN, verbatim): "The primitive exists: any isospectral nonlocal operator carries Λ(n)/√n in its trace by construction (r_EF at PC0 level, r_H7 = 1); off-class candidates (xp, LCM kernel) stay in the rank branch's null zones. The open bit-level branch is a wall of LOCALITY, not of the trace (T11)." The full statement and proof sketch of T11 live in `../../monograph/theorems_v2_volume/`; the independent protocol re-derives the twin construction and the trace re-check as IVP11–18.
 
 ## FAQ
 

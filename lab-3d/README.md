@@ -174,7 +174,7 @@ butterfly, exceptional points (121 candidates), edge-state localization
 (edge score −0.658).
 
 Each run folder contains `<mode>.json` (machine dump), `.md`/`.txt`/`.html`
-reports, `_summary.csv`, and every figure in both PDF and PNG.
+reports, `<mode>_summary.csv`, and every figure in both PDF and PNG.
 
 ## Configuration (defaults)
 
@@ -199,7 +199,7 @@ reports, `_summary.csv`, and every figure in both PDF and PNG.
   `mpmath.siegelz` (Hardy Z sign search + bisection) at full precision.
 - **Determinism**: fixed seeds everywhere; re-running any mode reproduces the
   committed figures modulo the timestamp in the folder name.
-- The full 2D/3D suite and the 37-test protocol live in `code/ab_cloud_full.jl`
+- The full 2D/3D suite and the 37-test protocol live in `../code/ab_cloud_full.jl`
   (see `../code/README.md`) — this lab is the dedicated 3D branch.
 
 ## Citation
@@ -214,18 +214,6 @@ reports, `_summary.csv`, and every figure in both PDF and PNG.
 ```
 
 License: **CC BY-NC-SA 4.0** (see `../LICENSE`).
-
-## Кратко (по-русски)
-
-- Пакет 3D-верификации: 36³ некэрмитовая хофштадтеровская решётка
-  (σ = 0.5, α = 2.0, W = 1.0) с 5000 встроенных нулей дзета-функции.
-- Главный результат: спектр AB-облака статистически неотличим от нулей
-  (KS p = 0.27–0.88, L² = 0.0127, пермутационный тест Z = 14.10σ);
-  ⟨r⟩ = 0.6159 против GUE 0.5996.
-- Десять режимов A–J; четыре зафиксированных прогона от 2026-07-31 лежат в
-  `outputs/` (отчёты json/md/html/csv + все рисунки PDF/PNG).
-- Запуск: `python3 code/ab_cloud_3d_en.py` (меню), `quick_start.py` для
-  демо; препринт — `preprint/ab_cloud_preprint.tex` (xelatex ×2).
 
 ## 📁 Complete file inventory
 

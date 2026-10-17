@@ -26,7 +26,7 @@ target rather than hand editing. The scripts are the reason `figures_hires/`,
 | `make_logo.py` | the logo (light/dark, PNG 600 dpi + SVG) |
 | `make_infographics.py` | 5 infographics × ru/en × light/dark (Playwright+CSS) |
 | `make_comp_readmes.py` | the giant READMEs of the computation folders (ru+en) |
-| `make_monographs.py` | content-JSON → 20 monographs (PDF+DOCX) |
+| `make_monographs.py` | content-JSON → 13 monograph documents × ru/en × PDF/DOCX |
 | `render_pdf.py` | ReportLab + html2poster cover + pypdf |
 | `render_docx.js` | docx-js: R1 cover, 3 sections, TOC |
 | `postprocess_docx.py` | TOC placeholders, ROMAN/arabic footers |
@@ -45,7 +45,7 @@ All scripts are run from the repository root. The documented entry points are
 the make targets:
 
 ```bash
-make monographs   # content-JSON → 20 monographs (PDF+DOCX)
+make monographs   # content-JSON → 13 monograph documents × ru/en × PDF/DOCX
 make workbook     # rebuild tables/hp_workbook.xlsx
 python3 scripts/build_workbook.py   # same, without make
 ```
@@ -58,7 +58,7 @@ Playwright+CSS. The DOCX branch is a chain: `render_docx.js` produces the
 document (R1 cover recipe, three-section numbering, TOC placeholders), then
 `postprocess_docx.py` resolves the placeholders and applies the
 ROMAN/arabic footers, and `make_monographs.py` orchestrates the whole
-content-JSON → PDF+DOCX run over the 20 monographs of the series.
+content-JSON → PDF+DOCX run over the 13 monograph documents of the series.
 
 ## Conventions
 

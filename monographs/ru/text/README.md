@@ -27,6 +27,8 @@ Which file to open first: the `.pdf` for reading, the `.md` for diffing and quot
 | [`AB_Cloud_Monograph_v22_RU_v221.html`](AB_Cloud_Monograph_v22_RU_v221.html) | HTML | 7.2 MB | — |
 | [`AB_Cloud_Monograph_v22_RU_v221.pdf`](AB_Cloud_Monograph_v22_RU_v221.pdf) | PDF | 5.2 MB | — |
 | `preprint/` | folder | 2 items | see inside |
+| [`preprint/preprint_v22_RU.pdf`](preprint/preprint_v22_RU.pdf) | PDF | 0.8 MB | arXiv-style preprint, compiled |
+| [`preprint/preprint_v22_RU.tex`](preprint/preprint_v22_RU.tex) | LaTeX | 15.6 KB | preprint LaTeX source with bibliography |
 
 ## 🧭 Navigation
 

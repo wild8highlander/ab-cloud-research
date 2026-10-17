@@ -30,7 +30,7 @@ What survives destroying the arithmetic? Modes D1/D2/D3 against universal and ar
 |---|---|---|
 | Campaign | V11 (plan Solution 11) | committed verdict |
 | Key numbers | ⟨r⟩ = 0.61 → 0.59 (survives); the r_EF shift 0.17 < 2σ(A0) = 0.57 — noise-dominated; the separation is carried by V7. | measured/proved |
-| Verdict note | GUE-универсальность выживает при всех режимах разрушения арифметики (⟨r⟩ в классе); арифметически-чувствительная метрика r_EF на окнах 200 уровней доминируется шумом (сдвиг режимов < 2σ собственного разброса A0) — на этом разрешении разделение признаков не достигается; разделение несёт следовой уровень V7 (PC0) | honest |
+| Verdict note | GUE universality survives all modes of arithmetic destruction (⟨r⟩ inside the class); the arithmetic-sensitive metric r_EF on 200-level windows is noise-dominated (the mode shifts are < 2σ of the own scatter of A0) — at this resolution no feature separation is achieved; the separation is carried by the trace level V7 (PC0) | honest |
 
 ## Method
 
@@ -40,7 +40,7 @@ rpbridge/universality.py: 3 seeds × 4 modes; ⟨r⟩ and r_EF; the null is the 
 
 | File | Where |
 |---|---|
-| `fig11_en.png` | 600 dpi — `figures_hires/en/`; infographics — `figures/en/` |
+| `fig11_en.png` | 600 dpi — `../../figures_hires/en/`; infographics — `figures/en/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/universality.py: 3 seeds × 4 modes; ⟨r⟩ and r_EF; the null is the 
 | File | Content |
 |---|---|
 | `data/v11_verdict.json` | committed verdict of the campaign |
-| `computations/V11_universality_split/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Универсальность — аттрактор', 'en': 'Universality is an attractor; arithmetic invisible on windows'}**
+**Universality is an attractor; arithmetic invisible on windows**
 
 ---
 

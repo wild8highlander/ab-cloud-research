@@ -53,20 +53,20 @@ Protocol and thresholds: docs/methods.md, results/ROADMAP.md (P0).
 
 ## Figures
 
-| Файл | Где |
+| File | Where |
 |---|---|
-| `fig01_en.png` … `fig06_en.png` | 600 dpi — `figures_hires/en/`; copies — `figures/en/` |
+| `fig01_en.png` … `fig06_en.png` | 600 dpi — `../../figures_hires/en/`; copies — `figures/en/` |
 
 ## Monographs
 
-| Файл | Формат |
+| File | Format |
 |---|---|
 | `monograph_ru.pdf` / `monograph_ru.docx` | PDF / DOCX |
 | `monograph_en.pdf` / `monograph_en.docx` | PDF / DOCX |
 
 ## Data
 
-| Файл | Содержимое |
+| File | Content |
 |---|---|
 | `data/results.json` | the committed campaign verdict (= data/v20_verdict.json) |
 

@@ -26,7 +26,7 @@
 | Counting (K4, T3) | exact integers 3, 10, 29, 79 at the occupied probes; residuals ≤ 4.9e-28; `rh_in_block_pass` at all five probes |
 | Gram points (K7) | 220 points, 4 sign violations — the classical exceptions (n = 126, 134, 195, 211) |
 | Discipline | `free_parameters: 0` — nothing fitted; series seed 96; deterministic; runtime about two seconds |
-| Key artifacts | `data/results.json` · `data/curve_Zid.npz` · `../data/c1_*.json` · `fig01_zid.png` + `fig02_gamma_ladder.png` (+ `_en` variants) · monographs ru/en in docx + pdf (7–9 pages) |
+| Key artifacts | `data/results.json` · `data/curve_Zid.npz` · `../data/c1_*.json` · `fig01_zid_ru.png` + `fig02_gamma_ladder_ru.png` (+ `_en` variants) · monographs ru/en in docx + pdf (7–9 pages) |
 | External inputs | none — no external zero file needed; every criterion compares internally |
 | One-line meaning | the algebraic envelope does not generate zeros — it merely wraps ζ in a smooth phase; whatever is true of Z_id is true by identity, and whatever Z_id cannot do, no rearrangement of the phase can do either |
 
@@ -40,7 +40,7 @@ python3 campaigns/run_c1_identity.py
 python3 -m pytest tests/ -q
 
 # independent verification: the IVP checks re-derive this campaign's numbers
-bash independent_verification/RUN_ALL.sh
+python3 -c "from hpbridge.validate import run_all; [print(r) for r in run_all()]"
 ```
 
 **About this edition.** This is the definitive English guide to campaign C1 — the single unified edition of this folder. Every number, verdict label, file name, command and threshold is preserved; everything else here is explanation: the mathematics behind the assembly, the reason each control exists, and the place of this campaign in the Hilbert–Pólya programme.
@@ -291,7 +291,7 @@ The theorem machinery and the blind verification protocol:
 
 ```bash
 python3 -m pytest tests/ -q
-bash independent_verification/RUN_ALL.sh
+python3 -c "from hpbridge.validate import run_all; [print(r) for r in run_all()]"
 ```
 
 The pytest suite re-runs the Γ-closures at dps = 40 below the test threshold 1e-35 and re-checks Z_id reality; the IVP checks of this campaign re-derive the same numbers independently. Nothing here needs the external Odlyzko zero file: every committed criterion compares against identities, against the internal mpmath cache, against integers, or against the classical Gram structure. The whole campaign is deterministic and runs in about two seconds.
@@ -302,8 +302,8 @@ Figures of the campaign — the Russian variants:
 
 | File | Where |
 |---|---|
-| `fig01_zid.png` | 600 dpi — `figures_hires/ru/fig01_zid.png`; screen — `figures/ru/` |
-| `fig02_gamma_ladder.png` | 600 dpi — `figures_hires/ru/fig02_gamma_ladder.png`; screen — `figures/ru/` |
+| `fig01_zid_ru.png` | 600 dpi — `figures_hires/ru/fig01_zid_ru.png`; screen — `figures/ru/` |
+| `fig02_gamma_ladder_ru.png` | 600 dpi — `figures_hires/ru/fig02_gamma_ladder_ru.png`; screen — `figures/ru/` |
 
 and the English variants:
 
@@ -329,7 +329,7 @@ Anatomy of `data/results.json`: a `meta` block (task "Task 7 — identity functi
 
 ## Verdict
 
-**{'ru': 'композитный вердикт K1–K4, K7: PASS (одно опровержение опубликовано)', 'en': 'composite verdict K1–K4, K7: PASS (one refutation published)'}** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign).
+**composite verdict K1–K4, K7: PASS (one refutation published)** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign).
 
 <img src="../../assets/avatars/hp_agent_vera.svg" width="110" align="right" alt="Agent Vera"/>
 

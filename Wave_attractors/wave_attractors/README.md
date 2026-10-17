@@ -93,6 +93,8 @@ numerical analogue of the metamaterial unit-cell cutoff in the experiment.
 ```
 wave_attractors/
 ├── README.md                  ← this file (English)
+├── REPRODUCING.md             ← rebuild-from-source guide (three tiers)
+├── requirements.txt           ← Python dependencies
 ├── scripts/
 │   ├── ray_billiard.py        ← ray core + self-tests (python3 ray_billiard.py)
 │   ├── run_experiments.py     ← E1/E2/E3/E5 + cross-reference dump
@@ -111,8 +113,8 @@ wave_attractors/
 │       └── td_check.jl        ← Julia E7 TD kernel for cross-verification
 ├── data/                      ← CSV/JSON/NPZ outputs (regenerable)
 ├── figures/                   ← PNG figures (300 dpi)
-├── report/                    ← scientific report (PDF, Russian)
-└── docs/                      ← report source notes
+├── monograph/                 ← W1 monographs (EN/RU, DOCX + PDF, with figures)
+└── report/                    ← scientific report (PDF, Russian)
 ```
 
 ## Quick start
@@ -193,5 +195,5 @@ repository (see the root `CITATION.cff`):
 
 ## License
 
-See the root [LICENSE](../LICENSE) — Strictly Personal · Custom Research
+See the root [LICENSE](../../LICENSE) — Strictly Personal · Custom Research
 License.

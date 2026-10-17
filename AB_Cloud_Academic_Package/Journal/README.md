@@ -43,9 +43,10 @@ Prospekt Lenina 29, Apt. 140, Nalchik, Kabardino-Balkarian Republic, Russian Fed
 
 | File | For | Content |
 |---|---|---|
-| `NSR_JINR_submission_AB-Cloud_v23.zip` | Natural Science Review (JINR), [nsr.jinr.int](https://nsr.jinr.int) | Full manuscript (100 pp.) on official `nsr.cls` v1.5, cover letter, 48 figures, supplemental (code + run data), README how-to-submit, SHA256SUMS |
-| `SciPost_Physics_submission_AB-Cloud_v23.zip` | SciPost Physics, [scipost.org](https://scipost.org) | Publication version (60 pp.) + condensed **Core version (11 pp.)** on official `scipost.cls`, cover letter, 48 figures, supplemental, README, SHA256SUMS |
-| `arXiv_submission_AB-Cloud_v23.zip` | [arXiv.org](https://arxiv.org) preprint | Flat package: `main.tex` (standard article class, inline bibliography), `figures/` (48), metadata README; ready to zip-and-upload |
+| `NSR_JINR_submission_AB-Cloud.zip` | Natural Science Review (JINR), [nsr.jinr.int](https://nsr.jinr.int) | Full manuscript (100 pp.) on official `nsr.cls` v1.5, cover letter, 48 figures, supplemental (code + run data), `README_how_to_submit.md` (inside the zip), SHA256SUMS |
+| `SciPost_Physics_submission_AB-Cloud.zip` | SciPost Physics, [scipost.org](https://scipost.org) | Publication version (60 pp.) + condensed **Core version (11 pp.)** on official `scipost.cls`, cover letter, 48 figures, supplemental, SHA256SUMS |
+| `arXiv_submission_AB-Cloud.zip` | [arXiv.org](https://arxiv.org) preprint | Flat package: `main.tex` (standard article class, inline bibliography), `figures/` (48), `README_arxiv_metadata.md` (inside the zip), SHA256SUMS; ready to zip-and-upload |
+| `AB-Cloud.zip` | all-in-one bundle | the three venue zips above, all four preview PDFs and a mini README in one archive |
 
 ## 👁️ Preview PDFs (not for upload)
 
@@ -68,14 +69,15 @@ The same `figures/` and `supplemental/` serve both.
 2. **SciPost wizard:** pick specialties (recommended: **Statistical Physics** + **Mathematical
    Physics**) and the article type (**Publication** or **Core**, matching the tex you upload).
 3. **arXiv:** request endorsement for **math-ph** (first-time submitters), paste the metadata
-   from `README_arxiv_metadata.md`, choose the **non-exclusive licence to distribute** —
+   from `README_arxiv_metadata.md` (inside the arXiv zip), choose the **non-exclusive licence to distribute** —
    arXiv's default and most restrictive option, consistent with the strictly personal
    licence of this repository.
 
 > [!TIP]
-> Every package carries its own `README_how_to_submit.md` (or `README_arxiv_metadata.md`)
-> with the step-by-step wizard guide and requirements checklist — open it before
-> starting the corresponding wizard.
+> Each zip carries its own step-by-step wizard guide inside —
+> `README_how_to_submit.md` in the NSR and SciPost packages,
+> `README_arxiv_metadata.md` in the arXiv package — with the requirements
+> checklist. Open it before starting the corresponding wizard.
 
 <img src="../assets/divider_neon.svg" width="1152" alt="Animated neon divider"/>
 

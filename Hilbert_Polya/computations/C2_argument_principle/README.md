@@ -34,11 +34,11 @@ Reproduction at a glance (series seed 96; the tour needs no zero file and runs i
 python3 campaigns/run_c2_argument.py
 
 # protocol-level cross-check of the committed numbers (not a re-count)
-bash independent_verification/RUN_ALL.sh
+python3 -c "from hpbridge.validate import run_all; [print(r) for r in run_all()]"
 
 # committed verdict of the campaign — data/results.json (registry duplicate ../data/c2_argument_verdict.json)
 # numeric substrate of the figures — data/curve.npz · the S_curve block of data/results.json
-# 600 dpi figures — figures_hires/ru/fig03_argument.png · figures_hires/ru/fig04_gaps.png
+# 600 dpi figures — figures_hires/ru/fig03_argument_ru.png · figures_hires/ru/fig04_gaps_ru.png
 #                    figures_hires/en/fig03_argument_en.png · figures_hires/en/fig04_gaps_en.png
 # monographs — monograph_ru.docx · monograph_ru.pdf · monograph_en.docx · monograph_en.pdf
 ```
@@ -264,7 +264,7 @@ What is claimed, precisely:
 What is *not* claimed, stated with the same precision (the theory map's section "What is not claimed" is the package's standing instruction):
 
 - **This is not a proof of RH.** Verification in the strip up to T = 1000 is a finite check, not an asymptotic statement; the honest-notes blockquote of the source README says exactly this: *verification in the strip up to T = 1000 is not a proof of RH for all heights; it is the honest boundary below which the counting agrees component by component*.
-- **No operator is claimed.** The Hilbert–Pólya identity — a self-adjoint operator whose spectrum *is* the zero sequence — remains open; the package's own verdicts on its lattice "gates" are negative on spectral identity (H2/Г2: NO, measured three times in C3/C4/C5) while positive on the GUE universality class (Г3). Counting zeros is a prerequisite for such comparisons, not a substitute for them.
+- **No operator is claimed.** The Hilbert–Pólya identity — a self-adjoint operator whose spectrum *is* the zero sequence — remains open; the package's own verdicts on its lattice "gates" are negative on spectral identity (H2: NO, measured three times in C3/C4/C5) while positive on the GUE universality class (H3). Counting zeros is a prerequisite for such comparisons, not a substitute for them.
 - **The lattice line α = ½ is not the critical line by fiat.** The identification of the resonator's self-dual line with Re s = ½ is a conjectural bridge, and the package keeps "dynamics on line ½" (measured) separate from "line ½ = critical line" (conjecture).
 - **The IVP does not recompute C2.** The independent verification protocol checks the anchors (IVP04: 0/3/10/29/79/649) and the S(T) bound (IVP05: S(T) ≤ 1.8, fact 1.8) against committed values; it does not re-run the heavy campaign, whose reproducibility rests on the fixed seed and bit-for-bit re-run obligation.
 
@@ -290,7 +290,7 @@ The full campaign environment: series seed — **96**; the RNG streams are fixed
 For the protocol-level cross-check of this campaign's committed numbers (not a re-count):
 
 ```bash
-bash independent_verification/RUN_ALL.sh
+python3 -c "from hpbridge.validate import run_all; [print(r) for r in run_all()]"
 ```
 
 Relevant protocol rows: **IVP04** — anchors of the argument principle, expected 0/3/10/29/79/649, measured 0/3/10/29/79/649, PASS; **IVP05** — count against the smooth count N̄, threshold S(T) ≤ 1.8, measured 1.8, PASS.
@@ -301,8 +301,8 @@ Relevant protocol rows: **IVP04** — anchors of the argument principle, expecte
 
 | File | Where |
 |---|---|
-| `fig03_argument.png` | 600 dpi — `figures_hires/ru/fig03_argument.png`; screen — `figures/ru/` |
-| `fig04_gaps.png` | 600 dpi — `figures_hires/ru/fig04_gaps.png`; screen — `figures/ru/` |
+| `fig03_argument_ru.png` | 600 dpi — `figures_hires/ru/fig03_argument_ru.png`; screen — `figures/ru/` |
+| `fig04_gaps_ru.png` | 600 dpi — `figures_hires/ru/fig04_gaps_ru.png`; screen — `figures/ru/` |
 | `fig03_argument_en.png` | 600 dpi — `figures_hires/en/fig03_argument_en.png`; screen — `figures/en/` |
 | `fig04_gaps_en.png` | 600 dpi — `figures_hires/en/fig04_gaps_en.png`; screen — `figures/en/` |
 
@@ -316,13 +316,13 @@ Monographs — the full monograph of this computation (setting, theorems, tables
 | `data/` (npz/csv) | curves and tables |
 | `../data/c2_*.json` | duplicate of the verdict in the common registry |
 
-(The concrete registry duplicate is `../data/c2_argument_verdict.json`; the glob in the table is the source's own notation.) The zero registry used for the independent on-line counts lives under `data/zeros/` in the package root — the same mpmath-built caches against which campaign C1 matched its 79 zeros with max|Δγ| = 2.8e-14.
+(The concrete registry duplicate is `../data/c2_argument_verdict.json`; the glob in the table is the source's own notation.) The zero registry used for the independent on-line counts lives under `../../data/zeros/` in the package root — the same mpmath-built caches against which campaign C1 matched its 79 zeros with max|Δγ| = 2.8e-14.
 
 <a id="sec-verdict"></a>
 
 ## Verdict
 
-**{'ru': 'RH верифицирована в полосе до T = 1000 (649 = 649)', 'en': 'RH verified in the strip up to T = 1000 (649 = 649)'}** — details: `data/results.json`, the monograph, and `independent_verification/` (the IVP checks of this campaign).
+**RH verified in the strip up to T = 1000 (649 = 649)** — details: `data/results.json`, the monograph, and `independent_verification/` (the IVP checks of this campaign).
 
 The verdict label is reproduced in full, bilingual, exactly as committed — the package archives its verdicts verbatim in the language pair they were made in. The components of the claim, one line each: thirteen heights, thirteen equalities N_strip = n_line; terminal count 649 = 649; winding residuals ≤ 8.3e-25; arithmetic bridge 2.6e-26; S(T) ≤ 1.8 over [0, 1.13e6]; Σγ² deviation 8.8e-7; gaps [0.3104, 6.887] with mean 1.521; the two traps (+1 calibration, 2π aliasing) found and fixed.
 
@@ -387,7 +387,7 @@ What the historical continuum did with mainframes and hand-checking, C2 does wit
 | Anchor / block | The first three heights (T = 10, 27.72, 51.37) / the remaining ten heights of the run. |
 | n_on_line_file | On-line zero count from the committed zero registry; the independent half of the equality. |
 | K4 / K5 / K6 | Campaign criteria: argument-principle consistency; von Mangoldt counting identity (S(T) ≤ 1.8); second moment Σγ². |
-| Gate (затвор) | Lattice Hamiltonian of the package's resonator; counted and compared against zeros in C3–C5, not here. |
+| Gate (zatvor) | Lattice Hamiltonian of the package's resonator; counted and compared against zeros in C3–C5, not here. |
 | GUE | Gaussian unitary ensemble; the random-matrix class whose spacing statistics the zero gaps are compared against downstream. |
 | IVP | Independent verification protocol; rows IVP04 (anchors) and IVP05 (S(T) ≤ 1.8) cover this campaign. |
 

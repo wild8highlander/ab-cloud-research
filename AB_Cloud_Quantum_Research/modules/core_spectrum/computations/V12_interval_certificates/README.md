@@ -1,10 +1,10 @@
-# Функция V12 · Интервальные сертификаты (Th3)
+# V12 · Interval Certificates (Th3)
 
 ![version](https://img.shields.io/badge/version-1.2.0-298bbc) ![](https://img.shields.io/badge/series-V01--V19-3b4f58) ![](https://img.shields.io/badge/status-honest-3a6b4f)
 
-> **Гарантированы ли численные границы? Гершгорин в рациональной арифметике + невязка в dps=40.**
+> **Are the numerical bounds guaranteed? Gershgorin in rational arithmetic + residuals at dps=40.**
 
-[← Back to the main README](../../README.ru.md)
+[← Back to the main README](../../README.md)
 
 ## Contents
 
@@ -22,25 +22,25 @@
 
 ## Campaign question
 
-Гарантированы ли численные границы? Гершгорин в рациональной арифметике + невязка в dps=40.
+Are the numerical bounds guaranteed? Gershgorin in rational arithmetic + residuals at dps=40.
 
 ## Results
 
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V12 (plan Solution 12) | committed verdict |
-| Key numbers | 5/5 сертификатов содержат истинные λ; ширина ~1e-27; Гершгорин [−4.21, 4.21] накрывает спектр. | measured/proved |
-| Verdict note | все сертификаты содержат истинные значения; интервалы — гарантированные, а не десятичные допуски; точность 1e-15 в float ≠ математическая точность модели (план, Решение 12) | honest |
+| Key numbers | 5/5 certificates contain the true λ; width ~1e-27; Gershgorin [−4.21, 4.21] covers the spectrum. | measured/proved |
+| Verdict note | all certificates contain the true values; the intervals are guaranteed, not decimal tolerances; 1e-15 accuracy in float ≠ the mathematical accuracy of the model (plan, Solution 12) | honest |
 
 ## Method
 
-rpbridge/intervalcert.py: fractions-радиусы; оценка Каутского δ²/gap; зазоры точно.
+rpbridge/intervalcert.py: fractions radii; the Kato estimate δ²/gap; exact gaps.
 
 ## Figures
 
 | File | Where |
 |---|---|
-| `fig12_ru.png` | 600 dpi — `figures_hires/ru/`; infographics — `figures/ru/` |
+| `fig12_ru.png` | 600 dpi — `../../figures_hires/ru/`; infographics — `figures/ru/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/intervalcert.py: fractions-радиусы; оценка Каутско�
 | File | Content |
 |---|---|
 | `data/v12_verdict.json` | committed verdict of the campaign |
-| `computations/V12_interval_certificates/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,8 +75,8 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Ключевые числа имеют гарантированные интервалы', 'en': 'Key numbers carry guaranteed intervals'}**
+**Key numbers carry guaranteed intervals**
 
 ---
 
-*AB Research Program v1.1.0 · V12 · Интервальные сертификаты (Th3)*
+*AB Research Program v1.1.0 · V12 · Interval Certificates (Th3)*

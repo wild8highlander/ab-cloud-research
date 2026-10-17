@@ -44,6 +44,7 @@ configurations averaged:
 |---|---|
 | `spinor64_core.py` | library: PSL(2,7) over F₇; Klein graph {3,7} built as a regular map via C₇/C₃/C₂ stabilisers; 64 spin structures as Kasteleyn signature systems (odd face-parity + canonical gauge); GF(2) linear algebra; Hofstadter `:monumental` port; RMT statistics **without scipy** |
 | `run_spinor64.py` | full E1+E2 run → `output/` (≈ 10 min, 2 cores; the recorded run took 639 s) |
+| `data/README.md` | guide to the frozen input files (formats and the frozen-data contract) |
 | `data/spinor_classes.csv` | frozen classes: `class_idx, orbit, arf, signs_84` (84 ±1 Kasteleyn signs per structure) |
 | `data/klein_graph_edges.csv` | Klein graph topology: 84 edges, 56 vertices |
 | `data/reference_spectrum.csv` | frozen spectrum of the odd-orbit representative |
@@ -52,6 +53,7 @@ configurations averaged:
 | `output/spinor64_table.csv` | 64 rows: per-structure orbit, Arf, ⟨r⟩, p-value, verdict |
 | `output/spinor64_report.md` | human-readable report of the recorded run |
 | `output/run_log.txt` | console log of the recorded run |
+| `output/README.md` | guide to the committed run artifacts |
 
 ## Reproduce
 
@@ -65,43 +67,44 @@ re-running regenerates it with matching numbers (folder timestamps differ).
 
 ## Downstream ports (Test 38)
 
-`verification/{python,cpp,javascript,julia,rust,go,fortran,haskell,r,matlab}/spinor38/`
+`verification/{cpp,fortran,go,haskell,java,javascript,julia,matlab,r,rust}/spinor38/`
 each re-verify the frozen contract **independently** — their own Jacobi
 eigensolver, no LAPACK. The C++ and JavaScript ports were compiled and run
 during v1.1.0 preparation: isospectrality 3.4·10⁻¹⁴, ⟨r⟩ = 0.4515710793 —
 VERDICT PASS.
 
-## Кратко (по-русски)
+## Summary
 
-- Каталог содержит эталонную верификацию **всех 64 спинорных структур**
-  квартики Клейна и исправляет утверждение монографии v21 об «уникальности
-- E1: орбиты PSL(2,7) 28/21/7/7/1, точная изоспектральность внутри орбит
-  (8.9e-15), калибровочная инвариантность 7.1e-15, нулевые моды 2/3/3/3/7.
-- E2: AB-облако (L=44, α=1/2, Nv=54, калибровка :monumental) — все 64
-  структуры GUE-согласованы, ⟨r⟩ = 0.5984 ± 0.0035, min p = 0.36.
-- Запуск: `python3 verification/spinor64/run_spinor64.py` (~10 минут);
-  замороженные данные в `data/` делают прогон воспроизводимым.
-- Порты Test 38 на 10 языках проверяют тот же контракт собственным
-  алгоритмом Якоби.
+- The folder contains the reference verification of **all 64 spinor structures** of the
+  Klein quartic and corrects the v21 monograph's uniqueness claim.
+- E1: PSL(2,7) orbits 28/21/7/7/1, exact isospectrality inside orbits (8.9e-15),
+  gauge invariance 7.1e-15, zero modes 2/3/3/3/7.
+- E2: the AB-cloud model (L=44, α=1/2, Nv=54, `:monumental` gauge) — all 64 structures
+  GUE-consistent, ⟨r⟩ = 0.5984 ± 0.0035, min p = 0.36.
+- Run: `python3 verification/spinor64/run_spinor64.py` (~10 minutes); the frozen data in
+  `data/` makes the run reproducible. The Test 38 ports re-check the same contract with
+  their own Jacobi algorithm.
 
 ## 📁 Complete file inventory
 
 | Entry | Size | Kind |
 |---|---|---|
-| `data/` | 4 files, 14.7 KB | directory |
-| `output/` | 4 files, 42.7 KB | directory |
-| `README.md` | 5.2 KB | file |
-| `run_spinor64.py` | 16.6 KB | file |
-| `spinor64_core.py` | 31.9 KB | file |
-| **Total (recursive)** | **11 files, 111.0 KB** | |
+| `data/` | 5 files, 16.5 KB | directory |
+| `output/` | 5 files, 44.2 KB | directory |
+| `README.md` | 6.9 KB | file |
+| `run_spinor64.py` | 16.1 KB | file |
+| `spinor64_core.py` | 31.8 KB | file |
+| **Total (recursive)** | **13 files, 115.6 KB** | |
 
 ## 🔬 Deep dive — the experiment that corrected the monograph
 
 The folder documents the two experiments E1 and E2 that settled the
-spinor question. **E1** computes, for each of the 64 spinor structures
-of the Klein quartic, the level-spacing statistics of its spectrum and
-compares them to the GUE law; **E2** verifies exact isospectrality
-between structures in the same PSL(2,7) orbit. The verified outcome:
+spinor question. **E1** proves the exact symmetry layer: operators built
+from spinor structures in the same PSL(2,7) orbit are exactly isospectral
+(and the zero-mode counts per orbit match); **E2** computes, for each of
+the 64 spinor structures of the Klein quartic in the AB-cloud model, the
+level-spacing statistics of its spectrum and compares them to the GUE
+law. The verified outcome:
 **64 of 64 structures are GUE-consistent**, the orbit decomposition is
 28/21/7/7/1, and spectra agree to ≈ 1e-14. This result is the content of Appendix D in
 the v22.1 monograph rebuilds and of §3.2.5 in the v21.1 corrections.
@@ -120,12 +123,3 @@ eigenvalue algorithm is implemented in-file, there are no third-party
 imports and no network access; the run finishes in seconds and must
 reproduce the committed JSON byte-for-byte on the same interpreter
 generation. Any deviation is a bug report, not a discovery.
-
-## Кратко (по-русски)
-
-- E1: статистика межуровневых расстояний всех 64 спинор-структур против
-  GUE; E2: точная изоспектральность внутри орбит PSL(2,7).
-- Итог: 64/64 GUE-согласованы, орбиты 28/21/7/7/1, изоспектральность
-  ≈ 1e-14.
-- Артефакты закоммичены (лог, JSON, CSV, отчёт); воспроизведение —
-  `python3 run_spinor64.py`, чистый stdlib, без сторонних зависимостей.

@@ -30,7 +30,7 @@ Verdicts are quoted verbatim from each run's `results_verdicts.txt` (WARN is an 
 
 ## 🧪 How to read a run folder
 
-Each run folder contains `final_report.md` / `final_report.html` (the full human-readable report), `results_verdicts.txt` (the machine-written one-line verdicts, quoted verbatim in the table above), a `logs/` directory with the raw console stream, and one `test_<id>_<name>/` directory per experiment with its own `REPORT.txt` and artifacts. To re-examine any single experiment, start from its `REPORT.txt`, then cross-check the numbers against `logs/` — the H‑8 campaign exists precisely to certify that this cross-check closes for every number printed anywhere on this shelf.
+Each run folder contains `final_report.md` / `final_report.html` (the full human-readable report), `results_verdicts.txt` (the machine-written one-line verdicts, quoted verbatim in the table above), a `logs/` directory with the raw console stream, one `test_<id>_<name>/` directory per experiment with its committed plots, and the experiment's `test_<id>_<name>_REPORT.txt` verdict file beside it. To re-examine any single experiment, start from its `*_REPORT.txt`, then cross-check the numbers against `logs/` — the H‑8 campaign exists precisely to certify that this cross-check closes for every number printed anywhere on this shelf.
 
 ## 📁 Contents
 

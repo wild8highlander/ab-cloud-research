@@ -19,6 +19,13 @@ The deliverable layer of the algebraic-map campaign: `HPB_algebraic_map_2026-10-
 | [`HPB_algebraic_map_2026-10-13_ru.docx`](HPB_algebraic_map_2026-10-13_ru.docx) | DOCX | 627.5 KB | — |
 | [`HPB_algebraic_map_2026-10-13_ru.pdf`](HPB_algebraic_map_2026-10-13_ru.pdf) | PDF | 887.6 KB | — |
 | `src/` | folder | 7 items | document build sources (content blocks, assembly scripts) |
+| [`src/amap_build.py`](src/amap_build.py) | Python | — | assembles the PDF report: ReportLab body (TocDocTemplate + multiBuild), HTML cover via `html2poster.js`, merged with pypdf |
+| [`src/amap_content.py`](src/amap_content.py) | Python | — | report content blocks (RU), sections 1–5; all numbers read from `../data/amap_results.json` |
+| [`src/amap_content2.py`](src/amap_content2.py) | Python | — | report content blocks (RU), sections 6–11 + appendices (identities K1–K8, appendix table) |
+| [`src/amap_docx.js`](src/amap_docx.js) | JavaScript | — | DOCX build of the report (docx-js), parsing `<b>`/`<sub>`/`<super>` tags and formula blocks |
+| [`src/content_amap.json`](src/content_amap.json) | JSON | — | the serialized content payload (title, blocks, biblio) consumed by the DOCX build |
+| [`src/gen_appendix_table.py`](src/gen_appendix_table.py) | Python | — | regenerates the appendix table A.1 rows from `amap_results.json` and patches `amap_content2.py` |
+| [`src/gen_content_json.py`](src/gen_content_json.py) | Python | — | collects `content_amap.json` from `amap_content{,2}.py` for the DOCX build |
 
 ## 🧭 Navigation
 

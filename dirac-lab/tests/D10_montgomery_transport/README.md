@@ -80,7 +80,7 @@ Full suite: `make all` regenerates the whole D1–D14 ledger; the single-test co
 
 Python-verified; the Julia cross-coverage map is [results/CROSS_VERIFICATION.md](../../results/CROSS_VERIFICATION.md).
 
-Deterministic **seed 96** (parent convention); ζ tables from the Odlyzko-derived files in [data/](../../data/) with provenance headers. Ledger matches the canonical run [results/run_20261006_full_v13](../../results/run_20261006_full_v13/REPORT.md) verbatim.
+Deterministic **seed 96** (parent convention); ζ tables from the Odlyzko-derived files in [data/](../../data/) with provenance headers. Ledger regenerated with the canonical harness (v1.4); the committed run artifacts live in [results/](../../results/README.md).
 
 ---
 

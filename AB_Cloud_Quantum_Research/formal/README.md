@@ -17,50 +17,42 @@
 </div>
 
 > 🧭 **Navigation:** [↑ main README](../README.md) · [📚 monographs](../MONOGRAPH_ARCHIVE/README.md) · [🧪 hypothesis lab](../HYPOTHESIS_LAB/README.md) · [🎞 animations](../VISUAL_ANIMATIONS/README.md)
-# ⚖️ formal/ — формальный слой единого пакета (мост)
+# ⚖️ formal/ — the formal layer of the unified package (bridge)
 
-Формальные исходники живут **в материнской программе**
+The formal sources live **in the parent program**
 [`modules/core_spectrum/formal/`](../modules/core_spectrum/formal/README.md)
-— здесь их НЕ дублируют (единый источник правды). Этот файл — карта и
-сводный статус.
+— they are NOT duplicated here (a single source of truth). This file is a
+map and a summary status.
 
-## Что внутри core_spectrum/formal/
+## What is inside core_spectrum/formal/
 
-| Файл | Система | Содержание | Статус |
+| File | System | Contents | Status |
 |------|---------|------------|--------|
-| `lean/RPBasic.lean` | Lean 4 | скелет: сумма |ν|² ≥ 0, Tr(AB)=Tr(BA) | компиляция — O-lean |
-| `coq/RPBasic.v` | Coq | те же факты в Gallina | компиляция — O-coq |
-| `agda/RPBasic.agda` | Agda | неотрицательность типизацией | компиляция — O-agda |
-| `isabelle/RPBasic.thy` | Isabelle/HOL | те же факты в HOL | компиляция — O-isa |
-| `lean/RPTheorems.lean` | Lean 4 | **постановки Th1–Th6**, доказанные пропозициональные ядра, редукции к аксиомам A1–A6 | компиляция — O-lean; A1–A6 → Mathlib — O-lean-mathlib |
-| `coq/RPTheorems.v` | Coq | те же постановки (intros/exact, без admit) | компиляция — O-coq |
-| `obligations.json` | — | DAG обязательств V13 (зеркало rpbridge/formaloblig.py) | verdict: **blocked** |
+| `lean/RPBasic.lean` | Lean 4 | skeleton: the sum \|ν\|² ≥ 0, Tr(AB)=Tr(BA) | compilation — O-lean |
+| `coq/RPBasic.v` | Coq | the same facts in Gallina | compilation — O-coq |
+| `agda/RPBasic.agda` | Agda | non-negativity by typing | compilation — O-agda |
+| `isabelle/RPBasic.thy` | Isabelle/HOL | the same facts in HOL | compilation — O-isa |
+| `lean/RPTheorems.lean` | Lean 4 | **statements of Th1–Th6**, proved propositional cores, reductions to axioms A1–A6 | compilation — O-lean; A1–A6 → Mathlib — O-lean-mathlib |
+| `coq/RPTheorems.v` | Coq | the same statements (intros/exact, no admit) | compilation — O-coq |
+| `obligations.json` | — | the V13 obligation DAG (mirror of rpbridge/formaloblig.py) | verdict: **blocked** |
 
-## Реестр именованных редукций A1–A6
+## Registry of named reductions A1–A6
 
-| Аксиома | Классика | Теорема |
+| Axiom | Classical result | Theorem |
 |---------|----------|---------|
-| A1 | спектральная теорема (эрмитовый случай) | Th1 |
-| A2 | одновременная диагонализация (конечная абелева) | Th5 |
+| A1 | spectral theorem (Hermitian case) | Th1 |
+| A2 | simultaneous diagonalization (finite abelian) | Th5 |
 | A2b | ‖(H∓iI)ψ‖² = ‖Hψ‖²+‖ψ‖² | Th2 |
-| A3 | произведение Адамара для ξ | Th6 |
-| A4 | оценка Като–Темпл | Th3 |
-| A5 | теорема Гершгорина | Th3 |
-| A6 | абсолютная сходимость ряда Ли | Th4 |
+| A3 | Hadamard product for ξ | Th6 |
+| A4 | Kato–Temple bound | Th3 |
+| A5 | Gershgorin theorem | Th3 |
+| A6 | absolute convergence of the Li series | Th4 |
 
-Дисциплина: `sorry`/`admit` не используются нигде; каждая глубокая классика
-— явно названная аксиома. Ни одна аксиома не является гипотезой RH.
-Машина обязательств (V13) подтверждается тестом `test_formal_blocked.py`:
-**вывод RH заблокирован**, пока O08/O09/O11/O12 — assumed. Формализация
-гарантирует честную блокировку, а не доказательство RH.
-
-## English summary
-
-The formal sources live in `modules/core_spectrum/formal/` (single source
-of truth); this folder is a map. Th1–Th6 are formally stated in Lean 4 and
-Coq with named reductions A1–A6, no `sorry`/`admit` anywhere; the V13
-obligation machine keeps the RH conclusion blocked — the layer guarantees
-honest blocking, not a proof of RH.
+Discipline: `sorry`/`admit` are not used anywhere; every deep classical
+result is an explicitly named axiom. No axiom is the RH hypothesis.
+The obligation machine (V13) is confirmed by the test `test_formal_blocked.py`:
+**the RH conclusion is blocked** while O08/O09/O11/O12 are assumed. The
+formalization guarantees honest blocking, not a proof of RH.
 
 ---
 

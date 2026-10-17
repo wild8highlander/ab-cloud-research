@@ -1,7 +1,7 @@
 # tables/
 
-| Файл | Содержимое |
+| File | Content |
 |------|-----------|
-| qp_workbook.xlsx | Листы: Headline, Program V20, ISA, Compiler, Previews, Thresholds P0–P6, Data files |
+| qp_workbook.xlsx | Sheets: Headline, Program V20, ISA, Compiler, Previews, Thresholds P0–P6, Data files |
 
-Пересборка: `python3 scripts/build_workbook.py`.
+Rebuild: `python3 scripts/build_workbook.py`.

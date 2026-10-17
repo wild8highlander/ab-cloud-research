@@ -7,9 +7,9 @@
 
 # 🔭 Meridian Spectral Observatory — documentation
 
-> **The observatory's manual in six numbered chapters — обзор, каталог, запуск, физика, гейт H5, данные.**
+> **The observatory's manual in eight numbered chapters — overview, catalogue, launch, physics, gate H5, data, version log, reproducibility.**
 
-The documentation set of the Meridian Spectral Observatory, numbered in reading order: `01` — project overview, `02` — the code catalogue, `03` — the launch guide, `04` — the physics & mathematics, `05` — the H5 gate regimes, `06` — the ζ-zero data. The chapters are self-contained Markdown in Russian; start with `01` for the map of the observatory and with `03` when you just want to run it.
+The documentation set of the Meridian Spectral Observatory, numbered in reading order: `01` — project overview, `02` — the code catalogue, `03` — the launch guide, `04` — the physics & mathematics, `05` — the H5 gate regimes, `06` — the ζ-zero data, `07` — the version chronology, `08` — the reproducibility protocol. The chapters are self-contained Markdown in Russian; start with `01` for the map of the observatory and with `03` when you just want to run it.
 
 The chapters deliberately mirror the package's honesty rules: regime tables state their thresholds, and the H5 gate chapter (`05`) documents both the passing and the non-passing regimes without pruning the latter.
 

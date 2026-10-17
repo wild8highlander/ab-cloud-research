@@ -19,9 +19,9 @@ eigenvalue algorithm is implemented in-file (no LAPACK calls).
 
 | Entry | Size | Kind |
 |---|---|---|
-| `README.md` | 615 B | file |
+| `README.md` | 2.1 KB | file |
 | `spinor38.jl` | 4.5 KB | file |
-| **Total (recursive)** | **2 files, 5.1 KB** | |
+| **Total (recursive)** | **2 files, 7.0 KB** | |
 
 ## ▶ Running — toolchain and entry point
 
@@ -47,11 +47,3 @@ output format is shared across all ten languages so their verdict
 lines can be diffed mechanically; any line that differs from the
 validated C++ reference (`../../cpp/spinor38/spinor38.cpp`) marks a
 port bug.
-
-## Кратко (по-русски)
-
-- Тест 38: статистика межуровневых расстояний всех 64 спинор-структур
-  квартики Кляйна против GUE; итог — 64/64 согласованы, орбиты
-  PSL(2,7) 28/21/7/7/1, изоспектральность ≈ 1e-14.
-- Только замороженные данные и stdlib; формат вывода одинаков во всех
-  десяти языках и сверяется с C++-эталоном.

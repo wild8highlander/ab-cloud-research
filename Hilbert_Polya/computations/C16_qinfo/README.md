@@ -46,7 +46,7 @@ python3 campaigns/run_c16_qinfo.py
 ```
 
 Fresh runs are self-contained: the zeta zeros come from the internal
-mpmath cache (`data/zeros/`), no external files. Runtime: seconds to
+mpmath cache (`../../data/zeros/`), no external files. Runtime: seconds to
 minutes (C12 is segmented; see `campaigns/run_c12_band5000.py`).
 The committed run completes in 24.4 s.
 
@@ -54,16 +54,16 @@ The committed run completes in 24.4 s.
 
 | File | Where |
 |---|---|
-| `fig24_qinfo.png` | 600 dpi — `figures_hires/ru|en/fig24_qinfo_ru|en.png`; copy in `figures/ru|en/` |
+| `fig24_qinfo_{ru,en}.png` | this folder's `figures/{ru,en}/`; 600 dpi mirrors — top-level `figures_hires/{ru,en}/fig24_qinfo_{ru,en}.png` |
 | `data/results.json` | committed verdict |
 | `data/*.npz` / `*.csv` | curves and tables |
 
-`data/results.json` stores the two S_A profiles (gate and clean, five fillings each, with S_B, S_AB), the Page baseline mean and std, the MI alignment block, the SFF slope table; `data/curves.npz` holds the curves behind `fig24_qinfo.png`.
+`data/results.json` stores the two S_A profiles (gate and clean, five fillings each, with S_B, S_AB), the Page baseline mean and std, the MI alignment block, the SFF slope table; `data/curves.npz` holds the curves behind `fig24_qinfo_{ru,en}.png`.
 
 ## Verdict
 
 See `data/results.json` (verdict, RU+EN), the v2 monograph
-(`monograph/v2_volume/`) and `independent_verification/` (IVP11–18).
+(`../../monograph/v2_volume/`) and `../../independent_verification/` (IVP11–18).
 
 The committed English verdict reads: *"Three measurements. Q1: locality suppresses the volume-law fermionic entanglement of the Fermi sea (S_A ≈ 12-16 nats vs 160-220 for the GUE Haar baseline, z > 100) — the quantum-information echo of the wall of locality (C9/T11). […] Conclusion: entanglement and complexity erase arithmetic along with spectral statistics (T18)."* (The Q2 and Q3 clauses are quoted in Results above.)
 
@@ -86,7 +86,7 @@ C14 classifies the gates by spacing statistics; the ramp slope is a complexity-a
 - [C9 · Nonlocal trace primitive](../C9_nonlocal_trace/README.md) — the wall of locality in the trace language (T11).
 - [C11 · α=1/3 zero modes](../C11_alpha_third/README.md) — where arithmetic *does* enter the lattice spectrum (T13).
 - [C14 · Anomaly hunt](../C14_anomaly_hunt/README.md) — the statistics layer this echoes (T16).
-- `docs/v2/overview.md`, `monograph/v2_volume/`, `results/RESULTS.md` (row 30).
+- `../../docs/v2/overview.md`, `../../monograph/v2_volume/`, `../../results/RESULTS.md` (row 30).
 
 ---
 *Hilbert Polya Bridge v2.0.0 · C16*

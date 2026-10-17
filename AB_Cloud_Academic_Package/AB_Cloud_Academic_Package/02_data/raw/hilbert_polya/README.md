@@ -1,8 +1,8 @@
 # data/ — the committed campaign verdicts
 
-<p align="center"><img src="../../../../Hilbert_Polya/assets/illustrations/ill_trace_formula.png" width="600" alt="The trace formula as a ledger: committed verdicts weighed against the explicit formula"/></p>
+<p align="center"><img src="../../../../../Hilbert_Polya/assets/illustrations/ill_trace_formula.png" width="600" alt="The trace formula as a ledger: committed verdicts weighed against the explicit formula"/></p>
 
-<p align="center"><img src="../../../../Hilbert_Polya/assets/avatars/hp_agent_lyra.svg" width="110" alt="Agent Lyra, keeper of the verdict ledger"/></p>
+<p align="center"><img src="../../../../../Hilbert_Polya/assets/avatars/hp_agent_lyra.svg" width="110" alt="Agent Lyra, keeper of the verdict ledger"/></p>
 
 *The evidence layer of the Hilbert–Pólya Bridge: every number that any
 figure, theorem, monograph or campaign script quotes is committed here,
@@ -204,7 +204,7 @@ C6 (primes), C7 (dynamics), C8 (statistics).
 ## See also
 
 - [../README.md](../README.md) — the main README and the headline results table
-- [../campaigns/README.md](../../../../Hilbert_Polya/campaigns/README.md) — the scripts that print these verdicts
-- [../engine/README.md](../../../../Hilbert_Polya/engine/README.md) — the seeded kernel that makes the verdicts reproducible
-- [../docs/validation.md](../../../../Hilbert_Polya/docs/validation.md) — the thresholds each verdict is judged against
-- [../computations/](../../../../Hilbert_Polya/computations/) — per-campaign folders with data, figures and monographs
+- [../campaigns/README.md](../../../../../Hilbert_Polya/campaigns/README.md) — the scripts that print these verdicts
+- [../engine/README.md](../../../../../Hilbert_Polya/engine/README.md) — the seeded kernel that makes the verdicts reproducible
+- [../docs/validation.md](../../../../../Hilbert_Polya/docs/validation.md) — the thresholds each verdict is judged against
+- [../computations/](../../../../../Hilbert_Polya/computations/) — per-campaign folders with data, figures and monographs

@@ -42,10 +42,11 @@ scripts that produce them. No anchor, no test.**
    NOT used anywhere in the parity surface.
 
 ```bash
-# regenerate (Julia 1.10+, stdlib only, zeros50k.txt in the meridian root):
+# regenerate (Julia 1.10+, stdlib only, zeros50k.txt in the meridian root;
+# run from ports/golden/, meridian_dir = ..):
 julia gen_golden.jl <meridian_dir> <out.json>
-julia gen_golden_stack.jl . ../abcloud_golden_stack.json
-julia gen_hp_battery.jl   . ../hp_battery_golden.json
+julia gen_golden_stack.jl .. abcloud_golden_stack.json
+julia gen_hp_battery.jl   .. hp_battery_golden.json
 ```
 
 > [!IMPORTANT]

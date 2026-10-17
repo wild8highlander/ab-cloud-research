@@ -13,11 +13,11 @@ corrected v21.1 editions with the errata note — every number bound to a named 
 [![Formats](https://img.shields.io/badge/formats-7%20per%20language-4FB3BE?style=flat-square)](#-what-is-stored-in-the-editions-per-language)
 [![Canonical](https://img.shields.io/badge/canonical-v22%20%E2%86%92%20v22.1-2EA043?style=flat-square)](#-deep-dive--how-the-five-editions-relate)
 [![Figures](https://img.shields.io/badge/figures-19--20%20%C2%B7%20600%20dpi-C96F4A?style=flat-square)](#-what-is-stored-in-the-editions-per-language)
-[![Volume](https://img.shields.io/badge/volume-188%20files%20%C2%B7%20340%20MB-3E515B?style=flat-square)](#-complete-file-inventory)
+[![Volume](https://img.shields.io/badge/volume-200%20files%20%C2%B7%20341%20MB-3E515B?style=flat-square)](#-complete-file-inventory)
 [![Tests](https://img.shields.io/badge/numbers%20bound%20to-37--test%20suite-3A6B4F?style=flat-square)](../code/README.md)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21825394-3E515B?style=flat-square)](https://doi.org/10.5281/zenodo.21825394)
 
-[Edition map](#-edition-map) · [Formats](#-what-is-stored-in-the-editions-per-language) · [The physics inside](#-the-physics-stored-inside-what-the-documents-actually-claim) · [Which file to open](#-which-file-should-i-open) · [Rebuilding](#-rebuilding-the-formats) · [Кратко (по-русски)](#-кратко-по-русски)
+[Edition map](#-edition-map) · [Formats](#-what-is-stored-in-the-editions-per-language) · [The physics inside](#-the-physics-stored-inside-what-the-documents-actually-claim) · [Which file to open](#-which-file-should-i-open) · [Rebuilding](#-rebuilding-the-formats)
 
 </div>
 
@@ -35,7 +35,6 @@ corrected v21.1 editions with the errata note — every number bound to a named 
 5. [🔧 Rebuilding the formats](#-rebuilding-the-formats)
 6. [🔬 Deep dive — how the five editions relate](#-deep-dive--how-the-five-editions-relate)
 7. [📁 Complete file inventory](#-complete-file-inventory)
-8. [🇷🇺 Кратко (по-русски)](#-кратко-по-русски)
 
 </details>
 
@@ -162,30 +161,14 @@ what is committed is exactly what was built.
 
 | Entry | Size | Kind |
 |---|---|---|
-| `en/` | 31 files, 53.2 MB | directory |
-| `original-v21/` | 93 files, 185.7 MB | directory |
-| `ru/` | 31 files, 54.1 MB | directory |
-| `zh/` | 31 files, 47.2 MB | directory |
+| `assets/` | 3 files | directory — banner + avatar art used by this README |
+| `en/` | 33 files, ≈54 MB | directory |
+| `original-v21/` | 96 files, ≈186 MB | directory — incl. `media/`, 75 extracted page figures |
+| `ru/` | 33 files, ≈55 MB | directory |
+| `zh/` | 33 files, ≈48 MB | directory |
 | `PACKAGE_README.md` | 4.3 KB | file |
 | `README.md` | 5.1 KB | file |
-| **Total (recursive)** | **188 files, 340.2 MB** | |
-
----
-
-## 🇷🇺 Кратко (по-русски)
-
-- Пять изданий: монография v22 на трёх языках (RU/EN/ZH), оригинальная v21 автора с
-  английским изданием, исправленные v21.1 и пересобранные v22.1.
-- Форматы на язык: md/tex (исходники), html (интерактив), docx, pdf, 14-слайдовая
-  презентация, arXiv-препринт, 19–20 рисунков 600 dpi.
-- Внутри — вся физика проекта с привязкой каждого числа к именному тесту 37-тестового
-  набора; Приложение D описывает spinor64 (все 64 структуры GUE-согласованы).
-- Цитировать v22/v22.1; v21 — только как оригинальное повествование автора.
-- Каноническая линия — v22 (RU/EN/ZH) и её текущая сборка v22.1: Приложение B переведено
-  на двухпроходный прогон `run_20260902_134759`, добавлено Приложение D (spinor64: 64/64
-  GUE, орбиты PSL(2,7) 28/21/7/7/1). v21 сохранена как история проекта (V01–V115,
-  Приложение F); v21.1 — минимальные исправления исходного текста. Пересборка — pandoc для
-  html/docx и xelatex для pdf.
+| **Total (recursive)** | **200 files, ≈341 MB** | |
 
 ---
 

@@ -1,10 +1,10 @@
-# Функция V1 · Слепой спектральный эксперимент
+# V1 · Blind Spectral Experiment
 
 ![version](https://img.shields.io/badge/version-1.2.0-298bbc) ![](https://img.shields.io/badge/series-V01--V19-3b4f58) ![](https://img.shields.io/badge/status-honest-3a6b4f)
 
-> **Можно ли предсказать ординаты, которых алгоритм не видел? Разбиение G_cal ⊔ G_test, калибровка только по G_cal, один слепой прогон.**
+> **Can the algorithm predict ordinates it has never seen? Split G_cal ⊔ G_test, calibrate on G_cal only, one blind run.**
 
-[← Back to the main README](../../README.ru.md)
+[← Back to the main README](../../README.md)
 
 ## Contents
 
@@ -22,25 +22,25 @@
 
 ## Campaign question
 
-Можно ли предсказать ординаты, которых алгоритм не видел? Разбиение G_cal ⊔ G_test, калибровка только по G_cal, один слепой прогон.
+Can the algorithm predict ordinates it has never seen? Split G_cal ⊔ G_test, calibrate on G_cal only, one blind run.
 
 ## Results
 
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V01 (plan Solution 1) | committed verdict |
-| Key numbers | r_test = 0.006 против нуля −0.002 ± 0.066 (z = 0.09); r_cal = 0.085 (селекция по 8); тождества на контроле нет. | measured/proved |
-| Verdict note | слепой контроль выполнен; индивидуальные ординаты не предсказываются (r_test в нулевой зоне), статистический класс — предмет V2/V11 | honest |
+| Key numbers | r_test = 0.006 against null −0.002 ± 0.066 (z = 0.09); r_cal = 0.085 (selection over 8); no identity on test. | measured/proved |
+| Verdict note | the blind control is passed; individual ordinates are not predicted (r_test in the null zone), the statistical class is the subject of V2/V11 | honest |
 
 ## Method
 
-rpbridge/blind.py: 8 конфигураций калибровки (master-seed 96…103), окно 200 уровней, ранговая корреляция приращений через N̄ РВМ, пермутационный нуль (200 перестановок).
+rpbridge/blind.py: 8 calibration configurations (master seed 96…103), a 200-level window, rank correlation of increments via the RVM count, permutation null (200 shuffles).
 
 ## Figures
 
 | File | Where |
 |---|---|
-| `fig01_ru.png` | 600 dpi — `figures_hires/ru/`; infographics — `figures/ru/` |
+| `fig01_ru.png` | 600 dpi — `../../figures_hires/ru/`; infographics — `figures/ru/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/blind.py: 8 конфигураций калибровки (master-seed 
 | File | Content |
 |---|---|
 | `data/v01_verdict.json` | committed verdict of the campaign |
-| `computations/V01_blind_spectrum/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,8 +75,8 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Слепой контроль пройден: индивидуальные ординаты не предсказываются (Г2-согласовано)', 'en': 'Blind control passed: individual ordinates are not predicted'}**
+**Blind control passed: individual ordinates are not predicted**
 
 ---
 
-*AB Research Program v1.1.0 · V01 · Слепой спектральный эксперимент*
+*AB Research Program v1.1.0 · V01 · Blind Spectral Experiment*

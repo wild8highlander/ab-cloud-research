@@ -9,7 +9,7 @@
 
 > **The frozen v21 monograph (RU): text and presentation, mirror of the English half.**
 
-The Russian mirror of [`../en/`](../en/): the original `monograph_v21_RU` text with its HTML build and the `*_with_Verification` DOCX/PDF, plus the presentation folder. Same rules as the English half — frozen history, cited by location, never retro-edited.
+The Russian mirror of [`../en/`](../en/): the original `monograph_v21_RU` text with its HTML build and the `*_with_Verification` DOCX/PDF, the v21.1 corrected editions (`monograph_v21_RU_corrected.{docx,html,pdf}`) and the shared `mono.css` stylesheet, plus the presentation folder. Same rules as the English half — frozen history, cited by location, never retro-edited.
 
 ## 📁 Contents
 

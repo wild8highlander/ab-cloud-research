@@ -8,7 +8,7 @@
 animations for the READMEs, animated SVGs visible right on GitHub, and
 interactive HTML pages that run offline.**
 
-Наглядные анимации работы всей папки · GIF + SVG + HTML
+Visual animations of the whole folder at work · GIF + SVG + HTML
 
 ![badge-gifs](https://img.shields.io/badge/gif-5%20animations-C96F4A?style=for-the-badge)
 ![badge-svg](https://img.shields.io/badge/svg-7%20animated%20%28SMIL%29-0E7C86?style=for-the-badge)
@@ -31,7 +31,6 @@ interactive HTML pages that run offline.**
 - [Animated SVGs](#-animated-svgs)
 - [Interactive HTML pages](#-interactive-html-pages)
 - [Rebuild everything](#-rebuild-everything)
-- [Русская версия](#русская-версия)
 
 ---
 
@@ -85,7 +84,7 @@ VISUAL_ANIMATIONS/
 ## ✨ Animated SVGs
 
 Seven self-contained SMIL SVGs. They animate **directly on GitHub** when used
-via `<img src="...svg">`: the architecture map with flowing connector dashes,
+via an `<img src="path/to/animation.svg">` tag: the architecture map with flowing connector dashes,
 the critical line with pulsing zeros, three rotating spinor rings, the folder
 map with highlight sweeps, and the pulsing program medallion. Drop them into
 any README:
@@ -118,22 +117,12 @@ Requirements: Python ≥ 3.10 with matplotlib and Pillow. No network. The GIF
 zero ordinates are the public first 29 zeros — the same data that feeds
 `datasets/zeta_zeros_reference.csv` for the blind E17 reference.
 
-## Русская версия
-
-**VISUAL_ANIMATIONS** — наглядный слой программы: пять GIF-анимаций для ридми
-(нули поднимаются по критической прямой, пульс проходит четыре уровня, фазовые
-циклы спинора, хронология 43 кампаний, компиляция Гивенса), семь анимированных
-SVG, видимых прямо на GitHub, и шесть интерактивных HTML-страниц (тур по
-архитектуре, живые нули, лаборатория спинора, как устроена папка, конвейер
-данных). Всё пересобирается скриптами из этой же папки; лицензия репозитория
-продублирована дословно.
-
 ---
 
 <div align="center">
 
-*Смотри — и проверяй: каждая цифра на экране взята из вердиктов*
+*Watch — and verify: every number on screen is taken from the verdicts*
 
-**AB Cloud Quantum Research** · VISUAL_ANIMATIONS · v1.1.0 · © Исаев И. Х.
+**AB Cloud Quantum Research** · VISUAL_ANIMATIONS · v1.1.0 · © Isaev Iskhak Khamzatovich
 
 </div>

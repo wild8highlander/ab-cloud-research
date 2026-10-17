@@ -253,7 +253,7 @@ that minimizes surprises:
    exactly 1.4989125716 at the block's digits.
 2. **C twin.** Build with the one documented line (`cc -O2 … -lm`), run it
    against the committed `multilang/c/verify_control.txt`; this is the same
-   step `RUN_ALL.sh` performs when `cc` is present.
+   step the IVP10 cross-language check performs when `cc` is present.
 3. **C++ and JavaScript twins.** Same compile-and-run pattern; both were
    verified in the assembly environment, so a fresh disagreement points at
    the local toolchain first.

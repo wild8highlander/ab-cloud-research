@@ -69,11 +69,11 @@ Every other verdict in this package around the gates is a resolution-limited bra
 ## Reproduction
 
 ```bash
-python3 campaigns/run_c11_alpha_third.py
+python3 campaigns/run_c11_alphathird.py
 ```
 
 Fresh runs are self-contained: the zeta zeros come from the internal
-mpmath cache (`data/zeros/`), no external files. Runtime: seconds to
+mpmath cache (`../../data/zeros/`), no external files. Runtime: seconds to
 minutes (C12 is segmented; see `campaigns/run_c12_band5000.py`).
 
 Top-level quick start (v2 list in the main README): `python3 campaigns/run_c11_alphathird.py`.
@@ -82,7 +82,7 @@ Top-level quick start (v2 list in the main README): `python3 campaigns/run_c11_a
 
 | File | Where |
 |---|---|
-| `fig19_alphathird.png` | 600 dpi — `figures_hires/ru|en/fig19_alphathird_ru|en.png`; copy in `figures/ru|en/` |
+| `fig19_alphathird_{ru,en}.png` | this folder's `figures/{ru,en}/`; 600 dpi mirrors — top-level `figures_hires/{ru,en}/fig19_alphathird_{ru,en}.png` |
 
 | File | Content |
 |---|---|
@@ -94,9 +94,9 @@ In this campaign folder the committed payload is `data/results.json` (the fiftee
 ## Verdict
 
 See `data/results.json` (verdict, RU+EN), the v2 monograph
-(`monograph/v2_volume/`) and `independent_verification/` (IVP11–18).
+(`../../monograph/v2_volume/`) and `../../independent_verification/` (IVP11–18).
 
-Committed verdict (EN, verbatim): "The arithmetic-to-spectrum bridge is measured: zero modes at α=1/3 exist iff L ≡ 0 (mod 6); the counting law N0 = 2L − 6·[L≡0 (mod 12)] holds on all 15 sizes (decisive L=36→66, L=48→90); index −2 is tied to L ≡ 0 (mod 12) — the conjunction of mod 3 (flux) and mod 4 (staggered structure). The v1 T9 observation ('mod 4') is refined: L=18 (≡2 mod 4) also has 36 modes." The statement of T13 and its relation to the v1 T9 observation are in `monograph/theorems_v2_volume/`.
+Committed verdict (EN, verbatim): "The arithmetic-to-spectrum bridge is measured: zero modes at α=1/3 exist iff L ≡ 0 (mod 6); the counting law N0 = 2L − 6·[L≡0 (mod 12)] holds on all 15 sizes (decisive L=36→66, L=48→90); index −2 is tied to L ≡ 0 (mod 12) — the conjunction of mod 3 (flux) and mod 4 (staggered structure). The v1 T9 observation ('mod 4') is refined: L=18 (≡2 mod 4) also has 36 modes." The statement of T13 and its relation to the v1 T9 observation are in `../../monograph/theorems_v2_volume/`.
 
 ## FAQ
 
@@ -109,7 +109,7 @@ Committed verdict (EN, verbatim): "The arithmetic-to-spectrum bridge is measured
 
 - [C7 · Wave dynamics](../C7_wave_dynamics/README.md) — the Dirac-type dynamics (H4) of the same engine family.
 - [C9 · Nonlocal trace (T11)](../C9_nonlocal_trace/README.md) — why arithmetic must enter through structure, not the trace.
-- `monograph/theorems_v2_volume/` — T13; `monograph/theorems_volume/` — the v1 T9 observation it refines.
+- `../../monograph/theorems_v2_volume/` — T13; `../../monograph/theorems_volume/` — the v1 T9 observation it refines.
 - `../../results/ROADMAP.md` — R3 as written and as executed; N1 and N3, the two v3 continuations.
 - [Back to the main README](../../README.md).
 

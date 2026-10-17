@@ -34,7 +34,7 @@ Reproduction at a glance:
 python3 campaigns/run_c3_gates.py
 # committed verdict of the campaign — data/results.json
 # the 52-gate table (all statistics and p-values) — data/gates_table.csv
-# 600 dpi figures — figures_hires/ru/fig05_gates.png · figures_hires/en/fig05_gates_en.png
+# 600 dpi figures — figures_hires/ru/fig05_gates_ru.png · figures_hires/en/fig05_gates_en.png
 # monographs — monograph_ru.docx · monograph_ru.pdf · monograph_en.docx · monograph_en.pdf
 ```
 
@@ -133,7 +133,7 @@ surprising. The illustration `ill_shutter_wall.png` in the shared assets
 depicts this wall of apertures; the hero image above shows one aperture opened
 — the vortex lattice itself.
 
-The word *gate* (Russian "затвор", shutter) is a construct of this series. It
+The word *gate* (Russian "zatvor", shutter) is a construct of this series. It
 denotes a parametrised family of Hermitian Hamiltonians, not a physical
 device. No claim is made that such a lattice could be built in a laboratory
 and interrogated with physical light; the "light" is always the eigenspectrum
@@ -566,7 +566,7 @@ Notes on the protocol:
 
 | File | Where |
 |---|---|
-| `fig05_gates.png` | 600 dpi — `figures_hires/ru/fig05_gates.png`; screen — `figures/ru/` |
+| `fig05_gates_ru.png` | 600 dpi — `figures_hires/ru/fig05_gates_ru.png`; screen — `figures/ru/` |
 | `fig05_gates_en.png` | 600 dpi — `figures_hires/en/fig05_gates_en.png`; screen — `figures/en/` |
 
 ### Monographs
@@ -599,7 +599,7 @@ Independent checks of this campaign live in `independent_verification/`
 
 ## 11. Verdict
 
-**{'ru': 'Г2 — ДА (на уровне самих нулей ζ), измерено с PC1/PC2', 'en': 'H2 — YES (at the zeros' level), measured with PC1/PC2'}** — details: `data/results.json`, the monograph, and
+**H2 — YES (at the zeros' level), measured with PC1/PC2** — details: `data/results.json`, the monograph, and
 `independent_verification/` (the IVP checks of this campaign).
 
 > The verdict H2 = YES at the zeros' level was earned through the same
@@ -614,7 +614,7 @@ Independent checks of this campaign live in `independent_verification/`
 
 | Term | Meaning in this campaign |
 |---|---|
-| Gate (затвор, shutter) | A parametrised Hermitian Hamiltonian — a vortex-decorated Hofstadter lattice; an aperture in the shutter-wall metaphor, not a device. |
+| Gate (zatvor, shutter) | A parametrised Hermitian Hamiltonian — a vortex-decorated Hofstadter lattice; an aperture in the shutter-wall metaphor, not a device. |
 | Shutter wall | The family of all 52 apertures; opening one means diagonalising its Hamiltonian. |
 | Vortex | A phase singularity pinned in the lattice; carries a charge q_k at a position with atan2 angle θ about the centre. |
 | Handle | A knob of the family: Nv, q, W, α in C3; twists, anisotropy, δα, mass, profile, charge signs in C5. |

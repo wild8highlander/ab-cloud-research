@@ -1,63 +1,64 @@
-# TS2 · Теорема о летучести состояния
+# TS2 · The state volatility theorem
 
-**Статус:** доказана (аналитически) · **Сертификат:** кампания ES2, вердикт
-PASS (с эрратумом ES2a) · **Документы:** `theorem_ts2_{ru,en}.{pdf,docx}`
-(4 документа) · **Фигура:** `figures/ts2_4dim_{lang}.png` (2×2, 600 dpi).
+**Status:** proved (analytically) · **Certificate:** campaign ES2, verdict
+PASS (with erratum ES2a) · **Documents:** `theorem_ts2_{ru,en}.{pdf,docx}`
+(4 documents) · **Figure:** `figures/ts2_4dim_{lang}.png` (2×2, 600 dpi).
 
-## Постановка
+## Statement
 
-Машина имеет единственный регистр — фазу s ∈ G_θ; reset: G_θ → {0} —
-стирание в каноническое состояние. Тогда для любого априорного
-распределения P на G_θ:
+The machine has a single register — the phase s ∈ G_θ; reset: G_θ → {0} —
+erasure into the canonical state. Then for any prior distribution P on G_θ:
 
-1. **I(S_пре; S_пост) = 0** — пост-состояние вырождено, взаимная
-   информация с пре-состоянием равна нулю точно;
-2. никакая функция наблюдателя g(S_пост) не восстанавливает S_пре с
-   вероятностью выше max_i P(i); при равномерном P — выше **1/N**
-   (измерено 0.2501 против 1/N = 0.25 для N = 4 на 120 000 trials);
-3. о времени t состояние несёт ровно s_t ≡ (s_0 + t) (mod N): доля
-   согласованных t′ ∈ [0, 10⁶) равна 1/N — полная история t в состоянии
-   **не содержится**.
+1. **I(S_pre; S_post) = 0** — the post-state is degenerate; the mutual
+   information with the pre-state is exactly zero;
+2. no observer function g(S_post) recovers S_pre with a probability above
+   max_i P(i); for a uniform P — above **1/N**
+   (measured 0.2501 against 1/N = 0.25 for N = 4 over 120 000 trials);
+3. about the time t the state carries exactly s_t ≡ (s_0 + t) (mod N): the
+   share of consistent t′ ∈ [0, 10⁶) equals 1/N — the full history of t is
+   **not contained** in the state.
 
-Следствие: долговременная память в такой машине отсутствует по
-построению — состояние несёт log₂N бит независимо от времени работы.
+Corollary: such a machine has no long-term memory by construction — the
+state carries log₂N bits regardless of the uptime.
 
-## Идея вывода
+## Derivation idea
 
-(i) Константа не несёт информации: H(S_пост) = 0 ⇒ I = 0. (ii) Классический
-предел слепого угадывания: P[g(0) = S_пре] = Σ_i P(i)·1{g(0)=i} ≤ max_i P(i).
-(iii) Из детерминированной динамики множество согласованных моментов —
-класс вычетов по модулю N, асимптотическая доля 1/N. Полное доказательство
-— в документах.
+(i) A constant carries no information: H(S_post) = 0 ⇒ I = 0. (ii) The
+classical bound of blind guessing: P[g(0) = S_pre] = Σ_i P(i)·1{g(0)=i} ≤
+max_i P(i). (iii) From the deterministic dynamics the set of consistent
+moments is a residue class modulo N, with asymptotic share 1/N. The full
+proof is in the documents.
 
-## Четыре измерения сертификата (ES2)
+## The four dimensions of the certificate (ES2)
 
-| Измерение | Что меряется | Итог |
+| Dimension | What is measured | Result |
 |-----------|--------------|------|
-| метрика | точность реконструкции пре-состояния после сброса | 0.2501/0.1674/0.0717 ≈ 1/N |
-| поведение по инстансам | три модели N = 4, 6, 14 | все на уровне случайности |
-| контроль | считывание живого состояния без сброса | детерминировано, 1.0 |
-| порог | C1: внутри 1/N + 3σ-полосы | PASS (эрратум ES2a) |
+| metric | the accuracy of the pre-state reconstruction after the reset | 0.2501/0.1674/0.0717 ≈ 1/N |
+| per-instance behaviour | the three models N = 4, 6, 14 | all at the chance level |
+| control | the readout of the live state without a reset | deterministic, 1.0 |
+| threshold | C1: within the 1/N + 3σ band | PASS (erratum ES2a) |
 
-## Эрратум ES2a
+## Erratum ES2a
 
-Первичная редакция порога C1 («acc ≤ 1/N + 1e-9») не учитывала
-биномиальный шум оценки на 120 000 trials (σ_бин ≈ 1.2e-3) и была заменена
-3σ-полосой **до принятия вердикта**; сырые данные не менялись. Эрратум
-зафиксирован в вердикте `data/es2_volatility_verdict.json` — в духе
-дисциплины программы (эрратумы публикуются, не ретушируются).
+The primary wording of the threshold C1 ("acc ≤ 1/N + 1e-9") did not
+account for the binomial noise of the estimate over 120 000 trials
+(σ_bin ≈ 1.2e-3) and was replaced by the 3σ band **before the verdict was
+accepted**; the raw data were not changed. The erratum is recorded in the
+verdict `data/es2_volatility_verdict.json` — in the spirit of the
+program's discipline (errata are published, not retouched).
 
-## Границы (честно)
+## Boundaries (honest)
 
-Теорема — об информационной необратимости стирания **в модели**. Она не
-утверждает ничего о термодинамической цене стирания (принцип Ландауэра),
-о физических носителях и о шуме считывания (граница канала — ES5).
+The theorem is about the informational irreversibility of erasure **in the
+model**. It states nothing about the thermodynamic cost of erasure (the
+Landauer principle), about physical carriers or about readout noise (the
+channel boundary — ES5).
 
-## Как воспроизвести
+## How to reproduce
 
 ```bash
-python3 experiments/run_es2_volatility.py  # вердикт data/es2_volatility_verdict.json
+python3 experiments/run_es2_volatility.py  # verdict data/es2_volatility_verdict.json
 python3 make_figures.py                    # figures/{ru,en}/ts2_4dim_*.png
-python3 make_theorem_docs.py TS2           # 4 документа
-python3 -m pytest tests/ -q                # инварианты (test_reset_erases)
+python3 make_theorem_docs.py TS2           # 4 documents
+python3 -m pytest tests/ -q                # invariants (test_reset_erases)
 ```

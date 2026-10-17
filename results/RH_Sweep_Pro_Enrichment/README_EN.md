@@ -78,8 +78,12 @@ append an incremental point history to `sensitivity/`.
 
 ```
 RH_Sweep_Pro_Enrichment/
-├── README.md / README_EN.md         ← package documentation
+├── README.md / README_EN.md         ← package documentation (RU master / EN twin)
+├── RH_Sweep_Pro_D.jl                ← the v1.0 sweep engine this kit repairs
+├── SUMMARY.md / SUMMARY.json · DATA_DICTIONARY.md · manifest.sha256
 ├── julia/                           ← enricher module + integration guide
+├── scripts/                         ← FIXED v1.1 engine, enricher copy, changelog
+├── data/ · curves/ · figures/ · animations/  ← verified-run artifacts (P1 layer)
 ├── templates/                       ← README / dictionary / protocols
 ├── monograph/                       ← PLOS-style chapter draft (RU)
 ├── enriched_example/                ← ready P0 files for the verified run

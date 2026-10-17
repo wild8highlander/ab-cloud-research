@@ -1,10 +1,10 @@
-# Функция V15 · Критерий Ли (Th4)
+# V15 · The Li Criterion (Th4)
 
 ![version](https://img.shields.io/badge/version-1.2.0-298bbc) ![](https://img.shields.io/badge/series-V01--V19-3b4f58) ![](https://img.shields.io/badge/status-honest-3a6b4f)
 
-> **Связаны ли коэффициенты Ли со спектром? Спектральная формула λ_n = Tr g_n(H_ξ) и сертифицированная положительность.**
+> **Are the Li coefficients connected to the spectrum? The spectral formula λ_n = Tr g_n(H_ξ) and certified positivity.**
 
-[← Back to the main README](../../README.ru.md)
+[← Back to the main README](../../README.md)
 
 ## Contents
 
@@ -22,25 +22,25 @@
 
 ## Campaign question
 
-Связаны ли коэффициенты Ли со спектром? Спектральная формула λ_n = Tr g_n(H_ξ) и сертифицированная положительность.
+Are the Li coefficients connected to the spectrum? The spectral formula λ_n = Tr g_n(H_ξ) and certified positivity.
 
 ## Results
 
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V15 (plan Solution 15) | committed verdict |
-| Key numbers | Th4 |Δ| = 4.4e-11; λ₁ = 0.023057 (−B = 0.023096); λ_n > 0 для n ≤ 3000 (хвосты ≤ 0.115); мост к затворам — O09. | measured/proved |
-| Verdict note | Th4 доказана и верифицирована (два пути, |Δ| ≤ 1e-9); λ_n > 0 для n ≤ 3000 измерено с сертифицированными хвостами; бесконечное семейство неравенств остаётся открытым; представление λ_n следами ЗАТВОРОВ не найдено | honest |
+| Key numbers | Th4 \|Δ\| = 4.4e-11; λ₁ = 0.023057 (−B = 0.023096); λ_n > 0 for n ≤ 3000 (tails ≤ 0.115); the gate bridge — O09. | measured/proved |
+| Verdict note | Th4 is proved and verified (two paths, \|Δ\| ≤ 1e-9); λ_n > 0 for n ≤ 3000 is measured with certified tails; the infinite family of inequalities remains open; no representation of λ_n by the traces of GATES is found | honest |
 
 ## Method
 
-rpbridge/li.py: два пути (нулевой ряд w^n и след g_n); телескоп |1−w^n| ≤ n|1−w|; 50k нулей, T ≤ 40433.
+rpbridge/li.py: two paths (the zero series w^n and the trace of g_n); the telescope |1−w^n| ≤ n|1−w|; 50k zeros, T ≤ 40433.
 
 ## Figures
 
 | File | Where |
 |---|---|
-| `fig15_ru.png` | 600 dpi — `figures_hires/ru/`; infographics — `figures/ru/` |
+| `fig15_ru.png` | 600 dpi — `../../figures_hires/ru/`; infographics — `figures/ru/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/li.py: два пути (нулевой ряд w^n и след g_n); т�
 | File | Content |
 |---|---|
 | `data/v15_verdict.json` | committed verdict of the campaign |
-| `computations/V15_li_criterion/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,8 +75,8 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Th4 доказана; λ_n > 0 до 3000 измерено; RH не следует', 'en': 'Th4 proved; λ_n > 0 to 3000 measured; RH does not follow'}**
+**Th4 proved; λ_n > 0 to 3000 measured; RH does not follow**
 
 ---
 
-*AB Research Program v1.1.0 · V15 · Критерий Ли (Th4)*
+*AB Research Program v1.1.0 · V15 · The Li Criterion (Th4)*

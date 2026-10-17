@@ -8,7 +8,7 @@
 
 > **The Russian-language study report (PDF) with its HTML cover.**
 
-The operational report of the T-34 study — «Отчёт: исследование вихрей AB-Cloud, Тест 34» — as PDF, with `cover.html` as its cover page. This is the working document of the campaign (the monograph next door is its publication-grade sibling): same numbers, more process detail.
+The operational report of the T-34 study — the Russian-language PDF listed below — with `cover.html` as its cover page. This is the working document of the campaign (the monograph next door is its publication-grade sibling): same numbers, more process detail.
 
 ## 📁 Contents
 

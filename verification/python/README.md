@@ -18,7 +18,6 @@ reproduce this one's numbers; when in doubt, this code is the arbiter.
 | `ab_cloud_verify_en.py` | same, English-only output |
 | `ab_cloud_verify_ru.py` | same, Russian-only output |
 | `run_verify.py` | self-contained CLI runner — the only file you normally touch |
-| `spinor38/` | Test 38 port (see below) |
 
 ## Requirements
 
@@ -55,26 +54,6 @@ python3 run_verify.py --zeros 50000 --data-dir ../data --objection 1
 Typical wall time: < 1 s for 5 000 zeros, ~3 s for 50 000, ~15 s for 500 000
 (single core, pure Python).
 
-## spinor38/ — Test 38 port
-
-`spinor38/spinor38.py` reads the frozen 64 spinor classes from
-`../spinor64/data/`, rebuilds the 28 odd-orbit spectra with a **hand-written
-Jacobi eigensolver** (no NumPy, no LAPACK) and verifies:
-
-1. exact isospectrality of operators inside the PSL(2,7) orbit;
-2. the ⟨r⟩ statistic of the frozen AB-cloud reference run.
-
-Run it with:
-
-```bash
-cd verification/python/spinor38 && python3 spinor38.py
-```
-
-Frozen-data contract, column formats and the physics context:
-[`../spinor64/README.md`](../spinor64/README.md) and
-[`../spinor38/README.md`](spinor38/README.md) (present in every language
-folder of this suite).
-
 ## Notes
 
 - The loader is the canonical `load_zeros(data_dir, count, source)` contract
@@ -83,25 +62,26 @@ folder of this suite).
 - All randomness (bootstrap, shuffles) uses fixed seeds — reruns are
   byte-identical.
 
-## Кратко (по-русски)
+## Summary
 
-- Эталонная реализация верификации на Python 3.10+, без внешних
-  зависимостей (matplotlib опционален — только для графиков).
-- Запуск: `python3 run_verify.py --zeros 5000 --objection all --lang ru`.
-- Печатает таблицу b(N), KS/CvM против GUE, наклон убывания; пишет отчёт.
-- `spinor38/` — Порт Test 38: чистый Python, собственный алгоритм Якоби,
-  чтение замороженных данных из `../spinor64/data/`.
+- The Python 3.10+ reference implementation of the verification, with no external
+  dependencies (`matplotlib` is optional — only for the plots).
+- Run: `python3 run_verify.py --zeros 5000 --objection all --lang ru`.
+- Prints the b(N) table, KS/CvM vs GUE and the decay slope; writes a report.
+- The Test-38 spinor port for this suite lives in `spinor64/` — the Python reference
+  implementation is the spinor64 experiment itself, so no separate `spinor38/` subfolder
+  is needed here.
 
 ## 📁 Complete file inventory
 
 | Entry | Size | Kind |
 |---|---|---|
-| `README.md` | 3.4 KB | file |
-| `ab_cloud_verify.py` | 26.8 KB | file |
-| `ab_cloud_verify_en.py` | 20.5 KB | file |
-| `ab_cloud_verify_ru.py` | 22.5 KB | file |
-| `run_verify.py` | 19.5 KB | file |
-| **Total (recursive)** | **5 files, 92.7 KB** | |
+| `README.md` | 7.1 KB | file |
+| `ab_cloud_verify.py` | 39.2 KB | file |
+| `ab_cloud_verify_en.py` | 1.3 KB | file |
+| `ab_cloud_verify_ru.py` | 1.3 KB | file |
+| `run_verify.py` | 1.7 KB | file |
+| **Total (recursive)** | **5 files, 51.4 KB** | |
 
 ## 🔬 Deep dive — the Python port in the parity matrix
 
@@ -149,18 +129,3 @@ same one-line command shown above. The Test-38 companion lives in
 `spinor38/` where present, and the spinor64 correction experiment — the
 one that established 64/64 GUE-consistency for the Klein-quartic
 structures — lives in `../spinor64/`.
-
-## Кратко (по-русски)
-
-- Порт существует для доказательства паритета: одинаковые замороженные
-  данные, тот же набор тестов, те же эталонные числа (KS = 0.047,
-  p = 0.27; дефект 3.5e-15; ⟨r⟩ = 0.5848 ± 0.0260).
-- Флаги одинаковы во всех десяти реализациях — одна и та же командная
-  строка проигрывается в каждой папке.
-- Расхождение с эталоном трактуется как баг порта, а не как открытие.
-
-- Эталонный самодостаточный порт: весь числовой конвейер в одном
-  файле (Lambert W, GUE PDF/CDF, KS и Крамер–фон Мизес, загрузчик,
-  три возражения) — аудит без переходов по импортам.
-- Вердикт этой папки — тай-брейкеры для споров об эталонных числах.
-- Только stdlib: прогон по умолчанию занимает секунды, CI-дым.

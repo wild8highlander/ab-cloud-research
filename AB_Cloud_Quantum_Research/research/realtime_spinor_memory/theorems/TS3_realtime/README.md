@@ -1,59 +1,60 @@
-# TS3 · Теорема о реальном времени
+# TS3 · The real-time theorem
 
-**Статус:** доказана (аналитически + микробенчмарк) · **Сертификат:**
-кампания ES3, вердикт PASS · **Документы:**
-`theorem_ts3_{ru,en}.{pdf,docx}` (4 документа) · **Фигура:**
+**Status:** proved (analytically + a microbenchmark) · **Certificate:**
+campaign ES3, verdict PASS · **Documents:**
+`theorem_ts3_{ru,en}.{pdf,docx}` (4 documents) · **Figure:**
 `figures/ts3_4dim_{lang}.png` (2×2, 600 dpi).
 
-## Постановка
+## Statement
 
-1. **Шаг фазовой машины выполняется за константное время c**, не
-   зависящее от времени работы t: состояние — один регистр фиксированной
-   разрядности, история отсутствует. Измеренный наклон профиля стоимости
-   шага: −1.5e−12 мс/шаг за шаг (рост отсутствует в пределах разрешения
-   замера); дедлайн 1 мс соблюдён на **200 000 из 200 000** шагов.
-2. **Машина с вечным журналом** и полной периодической перепроверкой несёт
-   **Ω(t)** стоимость верификации: наклон стоимости replay положителен
-   (R² = 0.999), рост средней стоимости шага к t = 2¹⁷ — **×129** (у
-   машины — ×1.0).
-3. Следствие: для любого дедлайна Δt существует t*, после которого машина
-   с журналом нарушает дедлайны, тогда как фазовая машина соблюдает их при
-   всех t. **Жёсткое реальное время и долговременная память в этой
-   архитектуре несовместимы; летучесть — не дефект, а условие
-   детерминизма.**
+1. **The step of the phase machine executes in a constant time c**, not
+   depending on the uptime t: the state is a single register of fixed
+   width, the history is absent. The measured slope of the step-cost
+   profile: −1.5e−12 ms/step per step (no growth within the measurement
+   resolution); the 1 ms deadline was met on **200 000 of 200 000** steps.
+2. **The machine with an eternal log** and full periodic re-checking
+   carries an **Ω(t)** verification cost: the slope of the replay cost is
+   positive (R² = 0.999), the growth of the mean step cost by t = 2¹⁷ is
+   **×129** (for the phase machine — ×1.0).
+3. Corollary: for any deadline Δt there exists a t*, after which the
+   machine with the log misses the deadlines, whereas the phase machine
+   meets them at all t. **Hard real time and long-term memory are
+   incompatible in this architecture; volatility is not a defect but the
+   condition of determinism.**
 
-## Идея вывода
+## Derivation idea
 
-(i) Шаг — одно модульное сложение над регистром фиксированной
-разрядности ⇒ O(1) по построению. (ii) Полная перепроверка читает все t
-ячеек журнала ⇒ Ω(t); при c_max — максимальной стоимости шага с
-перепроверкой — при t > Δt/c_max очередной шаг с replay превышает
-дедлайн. Фазовая машина не читает историю никогда, поэтому её стоимость
-от t не зависит. Полное доказательство — в документах.
+(i) The step is a single modular addition over a register of fixed width ⇒
+O(1) by construction. (ii) A full re-check reads all t cells of the log ⇒
+Ω(t); at c_max — the maximal step cost with the re-check — for
+t > Δt/c_max the next step with replay exceeds the deadline. The phase
+machine never reads the history, so its cost does not depend on t. The
+full proof is in the documents.
 
-## Четыре измерения сертификата (ES3)
+## The four dimensions of the certificate (ES3)
 
-| Измерение | Что меряется | Итог |
+| Dimension | What is measured | Result |
 |-----------|--------------|------|
-| метрика | наклон стоимости шага машины по t | −1.5e−12 мс/шаг (≤ 1e-11) |
-| поведение по инстансам | 200 000 шагов, модели S1 и S3 | 0 пропусков дедлайна (Δt = 1 мс) |
-| контроль | LogMachine (вечный журнал + replay) | рост ×129–132; replay Ω(t), R² = 0.999 |
-| порог | C1–C4 предрегистрированные | все PASS |
+| metric | the slope of the machine's step cost over t | −1.5e−12 ms/step (≤ 1e-11) |
+| per-instance behaviour | 200 000 steps, the models S1 and S3 | 0 deadline misses (Δt = 1 ms) |
+| control | LogMachine (the eternal log + replay) | growth ×129–132; replay Ω(t), R² = 0.999 |
+| threshold | C1–C4 pre-registered | all PASS |
 
-## Границы (честно)
+## Boundaries (honest)
 
-Теорема сертифицирует O(1)-стоимость шага **модели** и линейный рост
-перепроверки журнала в **контрастной модели**. Она не измеряет
-производительность физических устройств, не утверждает, что всякая память
-вредна, и не исключает буферы ограниченной длины — запрет касается именно
-вечного журнала при жёстких дедлайнах. Замеры: CPython, GC отключён на
-время микробенчмарка (честно задокументировано в вердикте).
+The theorem certifies the O(1) step cost of the **model** and the linear
+growth of the log re-checking in the **contrast model**. It does not
+measure the performance of physical devices, does not claim that all
+memory is harmful, and does not exclude buffers of bounded length — the
+prohibition concerns exactly the eternal log under hard deadlines.
+Measurements: CPython, GC disabled during the microbenchmark (honestly
+documented in the verdict).
 
-## Как воспроизвести
+## How to reproduce
 
 ```bash
-python3 experiments/run_es3_realtime.py    # вердикт data/es3_realtime_verdict.json
+python3 experiments/run_es3_realtime.py    # verdict data/es3_realtime_verdict.json
 python3 make_figures.py                    # figures/{ru,en}/ts3_4dim_*.png
-python3 make_theorem_docs.py TS3           # 4 документа
-python3 -m pytest tests/ -q                # инварианты (test_footprint_constant)
+python3 make_theorem_docs.py TS3           # 4 documents
+python3 -m pytest tests/ -q                # invariants (test_footprint_constant)
 ```

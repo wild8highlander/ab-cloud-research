@@ -9,7 +9,7 @@
 
 > **The study's pipeline: simulator, experiments E1–E7, reference dumps and the figure builders.**
 
-The executable layer of the W-1 study: [`ab_water.py`](ab_water.py) is the core simulator/analyser, the `e*_*.py` files are the per-experiment drivers (E1 cascade, E2 control, E4 frequency, E6 η-scan, E7 time-domain) that wrote [`../data/`](../data/), [`dump_reference_csv.py`](dump_reference_csv.py) maintains the frozen reference tables, and [`README_documents.md`](README_documents.md) explains how the document set is assembled. Start from `ab_water.py` if you want the physics, from an `e*` driver if you want a reproduction recipe.
+The executable layer of the W-1 study: [`ab_water.py`](ab_water.py) is the core simulator/analyser, the `e*_*.py` files are the per-experiment drivers (E4 frequency, E6 η-scan, E7 time-domain; E1–E3/E5 live in [`run_experiments.py`](run_experiments.py)) that wrote [`../data/`](../data/), [`dump_reference_csv.py`](dump_reference_csv.py) maintains the frozen reference tables, and [`README_documents.md`](README_documents.md) explains how the document set is assembled. Start from `ab_water.py` if you want the physics, from an `e*` driver if you want a reproduction recipe.
 
 ## 📁 Contents
 

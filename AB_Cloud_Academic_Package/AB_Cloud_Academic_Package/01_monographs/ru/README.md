@@ -1,14 +1,14 @@
-# Единая монография — полный русский том (издание + MAX-издание)
+# The unified monograph — full Russian volume (edition + MAX edition)
 
-| Файл | Что это |
+| File | What it is |
 |---|---|
-| [`monograph_ru.md`](monograph_ru.md) | полный исходник тома (Markdown, с LaTeX-формулами и фигурами) |
-| `monograph_ru.pdf` | типографская версия (pandoc → tectonic) |
-| `monograph_ru.docx` | редактируемая версия (pandoc) |
-| [`monograph_ru_max.md`](monograph_ru_max.md) | **MAX-издание** (~100 000 слов): каждый уровень, каждая кампания, все 37 тестов v19 с консолями, журналы, таблицы, полные записи источников |
-| `monograph_ru_max.pdf` | типографская версия MAX-издания |
-| `monograph_ru_max.docx` | редактируемая версия MAX-издания |
+| [`monograph_ru.md`](monograph_ru.md) | full volume source (Markdown, with LaTeX math and figures) |
+| `monograph_ru.pdf` | typeset edition (pandoc → tectonic) |
+| `monograph_ru.docx` | editable edition (pandoc) |
+| [`monograph_ru_max.md`](monograph_ru_max.md) | **MAX edition** (~100,000 words): every level, every campaign, all 37 v19 tests with consoles, logs, tables, full source records |
+| `monograph_ru_max.pdf` | typeset MAX edition |
+| `monograph_ru_max.docx` | editable MAX edition |
 
-**Языковые тома / Volumes:** [RU](../ru/README.md) **(вы здесь / you are here)** · [EN](../en/README.md) · [ZH 摘要](../zh/README.md) · [DE](../de/README.md) · [ES](../es/README.md) · [FR](../fr/README.md) · [AR](../ar/README.md)
+**Volumes:** [RU](../ru/README.md) **(you are here)** · [EN](../en/README.md) · [ZH 摘要](../zh/README.md) · [DE](../de/README.md) · [ES](../es/README.md) · [FR](../fr/README.md) · [AR](../ar/README.md)
 
-**Честная граница / honest boundary:** RH — `blocked` (машина обязательств V13 / the V13 obligation machine). Монография не доказывает гипотезу Римана / the monograph does not prove the Riemann hypothesis.
+**Honest boundary:** RH — `blocked` (the V13 obligation machine). The monograph does not prove the Riemann hypothesis.

@@ -8,7 +8,7 @@ from the battery's committed results.
 
 | File | Role |
 |---|---|
-| [`audit_build.py`](audit_build.py) | the orchestrator: assembles the body via ReportLab (with TOC) and the cover via the Template-01 (HUD) html2poster path, then merges `_body.pdf` + `_cover.pdf` into the final PDF; hashes every input for the build log |
+| [`audit_build.py`](audit_build.py) | the orchestrator: assembles the body via ReportLab (with TOC) and the cover via the Template-01 (HUD) html2poster path, then merges the intermediate `_body.pdf` + `_cover.pdf` build artifacts into the final PDF; hashes every input for the build log |
 | [`audit_content.py`](audit_content.py) / [`audit_content2.py`](audit_content2.py) / [`audit_content3.py`](audit_content3.py) | the chapter content modules — text, tables and verdict rows of the report, in assembly order |
 | [`content.json`](content.json) | the structured content dump consumed by the docx branch |
 | [`audit_docx.js`](audit_docx.js) | the `.docx` build branch (Node) mirroring the same content |

@@ -45,7 +45,7 @@ python3 campaigns/run_c15_dirichlet.py
 ```
 
 Fresh runs are self-contained: the zeta zeros come from the internal
-mpmath cache (`data/zeros/`), no external files. Runtime: seconds to
+mpmath cache (`../../data/zeros/`), no external files. Runtime: seconds to
 minutes (C12 is segmented; see `campaigns/run_c12_band5000.py`).
 The committed run completes in 50.5 s (T ≤ 120 band).
 
@@ -53,7 +53,7 @@ The committed run completes in 50.5 s (T ≤ 120 band).
 
 | File | Where |
 |---|---|
-| `fig23_dirichlet.png` | 600 dpi — `figures_hires/ru|en/fig23_dirichlet_ru|en.png`; copy in `figures/ru|en/` |
+| `fig23_dirichlet_{ru,en}.png` | this folder's `figures/{ru,en}/`; 600 dpi mirrors — top-level `figures_hires/{ru,en}/fig23_dirichlet_{ru,en}.png` |
 | `data/results.json` | committed verdict |
 | `data/*.npz` / `*.csv` | curves and tables |
 
@@ -62,7 +62,7 @@ The committed run completes in 50.5 s (T ≤ 120 band).
 ## Verdict
 
 See `data/results.json` (verdict, RU+EN), the v2 monograph
-(`monograph/v2_volume/`) and `independent_verification/` (IVP11–18).
+(`../../monograph/v2_volume/`) and `../../independent_verification/` (IVP11–18).
 
 The committed English verdict reads: *"The pipeline transfers to L-functions: Z_χ is real (machine precision), zeros match the smooth count, the heat trace of H_{ξ,χ} carries the twisted weight χ(n)Λ(n)/√n (T17), the ψ_χ ladder matches zeros (0.902/0.949 — the L-rungs of the convergence ladder); gates against L-zeros stay in the same null zone of the rank branch. The rank-metric resolution limit is UNIVERSAL: a class property, not a zeta defect — the twisted weight and the ladder carry over to the whole class, and the rank projection stays at its limit."*
 
@@ -85,7 +85,7 @@ They port the H2 rank test itself: all six (χ, Nv) projections land in the rank
 - [C4 · Trace formula](../C4_trace_formula/README.md) — the untwisted Guinand–Weil identity for H_ξ (T6).
 - [C6 · Prime flow](../C6_prime_flow/README.md) — the untwisted ψ-ladder and co-location kernel (T4).
 - [C13 · Blind families](../C13_blind_families/README.md) — the null zone across designs (T15).
-- `docs/v2/dirichlet_pipeline.md`, `docs/v2/overview.md`, `results/RESULTS.md` (row 29).
+- `../../docs/v2/dirichlet_pipeline.md`, `../../docs/v2/overview.md`, `../../results/RESULTS.md` (row 29).
 
 ---
 *Hilbert Polya Bridge v2.0.0 · C15*

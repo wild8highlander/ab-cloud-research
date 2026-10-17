@@ -30,7 +30,7 @@ Is every statement traced to data and controls? The 5-part schema + auditor.
 |---|---|---|
 | Campaign | V14 (plan Solution 14) | committed verdict |
 | Key numbers | 19/19 claims per the schema (V1–V19); full verdict coverage; status hygiene observed. | measured/proved |
-| Verdict note | каждое публичное утверждение пакета трассируется к вычислению, контролю и перечню не-следствий; автоповышение гипотезы до теоремы заблокировано | honest |
+| Verdict note | every public statement of the package is traced to a computation, a control and a list of non-implications; automatic promotion of a hypothesis to a theorem is blocked | honest |
 
 ## Method
 
@@ -40,7 +40,7 @@ rpbridge/audit.py: claim JSON (statement/premises/code/controls/does_not_prove);
 
 | File | Where |
 |---|---|
-| `fig14_en.png` | 600 dpi — `figures_hires/en/`; infographics — `figures/en/` |
+| `fig14_en.png` | 600 dpi — `../../figures_hires/en/`; infographics — `figures/en/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/audit.py: claim JSON (statement/premises/code/controls/does_not_prove);
 | File | Content |
 |---|---|
 | `data/v14_verdict.json` | committed verdict of the campaign |
-| `computations/V14_claim_audit/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Утверждения трассируются', 'en': 'Every statement is traced; automatic promotion is blocked'}**
+**Every statement is traced; automatic promotion is blocked**
 
 ---
 

@@ -30,7 +30,7 @@ Is the operator strictly defined and what is proved about it? Passport P1–P4.
 |---|---|---|
 | Campaign | V04 (plan Solution 4) | committed verdict |
 | Key numbers | ‖H−H†‖ = 0 (exact); ‖Hv−λv‖ = 8.8e-15; pairing λ↔−λ (W=0) 8.2e-15. Th1 proved. | measured/proved |
-| Verdict note | Th1 доказана: эрмитовость по построению, спектр вещественен, киральность α=½/W=0 — бипартидность | honest |
+| Verdict note | Th1 is proved: hermiticity by construction, the spectrum is real, chirality α=½/W=0 — bipartiteness | honest |
 
 ## Method
 
@@ -40,7 +40,7 @@ rpbridge/operator.py: explicit element formulas, battery L ∈ {12,16,24,32} × 
 
 | File | Where |
 |---|---|
-| `fig04_en.png` | 600 dpi — `figures_hires/en/`; infographics — `figures/en/` |
+| `fig04_en.png` | 600 dpi — `../../figures_hires/en/`; infographics — `figures/en/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/operator.py: explicit element formulas, battery L ∈ {12,16,24,32} × 
 | File | Content |
 |---|---|
 | `data/v04_verdict.json` | committed verdict of the campaign |
-| `computations/V04_operator_passport/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Th1 доказана', 'en': 'Th1: hermiticity and reality — proved'}**
+**Th1: hermiticity and reality — proved**
 
 ---
 

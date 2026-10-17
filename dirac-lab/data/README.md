@@ -8,7 +8,7 @@ carried through the parent repository's verification data pipeline (`verificatio
 13661 zeros) into this truncated copy used by tests D7–D8 for the deterministic ζ→vortex coding.
 
 Format: one zero per line; lines starting with `#` are comments (attribution header).
-See also parent data up to 2,001,052 zeros: `../verification/data/` of the root repository.
+See also parent data up to 2,001,052 zeros: `../../verification/data/` of the root repository.
 
 ## Band files for tests D12–D14 (v1.3)
 

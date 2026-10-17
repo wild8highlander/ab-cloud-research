@@ -1,6 +1,6 @@
 # ⚡ The Machine With No Long-Term Memory: Spinor Phase Real-Time Models
 
-**Supplementary study of [AB Cloud Quantum Research](../../../README.en.md)
+**Supplementary study of [AB Cloud Quantum Research](../../../README.md)
 · v1.0.0** · 3 models (θ = π/2 · π/3 · π/7) · 5 pre-registered campaigns
 (all PASS) · 3 theorems · 12 documents (RU/EN × PDF/DOCX) · 8 tiled
 figures @600 dpi · 11 tests
@@ -108,7 +108,7 @@ python3 -m pytest tests/ -q        # 11 invariants
 - The study is unrelated to the Riemann hypothesis; the RH conclusion
   remains blocked by the V13 obligation machine.
 
-Полная русская версия: [`README.md`](README.md).
+The full Russian version: [`README.md`](README.md).
 
 ---
 

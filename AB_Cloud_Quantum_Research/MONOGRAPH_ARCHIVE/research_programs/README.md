@@ -17,7 +17,14 @@ As with the whole archive, these documents are frozen; later thinking lives in t
 
 | Item | Kind | Size | What it is |
 |---|---|---|---|
-| `latex/` | folder | 8 items | see inside |
+| [`latex/program_Core_EN.tex`](latex/program_Core_EN.tex) | LaTeX | 11.3 KB | English LaTeX source of the Core program |
+| [`latex/program_Core_RU.tex`](latex/program_Core_RU.tex) | LaTeX | 16.1 KB | Russian LaTeX source of the Core program |
+| [`latex/program_Processor_EN.tex`](latex/program_Processor_EN.tex) | LaTeX | 5.9 KB | English LaTeX source of the Processor program |
+| [`latex/program_Processor_RU.tex`](latex/program_Processor_RU.tex) | LaTeX | 8.5 KB | Russian LaTeX source of the Processor program |
+| [`latex/program_Spinor_EN.tex`](latex/program_Spinor_EN.tex) | LaTeX | 6.3 KB | English LaTeX source of the Spinor program |
+| [`latex/program_Spinor_RU.tex`](latex/program_Spinor_RU.tex) | LaTeX | 8.8 KB | Russian LaTeX source of the Spinor program |
+| [`latex/program_Verification_EN.tex`](latex/program_Verification_EN.tex) | LaTeX | 6.1 KB | English LaTeX source of the Verification program |
+| [`latex/program_Verification_RU.tex`](latex/program_Verification_RU.tex) | LaTeX | 8.8 KB | Russian LaTeX source of the Verification program |
 | [`Program_Core_EN.docx`](Program_Core_EN.docx) | DOCX | 14.8 KB | — |
 | [`Program_Core_EN.pdf`](Program_Core_EN.pdf) | PDF | 85.0 KB | — |
 | [`Program_Core_RU.docx`](Program_Core_RU.docx) | DOCX | 15.6 KB | — |

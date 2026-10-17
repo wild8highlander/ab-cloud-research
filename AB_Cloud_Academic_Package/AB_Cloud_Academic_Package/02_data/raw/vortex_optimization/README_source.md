@@ -8,6 +8,15 @@
 
 ---
 
+> [!NOTE]
+> **Bundling scope.** This is a preserved copy of the study's own README. In the
+> academic package this folder ships the measurement data only: the three stage
+> CSVs (`sweep_A_L24.csv`, `sweep_B_refine.csv`, `sweep_C_L96.csv`), the L = 96
+> GUE-control JSON (`gue_control_L96.json`) and the four `curves/*.npz` files —
+> all at the folder root (no `data/` subfolder). The study's `scripts/`,
+> `figures/`, `report/` and `monograph/` trees described below are not bundled;
+> they live in the upstream study package.
+
 ## 1. TL;DR
 
 | # | Configuration (96×96, 5 realizations each) | D (pooled) | Spread | Verdict |
@@ -59,19 +68,19 @@ A configuration **passes** iff all of:
 
 ### Stage A — coarse sweep (L = 24, 576 sites)
 
-171 configurations; 3 realizations each; all four dials × geometry. Output: `data/sweep_A_L24.csv`.
+171 configurations; 3 realizations each; all four dials × geometry. Output: `sweep_A_L24.csv`.
 
 **The valley found:** Nv = 6–16 (best at 12), q = 0.7–1.0, W = 0.5–1.0, α = 0.5; torus ≥ open ≥ ... while **cluster placement is catastrophic** (D = 0.11–0.17). Pure lattice Nv = 0: D = 0.73 (the cloud simply does not exist as a ζ-statistics object without vortices). Nv = 1: D = 0.194.
 
 ### Stage B — refinement (L = 32, 48, 64)
 
-46 configurations; tests finite-size stability of the Stage-A valley, α-criticality, and computes the **per-L GUE floor** — the same KS comparison applied to a GUE matrix ensemble of the same sample structure, which is the statistical zero of the whole method (no construction can beat it at fixed sample size). Output: `data/sweep_B_refine.csv`.
+46 configurations; tests finite-size stability of the Stage-A valley, α-criticality, and computes the **per-L GUE floor** — the same KS comparison applied to a GUE matrix ensemble of the same sample structure, which is the statistical zero of the whole method (no construction can beat it at fixed sample size). Output: `sweep_B_refine.csv`.
 
 Floors measured: L = 24 → 0.0324, L = 32 → 0.0331, L = 48 → 0.0309, L = 64 → 0.0257, L = 96 → 0.0220.
 
 ### Stage C — verification at the full 96×96 lattice
 
-Five candidates × five realizations under the **full 34b protocol** (N = 9216 sites, 5528 spacings per realization, 27,640 pooled), plus an independent L = 96 GUE control (2 × 5527-spacing GUE samples vs ζ): **D_floor = 0.0220**. Output: `data/sweep_C_L96.csv`, `data/gue_control_L96.json`, `curves/*.npz`.
+Five candidates × five realizations under the **full 34b protocol** (N = 9216 sites, 5528 spacings per realization, 27,640 pooled), plus an independent L = 96 GUE control (2 × 5527-spacing GUE samples vs ζ): **D_floor = 0.0220**. Output: `sweep_C_L96.csv`, `gue_control_L96.json`, `curves/*.npz`.
 
 Runtimes (laptop-class core): L = 96 ≈ 155 s/realization, peak memory ≈ 1.4 GB; a full Stage-C configuration ≈ 13 min; Stage A ≈ 2 min total.
 
@@ -145,7 +154,7 @@ Engineering notes: column-ordered (F-order) matrices with `overwrite_a` diagonal
 
 ### 7.1 Drop-in
 
-This folder is self-contained. Recommended location: **repo root** as `t34_vortex_optimization/` (the provided `push_to_github.sh` does exactly that).
+This study package is self-contained. Recommended location: **repo root** as `t34_vortex_optimization/`.
 
 ### 7.2 Upgrade the suite's headline test
 
@@ -175,6 +184,9 @@ Expected effect: pooled D ≈ 0.03–0.04 instead of ≈ 0.11 (composite WARN �
 - No Julia required for the scan itself; Julia ≥ 1.9 only for the original suite cross-check
 
 ### Commands
+
+(The commands refer to the original study package's `scripts/` folder, which is
+not bundled in this edition.)
 
 ```bash
 cd t34_vortex_optimization/scripts
@@ -228,18 +240,25 @@ All CSVs share the schema (one row = one configuration):
 | `ks_pass, r2_pass, gue_closer, stab_pass, composite_ok` | the four arms of the criterion and the composite verdict |
 | `runtime_s` | wall time per realization |
 
-`data/gue_control_L96.json`: the Stage-C floor — `D_gue_vs_zeta = 0.0220` at n_spacings = 11054, p = 3.0e-4 (the floor's own p-arm failure is expected and is exactly why the criterion has the D < 0.10 arm).
+`gue_control_L96.json`: the Stage-C floor — `D_gue_vs_zeta = 0.0220` at n_spacings = 11054, p = 3.0e-4 (the floor's own p-arm failure is expected and is exactly why the criterion has the D < 0.10 arm).
 
-`curves/*.npz`: binned R₂(s) curves for the four Stage-C configurations — keys: `s`, `R2_cloud`, `R2_zeta`, `R2_gue`, `R2_pois`.
+`curves/` — the binned R₂(s) curves of the four Stage-C configurations (keys: `s`, `R2_cloud`, `R2_zeta`, `R2_gue`, `R2_pois`):
+
+| File | Configuration |
+|---|---|
+| `curves/R2_L96_Nv2_q1.00_W1.00_a0.50_open_protocol.npz` | suite reference: Nv = 2, q = 1.0, α = 0.5, open |
+| `curves/R2_L96_Nv8_q1.00_W1.00_a0.60_open_regular.npz` | Nv = 8, q = 1.0, α = 0.6, open, regular grid |
+| `curves/R2_L96_Nv16_q0.70_W1.00_a0.50_open_protocol.npz` | Nv = 16, q = 0.7, α = 0.5, open |
+| `curves/R2_L96_Nv16_q1.00_W1.00_a0.50_torus_protocol.npz` | best: Nv = 16, q = 1.0, α = 0.5, torus |
 
 ---
 
 ## 10. File tree
 
 ```
-t34_vortex_optimization/
+t34_vortex_optimization/          ← original study package (see the bundling-scope note above)
 ├── README.md                  ← this file
-├── README_RU.md               ← полная русская версия
+├── README_RU.md               ← full Russian version (in this edition: `README_source.ru.md`)
 ├── data/
 │   ├── sweep_A_L24.csv        ← Stage A: 171 configurations
 │   ├── sweep_B_refine.csv     ← Stage B: 46 configurations (L = 32/48/64)

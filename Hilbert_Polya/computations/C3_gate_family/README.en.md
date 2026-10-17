@@ -82,7 +82,7 @@ measuring device works.
 The hero image above is the campaign in one picture: a wall, and shutters cut
 into it. Behind the wall stands the arithmetic of the zeta zeros; in front of
 it, a family of 52 Hermitian lattice Hamiltonians. Each **gate** — Russian
-"затвор", a shutter — is one aperture: open it (build the Hamiltonian,
+"zatvor", a shutter — is one aperture: open it (build the Hamiltonian,
 diagonalise it) and some pattern of spectral light falls through. The
 campaign's question is whether *any* aperture transmits the exact pattern of
 the zeros, level for level.
@@ -417,7 +417,7 @@ python3 campaigns/run_c3_gates.py
 | File | Where |
 |---|---|
 | `fig05_gates_en.png` | 600 dpi — `figures_hires/en/fig05_gates_en.png`; screen — `figures/en/` |
-| `fig05_gates.png` | 600 dpi — `figures_hires/ru/fig05_gates.png`; screen — `figures/ru/` |
+| `fig05_gates_ru.png` | 600 dpi — `figures_hires/ru/fig05_gates_ru.png`; screen — `figures/ru/` |
 
 ### Monographs
 
@@ -447,7 +447,7 @@ in `independent_verification/` (the IVP checks of this campaign).
 
 ## 11. Verdict
 
-**{'ru': 'Г2 — ДА (на уровне самих нулей ζ), измерено с PC1/PC2', 'en': 'H2 — YES (at the zeros' level), measured with PC1/PC2'}** — details: `data/results.json`, the monograph, and
+**H2 — YES (at the zeros' level), measured with PC1/PC2** — details: `data/results.json`, the monograph, and
 `independent_verification/` (the IVP checks of this campaign).
 
 > H2 is a positive verdict, earned the hard way — after the positive
@@ -461,7 +461,7 @@ in `independent_verification/` (the IVP checks of this campaign).
 
 | Term | Meaning in this campaign |
 |---|---|
-| Gate (затвор, shutter) | A parametrised Hermitian Hamiltonian — a vortex-decorated Hofstadter lattice; an aperture in the shutter-wall metaphor, not a device. |
+| Gate (zatvor, shutter) | A parametrised Hermitian Hamiltonian — a vortex-decorated Hofstadter lattice; an aperture in the shutter-wall metaphor, not a device. |
 | Shutter wall | The family of all 52 apertures; opening one means diagonalising its Hamiltonian. |
 | Vortex | A phase singularity pinned in the lattice; carries a charge q_k at a position with atan2 angle θ about the centre. |
 | Handle | A knob of the family: Nv, q, W, α in C3; twists, anisotropy, δα, mass, profile, charge signs in C5. |

@@ -252,7 +252,7 @@ python3 campaigns/run_c8_stats_ladder.py
 python3 -m pytest tests/ -q
 
 # 3. independent verification protocol (10 checks)
-bash independent_verification/RUN_ALL.sh
+python3 -c "from hpbridge.validate import run_all; [print(r) for r in run_all()]"
 
 # 4. figures: bilingual 600 dpi + logo + infographics (optional)
 python3 scripts/make_figures.py
@@ -288,7 +288,7 @@ Hilbert Polya Bridge/
 ├── figures_hires/                ← 25 figures × ru/en @ 600 dpi
 ├── video/                        ← film companion: measured storyboard doc
 │                                    + the two regeneration scripts
-├── independent_verification/     ← IVP01–IVP10 + PROTOCOL.md + RUN_ALL.sh
+├── independent_verification/     ← IVP01–IVP10 + PROTOCOL.md
 ├── multilang/                    ← C · C++ · Go · Julia · JS · Rust twins
 ├── tables/                       ← hp_workbook.xlsx (gates, theorems, HP)
 ├── tests/                        ← pytest suite over committed verdicts
@@ -416,7 +416,7 @@ number-theoretic explanation of the α = 1/3 zero modes (T9).
   (Γ-closures at dps = 40, Z_id reality, trace-formula identity, gate
   GUE windows): `python3 -m pytest tests/ -q`
 - `independent_verification/` — IVP01–IVP10, the ten-check blind protocol:
-  `bash independent_verification/RUN_ALL.sh`
+  `python3 -c "from hpbridge.validate import run_all; [print(r) for r in run_all()]"`
 - Cross-language twins (C, C++, Go, Julia, JavaScript, Rust) recompute the
   Γ-closures and the Λ-sieve and print a control block compared by IVP10.
 
@@ -938,7 +938,7 @@ skeleton of the package is standing.
 
 ```bash
 # 3. independent verification protocol (10 checks)
-bash independent_verification/RUN_ALL.sh
+python3 -c "from hpbridge.validate import run_all; [print(r) for r in run_all()]"
 ```
 
 The IVP01–IVP10 blind protocol: ten checks designed to be run *without
@@ -986,7 +986,7 @@ Hilbert Polya Bridge/
 ├── docs/                         ← theory, methods, trace_formula, validation
 ├── figures/                      ← logo + infographics (ru/en × light/dark)
 ├── figures_hires/                ← 25 figures × ru/en @ 600 dpi
-├── independent_verification/     ← IVP01–IVP18 + PROTOCOL.md + RUN_ALL.sh
+├── independent_verification/     ← IVP01–IVP18 + PROTOCOL.md
 ├── multilang/                    ← C · C++ · Go · Julia · JS · Rust twins
 ├── tables/                       ← hp_workbook.xlsx (gates, theorems, HP)
 ├── tests/                        ← pytest suite over committed verdicts
@@ -1442,7 +1442,7 @@ IVP01–IVP10 in v1, IVP11–IVP18 in v2 (18/18 green), each a blind check
 designed to be run without trusting the campaigns:
 
 ```bash
-bash independent_verification/RUN_ALL.sh
+python3 -c "from hpbridge.validate import run_all; [print(r) for r in run_all()]"
 ```
 
 The IVPs re-derive anchors (0, 3, 10, 29, 79, 649), re-produce the
@@ -1569,7 +1569,7 @@ where their contributions enter the map.
 
 ## Part XVI — Glossary
 
-**Gate (затвор).** One configuration of the vortex lattice: a Hermitian
+**Gate (zatvor — Russian for *shutter*).** One configuration of the vortex lattice: a Hermitian
 Hofstadter-type Hamiltonian at (or near) half flux, decorated with vortex
 phases. The family's unit of experiment; 87 in v1, 121 in the v2 zoo. The
 shutter metaphor is deliberate: a gate is an aperture through which the
@@ -1953,7 +1953,7 @@ is the control that makes "blind" mean blind.
 The gallery's collective moral: **the package never asks to be trusted;
 it asks to be re-run.** Every control re-executes in minutes, and each
 one fails loudly if the ground truth underneath it moves by more than
-its floor. A reader who runs `bash independent_verification/RUN_ALL.sh`
+its floor. A reader who runs the IVP (`hpbridge.validate.run_all`)
 and watches ten (eighteen in v2) green lines print themselves out has
 reproduced the package's entire epistemics in one sitting.
 
@@ -2872,8 +2872,8 @@ This edition is the package's bilingual heritage made explicit; a few
 translation decisions deserve documentation, because in mathematical
 Russian-English pairs the traps are real.
 
-**Затвор → gate.** The Russian documents call the lattice configurations
-«затворы» — literally *shutters*, the mechanical apertures of a camera.
+**Zatvor → gate.** The Russian documents call the lattice configurations
+*zatvory* — literally *shutters*, the mechanical apertures of a camera.
 The English corpus had settled on *gates* before this edition; both
 metaphors are kept alive deliberately. A gate is what a logician and a
 physicist share; a shutter is what a cinematographer sees — an aperture
@@ -2882,22 +2882,23 @@ cinematographic reading; the code keeps `gates`. When this document says
 "the wall of shutters", it means the family; when the JSONs say "gate",
 it means the same object with its laboratory name.
 
-**Ручки → handles.** The vortex parameters are «ручки» in Russian — the
+**Ruchki → handles.** The vortex parameters are *ruchki* in Russian — the
 knobs on a machine. *Handles* is the established English term (a handle
 of a surface, a handle of a parameterization); the topological overtone
 is correct and intended: the vortices are honest topological defects,
 not just knobs.
 
-**Табель → the scorecard.** The Russian «табель» (a timesheet, a roll
+**Tabel → the scorecard.** The Russian *tabel* (a timesheet, a roll
 call) becomes *scorecard* — the H1–H5 verdict table. The timesheet
 connotation is preserved in spirit: the scorecard is the package's
 attendance record, kept daily and signed by controls.
 
-**Г1–Г5 → H1–H5.** The Cyrillic Г (for Гильберт–Пойа) becomes H (for
-Hilbert); the numbering is unchanged. The v1/v2 verdict tables use the
+**G1–G5 → H1–H5.** In the Russian originals the verdict table was headed
+G1–G5 (G for *Gil'bert–Pólya*, the Russian spelling of Hilbert–Pólya);
+in English it becomes H (for Hilbert); the numbering is unchanged. The v1/v2 verdict tables use the
 Latin form throughout this edition.
 
-**Дисциплина честности → the honesty discipline.** Kept literal, because
+**Distsiplina chestnosti → the honesty discipline.** Kept literal, because
 the literal reading is the point: honesty as *discipline* — enforced,
 repeated, auditable — rather than honesty as virtue. The five rules of
 Part XII are rules, not aspirations.
@@ -2922,7 +2923,7 @@ Leaves with: the five verdicts, the one mechanism, and the correct
 one-sentence summary. Risks: none; everything cited is in the data.
 
 **The engineer's route (an afternoon).** Quick start (Part VI) → run the
-sixteen campaign scripts → pytest → RUN_ALL.sh → Appendix L (the
+sixteen campaign scripts → pytest → the IVP checks → Appendix L (the
 reproducibility cookbook) → spot-check one JSON against its README
 block. Leaves with: hands that have re-derived every headline number.
 This route is the package's real front door; prose is a map, this is

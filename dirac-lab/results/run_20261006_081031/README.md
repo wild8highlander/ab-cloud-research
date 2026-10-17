@@ -7,9 +7,9 @@
 
 # 📤 dirac-lab — certified run 2026-10-06
 
-> **The frozen result tables of the 2026-10-06 session: D1–D6, exactly as measured.**
+> **The frozen result tables of the 2026-10-06 session: D1–D8, exactly as measured.**
 
-One timestamped run of the dirac-lab experiment battery, frozen as produced: `D1_finite_size.csv`, `D2_zero_tower.csv`, `D3_berry_phase.csv`, `D4_landau_levels.csv`, `D5_klein_tunneling.csv`, `D6_zitterbewegung.csv` — the six experiment families of the lab (finite-size scaling, the zero tower, Berry phase, Landau levels, Klein tunneling, Zitterbewegung). The monographs and reports of dirac-lab quote this run; regenerate with the lab's Makefile and diff before replacing anything.
+One timestamped run of the dirac-lab experiment battery, frozen as produced: `D1_finite_size.csv`, `D2_zero_tower.csv`, `D3_berry_phase.csv`, `D4_landau_levels.csv`, `D5_klein_tunneling.csv`, `D6_zitterbewegung.csv`, `D7_zeta_decoration.csv`, `D8_chiral_protection.csv` — the eight experiment families of the lab (finite-size scaling, the zero tower, Berry phase, Landau levels, Klein tunneling, Zitterbewegung, ζ-decoration, chiral protection). The monographs and reports of dirac-lab quote this run; regenerate with the lab's Makefile and diff before replacing anything.
 
 ## 📁 Contents
 

@@ -67,26 +67,26 @@ The port uses a hand-written cyclic-Jacobi eigensolver on plain
   dashboard app `../../apps/ab-cloud-dashboard/` — it computes the same ζ
   statistics live in a Web Worker.
 
-## Кратко (по-русски)
+## Summary
 
-- Реализация на Node.js ≥ 18 без единой зависимости (`npm install` не нужен).
-- `node run_verify.js --zeros 50000 --source 50k --objection all` — те же три
-  возражения, что и в эталоне; результаты совпадают с C++ до ~1e-12.
-- `spinor38/` — Порт Test 38: прогнан при подготовке v1.1.0 вместе с C++,
-  изоспектральность 3.4e-14, ⟨r⟩ = 0.4515710793 — PASS; алгоритм Якоби
-  написан с нуля на Float64Array.
+- Node.js ≥ 18 with zero dependencies (no `npm install`).
+- `node run_verify.js --zeros 50000 --source 50k --objection all` runs the same three
+  objections as the reference; results agree with C++ to ~1e-12.
+- `spinor38/` — the Test 38 port, executed during v1.1.0 preparation together with C++:
+  isospectrality 3.4e-14, ⟨r⟩ = 0.4515710793 — PASS; the Jacobi algorithm is written from
+  scratch on `Float64Array`s.
 
 ## 📁 Complete file inventory
 
 | Entry | Size | Kind |
 |---|---|---|
-| `spinor38/` | 2 files, 6.3 KB | directory |
-| `README.md` | 2.5 KB | file |
-| `ab_cloud_verify.js` | 15.5 KB | file |
-| `ab_cloud_verify_en.js` | 9.6 KB | file |
-| `ab_cloud_verify_ru.js` | 10.5 KB | file |
-| `run_verify.js` | 3.9 KB | file |
-| **Total (recursive)** | **7 files, 48.4 KB** | |
+| `spinor38/` | 2 files, 8.1 KB | directory |
+| `README.md` | 6.1 KB | file |
+| `ab_cloud_verify.js` | 25.5 KB | file |
+| `ab_cloud_verify_en.js` | 271 B | file |
+| `ab_cloud_verify_ru.js` | 271 B | file |
+| `run_verify.js` | 248 B | file |
+| **Total (recursive)** | **7 files, 41.2 KB** | |
 
 ## 🔬 Deep dive — the JavaScript / Node.js port in the parity matrix
 
@@ -131,17 +131,3 @@ same one-line command shown above. The Test-38 companion lives in
 `spinor38/` where present, and the spinor64 correction experiment — the
 one that established 64/64 GUE-consistency for the Klein-quartic
 structures — lives in `../spinor64/`.
-
-## Кратко (по-русски)
-
-- Порт существует для доказательства паритета: одинаковые замороженные
-  данные, тот же набор тестов, те же эталонные числа (KS = 0.047,
-  p = 0.27; дефект 3.5e-15; ⟨r⟩ = 0.5848 ± 0.0260).
-- Флаги одинаковы во всех десяти реализациях — одна и та же командная
-  строка проигрывается в каждой папке.
-- Расхождение с эталоном трактуется как баг порта, а не как открытие.
-
-- Мост к веб-слою проекта: те же определения статистик, что
-  рендерят дашборд и 3D-лаборатория, против тех же таблиц.
-- Голый Node: без npm, без сборки — самая быстрая интерактивная проверка.
-- Порт spinor38 зеркалит валидированный C++-эталон.

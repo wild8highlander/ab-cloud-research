@@ -13,13 +13,14 @@ byte-identical input.
 |---|---|---|---|
 | `zeta_zeros_50000.txt` | 13 661 | plain text, one ordinate per line | default dataset; `#` comments allowed |
 | `zeta_zeros_50000.csv` | 13 661 | CSV: `index, t, s_real, s_imag, zero_number` | column-documented variant |
-| `zeta_zeros_50000_embedded.txt` | 50 000 | plain text | extracted from the embedded table inside `code/julia/ab_cloud_v19_v1.jl` (added in v1.1.0); the dashboard's Web Worker dataset |
+| `zeta_zeros_50000_embedded.txt` | 50 000 | plain text | extracted from the embedded table inside `code/ab_cloud_full.jl` (added in v1.1.0); the dashboard's Web Worker dataset |
 | `zeta_zeros_500k_odlyzko.txt` | 500 000 | plain text | extended Odlyzko set |
 | `zeta_zeros_2M_odlyzko.txt` | 2 000 000 | plain text | full Odlyzko set |
 | `zeta_zeros_2M_odlyzko.txt.gz` | 2 000 000 | gzip of the above | compressed copy for slow links |
 | `zeta_zeros_highT_blocks.txt` | 30 000+ | blocks with headers | zeros at large heights T ~ 10¹² |
 | `zeros6.txt` | 2 001 051 | space-separated | original Odlyzko `zeros6` table |
 | `Zeta_Zeros_50000.jl` | 13 661 | Julia source (`zeta_zeros_table = [...]`) | for `include()` in Julia notebooks |
+| `abcloud_golden.json` | — | JSON (frozen golden anchors) | reference values (v3.0) every language verifier self-checks against — see the section below |
 
 ## What a "zero" is here
 
@@ -67,25 +68,25 @@ cut, add a new file and register it in the loader of each language (one line
 per language). The reference statistics in `../spinor64/data/reference_stats.json`
 and the frozen spectra are likewise immutable contracts.
 
-## Кратко (по-русски)
+## Summary
 
-- Каталог — единственный источник нулей дзета-функции для всех программ
-  репозитория; файлы заморожены, менять их нельзя.
-- Основные наборы: 13 661 / 50 000 / 500 000 / 2 000 000 нулей + highT-блоки
-  и оригинальная таблица Odlyzko `zeros6`.
-- Формат: по одному `t` на строку (`ζ(1/2+it)=0`), комментарии через `#`;
-  есть варианты CSV и Julia-массива.
-- Все коды используют контракт `load_zeros(data_dir, count, source)` с
-  автоматическим выбором файла по запрошенному количеству.
-- Источник больших таблиц — официальные таблицы Одлыжко; набор 50 000
-  извлечён из встроенного массива кода v19_v1.
+- The folder is the single source of ζ zeros for every program in the repository; the
+  files are frozen and must never be edited.
+- Main sets: 13 661 / 50 000 / 500 000 / 2 000 000 zeros, plus the high-T blocks and the
+  original Odlyzko `zeros6` table.
+- Format: one `t` per line (`ζ(1/2+it)=0`), `#` comments; CSV and Julia-array variants exist.
+- All implementations share the `load_zeros(data_dir, count, source)` contract with
+  automatic file selection by requested count.
+- The large tables come from the official Odlyzko tables; the 50 000 set was extracted
+  from the suite's embedded array.
 
 ## 📁 Complete file inventory
 
 | Entry | Size | Kind |
 |---|---|---|
-| `README.md` | 4.2 KB | file |
+| `README.md` | 7.2 KB | file |
 | `Zeta_Zeros_50000.jl` | 310.6 KB | file |
+| `abcloud_golden.json` | 20.9 KB | file |
 | `zeros6.txt` | 34.4 MB | file |
 | `zeta_zeros_2M_odlyzko.txt` | 32.5 MB | file |
 | `zeta_zeros_2M_odlyzko.txt.gz` | 13.6 MB | file |
@@ -94,7 +95,7 @@ and the frozen spectra are likewise immutable contracts.
 | `zeta_zeros_50000_embedded.txt` | 771.0 KB | file |
 | `zeta_zeros_500k_odlyzko.txt` | 8.0 MB | file |
 | `zeta_zeros_highT_blocks.txt` | 419.2 KB | file |
-| **Total (recursive)** | **10 files, 90.9 MB** | |
+| **Total (recursive)** | **11 files, 91.0 MB** | |
 
 ## 🔬 Deep dive — the freezing policy and who reads what
 
@@ -126,16 +127,6 @@ the house rules: one ordinate per line, `#` comments allowed, no
 re-sorting of committed files, and every new table gets a row in the
 table above plus a note on provenance before it may be consumed by any
 implementation.
-
-## Кратко (по-русски)
-
-- Политика заморозки: файлы коммитятся один раз, в рантайме не
-  генерируются, загрузчики читают байты — все прогоны во всех языках
-  видят побайтово одинаковый вход.
-- Наборы: дефолтный текстовый, 500k и 2M Одлыжко (2M — gz), highT-блоки,
-  smoke-набор zeros6, встроенная копия для stdlib-загрузчиков, CSV.
-- Кто читает: 10 наборов, Julia-сюит, spinor64, дашборд; `sections/` —
-  сознательно никто (чистая арифметика без данных).
 
 ## Golden reference (added in v3.0)
 

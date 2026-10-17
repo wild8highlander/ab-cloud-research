@@ -1,9 +1,9 @@
-# figures/ — инфографики и логотип
+# figures/ — infographics and the logo
 
-- `logo/arp_logo_{light,dark}.{png,svg}` — эмблема серии
-- `{ru,en}/{light,dark}/info_scorecard_{lang}.png` — табель 19 решений
-- `{ru,en}/{light,dark}/info_map_{lang}.png` — карта направлений A–G
-- `{ru,en}/{light,dark}/info_trace_{lang}.png` — теоремы Th1–Th6
+- `logo/arp_logo_{light,dark}.{png,svg}` — the series emblem
+- `{ru,en}/{light,dark}/info_scorecard_{lang}.png` — the scorecard of the 19 solutions
+- `{ru,en}/{light,dark}/info_map_{lang}.png` — the A–G direction map
+- `{ru,en}/{light,dark}/info_trace_{lang}.png` — the theorems Th1–Th6
 
-Пересборка: `make logo infographics`. Печатные 600 dpi рисунки данных —
-в `figures_hires/{ru,en}/` (20 сюжетов × 2 языка).
+Rebuild: `make logo infographics`. Print-grade 600 dpi data figures live
+in `figures_hires/{ru,en}/` (20 plots × 2 languages).

@@ -142,5 +142,5 @@ repository (see the root `CITATION.cff`):
 
 ## License
 
-See the root [LICENSE](../LICENSE) — Strictly Personal · Custom Research
+See the root [LICENSE](../../LICENSE) — Strictly Personal · Custom Research
 License.

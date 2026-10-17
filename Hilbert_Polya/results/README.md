@@ -42,7 +42,7 @@ committed verdict in `data/`. To regenerate the numbers themselves, run the
 campaigns; to re-verify the committed layer afterwards, run:
 
 ```bash
-make ivp
+python3 -c "from hpbridge.validate import run_all; [print(r) for r in run_all()]"
 ```
 
 A repeat campaign run must land bit-for-bit on the committed values; any

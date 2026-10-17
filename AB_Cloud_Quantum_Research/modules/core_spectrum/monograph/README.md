@@ -1,18 +1,18 @@
-# monograph/ — монографии серии
+# monograph/ — monographs of the series
 
-| Папка | Содержание |
+| Folder | Content |
 |-------|------------|
-| `theorems_volume/` | сводный том Th1–Th6 (RU/EN × DOCX/PDF) |
-| `appendix_volume/` | приложение: методы, данные, воспроизводимость |
-| `theorems/T01…T06/` | **отдельные папки теорем** — каждая со своей монографией (RU/EN × DOCX/PDF) и README |
-| `content/` | источник контента (ru/en_part1–4 → DOCS) |
-| `src/` | место для пользовательских шаблонов рендера |
+| `theorems_volume/` | the combined Th1–Th6 volume (RU/EN × DOCX/PDF) |
+| `appendix_volume/` | the appendix: methods, data, reproducibility |
+| `theorems/T01…T06/` | **separate theorem folders** — each with its own monograph (RU/EN × DOCX/PDF) and README |
+| `content/` | the content source (`__init__.py`, `common.py`, `ru/en_part1–6` → DOCS) |
+| `src/` | the place for custom render templates |
 
-Схема контента: `DOCS = {key: {meta, sections}}`; секция: h1, paras,
+The content schema: `DOCS = {key: {meta, sections}}`; a section: h1, paras,
 theorem1..6 {label,text,proof}, table {caption,header,rows,ratios},
-figure/figure2/figure3 {path,caption}, conclusion. Один content-JSON
-рендерится в PDF (ReportLab, векторная обложка) и DOCX (python-docx,
-рецепт обложки R1, 3-секционная нумерация, TOC-поле) — полностью
-автономно, без node и браузера.
+figure/figure2/figure3 {path,caption}, conclusion. One content-JSON
+is rendered to PDF (ReportLab, a vector cover) and DOCX (python-docx,
+the R1 cover recipe, 3-section numbering, a TOC field) — fully
+offline, without node or a browser.
 
-Пересборка: `make monographs` / `python3 scripts/make_monographs.py`.
+Rebuild: `make monographs` / `python3 scripts/make_monographs.py`.

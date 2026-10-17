@@ -18,7 +18,7 @@
 |---|---|
 | Claim (theorem T6) | if a Hilbert–Pólya operator existed, its heat trace would have to carry the prime weight: Tr e^{−xH} = smooth Γ-terms − ΣΛ(n)/√n·x/(x²+ln²n) |
 | Headline numbers | \|ΔQ\| ≤ 1.7e-12 (M0, grid a ∈ [0.1, 3]) · \|ΔK\| ≤ 1.2e-5 (M1, x ∈ [0.08, 3]) · PC0: r = +0.9998, relative residual 2.1% · M2: r_EF −0.93…+1.00 over the 52 gates (null clouds) · gap ≈ 0.5 orders by residual (best gate 6.7% vs the zeros' 2.1%) |
-| Verdict string | **{'ru': 'T6 верифицирована; консервативная ветвь Г2 ≈ 0.5 порядка в тепловой метрике', 'en': 'T6 verified; the conservative H2 branch ≈ 0.5 order in the trace metric'}** — cite the results table for the precise measurement: ≈ 0.5 orders (gap_orders = 0.509) |
+| Verdict string | **T6 verified; the conservative H2 branch ≈ 0.5 order in the trace metric** — cite the results table for the precise measurement: ≈ 0.5 orders (gap_orders = 0.509) |
 | Gate verdict | the gates' heat projection is the conservative branch of H5 — YES via the convergence ladder (v2.0.8): best gate (Nv = 16) r_EF = 0.9978, z = 2.62 above the zeros' own z = 2.59, residual gap 6.7% vs 2.1% at L = 24 — the finite-size branch; the D_nn level-matching (H2 — YES) is measured in C3 |
 | Operator | H_ξ = diag(±γ_n), built from the zeros file (`zeros6.txt`, 2 001 052 zeros) — identity by construction |
 | Population | the 52-gate protocol family of C3 (package total 87 gates); windows of 200 unfolded levels; 40-point thermal grid u ∈ [0.05, 1.0]; scale fixed at s = 1 |
@@ -33,8 +33,8 @@ python3 campaigns/run_c4_trace_formula.py
 
 # the committed verdict is self-contained; the zeros file (zeros6.txt,
 # 2 001 052 zeros) is required only for fresh recomputations of the sums
-# figures: figures_hires/ru/fig06_trace.png · fig07_parts.png · fig08_rEF.png
-#          (screen copies under figures/ru/; English-named *_en variants under figures_hires/en/ and figures/en/)
+# figures: top-level figures_hires/ru/fig06_trace_ru.png · fig07_parts_ru.png · fig08_rEF_ru.png
+#          (screen copies under figures/ru/; English-named *_en variants under the top-level figures_hires/en/ and figures/en/)
 ```
 
 Everything else in this document explains where these five numbers come from, what they certify, and what they deliberately do not claim.
@@ -76,7 +76,7 @@ The campaign's governing claim is the one stated in the source record: **if a Hi
 
     Tr e^{−xH} = smooth Γ-terms − ΣΛ(n)/√n·x/(x²+ln²n).
 
-The right-hand side is not decoration: Λ(n) is the von Mangoldt weight, equal to ln p when n is a prime power p^k and zero otherwise, so the sum runs over primes and prime powers only. The campaign derives this statement rigorously as **theorem T6**, verifies it numerically for the zero-coded operator H_ξ = diag(±γ_n), and then measures how much of it survives for the lattice gates — the 87 resonator Hamiltonians of the package, of which the 52-gate protocol family is measured here. This campaign is the **third projection of the H2 question** (the "spectral identity" clause of the Hilbert–Pólya checklist, Г2/H2 in the package's notation): the first projection was the rank correlation of C3, the second the ψ-ladder of C6, and this one weighs the verdict in the thermal metric. Three independent projections of the same question agreeing with each other is the principal methodological result of the series.
+The right-hand side is not decoration: Λ(n) is the von Mangoldt weight, equal to ln p when n is a prime power p^k and zero otherwise, so the sum runs over primes and prime powers only. The campaign derives this statement rigorously as **theorem T6**, verifies it numerically for the zero-coded operator H_ξ = diag(±γ_n), and then measures how much of it survives for the lattice gates — the 87 resonator Hamiltonians of the package, of which the 52-gate protocol family is measured here. This campaign is the **third projection of the H2 question** (the "spectral identity" clause of the Hilbert–Pólya checklist, H2 in the package's notation): the first projection was the rank correlation of C3, the second the ψ-ladder of C6, and this one weighs the verdict in the thermal metric. Three independent projections of the same question agreeing with each other is the principal methodological result of the series.
 
 Everything in this campaign is a measurement of distance: between the operator side and the primes side, between the derived formula and the direct spectral sum, and finally between the zeros — which hit the target — and the gates — which do not.
 
@@ -125,7 +125,7 @@ A phrase used throughout this package needs careful unpacking here: **identity b
 
 First, what T6 asserts is not "H_ξ has the zeros as spectrum" (true by construction) but that the **heat trace of that operator equals the explicit-formula side** — the Hadamard-product derivation, the Q(a) identity, the sine transform, and the prime comb must all conspire to reproduce Σ e^{−xγ} to numerical precision. That is a theorem about the analytic identity of the two sides, and verifying it at |ΔK| ≤ 1.2e-5 certifies the entire derivation pipeline end to end, at mpmath-backed rigor.
 
-Second, H_ξ is what makes the gates' verdict meaningful. Because T6 is proven, the package knows not merely that the gates' fixed-L trace projection is conservative, but **what a working operator looks like**: its heat trace must track the comb P(u) with the relative residual that the zeros themselves achieve — 2.1%. The zero-coded operator provides the calibrated ruler; the gates are then measured against the same ruler, with the same code and the same fixed protocol. This is, in the language of the theory map (`docs/theory.md`), the most precise place of the entire series: clause Г5 ("primes in the operator") is answered YES for H_ξ by proof — and for the gates YES via the convergence ladder (v2.0.8): the best gate (Nv = 16, the working window) reaches r_EF = 0.9978 with z = 2.62, and the residual gap (6.7% vs 2.1% at L = 24) is the finite-size branch that the Vortex scan's ladder (GUE floor 0.0324 → 0.0220 for L 24→96) predicts to close with size.
+Second, H_ξ is what makes the gates' verdict meaningful. Because T6 is proven, the package knows not merely that the gates' fixed-L trace projection is conservative, but **what a working operator looks like**: its heat trace must track the comb P(u) with the relative residual that the zeros themselves achieve — 2.1%. The zero-coded operator provides the calibrated ruler; the gates are then measured against the same ruler, with the same code and the same fixed protocol. This is, in the language of the theory map (`docs/theory.md`), the most precise place of the entire series: clause H5 ("primes in the operator") is answered YES for H_ξ by proof — and for the gates YES via the convergence ladder (v2.0.8): the best gate (Nv = 16, the working window) reaches r_EF = 0.9978 with z = 2.62, and the residual gap (6.7% vs 2.1% at L = 24) is the finite-size branch that the Vortex scan's ladder (GUE floor 0.0324 → 0.0220 for L 24→96) predicts to close with size.
 
 ## The method step by step: Hadamard product → Q(a) → sine transform → K(x)
 
@@ -314,16 +314,16 @@ Six terms, each with a fixed role and none with a free parameter: the first term
 **What T6 proves.**
 
 - The chain Hadamard product → pairing ρ ↔ ρ̄ → identity (★) → sine transform → trace formula (★★) is correct to quadrature precision: |ΔQ| ≤ 1.7e-12 and |ΔK| ≤ 1.2e-5 against direct spectral sums.
-- The prime weight Λ(n)/√n lives in the heat trace of the zero-coded operator **as a derived theorem**, not a heuristic. In the package's checklist this is clause Г5/H5 ("primes in the operator") answered with a proven YES for H_ξ — and for the gates answered YES via the convergence ladder (v2.0.8): the best gate (Nv = 16) reaches r_EF = 0.9978 with z = 2.62, the residual gap (6.7% vs 2.1% at L = 24) being the finite-size branch.
+- The prime weight Λ(n)/√n lives in the heat trace of the zero-coded operator **as a derived theorem**, not a heuristic. In the package's checklist this is clause H5 ("primes in the operator") answered with a proven YES for H_ξ — and for the gates answered YES via the convergence ladder (v2.0.8): the best gate (Nv = 16) reaches r_EF = 0.9978 with z = 2.62, the residual gap (6.7% vs 2.1% at L = 24) being the finite-size branch.
 - A calibrated benchmark now exists: 2.1% relative residual is what "seeing the primes" costs at fixed scale. Every future candidate can be judged against a number instead of an aspiration.
 
 **What T6 does not prove.**
 
 - It does not prove the Riemann hypothesis. H_ξ is built *from* the zeros, so "spectrum = zeros" holds by construction and the verification of T6 is a consistency check of the derivation pipeline — nothing about the existence of a natural operator follows from it.
-- It does not provide a candidate operator. The gates' fixed-L thermal projection holds the conservative branch: clause Г2/H2 (spectral identity) is YES at the zeros' level (D_nn 0.0079, C3) with the rank and thermal projections as its resolution-limited/conservative branches, and Г5/H5 is YES via the convergence ladder (v2.0.8) with the residual gap (6.7% vs 2.1% at L = 24) as the finite-size branch.
+- It does not provide a candidate operator. The gates' fixed-L thermal projection holds the conservative branch: clause H2 (spectral identity) is YES at the zeros' level (D_nn 0.0079, C3) with the rank and thermal projections as its resolution-limited/conservative branches, and H5 is YES via the convergence ladder (v2.0.8) with the residual gap (6.7% vs 2.1% at L = 24) as the finite-size branch.
 - It does not close the door on nonlocal constructions. The resolution-limited branches of the package concern the class of *local* lattice Hamiltonians with vortex phases; the question of nonlocal operators is explicitly left open and moved to the roadmap (`docs/theory.md`, §4).
 
-The package's own cycle formula, from the theory map, compresses the standing of this campaign into one sentence (updated to the v2.0.8 verdicts): *the resonator is built and tuned (Г1+Г3+Г4); the zeros are coded, not generated — and the gates sit at their level (Г2 — ДА); the prime weight is proven for the zero operator (T6) and enters the gates along the convergence ladder (Г5 — ДА, v2.0.8).* Campaign C4 is the calibrated-ruler clause — and it is the most precise place of the series, because it states not only what a working operator's heat trace looks like, but exactly how far the best gate is from it at fixed L (6.7% vs 2.1%) and which dial moves that number.
+The package's own cycle formula, from the theory map, compresses the standing of this campaign into one sentence (updated to the v2.0.8 verdicts): *the resonator is built and tuned (H1+H3+H4); the zeros are coded, not generated — and the gates sit at their level (H2 — YES); the prime weight is proven for the zero operator (T6) and enters the gates along the convergence ladder (H5 — YES, v2.0.8).* Campaign C4 is the calibrated-ruler clause — and it is the most precise place of the series, because it states not only what a working operator's heat trace looks like, but exactly how far the best gate is from it at fixed L (6.7% vs 2.1%) and which dial moves that number.
 
 ## Reproduction
 
@@ -340,11 +340,11 @@ Series seed — 96; RNG streams are fixed (`engine/hamiltonian.py`). All depende
 
 | File | Where |
 |---|---|
-| `fig06_trace.png` | 600 dpi — `figures_hires/ru/fig06_trace.png`; screen — `figures/ru/` |
-| `fig07_parts.png` | 600 dpi — `figures_hires/ru/fig07_parts.png`; screen — `figures/ru/` |
-| `fig08_rEF.png` | 600 dpi — `figures_hires/ru/fig08_rEF.png`; screen — `figures/ru/` |
+| `fig06_trace_ru.png` | 600 dpi — top-level `figures_hires/ru/fig06_trace_ru.png`; screen — `figures/ru/` |
+| `fig07_parts_ru.png` | 600 dpi — top-level `figures_hires/ru/fig07_parts_ru.png`; screen — `figures/ru/` |
+| `fig08_rEF_ru.png` | 600 dpi — top-level `figures_hires/ru/fig08_rEF_ru.png`; screen — `figures/ru/` |
 
-`fig06_trace` shows the trace formula itself — the direct spectral sum against (★★); `fig07_parts` shows the three-part decomposition T1 + T2 + T3 and the prime share of K(x); `fig08_rEF` shows the gates' heat projection against the null clouds. The English-named variants `fig06_trace_en.png`, `fig07_parts_en.png`, `fig08_rEF_en.png` live under `figures_hires/en/` and `figures/en/`.
+`fig06_trace` shows the trace formula itself — the direct spectral sum against (★★); `fig07_parts` shows the three-part decomposition T1 + T2 + T3 and the prime share of K(x); `fig08_rEF` shows the gates' heat projection against the null clouds. The English-named variants `fig06_trace_en.png`, `fig07_parts_en.png`, `fig08_rEF_en.png` live under the top-level `figures_hires/en/` and `figures/en/`.
 
 **Data.**
 
@@ -362,7 +362,7 @@ The full monograph of this computation (set-up, theorems, tables, figures, hones
 
 ## Verdict
 
-**{'ru': 'T6 верифицирована; консервативная ветвь Г2 ≈ 0.5 порядка в тепловой метрике', 'en': 'T6 verified; the conservative H2 branch ≈ 0.5 order in the trace metric'}** — details: `data/results.json`, the monograph, and
+**T6 verified; the conservative H2 branch ≈ 0.5 order in the trace metric** — details: `data/results.json`, the monograph, and
 `independent_verification/` (IVP checks of this campaign).
 
 ## FAQ
@@ -410,7 +410,7 @@ C4 measures the 52-gate protocol family of C3 with the shared engine and protoco
 | r_EF | corr(D, c·P) at fixed scale s = 1, amplitude c by least squares — the projection metric |
 | Null cloud | the spread of r_EF for spectra with no prime weight (surrogate 0.00±0.39, Poisson 0.08±0.80) |
 | PC0 | positive control: the zeros' own window through the identical pipeline (r = +0.9998, residual 2.1%) |
-| H2 / Г2 | the "spectral identity" clause of the Hilbert–Pólya checklist (level n ↔ zero n) — verdict NO |
+| H2 | the "spectral identity" clause of the Hilbert–Pólya checklist (level n ↔ zero n) — verdict NO |
 | T6 | the theorem of this campaign: the trace formula with prime weight for H_ξ |
 | M0 / M1 / M2 | calibration of (★); verification of (★★) for H_ξ; the 52-gate thermal projection |
 
@@ -418,7 +418,7 @@ C4 measures the 52-gate protocol family of C3 with the shared engine and protoco
 
 - [../C3_gate_family/README.md](../C3_gate_family/README.md) — the 52-gate protocol family measured here, and the first (rank-correlation) projection of the H2 question.
 - [../../docs/trace_formula.md](../../docs/trace_formula.md) — the full, self-contained derivation of theorem T6: Hadamard product, identity (★), sine transform, the three parts T1/T2/T3, and the gate metric.
-- [../../results/RESULTS.md](../../results/RESULTS.md) — the living registry of committed numbers, the Г1–Г5/H1–H5 verdicts, and the honesty registry (including the broad-null acknowledgment for the thermal metric).
+- [../../results/RESULTS.md](../../results/RESULTS.md) — the living registry of committed numbers, the H1–H5 verdicts, and the honesty registry (including the broad-null acknowledgment for the thermal metric).
 
 ---
 *Hilbert Polya Bridge v2.0.0 · C4 · The trace formula: Tr e^{−uH} versus the explicit formula*

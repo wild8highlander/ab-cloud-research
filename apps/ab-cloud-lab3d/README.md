@@ -55,17 +55,6 @@ The committed `dist/` is a ready-to-serve static build (GitHub Pages
 compatible, relative base `./`). WebGL 2 capable browser required
 (anything modern); the app degrades to a warning card otherwise.
 
-## Кратко (по-русски)
-
-- 3D-лаборатория на React 18 + Vite + Three.js: сцена 1 — хофштадтеровская
-  решётка с фазами Ландау и вихрями q = +1 (механизм GUE наглядно);
-  сцена 2 — дираковский конус E(k) = v_F·|k| при α = 1/2 (v_F(2π) = 1.9);
-  сцена 3 — полоса |ζ(σ+it)| с критической линией и нулями γ₁…γ₁₅.
-- ζ-оценщик — самозаякоренный Эйлер–Маклорен (порт 3D-34): при старте
-  проверяет себя по ζ(2), ζ(4), ζ(1/2) и отказывается рисовать при
-  расхождении.
-- `npm run dev` для разработки; `dist/` собран и готов к GitHub Pages.
-
 ## 📁 Complete file inventory
 
 | Entry | Size | Kind |
@@ -96,5 +85,5 @@ actually does. For publication-grade output use the offline pipelines in
 `lab-3d/code/` — the browser is the sketchbook, the pipeline is the press.
 
 The reference scene — the **36³ Hofstadter configuration** — is the same
-one the 3D-lab preprint ([lab-3d/preprint/](../lab-3d/preprint/)) opens
+one the 3D-lab preprint ([lab-3d/preprint/](../../lab-3d/preprint/)) opens
 with, so the app and the paper start from identical ground.

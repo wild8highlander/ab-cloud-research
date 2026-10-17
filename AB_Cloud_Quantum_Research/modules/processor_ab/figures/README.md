@@ -1,7 +1,7 @@
 # figures/
 
-Рисунки серии — 600 dpi, двуязычные (ru/en): `figures_hires/{ru,en}/`.
-fig01 ISA · fig02 компилятор · fig03 глубина · fig04 память/ALU ·
-fig05 считывание нулей · fig06 дорожная карта. Копии рисунков кампании
-— `computations/V20_processor_compiler/figures/{ru,en}/`.
-Пересборка: `python3 scripts/make_figures.py`.
+The figures of the series — 600 dpi, bilingual (ru/en): `figures_hires/{ru,en}/`.
+fig01 ISA · fig02 compiler · fig03 depth · fig04 memory/ALU ·
+fig05 zero reading · fig06 roadmap. Copies of the campaign figures —
+`computations/V20_processor_compiler/figures/{ru,en}/`.
+Rebuild: `python3 scripts/make_figures.py`.

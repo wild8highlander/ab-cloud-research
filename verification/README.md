@@ -15,10 +15,10 @@ with no hidden dependencies.**
 [![Agreement](https://img.shields.io/badge/inter--language%20agreement-~1e--12-2EA043?style=flat-square)](#-expected-output-and-tolerances)
 [![spinor64](https://img.shields.io/badge/spinor64-64%2F64%20GUE--consistent-3A6B4F?style=flat-square)](spinor64/README.md)
 [![spinor38](https://img.shields.io/badge/Test--38%20ports-%C3%9710-C96F4A?style=flat-square)](#-spinor64-and-the-test-38-ports-added-in-v110)
-[![Files](https://img.shields.io/badge/files-103%20%C2%B7%2091.6%20MB-3E515B?style=flat-square)](#-complete-file-inventory)
+[![Files](https://img.shields.io/badge/files-112%20%C2%B7%2093.7%20MB-3E515B?style=flat-square)](#-complete-file-inventory)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21825394-3E515B?style=flat-square)](https://doi.org/10.5281/zenodo.21825394)
 
-[Objections](#-what-is-verified--the-three-reviewer-objections) · [Layout](#-directory-layout-what-lives-where) · [How to run](#-how-to-run-every-language-copy-paste) · [Frozen data](#-frozen-data--automatic-file-selection) · [spinor64 / Test-38](#-spinor64-and-the-test-38-ports-added-in-v110) · [Tolerances](#-expected-output-and-tolerances) · [Кратко](#-кратко-по-русски)
+[Objections](#-what-is-verified--the-three-reviewer-objections) · [Layout](#-directory-layout-what-lives-where) · [How to run](#-how-to-run-every-language-copy-paste) · [Frozen data](#-frozen-data--automatic-file-selection) · [spinor64 / Test-38](#-spinor64-and-the-test-38-ports-added-in-v110) · [Tolerances](#-expected-output-and-tolerances) · [Summary](#-summary)
 
 </div>
 
@@ -34,7 +34,7 @@ directory also hosts two newer blocks added in v1.1.0:
 
 - [`spinor64/`](spinor64) — the reference verification of **all 64 spinor structures** of the
   Klein quartic (it corrects the v21 monograph claim)
-- `<lang>/spinor38/` — **Test 38 ports in 10 languages** (exact isospectrality inside a
+- `<lang>/spinor38/` — **Test 38 ports in 10 folders** (exact isospectrality inside a
   PSL(2,7) orbit + ⟨r⟩ via a hand-written Jacobi eigensolver)
 
 ## 🗂 Table of contents
@@ -51,7 +51,7 @@ directory also hosts two newer blocks added in v1.1.0:
 7. [📖 Citing](#-citing)
 8. [🔬 Deep dive — the ten-implementation parity matrix](#-deep-dive--the-ten-implementation-parity-matrix)
 9. [📁 Complete file inventory](#-complete-file-inventory)
-10. [🇷🇺 Кратко (по-русски)](#-кратко-по-русски)
+10. [📌 Summary](#-summary)
 
 </details>
 
@@ -134,7 +134,7 @@ the arithmetic.
 
 ```
 verification/
-├── data/          # frozen ζ-zero datasets (8 files, up to 2,000,000 zeros)
+├── data/          # frozen ζ-zero datasets (up to 2,000,000 zeros)
 ├── spinor64/      # reference Python verification of all 64 spin structures
 ├── sections/      # per-monograph-section micro-verifications (section 3, 6)
 ├── python/        # Python 3.10+   — reference implementation
@@ -147,12 +147,13 @@ verification/
 ├── javascript/    # Node.js 18+    — no npm deps
 ├── go/            # Go 1.21+       — stdlib only
 ├── haskell/       # GHC 9+         — base + containers
-├── deploy.sh      # helper used to upload fresh reports to results/
+├── java/          # JDK 8+         — Test-38 spinor38 port only
 └── README.md      # this file
 ```
 
 Every language folder contains the **same four files** (plus, since v1.1.0, a `spinor38/`
-subfolder — see §5):
+subfolder — see §5). The one exception is `java/`, which hosts only the Test-38
+`spinor38/` port (no three-objection suite):
 
 | File | Role |
 |---|---|
@@ -198,6 +199,8 @@ cd verification/go && chmod +x run_verify.sh && ./run_verify.sh --zeros 50000 --
 
 # Haskell (GHC 9+)
 cd verification/haskell && chmod +x run_verify.sh && ./run_verify.sh --zeros 50000 --source 50k --objection 1 --lang en
+
+# Java — Test-38 spinor port only: see verification/java/spinor38/
 ```
 
 Each runner prints the three objection verdicts with raw statistics, writes a timestamped
@@ -243,7 +246,9 @@ classes from `spinor64/data/`, rebuilds the odd-orbit spectra with its **own han
 Jacobi eigensolver** (no LAPACK/BLAS), and checks exact isospectrality + ⟨r⟩. The C++ and
 JavaScript builds were compiled and executed during v1.1.0 preparation: isospectrality
 3.4·10⁻¹⁴, ⟨r⟩ = 0.4515710793 — **VERDICT PASS**. Each subfolder has its own README with exact
-build/run commands.
+build/run commands. The Python reference folder has no separate `spinor38/` port —
+`spinor64/` itself is the Python implementation — and the `java/` folder hosts only this
+spinor38 port.
 
 ```mermaid
 flowchart TD
@@ -342,48 +347,35 @@ input.
 
 | Entry | Size | Kind |
 |---|---|---|
-| `cpp/` | 7 files, 76.0 KB | directory |
-| `data/` | 10 files, 90.9 MB | directory |
-| `fortran/` | 7 files, 62.4 KB | directory |
-| `go/` | 9 files, 30.5 KB | directory |
-| `haskell/` | 8 files, 31.2 KB | directory |
-| `java/` | 3 files, 9.3 KB | directory |
-| `javascript/` | 7 files, 48.4 KB | directory |
-| `julia/` | 7 files, 41.8 KB | directory |
-| `matlab/` | 7 files, 43.3 KB | directory |
-| `python/` | 5 files, 92.7 KB | directory |
-| `r/` | 7 files, 40.7 KB | directory |
-| `rust/` | 9 files, 46.1 KB | directory |
-| `sections/` | 3 files, 2.7 KB | directory |
-| `spinor64/` | 11 files, 111.0 KB | directory |
+| `cpp/` | 7 files, 58.2 KB | directory |
+| `data/` | 11 files, 91.0 MB | directory |
+| `fortran/` | 7 files, 82.4 KB | directory |
+| `go/` | 12 files, 41.8 KB | directory |
+| `haskell/` | 8 files, 44.6 KB | directory |
+| `java/` | 4 files, 12.4 KB | directory |
+| `javascript/` | 7 files, 39.4 KB | directory |
+| `julia/` | 8 files, 2.1 MB | directory |
+| `matlab/` | 7 files, 58.6 KB | directory |
+| `python/` | 5 files, 49.4 KB | directory |
+| `r/` | 7 files, 64.3 KB | directory |
+| `rust/` | 9 files, 48.0 KB | directory |
+| `sections/` | 5 files, 9.6 KB | directory |
+| `spinor64/` | 13 files, 114.9 KB | directory |
 | `.gitignore` | 141 B | file |
-| `README.md` | 10.4 KB | file |
-| `deploy.sh` | 4.8 KB | file |
-| **Total (recursive)** | **103 files, 91.6 MB** | |
+| `README.md` | 19.0 KB | file |
+| **Total (recursive)** | **112 files, 93.7 MB** | |
 
 ---
 
-## 🇷🇺 Кратко (по-русски)
+## 📌 Summary
 
-- Этот каталог — независимая кросс-языковая верификация AB-Cloud гипотезы: одна и та же
-  программа на **10 языках** (C++, Fortran, Go, Haskell, JavaScript, Julia, MATLAB, Python,
-  R, Rust), у всех одинаковый CLI и общие замороженные данные в `data/`.
-- Проверяются три возражения рецензентов: сходимость b(N), GUE-статистика нулей (KS/CvM,
-  p > 0.05), скорость убывания; вердикты печатаются с сырыми числами.
-- Команды запуска для каждого языка — в §3; файл нулей выбирается автоматически по запросу
-  `--zeros`.
-- В v1.1.0 добавлены `spinor64/` (все 64 спинорные структуры GUE-согласованы) и порты
-  Test 38 `<язык>/spinor38/` (изоспектральность 3.4e-14, ⟨r⟩ = 0.4515710793 — PASS).
-- Ожидаемое межъязыковое согласие — на уровне двойной точности; расхождения ~1e-12 для b(N)
-  считаются нормой.
-- Паритет строгий: KS = 0.047 (p = 0.27), дефект Байерса–Янга 3.5e-15,
-  ⟨r⟩ = 0.5848 ± 0.0260 — расхождение трактуется как баг реализации.
-- v2.0.3: во всех десяти папках эталонный закон интервалов исправлен — вместо сюрмизы GOE
-  (β=1), выдававшейся за GUE, теперь истинная сюрмиза GUE (β=2):
-  p(s) = (32/π²)·s²·exp(−4s²/π).
-- Десять реализаций одного набора: одинаковые флаги, одни и те же замороженные данные, одни
-  и те же эталонные числа; рядом — spinor64 (исправление v21), порты spinor38 (Тест 38) и
-  секционные микропроверки; контракт данных — в `data/README.md`.
+Ten independent implementations of one numerical program share the same frozen data, the
+same CLI and the same reference numbers; every verdict is printed with its raw statistics.
+Besides the three-objection suites, the folder hosts `spinor64/` (all 64 Klein-quartic
+spinor structures GUE-consistent), the Test-38 `spinor38/` ports (isospectrality 3.4e-14,
+⟨r⟩ = 0.4515710793 — PASS) and the closed-form `sections/` micro-verifications. Expected
+cross-language agreement is double-precision level (~1e-12 for b(N)); a drift from the
+reference statistics is treated as a bug in the port, not an opinion.
 
 ---
 

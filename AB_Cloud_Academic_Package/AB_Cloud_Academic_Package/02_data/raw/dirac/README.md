@@ -23,4 +23,4 @@ file is the provenance stamp; keep it when re-distributing within the package.
 > [`processed/`](../../processed/README.md) registry); do not edit these files
 > to "fix" anything — cite a different table instead.
 
-Part of [`AB_Cloud_Academic_Package/New/02_data/raw/`](../)
+Part of [`AB_Cloud_Academic_Package/02_data/raw/`](../)

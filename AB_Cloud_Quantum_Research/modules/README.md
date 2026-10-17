@@ -17,18 +17,18 @@
 </div>
 
 > 🧭 **Navigation:** [↑ main README](../README.md) · [📚 monographs](../MONOGRAPH_ARCHIVE/README.md) · [🧪 hypothesis lab](../HYPOTHESIS_LAB/README.md) · [🎞 animations](../VISUAL_ANIMATIONS/README.md)
-# 🧩 modules/ — уровни одного исследования
+# 🧩 modules/ — the levels of one study
 
-**AB Cloud Quantum Research** — одно исследование, три рабочих уровня.
-Каждый модуль — полноценный слой общей машины со своими кампаниями,
-данными, монографиями и веб-лабораторией, но все они работают на одну
-цель: *AB-архитектура (Aharonov–Bohm) как вычислитель, который читает
-математику в реальном времени и ничего не хранит*.
+**AB Cloud Quantum Research** — one study, three working levels.
+Each module is a complete layer of the shared machine with its own campaigns,
+data, monographs and web laboratory, but they all work toward one goal:
+*the AB (Aharonov–Bohm) architecture as a computer that reads mathematics
+in real time and stores nothing*.
 
-| | Модуль | Кампании | Суть |
+| | Module | Campaigns | Essence |
 |---|--------|----------|------|
-| 🧠 | [`core_spectrum/`](core_spectrum/README.md) | **V01–V19** | Спектральное ядро: слепой спектр, нуль-модели, критическая прямая, машина обязательств **V13** (RH = `blocked`), сшивка ветвей **V19**; теоремы **Th1–Th6**, формальный слой Lean 4 / Coq; веб-лаборатория на 10 вкладок |
-| ⚛️ | [`processor_ab/`](processor_ab/README.md) | **V20** (этап P0) | AB-процессор: ISA AB-облаков, точный компилятор Givens-QR (1−F ≤ 4.4e−16), принцип **«читает, а не несёт»**, нелокальность без сигналинга; веб-лаборатория на 8 вкладок |
+| 🧠 | [`core_spectrum/`](core_spectrum/README.md) | **V01–V19** | Spectral core: blind spectrum, null models, critical line, the obligation machine **V13** (RH = `blocked`), branch stitching **V19**; theorems **Th1–Th6**, the formal Lean 4 / Coq layer; a 10-tab web laboratory |
+| ⚛️ | [`processor_ab/`](processor_ab/README.md) | **V20** (phase P0) | AB processor: the ISA of AB clouds, the exact Givens-QR compiler (1−F ≤ 4.4e−16), the **"reads, does not carry"** principle, no-signaling nonlocality; an 8-tab web laboratory |
 
 ```mermaid
 graph LR
@@ -37,25 +37,25 @@ graph LR
     B -->|"external audit"| C
 ```
 
-| 🔬 | [`verifier_multilang/`](verifier_multilang/README.md) | **E01–E18** | Верификационная платформа на Julia: слепое чтение всех **649+639** нулей ζ до T=1000 двумя движками, независимый Риман–Зигель, класс B — компилятор против 5 baseline (**×59 000**); 18/18 предрегистрированных вердиктов PASS |
+| 🔬 | [`verifier_multilang/`](verifier_multilang/README.md) | **E01–E18** | Verification platform on Julia: blind reading of all **649+639** ζ zeros up to T=1000 by two engines, independent Riemann–Siegel, class B — the compiler against 5 baselines (**×59,000**); 18/18 pre-registered verdicts PASS |
 
-## Как уровни связаны
+## How the levels connect
 
-- Ядро даёт математику: оператор H_ξ, формулу следа (Th6), машину
-  обязательств V13, дисциплину claim-файлов.
-- Процессор исполняет её: та же ISA, что в кампаниях ядра; считывание
-  нулей (V23-превью) построено на следовой формуле Th6.
-- Верификация перепроверяет оба слоя независимыми движками: слепые
-  детекторы E11/E17 читают нули без подсказок; E18 сравнивает компилятор
-  с сильными baseline при равных ограничениях.
-- Формальный слой (`modules/core_spectrum/formal/`, редукции A1–A6)
-  фиксирует постановки Th1–Th6; слой теорем [`../theorems_lemmas/`](../theorems_lemmas/README.md)
-  делает их читаемыми (24 документа RU/EN × PDF/DOCX).
-- Вспомогательное исследование [`../research/realtime_spinor_memory/`](../research/realtime_spinor_memory/README.md)
-  доводит центральный тезис до моделей: у машины нет долговременной
-  памяти — только летучее состояние, исполняющее шаги в реальном времени.
+- The core supplies the mathematics: the operator H_ξ, the trace formula (Th6), the
+  obligation machine V13, the claim-file discipline.
+- The processor executes it: the same ISA as in the core campaigns; zero
+  reading (the V23 preview) is built on the trace formula Th6.
+- Verification re-checks both layers with independent engines: the blind
+  detectors E11/E17 read the zeros without hints; E18 compares the compiler
+  with strong baselines under equal constraints.
+- The formal layer (`core_spectrum/formal/`, reductions A1–A6)
+  fixes the statements of Th1–Th6; the theorem layer [`../theorems_lemmas/`](../theorems_lemmas/README.md)
+  makes them readable (24 documents RU/EN × PDF/DOCX).
+- The supplementary study [`../research/realtime_spinor_memory/`](../research/realtime_spinor_memory/README.md)
+  reduces the central claim to models: the machine has no long-term
+  memory — only volatile state executing steps in real time.
 
-Карта уровней и поток данных: [`../docs/ARCHITECTURE.md`](../docs/ARCHITECTURE.md).
+The level map and data flow: [`../docs/ARCHITECTURE.md`](../docs/ARCHITECTURE.md).
 
 ## English summary
 

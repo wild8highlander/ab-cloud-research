@@ -203,7 +203,9 @@ formal/
 │   ├── formal-banner.svg      # section banner
 │   └── formal-seal.svg        # the FORMAL seal
 ├── lean4/                     # ⭐ theorems + executable re-derivation
+│   ├── .gitignore             #   ignores the Lake build tree (.lake/, /build, *.olean, …)
 │   ├── lakefile.lean          #   Lake package (lib + abcloud-verify exe)
+│   ├── lake-manifest.json     #   Lake manifest — zero dependencies (core-only build)
 │   ├── lean-toolchain         #   pinned leanprover/lean4:v4.19.0
 │   ├── ABCloud.lean           #   root module
 │   ├── ABCloud/Basic.lean     #   exact layer: theorems over ℕ/ℤ
@@ -231,7 +233,7 @@ masks the others:
 
 | Job | Runner | What it does |
 |-----|--------|--------------|
-| `lean4` | ubuntu + `leanprover/lean4-action` | `lake build` + `lake exe abcloud-verify` (exit-code gate on all 8 checks) |
+| `lean4` | ubuntu + `leanprover/lean-action` | `lake build` + `lake exe abcloud-verify` (exit-code gate on all 8 checks) |
 | `coq` | ubuntu, distribution Coq | `coq_makefile` + `make`; prints the certified headline computations |
 | `agda` | ubuntu, distribution Agda | `agda -i . -i . ABCloud.agda` type-check |
 | `isabelle` | `makarius/isabelle` docker image | `isabelle build -D formal/isabelle` session build |

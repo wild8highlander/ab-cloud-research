@@ -39,7 +39,7 @@ in the Python reference; the cross-language runners delegate to it (exit 2)
 
 ```
 06_code/
-├── python/    run.py (reference CLI)
+├── python/    run.py (reference CLI) + python_clone/ (the Python reimplementation of the suite)
 ├── julia/     run.jl
 ├── rust/      run.rs + Cargo.toml
 ├── go/        run.go + go.mod
@@ -50,6 +50,7 @@ in the Python reference; the cross-language runners delegate to it (exit 2)
 ├── plugins/   example plugin + API
 ├── hooks/     pre_run.sh (the honesty gate) + post_run.sh
 ├── scripts/   bootstrap, smoke_test, release, update_checksums, update_manifest, build_monograph
+├── lab_standalone/   the three standalone Julia research programs (see lab_standalone/README.md)
 ├── Makefile · Dockerfile · requirements*.txt · environment.yml
 ```
 

@@ -30,7 +30,7 @@ Is the operator self-adjoint and stable under boundary changes? Defect indices, 
 |---|---|---|
 | Campaign | V08 (plan Solution 8) | committed verdict |
 | Key numbers | Defects (0,0) at L = 12/16/24; drift 2.2e-16; BC shifts 0.21–0.27; the L→∞ limit is open (O03). | measured/proved |
-| Verdict note | Th2 доказана для конечной размерности; устойчивость предельной модели при смене BC — измерение: сдвиги конечны и убывают с L; существование самосопряжённого предельного оператора — открыто | honest |
+| Verdict note | Th2 is proved for finite dimension; the stability of the limit model under BC changes is a measurement: the shifts are finite and decrease with L; the existence of a self-adjoint limit operator is open | honest |
 
 ## Method
 
@@ -40,7 +40,7 @@ rpbridge/selfadjoint.py: σ_min(H ∓ iI); BC open/torus/twists; unitarity e^{�
 
 | File | Where |
 |---|---|
-| `fig08_en.png` | 600 dpi — `figures_hires/en/`; infographics — `figures/en/` |
+| `fig08_en.png` | 600 dpi — `../../figures_hires/en/`; infographics — `figures/en/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/selfadjoint.py: σ_min(H ∓ iI); BC open/torus/twists; unitarity e^{�
 | File | Content |
 |---|---|
 | `data/v08_verdict.json` | committed verdict of the campaign |
-| `computations/V08_self_adjoint/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Th2 доказана', 'en': 'Th2 proved (finite-dim); the limit part is open'}**
+**Th2 proved (finite-dim); the limit part is open**
 
 ---
 

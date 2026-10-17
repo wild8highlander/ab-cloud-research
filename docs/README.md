@@ -10,13 +10,13 @@ built with MkDocs Material and auto-deployed on every push to `main`.**
 
 [![MkDocs](https://img.shields.io/badge/MkDocs-Material-1F4E79?style=flat-square&logo=materialformkdocs&logoColor=white)](https://squidfunk.github.io/mkdocs-material/)
 [![Pages](https://img.shields.io/badge/site-wild8highlander.github.io-00B8D4?style=flat-square)](https://wild8highlander.github.io/ab-cloud-research)
-[![Pages](https://img.shields.io/badge/pages-12-0E7C86?style=flat-square)](#-pages)
+[![Pages](https://img.shields.io/badge/pages-15-0E7C86?style=flat-square)](#-pages)
 [![Math](https://img.shields.io/badge/math-MathJax-8C6D1F?style=flat-square)](#-conventions)
 [![Deploy](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/deploy-docs.yml?branch=main&style=flat-square&label=auto--deploy)](https://github.com/wild8highlander/ab-cloud-research/actions/workflows/deploy-docs.yml)
 [![Link check](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/link-checker.yml?branch=main&style=flat-square&label=link--checker)](https://github.com/wild8highlander/ab-cloud-research/actions/workflows/link-checker.yml)
 [![Nav](https://img.shields.io/badge/nav-mkdocs.yml%20%C2%B7%20orphan--free-3A6B4F?style=flat-square)](../mkdocs.yml)
 
-[Pages](#-pages) · [Build locally](#-build-locally) · [Conventions](#-conventions) · [Deep dive](#-deep-dive--the-mkdocs-material-site) · [Кратко (по-русски)](#-кратко-по-русски)
+[Pages](#-pages) · [Build locally](#-build-locally) · [Conventions](#-conventions) · [Deep dive](#-deep-dive--the-mkdocs-material-site) · [Summary](#-summary)
 
 </div>
 
@@ -32,7 +32,7 @@ built with MkDocs Material and auto-deployed on every push to `main`.**
 3. [📐 Conventions](#-conventions)
 4. [🔬 Deep dive — the MkDocs Material site](#-deep-dive--the-mkdocs-material-site)
 5. [📁 Complete file inventory](#-complete-file-inventory)
-6. [🇷🇺 Кратко (по-русски)](#-кратко-по-русски)
+6. [📌 Summary](#-summary)
 7. [🔗 Related layers of the project](#-related-layers-of-the-project)
 
 </details>
@@ -55,7 +55,11 @@ built with MkDocs Material and auto-deployed on every push to `main`.**
 | [`verification.md`](verification.md) | the 10-language verification suite and the three objections |
 | [`monographs.md`](monographs.md) | the trilingual v22 monograph package and formats |
 | [`monograph-v21.md`](monograph-v21.md) | the original v21 monograph and the v21.1 corrections |
-| [`results.md`](results.md) | how to read `results/run_20260902_134759/` and the reference logs |
+| [`results.md`](results.md) | how to read `results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/` and the reference logs |
+| [`audit_v2.0.3.md`](audit_v2.0.3.md) | the repo-wide GOE/GUE audit — v2.0.3 of the error-purge series |
+| [`audit_v2.0.4.md`](audit_v2.0.4.md) | the rigidity-slope audit — v2.0.4, a full pass over every README and table |
+| [`formal.md`](formal.md) | the formal verification layer: Lean 4 · Coq · Agda · Isabelle |
+| [`map.md`](map.md) | one-page map of the whole repository tree |
 | [`lab3d.md`](lab3d.md) | the 3D laboratory: modes A–J, committed runs |
 | [`citation.md`](citation.md) | citation formats, DOI, ORCID |
 | [`faq.md`](faq.md) | frequent questions and misconceptions |
@@ -124,32 +128,35 @@ README and site without losing their place. The built output (`site/`) is dispos
 
 | Entry | Size | Kind |
 |---|---|---|
-| `javascripts/` | directory, 1 files inside | folder |
-| `README.md` | 2.1 KB | markdown guide |
+| `assets/` | directory, 3 files inside | folder |
+| `javascripts/` | directory, 1 file inside | folder |
+| `README.md` | 6.7 KB | markdown guide |
+| `audit_v2.0.3.md` | 8.7 KB | markdown guide |
+| `audit_v2.0.4.md` | 8.3 KB | markdown guide |
 | `citation.md` | 983 B | markdown guide |
 | `faq.md` | 1.7 KB | markdown guide |
-| `index.md` | 1.6 KB | markdown guide |
+| `formal.md` | 5.6 KB | markdown guide |
+| `index.md` | 1.8 KB | markdown guide |
 | `julia-suite.md` | 1.4 KB | markdown guide |
 | `lab3d.md` | 875 B | markdown guide |
 | `license.md` | 1.2 KB | markdown guide |
+| `map.md` | 4.6 KB | markdown guide |
 | `monograph-v21.md` | 1.1 KB | markdown guide |
 | `monographs.md` | 1.6 KB | markdown guide |
 | `quickstart.md` | 1.5 KB | markdown guide |
 | `results.md` | 1.2 KB | markdown guide |
 | `verification.md` | 1.3 KB | markdown guide |
-| **Total (files)** | **16.6 KB** | 12 files + 1 subdirectories |
+| **Total (files)** | **49.0 KB** | 16 files + 2 subdirectories |
 
 ---
 
-## 🇷🇺 Кратко (по-русски)
+## 📌 Summary
 
-- Исходники сайта документации (MkDocs Material), публикуемого на GitHub Pages воркфлоу
-  `deploy-docs`.
-- Локально: `pip install mkdocs mkdocs-material && mkdocs serve`.
-- Страницы: quickstart, julia-suite, verification, monographs (+v21), results, lab3d,
-  citation, faq, license; навигация — в `mkdocs.yml`.
-- Правило контента: сайт не вводит чисел, которых нет в закоммиченных артефактах; каждая
-  страница ссылается на артефакт, а не наоборот.
+This folder is the source of the MkDocs Material documentation site published to GitHub
+Pages by the `deploy-docs` workflow; build it locally with `pip install mkdocs
+mkdocs-material && mkdocs serve`. The pages mirror the repository's reading paths, and the
+content rule is strict: the site never introduces a number that is not already in a
+committed artifact — every page links the artifact, not the other way around.
 
 ---
 

@@ -120,24 +120,30 @@ flowchart LR
 ## 🗺 Repository layout
 
 ```
-wave_attractors/
-├── README.md                  ← this file (English)
-├── scripts/
-│   ├── ray_billiard.py        ← ray core + self-tests (python3 ray_billiard.py)
-│   ├── run_experiments.py     ← E1/E2/E3/E5 + cross-reference dump
-│   ├── e4_frequency.py        ← E4a invariance + E4c ray density
-│   ├── wave_helmholtz.py      ← isotropic-drive wave response
-│   ├── wave_directional.py    ← directional-drive band-averaged wave maps
-│   ├── ab_water.py            ← companion: AB effect with water waves
-│   ├── dump_reference_csv.py  ← launch states for the Julia port
-│   ├── verify_cross.py        ← Python ↔ Julia cross-verification
-│   ├── make_figures.py        ← all figures (300 dpi)
-│   └── julia/
-│       └── wave_attractors.jl ← Julia port (stdlib only, Julia ≥ 1.10)
-├── data/                      ← CSV/JSON/NPZ outputs (regenerable)
-├── figures/                   ← PNG figures (300 dpi)
-├── report/                    ← scientific report (PDF, Russian)
-└── docs/                      ← report source notes
+Wave_attractors/
+├── README.md                  ← this file
+├── docs/
+│   └── wave-attractors.md     ← the mkDocs article page of study W1
+├── assets/                    ← banner + avatar art
+└── wave_attractors/           ← the study package
+    ├── REPRODUCING.md         ← rebuild-from-source guide (three tiers)
+    ├── requirements.txt       ← Python dependencies
+    ├── scripts/
+    │   ├── ray_billiard.py    ← ray core + self-tests (python3 ray_billiard.py)
+    │   ├── run_experiments.py ← E1/E2/E3/E5 + cross-reference dump
+    │   ├── e4_frequency.py    ← E4a invariance + E4c ray density
+    │   ├── wave_helmholtz.py  ← isotropic-drive wave response
+    │   ├── wave_directional.py ← directional-drive band-averaged wave maps
+    │   ├── ab_water.py        ← companion: AB effect with water waves
+    │   ├── dump_reference_csv.py ← launch states for the Julia port
+    │   ├── verify_cross.py    ← Python ↔ Julia cross-verification
+    │   ├── make_figures.py    ← all figures (300 dpi)
+    │   └── julia/
+    │       └── wave_attractors.jl ← Julia port (stdlib only, Julia ≥ 1.10)
+    ├── data/                  ← CSV/JSON/NPZ outputs (regenerable)
+    ├── figures/               ← PNG figures (300 dpi)
+    ├── monograph/             ← W1 monographs (EN/RU, DOCX + PDF, with figures)
+    └── report/                ← scientific report (PDF, Russian)
 ```
 
 ---

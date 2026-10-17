@@ -1,10 +1,10 @@
-# Функция V2 · Арифметические контрольные модели
+# V2 · Arithmetic Null Models
 
 ![version](https://img.shields.io/badge/version-1.2.0-298bbc) ![](https://img.shields.io/badge/series-V01--V19-3b4f58) ![](https://img.shields.io/badge/status-honest-3a6b4f)
 
-> **Даёт ли хаотичность решётки ту же статистику без арифметики? Пять семейств моделей против предрегистрированного вектора S.**
+> **Does lattice chaos alone produce the same statistics? Five model families against a pre-registered vector S.**
 
-[← Back to the main README](../../README.ru.md)
+[← Back to the main README](../../README.md)
 
 ## Contents
 
@@ -22,25 +22,25 @@
 
 ## Campaign question
 
-Даёт ли хаотичность решётки ту же статистику без арифметики? Пять семейств моделей против предрегистрированного вектора S.
+Does lattice chaos alone produce the same statistics? Five model families against a pre-registered vector S.
 
 ## Results
 
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V02 (plan Solution 2) | committed verdict |
-| Key numbers | M0: ⟨r⟩ = 0.6093, D_KS = 0.0499 — GUE-класс; N3 без вихрей: 0.273 — вне класса; лестница эталонов воспроизведена. | measured/proved |
-| Verdict note | AB-cloud попадает в GUE-класс вместе с N1/N4; специфичность арифметики измеряется не ⟨r⟩, а арифметически-чувствительными метриками V7/V11 | honest |
+| Key numbers | M0: ⟨r⟩ = 0.6093, D_KS = 0.0499 — GUE class; N3 (no vortices): 0.273 — outside; the reference ladder is reproduced. | measured/proved |
+| Verdict note | the AB cloud falls into the GUE class together with N1/N4; the specificity of arithmetic is measured not by ⟨r⟩ but by the arithmetic-sensitive metrics V7/V11 | honest |
 
 ## Method
 
-rpbridge/nullmodels.py: M0/N1/N3/N4 + эталоны GUE/GOE/Пуассон; ансамблевый GUE-эталон для D_KS (16 матриц); Бонферрони 5 семейств.
+rpbridge/nullmodels.py: M0/N1/N3/N4 + GUE/GOE/Poisson references; ensemble GUE reference for D_KS (16 matrices); Bonferroni over 5 families.
 
 ## Figures
 
 | File | Where |
 |---|---|
-| `fig02_ru.png` | 600 dpi — `figures_hires/ru/`; infographics — `figures/ru/` |
+| `fig02_ru.png` | 600 dpi — `../../figures_hires/ru/`; infographics — `figures/ru/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/nullmodels.py: M0/N1/N3/N4 + эталоны GUE/GOE/Пуассон; а�
 | File | Content |
 |---|---|
 | `data/v02_verdict.json` | committed verdict of the campaign |
-| `computations/V02_null_models/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,8 +75,8 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Класс GUE не специфичен; арифметика ищется в следах (V7)', 'en': 'GUE class is not specific; arithmetic lives in traces (V7)'}**
+**The GUE class is not specific; arithmetic lives in traces (V7)**
 
 ---
 
-*AB Research Program v1.1.0 · V02 · Арифметические контрольные модели*
+*AB Research Program v1.1.0 · V02 · Arithmetic Null Models*

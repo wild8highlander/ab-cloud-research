@@ -30,7 +30,7 @@ Does the characteristic function coincide with ξ? A direct test and the positiv
 |---|---|---|
 | Campaign | V06 (plan Solution 6) | committed verdict |
 | Key numbers | Gates: rank 0.036 — no identity; H_ξ: log residual 5.8e-10 — identity holds (trivially, by construction). | measured/proved |
-| Verdict note | тождество спектра (n ↔ нуль n) для решёточных затворов — ДА на уровне самих нулей (мост D_nn: 0.0079 = уровень сдвинутых окон нулей и GUE-класса, v2.0.7); ранговая ветвь на пределе разрешения; для H_ξ — ДА по построению; цель V6 — аналитическое тождество, а не подбор полинома | honest |
+| Verdict note | the spectral identity (n ↔ the zero n) for the lattice gates — YES at the zeros' own level (the D_nn bridge: 0.0079 = the level of shifted zero windows and the GUE class, v2.0.7); the rank branch is at the resolution limit; for H_ξ — YES by construction; the goal of V6 is the analytic identity, not polynomial fitting | honest |
 
 ## Method
 
@@ -40,7 +40,7 @@ rpbridge/spectral_identity.py: ranks vs zeros; the Hadamard control ln Π|z²−
 
 | File | Where |
 |---|---|
-| `fig06_en.png` | 600 dpi — `figures_hires/en/`; infographics — `figures/en/` |
+| `fig06_en.png` | 600 dpi — `../../figures_hires/en/`; infographics — `figures/en/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/spectral_identity.py: ranks vs zeros; the Hadamard control ln Π|z²−
 | File | Content |
 |---|---|
 | `data/v06_verdict.json` | committed verdict of the campaign |
-| `computations/V06_spectral_identity/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Тождество: ДА для H_ξ; для затворов — ДА на уровне нулей (мост D_nn, v2.0.7)', 'en': 'Identity: YES for H_ξ; for gates — YES at the zeros\' level (the D_nn bridge, v2.0.7)'}**
+**Identity: YES for H_ξ; for gates — YES at the zeros' level (the D_nn bridge, v2.0.7)**
 
 ---
 

@@ -51,7 +51,7 @@ verdicts of the corresponding `computations/<ID>/data/` folders.
 `overview.md` also records exactly what changed against v1, and why the
 change does not touch the v1 verdicts:
 
-1. **Zero reference** — the internal mpmath cache `data/zeros/` (800
+1. **Zero reference** — the internal mpmath cache `../../data/zeros/` (800
    zeros, bit-for-bit reproducible); there are no external data files at
    all.
 2. **Windows**: unfolded-vs-unfolded (PC0′ = an isospectral twin must give

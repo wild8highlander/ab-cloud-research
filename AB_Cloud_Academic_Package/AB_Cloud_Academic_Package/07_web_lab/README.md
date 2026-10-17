@@ -21,7 +21,7 @@ streamlit run app.py                 # or the Streamlit face
 
 - **Levels**: the six cards of the machine (I core, I⁺ processor, II Dirac,
   III bridge, IV verification, V spinor) with their campaign series.
-- **Verdict ledger**: Г1–Г5 + RH, with basis; YES/NO/BLOCKED colored.
+- **Verdict ledger**: G1–G5 + RH, with basis; YES/NO/BLOCKED colored.
 - **Flagship results**: 24 rows, each naming its campaign; searchable.
 - **Metrics**: the decisive quantities drawn on pre-registered scales.
 - **Numbers registry**: 20 verbatim rows from the sources' verdict files.

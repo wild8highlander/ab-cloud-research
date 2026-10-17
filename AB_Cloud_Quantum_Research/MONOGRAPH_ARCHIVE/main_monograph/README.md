@@ -9,7 +9,7 @@
 
 > **The original RU/EN monograph of the Quantum package, frozen as built — plus its LaTeX sources.**
 
-The archive keeps the *original* main monograph of the AB-Cloud Quantum Research package: `AB_Cloud_Quantum_Research_Monograph_RU/EN` as PDF and DOCX, exactly as assembled when the package went archival, with the LaTeX sources in [`latex/`](latex/) for transparency. This edition is superseded by the newer monograph line (see [`../../../monographs/`](../../../monographs/) for the v22 canon and [`New/`](../../../AB_Cloud_Academic_Package/New/README.md) for the MAX editions), but it remains citable history: numbers here are quoted from the campaigns of their era and are not updated retroactively.
+The archive keeps the *original* main monograph of the AB-Cloud Quantum Research package: `AB_Cloud_Quantum_Research_Monograph_RU` and `AB_Cloud_Quantum_Research_Monograph_EN` as PDF and DOCX, exactly as assembled when the package went archival, with the LaTeX sources in [`latex/`](latex/) for transparency. This edition is superseded by the newer monograph line (see [`../../../monographs/`](../../../monographs/) for the v22 canon), but it remains citable history: numbers here are quoted from the campaigns of their era and are not updated retroactively.
 
 Treat everything in the archive as read-only — the folder exists so that older documents that cite this edition keep resolving to the text they were written against.
 
@@ -21,7 +21,8 @@ Treat everything in the archive as read-only — the folder exists so that older
 | [`AB_Cloud_Quantum_Research_Monograph_EN.pdf`](AB_Cloud_Quantum_Research_Monograph_EN.pdf) | PDF | 3.7 MB | — |
 | [`AB_Cloud_Quantum_Research_Monograph_RU.docx`](AB_Cloud_Quantum_Research_Monograph_RU.docx) | DOCX | 1.3 MB | — |
 | [`AB_Cloud_Quantum_Research_Monograph_RU.pdf`](AB_Cloud_Quantum_Research_Monograph_RU.pdf) | PDF | 3.8 MB | — |
-| `latex/` | folder | 2 items | see inside |
+| [`latex/monograph_EN.tex`](latex/monograph_EN.tex) | LaTeX | 175.7 KB | English LaTeX source of the archived monograph |
+| [`latex/monograph_RU.tex`](latex/monograph_RU.tex) | LaTeX | 255.9 KB | Russian LaTeX source of the archived monograph |
 
 ## 🧭 Navigation
 

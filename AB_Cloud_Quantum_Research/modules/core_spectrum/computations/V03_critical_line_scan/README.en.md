@@ -30,7 +30,7 @@ Is σ = ½ optimal for the spectral statistics? An 11-point D(σ) scan with plac
 |---|---|---|
 | Campaign | V03 (plan Solution 3) | committed verdict |
 | Key numbers | The curve is flat: argmin ≈ 0.8, C_h < 0, no minimum at ½ and no placebo confirmation. | measured/proved |
-| Verdict note | минимум D(σ) в окрестности σ = 1/2 отсутствует или неустойчив — специфичность линии измерена, а не постулирована (см. честные замечания) | honest |
+| Verdict note | the minimum of D(σ) near σ = 1/2 is absent or unstable — the specificity of the line is measured, not postulated (see honest remarks) | honest |
 
 ## Method
 
@@ -40,7 +40,7 @@ rpbridge/critical_line.py: weights q_k(σ) = log|ζ(σ+iγ̃_k)| at midpoints γ
 
 | File | Where |
 |---|---|
-| `fig03_en.png` | 600 dpi — `figures_hires/en/`; infographics — `figures/en/` |
+| `fig03_en.png` | 600 dpi — `../../figures_hires/en/`; infographics — `figures/en/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/critical_line.py: weights q_k(σ) = log|ζ(σ+iγ̃_k)| at midpoints γ
 | File | Content |
 |---|---|
 | `data/v03_verdict.json` | committed verdict of the campaign |
-| `computations/V03_critical_line_scan/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Оптимальность σ=½ снята', 'en': 'The σ=½ optimality claim is withdrawn (not confirmed)'}**
+**The σ=½ optimality claim is withdrawn (not confirmed)**
 
 ---
 

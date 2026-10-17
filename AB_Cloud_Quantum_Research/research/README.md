@@ -11,7 +11,7 @@
 
 Unlike the campaign-style folders elsewhere in the repository, this directory hosts *standing* research threads that evolve over many sessions: each subfolder is a self-contained mini-package with its own README, code, experiments and figures. Currently the active thread is [`realtime_spinor_memory/`](realtime_spinor_memory/README.md) — the real-time spinor memory study, which has its own documentation, test suite (wired into CI as the `realtime spinor memory tests` job) and honest-boundary statements.
 
-New threads start here as new subfolders with the same internal contract: README first, code second, data third, and an explicit statement of what the thread does *not* prove. If a thread matures into a standalone module it graduates to [`../modules/`](../README.md) instead of growing in place.
+New threads start here as new subfolders with the same internal contract: README first, code second, data third, and an explicit statement of what the thread does *not* prove. If a thread matures into a standalone module it graduates to [`../modules/`](../modules/) instead of growing in place.
 
 ## 📁 Contents
 

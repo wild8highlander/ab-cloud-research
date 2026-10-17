@@ -61,16 +61,6 @@ The committed `dist/` is a ready-to-serve static build (GitHub Pages
 compatible, relative base `./`). Data files are duplicated into
 `dist/data/` at build time.
 
-## Кратко (по-русски)
-
-- Дашборд на React 18 + Vite без графических библиотек (весь рендер —
-  рукописный SVG).
-- Вкладка 1: вердикты 37 тестов прогона run_20260902_134759; вкладка 2:
-  живые статистики ζ (b(N), ⟨r⟩ + KS против точного GUE-закона, Σ², Δ₃) в
-  Web Worker на 50 000 нулей; вкладка 3: Test 38 — 64 спинора, спектры
-  28 нечётных структур считаются в браузере алгоритмом Якоби (≈1e-14).
-- `npm run dev` для разработки; `dist/` уже собран и готов к публикации.
-
 ## 📁 Complete file inventory
 
 | Entry | Size | Kind |

@@ -30,7 +30,7 @@ Can the algorithm predict ordinates it has never seen? Split G_cal ⊔ G_test, c
 |---|---|---|
 | Campaign | V01 (plan Solution 1) | committed verdict |
 | Key numbers | r_test = 0.006 against null −0.002 ± 0.066 (z = 0.09); r_cal = 0.085 (selection over 8); no identity on test. | measured/proved |
-| Verdict note | слепой контроль выполнен; индивидуальные ординаты не предсказываются (r_test в нулевой зоне), статистический класс — предмет V2/V11 | honest |
+| Verdict note | the blind control is passed; individual ordinates are not predicted (r_test in the null zone), the statistical class is the subject of V2/V11 | honest |
 
 ## Method
 
@@ -40,7 +40,7 @@ rpbridge/blind.py: 8 calibration configurations (master seed 96…103), a 200-le
 
 | File | Where |
 |---|---|
-| `fig01_en.png` | 600 dpi — `figures_hires/en/`; infographics — `figures/en/` |
+| `fig01_en.png` | 600 dpi — `../../figures_hires/en/`; infographics — `figures/en/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/blind.py: 8 calibration configurations (master seed 96…103), a 200-le
 | File | Content |
 |---|---|
 | `data/v01_verdict.json` | committed verdict of the campaign |
-| `computations/V01_blind_spectrum/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Слепой контроль пройден', 'en': 'Blind control passed: individual ordinates are not predicted'}**
+**Blind control passed: individual ordinates are not predicted**
 
 ---
 

@@ -15,7 +15,7 @@ series (V1–V19; the processor specification was pre-registered in
 continues: V20–V26 = phases P0–P6 of the roadmap
 [results/ROADMAP.md](results/ROADMAP.md) → Datasheet 1.0.
 
-Русская версия: [README.ru.md](README.ru.md)
+Russian version: [README.ru.md](README.ru.md)
 
 ---
 

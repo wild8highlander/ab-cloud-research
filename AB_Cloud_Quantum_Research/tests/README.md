@@ -17,32 +17,24 @@
 </div>
 
 > 🧭 **Navigation:** [↑ main README](../README.md) · [📚 monographs](../MONOGRAPH_ARCHIVE/README.md) · [🧪 hypothesis lab](../HYPOTHESIS_LAB/README.md) · [🎞 animations](../VISUAL_ANIMATIONS/README.md)
-# 🧪 tests/ — тесты целостности пакета AB Cloud Quantum Research
+# 🧪 tests/ — the integrity tests of the AB Cloud Quantum Research package
 
-`test_unified.py` — smoke-тесты пакета (запуск: `python3 tests/test_unified.py`
-или `make test`). Проверяют:
+`test_unified.py` — the smoke tests of the package (run: `python3 tests/test_unified.py`
+or `make test`). They check:
 
-1. структуру (11 обязательных папок);
-2. **12 документов теорем** (6 × RU/EN × PDF/DOCX) в `theorems_lemmas/`;
-3. **12 плиточных фигур** в `figures_tiled/{ru,en}/`;
-4. вердикты Julia-серии: `verdicts_master.json` — **все 18 PASS**;
-5. машину обязательств core_rp: вердикт RH — `blocked`;
-6. формальные файлы: `sorry`/`Admitted` отсутствуют в RPTheorems;
-7. вкладку «Теоремы» в обеих веб-лабораториях + портал трёх программ;
-8. полный `scripts/validate_package.py` (40+ проверок) завершается успехом.
+1. the structure (11 mandatory folders);
+2. **12 theorem documents** (6 × RU/EN × PDF/DOCX) in `theorems_lemmas/`;
+3. **12 tiled figures** in `figures_tiled/{ru,en}/`;
+4. the verdicts of the Julia series: `verdicts_master.json` — **all 18 PASS**;
+5. the core_rp obligation machine: the RH verdict — `blocked`;
+6. the formal files: `sorry`/`Admitted` absent from RPTheorems;
+7. the "Theorems" tab in both web labs + the portal of the three programs;
+8. the full `scripts/validate_package.py` (40+ checks) finishing successfully.
 
-Каждая программа-компонент несёт СВОИ тесты: core_rp — 42 pytest-теста
+Each component program carries its OWN tests: core_rp — 42 pytest tests
 (`modules/core_spectrum/tests/`), QP — 19 (`test_v20_processor.py`),
-Julia — собственные самотесты внутри экспериментов + независимая верификация
-(`independent_verification/RUN_ALL.sh` в core_rp и QP).
-
-## English summary
-
-`test_unified.py` smoke-tests the package: structure, the 12 theorem documents,
-12 tiled figures, 18/18 Julia verdicts, the blocked-RH obligation machine,
-no `sorry`/`Admitted` in the formal statements, the theorems tab in both web
-labs, and a full `validate_package.py` pass. Component packages keep their
-own test suites (42/19/…).
+Julia — its own self-tests inside the experiments + independent verification
+(`independent_verification/RUN_ALL.sh` in core_rp and QP).
 
 ---
 

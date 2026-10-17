@@ -30,7 +30,7 @@ Is the RH conclusion formally blocked? The obligation DAG and the status machine
 |---|---|---|
 | Campaign | V13 (plan Solution 13) | committed verdict |
 | Key numbers | RH: blocked; 7 blockers (4 assumed, 3 computed); proven 5/12; the DAG is valid. | measured/proved |
-| Verdict note | формальная машина БЛОКИРУЕТ вывод RH: путь к заключению содержит гипотезы O08/O09/O11/O12; ни одна численная проверка не повышает статус | honest |
+| Verdict note | the formal machine BLOCKS the RH conclusion: the path to the conclusion contains the hypotheses O08/O09/O11/O12; no numerical check raises the status | honest |
 
 ## Method
 
@@ -40,7 +40,7 @@ rpbridge/formaloblig.py: 12 nodes proven/computed/assumed; acyclicity; blocking 
 
 | File | Where |
 |---|---|
-| `fig13_en.png` | 600 dpi — `figures_hires/en/`; infographics — `figures/en/` |
+| `fig13_en.png` | 600 dpi — `../../figures_hires/en/`; infographics — `figures/en/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/formaloblig.py: 12 nodes proven/computed/assumed; acyclicity; blocking 
 | File | Content |
 |---|---|
 | `data/v13_verdict.json` | committed verdict of the campaign |
-| `computations/V13_formal_bridge/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'RH заблокирована честно', 'en': 'The RH conclusion is blocked honestly and automatically'}**
+**The RH conclusion is blocked honestly and automatically**
 
 ---
 

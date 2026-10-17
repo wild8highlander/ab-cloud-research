@@ -30,7 +30,7 @@ Does lattice chaos alone produce the same statistics? Five model families agains
 |---|---|---|
 | Campaign | V02 (plan Solution 2) | committed verdict |
 | Key numbers | M0: ⟨r⟩ = 0.6093, D_KS = 0.0499 — GUE class; N3 (no vortices): 0.273 — outside; the reference ladder is reproduced. | measured/proved |
-| Verdict note | AB-cloud попадает в GUE-класс вместе с N1/N4; специфичность арифметики измеряется не ⟨r⟩, а арифметически-чувствительными метриками V7/V11 | honest |
+| Verdict note | the AB cloud falls into the GUE class together with N1/N4; the specificity of arithmetic is measured not by ⟨r⟩ but by the arithmetic-sensitive metrics V7/V11 | honest |
 
 ## Method
 
@@ -40,7 +40,7 @@ rpbridge/nullmodels.py: M0/N1/N3/N4 + GUE/GOE/Poisson references; ensemble GUE r
 
 | File | Where |
 |---|---|
-| `fig02_en.png` | 600 dpi — `figures_hires/en/`; infographics — `figures/en/` |
+| `fig02_en.png` | 600 dpi — `../../figures_hires/en/`; infographics — `figures/en/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/nullmodels.py: M0/N1/N3/N4 + GUE/GOE/Poisson references; ensemble GUE r
 | File | Content |
 |---|---|
 | `data/v02_verdict.json` | committed verdict of the campaign |
-| `computations/V02_null_models/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Класс GUE не специфичен', 'en': 'The GUE class is not specific; arithmetic lives in traces (V7)'}**
+**The GUE class is not specific; arithmetic lives in traces (V7)**
 
 ---
 

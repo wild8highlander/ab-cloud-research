@@ -8,7 +8,7 @@
 their own hypotheses under the program discipline — pre-registered thresholds,
 blind protocols, SHA256-pinned outputs, verdicts with `does_not_prove`.**
 
-Лаборатория проверки гипотез · CLI + браузер · Python ≥ 3.10
+Hypothesis testing laboratory · CLI + browser · Python ≥ 3.10
 
 ![badge-batteries](https://img.shields.io/badge/batteries-4%20%C3%97%20PASS%20tested-C96F4A?style=for-the-badge)
 ![badge-mode](https://img.shields.io/badge/network-none%20%C2%B7%20fully%20offline-0E7C86?style=for-the-badge)
@@ -32,7 +32,6 @@ blind protocols, SHA256-pinned outputs, verdicts with `does_not_prove`.**
 - [Browser laboratory](#-browser-laboratory)
 - [Reports and pins](#-reports-and-pins)
 - [Honest boundaries](#-honest-boundaries)
-- [Русская версия](#русская-версия)
 
 ---
 
@@ -96,7 +95,12 @@ journal — to demonstrate Ω(t) growth against the O(1) volatile step.
 
 Rules: `name`, `battery`, `params`, `thresholds` are mandatory;
 `does_not_prove` is mandatory by discipline; `blind` enables output pinning.
-Ready examples: [`examples/`](examples/) — spinor, zeros, trace, compile.
+Ready examples in [`examples/`](examples/):
+
+- [`hypothesis_spinor.json`](examples/hypothesis_spinor.json) — spinor-family hypothesis (θ = π/3, 400 steps);
+- [`hypothesis_zeros.json`](examples/hypothesis_zeros.json) — blind zero reading (first 8 zeros, grid 0.02);
+- [`hypothesis_trace.json`](examples/hypothesis_trace.json) — explicit-formula check (x = 100, T = 300);
+- [`hypothesis_compile.json`](examples/hypothesis_compile.json) — exact compilation of a random unitary 4×4 (seed 42).
 
 ## 🌐 Browser laboratory
 
@@ -126,6 +130,8 @@ Each run writes `reports/<campaign>_<timestamp>.json`:
 
 The pinned output files carry SHA256 hashes — the same blind protocol the main
 program uses (E11/E17). Attach the report to your own campaign documentation.
+In the repository the folder contains only a `.gitkeep` placeholder — reports
+are generated artifacts and appear here after the first local run.
 
 ## ⚠️ Honest boundaries
 
@@ -136,21 +142,12 @@ trace of H_ξ with certificates), `compile` decomposes random unitaries (V20
 compiles the program's target set within the ISA class). A PASS here means
 *your hypothesis is consistent with the tested thresholds* — nothing more.
 
-## Русская версия
-
-**HYPOTHESIS_LAB** — открытая лаборатория программы: сформулируйте гипотезу
-конфигом (что проверяем, пороги, does_not_prove), запустите одну из четырёх
-батарей (спинор-фазы, слепое чтение нулей, явная формула, точная компиляция),
-получите вердикт PASS/FAIL и отчёт с SHA256-пином. Дисциплина та же, что и в
-основной программе: пороги до прогона, слепота, публикация PASS и FAIL одинаково.
-Браузерная версия — hypothesis_lab.html без установки Python.
-
 ---
 
 <div align="center">
 
-*Проверяй так же строго, как проверяют нас: предрегистрация · слепота · репликация*
+*Test as strictly as you test us: pre-registration · blindness · replication*
 
-**AB Cloud Quantum Research** · HYPOTHESIS_LAB · v1.1.0 · © Исаев И. Х.
+**AB Cloud Quantum Research** · HYPOTHESIS_LAB · v1.1.0 · © Isaev Iskhak Khamzatovich
 
 </div>

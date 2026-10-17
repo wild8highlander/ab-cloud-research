@@ -134,7 +134,7 @@ ab_cloud_verify_ru(objection = "2")
 ## Validation status
 
 No `Rscript` exists in the porting sandbox, so the port was validated by an
-operation-order mirror (Python, `scripts_v4b/v4b_mirror.py`) that reproduces
+operation-order mirror — a Python script that reproduces
 the R code element-for-element (masked vector Newton, sequential sums, table
 interpolation, loader parsers) on the real `zeta_zeros_50000_embedded.txt`.
 Re-confirmed in the final session — **28/28 frozen anchors PASS**
@@ -155,21 +155,21 @@ cd verification/r/spinor38
 Rscript spinor38.R
 ```
 
-## Кратко (по-русски)
+## Summary
 
-- Порт на base R ≥ 4.0 без CRAN-пакетов приведён к канону
+- The base-R ≥ 4.0 port with no CRAN packages follows the canon of
   `verification/CANON_SPEC.md` (v3.0).
-- Ядро одно: `ab_cloud_verify.R`; `ab_cloud_verify_en.R` / `_ru.R` — тонкие
-  обёртки, закрепляющие язык (§10), дублированной математики больше нет.
-- Точки Грама: сид `2πk/W(k/e)` + ровно 8 итераций Ньютона на 5-членном тета
-  (старый вариант «3 итерации на 3 членах» удалён). GUE — через таблицу
-  32768 точек (SMAX = 5), `erf` через `2·pnorm(x√2) − 1`.
-- Само-проверка §8: все 28 замороженных якорей печатаются таблицей
-  PASS/FAIL/Δ (+ SKIP), раннер завершается со статусом 1 при любом провале.
-- Вердикты честные: печатается только ветка, выбранная вычисленными числами;
-  консервированных «GUE confirmed» нет.
-- Запуск: `Rscript run_verify.R --zeros 50000 --objection all --lang en`
-  (флаги §9; `--no-selfcheck`, `--data-dir`, `--help`).
-- Проверка в песочнице — Python-зеркалом точного порядка операций: 28/28
-  якорей; финальный прогон R — централизованно.
-- `spinor38/` — порт Теста 38, зеркалит валидированный эталон.
+- One kernel: `ab_cloud_verify.R`; `ab_cloud_verify_en.R` / `ab_cloud_verify_ru.R` are thin
+  language-pinning wrappers (§10) — no duplicated math anymore.
+- Gram points: seed `2πk/W(k/e)` + exactly 8 Newton iterations on the 5-term theta (the
+  old 3-iteration/3-term variant is gone). GUE via the 32768-point table (SMAX = 5),
+  `erf` via `2·pnorm(x√2) − 1`.
+- The §8 self-check prints all 28 frozen anchors as a PASS/FAIL/Δ table (+ SKIP) and the
+  runner exits with status 1 on any failure.
+- Honest verdicts: only the branch selected by the computed numbers is printed; there are
+  no canned "GUE confirmed" strings.
+- Run: `Rscript run_verify.R --zeros 50000 --objection all --lang en`
+  (§9 flags; `--no-selfcheck`, `--data-dir`, `--help`).
+- Sandbox validation used a Python mirror of the exact operation order: 28/28 anchors;
+  the final R-native runs happen centrally.
+- `spinor38/` — the Test 38 port, mirroring the validated reference.

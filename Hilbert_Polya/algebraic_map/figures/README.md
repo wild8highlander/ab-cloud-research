@@ -16,6 +16,12 @@ Two mirror directories — [`en/`](en/) and [`ru/`](ru/) — hold the same figur
 |---|---|---|---|
 | `en/` | folder | 3 items | see inside |
 | `ru/` | folder | 3 items | see inside |
+| [`en/fig26_jacobi_profiles_en.png`](en/fig26_jacobi_profiles_en.png) | PNG | figure | αₙ profiles against n (with the Σγ and μ₁ guide lines) and βₙ against n with the power-law fit and the semicircle quarter line; English labelling |
+| [`en/fig27_hankel_integrity_en.png`](en/fig27_hankel_integrity_en.png) | PNG | figure | log₁₀ \|Dₙ\| / log₁₀ \|Sₙ\| (mpmath branch, D₂₅ = 0 annotated) and the decoding error \|Δγ\| against the Weyl bound and the Q22 quantum 2⁻²²; English labelling |
+| [`en/fig28_resolvent_en.png`](en/fig28_resolvent_en.png) | PNG | figure | Im S(z) along x + 15j by three routes (Jacobi continued fraction, direct moment sum, rational Q(z)/P(z)) and their pairwise residuals; English labelling |
+| [`ru/fig26_jacobi_profiles_ru.png`](ru/fig26_jacobi_profiles_ru.png) | PNG | figure | the same figure 26 with Russian labelling |
+| [`ru/fig27_hankel_integrity_ru.png`](ru/fig27_hankel_integrity_ru.png) | PNG | figure | the same figure 27 with Russian labelling |
+| [`ru/fig28_resolvent_ru.png`](ru/fig28_resolvent_ru.png) | PNG | figure | the same figure 28 with Russian labelling |
 
 ## 🧭 Navigation
 

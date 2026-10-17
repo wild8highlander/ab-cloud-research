@@ -21,7 +21,7 @@ A submission is a JSON protocol file (see [`examples/example_gate.json`](example
 | `examples/` | folder | 1 item | schema example `example_gate.json` to start a submission from |
 | [`LEADERBOARD.md`](LEADERBOARD.md) | Markdown | 308 B | current standings — best scores, dates, verdicts |
 | [`score_submission.py`](score_submission.py) | Python | 4.7 KB | the referee: deterministic, dependency-light scorer |
-| `submissions/` | folder | 1 item | worked example submission + report (protocol-generated) |
+| `submissions/` | folder | 1 item | the protocol-generated report of the worked example submission (`report_example-protocol-gate_20261012_170721.json`) |
 
 ## 🧭 Navigation
 

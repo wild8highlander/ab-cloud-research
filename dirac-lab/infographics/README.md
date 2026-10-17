@@ -8,4 +8,4 @@
 The dashboard is rendered by matplotlib code in the generation scripts
 (`make figures` lists the outputs); the lab map is a self-contained HTML file
 rendered to PNG at 2× scale via Playwright. Both embed the canonical run
-numbers from [`../results/run_20261006_full_v13/`](../results/run_20261006_full_v13/).
+numbers from [`../results/run_20261006_081031/`](../results/run_20261006_081031/).

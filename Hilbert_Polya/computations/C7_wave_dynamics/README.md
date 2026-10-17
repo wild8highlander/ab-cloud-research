@@ -21,7 +21,7 @@
 | Verdict | **H4 — YES (honest dynamics); the bridge to Re(s)=½ is a conjecture** |
 | Headline numbers | energy conserved to 1e-15 on every trajectory · P(x ≥ 90): ζ 0.0032 vs random 0.0002 (×16) · reflection t ≈ 14.5 on the clean lattice · transverse drift ⟨y⟩: 48 → 38 on ζ Nv=256 (random: 48.0 → 47.8) · clean-lattice R = 0.000104 |
 | Null | `r256` — the random-phase twin of `z256`: same L = 96, same 256 vortices at the same density, phases de-ordered (the decui control) |
-| Artifacts | `data/results.json` · `data/c7_dynamics_verdict.json` · `fig13_dynamics.png` / `fig13_dynamics_en.png` (600 dpi under `figures_hires/`) · `anim_wavepacket.mp4` / `anim_wavepacket.gif` · `data/wavepacket_dynamics.png` · `monograph_ru.docx` / `monograph_ru.pdf` / `monograph_en.docx` / `monograph_en.pdf` |
+| Artifacts | `data/results.json` · `../../data/c7_dynamics_verdict.json` · `fig13_dynamics_ru.png` / `fig13_dynamics_en.png` (600 dpi under `figures_hires/`) · `anim_wavepacket.mp4` / `anim_wavepacket.gif` · `data/wavepacket_dynamics.png` · `monograph_ru.docx` / `monograph_ru.pdf` / `monograph_en.docx` / `monograph_en.pdf` |
 | Registry | row 19 of `results/RESULTS.md` — *Transport P(x ≥ 90): ζ 0.0032 vs random 0.0002 (×16), C7* |
 | Independent checks | `independent_verification/` (IVP) |
 | In one line | the dynamical face of the Montgomery pair correlations — coherent propagation, reflection and scattering on L=96, with the ζ-cloud 16× more transparent than random in the far wing |
@@ -208,10 +208,10 @@ Inside `data/results.json` each trajectory tag carries: `t` (101 time points, 0 
 
 | File | Where |
 |---|---|
-| `fig13_dynamics.png` | 600 dpi — `figures_hires/ru/fig13_dynamics.png`; screen — `figures/ru/` |
+| `fig13_dynamics_ru.png` | 600 dpi — `figures_hires/ru/fig13_dynamics_ru.png`; screen — `figures/ru/` |
 | `fig13_dynamics_en.png` | 600 dpi — `figures_hires/en/fig13_dynamics_en.png`; screen — `figures/en/` |
 
-The animated version of the packet motion ships as `anim_wavepacket.mp4` and `anim_wavepacket.gif` in this folder (also mirrored under `figures/animations/`), and a compact still is stored as `data/wavepacket_dynamics.png`.
+The animated version of the packet motion ships as `anim_wavepacket.mp4` and `anim_wavepacket.gif` in this folder (also mirrored under `../../figures/animations/`), and a compact still is stored as `data/wavepacket_dynamics.png`.
 
 **Monographs.** `monograph_ru.docx` · `monograph_ru.pdf` · `monograph_en.docx` · `monograph_en.pdf` — the full monograph of this computation (formulation, theorems, tables, figures, honest limitations): 7–9 pages, identical content in the two languages.
 
@@ -223,47 +223,47 @@ Committed verdict record, verbatim from the source (bilingual dict): **{'ru': '�
 
 ## FAQ
 
-#### Is a zeta zero visible moving across the lattice?
+### Is a zeta zero visible moving across the lattice?
 
 No. Nothing in C7 identifies an eigenvalue with a zero. The packet is built from a band of eigenstates of the gate; what is measured is how probability *flows* on a gate whose phases encode ζ structure. The level-by-level identification question is H2, and it is answered NO elsewhere in the package (C3–C5).
 
-#### What moves on the lattice — an electron, a zero, or what?
+### What moves on the lattice — an electron, a zero, or what?
 
 A wave packet: a Gaussian superposition of eigenstates of the gate Hamiltonian. No individual eigenvalue is tracked and no zero of ζ is simulated. The packet is a probe, the way a test charge probes a field.
 
-#### What exactly is the ×16 measured against?
+### What exactly is the ×16 measured against?
 
 Against the random-phase gate `r256`: identical lattice, boundaries, vortex count (Nv = 256) and density, with the ζ-ordering of phases replaced by random ones. The ratio 0.0032/0.0002 is computed within this matched pair, so it isolates the phase structure. It is not measured against the clean lattice (which transmits even more, 0.0073) or against any external dataset.
 
-#### Why should I believe the ×16 rather than shrug at it?
+### Why should I believe the ×16 rather than shrug at it?
 
 Because the ratio is taken inside a matched pair (`z256` vs `r256`: same density, geometry, disorder and packet) and under a 1e-15 energy certificate. The denominator is the pre-registered null "phase structure does not matter"; the numerator beats it by an order of magnitude on its own turf.
 
-#### The clean lattice transmits more than the ζ-gate — doesn't that weaken the story?
+### The clean lattice transmits more than the ζ-gate — doesn't that weaken the story?
 
 It sharpens it. The claim was never "arithmetic beats emptiness" but "arithmetic beats randomness at equal obstruction": clean 0.0073 > ζ 0.0032 > random 0.0002. Vortices brake; the ζ-ordering leaves doors open that randomness closes.
 
-#### Why is energy conservation such a big deal?
+### Why is energy conservation such a big deal?
 
 Because braking and transport are *differences* of small probabilities. If the integrator leaked or pumped energy, probability could appear in the far wing for free, and the ×16 could be an artifact. The committed energy ratio stays at 1 to 1e-15 (never worse than 1e-14), which closes that door: whatever reaches x ≥ 90 got there through the Hamiltonian, not through the numerics.
 
-#### Does the transverse drift mean the packet "knows" where the vortices are?
+### Does the transverse drift mean the packet "knows" where the vortices are?
 
 It means the phase landscape is anisotropic in a way that survives averaging: the ζ-phases bias interference toward one side, while random phases bias nothing. The packet does not detect vortices individually; it integrates their phase field, and the ζ-field integrates to a sideways push (⟨y⟩: 48 → 38) that the random field does not produce. A push with a preferred side requires a preferred direction in the medium — which is exactly what the ordered phases supply and the randomised phases erase.
 
-#### If the dynamics is honest, why is the verdict not "the bridge works"?
+### If the dynamics is honest, why is the verdict not "the bridge works"?
 
 "Honest dynamics" is deliberately modest: it certifies the resonator as a wave system (H4) without converting dynamics into spectral identity. The bridge to Re(s) = ½ remains a conjecture with statistical support (D7/D10). The package keeps the two statements in separate rooms on purpose.
 
-#### Where is the line between what C7 measured and what it conjectures?
+### Where is the line between what C7 measured and what it conjectures?
 
 Measured: coherent propagation, reflection, braking, drift, far-wing transport with energy conserved to 1e-15, on the line α = ½. Conjectured: that this line *is* the critical line Re(s) = ½. The package prints the two in different typefaces for a reason.
 
-#### Where do the figures and the full write-up live?
+### Where do the figures and the full write-up live?
 
-`fig13_dynamics.png` (ru) and `fig13_dynamics_en.png` (en) at 600 dpi under `figures_hires/`, screen copies under `figures/`, the animation as `anim_wavepacket.mp4/.gif`, and the 7–9-page monograph in four files (`monograph_ru/en.docx/pdf`) in this folder.
+`fig13_dynamics_ru.png` (ru) and `fig13_dynamics_en.png` (en) at 600 dpi under `figures_hires/`, screen copies under `figures/`, the animation as `anim_wavepacket.mp4` and `anim_wavepacket.gif`, and the 7–9-page monograph in four files (`monograph_ru.docx` / `monograph_ru.pdf` / `monograph_en.docx` / `monograph_en.pdf`) in this folder.
 
-#### I only have five minutes — what do I run?
+### I only have five minutes — what do I run?
 
 `python3 campaigns/run_c7_dynamics.py` — it prints the committed verdict in seconds, no zeros file needed. The figures (`fig13_dynamics_en.png` at 600 dpi) and the animation (`anim_wavepacket.mp4`) do the visual explaining.
 

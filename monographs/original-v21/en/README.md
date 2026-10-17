@@ -9,7 +9,7 @@
 
 > **The frozen v21 monograph (EN): text, presentation, verification appendix.**
 
-The English half of the archived **v21** edition: `text/` holds the original monograph (`monograph_v21_EN.md`, the HTML build, and the `*_with_Verification` DOCX/PDF that ship the verification appendix inline) and `presentation/` the accompanying slide deck. This is the *historical* edition — the current canon is v22 in [`../`](../../README.md); v21 stays because older citations point at it and because its verification appendix documents the suite state of its era.
+The English half of the archived **v21** edition: `text/` holds the original monograph (`monograph_v21_EN.md`, the HTML build, and the `*_with_Verification` DOCX/PDF that ship the verification appendix inline), the v21.1 corrected editions (`monograph_v21_EN_corrected.{docx,html,pdf}`) and the shared `mono.css` stylesheet; `presentation/` holds the accompanying slide deck. This is the *historical* edition — the current canon is v22 in [`../`](../../README.md); v21 stays because older citations point at it and because its verification appendix documents the suite state of its era.
 
 ## 📁 Contents
 

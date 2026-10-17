@@ -1,7 +1,7 @@
 # `python_clone/` — The Python Reimplementation of the Suite
 > A faithful, dependency-light Python port of all 38 tests: same statistics, same verdict algebra, same embedded 50,000-zero dataset — cross-validating the Julia apparatus in a second language.
 
-_Location: [unpacked/](../README.md) › [python_clone/](README.md)_
+_Location: [06_code/](../../README.md) › [python_clone/](README.md)_
 
 This package is a **complete Python reimplementation of the AB-Cloud v23 SUPERCOMBO suite**: all 38 tests, the two-pass verdict algebra, the report writer, the plot engine and the CLI, executing against the identical embedded 50,000-zero dataset that the Julia apparatus carries. Its purpose is the cross-language reproduction documented as Add.2 of the September 2026 addendum — the strongest practical answer to "is the result an artifact of one language, one library, one implementation?" The original package README for the clone is preserved as `README_original.md`, including its family-by-family equivalence and deviation table.
 
@@ -25,7 +25,7 @@ The statistics family (Tests 1–14) reproduces **full equivalence** — same st
 
 ## Layout
 
-- [`abcloud/`](abcloud/README.md) — the Python package: `core.py` (statistics engine), `tests_01_14.py`, `tests_15_26.py`, `tests_27_38.py` (the batteries), `runner.py` (two-pass orchestration), `report.py` (report writer), `plot.py` logic inside `report.py`'s plot engine, `cli.py` (command line), `data/` (the embedded zeros).
+- [`abcloud/`](abcloud/README.md) — the Python package: `__init__.py` (package doc + version), `core.py` (statistics engine), `tests_01_14.py`, `tests_15_26.py`, `tests_27_38.py` (the batteries), `runner.py` (two-pass orchestration), `report.py` (report writer and plot engine), `cli.py` (command line), `data/` (the embedded zeros).
 - `pyproject.toml`, `requirements.txt` — packaging and dependencies (NumPy/SciPy/matplotlib only).
 
 ## Complete contents inventory
@@ -43,4 +43,4 @@ The statistics family (Tests 1–14) reproduces **full equivalence** — same st
 | [`abcloud/`](abcloud/README.md) | 8 files, 1 subfolders | The Python package of the clone (core, batteries, runner, CLI) |
 
 ---
-_This README is part of the GitHub edition of the AB-Cloud v23 package (v34). Package overview: [../README.md](../README.md)._
+_This README is part of the GitHub edition of the AB-Cloud v23 package (v34). Package overview: [06_code/README.md](../../README.md)._

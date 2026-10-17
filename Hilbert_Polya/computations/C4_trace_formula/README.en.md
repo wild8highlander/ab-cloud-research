@@ -80,7 +80,7 @@ The weight Λ(n)/√n is the **fingerprint of the primes**, and it is forced, no
 
     H_ξ = diag(±γ_n)
 
-is the diagonal, self-adjoint operator built directly **from** the zeros file (2 001 052 zeros; `zeros6.txt` in the committed verdict): its eigenvalues are ± the imaginary parts of the nontrivial zeros, the ± reflecting the conjugate symmetry of the zero set. For this one operator "spectrum = zeros" is a definition, not a conjecture — and that is precisely its role. Verifying T6 for H_ξ does not test the Riemann hypothesis; it tests the **derivation pipeline** end to end, from the Hadamard product down to the prime comb, at |ΔK| ≤ 1.2e-5. And because the pipeline is thereby certified, the zeros supply the calibrated benchmark (2.1% residual) against which the 87 gates of the package — 52 of them measured in this campaign — are judged with identical code and identical protocol. The package's theory map calls this its most precise place: clause Г5/H5 ("primes in the operator") is proven YES for H_ξ and — per the v2.0.8 verdict correction — YES for the gates via the convergence ladder, with the best gate (Nv = 16) at r_EF = 0.9978 (z = 2.62) and the 6.7%-vs-2.1% residual gap as the L = 24 finite-size branch.
+is the diagonal, self-adjoint operator built directly **from** the zeros file (2 001 052 zeros; `zeros6.txt` in the committed verdict): its eigenvalues are ± the imaginary parts of the nontrivial zeros, the ± reflecting the conjugate symmetry of the zero set. For this one operator "spectrum = zeros" is a definition, not a conjecture — and that is precisely its role. Verifying T6 for H_ξ does not test the Riemann hypothesis; it tests the **derivation pipeline** end to end, from the Hadamard product down to the prime comb, at |ΔK| ≤ 1.2e-5. And because the pipeline is thereby certified, the zeros supply the calibrated benchmark (2.1% residual) against which the 87 gates of the package — 52 of them measured in this campaign — are judged with identical code and identical protocol. The package's theory map calls this its most precise place: clause H5 ("primes in the operator") is proven YES for H_ξ and — per the v2.0.8 verdict correction — YES for the gates via the convergence ladder, with the best gate (Nv = 16) at r_EF = 0.9978 (z = 2.62) and the 6.7%-vs-2.1% residual gap as the L = 24 finite-size branch.
 
 ## 5. The derivation in four steps
 
@@ -154,9 +154,9 @@ Row takeaways, one line each: **M0** — the closed form (★) is certified as a
 
 ## 11. Interpretation: proves / does not prove
 
-**T6 proves** — the Hadamard → Q(a) → sine-transform chain at |ΔQ| ≤ 1.7e-12 and |ΔK| ≤ 1.2e-5; that the prime weight Λ(n)/√n sits in the heat trace of the zero-coded operator **as a theorem** (clause Г5/H5: proven YES for H_ξ; for the gates — YES via the convergence ladder, v2.0.8, with the residual gap as the finite-size branch); and that a calibrated benchmark exists — 2.1% relative residual is what "seeing the primes" costs at fixed scale.
+**T6 proves** — the Hadamard → Q(a) → sine-transform chain at |ΔQ| ≤ 1.7e-12 and |ΔK| ≤ 1.2e-5; that the prime weight Λ(n)/√n sits in the heat trace of the zero-coded operator **as a theorem** (clause H5: proven YES for H_ξ; for the gates — YES via the convergence ladder, v2.0.8, with the residual gap as the finite-size branch); and that a calibrated benchmark exists — 2.1% relative residual is what "seeing the primes" costs at fixed scale.
 
-**T6 does not prove** — the Riemann hypothesis (H_ξ is built from the zeros; identity by construction, so the verification is a consistency check of the pipeline, not a step toward RH); it provides no candidate operator (the level identity Г2/H2 is YES at the zeros' level — D_nn 0.0079, C3 — with the rank branch at its resolution limit and the thermal branch as the conservative projection; Г5/H5 is YES via the convergence ladder, v2.0.8, with the residual gap as the finite-size branch); and it does not close the door on nonlocal constructions — the open bit-level branch covers the class of *local* lattice Hamiltonians with vortex phases, with nonlocal questions moved to the roadmap (`docs/theory.md`, §4). The package's cycle formula, updated to the v2.0.8 verdicts: *the resonator is built and tuned (Г1+Г3+Г4); the gates sit at the zeros' level (Г2 — ДА); the prime weight is proven for the zero operator (T6) and enters the gates along the convergence ladder (Г5 — ДА, v2.0.8).*
+**T6 does not prove** — the Riemann hypothesis (H_ξ is built from the zeros; identity by construction, so the verification is a consistency check of the pipeline, not a step toward RH); it provides no candidate operator (the level identity H2 is YES at the zeros' level — D_nn 0.0079, C3 — with the rank branch at its resolution limit and the thermal branch as the conservative projection; H5 is YES via the convergence ladder, v2.0.8, with the residual gap as the finite-size branch); and it does not close the door on nonlocal constructions — the open bit-level branch covers the class of *local* lattice Hamiltonians with vortex phases, with nonlocal questions moved to the roadmap (`../../docs/theory.md`, §4). The package's cycle formula, updated to the v2.0.8 verdicts: *the resonator is built and tuned (H1+H3+H4); the gates sit at the zeros' level (H2 — YES); the prime weight is proven for the zero operator (T6) and enters the gates along the convergence ladder (H5 — YES, v2.0.8).*
 
 ## 12. Reproduction
 
@@ -171,11 +171,11 @@ Series seed — 96; RNG streams are fixed (`engine/hamiltonian.py`). All depende
 
 | File | Where |
 |---|---|
-| `fig06_trace_en.png` | 600 dpi — `figures_hires/en/fig06_trace_en.png`; screen — `figures/en/` |
-| `fig07_parts_en.png` | 600 dpi — `figures_hires/en/fig07_parts_en.png`; screen — `figures/en/` |
-| `fig08_rEF_en.png` | 600 dpi — `figures_hires/en/fig08_rEF_en.png`; screen — `figures/en/` |
+| `fig06_trace_en.png` | 600 dpi — top-level `figures_hires/en/fig06_trace_en.png`; screen — `figures/en/` |
+| `fig07_parts_en.png` | 600 dpi — top-level `figures_hires/en/fig07_parts_en.png`; screen — `figures/en/` |
+| `fig08_rEF_en.png` | 600 dpi — top-level `figures_hires/en/fig08_rEF_en.png`; screen — `figures/en/` |
 
-`fig06_trace` — the trace formula (direct sum vs (★★)); `fig07_parts` — the T1 + T2 + T3 decomposition and the prime share; `fig08_rEF` — the gates' heat projection against the null clouds. Russian-named variants (`fig06_trace.png`, `fig07_parts.png`, `fig08_rEF.png`) live under `figures_hires/ru/` and `figures/ru/`.
+`fig06_trace` — the trace formula (direct sum vs (★★)); `fig07_parts` — the T1 + T2 + T3 decomposition and the prime share; `fig08_rEF` — the gates' heat projection against the null clouds. Russian-labelled variants (`fig06_trace_ru.png`, `fig07_parts_ru.png`, `fig08_rEF_ru.png`) live under the top-level `figures_hires/ru/` and `figures/ru/`.
 
 | File | Contents |
 |---|---|
@@ -187,7 +187,7 @@ The committed verdict file in this package is `data/task9a_trace_formula.json` (
 
 ## 14. Verdict
 
-**{'ru': 'T6 верифицирована; консервативная ветвь Г2 ≈ 0.5 порядка в тепловой метрике', 'en': 'T6 verified; the conservative H2 branch ≈ 0.5 order in the trace metric'}** — details: `data/results.json`, the monograph, and
+**T6 verified; the conservative H2 branch ≈ 0.5 order in the trace metric** — details: `data/results.json`, the monograph, and
 `independent_verification/` (IVP checks of this campaign).
 
 ## 15. FAQ
@@ -226,7 +226,7 @@ No — the committed verdict is self-contained and the tour command runs in seco
 | r_EF | corr(D, c·P) at fixed scale s = 1, amplitude c by least squares — the projection metric |
 | Null cloud | the spread of r_EF for spectra with no prime weight (surrogate 0.00±0.39, Poisson 0.08±0.80) |
 | PC0 | positive control: the zeros' own window through the identical pipeline (r = +0.9998, residual 2.1%) |
-| H2 / Г2 | the "spectral identity" clause of the Hilbert–Pólya checklist (level n ↔ zero n) — verdict NO |
+| H2 | the "spectral identity" clause of the Hilbert–Pólya checklist (level n ↔ zero n) — verdict NO |
 | T6 | the theorem of this campaign: the trace formula with prime weight for H_ξ |
 | M0 / M1 / M2 | calibration of (★); verification of (★★) for H_ξ; the 52-gate thermal projection |
 
@@ -250,7 +250,7 @@ Six terms, each with a fixed role and none with a free parameter: the first term
 
 - [../C3_gate_family/README.md](../C3_gate_family/README.md) — the gate family measured here; the rank-correlation projection of the H2 question.
 - [../../docs/trace_formula.md](../../docs/trace_formula.md) — the complete derivation of T6 with every constant derived.
-- [../../results/RESULTS.md](../../results/RESULTS.md) — the committed registry of numbers, the Г1–Г5/H1–H5 verdicts, and the honesty registry.
+- [../../results/RESULTS.md](../../results/RESULTS.md) — the committed registry of numbers, the H1–H5 verdicts, and the honesty registry.
 
 ---
 *Hilbert Polya Bridge v1.0.0 · C4 · The trace formula: Tr e^{−uH} versus the explicit formula*

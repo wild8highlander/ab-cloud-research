@@ -1,10 +1,10 @@
-# Функция V18 · AB-оператор как процессор
+# V18 · The AB Operator as a Processor
 
 ![version](https://img.shields.io/badge/version-1.2.0-298bbc) ![](https://img.shields.io/badge/series-V01--V19-3b4f58) ![](https://img.shields.io/badge/status-honest-3a6b4f)
 
-> **Работает ли AB-оператор как процессор — ворота, зацепление, игра? Три уровня вычислительности на строительных блоках гамильтониана.**
+> **Does the AB operator work as a processor — gates, entanglement, a game? Three levels of computability on the Hamiltonian building blocks.**
 
-[← Back to the main README](../../README.ru.md)
+[← Back to the main README](../../README.md)
 
 ## Contents
 
@@ -22,25 +22,25 @@
 
 ## Campaign question
 
-Работает ли AB-оператор как процессор — ворота, зацепление, игра? Три уровня вычислительности на строительных блоках гамильтониана.
+Does the AB operator work as a processor — gates, entanglement, a game? Three levels of computability on the Hamiltonian building blocks.
 
 ## Results
 
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V18 (plan Solution 18) | committed verdict |
-| Key numbers | Верность всех шести ворот 1.0 − 2e-16; concurrence 0.984 (t = 2.373); партия AB-Pong: счёт 0:1, 10 перехватов, 411 событий, повтор бит-в-бит. | measured/proved |
-| Verdict note | Процессор — ДА: ворота точные, зацепление почти-Белл, игра исполняется детерминированно | honest |
+| Key numbers | All six gate fidelities 1.0 − 2e-16; concurrence 0.984 (t = 2.373); an AB-Pong game: score 0:1, 10 intercepts, 411 events, bit-exact replay. | measured/proved |
+| Verdict note | processor — YES: exact gates, near-Bell entanglement, the game runs deterministically | honest |
 
 ## Method
 
-rpbridge/processor.py: P1 — аналитические импульсы {X,Y,Z,H,S,T} на блоке H₂ = mσz − t·cosφ·σx − t·sinφ·σy; P2 — обменная связка −J, concurrence Вуттерса; P3 — AB-Pong: доска 64 с фазой π/3, калибровочно-ковариантные зеркала e^{−2iφx}ψ(2p−x), ИИ с опережением, голы на x≤5/x≥58.
+rpbridge/processor.py: P1 — analytic pulses {X,Y,Z,H,S,T} on the block H₂ = mσz − t·cosφ·σx − t·sinφ·σy; P2 — the exchange link −J, the Wootters concurrence; P3 — AB-Pong: a 64-site board at phase π/3, gauge-covariant mirrors e^{−2iφx}ψ(2p−x), lead-following AI, goals at x≤5/x≥58.
 
 ## Figures
 
 | File | Where |
 |---|---|
-| `fig19_ru.png` | 600 dpi — `figures_hires/ru/`; infographics — `figures/ru/` |
+| `fig19_ru.png` | 600 dpi — `../../figures_hires/ru/`; infographics — `figures/ru/` |
 
 ## Monographs
 
@@ -53,8 +53,8 @@ rpbridge/processor.py: P1 — аналитические импульсы {X,Y,Z
 
 | File | Content |
 |---|---|
-| `data/v18_verdict.json` | committed verdict of the campaign |
-| `computations/V18_ab_processor/data/` | campaign artifacts |
+| `data/results.json` | committed verdict of the campaign |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,8 +75,8 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Процессор — ДА: ворота точные, зацепление почти-Белл, игра исполняется детерминированно', 'en': 'Processor — YES: exact gates, near-Bell entanglement, the game runs deterministically'}**
+**Processor — YES: exact gates, near-Bell entanglement, the game runs deterministically**
 
 ---
 
-*AB Research Program v1.1.0 · V18 · AB-оператор как процессор*
+*AB Research Program v1.1.0 · V18 · The AB Operator as a Processor*

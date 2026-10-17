@@ -291,7 +291,7 @@ ports/
 ├── assets/                     — this README's animated banner/divider/cast
 ├── PORT_SPEC.md                — parity specification (golden format,
 │                                 tolerances, MT19937, porting rules, §8)
-└── README.md / README.ru.md    — this file · русская версия
+└── README.md / README.ru.md    — this file · language note (RU version retired)
 ```
 
 ## 🛠 Regenerating the golden

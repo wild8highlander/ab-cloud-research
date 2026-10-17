@@ -43,7 +43,7 @@ Three tabs:
 Honesty discipline is inherited from v1: the explorer replays committed
 data; every live metric is the same protocol as the campaigns
 (unfolded-vs-unfolded convention, internal mpmath zero cache, PC0′ = 1.000
-for ispectral twins).
+for isospectral twins).
 
 ## What you will see, tab by tab
 
@@ -60,7 +60,7 @@ for ispectral twins).
   r = 1.000 from an isospectral twin, and the GUE null cloud marks where
   "nothing special" lives.
 - **Verdicts C9–C16.** The committed verdict JSONs of the eight v2
-  campaigns — `computations/C9_nonlocal_trace`, `C10_phase_coded`,
+  campaigns — under `computations/`: `C9_nonlocal_trace`, `C10_phase_coded`,
   `C11_alpha_third`, `C12_band_5000`, `C13_blind_families`,
   `C14_anomaly_hunt`, `C15_dirichlet`, `C16_qinfo` — presented with their
   metadata in both languages. Nothing is recomputed here: this tab is a

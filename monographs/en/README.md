@@ -38,21 +38,14 @@ is bound to a named test with a full computation log.
 - Edit: `.md` (or `.tex`), then rebuild HTML/DOCX via pandoc; PDF via
   `xelatex` on the `.tex` (two passes).
 
-## Кратко (по-русски)
-
-- Английское издание монографии v22 + сборка v22.1 (Приложения B и D) и
-  LaTeX-исходники.
-- Свежий PDF: `text/AB_Cloud_Monograph_v22_EN_v221.pdf`.
-- Каждое число привязано к именному тесту набора v19.
-
 ## 📁 Complete file inventory
 
 | Entry | Size | Kind |
 |---|---|---|
-| `figures/` | 19 files, 5.2 MB | directory |
-| `text/` | 11 files, 48.0 MB | directory |
+| `figures/` | 20 files, 5.4 MB | directory — 19 figures + README |
+| `text/` | 12 files, 49.2 MB | directory — incl. `preprint/` |
 | `README.md` | 2.6 KB | file |
-| **Total (recursive)** | **31 files, 53.2 MB** | |
+| **Total (recursive)** | **33 files, ≈54 MB** | |
 
 ## 🔬 Deep dive — working with the English edition
 
@@ -84,12 +77,3 @@ pre-rendered PNGs at 600 dpi under `figures/` (fig01–fig20), referenced
 by relative paths, so no plotting step is required to rebuild any
 format. Citation metadata lives in the repository-root `CITATION.cff`
 and resolves to ORCID 0009-0003-7299-0701.
-
-## Кратко (по-русски)
-
-- Английское издание v22: читать — `_v221.pdf` (обновлённые приложения),
-  сверять и цитировать — `.md`, править вёрстку — `.tex`.
-- Все ключевые числа (KS = 0.047, p = 0.27; дефект потока 3.5e-15;
-  v_F ≈ 0.125, R² = 0.9997) привязаны к именным тестам набора.
-- Пересборка без сюрпризов: pandoc → html/docx, xelatex ×2 → pdf;
-  рисунки уже отрендерены (600 dpi, относительные пути).

@@ -1,10 +1,10 @@
-# Функция V14 · Аудит утверждений
+# V14 · Claim Audit
 
 ![version](https://img.shields.io/badge/version-1.2.0-298bbc) ![](https://img.shields.io/badge/series-V01--V19-3b4f58) ![](https://img.shields.io/badge/status-honest-3a6b4f)
 
-> **Трассируется ли каждое утверждение к данным и контроля? Схема из 5 частей + аудитор.**
+> **Is every statement traced to data and controls? The 5-part schema + auditor.**
 
-[← Back to the main README](../../README.ru.md)
+[← Back to the main README](../../README.md)
 
 ## Contents
 
@@ -22,25 +22,25 @@
 
 ## Campaign question
 
-Трассируется ли каждое утверждение к данным и контроля? Схема из 5 частей + аудитор.
+Is every statement traced to data and controls? The 5-part schema + auditor.
 
 ## Results
 
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V14 (plan Solution 14) | committed verdict |
-| Key numbers | 19/19 claims по схеме (V1–V19); покрытие вердиктов полное; статус-гигиена соблюдена. | measured/proved |
-| Verdict note | каждое публичное утверждение пакета трассируется к вычислению, контролю и перечню не-следствий; автоповышение гипотезы до теоремы заблокировано | honest |
+| Key numbers | 19/19 claims per the schema (V1–V19); full verdict coverage; status hygiene observed. | measured/proved |
+| Verdict note | every public statement of the package is traced to a computation, a control and a list of non-implications; automatic promotion of a hypothesis to a theorem is blocked | honest |
 
 ## Method
 
-rpbridge/audit.py: claim-JSON (statement/premises/code/controls/does_not_prove); A1/A2/A3; запрет p-значений в роли доказательств.
+rpbridge/audit.py: claim JSON (statement/premises/code/controls/does_not_prove); A1/A2/A3; p-values banned as proofs.
 
 ## Figures
 
 | File | Where |
 |---|---|
-| `fig14_ru.png` | 600 dpi — `figures_hires/ru/`; infographics — `figures/ru/` |
+| `fig14_ru.png` | 600 dpi — `../../figures_hires/ru/`; infographics — `figures/ru/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/audit.py: claim-JSON (statement/premises/code/controls/does_not_prove);
 | File | Content |
 |---|---|
 | `data/v14_verdict.json` | committed verdict of the campaign |
-| `computations/V14_claim_audit/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,8 +75,8 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Каждое утверждение трассируется; автоповышение статуса заблокировано', 'en': 'Every statement is traced; automatic promotion is blocked'}**
+**Every statement is traced; automatic promotion is blocked**
 
 ---
 
-*AB Research Program v1.1.0 · V14 · Аудит утверждений*
+*AB Research Program v1.1.0 · V14 · Claim Audit*

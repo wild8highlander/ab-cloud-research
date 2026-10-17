@@ -8,9 +8,9 @@
 monograph in Russian and English (DOCX + PDF), four level research program
 monographs, and full LaTeX sources for every document.**
 
-Версия **1.1.0** · стиль *Critical Line & Copper* · © Исаев И. Х.
+Version **1.1.0** · style *Critical Line & Copper* · © Isaev Iskhak Khamzatovich
 
-![badge-docs](https://img.shields.io/badge/documents-24%20RU%2FEN%20%C3%97%20PDF%2FDOCX-C96F4A?style=for-the-badge)
+![badge-docs](https://img.shields.io/badge/documents-20%20RU%2FEN%20%C3%97%20PDF%2FDOCX-C96F4A?style=for-the-badge)
 ![badge-latex](https://img.shields.io/badge/latex-10%20sources%20.tex-0E7C86?style=for-the-badge)
 ![badge-pages](https://img.shields.io/badge/main%20monograph-104%2B%20pages-8C6D1F?style=for-the-badge)
 ![badge-license](https://img.shields.io/badge/license-proprietary-6B6455?style=for-the-badge)
@@ -34,7 +34,6 @@ monographs, and full LaTeX sources for every document.**
 - [LaTeX sources](#-latex-sources)
 - [Provenance and style](#-provenance-and-style)
 - [How to verify](#-how-to-verify)
-- [Русская версия](#русская-версия)
 
 ---
 
@@ -138,23 +137,13 @@ python3 -c "import csv; [print(r['campaign'], '-', r['title']) for r in csv.Dict
 python3 -c "import csv; [print(r['metric'], '=', r['value']) for r in csv.DictReader(open('datasets/flagship_numbers.csv'))]"
 ```
 
-## Русская версия
-
-**MONOGRAPH_ARCHIVE** — публикационный слой программы: одна большая основная
-монография на русском и английском (DOCX + PDF, 104+ страницы, 28 фигур,
-44 таблицы), четыре монографии исследовательских программ уровней и полные
-LaTeX-исходники всех десяти документов. Все числа прослеживаются до вердикт-файлов,
-все фигуры пересобираются скриптами, лицензия репозитория продублирована
-в этой папке дословно. Честная граница неизменна: RH остаётся заблокированным
-машиной обязательств V13.
-
 ---
 
 <div align="center">
 
-*Собрано дисциплиной: предрегистрация · слепые протоколы · репликация ·
-отрицательные результаты публикуются*
+*Assembled by discipline: pre-registration · blind protocols · replication ·
+negative results are published*
 
-**AB Cloud Quantum Research** · MONOGRAPH_ARCHIVE · v1.1.0 · © Исаев И. Х.
+**AB Cloud Quantum Research** · MONOGRAPH_ARCHIVE · v1.1.0 · © Isaev Iskhak Khamzatovich
 
 </div>

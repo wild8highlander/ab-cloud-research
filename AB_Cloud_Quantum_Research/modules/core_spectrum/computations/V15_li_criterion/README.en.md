@@ -29,8 +29,8 @@ Are the Li coefficients connected to the spectrum? The spectral formula λ_n = T
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V15 (plan Solution 15) | committed verdict |
-| Key numbers | Th4 |Δ| = 4.4e-11; λ₁ = 0.023057 (−B = 0.023096); λ_n > 0 for n ≤ 3000 (tails ≤ 0.115); the gate bridge — O09. | measured/proved |
-| Verdict note | Th4 доказана и верифицирована (два пути, |Δ| ≤ 1e-9); λ_n > 0 для n ≤ 3000 измерено с сертифицированными хвостами; бесконечное семейство неравенств остаётся открытым; представление λ_n следами ЗАТВОРОВ не найдено | honest |
+| Key numbers | Th4 \|Δ\| = 4.4e-11; λ₁ = 0.023057 (−B = 0.023096); λ_n > 0 for n ≤ 3000 (tails ≤ 0.115); the gate bridge — O09. | measured/proved |
+| Verdict note | Th4 is proved and verified (two paths, \|Δ\| ≤ 1e-9); λ_n > 0 for n ≤ 3000 is measured with certified tails; the infinite family of inequalities remains open; no representation of λ_n by the traces of GATES is found | honest |
 
 ## Method
 
@@ -40,7 +40,7 @@ rpbridge/li.py: two paths (the zero series w^n and the trace of g_n); the telesc
 
 | File | Where |
 |---|---|
-| `fig15_en.png` | 600 dpi — `figures_hires/en/`; infographics — `figures/en/` |
+| `fig15_en.png` | 600 dpi — `../../figures_hires/en/`; infographics — `figures/en/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/li.py: two paths (the zero series w^n and the trace of g_n); the telesc
 | File | Content |
 |---|---|
 | `data/v15_verdict.json` | committed verdict of the campaign |
-| `computations/V15_li_criterion/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Th4 доказана', 'en': 'Th4 proved; λ_n > 0 to 3000 measured; RH does not follow'}**
+**Th4 proved; λ_n > 0 to 3000 measured; RH does not follow**
 
 ---
 

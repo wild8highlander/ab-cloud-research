@@ -48,7 +48,7 @@ re-render reproduces the shipped cut deterministically.
 | `soundtrack.py` | the score: pad chords, sub drone, noise swells, shutter clicks, the 24 zero bells; writes a 48 kHz stereo WAV |
 | `pixel_decoding.py` | the pixel-gate measurement: 87 gates → Q22 canvas → PNG round-trip → H_pixels → det recurrence → 24 zeros (with the enriched log: weights, witness_recomputed, max_quant_err, strong witness assert) |
 | `pixel_decoding_data.json` | the shipped measurement log — schema-identical to the script's output (witness 17/17) |
-| `pixel_decoding_canvas.png` / `_matrix.png` / `_spectrum.png` | the three verification artifacts of the run |
+| `pixel_decoding_canvas.png` / `pixel_decoding_matrix.png` / `pixel_decoding_spectrum.png` | the three verification artifacts of the run |
 | `pixel_gate_decoding_1080p.mp4` | the second film — a presentational artifact composed around the committed data; the frame-composition/audio script is not committed (see the audit report, §5.3) |
 
 ## The film, fact sheet
@@ -184,7 +184,8 @@ not a single decorative frame. Its storyboard *is* the measurement of
 The single committed script
 [`pixel_decoding.py`](pixel_decoding.py) regenerates the entire
 measurement end-to-end (canvas → decode → recurrence → bisection →
-verification) and writes its own log into `./pixel_output/`. The shipped
+verification) and writes its own log into `./pixel_output/` (a runtime
+output folder, created by the script and not committed). The shipped
 artifacts of that run are committed beside it:
 
 - [`pixel_decoding_data.json`](pixel_decoding_data.json) — the full

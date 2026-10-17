@@ -18,6 +18,7 @@ As everywhere in `sections/`, the bar is *exactness*: the script asserts its exp
 | Item | Kind | Size | What it is |
 |---|---|---|---|
 | `python/` | folder | 1 item | see inside |
+| [`python/verify.py`](python/verify.py) | script | 2.1 KB | the Gram-point bisection check itself — stdlib-only, asserts its expected output in-line |
 
 ## 🧭 Navigation
 

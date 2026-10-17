@@ -5,8 +5,9 @@
 <p align="center"><img src="../assets/avatars/hp_cast_strip.svg" width="720" alt="Bridge avatar cast"/></p>
 
 *The excursion layer of the series: from the Γ-ladder of C1 to the qinfo
-layer of C16, every committed verdict can be replayed in seconds — the
-shutters are already built, the zeros already counted.*
+layer of C16 and the blind phase B of C17, every committed verdict can be
+replayed in seconds — the shutters are already built, the zeros already
+counted.*
 
 [← Back to the main README](../README.md)
 
@@ -16,8 +17,9 @@ This folder holds the **driver layer** of the Hilbert–Pólya Bridge: one thin,
 self-contained Python script per campaign. The v1 core is *eight scripts
 `run_c1…run_c8`*: they print the verdict from the committed data and
 recompute the cheap invariants — in seconds, with no zero file needed. The
-v2.0 edition added the drivers `run_c9…run_c16`, so the complete roster
-C1–C16 now lives here, one script per campaign.
+v2.0 edition added the drivers `run_c9…run_c16`, and the v3 blind phase B
+(N7) added `run_c17_blind_phaseB.py` — the complete roster C1–C17 now
+lives here, one script per campaign.
 
 Each script serves two purposes:
 
@@ -61,7 +63,7 @@ theorems T11–T18.
 | `run_c14_anomaly.py` | C14 | v2 · T16 — anomaly hunt |
 | `run_c15_dirichlet.py` | C15 | v2 · T17 — Dirichlet L |
 | `run_c16_qinfo.py` | C16 | v2 · T18 — qinfo layer |
-| `run_c17_blind_phaseB.py` | C17 | v3 · N7 фаза B — слепой прогон на замкнутой плотности явной формулы (простые + θ → J → канва Q22 → хеш → нули как предсказание) |
+| `run_c17_blind_phaseB.py` | C17 | v3 · N7 phase B — blind run on the closed density of the explicit formula (primes + θ → J → Q22 canvas → hash → zeros as prediction) |
 
 ## How to use it
 

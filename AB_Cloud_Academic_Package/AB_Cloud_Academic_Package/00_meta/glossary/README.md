@@ -2,9 +2,9 @@
 
 | File | Language | Entries |
 |---|---|---|
-| [`glossary.ru.md`](glossary.ru.md) | Русский | core terms of the programme |
+| [`glossary.ru.md`](glossary.ru.md) | Russian | core terms of the programme |
 | [`glossary.en.md`](glossary.en.md) | English | core terms of the programme |
-| [`glossary.zh.md`](glossary.zh.md) | 中文 | core terms of the programme |
+| [`glossary.zh.md`](glossary.zh.md) | Chinese | core terms of the programme |
 | [`glossary.schema.json`](glossary.schema.json) | — | the schema every glossary must satisfy |
 
 Adding a language: copy `glossary.en.md`, translate the **definitions**

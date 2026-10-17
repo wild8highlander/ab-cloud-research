@@ -17,29 +17,22 @@
 </div>
 
 > 🧭 **Navigation:** [↑ main README](../README.md) · [📚 monographs](../MONOGRAPH_ARCHIVE/README.md) · [🧪 hypothesis lab](../HYPOTHESIS_LAB/README.md) · [🎞 animations](../VISUAL_ANIMATIONS/README.md)
-# 📄 whitepaper/ — белый отчёт исследования
+# 📄 whitepaper/ — the research white paper
 
-Компактная витрина всего исследования одним документом (5 страниц,
-RU/EN, PDF): резюме с флагманскими числами, архитектура уровней,
-принцип «читает, а не несёт», дисциплина честности, витрина и дорожная
-карта, с внедрённым атласом флагманов.
+A compact showcase of the whole study in a single document (5 pages,
+RU/EN, PDF): an executive summary with the flagship numbers, the level
+architecture, the "reads, does not carry" principle, the honesty
+discipline, the showcase and the roadmap, with the flagship atlas
+embedded.
 
-| Файл | Описание |
+| File | Description |
 |------|----------|
-| `whitepaper_ru.pdf` | белый отчёт, русский, 5 стр. |
-| `whitepaper_en.pdf` | white paper, English, 5 pp. |
+| `whitepaper_ru.pdf` | the white paper, Russian, 5 pp. |
+| `whitepaper_en.pdf` | the white paper, English, 5 pp. |
 
-Пересобрать: `python3 scripts/make_whitepaper.py` — числа внедряются
-прямо из закоммиченных вердиктов, документ не может разойтись с данными.
-
-## English summary
-
-`whitepaper/` holds the 5-page white paper (RU/EN, PDF): executive
-summary with flagship numbers, the level architecture, the "reads, does
-not carry" principle, the honesty discipline, the showcase and roadmap,
-with the embedded flagship atlas. Rebuild with
-`scripts/make_whitepaper.py` — all numbers are injected from committed
-verdicts.
+Rebuild: `python3 scripts/make_whitepaper.py` — the numbers are injected
+directly from committed verdicts, so the document cannot drift from the
+data.
 
 ---
 

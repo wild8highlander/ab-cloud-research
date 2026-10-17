@@ -79,7 +79,7 @@ python3 campaigns/run_c10_phase_coded.py
 ```
 
 Fresh runs are self-contained: the zeta zeros come from the internal
-mpmath cache (`data/zeros/`), no external files. Runtime: seconds to
+mpmath cache (`../../data/zeros/`), no external files. Runtime: seconds to
 minutes (C12 is segmented; see `campaigns/run_c12_band5000.py`).
 
 Top-level quick start (v2 list in the main README): `python3 campaigns/run_c10_phase_coded.py`.
@@ -88,7 +88,7 @@ Top-level quick start (v2 list in the main README): `python3 campaigns/run_c10_p
 
 | File | Where |
 |---|---|
-| `fig18_coloc.png` | 600 dpi — `figures_hires/ru|en/fig18_coloc_ru|en.png`; copy in `figures/ru|en/` |
+| `fig18_coloc_{ru,en}.png` | this folder's `figures/{ru,en}/`; 600 dpi mirrors — top-level `figures_hires/{ru,en}/fig18_coloc_{ru,en}.png` |
 
 | File | Content |
 |---|---|
@@ -100,9 +100,9 @@ In this campaign folder the committed payload is `data/results.json` (co-locatio
 ## Verdict
 
 See `data/results.json` (verdict, RU+EN), the v2 monograph
-(`monograph/v2_volume/`) and `independent_verification/` (IVP11–18).
+(`../../monograph/v2_volume/`) and `../../independent_verification/` (IVP11–18).
 
-Committed verdict (EN, verbatim): "Hard co-location (Φ_p,Φ_q) ≡ Φ_pq holds by construction at machine zero for any beta (T12); the spectrum does not see the coding: r_H7 in the null zone, GUE class unchanged — universality erases even hard codings." The statement and proof of T12 (additivity ⇒ co-location; the gauge classification) are in `monograph/theorems_v2_volume/`.
+Committed verdict (EN, verbatim): "Hard co-location (Φ_p,Φ_q) ≡ Φ_pq holds by construction at machine zero for any beta (T12); the spectrum does not see the coding: r_H7 in the null zone, GUE class unchanged — universality erases even hard codings." The statement and proof of T12 (additivity ⇒ co-location; the gauge classification) are in `../../monograph/theorems_v2_volume/`.
 
 ## FAQ
 

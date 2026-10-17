@@ -67,26 +67,26 @@ Details and the frozen-data contract: `spinor38/README.md` and
 - Compilation is single-shot (`ghc --make`); no cabal project file is needed
   on purpose, to keep the folder copy-paste friendly.
 
-## Кратко (по-русски)
+## Summary
 
-- Реализация на GHC ≥ 9 — только `base` и `containers`, без внешних пакетов.
-- `./run_verify.sh --zeros 50000 --source 50k --objection 1 --lang en` —
-  компилирует одной командой `ghc --make` и запускает; CLI как у всех языков.
-- `spinor38/` — Порт Test 38: алгоритм Якоби на строгих unboxed Double,
-  замороженные данные из `../spinor64/data/`.
+- GHC ≥ 9 — only `base` and `containers`, no external packages.
+- `./run_verify.sh --zeros 50000 --source 50k --objection 1 --lang en` compiles
+  with a single `ghc --make` and runs; the CLI matches every other language.
+- `spinor38/` — the Test 38 port: Jacobi algorithm on strict unboxed `Double`s,
+  frozen data read from `../spinor64/data/`.
 
 ## 📁 Complete file inventory
 
 | Entry | Size | Kind |
 |---|---|---|
-| `spinor38/` | 2 files, 6.9 KB | directory |
-| `Main.hs` | 2.9 KB | file |
-| `README.md` | 2.5 KB | file |
-| `VerifyEN.hs` | 7.2 KB | file |
-| `VerifyRU.hs` | 7.8 KB | file |
-| `ZerosLoader.hs` | 3.5 KB | file |
-| `run_verify.sh` | 421 B | file |
-| **Total (recursive)** | **8 files, 31.2 KB** | |
+| `spinor38/` | 2 files, 8.8 KB | directory |
+| `Main.hs` | 3.5 KB | file |
+| `README.md` | 6.0 KB | file |
+| `VerifyEN.hs` | 4.5 KB | file |
+| `VerifyRU.hs` | 5.6 KB | file |
+| `ZerosLoader.hs` | 16.9 KB | file |
+| `run_verify.sh` | 193 B | file |
+| **Total (recursive)** | **8 files, 46.3 KB** | |
 
 ## 🔬 Deep dive — the Haskell port in the parity matrix
 
@@ -132,17 +132,3 @@ same one-line command shown above. The Test-38 companion lives in
 `spinor38/` where present, and the spinor64 correction experiment — the
 one that established 64/64 GUE-consistency for the Klein-quartic
 structures — lives in `../spinor64/`.
-
-## Кратко (по-русски)
-
-- Порт существует для доказательства паритета: одинаковые замороженные
-  данные, тот же набор тестов, те же эталонные числа (KS = 0.047,
-  p = 0.27; дефект 3.5e-15; ⟨r⟩ = 0.5848 ± 0.0260).
-- Флаги одинаковы во всех десяти реализациях — одна и та же командная
-  строка проигрывается в каждой папке.
-- Расхождение с эталоном трактуется как баг порта, а не как открытие.
-
-- Набор как чистые функции над списками ординат: Main,
-  ZerosLoader, VerifyEN/VerifyRU.
-- Обёртка сначала пробует runhaskell — полный отчёт без компиляции.
-- Чистота кода делает невозможной класс ошибок «утёкшее состояние».

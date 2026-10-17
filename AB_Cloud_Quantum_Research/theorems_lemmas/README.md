@@ -17,18 +17,19 @@
 </div>
 
 > 🧭 **Navigation:** [↑ main README](../README.md) · [📚 monographs](../MONOGRAPH_ARCHIVE/README.md) · [🧪 hypothesis lab](../HYPOTHESIS_LAB/README.md) · [🎞 animations](../VISUAL_ANIMATIONS/README.md)
-# 📐 theorems_lemmas/ — выводы теорем Th1–Th6 с фигурами измерений
+# 📐 theorems_lemmas/ — the derivations of the theorems Th1–Th6 with measurement figures
 
-**Единая папка формальных и численных выводов** исследования AB Cloud Quantum Research.
-Каждая теорема живёт в собственной папке `T0K_*` и содержит **четыре
-артефакта**: (1) `README.md` — развёрнутый вывод с идеей доказательства и
-границами; (2) четыре документа `theorem_thK_{ru,en}.{pdf,docx}` —
-двуязычные монографии с внедрённой фигурой; (3) `figures/thK_4dim_{ru,en}.png`
-— **плиточная фигура 2×2: четыре разных измерения** метрики теоремы
-(метрика, поведение по затворам/инстансам, контроль, порог), 600 dpi;
-(4) связь с кампаниями и формальными постановками.
+**The unified folder of the formal and numerical derivations** of the AB Cloud
+Quantum Research study. Each theorem lives in its own `T0K_*` folder and
+contains **four artifacts**: (1) `README.md` — a detailed derivation with the
+proof idea and the boundaries; (2) four documents `theorem_thK_{ru,en}.{pdf,docx}`
+— bilingual monographs with the embedded figure; (3) `figures/thK_4dim_{ru,en}.png`
+— **a 2×2 tiled figure: four different measurement dimensions** of the theorem
+metric (the metric, the per-gate/per-instance behaviour, the control, the
+threshold), 600 dpi; (4) the link with the campaigns and the formal
+statements.
 
-## Состав
+## Composition
 
 | Tile | Statement (short) | Certificate |
 |------|-------------------|-------------|
@@ -42,55 +43,42 @@
 <img src="../VISUAL_ANIMATIONS/svg/critical_line.svg" width="420" alt="critical line">
 
 
-| Папка | Теорема | Кампания | Формальная редукция | Документов |
+| Folder | Theorem | Campaign | Formal reduction | Documents |
 |-------|---------|----------|---------------------|------------|
-| `T01_hermiticity/` | Th1 — эрмитовость и вещественность спектра | V4 | A1 (спектральная теорема) | 4 |
-| `T02_self_adjointness/` | Th2 — конечномерная самосопряжённость | V8 | A2b (распадение дефектной нормы) | 4 |
-| `T03_certificates/` | Th3 — сертификаты собственных значений | V12 | A4 (Като–Темпл), A5 (Гершгорин) | 4 |
-| `T04_li_spectral/` | Th4 — спектральная формула Ли | V15 | A6 (сходимость ряда Ли) | 4 |
-| `T05_block_reduction/` | Th5 — блочная редукция по симметрии | V9 | A2 (одновременная диагонализация) | 4 |
-| `T06_trace_formula/` | Th6 — следовая формула Гуинанда–Вейля | V7 | A3 (произведение Адамара) | 4 |
+| `T01_hermiticity/` | Th1 — hermiticity and the reality of the spectrum | V4 | A1 (spectral theorem) | 4 |
+| `T02_self_adjointness/` | Th2 — finite-dimensional self-adjointness | V8 | A2b (decay of the defect norm) | 4 |
+| `T03_certificates/` | Th3 — eigenvalue certificates | V12 | A4 (Kato–Temple), A5 (Gershgorin) | 4 |
+| `T04_li_spectral/` | Th4 — the spectral Li formula | V15 | A6 (convergence of the Li series) | 4 |
+| `T05_block_reduction/` | Th5 — block reduction by symmetry | V9 | A2 (simultaneous diagonalization) | 4 |
+| `T06_trace_formula/` | Th6 — the Guinand–Weil trace formula | V7 | A3 (Hadamard product) | 4 |
 
-**Итого: 24 документа-файла (6 теорем × RU/EN × PDF/DOCX) + 12 плиточных
-фигур (6 × RU/EN) + 7 README.**
+**In total: 24 document files (6 theorems × RU/EN × PDF/DOCX) + 12 tiled
+figures (6 × RU/EN) + 7 READMEs.**
 
-## Четыре измерения каждой плиточной фигуры
+## The four dimensions of each tiled figure
 
-Каждая фигура — это 2×2-сетка из независимых «измерений» одной теоремы,
-построенных из закоммиченных вердиктов кампаний
+Each figure is a 2×2 grid of independent "dimensions" of one theorem,
+built from the committed campaign verdicts
 (`modules/core_spectrum/data/v*_verdict.json`):
 
-1. **Метрика** — главный численный сертификат (например, ‖H−H†‖ для Th1).
-2. **Поведение по инстансам** — та же метрика по всем затворам/сертификатам
-   протокола: утверждение не «про одну матрицу», а про весь класс.
-3. **Контроль** — отрицательный контроль или сравнение с внешним эталоном
-   (например, для Th4 — решёточные затворы, где гребёнки простых быть не
-   должно).
-4. **Порог** — предрегистрированный порог серии рядом с фактом: видно,
-   насколько запас.
+1. **Metric** — the main numerical certificate (for example, ‖H−H†‖ for Th1).
+2. **Per-instance behaviour** — the same metric across all the gates/certificates
+   of the protocol: the statement is not "about one matrix" but about the whole class.
+3. **Control** — a negative control or a comparison with an external reference
+   (for example, for Th4 — the lattice gates, where the prime combs must not appear).
+4. **Threshold** — the pre-registered threshold of the series next to the fact:
+   the margin is visible.
 
-## Формальный слой
+## Formal layer
 
-Постановки всех шести теорем формализованы в
-`modules/core_spectrum/formal/lean/RPTheorems.lean` и
-`formal/coq/RPTheorems.v` (Lean 4 / Coq) с **именнованными редукциями
-A1–A6**: каждый глубокий шаг сведён к явно названной классике, `sorry`/`admit`
-не используются. Компиляция тулчейнов — открытое обязательство (O-lean /
-O-coq). Вывод RH остаётся заблокированным машиной обязательств V13:
-O08/O09/O11/O12 — assumed. Формализация ГАРАНТИРУЕТ блокировку преждевременного
-вывода, а не доказывает RH.
-
-## English summary
-
-`theorems_lemmas/` is the derivations folder: six theorems Th1–Th6,
-each in its own folder with a detailed README (proof idea, four figure
-dimensions, boundaries), four bilingual documents (RU/EN × PDF/DOCX, 24 files
-total) and a tiled 2×2 600-dpi figure per language carrying four independent
-measurement dimensions built from committed campaign verdicts. The theorems
-are formally stated in Lean 4 and Coq with named reductions A1–A6; no
-`sorry`/`admit` is used anywhere. The RH conclusion remains blocked by the
-V13 obligation machine — the formal layer guarantees honest blocking, not a
-proof of RH.
+The statements of all six theorems are formalized in
+`modules/core_spectrum/formal/lean/RPTheorems.lean` and
+`formal/coq/RPTheorems.v` (Lean 4 / Coq) with **named reductions
+A1–A6**: every deep step is reduced to an explicitly named classical
+result; `sorry`/`admit` are not used. Toolchain compilation is an open
+obligation (O-lean / O-coq). The RH conclusion remains blocked by the
+obligation machine V13: O08/O09/O11/O12 are assumed. The formalization
+GUARANTEES the blocking of a premature conclusion, it does not prove RH.
 
 ---
 

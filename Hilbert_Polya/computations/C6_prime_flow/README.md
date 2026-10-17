@@ -21,7 +21,7 @@
 | The three correlations | 0.972 (zeros) / 0.48 (mismatched window, rejected) / +0.24…−0.12 (gates — monotone in Nv) — the first gap carries the H5 verdict via the convergence ladder, the second is the matched-heights lesson |
 | Null bands | 12 GUE surrogates +0.154±0.197 · 12 decoys +0.050±0.153 — the L = 24 gate values sit inside both; the trend through them is monotone in Nv (v2.0.8: finite-size attenuation, not absence) |
 | Committed pair | Φ_p = 0.34657359027997264, Φ_q = 0.5493061443340549, Φ_pq = 0.8958797346140275 (p = 2, q = 3, pq = 6) |
-| Artifacts | `data/results.json` · `../data/c6_primes_verdict.json` · `fig11_coloc.png` / `fig12_psi.png` (600 dpi in `figures_hires/ru` · `figures_hires/en`; screen in `figures/ru` · `figures/en`) · monographs `monograph_ru.docx`/`monograph_ru.pdf`/`monograph_en.docx`/`monograph_en.pdf` (7–9 pages) |
+| Artifacts | `data/results.json` · `../data/c6_primes_verdict.json` · `fig11_coloc_ru.png` / `fig12_psi_ru.png` (+ `_en` mirrors; 600 dpi in the top-level `figures_hires/ru` · `figures_hires/en`; screen in `figures/ru` · `figures/en`) · monographs `monograph_ru.docx`/`monograph_ru.pdf`/`monograph_en.docx`/`monograph_en.pdf` (7–9 pages) |
 | One-line meaning | Multiplication of integers is addition of fluxes — exact in the phases and short-ranged (ξ_mult ≈ 2–3 cells); the zeros carry the ladder of primes (0.972), the gates carry a signal that grows with vortex coverage and lattice size (H5 — YES via the convergence ladder, v2.0.8), and GUE universality erases every coding written into the spectrum |
 
 Reproduction essentials (the excursion replays the committed verdict; the full M2 ladder recomputation uses the committed zeros set and the sieve up to 10⁶):
@@ -292,8 +292,8 @@ The series seed is 96; the RNG streams are fixed (engine/hamiltonian.py). All de
 
 | File | Where |
 |---|---|
-| `fig11_coloc.png` / `fig11_coloc_en.png` | 600 dpi — `figures_hires/ru/fig11_coloc.png` · `figures_hires/en/fig11_coloc_en.png`; screen — `figures/ru/` · `figures/en/` |
-| `fig12_psi.png` / `fig12_psi_en.png` | 600 dpi — `figures_hires/ru/fig12_psi.png` · `figures_hires/en/fig12_psi_en.png`; screen — `figures/ru/` · `figures/en/` |
+| `fig11_coloc_ru.png` / `fig11_coloc_en.png` | 600 dpi — top-level `figures_hires/ru/fig11_coloc_ru.png` · `figures_hires/en/fig11_coloc_en.png`; screen — `figures/ru/` · `figures/en/` |
+| `fig12_psi_ru.png` / `fig12_psi_en.png` | 600 dpi — top-level `figures_hires/ru/fig12_psi_ru.png` · `figures_hires/en/fig12_psi_en.png`; screen — `figures/ru/` · `figures/en/` |
 
 `fig11_coloc` draws the resolution kernel δ(d): growth from 0 to saturation ~2e-2 at d ≈ 4–6 — multiplicativity localised in 2–3 cells. `fig12_psi` overlays the von Mangoldt sieve (teal, thick) against the 200-zero ladder (copper, dashed): correlation 0.972.
 
@@ -307,7 +307,7 @@ Monographs: `monograph_ru.docx` · `monograph_ru.pdf` · `monograph_en.docx` · 
 
 ## Verdict
 
-**{'ru': 'T4 доказана; Г5 — ДА по лестнице сходимости (v2.0.8); универсальность стирает кодировки', 'en': 'T4 proven; H5 — YES via the convergence ladder (v2.0.8); universality washes the codings out'}** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign).
+**T4 proven; H5 — YES via the convergence ladder (v2.0.8); universality washes the codings out** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign).
 
 ## FAQ
 

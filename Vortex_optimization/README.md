@@ -19,7 +19,7 @@
 
 *One measured window — **Nv ≈ 8–16, q ≈ 0.7–1.0, W = 0.5–1.0, α = 0.5 (strictly)** — takes the headline statistic of test 34b from the WARN band (**D = 0.1096**) to the deep PASS band (**D = 0.0318**): a **×3.4** improvement, within 0.010 of the finite-sample GUE floor (0.0220).*
 
-[TL;DR](#tldr) · [The convergence ladder](#headline-result) · [Why this window](#why-a-window-and-why-this-window-mechanism) · [Hilbert–Pólya reading](#hilbertp%C3%B3lya-reading-h5--yes-via-the-convergence-ladder) · [Reproduce](#reproduce-everything) · [Figure gallery](#figure-gallery) · [Русская версия](README_RU.md)
+[TL;DR](#tldr) · [The convergence ladder](#headline-result) · [Why this window](#why-a-window-and-why-this-window-mechanism) · [Hilbert–Pólya reading](#hilbertp%C3%B3lya-reading-h5--yes-via-the-convergence-ladder) · [Reproduce](#reproduce-everything) · [Figure gallery](#figure-gallery)
 
 </div>
 
@@ -166,7 +166,7 @@ The correspondence is **structural, not literal**: cloud vortices are gauge vort
 
 ## Hilbert–Pólya reading: H5 — YES via the convergence ladder
 
-> This study does **not** prove RH, and it exhibits the Hilbert–Pólya object *at the statistical level the metric resolves*. But it supplies the measured **convergence ladder** on which the corrected verdict of the Hilbert–Pólya package now rests (audit v2.0.8, `Hilbert_Polya/docs/audit_v2.0.8.md`):
+> This study does **not** prove RH, and it exhibits the Hilbert–Pólya object *at the statistical level the metric resolves*. But it supplies the measured **convergence ladder** on which the corrected verdict of the Hilbert–Pólya package (audit v2.0.8) now rests:
 
 - **The gate ψ-correlation is monotone in the vortex coverage** (committed C6 data): Nv = 0 → **−0.116**, Nv = 2 → **+0.089**, Nv = 16 → **+0.239** — the maximum lands in *this study's* working window (Nv ≈ 8–16, q = 1, α = 0.5), and the over-dense point (Nv = 32 → +0.133) bends back down along the same valley this scan mapped.
 - **Everything improves with lattice size**: the GUE floor falls 0.0324 → 0.0220 (L = 24 → 96); the best pooled D reaches 0.0318 at L = 96 against the reference's 0.1096.
@@ -302,7 +302,7 @@ python3 t34_report.py
 ```
 Vortex_optimization/
 ├── README.md                  ← this file
-├── README_RU.md               ← полная русская версия
+├── README_RU.md               ← language note (RU version retired; points back here)
 ├── data/
 │   ├── sweep_A_L24.csv        ← Stage A: 171 configurations
 │   ├── sweep_B_refine.csv     ← Stage B: 46 configurations (L = 32/48/64)

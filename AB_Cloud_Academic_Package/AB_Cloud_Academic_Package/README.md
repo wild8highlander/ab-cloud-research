@@ -61,9 +61,9 @@ vortex-density window and the hyperbolic wave attractors.**
 
 This folder is the **unified academic edition** of the whole AB-Cloud research
 programme: one self-contained package that consolidates the three research
-laboratories of the repository — [`AB_Cloud_Quantum_Research`](../AB_Cloud_Quantum_Research/)
-(the spectral core and AB processor), [`dirac-lab`](../dirac-lab/) (the Dirac
-skeleton) and [`Hilbert_Polya`](../Hilbert_Polya/) (the Hilbert–Pólya bridge) —
+laboratories of the repository — [`AB_Cloud_Quantum_Research`](../../AB_Cloud_Quantum_Research/)
+(the spectral core and AB processor), [`dirac-lab`](../../dirac-lab/) (the Dirac
+skeleton) and [`Hilbert_Polya`](../../Hilbert_Polya/) (the Hilbert–Pólya bridge) —
 together with the verification heritage of the earlier submission package
 (the 38-test reference run and its addenda), the meridian observatory's
 50,000-zero audit and the vortex / wave-attractor studies. The unified

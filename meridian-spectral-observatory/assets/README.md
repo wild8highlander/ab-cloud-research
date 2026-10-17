@@ -4,7 +4,7 @@ The animated banner art of the meridian-spectral-observatory landing pages.
 
 | File | Used by |
 |---|---|
-| [`banner_dark.svg`](banner_dark.svg) | [`../README.md`](../README.md) and [`../README.ru.md`](../README.ru.md) — dark color-scheme variant |
+| [`banner_dark.svg`](banner_dark.svg) | [`../README.md`](../README.md) — dark color-scheme variant |
 | [`banner_light.svg`](banner_light.svg) | the same pages — light color-scheme variant |
 
 The two files share one drawing: the critical line Re(s)=½ with rising ζ zeros,
@@ -17,4 +17,4 @@ SMIL animation — no build step, no external fonts, view-source friendly.
 > The ports subtree keeps its own, separate banner family in
 > [`ports/assets/`](../ports/assets/) (terminal + four language seals).
 
-Landing pages: [`../README.md`](../README.md) · [`../README.ru.md`](../README.ru.md)
+Landing page: [`../README.md`](../README.md)

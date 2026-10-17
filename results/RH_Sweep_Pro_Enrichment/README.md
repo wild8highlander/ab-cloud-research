@@ -39,7 +39,7 @@ levels of the central 30% window) against the first 5000 ζ(s) zeros.
 
 ## 2. Scientific finding of this folder: seed superposition in the data file
 
-`csv/ab_eigs.txt` is saved **globally sorted** — i.e., the file is the union of
+`data/ab_eigs.txt` is saved **globally sorted** — i.e., the file is the union of
 five independent seed spectra rather than a block-concatenation. Superposing m
 independent GUE processes partially "dilutes" level repulsion and shifts ⟨r⟩ from
 0.60 (m=1) toward the Poisson value 0.386 (m→∞). Verified by simulation:
@@ -63,7 +63,7 @@ Demo animation:
 
 ```
 RH_Auto_5000_L64_s5/
-├── README.md / README_RU.md        ← this file (EN/RU)
+├── README.md / README_EN.md / README_RU.md ← this file (EN) · EN twin · RU language note
 ├── SUMMARY.md / SUMMARY.json       ← quick summary / machine-readable
 ├── DATA_DICTIONARY.md              ← dictionary of all data & curves
 ├── manifest.sha256                 ← SHA-256 of every file
@@ -126,7 +126,8 @@ KDE bw=0.15) — documented in the CSV headers.
 
 - The folder is self-contained and follows the repository conventions
   (README RU/EN + data/ + curves/ + figures/ + report/ + scripts/ + monograph/).
-- Suggested push path: `Vortex_optimization/results/RH_Auto_5000_L64_s5/`.
+- Location: `results/RH_Sweep_Pro_Enrichment/` in the repository root — an
+  earlier plan to nest it under `Vortex_optimization/results/` was superseded.
 - GIFs render natively in GitHub READMEs — previews are already wired via
   relative paths.
 - For a new run: enable `ENV["RH_ANIM"]="1"` and keep patch P10 — the output

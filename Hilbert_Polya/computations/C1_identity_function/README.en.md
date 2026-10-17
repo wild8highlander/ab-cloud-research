@@ -155,7 +155,7 @@ The tour re-reads `data/c1_identity_verdict.json`, prints every criterion's pass
 
 ```bash
 python3 -m pytest tests/ -q
-bash independent_verification/RUN_ALL.sh
+python3 -c "from hpbridge.validate import run_all; [print(r) for r in run_all()]"
 ```
 
 The pytest suite re-checks the closures (below 1e-35 at dps = 40) and Z_id reality; the IVP protocol re-derives this campaign's numbers independently. No external zero file is needed anywhere in C1.
@@ -164,10 +164,10 @@ The pytest suite re-checks the closures (below 1e-35 at dps = 40) and Z_id reali
 
 | File | Where |
 |---|---|
-| `fig01_zid_en.png` | 600 dpi — `figures_hires/en/fig01_zid_en.png`; screen — `figures/en/` |
-| `fig02_gamma_ladder_en.png` | 600 dpi — `figures_hires/en/fig02_gamma_ladder_en.png`; screen — `figures/en/` |
+| `fig01_zid_en.png` | 600 dpi — top-level `figures_hires/en/fig01_zid_en.png`; screen — `figures/en/` |
+| `fig02_gamma_ladder_en.png` | 600 dpi — top-level `figures_hires/en/fig02_gamma_ladder_en.png`; screen — `figures/en/` |
 
-Russian twins of the same figures: `fig01_zid.png` and `fig02_gamma_ladder.png` under `figures_hires/ru/` (600 dpi) and `figures/ru/` (screen).
+Russian-labelled twins of the same figures: `fig01_zid_ru.png` and `fig02_gamma_ladder_ru.png` under the top-level `figures_hires/ru/` (600 dpi) and `figures/ru/` (screen).
 
 Monographs: `monograph_ru.docx` · `monograph_ru.pdf` · `monograph_en.docx` · `monograph_en.pdf` — the full monograph of this computation (statement, theorems, tables, figures, honest limitations): 7–9 pages, the same content in two languages.
 
@@ -182,7 +182,7 @@ Monographs: `monograph_ru.docx` · `monograph_ru.pdf` · `monograph_en.docx` · 
 
 ## Verdict
 
-**{'ru': 'композитный вердикт K1–K4, K7: PASS (одно опровержение опубликовано)', 'en': 'composite verdict K1–K4, K7: PASS (one refutation published)'}** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign).
+**composite verdict K1–K4, K7: PASS (one refutation published)** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign).
 
 <img src="../../assets/avatars/hp_agent_vera.svg" width="110" align="right" alt="Agent Vera"/>
 

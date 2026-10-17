@@ -1,6 +1,7 @@
 # Test 38 -- 64 spinor structures of the Klein quartic (Rust port)
 
 Rust port of the validated C++ reference `verification/cpp/spinor38/spinor38.cpp`.
+The port is a single source file, [`src/main.rs`](src/main.rs).
 
 The program uses ONLY the frozen data files and a self-implemented cyclic
 Jacobi eigenvalue algorithm (no external crates, standard library only) to
@@ -56,8 +57,8 @@ place. It prints the same report with "(Rust port)" in the header line.
 |---|---|---|
 | `src/` | 1 files, 6.3 KB | directory |
 | `Cargo.toml` | 79 B | file |
-| `README.md` | 2.1 KB | file |
-| **Total (recursive)** | **3 files, 8.5 KB** | |
+| `README.md` | 3.8 KB | file |
+| **Total (recursive)** | **3 files, 10.4 KB** | |
 
 ## ▶ Running — toolchain and entry point
 
@@ -83,11 +84,3 @@ output format is shared across all ten languages so their verdict
 lines can be diffed mechanically; any line that differs from the
 validated C++ reference (`../../cpp/spinor38/spinor38.cpp`) marks a
 port bug.
-
-## Кратко (по-русски)
-
-- Тест 38: статистика межуровневых расстояний всех 64 спинор-структур
-  квартики Кляйна против GUE; итог — 64/64 согласованы, орбиты
-  PSL(2,7) 28/21/7/7/1, изоспектральность ≈ 1e-14.
-- Только замороженные данные и stdlib; формат вывода одинаков во всех
-  десяти языках и сверяется с C++-эталоном.

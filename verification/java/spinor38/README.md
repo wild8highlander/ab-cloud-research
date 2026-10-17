@@ -52,10 +52,10 @@ It prints the same report with "(Java port)" in the header line.
 
 | Entry | Size | Kind |
 |---|---|---|
-| `README.md` | 2.1 KB | file |
+| `README.md` | 3.6 KB | file |
 | `Spinor38.java` | 7.0 KB | file |
 | `run.sh` | 199 B | file |
-| **Total (recursive)** | **3 files, 9.3 KB** | |
+| **Total (recursive)** | **3 files, 11.2 KB** | |
 
 ## ▶ Running — toolchain and entry point
 
@@ -81,11 +81,3 @@ output format is shared across all ten languages so their verdict
 lines can be diffed mechanically; any line that differs from the
 validated C++ reference (`../../cpp/spinor38/spinor38.cpp`) marks a
 port bug.
-
-## Кратко (по-русски)
-
-- Тест 38: статистика межуровневых расстояний всех 64 спинор-структур
-  квартики Кляйна против GUE; итог — 64/64 согласованы, орбиты
-  PSL(2,7) 28/21/7/7/1, изоспектральность ≈ 1e-14.
-- Только замороженные данные и stdlib; формат вывода одинаков во всех
-  десяти языках и сверяется с C++-эталоном.

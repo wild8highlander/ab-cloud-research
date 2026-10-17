@@ -191,7 +191,7 @@ Monographs: `monograph_ru.docx` · `monograph_ru.pdf` · `monograph_en.docx` · 
 
 ## Verdict
 
-**{'ru': 'T4 доказана; Г5 — ДА по лестнице сходимости (v2.0.8); универсальность стирает кодировки', 'en': 'T4 proven; H5 — YES via the convergence ladder (v2.0.8); universality washes the codings out'}** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign).
+**T4 proven; H5 — YES via the convergence ladder (v2.0.8); universality washes the codings out** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign).
 
 ## FAQ
 

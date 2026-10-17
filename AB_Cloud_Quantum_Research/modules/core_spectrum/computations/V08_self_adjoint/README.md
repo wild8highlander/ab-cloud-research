@@ -1,10 +1,10 @@
-# Функция V8 · Самосопряжённость (Th2)
+# V8 · Self-Adjointness (Th2)
 
 ![version](https://img.shields.io/badge/version-1.2.0-298bbc) ![](https://img.shields.io/badge/series-V01--V19-3b4f58) ![](https://img.shields.io/badge/status-honest-3a6b4f)
 
-> **Самосопряжён ли оператор и устойчив ли к смене границ? Дефектные индексы, BC-семейство, унитарность.**
+> **Is the operator self-adjoint and stable under boundary changes? Defect indices, the BC family, unitarity.**
 
-[← Back to the main README](../../README.ru.md)
+[← Back to the main README](../../README.md)
 
 ## Contents
 
@@ -22,25 +22,25 @@
 
 ## Campaign question
 
-Самосопряжён ли оператор и устойчив ли к смене границ? Дефектные индексы, BC-семейство, унитарность.
+Is the operator self-adjoint and stable under boundary changes? Defect indices, the BC family, unitarity.
 
 ## Results
 
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V08 (plan Solution 8) | committed verdict |
-| Key numbers | Дефекты (0,0) на L = 12/16/24; дрейф 2.2e-16; сдвиги BC 0.21–0.27; предел L→∞ — открыто (O03). | measured/proved |
-| Verdict note | Th2 доказана для конечной размерности; устойчивость предельной модели при смене BC — измерение: сдвиги конечны и убывают с L; существование самосопряжённого предельного оператора — открыто | honest |
+| Key numbers | Defects (0,0) at L = 12/16/24; drift 2.2e-16; BC shifts 0.21–0.27; the L→∞ limit is open (O03). | measured/proved |
+| Verdict note | Th2 is proved for finite dimension; the stability of the limit model under BC changes is a measurement: the shifts are finite and decrease with L; the existence of a self-adjoint limit operator is open | honest |
 
 ## Method
 
-rpbridge/selfadjoint.py: σ_min(H ∓ iI); BC open/torus/твисты; унитарность e^{−iHt}; Im⟨ψ,Hψ⟩.
+rpbridge/selfadjoint.py: σ_min(H ∓ iI); BC open/torus/twists; unitarity e^{−iHt}; Im⟨ψ,Hψ⟩.
 
 ## Figures
 
 | File | Where |
 |---|---|
-| `fig08_ru.png` | 600 dpi — `figures_hires/ru/`; infographics — `figures/ru/` |
+| `fig08_ru.png` | 600 dpi — `../../figures_hires/ru/`; infographics — `figures/ru/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/selfadjoint.py: σ_min(H ∓ iI); BC open/torus/твисты; унит�
 | File | Content |
 |---|---|
 | `data/v08_verdict.json` | committed verdict of the campaign |
-| `computations/V08_self_adjoint/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,8 +75,8 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Th2 доказана (конечномерно); предельная часть — открытое обязательство', 'en': 'Th2 proved (finite-dim); the limit part is open'}**
+**Th2 proved (finite-dim); the limit part is open**
 
 ---
 
-*AB Research Program v1.1.0 · V08 · Самосопряжённость (Th2)*
+*AB Research Program v1.1.0 · V08 · Self-Adjointness (Th2)*

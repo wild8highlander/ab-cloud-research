@@ -26,20 +26,13 @@ its GUE agreement with the zeta zeros; the 37-test suite narrative
 3.5·10⁻¹⁵, Dirac cone v_F ≈ 0.125); Appendix B documenting the two-pass run
 `run_20260902_134759` (Julia 1.12.0, 50 000 Odlyzko zeros, 96×96 HARDCORE
 pass 2); Appendix D with the spinor64 result — all 64 spinor structures
-GUE-consistent, PSL(2,7) orbits 28/21/7/7/1, isospectrality ≈ 1e-14, the v21
+GUE-consistent, PSL(2,7) orbits 28/21/7/7/1, isospectrality ≈ 1e-14.
 
 ## How to read / rebuild
 
 - Read: `text/AB_Cloud_Monograph_v22_ZH_v221.pdf` — the freshest build.
 - Edit: `.md` / `.tex`; rebuild PDF with `xelatex` (ctex class handling for
   Chinese typography; run twice).
-
-## Кратко (по-русски)
-
-- Китайское издание монографии v22 + сборка v22.1 (Приложения B и D) и
-  LaTeX-исходники; рисунки подписаны по-китайски.
-- Свежий PDF: `text/AB_Cloud_Monograph_v22_ZH_v221.pdf`.
-- Содержание идентично английскому изданию.
 
 ---
 
@@ -51,10 +44,10 @@ for the trilingual overview.
 
 | Entry | Size | Kind |
 |---|---|---|
-| `figures/` | 19 files, 4.1 MB | directory |
-| `text/` | 11 files, 43.1 MB | directory |
+| `figures/` | 20 files, 4.2 MB | directory — 19 figures + README |
+| `text/` | 12 files, 44.0 MB | directory — incl. `preprint/` |
 | `README.md` | 2.4 KB | file |
-| **Total (recursive)** | **31 files, 47.2 MB** | |
+| **Total (recursive)** | **33 files, ≈48 MB** | |
 
 ## 🔬 Deep dive — working with the Chinese edition
 
@@ -78,10 +71,3 @@ a named test of the verification suite, and the two-pass run
 `run_20260902_134759` documented in Appendix B is committed under
 `results/`, so Chinese-reading referees verify claims exactly as
 English-reading ones do.
-
-## Кратко (по-русски)
-
-- Китайское издание — полный параллельный перевод v22/v22.1, не конспект.
-- Вёрстка `.tex` — только XeLaTeX с ctex (двойная сборка); html тянется
-  на системных CJK-шрифтах.
-- Числа и приложения идентичны RU/EN; проверяемость — через `results/`.

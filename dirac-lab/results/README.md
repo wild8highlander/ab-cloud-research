@@ -2,20 +2,20 @@
 
 | Artifact | Content |
 |---|---|
-| `run_20261006_full_v13/REPORT.md` | **Master verdict ledger** of the canonical core run (8/8 PASS, 33 checks) |
-| `run_20261006_full_v13/REPORT_EXTENSIONS.md` | **Extensions ledger** (v1.1): D9 10/10 + D10 9/9 PASS |
-| `run_20261006_full_v13/REPORT_EXTENSIONS2.md` | **Extensions II ledger** (v1.2): D11 15/15 PASS (Berry–Keating / Connes) |
-| `run_20261006_full_v13/REPORT_EXTENSIONS3.md` | **Extensions III ledger** (v1.3): D12 9/9 + D13 10/10 + D14 10/10 PASS (beyond §8: infinite BK ladder, JR wall under the conjugating drive, Odlyzko form factor) |
-| `run_20261006_full_v13/results*.json` | Machine-readable verdicts, checks and metrics (core + extensions + extensions II + extensions III) |
-| `run_20261006_full_v13/D*.csv` | Per-test data tables (finite-size ladder, tower, Berry phases, Landau fits, Klein transmissions, ZB frequencies, ζ-decoration metrics, chiral audit, D9 kernel/localization, D10 pair/transport statistics, D11 operator/coding/drive statistics, D12 comb/staircase/coverage, D13 wall-under-drive, D14 form factors) |
+| `run_20261006_081031/REPORT.md` | **Master verdict ledger** of the canonical run (D1–D8, 8/8 PASS, 33 checks) |
+| `run_20261006_081031/results.json` | Machine-readable verdicts, checks and metrics of the canonical run (core) |
+| `run_20261006_081031/D1_finite_size.csv` … `D8_chiral_protection.csv` | Per-test data tables of the canonical run (finite-size ladder, zero tower, Berry phases, Landau fits, Klein transmissions, ZB frequencies, ζ-decoration metrics, chiral audit) |
 | `CROSS_VERIFICATION.md` | Python ↔ Julia comparison report with the full results table and methodology |
 | `cross_verification_julia.json` | Machine-readable Julia cross-check output (core) |
 | `cross_verification_ext.json` | Machine-readable Julia cross-check output (D9 extension) |
 | `cross_verification_ext2.json` | Machine-readable Julia cross-check output (D11 extension) |
 | `cross_verification_ext3.json` | Machine-readable Julia cross-check output (D12–D14 extensions) |
-| `run_20261006_081031/` | Preserved **v1.0** canonical run (D1–D8) — kept for provenance |
 | `PERFORMANCE.md` | **v1.4 performance sheet**: measured quick/FULL wall times of all four modules, where the time goes, reproducibility |
-| `run_20261006_full_v11/`, `run_20261006_full_v12/` | Preserved **v1.1 / v1.2** canonical runs — kept for provenance |
+
+The extension ledgers (`REPORT_EXTENSIONS.md`, `REPORT_EXTENSIONS2.md`,
+`REPORT_EXTENSIONS3.md`) and their per-test CSVs are written locally by the
+commands below and are not part of the committed tree; the per-test folders in
+[`../tests/`](../tests/) carry the committed v1.4 extension ledgers.
 
 ## Reproduce
 

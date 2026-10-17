@@ -9,7 +9,7 @@
 
 > **The W-1 monograph in RU and EN, one folder per edition.**
 
-The publication layer of the wave-attractor study: [`ru/`](ru/) and [`en/`](en/) each hold that edition's assembled monograph. The study itself is documented one level up (see the [package README](../README.md)), the numbers come from [`../data/`](../data/) and the figures from [`../figures/`](../figures/) — the volumes here are generated from those, never hand-edited.
+The publication layer of the wave-attractor study: [`ru/`](ru/) and [`en/`](en/) each hold that edition's assembled monograph — a `text/` folder with the DOCX/PDF volume and a `figures/` folder with the 12 chapter figures. The study itself is documented one level up (see the [package README](../README.md)), the numbers come from [`../data/`](../data/) and the figures from [`../figures/`](../figures/) — the volumes here are generated from those, never hand-edited.
 
 ## 📁 Contents
 

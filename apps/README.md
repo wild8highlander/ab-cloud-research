@@ -16,7 +16,7 @@ in a browser — no server, no Python, no Julia required.**
 [![Zeros](https://img.shields.io/badge/%CE%B6%20zeros-50%20000%20bundled-9558B2?style=flat-square)](#-run-from-source)
 [![Node](https://img.shields.io/badge/rebuild%20needs-Node%2018%2B-3E515B?style=flat-square)](#-serving-locally)
 
-[The two applications](#-the-two-applications) · [Run from source](#-run-from-source) · [Deploying](#-deploying-to-github-pages) · [Deep dive](#-deep-dive--what-the-two-applications-are-for) · [Кратко (по-русски)](#-кратко-по-русски)
+[The two applications](#-the-two-applications) · [Run from source](#-run-from-source) · [Deploying](#-deploying-to-github-pages) · [Deep dive](#-deep-dive--what-the-two-applications-are-for) · [Related layers](#-related-layers-of-the-project)
 
 </div>
 
@@ -33,8 +33,7 @@ in a browser — no server, no Python, no Julia required.**
 4. [🧭 Serving locally](#-serving-locally)
 5. [🔬 Deep dive — what the two applications are for](#-deep-dive--what-the-two-applications-are-for)
 6. [📁 Complete file inventory](#-complete-file-inventory)
-7. [🇷🇺 Кратко (по-русски)](#-кратко-по-русски)
-8. [🔗 Related layers of the project](#-related-layers-of-the-project)
+7. [🔗 Related layers of the project](#-related-layers-of-the-project)
 
 </details>
 
@@ -74,8 +73,10 @@ cd ../ab-cloud-lab3d
 npm install && npm run dev
 ```
 
-No environment variables, no backend; the heavy data (50 000 zeros, run summary, frozen
-spinor data) is bundled into each app's `public/data/` and `dist/data/`.
+No environment variables, no backend. The dashboard's heavy data — the 50 000
+embedded ζ zeros and the run summary — is bundled in its `public/data/` and
+copied to `dist/data/` at build time; the 3D laboratory needs no data files —
+every scene is computed procedurally in the browser.
 
 ---
 
@@ -140,18 +141,6 @@ model of the project, extended to the browser.
 | `ab-cloud-lab3d/` | directory, 13 files inside | folder |
 | `README.md` | 2.1 KB | markdown guide |
 | **Total (files)** | **2.1 KB** | 1 files + 2 subdirectories |
-
----
-
-## 🇷🇺 Кратко (по-русски)
-
-- Два React-приложения (React 18 + Vite): дашборд 37 тестов с реальным временем (Web Worker)
-  и браузерная спинор-проверка; и 3D-лаборатория на Three.js.
-- Собранные статики уже в `dist/` (GitHub Pages-совместимы); из исходников —
-  `npm install && npm run dev`.
-- Данные (50 000 нулей, сводка прогона, замороженные спинор-данные) включены в приложение.
-- Локально: `python3 -m http.server 8080 -d apps/ab-cloud-dashboard/dist` (порт 8081 для
-  3D-лаборатории); пересборка требует Node 18+.
 
 ---
 

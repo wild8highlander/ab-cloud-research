@@ -6,7 +6,7 @@
 
 # 📄 Wave_attractors — report (RU)
 
-> **The Russian-language W-1 report: «Гиперболические волновые аттракторы».**
+> **The Russian-language W-1 report (hyperbolic wave attractors).**
 
 The working report of the study as a single PDF — the process-level companion to the monograph volumes: same results, plus the operational details of how each experiment was run and what was ruled out along the way.
 

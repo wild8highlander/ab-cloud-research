@@ -139,10 +139,10 @@ The two committed artefacts behind the tables above are `data/ladder/stats_ladde
 
 | File | Where |
 |---|---|
-| `fig14_ladder_en.png` | 600 dpi — `figures_hires/en/fig14_ladder_en.png`; screen — `figures/en/` |
-| `fig15_spinor_en.png` | 600 dpi — `figures_hires/en/fig15_spinor_en.png`; screen — `figures/en/` |
-| `fig14_ladder.png` | 600 dpi — `figures_hires/ru/fig14_ladder.png`; screen — `figures/ru/` |
-| `fig15_spinor.png` | 600 dpi — `figures_hires/ru/fig15_spinor.png`; screen — `figures/ru/` |
+| `fig14_ladder_en.png` | 600 dpi — top-level `figures_hires/en/fig14_ladder_en.png`; screen — `figures/en/` |
+| `fig15_spinor_en.png` | 600 dpi — top-level `figures_hires/en/fig15_spinor_en.png`; screen — `figures/en/` |
+| `fig14_ladder_ru.png` | 600 dpi — top-level `figures_hires/ru/fig14_ladder_ru.png`; screen — `figures/ru/` |
+| `fig15_spinor_ru.png` | 600 dpi — top-level `figures_hires/ru/fig15_spinor_ru.png`; screen — `figures/ru/` |
 
 **Monographs.** `monograph_ru.docx` · `monograph_ru.pdf` · `monograph_en.docx` · `monograph_en.pdf` — the full monograph of this computation (formulation, theorems, tables, figures, honest limitations): 7–9 pages, identical content in the two languages.
 
@@ -150,31 +150,31 @@ The two committed artefacts behind the tables above are `data/ladder/stats_ladde
 
 **H3 — YES; T8, T10** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign). Registry entries: row 20 of `results/RESULTS.md` (*spinor64: reduction 64 → 4, |Δλ| ≤ 1.1e-14, C8*), main-README row 12 (*spinor64 reduction | 64 spin structures → 4 Hamiltonians, |Δλ| ≤ 1.1e-14 | C8, T8*), and the theorem list (**T8** proven, **T10** measured).
 
-Committed verdict record, verbatim from the source (bilingual dict): **{'ru': 'Г3 — ДА; T8, T10', 'en': 'H3 — YES; T8, T10'}**.
+Committed verdict record (EN, verbatim): **H3 — YES; T8, T10**.
 
 ## FAQ
 
-#### In one sentence each — what are Poisson, GOE and GUE?
+### In one sentence each — what are Poisson, GOE and GUE?
 
 Poisson: levels ignore each other (integrable or localised systems, ⟨r⟩ = 0.3863). GOE: real symmetric matrices with time-reversal symmetry, quadratic repulsion (⟨r⟩ = 0.5307). GUE: complex Hermitian matrices with no antiunitary symmetry, linear repulsion (⟨r⟩ = 0.5996) — the zeros' class.
 
-#### Why does ⟨r⟩ ≈ 0.60 specifically indicate GUE?
+### Why does ⟨r⟩ ≈ 0.60 specifically indicate GUE?
 
 Because the ratio statistic's ensemble means are known exactly and 0.5996 is the GUE value; the gate's vortex channels hold 0.597–0.612 and their full spacing *distribution* passes KS against GUE (p = 0.684) while GOE fails at p = 2.25e-07. Mean and shape agree; there is no other law at 0.60.
 
-#### What is a spin structure, quickly?
+### What is a spin structure, quickly?
 
 A choice of periodic versus antiperiodic boundary conditions for a fermion around each handle of a complex curve — for the genus-3 Klein quartic, 2⁶ = 64 such choices (theta characteristics), 36 even and 28 odd by the Arf invariant, the odd ones carrying forced zero modes.
 
-#### Why do 64 spin structures give only 4 Hamiltonians?
+### Why do 64 spin structures give only 4 Hamiltonians?
 
 The phase coding reads each structure e ∈ (Z/2)⁶ only through two parity sums, φx = π(e1+e3+e5) and φy = π(e2+e4+e6) mod 2π. Two binary fluxes, four combinations, four Hamiltonians; the other sixty are bit-identical to one of them. T8 states this; the isospectrality check (1.02e-14) and the fresh four-sector re-run confirm it.
 
-#### Does GUE agreement prove the Hilbert–Pólya programme?
+### Does GUE agreement prove the Hilbert–Pólya programme?
 
 No — and the package is explicit that it does not. GUE is necessary, not sufficient: universality is an attractor that erases everything but symmetry, so it can never witness arithmetic. It explains why H3 is YES and why H2 (spectral identity) fails at the surrogate-null level at the same time.
 
-#### What would it take to see GSE?
+### What would it take to see GSE?
 
 A different architecture: half-integer spin with Kramers degeneracy (T² = −1). On the spinless gate T² = +1 closes that door structurally — the ladder's "all statistics" is the Dyson triplet, by construction rather than by omission.
 

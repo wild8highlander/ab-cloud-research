@@ -1,7 +1,7 @@
 # `python_clone/abcloud/` — The Clone's Python Package
 > The importable package: statistics core, the three test-battery modules, two-pass runner, report writer, plot engine, CLI, and the embedded ζ-zero dataset.
 
-_Location: [unpacked/](../../README.md) › [python_clone/](../README.md) › [abcloud/](README.md)_
+_Location: [python_clone/](../README.md) › [abcloud/](README.md)_
 
 This is the Python package itself — the directory that makes `python -m abcloud.cli` work. Five modules and a data folder, each mapping one-to-one onto a responsibility of the Julia suite:
 
@@ -38,4 +38,4 @@ The module split along test ranges (01–14, 15–26, 27–38) matches the stati
 | [`data/`](data/README.md) | 1 files | The embedded 50,000-zero dataset |
 
 ---
-_This README is part of the GitHub edition of the AB-Cloud v23 package (v34). Package overview: [../../README.md](../../README.md)._
+_This README is part of the GitHub edition of the AB-Cloud v23 package (v34). Package overview: [package README](../../../../README.md)._

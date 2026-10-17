@@ -18,6 +18,7 @@ Run it with plain `python3` from inside `python/`; the expected output block is 
 | Item | Kind | Size | What it is |
 |---|---|---|---|
 | `python/` | folder | 1 item | see inside |
+| [`python/verify.py`](python/verify.py) | script | 2.5 KB | the closed-form check itself — stdlib-only, asserts its expected output in-line |
 
 ## 🧭 Navigation
 

@@ -29,8 +29,8 @@ Does the prime weight live in the heat trace? Guinand–Weil for H_ξ with a con
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V07 (plan Solution 7) | committed verdict |
-| Key numbers | |ΔQ| ≤ 4.6e-8; |ΔK| ≤ 6.9e-6; B + C₀ = 2.5e-10; PC0 r = +0.9996 (resid 0.027); gates: resid ≥ 0.115, best (Nv = 16, the working window) r_EF = 0.993 — a 0.63-order gap by residual (the conservative branch of the convergence ladder). | measured/proved |
-| Verdict note | вес простых Λ(n)/√n доказательно живёт в тепловом следе H_ξ (Th6: |ΔK| ≤ 5e-5); следовая ветвь затворов консервативна (v2.0.8): лучший затвор батареи (Nv = 16) достигает r_EF = 0.993 при невязке 11.5% против 2.7% у эталона нулей (≈0.63 порядка — конечноразмерная ветвь лестницы сходимости); семейство в среднем — в нулевых облаках (0.76 ± 0.24) | honest |
+| Key numbers | \|ΔQ\| ≤ 4.6e-8; \|ΔK\| ≤ 6.9e-6; B + C₀ = 2.5e-10; PC0 r = +0.9996 (resid 0.027); gates: resid ≥ 0.115, best (Nv = 16, the working window) r_EF = 0.993 — a 0.63-order gap by residual (the conservative branch of the convergence ladder). | measured/proved |
+| Verdict note | the prime weight Λ(n)/√n provably lives in the heat trace of H_ξ (Th6: \|ΔK\| ≤ 5e-5); the trace branch of the gates is conservative (v2.0.8): the best gate of the battery (Nv = 16) reaches r_EF = 0.993 with an 11.5% residual against 2.7% for the zero reference (≈0.63 orders — the finite-size branch of the convergence ladder); on average the family sits in the zero clouds (0.76 ± 0.24) | honest |
 
 ## Method
 
@@ -40,7 +40,7 @@ rpbridge/arithmetic_trace.py + traceformula.py: the Hadamard product → Q(a) �
 
 | File | Where |
 |---|---|
-| `fig07_en.png` | 600 dpi — `figures_hires/en/`; infographics — `figures/en/` |
+| `fig07_en.png` | 600 dpi — `../../figures_hires/en/`; infographics — `figures/en/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/arithmetic_trace.py + traceformula.py: the Hadamard product → Q(a) �
 | File | Content |
 |---|---|
 | `data/v07_verdict.json` | committed verdict of the campaign |
-| `computations/V07_arithmetic_trace/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Th6 доказана', 'en': 'Th6 proved and verified; prime weight in H_ξ, not gates'}**
+**Th6 proved and verified; prime weight in H_ξ, not gates**
 
 ---
 

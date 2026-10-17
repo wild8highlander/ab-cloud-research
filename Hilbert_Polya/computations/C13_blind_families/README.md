@@ -51,7 +51,7 @@ python3 campaigns/run_c13_blind.py
 ```
 
 Fresh runs are self-contained: the zeta zeros come from the internal
-mpmath cache (`data/zeros/`), no external files. Runtime: seconds to
+mpmath cache (`../../data/zeros/`), no external files. Runtime: seconds to
 minutes (C12 is segmented; see `campaigns/run_c12_band5000.py`).
 The committed run completes in 7.1 s.
 
@@ -59,18 +59,18 @@ The committed run completes in 7.1 s.
 
 | File | Where |
 |---|---|
-| `fig21_blind.png` | 600 dpi — `figures_hires/ru|en/fig21_blind_ru|en.png`; copy in `figures/ru|en/` |
+| `fig21_blind_{ru,en}.png` | this folder's `figures/{ru,en}/`; 600 dpi mirrors — top-level `figures_hires/{ru,en}/fig21_blind_{ru,en}.png` |
 | `data/results.json` | committed verdict |
 | `data/*.npz` / `*.csv` | curves and tables |
 
-`data/results.json` carries the committed verdict (RU+EN), the twenty per-gate records (family, herm_dev, r_H7, shift, p-value, GUE z-score, ⟨r⟩) and the pipeline meta; `data/gates_table.csv` is the flat table behind `fig21_blind.png`.
+`data/results.json` carries the committed verdict (RU+EN), the twenty per-gate records (family, herm_dev, r_H7, shift, p-value, GUE z-score, ⟨r⟩) and the pipeline meta; `data/gates_table.csv` is the flat table behind `fig21_blind_{ru,en}.png`.
 
 ## Verdict
 
 See `data/results.json` (verdict, RU+EN), the v2 monograph
-(`monograph/v2_volume/`) and `independent_verification/` (IVP11–18).
+(`../../monograph/v2_volume/`) and `../../independent_verification/` (IVP11–18).
 
-The committed English verdict reads: *"Blind protocol: 20 gates from 5 new families — all at the zeros' level — inside the GUE band (|r_H7| ≤ 0.040, min p = 0.292, Bonferroni 5.85 — the rank branch at its resolution limit); 17/20 inside the GUE band 0.5996±0.03, the rest at the edges/slightly outside (⟨r⟩ = 0.550–0.649; r_H7 z-scores all within ±1). The H2 result (the zeros' level) is robust to five independent designs outside the v1 handle space."*  *(v2.0.5: the earlier committed string said "all in the GUE class" — a hard-coded phrase that contradicted the per-gate `gue_class` flags, three of which are false; see `docs/audit_v2.0.5.md`.)*
+The committed English verdict reads: *"Blind protocol: 20 gates from 5 new families — all at the zeros' level — inside the GUE band (|r_H7| ≤ 0.040, min p = 0.292, Bonferroni 5.85 — the rank branch at its resolution limit); 17/20 inside the GUE band 0.5996±0.03, the rest at the edges/slightly outside (⟨r⟩ = 0.550–0.649; r_H7 z-scores all within ±1). The H2 result (the zeros' level) is robust to five independent designs outside the v1 handle space."*  *(v2.0.5: the earlier committed string said "all in the GUE class" — a hard-coded phrase that contradicted the per-gate `gue_class` flags, three of which are false; the correction is documented in the package's audit history, see `../../docs/audit_v2.0.9.md`.)*
 
 ## FAQ
 
@@ -92,7 +92,7 @@ No — the package never claims otherwise. The rank limit survives every local d
 - [C5 · Gates extended](../C5_gates_extended/README.md) — the handle sweep, |r_H7| ≤ 0.097 (family Bonferroni 0.57).
 - [C9 · Nonlocal trace primitive](../C9_nonlocal_trace/README.md) — the wall passes through locality, not the trace (T11).
 - [C14 · Anomaly hunt](../C14_anomaly_hunt/README.md) — the companion scan inside the GUE attractor.
-- `docs/v2/overview.md`, `monograph/v2_volume/`, `results/RESULTS.md` (row 27).
+- `../../docs/v2/overview.md`, `../../monograph/v2_volume/`, `../../results/RESULTS.md` (row 27).
 
 ---
 *Hilbert Polya Bridge v2.0.0 · C13*

@@ -1,10 +1,10 @@
-# Функция V3 · Скан критической линии
+# V3 · Critical Line Scan
 
 ![version](https://img.shields.io/badge/version-1.2.0-298bbc) ![](https://img.shields.io/badge/series-V01--V19-3b4f58) ![](https://img.shields.io/badge/status-honest-3a6b4f)
 
-> **Оптимален ли σ = ½ по спектральной статистике? Скан D(σ) по 11 точкам с плацебо и тремя seeds.**
+> **Is σ = ½ optimal for the spectral statistics? An 11-point D(σ) scan with placebo and three seeds.**
 
-[← Back to the main README](../../README.ru.md)
+[← Back to the main README](../../README.md)
 
 ## Contents
 
@@ -22,25 +22,25 @@
 
 ## Campaign question
 
-Оптимален ли σ = ½ по спектральной статистике? Скан D(σ) по 11 точкам с плацебо и тремя seeds.
+Is σ = ½ optimal for the spectral statistics? An 11-point D(σ) scan with placebo and three seeds.
 
 ## Results
 
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V03 (plan Solution 3) | committed verdict |
-| Key numbers | Кривая плоская: argmin ≈ 0.8, C_h < 0, минимум в ½ отсутствует и не подтверждается плацебо. | measured/proved |
-| Verdict note | минимум D(σ) в окрестности σ = 1/2 отсутствует или неустойчив — специфичность линии измерена, а не постулирована (см. честные замечания) | honest |
+| Key numbers | The curve is flat: argmin ≈ 0.8, C_h < 0, no minimum at ½ and no placebo confirmation. | measured/proved |
+| Verdict note | the minimum of D(σ) near σ = 1/2 is absent or unstable — the specificity of the line is measured, not postulated (see honest remarks) | honest |
 
 ## Method
 
-rpbridge/critical_line.py: веса q_k(σ) = log|ζ(σ+iγ̃_k)| по серединам γ̃ (вне нулей); кривизна C_h; плацебо на переставленных ординатах.
+rpbridge/critical_line.py: weights q_k(σ) = log|ζ(σ+iγ̃_k)| at midpoints γ̃ (off the zeros); curvature C_h; placebo on permuted ordinates.
 
 ## Figures
 
 | File | Where |
 |---|---|
-| `fig03_ru.png` | 600 dpi — `figures_hires/ru/`; infographics — `figures/ru/` |
+| `fig03_ru.png` | 600 dpi — `../../figures_hires/ru/`; infographics — `figures/ru/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/critical_line.py: веса q_k(σ) = log|ζ(σ+iγ̃_k)| по сере�
 | File | Content |
 |---|---|
 | `data/v03_verdict.json` | committed verdict of the campaign |
-| `computations/V03_critical_line_scan/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,8 +75,8 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Заявление об оптимальности σ=½ снято (не подтверждено)', 'en': 'The σ=½ optimality claim is withdrawn (not confirmed)'}**
+**The σ=½ optimality claim is withdrawn (not confirmed)**
 
 ---
 
-*AB Research Program v1.1.0 · V03 · Скан критической линии*
+*AB Research Program v1.1.0 · V03 · Critical Line Scan*

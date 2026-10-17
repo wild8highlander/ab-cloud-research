@@ -8,7 +8,7 @@
 
 > **The numbered figure set of the W-1 study, from chambers to wave maps.**
 
-Figures `01…06` of the wave-attractor study — chambers and the cone, the cascade, attractor vs control, the phase diagram, chirality and the wave maps. Rendered by the scripts in [`../scripts/`](../scripts/) from [`../data/`](../data/); regenerate rather than edit.
+Figures `01…12` of the wave-attractor study — chambers and the cone, the cascade, attractor vs control, the phase diagram, chirality, wave maps, ray density, the AB water companion, cross-verification, the η-scan, the time domain and the truncation scan. Rendered by the scripts in [`../scripts/`](../scripts/) from [`../data/`](../data/); regenerate rather than edit.
 
 ## 📁 Contents
 

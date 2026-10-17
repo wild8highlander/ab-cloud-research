@@ -23,11 +23,11 @@ Version **1.1.0** · proprietary license · Python / Julia / C / C++ / Rust / Go
 
 <table>
 <tr>
-<td align="center"><img src="assets/avatars/avatar_author.svg" width="110" alt="author"><br><sub><b>Isaev I. Kh.</b><br>author · ORCID 0009-0003-7299-0701</sub></td>
-<td align="center"><img src="assets/avatars/avatar_core.svg" width="110" alt="core"><br><sub><b>Spectral core</b><br>V01–V19 · Th1–Th6 · V13</sub></td>
-<td align="center"><img src="assets/avatars/avatar_processor.svg" width="110" alt="processor"><br><sub><b>AB processor</b><br>V20 · ISA · Givens-QR</sub></td>
-<td align="center"><img src="assets/avatars/avatar_verifier.svg" width="110" alt="verifier"><br><sub><b>Verification</b><br>E01–E18 · blind · Julia</sub></td>
-<td align="center"><img src="assets/avatars/avatar_spinor.svg" width="110" alt="spinor"><br><sub><b>Spinor study</b><br>ES1–ES5 · TS1–TS3</sub></td>
+<td align="center"><img src="assets/avatars/avatar_author.svg" width="110" alt="author"><br><sub><strong>Isaev I. Kh.</strong><br>author · ORCID 0009-0003-7299-0701</sub></td>
+<td align="center"><img src="assets/avatars/avatar_core.svg" width="110" alt="core"><br><sub><strong>Spectral core</strong><br>V01–V19 · Th1–Th6 · V13</sub></td>
+<td align="center"><img src="assets/avatars/avatar_processor.svg" width="110" alt="processor"><br><sub><strong>AB processor</strong><br>V20 · ISA · Givens-QR</sub></td>
+<td align="center"><img src="assets/avatars/avatar_verifier.svg" width="110" alt="verifier"><br><sub><strong>Verification</strong><br>E01–E18 · blind · Julia</sub></td>
+<td align="center"><img src="assets/avatars/avatar_spinor.svg" width="110" alt="spinor"><br><sub><strong>Spinor study</strong><br>ES1–ES5 · TS1–TS3</sub></td>
 </tr>
 </table>
 
@@ -73,7 +73,7 @@ Version **1.1.0** · proprietary license · Python / Julia / C / C++ / Rust / Go
 - [Roadmaps](#-roadmaps)
 - [Citation](#-citation)
 - [License](#-license)
-- [Русская версия](#русская-версия)
+- [Russian version](#russian-version)
 
 ---
 
@@ -121,7 +121,7 @@ The program accepts three commitments and keeps them everywhere:
 ## 📊 At a glance
 
 <details>
-<summary><b>🔑 Numbers cheat sheet (click to expand)</b></summary>
+<summary><strong>🔑 Numbers cheat sheet (click to expand)</strong></summary>
 
 | Metric | Value | Where |
 |--------|-------|-------|
@@ -141,7 +141,7 @@ The program accepts three commitments and keeps them everywhere:
 </details>
 
 <details>
-<summary><b>🏛 What each level proved (click to expand)</b></summary>
+<summary><strong>🏛 What each level proved (click to expand)</strong></summary>
 
 | Level | Campaigns | What it established |
 |-------|-----------|---------------------|
@@ -303,7 +303,7 @@ Right: the atlas — blind zeros · compiler · trace·primes · CHSH*
 
 Full sets: [`figures_tiled/`](figures_tiled/README.md) (12 tiles for
 Th1–Th6) · [`atlas/`](atlas/README.md) ·
-[`research/.../figures/`](research/realtime_spinor_memory/README.md)
+[`research/realtime_spinor_memory/figures/`](research/realtime_spinor_memory/figures/)
 (8 tiles for TS1–TS3).
 
 ---
@@ -327,8 +327,8 @@ the same content model as the PDF/DOCX versions.
 | **Verification program** (E01–E18, O-J) | [PDF](MONOGRAPH_ARCHIVE/research_programs/Program_Verification_RU.pdf) · [DOCX](MONOGRAPH_ARCHIVE/research_programs/Program_Verification_RU.docx) | [PDF](MONOGRAPH_ARCHIVE/research_programs/Program_Verification_EN.pdf) · [DOCX](MONOGRAPH_ARCHIVE/research_programs/Program_Verification_EN.docx) |
 | **Spinor program** (ES1–ES5, TS1–TS3) | [PDF](MONOGRAPH_ARCHIVE/research_programs/Program_Spinor_RU.pdf) · [DOCX](MONOGRAPH_ARCHIVE/research_programs/Program_Spinor_RU.docx) | [PDF](MONOGRAPH_ARCHIVE/research_programs/Program_Spinor_EN.pdf) · [DOCX](MONOGRAPH_ARCHIVE/research_programs/Program_Spinor_EN.docx) |
 
-LaTeX sources: [`main_monograph/latex/`](MONOGRAPH_ARCHIVE/main_monograph/latex/) ·
-[`research_programs/latex/`](MONOGRAPH_ARCHIVE/research_programs/latex/) —
+LaTeX sources: [`MONOGRAPH_ARCHIVE/main_monograph/latex/`](MONOGRAPH_ARCHIVE/main_monograph/latex/) ·
+[`MONOGRAPH_ARCHIVE/research_programs/latex/`](MONOGRAPH_ARCHIVE/research_programs/latex/) —
 compile with `pdflatex` (twice, for the TOC); figures resolve through
 repository-relative paths.
 
@@ -407,7 +407,7 @@ Different readers need different routes through the program. Three proven
 paths, each three steps long:
 
 <details>
-<summary><b>⚡ The fast route — "show me the results" (~15 minutes)</b></summary>
+<summary><strong>⚡ The fast route — "show me the results" (~15 minutes)</strong></summary>
 
 1. Read the [flagship results](#-flagship-results) table and the numbers
    cheat sheet — nine results with their certificates.
@@ -419,7 +419,7 @@ paths, each three steps long:
 </details>
 
 <details>
-<summary><b>🔬 The verification route — "prove it to me" (~1 evening)</b></summary>
+<summary><strong>🔬 The verification route — "prove it to me" (~1 evening)</strong></summary>
 
 1. Read [Honesty discipline](#-honesty-discipline), then the verdict-anatomy
    section below — how a verdict earns trust.
@@ -435,7 +435,7 @@ paths, each three steps long:
 </details>
 
 <details>
-<summary><b>📚 The deep route — "I want the whole story" (~1 week)</b></summary>
+<summary><strong>📚 The deep route — "I want the whole story" (~1 week)</strong></summary>
 
 1. Read the main monograph:
    [`MONOGRAPH_ARCHIVE/main_monograph/AB_Cloud_Quantum_Research_Monograph_EN.pdf`](MONOGRAPH_ARCHIVE/main_monograph/AB_Cloud_Quantum_Research_Monograph_EN.pdf)
@@ -515,7 +515,7 @@ circularity.
 ### ❓ Frequently asked questions
 
 <details>
-<summary><b>Does this prove the Riemann hypothesis?</b></summary>
+<summary><strong>Does this prove the Riemann hypothesis?</strong></summary>
 
 No — and the program says so in the same breath as every result. The V13
 obligation machine keeps the RH conclusion blocked while four analytic
@@ -527,7 +527,7 @@ methodology that survives its own audits.
 </details>
 
 <details>
-<summary><b>Why does the compiler use 10 gates for 2q instead of 3 (KAK)?</b></summary>
+<summary><strong>Why does the compiler use 10 gates for 2q instead of 3 (KAK)?</strong></summary>
 
 The ISA class cannot express the KAK-optimal sequence — clouds with an
 Aharonov–Bohm flux are a different primitive set. E18 fixes the class in
@@ -537,7 +537,7 @@ outside the class no superiority is claimed.
 </details>
 
 <details>
-<summary><b>What exactly is "storage = 0"?</b></summary>
+<summary><strong>What exactly is "storage = 0"?</strong></summary>
 
 No table of zeros, no log, no cache. The six constants of the trace formula
 parameterize the operator's heat trace (Th6), and the trace contains the
@@ -549,7 +549,7 @@ deadlines (TS3), while the memoryless step stays O(1).
 </details>
 
 <details>
-<summary><b>Can I use this in my own research or teaching?</b></summary>
+<summary><strong>Can I use this in my own research or teaching?</strong></summary>
 
 Yes, within the license: read, clone for private non-commercial study, run
 the code locally for scholarly verification, cite with attribution (see
@@ -722,30 +722,12 @@ in each new folder. Full text: [`LICENSE`](../LICENSE).
 
 ---
 
-## Русская версия
+## Russian version
 
-**AB Cloud Quantum Research v1.1.0** — единое исследование одной идеи:
-алгебраическая AB-архитектура как вычислитель, который читает математику
-в реальном времени и хранит ничего. Четыре уровня — спектральное ядро
-(V01–V19, Th1–Th6, машина обязательств V13), AB-процессор (V20/P0: точная
-компиляция Givens-QR, 1−F ≤ 4.4e−16; «читает, а не несёт»: 12/12 нулей ζ из
-шести констант следовой формулы; нелокальность без сигналинга), верификационная
-платформа (E01–E18: слепое чтение всех 649+639 нулей ζ до T=1000 двумя
-движками с побитовым согласием; класс B — компилятор против 5 baseline,
-×59 000) и вспомогательное спинор-исследование (θ = π/2, π/3, π/7 — машина
-без долговременной памяти: циклы N = 2k точно, необратимость сброса, шаг O(1)
-против журналов Ω(t)). Девять теорем с сертификатами, 36 двуязычных документов,
-20 плиток «4 измерения» @600 dpi, 43 предрегистрированные кампании — все PASS.
-
-**Новое в 1.1.0:** 📚 [`MONOGRAPH_ARCHIVE/`](MONOGRAPH_ARCHIVE/README.md) —
-основная монография на русском и английском (DOCX + PDF, 104+ страниц, 28
-фигур, 44 таблицы) плюс четыре монографии исследовательских программ уровней
-и 10 LaTeX-исходников; 🧪 [`HYPOTHESIS_LAB/`](HYPOTHESIS_LAB/README.md) —
-лаборатория проверки гипотез (CLI + браузер, 4 батареи); 🎞
-[`VISUAL_ANIMATIONS/`](VISUAL_ANIMATIONS/README.md) — наглядные анимации
-работы всей папки (GIF + анимированные SVG + интерактивные HTML). Лицензия
-продублирована в каждой новой папке. Полная русская версия —
-[`README.ru.md`](README.ru.md); каждая папка несёт двуязычные README.
+The Russian summary that previously ended this README was removed during the
+English-only documentation cleanup. A language note is kept at
+[`README.ru.md`](README.ru.md); all documentation in this repository is
+maintained in English.
 
 ---
 

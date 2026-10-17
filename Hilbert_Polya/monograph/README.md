@@ -19,9 +19,9 @@ of content so that the languages and formats cannot drift apart.
 ## Folder map
 
 ```
-canon_volume/     monograph_canon_{ru,en}.{docx,pdf}  — канонический том: единая версия (T1–T18)
-theorems_volume/  monograph_theorems_{ru,en}.{docx,pdf}  — том теорем T1–T10 (приложение к канону)
-appendix_volume/  monograph_appendix_{ru,en}.{docx,pdf}  — протоколы воспроизведения (приложение)
+canon_volume/     monograph_canon_{ru,en}.{docx,pdf}  — the canonical volume: the unified version (T1–T18)
+theorems_volume/  monograph_theorems_{ru,en}.{docx,pdf}  — the theorem volume T1–T10 (appendix to the canon)
+appendix_volume/  monograph_appendix_{ru,en}.{docx,pdf}  — reproduction protocols (appendix)
 content/          single source of content (ru_part1-4.py, en_part1-4.py, canon_ru/en.py)
 ```
 
@@ -42,7 +42,7 @@ The full inventory of the folder:
 **The reading order for newcomers is: main README → canon → detail
 volumes.** The canon supersedes the v1/v2 split: the theorem volumes and
 the v2 monograph remain as detailed appendices, and their titles are best
-read as «приложение к канону». Rebuild the canon alone with
+read as "an appendix to the canon". Rebuild the canon alone with
 `python3 scripts/make_monographs.py canon` (or `make canon`).
 
 Monographs of the individual computations live separately, in

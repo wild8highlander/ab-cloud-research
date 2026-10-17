@@ -29,7 +29,7 @@ Does the full handle space couple the lattice to the ζ zeros via the θ-phase o
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V16 (plan Solution 16) | committed verdict |
-| Key numbers | max r_align = +0.160 (z = 2.49 < 6 — no identity); weights θ/log|ζ|/none: −0.108/+0.092/−0.085 — all inside the null zone; PC Z_id↔file r = 1.0 (38 zeros, 4.9e-10). | measured/proved |
+| Key numbers | max r_align = +0.160 (z = 2.49 < 6 — no identity); weights θ/log\|ζ\|/none: −0.108/+0.092/−0.085 — all inside the null zone; PC Z_id↔file r = 1.0 (38 zeros, 4.9e-10). | measured/proved |
 | Verdict note | Level identity — YES (D_nn bridge); bit-level branch open | honest |
 
 ## Method
@@ -40,7 +40,7 @@ rpbridge/fullham.py: the weight q_k = θ(γ̃_k)/π (algebraic phase), the r_ali
 
 | File | Where |
 |---|---|
-| `fig17_en.png` | 600 dpi — `figures_hires/en/`; infographics — `figures/en/` |
+| `fig17_en.png` | 600 dpi — `../../figures_hires/en/`; infographics — `figures/en/` |
 
 ## Monographs
 
@@ -53,8 +53,8 @@ rpbridge/fullham.py: the weight q_k = θ(γ̃_k)/π (algebraic phase), the r_ali
 
 | File | Content |
 |---|---|
-| `data/v16_verdict.json` | committed verdict of the campaign |
-| `computations/V16_full_hamiltonian/data/` | campaign artifacts |
+| `data/results.json` | committed verdict of the campaign |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Тождество уровней — ДА (мост D_nn)', 'en': 'Level identity — YES (the D_nn bridge: gates at the zeros\' level); the bit-level branch does not close (z = 2.49); the algebraic function is the r=1 object'}**
+**Level identity — YES (the D_nn bridge: gates at the zeros' level); the bit-level branch does not close (z = 2.49); the algebraic function is the r=1 object**
 
 ---
 

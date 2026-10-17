@@ -46,12 +46,12 @@ anyone can open without running anything.
 
 | Battery | Folder | Produced | Essence |
 |---|---|---|---|
-| 🏁 **v19 flagship** | [`Test 1-37 ab_cloud_full.jl/`](Test%201-37%20ab_cloud_full.jl/README.md) | 2026-09-02 (+ v18 log of 2026-08-28) | the complete two-pass run of the 37-test canonical suite: 72×72 → 96×96 HARDCORE, Julia 1.12.0, 50 000 Odlyzko zeros, 453 committed files, FINAL_REPORT in md/pdf/docx/html |
+| 🏁 **v19 flagship** | [`Test 1-37 ab_cloud_full.jl/`](Test%201-37%20ab_cloud_full.jl/README.md) | 2026-09-02 (+ v18 log of 2026-08-28) | the complete two-pass run of the 37-test canonical suite: 72×72 → 96×96 HARDCORE, Julia 1.12.0, 50 000 Odlyzko zeros, 454 committed files, FINAL_REPORT in md/pdf/docx/html |
 | 🔬 **H1–H8 audit** | [`Test H1-H8 hp_audit_standalone.jl/`](Test%20H1-H8%20hp_audit_standalone.jl/) | 2026-10-15 | eight cumulative menu runs of the standalone Hilbert–Pólya deep-audit battery (`hp_audit_standalone.jl`): the Berry–Keating fingerprint hunt, Weyl-law density, power-law exponent, critical-q scan, ensemble showdown, self-adjointness stress, γₙ correlation, all-numbers trace |
 
 ```mermaid
 graph TD
-    R["📜 results/"] -->|"37 × 2 passes"| F["🏁 Test 1-37 ab_cloud_full.jl<br/>run_20260902_134759 · 453 files"]
+    R["📜 results/"] -->|"37 × 2 passes"| F["🏁 Test 1-37 ab_cloud_full.jl<br/>run_20260902_134759 · 454 files"]
     R -->|"8 cumulative runs"| H["🔬 Test H1-H8 hp_audit_standalone.jl<br/>run_2026-10-15 × 8"]
     F -->|"flattens into"| FR["🧾 FINAL_REPORT<br/>md · pdf · docx · html"]
     H -->|"per run"| HR["🧾 final_report.md + .html<br/>results_verdicts.txt · logs"]
@@ -67,7 +67,7 @@ guide, RU summary) is its own rich README:
 
 | Artefact | What it is |
 |---|---|
-| [`run_20260902_134759/`](Test%201-37%20ab_cloud_full.jl/run_20260902_134759/) | the complete two-pass v19 run of 2026-09-02: 37 per-test directories, pass 2 "HARDCORE" at 96×96, per-test reports, computation logs, cross-linking index, `index.html` entry point — **453 files / 39 directories** |
+| [`run_20260902_134759/`](Test%201-37%20ab_cloud_full.jl/run_20260902_134759/) | the complete two-pass v19 run of 2026-09-02: 37 per-test directories, pass 2 "HARDCORE" at 96×96, per-test reports, computation logs, cross-linking index, `index.html` entry point — **454 files / 39 directories** |
 | [`run_20260902_134759/FINAL_REPORT/`](Test%201-37%20ab_cloud_full.jl/run_20260902_134759/FINAL_REPORT/) | the consolidated verdict document in **four formats** (md · pdf · docx · html) with per-test raw console logs |
 | [`ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt`](Test%201-37%20ab_cloud_full.jl/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt) | the flat v19 verification-report header/config dump from the same evening |
 | [`verification_run_v18_37tests_2026-08-28.txt`](Test%201-37%20ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt) | the v18 single-pass reference log of 2026-08-28 — the drift baseline: `diff` any later run against it |

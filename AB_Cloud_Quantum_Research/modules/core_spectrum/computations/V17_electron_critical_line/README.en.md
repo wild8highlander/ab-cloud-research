@@ -30,7 +30,7 @@ Does an electron (a wave packet) pass coherently along the self-dual line channe
 |---|---|---|
 | Campaign | V17 (plan Solution 17) | committed verdict |
 | Key numbers | Energy 1.8e-15; transit: clean 0.160 / ζ 0.112 / random 0.069 (ζ/ran = ×1.62); D_y: ζ 2.81 vs 0.54; r_phase: ζ −0.96 vs random −0.52. | measured/proved |
-| Verdict note | Динамика честная | honest |
+| Verdict note | honest dynamics | honest |
 
 ## Method
 
@@ -40,7 +40,7 @@ rpbridge/electron.py: exact eigenbasis dynamics (2304×2304), packet σ=3, k₀=
 
 | File | Where |
 |---|---|
-| `fig18_en.png` | 600 dpi — `figures_hires/en/`; infographics — `figures/en/` |
+| `fig18_en.png` | 600 dpi — `../../figures_hires/en/`; infographics — `figures/en/` |
 
 ## Monographs
 
@@ -53,8 +53,8 @@ rpbridge/electron.py: exact eigenbasis dynamics (2304×2304), packet σ=3, k₀=
 
 | File | Content |
 |---|---|
-| `data/v17_verdict.json` | committed verdict of the campaign |
-| `computations/V17_electron_critical_line/data/` | campaign artifacts |
+| `data/results.json` | committed verdict of the campaign |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Динамика честная', 'en': 'Honest dynamics; the ζ-cloud guides ×1.62; the line½ = Re(s)½ bridge is a conjecture (H4 YES)'}**
+**Honest dynamics; the ζ-cloud guides ×1.62; the line½ = Re(s)½ bridge is a conjecture (H4 YES)**
 
 ---
 

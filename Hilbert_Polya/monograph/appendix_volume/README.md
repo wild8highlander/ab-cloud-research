@@ -8,7 +8,7 @@
 
 > **the PDF/DOCX pair you see here is compiled from the content modules in [`../content/`](../content/), which is why there is nothing editable in this folder besides the artifacts themselves.**
 
-The the appendices: datasets, protocols, reproduction instructions — in RU and EN editions (`.pdf` + `.docx` each). Generated from [`../content/`](../content/); do not edit the artifacts by hand.
+The appendices: datasets, protocols, reproduction instructions — in RU and EN editions (`.pdf` + `.docx` each). Generated from [`../content/`](../content/); do not edit the artifacts by hand.
 
 ## 📁 Contents
 

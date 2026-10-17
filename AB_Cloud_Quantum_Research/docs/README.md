@@ -17,28 +17,20 @@
 </div>
 
 > 🧭 **Navigation:** [↑ main README](../README.md) · [📚 monographs](../MONOGRAPH_ARCHIVE/README.md) · [🧪 hypothesis lab](../HYPOTHESIS_LAB/README.md) · [🎞 animations](../VISUAL_ANIMATIONS/README.md)
-# 📚 docs/ — документация исследования
+# 📚 docs/ — research documentation
 
-| Файл | Содержание |
+| File | Contents |
 |------|-----------|
-| `ARCHITECTURE.md` | архитектура исследования: уровни одной машины (ядро → процессор → верификация → формальный слой → слой теорем → вспомогательное исследование), единая дисциплина честности, числовые связки, поток данных, сцепленные дорожные карты (RU + EN) |
+| `ARCHITECTURE.md` | the architecture of the research: the levels of one machine (core → processor → verification → formal layer → theorem layer → supplementary study), the shared honesty discipline, numerical cross-links, the data flow, the chained roadmaps (RU + EN) |
 
-Документация модулей — в их `docs/`:
+Module documentation lives in each module's `docs/`:
 `modules/core_spectrum/docs/` (theory, methods, validation, plan15),
 `modules/processor_ab/docs/` (theory, methods),
-`modules/verifier_multilang/docs/` (отчёты-исходники _json).
+`modules/verifier_multilang/docs/` (the `_json` report sources).
 
-Документация вспомогательного исследования —
-`research/realtime_spinor_memory/docs/` (theory: спинорные фазовые
-модели машины без долговременной памяти).
-
-## English summary
-
-`docs/ARCHITECTURE.md` is the architecture map of the research: the
-levels of one machine (core → processor → verification → formal layer →
-theorem layer → supplementary study), the shared honesty discipline,
-numerical cross-links, the data flow and the chained roadmaps (RU + EN).
-Module documentation stays in each module's own `docs/`.
+The supplementary-study documentation —
+`research/realtime_spinor_memory/docs/` (theory: the spinor phase
+models of the memoryless machine).
 
 ---
 

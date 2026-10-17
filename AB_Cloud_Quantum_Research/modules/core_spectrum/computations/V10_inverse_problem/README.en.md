@@ -29,8 +29,8 @@ Can the arithmetic be recovered from the spectrum? Power traces, the sensitivity
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V10 (plan Solution 10) | committed verdict |
-| Key numbers | rank J = 6 (k=6), cond ≈ 8.7e4; recovery |Δq| = 0.077; separation 1.6–3.5; identifiability is rank-limited. | measured/proved |
-| Verdict note | часть арифметики (заряды) идентифицируема по старшим следам при достаточном k; ранг J < n_params ⇒ полная идентифицируемость позиций недостижима по инвариантам этого класса — измерено | honest |
+| Key numbers | rank J = 6 (k=6), cond ≈ 8.7e4; recovery \|Δq\| = 0.077; separation 1.6–3.5; identifiability is rank-limited. | measured/proved |
+| Verdict note | part of the arithmetic (the charges) is identifiable from the higher traces given a sufficient k; rank J < n_params ⇒ full identifiability of the positions is unreachable from the invariants of this class — measured | honest |
 
 ## Method
 
@@ -40,7 +40,7 @@ rpbridge/inverse.py: Φ = (Tr H, …, Tr H⁶); J numeric; Nelder–Mead from 3 
 
 | File | Where |
 |---|---|
-| `fig10_en.png` | 600 dpi — `figures_hires/en/`; infographics — `figures/en/` |
+| `fig10_en.png` | 600 dpi — `../../figures_hires/en/`; infographics — `figures/en/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/inverse.py: Φ = (Tr H, …, Tr H⁶); J numeric; Nelder–Mead from 3 
 | File | Content |
 |---|---|
 | `data/v10_verdict.json` | committed verdict of the campaign |
-| `computations/V10_inverse_problem/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Ранг-лимит идентифицируемости', 'en': 'Part of the arithmetic is unidentifiable (rank-limited)'}**
+**Part of the arithmetic is unidentifiable (rank-limited)**
 
 ---
 

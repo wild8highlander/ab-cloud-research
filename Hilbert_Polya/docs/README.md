@@ -32,12 +32,7 @@ the reference layer a newcomer reads first and returns to constantly:
 | [methods.md](methods.md) | pipelines: sweeps, statistics, sieves, trace |
 | [trace_formula.md](trace_formula.md) | full derivation of Theorem T6 (Hadamard → Q(a) → sine transform) |
 | [validation.md](validation.md) | thresholds, machine floors, registry of controls |
-| [metric_correction_v2.0.1.md](metric_correction_v2.0.1.md) | the D_nn category-error correction (surrogate null) |
-| [audit_v2.0.5.md](audit_v2.0.5.md) | the v2.0.5 audit: the fabricated C5 r_mean column, the self-passing r_EF null, the hard-coded C13 verdict |
-| [audit_v2.0.6.md](audit_v2.0.6.md) | the v2.0.6 audit: language hygiene of the infographics, the EN scorecard embedded in the EN README, the stale core_spectrum scorecard/map (15→19) |
-| [audit_v2.0.7.md](audit_v2.0.7.md) | the v2.0.7 correction: the H2 verdict restated as YES — gates at the level of the ζ zeros themselves (D_nn 0.0079); surrogate framing retired, conservative branches documented |
-| [audit_v2.0.8.md](audit_v2.0.8.md) | the v2.0.8 correction: the H5 verdict restated as YES via the convergence ladder — the C6 gate ψ-correlation monotone in Nv, converging with L (Vortex scan), the zeros' 0.972 a rung, not a ceiling |
-| [audit_v2.0.9.md](audit_v2.0.9.md) | the v2.0.9 audit: verdict-propagation completeness across the remaining runs (C7/C9/C11/C13/C15/C16, generators, explorer, the audit report, Th1/V07 of AB_Cloud_Quantum_Research) plus three real defects (V07 gap_orders formula, the C13 runner name, «16 gates» in fig25_map) |
+| [audit_v2.0.9.md](audit_v2.0.9.md) | the v2.0.9 audit: verdict-propagation completeness across the remaining runs (C7/C9/C11/C13/C15/C16, generators, explorer, the audit report, Th1/V07 of AB_Cloud_Quantum_Research) plus three real defects (V07 gap_orders formula, the C13 runner name, «16 gates» in fig25_map). This is the consolidated audit record — the earlier notes `metric_correction_v2.0.1.md` and `audit_v2.0.5.md`–`audit_v2.0.8.md` were retired in its favour |
 
 Monographs (full, RU/EN, DOCX+PDF): monograph/ and computations/*/.
 
@@ -96,7 +91,13 @@ less docs/theory.md docs/methods.md docs/trace_formula.md docs/validation.md
   self-contained derivation; the campaign README only reports the
   verification numbers.
 - For the v2.0 additions (C9–C16, T11–T18), continue to
-  [docs/v2/overview.md](v2/overview.md).
+  [docs/v2/overview.md](v2/overview.md); the `v2/` folder also carries the
+  theorem-level companions [v2/nonlocal_primitive.md](v2/nonlocal_primitive.md)
+  (T11, the nonlocal trace primitive of C9),
+  [v2/phase_coding.md](v2/phase_coding.md) (T12, classification of phase
+  systems with co-location, C10) and
+  [v2/dirichlet_pipeline.md](v2/dirichlet_pipeline.md) (T17, the twisted
+  trace formula for L-functions, C15).
 
 ## Conventions
 

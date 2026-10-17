@@ -1,10 +1,10 @@
-# Функция V4 · Паспорт оператора (Th1)
+# V4 · Operator Passport (Th1)
 
 ![version](https://img.shields.io/badge/version-1.2.0-298bbc) ![](https://img.shields.io/badge/series-V01--V19-3b4f58) ![](https://img.shields.io/badge/status-honest-3a6b4f)
 
-> **Определён ли оператор строго и что доказано о нём? Паспорт P1–P4.**
+> **Is the operator strictly defined and what is proved about it? Passport P1–P4.**
 
-[← Back to the main README](../../README.ru.md)
+[← Back to the main README](../../README.md)
 
 ## Contents
 
@@ -22,25 +22,25 @@
 
 ## Campaign question
 
-Определён ли оператор строго и что доказано о нём? Паспорт P1–P4.
+Is the operator strictly defined and what is proved about it? Passport P1–P4.
 
 ## Results
 
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V04 (plan Solution 4) | committed verdict |
-| Key numbers | ‖H−H†‖ = 0 (точно); ‖Hv−λv‖ = 8.8e-15; спаривание λ↔−λ (W=0) 8.2e-15. Th1 доказана. | measured/proved |
-| Verdict note | Th1 доказана: эрмитовость по построению, спектр вещественен, киральность α=½/W=0 — бипартидность | honest |
+| Key numbers | ‖H−H†‖ = 0 (exact); ‖Hv−λv‖ = 8.8e-15; pairing λ↔−λ (W=0) 8.2e-15. Th1 proved. | measured/proved |
+| Verdict note | Th1 is proved: hermiticity by construction, the spectrum is real, chirality α=½/W=0 — bipartiteness | honest |
 
 ## Method
 
-rpbridge/operator.py: явные формулы элементов, батарея L ∈ {12,16,24,32} × ручки; эрмитовость/невязки/киральность.
+rpbridge/operator.py: explicit element formulas, battery L ∈ {12,16,24,32} × handles; hermiticity/residuals/chirality.
 
 ## Figures
 
 | File | Where |
 |---|---|
-| `fig04_ru.png` | 600 dpi — `figures_hires/ru/`; infographics — `figures/ru/` |
+| `fig04_ru.png` | 600 dpi — `../../figures_hires/ru/`; infographics — `figures/ru/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/operator.py: явные формулы элементов, батаре
 | File | Content |
 |---|---|
 | `data/v04_verdict.json` | committed verdict of the campaign |
-| `computations/V04_operator_passport/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,8 +75,8 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Th1: эрмитовость и вещественность — доказано', 'en': 'Th1: hermiticity and reality — proved'}**
+**Th1: hermiticity and reality — proved**
 
 ---
 
-*AB Research Program v1.1.0 · V04 · Паспорт оператора (Th1)*
+*AB Research Program v1.1.0 · V04 · Operator Passport (Th1)*

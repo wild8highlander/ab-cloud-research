@@ -64,39 +64,39 @@ julia spinor38.jl
 
 For the **full 37-test two-pass protocol** (not just the three objections)
 use the canonical suite: `julia code/ab_cloud_full.jl --test all` from the
-repository root — see [`../code/README.md`](../code/README.md). This folder
+repository root — see [`../../code/README.md`](../../code/README.md). This folder
 exists so that the objection-level numbers can be verified *independently*
 of the big suite.
 
-## Кратко (по-русски)
+## Summary
 
-- Реализация на Julia ≥ 1.9 только со стандартной библиотекой — запускается
-  мгновенно, без установки пакетов.
-- `julia run_verify.jl --zeros 500000 --source 500k --objection all` — те же
-  три возражения, что и в эталоне, CLI идентичен всем языкам.
-- `spinor38/` — Порт Test 38: замороженные данные + собственный алгоритм
-  Якоби.
-- Полный 37-тестовый прогон — в `code/ab_cloud_full.jl` (другой каталог
-  репозитория).
+- Julia ≥ 1.9 with the standard library only — starts instantly, no package installs.
+- `julia run_verify.jl --zeros 500000 --source 500k --objection all` runs the same three
+  objections as the reference, with the CLI shared by every language.
+- `spinor38/` — the Test 38 port: frozen data + its own Jacobi eigensolver.
+- The full 39-test two-pass run lives in `code/ab_cloud_full.jl` (another directory of
+  this repository).
 
 ## 📁 Complete file inventory
 
 | Entry | Size | Kind |
 |---|---|---|
-| `spinor38/` | 2 files, 5.1 KB | directory |
-| `README.md` | 2.8 KB | file |
-| `ab_cloud_verify.jl` | 16.1 KB | file |
-| `ab_cloud_verify_en.jl` | 6.8 KB | file |
-| `ab_cloud_verify_ru.jl` | 8.4 KB | file |
-| `run_verify.jl` | 2.6 KB | file |
-| **Total (recursive)** | **7 files, 41.8 KB** | |
+| `ab_cloud_full.jl` | 2.1 MB | file |
+| `spinor38/` | 2 files, 7.0 KB | directory |
+| `README.md` | 6.5 KB | file |
+| `ab_cloud_verify.jl` | 24.7 KB | file |
+| `ab_cloud_verify_en.jl` | 935 B | file |
+| `ab_cloud_verify_ru.jl` | 935 B | file |
+| `run_verify.jl` | 114 B | file |
+| **Total (recursive)** | **8 files, 2.1 MB** | |
 
 ## 🔬 Deep dive — the Julia port in the parity matrix
 
 The Julia port is the closest sibling of the canonical
 research suite `../../code/ab_cloud_full.jl` — the code that produced
-the two-pass flagship run `results/run_20260902_134759` (50 000
-Odlyzko zeros, pass 2 "HARDCORE" at 96×96). Same array semantics, same
+the two-pass flagship run
+`results/Test 1-37 ab_cloud_full.jl/run_20260902_134759`
+(50 000 Odlyzko zeros, pass 2 "HARDCORE" at 96×96). Same array semantics, same
 statistics definitions, same report wording; if you want to trace a
 monograph number to executable code, this folder is the shortest path.
 The folder also hosts `spinor38/`, the Julia port of Test 38, keeping
@@ -134,17 +134,3 @@ same one-line command shown above. The Test-38 companion lives in
 `spinor38/` where present, and the spinor64 correction experiment — the
 one that established 64/64 GUE-consistency for the Klein-quartic
 structures — lives in `../spinor64/`.
-
-## Кратко (по-русски)
-
-- Порт существует для доказательства паритета: одинаковые замороженные
-  данные, тот же набор тестов, те же эталонные числа (KS = 0.047,
-  p = 0.27; дефект 3.5e-15; ⟨r⟩ = 0.5848 ± 0.0260).
-- Флаги одинаковы во всех десяти реализациях — одна и та же командная
-  строка проигрывается в каждой папке.
-- Расхождение с эталоном трактуется как баг порта, а не как открытие.
-
-- Наиболее близок к каноническому исследовательскому набору
-  `code/ab_cloud_full.jl`, породившему двухпроходный прогон v19.
-- Кратчайший путь от числа в монографии к исполняемому коду.
-- Рядом — порт Теста 38 (`spinor38/`).

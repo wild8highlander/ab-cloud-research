@@ -1,84 +1,84 @@
-# Прогон RH_Auto_5000_L64_s5_20261016_122739
+# Run RH_Auto_5000_L64_s5_20261016_122739
 
-> RH-Sweep PRO · AB-облако ↔ ζ-нули · автоподбор preset_auto(5000)
-> Файлы подготовлены комплектом RH_Sweep_Pro_Enrichment v1.0 · 2026-10-16
-> Готовы к слиянию в папку прогона (пересчётов не требуют).
+> RH-Sweep PRO · AB cloud ↔ ζ zeros · auto preset preset_auto(5000)
+> Files prepared by the RH_Sweep_Pro_Enrichment v1.0 kit · 2026-10-16
+> Ready to merge into the run folder (no recomputation required).
 
 ## TL;DR
 
-| Величина | Значение | Комментарий |
+| Quantity | Value | Comment |
 |:--|:--|:--|
-| Лучший Score | **84.85 / 100** | GUE-пол метода: см. шаг P1 `gue_floor_control(64, 5)` |
-| Тесты RMT | **10 / 11** (ядро 6/6) | FAIL: E(s=1) = 0.521 против цели GUE 0.171 |
-| Конфигурация | α = **1/π** = 0.3183098861837907 · W = 2.0 · σ = 0.5 | вихри: 6 × hexagonal · t_hop = 1.0 |
-| ⟨r⟩ | **0.59999** | R_GUE = 0.5996 · отклонение 0.00039 (0.065 %) · класс GUE |
-| K corr(GUE) / corr(ζ) | **0.9882 / 0.9417** | 5000 ζ-нулей · 6140 соб. значений |
-| R₂ RMS: GUE / ζ / Poisson | 0.0210 / 0.0245 / 0.2589 | ближе к GUE в 12.3 раза, чем к Пуассону |
-| Δ₃ RMS / p(s) RMS | 0.1629 / 0.0167 | пороги 0.5 / 0.2 — пройдены |
-| β Броуди / χ² Wigner | 1.7183 / 0.1137 | β < 2 согласуется с FAIL по E(s=1) |
-| Решётка | L = 64 (4096×4096) · 5 реализаций × 1228 значений | N_AB/N_ζ = 1.23 · 24 полных блока B=250 |
+| Best Score | **84.85 / 100** | GUE floor of the method: see the P1 step `gue_floor_control(64, 5)` |
+| RMT tests | **10 / 11** (core 6/6) | FAIL: E(s=1) = 0.521 against the GUE target 0.171 |
+| Configuration | α = **1/π** = 0.3183098861837907 · W = 2.0 · σ = 0.5 | vortices: 6 × hexagonal · t_hop = 1.0 |
+| ⟨r⟩ | **0.59999** | R_GUE = 0.5996 · deviation 0.00039 (0.065 %) · GUE class |
+| K corr(GUE) / corr(ζ) | **0.9882 / 0.9417** | 5000 ζ zeros · 6140 eigenvalues |
+| R₂ RMS: GUE / ζ / Poisson | 0.0210 / 0.0245 / 0.2589 | 12.3× closer to GUE than to Poisson |
+| Δ₃ RMS / p(s) RMS | 0.1629 / 0.0167 | thresholds 0.5 / 0.2 — passed |
+| Brody β / χ² Wigner | 1.7183 / 0.1137 | β < 2 is consistent with the E(s=1) FAIL |
+| Lattice | L = 64 (4096×4096) · 5 realizations × 1228 values | N_AB/N_ζ = 1.23 · 24 full blocks B=250 |
 
-**Рекомендация одной строкой:** точка (α=1/π, W=2.0, σ=0.5, N_v=6) —
-сильная, но не предельная; следующий шаг — тонкий прогон
-N_v = 8–12, W = 2.0–2.5, `fine_grid=true`, с расчётом GUE-пола
-(`gue_floor_control`) и multi-seed значимости (`multi_seed_block`).
+**One-line recommendation:** the point (α=1/π, W=2.0, σ=0.5, N_v=6) is
+strong but not limiting; the next step is a fine run at
+N_v = 8–12, W = 2.0–2.5, `fine_grid=true`, with the GUE floor computed
+(`gue_floor_control`) and multi-seed significance (`multi_seed_block`).
 
-## Вердикты (11 тестов)
+## Verdicts (11 tests)
 
 - [x] 1. ⟨r⟩ ≈ R_GUE (|d_GUE| = 0.00039 < 0.05)
-- [x] 2. R₂(s) ближе к GUE, чем к Пуассону (0.0210 < 0.2589)
-- [x] 3. K(t) коррелирует с K(ζ) (corr = 0.9417 > 0.8)
-- [x] 4. Σ²(L) ближе к GUE, чем к Пуассону (0.3946 < 5.4318)
+- [x] 2. R₂(s) closer to GUE than to Poisson (0.0210 < 0.2589)
+- [x] 3. K(t) correlates with K(ζ) (corr = 0.9417 > 0.8)
+- [x] 4. Σ²(L) closer to GUE than to Poisson (0.3946 < 5.4318)
 - [x] 5. Δ₃(L) RMS = 0.1629 < 0.5
 - [x] 6. p(s) RMS = 0.0167 < 0.2
-- [x] 7. χ² Wigner = 0.1137 < 0.5 (p-мера 0.9447)
+- [x] 7. χ² Wigner = 0.1137 < 0.5 (p-measure 0.9447)
 - [x] 8. Brody β = 1.7183 ∈ 2.0 ± 0.5
 - [x] 9. Compressibility = 0.0836 < 0.3
-- [ ] 10. E(s=1) = 0.5209 ∉ 0.171 ± 0.15 — **ослабленное отталкивание уровней**
+- [ ] 10. E(s=1) = 0.5209 ∉ 0.171 ± 0.15 — **weakened level repulsion**
 - [x] 11. ⟨r̃⟩ = 0.3613 ≈ 0.3602 ± 0.05
 
-Диагностика единственного FAIL: E(s=1) выше GUE-цели и β = 1.72 < 2 —
-классическая подпись умеренно недостаточного отталкивания; ожидается,
-что увеличение плотности вихрей до рабочего окна N_v ≈ 8–16 (см.
-интерпретацию теста 34) усилит отталкивание и поднимет и E(s=1), и
-общий балл.
+Diagnosis of the single FAIL: E(s=1) is above the GUE target and β = 1.72 < 2 —
+the classic signature of moderately insufficient repulsion; raising the vortex
+density into the working window N_v ≈ 8–16 (see the test-34 interpretation) is
+expected to strengthen the repulsion and lift both E(s=1) and the overall
+score.
 
-## Состав папки (после слияния)
+## Folder contents (after the merge)
 
-| Путь | Что это |
+| Path | What it is |
 |:--|:--|
-| `plots/` | 01 — 6-панельное сравнение; 02 — ζ в AB-облаке; 05 — 7 панелей новых метрик (03/04 — вырожденные артефакты одиночной точки, см. отчёт гл. 4) |
-| `csv/metrics.csv` | лучшая точка: 37 колонок — словарь в `DATA_DICTIONARY.md` |
-| `csv/ab_eigs.txt` | 6140 центральных собственных значений (сырой спектр) |
-| `csv/zeta_zeros.txt` | 5000 использованных ζ-нулей |
-| `txt/report.txt` | консольный протокол прогона |
-| `json/results.json` | лучшая точка в машинном виде |
-| `config.json` | **новый**: снапшот всех 35 полей RHConfig + производные величины |
-| `manifest.sha256` | **новый**: SHA-256 всех 10 файлов исходного архива |
-| `README.md`, `SUMMARY.md`, `DATA_DICTIONARY.md` | **новые**: этот файл, машинная сводка, словарь данных |
-| `curves/`, `sensitivity/`, `gue_floor.json` | уровень P1 — создаются `example_post_run.jl` |
+| `plots/` | 01 — 6-panel comparison; 02 — ζ inside the AB cloud; 05 — 7 panels of new metrics (03/04 — degenerate single-point artifacts, see report ch. 4) |
+| `csv/metrics.csv` | best point: 37 columns — dictionary in `DATA_DICTIONARY.md` |
+| `csv/ab_eigs.txt` | 6140 central eigenvalues (raw spectrum) |
+| `csv/zeta_zeros.txt` | the 5000 ζ zeros used |
+| `txt/report.txt` | console protocol of the run |
+| `json/results.json` | the best point in machine-readable form |
+| `config.json` | **new**: snapshot of all 35 RHConfig fields + derived quantities |
+| `manifest.sha256` | **new**: SHA-256 of all 10 files of the original archive |
+| `README.md`, `SUMMARY.md`, `DATA_DICTIONARY.md` | **new**: this file, machine summary, data dictionary |
+| `curves/`, `sensitivity/`, `gue_floor.json` | P1 level — generated by `example_post_run.jl` (not part of this folder yet) |
 
-## Воспроизведение
+## Reproduction
 
 ```bash
 julia -e 'include("RH_Sweep_Pro_D.jl");
-          cfg = preset_auto(5000);        # → L=64, n_seeds=5 (воспроизводится автоматически)
+          cfg = preset_auto(5000);        # → L=64, n_seeds=5 (reproduced automatically)
           cfg.alpha = 1/π; cfg.W = 2.0; cfg.sigma = 0.5;
           cfg.min_vortices = 6; cfg.max_vortices = 6; cfg.vortex_layout = :hexagonal;
           cfg.output_dir = "RH_Auto_5000_L64_s5_20261016_122739";
           run(cfg)'
 ```
 
-Сид-конвенция — `RUN_PROTOCOL.md` (шаблон в комплекте). Окружение
-исходного прогона не зафиксировано (см. `config.json → environment`);
-побайтовое совпадение гарантируется только на той же платформе.
+The seed convention — `RUN_PROTOCOL.md` (template included in the kit). The
+environment of the original run is not pinned (see `config.json → environment`);
+byte-identical reproduction is guaranteed only on the same platform.
 
-## Ограничения
+## Limitations
 
-- Одиночная точка пространства параметров (не скан); история оптимизации
-  в исходной версии конвейера не сохранялась (metrics.csv — 2 строки).
-- N_ζ = 5000 из 13 661 верифицированных; масштабирование до полного
-  объёма: L = 88, ~160 с/реализацию.
-- N_v = 6 — нижняя граница рабочего окна плотности вихрей.
-- E(s=1) не пройден — признак непредельного режима отталкивания уровней.
-- Окружение прогона (Julia/BLAS) не зафиксировано исходным кодом.
+- A single point of the parameter space (not a scan); the optimization history
+  was not preserved by the original pipeline (metrics.csv — 2 rows).
+- N_ζ = 5000 of the 13 661 verified; scaling to the full volume: L = 88,
+  ~160 s/realization.
+- N_v = 6 — the lower boundary of the vortex-density working window.
+- E(s=1) failed — a sign of a non-limiting level-repulsion regime.
+- The run environment (Julia/BLAS) is not pinned by the original code.

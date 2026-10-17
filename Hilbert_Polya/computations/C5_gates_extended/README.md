@@ -19,7 +19,7 @@
 | Scale | 35 new gates + 2 decoys = 37 configurations, six new handles: twists, anisotropy, flux shift, staggered mass, vortex profile, signs and boundaries |
 | Headline statistics | GUE class by the C8 canon: ⟨r⟩ = 0.569–0.633, mean 0.601±0.016 (band 0.5996±0.03; 35/37 strictly inside, two edge gates); \|r_H7\| family max 0.0972 (`B_torus_aniso1.25`, family Bonferroni 0.57), below the C3 protocol best 0.226; r_EF (v2 fluctuation) family: mean +0.497, sd 0.465, against the honest GUE null −0.186±0.697 (v2.0.5 regeneration) |
 | Controls | Spectra regenerate bit-for-bit from the committed engine (v1 raw r_EF reproduces to ±0.002); pipeline control PC0′ (isospectral twin): r = 0.9999999999999996; trace control PC0 (H_ξ window vs Λ-comb, C4 committed): r = 0.9997876852323586 |
-| Verdict | `{'ru': 'результат Г2 устойчив: всё семейство в классе GUE (классе нулей ζ) на всех шести новых ручках', 'en': 'the H2 result is stable: the whole family in the GUE class (the zeros\' class) across all six new handles'}` |
+| Verdict | **the H2 result is stable: the whole family in the GUE class (the zeros' class) across all six new handles** |
 | Demarcation | With C3, theorem T7: 87 gates (52 protocol + 35 extended) in the GUE class, no Λ-weights; positive controls PC1/PC2 at r = 1.0 |
 | Artifacts | `data/gates_table.csv` (37 rows) · `data/results.json` · `../data/c5_gates_ext_verdict.json` · `fig09_handles` / `fig10_gue_ext` (ru + en, 600 dpi + screen) · monographs ru/en (docx + pdf) |
 | One-line meaning | No single new handle and no tested combination moves a gate out of the GUE class — the zeros\' class: the H2 result is stable across the whole local handle space |
@@ -30,8 +30,8 @@ python3 campaigns/run_c5_gates_ext.py
 
 # the committed artifacts to inspect afterwards (files, not commands):
 #   data/gates_table.csv · data/results.json · ../data/c5_gates_ext_verdict.json
-#   figures_hires/ru/fig09_handles.png · figures_hires/en/fig09_handles_en.png
-#   figures_hires/ru/fig10_gue_ext.png · figures_hires/en/fig10_gue_ext_en.png
+#   figures_hires/ru/fig09_handles_ru.png · figures_hires/en/fig09_handles_en.png
+#   figures_hires/ru/fig10_gue_ext_ru.png · figures_hires/en/fig10_gue_ext_en.png
 ```
 
 ## v2.0.5 · The regeneration note
@@ -269,7 +269,7 @@ Representative rows with the verdict-bearing z-score (the same `data/gates_table
 | D_decoy_Nv32_random | decoy | 0.610275 | +0.016576 | −0.500665 | −2.044398 |
 ### Family statistics from the committed verdict
 
-The verdict block of `data/results.json` (v2.0.5) records: n_gates_new = 35; rH7_abs_max = 0.0972 (`B_torus_aniso1.25`), p_r_min = 0.015, family Bonferroni 0.57; r_mean 0.5690–0.6328, mean 0.6009±0.0155 (canonical band 0.5996±0.03, 35/37 strict); rEF_fluct mean +0.4965, sd 0.4652, min −0.6998, max +0.9645; z_EF_abs_max = 3.275; GUE_mean = −0.1856, GUE_sd = 0.6967 (the honest synthetic-GUE null of the **fluctuation** statistic; the v1 raw-statistic null 0.788±0.376 is retired); PC0p_r = 0.9999999999999996; PC0_Hxi_r = 0.9997876852323586 (C4 committed). The committed verdict string reads: "результат Г2 устойчив: все 37 конфигураций (35 новых + 2 декоя) в классе GUE — классе нулей ζ — по протоколу C8 — ⟨r⟩ = 0.569–0.633…" — the H2 result is stable: every handle keeps the family in the GUE class (the zeros' class); the rank/heat branches stay at their limits.
+The verdict block of `data/results.json` (v2.0.5) records: n_gates_new = 35; rH7_abs_max = 0.0972 (`B_torus_aniso1.25`), p_r_min = 0.015, family Bonferroni 0.57; r_mean 0.5690–0.6328, mean 0.6009±0.0155 (canonical band 0.5996±0.03, 35/37 strict); rEF_fluct mean +0.4965, sd 0.4652, min −0.6998, max +0.9645; z_EF_abs_max = 3.275; GUE_mean = −0.1856, GUE_sd = 0.6967 (the honest synthetic-GUE null of the **fluctuation** statistic; the v1 raw-statistic null 0.788±0.376 is retired); PC0p_r = 0.9999999999999996; PC0_Hxi_r = 0.9997876852323586 (C4 committed). The committed verdict string reads (translation of the Russian original): "the H2 result is stable: all 37 configurations (35 new + 2 decoys) in the GUE class — the class of the ζ zeros — per the C8 protocol — ⟨r⟩ = 0.569–0.633…" — the H2 result is stable: every handle keeps the family in the GUE class (the zeros' class); the rank/heat branches stay at their limits.
 
 ## How to read the numbers
 
@@ -318,8 +318,8 @@ Figures, both renders:
 
 | File | Where |
 |---|---|
-| `fig09_handles.png` / `fig09_handles_en.png` | 600 dpi — `figures_hires/ru/fig09_handles.png` · `figures_hires/en/fig09_handles_en.png`; screen — `figures/ru/` · `figures/en/` |
-| `fig10_gue_ext.png` / `fig10_gue_ext_en.png` | 600 dpi — `figures_hires/ru/fig10_gue_ext.png` · `figures_hires/en/fig10_gue_ext_en.png`; screen — `figures/ru/` · `figures/en/` |
+| `fig09_handles_ru.png` / `fig09_handles_en.png` | 600 dpi — `figures_hires/ru/fig09_handles_ru.png` · `figures_hires/en/fig09_handles_en.png`; screen — `figures/ru/` · `figures/en/` |
+| `fig10_gue_ext_ru.png` / `fig10_gue_ext_en.png` | 600 dpi — `figures_hires/ru/fig10_gue_ext_ru.png` · `figures_hires/en/fig10_gue_ext_en.png`; screen — `figures/ru/` · `figures/en/` |
 
 `fig09_handles` draws |r_H7| across the 37 extended gates: the gold line marks the best protocol value 0.226, the copper lines the positive controls at 1.000, the red bars the decoys. `fig10_gue_ext` draws ⟨r⟩ across the extended family against the canonical GUE band 0.5996±0.03 (v2.0.5: previously a spurious 0.47–0.53 band around 0.5): every point inside or at the edge of the band (0.569–0.633) — the GUE class is universal for all handles.
 
@@ -335,7 +335,7 @@ Both notes are load-bearing. The first prevents over-reading the largest correla
 
 ## Verdict
 
-**{'ru': 'результат Г2 устойчив: всё семейство в классе GUE (классе нулей ζ) на всех шести новых ручках', 'en': 'the H2 result is stable: the whole family in the GUE class (the zeros\' class) across all six new handles'}** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign).
+**the H2 result is stable: the whole family in the GUE class (the zeros' class) across all six new handles** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign).
 
 ## FAQ
 

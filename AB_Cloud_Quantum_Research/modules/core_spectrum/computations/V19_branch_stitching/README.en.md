@@ -30,7 +30,7 @@ How to stitch the branches of the full algebraic function of the critical line? 
 |---|---|---|
 | Campaign | V19 (plan Solution 19) | committed verdict |
 | Key numbers | Phase law 1.3e-40; orthogonality 225/5.1e-30; alternation 1999/1999; closure 138=138 (dev 5.0e-10); θ ladder 0.832; coherence 0.9995 (z = 43.4); flagship 4.5e-40. | measured/proved |
-| Verdict note | ALGEBRAIC_CERTIFICATE: все точные слои закрыты | honest |
+| Verdict note | ALGEBRAIC_CERTIFICATE: all exact layers closed | honest |
 
 ## Method
 
@@ -40,7 +40,7 @@ rpbridge/stitching.py, four layers: A — the reference (the Fermat cover, tanh-
 
 | File | Where |
 |---|---|
-| `fig20_en.png` | 600 dpi — `figures_hires/en/`; infographics — `figures/en/` |
+| `fig20_en.png` | 600 dpi — `../../figures_hires/en/`; infographics — `figures/en/` |
 
 ## Monographs
 
@@ -53,8 +53,8 @@ rpbridge/stitching.py, four layers: A — the reference (the Fermat cover, tanh-
 
 | File | Content |
 |---|---|
-| `data/v19_verdict.json` | committed verdict of the campaign |
-| `computations/V19_branch_stitching/data/` | campaign artifacts |
+| `data/results.json` | committed verdict of the campaign |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'ALGEBRAIC_CERTIFICATE: все точные слои закрыты', 'en': 'ALGEBRAIC_CERTIFICATE: all exact layers closed, the Γ-phase carries both signatures'}**
+**ALGEBRAIC_CERTIFICATE: all exact layers closed, the Γ-phase carries both signatures**
 
 ---
 

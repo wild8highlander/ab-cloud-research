@@ -8,7 +8,7 @@
 
 > **One of the six cross-language twins of the Γ-closure + Λ-sieve kernel.**
 
-The the JavaScript twin (Node/Bun, no npm packages), re-stating the same two invariants as every other twin and writing the same three-line control block `verify_control.txt`. The contract: run the file, read the control block, compare it to the reference values in the [multilang README](../README.md) — identical numbers across all six runtimes is the whole point (the mathematics, not the language, decides the result). Implementation details and the exact expected block are documented one level up.
+The JavaScript twin (Node/Bun, no npm packages), re-stating the same two invariants as every other twin and writing the same three-line control block `verify_control.txt`. The contract: run the file, read the control block, compare it to the reference values in the [multilang README](../README.md) — identical numbers across all six runtimes is the whole point (the mathematics, not the language, decides the result). Implementation details and the exact expected block are documented one level up.
 
 ## 📁 Contents
 

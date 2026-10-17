@@ -1,10 +1,10 @@
-# Функция V10 · Обратная задача
+# V10 · The Inverse Problem
 
 ![version](https://img.shields.io/badge/version-1.2.0-298bbc) ![](https://img.shields.io/badge/series-V01--V19-3b4f58) ![](https://img.shields.io/badge/status-honest-3a6b4f)
 
-> **Восстанавливается ли арифметика из спектра? Следы степеней, матрица чувствительности, оптимизация.**
+> **Can the arithmetic be recovered from the spectrum? Power traces, the sensitivity matrix, optimization.**
 
-[← Back to the main README](../../README.ru.md)
+[← Back to the main README](../../README.md)
 
 ## Contents
 
@@ -22,25 +22,25 @@
 
 ## Campaign question
 
-Восстанавливается ли арифметика из спектра? Следы степеней, матрица чувствительности, оптимизация.
+Can the arithmetic be recovered from the spectrum? Power traces, the sensitivity matrix, optimization.
 
 ## Results
 
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V10 (plan Solution 10) | committed verdict |
-| Key numbers | rank J = 6 (k=6), cond ≈ 8.7e4; восстановление |Δq| = 0.077; разделение 1.6–3.5; идентифицируемость rank-limited. | measured/proved |
-| Verdict note | часть арифметики (заряды) идентифицируема по старшим следам при достаточном k; ранг J < n_params ⇒ полная идентифицируемость позиций недостижима по инвариантам этого класса — измерено | honest |
+| Key numbers | rank J = 6 (k=6), cond ≈ 8.7e4; recovery \|Δq\| = 0.077; separation 1.6–3.5; identifiability is rank-limited. | measured/proved |
+| Verdict note | part of the arithmetic (the charges) is identifiable from the higher traces given a sufficient k; rank J < n_params ⇒ full identifiability of the positions is unreachable from the invariants of this class — measured | honest |
 
 ## Method
 
-rpbridge/inverse.py: Φ = (Tr H, …, Tr H⁶); J численно; Нелдер–Мид с 3 стартов; разделение арифметика/случай.
+rpbridge/inverse.py: Φ = (Tr H, …, Tr H⁶); J numeric; Nelder–Mead from 3 starts; arithmetic/random separation.
 
 ## Figures
 
 | File | Where |
 |---|---|
-| `fig10_ru.png` | 600 dpi — `figures_hires/ru/`; infographics — `figures/ru/` |
+| `fig10_ru.png` | 600 dpi — `../../figures_hires/ru/`; infographics — `figures/ru/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/inverse.py: Φ = (Tr H, …, Tr H⁶); J численно; Нелдер
 | File | Content |
 |---|---|
 | `data/v10_verdict.json` | committed verdict of the campaign |
-| `computations/V10_inverse_problem/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,8 +75,8 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Часть арифметики неидентифицируема по инвариантам (ранг-лимит)', 'en': 'Part of the arithmetic is unidentifiable (rank-limited)'}**
+**Part of the arithmetic is unidentifiable (rank-limited)**
 
 ---
 
-*AB Research Program v1.1.0 · V10 · Обратная задача*
+*AB Research Program v1.1.0 · V10 · The Inverse Problem*

@@ -1,10 +1,10 @@
-# Функция V6 · Спектральное тождество
+# V6 · Spectral Identity
 
 ![version](https://img.shields.io/badge/version-1.2.0-298bbc) ![](https://img.shields.io/badge/series-V01--V19-3b4f58) ![](https://img.shields.io/badge/status-honest-3a6b4f)
 
-> **Совпадает ли характеристическая функция оператора с ξ? Прямой тест и позитивный контроль H_ξ.**
+> **Does the characteristic function coincide with ξ? A direct test and the positive control H_ξ.**
 
-[← Back to the main README](../../README.ru.md)
+[← Back to the main README](../../README.md)
 
 ## Contents
 
@@ -22,25 +22,25 @@
 
 ## Campaign question
 
-Совпадает ли характеристическая функция оператора с ξ? Прямой тест и позитивный контроль H_ξ.
+Does the characteristic function coincide with ξ? A direct test and the positive control H_ξ.
 
 ## Results
 
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V06 (plan Solution 6) | committed verdict |
-| Key numbers | Затворы: rank 0.036 — тождества нет; H_ξ: log-остаток 5.8e-10 — тождество есть (тривиально по построению). | measured/proved |
-| Verdict note | тождество спектра (n ↔ нуль n) для решёточных затворов — ДА на уровне самих нулей (мост D_nn: 0.0079 = уровень сдвинутых окон нулей и GUE-класса, v2.0.7); ранговая ветвь на пределе разрешения; для H_ξ — ДА по построению; цель V6 — аналитическое тождество, а не подбор полинома | honest |
+| Key numbers | Gates: rank 0.036 — no identity; H_ξ: log residual 5.8e-10 — identity holds (trivially, by construction). | measured/proved |
+| Verdict note | the spectral identity (n ↔ the zero n) for the lattice gates — YES at the zeros' own level (the D_nn bridge: 0.0079 = the level of shifted zero windows and the GUE class, v2.0.7); the rank branch is at the resolution limit; for H_ξ — YES by construction; the goal of V6 is the analytic identity, not polynomial fitting | honest |
 
 ## Method
 
-rpbridge/spectral_identity.py: ранги vs нули; контроль Адамара ln Π|z²−γ²| − ln|ξ| = const (регрессия a + b·z²); зазоры/кратности.
+rpbridge/spectral_identity.py: ranks vs zeros; the Hadamard control ln Π|z²−γ²| − ln|ξ| = const (a + b·z² regression); gaps and multiplicities.
 
 ## Figures
 
 | File | Where |
 |---|---|
-| `fig06_ru.png` | 600 dpi — `figures_hires/ru/`; infographics — `figures/ru/` |
+| `fig06_ru.png` | 600 dpi — `../../figures_hires/ru/`; infographics — `figures/ru/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/spectral_identity.py: ранги vs нули; контроль Адам
 | File | Content |
 |---|---|
 | `data/v06_verdict.json` | committed verdict of the campaign |
-| `computations/V06_spectral_identity/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,8 +75,8 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Тождество: ДА для H_ξ; для затворов — ДА на уровне нулей (мост D_nn, v2.0.7)', 'en': 'Identity: YES for H_ξ; for gates — YES at the zeros\' level (the D_nn bridge, v2.0.7)'}**
+**Identity: YES for H_ξ; for gates — YES at the zeros' level (the D_nn bridge, v2.0.7)**
 
 ---
 
-*AB Research Program v1.1.0 · V06 · Спектральное тождество*
+*AB Research Program v1.1.0 · V06 · Spectral Identity*

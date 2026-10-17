@@ -18,7 +18,7 @@
 |---|---|
 | Claim (T10) | The spacing class is set by symmetry: integrable or localised → Poisson, real disorder → GOE, complex vortex phases → GUE; GSE unreachable (T² = +1) |
 | Claim (T8) | spinor64: 64 spin structures → 4 Hamiltonians — the coding is exact, its capacity capped by phase symmetry |
-| Verdict | **H3 — YES; T8, T10** · committed record: `{'ru': 'Г3 — ДА; T8, T10', 'en': 'H3 — YES; T8, T10'}` |
+| Verdict | **H3 — YES; T8, T10** |
 | Headline numbers | ⟨r⟩ = 0.597–0.612 at Nv ≥ 8 (GUE) · GOE plateau 0.520–0.538 at w = 1–4 · Poisson 0.324–0.386 clean and 0.387 at w = 32 · constants 0.3863 / 0.5307 / 0.5996, GSE 0.6762 (reference-only, Atas et al. 2013) |
 | Flagship channel | Nv = 16, w = 0.5, torus, α = 0.5 → ⟨r⟩ = 0.5972 over 1715 spacings; KS D = 0.0172 vs GUE, p = 0.684; GOE rejected at p = 2.25e-07, Poisson at p = 2.74e-112 |
 | spinor64 | 64 classes / 84 edges · orbits 28/21/7/7/1 · Arf 28 odd / 36 even · zero modes 2/3/3/3/7 · max\|Δλ\| = 1.02e-14 (the registry's \|Δλ\| ≤ 1.1e-14 is the same measurement, rounded) |
@@ -243,8 +243,8 @@ The series seed is 96; the RNG streams are fixed in `engine/hamiltonian.py`. All
 
 | File | Where |
 |---|---|
-| `fig14_ladder.png` | 600 dpi — `figures_hires/ru/fig14_ladder.png`; screen — `figures/ru/` |
-| `fig15_spinor.png` | 600 dpi — `figures_hires/ru/fig15_spinor.png`; screen — `figures/ru/` |
+| `fig14_ladder_ru.png` | 600 dpi — `figures_hires/ru/fig14_ladder_ru.png`; screen — `figures/ru/` |
+| `fig15_spinor_ru.png` | 600 dpi — `figures_hires/ru/fig15_spinor_ru.png`; screen — `figures/ru/` |
 | `fig14_ladder_en.png` | 600 dpi — `figures_hires/en/fig14_ladder_en.png`; screen — `figures/en/` |
 | `fig15_spinor_en.png` | 600 dpi — `figures_hires/en/fig15_spinor_en.png`; screen — `figures/en/` |
 
@@ -254,39 +254,39 @@ The series seed is 96; the RNG streams are fixed in `engine/hamiltonian.py`. All
 
 **H3 — YES; T8, T10** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign). Registry entries: row 20 of `results/RESULTS.md` (*spinor64: reduction 64 → 4, |Δλ| ≤ 1.1e-14, C8*) and the scorecard row *H3 — The GUE statistics class — YES — ⟨r⟩ = 0.60 at Nv ≥ 8; all of C5 in class*. Theorems: **T8** (spinor64 64 → 4 — proven) and **T10** (Poisson/GOE/GUE ladder — measured).
 
-Committed verdict record, verbatim from the source (bilingual dict): **{'ru': 'Г3 — ДА; T8, T10', 'en': 'H3 — YES; T8, T10'}**.
+Committed verdict record (EN, verbatim): **H3 — YES; T8, T10**.
 
 ## FAQ
 
-#### Why is ⟨r⟩ ≈ 0.60 "GUE" and not just "a stiff spectrum"?
+### Why is ⟨r⟩ ≈ 0.60 "GUE" and not just "a stiff spectrum"?
 
 Because 0.60 is not a vague direction, it is a known fixed point. The ratio statistic has exact ensemble means — 0.3863 (Poisson), 0.5307 (GOE), 0.5996 (GUE) — and the vortex channels land at 0.597–0.612 with KS accepting the GUE spacing *distribution* (not merely its mean) while rejecting GOE at p ≈ 1e-7 or better. Mean and distribution agree on the same label; that is what "GUE class" means here.
 
-#### What exactly breaks time reversal on the gate?
+### What exactly breaks time reversal on the gate?
 
 The vortex phases. A real symmetric Hamiltonian admits an antiunitary symmetry (complex conjugation) that forces GOE statistics; a vortex pattern makes the hopping phases non-gaugable — no conjugation commutes with the flux — and the Hamiltonian is genuinely complex Hermitian. Disorder strength then only moves you along the ladder's crossover, not out of the class: symmetry sets the attractor (T10).
 
-#### Is the 64 → 4 reduction a bug in the coding?
+### Is the 64 → 4 reduction a bug in the coding?
 
 It is the *theorem*. The coding maps each spin structure e to flux pair (φx, φy) = (π(e1+e3+e5), π(e2+e4+e6)) mod 2π, which takes exactly four values. Sixty structures share Hamiltonians bit-for-bit with one of the four; isospectrality inside each orbit is verified to 1.02e-14. The coding is exact and *lossless with respect to the Hamiltonian* — that is precisely why it cannot carry sixty-fourfold information.
 
-#### Could a different lattice reach GSE?
+### Could a different lattice reach GSE?
 
 Not while it stays spinless with T² = +1. GSE needs Kramers degeneracy — an antiunitary T with T² = −1, i.e. half-integer spin. The closure is architectural (row 5 of the table), recorded rather than regretted; the package's "all statistics" claim is scoped to the Dyson triplet on purpose.
 
-#### If GUE matches the zeros' statistics, why doesn't this prove the Hilbert–Pólya idea?
+### If GUE matches the zeros' statistics, why doesn't this prove the Hilbert–Pólya idea?
 
 Statistics is a necessary filter, and here it is the level witness: the gates sit in the zeros' universality class (H3 = YES) and at the zeros' own D_nn level (H2 = YES, v2.0.7, C3–C5). What universality cannot carry is the bit-level arithmetic witness — that branch stays open (T18), and the package keeps it separate from the level verdict.
 
-#### Where do the two theorems live in the package?
+### Where do the two theorems live in the package?
 
 T8 (spinor64 64 → 4, proven) and T10 (Poisson/GOE/GUE ladder, measured) are listed in the main README's theorem section, registry row 12 (*spinor64 reduction | 64 spin structures → 4 Hamiltonians, |Δλ| ≤ 1.1e-14 | C8, T8*) and row 20 of `results/RESULTS.md`; the full derivations are in the monographs of this folder.
 
-#### In one sentence each — what are Poisson, GOE and GUE?
+### In one sentence each — what are Poisson, GOE and GUE?
 
 Poisson: levels ignore each other (integrable or localised systems, ⟨r⟩ = 0.3863). GOE: real symmetric matrices with time-reversal symmetry, quadratic repulsion (⟨r⟩ = 0.5307). GUE: complex Hermitian matrices with no antiunitary symmetry, linear repulsion (⟨r⟩ = 0.5996) — the zeros' class.
 
-#### What is a spin structure, quickly?
+### What is a spin structure, quickly?
 
 A choice of periodic versus antiperiodic boundary conditions for a fermion around each handle of a complex curve — for the genus-3 Klein quartic, 2⁶ = 64 such choices (theta characteristics), 36 even and 28 odd by the Arf invariant, the odd ones carrying forced zero modes.
 

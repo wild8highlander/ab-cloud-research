@@ -8,6 +8,7 @@
 | [`icons/`](icons/) | 10 level icons (`icon_core`, `icon_processor`, `icon_dirac`, `icon_bridge`, `icon_verification`, `icon_heritage`, `icon_observatory`, `icon_vortex`, `icon_wave`, `icon_spinor`) — used inline in the README architecture table |
 | [`animations/`](animations/) | SMIL-animated decorations: `footer_wave.svg` (the flowing critical-strip wave of the README footer) and `divider_neon.svg` (the travelling-photon section divider) |
 | [`themes/`](themes/) | 9 theme palettes (light, dark, neon, dracula, nord, catppuccin, solarized, gruvbox, accessible) — used by the CLI, the web lab and figure generation |
+| `avatars.svg` · `banner.svg` | standalone animated SVG art at the folder root (the cast ensemble and the three-pillar package banner) |
 | `sounds/`, `fonts/`, `backgrounds/`, `illustrations/` | reserved slots per the unified structure specification |
 
 ## The palette of the unified edition
@@ -36,8 +37,7 @@ camouflage cache delay after edits.
 Avatar and logo files are byte copies from the source laboratories
 (`AB_Cloud_Quantum_Research/assets/`, `Hilbert_Polya/assets/`) — see
 `00_meta/provenance.jsonl`. The unified logo, banner and badges were
-generated fresh for this edition (script: `scripts/gen_assets.py` pattern).
-The animated hero banner, the neon divider, the footer wave and the ten level
+generated fresh for this edition. The animated hero banner, the neon divider, the footer wave and the ten level
 icons were generated for the 2026-10 link-repair edition under the same
 umbrella licence. Licences follow the umbrella `LICENSE` (attribution
 preserved).

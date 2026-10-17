@@ -21,4 +21,4 @@ entry change in the same commit → monographs re-cite.
 > exist only in prose, without a registry entry pointing to a committed
 > artifact, are treated as mistakes, not as shortcuts.
 
-Part of [`AB_Cloud_Academic_Package/New/02_data/`](../) · see the package root [README](../../README.md)
+Part of [`AB_Cloud_Academic_Package/02_data/`](../) · see the package root [README](../../README.md)

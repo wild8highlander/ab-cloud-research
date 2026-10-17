@@ -34,9 +34,9 @@ to verify:
 
 | Entry | Size | Kind |
 |---|---|---|
-| `README.md` | 1.3 KB | file |
+| `README.md` | 2.7 KB | file |
 | `spinor38.f90` | 7.3 KB | file |
-| **Total (recursive)** | **2 files, 8.6 KB** | |
+| **Total (recursive)** | **2 files, 10.4 KB** | |
 
 ## ▶ Running — toolchain and entry point
 
@@ -62,11 +62,3 @@ output format is shared across all ten languages so their verdict
 lines can be diffed mechanically; any line that differs from the
 validated C++ reference (`../../cpp/spinor38/spinor38.cpp`) marks a
 port bug.
-
-## Кратко (по-русски)
-
-- Тест 38: статистика межуровневых расстояний всех 64 спинор-структур
-  квартики Кляйна против GUE; итог — 64/64 согласованы, орбиты
-  PSL(2,7) 28/21/7/7/1, изоспектральность ≈ 1e-14.
-- Только замороженные данные и stdlib; формат вывода одинаков во всех
-  десяти языках и сверяется с C++-эталоном.

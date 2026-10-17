@@ -125,6 +125,17 @@ gfortran -O2 -std=f2008 -o spinor38 spinor38.f90 && ./spinor38
 
 Details: `spinor38/README.md`.
 
+## Documented deviations
+
+- `--zeros 0` loads the entire source file (in the canonical Python CLI it
+  means "0 zeros"; the semantics are aligned with the MATLAB port and
+  documented here).
+- `2M_gz` shells out to an external `gzip` binary (the Python kernel uses
+  its built-in `gzip` module).
+- RU catalog messages are printed in UTF-8 as-is (no transliteration).
+- The PASS/FAIL field width in the selfcheck table is widened to 16
+  columns so the Russian «ПРОЙДЕНО/ПРОПУСК» strings are not byte-truncated.
+
 ## Troubleshooting
 
 - **`#ifdef` / `#include` treated as errors** — you forgot `-cpp`.
@@ -135,28 +146,3 @@ Details: `spinor38/README.md`.
   out `gzip -dc` into a temp file under `/tmp`).
 - **Cyrillic looks garbled** — the RU catalog is UTF-8; run in a UTF-8
   terminal (`LANG=ru_RU.UTF-8`).
-
-## Известные отклонения / documented deviations
-
-- `--zeros 0` = загрузить весь файл источника (в каноническом Python это
-  означает «0 нулей»; семантика выровнена с MATLAB-портом и здесь задокументирована).
-- `2M_gz` использует внешний `gzip` (в Python есть встроенный модуль gzip).
-- Сообщения каталога RU печатаются в UTF-8 как есть (без транслитерации).
-- Спецширина полей PASS/FAIL в таблице selfcheck расширена до 16 колонок,
-  чтобы русские «ПРОЙДЕНО/ПРОПУСК» не обрезались байтово.
-
-## Кратко (по-русски)
-
-- Портировано на канон CANON_SPEC.md v3.0: грам-точка — сид `2πk/W(k/e)` и
-  РОВНО 8 итераций Ньютона на 5-членном тета (старая формула `2π·W(k/e)` была
-  неверной и удалена); b(N) — строго последовательное суммирование; GUE —
-  таблица 32768 точек (SMAX=5); KS с λ-поправкой; CvM; AD с клампами
-  1e-300/1−1e-16; ⟨r⟩ по соседним промежуткам.
-- Self-check §8: 28 замороженных якорей, печать PASS/FAIL/SKIP + Δ,
-  код возврата 1 при любом провале. Вердикты честные: строки выводятся
-  только в той ветке, которую выбрали вычисленные числа.
-- `ab_cloud_verify_en.f90` / `_ru.f90` — тонкие обёртки (`#define` +
-  `#include`, §10), дублированной математики нет. Язык основного бинарника
-  выбирается на лету: `--lang en|ru`.
-- Проверка: Python-зеркало точного порядка операций даёт 28/28 якорей
-  (грам-точки и bN_off — бит-в-бит; статистика в пределах ULP libm).

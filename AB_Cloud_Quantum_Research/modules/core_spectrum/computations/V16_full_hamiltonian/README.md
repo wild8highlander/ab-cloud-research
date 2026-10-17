@@ -1,10 +1,10 @@
-# Функция V16 · Полный гамильтониан × алгебраическая функция
+# V16 · Full Hamiltonian × Algebraic Function
 
 ![version](https://img.shields.io/badge/version-1.2.0-298bbc) ![](https://img.shields.io/badge/series-V01--V19-3b4f58) ![](https://img.shields.io/badge/status-honest-3a6b4f)
 
-> **Связывает ли полное пространство ручек гамильтониана решётку с нулями ζ через θ-фазу Z_id — без редукции к GUE? Карта 96 конфигураций × 3 seeds.**
+> **Does the full handle space couple the lattice to the ζ zeros via the θ-phase of Z_id — no GUE reduction? A map of 96 configurations × 3 seeds.**
 
-[← Back to the main README](../../README.ru.md)
+[← Back to the main README](../../README.md)
 
 ## Contents
 
@@ -22,25 +22,25 @@
 
 ## Campaign question
 
-Связывает ли полное пространство ручек гамильтониана решётку с нулями ζ через θ-фазу Z_id — без редукции к GUE? Карта 96 конфигураций × 3 seeds.
+Does the full handle space couple the lattice to the ζ zeros via the θ-phase of Z_id — no GUE reduction? A map of 96 configurations × 3 seeds.
 
 ## Results
 
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V16 (plan Solution 16) | committed verdict |
-| Key numbers | max r_align = +0.160 (z = 2.49 < 6 — тождества нет); веса θ/log|ζ|/none: −0.108/+0.092/−0.085 — все в нулевой зоне; PC Z_id↔файл r = 1.0 (38 нулей, 4.9e-10). | measured/proved |
-| Verdict note | Тождество уровней замыкается мостом D_nn (затворы на уровне нулей, v2.0.7); битовая ветвь не замыкается во всём пространстве ручек (z = 2.49 < 6); алгебраическая функция — объект с r=1 | honest |
+| Key numbers | max r_align = +0.160 (z = 2.49 < 6 — no identity); weights θ/log\|ζ\|/none: −0.108/+0.092/−0.085 — all inside the null zone; PC Z_id↔file r = 1.0 (38 zeros, 4.9e-10). | measured/proved |
+| Verdict note | the level identity closes via the D_nn bridge (the gates at the zeros' level, v2.0.7); the bit-level branch does not close over the full handle space (z = 2.49 < 6); the algebraic function is the object with r=1 | honest |
 
 ## Method
 
-rpbridge/fullham.py: вес q_k = θ(γ̃_k)/π (алгебраическая фаза), метрика r_align (корреляция приращений ΔU ↔ Δγ, мост по первым 50 уровням, out-of-sample на 150); нулевая модель — 200 пермутаций; PC — нули Z_id против файла.
+rpbridge/fullham.py: the weight q_k = θ(γ̃_k)/π (algebraic phase), the r_align metric (ΔU ↔ Δγ increments, bridge on the first 50 levels, out-of-sample on 150); the null — 200 permutations; PC — Z_id zeros against the file.
 
 ## Figures
 
 | File | Where |
 |---|---|
-| `fig17_ru.png` | 600 dpi — `figures_hires/ru/`; infographics — `figures/ru/` |
+| `fig17_ru.png` | 600 dpi — `../../figures_hires/ru/`; infographics — `figures/ru/` |
 
 ## Monographs
 
@@ -53,8 +53,8 @@ rpbridge/fullham.py: вес q_k = θ(γ̃_k)/π (алгебраическая ф
 
 | File | Content |
 |---|---|
-| `data/v16_verdict.json` | committed verdict of the campaign |
-| `computations/V16_full_hamiltonian/data/` | campaign artifacts |
+| `data/results.json` | committed verdict of the campaign |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,8 +75,8 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Тождество уровней — ДА (мост D_nn: затворы на уровне нулей); битовая ветвь не замыкается во всём пространстве ручек (z = 2.49); алгебраическая функция — объект с r=1', 'en': 'Level identity — YES (the D_nn bridge: gates at the zeros\' level); the bit-level branch does not close over the full handle space (z = 2.49); the algebraic function is the r=1 object'}**
+**Level identity — YES (the D_nn bridge: gates at the zeros' level); the bit-level branch does not close (z = 2.49); the algebraic function is the r=1 object**
 
 ---
 
-*AB Research Program v1.1.0 · V16 · Полный гамильтониан × алгебраическая функция*
+*AB Research Program v1.1.0 · V16 · Full Hamiltonian × Algebraic Function*

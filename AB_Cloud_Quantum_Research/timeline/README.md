@@ -17,32 +17,25 @@
 </div>
 
 > 🧭 **Navigation:** [↑ main README](../README.md) · [📚 monographs](../MONOGRAPH_ARCHIVE/README.md) · [🧪 hypothesis lab](../HYPOTHESIS_LAB/README.md) · [🎞 animations](../VISUAL_ANIMATIONS/README.md)
-# 🗓️ timeline/ — хронологическая карта кампаний
+# 🗓️ timeline/ — the campaign timeline map
 
-Фигура 600 dpi (RU/EN), построенная из `datasets/campaign_timeline.csv`:
-**43 кампании** четырёх уровней исследования на единой ленте статусов —
-ядро V01–V19, процессор V20, верификация E01–E18, спинор-исследование
-ES1–ES5. Размер маркера подсвечивает каждую пятую кампанию; цвет —
-статус (PASS/исполнена — цвет уровня, иначе — красный; красных нет).
+A 600 dpi figure (RU/EN) built from `datasets/campaign_timeline.csv`:
+**43 campaigns** of the four research levels on a single status ribbon —
+core V01–V19, processor V20, verification E01–E18, the spinor study
+ES1–ES5. The marker size highlights every fifth campaign; the color is
+the status (PASS/executed — the level color, otherwise red; there is no red).
 
-| Файл | Описание |
+| File | Description |
 |------|----------|
-| `campaign_timeline_ru.png` | хронология, 600 dpi, русский |
-| `campaign_timeline_en.png` | хронология, 600 dpi, английский |
+| `campaign_timeline_ru.png` | the timeline, 600 dpi, Russian |
+| `campaign_timeline_en.png` | the timeline, 600 dpi, English |
 
-Перестроить:
+Rebuild:
 
 ```bash
-python3 scripts/make_datasets.py     # сначала данные
-python3 scripts/make_timeline.py     # затем фигура
+python3 scripts/make_datasets.py     # the data first
+python3 scripts/make_timeline.py     # then the figure
 ```
-
-## English summary
-
-`timeline/` holds the 600 dpi campaign timeline figure (RU/EN) built
-from the committed `datasets/campaign_timeline.csv`: 43 campaigns across
-the four levels with status markers. Rebuild with
-`scripts/make_timeline.py`.
 
 ---
 

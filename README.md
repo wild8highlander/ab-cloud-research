@@ -172,10 +172,10 @@ the number, produced by the named run; re-running the command from the
 | 1 | ζ zeros embedded in the repo (Odlyzko tables) | **2,001,058** | [verification/data/zeta_zeros_2M_odlyzko.txt](verification/data/zeta_zeros_2M_odlyzko.txt) |
 | 2 | Frozen reference dataset (single source of truth) | **91 MB, 8 files** | [verification/data/](verification/data/) |
 | 3 | Canonical Julia suite | **v23 · 39 registered tests × 2 passes** (+ pass 3 series on selected tests) | [code/ab_cloud_full.jl](code/ab_cloud_full.jl) |
-| 4 | Machine verdict lines in the flagship run | **202** (171 PASS · 22 WARN · 9 FAIL/WARN completions re-examined by pass 2) | [results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt](results/Test%201-37%20ab_cloud_full.jl/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt) |
+| 4 | Machine verdict lines in the flagship run | **202** (171 PASS · 22 WARN · 9 FAIL/WARN completions re-examined by pass 2) | [results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt](results/Test%201-37%20ab_cloud_full.jl/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt) — kept at the top of `results/Test 1-37 ab_cloud_full.jl/` |
 | 5 | Flagship run wall time | **≈ 9 h 46 min** (2026-09-02 13:47 → 23:33) | same report, timing stamps |
-| 6 | Per-test artifact directories of the flagship run | **39** | [results/run_20260902_134759/](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/) |
-| 7 | Files in the flagship artifact bundle | **453** (FINAL_REPORT in md/docx/html/pdf + logs + per-test data) | [results/run_20260902_134759/FINAL_REPORT/](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/FINAL_REPORT/) |
+| 6 | Per-test artifact directories of the flagship run | **39** | [results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/) |
+| 7 | Files in the flagship artifact bundle | **454** (FINAL_REPORT in md/docx/html/pdf + logs + per-test data) | [results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/FINAL_REPORT/](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/FINAL_REPORT/) |
 | 8 | Spinor structures verified | **64 of 64 GUE-consistent** | [verification/spinor64/output/spinor64_report.md](verification/spinor64/output/spinor64_report.md) |
 | 9 | Klein quartic {3,7} orbit signature | **28 / 21 / 7 / 7 / 1** under PSL(2,7), order 168 | same report, experiment E1 |
 | 10 | Worst pairwise spectral distance over all 64 structures | **8.88 × 10⁻¹⁵** (machine precision) | E1 table |
@@ -368,7 +368,7 @@ flowchart LR
 ```
 
 Quick entry points: the [folder README](AB_Cloud_Quantum_Research/README.md)
-(EN, full) · [README.ru.md](AB_Cloud_Quantum_Research/README.ru.md) (RU, full)
+(EN, full)
 · the [main monograph EN](AB_Cloud_Quantum_Research/MONOGRAPH_ARCHIVE/main_monograph/AB_Cloud_Quantum_Research_Monograph_EN.pdf)
 · the [browser hypothesis lab](AB_Cloud_Quantum_Research/HYPOTHESIS_LAB/hypothesis_lab.html)
 · the [animation portal](AB_Cloud_Quantum_Research/VISUAL_ANIMATIONS/html/index.html).
@@ -477,7 +477,7 @@ Totals for the stored run: **202 machine verdict lines** — 171 PASS,
 hardcore pass; **no unexplained failure**. Full log:
 [results/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt](results/Test%201-37%20ab_cloud_full.jl/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt);
 per-test plots, tables and machine-readable artifacts:
-[results/run_20260902_134759/](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/).
+[results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/).
 
 The previous reference run (v18, 2026-08-28) is kept side-by-side for
 diffing:
@@ -672,7 +672,7 @@ matrix is a set of files you can open right here.
 | **v2.2.1** corrections | RU · EN | pdf · docx · html | same directories, `*_v221.*` files |
 | **v21 originals** (archived) | RU · EN | pdf — two variants each: *with verification appendix* and *corrected* | [monographs/original-v21/](monographs/original-v21/) |
 | **Preprints** | RU · EN | pdf + tex sources | [monographs/*/text/preprint/](monographs/en/text/preprint/) |
-| **Final report** of the flagship run | EN | md · pdf · docx · html | [results/run_20260902_134759/FINAL_REPORT/](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/FINAL_REPORT/) |
+| **Final report** of the flagship run | EN | md · pdf · docx · html | [results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/FINAL_REPORT/](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/FINAL_REPORT/) |
 
 Figure apparatus: **19 plates per language × 3 languages** in
 [monographs/*/figures/](monographs/ru/figures/), all rendered at **600 dpi**;
@@ -972,11 +972,11 @@ downstream inherits the integrity.
 ## 🗂️ Flagship-run artifact inventory (run_20260902_134759)
 
 The flagship two-pass run does not just print a verdict — it commits
-**453 files across 39 directories (7.3 MB)** so that every number in every
-paper can be traced to a plot, a table or a log produced by the run itself:
+**454 files across 39 directories so that every number in every
+paper can be traced to a plot, a table or a log produced by the run itself:**
 
 ```
-results/run_20260902_134759/
+results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/
 ├── FINAL_REPORT/                    # the consolidated report in 4 formats
 │   ├── final_report.md · .pdf · .docx · .html
 │   ├── logs/                        # per-test raw console logs
@@ -1005,7 +1005,7 @@ Typical uses:
 ## 📊 Results & reproducibility
 
 - **Full two-pass run artifacts**:
-  [`results/run_20260902_134759/`](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/) — the
+  [`results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/`](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/) — the
   complete v19 run of 2026-09-02 (37 tests, two-pass 72×72 → 96×96 with the
   HARDCORE audit, Julia 1.12.0): per-test reports (md/pdf/docx/html),
   computation logs, FINAL_REPORT and index.html — 32 PASS / 5 WARN on the
@@ -1169,7 +1169,7 @@ ab-cloud-research/
 │   ├── lean4/                    #   theorems + abcloud-verify executable (8/8 PASS)
 │   ├── coq/ · agda/ · isabelle/  #   the same exact core in three more assistants
 │   └── assets/                   #   banners & seal
-├── Hilbert_Polya/                # NEW: Hilbert–Pólya bridge subproject (C1–C8 campaigns)
+├── Hilbert_Polya/                # NEW: Hilbert–Pólya bridge subproject (C1–C17 campaigns)
 ├── apps/                         # React applications
 │   ├── ab-cloud-dashboard/       #   39-test dashboard, real-time ζ statistics (+ dist/)
 │   └── ab-cloud-lab3d/           #   WebGL 3D laboratory: lattice, Dirac cone, ζ strip (+ dist/)
@@ -1185,9 +1185,9 @@ ab-cloud-research/
 ├── dirac-lab/                    # NEW: Dirac laboratory — D1–D14, 96 checks, all PASS
 ├── Vortex_optimization/          # NEW: Test 34-ext vortex-density scan (D = 0.0318)
 ├── Wave_attractors/              # NEW: hyperbolic wave-attractors reproduction (study W1)
-├── meridian-spectral-observatory/ # NEW: 24 standalone Julia spectral benches
+├── meridian-spectral-observatory/ # NEW: standalone Julia spectral benches
 ├── AB_Cloud_Academic_Package/    # NEW: packaged academic submission bundle
-├── results/                      # 456 files: run_20260902_134759 artifacts + reference logs
+├── results/                      # 586 files: run_20260902_134759 artifacts + reference logs
 ├── docs/                         # MkDocs Material documentation site
 ├── assets/                       # banner & repo art
 └── .github/                      # CI, templates, funding, release automation
@@ -1197,7 +1197,7 @@ ab-cloud-research/
 
 Wherever you land, the folder you are in explains itself: what lives there,
 what it does, what the stored results mean, and how to run the code. All
-READMEs are in English and end with a short Russian summary.
+READMEs are maintained in English.
 
 | Enter here | Read this | You will learn |
 |---|---|---|
@@ -1205,7 +1205,7 @@ READMEs are in English and end with a short Russian summary.
 | `code/julia/` | [`code/julia/README.md`](code/julia/README.md) | the v23 provenance copy and how it relates to the suite |
 | `formal/` | [`formal/README.md`](formal/README.md) | the formal layer: coverage matrix across Lean 4 · Coq · Agda · Isabelle, quick starts, the 8/8 re-derivation ledger |
 | `formal/lean4/` | [`formal/lean4/ABCloud/README.md`](formal/lean4/ABCloud/README.md) | the Lean project anatomy: exact layer, numeric port, generated references, executable |
-| `Hilbert_Polya/` | [`Hilbert_Polya/README.md`](Hilbert_Polya/README.md) (+ [`README.ru.md`](Hilbert_Polya/README.ru.md)) | the Hilbert–Pólya bridge: campaigns C1–C8, monograph volumes, infographics |
+| `Hilbert_Polya/` | [`Hilbert_Polya/README.md`](Hilbert_Polya/README.md) | the Hilbert–Pólya bridge: campaigns C1–C17, monograph volumes, infographics |
 | `verification/` | [`verification/README.md`](verification/README.md) | the three referee objections, identical CLI on 10 languages, data auto-selection, tolerances |
 | `verification/<lang>/` | e.g. [`verification/python/README.md`](verification/python/README.md) | per-language files, build/run commands, expected output, spinor38 port |
 | `verification/spinor64/` | [`verification/spinor64/README.md`](verification/spinor64/README.md) | the 64-spinor experiment E1+E2, orbits 28/21/7/7/1 |
@@ -1216,13 +1216,13 @@ READMEs are in English and end with a short Russian summary.
 | `monographs/original-v21/` | [`monographs/original-v21/README.md`](monographs/original-v21/README.md) | the original v21, its claims, and the exact v21.1 corrections |
 | `lab-3d/` | [`lab-3d/README.md`](lab-3d/README.md) | the 3D lattice OS: key numbers, modes A–J, the four committed runs |
 | `lab-3d/code/`, `lab-3d/outputs/` | `README.md` inside each | the 69-module map; how to read/regenerate the 2026-07-31 runs |
-| `results/` | [`results/README.md`](results/README.md) | the 456-file run `run_20260902_134759` and the two reference logs |
+| `results/` | [`results/README.md`](results/README.md) | the 454-file run `run_20260902_134759` and the reference logs |
 | `apps/` | [`apps/README.md`](apps/README.md) | the two React apps and how to run/deploy them |
 | `apps/ab-cloud-dashboard/`, `apps/ab-cloud-lab3d/` | `README.md` inside each | tab-by-tab feature guide, architecture, build commands |
 | `dirac-lab/` | [`dirac-lab/README.md`](dirac-lab/README.md) | the Dirac laboratory: D1–D14 test ledger (96 checks, all PASS), Dirac skeleton of the AB-cloud |
-| `Vortex_optimization/` | [`Vortex_optimization/README.md`](Vortex_optimization/README.md) (+ [`README_RU.md`](Vortex_optimization/README_RU.md)) | the Test 34-ext vortex-density scan: 242 configurations, best D = 0.0318 vs reference 0.1096 |
+| `Vortex_optimization/` | [`Vortex_optimization/README.md`](Vortex_optimization/README.md) | the Test 34-ext vortex-density scan: 242 configurations, best D = 0.0318 vs reference 0.1096 |
 | `Wave_attractors/` | [`Wave_attractors/README.md`](Wave_attractors/README.md) | study W1: hyperbolic wave attractors reproduced from first principles |
-| `meridian-spectral-observatory/` | [`meridian-spectral-observatory/README.md`](meridian-spectral-observatory/README.md) (+ [`README.ru.md`](meridian-spectral-observatory/README.ru.md)) | 24 standalone Julia benches: from the lattice AB model to ζ-zero statistics |
+| `meridian-spectral-observatory/` | [`meridian-spectral-observatory/README.md`](meridian-spectral-observatory/README.md) | standalone Julia benches: from the lattice AB model to ζ-zero statistics |
 | `AB_Cloud_Academic_Package/` | [`AB_Cloud_Academic_Package/README.md`](AB_Cloud_Academic_Package/README.md) | the packaged academic submission: monographs, preprints, run archive, SHA-256 sums |
 | `docs/` | [`docs/README.md`](docs/README.md) | the MkDocs site pages and how to build them |
 | `assets/` | [`assets/README.md`](assets/README.md) | banner provenance and figure reuse rules |

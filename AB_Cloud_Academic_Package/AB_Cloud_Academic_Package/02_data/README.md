@@ -13,6 +13,7 @@
 | [`modelcard.md`](modelcard.md) | model cards (protocols, not ML models) |
 | [`checksums.sha256`](checksums.sha256) | integrity over `02_data/**` |
 | [`lineage.json`](lineage.json) | the transformation lineage |
+| [`differential_privacy.json`](differential_privacy.json) | differential-privacy statement (`applicable: false` — no personal or human-subject data) |
 | [`sampling_protocol.md`](sampling_protocol.md) | how the sources' numbers were sampled |
 
 ## The golden rule

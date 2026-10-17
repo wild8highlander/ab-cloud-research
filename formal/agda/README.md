@@ -11,7 +11,7 @@
 
 [`ABCloud.agda`](ABCloud.agda) is the Agda member of the four-assistant panel: a single self-contained module that restates the exact identities of the audit's algebraic skeleton in Agda's dependent-type style, importing nothing beyond the standard-library builtins. Its job is cross-validation by *independent formalisation* — if Coq, Isabelle, Lean and Agda agree on the statements, the agreement is a property of the mathematics rather than of any one proof assistant's library.
 
-Type-check it with `agda ABCloud.agda` (any Agda ≥ 2.6 with the standard library available). The CI job in [`formal.yml`](../../.github/workflows/formal.yml) does exactly that on every push.
+Type-check it with `agda ABCloud.agda` (any Agda ≥ 2.6 — the module imports nothing, not even the standard library). The CI job in [`formal.yml`](../../.github/workflows/formal.yml) does exactly that on every push.
 
 ## 📁 Contents
 

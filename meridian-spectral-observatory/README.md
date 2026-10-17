@@ -5,16 +5,14 @@
 
 # 🧭 Meridian Spectral Observatory
 
-**Language / Язык:** [🇬🇧 English](README.md) · [🇷🇺 Русский](README.ru.md)
-
-> **A standalone laboratory of 13 self-contained codes — 12 Julia benches and 1 Python audit —
+> **A standalone laboratory of 11 self-contained Julia benches
 > that watch spectra: lattice Aharonov–Bohm "cloud" Hamiltonians on one side, the zeros of the
 > Riemann zeta function on the other, and the GUE universality class as the reference frame.
 > One question beneath everything: the Hilbert–Pólya programme.**
 
 <p>
   <img alt="Julia" src="https://img.shields.io/badge/Julia-%E2%89%A51.10-9558B2?style=flat-square&logo=julia&logoColor=white">
-  <img alt="codes" src="https://img.shields.io/badge/codes-13%20%C2%B7%2071%2C787%20lines-0E7C86?style=flat-square">
+  <img alt="codes" src="https://img.shields.io/badge/codes-11%20%C2%B7%2084%2C817%20lines-0E7C86?style=flat-square">
   <img alt="suite tests" src="https://img.shields.io/badge/suite_tests-39-8C6D1F?style=flat-square">
   <img alt="gates" src="https://img.shields.io/badge/HP_gates-H1%E2%80%93H7-C96F4A?style=flat-square">
   <img alt="zeros" src="https://img.shields.io/badge/%CE%B6_zeros-50%2C000%20real-3A6B4F?style=flat-square">
@@ -38,7 +36,7 @@
 1. [⚡ What this is — in a nutshell](#-what-this-is--in-a-nutshell)
 2. [🏛 The three pillars](#-the-three-pillars)
 3. [🏆 Headline result — Gate H5](#-headline-result--gate-h5)
-4. [🗺 Repository map — the 13 codes](#-repository-map--the-13-codes)
+4. [🗺 Repository map — the 11 benches](#-repository-map--the-11-benches)
 5. [🧬 How the codes relate](#-how-the-codes-relate)
 6. [🚪 The seven HP gates](#-the-seven-hp-gates)
 7. [🚀 Quick start](#-quick-start)
@@ -138,13 +136,13 @@ function of the vortex configuration* — is exactly what the companion
 
 ---
 
-## 🗺 Repository map — the 13 codes
+## 🗺 Repository map — the 11 benches
 
 ### 🧪 The verification suite — `ab_cloud_full.jl`
 
 | File | Lines | What it is |
 |---|---:|---|
-| **`ab_cloud_full.jl`** | **32 095** | ⭐ **THE SUITE — supercombo v23.3+** (changelog through v3.3, 2026-09-19): the v23 core — **39 numbered tests** + Physics Lab + 3D Lab (sparse engine) × the v22 journal-grade plotting engine (`ABPlotV23`) × THREE-PASS Test 38 (38a + 38b hardcore + 38c ladder) × H1 deepen-protocol × H5 α-profile × decoy controls × presets FAST L=16 / FULL L=56. **NEW in v3.3 — TEST 39 “Geometry Sweep”**: Test 34 on 7 closed surfaces (torus, Klein bottle, pillow orbifold, cube sphere, Hurwitz PSL(2,7)/(2,8)/(2,13) magnetic Cayley graphs), big-matrix parity, values-only windowed diagonalization. Interactive menu, CLI flags, CSV/JSON/PNG reports, seeds fixed. |
+| **`ab_cloud_full.jl`** | **32 187** | ⭐ **THE SUITE — supercombo v23.3+** (changelog through v3.3, 2026-09-19): the v23 core — **39 numbered tests** + Physics Lab + 3D Lab (sparse engine) × the v22 journal-grade plotting engine (`ABPlotV23`) × THREE-PASS Test 38 (38a + 38b hardcore + 38c ladder) × H1 deepen-protocol × H5 α-profile × decoy controls × presets FAST L=16 / FULL L=56. **NEW in v3.3 — TEST 39 “Geometry Sweep”**: Test 34 on 7 closed surfaces (torus, Klein bottle, pillow orbifold, cube sphere, Hurwitz PSL(2,7)/(2,8)/(2,13) magnetic Cayley graphs), big-matrix parity, values-only windowed diagonalization. Interactive menu, CLI flags, CSV/JSON/PNG reports, seeds fixed. |
 
 > The suite's earlier evolution line (`ab_cloud_v19` → `ab_cloud_v23_v2`, the 23k–31k-line
 > ancestors) is preserved in the parent repository:
@@ -155,15 +153,15 @@ function of the vortex configuration* — is exactly what the companion
 
 | File | Lines | What it is |
 |---|---:|---|
-| **`hp_audit_standalone.jl`** | **6094** | ⭐ Compact standalone audit of **gates H1–H7 only** — the Hilbert–Pólya hypothesis, nothing else. The core is lifted VERBATIM from the v23 supercombo (equal seeds → bit-identical numbers). H5 budget ≤ 40 diagonalizations (v24.1); the targeted **FOCUS-D** mode (`hp_regime_mode = :regime_d`, command `5d`, v24.2); live progress bar during LAPACK calls; 60 s heartbeat (v23.8); environment doctor; battery-cost estimator (honest since v24.3: worst-case H1 = 172 solves; presets are complete parameter sets since v24.3 — no smoke-state leak on SMOKE→FAST). Config profile: `p_myset.cfg`. |
+| **`hp_audit_standalone.jl`** | **7 722** | ⭐ Compact standalone audit of **gates H1–H7 only** — the Hilbert–Pólya hypothesis, nothing else. The core is lifted VERBATIM from the v23 supercombo (equal seeds → bit-identical numbers). H5 budget ≤ 40 diagonalizations (v24.1); the targeted **FOCUS-D** mode (`hp_regime_mode = :regime_d`, command `5d`, v24.2); live progress bar during LAPACK calls; 60 s heartbeat (v23.8); environment doctor; battery-cost estimator (honest since v24.3: worst-case H1 = 172 solves; presets are complete parameter sets since v24.3 — no smoke-state leak on SMOKE→FAST). Config profile: `p_myset.cfg`. |
 
 ### 🌀 RH line — maximizing the cloud ↔ zeros correlation
 
 | File | Lines | What it is |
 |---|---:|---|
-| `RH_Unified.jl` | 1 885 | single self-contained file: 500 real ζ-zeros, 61 "magic" α-points, 6 vortices (hexagon), `RHConfig` (33 parameters), jitter, 4 vortex layouts, 9 presets |
-| `RH_Unified_v5.jl` | 2 204 | evolution: extended presets and diagnostics |
-| **`RH_Sweep_Pro.jl`** | **6 450** | ⭐ **professional parameter sweep**: 13 661 real ζ-zeros (`mpmath.zetazero`, 25 digits), dynamic sweep of 8 parameters over 10 key points, CSV/TXT(ASCII)/JSON reports, Plots.jl graphics, timing logs |
+| `RH_Unified.jl` | 2 572 | single self-contained file: 500 real ζ-zeros, 61 "magic" α-points, 6 vortices (hexagon), `RHConfig` (33 parameters), jitter, 4 vortex layouts, 9 presets |
+| `RH_Unified_v5.jl` | 2 892 | evolution: extended presets and diagnostics |
+| **`RH_Sweep_Pro.jl`** | **7 161** | ⭐ **professional parameter sweep**: 13 661 real ζ-zeros (`mpmath.zetazero`, 25 digits), dynamic sweep of 8 parameters over 10 key points, CSV/TXT(ASCII)/JSON reports, Plots.jl graphics, timing logs |
 
 ### 🏛 Monumental line — the monograph, re-derived in Julia
 
@@ -176,10 +174,8 @@ function of the vortex configuration* — is exactly what the companion
 | File | Lines / Size | What it is |
 |---|---:|---|
 | `Magic_Alpha_Points_v1.jl` | 131 | library of **61 "magic" α-points**: π/30…π×5, √2…√15, rationals, φ, e, ln 2, 1/e, 1/π and specials — from the original RMT study of the AB cloud |
-| `test11_honest.jl` | 322 | honest recalibration of Test 11 (Anderson–Darling GOF of ζ-zero spacings vs the Wigner surmise GUE β=2): removes the bootstrap artifact of ties; the null is built i.i.d. from `gue2_surmise_cdf` |
-| `test11_honest.py` | 178 | the same protocol in Python (default input — `zeta_zeros_50k.txt`); verified to run: **A² = 61.49 vs the exact GUE CDF, honest MC p = 0.0005, H0 rejected at α = 0.05** — at n = 49 999 spacings the surmise is *distinguishable* from the zeros, which is exactly why the suite's KS acceptance bands are calibrated the way they are |
 | `zeros50k.txt` | 50 000 lines | **50 000 real zeros of ζ(s)**, one per line: 14.134725142 … 40433.687385462 |
-| `zeta_zeros_50k.txt` | 5 000 lines | the same 50 000 zeros, 10 per line (compact format for `test11_honest.py`) |
+| `zeta_zeros_50k.txt` | 5 000 lines | the same 50 000 zeros, 10 per line (compact format) |
 | `p_myset.cfg` | 37 lines | the "myset" configuration profile for HP·MERIDIAN: `hp_L=20`, ensemble 8, seed 2026, ladder lattice [16,20,24], showdown mode, … |
 
 > Files with the **`_D`** suffix (`RH_Sweep_Pro_D.jl`, `RH_Unified_D.jl`,
@@ -197,10 +193,8 @@ flowchart TD
     ORIG["original RMT study<br/>61 magic α-points"] --> RHU["RH_Unified.jl<br/>500 zeros · 6 vortices"]
     RHU --> RHU5["RH_Unified_v5.jl"]
     RHU --> RHSP["RH_Sweep_Pro.jl<br/>13 661 zeros · 8-parameter sweep"]
-    SUITE["ab_cloud_full.jl<br/>THE SUITE v23.3+<br/>39 tests · 32 095 lines"] -- "H1–H7 core<br/>lifted VERBATIM<br/>(same seeds → same numbers)" --> HPA["hp_audit_standalone.jl<br/>v24.3.1-SA · gates only"]
+    SUITE["ab_cloud_full.jl<br/>THE SUITE v23.3+<br/>39 tests · 32 187 lines"] -- "H1–H7 core<br/>lifted VERBATIM<br/>(same seeds → same numbers)" --> HPA["hp_audit_standalone.jl<br/>v24.3.1-SA · gates only"]
     PYMON["Python monograph code base<br/>V01–V112"] -- "Julia port" --> MON["AB_Cloud_Monumental_v6_3.jl"]
-    T11["Test 11 (AD GOF)<br/>suite statistic"] --> T11H["test11_honest.jl / .py<br/>recalibrated null"]
-    SUITE --> T11
     HPA -. "results feed" .-> HP["Hilbert_Polya/<br/>v2 layer · campaigns C1–C17<br/>D_nn bridge · verdict v2.0.7"]
     RHSP -. "optimal window" .-> VOR["Vortex_optimization/<br/>242-config scan · D 0.1096 → 0.0318"]
 ```
@@ -255,9 +249,6 @@ julia -e 'include("AB_Cloud_Monumental_v6_3.jl"); AB_Cloud_Monumental.run_all(qu
 
 # 4) The professional sweep (13 661 zeros)
 julia -e 'include("RH_Sweep_Pro.jl")'
-
-# 5) Honest Test 11 (Python — no Julia needed)
-python3 test11_honest.py
 ```
 
 <details>
@@ -298,7 +289,6 @@ warning and continue *without the ζ side* — silent degradation is treated as 
 | HP·MERIDIAN <kbd>F</kbd> FULL (L=56, deep) | hours |
 | H5 single solve 64×64 (4096×4096 eigen) | ~ 49 s |
 | H5 single solve 72×72 (5184×5184 eigen) | ~ 69 s |
-| `test11_honest.py` | seconds |
 | Suite FAST preset (L=16) | ~ 10 min |
 
 > Each diagonalization is a dense `L²×L²` problem (L=72 → 5184×5184). Cost grows as ≈ L⁶,
@@ -313,14 +303,14 @@ Eight documents in [`docs/`](docs/) (Russian; the tables and formulas are univer
 
 | # | Document | Contents |
 |:---:|---|---|
-| 01 | [Обзор проекта](docs/01_obzor_proekta.md) | what this is, the mission, the honesty philosophy |
-| 02 | [Каталог кодов](docs/02_katalog_kodov.md) | every code annotated: purpose, entry points, menu map |
-| 03 | [Руководство запуска](docs/03_rukovodstvo_zapuska.md) | installation, Termux, presets, CLI flags, troubleshooting |
-| 04 | [Физика и математика](docs/04_fizika_matematika.md) | the Hamiltonian, vortex geometry, RMT statistics, all gate formulas and verdict rules |
-| 05 | [Гейт H5: режимы](docs/05_gate_H5_regimy.md) | the 2×2 regime showdown, the A/B/C/D story, FOCUS-D |
-| 06 | [Данные ζ-нулей](docs/06_dannye_zeta_nulej.md) | how the 50 000 zeros were computed, verified and are loaded |
-| 07 | [Хронология версий](docs/07_hronologiya_versij.md) | the version log — every fix, every honesty patch |
-| 08 | [Воспроизводимость](docs/08_reproduciuemost.md) | seeds, determinism, bit-level reproduction protocol |
+| 01 | [Project overview](docs/01_obzor_proekta.md) | what this is, the mission, the honesty philosophy |
+| 02 | [Code catalogue](docs/02_katalog_kodov.md) | every code annotated: purpose, entry points, menu map |
+| 03 | [Launch guide](docs/03_rukovodstvo_zapuska.md) | installation, Termux, presets, CLI flags, troubleshooting |
+| 04 | [Physics and mathematics](docs/04_fizika_matematika.md) | the Hamiltonian, vortex geometry, RMT statistics, all gate formulas and verdict rules |
+| 05 | [Gate H5: regimes](docs/05_gate_H5_regimy.md) | the 2×2 regime showdown, the A/B/C/D story, FOCUS-D |
+| 06 | [ζ-zero data](docs/06_dannye_zeta_nulej.md) | how the 50 000 zeros were computed, verified and are loaded |
+| 07 | [Version chronology](docs/07_hronologiya_versij.md) | the version log — every fix, every honesty patch |
+| 08 | [Reproducibility](docs/08_reproduciuemost.md) | seeds, determinism, bit-level reproduction protocol |
 
 ---
 

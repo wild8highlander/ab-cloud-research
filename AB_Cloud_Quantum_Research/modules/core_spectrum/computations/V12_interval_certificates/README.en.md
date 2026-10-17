@@ -30,7 +30,7 @@ Are the numerical bounds guaranteed? Gershgorin in rational arithmetic + residua
 |---|---|---|
 | Campaign | V12 (plan Solution 12) | committed verdict |
 | Key numbers | 5/5 certificates contain the true λ; width ~1e-27; Gershgorin [−4.21, 4.21] covers the spectrum. | measured/proved |
-| Verdict note | все сертификаты содержат истинные значения; интервалы — гарантированные, а не десятичные допуски; точность 1e-15 в float ≠ математическая точность модели (план, Решение 12) | honest |
+| Verdict note | all certificates contain the true values; the intervals are guaranteed, not decimal tolerances; 1e-15 accuracy in float ≠ the mathematical accuracy of the model (plan, Solution 12) | honest |
 
 ## Method
 
@@ -40,7 +40,7 @@ rpbridge/intervalcert.py: fractions radii; the Kato estimate δ²/gap; exact gap
 
 | File | Where |
 |---|---|
-| `fig12_en.png` | 600 dpi — `figures_hires/en/`; infographics — `figures/en/` |
+| `fig12_en.png` | 600 dpi — `../../figures_hires/en/`; infographics — `figures/en/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/intervalcert.py: fractions radii; the Kato estimate δ²/gap; exact gap
 | File | Content |
 |---|---|
 | `data/v12_verdict.json` | committed verdict of the campaign |
-| `computations/V12_interval_certificates/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Гарантированные интервалы', 'en': 'Key numbers carry guaranteed intervals'}**
+**Key numbers carry guaranteed intervals**
 
 ---
 

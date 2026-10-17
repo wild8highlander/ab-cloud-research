@@ -23,8 +23,11 @@ the committed protocol or stops the release.
 | File | Role |
 |------|------|
 | `PROTOCOL.md` | the rules and the registry of checks IVP01–IVP10 |
-| `RUN_ALL.sh` | the full run (rebuilds the C twin when `cc` is available) |
 | `RESULTS.md` | the committed verdict table of the last run |
+
+The checks themselves are implemented in `../hpbridge/validate.py`
+(`run_all()`), which executes IVP01–IVP10 — and, since v2.0, IVP11–IVP18 —
+directly from the committed data.
 
 The four protocol rules behind the registry:
 
@@ -57,19 +60,11 @@ Registry of checks (thresholds exactly as fixed in `PROTOCOL.md`):
 ## How to use it
 
 ```bash
-make ivp
-```
-
-or directly:
-
-```bash
-bash independent_verification/RUN_ALL.sh
-# or programmatically:
 python3 -c "from hpbridge.validate import run_all; [print(r) for r in run_all()]"
 ```
 
-`RUN_ALL.sh` prints the series version and timestamp, rebuilds the C twin with
-`cc` when the toolchain is present, executes all ten checks, and finishes with
+The runner executes all ten checks (the IVP10 cross-language step rebuilds
+the C twin with `cc` when the toolchain is present) and finishes with
 the committed verdict table. Any difference from `RESULTS.md` is a
 release stopper.
 

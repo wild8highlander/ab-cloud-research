@@ -63,24 +63,24 @@ Hand-written Jacobi eigensolver, no LAPACK/BLAS; details in
 - **`cargo: command not found`** — install rustup: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`.
 - First build compiles only your crate (no deps) — a few seconds.
 
-## Кратко (по-русски)
+## Summary
 
-- Реализация на Rust ≥ 1.70, cargo-проект вообще без внешних крейтов.
-- `cargo run --release -- --zeros 50000 --source 500k --objection all` —
-  CLI и вердикты идентичны эталону на Python.
-- `spinor38/` — отдельный cargo-проект порта Test 38 (алгоритм Якоби,
-  без LAPACK), данные читаются из `../spinor64/data/`.
+- Rust ≥ 1.70, a cargo project with no external crates at all.
+- `cargo run --release -- --zeros 50000 --source 500k --objection all` — the CLI and
+  verdicts are identical to the Python reference.
+- `spinor38/` — a separate cargo project for the Test 38 port (Jacobi algorithm, no
+  LAPACK); the frozen data is read from `../spinor64/data/`.
 
 ## 📁 Complete file inventory
 
 | Entry | Size | Kind |
 |---|---|---|
-| `spinor38/` | 3 files, 8.5 KB | directory |
-| `src/` | 3 files, 33.5 KB | directory |
+| `spinor38/` | 3 files, 10.4 KB | directory |
+| `src/` | 3 files, 32.4 KB | directory |
 | `Cargo.toml` | 182 B | file |
-| `README.md` | 2.2 KB | file |
-| `run_verify.sh` | 1.8 KB | file |
-| **Total (recursive)** | **9 files, 46.1 KB** | |
+| `README.md` | 6.0 KB | file |
+| `run_verify.sh` | 185 B | file |
+| **Total (recursive)** | **9 files, 49.7 KB** | |
 
 ## 🔬 Deep dive — the Rust port in the parity matrix
 
@@ -125,18 +125,3 @@ same one-line command shown above. The Test-38 companion lives in
 `spinor38/` where present, and the spinor64 correction experiment — the
 one that established 64/64 GUE-consistency for the Klein-quartic
 structures — lives in `../spinor64/`.
-
-## Кратко (по-русски)
-
-- Порт существует для доказательства паритета: одинаковые замороженные
-  данные, тот же набор тестов, те же эталонные числа (KS = 0.047,
-  p = 0.27; дефект 3.5e-15; ⟨r⟩ = 0.5848 ± 0.0260).
-- Флаги одинаковы во всех десяти реализациях — одна и та же командная
-  строка проигрывается в каждой папке.
-- Расхождение с эталоном трактуется как баг порта, а не как открытие.
-
-- Cargo-крейт: main (оркестрация) + verify_en/verify_ru;
-  spinor38 — отдельный крейт.
-- Владение буферами исключает use-after-free и гонки; --release даёт
-  нативную скорость по таблицам 500k/2M.
-- Ноль внешних крейтов — офлайн-сборка; CI-представитель компилируемых портов.

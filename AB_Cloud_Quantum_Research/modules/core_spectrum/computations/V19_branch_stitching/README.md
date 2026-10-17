@@ -1,10 +1,10 @@
-# Функция V19 · Сшивка ветвей алгебраической функции
+# V19 · Branch Stitching of the Algebraic Function
 
 ![version](https://img.shields.io/badge/version-1.2.0-298bbc) ![](https://img.shields.io/badge/series-V01--V19-3b4f58) ![](https://img.shields.io/badge/status-honest-3a6b4f)
 
-> **Как сшить ветви полной алгебраической функции критической прямой? Механизм hodge-laboratory: монодромная склейка листов и точный фазовый закон ζ^{ra+sb}.**
+> **How to stitch the branches of the full algebraic function of the critical line? The hodge-laboratory mechanism: monodromic sheet gluing and the exact phase law ζ^{ra+sb}.**
 
-[← Back to the main README](../../README.ru.md)
+[← Back to the main README](../../README.md)
 
 ## Contents
 
@@ -22,25 +22,25 @@
 
 ## Campaign question
 
-Как сшить ветви полной алгебраической функции критической прямой? Механизм hodge-laboratory: монодромная склейка листов и точный фазовый закон ζ^{ra+sb}.
+How to stitch the branches of the full algebraic function of the critical line? The hodge-laboratory mechanism: monodromic sheet gluing and the exact phase law ζ^{ra+sb}.
 
 ## Results
 
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V19 (plan Solution 19) | committed verdict |
-| Key numbers | Фазовый закон 1.3e-40; ортогональность 225/5.1e-30; чередование 1999/1999; замыкание 138=138 (dev 5.0e-10); θ-лестница 0.832; когерентность 0.9995 (z = 43.4); flagship 4.5e-40. | measured/proved |
-| Verdict note | ALGEBRAIC_CERTIFICATE: Γ-фаза несёт оба признака | honest |
+| Key numbers | Phase law 1.3e-40; orthogonality 225/5.1e-30; alternation 1999/1999; closure 138=138 (dev 5.0e-10); θ ladder 0.832; coherence 0.9995 (z = 43.4); flagship 4.5e-40. | measured/proved |
+| Verdict note | ALGEBRAIC_CERTIFICATE: the Γ-phase carries both signatures | honest |
 
 ## Method
 
-rpbridge/stitching.py, четыре слоя: A — эталон (Ферма-накрытие, tanh-sinh по гладкой параметризации t = w^N/(w^N+(1−w)^N)); B — Z₂-монодромия Z_id (чередование знаков, аргументное замыкание); C — сшитый объект (Γ-фаза: θ-лестница + знаковая когерентность); D — регрессия R1/R2/R4.
+rpbridge/stitching.py, four layers: A — the reference (the Fermat cover, tanh-sinh along the smooth parametrization t = w^N/(w^N+(1−w)^N)); B — the Z₂ monodromy of Z_id (sign alternation, the argument closure); C — the stitched object (the Γ-phase: the θ ladder + sign coherence); D — the R1/R2/R4 regression.
 
 ## Figures
 
 | File | Where |
 |---|---|
-| `fig20_ru.png` | 600 dpi — `figures_hires/ru/`; infographics — `figures/ru/` |
+| `fig20_ru.png` | 600 dpi — `../../figures_hires/ru/`; infographics — `figures/ru/` |
 
 ## Monographs
 
@@ -53,8 +53,8 @@ rpbridge/stitching.py, четыре слоя: A — эталон (Ферма-н�
 
 | File | Content |
 |---|---|
-| `data/v19_verdict.json` | committed verdict of the campaign |
-| `computations/V19_branch_stitching/data/` | campaign artifacts |
+| `data/results.json` | committed verdict of the campaign |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,8 +75,8 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'ALGEBRAIC_CERTIFICATE: Γ-фаза несёт оба признака', 'en': 'ALGEBRAIC_CERTIFICATE: the Γ-phase carries both signatures'}**
+**ALGEBRAIC_CERTIFICATE: all exact layers closed, the Γ-phase carries both signatures**
 
 ---
 
-*AB Research Program v1.1.0 · V19 · Сшивка ветвей алгебраической функции*
+*AB Research Program v1.1.0 · V19 · Branch Stitching of the Algebraic Function*

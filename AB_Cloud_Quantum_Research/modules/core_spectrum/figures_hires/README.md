@@ -1,6 +1,6 @@
-# figures_hires/ — печатные рисунки 600 dpi
+# figures_hires/ — print-grade 600 dpi figures
 
-16 сюжетов × ru/en: fig01 (слепой контроль) … fig16 (карта программы).
-Тема — light (печатная). Источник: `scripts/make_figures.py`; данные —
-только закоммиченные вердикты data/. Копии для экрана и монографий —
+20 plots × ru/en: fig01 (blind control) … fig20 (branch stitching).
+Theme — light (print). Source: `scripts/make_figures.py`; data —
+committed verdicts from data/ only. Screen and monograph copies —
 `computations/V*/figures/{ru,en}/`.

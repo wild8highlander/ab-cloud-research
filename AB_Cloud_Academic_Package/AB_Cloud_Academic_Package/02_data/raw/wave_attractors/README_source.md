@@ -5,6 +5,15 @@ an anisotropic (hyperbolic) cavity — a numerical reproduction of
 "Hyperbolic wave attractors" (Nature Physics, 2026, CUNY ASRC), packaged as
 study W1 of the AB-Cloud Research repository.**
 
+> [!NOTE]
+> **Bundling scope.** This is a preserved copy of the study's own README. This
+> bundle ships the study's committed data outputs — the E1–E7 CSV/JSON
+> summaries, the ray dumps, the cross-verification JSONs,
+> `AB_water_metrics.json`, `REPRODUCIBILITY.json` and `REPRODUCING.md` —
+> flattened at the folder root. The `scripts/`, `data/`, `figures/`,
+> `report/` and `docs/` trees shown below are not bundled; they live in the
+> upstream repository.
+
 A popular account of the reference experiment (in Russian) is available at
 [Naked Science, 30.09.2026](https://naked-science.ru/article/physics/volny-samoorganizovalis-vstrukturu).
 

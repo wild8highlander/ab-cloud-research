@@ -40,8 +40,9 @@ data in v2 also lives here, under `zeros/`.
 | (C8 — see computations/C8_stats_ladder/data/) | C8 | ladder of 11 channels, spinor64 |
 | zeros/zeros_mpmath_n800.npz | v2 | internal cache of ζ zeros (mpmath 1.3, dps=25, bit-for-bit reproducible) — the only zero source of v2; the external Odlyzko file is not used |
 
-The `zeros/` subfolder also holds a smaller sibling cache,
-`zeros/zeros_mpmath_n100.npz`, of the same mpmath provenance; the v2
+The `zeros/` subfolder also holds smaller sibling caches of the same
+mpmath provenance — `zeros/zeros_mpmath_n30.npz`, `zeros/zeros_mpmath_n60.npz`
+and `zeros/zeros_mpmath_n100.npz`; the v2
 protocol itself is bound to the n800 cache named above.
 
 ### Anatomy of a verdict
@@ -73,10 +74,7 @@ human-readable exports of the same gate tables.
 
 ## The v2 rules
 
-| zeros/zeros_mpmath_n800.npz | v2 | internal cache of ζ zeros (mpmath 1.3, dps=25, bit-for-bit reproducible) — the only zero source of v2; the external Odlyzko file is not used |
-|---|---|---|
-
-5. The package depends on no external data file whatsoever: the zeros are
+**5.** The package depends on no external data file whatsoever: the zeros are
    the internal cache; campaigns C9–C16 are self-sufficient.
 
 Rule 5 is the quiet revolution of v2. In v1 the only third-party artifact
@@ -96,9 +94,9 @@ precision, so the whole package is reproducible from source alone.
 - **Run the test suite.** `python3 -m pytest tests/ -q` checks the
   committed verdicts themselves; if a verdict JSON were corrupted or a
   pipeline drifted, the suite would catch it.
-- **Regenerate the evidence (optional).** The independent verification
-  protocol, `bash independent_verification/RUN_ALL.sh`, rebuilds the
-  verdicts from scratch and must reproduce them bit-for-bit (rule 3).
+- **Replay the verification (optional).** The independent verification
+  protocol, `hpbridge.validate.run_all`, replays the blind checks against
+  the committed verdicts and must reproduce them bit-for-bit (rule 3).
 - **Feed the explorer.** The v2 explorer replays committed data through
   its three tabs; its live gate works against the internal zero cache of
   this folder.
@@ -129,7 +127,7 @@ against the 1e-30 threshold of `docs/validation.md`.
 `python3 campaigns/run_c1_identity.py` — and compare its printed verdict
 with the JSON it reads from this folder; they must agree line for line.
 
-**Rebuild the evidence from scratch.** `bash independent_verification/RUN_ALL.sh`
+**Replay the verification protocol.** `python3 -c "from hpbridge.validate import run_all; [print(r) for r in run_all()]"`
 runs the IVP; by rule 3 it must reproduce every committed verdict
 bit-for-bit, including the seeded vortex streams behind the gate tables.
 
@@ -196,7 +194,7 @@ C6 (primes), C7 (dynamics), C8 (statistics).
 - **ZFILE** — the path variable for the external Odlyzko zero file
   (2 001 052 heights); optional in v1, unused in v2.
 - **IVP** — the independent verification protocol (IVP01–IVP10 in v1,
-  IVP01–18 in v2), driven by `independent_verification/RUN_ALL.sh`.
+  IVP01–18 in v2), implemented in `hpbridge/validate.py`.
 - **N̄(γ), Λ(n)** — the Riemann–von Mangoldt smooth count used to unfold
   the zero side, and the von Mangoldt weight of the prime side (C6).
 

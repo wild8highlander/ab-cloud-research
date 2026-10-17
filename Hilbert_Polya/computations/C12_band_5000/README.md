@@ -67,11 +67,11 @@ R4 is the roadmap item that turns a scale question into a settled theorem: the m
 ## Reproduction
 
 ```bash
-python3 campaigns/run_c12_band_5000.py
+python3 campaigns/run_c12_band5000.py
 ```
 
 Fresh runs are self-contained: the zeta zeros come from the internal
-mpmath cache (`data/zeros/`), no external files. Runtime: seconds to
+mpmath cache (`../../data/zeros/`), no external files. Runtime: seconds to
 minutes (C12 is segmented; see `campaigns/run_c12_band5000.py`).
 
 The segmented workflow (verbatim from the v2 quick start in the main README):
@@ -87,7 +87,7 @@ python3 campaigns/run_c12_band5000.py --assemble
 
 | File | Where |
 |---|---|
-| `fig20_band5000.png` | 600 dpi — `figures_hires/ru|en/fig20_band5000_ru|en.png`; copy in `figures/ru|en/` |
+| `fig20_band5000_{ru,en}.png` | this folder's `figures/{ru,en}/`; 600 dpi mirrors — top-level `figures_hires/{ru,en}/fig20_band5000_{ru,en}.png` |
 
 | File | Content |
 |---|---|
@@ -99,9 +99,9 @@ In this campaign folder the committed payload is `data/results.json` (anchors, S
 ## Verdict
 
 See `data/results.json` (verdict, RU+EN), the v2 monograph
-(`monograph/v2_volume/`) and `independent_verification/` (IVP11–18).
+(`../../monograph/v2_volume/`) and `../../independent_verification/` (IVP11–18).
 
-Committed verdict (EN, verbatim): "RH verified in the band T ≤ 5000: N_online = N_strip = 4520, S_max = 0.91 ≤ 2, v1 anchors reproduced, Z↔ζ bridge at machine precision." The statement of T14 and the certification protocol (Turing monitor plus strip windows) are in `monograph/theorems_v2_volume/`.
+Committed verdict (EN, verbatim): "RH verified in the band T ≤ 5000: N_online = N_strip = 4520, S_max = 0.91 ≤ 2, v1 anchors reproduced, Z↔ζ bridge at machine precision." The statement of T14 and the certification protocol (Turing monitor plus strip windows) are in `../../monograph/theorems_v2_volume/`.
 
 ## FAQ
 

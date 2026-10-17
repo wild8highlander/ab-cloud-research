@@ -173,7 +173,7 @@ web_lab/index.html   # open in a browser — everything is local
 
 ```
 AB Research Program/
-├── README.md / README.ru.md       ← this file (EN/RU)
+├── README.md / README.ru.md       ← this file (EN) + a language note (RU)
 ├── rpbridge/                      ← python core: zeros, stats, blind,
 │                                    nullmodels, critical_line, operator,
 │                                    limits, spectral_identity, traceformula,
@@ -210,7 +210,8 @@ AB Research Program/
 
 ## Computations (V1–V19)
 
-Each computation lives in `computations/VNN_slug/` with a bilingual
+Each computation lives in its own folder under `computations/` (for
+example, `computations/V01_blind_spectrum/`) with a bilingual
 README, its own monograph in Russian and English (DOCX + PDF), a figure
 in both languages and committed data:
 

@@ -1,27 +1,27 @@
-# Прогон {{RUN_NAME}}
+# Run {{RUN_NAME}}
 
-> RH-Sweep PRO · AB-облако ↔ ζ-нули · {{SHORT_DESCRIPTION}}
-> Дата: {{DATE}} · Julia {{JULIA_VERSION}} · {{PLATFORM}}
+> RH-Sweep PRO · AB cloud ↔ ζ zeros · {{SHORT_DESCRIPTION}}
+> Date: {{DATE}} · Julia {{JULIA_VERSION}} · {{PLATFORM}}
 
 ## TL;DR
 
-| Величина | Значение | Комментарий |
+| Quantity | Value | Comment |
 |:--|:--|:--|
-| Лучший Score | {{SCORE}} / 100 | {{SCORE_MINUS_FLOOR}} выше GUE-пола метода |
-| Тесты RMT | {{TESTS_PASSED}}/{{TESTS_TOTAL}} | {{FAILED_TESTS_LIST}} |
-| Конфигурация | α = {{ALPHA}}, W = {{W}}, σ = {{SIGMA}} | вихри: {{N_VORTICES}} × {{LAYOUT}} |
-| ⟨r⟩ | {{R_MEAN}} | R_GUE = 0.5996 · класс {{R_CLASS}} |
-| K corr(GUE) / corr(ζ) | {{K_GUE}} / {{K_ZETA}} | {{N_ZETA}} ζ-нулей · {{N_EIGS}} соб. значений |
-| Решётка | L = {{L}} ({{MATRIX_DIM}}) · {{N_SEEDS}} реализаций | N_AB/N_ζ = {{RATIO}} |
+| Best Score | {{SCORE}} / 100 | {{SCORE_MINUS_FLOOR}} above the GUE floor of the method |
+| RMT tests | {{TESTS_PASSED}}/{{TESTS_TOTAL}} | {{FAILED_TESTS_LIST}} |
+| Configuration | α = {{ALPHA}}, W = {{W}}, σ = {{SIGMA}} | vortices: {{N_VORTICES}} × {{LAYOUT}} |
+| ⟨r⟩ | {{R_MEAN}} | R_GUE = 0.5996 · class {{R_CLASS}} |
+| K corr(GUE) / corr(ζ) | {{K_GUE}} / {{K_ZETA}} | {{N_ZETA}} ζ zeros · {{N_EIGS}} eigenvalues |
+| Lattice | L = {{L}} ({{MATRIX_DIM}}) · {{N_SEEDS}} realizations | N_AB/N_ζ = {{RATIO}} |
 
-**Рекомендация одной строкой:** {{ONE_LINE_RECOMMENDATION}}
+**One-line recommendation:** {{ONE_LINE_RECOMMENDATION}}
 
-## Вердикты (11 тестов)
+## Verdicts (11 tests)
 
 - [{{X1}}] 1. ⟨r⟩ ≈ R_GUE (|d_GUE| < 0.05)
-- [{{X2}}] 2. R₂(s) ближе к GUE, чем к Пуассону
-- [{{X3}}] 3. K(t) коррелирует с K(ζ)
-- [{{X4}}] 4. Σ²(L) ближе к GUE, чем к Пуассону
+- [{{X2}}] 2. R₂(s) closer to GUE than to Poisson
+- [{{X3}}] 3. K(t) correlates with K(ζ)
+- [{{X4}}] 4. Σ²(L) closer to GUE than to Poisson
 - [{{X5}}] 5. Δ₃(L) RMS < 0.5
 - [{{X6}}] 6. p(s) RMS < 0.2
 - [{{X7}}] 7. χ² Wigner < 0.5
@@ -30,23 +30,23 @@
 - [{{X10}}] 10. E(s=1) ≈ 0.171 ± 0.15
 - [{{X11}}] 11. ⟨r̃⟩ ≈ 0.3602 ± 0.05
 
-## Что в этой папке
+## What is in this folder
 
-| Путь | Что это |
+| Path | What it is |
 |:--|:--|
-| `plots/` | 01 — 6-панельное сравнение с GUE/Poisson/ζ; 02 — ζ в AB-облаке; 05 — 7 панелей новых метрик |
-| `csv/metrics.csv` | строка на конфигурацию: 37 колонок — см. `DATA_DICTIONARY.md` |
-| `csv/ab_eigs.txt` | {{N_EIGS}} центральных собственных значений (сырой спектр) |
-| `csv/zeta_zeros.txt` | использованные ζ-нули |
-| `txt/report.txt` | консольный протокол прогона |
-| `json/results.json` | лучшая точка в машинном виде |
-| `config.json` | снапшот всех 35 полей RHConfig + окружение |
-| `manifest.sha256` | контрольные суммы всех файлов (целостность) |
-| `curves/` | кривые метрик CSV — независимый пересчёт без Julia |
-| `sensitivity/` | история sweep, разрезы по параметрам, multi-seed значимость |
-| `gue_floor.json` | GUE-пол метода на данной выборке |
+| `plots/` | 01 — 6-panel comparison with GUE/Poisson/ζ; 02 — ζ inside the AB cloud; 05 — 7 panels of new metrics |
+| `csv/metrics.csv` | one row per configuration: 37 columns — see `DATA_DICTIONARY.md` |
+| `csv/ab_eigs.txt` | {{N_EIGS}} central eigenvalues (raw spectrum) |
+| `csv/zeta_zeros.txt` | the ζ zeros used |
+| `txt/report.txt` | console protocol of the run |
+| `json/results.json` | the best point in machine-readable form |
+| `config.json` | snapshot of all 35 RHConfig fields + environment |
+| `manifest.sha256` | checksums of all files (integrity) |
+| `curves/` | CSV metric curves — independent recomputation without Julia |
+| `sensitivity/` | sweep history, parameter cuts, multi-seed significance |
+| `gue_floor.json` | the GUE floor of the method on this sample |
 
-## Воспроизведение
+## Reproduction
 
 ```bash
 julia -e 'include("RH_Sweep_Pro_D.jl");
@@ -56,12 +56,12 @@ julia -e 'include("RH_Sweep_Pro_D.jl");
           run(cfg)'
 ```
 
-Сид-конвенция и правила детерминированности — `RUN_PROTOCOL.md`.
-Заявление о воспроизводимости: побайтовое совпадение — только на той же
-платформе (Julia {{JULIA_VERSION}} + {{BLAS}}).
+The seed convention and determinism rules — `RUN_PROTOCOL.md`.
+Reproducibility statement: byte-identical output only on the same
+platform (Julia {{JULIA_VERSION}} + {{BLAS}}).
 
-## Ограничения
+## Limitations
 
 {{LIMITATIONS}}
-<!-- пример: одиночная точка (не скан) · одна платформа · N_ζ = 5000 из 13 661 ·
-     N_v = 6 — нижняя граница рабочего окна · E(s=1) не пройден -->
+<!-- example: a single point (not a scan) · one platform · N_ζ = 5000 of 13 661 ·
+     N_v = 6 — the lower boundary of the working window · E(s=1) failed -->

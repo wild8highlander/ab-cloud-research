@@ -1,36 +1,36 @@
-# audit/ — внешний аудит пакета и его результаты
+# audit/ — external audit of the package and its results
 
-*13 октября 2026 · аудиторы: независимая сессия (Super Z) · коммит e913629 (v2.0.0)*
+*October 13, 2026 · auditors: an independent session (Super Z) · commit e913629 (v2.0.0)*
 
-## Что здесь
+## What is here
 
-| Файл | Содержание |
-|------|------------|
-| `HPB_audit_canonization_2026-10-13_ru.pdf` | отчёт аудита (PDF, 30 стр., русский) |
-| `HPB_audit_canonization_2026-10-13_ru.docx` | тот же отчёт в DOCX |
-| `src/` | источники отчёта: контент-модули, сборщики PDF (ReportLab) и DOCX (docx-js) |
+| File | Contents |
+|------|----------|
+| `HPB_audit_canonization_2026-10-13_ru.pdf` | the audit report (PDF, 30 pages, Russian) |
+| `HPB_audit_canonization_2026-10-13_ru.docx` | the same report as DOCX |
+| `src/` | the report's sources: content modules `audit_content.py`, `audit_content2.py`, `audit_content3.py`, the structured dump `content.json`, the PDF builder `audit_build.py` (ReportLab) and the DOCX builder `audit_docx.js` (docx-js) |
 
-## Вердикты одной таблицей
+## The verdicts in one table
 
-| Область | Вердикт |
-|---------|---------|
-| Воспроизводимость пиксельного конвейера | ПОДТВЕРЖДЕНО (PNG бит-в-бит, witness 17/17, 1.26e-7) |
-| Видео ↔ README/H.8 | ПОДТВЕРЖДЕНО С ЗАМЕЧАНИЯМИ (дрейф схемы артефакта — исправлен; скрипт сборки mp4 отсутствует) |
-| Монографический слой | КАНОНИЗИРОВАНО (canon_volume; прежние тома — детальные приложения) |
-| Числа content ↔ RESULTS ↔ preprint ↔ data | РАСХОЖДЕНИЙ НЕТ (выборка 30 позиций) |
-| Дорожная карта | РАСШИРЕНА (N7 — слепая независимость H; N8 — литературные якоря) |
+| Area | Verdict |
+|------|---------|
+| Reproducibility of the pixel pipeline | CONFIRMED (PNG bit-for-bit, witness 17/17, 1.26e-7) |
+| Video ↔ README/H.8 | CONFIRMED WITH REMARKS (drift of the artifact scheme — fixed; the mp4 build script is missing) |
+| The monograph layer | CANONIZED (canon_volume; the former volumes are detailed appendices) |
+| Numbers content ↔ RESULTS ↔ preprint ↔ data | NO DISCREPANCIES (a 30-position sample) |
+| The roadmap | EXTENDED (N7 — blind independence of H; N8 — literature anchors) |
 
-## Как пересобрать отчёт
+## How to rebuild the report
 
 ```bash
-python3 audit/src/audit_build.py                                  # PDF (вывод — в audit/)
+python3 audit/src/audit_build.py                                  # PDF (output goes to audit/)
 node   audit/src/audit_docx.js audit/HPB_audit_canonization_2026-10-13_ru.docx
 ```
 
-Вывод PDF идёт в `audit/` репозитория (переменные окружения `PDF_SKILL` и
-`AUDIT_OUT_DIR` позволяют переопределить путь к скиллу обложки и каталог
-вывода). Оглавление DOCX строится самим `audit_docx.js`; отдельный скрипт
-плейсхолдеров не требуется.
+The PDF output goes to the repository's `audit/` (the environment variables
+`PDF_SKILL` and `AUDIT_OUT_DIR` override the cover-skill path and the output
+directory). The DOCX table of contents is built by `audit_docx.js` itself; no
+separate placeholder script is needed.
 
-Источники контента отчёта — `src/audit_content*.py`; правки текста вносятся
-только туда с последующей пересборкой.
+The report's content sources are `src/audit_content*.py`; text edits go only
+there, followed by a rebuild.

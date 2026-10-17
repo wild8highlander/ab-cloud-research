@@ -9,7 +9,7 @@ number the monographs quote.**
 
 [![Julia](https://img.shields.io/badge/Julia-1.10%2B-9558B2?style=flat-square&logo=julia&logoColor=white)](https://julialang.org)
 [![Tests](https://img.shields.io/badge/tests-39%20%C3%97%202%20passes-2EA043?style=flat-square)](#-the-39-tests-grouped)
-[![Lines](https://img.shields.io/badge/lines-32%20095%20%C2%B7%20one%20file-C96F4A?style=flat-square)](#-files)
+[![Lines](https://img.shields.io/badge/lines-32%20187%20%C2%B7%20one%20file-C96F4A?style=flat-square)](#-files)
 [![Deps](https://img.shields.io/badge/dependencies-stdlib%20only-3A6B4F?style=flat-square)](#-files)
 [![CI](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/julia.yml?branch=main&style=flat-square&label=Julia%20CI)](https://github.com/wild8highlander/ab-cloud-research/actions/workflows/julia.yml)
 [![bN](https://img.shields.io/badge/b(50000)-1.2126-4FB3BE?style=flat-square)](#-the-39-tests-grouped)
@@ -52,7 +52,7 @@ This folder holds the **canonical numerical program** of the project. Language: 
 
 | File | Size | What it is |
 |---|---|---|
-| `ab_cloud_full.jl` | 32 095 lines | **canonical suite** — 39 registered tests, two-pass protocol, report engine (md/html/pdf/docx/png/gif), interactive menu, Physics Lab (H1–H7 gates), 3D lab, Test-34G geometry sweep |
+| `ab_cloud_full.jl` | 32 187 lines | **canonical suite** — 39 registered tests, two-pass protocol, report engine (md/html/pdf/docx/png/gif), interactive menu, Physics Lab (H1–H7 gates), 3D lab, Test-34G geometry sweep |
 | `RH_Unified_D.jl` · `RH_Sweep_Pro_D.jl` | ~8 800 lines | standalone RH sweep benches |
 | `hp_audit_standalone.jl` | 6 054 lines | standalone Hilbert–Pólya audit battery |
 | `julia/` | provenance copy | suite provenance archive — see [`julia/README.md`](julia/README.md) |

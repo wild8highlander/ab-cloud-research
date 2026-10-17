@@ -169,7 +169,7 @@ Monographs: `monograph_ru.docx` · `monograph_ru.pdf` · `monograph_en.docx` · 
 
 ## Verdict
 
-**{'ru': 'результат Г2 устойчив: всё семейство в классе GUE (классе нулей ζ) на всех шести новых ручках', 'en': 'the H2 result is stable: the whole family in the GUE class (the zeros\' class) across all six new handles'}** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign).
+**The H2 result is stable: the whole family in the GUE class (the zeros' class) across all six new handles** — details: `data/results.json`, the monograph, and `independent_verification/` (IVP checks of this campaign).
 
 ## FAQ
 

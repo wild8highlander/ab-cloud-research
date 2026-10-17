@@ -36,11 +36,11 @@ Universality is an attractor, not a witness: it erases everything except the sym
 ## Reproduction
 
 ```bash
-python3 campaigns/run_c14_anomaly_hunt.py
+python3 campaigns/run_c14_anomaly.py
 ```
 
 Fresh runs are self-contained: the zeta zeros come from the internal
-mpmath cache (`data/zeros/`), no external files. Runtime: seconds to
+mpmath cache (`../../data/zeros/`), no external files. Runtime: seconds to
 minutes (C12 is segmented; see `campaigns/run_c12_band5000.py`).
 The committed run completes in 11.4 s.
 
@@ -48,16 +48,16 @@ The committed run completes in 11.4 s.
 
 | File | Where |
 |---|---|
-| `fig22_anomaly.png` | 600 dpi — `figures_hires/ru|en/fig22_anomaly_ru|en.png`; copy in `figures/ru|en/` |
+| `fig22_anomaly_{ru,en}.png` | this folder's `figures/{ru,en}/`; 600 dpi mirrors — top-level `figures_hires/{ru,en}/fig22_anomaly_{ru,en}.png` |
 | `data/results.json` | committed verdict |
 | `data/*.npz` / `*.csv` | curves and tables |
 
-`data/results.json` stores the criterion, the per-configuration records (r_mean, KS statistics and p-values against GUE/GOE/Poisson, nearest ensemble, class, r_H7); `data/scan_table.csv` is the flat 121-row table behind `fig22_anomaly.png`.
+`data/results.json` stores the criterion, the per-configuration records (r_mean, KS statistics and p-values against GUE/GOE/Poisson, nearest ensemble, class, r_H7); `data/scan_table.csv` is the flat 121-row table behind `fig22_anomaly_{ru,en}.png`.
 
 ## Verdict
 
 See `data/results.json` (verdict, RU+EN), the v2 monograph
-(`monograph/v2_volume/`) and `independent_verification/` (IVP11–18).
+(`../../monograph/v2_volume/`) and `../../independent_verification/` (IVP11–18).
 
 The committed English verdict reads: *"Scan of 121 configurations: 18 flags are the expected integrable clean lattice (Nv=0, Poisson, consistent with C8); among VORTEX configs anomalies: 6 (borderline KS signature of the quasiperiodic BF2 family, at the criterion threshold); no |r_H7| > 0.35 (max 0.153). The GUE attractor is global for all vortex-carrying configs; no sensation — the universality boundary is rigid."*
 
@@ -80,7 +80,7 @@ T16 is scoped to the extended zoo as scanned — the protocol grid plus the blin
 - [C8 · Statistics ladder](../C8_stats_ladder/README.md) — the Poisson/GOE/GUE ladder and spinor64 (T8, T10).
 - [C13 · Blind families](../C13_blind_families/README.md) — the design side of the same two-sided check (T15).
 - [C5 · Gates extended](../C5_gates_extended/README.md) — ⟨r⟩ = 0.569–0.633 (mean 0.601) across the six-handle family (v2.0.5 regeneration).
-- `docs/v2/overview.md`, `monograph/v2_volume/`, `results/RESULTS.md` (row 28).
+- `../../docs/v2/overview.md`, `../../monograph/v2_volume/`, `../../results/RESULTS.md` (row 28).
 
 ---
 *Hilbert Polya Bridge v2.0.0 · C14*

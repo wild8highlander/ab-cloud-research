@@ -25,7 +25,7 @@ Run `julia --project=. code/ab_cloud_full.jl` from the repository root (v23 is t
 
 | Item | Kind | Size | What it is |
 |---|---|---|---|
-| `FINAL_REPORT/` | folder | 6 items | consolidated final report in .md/.html/.pdf/.docx + logs/ + per-test reports — start here |
+| `FINAL_REPORT/` | folder | 6 items | consolidated final report (`final_report.md`/`.html`/`.pdf`/`.docx`) + `logs/` + per-test `reports/` — start here |
 | [`index.html`](index.html) | HTML | 14.4 KB | interactive landing page for the whole run (per-test cards, verdicts, timings) |
 | `test_01_bN_convergence/` | folder | 5 items | b(N) = 1.2126 at N = 50,000 — finite-size correction converged — ledger verdict `PASS` |
 | `test_02_bN_monotonicity/` | folder | 5 items | 0 monotonicity violations across 499 windows — ledger verdict `PASS` |

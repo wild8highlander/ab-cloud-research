@@ -1,10 +1,10 @@
-# Функция V7 · Арифметическая формула следа (Th6)
+# V7 · The Arithmetic Trace Formula (Th6)
 
 ![version](https://img.shields.io/badge/version-1.2.0-298bbc) ![](https://img.shields.io/badge/series-V01--V19-3b4f58) ![](https://img.shields.io/badge/status-honest-3a6b4f)
 
-> **Живёт ли вес простых в тепловом следе? Гуинанд–Вейль для H_ξ с контролируемым остатком.**
+> **Does the prime weight live in the heat trace? Guinand–Weil for H_ξ with a controlled remainder.**
 
-[← Back to the main README](../../README.ru.md)
+[← Back to the main README](../../README.md)
 
 ## Contents
 
@@ -22,25 +22,25 @@
 
 ## Campaign question
 
-Живёт ли вес простых в тепловом следе? Гуинанд–Вейль для H_ξ с контролируемым остатком.
+Does the prime weight live in the heat trace? Guinand–Weil for H_ξ with a controlled remainder.
 
 ## Results
 
 | Quantity | Value | Status |
 |---|---|---|
 | Campaign | V07 (plan Solution 7) | committed verdict |
-| Key numbers | |ΔQ| ≤ 4.6e-8; |ΔK| ≤ 6.9e-6; B + C₀ = 2.5e-10; PC0 r = +0.9996 (resid 0.027); затворы: resid ≥ 0.115, лучший (Nv = 16, рабочее окно) r_EF = 0.993 — разрыв 0.63 порядка по невязке (консервативная ветвь лестницы сходимости). | measured/proved |
-| Verdict note | вес простых Λ(n)/√n доказательно живёт в тепловом следе H_ξ (Th6: |ΔK| ≤ 5e-5); следовая ветвь затворов консервативна (v2.0.8): лучший затвор батареи (Nv = 16) достигает r_EF = 0.993 при невязке 11.5% против 2.7% у эталона нулей (≈0.63 порядка — конечноразмерная ветвь лестницы сходимости); семейство в среднем — в нулевых облаках (0.76 ± 0.24) | honest |
+| Key numbers | \|ΔQ\| ≤ 4.6e-8; \|ΔK\| ≤ 6.9e-6; B + C₀ = 2.5e-10; PC0 r = +0.9996 (resid 0.027); gates: resid ≥ 0.115, best (Nv = 16, the working window) r_EF = 0.993 — a 0.63-order gap by residual (the conservative branch of the convergence ladder). | measured/proved |
+| Verdict note | the prime weight Λ(n)/√n provably lives in the heat trace of H_ξ (Th6: \|ΔK\| ≤ 5e-5); the trace branch of the gates is conservative (v2.0.8): the best gate of the battery (Nv = 16) reaches r_EF = 0.993 with an 11.5% residual against 2.7% for the zero reference (≈0.63 orders — the finite-size branch of the convergence ladder); on average the family sits in the zero clouds (0.76 ± 0.24) | honest |
 
 ## Method
 
-rpbridge/arithmetic_trace.py + traceformula.py: произведение Адамара → Q(a) → синус-преобразование; решето Λ до 2·10⁶; PC0.
+rpbridge/arithmetic_trace.py + traceformula.py: the Hadamard product → Q(a) → the sine transform; Λ-sieve to 2·10⁶; PC0.
 
 ## Figures
 
 | File | Where |
 |---|---|
-| `fig07_ru.png` | 600 dpi — `figures_hires/ru/`; infographics — `figures/ru/` |
+| `fig07_ru.png` | 600 dpi — `../../figures_hires/ru/`; infographics — `figures/ru/` |
 
 ## Monographs
 
@@ -54,7 +54,7 @@ rpbridge/arithmetic_trace.py + traceformula.py: произведение Ада�
 | File | Content |
 |---|---|
 | `data/v07_verdict.json` | committed verdict of the campaign |
-| `computations/V07_arithmetic_trace/data/` | campaign artifacts |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,8 +75,8 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Th6 доказана и верифицирована; вес простых — в H_ξ, не в затворах', 'en': 'Th6 proved and verified; prime weight in H_ξ, not gates'}**
+**Th6 proved and verified; prime weight in H_ξ, not gates**
 
 ---
 
-*AB Research Program v1.1.0 · V07 · Арифметическая формула следа (Th6)*
+*AB Research Program v1.1.0 · V07 · The Arithmetic Trace Formula (Th6)*

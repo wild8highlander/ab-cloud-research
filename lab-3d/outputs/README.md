@@ -39,21 +39,9 @@ python3 ab_cloud_3d_en.py    # choose mode G / H / I / J in the menu
 ## Reading the reports
 
 Start with `<mode>.md` — it has the verdict table with raw numbers; the
-`.json` holds the same data machine-readably; `_summary.csv` is convenient
-for spreadsheets. Figure files are numbered to match the section order of
-the `.md` report.
-
-## Кратко (по-русски)
-
-- Четыре зафиксированных прогона 3D-лаборатории от 2026-07-31: полная
-  верификация (G), глубокий анализ нулей (H), мост AB↔Риман (I), продвинутая
-  3D-визуализация (J).
-- В каждой папке: json/md/txt/html-отчёты, summary.csv и все рисунки в
-  PDF+PNG.
-- Ключевые числа: ⟨r⟩ = 0.6159 (GUE 0.5996), KS p = 0.27–0.88, Z = 14.10σ,
-  Arf = 0 на всех масштабах, W = 1.
-- Воспроизводится из `../code/` меню-режимами G/H/I/J с фиксированными
-  seed'ами.
+`.json` holds the same data machine-readably; `<mode>_summary.csv` is
+convenient for spreadsheets. Figure files are numbered to match the section
+order of the `.md` report.
 
 ## 📁 Complete file inventory
 

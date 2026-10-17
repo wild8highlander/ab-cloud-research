@@ -30,7 +30,7 @@ Does the AB operator work as a processor — gates, entanglement, a game? Three 
 |---|---|---|
 | Campaign | V18 (plan Solution 18) | committed verdict |
 | Key numbers | All six gate fidelities 1.0 − 2e-16; concurrence 0.984 (t = 2.373); an AB-Pong game: score 0:1, 10 intercepts, 411 events, bit-exact replay. | measured/proved |
-| Verdict note | Процессор — ДА | honest |
+| Verdict note | processor — YES | honest |
 
 ## Method
 
@@ -40,7 +40,7 @@ rpbridge/processor.py: P1 — analytic pulses {X,Y,Z,H,S,T} on the block H₂ = 
 
 | File | Where |
 |---|---|
-| `fig19_en.png` | 600 dpi — `figures_hires/en/`; infographics — `figures/en/` |
+| `fig19_en.png` | 600 dpi — `../../figures_hires/en/`; infographics — `figures/en/` |
 
 ## Monographs
 
@@ -53,8 +53,8 @@ rpbridge/processor.py: P1 — analytic pulses {X,Y,Z,H,S,T} on the block H₂ = 
 
 | File | Content |
 |---|---|
-| `data/v18_verdict.json` | committed verdict of the campaign |
-| `computations/V18_ab_processor/data/` | campaign artifacts |
+| `data/results.json` | committed verdict of the campaign |
+| `data/` | campaign artifacts |
 
 ## Reproduction
 
@@ -75,7 +75,7 @@ python3 -m pytest tests/ -q                     # theorem machinery
 
 ## Verdict
 
-**{'ru': 'Процессор — ДА', 'en': 'Processor — YES: exact gates, near-Bell entanglement, the game runs deterministically'}**
+**Processor — YES: exact gates, near-Bell entanglement, the game runs deterministically**
 
 ---
 

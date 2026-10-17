@@ -7,7 +7,7 @@
 **Everything the Julia suite produced on paper-worthy runs, committed so the numbers in the
 monographs are checkable without running anything.**
 
-[![Files](https://img.shields.io/badge/files-456%20%C2%B7%208.4%20MB-0E7C86?style=flat-square)](#-complete-file-inventory)
+[![Files](https://img.shields.io/badge/files-459%20%C2%B7%208.4%20MB-0E7C86?style=flat-square)](#-complete-file-inventory)
 [![Tests](https://img.shields.io/badge/tests-37%20%C2%B7%20two%20passes-2EA043?style=flat-square)](#-run_202609022026134759--layout)
 [![Reference run](https://img.shields.io/badge/reference%20run-2026--09--02%20%C2%B7%20Julia%201.12.0-4FB3BE?style=flat-square)](#-run_202609022026134759--layout)
 [![Zeros](https://img.shields.io/badge/zeros-50%20000%20Odlyzko-9558B2?style=flat-square)](#-run_202609022026134759--layout)
@@ -15,7 +15,7 @@ monographs are checkable without running anything.**
 [![KS](https://img.shields.io/badge/Montgomery%20KS-0.047%20%C2%B7%20p%3D0.27-3A6B4F?style=flat-square)](#-the-37-tests-folder-names-are-self-describing)
 [![Reproduce](https://img.shields.io/badge/reproduce-30--60%20min%20%C2%B7%20seeded-8C6D1F?style=flat-square)](#-regenerating-the-plots)
 
-[Layout](#-run_202609022026134759--layout) · [The 37 tests](#-the-37-tests-folder-names-are-self-describing) · [Regenerating plots](#-regenerating-the-plots) · [Flat logs](#-flat-reference-logs) · [How to read](#-how-to-read-a-run-folder) · [Deep dive](#-deep-dive--anatomy-of-the-flagship-run) · [Кратко](#-кратко-по-русски)
+[Layout](#-run_202609022026134759--layout) · [The 37 tests](#-the-37-tests-folder-names-are-self-describing) · [Regenerating plots](#-regenerating-the-plots) · [Flat logs](#-flat-reference-logs) · [How to read](#-how-to-read-a-run-folder) · [Deep dive](#-deep-dive--anatomy-of-the-flagship-run)
 
 </div>
 
@@ -34,7 +34,6 @@ monographs are checkable without running anything.**
 6. [🧭 How to read a run folder](#-how-to-read-a-run-folder)
 7. [🔬 Deep dive — anatomy of the flagship run](#-deep-dive--anatomy-of-the-flagship-run)
 8. [📁 Complete file inventory](#-complete-file-inventory)
-9. [🇷🇺 Кратко (по-русски)](#-кратко-по-русски)
 
 </details>
 
@@ -91,8 +90,8 @@ lists the plots that the suite regenerates.
 | # | Test | # | Test |
 |---|---|---|---|
 | 01 | bN_convergence | 20 | … |
-| 02 | bN_monotonicity | … | full list: `ls results/run_20260902_134759/` |
-| 03 | bN_rate | … | the suite's own docs: `code/ab_cloud_v19.jl` header |
+| 02 | bN_monotonicity | … | full list: `ls run_20260902_134759/` |
+| 03 | bN_rate | … | the suite's own docs: `code/julia/ab_cloud_full.jl` header |
 | 04 | gue_ks_full | … | |
 | … | | 36 | byte_robust |
 | … | | 37 | half_factorial_gamma |
@@ -109,11 +108,11 @@ The plots were stripped from the committed run to keep the repository light (the
 ~600 dpi PNG + SVG + PDF + GIF per figure). Reproduce the whole run including plots:
 
 ```bash
-julia code/ab_cloud_v19.jl --test all      # 30–60 min; writes a NEW timestamped run folder
+julia code/julia/ab_cloud_full.jl --test all      # 30–60 min; writes a NEW timestamped run folder
 ```
 
 The committed `run_20260902_134759` numbers are reproducible because the suite is seeded and
-reads the frozen data in [`verification/data/`](../verification/data/).
+reads the frozen data in [`verification/data/`](../../../verification/data/).
 
 ---
 
@@ -165,7 +164,7 @@ The two flat logs beside the run directory serve as the historical baseline: the
 v18 37-test run (the first full-suite pass, referenced by the earlier monograph builds) and
 the v19 verification report header/config dump from 2026-09-02 (the exact configuration of
 the flagship run). To reproduce rather than just read: install Julia 1.12, point the suite at
-`verification/data/` and run `code/ab_cloud_v19.jl` — the frozen inputs guarantee
+`verification/data/` and run `code/julia/ab_cloud_full.jl` — the frozen inputs guarantee
 byte-identical statistics.
 
 ---
@@ -174,29 +173,11 @@ byte-identical statistics.
 
 | Entry | Size | Kind |
 |---|---|---|
-| `run_20260902_134759/` | 453 files, 7.3 MB | directory |
+| `run_20260902_134759/` | 454 files, 7.5 MB | directory |
 | `README.md` | 4.5 KB | file |
 | `ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt` | 986.5 KB | file |
 | `verification_run_v18_37tests_2026-08-28.txt` | 58.3 KB | file |
-| **Total (recursive)** | **456 files, 8.4 MB** | |
-
----
-
-## 🇷🇺 Кратко (по-русски)
-
-- Артефакты прогона v19 от 2026-09-02: 37 тестов, два прохода (второй — HARDCORE 96×96),
-  Julia 1.12.0, 50 000 нулей Одлыжко.
-- Структура: по папке на тест (report md/pdf/docx/html + computation_log + stdout),
-  FINAL_REPORT, index.html; графики из прогона исключены и воспроизводятся набором
-  `julia code/ab_cloud_v19.jl --test all`.
-- Плюс два плоских журнала: прогон v18 от 2026-08-28 (основа монографии v22) и конфиг-дамп
-  верификационного отчёта v19.
-- Читать так: index.html → computation_log.txt теста → report.md → FINAL_REPORT.
-- `run_20260902_134759/` — полный артефакт-сет двухпроходного прогона v19; PNG-графики
-  прогона сознательно не закоммичены (в каталоге 453 текстовых файла — отчёты, таблицы,
-  логи): детерминированно пересоздаются набором; все цитируемые числа хранятся текстом.
-- Проверка числа: FINAL_REPORT → index.html → каталог теста → отчёт/лог. Рядом два
-  плоских лога-бейслайна (v18 от 2026-08-28 и конфиг v19).
+| **Total (recursive)** | **459 files, 8.4 MB** | |
 
 ---
 
