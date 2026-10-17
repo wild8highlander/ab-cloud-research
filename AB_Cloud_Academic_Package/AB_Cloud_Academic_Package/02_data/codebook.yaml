@@ -2,7 +2,9 @@ codebook: AB-Cloud unified package
 verdicts:
   YES: claim supported within numerical certificates
   NO: claim not supported; failure measured and documented
-  CERTIFIED: RH-only; V13 obligation machine verdict (unlocked v1.2.1: 0 assumptions); upgraded to PROVEN only by a proof of O11 ∀n
+  CERTIFIED: >-
+    RH-only; V13 obligation machine verdict (unlocked v1.2.1: 0 assumptions);
+    upgraded to PROVEN only by a proof of O11 ∀n
 campaign_series:
   V: spectral core / processor (AB_Cloud_Quantum_Research)
   E: blind verification (Julia platform)

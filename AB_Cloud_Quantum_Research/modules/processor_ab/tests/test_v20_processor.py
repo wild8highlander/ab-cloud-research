@@ -8,6 +8,12 @@ import pytest
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
+# Модуль 'rpbridge' существует в двух пакетах (core_spectrum и processor_ab).
+# При сборе всех тестов одним процессом (pytest от корня) чужой пакет может
+# уже лежать в sys.modules — сбрасываем, чтобы импорт взял свой.
+for _m in [m for m in sys.modules if m == "rpbridge" or m.startswith("rpbridge.")]:
+    del sys.modules[_m]
+
 from rpbridge import alu, compiler as C, isa, memory            # noqa: E402
 from rpbridge import nonlocality as NL                          # noqa: E402
 

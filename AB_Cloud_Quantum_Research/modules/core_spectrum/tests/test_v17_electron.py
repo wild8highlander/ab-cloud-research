@@ -8,7 +8,9 @@
 """
 import numpy as np
 
-from rpbridge.electron import build_operator, propagate, run as run_v17
+from rpbridge.electron import (build_operator, propagate, run as run_v17,
+                               _gaussian_packet, LX, LY, SIGMA0, K0,
+                               Y_CENTER)
 from rpbridge.zeros import load_zeros
 
 
@@ -28,7 +30,6 @@ def test_honest_dynamics_energy():
     z = _zeros()
     H = build_operator('zeta', z)
     psi0 = None
-    from rpbridge.electron import _gaussian_packet, LX, LY, SIGMA0, K0, Y_CENTER
     psi0 = _gaussian_packet(LX, LY, 8.0, Y_CENTER, SIGMA0, K0)
     times = np.linspace(0.0, 4.0, 21)
     traj, E0, _ = propagate(H, psi0, times)

@@ -18,7 +18,7 @@ from rpbridge.stitching import (cover_sheets, cover_graph,
                                 phase_check, stitch_phase, stitch_closure,
                                 layer_a_reference, layer_b_transfer,
                                 sign_phase_coherence, theta_ladder,
-                                layer_d_regression)
+                                layer_d_regression, run as run_v19)
 from rpbridge.zeros import load_zeros
 
 
@@ -91,7 +91,6 @@ def test_layer_d_regression():
 
 
 def test_run_fast_verdict():
-    from rpbridge.stitching import run as run_v19
     v = run_v19(_zeros(), full=False)
     assert v['stitch_verdict'] == 'ALGEBRAIC_CERTIFICATE'
     assert v['layers_closed'] == dict(A=True, B=True, C=True, D=True)

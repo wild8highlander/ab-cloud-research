@@ -1,7 +1,8 @@
 """Sanity-тест порта: эрмитовость, поток ячейки, KS-согласование, развёртка."""
+import os
 import numpy as np
 import sys
-sys.path.insert(0, "/home/z/my-project/scripts")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import t34_engine as E
 from t34_engine import (build_ab_cloud_hamiltonian, random_vortex_configuration,
                         ks2sample, unfold_spacings, central_band_eigs,
@@ -54,8 +55,10 @@ r = ks_2samp(x, y, method="asymp")
 print(f"3) ks2sample D={D1:.5f} p={p1:.5f} | scipy D={r.statistic:.5f} p={r.pvalue:.5f}")
 assert abs(D1 - r.statistic) < 1e-12, "KS D mismatch!"
 
-# 4) ζ-развёртка
-zs = load_zeta("/home/z/my-project/ab-cloud-research/verification/data/zeta_zeros_50000_embedded.txt")
+# 4) ζ-развёртка (путь к данным — относительно корня репозитория)
+_REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+zs = load_zeta(os.path.join(_REPO, "verification", "data",
+                            "zeta_zeros_50000_embedded.txt"))
 print(f"4) ζ: {len(zs)} zeros; unfolded {len(E.ZETA_UNF)} spacings, mean={E.ZETA_UNF.mean():.6f}")
 
 # 5) Полный прогон маленькой конфигурации (L=24, Nv=2, q=1)

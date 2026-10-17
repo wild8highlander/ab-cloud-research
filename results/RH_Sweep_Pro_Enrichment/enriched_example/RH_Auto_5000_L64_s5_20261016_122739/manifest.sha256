@@ -2,13 +2,22 @@
 # run: RH_Auto_5000_L64_s5_20261016_122739
 # computed: 2026-10-16 (audit of the original archive)
 # tool: audit of RH_Sweep_Pro_Enrichment v1.0 · SHA-256 (FIPS 180-4)
-28c8966130c8dcdfed721d717470e422e7eb44c9b3a300399576a2c5e8500db3  csv/ab_eigs.txt  # 121509 B
-9e0a45957014912aeb2ae9b7ae793fbb3cded09c940fe85a64681c4684bfc040  csv/metrics.csv  # 1098 B
-1a501673047f0f4f113da4f180400aaee89ffc4a04948f0c72641f6013b29c64  csv/zeta_zeros.txt  # 91739 B
-3e7800d5a833f9635a88f95e70633b13614d53bf940d1805f496a2e4ab885fa7  json/results.json  # 830 B
-4c1554774bc689002a1e879501e4901f03307c6a4675f38d86ba3a4c61be6871  plots/01_6panel_comparison.png  # 218803 B
-92f9690377e107f3ed0a1e7d45826c3849e0dbb894775e83b9b046a94e2f4477  plots/02_zeta_in_ab_cloud.png  # 113844 B
-4fb7abbb383997bc41f5cf0b37a7886fec1db1e9bf088bdcc8ff0342dfa7aa50  plots/03_parameter_heatmap.png  # 21710 B
-13fef569bc78074bae53b638285e183518814cbe37ed7061de49d2b2bbbf58b1  plots/04_optimization_progress.png  # 20166 B
-dd54490a76cfd41ce86d85aaee7a26cccb4e421e65565376f4a562cf6c91cda8  plots/05_7panel_advanced.png  # 166868 B
-aa54779987254655faf7e937b2d701cff5a9973f3e51c9571ba84c5da1651c4e  txt/report.txt  # 4809 B
+
+# Files committed in git (machine-checked: sha256sum -c manifest.sha256):
+84aeaefb5439425238078acebc9af1b2bdfd003040cc4a810522bee569af255c  DATA_DICTIONARY.md
+bd426f72b3842cace292f2833179b921eb9c11a50e5b73d2ed6895441dcdffcd  README.md
+50ab5684a53de70b94f4048311abbc19c369994038a213c64346a8df9859132d  SUMMARY.md
+f0cefe130df4006fb49a70f550465881d10677050cbfd1a42552b69c2b8ca757  config.json
+
+# Original-archive listing — provenance only (csv/… json/… plots/…
+# txt/… live in the offline archive, not in git):
+# 28c8966130c8dcdfed721d717470e422e7eb44c9b3a300399576a2c5e8500db3  csv/ab_eigs.txt  (121509 B)
+# 9e0a45957014912aeb2ae9b7ae793fbb3cded09c940fe85a64681c4684bfc040  csv/metrics.csv  (1098 B)
+# 1a501673047f0f4f113da4f180400aaee89ffc4a04948f0c72641f6013b29c64  csv/zeta_zeros.txt  (91739 B)
+# 3e7800d5a833f9635a88f95e70633b13614d53bf940d1805f496a2e4ab885fa7  json/results.json  (830 B)
+# 4c1554774bc689002a1e879501e4901f03307c6a4675f38d86ba3a4c61be6871  plots/01_6panel_comparison.png  (218803 B)
+# 92f9690377e107f3ed0a1e7d45826c3849e0dbb894775e83b9b046a94e2f4477  plots/02_zeta_in_ab_cloud.png  (113844 B)
+# 4fb7abbb383997bc41f5cf0b37a7886fec1db1e9bf088bdcc8ff0342dfa7aa50  plots/03_parameter_heatmap.png  (21710 B)
+# 13fef569bc78074bae53b638285e183518814cbe37ed7061de49d2b2bbbf58b1  plots/04_optimization_progress.png  (20166 B)
+# dd54490a76cfd41ce86d85aaee7a26cccb4e421e65565376f4a562cf6c91cda8  plots/05_7panel_advanced.png  (166868 B)
+# aa54779987254655faf7e937b2d701cff5a9973f3e51c9571ba84c5da1651c4e  txt/report.txt  (4809 B)

@@ -11,7 +11,8 @@
 import numpy as np
 
 from rpbridge.fullham import (gate_spectrum_full, align_metric,
-                             permutation_null, handle_grid)
+                             permutation_null, handle_grid,
+                             run as run_v16)
 from rpbridge.zeros import load_zeros
 
 
@@ -59,7 +60,6 @@ def test_identity_does_not_close_full_space():
     алгебраической функции не воспроизводит Z_id (позитивный контроль
     внутри run() при этом даёт r = 1.0).
     """
-    from rpbridge.fullham import run as run_v16
     v = run_v16(_zeros(), full=False)
     assert v['summary']['identity_closed'] is False
     assert v['summary']['z_best'] < 6.0

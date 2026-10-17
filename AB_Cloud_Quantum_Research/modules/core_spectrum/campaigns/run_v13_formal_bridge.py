@@ -74,8 +74,8 @@ def report_lines(r):
         f"{str(r['axioms_force_block']).lower()}")
     lines.append(
         f"  SOUND         : {'YES' if r['machine_sound'] else 'NO'} "
-        f"— the machine blocks RH by construction, and every step it "
-        f"claims is machine-checked")
+        f"— every status the machine reports is checked live against "
+        f"committed artifacts, sources and verdict layers")
     return lines
 
 
@@ -97,11 +97,14 @@ def summary_markdown(r):
         f"{audit['n_axioms_total']} ({ax})\n\n"
         f"| Node | Status | Artifact | Depends on |\n"
         f"|---|---|---|---|\n{rows}\n\n"
-        f"**RH conclusion: `{r['rh_conclusion']}`** — blockers: "
-        f"{', '.join(r['rh_blockers'])}. "
-        "The blocking is enforced by construction: the path to the "
-        "conclusion contains assumed hypotheses (O08/O09/O11/O12), and any "
-        "declared reduction axiom keeps it in force.\n")
+        f"**RH conclusion: `{r['rh_conclusion'].upper()}`** — assumptions "
+        f"on the path: {len(r['rh_assumptions'])}"
+        + (f" ({', '.join(r['rh_assumptions'])})" if r['rh_assumptions']
+           else "")
+        + f"; non-proven nodes: {', '.join(r['rh_blockers']) or '—'}. "
+        "The conclusion upgrades to PROVEN automatically as soon as every "
+        "node on the path is a theorem (with O11 ∀n proven, O12 makes it "
+        "RH).\n")
 
 
 def main(argv):

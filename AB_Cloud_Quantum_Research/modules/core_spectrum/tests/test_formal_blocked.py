@@ -1,5 +1,5 @@
 """V13: DAG корректен; на пути RH нет ни одной гипотезы; вердикт — certified."""
-from rpbridge.formaloblig import check_dag, path_to_rh_blocked
+from rpbridge.formaloblig import check_dag, path_to_rh_blocked, OBLIGATIONS
 
 
 def test_dag_valid():
@@ -23,6 +23,5 @@ def test_verdict_certified():
 
 def test_o12_classical():
     """O12 (RH из критерия Ли) — классическая теорема: статус proven."""
-    from rpbridge.formaloblig import OBLIGATIONS
     st = {oid: status for oid, status, _, _ in OBLIGATIONS}
     assert st['O12'] == 'proven'

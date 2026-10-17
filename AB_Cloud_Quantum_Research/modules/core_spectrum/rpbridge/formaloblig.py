@@ -24,8 +24,16 @@
 """
 import json
 import os
+import re
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Repo geography: REPO = modules/core_spectrum; the quantum tree, the repo
+# root and the Academic Package live above it.
+QUANTUM_ROOT = os.path.dirname(os.path.dirname(REPO))
+GIT_ROOT = os.path.dirname(QUANTUM_ROOT)
+REGISTRY = os.path.join(GIT_ROOT, 'AB_Cloud_Academic_Package',
+                        'AB_Cloud_Academic_Package', '02_data', 'processed',
+                        'research_registry.json')
 
 # ── DAG обязательств (единый источник: formal/obligations.json) ────────────
 OBLIGATIONS = [
@@ -63,6 +71,179 @@ OBLIGATIONS = [
      'классика: Li (1997); Bombieri–Lagarias (1999) — RH ⇔ λ_n ≥ 0 ∀n',
      ['O11']),
 ]
+
+
+# ── B3: гейт артефактов ─────────────────────────────────────────────────
+
+def _artifact_tokens(artifact):
+    """Пути, спрятанные в описании артефакта.
+
+    Артефакт — человекочитаемая строка: пути могут идти списком через ' + ',
+    а довески в скобках (метрики, расшифровки) не являются путями.
+    'классика: …' — внешняя теорема (цитата вместо файла).
+    """
+    if artifact.startswith(('классика', 'classic')):
+        return []
+    # скобки бывают вложенными — 'λ_n(ξ)': снимаем с внутренней стороны наружу
+    stripped = artifact
+    while True:
+        peeled = re.sub(r'\([^()]*\)', ' ', stripped)
+        if peeled == stripped:
+            break
+        stripped = peeled
+    return [t.strip() for t in stripped.split('+') if t.strip()]
+
+
+def _artifact_exists(token):
+    """Путь ищется от ядра (core_spectrum), затем по дереву и по репозиторию."""
+    for base in (REPO, QUANTUM_ROOT, GIT_ROOT):
+        if os.path.exists(os.path.join(base, token)):
+            return True
+    return False
+
+
+def check_artifact_gate():
+    """B3: каждый узел ссылается на артефакт, который реально существует.
+
+    файл-доказательство / код / тест / вычисление — путь обязан разрешаться;
+    внешняя классика ('классика: …') — цитата, разрешается в литературу.
+    """
+    ok, msgs = True, []
+    for oid, _, artifact, _ in OBLIGATIONS:
+        tokens = _artifact_tokens(artifact)
+        if not tokens:
+            continue  # внешняя классика — артефакт-цитата
+        for t in tokens:
+            if not _artifact_exists(t):
+                ok = False
+                msgs.append(f'{oid}: артефакт не найден: {t}')
+    return {'ok': ok, 'messages': msgs, 'n_artifacts': len(OBLIGATIONS)}
+
+
+# ── B4: аудит формального слоя ─────────────────────────────────────────
+
+_COMMENT_STYLE = {
+    # sysname: (block_open, block_close, line_prefix)
+    'lean': ('/-', '-/', '--'),
+    'coq': ('(*', '*)', None),
+    'agda': ('{-', '-}', '--'),
+    'isabelle': ('(*', '*)', None),
+}
+_SOURCE_EXT = {'lean': '.lean', 'coq': '.v', 'agda': '.agda',
+               'isabelle': '.thy'}
+_UNFINISHED_RE = {
+    'lean': re.compile(r'\b(?:sorry|admit)\b'),
+    'coq': re.compile(r'\b(?:Admitted|admit|oops)\b'),
+    'agda': re.compile(r'\bsorry\b|\{!'),
+    'isabelle': re.compile(r'\b(?:sorry|oops)\b'),
+}
+_AXIOM_RE = {
+    'lean': re.compile(r'^\s*axiom\s', re.M),
+    'coq': re.compile(r'^\s*Axiom\s', re.M),
+    'agda': re.compile(r'^\s*postulate\s', re.M),
+    'isabelle': re.compile(r'axiomatization', re.M),
+}
+
+
+def _strip_comments(text, block_open, block_close, line_prefix):
+    """Удаляет блочные и строчные комментарии (для честного поиска маркеров)."""
+    out, i, n = [], 0, len(text)
+    while i < n:
+        if block_open and text.startswith(block_open, i):
+            j = text.find(block_close, i + len(block_open))
+            i = n if j < 0 else j + len(block_close)
+            out.append(' ')
+        elif line_prefix and text.startswith(line_prefix, i):
+            j = text.find('\n', i)
+            i = n if j < 0 else j  # перевод строки сохраняем
+        else:
+            out.append(text[i])
+            i += 1
+    return ''.join(out)
+
+
+def audit_formal_layer():
+    """B4: sorry/oops = 0 в lean/coq/agda/isabelle; подсчёт аксиом редукции.
+
+    Маркеры ищутся только вне комментариев: упоминание 'sorry' в
+    документирующем комментарии ('sorry не используется') — не незавершённое
+    доказательство. Аксиомы честно считаются по каждой системе.
+    """
+    systems, clean = {}, True
+    for sysname, (b_open, b_close, line) in _COMMENT_STYLE.items():
+        d = os.path.join(REPO, 'formal', sysname)
+        files, unfinished, n_axioms = [], [], 0
+        if os.path.isdir(d):
+            for fn in sorted(os.listdir(d)):
+                if not fn.endswith(_SOURCE_EXT[sysname]):
+                    continue
+                rel = os.path.join('formal', sysname, fn)
+                files.append(rel)
+                raw = open(os.path.join(d, fn), encoding='utf-8').read()
+                code = _strip_comments(raw, b_open, b_close, line)
+                for m in _UNFINISHED_RE[sysname].finditer(code):
+                    line_no = code.count('\n', 0, m.start()) + 1
+                    unfinished.append(f'{rel}:{line_no}: unfinished proof '
+                                      f"marker '{m.group(0)}'")
+                n_axioms += len(_AXIOM_RE[sysname].findall(code))
+        if unfinished:
+            clean = False
+        systems[sysname] = {'files': files, 'unfinished_proofs': unfinished,
+                            'n_axioms': n_axioms}
+    total = sum(s['n_axioms'] for s in systems.values())
+    return {'clean': clean, 'n_axioms_total': total, 'systems': systems}
+
+
+# ── B5: согласие закоммиченных вердиктов ────────────────────────────────
+
+def check_verdict_consistency(conclusion):
+    """B5: то, что закоммичено как вердикт, совпадает с машиной.
+
+    a) formal/obligations.json (единый источник с этим модулем): узлы
+       (id, статус, зависимости) и верхний вердикт совпадают с машиной;
+    b) реестр вердиктов Academic Package: позиция RH совпадает с машиной
+       (PROVEN/CERTIFIED/BLOCKED — регистронезависимо).
+    Дрейф любого из слоёв делает машину несостоятельной (SOUND: NO).
+    """
+    ok, msgs = True, []
+    try:
+        j = json.load(open(os.path.join(REPO, 'formal', 'obligations.json'),
+                           encoding='utf-8'))
+    except Exception as e:
+        return {'ok': False,
+                'messages': [f'formal/obligations.json не читается: {e}']}
+    jnodes = {n['id']: n for n in j.get('nodes', [])}
+    pnodes = {o[0]: {'status': o[1], 'deps': o[3]} for o in OBLIGATIONS}
+    if set(jnodes) != set(pnodes):
+        ok = False
+        msgs.append(f'obligations.json: узлы {sorted(jnodes)} != '
+                    f'машина {sorted(pnodes)}')
+    for nid in sorted(set(jnodes) & set(pnodes)):
+        if jnodes[nid].get('status') != pnodes[nid]['status']:
+            ok = False
+            msgs.append(f"{nid}: статус в obligations.json "
+                        f"{jnodes[nid].get('status')} != машина "
+                        f"{pnodes[nid]['status']}")
+        if list(jnodes[nid].get('deps', [])) != list(pnodes[nid]['deps']):
+            ok = False
+            msgs.append(f"{nid}: зависимости в obligations.json "
+                        f"{jnodes[nid].get('deps')} != машина "
+                        f"{pnodes[nid]['deps']}")
+    if str(j.get('verdict', '')).lower() != conclusion:
+        ok = False
+        msgs.append(f"obligations.json: вердикт {j.get('verdict')} != "
+                    f"вывод машины {conclusion}")
+    try:
+        reg = json.load(open(REGISTRY, encoding='utf-8'))
+        rh = next(v for v in reg['verdicts'] if v.get('id') == 'RH')
+        if str(rh.get('verdict', '')).lower() != conclusion:
+            ok = False
+            msgs.append(f"реестр вердиктов: RH {rh.get('verdict')} != "
+                        f"вывод машины {conclusion}")
+    except (OSError, StopIteration, ValueError) as e:
+        ok = False
+        msgs.append(f'реестр вердиктов недоступен/непоследователен: {e}')
+    return {'ok': ok, 'messages': msgs}
 
 
 def load_formal_sources():
@@ -144,6 +325,10 @@ def run():
     ok, msgs = check_dag()
     blk = path_to_rh_blocked()
     formal = load_formal_sources()
+    gate = check_artifact_gate()
+    audit = audit_formal_layer()
+    verdict = check_verdict_consistency(blk['conclusion'])
+    sound = bool(ok and gate['ok'] and audit['clean'] and verdict['ok'])
     statuses = {oid: status for oid, status, _, _ in OBLIGATIONS}
     note = ('машина РАЗБЛОКИРОВАНА: на пути O01→O12 нет ни одной гипотезы — '
             'O12 доказан классически (Li 1997; Bombieri–Lagarias 1999: '
@@ -164,5 +349,12 @@ def run():
         'n_computed': sum(1 for s in statuses.values() if s == 'computed'),
         'n_assumed': sum(1 for s in statuses.values() if s == 'assumed'),
         'formal_sources': formal,
+        'artifact_gate': gate,
+        'formal_audit': audit,
+        'verdict_consistency': verdict,
+        'machine_sound': sound,
+        # объявленные аксиомы редукции держат вывод ниже PROVEN по
+        # формальному слою (пока формальная линия опирается на A1–A6)
+        'axioms_force_block': bool(audit['n_axioms_total']),
         'verdict_note': note,
     }
