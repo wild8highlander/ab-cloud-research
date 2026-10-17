@@ -1,0 +1,109 @@
+name: Repo integrity
+
+# Whole-repository file integrity beyond the per-language parse gates:
+#   1. workflow-triggers — every workflow's push/pull_request branch filter
+#                          must include main (catches silently-dead CI);
+#   2. checksums        — every committed SHA256 manifest must verify
+#                         (SHA256SUMS.txt, manifest.sha256, checksums.sha256);
+#   3. csv              — every tracked .csv must parse (stdlib csv);
+#   4. svg-xml          — every tracked .svg/.xml/.xsd must be well-formed;
+#   5. notebooks        — every .ipynb must be valid nbformat.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repo-integrity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  workflow-triggers:
+    name: Workflow trigger sanity
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - name: Every branch filter must include main; every workflow must declare "on"
+        run: python3 .github/scripts/check_workflow_triggers.py
+
+  checksums:
+    name: SHA256 manifests verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - name: Verify every committed checksum manifest in place
+        run: |
+          set -euo pipefail
+          n=0
+          while IFS= read -r -d '' man; do
+            dir=$(dirname "$man")
+            echo "::group::$man"
+            (cd "$dir" && sha256sum -c "$(basename "$man")" --quiet) ||
+              echo "::error file=$man::checksum manifest verification failed"
+            echo "::endgroup::"
+            n=$((n + 1))
+          done < <(git ls-files -z '*SHA256SUMS.txt' '*manifest.sha256' '*checksums.sha256' '*.sha256' | sort -z)
+          echo "verified $n checksum manifest(s)"
+          [ "$n" -gt 0 ] || echo "::warning::no checksum manifests found"
+
+  csv:
+    name: CSV parse (every file)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Parse every tracked CSV file
+        run: python3 .github/scripts/check_csv_files.py
+
+  svg-xml:
+    name: SVG/XML well-formedness (every file)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Parse every tracked SVG/XML/XSD file
+        run: python3 .github/scripts/check_svg_xml.py
+
+  notebooks:
+    name: Notebook validity (every file)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Install nbformat
+        run: pip install --disable-pip-version-check nbformat
+      - name: Validate every tracked .ipynb
+        run: |
+          python3 - <<'PY'
+          import glob, subprocess, sys
+          import nbformat
+          nbs = subprocess.run(
+              ["git", "ls-files", "*.ipynb"], capture_output=True,
+              text=True).stdout.split()
+          bad = 0
+          for nb in sorted(nbs):
+              try:
+                  nbformat.validate(nbformat.read(nb, as_version=4))
+              except Exception as e:  # noqa: BLE001
+                  print(f"::error file={nb}::{type(e).__name__}: {e}")
+                  bad += 1
+          print(f"validated {len(nbs)} notebook(s), {bad} invalid")
+          sys.exit(1 if bad else 0)
+          PY

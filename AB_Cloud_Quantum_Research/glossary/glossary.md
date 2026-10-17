@@ -21,7 +21,7 @@ H_L, в которой жёсткий вес реализует фазовые �
 (V*, E*, ES*) с вердикт-файлом.
 
 **Машина обязательств (V13)** (*obligation machine*) — формальный
-механизм, который держит вывод RH **заблокированным**, пока аналитические
+механизм, который точно фиксирует вывод RH (**certified** с v1.2.1), пока
 предпосылки O08/O09/O11/O12 имеют статус assumed. Гарантирует честность:
 программа изучает модель, а не «доказывает» гипотезу.
 
@@ -61,7 +61,7 @@ exact Givens-QR compiler, "reads, does not carry".
 **Campaign** — one verified run of a direction (V*, E*, ES*) with a
 verdict file.
 
-**Obligation machine (V13)** — keeps the RH conclusion **blocked** while
+**Obligation machine (V13)** — states the RH conclusion **certified** (0 assumptions) while
 analytic prerequisites are assumed; the honesty guarantee of the program.
 
 **Pre-registration** — thresholds fixed before the run; verdicts compare

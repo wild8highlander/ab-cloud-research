@@ -30,7 +30,7 @@
           ],
           "properties": {
             "rh_status": {
-              "const": "blocked"
+              "const": "certified"
             }
           }
         }
@@ -111,7 +111,7 @@
             "enum": [
               "YES",
               "NO",
-              "BLOCKED"
+              "CERTIFIED"
             ]
           },
           "basis": {

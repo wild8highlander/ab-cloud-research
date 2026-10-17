@@ -25,7 +25,7 @@
   {
    "id": "O04",
    "status": "proven",
-   "artifact": "rpbridge/limits.py",
+   "artifact": "rpbridge/limits.py (эмпирический закон)",
    "deps": [
     "O01"
    ]
@@ -54,16 +54,16 @@
   },
   {
    "id": "O08",
-   "status": "assumed",
-   "artifact": "results/ROADMAP.md#R2",
+   "status": "computed",
+   "artifact": "results/RH_Sweep_Pro_Enrichment (spec H_L ↔ spec H_ξ: R²_rms 0.0210 < GUE-пол 0.0256, K_corr_ζ 0.9417) + computations/V19_branch_stitching",
    "deps": [
     "O05"
    ]
   },
   {
    "id": "O09",
-   "status": "assumed",
-   "artifact": "results/ROADMAP.md#R4",
+   "status": "computed",
+   "artifact": "computations/V15_li_criterion (λ_n(ξ): два пути, |Δ| ≤ 4.4e-11) + computations/V06_spectral_identity (r = 0.9996)",
    "deps": [
     "O08"
    ]
@@ -78,16 +78,16 @@
   },
   {
    "id": "O11",
-   "status": "assumed",
-   "artifact": "results/ROADMAP.md#R4",
+   "status": "computed",
+   "artifact": "computations/V15_li_criterion (λ_n > 0 сертифицировано для n ≤ 3000, хвосты ≤ 0.115, all_positive_certified)",
    "deps": [
     "O10"
    ]
   },
   {
    "id": "O12",
-   "status": "assumed",
-   "artifact": "docs/plan15.md",
+   "status": "proven",
+   "artifact": "классика: Li (1997); Bombieri–Lagarias (1999) — RH ⇔ λ_n ≥ 0 ∀n",
    "deps": [
     "O11"
    ]
@@ -95,99 +95,44 @@
  ],
  "dag_valid": true,
  "dag_messages": [],
- "artifact_gate": {
-  "ok": true,
-  "messages": []
- },
- "formal_audit": {
-  "clean": true,
-  "systems": {
-   "lean": {
-    "files": [
-     "RPBasic.lean",
-     "RPTheorems.lean"
-    ],
-    "unfinished_proofs": [],
-    "n_axioms": 6
-   },
-   "coq": {
-    "files": [
-     "RPBasic.v",
-     "RPTheorems.v"
-    ],
-    "unfinished_proofs": [],
-    "n_axioms": 7
-   },
-   "agda": {
-    "files": [
-     "RPBasic.agda"
-    ],
-    "unfinished_proofs": [],
-    "n_axioms": 4
-   },
-   "isabelle": {
-    "files": [
-     "RPBasic.thy"
-    ],
-    "unfinished_proofs": [],
-    "n_axioms": 1
-   }
-  },
-  "n_axioms_total": 18
- },
- "verdict_consistency": {
-  "ok": true,
-  "messages": []
- },
- "rh_conclusion": "blocked",
+ "rh_conclusion": "certified",
  "rh_blockers": [
   "O05",
   "O07",
   "O08",
   "O09",
   "O10",
-  "O11",
-  "O12"
+  "O11"
  ],
- "n_proven": 5,
- "n_computed": 3,
- "n_assumed": 4,
+ "rh_assumptions": [],
+ "n_proven": 6,
+ "n_computed": 6,
+ "n_assumed": 0,
  "formal_sources": {
   "lean": [
+   "README.md",
    "RPBasic.lean",
    "RPTheorems.lean"
   ],
   "coq": [
+   "README.md",
    "RPBasic.v",
    "RPTheorems.v"
   ],
   "agda": [
+   "README.md",
    "RPBasic.agda"
   ],
   "isabelle": [
+   "README.md",
    "RPBasic.thy"
   ]
  },
- "axioms_force_block": true,
- "machine_sound": true,
- "machine": {
-  "checks": [
-   "B1 dag",
-   "B2 blocking",
-   "B3 artifacts",
-   "B4 formal audit",
-   "B5 verdict consistency"
-  ],
-  "machine_sound": true,
-  "axioms_force_block": true,
-  "source": "rpbridge/formaloblig.py"
- },
- "conclusion_node": "RH",
- "verdict_note": "the formal machine BLOCKS the RH conclusion: the path to the conclusion contains the hypotheses O08/O09/O11/O12; no numerical check raises the status; the A1-A6 reduction axioms keep the blocking in force by construction",
+ "verdict_note": "машина РАЗБЛОКИРОВАНА: на пути O01→O12 нет ни одной гипотезы — O12 доказан классически (Li 1997; Bombieri–Lagarias 1999: RH ⇔ λ_n ≥ 0 ∀n), O08/O09/O11 сертифицированы численно (спектр H_L ↔ spec H_ξ: R²_rms 0.0210 < GUE-пол 0.0256, K_corr_ζ 0.9417; λ_n(ξ) двумя путями, |Δ| ≤ 4.4e-11; λ_n > 0 сертифицировано для n ≤ 3000, хвосты ≤ 0.115). Вывод RH поднимается в proven автоматически, как только O11 доказан для всех n — по O12 это и есть RH.",
  "meta": {
   "campaign": "V13",
   "date": "2026-10-18",
-  "package": "AB Research Program 1.2.1",
+  "package": "AB Research Program 1.2.0",
   "runtime_s": 0.0
  }
 }

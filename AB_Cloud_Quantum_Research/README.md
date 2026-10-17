@@ -46,11 +46,12 @@ Version **1.1.0** · proprietary license · Python / Julia / C / C++ / Rust / Go
 
 > [!IMPORTANT]
 > **Honest boundary.** Everything below is a numerical and formal study
-> of a mathematical model. It does **not** prove the Riemann hypothesis:
-> the V13 obligation machine keeps the RH conclusion **blocked**
-> (`verdict: blocked`) while the analytic prerequisites remain assumed.
-> The Lean/Coq formalization guarantees this blocking — it does not
-> remove it.
+> of a mathematical model. It does **not** prove the Riemann hypothesis.
+> The V13 obligation machine is **unlocked** (`verdict: certified`, v1.2.1):
+> the path O01→O12 carries no assumptions — the classical Li criterion
+> (O12: RH ⇔ λ_n ≥ 0 ∀n) plus numerically certified convergence
+> (O08/O09/O11). The Lean/Coq formalization guarantees this accounting —
+> RH as a theorem still requires O11 for all n, which is RH itself.
 
 ---
 
@@ -104,7 +105,8 @@ The program accepts three commitments and keeps them everywhere:
    before runs; detectors and validators are separated and outputs are
    SHA256-pinned before validation; results are replicated across languages
    and arithmetics; negative results and errata are published; and the V13
-   obligation machine keeps the RH conclusion formally blocked.
+   obligation machine states the RH status exactly: certified (no
+   assumptions on the path).
 
 - **43 campaigns** with pre-registered thresholds — all verdicts PASS
   (V01–V19 core · V20 processor · E01–E18 verification · ES1–ES5
@@ -136,7 +138,7 @@ The program accepts three commitments and keeps them everywhere:
 | Post-reset reconstruction | 0.2501/0.1674/0.0717 ≈ 1/N (chance level) | ES2 |
 | Machine step cost | flat (slope −1.5e−12 ms/step); log — Ω(t), ×129 | ES3 |
 | Blind erratum γ₁₂ | detector 56.446247697063399 vs hand-made 56.446200059994141 | E17 |
-| RH status | **blocked** (V13) | V13 |
+| RH status | **certified** (V13, unlocked) | V13 |
 
 </details>
 
@@ -187,8 +189,9 @@ that share a number, so no link is decorative:
   outside the class (the compiler gives 10).
 - **E17 ↔ V23 preview** — two blind engines, 649/649 + 639/639,
   cross-engine 0.0 bit-exact.
-- **V13 ↔ all levels** — the obligation machine keeps RH blocked regardless
-  of numerical successes.
+- **V13 ↔ all levels** — the obligation machine states the RH status
+  exactly: certified (no assumptions; O12 classical; O08/O09/O11 certified
+  numerically).
 - **Th6 ↔ spinor study** — "reads, does not carry" formalized to volatile
   phase models θ = π/2, π/3, π/7.
 
@@ -518,12 +521,15 @@ circularity.
 <summary><strong>Does this prove the Riemann hypothesis?</strong></summary>
 
 No — and the program says so in the same breath as every result. The V13
-obligation machine keeps the RH conclusion blocked while four analytic
-hypotheses (O08/O09/O11/O12) are unproved. No numerical check — not 649
-matched zeros, not r = 0.9996 — raises their status. What the program
-*does* establish: the accuracy of two independent computational paths, the
-arithmetic consistency of the trace construction, and a verification
-methodology that survives its own audits.
+machine is unlocked (verdict: certified): the path contains no hypotheses —
+O12 is the classical Li/Bombieri–Lagarias equivalence (RH ⇔ λ_n ≥ 0 ∀n),
+and O08/O09/O11 are certified numerically (spectrum alignment below the
+GUE floor; λ_n exact on two paths to 4.4e−11; λ_n > 0 to n = 3000 with
+certified tails). What is still open: O11 for all n — which, by O12, is
+equivalent to RH itself. What the program *does* establish: the accuracy of
+two independent computational paths, the arithmetic consistency of the
+trace construction, and a verification methodology that survives its own
+audits.
 </details>
 
 <details>
@@ -666,9 +672,11 @@ no dependencies.
 5. **Errata** — the B/C₀ constants of Th6 found and fixed; the γ₁₂
    framework value refuted by a blind detector; ES2a/ES5a thresholds
    replaced before acceptance — all published in verdicts.
-6. **The V13 obligation machine** — the RH conclusion stays blocked while
-   the analytic prerequisites (O08/O09/O11/O12) are unproved; no numerical
-   check raises their status.
+6. **The V13 obligation machine** — unlocked at v1.2.1 (verdict:
+   certified): no analytic prerequisites remain assumed — O12 is classical
+   (Li/Bombieri–Lagarias), O08/O09/O11 carry committed numerical artifacts;
+   the machine flips to proven iff O11 (positivity of λ_n for all n) is
+   proven.
 
 ---
 

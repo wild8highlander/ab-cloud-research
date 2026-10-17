@@ -31,4 +31,4 @@ def test_raw_is_readonly_registry(pkg):
     """The processed registry is the funnel — it must exist and carry honesty."""
     import json
     reg = json.loads((pkg / "02_data/processed/research_registry.json").read_text(encoding="utf-8"))
-    assert reg["programme"]["honest_boundary"]["rh_status"] == "blocked"
+    assert reg["programme"]["honest_boundary"]["rh_status"] == "certified"

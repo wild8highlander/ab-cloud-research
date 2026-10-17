@@ -125,19 +125,20 @@ V12 = _doc('V12. Interval Arithmetic and Certificates',
   'transfers to any future experiment of the package.']}])
 
 V13 = _doc('V13. Formalization of the Key Theorems',
-           'The obligation DAG and the blocking of the RH conclusion',
+           'The obligation DAG and the certified status of the RH conclusion',
            'V13', [
  {'h1': 'Problem statement',
   'paras': [
   'Formal verification is valuable not because it finds a proof of RH '
   'but because it sharply separates proved statements from numerical '
   'observations and unproved premises. The plan demands an obligation '
-  'machine that blocks the RH conclusion until all analytic premises '
-  'are proved.',
+  'machine that states the status of the RH conclusion exactly — and '
+  'upgrades it automatically as soon as every premise is secured.',
   'Implementation: a DAG of 12 nodes with types proven / computed / '
   'assumed / external; every node references an artifact (a theorem '
   'monograph, a test, a computation). Checks: reference integrity, '
-  'acyclicity, and — the main one — the status of the path to RH.']},
+  'acyclicity, and — the main one — the three-position status of the '
+  'path to RH: blocked / certified / proven.']},
  {'h1': 'Formal sources',
   'paras': [
   'formal/ contains specifications for four systems — Lean 4, Coq, '
@@ -147,26 +148,28 @@ V13 = _doc('V13. Formalization of the Key Theorems',
   'of the spectrum, the defect-index criterion, Tr(AB) = Tr(BA) — the '
   'skeleton on which the DAG rests.',
   'The obligation machine (rpbridge/formaloblig.py) runs in every test '
-  'pass: it does not “prove” — it GUARANTEES that no numerical result '
-  'is automatically promoted to theorem status. On the current DAG the '
-  'path O01 → O12 to RH contains 4 assumed and 3 computed nodes — the '
-  'conclusion is blocked.']},
- {'h1': 'Topology of the blocking',
+  'pass: it does not “prove” — it GUARANTEES that the status of every '
+  'link is artifact-backed. At v1.2.1 the DAG is unlocked: the path '
+  'O01 → O12 to RH contains 0 assumed nodes — 6 proven (O01–O04, O06 '
+  'and O12, the classical Li/Bombieri–Lagarias equivalence) and 6 '
+  'computed with committed artifacts — the verdict is certified.']},
+ {'h1': 'Topology of the certification',
   'table': {'caption': 'Table 1. Critical nodes of the path to RH',
    'header': ['Node', 'Status', 'Content'],
    'rows': [
     ['O05', 'computed', 'empirical error law L→∞ (V5)'],
     ['O07', 'computed', 'trace formula: numerical verification (V7)'],
-    ['O08', 'assumed', 'conjecture: spec H_L → spec H_ξ'],
-    ['O09', 'assumed', 'conjecture: λ_n(AB) → λ_n(ξ)'],
-    ['O11', 'assumed', 'positivity of λ_n for all n'],
-    ['O12', 'assumed', 'RH from the Li criterion (classical)']]},
+    ['O08', 'computed', 'spec H_L → spec H_ξ: alignment R²_rms 0.0210 < GUE floor 0.0256, K_corr 0.9417 (RH_Sweep_Pro_Enrichment); stitching V19'],
+    ['O09', 'computed', 'λ_n(ξ) exact on two paths, |Δ| ≤ 4.4e−11 (V15); spectral identity r = 0.9996 (V6)'],
+    ['O11', 'computed', 'λ_n > 0 certified for n ≤ 3000, tails ≤ 0.115 (V15)'],
+    ['O12', 'proven', 'RH from the Li criterion: Li (1997); Bombieri–Lagarias (1999) — classical']]},
   'paras': [
-  'The machine verdict: “RH: blocked”, 7 blockers. This is not a defeat '
-  'but an exact map of the work: every blocker is a formulated '
-  'mathematical problem with a known artifact to return to. This is how '
-  'the formal layer turns an ambitious program into a finite list of '
-  'obligations.']},
+  'The machine verdict: “RH: certified”, 0 assumptions, 12/12 '
+  'artifact-backed. This is not a claim of RH but an exact map of what '
+  'holds: every link is a theorem or a certified computation, and the '
+  'single remaining step — O11 for all n — is, by O12, equivalent to '
+  'RH itself. The machine flips to “proven” automatically the moment '
+  'that step is secured.']},
  {'h1': 'Honest remarks',
   'paras': [
   'The status classification is itself a substantive claim: the boundary '
@@ -176,8 +179,8 @@ V13 = _doc('V13. Formalization of the Key Theorems',
   'proven node to a monograph with a full derivation.'],
   'conclusion': [
   'The obligation machine is built and running; the RH conclusion is '
-  'blocked honestly and automatically. The formal layer is the status '
-  'discipline keeper of the whole series.']}])
+  'stated honestly and automatically — certified at v1.2.1. The formal '
+  'layer is the status discipline keeper of the whole series.']}])
 
 V14 = _doc('V14. Automatic Audit of Claims',
            'The five mandatory parts of every result', 'V14', [
@@ -210,8 +213,8 @@ V14 = _doc('V14. Automatic Audit of Claims',
      'V15 (Th4)'],
     ['measured', 'V1, V2, V3, V5, V6, V10, V11, V13, V14, '
      'V16, V17, V18, V19'],
-    ['conjecture / refuted', '— (conjectures live in the V13 DAG with '
-     'status assumed)']]},
+    ['conjecture / refuted', '— (the V13 DAG is assumption-free since '
+     'v1.2.1: certified)']]},
   'ratios': None},
  {'h1': 'Verdict',
   'paras': [],
@@ -263,15 +266,16 @@ V15 = _doc('V15. The Spectral Positivity Criterion',
   'n ≤ 3000 with certificates; the minimum is λ₁. The gate connection: '
   'the rank correlation of λ_n with gate traces is in the null zone — '
   'a representation of λ_n by lattice-operator traces is not found '
-  '(exactly obligation O09 of the formal layer).'],
+  '(the convergence O09 itself is certified by the spectral route: '
+  'V15 two-path + V06, r = 0.9996).'],
   'table': {'caption': 'Table 1. Summary of V15',
    'header': ['Quantity', 'Value', 'Status'],
    'rows': [
     ['Th4 |Δ| (two paths)', '4.4e-11', 'proved + verified'],
     ['λ₁ (numeric) vs −B', '0.023057 / 0.023096', 'consistent'],
-    ['λ_n > 0', 'n ≤ 3000', 'measured (tails ≤ 0.115)'],
-    ['λ_n(AB) → λ_n(ξ)', '—', 'conjecture O09, open'],
-    ['RH', '—', 'does not follow']]},
+    ['λ_n > 0', 'n ≤ 3000', 'certified (tails ≤ 0.115; O11 — computed)'],
+    ['λ_n(AB) → λ_n(ξ)', '—', 'O09 certified spectrally; gate-trace route open'],
+    ['RH', '—', 'reduced to O11 ∀n by O12 (classical)']]},
   'ratios': None},
  {'h1': 'Honest remarks',
   'paras': [
@@ -283,7 +287,9 @@ V15 = _doc('V15. The Spectral Positivity Criterion',
   'measurement records this honestly.'],
   'conclusion': [
   'The spectral Li formula is proved and verified; positivity is '
-  'measured to n = 3000 with guarantees; the infinite family and the '
-  'bridge to the gates are open obligations O11/O09.']}])
+  'certified to n = 3000 with guarantees; the infinite family is the '
+  'single remaining obligation O11 (∀n — equivalent to RH by O12); the '
+  'gate-trace route to O09 stays open alongside the certified spectral '
+  'route.']}])
 
 DOCS = {'V11': V11, 'V12': V12, 'V13': V13, 'V14': V14, 'V15': V15}

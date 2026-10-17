@@ -61,8 +61,8 @@ th { color:var(--copper); }
 'use strict';
 const PROG = [
  { dir:'core_spectrum/', ver:'Spectral Core · V01–V19',
-   ru:['Спектральное ядро V01–V19','19 кампаний, теоремы Th1–Th6, машина обязательств V13 (RH заблокирован), формальный слой Lean/Coq/Agda/Isabelle, веб-лаборатория на 10 вкладок, сшивка ветвей V19 (ALGEBRAIC_CERTIFICATE).'],
-   en:['Spectral core V01–V19','19 campaigns, theorems Th1–Th6, the V13 obligation machine (RH blocked), Lean/Coq/Agda/Isabelle formal layer, a 10-tab web lab, branch stitching V19 (ALGEBRAIC_CERTIFICATE).'] },
+   ru:['Спектральное ядро V01–V19','19 кампаний, теоремы Th1–Th6, машина обязательств V13 (RH certified — разблокирована, 0 гипотез), формальный слой Lean/Coq/Agda/Isabelle, веб-лаборатория на 10 вкладок, сшивка ветвей V19 (ALGEBRAIC_CERTIFICATE).'],
+   en:['Spectral core V01–V19','19 campaigns, theorems Th1–Th6, the V13 obligation machine (RH certified — unlocked, 0 assumptions), Lean/Coq/Agda/Isabelle formal layer, a 10-tab web lab, branch stitching V19 (ALGEBRAIC_CERTIFICATE).'] },
  { dir:'processor_ab/', ver:'AB Processor · V20 (P0)',
    ru:['Процессорный уровень V20 (P0)','ISA AB-облаков, точный компилятор Givens-QR (1−F ≤ 6.7e−16), считывание нулей «читает, не несёт», нелокальность без сигналинга; веб-лаборатория на 8 вкладок.'],
    en:['Processor level V20 (P0)','The AB-cloud ISA, the exact Givens-QR compiler (1−F ≤ 6.7e−16), zero reading that «reads, not carries», no-signaling nonlocality; an 8-tab web lab.'] },
@@ -92,7 +92,7 @@ ru: {
   thmh: 'Теоремы Th1–Th6: слой доказательств',
   formal: [['Формализация','formal/lean/RPTheorems.lean · formal/coq/RPTheorems.v — постановки Th1–Th6, редукции A1–A6, без sorry/admit'],
            ['Документы','theorems_lemmas/T0K_*/ — 24 файла (RU/EN × PDF/DOCX) + плиточные фигуры 2×2 @600 dpi'],
-           ['Машина обязательств','V13: вывод RH заблокирован — O08/O09/O11/O12 assumed'],
+           ['Машина обязательств','V13: вывод RH сертифицирован — 0 гипотез (O12 классика; O08/O09/O11 сертифицированы численно)'],
            ['Вспомогательное исследование','research/realtime_spinor_memory/ — спинорные фазовые модели π/2 · π/3 · π/7 машины без долговременной памяти; кампании ES1–ES5, теоремы TS1–TS3']],
   note: 'Дисциплина семейства: предрегистрированные пороги, слепые протоколы с SHA256-пинами, кросс-языковая репликация, публикация отрицательных результатов. Формализация гарантирует блокировку преждевременного вывода RH, а не доказательство гипотезы.'
 },
@@ -103,9 +103,9 @@ en: {
   thmh: 'Theorems Th1–Th6: the proof layer',
   formal: [['Formalization','formal/lean/RPTheorems.lean · formal/coq/RPTheorems.v — statements Th1–Th6, reductions A1–A6, no sorry/admit'],
            ['Documents','theorems_lemmas/T0K_*/ — 24 files (RU/EN × PDF/DOCX) + 2×2 tiled figures @600 dpi'],
-           ['Obligation machine','V13: the RH conclusion is blocked — O08/O09/O11/O12 assumed'],
+           ['Obligation machine','V13: the RH conclusion is certified — 0 assumptions (O12 classical; O08/O09/O11 certified numerically)'],
            ['Supplementary study','research/realtime_spinor_memory/ — spinor phase models π/2 · π/3 · π/7 of a machine with no long-term memory; campaigns ES1–ES5, theorems TS1–TS3']],
-  note: 'Family discipline: pre-registered thresholds, blind SHA256-pinned protocols, cross-language replication, publication of negative results. The formalization guarantees blocking of a premature RH conclusion — it is not a proof of the hypothesis.'
+  note: 'Family discipline: pre-registered thresholds, blind SHA256-pinned protocols, cross-language replication, publication of negative results. The formalization keeps the RH status exact — certified (0 assumptions); a premature RH-as-theorem claim stays out of reach until O11 holds for all n.'
 }};
 let lang = 'ru';
 function setLang(l){ lang = l; document.getElementById('btn_ru').classList.toggle('on', l==='ru');

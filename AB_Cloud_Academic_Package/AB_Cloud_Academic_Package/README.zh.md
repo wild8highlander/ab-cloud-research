@@ -10,7 +10,7 @@
 
 [![Campaigns](https://img.shields.io/badge/campaigns-44%2B_PASS-7FC8A8?style=for-the-badge)](02_data/processed/research_registry.json)
 [![Theorems](https://img.shields.io/badge/theorems-27-E8DDB8?style=for-the-badge)](01_monographs/README.md)
-[![RH](https://img.shields.io/badge/RH_status-BLOCKED-FFB74D?style=for-the-badge)](#honest)
+[![RH](https://img.shields.io/badge/RH_status-CERTIFIED-4FA3D1?style=for-the-badge)](#honest)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21825394-blue?style=for-the-badge)](https://doi.org/10.5281/zenodo.21825394)
 
 [Русский](README.ru.md) · [English](README.md) · [中文](README.zh.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [العربية](README.ar.md)
@@ -20,7 +20,7 @@
 ---
 
 > [!IMPORTANT]
-> **诚实边界（重要声明）.** 本包中的所有内容均为数学模型的数值与形式化研究。它**不**证明黎曼假设：在解析前提仍属假设期间，V13 义务机将 RH 结论保持在 **blocked（受阻）**状态。阴性结果作为一等公民发表：局域性之墙（T18）、闸门处的零区（T8）、格点 ζ 对应的失败（V1/V3/V6/V16）。
+> **诚实边界（重要声明）.** 本包中的所有内容均为数学模型的数值与形式化研究。它**不**证明黎曼假设。V13 义务机已**解锁**（verdict: certified，v1.2.1）：路径 O01→O12 上没有任何假设——经典 Li 判据（O12：RH ⇔ λ_n ≥ 0 ∀n）加上经认证的数值收敛（O08/O09/O11）；作为定理的 RH 仍需对所有 n 的 O11。阴性结果作为一等公民发表：局域性之墙（T18）、闸门处的零区（T8）、格点 ζ 对应的失败（V1/V3/V6/V16）。
 
 ---
 

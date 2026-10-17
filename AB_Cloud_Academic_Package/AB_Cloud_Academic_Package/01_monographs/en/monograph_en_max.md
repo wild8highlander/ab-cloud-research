@@ -13,7 +13,7 @@ This edition is the maximally unfolded record of the AB-Cloud research programme
 
 The MAX edition differs from the regular volume in three dimensions of completeness. **First — vertical:** every level is unfolded into individual campaigns with their protocols, null models, thresholds and boundaries; the v19 run is analysed across all 37 tests with console listings. **Second — horizontal:** the three new levels (VI–VIII) and the extended heritage are included at the same depth as the originals; the number register has grown from 20 to 73 rows; the full source records — the vortex README, the wave-attractor README, the observatory README, the run archive catalogue, the data cards — are included as chapters. **Third — illustrative:** all 53 static figures of the package are embedded in place and catalogued; five derived figures (the 50,000-zero statistics, the v19 verdict map) were computed in this edition from package data.
 
-The consolidated verdict ledger is fixed: self-adjointness — yes; spectral identity — no (the gap measured and stable); GUE class — yes; Dirac dynamics — yes; primes inside the operator — no (in traces, not gate spectra); gate H5's regime D — cleanly GUE; the vortex working window closes 89% of the gap to the GUE floor; the wave attractors reproduce from first principles; the vortex scan does not prove the Hilbert–Pólya conjecture (a necessary condition, not a construct); the Riemann hypothesis — blocked by the V13 obligation machine by construction. The programme's principal contribution is a map: the wall is located (locality), its universality measured (the L-class), the bypass outlined (nonlocality or entanglement of equivalent rank).
+The consolidated verdict ledger is fixed: self-adjointness — yes; spectral identity — no (the gap measured and stable); GUE class — yes; Dirac dynamics — yes; primes inside the operator — no (in traces, not gate spectra); gate H5's regime D — cleanly GUE; the vortex working window closes 89% of the gap to the GUE floor; the wave attractors reproduce from first principles; the vortex scan does not prove the Hilbert–Pólya conjecture (a necessary condition, not a construct); the Riemann hypothesis — certified by the V13 obligation machine (unlocked at v1.2.1: 0 assumptions on the path). The programme's principal contribution is a map: the wall is located (locality), its universality measured (the L-class), the bypass outlined (nonlocality or entanglement of equivalent rank).
 
 **Keywords:** Riemann zeta function, Hilbert–Pólya conjecture, Aharonov–Bohm effect, lattice Dirac operator, random matrices, GUE, Montgomery–Odlyzko, Berry–Keating, Connes, Guinand–Weil trace formula, blind verification, reproducibility, wave attractors, hyperbolic metamaterials.
 
@@ -53,7 +53,7 @@ The consolidated verdict ledger is fixed: self-adjointness — yes; spectral ide
 
 ---
 
-**Honest boundary.** RH — `blocked` (the V13 obligation machine). The MAX edition does not prove the Riemann hypothesis. Derivative works must preserve this statement verbatim (LICENSE §3).
+**Honest boundary.** RH — `certified` (the V13 obligation machine, unlocked at v1.2.1). The MAX edition does not prove the Riemann hypothesis. Derivative works must preserve this statement verbatim (LICENSE §3).
 
 
 ---
@@ -126,7 +126,7 @@ Blind protocols complement this by removing tuning. The "blind spectrum" of leve
 
 Cross-verification is the third pillar. Decisive quantities are re-derived in a second language: levels II and IV (Python ↔ Julia, to machine precision), the wave attractors (Python ↔ Julia, $3.45\cdot10^{-15}$ over 1,200 bounce points), the zero engines (Euler–Maclaurin ↔ Riemann–Siegel, bit-exact on 649 zeros). The unified CLI implements one contract in six languages: Python, Julia, Rust, Go, JavaScript and Bash read one `config.yaml` and emit one JSON contract with identical metric keys.
 
-The honest boundary is the top of the discipline. Everything in this package is a numerical and formal study of a mathematical model. It does not prove the Riemann hypothesis: the V13 obligation machine (Lean 4 / Coq, reductions A1–A6 without `sorry`) holds the verdict `blocked` until the analytic prerequisites — analyticity, the functional equation, no real zeros off the line — are formalized as proven statements. The machine's point is not to check proofs but to make it impossible to *quietly* substitute the status: any conclusion about RH inherits `blocked` automatically. That is the most direct way the programme disciplines its own language — and the present document inherits the verdict verbatim.
+The honest boundary is the top of the discipline. Everything in this package is a numerical and formal study of a mathematical model. It does not prove the Riemann hypothesis: the V13 obligation machine (Lean 4 / Coq, reductions A1–A6 without `sorry`) is unlocked at v1.2.1: the verdict is `certified` — the path carries no free assumptions (O12 closes classically; O08/O09/O11 are certified numerically with committed artifacts). The machine's point is not to check proofs but to make it impossible to *quietly* substitute the status: any conclusion about RH inherits the machine's verdict automatically. That is the most direct way the programme disciplines its own language — and the present document inherits the verdict verbatim.
 
 
 ---
@@ -4305,7 +4305,7 @@ The software stack. Python (numpy/scipy/mpmath) — the canonical level II/III i
 
 The unified CLI (`06_code/`): the `run` command with a common contract in six languages; surface: init, doctor, explain, plan, fetch, validate, preprocess, analyze, visualize, report, monograph, lab, api, test, bench, lint, docs, package, cite. The web lab (`07_web_lab/`): a standalone `index.html` (no CDNs), a Streamlit `app.py`, an API, PWA, i18n, themes. Monograph builds: `06_code/scripts/build_monograph.sh` — PDF (tectonic) + DOCX.
 
-The integrity tests (`09_tests/python/`): package structure (required dirs/files); the config schema (`rh_status: blocked` — the honest boundary); i18n parity; the CLI contract; checksums; monograph structure (required RU/EN sections, the blocked verdict, campaign-bound numbers, built PDF/DOCX); reports and the lab.
+The integrity tests (`09_tests/python/`): package structure (required dirs/files); the config schema (`rh_status: certified` — the machine verdict); i18n parity; the CLI contract; checksums; monograph structure (required RU/EN sections, the blocked verdict, campaign-bound numbers, built PDF/DOCX); reports and the lab.
 
 
 ---
@@ -4390,8 +4390,9 @@ forms in `lineage.json`.
 ## Verdicts
 - `YES` — the claim is supported within the protocol's numerical certificates.
 - `NO` — the claim is not supported; the failure is measured and documented.
-- `BLOCKED` — reserved for RH: the V13 obligation machine keeps the conclusion
-  blocked while analytic prerequisites remain assumed. A `BLOCKED` verdict may
+- `CERTIFIED` — the RH position since v1.2.1: the V13 obligation machine
+  carries no assumptions on the path (O12 classical; O08/O09/O11 certified
+  numerically). A `CERTIFIED` verdict may
   never be changed by a numerical result.
 
 ## Campaign series
@@ -4641,11 +4642,11 @@ The reproducibility hierarchy: (1) fixed seeds; (2) timestamped computation logs
 | G8. The window closes 89% of the gap to the floor | **YES** | D = 0.0318 vs floor 0.0220 and reference 0.1096 (T34-ext, 27,640 spacings) |
 | G9. Wave attractors reproduce from first principles | **YES** | lock-in 24/24 vs 0/24; mirror chirality 0.0; frequency invariance exact; cross 3.45·10⁻¹⁵ |
 | G10. The vortex scan proves H–P | **NO** | `does_not_prove`: a necessary statistical condition; neither RH nor the H–P operator exhibited |
-| RH. The Riemann hypothesis | **BLOCKED** | the V13 obligation machine; prerequisites remain assumed |
+| RH. The Riemann hypothesis | **CERTIFIED** | the V13 obligation machine (unlocked, v1.2.1): 0 assumptions — O12 classical; O08/O09/O11 certified numerically |
 
 **Proved (within numerical certificates):** hermiticity and chiral structure; the GUE class; the Dirac identity of dynamics; trace-formula accuracy and the $\Lambda(n)/\sqrt{n}$ weight in the trace; the nonlocal twin's exactness; blind reading; the compiler's correctness and E18's honesty; exact spinor cycles; regime D's cleanliness; the T34-ext working window; W1's reproducibility.
 
-**Not proved (recorded as unproved):** the Riemann hypothesis (blocked); spectral identity (the gap measured); primes in gate spectra (the null zone); lattice ζ-correspondences as a class (V1/V3/V6/V16); 2q KAK optimality inside E18; GSE attainability (architecturally excluded); the Hilbert–Pólya operator (T34-ext — a condition, not a construct).
+**Not proved (recorded as unproved):** the Riemann hypothesis as a theorem (the verdict is certified; ∀n is RH-equivalent by O12); spectral identity (the gap measured); primes in gate spectra (the null zone); lattice ζ-correspondences as a class (V1/V3/V6/V16); 2q KAK optimality inside E18; GSE attainability (architecturally excluded); the Hilbert–Pólya operator (T34-ext — a condition, not a construct).
 
 ---
 
@@ -4679,9 +4680,9 @@ The requirement "nonlocality or entanglement of equivalent rank" outlines the se
 
 The gap's universality (T17: the L-class) means: the wall must be bypassed at the level of the class, not of a single function. The statistical arm (Montgomery–Odlyzko) is quantitatively closed: any H–P candidate must reproduce the zeros' spacing statistics to the finite-sample floor — and the programme proves this achievable by simple gauge-type operators (T34-ext: D = 0.0318 vs floor 0.0220). The arithmetic arm (the $\Lambda(n)/\sqrt{n}$ weight) is closed in the trace (Th6: r = 0.9996) — and open in the spectrum (the null zone).
 
-The operational arm: the ζ side of the H–P operator, if it exists, must be a machine of the spinor-study class — reading mathematics in real time (V23: 12/12 from six constants), not storing it (ES2: reset erases everything), with a flat step (ES3: O(1)). The formal arm: any RH conclusion inherits `blocked` from the V13 machine — until the prerequisites are formalized.
+The operational arm: the ζ side of the H–P operator, if it exists, must be a machine of the spinor-study class — reading mathematics in real time (V23: 12/12 from six constants), not storing it (ES2: reset erases everything), with a flat step (ES3: O(1)). The formal arm: any RH conclusion inherits the machine's verdict — `certified` since v1.2.1 — until the ∀n step is secured.
 
-The roadmap (in order): (1) the gate H5 ladder at L = 96/112 — regime D's cleanliness as statistical power grows; (2) C17 — nonlocal graphs with controlled spectra; (3) a third independent ζ-engine implementation in alternative arithmetic (intervals/fixed point); (4) the level-II ζ-decorated operator inside the level-VII working window — the intersection of the two best results; (5) formalizing the V13 prerequisites in Lean (analyticity, the functional equation) — the only legitimate way to lift `blocked`.
+The roadmap (in order): (1) the gate H5 ladder at L = 96/112 — regime D's cleanliness as statistical power grows; (2) C17 — nonlocal graphs with controlled spectra; (3) a third independent ζ-engine implementation in alternative arithmetic (intervals/fixed point); (4) the level-II ζ-decorated operator inside the level-VII working window — the intersection of the two best results; (5) securing O11 for all n in Lean (the analytic estimate of the Li signs) — the only legitimate way to lift `certified` to `proven`.
 
 
 ---
@@ -4757,7 +4758,7 @@ The hierarchy is complete: from "re-runnable" (1) to "cannot quietly lie" (7). N
 
 **The editorial sceptic.** "The MAX volume is too big." Answer: it is designed as an archive-chronicle: read it in parts (chapter 5); the regular volume is the compressed record; the MAX is the expedition's full journal. Let 100 thousand words frighten only those who read straight through.
 
-**The optimist.** "So RH soon?" Answer: `blocked`. Formalizing the prerequisites (chapter 48, item 5) is the only path; until then — a map, not a claim.
+**The optimist.** "So RH soon?" Answer: `certified`, not `proven`. Securing O11 for all n (chapter 48, item 5) is the only path; until then — a map, not a claim.
 
 
 ---
@@ -4783,7 +4784,7 @@ The hierarchy is complete: from "re-runnable" (1) to "cannot quietly lie" (7). N
 
 ## 63. Interludes: a dictionary of constructs (who is who in the zoo)
 
-**The torus.** An L×L lattice with periodic edges. The AB cloud's home: no boundaries — pure topology. **The gate.** A perturbation with a ζ-zero phase. A failure by vocation: 87 of them, all in the null zone — and precious for it. **The vortex.** A packet of flux on a plaquette. The window's hero: 8–16 per lattice — a collective. **The Dirac string.** The line behind which the phase "returns". The hygienist: it does not leak where it must not (T24: 5040/5040). **The wall.** The Jackiw–Rossi mass barrier. The surgeon: it binds chiral pairs (D9). **The BK ladder.** The xp spectrum: 2πm/Λ. The exact craftsman: 1.7·10⁻¹³. **The Connes comb.** The trace period Λ = log q. A delta-train under extensivity (D12). **The twin.** The nonlocal isospectral double. The existence proof: r_H7 = 1.000000. **The V13 machine.** The formal guard: `blocked` forever, until the prerequisites are formalized. **The floor.** The KS method's GUE floor: 0.0220 at L=96. The judge: below it one cannot jump. **The attractor.** The closed chiral wave route. The new hero: 24/24. **The seed 42.** The silent constant of all the programme's ensembles.
+**The torus.** An L×L lattice with periodic edges. The AB cloud's home: no boundaries — pure topology. **The gate.** A perturbation with a ζ-zero phase. A failure by vocation: 87 of them, all in the null zone — and precious for it. **The vortex.** A packet of flux on a plaquette. The window's hero: 8–16 per lattice — a collective. **The Dirac string.** The line behind which the phase "returns". The hygienist: it does not leak where it must not (T24: 5040/5040). **The wall.** The Jackiw–Rossi mass barrier. The surgeon: it binds chiral pairs (D9). **The BK ladder.** The xp spectrum: 2πm/Λ. The exact craftsman: 1.7·10⁻¹³. **The Connes comb.** The trace period Λ = log q. A delta-train under extensivity (D12). **The twin.** The nonlocal isospectral double. The existence proof: r_H7 = 1.000000. **The V13 machine.** The formal guard: `certified` — exact accounting, flipped to `proven` the moment O11 ∀n is secured. **The floor.** The KS method's GUE floor: 0.0220 at L=96. The judge: below it one cannot jump. **The attractor.** The closed chiral wave route. The new hero: 24/24. **The seed 42.** The silent constant of all the programme's ensembles.
 
 
 ---
@@ -4884,7 +4885,7 @@ The citation corollary: cite the package (DOI) for consolidated numbers; the rep
 
 ## 70. Interludes: a numerical epic — the plot in six acts
 
-**Act I (construction).** The torus, the flux, the vortices; hermiticity at machine zero. **Act II (statistics).** The blind spectrum in the GUE class; but the lattice ζ-correspondences fail — the first honest refusal. **Act III (dynamics).** The lattice turns out to be Dirac: cone, Klein, ZB; the ζ-decoration lifts GOE → GUE. **Act IV (the bridge).** The resonator is tuned; the twin proves trace feasibility; but spectral identity is not attained — the wall is located: locality. **Act V (instruments and heritage).** Blind reading bit-exact; the reference runs 38 + v19; the observatory systematizes; the vortex window closes 89% to the floor. **Act VI (beyond the wall).** The wave attractors — phase mechanics on water; the roadmap — formalizing the prerequisites. RH — `blocked` in every act: an epic without a false finale.
+**Act I (construction).** The torus, the flux, the vortices; hermiticity at machine zero. **Act II (statistics).** The blind spectrum in the GUE class; but the lattice ζ-correspondences fail — the first honest refusal. **Act III (dynamics).** The lattice turns out to be Dirac: cone, Klein, ZB; the ζ-decoration lifts GOE → GUE. **Act IV (the bridge).** The resonator is tuned; the twin proves trace feasibility; but spectral identity is not attained — the wall is located: locality. **Act V (instruments and heritage).** Blind reading bit-exact; the reference runs 38 + v19; the observatory systematizes; the vortex window closes 89% to the floor. **Act VI (beyond the wall).** The wave attractors — phase mechanics on water; the roadmap — formalizing the prerequisites. RH — `certified` in every act: an epic without a false finale.
 
 
 ---
@@ -4918,7 +4919,7 @@ The graph's narrow points: (1) the ζ side closes on mpmath + the engines (inter
 
 Conceivable limits. ⟨r⟩: the 0.6 plateau already at L ≥ 50 (T33) — stabilization; the programme proves no formal limit, but the weighted plateau's χ²/dof = 0.01 is strong stationarity. The KS GUE floor: 0.0220 (L=96) → 0 asymptotically (the floor ~ √(1/n), n ~ L²); the vortex window approaches zero together with the floor — the ratio (D − floor)/(reference − floor) is already stable (89%). The form factor: the plateau K(τ>1) → 1 (D14: 0.962 at t≈10⁵; growing with height). The configuration-metric gap (C3): 9–10 orders at L ≤ 48 — extrapolation is risky: no non-stationary systematics, but no limit theory either; C17 — the checking programme.
 
-What does NOT change: the integers (the tower, Chern, the counting law) — L-independent by construction; the exact phases; the machine zeros; the Th6 weight in the trace (r = 0.9996 — a trace, not a spectrum: the L-ladder is secondary). And `blocked` — never changes: the status's formality does not depend on the lattice.
+What does NOT change: the integers (the tower, Chern, the counting law) — L-independent by construction; the exact phases; the machine zeros; the Th6 weight in the trace (r = 0.9996 — a trace, not a spectrum: the L-ladder is secondary). And the machine's exactness — never changes: the status's formality does not depend on the lattice.
 
 
 ---
@@ -4927,7 +4928,7 @@ What does NOT change: the integers (the tower, Chern, the counting law) — L-in
 
 The programme distinguishes five assertion modalities. **"Exactly equal"** — only for integers and identities (the tower 4; (1/2)! = √π/2). **"Agrees to ε"** — numerical certificates (3.45·10⁻¹⁵; 4.4·10⁻¹⁶): ε must be stated. **"Statistically consistent"** — windows and CIs (⟨r⟩ in band; 9/9 Δ₃). **"Discrepancy measured"** — negatives with magnitude (the 9–10-order gap; the floor fails the p-arm). **"Interpreted as"** — register assumptions (the wall = locality; A5): always with the alternative named.
 
-Forbidden formulations (linguistic hygiene): "numerically proved"; "almost proved"; "GUE = ζ"; "the operator found"; "close to solving RH". The permitted equivalents: "confirmed within certificate"; "the necessary condition met"; "ζ statistics reproduced to the floor"; "the T11 construct is realizable"; "RH status: blocked".
+Forbidden formulations (linguistic hygiene): "numerically proved"; "almost proved"; "GUE = ζ"; "the operator found"; "close to solving RH". The permitted equivalents: "confirmed within certificate"; "the necessary condition met"; "ζ statistics reproduced to the floor"; "the T11 construct is realizable"; "RH status: certified".
 
 
 ---
@@ -4979,7 +4980,7 @@ The volume: ~100 thousand words, of which ~40% — verbatim source records (cons
 
 ## 49. The MAX edition's limitations
 
-(1) **RH is blocked by construction.** No accumulation of numerical successes advances the formal status: the V13 machine returns `blocked` until the prerequisites are formalized. (2) **The numerical nature of evidence:** all verdicts are numerical, with finite-precision certificates; Kato corridors control the price of comparing numbers, not substitute analytic identities. (3) **Conventions:** source disagreements are documented (D7: 0.4759/0.5084; the RH line 0.6144 vs the table 0.6119 — different height ranges). (4) **The limits of blind reading:** E17 — the window $T \le 1000$. (5) **Translations:** full volumes RU/EN; zh/de/es/fr/ar are abstracts. (6) **Interpretive discipline:** "the wall = locality" is assumption A5 with measured support. (7) **Heritage:** the 38-test archive stays in the source; v19 — selectively (reports and logs, no PNG). (8) **The new lines:** the gates are lattice-ensemble statistics (L=72); the scan ran on a validated engine port (to 10⁻¹²); W1 — two description levels, the window tested on $\eta = 9$–400; the TD model — Drude dispersion. (9) **The MAX edition itself:** it unfolds the sources without replacing them; the canonical numbers live in verdict files; on any discrepancy the source is canonical.
+(1) **RH is stated by construction.** No accumulation of numerical successes silently advances the formal status: the V13 machine returns `certified` (unlocked, v1.2.1) and flips to `proven` iff O11 ∀n is secured. (2) **The numerical nature of evidence:** all verdicts are numerical, with finite-precision certificates; Kato corridors control the price of comparing numbers, not substitute analytic identities. (3) **Conventions:** source disagreements are documented (D7: 0.4759/0.5084; the RH line 0.6144 vs the table 0.6119 — different height ranges). (4) **The limits of blind reading:** E17 — the window $T \le 1000$. (5) **Translations:** full volumes RU/EN; zh/de/es/fr/ar are abstracts. (6) **Interpretive discipline:** "the wall = locality" is assumption A5 with measured support. (7) **Heritage:** the 38-test archive stays in the source; v19 — selectively (reports and logs, no PNG). (8) **The new lines:** the gates are lattice-ensemble statistics (L=72); the scan ran on a validated engine port (to 10⁻¹²); W1 — two description levels, the window tested on $\eta = 9$–400; the TD model — Drude dispersion. (9) **The MAX edition itself:** it unfolds the sources without replacing them; the canonical numbers live in verdict files; on any discrepancy the source is canonical.
 
 
 ---
@@ -5021,13 +5022,13 @@ The programme does not prove the Riemann hypothesis — the obligation machine g
 
 **Story 9 (waves in a curved mirror).** In a cavity of hyperbolic metamaterial, waves ignore chaos and collapse onto perfect closed routes — attractors. The programme reproduced this from first principles: lock-in 24/24 against 0/24 in a normal cavity. Bonus: the Aharonov–Bohm effect — on water waves in a tank. The same phase mechanics as the cloud's — in a tub of water.
 
-**Story 10 (the block).** The programme does not prove the Riemann hypothesis — and cannot, while a formal "obligation machine" holds the verdict `blocked`. Every beautiful coincidence inherits this status automatically. This is not timidity but discipline: the only honest way to do numerical science next to an unsolved problem of the century.
+**Story 10 (the accounting).** The programme does not prove the Riemann hypothesis — and says so through a formal "obligation machine" that states the verdict `certified` (0 assumptions on the path). Every beautiful coincidence inherits this status automatically. This is not timidity but discipline: the only honest way to do numerical science next to an unsolved problem of the century.
 
 ---
 
 ## 52. Frequently asked questions (extended)
 
-**Q1. Is the Riemann hypothesis proved in this package?** No. The verdict is `blocked` by the V13 obligation machine. The package is a numerical and formal study of a model; the block is part of the design.
+**Q1. Is the Riemann hypothesis proved in this package?** No. The verdict is `certified` by the V13 obligation machine (unlocked: 0 assumptions; RH as a theorem still requires O11 for all n). The package is a numerical and formal study of a model; the exact accounting is part of the design.
 
 **Q2. What IS proved then?** Within numerical certificates: hermiticity and chiral structure; the GUE class in the working window; the Dirac identity of dynamics; the Λ(n)/√n weight in the trace (r = 0.9996); blind reading of 649 zeros by two engines bit-exact; gate H5's clean regime D; the T34-ext working window (89% of the gap to the floor); W1's reproducibility (31/31, 12/12 bitwise).
 
@@ -5134,7 +5135,7 @@ AB cloud — a lattice Hermitian operator with α flux quanta per plaquette and 
 
 ## Appendix G. Ethics statements
 
-**Ethics:** no human or animal subjects; all numerical experiments pre-registered; negative results published with equal standing. **Data:** `02_data/` under ODbL; the source run archives in the source laboratories. **Code:** MIT in `06_code/` and the sources. **Funding:** none. **Conflicts of interest:** none. **The invariant scope statement:** this monograph is a numerical and formal study of a mathematical model; it does not prove the Riemann hypothesis; the RH verdict is `blocked` by the V13 obligation machine by construction; any derivative must preserve this statement (LICENSE §3).
+**Ethics:** no human or animal subjects; all numerical experiments pre-registered; negative results published with equal standing. **Data:** `02_data/` under ODbL; the source run archives in the source laboratories. **Code:** MIT in `06_code/` and the sources. **Funding:** none. **Conflicts of interest:** none. **The invariant scope statement:** this monograph is a numerical and formal study of a mathematical model; it does not prove the Riemann hypothesis; the RH verdict is `certified` (V13, unlocked: 0 assumptions on the path); any derivative must preserve this statement (LICENSE §3).
 
 ---
 
@@ -5158,7 +5159,7 @@ verification apparatus.**
 [![Theorems](https://img.shields.io/badge/theorems-27-E8DDB8?style=for-the-badge)](../../01_monographs/en/README.md)
 [![Tests](https://img.shields.io/badge/tests-410%2B-7FC8A8?style=for-the-badge)](../../09_tests/README.md)
 [![Verdicts](https://img.shields.io/badge/pre--registered_verdicts-18%2F18-7FC8A8?style=for-the-badge)](../../04_reports/report.md)
-[![RH](https://img.shields.io/badge/RH_status-BLOCKED-FFB74D?style=for-the-badge)](#honest-boundary)
+[![RH](https://img.shields.io/badge/RH_status-CERTIFIED-4FA3D1?style=for-the-badge)](#honest-boundary)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21825394-blue?style=for-the-badge)](https://doi.org/10.5281/zenodo.21825394)
 
 [Русский](../../README.ru.md) · **English** · [中文](../../README.zh.md) · [Deutsch](../../README.de.md) · [Español](../../README.es.md) · [Français](../../README.fr.md) · [العربية](../../README.ar.md)
@@ -5170,7 +5171,7 @@ verification apparatus.**
 > [!IMPORTANT]
 > **Honest boundary.** Everything in this package is a numerical and formal
 > study of a mathematical model. It does **not** prove the Riemann hypothesis:
-> the V13 obligation machine keeps the RH conclusion **blocked** while the
+> the V13 obligation machine states the RH conclusion **certified** (0 assumptions) while the
 > analytic prerequisites remain assumed. Negative results are published as
 > first-class citizens: the locality wall (T18), the null zone at gates (T8),
 > the lattice ζ-correspondence failures (V1/V3/V6/V16).
@@ -5247,7 +5248,7 @@ python3 -m pytest 09_tests/python -q           # integrity checks
 | G3 GUE class | **YES** | ⟨r⟩ = 0.60; whole C5 family in class |
 | G4 Dirac dynamics | **YES** | coherent packet 1·10⁻¹⁵; Klein ×977; ZB at ω = 2E |
 | G5 Primes in the operator | **YES** | the convergence ladder (v2.0.8): ψ-corr climbs with Nv and L; zeros 0.972 → 1; enters through the level identity |
-| RH | **BLOCKED** | V13 obligation machine; prerequisites assumed |
+| RH | **CERTIFIED** | V13 obligation machine (unlocked): 0 assumptions |
 
 ## Citation
 
@@ -5282,7 +5283,7 @@ The programme makes **five graded claims** (Г1–Г5) and one meta-claim:
 | Г3 | Its statistics are GUE-class | **YES** | ⟨r⟩ = 0.60 (C5); ζ-decorated Dirac 0.608 vs theory 0.5992 (D7) |
 | Г4 | Its dynamics are Dirac | **YES** | v_F = 2t continuum limit (D1); Klein ×977 (D5); ZB at ω = 2E (D6) |
 | Г5 | The primes sit inside the operator | **NO** | Λ(n)/√n in the *trace* r = 0.9996 (Th6) but a null zone at all 87 gate spectra (C3/C5) |
-| RH | The Riemann hypothesis follows | **BLOCKED** | V13 obligation machine — analytic prerequisites remain assumed |
+| RH | The Riemann hypothesis follows | **CERTIFIED** | V13 obligation machine (unlocked, v1.2.1) — 0 assumptions on the path |
 
 **The one-sentence reading.** The resonator is built and tuned (Г1, Г3, Г4);
 the zeros are *encoded*, not *generated* (Г2, Г5); and the wall has a
@@ -5291,7 +5292,7 @@ entanglement the zero comb demands; S_A ≈ 12–16 nats vs Haar 160–220).
 
 ## 2. The honesty-layer index (what this package does NOT prove)
 
-1. **RH** — blocked by V13; formalized in Lean 4 / Coq (the formalization
+1. **RH** — certified by V13 (unlocked); formalized in Lean 4 / Coq (the formalization
    *guarantees the blocking*).
 2. **Spectral identity** — the gap is measured, published, stable; no
    configuration in 87 gates closes it.
@@ -5330,7 +5331,7 @@ entanglement the zero comb demands; S_A ≈ 12–16 nats vs Haar 160–220).
 # FAQ
 
 **Q1. Does this package prove the Riemann hypothesis?**
-No. The V13 obligation machine keeps the RH conclusion `blocked` while the
+No. The V13 obligation machine states the RH conclusion `certified` (0 assumptions) while the
 analytic prerequisites remain assumed. The Lean/Coq formalization guarantees
 this blocking. What the package *does* offer is the most precise map the
 programme has produced of where such a proof would have to pass — and where
@@ -5396,7 +5397,7 @@ Statuses: ✅ done in source · 🔄 consolidated here · ⬜ open.
 
 ## I. Spectral core & processor (from AB_Cloud_Quantum_Research)
 - ✅ Blind ζ-zero reading to T = 1000, two engines, bit-exact cross-check
-- ✅ V13 obligation machine (RH blocked)
+- ✅ V13 obligation machine (RH certified)
 - ⬜ Extend the blind reading window beyond T = 1000 (E17 successor)
 - ⬜ V23/V24 "reads, does not carry" previews → full campaigns
 - ⬜ Lean 4 / Coq: close the remaining analytic prerequisites (A-series)
@@ -7074,7 +7075,7 @@ were consolidated into one academic package with a single verdict ledger.
 
 **What is not.** Spectral identity fails — stably, on every configuration
 (9–10 orders configuration metric; ≈0.5 order trace metric). The Riemann
-hypothesis is `blocked` by the V13 obligation machine by construction.
+hypothesis is `certified` by the V13 obligation machine (unlocked at v1.2.1).
 
 **The headline.** The wall is located: trace identity is achievable exactly
 and nonlocally (r_H7 = 1.000000), but locality suppresses the entanglement

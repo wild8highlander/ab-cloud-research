@@ -104,11 +104,39 @@
    "errors": [],
    "claim": "V15 критерий Ли / Th4",
    "status": "proven"
+  },
+  {
+   "file": "claim_v16.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V16 полный гамильтониан × алгебраическая функция",
+   "status": "measured"
+  },
+  {
+   "file": "claim_v17.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V17 электрон на критической прямой",
+   "status": "measured"
+  },
+  {
+   "file": "claim_v18.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V18 AB-оператор как процессор",
+   "status": "measured"
+  },
+  {
+   "file": "claim_v19.json",
+   "A1": true,
+   "errors": [],
+   "claim": "V19 сшивка ветвей алгебраической функции (R2)",
+   "status": "measured"
   }
  ],
  "consistency": {
-  "n_verdicts": 15,
-  "n_claims": 15,
+  "n_verdicts": 19,
+  "n_claims": 19,
   "missing_claims": []
  },
  "all_a1": true,
@@ -117,7 +145,7 @@
  "meta": {
   "campaign": "V14",
   "date": "2026-10-10",
-  "package": "AB Research Program 1.0.0",
+  "package": "AB Research Program 1.2.0",
   "runtime_s": 0.0
  }
 }

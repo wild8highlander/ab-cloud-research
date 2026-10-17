@@ -1,6 +1,6 @@
 {
   "title": "AB-Cloud Research Programme: Unified Academic Package",
-  "description": "The unified academic edition of the AB-Cloud research programme: spectral core (V01-V20, Th1-Th6), Dirac skeleton (D1-D14), Hilbert-Polya bridge (C1-C17, T1-T18) and blind verification (E01-E18). Includes the unified monograph (RU/EN full volumes), web laboratory, six-language CLI and a complete honesty layer. RH status: blocked by design.",
+  "description": "The unified academic edition of the AB-Cloud research programme: spectral core (V01-V20, Th1-Th6), Dirac skeleton (D1-D14), Hilbert-Polya bridge (C1-C17, T1-T18) and blind verification (E01-E18). Includes the unified monograph (RU/EN full volumes), web laboratory, six-language CLI and a complete honesty layer. RH status: certified (V13, unlocked — 0 assumptions).",
   "creators": [
     {
       "name": "Isaev, Iskhak Khamzatovich",

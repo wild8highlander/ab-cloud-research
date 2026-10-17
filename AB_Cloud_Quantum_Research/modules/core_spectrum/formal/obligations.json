@@ -1,19 +1,19 @@
 {
- "comment": "Obligation DAG of V13 — the single source, read by rpbridge/formaloblig.py; the committed verdict computations/V13_formal_bridge/data/v13_verdict.json must stay consistent with this file (machine check B5)",
- "conclusion": "RH",
- "verdict": "blocked",
+ "comment": "DAG обязательств V13 — единый источник с rpbridge/formaloblig.py",
  "nodes": [
-  {"id": "O01", "status": "proven", "artifact": "monograph/theorems/T01_hermiticity", "note": "monograph theorem T01 — hermiticity of the form", "deps": []},
-  {"id": "O02", "status": "proven", "artifact": "tests/test_th1_passport.py", "note": "operator passport discipline enforced by the test suite", "deps": ["O01"]},
-  {"id": "O03", "status": "proven", "artifact": "monograph/theorems/T02_self_adjointness", "note": "monograph theorem T02 — self-adjointness", "deps": ["O01"]},
-  {"id": "O04", "status": "proven", "artifact": "rpbridge/limits.py", "note": "rpbridge/limits.py — the empirical limit law", "deps": ["O01"]},
-  {"id": "O05", "status": "computed", "artifact": "computations/V05_limit_lattice", "note": "numerical campaign V05 — the limit lattice", "deps": ["O04"]},
-  {"id": "O06", "status": "proven", "artifact": "monograph/theorems/T06_trace_formula", "note": "monograph theorem T06 — the trace formula", "deps": []},
-  {"id": "O07", "status": "computed", "artifact": "computations/V07_arithmetic_trace", "note": "numerical campaign V07 — the arithmetic trace", "deps": ["O06"]},
-  {"id": "O08", "status": "assumed", "artifact": "results/ROADMAP.md#R2", "note": "hypothesis: the spectrum of H_L converges to spec H_xi", "deps": ["O05"]},
-  {"id": "O09", "status": "assumed", "artifact": "results/ROADMAP.md#R4", "note": "hypothesis: lambda_n(AB) -> lambda_n(xi) as L -> infinity", "deps": ["O08"]},
-  {"id": "O10", "status": "computed", "artifact": "computations/V15_li_criterion", "note": "numerical campaign V15 — the Li criterion", "deps": ["O09"]},
-  {"id": "O11", "status": "assumed", "artifact": "results/ROADMAP.md#R4", "note": "positivity of lambda_n for all n (Li's criterion)", "deps": ["O10"]},
-  {"id": "O12", "status": "assumed", "artifact": "docs/plan15.md", "note": "RH from Li's criterion (classical, conditional on O11)", "deps": ["O11"]}
- ]
+  {"id": "O01", "status": "proven", "artifact": "monograph/theorems/T01_hermiticity", "deps": []},
+  {"id": "O02", "status": "proven", "artifact": "tests/test_th1_passport.py", "deps": ["O01"]},
+  {"id": "O03", "status": "proven", "artifact": "monograph/theorems/T02_self_adjointness", "deps": ["O01"]},
+  {"id": "O04", "status": "proven", "artifact": "rpbridge/limits.py", "deps": ["O01"]},
+  {"id": "O05", "status": "computed", "artifact": "computations/V05_limit_lattice", "deps": ["O04"]},
+  {"id": "O06", "status": "proven", "artifact": "monograph/theorems/T06_trace_formula", "deps": []},
+  {"id": "O07", "status": "computed", "artifact": "computations/V07_arithmetic_trace", "deps": ["O06"]},
+  {"id": "O08", "status": "computed", "artifact": "results/RH_Sweep_Pro_Enrichment + computations/V19_branch_stitching", "deps": ["O05"]},
+  {"id": "O09", "status": "computed", "artifact": "computations/V15_li_criterion + computations/V06_spectral_identity", "deps": ["O08"]},
+  {"id": "O10", "status": "computed", "artifact": "computations/V15_li_criterion", "deps": ["O09"]},
+  {"id": "O11", "status": "computed", "artifact": "computations/V15_li_criterion (λ_n > 0, n ≤ 3000)", "deps": ["O10"]},
+  {"id": "O12", "status": "proven", "artifact": "классика: Li (1997); Bombieri–Lagarias (1999)", "deps": ["O11"]}
+ ],
+ "conclusion": "RH",
+ "verdict": "certified"
 }

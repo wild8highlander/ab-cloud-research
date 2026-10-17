@@ -6,7 +6,7 @@
   },
   "E002": {
     "message": "config invalid",
-    "hint": "check rh_status=blocked, seed>=0, lattice.alpha in (0,1]",
+    "hint": "check rh_status=certified, seed>=0, lattice.alpha in (0,1]",
     "docs_url": "TROUBLESHOOTING.md"
   },
   "E003": {

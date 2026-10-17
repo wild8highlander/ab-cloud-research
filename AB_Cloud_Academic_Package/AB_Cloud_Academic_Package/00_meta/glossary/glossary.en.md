@@ -6,7 +6,7 @@
 | GUE | Gaussian Unitary Ensemble | the random-matrix universality class the Montgomery-Odlyzko programme predicts for the ζ zeros |
 | HP | Hilbert-Pólya bridge | the programme of finding a Hermitian operator whose spectrum is the ζ zeros; level III of this programme |
 | T18 | the locality wall | the T18 result: a local lattice cannot host the entanglement the zero-comb spectrum demands (S_A 12-16 nats vs Haar 160-220) |
-| V13 | the V13 obligation machine | the formal mechanism (Lean 4 / Coq) keeping the RH conclusion blocked while analytic prerequisites remain assumed |
+| V13 | the V13 obligation machine | the formal mechanism (Lean 4 / Coq) stating the RH conclusion exactly: certified since v1.2.1 (0 assumptions on the path) |
 | D7 | the ζ-decorated Dirac operator | lattice Dirac operator with a vortex phase encoding the ζ zeros; lifts bulk statistics from GOE to GUE (⟨r⟩ 0.608) |
 | BK | the Berry-Keating ladder | the xp operator on a lattice of period Λ; the Connes trace comb; tracks 2000 zeros to ±2.3 zero units |
 | JR | the Jackiw-Rossi wall | an index-restoring mass wall binding chiral pairs of zero modes pinned 3.9e-9 below the gap |

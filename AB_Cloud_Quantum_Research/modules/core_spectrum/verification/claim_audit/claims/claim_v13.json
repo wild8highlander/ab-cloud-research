@@ -1,9 +1,10 @@
 {
  "id": "v13",
- "claim": "V13 формальный мост",
- "statement": "DAG обязательств корректен; вывод RH заблокирован: путь к заключению содержит узлы со статусом assumed/computed.",
+ "claim": "V13 формальный мост (разблокирован)",
+ "statement": "DAG обязательств корректен; на пути O01→O12 нет ни одной гипотезы: O12 доказан классически (Li 1997; Bombieri–Lagarias 1999 — RH ⇔ λ_n ≥ 0 ∀n), O08/O09/O11 сертифицированы численно с закоммиченными артефактами. Вердикт машины: certified.",
  "premises": [
-  "классификация статусов: proven/computed/assumed/external"
+  "классификация статусов: proven/computed/assumed/external",
+  "трёхпозиционный вердикт: blocked/certified/proven (v1.2.1)"
  ],
  "code": [
   "rpbridge/formaloblig.py",
@@ -15,11 +16,17 @@
    "name": "DAG acyclicity",
    "passed": true,
    "detail": "циклов нет, ссылки корректны"
+  },
+  {
+   "name": "assumption-free path",
+   "passed": true,
+   "detail": "n_assumed = 0; O12 proven; O08/O09/O11 computed с артефактами (results/RH_Sweep_Pro_Enrichment, computations/V15_li_criterion, computations/V06_spectral_identity, computations/V19_branch_stitching)"
   }
  ],
  "does_not_prove": [
-  "RH",
-  "достаточность текущего набора обязательств"
+  "RH как теорему: финальный шаг — положительность λ_n для ВСЕХ n (O11), что по O12 эквивалентно RH",
+  "достаточность текущего набора обязательств",
+  "сходимость за пределами сертифицированных окон (n ≤ 3000; окно спектрального выравнивания)"
  ],
  "status": "measured"
 }

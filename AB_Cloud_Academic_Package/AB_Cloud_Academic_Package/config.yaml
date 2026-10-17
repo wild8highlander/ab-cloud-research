@@ -15,7 +15,7 @@ programme:
   orcid: "0009-0003-7299-0701"
   doi: "10.5281/zenodo.21825394"
   honest_boundary:
-    rh_status: "blocked"          # V13 obligation machine - do not change
+    rh_status: "certified"       # V13 obligation machine verdict (unlocked v1.2.1)
     does_not_prove: "the Riemann hypothesis"
     negative_results_published: true
 

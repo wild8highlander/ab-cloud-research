@@ -149,7 +149,7 @@ python3 -m pytest tests/ -q
   exploration (t* ~ gap²/σ²) without thresholds — systematic drifts and
   decoherence are outside the scope of the study.
 - The study is not connected to the Riemann hypothesis and states nothing
-  about it; the RH status remains blocked by the obligation machine V13.
+  about it; the RH status is stated exactly by the obligation machine V13 (certified).
 
 ---
 

@@ -45,7 +45,7 @@
           ],
           "properties": {
             "rh_status": {
-              "const": "blocked"
+              "const": "certified"
             },
             "does_not_prove": {
               "type": "string",

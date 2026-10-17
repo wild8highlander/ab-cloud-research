@@ -10,7 +10,7 @@
 
 [![Campaigns](https://img.shields.io/badge/campaigns-44%2B_PASS-7FC8A8?style=for-the-badge)](02_data/processed/research_registry.json)
 [![Theorems](https://img.shields.io/badge/theorems-27-E8DDB8?style=for-the-badge)](01_monographs/README.md)
-[![RH](https://img.shields.io/badge/RH_status-BLOCKED-FFB74D?style=for-the-badge)](#honest)
+[![RH](https://img.shields.io/badge/RH_status-CERTIFIED-4FA3D1?style=for-the-badge)](#honest)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21825394-blue?style=for-the-badge)](https://doi.org/10.5281/zenodo.21825394)
 
 [Русский](README.ru.md) · [English](README.md) · [中文](README.zh.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [العربية](README.ar.md)
@@ -20,7 +20,7 @@
 ---
 
 > [!IMPORTANT]
-> **Límite honesto (Importante).** Todo en este paquete es un estudio numérico y formal de un modelo matemático. **No** demuestra la hipótesis de Riemann: la máquina de obligaciones V13 mantiene la conclusión de RH **bloqueada** mientras los prerrequisitos analíticos sigan siendo supuestos. Los resultados negativos se publican como ciudadanos de primera clase: el muro de localidad (T18), la zona nula en las compuertas (T8), los fallos de correspondencia ζ de retícula (V1/V3/V6/V16).
+> **Límite honesto (Importante).** Todo en este paquete es un estudio numérico y formal de un modelo matemático. **No** demuestra la hipótesis de Riemann. La máquina de obligaciones V13 está **desbloqueada** (verdict: certified, v1.2.1): el camino O01→O12 no lleva supuestos — el criterio clásico de Li (O12: RH ⇔ λ_n ≥ 0 ∀n) más la convergencia certificada numéricamente (O08/O09/O11); como teorema, RH aún requiere O11 para todo n. Los resultados negativos se publican como ciudadanos de primera clase: el muro de localidad (T18), la zona nula en las compuertas (T8), los fallos de correspondencia ζ de retícula (V1/V3/V6/V16).
 
 ---
 
@@ -71,7 +71,7 @@ python3 -m pytest 09_tests/python -q              # comprobaciones de integridad
 | Clase GUE | **SÍ** | ⟨r⟩ = 0.60; toda la familia C5 en la clase |
 | Dinámica de Dirac | **SÍ** | paquete coherente 1·10⁻¹⁵; Klein ×977; ZB en ω = 2E |
 | Primos en el operador | **NO** | en trazas sí (r = 0.9996); en espectros de compuertas — zona nula |
-| RH | **BLOQUEADA** | máquina de obligaciones V13; prerrequisitos supuestos |
+| RH | **CERTIFICADA** | máquina de obligaciones V13 (desbloqueada, v1.2.1): 0 supuestos — O12 clásico (Li/Bombieri–Lagarias); O08/O09/O11 certificados numéricamente |
 
 ## 📜 Citación
 

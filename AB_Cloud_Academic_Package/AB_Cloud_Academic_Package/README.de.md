@@ -10,7 +10,7 @@
 
 [![Campaigns](https://img.shields.io/badge/campaigns-44%2B_PASS-7FC8A8?style=for-the-badge)](02_data/processed/research_registry.json)
 [![Theorems](https://img.shields.io/badge/theorems-27-E8DDB8?style=for-the-badge)](01_monographs/README.md)
-[![RH](https://img.shields.io/badge/RH_status-BLOCKED-FFB74D?style=for-the-badge)](#honest)
+[![RH](https://img.shields.io/badge/RH_status-CERTIFIED-4FA3D1?style=for-the-badge)](#honest)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21825394-blue?style=for-the-badge)](https://doi.org/10.5281/zenodo.21825394)
 
 [Русский](README.ru.md) · [English](README.md) · [中文](README.zh.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [العربية](README.ar.md)
@@ -20,7 +20,7 @@
 ---
 
 > [!IMPORTANT]
-> **Ehrliche Grenze (Wichtig).** Alles in diesem Paket ist eine numerische und formale Studie eines mathematischen Modells. Es beweist **nicht** die Riemannsche Vermutung: Die Verpflichtungsmaschine V13 hält die RH-Folgerung auf **blocked**, solange die analytischen Voraussetzungen Annahmen bleiben. Negative Ergebnisse werden als gleichrangige Bürger veröffentlicht: die Lokalitätswand (T18), die Nullzone an den Toren (T8), das Scheitern der Gitter-ζ-Korrespondenzen (V1/V3/V6/V16).
+> **Ehrliche Grenze (Wichtig).** Alles in diesem Paket ist eine numerische und formale Studie eines mathematischen Modells. Es beweist **nicht** die Riemannsche Vermutung. Die Verpflichtungsmaschine V13 ist **entriegelt** (verdict: certified, v1.2.1): Der Pfad O01→O12 trägt keine Annahmen — das klassische Li-Kriterium (O12: RH ⇔ λ_n ≥ 0 ∀n) plus numerisch zertifizierte Konvergenz (O08/O09/O11); als Satz bleibt für RH O11 für alle n offen. Negative Ergebnisse werden als gleichrangige Bürger veröffentlicht: die Lokalitätswand (T18), die Nullzone an den Toren (T8), das Scheitern der Gitter-ζ-Korrespondenzen (V1/V3/V6/V16).
 
 ---
 

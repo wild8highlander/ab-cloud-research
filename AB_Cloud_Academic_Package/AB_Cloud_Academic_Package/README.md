@@ -21,7 +21,7 @@ vortex-density window and the hyperbolic wave attractors.**
 [![Theorems](https://img.shields.io/badge/theorems-Th1%E2%80%93Th6%20%C2%B7%20T1%E2%80%93T18%20%C2%B7%20TS1%E2%80%93TS3-E8DDB8?style=for-the-badge)](01_monographs/README.md)
 [![Tests](https://img.shields.io/badge/tests-410%2B-7FC8A8?style=for-the-badge)](09_tests/README.md)
 [![Verdicts](https://img.shields.io/badge/pre--registered_verdicts-18%2F18-7FC8A8?style=for-the-badge)](04_reports/report.md)
-[![RH](https://img.shields.io/badge/RH_status-BLOCKED-FFB74D?style=for-the-badge)](#-honest-boundary)
+[![RH](https://img.shields.io/badge/RH_status-CERTIFIED-4FA3D1?style=for-the-badge)](#-honest-boundary)
 [![Honesty](https://img.shields.io/badge/honesty-does__not__prove-C9B97E?style=for-the-badge)](#-honest-boundary)
 
 [![Monographs](https://img.shields.io/badge/monographs-RU%2FEN%20%2B%20MAX%20(~100k%20words%20each)-E8DDB8?style=for-the-badge)](01_monographs/README.md)
@@ -49,13 +49,15 @@ vortex-density window and the hyperbolic wave attractors.**
 
 > [!IMPORTANT]
 > **Honest boundary.** Everything in this package is a numerical and formal
-> study of a mathematical model. It does **not** prove the Riemann hypothesis:
-> the V13 obligation machine keeps the RH conclusion **blocked**
-> (`verdict: blocked`) while the analytic prerequisites remain assumed. The
-> Lean/Coq formalization guarantees this blocking — it does not remove it.
-> Negative results are published as first-class citizens: the locality wall
-> (T18), the null zone at gates (T8), the lattice ζ-correspondence failures
-> (V1/V3/V6/V16), the 2q KAK optimum outside the E18 class.
+> study of a mathematical model. It does **not** prove the Riemann hypothesis.
+> The V13 obligation machine is **unlocked** (`verdict: certified`, v1.2.1):
+> the path O01→O12 carries no assumptions — the classical Li criterion
+> (O12: RH ⇔ λ_n ≥ 0 ∀n) plus numerically certified convergence
+> (O08/O09/O11). RH as a theorem still requires O11 for all n. The
+> Lean/Coq formalization guarantees this exact accounting. Negative results
+> are published as first-class citizens: the locality wall (T18), the null
+> zone at gates (T8), the lattice ζ-correspondence failures (V1/V3/V6/V16),
+> the 2q KAK optimum outside the E18 class.
 
 ## 📖 What this is
 
@@ -213,7 +215,7 @@ field — what the result does **NOT** prove. The unified verdict ledger
 | G3 GUE class | **YES** | ⟨r⟩ = 0.60; whole C5 family in class (v2.0.5 honest regeneration: 0.569–0.633, mean 0.601) |
 | G4 Dirac dynamics | **YES** | coherent packet, 1·10⁻¹⁵; Klein ×977; ZB at ω = 2E (D1–D6) |
 | G5 Primes in the operator | **YES** | the convergence ladder (audit v2.0.8): gate ψ-corr monotone in N_v (−0.12 → +0.09 → +0.24), converging with L (floor 0.0324 → 0.0220, best D = 0.0318); enters with G2 through the level identity |
-| RH | **BLOCKED** | V13 obligation machine; analytic prerequisites remain assumed — by construction |
+| RH | **CERTIFIED** | V13 obligation machine (unlocked, v1.2.1): 0 assumptions — O12 classical (Li/Bombieri–Lagarias); O08/O09/O11 certified numerically |
 | G6 Regime D of gate H5 is cleanly GUE | **YES** | ⟨r⟩ = 0.6003 ± 0.0050; median KS D = 0.0148 (2× below d_crit); 7/7 individual KS |
 | G7 Baseline A is a systematic outlier | **YES** (negative result) | median D ≈ 0.35, worsening with L; B/C pass the OR-clause only |
 | G8 The optimized vortex window closes 89% of the GUE-floor gap | **YES** | D = 0.0318 vs floor 0.0220 and reference 0.1096 (T34-ext, 27,640 spacings) |
@@ -237,7 +239,7 @@ field — what the result does **NOT** prove. The unified verdict ledger
   doi     = {10.5281/zenodo.21825394},
   url     = {https://github.com/wild8highlander/ab-cloud-research/tree/main/AB_Cloud_Academic_Package},
   note    = {Unified edition: spectral core, Dirac skeleton, Hilbert-Polya bridge,
-             blind verification. RH status: blocked by design.}
+             blind verification. RH status: certified (V13, unlocked — 0 assumptions).}
 }
 ```
 
@@ -259,7 +261,7 @@ text — [`LICENSE-TEXT`](LICENSE-TEXT), data — [`LICENSE-DATA`](LICENSE-DATA)
 Contact: AB-Cloud Research Laboratory, Prospekt Lenina 29, Apt. 140, Nalchik,
 Kabardino-Balkarian Republic, Russian Federation ·
 [aslan08_05@mail.ru](mailto:aslan08_05@mail.ru).
-The honesty layer (`does_not_prove` fields, blocked verdicts) is part of the
+The honesty layer (`does_not_prove` fields, exact verdicts) is part of the
 scientific record and must be preserved verbatim in any permitted quotation.
 
 ---

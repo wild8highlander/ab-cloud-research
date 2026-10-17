@@ -40,7 +40,7 @@ fn main() {
     let cmd = args.get(1).filter(|a| !a.starts_with("--")).cloned().unwrap_or_else(|| "analyze".into());
 
     match cmd.as_str() {
-        "version" => println!("{{\"implementation\":\"rust\",\"package\":\"AB_Cloud_Academic_Package\",\"edition\":\"unified (versionless)\",\"rh_status\":\"blocked\"}}"),
+        "version" => println!("{{\"implementation\":\"rust\",\"package\":\"AB_Cloud_Academic_Package\",\"edition\":\"unified (versionless)\",\"rh_status\":\"certified\"}}"),
         "doctor" => {
             let reg = dir().join("../../02_data/processed/research_registry.json").exists();
             println!("registry {}", if reg { "✅ found" } else { "❌ MISSING" });
@@ -52,7 +52,7 @@ fn main() {
         "cite" => {
             println!("Isaev, I. Kh. (2026). AB-Cloud Research Programme: Unified Academic Package.");
             println!("DOI: {}", flatjson_key("doi", "constants"));
-            println!("RH status: blocked by design.");
+            println!("RH status: certified (V13, unlocked).");
         }
         "secret" => println!("ζ lives in the trace; the spectrum keeps the secret."),
         "analyze" => {
@@ -85,7 +85,7 @@ fn main() {
                 println!("trace-primes r   {} {}", bar(flatjson("trace_primes_r").parse().unwrap_or(0.0), 0.9, 1.0), flatjson("trace_primes_r"));
                 println!("locality wall    {} {}/{}", bar(flatjson("sa_local").parse::<f64>().unwrap_or(0.0) / flatjson("sa_haar").parse::<f64>().unwrap_or(1.0), 0.0, 1.0), flatjson("sa_local"), flatjson("sa_haar"));
                 println!("RH status: {} (V13 obligation machine)", flatjson("rh_status"));
-                println!("verdicts: {} YES / {} NO / {} BLOCKED", flatjson("verdicts_yes"), flatjson("verdicts_no"), flatjson("verdicts_blocked"));
+                println!("verdicts: {} YES / {} NO / {} CERTIFIED", flatjson("verdicts_yes"), flatjson("verdicts_no"), flatjson("verdicts_certified"));
                 println!();
                 println!("🎉 Done.");
             }

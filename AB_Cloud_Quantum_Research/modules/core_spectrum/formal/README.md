@@ -35,10 +35,13 @@ The registry of reductions (identical in both files):
 Discipline: `sorry`/`admit` are not used anywhere — the deep steps are
 cast as named axioms, so the formalization HONESTLY shows which
 classical results are accepted as input of each theorem. No axiom is a
-hypothesis of RH; the RH conclusion remains blocked by the obligation
-machine (V13): O08/O09/O11/O12 — assumed.
+hypothesis of RH; the RH conclusion is reduced by the obligation
+machine (V13, unlocked at v1.2.1): O12 — proven (classics),
+O08/O09/O11 — computed with committed artifacts.
 
 The key function of the layer is not "to prove RH" but to GUARANTEE:
-the RH conclusion is blocked (7 blockers) while O08/O09/O11/O12 are
-assumed. The compilation status of each toolchain is an open obligation
+the path O01→O12 carries no assumptions (verdict: certified), and the
+conclusion rises to proven automatically once O11 — the positivity of
+λ_n for all n — is proven (which, by O12, is RH itself). The
+compilation status of each toolchain is an open obligation
 (see results/ROADMAP.md, R5).

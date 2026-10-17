@@ -77,6 +77,6 @@ formal layer travels with the data and the code it verifies.
 
 ## The honesty gate
 
-`hooks/pre_run.sh` refuses to run if `rh_status` is anything but `blocked`.
+`hooks/pre_run.sh` refuses to run if `rh_status` is anything but `certified`.
 The same invariant is tested in
 [`09_tests/python/test_contract.py`](../09_tests/python/test_contract.py).

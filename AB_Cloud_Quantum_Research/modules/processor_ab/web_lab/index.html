@@ -227,7 +227,7 @@ ru: {
   t6h: 'Данные и вердикты',
   t6note: 'Файлы: data/v20_verdict.json (закоммиченный вердикт), computations/V20_processor_compiler/ (монографии, рисунки, results.json), verification/claim_audit/claims/claim_v20.json, SHA256SUMS.txt. Свежий пересчёт: python3 scripts/compute_v20.py; независимая верификация: independent_verification/RUN_ALL.sh.',
   t7h: 'Теоремы серии (Th1–Th6) — слой доказательств семейства пакетов',
-  t7note: 'Теоремы Th1–Th6 принадлежат материнской серии AB Research Program v1.2.x — родословной пакета AB Quantum Processor (P0 наследует её дисциплину честности). Формализация: formal/lean/RPTheorems.lean и formal/coq/RPTheorems.v (постановки + именованные редукции A1–A6; sorry/admit не используются; компиляция — открытое обязательство). Документы: monograph/theorems/T0K_*/theorem_thK_{ru,en}.{pdf,docx} — 12 файлов. Вывод RH заблокирован машиной обязательств V13 (O08/O09/O11/O12 — assumed).',
+  t7note: 'Теоремы Th1–Th6 принадлежат материнской серии AB Research Program v1.2.x — родословной пакета AB Quantum Processor (P0 наследует её дисциплину честности). Формализация: formal/lean/RPTheorems.lean и formal/coq/RPTheorems.v (постановки + именованные редукции A1–A6; sorry/admit не используются; компиляция — открытое обязательство). Документы: monograph/theorems/T0K_*/theorem_thK_{ru,en}.{pdf,docx} — 12 файлов. Вывод RH сертифицирован машиной обязательств V13 (разблокирована: 0 гипотез — O12 классика; O08/O09/O11 сертифицированы численно).',
 },
 en: {
   sub: 'The "AB processor" program · campaign V20 (P0): compiler, ISA, memory, zero reading, nonlocality',
@@ -275,7 +275,7 @@ en: {
   t6h: 'Data and verdicts',
   t6note: 'Files: data/v20_verdict.json (committed verdict), computations/V20_processor_compiler/ (monographs, figures, results.json), verification/claim_audit/claims/claim_v20.json, SHA256SUMS.txt. Fresh recomputation: python3 scripts/compute_v20.py; independent verification: independent_verification/RUN_ALL.sh.',
   t7h: 'Series theorems (Th1–Th6) — the proof layer of the package family',
-  t7note: 'The theorems Th1–Th6 belong to the parent series AB Research Program v1.2.x — the lineage of the AB Quantum Processor package (P0 inherits its honesty discipline). Formalization: formal/lean/RPTheorems.lean and formal/coq/RPTheorems.v (statements + named reductions A1–A6; no sorry/admit; compilation is an open obligation). Documents: monograph/theorems/T0K_*/theorem_thK_{ru,en}.{pdf,docx} — 12 files. The RH conclusion is blocked by the V13 obligation machine (O08/O09/O11/O12 — assumed).',
+  t7note: 'The theorems Th1–Th6 belong to the parent series AB Research Program v1.2.x — the lineage of the AB Quantum Processor package (P0 inherits its honesty discipline). Formalization: formal/lean/RPTheorems.lean and formal/coq/RPTheorems.v (statements + named reductions A1–A6; no sorry/admit; compilation is an open obligation). Documents: monograph/theorems/T0K_*/theorem_thK_{ru,en}.{pdf,docx} — 12 files. The RH conclusion is certified by the V13 obligation machine (unlocked: 0 assumptions — O12 classical; O08/O09/O11 certified numerically).',
 }};
 const ROADMAP = {
 ru: [
@@ -403,11 +403,11 @@ function drawTheoremsTab(){
     ? [['Файлы формализации','formal/lean/RPTheorems.lean · formal/coq/RPTheorems.v (постановки Th1–Th6; sorry/admit не используются)'],
        ['Редукции','A1 спектральная теорема · A2 одновременная диагонализация · A2b дефектная норма · A3 произведение Адамара · A4 Като–Темпл · A5 Гершгорин · A6 сходимость ряда Ли'],
        ['Статус компиляции','O-lean / O-coq — открытое обязательство (тулчейн вне пакета)'],
-       ['Граница','Вывод RH заблокирован машиной обязательств V13: O08/O09/O11/O12 — assumed']]
+       ['Граница','Вывод RH сертифицирован машиной обязательств V13 (разблокирована): 0 гипотез — O12 классика; O08/O09/O11 сертифицированы численно']]
     : [['Formalization files','formal/lean/RPTheorems.lean · formal/coq/RPTheorems.v (statements Th1–Th6; no sorry/admit)'],
        ['Reductions','A1 spectral theorem · A2 simultaneous diagonalization · A2b defect norm · A3 Hadamard product · A4 Kato–Temple · A5 Gershgorin · A6 Li-series convergence'],
        ['Compilation status','O-lean / O-coq — open obligation (toolchain outside the package)'],
-       ['Boundary','The RH conclusion is blocked by the V13 obligation machine: O08/O09/O11/O12 — assumed']];
+       ['Boundary','The RH conclusion is certified by the V13 obligation machine (unlocked): 0 assumptions — O12 classical; O08/O09/O11 certified numerically']];
   ft.innerHTML = rows.map(r => '<tr>' +
     r.map((c,i)=> i===0 ? '<th style="width:22%">'+c+'</th>' : '<td>'+c+'</td>').join('') + '</tr>').join('');
 }

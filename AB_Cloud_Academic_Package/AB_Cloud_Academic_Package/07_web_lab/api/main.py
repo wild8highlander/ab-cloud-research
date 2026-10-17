@@ -16,13 +16,13 @@ REG = ROOT / "02_data" / "processed" / "research_registry.json"
 app = FastAPI(
     title="AB-Cloud Web Lab API",
     description="Read-only view of the unified research registry. "
-                "RH status: blocked (V13) — by construction.",
+                "RH status: certified (V13, unlocked) — 0 assumptions on the path.",
 )
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET"])
 
 @app.get("/")
 def root():
-    return {"programme": "AB-Cloud", "rh_status": "blocked", "endpoints": ["/registry", "/verdicts", "/flagship", "/numbers", "/lab"]}
+    return {"programme": "AB-Cloud", "rh_status": "certified", "endpoints": ["/registry", "/verdicts", "/flagship", "/numbers", "/lab"]}
 
 @app.get("/registry")
 def registry():

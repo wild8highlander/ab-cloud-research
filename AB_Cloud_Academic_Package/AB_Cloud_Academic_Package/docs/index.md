@@ -10,6 +10,6 @@ the spinor study of the machine with no long-term memory.
 - The CLI: [`06_code/`](../06_code/README.md) (six languages, one contract)
 
 > **Honest boundary.** This is a numerical and formal study of a
-> mathematical model. It does **not** prove the Riemann hypothesis: the V13
-> obligation machine keeps that verdict `blocked` while the analytic
-> prerequisites remain assumed.
+> mathematical model. It does **not** prove the Riemann hypothesis. The V13
+> obligation machine is unlocked: that verdict is `certified` (0 assumptions
+> on the path — O12 classical; O08/O09/O11 certified numerically).

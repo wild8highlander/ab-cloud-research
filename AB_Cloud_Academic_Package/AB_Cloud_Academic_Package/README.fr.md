@@ -10,7 +10,7 @@
 
 [![Campaigns](https://img.shields.io/badge/campaigns-44%2B_PASS-7FC8A8?style=for-the-badge)](02_data/processed/research_registry.json)
 [![Theorems](https://img.shields.io/badge/theorems-27-E8DDB8?style=for-the-badge)](01_monographs/README.md)
-[![RH](https://img.shields.io/badge/RH_status-BLOCKED-FFB74D?style=for-the-badge)](#honest)
+[![RH](https://img.shields.io/badge/RH_status-CERTIFIED-4FA3D1?style=for-the-badge)](#honest)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21825394-blue?style=for-the-badge)](https://doi.org/10.5281/zenodo.21825394)
 
 [Русский](README.ru.md) · [English](README.md) · [中文](README.zh.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [العربية](README.ar.md)
@@ -20,7 +20,7 @@
 ---
 
 > [!IMPORTANT]
-> **Limite honnête (Important).** Tout ce que contient ce paquet est une étude numérique et formelle d'un modèle mathématique. Il ne prouve **pas** l'hypothèse de Riemann : la machine d'obligations V13 maintient la conclusion RH **bloquée** tant que les prérequis analytiques restent des hypothèses. Les résultats négatifs sont publiés comme des citoyens de première classe : le mur de localité (T18), la zone nulle aux portes (T8), les échecs des correspondances ζ sur réseau (V1/V3/V6/V16).
+> **Limite honnête (Important).** Tout ce que contient ce paquet est une étude numérique et formelle d'un modèle mathématique. Il ne prouve **pas** l'hypothèse de Riemann. La machine d'obligations V13 est **déverrouillée** (verdict: certified, v1.2.1) : le chemin O01→O12 ne porte aucune hypothèse — le critère classique de Li (O12 : RH ⇔ λ_n ≥ 0 ∀n) plus la convergence certifiée numériquement (O08/O09/O11) ; comme théorème, RH exige encore O11 pour tout n. Les résultats négatifs sont publiés comme des citoyens de première classe : le mur de localité (T18), la zone nulle aux portes (T8), les échecs des correspondances ζ sur réseau (V1/V3/V6/V16).
 
 ---
 
@@ -71,7 +71,7 @@ python3 -m pytest 09_tests/python -q              # vérifications d'intégrité
 | Classe GUE | **OUI** | ⟨r⟩ = 0.60 ; toute la famille C5 dans la classe |
 | Dynamique de Dirac | **OUI** | paquet cohérent 1·10⁻¹⁵ ; Klein ×977 ; ZB à ω = 2E |
 | Nombres premiers dans l'opérateur | **NON** | dans les traces oui (r = 0.9996) ; dans les spectres de portes — zone nulle |
-| RH | **BLOQUÉE** | machine d'obligations V13 ; prérequis supposés |
+| RH | **CERTIFIÉE** | machine d'obligations V13 (déverrouillée, v1.2.1) : 0 hypothèses — O12 classique (Li/Bombieri–Lagarias) ; O08/O09/O11 certifiés numériquement |
 
 ## 📜 Citation
 

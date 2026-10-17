@@ -106,7 +106,7 @@ python3 -m pytest tests/ -q        # 11 invariants
   exploratorily (t* ~ gap²/σ²) without thresholds; systematic drift and
   decoherence are out of scope.
 - The study is unrelated to the Riemann hypothesis; the RH conclusion
-  remains blocked by the V13 obligation machine.
+  is stated exactly by the V13 obligation machine (certified — unlocked, 0 assumptions).
 
 The full Russian version: [`README.md`](README.md).
 

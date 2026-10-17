@@ -216,8 +216,9 @@ const T = {
    + 'сертификаты и формальный статус (постановки в Lean 4 / Coq с '
    + 'именнованными редукциями A1–A6, formal/RPTheorems). Документы: '
    + 'monograph/theorems/T0K_*/theorem_thK_{ru,en}.{pdf,docx} — '
-   + '12 документов. Формализация НЕ доказывает RH: вывод остаётся '
-   + 'заблокированным машиной обязательств (V13) — O08/O09/O11/O12 assumed.' },
+   + '12 документов. Формализация НЕ доказывает RH: вывод сертифицирован '
+   + 'машиной обязательств (V13, разблокирована) — 0 гипотез: O12 классика; '
+   + 'O08/O09/O11 сертифицированы численно.' },
  en: { subtitle: 'Interactive laboratory of the V1–V19 series: every '
    + 'computation runs locally in your browser (no network, no deps).',
   tabs: ['Riemann–Siegel Z(t)','Gate builder','Heat trace ↔ primes',
@@ -265,8 +266,9 @@ const T = {
    + 'certificates and formal status (Lean 4 / Coq statements with named '
    + 'reductions A1–A6, formal/RPTheorems). Documents: '
    + 'monograph/theorems/T0K_*/theorem_thK_{ru,en}.{pdf,docx} — 12 files. '
-   + 'The formalization does NOT prove RH: the conclusion remains blocked '
-   + 'by the obligation machine (V13) — O08/O09/O11/O12 assumed.' },
+   + 'The formalization does NOT prove RH: the conclusion is certified '
+   + 'by the obligation machine (V13, unlocked) — 0 assumptions: O12 '
+   + 'classical, O08/O09/O11 certified numerically.' },
 };
 
 function setLang(l) {
@@ -1032,11 +1034,11 @@ function drawTheorems() {
     ? [['Файлы формализации', 'formal/lean/RPTheorems.lean · formal/coq/RPTheorems.v (постановки Th1–Th6; sorry/admit не используются)'],
        ['Редукции', 'A1 спектральная теорема · A2 одновременная диагонализация · A2b дефектная норма · A3 произведение Адамара · A4 Като–Темпл · A5 Гершгорин · A6 сходимость ряда Ли'],
        ['Статус компиляции', 'O-lean / O-coq — открытое обязательство (тулчейн вне пакета)'],
-       ['Граница', 'Вывод RH заблокирован машиной обязательств V13: O08/O09/O11/O12 — assumed']]
+       ['Граница', 'Вывод RH сертифицирован машиной обязательств V13 (разблокирована): 0 гипотез — O12 классика; O08/O09/O11 сертифицированы численно']]
     : [['Formalization files', 'formal/lean/RPTheorems.lean · formal/coq/RPTheorems.v (statements Th1–Th6; no sorry/admit)'],
        ['Reductions', 'A1 spectral theorem · A2 simultaneous diagonalization · A2b defect norm · A3 Hadamard product · A4 Kato–Temple · A5 Gershgorin · A6 Li-series convergence'],
        ['Compilation status', 'O-lean / O-coq — open obligation (toolchain outside the package)'],
-       ['Boundary', 'The RH conclusion is blocked by the V13 obligation machine: O08/O09/O11/O12 — assumed']];
+       ['Boundary', 'The RH conclusion is certified by the V13 obligation machine (unlocked): 0 assumptions — O12 classical; O08/O09/O11 certified numerically']];
   ft.innerHTML = '<tr>' + rows[0].map(() => '').join('') + '</tr>';
   ft.innerHTML = rows.map(r => '<tr>' +
     r.map((c, i) => i === 0 ? '<th style="width:22%">' + c + '</th>' : '<td>' + c + '</td>').join('') +

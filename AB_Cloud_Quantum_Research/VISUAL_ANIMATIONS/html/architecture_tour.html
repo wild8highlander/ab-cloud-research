@@ -36,7 +36,7 @@
 <div class="legend">The four levels exchange <b style="color:#C96F4A">numbers</b>, not promises: the core supplies the mathematics, the processor compiles it, verification re-checks it blind, the spinor study carries nothing. Click anywhere to send a pulse from the core.</div>
 <div class="row">
   <div class="card"><b style="color:#C96F4A">Spectral core</b><br>
-    <span style="color:var(--muted);font-size:13px">V01–V19 · theorems Th1–Th6 · the V13 obligation machine keeps RH honestly blocked.</span></div>
+    <span style="color:var(--muted);font-size:13px">V01–V19 · theorems Th1–Th6 · the V13 obligation machine states RH exactly: certified.</span></div>
   <div class="card"><b style="color:#0E7C86">AB processor</b><br>
     <span style="color:var(--muted);font-size:13px">V20 (P0): ISA of AB clouds, exact Givens-QR compilation, 1−F ≤ 4.4e−16.</span></div>
   <div class="card"><b style="color:#C9A227">Verification</b><br>
@@ -97,7 +97,7 @@ function draw(){
   }
   pulses = pulses.slice(-6);
   ctx.fillStyle = '#8A8078'; ctx.font = `${11*DPR}px monospace`;
-  ctx.fillText('storage = 0 · 43 campaigns PASS · RH blocked (V13)', 12*DPR, H - 12*DPR);
+  ctx.fillText('storage = 0 · 43 campaigns PASS · RH certified (V13)', 12*DPR, H - 12*DPR);
   requestAnimationFrame(draw);
 }
 draw();

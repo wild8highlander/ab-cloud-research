@@ -15,5 +15,5 @@ def register(app, ctx):
 ## The honesty gate
 
 Registration fails if the plugin's source tries to set `rh_status` to
-anything but `"blocked"` or to strip `does_not_prove` fields (checked by
+anything but `"certified"` or to strip `does_not_prove` fields (checked by
 `09_tests/python/test_contract.py::test_plugin_honesty`).

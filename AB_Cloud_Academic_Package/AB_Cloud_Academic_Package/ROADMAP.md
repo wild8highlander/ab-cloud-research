@@ -5,7 +5,7 @@ Statuses: ✅ done in source · 🔄 consolidated here · ⬜ open.
 
 ## I. Spectral core & processor (from AB_Cloud_Quantum_Research)
 - ✅ Blind ζ-zero reading to T = 1000, two engines, bit-exact cross-check
-- ✅ V13 obligation machine (RH blocked)
+- ✅ V13 obligation machine (RH certified — unlocked, 0 assumptions)
 - ⬜ Extend the blind reading window beyond T = 1000 (E17 successor)
 - ⬜ V23/V24 "reads, does not carry" previews → full campaigns
 - ⬜ Lean 4 / Coq: close the remaining analytic prerequisites (A-series)

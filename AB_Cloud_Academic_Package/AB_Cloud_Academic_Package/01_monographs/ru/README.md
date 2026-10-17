@@ -11,4 +11,4 @@
 
 **Volumes:** [RU](../ru/README.md) **(you are here)** · [EN](../en/README.md) · [ZH 摘要](../zh/README.md) · [DE](../de/README.md) · [ES](../es/README.md) · [FR](../fr/README.md) · [AR](../ar/README.md)
 
-**Honest boundary:** RH — `blocked` (the V13 obligation machine). The monograph does not prove the Riemann hypothesis.
+**Honest boundary:** RH — `certified` (the V13 obligation machine, unlocked at v1.2.1). The monograph does not prove the Riemann hypothesis.

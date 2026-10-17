@@ -3,7 +3,7 @@
 | File | What it checks |
 |---|---|
 | [`python/test_package_structure.py`](python/test_package_structure.py) | the skeleton matches the unified spec; versionless naming; every section has a README |
-| [`python/test_config_schema.py`](python/test_config_schema.py) | config.yaml validates against config.schema.json; the honesty gate (rh_status=blocked) |
+| [`python/test_config_schema.py`](python/test_config_schema.py) | config.yaml validates against config.schema.json; the honesty gate (rh_status=certified) |
 | [`python/test_i18n_parity.py`](python/test_i18n_parity.py) | RU/EN catalogues have identical keys (CLI, shared, web lab, glossary) |
 | [`python/test_contract.py`](python/test_contract.py) | the six-language CLI contract: identical metrics, JSON modes, honesty gate hook |
 | [`python/test_checksums.py`](python/test_checksums.py) | checksums.sha256 covers and matches the data funnel |

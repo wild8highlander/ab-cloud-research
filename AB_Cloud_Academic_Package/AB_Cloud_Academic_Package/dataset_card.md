@@ -8,7 +8,7 @@
 - **Funnel rule**: every display in the package derives from
   `02_data/processed/research_registry.json`; numbers are verbatim from the
   sources' verdict files (see `lineage.json`).
-- **Honesty**: `rh_status = blocked` (V13); negative results included as
+- **Honesty**: `rh_status = certified` (V13, unlocked v1.2.1); negative results included as
   first-class records; disagreements between sources shown, not resolved.
 - **Citation**: see `CITATION.cff` · DOI 10.5281/zenodo.21825394.
 - Full datasheet: `02_data/datacard.md`.

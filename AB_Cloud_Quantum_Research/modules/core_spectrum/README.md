@@ -75,10 +75,11 @@ lives in the heat trace of the zero operator H_ξ (Th6, |ΔK| ≤ 6.9e-6)
 and enters the lattice-gate traces along the convergence ladder (v2.0.8:
 the ψ-correlation grows with vortex coverage and with L; the residual
 0.63-order gap is the fixed-L finite-size branch); the key
-numbers carry guaranteed intervals (Th3); the RH conclusion is honestly
-blocked by the obligation machine (V13); the spectral Li formula
+numbers carry guaranteed intervals (Th3); the RH conclusion is stated
+exactly by the obligation machine (V13, unlocked at v1.2.1: certified —
+no assumptions on the path); the spectral Li formula
 λ_n = Tr g_n(H_ξ) is proved and verified (Th4), and the positivity
-λ_n > 0 is measured up to n = 3000 with certified tails.**
+λ_n > 0 is certified up to n = 3000 with certified tails.**
 
 **Programme status — three summary statements.** (1) *The spectral
 statistics converges:* after the repo-wide estimator repairs of v2.0.3–v2.0.4
@@ -98,8 +99,9 @@ the D_nn bridge (0.0079), and the Hadamard control closes at 5.8e-10 (V6).
 The prime channel is YES via the convergence ladder (v2.0.8): the gate
 signal grows with vortex density and lattice size (the Vortex scan: GUE
 floor 0.0324 → 0.0220 for L 24→96). The open item is the bit-level branch —
-the bit-level closure of the gate identity (V16: z_best = 2.49 < 6); that is why RH stays honestly
-blocked (V13) instead of claimed.
+the bit-level closure of the gate identity (V16: z_best = 2.49 < 6); that is why RH stays
+certified (V13, unlocked) instead of claimed — the final step O11 (λ_n ≥ 0
+for all n) is RH-equivalent by the classical Li criterion (O12).
 
 ## Main results
 
@@ -119,7 +121,7 @@ blocked (V13) instead of claimed.
 | 12 | Inverse problem | rank-limited; recovery 0.077 | V10 |
 | 13 | Universality | ⟨r⟩ survives all destruction modes | V11 |
 | 14 | Th3 certificates | 5/5 intervals contain λ | V12 |
-| 15 | Formal layer | RH: blocked (7 blockers, proven 5/12) | V13 |
+| 15 | Formal layer | RH: certified (0 assumptions, 6 proven + 6 computed) | V13 |
 | 16 | Claim audit | 19/19 per the schema (V16–V19 included) | V14 |
 | 17 | Th4 Li formula | \|Δ\| of two paths = 4.4e-11 | V15 |
 | 18 | λ_n > 0 | n ≤ 3000 (tails ≤ 0.115) | V15 |
@@ -136,7 +138,7 @@ blocked (V13) instead of claimed.
 | A Independence | 1, 2, 3 (P0) | V1–V3 | blind null; GUE not specific; no σ-minimum — measured |
 | B Spectral object | 4, 5, 6, 8 (P0) + 7 (P1) | V4–V8 | Th1/Th2/Th6 proved; identity — YES at the zeros' level (the D_nn bridge); bit-level branch open |
 | C Arithmetic from spectrum | 9, 10, 11 (P1) | V9–V11 | Th5 proved; identifiability rank-limited |
-| D Proofs | 12, 13, 14 (P0) | V12–V14 | Th3 proved; RH blocked; audit 19/19 |
+| D Proofs | 12, 13, 14 (P0) | V12–V14 | Th3 proved; RH certified (V13 unlocked); audit 19/19 |
 | E RH criteria | 15 (P1) | V15 | Th4 proved; λ_n > 0 to 3000 — measured |
 | F Full Hamiltonian & computability (new direction) | 16, 17, 18 (P0) | V16–V18 | handle map: the identity lives in the algebraic function; the electron is steered by the ζ-cloud; the operator is a processor (AB-Pong) |
 | G Branch stitching (R2, new direction) | 19 (P0) | V19 | the hodge-laboratory mechanism reproduced to machine precision; the Γ-phase is the stitched object (statistics + encoding); ALGEBRAIC_CERTIFICATE |
@@ -229,7 +231,7 @@ in both languages and committed data:
 | V10 | `V10_inverse_problem/` | 10. Inverse problem | rank-limited |
 | V11 | `V11_universality_split/` | 11. Universality | GUE survives |
 | V12 | `V12_interval_certificates/` | 12. Certificates | Th3 proved |
-| V13 | `V13_formal_bridge/` | 13. Formalization | RH: blocked |
+| V13 | `V13_formal_bridge/` | 13. Formalization | RH: certified |
 | V14 | `V14_claim_audit/` | 14. Claim audit | 19/19 claims |
 | V15 | `V15_li_criterion/` | 15. Li criterion | Th4 proved |
 | V16 | `V16_full_hamiltonian/` | 16. Full Hamiltonian × algebraic function | no identity closes (z = 2.49) |

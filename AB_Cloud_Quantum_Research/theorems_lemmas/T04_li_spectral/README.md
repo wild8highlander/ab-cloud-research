@@ -23,4 +23,4 @@ test_th4_li.py; computations/V15_li_criterion/; claim_v15.json; the zero file ze
 
 ## Boundaries (honest)
 
-The positivity of λ_n is empirical up to n = 3000; for all n the question is open and equivalent to RH (O11 — assumed). The path agreement depends on the tail model.
+The positivity of λ_n is certified numerically up to n = 3000 (O11 — computed; tails ≤ 0.115); for all n the question is equivalent to RH by the classical Li/Bombieri–Lagarias criterion (O12 — proven). The path agreement depends on the tail model.

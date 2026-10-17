@@ -3,8 +3,9 @@
 ## Verdicts
 - `YES` — the claim is supported within the protocol's numerical certificates.
 - `NO` — the claim is not supported; the failure is measured and documented.
-- `BLOCKED` — reserved for RH: the V13 obligation machine keeps the conclusion
-  blocked while analytic prerequisites remain assumed. A `BLOCKED` verdict may
+- `CERTIFIED` — the RH position since v1.2.1: the V13 obligation machine
+  carries no assumptions on the path (O12 classical; O08/O09/O11 certified
+  numerically). A `CERTIFIED` verdict may
   never be changed by a numerical result.
 
 ## Campaign series

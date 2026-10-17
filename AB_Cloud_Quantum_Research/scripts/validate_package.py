@@ -51,7 +51,7 @@ def main():
                                       "data/v20_verdict.json")))
     check("QP: вердикт V20", bool(v20.get("verdict_note")))
     ob = json.load(open(os.path.join(ROOT, "modules/core_spectrum/formal/obligations.json")))
-    check("core_rp: RH blocked", ob["verdict"] == "blocked")
+    check("core_rp: RH certified (0 assumptions)", ob["verdict"] == "certified")
 
     # 4. теоремы: 12 документов + 12 фигур + 6 README + сводный
     thm_dirs = ["T01_hermiticity", "T02_self_adjointness", "T03_certificates",

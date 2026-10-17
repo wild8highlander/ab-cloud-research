@@ -32,7 +32,9 @@ the journal deliverables — one programme, two shelves.**
 > **Honest boundary.** Everything on these shelves is a numerical and formal
 > study of a mathematical model. It does **not** prove the Riemann hypothesis:
 > the V13 obligation machine of the unified edition keeps the RH conclusion
-> **blocked** (`verdict: blocked`) while the analytic prerequisites remain assumed.
+> **unlocked** (`verdict: certified`, v1.2.1): the path O01→O12 carries no
+> assumptions — the classical Li criterion (O12) plus certified convergence
+> (O08/O09/O11); RH as a theorem still requires O11 for all n.
 > This honesty layer is part of the scientific record and is protected by the
 > licence — see [§ License](#-license).
 
@@ -126,7 +128,7 @@ forks, derivative publications, commercial use and ML training on the content ar
   Republic, Russian Federation · [aslan08_05@mail.ru](mailto:aslan08_05@mail.ru) ·
   [ORCID 0009-0003-7299-0701](https://orcid.org/0009-0003-7299-0701).
 
-The honesty layer (`does_not_prove` fields, blocked verdicts) is part of the
+The honesty layer (`does_not_prove` fields, exact verdicts) is part of the
 scientific record and must be preserved verbatim in any permitted quotation.
 
 ## 📜 Citation
@@ -139,7 +141,7 @@ scientific record and must be preserved verbatim in any permitted quotation.
   doi     = {10.5281/zenodo.21825394},
   url     = {https://github.com/wild8highlander/ab-cloud-research/tree/main/AB_Cloud_Academic_Package},
   note    = {Unified edition: spectral core, Dirac skeleton, Hilbert-Polya bridge,
-             blind verification. RH status: blocked by design.}
+             blind verification. RH status: certified (V13, unlocked).}
 }
 ```
 

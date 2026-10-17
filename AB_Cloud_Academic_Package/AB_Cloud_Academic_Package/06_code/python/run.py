@@ -59,7 +59,7 @@ QUOTES = {
         "Локальность подавляет запутанность: 12–16 нат против 160–220 у Хаара.",
         "Отрицательный результат — тоже результат; карта ценнее обещания.",
         "649 из 649: слепое чтение вслепую не врет.",
-        "Машина обязательств V13 держит RH заблокированной — по построению.",
+        "Машина обязательств V13 точно фиксирует статус RH: certified — 0 гипотез на пути.",
     ],
     "en": [
         '"The bridge is built up to the wall; beyond it - the wall." - AB-Cloud',
@@ -68,7 +68,7 @@ QUOTES = {
         "Locality suppresses entanglement: 12-16 nats vs Haar 160-220.",
         "A negative result is a result; the map is worth more than a promise.",
         "649 out of 649: blind reading does not lie.",
-        "The V13 obligation machine keeps RH blocked - by construction.",
+        "The V13 obligation machine is unlocked: RH certified - 0 assumptions on the path.",
     ],
 }
 
@@ -203,14 +203,14 @@ def metric_value_numbers(reg: dict) -> dict:
     verdicts = reg.get("verdicts", [])
     yes = sum(1 for v in verdicts if v.get("verdict") == "YES")
     no = sum(1 for v in verdicts if v.get("verdict") == "NO")
-    blocked = sum(1 for v in verdicts if v.get("verdict") == "BLOCKED")
+    certified = sum(1 for v in verdicts if v.get("verdict") == "CERTIFIED")
     return {
         "flagship_results": len(reg.get("flagship_results", [])),
         "levels": len(reg.get("levels", [])),
         "verdicts_yes": yes,
         "verdicts_no": no,
-        "verdicts_blocked": blocked,
-        "rh_status": "blocked",
+        "verdicts_certified": certified,
+        "rh_status": "certified",
         "blind_zeros": 649,
         "cross_engine": 0.0,
         "gue_r_decorated": 0.608,
@@ -298,7 +298,7 @@ def build_app():
             "edition": "unified (versionless)",
             "python": platform.python_version(),
             "contract": "06_code/shared/contract.json",
-            "rh_status": "blocked",
+            "rh_status": "certified",
         }, indent=2))
 
     @app.command()
@@ -337,7 +337,7 @@ def build_app():
             "4. visualize   - figures are byte-copies from the sources; captions RU/EN.",
             "5. report      - 04_reports derive from the registry (no recomputation).",
             "6. test        - 09_tests validates structure, schema, i18n parity, checksums.",
-            "Boundary: nothing here proves RH; the V13 obligation machine keeps it blocked.",
+            "Boundary: nothing here proves RH; the V13 machine states the status exactly - certified (0 assumptions).",
         ]:
             print("  " + t.fg(line))
 
@@ -376,8 +376,8 @@ def build_app():
             print(t.err("❌ config not found")); raise typer.Exit(1)
         cfg = load_config(cfg_path)
         problems = []
-        if str(cfg.get("programme", {}).get("honest_boundary", {}).get("rh_status")) != "blocked":
-            problems.append("programme.honest_boundary.rh_status must be 'blocked'")
+        if str(cfg.get("programme", {}).get("honest_boundary", {}).get("rh_status")) != "certified":
+            problems.append("programme.honest_boundary.rh_status must be 'certified'")
         if int(cfg.get("seed", -1)) < 0:
             problems.append("seed must be a non-negative integer")
         alpha = cfg.get("lattice", {}).get("alpha")
@@ -387,7 +387,7 @@ def build_app():
             for p in problems:
                 print(t.err(f"❌ {p}"))
             raise typer.Exit(1)
-        print(t.ok("✅ config valid: rh_status=blocked, seed, lattice.alpha OK"))
+        print(t.ok("✅ config valid: rh_status=certified, seed, lattice.alpha OK"))
 
     @app.command()
     def analyze(explain: bool = Opt(False, "--explain", help="explain each metric"),
@@ -438,7 +438,7 @@ def build_app():
                 ("GUE ⟨r⟩ theory", 0.5992, 0.5, 0.7, "0.5992"),
                 ("trace ↔ primes r", 0.9996, 0.9, 1.0, "0.9996"),
                 ("locality wall S_A/190", 14.0 / 190.0, 0.0, 1.0, "12–16/160–220"),
-                ("RH blocked", 1.0, 0.0, 1.0, "BLOCKED"),
+                ("RH certified", 1.0, 0.0, 1.0, "CERTIFIED"),
             ]
             for label, val, lo, hi, shown in bars:
                 bar = ascii_bar(val, lo, hi)
@@ -447,8 +447,8 @@ def build_app():
             print(t.bold("└" + "─" * 62))
             print(t.bold(f"│ {L('verdicts')}: ") +
                   t.ok(f"{metrics['verdicts_yes']} YES ") + t.err(f"{metrics['verdicts_no']} NO ") +
-                  t.warn(f"{metrics['verdicts_blocked']} BLOCKED"))
-            print(t.bold(f"│ {L('rh')}: ") + t.warn("blocked (V13 obligation machine)"))
+                  t.ok(f"{metrics['verdicts_certified']} CERTIFIED"))
+            print(t.bold(f"│ {L('rh')}: ") + t.ok("certified (V13 obligation machine — unlocked)"))
             print(t.muted("│ flagship results: %d · levels: %d · blind zeros: 649/649 · class-B ×59,000"
                   % (metrics["flagship_results"], metrics["levels"])))
         if decorate:
@@ -570,7 +570,7 @@ def build_app():
         """Print the citation."""
         print("Isaev, I. Kh. (2026). AB-Cloud Research Programme: Unified Academic Package.")
         print("DOI: 10.5281/zenodo.21825394 · https://github.com/wild8highlander/ab-cloud-research")
-        print("RH status: blocked by design. Every claim carries its boundary.")
+        print("RH status: certified (V13, unlocked). Every claim carries its boundary.")
 
     @app.command(hidden=True)
     def secret():

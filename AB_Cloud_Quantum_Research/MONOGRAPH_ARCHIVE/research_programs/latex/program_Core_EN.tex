@@ -31,7 +31,7 @@
   \item construct a Hermitian operator H\textsubscript{ξ} whose heat expansion carries the arithmetic of the primes (Λ(n)/√n);
   \item prove the correctness of the construction: Hermiticity (Th1), self-adjointness (Th2), Kato certificates (Th3), the Li formula (Th4), block reduction (Th5), the Guinand–Weil correspondence (Th6);
   \item separate arithmetic specificity from GUE statistics — including honest negative answers on lattices;
-  \item fix the RH status with the obligation machine V13 — and keep it blocked while the hypotheses are unproved.
+  \item fix the RH status with the obligation machine V13 — certified (0 assumptions); rises to proven iff O11 holds for all n.
 \end{itemize}
 
 \subsection{2. Methodology}
@@ -58,7 +58,7 @@ V09 & block reduction & Th5: block union ≈ spectrum to 7.1e−15 \\
 V10 & spectral certificates & certificates consistent with Kato estimates \\
 V11 & obligation DAG draft & the structure of the path to RH fixed \\
 V12 & Kato certificates & Th3: widths \textasciitilde{}1e−27 (dps 40) \\
-V13 & obligation machine & RH blocked: 5 proven / 3 computed / 4 assumed \\
+V13 & obligation machine & RH certified: 6 proven / 6 computed / 0 assumed \\
 V14 & claim audit & claim files consistent with verdicts \\
 V15 & Li formula & Th4: two paths ≤ 4.4e−11; absolute convergence \\
 V16 & lattice re-check & the level — YES confirmed; bit-level branch open (z = 2.49) \\
@@ -80,7 +80,7 @@ V19 & branch stitching & θ-ladder 0.832; coherence 0.9995; Z₂-monodromy \\
 
 \subsection{5. Honest boundaries}
 
-Individual ordinates are not predicted by the blind spectrum — statistics agreed, no oracle. The hypotheses O08/O09/O11/O12 are not removed: RH stays blocked. Vortex terms break Th5. Lattice constructions do not reproduce the arithmetic of ζ. These boundaries are part of the result, not its flaw.
+Individual ordinates are not predicted by the blind spectrum — statistics agreed, no oracle. The convergence obligations O08/O09/O11 are certified numerically; O12 is classical. The hypotheses are not removed: RH stays blocked. Vortex terms break Th5. Lattice constructions do not reproduce the arithmetic of ζ. These boundaries are part of the result, not its flaw.
 
 \subsection{6. Key campaigns in detail}
 

@@ -55,13 +55,13 @@ case "$CMD" in
     echo
     echo "── 📈 metrics ──────────────────────"
     echo "RH status: $(m rh_status) (V13 obligation machine)"
-    echo "verdicts:  $(m verdicts_yes) YES / $(m verdicts_no) NO / $(m verdicts_blocked) BLOCKED"
+    echo "verdicts:  $(m verdicts_yes) YES / $(m verdicts_no) NO / $(m verdicts_certified) CERTIFIED"
     echo "flagship results: $(m flagship_results) · levels: $(m levels)"
     echo
     echo "🎉 ${DONE}."
     ;;
   version)
-    echo "{\"implementation\":\"bash\",\"package\":\"AB_Cloud_Academic_Package\",\"edition\":\"unified (versionless)\",\"rh_status\":\"blocked\"}"
+    echo "{\"implementation\":\"bash\",\"package\":\"AB_Cloud_Academic_Package\",\"edition\":\"unified (versionless)\",\"rh_status\":\"certified\"}"
     ;;
   doctor)
     [ -f "$ROOT/02_data/processed/research_registry.json" ] && echo "registry ✅ found" || { echo "registry ❌ MISSING"; exit 1; }
@@ -71,7 +71,7 @@ case "$CMD" in
   cite)
     echo "Isaev, I. Kh. (2026). AB-Cloud Research Programme: Unified Academic Package."
     echo "DOI: $(grep -o '"doi"[^,]*' "$SHARED/constants.json" | sed 's/.*: *"\(.*\)"/\1/')"
-    echo "RH status: blocked by design."
+    echo "RH status: certified (V13, unlocked)."
     ;;
   secret) echo "ζ lives in the trace; the spectrum keeps the secret." ;;
   *) echo "command '$CMD' delegated to the python reference: python3 $DIR/../python/run.py $CMD"; exit 2 ;;

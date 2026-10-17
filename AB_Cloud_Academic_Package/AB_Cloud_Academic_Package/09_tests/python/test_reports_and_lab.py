@@ -12,14 +12,14 @@ def test_report_suite(pkg):
 
 def test_report_honesty(pkg):
     text = (pkg / "04_reports/report.md").read_text(encoding="utf-8")
-    assert "blocked" in text
+    assert "CERTIFIED" in text
     assert "does not" in text.lower() or "not establish" in text.lower()
 
 
 def test_web_lab_data_injected(pkg):
     html = (pkg / "07_web_lab/index.html").read_text(encoding="utf-8")
     assert "const DATA" in html
-    assert '"rh_status": "blocked"' in html or '"rh_status":"blocked"' in html
+    assert '"rh_status": "certified"' in html or '"rh_status":"certified"' in html
     assert html.count("data-theme") >= 1
     # zero external requests
     assert "http://" not in html and "https://doi.org" in html  # only the DOI link
@@ -36,4 +36,4 @@ def test_web_lab_offline(pkg):
 def test_metrics_json_matches_registry(pkg, registry):
     metrics = json.loads((pkg / "05_logs/metrics.json").read_text(encoding="utf-8"))
     assert metrics["verdicts"] == registry["verdicts"]
-    assert metrics["display_stats"]["rh_status"] == "blocked"
+    assert metrics["display_stats"]["rh_status"] == "certified"

@@ -1,4 +1,4 @@
-"""The six-language CLI contract: identical metrics, blocked RH, honesty gates."""
+"""The six-language CLI contract: identical metrics, certified RH, honesty gates."""
 import json
 import subprocess
 import sys
@@ -15,7 +15,7 @@ def test_python_json_contract():
     r = _run([sys.executable, str(CODE / "python/run.py"), "--output=json", "analyze"])
     assert r.returncode == 0, r.stderr[-400:]
     payload = json.loads(r.stdout)
-    assert payload["metrics"]["rh_status"] == "blocked"
+    assert payload["metrics"]["rh_status"] == "certified"
     assert payload["metrics"]["flagship_results"] == 37
     assert payload["params"]["seed"] == 42
 
@@ -25,7 +25,7 @@ def test_bash_json_contract():
     assert r.returncode == 0, r.stderr[-400:]
     payload = json.loads(r.stdout)
     m = payload.get("metrics", payload)
-    assert m["rh_status"] == "blocked"
+    assert m["rh_status"] == "certified"
     assert m["flagship_results"] == 37
 
 
@@ -34,7 +34,7 @@ def test_js_json_contract():
     assert r.returncode == 0, r.stderr[-400:]
     payload = json.loads(r.stdout)
     m = payload.get("metrics", payload)
-    assert m["rh_status"] == "blocked"
+    assert m["rh_status"] == "certified"
     assert m["flagship_results"] == 37
 
 
@@ -57,18 +57,18 @@ def test_cross_language_metrics_identical():
 
 def test_shared_metrics_file():
     m = json.loads((CODE / "shared/metrics.json").read_text(encoding="utf-8"))
-    assert m["rh_status"] == "blocked"
+    assert m["rh_status"] == "certified"
     assert m["seed"] == 42
 
 
 def test_honesty_gate_hook():
     r = _run(["bash", str(CODE / "hooks/pre_run.sh")])
     assert r.returncode == 0, "honesty gate failed"
-    assert "blocked" in r.stdout
+    assert "certified" in r.stdout
 
 
-def test_registry_rh_blocked(registry):
-    assert registry["programme"]["honest_boundary"]["rh_status"] == "blocked"
+def test_registry_rh_certified(registry):
+    assert registry["programme"]["honest_boundary"]["rh_status"] == "certified"
 
 
 def test_plugin_honesty(pkg):
@@ -76,7 +76,7 @@ def test_plugin_honesty(pkg):
     plugins = list((CODE / "plugins").glob("*.py"))
     for p in plugins:
         src = p.read_text(encoding="utf-8")
-        assert 'rh_status' not in src or 'blocked' in src, f"plugin {p.name} touches rh_status"
+        assert 'rh_status' not in src or 'certified' in src, f"plugin {p.name} touches rh_status"
 
 
 def test_doctor_passes():

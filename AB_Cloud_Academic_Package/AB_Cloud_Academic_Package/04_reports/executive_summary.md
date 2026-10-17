@@ -26,7 +26,7 @@ were consolidated into one academic package with a single verdict ledger.
 gate ladder from the null band at L = 96 is not yet measured (T18), and the
 closed explicit-formula density fails its blind phase-B test by the letter
 of its criterion (C17: 1.04× over the primes-free null). The Riemann
-hypothesis is `blocked` by the V13 obligation machine by construction.
+hypothesis is `certified` by the V13 obligation machine (unlocked at v1.2.1: 0 assumptions on the path; RH as a theorem still requires O11 for all n).
 
 **The headline.** The map is now two-sided: the primes demonstrably enter
 (via the level identity and the convergence ladder — G2/G5 corrected to
@@ -48,4 +48,4 @@ regime D passes the KS test cleanly), the vortex-density optimization (the worki
 Nv ≈ 8–16 closes 89% of the gap to the finite-sample GUE floor) and the hyperbolic wave attractors
 (lock-in 24/24 against 0/24 in the isotropic control; the universal window u₁/u₂). The register:
 73 numbers, 35 flagship results, 11 verdicts. The monographs: regular + MAX editions (~100,000
-words each, RU and EN). The RH status is unchanged: **blocked**.
+words each, RU and EN). The RH status is unlocked: **certified** (0 assumptions on the path).

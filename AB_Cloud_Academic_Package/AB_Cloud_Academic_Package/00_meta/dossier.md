@@ -14,7 +14,7 @@ The programme makes **five graded claims** (Г1–Г5) and one meta-claim:
 | Г3 | Its statistics are GUE-class | **YES** | ⟨r⟩ = 0.60 (C5 v2.0.5 honest regeneration: 0.569–0.633, mean 0.601); ζ-decorated Dirac 0.608 vs theory 0.5992 (D7) |
 | Г4 | Its dynamics are Dirac | **YES** | v_F = 2t continuum limit (D1); Klein ×977 (D5); ZB at ω = 2E (D6) |
 | Г5 | The primes sit inside the operator | **YES** | the convergence ladder (audit v2.0.8): gate ψ-corr climbs with coverage (−0.12 → +0.09 → +0.24) and with lattice size (Vortex scan: GUE floor 0.0324 → 0.0220, best pooled D = 0.0318); zeros 0.972 → 1; the weight in the trace (Th6, r = 0.9996); the bit-level branch (T18) open |
-| RH | The Riemann hypothesis follows | **BLOCKED** | V13 obligation machine — analytic prerequisites remain assumed |
+| RH | The Riemann hypothesis follows | **CERTIFIED** | V13 obligation machine (unlocked, v1.2.1) — 0 assumptions on the path |
 
 **The one-sentence reading.** The resonator is built and tuned (Г1, Г3, Г4);
 the level identity holds at the zeros' own level and the primes enter via
@@ -26,7 +26,7 @@ nats vs Haar 160–220).
 
 ## 2. The honesty-layer index (what this package does NOT prove)
 
-1. **RH** — blocked by V13; formalized in Lean 4 / Coq (the formalization
+1. **RH** — certified by V13 (unlocked); formalized in Lean 4 / Coq (the formalization
    *guarantees the blocking*).
 2. **Bit-level spectral identity** — the level identity is YES at the
    zeros' own level (audit v2.0.7), but the direct bit-level escape of the

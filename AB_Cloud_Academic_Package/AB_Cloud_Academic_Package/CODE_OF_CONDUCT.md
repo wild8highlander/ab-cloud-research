@@ -14,7 +14,7 @@ appearance, race, religion, or sexual identity and orientation.
 This community has one additional domain-specific standard:
 
 - **Honesty is not optional.** Misrepresenting a numerical result, stripping
-  a `does_not_prove` field, or claiming RH where the record says `blocked`
+  a `does_not_prove` field, or claiming RH as a theorem where the record says `certified`
   is a conduct violation of the same severity as harassment: it corrupts the
   shared object we are building — the scientific record.
 

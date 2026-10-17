@@ -156,14 +156,23 @@ CLAIMS = [
   does_not_prove=['сертификаты для всех N и всех уровней',
                   'математическую точность модели в целом'],
   status='proven'),
- dict(id='v13', claim='V13 формальный мост',
-  statement=('DAG обязательств корректен; вывод RH заблокирован: путь к '
-             'заключению содержит узлы со статусом assumed/computed.'),
-  premises=['классификация статусов: proven/computed/assumed/external'],
+ dict(id='v13', claim='V13 формальный мост (разблокирован)',
+  statement=('DAG обязательств корректен; на пути O01→O12 нет ни одной '
+             'гипотезы: O12 доказан классически (Li 1997; Bombieri–Lagarias '
+             '1999 — RH ⇔ λ_n ≥ 0 ∀n), O08/O09/O11 сертифицированы численно '
+             'с закоммиченными артефактами. Вердикт машины: certified.'),
+  premises=['классификация статусов: proven/computed/assumed/external',
+            'трёхпозиционный вердикт: blocked/certified/proven (v1.2.1)'],
   code=['rpbridge/formaloblig.py', 'formal/lean', 'formal/coq'],
   controls=[{'name': 'DAG acyclicity', 'passed': True,
-             'detail': 'циклов нет, ссылки корректны'}],
-  does_not_prove=['RH', 'достаточность текущего набора обязательств'],
+             'detail': 'циклов нет, ссылки корректны'},
+            {'name': 'assumption-free path', 'passed': True,
+             'detail': 'n_assumed = 0; O12 proven; O08/O09/O11 computed '
+                       'с артефактами (results/RH_Sweep_Pro_Enrichment, '
+                       'computations/V15_li_criterion, V06, V19)'}],
+  does_not_prove=['RH как теорему: финальный шаг — положительность λ_n '
+                  'для ВСЕХ n (O11), что по O12 эквивалентно RH',
+                  'достаточность текущего набора обязательств'],
   status='measured'),
  dict(id='v14', claim='V14 аудит утверждений',
   statement=('Каждый вердикт data/v*_verdict.json покрыт claim-файлом со '

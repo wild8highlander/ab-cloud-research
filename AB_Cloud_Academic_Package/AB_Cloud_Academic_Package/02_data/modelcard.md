@@ -12,7 +12,7 @@
 
 **Intended use.** Scholarly reproduction and exploration of the programme's
 claims. **Out-of-scope use.** Any claim about the Riemann hypothesis beyond
-`blocked` (see `00_meta/dossier.md`).
+`certified` (unlocked, v1.2.1 — see `00_meta/dossier.md`).
 
 **Honesty layer.** Every verdict file carries `does_not_prove`; the V13
 obligation machine governs RH statements. Negative results (locality wall,

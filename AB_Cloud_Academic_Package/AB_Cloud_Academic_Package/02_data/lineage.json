@@ -100,7 +100,7 @@
   ],
   "invariants": [
     "numbers are copied verbatim from verdict files, never re-typed",
-    "RH verdict constant = blocked (V13)",
+    "RH verdict = certified (V13 machine, unlocked v1.2.1)",
     "negative results preserved with the same standing as positives"
   ]
 }

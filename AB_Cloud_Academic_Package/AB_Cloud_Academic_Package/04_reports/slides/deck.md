@@ -49,7 +49,7 @@ AB cloud: L×L torus, α flux quanta per plaquette
 
 - Bit-level branch: **open** — direct gate-ladder escape at L = 96 not yet measured (T18)
 - Closed-density blind test (C17): **NEGATIVE** by the letter — 1.04× over null
-- **RH: blocked** by the V13 obligation machine (by construction)
+- **RH: certified** by the V13 obligation machine (unlocked: 0 assumptions — O12 classical; O08/O09/O11 certified numerically)
 
 ---
 

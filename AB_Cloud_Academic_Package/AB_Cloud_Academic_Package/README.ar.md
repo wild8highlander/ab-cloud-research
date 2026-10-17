@@ -10,7 +10,7 @@
 
 [![Campaigns](https://img.shields.io/badge/campaigns-44%2B_PASS-7FC8A8?style=for-the-badge)](02_data/processed/research_registry.json)
 [![Theorems](https://img.shields.io/badge/theorems-27-E8DDB8?style=for-the-badge)](01_monographs/README.md)
-[![RH](https://img.shields.io/badge/RH_status-BLOCKED-FFB74D?style=for-the-badge)](#honest)
+[![RH](https://img.shields.io/badge/RH_status-CERTIFIED-4FA3D1?style=for-the-badge)](#honest)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21825394-blue?style=for-the-badge)](https://doi.org/10.5281/zenodo.21825394)
 
 [Русский](README.ru.md) · [English](README.md) · [中文](README.zh.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [العربية](README.ar.md)
@@ -20,7 +20,7 @@
 ---
 
 > [!IMPORTANT]
-> **الحد الصادق (مهم).** كل ما في هذه الحزمة هو دراسة عددية وصيغية لنموذج رياضي. إنها **لا** تبرهن فرضية ريمان: تُبقي آلة الالتزامات V13 استنتاج FR في حالة **محجوبة** ما دامت المتطلبات التحليلية افتراضات. تُنشر النتائج السلبية كمواطنين من الدرجة الأولى: جدار الموضعية (T18)، والمنطقة الصفرية عند البوابات (T8)، وإخفاقات تناظرات ζ الشبكية (V1/V3/V6/V16).
+> **الحد الصادق (مهم).** كل ما في هذه الحزمة هو دراسة عددية وصيغية لنموذج رياضي. إنها **لا** تبرهن فرضية ريمان. آلة الالتزامات V13 **مفتوحة** (verdict: certified، v1.2.1): مسار O01→O12 بلا أي افتراضات — معيار Li الكلاسيكي (O12: RH ⇔ λ_n ≥ 0 ∀n) زائد التقارب العددي الموثّق (O08/O09/O11)؛ كنظرية، لا تزال RH تتطلب O11 لكل n. تُنشر النتائج السلبية كمواطنين من الدرجة الأولى: جدار الموضعية (T18)، والمنطقة الصفرية عند البوابات (T8)، وإخفاقات تناظرات ζ الشبكية (V1/V3/V6/V16).
 
 ---
 

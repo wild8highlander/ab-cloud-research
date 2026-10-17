@@ -82,7 +82,7 @@ def banner_frame(k, n_frames, path_prefix=None):
     ax.text(0.015, 0.955, "AB CLOUD QUANTUM RESEARCH",
             transform=ax.transAxes, fontsize=14.5, fontweight="bold",
             color=T["ink"], va="top")
-    ax.text(0.015, 0.86, "V01–V20 · E01–E18 — Th1–Th6 · RH blocked by V13",
+    ax.text(0.015, 0.86, "V01–V20 · E01–E18 — Th1–Th6 · RH certified by V13",
             transform=ax.transAxes, fontsize=8.5, color=T["muted"], va="top")
     ax.text(0.5, tmax - 2, "Re(s) = 1/2", rotation=90, fontsize=7.5,
             color=T["copper"], ha="right", va="top")

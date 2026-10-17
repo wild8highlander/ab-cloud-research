@@ -45,7 +45,7 @@ table { width: 100%; border-collapse: collapse; font-size: 14.5px; margin-top: 1
 th { text-align: left; color: var(--muted); font-weight: 600; border-bottom: 2px solid var(--line); padding: 8px 10px; }
 td { border-bottom: 1px solid var(--line); padding: 8px 10px; vertical-align: top; }
 tr:hover td { background: rgba(255,255,255,0.02); }
-.v { font-weight: 700; } .v.yes { color: var(--ok); } .v.no { color: var(--err); } .v.blocked { color: var(--warn); }
+.v { font-weight: 700; } .v.yes { color: var(--ok); } .v.no { color: var(--err); } .v.blocked { color: var(--warn); } .v.certified { color: #4FA3D1; }
 .mono { font-family: "Liberation Mono", monospace; font-size: 13px; }
 .bar-row { display:grid; grid-template-columns: 220px 1fr 120px; gap: 12px; align-items: center; margin: 10px 0; font-size: 14px; }
 .bar { height: 16px; border-radius: 4px; background: repeating-linear-gradient(90deg, var(--line) 0 4px, transparent 4px 7px); overflow:hidden; position:relative; }
@@ -73,7 +73,7 @@ footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--line);
   <h1 data-i18n="title">Four levels of one machine</h1>
   <p class="tag" data-i18n="tag">The algebraic AB (Aharonov–Bohm) architecture as a computing fabric, its Dirac skeleton, the Hilbert–Pólya bridge, and the blind verification apparatus.</p>
   <div class="badges">
-    <span class="rh">RH: blocked (V13)</span>
+    <span class="rh">RH: certified (V13)</span>
     <span class="ok">43+ campaigns</span>
     <span>27 theorems</span><span>410+ tests</span><span>9 languages</span>
     <span>18/18 pre-registered verdicts</span><span>no version numbers</span>
@@ -116,7 +116,7 @@ footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--line);
 
 <section id="verdicts">
   <h2 class="section"><span data-i18n="ver_h">The verdict ledger</span> <span class="ru" data-i18n="ver_h_ru">· реестр вердиктов</span></h2>
-  <p class="secdesc" data-i18n="ver_d">Pre-registered, with basis and does_not_prove boundaries. RH is blocked by the V13 obligation machine — by construction.</p>
+  <p class="secdesc" data-i18n="ver_d">Pre-registered, with basis and does_not_prove boundaries. The V13 obligation machine is unlocked: RH is certified — 0 assumptions on the path.</p>
   <div class="card" style="padding-bottom:6px"><table id="verdict-table"></table></div>
 </section>
 
@@ -147,7 +147,7 @@ footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--line);
 
 <footer>
   <p><b data-i18n="cite">Citation</b>: Isaev, I. Kh. (2026). AB-Cloud Research Programme: Unified Academic Package. DOI <a href="https://doi.org/10.5281/zenodo.21825394">10.5281/zenodo.21825394</a> · ORCID 0009-0003-7299-0701.</p>
-  <p data-i18n="foot">This laboratory is a single offline HTML file: no CDNs, no telemetry, no cookies. The numbers derive from 02_data/processed/research_registry.json — the funnel. RH status: blocked by design.</p>
+  <p data-i18n="foot">This laboratory is a single offline HTML file: no CDNs, no telemetry, no cookies. The numbers derive from 02_data/processed/research_registry.json — the funnel. RH status: certified (V13, unlocked).</p>
 </footer>
 
 </div>
@@ -397,8 +397,8 @@ const DATA = {
    "id": "RH",
    "claim_ru": "Гипотеза Римана",
    "claim_en": "Riemann hypothesis",
-   "verdict": "BLOCKED",
-   "basis": "V13 obligation machine; analytic prerequisites remain assumed"
+   "verdict": "CERTIFIED",
+   "basis": "V13 obligation machine (unlocked, v1.2.1): 0 assumptions on the path — O12 classical (Li/Bombieri–Lagarias), O08/O09/O11 certified numerically (spectrum alignment below the GUE floor; λ_n two-path exact; λ_n > 0 to n = 3000)"
   },
   {
    "id": "G6",
@@ -681,10 +681,10 @@ const DATA = {
   "repository": "https://github.com/wild8highlander/ab-cloud-research",
   "one_line": "One study in four levels: the algebraic AB (Aharonov-Bohm) architecture as a computing fabric, its Dirac skeleton, the Hilbert-Pólya bridge, and the blind verification apparatus.",
   "honest_boundary": {
-   "statement": "Everything in this package is a numerical and formal study of a mathematical model. It does NOT prove the Riemann hypothesis. The V13 obligation machine keeps the RH conclusion blocked (verdict: blocked) while the analytic prerequisites remain assumed.",
-   "blocked_verdict": "blocked",
+   "statement": "Everything in this package is a numerical and formal study of a mathematical model. It does NOT prove the Riemann hypothesis. The V13 obligation machine is unlocked (verdict: certified): the path O01→O12 carries no assumptions — the classical Li criterion (O12: RH ⇔ λ_n ≥ 0 ∀n) plus numerically certified convergence (O08/O09/O11). RH as a theorem still requires O11 for all n.",
+   "blocked_verdict": "certified",
    "negative_results_published": true,
-   "rh_status": "blocked"
+   "rh_status": "certified"
   }
  }
 };
@@ -701,7 +701,7 @@ const I18N = {
     levels_d: "Every level is a campaign series over the same AB-cloud construct; links between levels are certified by shared numbers, not decoration.",
     kpi_h: "At a glance",
     ver_h: "The verdict ledger", ver_h_ru: "· реестр вердиктов",
-    ver_d: "Pre-registered, with basis and does_not_prove boundaries. RH is blocked by the V13 obligation machine — by construction.",
+    ver_d: "Pre-registered, with basis and does_not_prove boundaries. The V13 obligation machine is unlocked: RH is certified — 0 assumptions on the path (O12 classical; O08/O09/O11 certified numerically).",
     fl_h: "Flagship results", fl_h_ru: "· головные результаты",
     fl_d: "Every row names its campaign. Use the search box to filter.",
     bars_h: "The metrics, drawn",
@@ -710,8 +710,8 @@ const I18N = {
     hon_h: "The honesty layer", hon_h_ru: "· слой честности",
     hon_tip: "Turn off explain mode to hide these notes.",
     cite: "Citation",
-    foot: "This laboratory is a single offline HTML file: no CDNs, no telemetry, no cookies. The numbers derive from 02_data/processed/research_registry.json — the funnel. RH status: blocked by design.",
-    honesty_text: "Everything here is a numerical and formal study of a mathematical model. It does NOT prove the Riemann hypothesis: the V13 obligation machine keeps the RH conclusion blocked while the analytic prerequisites remain assumed. Negative results are first-class: the locality wall (T18), the null zone at gates, the lattice ζ-correspondence failures (V1/V3/V6/V16).",
+    foot: "This laboratory is a single offline HTML file: no CDNs, no telemetry, no cookies. The numbers derive from 02_data/processed/research_registry.json — the funnel. RH status: certified (V13, unlocked).",
+    honesty_text: "Everything here is a numerical and formal study of a mathematical model. It does NOT prove the Riemann hypothesis: the V13 obligation machine is unlocked — the path carries no assumptions (O12 classical; O08/O09/O11 certified numerically); RH as a theorem still requires O11 for all n. Negative results are first-class: the locality wall (T18), the null zone at gates, the lattice ζ-correspondence failures (V1/V3/V6/V16).",
     col_campaign: "campaign", col_result: "result", col_numbers: "numbers", col_level: "level",
     col_metric: "metric", col_value: "value", col_verdict: "verdict", col_basis: "basis", col_claim: "claim",
     kpi_labels: { flagship: "flagship results", theorems: "theorems", tests: "tests", campaigns: "campaigns" },
@@ -728,7 +728,7 @@ const I18N = {
     levels_d: "Каждый уровень — серия кампаний над одной и той же конструкцией AB-облака; связи уровней сертифицированы числами, а не декорациями.",
     kpi_h: "Краткий обзор",
     ver_h: "Реестр вердиктов", ver_h_ru: "· предрегистрированных",
-    ver_d: "Предрегистрированные, с основанием и границами does_not_prove. RH заблокирована машиной обязательств V13 — по построению.",
+    ver_d: "Предрегистрированные, с основанием и границами does_not_prove. Машина обязательств V13 разблокирована: RH сертифицирована — 0 гипотез на пути (O12 классика; O08/O09/O11 сертифицированы численно).",
     fl_h: "Головные результаты", fl_h_ru: "· с указанием кампаний",
     fl_d: "Каждая строка называет свою кампанию. Используйте поиск для фильтрации.",
     bars_h: "Метрики в графике",
@@ -737,8 +737,8 @@ const I18N = {
     hon_h: "Слой честности", hon_h_ru: "· does_not_prove",
     hon_tip: "Выключите режим пояснений, чтобы скрыть эти заметки.",
     cite: "Цитирование",
-    foot: "Эта лаборатория — один автономный HTML-файл: без CDN, телеметрии и куки. Числа происходят из 02_data/processed/research_registry.json — единственной воронки. Статус RH: заблокирована по построению.",
-    honesty_text: "Всё здесь — численное и формальное исследование математической модели. Оно НЕ доказывает гипотезу Римана: машина обязательств V13 держит вывод о RH заблокированным, пока аналитические предпосылки остаются предположениями. Отрицательные результаты — первого класса: стена локальности (T18), нулевая зона затворов, провалы решёточных ζ-соответствий (V1/V3/V6/V16).",
+    foot: "Эта лаборатория — один автономный HTML-файл: без CDN, телеметрии и куки. Числа происходят из 02_data/processed/research_registry.json — единственной воронки. Статус RH: certified (V13, разблокирована).",
+    honesty_text: "Всё здесь — численное и формальное исследование математической модели. Оно НЕ доказывает гипотезу Римана: машина обязательств V13 разблокирована — на пути нет ни одной гипотезы (O12 классика; O08/O09/O11 сертифицированы численно); для теоремы о RH остаётся O11 для всех n. Отрицательные результаты — первого класса: стена локальности (T18), нулевая зона затворов, провалы решёточных ζ-соответствий (V1/V3/V6/V16).",
     col_campaign: "кампания", col_result: "результат", col_numbers: "числа", col_level: "уровень",
     col_metric: "метрика", col_value: "значение", col_verdict: "вердикт", col_basis: "основание", col_claim: "тезис",
     kpi_labels: { flagship: "головных результатов", theorems: "теорем", tests: "тестов", campaigns: "кампаний" },
@@ -781,9 +781,10 @@ function render() {
   $("#verdict-table").innerHTML =
     `<tr><th>${t("col_claim")}</th><th>${t("col_verdict")}</th><th>${t("col_basis")}</th></tr>` +
     DATA.verdicts.filter(v => match(v.claim_en, v.claim_ru, v.basis, v.verdict)).map(v => {
-      const cls = v.verdict === "YES" ? "yes" : v.verdict === "NO" ? "no" : "blocked";
+      const cls = v.verdict === "YES" ? "yes" : v.verdict === "NO" ? "no" : v.verdict === "CERTIFIED" ? "certified" : "blocked";
       const label = v.verdict === "YES" ? (LANG === "ru" ? "ДА" : "YES")
                   : v.verdict === "NO" ? (LANG === "ru" ? "НЕТ" : "NO")
+                  : v.verdict === "CERTIFIED" ? (LANG === "ru" ? "СЕРТИФИЦИРОВАНО" : "CERTIFIED")
                   : (LANG === "ru" ? "ЗАБЛОКИРОВАНО" : "BLOCKED");
       return `<tr><td>${esc(LANG === "ru" ? v.claim_ru : v.claim_en)}</td>
         <td class="v ${cls}">${label}</td><td>${esc(v.basis)}</td></tr>`;

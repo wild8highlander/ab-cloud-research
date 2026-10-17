@@ -56,7 +56,7 @@
 | Claim-файлы + аудит по схеме V14 | claim_v0*.json (ядро); claim_v20.json (процессор); verdicts_master.json (верификация) |
 | Публикация отрицательных результатов | V1/V3/V6/V16 (ζ-соответствия НЕ найдены), KAK-контекст E18, вихри ломают Th5 |
 | Кросс-языковая репликация | Julia ↔ Python (E11/E16/E17, побитово); V20 ↔ numpy; E18 ↔ numpy (0 расхождений) |
-| Честные границы | вывод RH заблокирован машиной V13; 2q-оптимум KAK вне ISA-класса — превосходство не заявляется |
+| Честные границы | вывод RH сертифицирован машиной V13 (0 гипотез); 2q-оптимум KAK вне ISA-класса — превосходство не заявляется |
 
 ## 3. Числовые связки уровней
 
@@ -67,7 +67,7 @@
 | Процессор V20 ↔ верификация E18 | один ISA, равные ограничения, 5 baseline | **×59 000** по времени; 2q: 10 против KAK-оптимума 3 (вне ISA — честно) |
 | E18 ↔ Python | numpy-репликация | 0 расхождений счётчиков, \|Δ(1−F)\| = 2.2e−16 |
 | E17 ↔ V23-превью | слепое чтение нулей двумя движками | 649/649 + 639/639, кросс-движок 0.0 |
-| V13 ↔ все уровни | машина обязательств | RH **blocked** |
+| V13 ↔ все уровни | машина обязательств | RH **certified** |
 | Th6 ↔ спинор-исследование | следовая формула как «чтение без хранения» → модели летучего состояния | θ = π/2, π/3, π/7; хранение = 0 по построению |
 
 ## 4. Поток данных внутри исследования
@@ -113,4 +113,4 @@ documents), and a supplementary study `research/realtime_spinor_memory/`
 memory, only volatile real-time state). One honesty discipline binds
 all levels: pre-registered thresholds, blind SHA-pinned protocols,
 cross-language replication, published negative results, and the V13
-obligation machine keeping the RH conclusion honestly **blocked**.
+obligation machine stating the RH conclusion exactly: **certified** (0 assumptions).

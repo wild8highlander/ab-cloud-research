@@ -46,7 +46,7 @@ function bar(v, lo, hi, w = 18)
 end
 
 if cmd == "version"
-    println("{\"implementation\":\"julia\",\"package\":\"AB_Cloud_Academic_Package\",\"edition\":\"unified (versionless)\",\"julia\":$(VERSION)\",\"rh_status\":\"blocked\"}")
+    println("{\"implementation\":\"julia\",\"package\":\"AB_Cloud_Academic_Package\",\"edition\":\"unified (versionless)\",\"julia\":$(VERSION)\",\"rh_status\":\"certified\"}")
 elseif cmd == "doctor"
     reg = isfile(joinpath(@__DIR__, "..", "..", "02_data", "processed", "research_registry.json"))
     println(reg ? "registry ✅ found" : "registry ❌ MISSING")
@@ -56,7 +56,7 @@ elseif cmd == "doctor"
 elseif cmd == "cite"
     println("Isaev, I. Kh. (2026). AB-Cloud Research Programme: Unified Academic Package.")
     println("DOI: ", flatjson(joinpath(SHARED, "constants.json"), "doi"))
-    println("RH status: blocked by design.")
+    println("RH status: certified (V13, unlocked).")
 elseif cmd == "secret"
     println("ζ lives in the trace; the spectrum keeps the secret.")
 elseif cmd == "analyze"
@@ -79,7 +79,7 @@ elseif cmd == "analyze"
         println("locality wall S_A    ", bar(parse(Float64, getm("sa_local")) / parse(Float64, getm("sa_haar")), 0.0, 1.0), " ",
                 getm("sa_local"), "/", getm("sa_haar"))
         println("RH status: ", getm("rh_status"), " (V13 obligation machine)")
-        println("verdicts:  ", getm("verdicts_yes"), " YES / ", getm("verdicts_no"), " NO / ", getm("verdicts_blocked"), " BLOCKED")
+        println("verdicts:  ", getm("verdicts_yes"), " YES / ", getm("verdicts_no"), " NO / ", getm("verdicts_certified"), " CERTIFIED")
         println()
         println("🎉 Done.")
     end

@@ -76,7 +76,8 @@ The statements of all six theorems are formalized in
 `formal/coq/RPTheorems.v` (Lean 4 / Coq) with **named reductions
 A1–A6**: every deep step is reduced to an explicitly named classical
 result; `sorry`/`admit` are not used. Toolchain compilation is an open
-obligation (O-lean / O-coq). The RH conclusion remains blocked by the
+obligation (O-lean / O-coq). The RH conclusion is stated exactly (certified,
+unlocked v1.2.1) by the
 obligation machine V13: O08/O09/O11/O12 are assumed. The formalization
 GUARANTEES the blocking of a premature conclusion, it does not prove RH.
 

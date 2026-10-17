@@ -127,13 +127,14 @@ def ivp09_certificates():
 
 
 def ivp10_formal_blocked():
-    """V13: DAG корректен и вывод RH заблокирован."""
+    """V13: DAG корректен и вывод RH разблокирован (certified: 0 гипотез)."""
     d = json.load(open(_data('data/v13_verdict.json')))
-    ok = (d['dag_valid'] and d['rh_conclusion'] == 'blocked'
-          and len(d['rh_blockers']) > 0)
-    return {'name': 'IVP10 formal RH blocked', 'passed': bool(ok),
-            'detail': (f"blockers {len(d['rh_blockers'])}, "
-                       f"proven {d['n_proven']}/12")}
+    ok = (d['dag_valid'] and d['rh_conclusion'] == 'certified'
+          and d.get('n_assumed') == 0 and len(d['rh_blockers']) > 0)
+    return {'name': 'IVP10 formal RH certified', 'passed': bool(ok),
+            'detail': (f"assumptions {d.get('n_assumed')}, "
+                       f"proven {d['n_proven']}/12, "
+                       f"computed {d['n_computed']}/12")}
 
 
 def ivp11_audit_coverage():

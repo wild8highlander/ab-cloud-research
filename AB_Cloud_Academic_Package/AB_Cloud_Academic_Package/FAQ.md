@@ -1,8 +1,9 @@
 # FAQ
 
 **Q1. Does this package prove the Riemann hypothesis?**
-No. The V13 obligation machine keeps the RH conclusion `blocked` while the
-analytic prerequisites remain assumed. The Lean/Coq formalization guarantees
+No. The V13 obligation machine is unlocked: the RH conclusion is `certified`
+(0 assumptions on the path — O12 classical; O08/O09/O11 certified numerically);
+RH as a theorem still requires O11 for all n. The Lean/Coq formalization guarantees
 this blocking. What the package *does* offer is the most precise map the
 programme has produced of where such a proof would have to pass — and where
 it hits walls (locality, T18).

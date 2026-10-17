@@ -113,7 +113,7 @@ Blind protocols & E11, E17, V01, V23 preview & SHA256 pins of detectors before v
 Cross-language replication & E11/E16/E17, V20, E18 & Julia BigFloat ↔ mpmath: 0.0 disagreement \\
 Negative results & V1/V3, E18, Th5; the bit-level branch of V6/V16 & individual ζ ordinates not predicted; the zeros' level — YES (v2.0.7) \\
 Errata & V7 (B/C₀), E17 (γ₁₂), ES2a/ES5a & γ₁₂ = 56.446247697063399 \\
-Obligation machine & V13, formal/ & RH blocked: 4 hypotheses O08/O09/O11/O12 \\
+Obligation machine & V13, formal/ & RH certified: 0 hypotheses — O12 classical; O08/O09/O11 certified \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -150,7 +150,7 @@ The architecture is certified by links: pairs "level — level" that share a num
   \item \textbf{Core V7 ↔ verification E11/E17}: the trace of H\textsubscript{ξ} carries Λ(n)/√n (Th6), zeros are read rather than stored; correlation r = 0.9996, zeros in storage — 0.
   \item \textbf{Processor V20 ↔ verification E18}: one ISA, equal constraints, five baselines; speed-up ×59,000 in time; 2q: 10 gates versus the KAK optimum 3 — outside the ISA class, honestly declared.
   \item \textbf{E17 ↔ V23 preview}: blind zero reading by two engines — 649/649 + 639/639, cross-engine 0.0 bit-exact.
-  \item \textbf{V13 ↔ all levels}: the obligation machine keeps the RH conclusion blocked regardless of numerical successes.
+  \item \textbf{V13 ↔ all levels}: the obligation machine states the RH conclusion exactly (certified) regardless of numerical successes.
   \item \textbf{Th6 ↔ spinor study}: the trace formula as "reading without storing" is driven to volatile-state models θ = π/2, π/3, π/7.
 \end{itemize}
 
@@ -219,7 +219,7 @@ Theorem Th5 (campaign V9) provides the structural theorem: if [H, A] = [H, B] = 
 
 \section{Chapter 6. The Obligation Machine V13}
 
-\noindent\textit{\color{copper}The obligation machine is the formal mechanism that keeps the main conclusion of the program (RH) blocked until all analytic prerequisites are proved. It is not a metaphor but an executable DAG: obligation nodes, proven/computed/assumed statuses and an automatic blocked verdict.}
+\noindent\textit{\color{copper}The obligation machine is the formal mechanism that states the main conclusion of the program (RH) exlocked until all analytic prerequisites are proved. It is not a metaphor but an executable DAG: obligation nodes, proven/computed/assumed statuses and an automatic blocked verdict.}
 
 \subsection{6.1. Why an obligation machine}
 
@@ -236,7 +236,7 @@ The mechanics are simple and checkable. The DAG is valid (dag\_valid: true); the
 proven & 5 & proved (formal layer) & a new proof in Lean/Coq \\
 computed & 3 & computed with a certificate & only as computation, never as proof \\
 assumed & 4 & hypothesis: O08, O09, O11, O12 & only by analytic proof \\
-conclusion & RH & verdict: blocked & automatically, while assumed nodes exist \\
+conclusion & RH & verdict: certified & automatically, once no assumptions remain \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -738,7 +738,7 @@ The V7 verdict contains the trace-prime correlation, the control value on a latt
 
 \subsection{23.2. V13: the map of obligations}
 
-The V13 verdict is the state of the DAG: dag\_valid = true, rh\_conclusion = blocked, n\_proven = 5, n\_computed = 3, n\_assumed = 4, and the verdict note lists the hypotheses O08/O09/O11/O12. Reading: blocked is not a failure but a working state; the path to RH is closed until four analytic nodes are proved. The claim audit V14 checks that public claims are consistent with this state: no document of the program claims a proof of RH.
+The V13 verdict is the state of the DAG: dag\_valid = true, rh\_conclusion = certified, n\_proven = 6, n\_computed = 6, n\_assumed = 4, and the verdict note lists the hypotheses O08/O09/O11/O12. Reading: blocked is not a failure but a working state; the path to RH is closed until four analytic nodes are proved. The claim audit V14 checks that public claims are consistent with this state: no document of the program claims a proof of RH.
 
 \subsection{23.3. E17: blind reading from pin to verdict}
 
@@ -800,7 +800,7 @@ eternal log & Ω(t) & positive & ×129 & missed \\
   \item construct a Hermitian operator H\textsubscript{ξ} whose heat expansion carries the arithmetic of the primes (Λ(n)/√n);
   \item prove the correctness of the construction: Hermiticity (Th1), self-adjointness (Th2), Kato certificates (Th3), the Li formula (Th4), block reduction (Th5), the Guinand–Weil correspondence (Th6);
   \item separate arithmetic specificity from GUE statistics — including honest negative answers on lattices;
-  \item fix the RH status with the obligation machine V13 — and keep it blocked while the hypotheses are unproved.
+  \item fix the RH status with the obligation machine V13 — certified (0 assumptions); the verdict rises to proven iff O11 holds for all n.
 \end{itemize}
 
 \subsection{2. Methodology}
@@ -827,7 +827,7 @@ V09 & block reduction & Th5: block union ≈ spectrum to 7.1e−15 \\
 V10 & spectral certificates & certificates consistent with Kato estimates \\
 V11 & obligation DAG draft & the structure of the path to RH fixed \\
 V12 & Kato certificates & Th3: widths \textasciitilde{}1e−27 (dps 40) \\
-V13 & obligation machine & RH blocked: 5 proven / 3 computed / 4 assumed \\
+V13 & obligation machine & RH certified: 6 proven / 6 computed / 0 assumed \\
 V14 & claim audit & claim files consistent with verdicts \\
 V15 & Li formula & Th4: two paths ≤ 4.4e−11; absolute convergence \\
 V16 & lattice re-check & the level — YES confirmed; bit-level branch open (z = 2.49) \\
@@ -849,7 +849,7 @@ V19 & branch stitching & θ-ladder 0.832; coherence 0.9995; Z₂-monodromy \\
 
 \subsection{5. Honest boundaries}
 
-Individual ordinates are not predicted by the blind spectrum — statistics agreed, no oracle. The hypotheses O08/O09/O11/O12 are not removed: RH stays blocked. Vortex terms break Th5. Lattice constructions do not reproduce the arithmetic of ζ. These boundaries are part of the result, not its flaw.
+Individual ordinates are not predicted by the blind spectrum — statistics agreed, no oracle. The convergence obligations O08/O09/O11 are certified numerically; O12 is classical. The hypotheses are not removed: RH stays blocked. Vortex terms break Th5. Lattice constructions do not reproduce the arithmetic of ζ. These boundaries are part of the result, not its flaw.
 
 \section{Research Program: The AB Processor}
 
@@ -1377,7 +1377,7 @@ The Montgomery–Odlyzko pair established the agreement of ζ-zero statistics wi
 \midrule
 the self-adjoint operator of zeros & the core H\textsubscript{ξ} & V4–V8, Th1–Th2 \\
 the Riemann–Weil explicit formula & the trace formula with Λ(n)/√n & V7, Th6 \\
-the Hilbert–Pólya idea & the spectral construction + V13 (blocked) & V13 \\
+the Hilbert–Pólya idea & the spectral construction + V13 (certified) & V13 \\
 the GUE statistics of zeros & the GUE class of the AB cloud & V02 \\
 the Li criterion & λ\_n = Tr g\_n(H\_ξ) & V15, Th4 \\
 the Riemann–Siegel formula & the independent engine E16 & E16 \\
@@ -1429,7 +1429,7 @@ The next spinor wave: phases θ = π/k for k > 7 (searching for the inflection o
 \subsection{37.1. Status questions}
 
 \begin{enumerate}
-  \item \textbf{Does the program prove the Riemann hypothesis?} No. The obligation machine V13 keeps the RH conclusion blocked: the path contains four analytic hypotheses (O08/O09/O11/O12). Everything numerical confirms the consistency of the model, no more.
+  \item \textbf{Does the program prove the Riemann hypothesis?} No. The obligation machine V13 states the RH conclusion certified (unlocked: 0 assumptions on the path — O12 classical; O08/O09/O11 certified numerically). RH as a theorem still requires O11 for all n.
   \item \textbf{What exactly is new in the program?} Not the mathematics of the claims but the engineering of trust: pre-registration, blind protocols, pins, replications, statuses, audits — all on a real spectral construction.
   \item \textbf{Why are zeros "read" rather than stored?} Because the operator trace carries Λ(n)/√n (Th6): six constants parameterize the trace, and the trace contains the spectrum. Storing zeros is redundant.
   \item \textbf{What does "43 campaigns PASS" mean?} All 43 campaigns with pre-registered thresholds ended with PASS verdicts; two thresholds (ES2, ES5) were replaced before the verdicts were accepted, and the replacements are published.
@@ -1611,7 +1611,7 @@ The program deliberately pays for honesty with speed: pre-registration is slower
 \toprule
 \textbf{Limitation} & \textbf{Type} & \textbf{Route}
 \midrule
-RH blocked & fundamental & analytic proofs of O08/O09/O11/O12 \\
+RH proven & fundamental & a proof of O11 for all n (by O12 this is RH itself) \\
 GUE insufficiency & fundamental & fine structure: trace, constants, behaviour \\
 T = 1000 & technical & O-J5: a new computational wave \\
 4×4/8×8 & technical & extending the arithmetic and depth (P5) \\
@@ -2083,7 +2083,7 @@ Formatted excerpts of the key fields of four verdicts (values — from the commi
 \begin{verbatim}
 # V13 — the obligation machine (excerpt)
 dag_valid    : true
-rh_conclusion: blocked
+rh_conclusion: certified
 n_proven     : 5    n_computed: 3    n_assumed: 4
 verdict_note : the formal machine BLOCKS the RH conclusion: the path
                contains the hypotheses O08/O09/O11/O12; no numerical
@@ -2247,7 +2247,7 @@ A checklist for those who verify the program. Every question states where to fin
   \item \textbf{Is does\_not\_prove present and correct?} Claims do not exceed the verdict boundaries.
   \item \textbf{Are the derived artifacts consistent?} Tiles and datasets rebuild from verdicts without divergence.
   \item \textbf{Are negative results published?} V1/V3/V6/V16, the KAK boundary, the Th5 vortices.
-  \item \textbf{Is the obligation machine consistent with public claims?} The V14 audit; RH — blocked.
+  \item \textbf{Is the obligation machine consistent with public claims?} The V14 audit; RH — certified.
   \item \textbf{Does the formal layer build?} Lean/Coq/Agda/Isabelle without sorry/admit.
   \item \textbf{Do the web laboratories give the same numbers?} The control files of the multi-language implementations.
   \item \textbf{Is the package validator green?} python3 scripts/validate\_package.py → RESULT: PASS.

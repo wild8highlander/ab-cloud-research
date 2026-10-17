@@ -1,6 +1,6 @@
 # Research-ethics checklist
 
-- [x] **No overclaiming.** The V13 obligation machine keeps RH `blocked`;
+- [x] **No overclaiming.** The V13 obligation machine states RH `certified` (0 assumptions); a theorem claim requires O11 ∀n;
   every verdict file carries a `does_not_prove` field; the unified README
   repeats the boundary in three places.
 - [x] **Negative results published** as first-class citizens (locality wall

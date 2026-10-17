@@ -11,4 +11,4 @@ protocols. Full card: `02_data/modelcard.md`. Summary:
 | Blind engines (EM/RS) | cross-engine 0.0 | window T ≤ 1000 |
 
 **Intended use**: scholarly reproduction. **Out of scope**: any claim about
-RH beyond `blocked`. The honesty layer is part of every card.
+RH beyond `certified`. The honesty layer is part of every card.

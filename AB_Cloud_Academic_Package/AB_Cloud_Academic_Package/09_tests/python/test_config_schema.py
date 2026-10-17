@@ -21,9 +21,9 @@ def test_required_keys(pkg):
 
 
 def test_honesty_gate(pkg):
-    """rh_status must be 'blocked' — the V13 obligation machine."""
+    """rh_status mirrors the V13 machine verdict — 'certified' (unlocked v1.2.1)."""
     cfg, _ = _load(pkg)
-    assert cfg["programme"]["honest_boundary"]["rh_status"] == "blocked"
+    assert cfg["programme"]["honest_boundary"]["rh_status"] == "certified"
     assert "does_not_prove" in cfg["programme"]["honest_boundary"]
 
 

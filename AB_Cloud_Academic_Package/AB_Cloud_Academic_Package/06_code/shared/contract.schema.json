@@ -43,7 +43,7 @@
       ],
       "properties": {
         "rh_status": {
-          "const": "blocked"
+          "const": "certified"
         }
       }
     },

@@ -16,7 +16,7 @@ whose spectrum would be the Riemann ζ zeros?
    vs Haar 160–220). A positive construction must be nonlocal — or
    equivalently entangling.
 
-**Honesty.** RH: `blocked` by the V13 obligation machine (Lean 4 / Coq) —
+**Honesty.** RH: `certified` by the V13 obligation machine (unlocked at v1.2.1: 0 assumptions; Lean 4 / Coq) —
 by construction, not by accident. Every verdict carries `does_not_prove`.
 
 **Numbers that matter:** 649/649 blind zeros · ×59,000 class-B win ·

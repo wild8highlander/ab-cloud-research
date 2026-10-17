@@ -3,7 +3,7 @@
   "info": {
     "title": "AB-Cloud Web Lab API",
     "version": "unified (versionless)",
-    "description": "Read-only view of the unified research registry. RH status: blocked (V13)."
+    "description": "Read-only view of the unified research registry. RH status: certified (V13, unlocked)."
   },
   "paths": {
     "/": {

@@ -26,7 +26,7 @@ or `make test`). They check:
 2. **12 theorem documents** (6 × RU/EN × PDF/DOCX) in `theorems_lemmas/`;
 3. **12 tiled figures** in `figures_tiled/{ru,en}/`;
 4. the verdicts of the Julia series: `verdicts_master.json` — **all 18 PASS**;
-5. the core_rp obligation machine: the RH verdict — `blocked`;
+5. the core_rp obligation machine: the RH verdict — `certified` (0 assumptions);
 6. the formal files: `sorry`/`Admitted` absent from RPTheorems;
 7. the "Theorems" tab in both web labs + the portal of the three programs;
 8. the full `scripts/validate_package.py` (40+ checks) finishing successfully.

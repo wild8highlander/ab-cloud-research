@@ -1,9 +1,10 @@
 # The honesty layer
 
-1. `rh_status = blocked` — the V13 obligation machine (Lean 4 / Coq) keeps
-   the Riemann-hypothesis conclusion blocked while analytic prerequisites
-   remain assumptions. No numerical result can change this; the formal layer
-   *guarantees the blocking*.
+1. `rh_status = certified` — the V13 obligation machine (Lean 4 / Coq)
+   states the Riemann-hypothesis conclusion exactly: since v1.2.1 the path
+   O01→O12 carries no assumptions (O12 classical; O08/O09/O11 certified
+   numerically). The verdict rises to `proven` only via a proof of O11 for
+   all n; the formal layer *guarantees the exact accounting*.
 2. Every verdict file carries `does_not_prove` — what the result does NOT
    establish. This field is part of the scientific record and must be
    preserved verbatim in derivatives (LICENSE §3).

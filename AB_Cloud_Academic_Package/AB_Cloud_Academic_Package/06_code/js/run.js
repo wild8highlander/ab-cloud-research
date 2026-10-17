@@ -45,7 +45,7 @@ function analyze() {
     console.log(`GUE <r> theory      ${bar(METRICS.gue_r_theory, 0.5, 0.7)} ${METRICS.gue_r_theory}`);
     console.log(`trace-primes r      ${bar(METRICS.trace_primes_r, 0.9, 1.0)} ${METRICS.trace_primes_r}`);
     console.log(`locality wall S_A   ${bar(METRICS.sa_local / METRICS.sa_haar, 0, 1)} ${METRICS.sa_local}/${METRICS.sa_haar}`);
-    console.log(`${I18N.verdicts}: ${METRICS.verdicts_yes} YES ${METRICS.verdicts_no} NO ${METRICS.verdicts_blocked} BLOCKED`);
+    console.log(`${I18N.verdicts}: ${METRICS.verdicts_yes} YES ${METRICS.verdicts_no} NO ${METRICS.verdicts_certified} CERTIFIED`);
     console.log(`${I18N.rh}: ${METRICS.rh_status} (V13 obligation machine)`);
     console.log("\u{1F389} " + I18N.done + ".\n");
   } else {
@@ -59,10 +59,10 @@ function analyze() {
 }
 const _pos = process.argv.slice(2).find(a => !a.startsWith("--"));
 const cmd = _pos !== undefined ? _pos : "analyze";
-if (cmd === "version") console.log(JSON.stringify({ implementation: "js", package: CONSTANTS.package, edition: CONSTANTS.edition, node: process.version, rh_status: "blocked" }, null, 2));
+if (cmd === "version") console.log(JSON.stringify({ implementation: "js", package: CONSTANTS.package, edition: CONSTANTS.edition, node: process.version, rh_status: "certified" }, null, 2));
 else if (cmd === "analyze") analyze();
 else if (cmd === "doctor") { const ok = fs.existsSync(path.join(ROOT, "02_data/processed/research_registry.json"));
   console.log(`registry ${ok ? "\u2705 found" : "\u274c MISSING"}\nconfig ${fs.existsSync(path.join(ROOT, "config.yaml")) ? "\u2705 found" : "\u274c MISSING"}\nmetrics \u2705 loaded`); process.exitCode = ok ? 0 : 1; }
-else if (cmd === "cite") console.log(`Isaev, I. Kh. (2026). ${CONSTANTS.programme}: Unified Academic Package.\nDOI: ${CONSTANTS.doi}\nRH status: blocked by design.`);
+else if (cmd === "cite") console.log(`Isaev, I. Kh. (2026). ${CONSTANTS.programme}: Unified Academic Package.\nDOI: ${CONSTANTS.doi}\nRH status: certified (V13, unlocked).`);
 else if (cmd === "secret") console.log("zeta lives in the trace; the spectrum keeps the secret.");
 else { console.log(`command '${cmd}' delegated to the python reference: python3 python/run.py ${cmd}`); process.exitCode = 2; }

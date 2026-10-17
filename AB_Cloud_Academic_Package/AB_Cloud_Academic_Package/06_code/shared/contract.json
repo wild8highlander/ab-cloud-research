@@ -69,7 +69,7 @@
     "all runners emit identical metrics keys and values from shared/metrics.json",
     "all runners read config.yaml for seed/lang/theme/mode",
     "JSON mode (--output=json) prints pure JSON on stdout",
-    "rh_status is always 'blocked' \u2014 the V13 obligation machine",
+    "rh_status mirrors the V13 machine verdict \u2014 'certified' (unlocked v1.2.1: 0 assumptions on the path)",
     "exit code 0 on success, 1 on error, 2 on usage"
   ]
 }

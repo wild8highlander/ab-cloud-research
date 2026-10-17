@@ -7,7 +7,7 @@ and strict where they matter.
 ## The one rule that overrides everything
 
 **Never weaken the honesty layer.** Every claim in this package carries its
-boundary: `does_not_prove` fields, blocked verdicts, negative-result
+boundary: `does_not_prove` fields, exact verdicts, negative-result
 registers. If your contribution adds a result, it must add its boundary too.
 A PR that presents a numerical success without its boundary will be closed
 with a reference to this section.

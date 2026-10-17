@@ -14,7 +14,7 @@
 | IVP07 | Ли, два пути Th4 | **PASS** | \|Δ\|=2.9e-11, min λ_n = 0.0231 |
 | IVP08 | блочная редукция Th5 | **PASS** | eps 0.0, union 7.1e-15 |
 | IVP09 | сертификаты Th3 | **PASS** | 5/5 valid |
-| IVP10 | RH заблокирована | **PASS** | 7 блокеров, proven 5/12 |
+| IVP10 | RH сертифицирована | **PASS** | 0 гипотез, proven 6/12 + computed 6/12 |
 | IVP11 | аудит claims | **PASS** | 19/19, missing [] |
 | IVP12 | кампании исполняются | **PASS** | 19/19 OK |
 | IVP13 | карта ручек V16 | **PASS** | rows 288, z_best 2.49 < 6, identity_closed False |

@@ -75,10 +75,11 @@ def test_verdicts():
     assert len(m["passes"]) == 18
 
 
-def test_obligations_blocked():
+def test_obligations_certified():
     ob = json.load(open(os.path.join(
         ROOT, "modules/core_spectrum/formal/obligations.json")))
-    assert ob["verdict"] == "blocked"
+    assert ob["verdict"] == "certified"
+    assert all(n["status"] != "assumed" for n in ob["nodes"])
 
 
 def test_formal_no_sorry():

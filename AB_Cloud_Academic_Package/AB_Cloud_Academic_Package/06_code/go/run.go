@@ -67,7 +67,7 @@ func main() {
         }
         switch cmd {
         case "version":
-                fmt.Println(`{"implementation":"go","package":"AB_Cloud_Academic_Package","edition":"unified (versionless)","rh_status":"blocked"}`)
+                fmt.Println(`{"implementation":"go","package":"AB_Cloud_Academic_Package","edition":"unified (versionless)","rh_status":"certified"}`)
         case "doctor":
                 reg := fileExists(filepath.Join(dir(), "..", "..", "02_data", "processed", "research_registry.json"))
                 cfg := fileExists(filepath.Join(dir(), "..", "..", "config.yaml"))
@@ -80,7 +80,7 @@ func main() {
         case "cite":
                 fmt.Println("Isaev, I. Kh. (2026). AB-Cloud Research Programme: Unified Academic Package.")
                 fmt.Println("DOI:", flatJSON("constants", "doi"))
-                fmt.Println("RH status: blocked by design.")
+                fmt.Println("RH status: certified (V13, unlocked).")
         case "secret":
                 fmt.Println("ζ lives in the trace; the spectrum keeps the secret.")
         case "analyze":
@@ -113,7 +113,7 @@ func main() {
                 fmt.Printf("trace-primes r    %s %s\n", bar(f("trace_primes_r"), 0.9, 1.0), flatJSON("metrics", "trace_primes_r"))
                 fmt.Printf("locality wall     %s %s/%s\n", bar(f("sa_local")/f("sa_haar"), 0, 1), flatJSON("metrics", "sa_local"), flatJSON("metrics", "sa_haar"))
                 fmt.Println("RH status:", flatJSON("metrics", "rh_status"), "(V13 obligation machine)")
-                fmt.Printf("verdicts: %s YES / %s NO / %s BLOCKED\n", flatJSON("metrics", "verdicts_yes"), flatJSON("metrics", "verdicts_no"), flatJSON("metrics", "verdicts_blocked"))
+                fmt.Printf("verdicts: %s YES / %s NO / %s CERTIFIED\n", flatJSON("metrics", "verdicts_yes"), flatJSON("metrics", "verdicts_no"), flatJSON("metrics", "verdicts_certified"))
                 fmt.Println()
                 fmt.Println("🎉 Done.")
         default:

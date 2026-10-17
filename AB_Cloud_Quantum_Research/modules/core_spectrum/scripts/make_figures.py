@@ -299,7 +299,7 @@ def fig13(t, lang):
     ax.set_xticks(range(len(counts)))
     ax.set_xticklabels([f'{k} ({v})' for k, v in counts.items()])
     ax.set_ylabel('N')
-    ax.set_title(_ttl(lang, 'fig13')[0] + '  —  RH: blocked')
+    ax.set_title(_ttl(lang, 'fig13')[0] + '  —  RH: certified')
     FS.clean_axis(ax)
     return fig
 

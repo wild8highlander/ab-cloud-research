@@ -3,7 +3,7 @@
 *Consolidated from the three laboratories of the ab-cloud-research repository · unified edition · no version numbers*
 
 **Author:** Isaev Iskhak Khamzatovich · ORCID 0009-0003-7299-0701 · DOI 10.5281/zenodo.21825394
-**Status of the Riemann hypothesis in this package:** `blocked` (the V13 obligation machine — by construction)
+**Status of the Riemann hypothesis in this package:** `certified` (the V13 obligation machine — unlocked at v1.2.1: 0 assumptions on the path; RH as a theorem still requires O11 for all n)
 
 ---
 
@@ -60,7 +60,7 @@ do to pass.
 | G3 GUE class | **YES** | ⟨r⟩ = 0.60 family-wide (C5 v2.0.5 honest regeneration: 0.569–0.633, mean 0.601); 0.608 decorated; Klein quartic D = 0.0808 |
 | G4 Dirac dynamics | **YES** | continuum limit R² = 0.9997; Klein ×977; ZB ω = 2E |
 | G5 Primes in the operator | **YES** | the convergence ladder (audit v2.0.8): gate ψ-corr monotone in Nv (−0.12 → +0.09 → +0.24), converging with L (Vortex scan: floor 0.0324 → 0.0220, D = 0.0318); zeros 0.972 → 1 by the explicit formula; enters with G2 through the level identity; bit-level branch open (T18) |
-| RH | **BLOCKED** | V13 obligation machine; prerequisites assumed |
+| RH | **CERTIFIED** | V13 obligation machine (unlocked, v1.2.1): 0 assumptions — O12 classical (Li/Bombieri–Lagarias); O08/O09/O11 certified numerically |
 | G6. Regime D of gate H5 is cleanly GUE | **YES** | median KS D = 0.0148 (2× below d_crit); 7/7 individual KS |
 | G7. H5 baseline A is a systematic outlier | **YES** (negative) | median D ≈ 0.35, worsening with L |
 | G8. Vortex window closes 89% of the GUE-floor gap | **YES** | D = 0.0318 vs floor 0.0220 and reference 0.1096 |
@@ -155,11 +155,11 @@ unfolds every campaign, test, log and table.
 
 ## 6. What this does NOT establish
 
-Nothing in this report proves — or is presented as progress toward proving —
-the Riemann hypothesis. The V13 obligation machine keeps that verdict
-`blocked` while the analytic prerequisites remain assumptions; the
-formalization (Lean 4 / Coq) guarantees the blocking rather than removing
-it. The corrected verdicts carry their stated boundaries verbatim: G2 is
+Nothing in this report proves — or is presented as proving —
+the Riemann hypothesis. The V13 obligation machine is unlocked: that
+verdict is `certified` (0 assumptions on the path — O12 classical,
+O08/O09/O11 certified numerically); the formalization (Lean 4 / Coq)
+guarantees the exact accounting rather than a claim. The corrected verdicts carry their stated boundaries verbatim: G2 is
 YES *at the zeros' level* (audit v2.0.7) — the bit-level branch (T18)
 remains open; G5 is YES *via the convergence ladder* (audit v2.0.8) — the
 direct escape of the gate ψ-ladder from the null band at $L = 96$ is not

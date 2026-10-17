@@ -33,7 +33,7 @@ def test_en_monograph_sections(pkg):
 def test_honesty_boundary_present(pkg):
     for lang in ("ru", "en"):
         text = (pkg / f"01_monographs/{lang}/monograph_{lang}.md").read_text(encoding="utf-8")
-        assert "blocked" in text, f"{lang} monograph lost the blocked verdict"
+        assert "certified" in text, f"{lang} monograph lost the certified verdict"
         assert "не доказыва" in text or "does not prove" in text.lower() or "not prove" in text.lower()
 
 
@@ -53,7 +53,7 @@ def test_max_editions_present(pkg):
         text = md.read_text(encoding="utf-8")
         words = len(re.findall(r"\S+", text))
         assert words > 80_000, f"{lang} MAX edition too small: {words} words"
-        assert "blocked" in text, f"{lang} MAX lost the blocked verdict"
+        assert "certified" in text, f"{lang} MAX lost the certified verdict"
         # уровни нового обогащения
         for section in ("v19", "H5", "T34", "W1"):
             assert section in text, f"{lang} MAX missing enrichment section {section}"

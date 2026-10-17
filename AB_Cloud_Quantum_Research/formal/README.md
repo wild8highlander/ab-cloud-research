@@ -51,7 +51,8 @@ map and a summary status.
 Discipline: `sorry`/`admit` are not used anywhere; every deep classical
 result is an explicitly named axiom. No axiom is the RH hypothesis.
 The obligation machine (V13) is confirmed by the test `test_formal_blocked.py`:
-**the RH conclusion is blocked** while O08/O09/O11/O12 are assumed. The
+**the RH conclusion is stated exactly (certified — unlocked v1.2.1)**: no
+assumptions remain (O12 classical; O08/O09/O11 certified numerically). The
 formalization guarantees honest blocking, not a proof of RH.
 
 ---

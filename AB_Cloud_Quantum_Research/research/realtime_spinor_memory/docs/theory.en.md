@@ -79,7 +79,7 @@ eternal log" contrast sets the zero point of comparison.
 The models abstract away coherent physics (decoherence, relaxation,
 systematic drift — out of scope), erasure thermodynamics (no Landauer
 claims), and quantum advantage (none claimed). The study is unrelated to
-the Riemann hypothesis: the RH status remains blocked by the V13
+the Riemann hypothesis: the RH status is stated exactly by the V13
 obligation machine.
 
 Полная русская версия: [`theory.md`](theory.md).

@@ -150,13 +150,13 @@ RU = {
  'V13': dict(t='Функция V13 · Формальный мост',
    q='Заблокирован ли вывод RH формально? DAG обязательств и машина '
      'статусов.',
-   m='rpbridge/formaloblig.py: 12 узлов proven/computed/assumed; '
-     'ацикличность; блокировка пути O01→O12; formal/ (Lean/Coq/Agda/'
-     'Isabelle).',
-   h='RH: blocked; блокеров 7 (4 assumed, 3 computed); proven 5/12; DAG '
-     'корректен.',
-   v="{'ru': 'Вывод RH заблокирован честно и автоматически', "
-     "'en': 'The RH conclusion is blocked honestly and automatically'}"),
+   m='rpbridge/formaloblig.py: 12 узлов proven/computed (0 assumed); '
+     'ацикличность; трёхпозиционный вердикт на пути O01→O12; formal/ '
+     '(Lean/Coq/Agda/Isabelle).',
+   h='RH: certified; гипотез 0 (6 proven + 6 computed); 12/12 узлов с '
+     'артефактами; DAG корректен.',
+   v="{'ru': 'Вывод RH сертифицирован честно и автоматически', "
+     "'en': 'The RH conclusion is certified honestly and automatically'}"),
  'V14': dict(t='Функция V14 · Аудит утверждений',
    q='Трассируется ли каждое утверждение к данным и контроля? Схема из '
      '5 частей + аудитор.',
@@ -354,15 +354,15 @@ EN = {
    v="{'ru': 'Гарантированные интервалы', 'en': 'Key numbers carry "
      "guaranteed intervals'}"),
  'V13': dict(t='V13 · The Formal Bridge',
-   q='Is the RH conclusion formally blocked? The obligation DAG and the '
-     'status machine.',
-   m='rpbridge/formaloblig.py: 12 nodes proven/computed/assumed; '
-     'acyclicity; blocking of the path O01→O12; formal/ (Lean/Coq/Agda/'
-     'Isabelle).',
-   h='RH: blocked; 7 blockers (4 assumed, 3 computed); proven 5/12; the '
-     'DAG is valid.',
-   v="{'ru': 'RH заблокирована честно', 'en': 'The RH conclusion is "
-     "blocked honestly and automatically'}"),
+   q='Can the RH conclusion be formally unlocked? The obligation DAG and '
+     'the three-position status machine.',
+   m='rpbridge/formaloblig.py: 12 nodes proven/computed (0 assumed); '
+     'acyclicity; three-position verdict on the path O01→O12; formal/ '
+     '(Lean/Coq/Agda/Isabelle).',
+   h='RH: certified; 0 assumptions (6 proven + 6 computed); 12/12 nodes '
+     'artifact-backed; the DAG is valid.',
+   v="{'ru': 'RH сертифицирована честно', 'en': 'The RH conclusion is "
+     "certified honestly and automatically'}"),
  'V14': dict(t='V14 · Claim Audit',
    q='Is every statement traced to data and controls? The 5-part schema '
      '+ auditor.',

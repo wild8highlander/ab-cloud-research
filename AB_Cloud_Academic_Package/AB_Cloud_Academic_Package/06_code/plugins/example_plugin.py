@@ -2,7 +2,7 @@
 
 Plugins are plain Python modules with a `register(app, ctx)` function.
 The review protocol applies: a plugin that weakens the honesty layer
-(rh_status must stay 'blocked'; does_not_prove fields are inviolable)
+(rh_status must stay 'certified'; does_not_prove fields are inviolable)
 is rejected at registration.
 """
 

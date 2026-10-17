@@ -49,7 +49,7 @@
   "tests": "09_tests/python (pytest) - structure, schema, i18n parity, checksums, monograph skeleton"
  },
  "honesty": {
-  "rh_status": "blocked",
+  "rh_status": "certified",
   "layer": "every verdict carries does_not_prove; negative results are first-class",
   "index": "00_meta/dossier.md"
  },

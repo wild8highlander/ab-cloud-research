@@ -22,14 +22,14 @@ data = load()
 lang = st.sidebar.radio("language", ["en", "ru"], horizontal=True)
 T = {
     "en": dict(title="AB-Cloud Research Programme", tag="four levels · one registry · honest boundaries",
-               rh="RH status", blocked="blocked (V13 obligation machine)"),
+               rh="RH status", certified="certified (V13 obligation machine — unlocked)"),
     "ru": dict(title="Программа AB-Cloud", tag="четыре уровня · один реестр · честные границы",
-               rh="Статус RH", blocked="заблокирована (машина обязательств V13)"),
+               rh="Статус RH", certified="сертифицирована (машина обязательств V13 — разблокирована)"),
 }[lang]
 
 st.title(T["title"])
 st.caption(T["tag"])
-st.warning(f"{T['rh']}: {T['blocked']}" if lang == "en" else f"{T['rh']}: {T['blocked']}")
+st.info(f"{T['rh']}: {T['certified']}")
 
 tabs = st.tabs(["levels", "verdicts", "flagship", "numbers"] if lang == "en"
                else ["уровни", "вердикты", "результаты", "числа"])
