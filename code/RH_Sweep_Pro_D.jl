@@ -15,6 +15,9 @@
 #   ✓ Sweep α в любом диапазоне (например, -16 до +16)
 #   ✓ 9 preset-функций (quick, full, magic, deep_sweep, ...)
 #   ✓ Все исправления багов предыдущих версий
+#   ✓ v1.1: ИНТЕРАКТИВНОЕ МЕНЮ — запуск любой функции одной клавишей (0–9, A–Z)
+#   ✓ v1.1: ИСПРАВЛЕНО UndefVarError — восстановлены отсутствовавшие
+#     sweep_parameter() / save_sweep_results() / sweep_all_parameters()
 #   ✓ Профессиональные графики (Plots.jl)
 #   ✓ Отчёты в CSV, TXT (ASCII-таблицы), JSON
 #   ✓ Полное логирование времени
@@ -25,11 +28,20 @@
 #   Первый нуль: 14.134725141735 (Odlyzko verified)
 #   Последний нуль: 12943.888244481577 (13 661-й нуль ζ(s))
 #
-# ЗАПУСК:
-#   julia -e 'include("RH_Unified.jl"); run_quick_test()'
-#   julia -e 'include("RH_Unified.jl"); cfg = preset_full(); run(cfg)'
-#   julia -e 'include("RH_Unified.jl"); cfg = preset_deep_sweep(); run(cfg)'
-#   julia -e 'include("RH_Unified.jl"); list_presets()'
+# ЗАПУСК (v1.1 — интерактивное меню):
+#   julia RH_Sweep_Pro_D.jl                 ← МЕНЮ по клавишам 0–9 и A–Z
+#   julia -e 'include("RH_Sweep_Pro_D.jl"); interactive_menu()'
+#   julia -e 'include("RH_Sweep_Pro_D.jl"); run_quick_test()'
+#   julia -e 'include("RH_Sweep_Pro_D.jl"); cfg = preset_full(); run(cfg)'
+#   julia -e 'include("RH_Sweep_Pro_D.jl"); sweep_top10_pro()'
+#   julia -e 'include("RH_Sweep_Pro_D.jl"); list_presets()'
+#   RSP_AUTORUN=1 julia RH_Sweep_Pro_D.jl   ← старое поведение (автопрогон)
+#
+# КЛАВИШИ МЕНЮ:
+#   0 — выход · 1–8 — прогоны и sweep · 9 — финал по лучшим параметрам
+#   r — повтор последнего запуска · q — цвет · u — очистка экрана
+#   A–L — пресеты/справка (конфиг, ζ-нули, магические α, вихри, джиттер)
+#   M–Z — сервис (sweep-мастера, обзор результатов, self-test, экспорт)
 #
 # ЗАВИСИМОСТИ (устанавливаются автоматически при первом запуске):
 #   julia -e 'using Pkg; Pkg.add(["Plots", "JSON"])'
@@ -762,7 +774,7 @@ function _mr_wave_footer(msg::AbstractString = "")
     return nothing
 end
 
-const _MR_BRAND = (title = "RH·SWEEP PRO", version = "1.0",
+const _MR_BRAND = (title = "RH·SWEEP PRO", version = "1.1",
                    subtitle = "динамический sweep · 8 параметров · 13 661 ζ-нуль",
                    badge3 = "13661 ζ-zeros", unit = "PHASE",
                    tagline1 = "RH·SWEEP PRO — динамическая максимизация корреляции AB-облака с ζ(s)", tagline2 = "13 661 реальный ζ-нуль · 61 магическая α · пресеты · тонкие сетки")
@@ -797,8 +809,10 @@ const R_GOE     = 0.5359     # GOE
 const R_GSE     = 0.6762     # GSE
 const R_POISSON = 0.3863     # Poisson
 
-# Глобальный флаг для отладочного вывода метрик
-const cfg_verbose_metrics = true
+# Глобальный флаг отладочного вывода метрик ([metrics]-строки).
+# v1.1: по умолчанию выключен — иначе sweep из 80+ точек тонет в отладке.
+# Включить: ENV["RSP_VERBOSE_METRICS"] = "1" перед запуском.
+const cfg_verbose_metrics = get(ENV, "RSP_VERBOSE_METRICS", "0") == "1"
 
 
 # + ДОБАВЛЕНО: ДИНАМИЧЕСКИЙ SWEEP ПАРАМЕТРОВ
@@ -4392,7 +4406,8 @@ function _try_load_external_zeta_zeros()
     end
 
     # Внешний файл не найден
-    println("ℹ  Внешний файл с ζ-нулями не найден. Используются встроенные 500 нулей.")
+    println("ℹ  Внешний файл с ζ-нулями не найден. Используются встроенные ",
+            N_ZETA_ZEROS_AVAILABLE, " нулей (mpmath.zetazero).")
     println("   Для больших данных:")
     println("   1. Скачайте https://www-users.cse.umn.edu/~odlyzko/zeta_tables/zeros6")
     println("   2. Сохраните рядом с RH_Unified.jl как zeta_zeros_2M_odlyzko.txt")
@@ -5747,15 +5762,15 @@ function format_table(headers::AbstractVector, rows::AbstractVector;
         col_widths = [maximum(length(c[i]) for c in all_cells) + 2 for i in 1:n_cols]
     end
     function make_separator(left, mid, right, fill)
-        parts = [left * repeat(fill, col_widths[i]) for i in 1:n_cols]
-        return join(parts, mid) * right
+        parts = [repeat(fill, col_widths[i]) for i in 1:n_cols]
+        return left * join(parts, mid) * right
     end
     top = make_separator("┌", "┬", "┐", "─")
     header_sep = make_separator("├", "┼", "┤", "─")
     bottom = make_separator("└", "┴", "┘", "─")
     function format_row(cells)
-        parts = ["│ " * rpad(cells[i], col_widths[i] - 1) for i in 1:n_cols]
-        return join(parts, "│") * "│"
+        parts = [" " * rpad(cells[i], col_widths[i] - 1) for i in 1:n_cols]
+        return "│" * join(parts, "│") * "│"
     end
     lines = String[]
     push!(lines, top)
@@ -7125,6 +7140,1182 @@ function sweep_final_combined(best_params::Dict;
 end
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# ЧАСТЬ 12: SWEEP-ДВИЖОК — ИСПРАВЛЕНИЕ (v1.1)
+#   В исходной версии sweep_top10_pro() и sweep_combined_quick() вызывали
+#   sweep_parameter() и save_sweep_results(), которые НЕ БЫЛИ ОПРЕДЕЛЕНЫ —
+#   любой sweep падал с UndefVarError. Ниже — рабочие реализации.
+# ══════════════════════════════════════════════════════════════════════════
+
+const _SWEEP_PARAMS = [:alpha, :W, :sigma, :alpha_jitter, :W_jitter,
+                       :sigma_jitter, :vortex_pos_jitter, :vortex_charge_flip]
+
+"""
+    _evaluate_config(cfg) -> MetricsResult
+
+Одиночная оценка конфигурации БЕЗ графиков и отчётов: строит гамильтониан
+для каждого seed (с учётом jitter из cfg), собирает центральный спектр и
+вычисляет полный набор метрик через compute_all_metrics.
+"""
+function _evaluate_config(cfg::RHConfig)
+    zeta_zeros = get_zeta_zeros_safe(cfg.n_zeta_zeros)
+    eigs_all = Float64[]
+    eigs_per_seed = 0
+    for seed in 0:(cfg.n_seeds - 1)
+        H = build_hamiltonian_with_config(cfg.L, cfg.alpha, cfg.W, cfg.sigma,
+                                          seed, cfg)
+        eigs_seed = central_eigs_sorted(H, window = 0.3)
+        if seed == 0
+            eigs_per_seed = length(eigs_seed)
+        end
+        append!(eigs_all, eigs_seed)
+    end
+    return compute_all_metrics(eigs_all, zeta_zeros;
+                               label = "", L = cfg.L, alpha = cfg.alpha,
+                               W = cfg.W, sigma = cfg.sigma, seed = -1,
+                               eigs_per_seed = eigs_per_seed)
+end
+
+"""
+    sweep_parameter(param::Symbol; range, base_cfg, verbose) ->
+        (results, best_val, best_score, best_result)
+
+Sweep ОДНОГО параметра RHConfig по диапазону `range`.
+
+Аргументы:
+  param     — символ поля RHConfig (например, :alpha, :W, :vortex_charge_flip)
+  range     — коллекция значений параметра
+  base_cfg  — базовая конфигурация (копируется на каждую точку)
+  verbose   — живой прогресс-бар AURORA
+
+Возвращает кортеж:
+  results     :: Vector{Dict{String,Any}} — по одному Dict на точку с ключами
+                param, value, score, K_corr_zeta, brody_beta, chi2, r_mean,
+                tests_passed, eigs, seconds
+  best_val    — значение параметра с лучшим composite_score
+  best_score  — лучший composite_score
+  best_result :: Union{Nothing,MetricsResult} — метрики лучшей точки
+"""
+function sweep_parameter(param::Symbol;
+                         range::AbstractVector = collect(0.0:0.5:4.0),
+                         base_cfg::RHConfig = default_config(),
+                         verbose::Bool = false)
+    hasfield(RHConfig, param) ||
+        throw(ArgumentError("RHConfig не имеет поля :$(param)"))
+    param === :output_dir &&
+        throw(ArgumentError("sweep по :output_dir не поддерживается"))
+    isempty(range) && throw(ArgumentError("пустой диапазон sweep"))
+
+    ftype = fieldtype(RHConfig, param)
+    results = Vector{Dict{String,Any}}()
+    best_val = Float64(range[1])
+    best_score = -Inf
+    best_result = nothing
+    n = length(range)
+    t0 = time()
+
+    for (i, v0) in enumerate(range)
+        val = ftype === Float64 ? Float64(v0) :
+              ftype === Int ? Int(round(v0)) :
+              ftype === Bool ? Bool(v0) : v0
+        cfg = deepcopy(base_cfg)
+        setfield!(cfg, param, val)
+        verbose && _mr_prog("sweep :$(param)", i, n; t0 = t0,
+                            extra = "v=$(val)")
+        t_v = time()
+        # строка результата — сразу с NaN-заглушками (точка может упасть)
+        r = Dict{String,Any}(
+            "param" => String(param), "value" => val,
+            "score" => NaN, "K_corr_zeta" => NaN, "brody_beta" => NaN,
+            "chi2" => NaN, "r_mean" => NaN, "tests_passed" => 0,
+            "eigs" => 0, "seconds" => 0.0)
+        try
+            res = _evaluate_config(cfg)
+            r["score"] = res.composite_score
+            r["K_corr_zeta"] = res.K_corr_zeta
+            r["brody_beta"] = res.brody_beta
+            r["chi2"] = res.chi2_wigner
+            r["r_mean"] = res.r_mean
+            r["tests_passed"] = res.tests_passed
+            r["eigs"] = res.n_eigs
+            r["seconds"] = round(time() - t_v, digits = 1)
+            if res.composite_score > best_score
+                best_score = res.composite_score
+                best_val = val
+                best_result = res
+            end
+        catch e
+            e isa InterruptException && rethrow()
+            _mr_warn("$(param)=$(val): точка пропущена — $(sprint(showerror, e))")
+        end
+        push!(results, r)
+    end
+
+    if best_result === nothing
+        best_score = NaN
+    end
+    return results, best_val, best_score, best_result
+end
+
+"""NaN/Inf → nothing (валидный JSON)."""
+_json_safe(x::Real) = (isnan(x) || isinf(x)) ? nothing : x
+_json_safe(x) = x
+
+"""
+    save_sweep_results(all_results, best_params, output_dir) -> Dict
+
+Сохраняет результаты параметрического sweep в три файла внутри output_dir:
+  sweep_results_<stamp>.csv  — построчно: (параметр, значение, метрики)
+  sweep_best_<stamp>.txt     — ASCII-таблица лучших значений
+  sweep_results_<stamp>.json — полные данные (NaN/Inf → null)
+
+all_results: Dict{String,Vector{Dict}} · best_params: Dict{String,Dict}
+с элементами {"value", "score", "result"}.
+"""
+function save_sweep_results(all_results::Dict, best_params::Dict,
+                            output_dir::AbstractString)
+    mkpath(String(output_dir))
+    stamp = Dates.format(now(), "yyyymmdd_HHMMSS")
+    paths = Dict{String,String}()
+
+    # ── CSV ──────────────────────────────────────────────────────────────
+    csv_path = joinpath(output_dir, "sweep_results_$(stamp).csv")
+    open(csv_path, "w") do io
+        println(io, "# RH·SWEEP PRO — параметрический sweep · ", stamp)
+        println(io, "param,value,score,K_corr_zeta,brody_beta,chi2,r_mean,",
+                    "tests_passed,eigs,seconds")
+        for param in sort!(collect(String, keys(all_results)))
+            for r in all_results[param]
+                row = [r["param"], r["value"], r["score"], r["K_corr_zeta"],
+                       r["brody_beta"], r["chi2"], r["r_mean"],
+                       r["tests_passed"], r["eigs"], r["seconds"]]
+                println(io, join([string(x) for x in row], ","))
+            end
+        end
+    end
+    paths["csv"] = csv_path
+
+    # ── TXT ──────────────────────────────────────────────────────────────
+    txt_path = joinpath(output_dir, "sweep_best_$(stamp).txt")
+    open(txt_path, "w") do io
+        println(io, "RH·SWEEP PRO — лучшие параметры sweep · ", stamp)
+        println(io)
+        headers = ["Параметр", "Лучшее", "Score", "K(ζ)", "Тесты"]
+        rows = Vector{Vector{String}}()
+        for param in sort!(collect(String, keys(best_params)))
+            bp = best_params[param]
+            res = get(bp, "result", nothing)
+            kcorr = res === nothing ? "NaN" :
+                    string(round(res.K_corr_zeta, digits = 4))
+            tests = res === nothing ? "?" : "$(res.tests_passed)/11"
+            push!(rows, [param,
+                         string(round(bp["value"], digits = 4)),
+                         string(round(bp["score"], digits = 2)),
+                         kcorr, tests])
+        end
+        println(io, format_table(headers, rows))
+    end
+    paths["txt"] = txt_path
+
+    # ── JSON ─────────────────────────────────────────────────────────────
+    if HAS_JSON[]
+        json_path = joinpath(output_dir, "sweep_results_$(stamp).json")
+        data = Dict(
+            "timestamp" => stamp,
+            "best_params" => Dict(
+                (param => Dict(
+                    "value" => _json_safe(bp["value"]),
+                    "score" => _json_safe(bp["score"]),
+                    "K_corr_zeta" => (get(bp, "result", nothing) === nothing ?
+                                      nothing :
+                                      _json_safe(bp["result"].K_corr_zeta)),
+                    "tests_passed" => (get(bp, "result", nothing) === nothing ?
+                                       0 : bp["result"].tests_passed)
+                )) for (param, bp) in best_params),
+            "all_results" => Dict(
+                (param => [Dict(String(k) => _json_safe(r[k]) for k in keys(r))
+                           for r in all_results[param]])
+                for param in keys(all_results))
+        )
+        open(json_path, "w") do io
+            JSON.print(io, data, 2)
+        end
+        paths["json"] = json_path
+    end
+
+    _mr_ok("sweep-отчёты сохранены: $(output_dir)/")
+    return paths
+end
+
+"""
+    sweep_all_parameters(; base_cfg=nothing, output_dir=...) -> Dict
+
+ПОЛНЫЙ sweep: 17 значений × 8 параметров = 136 прогонов.
+Сетка: 0.0:0.5:8.0 (для vortex_charge_flip — 0.0:1/16:1.0).
+После sweep — dashboard, per-parameter графики, radar и финальный прогон
+с лучшими параметрами. Промежуточные отчёты сохраняются после каждого
+параметра (прогресс не теряется при прерывании).
+
+Время: от 2 часов (зависит от L и n_seeds).
+"""
+function sweep_all_parameters(; base_cfg::Union{Nothing,RHConfig} = nothing,
+                               output_dir::String =
+                               "RH_Sweep_All_$(Dates.format(now(), "yyyymmdd_HHMMSS"))")
+    cfg0 = base_cfg === nothing ? preset_auto(5000, verbose = false) : base_cfg
+    grid = collect(0.0:0.5:8.0)              # 17 значений
+    grid_flip = collect(0.0:(1.0 / 16):1.0)  # 17 значений для charge_flip
+
+    _mr_logo() || _mr_banner(_MR_BRAND.title, _MR_BRAND.version,
+                             _MR_BRAND.subtitle)
+    _mr_gate_head(3, "FULL SWEEP", "17 значений × 8 параметров = 136 прогонов",
+                  "полная карта влияния параметров на корреляцию с ζ(s)";
+                  total = 1)
+    _mr_kv("сетка", "0.0:0.5:8.0 · charge_flip: 0.0:1/16:1.0")
+    _mr_kv("каталог", output_dir)
+    _mr_kv("ожидаемое время", "от 2 часов")
+    mkpath(output_dir)
+    t_start = time()
+
+    all_results = Dict()
+    best_params = Dict()
+
+    for (p_idx, param) in enumerate(_SWEEP_PARAMS)
+        _mr_section(@sprintf("параметр %d/8: %s", p_idx, param))
+        vals = param === :vortex_charge_flip ? grid_flip : grid
+        results, best_val, best_score, best_result = sweep_parameter(
+            param; range = vals, base_cfg = cfg0, verbose = true)
+        all_results[string(param)] = results
+        best_params[string(param)] = Dict(
+            "value" => best_val, "score" => best_score,
+            "result" => best_result)
+        save_sweep_results(all_results, best_params, output_dir)
+    end
+
+    elapsed = time() - t_start
+
+    # ── Профессиональная визуализация ────────────────────────────────────
+    println("\n>>> Профессиональные графики <<<")
+    plot_sweep_dashboard(all_results, best_params, output_dir)
+    plot_sweep_per_parameter(all_results, output_dir)
+    plot_sweep_radar(best_params, output_dir)
+
+    # ── Финальный прогон с лучшими параметрами ───────────────────────────
+    println("\n>>> Финальный прогон с лучшими параметрами <<<")
+    final_cfg = deepcopy(cfg0)
+    for param in _SWEEP_PARAMS
+        setfield!(final_cfg, param, best_params[string(param)]["value"])
+    end
+    final_cfg.output_dir = joinpath(output_dir, "final_run")
+    println("  Параметры:")
+    println("    α=$(round(final_cfg.alpha, digits=4)), W=$(final_cfg.W), σ=$(final_cfg.sigma)")
+    println("    α_jitter=$(final_cfg.alpha_jitter), W_jitter=$(final_cfg.W_jitter), σ_jitter=$(final_cfg.sigma_jitter)")
+    println("    pos_jitter=$(final_cfg.vortex_pos_jitter), charge_flip=$(final_cfg.vortex_charge_flip)")
+    final_result = run(final_cfg)
+
+    # ── Итоговая сводка ──────────────────────────────────────────────────
+    println("\n\n" * "="^78)
+    println("  ИТОГОВАЯ СВОДКА ПОЛНОГО SWEEP (17×8)")
+    println("="^78)
+    headers = ["Параметр", "Лучшее", "Score", "Тесты", "K(ζ)"]
+    rows = Vector{Vector{String}}()
+    for p in string.(_SWEEP_PARAMS)
+        bp = best_params[p]
+        res = bp["result"]
+        push!(rows, [
+            p,
+            string(round(bp["value"], digits = 4)),
+            string(round(bp["score"], digits = 2)),
+            res === nothing ? "?" : "$(res.tests_passed)/11",
+            res === nothing ? "NaN" : string(round(res.K_corr_zeta, digits = 4)),
+        ])
+    end
+    println(format_table(headers, rows))
+    println("\n  Время sweep: $(round(elapsed / 60, digits=1)) мин")
+    println("  Финальный Score: ",
+            round(final_result["final_result"].composite_score, digits = 2),
+            "/100")
+    println("  Финальных тестов: ",
+            final_result["final_result"].tests_passed, "/",
+            final_result["final_result"].tests_total)
+    println("="^78)
+
+    save_sweep_results(all_results, best_params, output_dir)
+
+    return Dict(
+        "all_results" => all_results,
+        "best_params" => best_params,
+        "final_result" => final_result,
+        "output_dir" => output_dir,
+        "elapsed_minutes" => elapsed / 60
+    )
+end
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# ЧАСТЬ 13: ИНТЕРАКТИВНОЕ КЛАВИШНОЕ МЕНЮ (0–9 · A–Z)
+#   Запуск любой функции одной клавишей БЕЗ Enter.
+#   Чтение клавиши (по приоритету):
+#     1) REPL.Terminals.raw!  — кроссплатформенно, как в родном REPL Julia
+#     2) stty raw (Unix/macOS) или _getch (Windows)
+#     3) построчный ввод — если stdin не терминал (pipe/файл)
+#   Русская раскладка распознаётся и подсказывает переключиться на EN.
+# ══════════════════════════════════════════════════════════════════════════
+
+const HAS_REPL = Ref(false)
+try
+    @eval import REPL
+    HAS_REPL[] = true
+catch
+end
+
+const _MENU_TTY = Ref{Any}(nothing)
+
+function _menu_tty()
+    if _MENU_TTY[] === nothing
+        term = get(ENV, "TERM", Sys.iswindows() ? "" : "xterm-256color")
+        _MENU_TTY[] = REPL.Terminals.TTYTerminal(term, stdin, stdout, stderr)
+    end
+    return _MENU_TTY[]
+end
+
+"""Одиночное нажатие клавиши без Enter (см. приоритет методов выше)."""
+function _menu_readkey()
+    if stdin isa Base.TTY
+        if HAS_REPL[]
+            try
+                return _menu_readkey_repl()
+            catch
+            end
+        end
+        try
+            return Sys.iswindows() ? _menu_readkey_win() : _menu_readkey_stty()
+        catch
+        end
+    end
+    # Fallback: stdin не терминал (pipe/файл) — построчный ввод
+    line = readline(stdin)
+    if isempty(line) && eof(stdin)
+        return Char(4)   # Ctrl+D — stdin закрыт → выход из меню
+    end
+    return isempty(line) ? '\n' : first(line)
+end
+
+function _menu_readkey_repl()
+    t = _menu_tty()
+    REPL.Terminals.raw!(t, true)
+    local c
+    try
+        c = read(t.in_stream, Char)
+        if c == '\e'   # стрелки/F-клавиши: сливаем остаток ESC-последовательности
+            sleep(0.005)
+            drained = 0
+            while drained < 8 && bytesavailable(t.in_stream) > 0
+                read(t.in_stream, UInt8)
+                drained += 1
+            end
+        end
+    finally
+        REPL.Terminals.raw!(t, false)
+    end
+    return c
+end
+
+function _menu_readkey_stty()
+    run(`stty raw -echo`)
+    local c
+    try
+        c = read(stdin, Char)
+    finally
+        run(`stty cooked`)
+    end
+    return c
+end
+
+function _menu_readkey_win()
+    c = ccall((:_getch, "ucrtbase"), Cint, ())
+    if c == 0 || c == 224   # расширенный код (стрелки, F-клавиши)
+        ccall((:_getch, "ucrtbase"), Cint, ())
+        return '\e'
+    end
+    return Char(c)
+end
+
+_menu_cls() = stdout isa Base.TTY ? print("\e[2J\e[H") : println()
+
+function _menu_hms(s::Real)
+    s = max(0, round(Int, s))
+    return @sprintf("%02d:%02d:%02d", s ÷ 3600, (s % 3600) ÷ 60, s % 60)
+end
+
+# ── Промпты с настройками по умолчанию (Enter — принять значение) ────────
+
+function _menu_prompt(msg::AbstractString, default::AbstractString = "")
+    d = isempty(default) ? "" : _mr_c(" [$default]", "dim")
+    print("  " * _mr_c("›", "gold") * " " * _mr_c(String(msg), "accent") *
+          d * _mr_c(": ", "dim"))
+    flush(stdout)
+    return String(strip(readline(stdin)))
+end
+
+function _menu_prompt_int(msg::AbstractString, default::Int)
+    for _ in 1:3
+        s = _menu_prompt(msg, string(default))
+        isempty(s) && return default
+        v = tryparse(Int, s)
+        v !== nothing && return v
+        _mr_warn("нужно целое число (например, 56)")
+    end
+    _mr_warn("использую значение по умолчанию: $default")
+    return default
+end
+
+function _menu_prompt_float(msg::AbstractString, default::Float64)
+    for _ in 1:3
+        s = _menu_prompt(msg, string(default))
+        isempty(s) && return default
+        v = tryparse(Float64, replace(s, ',' => '.'))
+        v !== nothing && return v
+        _mr_warn("нужно число (например, 0.5)")
+    end
+    _mr_warn("использую значение по умолчанию: $default")
+    return default
+end
+
+function _menu_prompt_yes(msg::AbstractString; default::Bool = true)
+    s = lowercase(strip(_menu_prompt(msg * " (y/n)", default ? "y" : "n")))
+    isempty(s) && return default
+    return startswith(s, "y") || startswith(s, "д") || s == "1" || s == "да"
+end
+
+"""Парс списка значений: «-4, 0.5, 2» или диапазон «a:b:c» или их смесь."""
+function _menu_parse_values(s::AbstractString)
+    vals = Float64[]
+    for tok in split(strip(String(s)), (',', ' '); keepempty = false)
+        parts = split(tok, ':')
+        if length(parts) == 3
+            a = tryparse(Float64, strip(parts[1]))
+            st = tryparse(Float64, strip(parts[2]))
+            b = tryparse(Float64, strip(parts[3]))
+            if a !== nothing && st !== nothing && b !== nothing && st != 0
+                append!(vals, collect(a:st:b))
+            end
+        elseif length(parts) == 1
+            v = tryparse(Float64, tok)
+            v !== nothing && push!(vals, v)
+        end
+    end
+    sort!(vals)
+    return vals
+end
+
+_menu_range_str(v::AbstractVector) =
+    join([string(round(Float64(x), digits = 4)) for x in v], ", ")
+
+function _menu_latest_dir(prefix::AbstractString)
+    dirs = [joinpath(pwd(), d) for d in readdir(pwd())
+            if startswith(d, String(prefix)) && isdir(joinpath(pwd(), d))]
+    isempty(dirs) && return nothing
+    return sort(dirs, by = mtime)[end]
+end
+
+function _menu_sweep_table(results::Vector{Dict{String,Any}}, best_val::Real)
+    headers = ["значение", "Score", "K(ζ)", "⟨r⟩", "β", "χ²", "тесты"]
+    rows = Vector{Vector{String}}()
+    for r in results
+        mark = isequal(Float64(r["value"]), Float64(best_val)) ? "★" : " "
+        push!(rows, [
+            mark * string(round(Float64(r["value"]), digits = 4)),
+            string(round(Float64(r["score"]), digits = 2)),
+            string(round(Float64(r["K_corr_zeta"]), digits = 4)),
+            string(round(Float64(r["r_mean"]), digits = 4)),
+            string(round(Float64(r["brody_beta"]), digits = 3)),
+            string(round(Float64(r["chi2"]), digits = 3)),
+            "$(r["tests_passed"])/11",
+        ])
+    end
+    return format_table(headers, rows)
+end
+
+function _menu_press_any()
+    println()
+    print("  " * _mr_c("нажмите любую клавишу, чтобы вернуться в меню… ", "dim"))
+    flush(stdout)
+    _menu_readkey()
+    println()
+    return nothing
+end
+
+
+# ── Действия: цифры 1–9 (прогоны) ────────────────────────────────────────
+
+_menu_act_quick()      = run(preset_quick())
+_menu_act_auto5000()   = run(preset_auto(5000))
+_menu_act_magic()      = run_magic_test()
+_menu_act_full()       = run(preset_full())
+_menu_act_deepsweep()  = run(preset_deep_sweep())
+_menu_act_top10()      = sweep_top10_pro()
+_menu_act_quicksweep() = sweep_combined_quick()
+_menu_act_allsweep()   = sweep_all_parameters()
+
+function _menu_act_final()
+    _mr_section("финальный прогон с лучшими параметрами последнего sweep")
+    dir_in = _menu_prompt("каталог sweep (Enter — самый свежий RH_Sweep*)", "")
+    d = isempty(dir_in) ? _menu_latest_dir("RH_Sweep") :
+        (isdir(dir_in) ? dir_in : nothing)
+    if d === nothing
+        _mr_warn("каталоги RH_Sweep* не найдены — сначала запустите sweep (клавиши 6/7/8)")
+        return nothing
+    end
+    _mr_kv("каталог", basename(d))
+    if !HAS_JSON[]
+        _mr_warn("JSON.jl не установлен: julia -e 'using Pkg; Pkg.add(\"JSON\")'")
+        return nothing
+    end
+    jsons = sort(filter(f -> occursin(r"sweep_results_.*\.json$", f),
+                        readdir(d, join = true)), by = mtime)
+    if isempty(jsons)
+        _mr_warn("в каталоге $(basename(d)) нет файлов sweep_results_*.json")
+        return nothing
+    end
+    src = jsons[end]
+    data = JSON.parsefile(src)
+    haskey(data, "best_params") ||
+        error("в $(basename(src)) отсутствует ключ best_params")
+    bp = Dict{String,Any}()
+    for (param, info) in data["best_params"]
+        (info isa AbstractDict && haskey(info, "value")) || continue
+        bp[String(param)] = Dict("value" => Float64(info["value"]))
+    end
+    isempty(bp) && error("не удалось извлечь best_params из $(basename(src))")
+    _mr_kv("источник", basename(src))
+    _mr_kv("параметров", string(length(bp)))
+    return sweep_final_combined(bp)
+end
+
+# ── Действия: буквы A–L (пресеты и информация) ───────────────────────────
+
+function _menu_act_showcfg()
+    show_config(default_config())
+    _mr_info("своя конфигурация — клавиша c")
+    return nothing
+end
+
+_menu_act_presets() = list_presets()
+_menu_act_help()    = help_dynamic()
+
+function _menu_act_zetastats()
+    _mr_section("статистика встроенной таблицы ζ-нулей")
+    z = ZETA_ZEROS
+    sr = spacing_ratios(z)
+    r_mean = isempty(sr) ? NaN : mean(sr)
+    _mr_kv("количество", length(z))
+    _mr_kv("первый нуль", round(z[1], digits = 6))
+    _mr_kv("последний нуль", round(z[end], digits = 6))
+    _mr_kv("⟨r⟩ таблицы", round(r_mean, digits = 4))
+    _mr_kv("R_GUE (цель)", R_GUE)
+    _mr_kv("отклонение от GUE", @sprintf("%.2f%%", 100 * abs(r_mean - R_GUE) / R_GUE))
+    _mr_kv("класс", classify_universality_class(r_mean)[1])
+    _mr_info("нужно больше нулей? файл zeta_zeros_2M_odlyzko.txt рядом со скриптом")
+    return nothing
+end
+
+function _menu_act_magictable()
+    _mr_section("магические точки α ($N_MAGIC_ALPHAS шт.)")
+    per_row = 8
+    labels = MAGIC_ALPHA_LABELS
+    for start in 1:per_row:length(labels)
+        stop = min(start + per_row - 1, length(labels))
+        cells = [rpad(labels[j], 9) for j in start:stop]
+        println("  " * _mr_c(join(cells), "accent"))
+    end
+    _mr_info("использование: клавиша 3 (быстрый тест) или preset_magic()")
+    return nothing
+end
+
+function _menu_act_vortices(kind::Symbol)
+    dflt = kind === :ring ? 8 : kind === :random ? 10 : 12
+    n = clamp(_menu_prompt_int("число вихрей (2–100)", dflt), 2, 100)
+    cfg = kind === :ring ? preset_ring_vortices(n) :
+          kind === :random ? preset_random_vortices(n) :
+          preset_many_vortices(n)
+    return run(cfg)
+end
+_menu_act_many()   = _menu_act_vortices(:many)
+_menu_act_ring()   = _menu_act_vortices(:ring)
+_menu_act_random() = _menu_act_vortices(:random)
+_menu_act_jitter() = run(preset_high_jitter())
+
+function _menu_act_irrational()
+    _mr_section("иррациональное α — чистая GUE-статистика")
+    opts = [(:inv_pi, "1/π ≈ 0.3183"), (:inv_e, "1/e ≈ 0.3679"),
+            (:phi, "φ mod 1 ≈ 0.6180"), (:sqrt2, "√2 mod 1 ≈ 0.4142"),
+            (:sqrt3, "√3 mod 1 ≈ 0.7321"), (:ln2, "ln(2) ≈ 0.6931"),
+            (:e_frac, "e mod 1 ≈ 0.7183")]
+    for (i, (s, dsc)) in enumerate(opts)
+        println("  " * _mr_c("[$i]", "gold") * " " *
+                _mr_c(string(s), "bold") * _mr_c("  — " * dsc, "dim"))
+    end
+    k = clamp(_menu_prompt_int("номер (1–7)", 1), 1, length(opts))
+    return run(preset_irrational(opts[k][1]))
+end
+
+function _menu_act_balanced()
+    nz = clamp(_menu_prompt_int("число ζ-нулей", 5000), 100,
+               N_ZETA_ZEROS_AVAILABLE)
+    mins = clamp(_menu_prompt_int("бюджет времени, минут", 30), 1, 1440)
+    return run(preset_balanced(nz; max_time_minutes = mins))
+end
+
+function _menu_act_custom()
+    _mr_section("мастер: своя конфигурация")
+    _mr_info("Enter — оставить значение по умолчанию")
+    cfg = preset_custom()
+    cfg.L = clamp(_menu_prompt_int("размер решётки L", cfg.L), 8, 256)
+    cfg.n_seeds = clamp(_menu_prompt_int("число seeds", cfg.n_seeds), 1, 64)
+    cfg.n_zeta_zeros = clamp(_menu_prompt_int("число ζ-нулей (≤13661)",
+                                              cfg.n_zeta_zeros), 50,
+                             N_ZETA_ZEROS_AVAILABLE)
+    cfg.alpha = _menu_prompt_float("α (поток AB)", cfg.alpha)
+    cfg.W = _menu_prompt_float("W (сила беспорядка)", cfg.W)
+    cfg.sigma = _menu_prompt_float("σ (радиус вихря)", cfg.sigma)
+    cfg.min_vortices = clamp(_menu_prompt_int("минимум вихрей", cfg.min_vortices), 0, 100)
+    cfg.max_vortices = clamp(_menu_prompt_int("максимум вихрей", cfg.max_vortices), 0, 100)
+    cfg.max_vortices = max(cfg.min_vortices, cfg.max_vortices)
+    lay = lowercase(_menu_prompt("layout (hexagonal/ring/random/grid)", "hexagonal"))
+    cfg.vortex_layout = lay in ("hexagonal", "ring", "random", "grid") ?
+                        Symbol(lay) : :hexagonal
+    if _menu_prompt_yes("включить дрожание (jitter)?"; default = false)
+        cfg.alpha_jitter = abs(_menu_prompt_float("α_jitter", 0.05))
+        cfg.W_jitter = abs(_menu_prompt_float("W_jitter", 0.3))
+        cfg.sigma_jitter = abs(_menu_prompt_float("σ_jitter", 0.05))
+        cfg.vortex_pos_jitter = abs(_menu_prompt_float("pos_jitter", 0.02))
+        cfg.vortex_charge_flip = clamp(abs(_menu_prompt_float("charge_flip", 0.0)), 0, 1)
+    end
+    if _menu_prompt_yes("sweep по диапазону α?"; default = false)
+        cfg.use_alpha_sweep = true
+        cfg.alpha_min = _menu_prompt_float("α_min", -16.0)
+        cfg.alpha_max = _menu_prompt_float("α_max", 16.0)
+        cfg.alpha_step = abs(_menu_prompt_float("α_step", 0.5))
+    end
+    if _menu_prompt_yes("использовать 61 магическую α?"; default = false)
+        cfg.use_magic_alphas = true
+        cfg.use_alpha_sweep = false
+    end
+    cfg.output_dir = _menu_prompt("каталог вывода", cfg.output_dir)
+    show_config(cfg)
+    if _menu_prompt_yes("запускать этот прогон?")
+        return run(cfg)
+    end
+    _mr_info("конфигурация собрана; повторный вход в мастер — клавиша c")
+    return nothing
+end
+
+# ── Действия: буквы M–Z (сервис) ─────────────────────────────────────────
+
+function _menu_act_sweepone()
+    _mr_section("sweep одного параметра")
+    for (i, (s, dsc)) in enumerate(_SWEEP_PARAMS)
+        println("  " * _mr_c("[$i]", "gold") * " " * _mr_c(string(s), "bold") *
+                _mr_c("  — " * dsc, "dim"))
+    end
+    k = clamp(_menu_prompt_int("номер параметра (1–8)", 1), 1, length(_SWEEP_PARAMS))
+    param = _SWEEP_PARAMS[k]
+    dflt_range = param === :vortex_charge_flip ? collect(0.0:0.1:1.0) :
+                 collect(0.0:0.5:4.0)
+    rng_str = _menu_prompt("значения (a:b:c или список через запятую)",
+                           _menu_range_str(dflt_range))
+    vals = _menu_parse_values(rng_str)
+    if isempty(vals)
+        _mr_warn("список значений пуст — отмена")
+        return nothing
+    end
+    nz = clamp(_menu_prompt_int("ζ-нулей на точку", 2000), 100,
+               N_ZETA_ZEROS_AVAILABLE)
+    base = preset_auto(nz, verbose = false)
+    outdir = "RH_Sweep_$(param)_$(Dates.format(now(), "yyyymmdd_HHMMSS"))"
+    _mr_kv("параметр", string(param))
+    _mr_kv("точек", length(vals))
+    _mr_kv("каталог", outdir)
+    mkpath(outdir)
+    results, best_val, best_score, best_res =
+        sweep_parameter(param; range = vals, base_cfg = base, verbose = true)
+    println()
+    println(_menu_sweep_table(results, best_val))
+    bp = Dict(string(param) => Dict("value" => best_val, "score" => best_score,
+                                    "result" => best_res))
+    save_sweep_results(Dict(string(param) => results), bp, outdir)
+    _mr_ok("лучшее: $(param)=$(round(best_val, digits=4)) · Score=$(round(best_score, digits=2))")
+    return results
+end
+
+function _menu_act_sweeppoints()
+    _mr_section("sweep по своим точкам α")
+    s = _menu_prompt("точки α (через запятую или a:b:c)",
+                     "-4, -2, -1, -0.5, 0.5, 1, 2, 4")
+    vals = _menu_parse_values(s)
+    if isempty(vals)
+        _mr_warn("список точек пуст — отмена")
+        return nothing
+    end
+    nz = clamp(_menu_prompt_int("ζ-нулей на точку", 2000), 100,
+               N_ZETA_ZEROS_AVAILABLE)
+    cfg = preset_auto(nz, verbose = false)
+    cfg.custom_alpha_points = vals
+    cfg.use_alpha_sweep = false
+    cfg.use_magic_alphas = false
+    _mr_kv("точек α", length(vals))
+    _mr_kv("каталог", cfg.output_dir)
+    return run(cfg)
+end
+
+function _menu_act_overview()
+    _mr_section("обзор каталогов результатов (RH_*)")
+    dirs = sort([d for d in readdir(pwd(), join = true)
+                 if isdir(d) && startswith(basename(d), "RH_")], by = mtime)
+    if isempty(dirs)
+        _mr_warn("каталогов RH_* пока нет — запустите анализ (клавиши 1–8)")
+        return nothing
+    end
+    for d in reverse(dirs[max(1, end - 11):end])
+        n_files = 0
+        has_sweep = false
+        for (_, _, fs) in walkdir(d)
+            n_files += length(fs)
+            has_sweep |= any(occursin("sweep_results", f) for f in fs)
+        end
+        tag = has_sweep ? _mr_c(" · sweep ✓", "ok") : ""
+        println("  " * _mr_c(basename(d), "bold") *
+                _mr_c("  · файлов: $n_files", "dim") * tag)
+    end
+    return nothing
+end
+
+function _menu_act_lastrun()
+    _mr_section("последний прогон — файлы и сводка")
+    d = _menu_latest_dir("RH_")
+    if d === nothing
+        _mr_warn("каталогов RH_* нет — запустите анализ (клавиши 1–8)")
+        return nothing
+    end
+    _mr_kv("каталог", basename(d))
+    files = String[]
+    for (root, _, fs) in walkdir(d)
+        for f in fs
+            push!(files, relpath(joinpath(root, f), d))
+        end
+    end
+    isempty(files) && _mr_warn("каталог пуст (прогон не завершился?)")
+    for f in sort(files)
+        println("   ", _mr_c("•", "accent"), " ", f)
+    end
+    rep = joinpath(d, "txt", "report.txt")
+    if isfile(rep)
+        println()
+        _mr_info("фрагмент отчёта (txt/report.txt):")
+        lines = readlines(rep)
+        for ln in lines[1:min(end, 12)]
+            println("   ", _mr_strip_ansi(ln))
+        end
+    end
+    return nothing
+end
+
+function _menu_act_color(state::Dict{Symbol,Any})
+    on = !get(state, :color, true)
+    state[:color] = on
+    if on
+        _mr_color_mode!()
+    else
+        _MR_COLOR[] = false
+        _MR_MODE[] = :none
+    end
+    _mr_ok(on ? "цвет ANSI включён" : "цвет ANSI выключен (plain-режим)")
+    return nothing
+end
+
+function _menu_act_sysinfo()
+    _mr_section("системная информация")
+    _mr_kv("Julia", string(VERSION))
+    _mr_kv("потоки (julia threads)", string(Threads.nthreads()))
+    _mr_kv("CPU-ядра", string(Sys.CPU_THREADS))
+    _mr_kv("память всего", @sprintf("%.1f ГБ", Sys.total_memory() / 2^30))
+    _mr_kv("память свободно", @sprintf("%.1f ГБ", Sys.free_memory() / 2^30))
+    _mr_kv("ОС", Sys.iswindows() ? "Windows" :
+                Sys.isapple() ? "macOS" :
+                Sys.islinux() ? "Linux" : "другая")
+    _mr_kv("терминал", stdout isa Base.TTY ? "TTY" : "не TTY (перенаправлен)")
+    _mr_kv("цветовой режим", string(_MR_MODE[]))
+    _mr_kv("Plots.jl", HAS_PLOTS[] ? "✓ доступен" : "✗ не установлен")
+    _mr_kv("JSON.jl", HAS_JSON[] ? "✓ доступен" : "✗ не установлен")
+    _mr_kv("скрипт", String(@__FILE__))
+    _mr_kv("рабочий каталог", pwd())
+    return nothing
+end
+
+function _menu_act_selftest()
+    _mr_section("self-test: метрики ζ-нулей на самих ζ-нулях")
+    _mr_info("эталон: K corr(ζ) ≈ 1.0 (облако = ζ), класс GUE, ⟨r⟩ ≈ 0.60")
+    z = get_zeta_zeros_safe(2000)
+    res = compute_all_metrics(z, z; label = "ζ↔ζ sanity", L = 0, alpha = 0.0,
+                              W = 0.0, sigma = 0.0, seed = -1,
+                              eigs_per_seed = 250)
+    _mr_kv("ζ-нулей", length(z))
+    _mr_kv("⟨r⟩", round(res.r_mean, digits = 4))
+    _mr_kv("класс", res.r_class)
+    _mr_kv("K corr(ζ)", round(res.K_corr_zeta, digits = 4))
+    _mr_kv("composite score", round(res.composite_score, digits = 2))
+    if res.K_corr_zeta > 0.95
+        _mr_ok("self-test пройден: вычислитель метрик согласован сам с собой")
+    else
+        _mr_warn("self-test: K corr(ζ) ниже ожидаемого — возможна проблема")
+    end
+    return res
+end
+
+function _menu_act_diag()
+    _mr_section("диагностика пакетов")
+    _mr_kv("LinearAlgebra/Random/…", "✓ stdlib (всегда доступны)")
+    _mr_kv("Plots.jl", HAS_PLOTS[] ? "✓ доступен" :
+           "✗ нет — графики автоматически пропускаются")
+    _mr_kv("JSON.jl", HAS_JSON[] ? "✓ доступен" :
+           "✗ нет — JSON-отчёты упрощаются")
+    _mr_kv("REPL (клавиши)", HAS_REPL[] ? "✓ доступен — одиночные клавиши" :
+           "✗ нет — меню работает построчно (Enter после клавиши)")
+    if !HAS_PLOTS[]
+        _mr_info("установка: julia -e 'using Pkg; Pkg.add(\"Plots\")'")
+    end
+    if !HAS_JSON[]
+        _mr_info("установка: julia -e 'using Pkg; Pkg.add(\"JSON\")'")
+    end
+    _mr_info("отладочные [metrics]-строки: ENV[\"RSP_VERBOSE_METRICS\"]=\"1\"")
+    return nothing
+end
+
+function _menu_act_export()
+    n = clamp(_menu_prompt_int("сколько ζ-нулей экспортировать",
+                               N_ZETA_ZEROS_AVAILABLE), 10,
+              N_ZETA_ZEROS_AVAILABLE)
+    z = get_zeta_zeros_safe(n)
+    path = joinpath(pwd(), "zeta_zeros_export_$(n)_$(Dates.format(now(), "yyyymmdd_HHMMSS")).txt")
+    open(path, "w") do io
+        println(io, "# RH·SWEEP PRO — экспорт ζ-нулей (", n,
+                " шт., mpmath.zetazero())")
+        for v in z
+            println(io, v)
+        end
+    end
+    _mr_ok("экспортировано: $path")
+    return path
+end
+
+function _menu_act_check()
+    _mr_section("проверка целостности таблицы ζ-нулей")
+    z = ZETA_ZEROS
+    mono = all(z[i] < z[i + 1] for i in 1:(length(z) - 1))
+    n_dup = length(z) - length(unique(z))
+    sr = spacing_ratios(z)
+    r_mean = isempty(sr) ? NaN : mean(sr)
+    gue_ok = !isnan(r_mean) && abs(r_mean - R_GUE) / R_GUE < 0.05
+    _mr_panel("верификация встроенных ζ-нулей", String[
+        (length(z) == N_ZETA_ZEROS_AVAILABLE ? "✓" : "✗") *
+            " количество: $(length(z)) / $(N_ZETA_ZEROS_AVAILABLE)",
+        (mono ? "✓" : "✗") * " строгая монотонность значений",
+        (n_dup == 0 ? "✓" : "✗") * " дубликаты: $n_dup",
+        (gue_ok ? "✓" : "!") *
+            " ⟨r⟩ = $(round(r_mean, digits=4)) против R_GUE = $R_GUE",
+        (z[1] ≈ 14.134725141734695 ? "✓" : "✗") *
+            " первый нуль $(round(z[1], digits=12)) (Odlyzko)",
+    ])
+    return mono && n_dup == 0
+end
+
+function _menu_act_log(state::Dict{Symbol,Any})
+    _mr_section("журнал сессии")
+    log = get(state, :log, String[])
+    if isempty(log)
+        _mr_info("пока пусто — запусков в этой сессии не было")
+        return nothing
+    end
+    for ln in log[max(1, end - 19):end]
+        println("  ", _mr_c(ln, "dim"))
+    end
+    return nothing
+end
+
+function _menu_act_about()
+    _mr_logo() || _mr_banner(_MR_BRAND.title, _MR_BRAND.version,
+                             _MR_BRAND.subtitle)
+    _mr_kv("версия", _MR_BRAND.version)
+    _mr_kv("ζ-нулей", "$(N_ZETA_ZEROS_AVAILABLE) верифицированных")
+    _mr_kv("магических α", N_MAGIC_ALPHAS)
+    _mr_kv("vortices", "2–100+ · hexagonal / ring / random / grid")
+    _mr_info("меню: 0–9 — прогоны · A–Z — пресеты и сервис")
+    return nothing
+end
+
+# ── Экран меню ───────────────────────────────────────────────────────────
+
+function _menu_columns()
+    left = Tuple{Char,String}[
+        ('1', "Быстрый тест · ≈1–2 мин"),
+        ('2', "Авто-прогон · 5000 нулей"),
+        ('3', "61 магическая α (быстро)"),
+        ('4', "Полный анализ · ЧАСЫ!"),
+        ('5', "Sweep α: −16…+16"),
+        ('6', "PRO sweep 10×8 · 2–3 ч"),
+        ('7', "Быстрый sweep 3×8"),
+        ('8', "Полный sweep 17×8"),
+        ('9', "Финал: лучшие параметры"),
+        ('a', "Конфигурация по умолчанию"),
+        ('b', "Список пресетов"),
+        ('c', "Своя конфигурация (мастер)"),
+        ('d', "Справка"),
+        ('e', "Статистика ζ-нулей"),
+        ('f', "Таблица магических α"),
+        ('g', "Много вихрей (ввод n)"),
+        ('h', "Кольцо вихрей (ввод n)"),
+        ('i', "Случайные вихри (ввод n)"),
+        ('j', "Сильный джиттер"),
+        ('k', "Иррациональное α"),
+        ('l', "Сбалансированный пресет"),
+    ]
+    right = Tuple{Char,String}[
+        ('m', "Sweep одного параметра"),
+        ('n', "Sweep по своим точкам α"),
+        ('o', "Обзор результатов RH_*"),
+        ('p', "Последний прогон: сводка"),
+        ('q', "Цвет ANSI вкл/выкл"),
+        ('r', "Повторить последний запуск"),
+        ('s', "Системная информация"),
+        ('t', "Self-test метрик (ζ↔ζ)"),
+        ('u', "Очистить экран"),
+        ('v', "Диагностика пакетов"),
+        ('w', "Экспорт ζ-нулей в TXT"),
+        ('x', "Проверка таблицы ζ-нулей"),
+        ('y', "Журнал сессии"),
+        ('z', "О программе"),
+    ]
+    return left, right
+end
+
+function _menu_screen(state::Dict{Symbol,Any})
+    _menu_cls()
+    W = _MR_W
+    left, right = _menu_columns()
+    println()
+    println("  " * _mr_grad_line("▄", W - 2))
+    println("  " * _mr_c("RH·SWEEP PRO", "title") *
+            _mr_c("  ·  ГЛАВНОЕ МЕНЮ", "gold"))
+    println("  " * _mr_grad_line("▀", W - 2))
+    println()
+    lw = maximum(textwidth(string("[", uppercase(e[1]), "] ", e[2]))
+                 for e in left) + 6
+    head_l = "ЗАПУСКИ · 0–9 и A–L"
+    head_r = "СЕРВИС · M–Z"
+    println("  " * _mr_c(head_l, "accent") *
+            " "^(max(1, lw - textwidth(head_l))) * _mr_c(head_r, "accent"))
+    println("  " * _mr_c("─"^(lw - 1), "dim") * " " *
+            _mr_c("─"^(textwidth(head_r) + 2), "dim"))
+    for i in 1:max(length(left), length(right))
+        line = "  "
+        if i <= length(left)
+            kp = string("[", uppercase(left[i][1]), "]")
+            body = kp * " " * left[i][2]
+            line *= _mr_c(kp, "gold") * " " * _mr_c(left[i][2], "bold") *
+                    " "^(max(0, lw - textwidth(body)))
+        else
+            line *= " "^lw
+        end
+        if i <= length(right)
+            kp = string("[", uppercase(right[i][1]), "]")
+            line *= _mr_c(kp, "accent") * " " * _mr_c(right[i][2], "dim")
+        end
+        println(line)
+    end
+    println()
+    bits = ["0 — выход",
+            "q — цвет: " * (get(state, :color, true) ? "вкл" : "выкл"),
+            "r — повтор последнего"]
+    last_desc = get(state, :last_desc, "")
+    isempty(last_desc) || push!(bits, "последний: " * last_desc)
+    println("  " * _mr_c(join(bits, " · "), "dim"))
+    println("  " * _mr_wave(W - 2))
+    println()
+    print("  " * _mr_c("нажмите клавишу 0–9 / A–Z › ", "accent"))
+    flush(stdout)
+    return nothing
+end
+
+# ── Диспетчер клавиш ─────────────────────────────────────────────────────
+
+function _menu_run_action(f::Function, desc::AbstractString,
+                          state::Dict{Symbol,Any})
+    println()
+    _mr_rule()
+    t0 = time()
+    state[:last] = f
+    state[:last_desc] = String(desc)
+    try
+        f()
+    catch e
+        if e isa InterruptException
+            println()
+            _mr_warn("прервано пользователем (Ctrl+C) — возврат в меню")
+        else
+            println()
+            _mr_fail("ошибка: " * sprint(showerror, e))
+            _mr_info("подсказка: клавиша v — диагностика пакетов")
+        end
+    end
+    _mr_kv("время операции", _menu_hms(time() - t0))
+    _menu_press_any()
+    return nothing
+end
+
+function _menu_dispatch(key::Char, state::Dict{Symbol,Any})
+    if ('а' <= key <= 'я') || key == 'ё' || ('А' <= key <= 'Я')
+        println()
+        _mr_warn("похоже, включена русская раскладка — переключитесь на EN (латиницу)")
+        sleep(1.2)
+        return
+    end
+    if key == '\r' || key == '\n'
+        return
+    end
+    f = nothing
+    desc = ""
+    if key == '1'
+        f = _menu_act_quick; desc = "быстрый тест"
+    elseif key == '2'
+        f = _menu_act_auto5000; desc = "авто-прогон 5000 нулей"
+    elseif key == '3'
+        f = _menu_act_magic; desc = "61 магическая α (быстрый тест)"
+    elseif key == '4'
+        f = _menu_act_full; desc = "полный анализ"
+    elseif key == '5'
+        f = _menu_act_deepsweep; desc = "sweep α −16…+16"
+    elseif key == '6'
+        f = _menu_act_top10; desc = "PRO sweep 10×8"
+    elseif key == '7'
+        f = _menu_act_quicksweep; desc = "быстрый sweep 3×8"
+    elseif key == '8'
+        f = _menu_act_allsweep; desc = "полный sweep 17×8"
+    elseif key == '9'
+        f = _menu_act_final; desc = "финальный прогон"
+    elseif key == 'a'
+        f = _menu_act_showcfg; desc = "конфигурация по умолчанию"
+    elseif key == 'b'
+        f = _menu_act_presets; desc = "список пресетов"
+    elseif key == 'c'
+        f = _menu_act_custom; desc = "своя конфигурация"
+    elseif key == 'd'
+        f = _menu_act_help; desc = "справка"
+    elseif key == 'e'
+        f = _menu_act_zetastats; desc = "статистика ζ-нулей"
+    elseif key == 'f'
+        f = _menu_act_magictable; desc = "таблица магических α"
+    elseif key == 'g'
+        f = _menu_act_many; desc = "много вихрей"
+    elseif key == 'h'
+        f = _menu_act_ring; desc = "кольцо вихрей"
+    elseif key == 'i'
+        f = _menu_act_random; desc = "случайные вихри"
+    elseif key == 'j'
+        f = _menu_act_jitter; desc = "сильный джиттер"
+    elseif key == 'k'
+        f = _menu_act_irrational; desc = "иррациональное α"
+    elseif key == 'l'
+        f = _menu_act_balanced; desc = "сбалансированный пресет"
+    elseif key == 'm'
+        f = _menu_act_sweepone; desc = "sweep одного параметра"
+    elseif key == 'n'
+        f = _menu_act_sweeppoints; desc = "sweep по своим точкам α"
+    elseif key == 'o'
+        f = _menu_act_overview; desc = "обзор результатов"
+    elseif key == 'p'
+        f = _menu_act_lastrun; desc = "последний прогон"
+    elseif key == 'q'
+        _menu_act_color(state)
+        _menu_press_any()
+        return
+    elseif key == 'r'
+        f = get(state, :last, nothing)
+        if f === nothing
+            _mr_warn("запусков ещё не было — сначала выберите действие")
+            sleep(1.0)
+            return
+        end
+        desc = "повтор: " * get(state, :last_desc, "?")
+    elseif key == 's'
+        f = _menu_act_sysinfo; desc = "системная информация"
+    elseif key == 't'
+        f = _menu_act_selftest; desc = "self-test метрик"
+    elseif key == 'u'
+        _menu_cls()
+        return
+    elseif key == 'v'
+        f = _menu_act_diag; desc = "диагностика пакетов"
+    elseif key == 'w'
+        f = _menu_act_export; desc = "экспорт ζ-нулей"
+    elseif key == 'x'
+        f = _menu_act_check; desc = "проверка таблицы ζ-нулей"
+    elseif key == 'y'
+        _menu_act_log(state)
+        _menu_press_any()
+        return
+    elseif key == 'z'
+        f = _menu_act_about; desc = "о программе"
+    else
+        println()
+        _mr_warn(key == '\e' ?
+                 "ESC — отмена" :
+                 "клавиша «$(key)» не назначена — выберите 0–9 или A–Z")
+        sleep(0.8)
+        return
+    end
+    push!(state[:log],
+          @sprintf("%s  [%s]  %s", Dates.format(now(), "HH:MM:SS"),
+                   uppercase(key), desc))
+    _menu_run_action(f, desc, state)
+end
+
+"""ГЛАВНОЕ ИНТЕРАКТИВНОЕ МЕНЮ — все функции файла по клавишам 0–9 и A–Z.
+
+  0        — выход                · r — повторить последний запуск
+  1–8      — прогоны и sweep      · q — цвет ANSI вкл/выкл
+  9        — финал по лучшим      · u — очистить экран
+  A–L      — пресеты и справка    · y — журнал сессии
+  M–Z      — сервис и мастера     · z — о программе
+
+Выход: клавиша 0, Ctrl+C или Ctrl+D (в меню).
+"""
+function interactive_menu()
+    _mr_init_color!()
+    state = Dict{Symbol,Any}(:color => true, :log => String[],
+                             :last => nothing, :last_desc => "")
+    _mr_logo() || _mr_banner(_MR_BRAND.title, _MR_BRAND.version,
+                             _MR_BRAND.subtitle)
+    _mr_info("интерактивное меню: выберите действие клавишей 0–9 или A–Z (регистр не важен)")
+    _mr_info("запуск: julia RH_Sweep_Pro_D.jl · включить меню вручную: interactive_menu()")
+    while true
+        _menu_screen(state)
+        c = _menu_readkey()
+        if c == Char(3) || c == Char(4)   # Ctrl+C / Ctrl+D
+            break
+        end
+        key = lowercase(c)
+        if key == '0'
+            break
+        elseif key == '\n'
+            continue
+        end
+        _menu_dispatch(key, state)
+    end
+    println()
+    _mr_wave_footer("выход · " * _MR_BRAND.title * " v" * _MR_BRAND.version)
+    return nothing
+end
+
 # =====================================================================
 # ВЫВОД ПРИ ЗАГРУЗКЕ
 # =====================================================================
@@ -7142,10 +8333,18 @@ println("  " * _mr_c("sweep_final_combined(bp)", "bold") * _mr_c("     — фи�
 _mr_section("пресеты")
 println("  " * _mr_c("cfg = preset_auto(5000); run(cfg)", "bold") * _mr_c("  — быстрый анализ", "dim"))
 println("  " * _mr_c("cfg = preset_full(); run(cfg)", "bold") * _mr_c("       — полный анализ", "dim"))
+_mr_section("меню")
+println("  " * _mr_c("interactive_menu()", "bold") * _mr_c("          — интерактивное меню (клавиши 0–9, A–Z)", "dim"))
 _mr_wave_footer()
 
 if abspath(PROGRAM_FILE) == @__FILE__
-    println("Запуск preset_auto(5000) по умолчанию...")
-    cfg = preset_auto(5000)
-    run(cfg)
+    # v1.1: запуск файла открывает интерактивное меню (клавиши 0–9, A–Z).
+    # Старое поведение — автопрогон preset_auto(5000): RSP_AUTORUN=1.
+    if get(ENV, "RSP_AUTORUN", "0") == "1"
+        println("RSP_AUTORUN=1 — автопрогон preset_auto(5000) без меню…")
+        cfg = preset_auto(5000)
+        run(cfg)
+    else
+        interactive_menu()
+    end
 end
