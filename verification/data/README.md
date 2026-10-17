@@ -136,3 +136,20 @@ implementation.
   smoke-набор zeros6, встроенная копия для stdlib-загрузчиков, CSV.
 - Кто читает: 10 наборов, Julia-сюит, spinor64, дашборд; `sections/` —
   сознательно никто (чистая арифметика без данных).
+
+## Golden reference (added in v3.0)
+
+`abcloud_golden.json` — the frozen golden reference from the
+meridian-spectral-observatory ports (Julia 1.10.9 canon on the first 50 000
+zeros; selftest 199/199). Every language verifier of `../` embeds the same
+anchors as literals and self-checks against them before printing any verdict:
+`lambert_w`, `gram_point(n)` (θ(t) = πk Newton canon), `bN(N)`,
+spacing mean/var, KS D/p, Cramér–von Mises W², Anderson–Darling A², ⟨r⟩.
+
+## Naming caveat
+
+`zeta_zeros_50000.txt` is **not** 50 000 zeros — it contains the first
+13 661 zeros (T ≤ 10 000, 15–16 significant digits). For the full 50 000
+zeros use `zeta_zeros_50000_embedded.txt` (source `50k_full`, 12 digits,
+byte-identical values to the golden's `zeros50k.txt`). The `auto` source
+selection in every verifier accounts for this.

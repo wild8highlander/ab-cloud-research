@@ -1,44 +1,106 @@
-# MATLAB Verification
+# MATLAB / Octave Verification
 
-Native MATLAB implementation of the three-objection program — vectorised,
-no toolboxes required.
+Canonical MATLAB — and GNU Octave — port of the AB-Cloud Verification Suite
+kernel, spec `../CANON_SPEC.md` (v3.0). Bit-compatible with the frozen golden
+reference `../data/abcloud_golden.json` (meridian-spectral-observatory canon,
+selftest 199/199, Julia 1.10.9, first 50 000 Odlyzko zeros).
 
 ## Files
 
 | File | What it is |
 |---|---|
-| `ab_cloud_verify.m` | bilingual module (loader, unfolding, KS/CvM, regression) |
-| `ab_cloud_verify_en.m` | English-only variant |
-| `ab_cloud_verify_ru.m` | Russian-only variant |
-| `run_verify.m` | standalone CLI-style runner |
-| `spinor38/` | Test 38 port (see below) |
+| `ab_cloud_verify.m` | the single canonical kernel: loader, Lambert W (§1), Gram points (§2), b(N) (§3), GUE table CDF (§5), KS/CvM/AD/⟨r⟩ (§6), objections (§7), frozen-anchor selfcheck (§8) |
+| `ab_cloud_verify_en.m` | THIN wrapper pinning `lang='en'` (§10 — no duplicated math) |
+| `ab_cloud_verify_ru.m` | THIN wrapper pinning `lang='ru'` (§10 — no duplicated math) |
+| `run_verify.m` | thin CLI runner: shared flag language + exit-status mapping |
+| `spinor38/` | Test 38 port (separate companion, unchanged) |
 
 ## Requirements
 
-- **MATLAB R2021b+** — base MATLAB only (no Statistics Toolbox: KS and CvM
-  are implemented manually so every language shares one definition).
-
-GNU Octave compatibility: the code targets base MATLAB syntax; Octave ≥ 7
-usually runs it, but this is best-effort and not covered by the reference
-numbers.
+- **MATLAB R2014b+** or **GNU Octave 4.4+** — base only, no toolboxes.
+  `erf` and `gunzip` are core in both; `lambert_w` is implemented manually
+  per spec §1 (Newton, tol `1e-14*(1+|w|)`, up to 50 iterations).
+- Octave-safe by construction: no `string` class, no `arguments` blocks,
+  no `inputParser`, no tables, no `readtable` — char arrays, cell arrays,
+  manual name/value and flag loops only.
 
 ## Run
 
 ```matlab
 cd verification/matlab
-run_verify('--zeros', 50000, '--source', '50k', '--objection', 'all')
-run_verify('--zeros', 5000, '--objection', '2', '--lang', 'ru')
+run_verify                                          % defaults: 50000 zeros, auto source, all objections
+run_verify('--zeros', 50000, '--objection', 'all')
+run_verify('--source', '50k_full', '--lang', 'ru')
 ```
 
-Parameters mirror the CLI of all other languages: `zeros`, `source`,
-`objection`, `lang`, `data-dir`.
+From the shell:
 
-## What you get
+```bash
+matlab -batch "run_verify('--zeros', 50000)"
+octave --eval "run_verify('--zeros', 50000)"
+octave run_verify.m -- --zeros 50000                  # argv() pickup
+AB_CLOUD_ARGS='--zeros 50000 --lang ru' octave --eval run_verify
+```
 
-The same verdict set as the Python reference: b(N) convergence table with the
-power-law fit, KS/CvM p-values vs the GUE Wigner surmise, ⟨r⟩ with bootstrap
-error, decay slope with 95% CI; timestamped report written next to the
-scripts, optional figure export via `saveas`.
+## Flags (CANON_SPEC §9)
+
+| Flag | Values | Meaning |
+|---|---|---|
+| `--zeros N` | integer | how many ordinates to use (default 50 000; `0` = all loaded) |
+| `--source NAME` | `auto`, `50k`, `50k_full`, `500k`, `2M`, `highT`, `2M_gz`, `csv`, `zeros6` | which frozen dataset from `../data/` to load; `auto` = smallest registered file with count ≥ zeros; `highT` = BLOCK-offset format; `2M_gz` unpacked via `gunzip` into a temp dir |
+| `--objection X` | `1`, `2`, `3`, `all` | run the full suite or one objection |
+| `--lang L` | `en`, `ru` | report language (default: auto-detect from `LANG`) |
+| `--data-dir DIR` | path | data directory (default `../data` resolved next to this file) |
+| `--no-selfcheck` | — | skip the frozen-anchor self-check |
+
+## Self-check (CANON_SPEC §8)
+
+Before any objection runs, the kernel prints a PASS/FAIL/Δ table against the
+frozen golden anchors embedded as literals:
+
+- `lambert_w` — 6 anchors, tol 1e-12 rel;
+- `gram_point` — 8 anchors (n = 1 … 50000), tol 1e-6 abs;
+- `bN(N)` — 6 anchors + `bN(N=1000,off=500)`, tol 1e-6 abs (SKIP if not
+  enough zeros are loaded);
+- statistics on the FIRST 50 000 zeros — `spacings.mean/var`, `ks.D`,
+  `ks.p` (1e-6 rel), `cvm.W2`, `ad.A2` (both 1e-9 rel, as in the canon
+  Python selfcheck), `rmean.r`, tol 1e-9
+  (SKIP with a printed SKIP line if fewer than 50 000 zeros are loaded).
+
+Anchor highlights on the 50k canon data: `b(50000) = 1.2125526772588608`,
+KS `D = 0.021619`, `p ≈ 9.57e-21` (H₀ formally rejected — the printed note
+explains this as the known finite-T corrections of the zeta zeros; the
+spacing mean ≈ 1 validates the unfolding), `W² = 8.177703`, `A² = 61.492426`,
+`⟨r⟩ = 0.6118798907208398` (n_r = 49998) against the GUE surmise 0.5992.
+
+**Exit status: 1 if any anchor fails** (`exit(1)` under a shell launch,
+`error` otherwise — both give status 1 in `matlab -batch` / `octave` CLI
+runs), 0 otherwise. Every verdict in the report is printed only in the
+branch chosen by the computed numbers — no canned verdict strings.
+
+## Canon kernel notes
+
+- `gram_point(k)`: seed `2πk / W(k/e)`, then EXACTLY 8 Newton iterations on
+  the 5-term Riemann–Siegel theta (§2) — the old seed-only formula was wrong.
+- `bN`: strictly sequential accumulation (§3); the printed tables use the
+  prefix array, which is bit-identical to the direct sum.
+- `gue_cdf`: 32768-point interpolation table, SMAX = 5, built lazily once and
+  cached (`persistent`); outside [0, 5) the exact closed form is used (§5).
+- KS two-sided D + λ-corrected p-value (two branches), Cramér–von Mises,
+  Anderson–Darling with `1e-300 / 1-1e-16` clamps, ⟨r⟩ adjacent-gap ratio,
+  sample variance (n−1) — all §6, sequential summation order.
+- Objections: §7 verdicts — monotone-decrease criterion for Obj 1 (decay is
+  EMPIRICAL, not O(1/√N)), p < 0.05 rejection with the honest finite-T note
+  for Obj 2, |slope − (−0.5)| ≤ 0.1 for Obj 3.
+
+## Deliberate deviations (documented)
+
+- `--zeros 0` loads ALL available zeros (the Python CLI has no `0` case).
+- If the b(N) table is not monotonically decreasing, an explicit honest
+  "NOT confirmed" line is printed instead of the monotone note.
+- No figure export; the runner is console-only.
+- `ab_cloud_verify_en/ru` pin the language even if the caller passes
+  `--lang` (the pinned value is appended last and wins).
 
 ## spinor38/ — Test 38 port
 
@@ -54,79 +116,17 @@ spinor38
 
 ## Кратко (по-русски)
 
-- Реализация на MATLAB R2021b+ без тулбоксов: KS и CvM написаны вручную,
-  чтобы определения совпадали во всех десяти языках.
-- Запуск: `run_verify('--zeros', 50000, '--source', '50k', '--objection', 'all')`.
-- `spinor38/` — Порт Test 38: собственный алгоритм Якоби (не `eig`),
+- Канонический MATLAB/Octave-порт ядра по `../CANON_SPEC.md` (v3.0),
+  бит-совместим с замороженным эталоном `../data/abcloud_golden.json`.
+- Точки Грама: сид `2πk/W(k/e)` + РОВНО 8 итераций Ньютона по 5-членному
+  тета-разложению; `lambert_w` — Ньютона, допуск `1e-14*(1+|w|)`, до 50 итераций.
+- GUE-CDF через таблицу 32768 точек (SMAX = 5, ленивая сборка + `persistent`-кэш);
+  KS (двусторонний D + p с поправкой λ), Крамер–фон Мизес, Андерсон–Дарлинг
+  с клампами `1e-300 / 1-1e-16`, ⟨r⟩ по соседним промежуткам.
+- Само-проверка по всем замороженным якорям §8 печатает таблицу
+  PASS/FAIL/Δ и код выхода 1 при любом расхождении; `ab_cloud_verify_en/ru`
+  — тонкие обёртки (§10), вся математика в одном ядре.
+- Запуск: `run_verify('--zeros', 50000)` из MATLAB/Octave, либо
+  `octave --eval "run_verify('--zeros', 50000)"` из шелла.
+- `spinor38/` — порт Теста 38: собственный алгоритм Якоби (не `eig`),
   данные — из `../spinor64/data/`.
-
-## 📁 Complete file inventory
-
-| Entry | Size | Kind |
-|---|---|---|
-| `spinor38/` | 2 files, 6.0 KB | directory |
-| `README.md` | 2.1 KB | file |
-| `ab_cloud_verify.m` | 13.9 KB | file |
-| `ab_cloud_verify_en.m` | 8.3 KB | file |
-| `ab_cloud_verify_ru.m` | 9.1 KB | file |
-| `run_verify.m` | 3.8 KB | file |
-| **Total (recursive)** | **7 files, 43.3 KB** | |
-
-## 🔬 Deep dive — the MATLAB / Octave port in the parity matrix
-
-The MATLAB port serves the numerical-computing audience
-that meets the project through its native environment: all statistics
-are expressed in matrix form, the loader reads the same frozen tables,
-and the runner accepts the shared flag language as function arguments.
-It runs unchanged in GNU Octave, which keeps the port verifiable
-without a MATLAB license. The `spinor38/` port follows the validated
-C++ reference like every other language folder, and the reporting
-variants produce the same PASS/FAIL verdict lines as the rest of the
-matrix.
-
-## ▶ Running — toolchain, entry point, flags
-
-- **Toolchain:** MATLAB R2020b+ or GNU Octave 7+
-- **Entry point:** `run_verify.m   # accepts the same flags: run_verify('--zeros', 50000, ...)`
-
-| Flag | Values | Meaning |
-|---|---|---|
-| `--zeros N` | integer, `0` = all | how many ordinates to use (default 10 000) |
-| `--source NAME` | `auto`, `zeta_zeros_50000`, `zeta_zeros_500k`, `zeta_zeros_2M`, `zeta_zeros_highT`, `zeros6`, `zeta_zeros_50000_csv` | which frozen dataset from `../data/` to load (`auto` picks sensibly for the requested N) |
-| `--objection X` | `all`, `1`, `2`, `3` | run the full suite or a single objection test |
-| `--lang X` | `en`, `ru` | report language on stdout |
-
-All inputs resolve against `../data/` — the frozen Odlyzko tables
-described in `../data/README.md`. Nothing is downloaded or generated at
-runtime; a run either reads the committed bytes or aborts. Reference
-statistics every implementation must reproduce: pair-correlation KS =
-0.047 with p = 0.27, Byers–Yang flux defect 3.5e-15, ⟨r⟩ = 0.5848 ±
-0.0260 against the GUE value 0.5992, Connes self-duality via four zero
-modes, Dirac slope v_F ≈ 0.125 with R² = 0.9997, b(50000) = 1.2126.
-
-## 🧭 Cross-language parity
-
-This port exists to prove the suite is language-independent: same frozen
-inputs, same 37 tests, same numbers out. If this implementation ever
-disagrees with the Julia reference (`../../code/ab_cloud_full.jl`) or
-with the other nine ports, the discrepancy is a bug in the port — the
-data and the definitions are shared. CI exercises the interpreted
-subset; the compiled ports are expected to be replayed locally with the
-same one-line command shown above. The Test-38 companion lives in
-`spinor38/` where present, and the spinor64 correction experiment — the
-one that established 64/64 GUE-consistency for the Klein-quartic
-structures — lives in `../spinor64/`.
-
-## Кратко (по-русски)
-
-- Порт существует для доказательства паритета: одинаковые замороженные
-  данные, тот же набор тестов, те же эталонные числа (KS = 0.047,
-  p = 0.27; дефект 3.5e-15; ⟨r⟩ = 0.5848 ± 0.0260).
-- Флаги одинаковы во всех десяти реализациях — одна и та же командная
-  строка проигрывается в каждой папке.
-- Расхождение с эталоном трактуется как баг порта, а не как открытие.
-
-- Для аудитуры MATLAB/Octave: статистики в матричной форме,
-  те же замороженные таблицы, те же флаги как аргументы функции.
-- Работает в GNU Octave без изменений — проверка без лицензии MATLAB.
-- spinor38 следует C++-эталону; вердикты PASS/FAIL — как у всех.

@@ -1,236 +1,78 @@
-//! =============================================================================
-//! AB-CLOUD ПРОВЕРОЧНЫЙ ПАКЕТ — РУССКИЙ МОДУЛЬ
-//! Современный Rust · Обработка Result · Эффективный
-//! =============================================================================
-//! Три возражения против гипотезы Римана (вывод на русском):
-//!   Возражение 1: b(N) → 0?  (сходимость отклонений Грама)
-//!   Возражение 2: GUE-интервалы, KS-критерий
-//!   Возражение 3: Наклон убывания при больших T ≈ -0.5
-//! =============================================================================
+//! Thin rendering layer (CANON_SPEC §10): RU output of structured results.
+//! All computation lives in main.rs — no duplicated math.
+use crate::{Obj1Res, Obj2Res, Obj3Res, SCRow};
 
-use std::f64::consts::{E, PI, TAU};
-
-const TWO_PI: f64 = TAU;
-
-/// Результат проверки
-#[derive(Debug, Clone)]
-pub struct VerifyResult {
-    pub label: String,
-    pub value: f64,
-    pub pass: bool,
-    pub detail: String,
+pub fn render_obj1_ru(r: &Obj1Res) -> String {
+    let mut out = String::from(
+        "\n═══════════════════════════════════════════════════\n  ВОЗРАЖЕНИЕ 1: Сходимость b(N)\n  b(N) = (1/N) · Σ|γ_k − γ̃_k|, точки Грама: θ(t) = πk (Ньютон)\n═══════════════════════════════════════════════════\n");
+    out += &format!("  {:>10} {:>15} {:>15}\n", "N", "b(N)", "log10(b(N))");
+    for i in 0..r.ns.len() {
+        let lg = if r.bn[i] > 0.0 { r.bn[i].log10() } else { -999.0 };
+        out += &format!("  {:>10} {:>15.8} {:>15.4}\n", r.ns[i], r.bn[i], lg);
+    }
+    if r.has_fit {
+        out += &format!("\n  Эмпирический закон:  b(N) ~ {:.4} * N^(-{:.4})   (R^2 = {:.4})\n", r.fit_a, r.fit_s, r.fit_r2);
+    }
+    if r.converging {
+        out += "\nРезультат: b(N) сходится с ростом N. OK\n";
+        out += "  b(N) монотонно убывает по таблице — сходимость подтверждена на доступном диапазоне. Убывание ЭМПИРИЧЕСКОЕ, это не O(1/sqrt(N)).\n";
+    } else {
+        out += "\nРезультат: b(N) НЕ сходится с ростом N. WARN\n";
+    }
+    out
 }
 
-// =============================================================================
-// W Ламберта (главная ветвь) через метод Галлея
-// =============================================================================
-fn lambert_w0(x: f64) -> f64 {
-    if x == 0.0 {
-        return 0.0;
+pub fn render_obj2_ru(r: &Obj2Res) -> String {
+    let mut out = String::from(
+        "\n═══════════════════════════════════════════════════\n  ВОЗРАЖЕНИЕ 2: Статистика интервалов GUE\n  s_k = Δγ_k · log(γ_k/2π) / 2π,  GUE (β=2) сурьмида через каноническую CDF-таблицу (32768 точек)\n═══════════════════════════════════════════════════\n");
+    if r.n < 2 {
+        return out + "ПРЕДУПРЕЖДЕНИЕ: недостаточно интервалов для GUE-теста.\n";
     }
-    let mut w = x.ln().max(-70.0);
-    if w > 0.0 {
-        w = w.ln();
+    out += &format!("  Средний спейсинг: {:.9}  дисперсия: {:.9}  (n = {})\n", r.mean, r.var, r.n);
+    out += &format!("  Колмогоров-Смирнов:  D = {:.6},  p-значение = {:.3e}\n", r.d, r.p);
+    out += &format!("  Крамер-фон Мизес:    W^2 = {:.6}\n", r.w2);
+    out += &format!("  Андерсон-Дарлинг:     A^2 = {:.6}\n", r.a2);
+    out += &format!("  <r> (отношение соседних): {:.6}  (n = {}, GUE ~ 0.5992)\n", r.r, r.nr);
+    if r.rejected {
+        out += "\nРезультат: KS-тест ОТВЕРГНУТ при alpha=0.05.\n";
+        out += "  Примечание: при больших n точная GUE-сурьмида формально отвергается — это известные поправки конечных T у нулей ζ, а не дефект данных (среднее ~ 1 подтверждает развёртку; якоря golden).\n";
+    } else {
+        out += "\nРезультат: KS-тест НЕ ОТВЕРГНУТ при alpha=0.05.\n";
     }
-    for _ in 0..50 {
-        let ew = w.exp();
-        let f = w * ew - x;
-        let fp = ew * (w + 1.0);
-        let fpp = ew * (w + 2.0);
-        let delta = f / (fp - 0.5 * f * fpp / fp);
-        w -= delta;
-        if delta.abs() < 1e-15 * w.abs() {
-            break;
+    out
+}
+
+pub fn render_obj3_ru(r: &Obj3Res) -> String {
+    let mut out = String::from(
+        "\n═══════════════════════════════════════════════════\n  ВОЗРАЖЕНИЕ 3: Скорость убывания при больших T\n  Аппроксимация log(b(N)) vs log(N): ожидаемый наклон ~ -0.5\n═══════════════════════════════════════════════════\n");
+    if r.slope.is_nan() {
+        return out + "ПРЕДУПРЕЖДЕНИЕ: недостаточно точек для регрессии.\n";
+    }
+    out += "  Линейная регрессия в лог. масштабе:\n";
+    out += &format!("  Наклон    = {:+.6}  (ожидается: -0.5)\n", r.slope);
+    out += &format!("  Св. член  = {:+.6}\n", r.intercept);
+    out += &format!("  R^2       = {:.6}\n", r.r2);
+    out += &format!("  95% ДИ для наклона: [{:.4}, {:.4}]\n", r.cilo, r.cihi);
+    if r.ok {
+        out += &format!("\nРезультат: Наклон = {:+.4}, ожидаемый = -0.500. OK\n", r.slope);
+    } else {
+        out += &format!("\nРезультат: Наклон = {:+.4}, ожидаемый = -0.500. WARN: наклон отклоняется от -0.5 (убывание эмпирическое)\n", r.slope);
+    }
+    out
+}
+
+pub fn render_selfcheck_ru(rows: &[SCRow], npass: usize, nfail: usize) -> String {
+    let mut out = String::from(
+        "\n=== Само-проверка golden — замороженные якоря (канон: meridian-spectral-observatory, selftest 199/199) ===\n");
+    for r in rows {
+        if r.skip {
+            out += &format!("  {:<24} ПРОПУСК\n", r.name);
+            continue;
         }
+        let st = if r.ok { "ПРОЙДЕНО" } else { "СБОЙ" };
+        out += &format!("  {:<24} {}  вычислено = {:.12e}, ожидание = {:.12e}, D = {:.3e}\n",
+            r.name, st, r.got, r.exp, r.delta);
     }
-    w
-}
-
-/// Точка Грама: γ̃_n = 2π · W₀(n/e)
-fn gram_point(n: usize) -> f64 {
-    TWO_PI * lambert_w0(n as f64 / E)
-}
-
-// =============================================================================
-// Возражение 1: b(N) = (1/N) * Σ|γ_k - γ̃_k|
-// =============================================================================
-pub fn compute_objection1(gammas: &[f64]) -> VerifyResult {
-    let n = gammas.len();
-    let s: f64 = gammas
-        .iter()
-        .enumerate()
-        .map(|(k, &gk)| (gk - gram_point(k + 1)).abs())
-        .sum();
-    let b_n = s / n as f64;
-    let pass = b_n < 1.0;
-
-    println!();
-    println!("═══════════════════════════════════════════════════");
-    println!("  ВОЗРАЖЕНИЕ 1: Сходимость b(N)");
-    println!("  b(N) = (1/N) · Σ|γ_k − γ̃_k|, точки Грама через W Ламберта");
-    println!("═══════════════════════════════════════════════════");
-    println!("    N       = {}", n);
-    println!("    b(N)    = {:.8e}", b_n);
-    println!("    Пройдено: {}", pass);
-
-    VerifyResult {
-        label: "1:b(N)".to_string(),
-        value: b_n,
-        pass,
-        detail: format!("{:.8e}", b_n),
-    }
-}
-
-// =============================================================================
-// GUE вспомогательные функции
-// =============================================================================
-fn gue_pdf(s: f64) -> f64 {
-    // v2.0.3: GUE (beta=2) surmise: (32/pi^2) s^2 exp(-4 s^2 / pi)
-    // (was the GOE beta=1 surmise (pi s/2) exp(-pi s^2/4) - wrong ensemble)
-    (32.0 / (PI * PI)) * s * s * (-4.0 * s * s / PI).exp()
-}
-
-fn gue_cdf(s: f64) -> f64 {
-    if s <= 0.0 {
-        return 0.0;
-    }
-    let nsteps = 200;
-    let h = s / nsteps as f64;
-    let mut sum = 0.0;
-    for i in 0..=nsteps {
-        let x = i as f64 * h;
-        let w = if i == 0 || i == nsteps {
-            1.0
-        } else if i % 2 == 1 {
-            4.0
-        } else {
-            2.0
-        };
-        sum += w * gue_pdf(x);
-    }
-    (h / 3.0 * sum).min(1.0)
-}
-
-fn kolmogorov_pvalue(d: f64, n: f64) -> f64 {
-    let z = d * n.sqrt();
-    let mut pval = 0.0;
-    for k in -10_i32..=10 {
-        let sign = if k % 2 == 0 { 1.0 } else { -1.0 };
-        pval += sign * (-2.0 * (2.0 * k as f64 * z + z).powi(2)).exp();
-    }
-    pval.clamp(0.0, 1.0)
-}
-
-// =============================================================================
-// Возражение 2: GUE-интервалы, KS-критерий
-// =============================================================================
-pub fn compute_objection2(gammas: &[f64]) -> VerifyResult {
-    let n = gammas.len();
-    let m = n - 1;
-
-    let mut spacings: Vec<f64> = Vec::with_capacity(m);
-    for k in 0..m {
-        let log_factor = (gammas[k] / TWO_PI).ln();
-        spacings.push((gammas[k + 1] - gammas[k]) * log_factor / TWO_PI);
-    }
-    spacings.sort_by(|a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal));
-
-    let mut ks_stat = 0.0_f64;
-    for (k, &sk) in spacings.iter().enumerate() {
-        let cdf_emp = (k + 1) as f64 / m as f64;
-        let cdf_theo = gue_cdf(sk);
-        let d = (cdf_emp - cdf_theo).abs();
-        if d > ks_stat { ks_stat = d; }
-    }
-
-    let ks_pval = kolmogorov_pvalue(ks_stat, m as f64);
-    let pass = ks_pval > 0.05;
-
-    println!();
-    println!("═══════════════════════════════════════════════════");
-    println!("  ВОЗРАЖЕНИЕ 2: GUE-интервалы, KS-критерий");
-    println!("  s_k = Δγ_k · log(γ_k/2π) / 2π,  p(s) = (32/π²)·s²·e^{{-4s²/π}}");
-    println!("═══════════════════════════════════════════════════");
-    println!("    Кол-во интервалов = {}", m);
-    println!("    KS-статистика     = {:.8e}", ks_stat);
-    println!("    p-значение        = {:.8e}", ks_pval);
-    println!("    Пройдено (p>0.05): {}", pass);
-
-    VerifyResult {
-        label: "2:KS".to_string(),
-        value: ks_stat,
-        pass,
-        detail: format!("p={:.4e}", ks_pval),
-    }
-}
-
-// =============================================================================
-// Возражение 3: Наклон убывания при больших T ≈ -0.5
-// =============================================================================
-pub fn compute_objection3(gammas: &[f64]) -> VerifyResult {
-    let n = gammas.len();
-    let i_start = n / 2 + 1;
-    let m = n - i_start;
-
-    if m < 10 {
-        return VerifyResult {
-            label: "3:slope".to_string(),
-            value: 0.0,
-            pass: false,
-            detail: "недостаточно данных".to_string(),
-        };
-    }
-
-    let mut x_mean = 0.0_f64;
-    let mut y_mean = 0.0_f64;
-    for k in i_start..(n - 1) {
-        x_mean += gammas[k].ln();
-        y_mean += (gammas[k + 1] - gammas[k]).abs().ln();
-    }
-    x_mean /= m as f64;
-    y_mean /= m as f64;
-
-    let mut sxx = 0.0_f64;
-    let mut sxy = 0.0_f64;
-    for k in i_start..(n - 1) {
-        let xv = gammas[k].ln();
-        let yv = (gammas[k + 1] - gammas[k]).abs().ln();
-        sxx += (xv - x_mean).powi(2);
-        sxy += (xv - x_mean) * (yv - y_mean);
-    }
-    let slope = sxy / sxx;
-    let deviation = (slope + 0.5).abs();
-    let pass = deviation < 0.15;
-
-    println!();
-    println!("═══════════════════════════════════════════════════");
-    println!("  ВОЗРАЖЕНИЕ 3: Наклон убывания при больших T");
-    println!("  log|Δγ_k| ~ slope · log(γ_k),  ожидается slope ≈ -0.5");
-    println!("═══════════════════════════════════════════════════");
-    println!("    Точек регрессии = {}", m);
-    println!("    Наклон (slope)  = {:.4}", slope);
-    println!("    Отклонение      = {:.4}", deviation);
-    println!("    Пройдено:       {}", pass);
-
-    VerifyResult {
-        label: "3:slope".to_string(),
-        value: slope,
-        pass,
-        detail: format!("откл={:.4}", deviation),
-    }
-}
-
-// =============================================================================
-// Сводная таблица (русский)
-// =============================================================================
-pub fn print_summary(results: &[VerifyResult]) {
-    println!();
-    println!("  ┌──────────┬────────────────────┬────────┐");
-    println!("  │ Возраж.  │    Значение        │ Стат.  │");
-    println!("  ├──────────┼────────────────────┼────────┤");
-    for r in results {
-        let status = if r.pass { "PASS" } else { "FAIL" };
-        println!("  │ {:<8} │ {:>16.6e} │ {:<6} │", r.label, r.value, status);
-    }
-    println!("  └──────────┴────────────────────┴────────┘");
+    out += &format!("  Само-проверка: {} пройдено, {} провалено\n", npass, nfail);
+    out
 }

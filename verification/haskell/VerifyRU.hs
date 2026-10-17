@@ -1,159 +1,109 @@
-module VerifyRU
-  ( objection1RU
-  , objection2RU
-  , objection3RU
-  ) where
+-- | Thin Russian rendering layer (CANON_SPEC §10). No duplicated math.
+module VerifyRU (renderObj1, renderObj2, renderObj3, renderSelfcheck) where
 
-import Data.List (sort)
-import ZerosLoader (gramPoint, gueCDF)
+import Numeric (showFFloat)
+import ZerosLoader (Obj1Res(..), Obj2Res(..), Obj3Res(..), SCRow(..))
 
--- | Возражение 1: сходимость b(N) (русский).
-objection1RU :: [Double] -> String
-objection1RU [] = "Нули не загружены.\n"
-objection1RU zeros = unlines
-  [ "╔══════════════════════════════════════════════════════╗"
-  , "║  ВОЗРАЖЕНИЕ 1: Проверка сходимости b(N)             ║"
-  , "╚══════════════════════════════════════════════════════╝"
-  , ""
-  , "  b(N) = (1/N) × Σ|γ_k - γ̃_k|"
-  , "  Точки Грама γ̃_k: W Ламберта (Холли) + ньютоновская доводка"
-  , ""
-  , "  Загружено нулей: " ++ show n
-  , ""
-  , "  Таблица сходимости:"
-  , "  ─────────────────────────────────"
-  , "       N           b(N)"
-  , "  ─────────────────────────────────"
-  ] ++ tableLines ++ [
-    "  ─────────────────────────────────"
-  , ""
-  , verdict
-  , ""
-  , "  Отклонение от точек Грама систематически убывает,"
-  , "  подтверждая согласие нулей с законом Грама."
+fx :: Int -> Double -> String
+fx k v = showFFloat (Just k) v ""
+
+padR :: Int -> String -> String
+padR k s = s ++ replicate (max 0 (k - length s)) ' '
+
+log10v :: Double -> Double
+log10v v = if v > 0 then log v / log 10 else -999
+
+renderObj1 :: Obj1Res -> String
+renderObj1 r = unlines $ concat
+  [ [ ""
+    , "==================== Возражение 1: Числовая стабильность b(N) ===================="
+    , "  b(N) = (1/N) * Sum|gamma_k - gamma_tilde_k|, точки Грама: theta(t) = pi*k (Ньютон)"
+    , ""
+    , "         N            b(N)    log10(b(N))"
+    ]
+  , [ padR 10 (show n) ++ "  " ++ padR 14 (fx 8 b) ++ "  " ++ padR 14 (fx 4 (log10v b))
+    | (n, b) <- zip (o1ns r) (o1bn r) ]
+  , if o1hasFit r
+      then [ ""
+           , "  Эмпирический закон:  b(N) ~ " ++ fx 4 (o1fitA r) ++ " * N^(-" ++ fx 4 (o1fitS r)
+             ++ ")   (R^2 = " ++ fx 4 (o1fitR2 r) ++ ")" ]
+      else []
+  , if o1converging r
+      then [ ""
+           , "Результат: b(N) сходится с ростом N. OK"
+           , "  b(N) монотонно убывает по таблице — сходимость подтверждена на доступном диапазоне."
+           , "  Убывание ЭМПИРИЧЕСКОЕ, это не O(1/sqrt(N))." ]
+      else [ "", "Результат: b(N) НЕ сходится с ростом N. WARN" ]
+  ]
+
+renderObj2 :: Obj2Res -> String
+renderObj2 r = unlines $ concat
+  [ [ ""
+    , "==================== Возражение 2: Статистическая значимость GUE-распределения ===================="
+    , "  GUE (beta=2) сурьмида через каноническую CDF-таблицу (32768 точек)"
+    , ""
+    ]
+  , if o2n r < 2
+      then [ "ПРЕДУПРЕЖДЕНИЕ: недостаточно интервалов для GUE-теста." ]
+      else concat
+        [ [ "  Средний спейсинг: " ++ fx 9 (o2mean r) ++ "  дисперсия: " ++ fx 9 (o2var r)
+            ++ "  (n = " ++ show (o2n r) ++ ")"
+          , "  Колмогоров-Смирнов:  D = " ++ fx 6 (o2d r) ++ ",  p-значение = " ++ show (o2p r)
+          , "  Крамер-фон Мизес:    W^2 = " ++ fx 6 (o2w2 r)
+          , "  Андерсон-Дарлинг:     A^2 = " ++ fx 6 (o2a2 r)
+          , "  <r> (отношение соседних): " ++ fx 6 (o2r r) ++ "  (n = " ++ show (o2nr r)
+            ++ ", GUE ~ 0.5992)"
+          , ""
+          , if o2rejected r
+              then "Результат: H0 (GUE-распределение): ОТВЕРГНУТА  (alpha = 0.05)"
+              else "Результат: H0 (GUE-распределение): НЕ ОТВЕРГНУТА  (alpha = 0.05)"
+          ]
+        , if o2rejected r
+            then [ "  Примечание: при больших n точная GUE-сурьмида формально отвергается — это"
+                 , "  известные поправки конечных T у нулей ζ, а не дефект данных"
+                 , "  (среднее ~ 1 подтверждает развёртку; якоря golden)." ]
+            else []
+        ]
+  ]
+
+renderObj3 :: Obj3Res -> String
+renderObj3 r = unlines $
+  if isNaN (o3slope r)
+    then concat
+      [ [ ""
+        , "==================== Возражение 3: Скорость убывания при больших T ===================="
+        , "  Аппроксимация log(b(N)) vs log(N): ожидаемый наклон ~ -0.5"
+        , ""
+        , "ПРЕДУПРЕЖДЕНИЕ: недостаточно точек для регрессии." ] ]
+    else concat
+      [ [ ""
+        , "==================== Возражение 3: Скорость убывания при больших T ===================="
+        , "  Аппроксимация log(b(N)) vs log(N): ожидаемый наклон ~ -0.5"
+        , ""
+        , "  Наклон    = " ++ sgn (fx 6 (o3slope r))
+        , "  Св. член  = " ++ sgn (fx 6 (o3intercept r))
+        , "  R^2       = " ++ fx 6 (o3r2 r)
+        , "  95% ДИ для наклона: [" ++ fx 4 (o3cilo r) ++ ", " ++ fx 4 (o3cihi r) ++ "]"
+        , ""
+        , if o3ok r
+            then "Результат: Наклон = " ++ fx 4 (o3slope r) ++ ", ожидаемый = -0.500. OK"
+            else "Результат: Наклон = " ++ fx 4 (o3slope r)
+                 ++ ", ожидаемый = -0.500. WARN: наклон отклоняется от -0.5 (убывание эмпирическое)"
+        ] ]
+  where sgn s = if head s == '-' then s else '+' : s
+
+renderSelfcheck :: [SCRow] -> Int -> Int -> String
+renderSelfcheck rows npass nfail = unlines $ concat
+  [ [ ""
+    , "=== Само-проверка golden — замороженные якоря (канон: meridian-spectral-observatory, selftest 199/199) ==="
+    ]
+  , map line rows
+  , [ "  Само-проверка: " ++ show npass ++ " пройдено, " ++ show nfail ++ " провалено" ]
   ]
   where
-    n = length zeros
-    checks = filter (<= n) [100, 500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000]
-    bN cp = sum [abs (zeros !! k - gramPoint k) | k <- [0..cp-1]] / fromIntegral cp
-    tableLines = [fmtRow cp (bN cp) | cp <- checks]
-    totalBN = sum [abs (zeros !! k - gramPoint k) | k <- [0..n-1]] / fromIntegral n
-    verdict = if totalBN < 0.5
-      then "  ✓ b(N) = " ++ f6 totalBN ++ " → СХОДИМОСТЬ ПОДТВЕРЖДЕНА (b(N) → 0)"
-      else "  ✗ b(N) = " ++ f6 totalBN ++ " → сходимость не выявлена"
-
--- | Возражение 2: KS-критерий GUE (русский).
-objection2RU :: [Double] -> String
-objection2RU zs
-  | length zs < 2 = "Требуется ≥ 2 нулей для KS-критерия GUE.\n"
-objection2RU zeros = unlines
-  [ "╔══════════════════════════════════════════════════════╗"
-  , "║  ВОЗРАЖЕНИЕ 2: KS-критерий GUE-интервалов           ║"
-  , "╚══════════════════════════════════════════════════════╝"
-  , ""
-  , "  s_k = (γ_{k+1} - γ_k) × log(γ_k/(2π)) / (2π)"
-  , "  GUE: p(s) = (32/π²) × s² × exp(−4s²/π)"
-  , ""
-  , "  Анализируемых нулей: " ++ show n
-  , "  Вычисленных интервалов: " ++ show (n - 1)
-  , "  Средний интервал:    " ++ f6 meanS ++ "  (ожидается ≈ 1.0)"
-  , "  KS-статистика:       " ++ f6 ksStat
-  , ""
-  , "  KS критическое (5%): " ++ f6 crit
-  , ""
-  , verdict
-  , ""
-  , "  Интервалы между нулями дзета-функции согласуются"
-  , "  со статистикой собственных значений GUE."
-  ]
-  where
-    n = length zeros
-    spacings = sort [gap * norm | k <- [0..n-2],
-                     let gap  = zeros !! (k+1) - zeros !! k
-                     let norm = log (zeros !! k / (2 * pi)) / (2 * pi)]
-    ns = length spacings
-    ksStat = maximum [abs (fromIntegral (i+1) / fromIntegral ns - gueCDF s)
-                     | (i, s) <- zip [0..] spacings]
-    meanS = sum spacings / fromIntegral ns
-    crit = 1.358 / sqrt (fromIntegral ns)
-    verdict = if ksStat < crit
-      then "  ✓ KS = " ++ f6 ksStat ++ " < " ++ f6 crit ++ " → GUE НЕ ОТВЕРГНУТ"
-      else "  ✗ KS = " ++ f6 ksStat ++ " ≥ " ++ f6 crit ++ " → GUE отвергнут на 5%"
-
--- | Возражение 3: наклон спада при больших T ≈ −0.5 (русский).
-objection3RU :: [Double] -> String
-objection3RU zs
-  | length zs < 100 = "Требуется ≥ 100 нулей для анализа спада при больших T.\n"
-objection3RU zeros = unlines $
-  [ "╔══════════════════════════════════════════════════════╗"
-  , "║  ВОЗРАЖЕНИЕ 3: Наклон спада при больших T           ║"
-  , "╚══════════════════════════════════════════════════════╝"
-  , ""
-  , "  Анализ: log⟨|γ_k - γ̃_k|⟩ от log(T)"
-  , "  Ожидаемый наклон: −0.5"
-  , ""
-  , "  Нулей: " ++ show n ++ "   Блоков: " ++ show numBlocks
-  , ""
-  , "  ────────────────────────────────────────────────────"
-  , "     T_центр     ⟨|Δγ|⟩     log(T)   log(⟨|Δγ|⟩)"
-  , "  ────────────────────────────────────────────────────"
-  ] ++ blockLines ++
-  [ "  ────────────────────────────────────────────────────"
-  , ""
-  , "  Наклон:           " ++ f6 slope
-  , "  Свободный член:   " ++ f6 intercept
-  , "  Ожидаемый наклон: −0.500000"
-  , ""
-  , verdict
-  , ""
-  , "  Отклонение от точек Грама убывает как T^{−0.5},"
-  , "  согласуясь с теоретическими предсказаниями."
-  ]
-  where
-    n = length zeros
-    numBlocks = min 20 (n `div` 50)
-    bsize = n `div` numBlocks
-    mkBlock i = (tc, avg)
-      where
-        s = i * bsize
-        e = if i == numBlocks - 1 then n else s + bsize
-        cnt = fromIntegral (e - s)
-        st  = sum [zeros !! k | k <- [s..e-1]]
-        sd  = sum [abs (zeros !! k - gramPoint k) | k <- [s..e-1]]
-        tc  = st / cnt
-        avg = sd / cnt
-    blocks = [mkBlock i | i <- [0..numBlocks-1]]
-    valid   = [(log tc, log avg) | (tc, avg) <- blocks, tc > 0, avg > 0]
-    m       = length valid
-    sx      = sum [x | (x, _) <- valid]
-    sy      = sum [y | (_, y) <- valid]
-    sxy     = sum [x*y | (x, y) <- valid]
-    sx2     = sum [x*x | (x, _) <- valid]
-    slope     = (fromIntegral m * sxy - sx * sy) / (fromIntegral m * sx2 - sx * sx)
-    intercept = (sy - slope * sx) / fromIntegral m
-    blockLines = [fmtBlk tc avg | (tc, avg) <- blocks, tc > 0, avg > 0]
-    dev = abs (slope + 0.5)
-    verdict = if dev < 0.1
-      then "  ✓ Наклон = " ++ f4 slope ++ " ≈ −0.5 → СПАД ПОДТВЕРЖДЁН"
-      else "  ✗ Наклон = " ++ f4 slope ++ ", |Δ| = " ++ f4 dev ++ " от −0.5"
-
--- ---------- Formatting helpers ----------
-
-f6 :: Double -> String
-f6 x = pad12 (take 12 (show x))
-
-f4 :: Double -> String
-f4 = take 7 . show
-
-fmtRow :: Int -> Double -> String
-fmtRow n v = replicate (8 - length (show n)) ' ' ++ show n ++ "    " ++ pad12 (take 12 (show v))
-
-fmtBlk :: Double -> Double -> String
-fmtBlk tc avg = "  " ++ lp 10 (take 11 (show tc)) ++ "  " ++ lp 10 (take 12 (show avg))
-                ++ "  " ++ lp 8 (take 7 (show (log tc))) ++ "  " ++ lp 10 (take 12 (show (log avg)))
-
-pad12 :: String -> String
-pad12 s = replicate (12 - length s) ' ' ++ s
-
-lp :: Int -> String -> String
-lp w s = s ++ replicate (max 0 (w - length s)) ' '
+    line r
+      | scSkip r  = "  " ++ padR 24 (scName r) ++ " ПРОПУСК"
+      | otherwise = "  " ++ padR 24 (scName r) ++ " " ++ st ++ "  вычислено = "
+                    ++ show (scGot r) ++ ", ожидание = " ++ show (scExp r)
+                    ++ ", D = " ++ show (scDelta r)
+      where st = if scOk r then "ПРОЙДЕНО" else "СБОЙ"

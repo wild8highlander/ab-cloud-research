@@ -1,164 +1,109 @@
-module VerifyEN
-  ( objection1EN
-  , objection2EN
-  , objection3EN
-  ) where
+-- | Thin English rendering layer (CANON_SPEC §10). No duplicated math.
+module VerifyEN (renderObj1, renderObj2, renderObj3, renderSelfcheck) where
 
-import Data.List (sort)
-import ZerosLoader (gramPoint, gueCDF)
+import Numeric (showFFloat)
+import ZerosLoader (Obj1Res(..), Obj2Res(..), Obj3Res(..), SCRow(..))
 
--- | Objection 1: b(N) convergence test (English).
-objection1EN :: [Double] -> String
-objection1EN [] = "No zeros loaded.\n"
-objection1EN zeros = unlines
-  [ "╔══════════════════════════════════════════════════════╗"
-  , "║  OBJECTION 1: b(N) Convergence Test                 ║"
-  , "╚══════════════════════════════════════════════════════╝"
-  , ""
-  , "  b(N) = (1/N) × Σ|γ_k - γ̃_k|"
-  , "  Gram points γ̃_k via Lambert W (Halley) + Newton refinement"
-  , ""
-  , "  Total zeros loaded: " ++ show n
-  , ""
-  , "  Convergence table:"
-  , "  ─────────────────────────────────"
-  , "       N           b(N)"
-  , "  ─────────────────────────────────"
-  ] ++ tableLines ++ [
-    "  ─────────────────────────────────"
-  , ""
-  , verdict
-  , ""
-  , "  The Gram-point deviation decreases systematically,"
-  , "  confirming zeros align with Gram's law."
+fx :: Int -> Double -> String
+fx k v = showFFloat (Just k) v ""
+
+padR :: Int -> String -> String
+padR k s = s ++ replicate (max 0 (k - length s)) ' '
+
+log10v :: Double -> Double
+log10v v = if v > 0 then log v / log 10 else -999
+
+renderObj1 :: Obj1Res -> String
+renderObj1 r = unlines $ concat
+  [ [ ""
+    , "==================== Objection 1: Numerical Stability of b(N) ===================="
+    , "  b(N) = (1/N) * Sum|gamma_k - gamma_tilde_k|, Gram points: theta(t) = pi*k (Newton)"
+    , ""
+    , "         N            b(N)    log10(b(N))"
+    ]
+  , [ padR 10 (show n) ++ "  " ++ padR 14 (fx 8 b) ++ "  " ++ padR 14 (fx 4 (log10v b))
+    | (n, b) <- zip (o1ns r) (o1bn r) ]
+  , if o1hasFit r
+      then [ ""
+           , "  Empirical law:  b(N) ~ " ++ fx 4 (o1fitA r) ++ " * N^(-" ++ fx 4 (o1fitS r)
+             ++ ")   (R^2 = " ++ fx 4 (o1fitR2 r) ++ ")" ]
+      else []
+  , if o1converging r
+      then [ ""
+           , "Result: b(N) converging as N increases. OK"
+           , "  b(N) decreases monotonically over the table — convergence confirmed on the accessible"
+           , "  range. The decay is EMPIRICAL, not O(1/sqrt(N))." ]
+      else [ "", "Result: b(N) NOT converging as N increases. WARN" ]
+  ]
+
+renderObj2 :: Obj2Res -> String
+renderObj2 r = unlines $ concat
+  [ [ ""
+    , "==================== Objection 2: GUE Spacing Statistical Significance ===================="
+    , "  GUE (beta=2) Wigner surmise via the canonical 32768-point CDF table"
+    , ""
+    ]
+  , if o2n r < 2
+      then [ "WARNING: not enough spacings for the GUE test." ]
+      else concat
+        [ [ "  Spacing mean: " ++ fx 9 (o2mean r) ++ "  var: " ++ fx 9 (o2var r)
+            ++ "  (n = " ++ show (o2n r) ++ ")"
+          , "  Kolmogorov-Smirnov:  D = " ++ fx 6 (o2d r) ++ ",  p-value = " ++ show (o2p r)
+          , "  Cramer-von Mises:    W^2 = " ++ fx 6 (o2w2 r)
+          , "  Anderson-Darling:   A^2 = " ++ fx 6 (o2a2 r)
+          , "  <r> (adjacent-ratio): " ++ fx 6 (o2r r) ++ "  (n = " ++ show (o2nr r)
+            ++ ", GUE surmise ~ 0.5992)"
+          , ""
+          , if o2rejected r
+              then "Result: H0 (GUE distribution): REJECTED  (alpha = 0.05)"
+              else "Result: H0 (GUE distribution): NOT REJECTED  (alpha = 0.05)"
+          ]
+        , if o2rejected r
+            then [ "  Note: at large n the exact GUE surmise is formally rejected — the"
+                 , "  known finite-T corrections of the zeta zeros, not a data artifact"
+                 , "  (mean ~ 1 validates the unfolding; golden-anchored)." ]
+            else []
+        ]
+  ]
+
+renderObj3 :: Obj3Res -> String
+renderObj3 r = unlines $
+  if isNaN (o3slope r)
+    then concat
+      [ [ ""
+        , "==================== Objection 3: Large-T Decay Rate ===================="
+        , "  Fit log(b(N)) vs log(N): expected slope ~ -0.5"
+        , ""
+        , "WARNING: Insufficient data points for regression." ] ]
+    else concat
+      [ [ ""
+        , "==================== Objection 3: Large-T Decay Rate ===================="
+        , "  Fit log(b(N)) vs log(N): expected slope ~ -0.5"
+        , ""
+        , "  Slope     = " ++ sgn (fx 6 (o3slope r))
+        , "  Intercept = " ++ sgn (fx 6 (o3intercept r))
+        , "  R^2       = " ++ fx 6 (o3r2 r)
+        , "  95% CI for slope: [" ++ fx 4 (o3cilo r) ++ ", " ++ fx 4 (o3cihi r) ++ "]"
+        , ""
+        , if o3ok r
+            then "Result: Fitted slope = " ++ fx 4 (o3slope r) ++ ", expected = -0.500. OK"
+            else "Result: Fitted slope = " ++ fx 4 (o3slope r)
+                 ++ ", expected = -0.500. WARN: slope deviates from -0.5 (decay is empirical)"
+        ] ]
+  where sgn s = if head s == '-' then s else '+' : s
+
+renderSelfcheck :: [SCRow] -> Int -> Int -> String
+renderSelfcheck rows npass nfail = unlines $ concat
+  [ [ ""
+    , "=== Golden self-check — frozen anchors (canon: meridian-spectral-observatory, selftest 199/199) ==="
+    ]
+  , map line rows
+  , [ "  Self-check: " ++ show npass ++ " passed, " ++ show nfail ++ " failed" ]
   ]
   where
-    n = length zeros
-    checks = filter (<= n) [100, 500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000]
-    bN cp = sum [abs (zeros !! k - gramPoint k) | k <- [0..cp-1]] / fromIntegral cp
-    tableLines = [printf8 cp (bN cp) | cp <- checks]
-    totalBN = sum [abs (zeros !! k - gramPoint k) | k <- [0..n-1]] / fromIntegral n
-    verdict = if totalBN < 0.5
-      then "  ✓ b(N) = " ++ printf6 totalBN ++ " → CONVERGENCE CONFIRMED (b(N) → 0)"
-      else "  ✗ b(N) = " ++ printf6 totalBN ++ " → no clear convergence"
-
--- | Objection 2: GUE spacing KS test (English).
-objection2EN :: [Double] -> String
-objection2EN zs
-  | length zs < 2 = "Need ≥ 2 zeros for GUE spacing test.\n"
-objection2EN zeros = unlines
-  [ "╔══════════════════════════════════════════════════════╗"
-  , "║  OBJECTION 2: GUE Spacing KS Test                   ║"
-  , "╚══════════════════════════════════════════════════════╝"
-  , ""
-  , "  s_k = (γ_{k+1} - γ_k) × log(γ_k/(2π)) / (2π)"
-  , "  GUE level spacing: p(s) = (32/π²) × s² × exp(-4s²/π)"
-  , ""
-  , "  Zeros analyzed:    " ++ show n
-  , "  Spacings computed: " ++ show (n - 1)
-  , "  Mean spacing:      " ++ printf6 meanS ++ "  (expected ≈ 1.0)"
-  , "  KS statistic:      " ++ printf6 ksStat
-  , ""
-  , "  KS critical (5%):  " ++ printf6 crit
-  , ""
-  , verdict
-  , ""
-  , "  Zeta zero spacings are consistent with GUE"
-  , "  random matrix eigenvalue statistics."
-  ]
-  where
-    n = length zeros
-    spacings = sort [gap * norm | k <- [0..n-2],
-                     let gap  = zeros !! (k+1) - zeros !! k
-                     let norm = log (zeros !! k / (2 * pi)) / (2 * pi)]
-    ns = length spacings
-    ksStat = maximum [abs (fromIntegral (i+1) / fromIntegral ns - gueCDF s)
-                     | (i, s) <- zip [0..] spacings]
-    meanS = sum spacings / fromIntegral ns
-    crit = 1.358 / sqrt (fromIntegral ns)
-    verdict = if ksStat < crit
-      then "  ✓ KS = " ++ printf6 ksStat ++ " < " ++ printf6 crit ++ " → GUE NOT REJECTED"
-      else "  ✗ KS = " ++ printf6 ksStat ++ " ≥ " ++ printf6 crit ++ " → GUE rejected at 5%"
-
--- | Objection 3: Large-T decay slope ≈ −0.5 (English).
-objection3EN :: [Double] -> String
-objection3EN zs
-  | length zs < 100 = "Need ≥ 100 zeros for Large-T decay test.\n"
-objection3EN zeros = unlines $
-  [ "╔══════════════════════════════════════════════════════╗"
-  , "║  OBJECTION 3: Large-T Decay Slope Test              ║"
-  , "╚══════════════════════════════════════════════════════╝"
-  , ""
-  , "  Analyzing: log⟨|γ_k - γ̃_k|⟩ vs log(T)"
-  , "  Expected slope: −0.5 (Gram-point deviation decay)"
-  , ""
-  , "  Zeros: " ++ show n ++ "   Blocks: " ++ show numBlocks
-  , ""
-  , "  ────────────────────────────────────────────────────"
-  , "     T_center      ⟨|Δγ|⟩     log(T)   log(⟨|Δγ|⟩)"
-  , "  ────────────────────────────────────────────────────"
-  ] ++ blockLines ++
-  [ "  ────────────────────────────────────────────────────"
-  , ""
-  , "  Fitted slope:     " ++ printf6 slope
-  , "  Fitted intercept: " ++ printf6 intercept
-  , "  Expected slope:   -0.500000"
-  , ""
-  , verdict
-  , ""
-  , "  The Gram-point deviation decays as T^{−0.5},"
-  , "  consistent with theoretical predictions."
-  ]
-  where
-    n = length zeros
-    numBlocks = min 20 (n `div` 50)
-    bsize = n `div` numBlocks
-    mkBlock i = (tc, avg)
-      where
-        s = i * bsize
-        e = if i == numBlocks - 1 then n else s + bsize
-        cnt = fromIntegral (e - s)
-        st  = sum [zeros !! k | k <- [s..e-1]]
-        sd  = sum [abs (zeros !! k - gramPoint k) | k <- [s..e-1]]
-        tc  = st / cnt
-        avg = sd / cnt
-    blocks = [mkBlock i | i <- [0..numBlocks-1]]
-    valid   = [(log tc, log avg) | (tc, avg) <- blocks, tc > 0, avg > 0]
-    m       = length valid
-    sx      = sum [x | (x, _) <- valid]
-    sy      = sum [y | (_, y) <- valid]
-    sxy     = sum [x*y | (x, y) <- valid]
-    sx2     = sum [x*x | (x, _) <- valid]
-    slope     = (fromIntegral m * sxy - sx * sy) / (fromIntegral m * sx2 - sx * sx)
-    intercept = (sy - slope * sx) / fromIntegral m
-    blockLines = [printfBlk tc avg | (tc, avg) <- blocks, tc > 0, avg > 0]
-    dev = abs (slope + 0.5)
-    verdict = if dev < 0.1
-      then "  ✓ Slope = " ++ printf4 slope ++ " ≈ −0.5 → DECAY CONFIRMED"
-      else "  ✗ Slope = " ++ printf4 slope ++ ", |Δ| = " ++ printf4 dev ++ " from −0.5"
-
--- ---------- Formatting helpers ----------
-
-printf6 :: Double -> String
-printf6 x = let s = show x in pad6 s
-
-printf4 :: Double -> String
-printf4 x = take 7 (show x)
-
-printf8 :: Int -> Double -> String
-printf8 n v = replicate (8 - length (show n)) ' ' ++ show n ++ "    " ++ pad6 (show v)
-
-printfBlk :: Double -> Double -> String
-printfBlk tc avg = "  " ++ lp 10 (showf1 tc) ++ "  " ++ lp 10 (showf6 avg)
-                   ++ "  " ++ lp 8 (showf3 (log tc)) ++ "  " ++ lp 10 (showf6 (log avg))
-
-showf1, showf3, showf6 :: Double -> String
-showf1 = take 11 . show
-showf3 = take 7 . show
-showf6 = take 12 . show
-
-pad6 :: String -> String
-pad6 s = replicate (12 - length s) ' ' ++ s
-
-lp :: Int -> String -> String
-lp w s = s ++ replicate (max 0 (w - length s)) ' '
+    line r
+      | scSkip r  = "  " ++ padR 24 (scName r) ++ " SKIP"
+      | otherwise = "  " ++ padR 24 (scName r) ++ " " ++ st ++ "  computed = "
+                    ++ show (scGot r) ++ ", expected = " ++ show (scExp r)
+                    ++ ", D = " ++ show (scDelta r)
+      where st = if scOk r then "PASS" else "FAIL"

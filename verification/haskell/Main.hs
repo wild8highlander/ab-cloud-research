@@ -1,90 +1,91 @@
-module Main where
+-- | CLI dispatcher for the AB-Cloud Verification Suite (Haskell).
+-- The numeric kernel lives in ZerosLoader.hs; VerifyEN/VerifyRU are thin
+-- rendering layers (CANON_SPEC §10).
+module Main (main) where
 
 import System.Environment (getArgs)
-import System.Exit (exitFailure)
-import ZerosLoader (loadZeros)
-import VerifyEN (objection1EN, objection2EN, objection3EN)
-import VerifyRU (objection1RU, objection2RU, objection3RU)
+import System.Exit (exitWith, ExitCode(..))
+import ZerosLoader ( loadZeros, selfcheck
+                   , runObjection1, runObjection2, runObjection3 )
+import qualified VerifyEN
+import qualified VerifyRU
 
 data Config = Config
-  { cfgZeros    :: Int
-  , cfgSource   :: String
+  { cfgZeros     :: Int
+  , cfgSource    :: String
   , cfgObjection :: String
-  , cfgLang     :: String
+  , cfgLang      :: String
+  , cfgDataDir   :: String
+  , cfgSelfcheck :: Bool
   }
 
 defaultConfig :: Config
-defaultConfig = Config
-  { cfgZeros     = 10000
-  , cfgSource    = "auto"
-  , cfgObjection = "all"
-  , cfgLang      = "en"
-  }
+defaultConfig = Config 50000 "auto" "all" "en" "../data" True
 
--- | Parse CLI arguments into Config.
 parseArgs :: [String] -> Config -> Config
 parseArgs [] cfg = cfg
-parseArgs ("--zeros":n:rest) cfg = case reads n of
-  [(v, "")] -> parseArgs rest cfg { cfgZeros = v }
-  _         -> parseArgs rest cfg
-parseArgs ("--source":s:rest) cfg = parseArgs rest cfg { cfgSource = s }
-parseArgs ("--objection":o:rest) cfg = parseArgs rest cfg { cfgObjection = o }
-parseArgs ("--lang":l:rest) cfg = parseArgs rest cfg { cfgLang = l }
-parseArgs (_:rest) cfg = parseArgs rest cfg
+parseArgs args cfg = case args of
+  ("--zeros" : n : rest)      -> parseArgs rest cfg { cfgZeros = readOrDefault n (cfgZeros cfg) }
+  ("--source" : s : rest)     -> parseArgs rest cfg { cfgSource = s }
+  ("--objection" : o : rest)  -> parseArgs rest cfg { cfgObjection = o }
+  ("--lang" : l : rest)       -> parseArgs rest cfg { cfgLang = l }
+  ("--data-dir" : d : rest)   -> parseArgs rest cfg { cfgDataDir = d }
+  ("--no-selfcheck" : rest)   -> parseArgs rest cfg { cfgSelfcheck = False }
+  (_ : rest)                  -> parseArgs rest cfg
 
-banner :: String
-banner = unlines
-  [ ""
-  , "  ╔═══════════════════════════════════════════════════════╗"
-  , "  ║        AB-Cloud Verification Suite  (Haskell)        ║"
-  , "  ╚═══════════════════════════════════════════════════════╝"
-  , ""
-  ]
-
-footer :: String
-footer = unlines
-  [ ""
-  , "  ══════════════════════════════════════════════════════"
-  , "  AB-Cloud Verification Suite — complete."
-  , ""
-  ]
+readOrDefault :: String -> Int -> Int
+readOrDefault s d = case reads s of
+  [(v, "")] -> v
+  _         -> d
 
 main :: IO ()
 main = do
   args <- getArgs
   let cfg = parseArgs args defaultConfig
 
-  putStr banner
-  putStrLn $ "  Config: zeros=" ++ show (cfgZeros cfg)
-           ++ "  source=" ++ cfgSource cfg
-           ++ "  objection=" ++ cfgObjection cfg
-           ++ "  lang=" ++ cfgLang cfg
+  putStrLn ""
+  if cfgLang cfg == "ru"
+    then putStrLn "  ╔═══════════════════════════════════════════════╗"
+    else putStrLn "  ╔═══════════════════════════════════════════════╗"
+  putStrLn "  ║        AB-Cloud Verification Suite  (Haskell) ║"
+  putStrLn "  ╚═══════════════════════════════════════════════╝"
+  putStrLn ""
+  putStrLn ("  Config: zeros=" ++ show (cfgZeros cfg) ++ "  source=" ++ cfgSource cfg
+            ++ "  objection=" ++ cfgObjection cfg ++ "  lang=" ++ cfgLang cfg)
   putStrLn ""
 
-  zeros <- loadZeros "../data" (cfgZeros cfg) (cfgSource cfg)
-  putStrLn $ "  Loaded " ++ show (length zeros) ++ " zeros from source '"
-           ++ cfgSource cfg ++ "'."
+  zeros <- loadZeros (cfgDataDir cfg) (cfgZeros cfg) (cfgSource cfg)
+  putStrLn ("  Loaded " ++ show (length zeros) ++ " zeros.")
   putStrLn ""
 
-  let runObj id_ = case cfgLang cfg of
-        "ru" -> case id_ of
-          1 -> putStr $ objection1RU zeros
-          2 -> putStr $ objection2RU zeros
-          3 -> putStr $ objection3RU zeros
-          _ -> return ()
-        _ -> case id_ of
-          1 -> putStr $ objection1EN zeros
-          2 -> putStr $ objection2EN zeros
-          3 -> putStr $ objection3EN zeros
-          _ -> return ()
+  let lang = cfgLang cfg == "ru"
+
+  scFail <- if cfgSelfcheck cfg
+    then do
+      let (rows, npass, nfail) = selfcheck zeros
+      putStr (if lang then VerifyRU.renderSelfcheck rows npass nfail
+                      else VerifyEN.renderSelfcheck rows npass nfail)
+      return nfail
+    else return (-1)
+
+  let run1 = putStr (if lang then VerifyRU.renderObj1 (runObjection1 zeros)
+                             else VerifyEN.renderObj1 (runObjection1 zeros))
+      run2 = putStr (if lang then VerifyRU.renderObj2 (runObjection2 zeros)
+                             else VerifyEN.renderObj2 (runObjection2 zeros))
+      run3 = putStr (if lang then VerifyRU.renderObj3 (runObjection3 zeros)
+                             else VerifyEN.renderObj3 (runObjection3 zeros))
 
   case cfgObjection cfg of
-    "1"   -> runObj 1
-    "2"   -> runObj 2
-    "3"   -> runObj 3
-    "all" -> mapM_ runObj [1, 2, 3]
+    "1"   -> run1
+    "2"   -> run2
+    "3"   -> run3
+    "all" -> run1 >> run2 >> run3
     other -> do
-      putStrLn $ "Unknown objection: " ++ other ++ " (use 1, 2, 3, or all)"
-      exitFailure
+      putStrLn ("Unknown objection: " ++ other ++ " (use 1, 2, 3, or all)")
+      exitWith (ExitFailure 2)
 
-  putStr footer
+  putStrLn ""
+  putStrLn "  AB-Cloud Verification Suite — complete."
+  putStrLn ""
+
+  if scFail > 0 then exitWith (ExitFailure 1) else return ()

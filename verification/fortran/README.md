@@ -1,48 +1,118 @@
-# Fortran 2018 Verification
+# AB-Cloud Verification Suite — Fortran port (canonical spec v3.0)
 
-Modern Fortran implementation — coarrays-free, plain `gfortran` territory,
-standard library only.
+Fortran implementation of the unified AB-Cloud numerical kernel, ported to the
+binding specification `verification/CANON_SPEC.md` (v3.0). Single source of
+truth, bilingual EN/RU catalog, frozen-anchor self-check, honest
+number-driven verdicts. No external dependencies: only intrinsic modules
+(`iso_fortran_env`, `ieee_arithmetic`) plus the `erf` intrinsic.
 
 ## Files
 
 | File | What it is |
 |---|---|
-| `ab_cloud_verify.f90` | bilingual module (loader, unfolding, KS/CvM, regression) |
-| `ab_cloud_verify_en.f90` | English-only variant |
-| `ab_cloud_verify_ru.f90` | Russian-only variant |
-| `run_verify.sh` | convenience wrapper: compiles with gfortran and runs |
-| `spinor38/` | Test 38 port (see below) |
+| `ab_cloud_verify.f90` | **The complete kernel** — math, loader, bilingual catalog, self-check, CLI |
+| `ab_cloud_verify_en.f90` | THIN wrapper: `#define FORCE_LANG_EN` + `#include` (§10) |
+| `ab_cloud_verify_ru.f90` | THIN wrapper: `#define FORCE_LANG_RU` + `#include` (§10) |
+| `run_verify.sh` | builds all three binaries (one kernel, three language pins) and runs |
+| `spinor38/` | Test 38 port (see below, untouched by the canon port) |
+
+Per CANON_SPEC §10 the `*_en` / `*_ru` files contain **no duplicated math** —
+they are two-line preprocessor wrappers around the same source text. The main
+binary selects the language at runtime (`--lang en|ru`, default auto-detect
+from `$LANG`); the wrapper binaries pin it at compile time.
 
 ## Requirements
 
-- **gfortran ≥ 9** (GCC) or `ifort`/`ifx` — Fortran 2018 subset, no external
-  libraries beyond the intrinsic modules.
+- `gfortran >= 9` (or any Fortran 2008 compiler). The preprocessor is
+  **required** (`-cpp`): the wrappers are `#define` + `#include` of the main
+  source. No external libraries.
 
-## Run
+## Build & run
 
 ```bash
 cd verification/fortran
-chmod +x run_verify.sh
-./run_verify.sh --zeros 10000 --source 50k --objection all
+./run_verify.sh                          # builds and runs with canon defaults
+./run_verify.sh --zeros 50000 --source 50k_full --objection all --lang ru
 
 # or manually:
-gfortran -O2 -std=f2018 -o ab_cloud_verify ab_cloud_verify.f90
-./ab_cloud_verify --zeros 50000 --source 50k --objection 1 --lang en
+gfortran -cpp -O2 -std=f2008 -Wall -o ab_cloud_verify    ab_cloud_verify.f90
+gfortran -cpp -O2 -std=f2008 -Wall -o ab_cloud_verify_en ab_cloud_verify_en.f90
+gfortran -cpp -O2 -std=f2008 -Wall -o ab_cloud_verify_ru ab_cloud_verify_ru.f90
+./ab_cloud_verify --zeros 50000 --objection all
 ```
 
-CLI: `--zeros N`, `--source NAME`, `--objection 1/2/3/all`, `--lang en/ru`,
-`--data-dir PATH` (argument parsing is hand-rolled, C-style, so it behaves
-identically everywhere).
+## CLI (CANON_SPEC §9)
 
-## What you get
+| Flag | Meaning |
+|---|---|
+| `--zeros N` | zeros to load, default `50000`; `0` = load the whole source file |
+| `--source NAME` | `auto`, `50k`, `50k_full`, `500k`, `2M`, `highT`, `2M_gz`, `csv`, `zeros6`; `auto` = smallest source with count ≥ N |
+| `--objection X` | `1`, `2`, `3` or `all` (default) |
+| `--lang L` | `en` / `ru`; default auto-detect from `$LANG` (RU if it contains `ru`) |
+| `--data-dir D` | path to `data/`, default `../data` (relative to CWD) |
+| `--no-selfcheck` | skip the frozen-anchor self-check |
+| `--help` | usage |
 
-The same verdict set as the Python reference: b(N) convergence table with the
-power-law fit, KS/CvM p-values against the GUE Wigner surmise, ⟨r⟩ with
-bootstrap error, decay slope with 95% CI, timestamped report. Fortran's
-default `double precision` matches the other languages bit-for-bit on the
-same input zeros.
+Source registry: `50k` → `zeta_zeros_50000.txt` (13661), `50k_full` →
+`zeta_zeros_50000_embedded.txt` (50000), `500k` →
+`zeta_zeros_500k_odlyzko.txt` (500000), `2M` → `zeta_zeros_2M_odlyzko.txt`
+(2001052), `highT` → `zeta_zeros_highT_blocks.txt` (30000, `#BLOCK
+index=… offset=…` format), `2M_gz` → gzip of the 2M table (decompressed via
+the `gzip` binary into a temp file), `csv` → `zeta_zeros_50000.csv` (column 2
+= t), `zeros6` → `zeros6.txt`. Loading sorts ascending, then truncates to N.
 
-## spinor38/ — Test 38 port
+## What the kernel computes (spec §1–§8)
+
+- **§1 Lambert W** — principal branch, Newton, tol `1e-14·(1+|w|)`-style
+  stopping per the canonical Python reference (`fp` guard + small-`x` seed;
+  the naive seed `log(x)` hits `w = −1` exactly for `x = 1/e` where the
+  denominator vanishes).
+- **§2 Gram point (canon)** — seed `t = 2πk / W(k/e)`, then **exactly 8 Newton
+  iterations** on the 5-term Riemann–Siegel theta expansion
+  `θ(t) = (t/2)·ln(t/2π) − t/2 − π/8 + 1/(48t) + 7/(5760t³)`.
+  The old port's formula `2π·W(k/e)` was mathematically wrong and is gone.
+- **§3 b(N), b(N;offset)** — sequential accumulation `Σ|γ_k − γ̃_k|` in the
+  exact canon order; the prefix-sum table `pref(N)/N` used by objections 1/3
+  is bit-identical to the direct sum.
+- **§4 Normalized spacings** — `s_k = (γ_{k+1} − γ_k)·log(γ_k/2π)/(2π)`,
+  `γ_k > 0` filter, original order preserved.
+- **§5 GUE CDF** — Wigner–Dyson β=2 surmise `F(s) = erf(2s/√π) − (4s/π)e^{−4s²/π}`
+  through a lazily built 32768-point interpolation table, `SMAX = 5`; outside
+  the table the exact closed form.
+- **§6 Statistics** — two-sided KS `D` with λ-corrected asymptotic p
+  (`λ = (√n + 0.12 + 0.11/√n)·D`, two branches with the 1e-18 term cutoffs,
+  clamped to [0,1]); Cramér–von Mises `W²`; Anderson–Darling `A²` with
+  `1e-300 / 1−1e-16` clamps; `<r>` adjacent-gap ratio (skipping all-zero gap
+  pairs); mean / sample variance (n−1). All on the sorted spacings, mean/var
+  summed in the original spacing order for bit-parity with the reference.
+- **§7 Objections** — obj1 grid `{100,500,1000,5000,10000,50000}` filtered to
+  N ≤ n, honest monotone-decrease verdict + clearly-labelled EMPIRICAL
+  power-law fit (never "O(1/√N)" claims from obj1); obj2 statistics on all
+  loaded zeros, `p < 0.05 → H₀ REJECTED` with the honest finite-T note, and
+  `NOT REJECTED` otherwise — printed only in the branch the numbers chose;
+  obj3 grid `50·2^k` plus n itself, OLS log–log with slope stderr, 95% CI
+  (±1.96·se), verdict `|slope−(−0.5)| ≤ 0.1` → CONSISTENT / INCONSISTENT.
+- **§8 selfcheck** — all frozen anchors embedded as literals (6 `lambert_w`,
+  8 `gram_point`, 6 `bN`, `bN_off(1000,500)`, spacing mean/var, `ks.D/p`,
+  CvM, AD, `<r>`). Printed as a PASS/FAIL/SKIP + Δ table with the spec
+  tolerances (`lambert_w` 1e-12 rel; `gram_point`/`bN` 1e-6 abs; stats 1e-9,
+  `ks.p` 1e-6 rel); stats anchors run on the FIRST 50000 zeros and print
+  SKIP rows otherwise. **The program exits with code 1 if any anchor fails.**
+
+There are **no canned verdict strings**: every conclusion line is inside the
+branch selected by the computed numbers.
+
+## Validation status
+
+No gfortran in the authoring environment — the port was verified two ways:
+1. Static: block balance, declaration audit, and a format/argument audit of
+   every `WRITE` statement (descriptor count vs output-item count) pass.
+2. Numerical: a Python mirror with the *exact same operation order* run on
+   `zeta_zeros_50000_embedded.txt` reproduces **28/28 frozen anchors**
+   (gram_point and bN_off bit-exact; statistics at libm-ULP distance,
+   ≤ 1.4e-12 rel — tolerances are 1e-6…1e-9).
+
+## spinor38/ — Test 38 port (unchanged)
 
 `spinor38/spinor38.f90` reads the frozen classes from `../spinor64/data/`
 (plain CSV parsing) and rebuilds the 28 odd-orbit spectra with a hand-written
@@ -50,93 +120,43 @@ cyclic-Jacobi eigensolver:
 
 ```bash
 cd verification/fortran/spinor38
-gfortran -O2 -std=f2018 -o spinor38 spinor38.f90 && ./spinor38
+gfortran -O2 -std=f2008 -o spinor38 spinor38.f90 && ./spinor38
 ```
 
 Details: `spinor38/README.md`.
 
 ## Troubleshooting
 
+- **`#ifdef` / `#include` treated as errors** — you forgot `-cpp`.
 - **`gfortran: command not found`** — Debian/Ubuntu `apt install gfortran`;
   Fedora `dnf install gcc-gfortran`; macOS `brew install gfortran`;
-  Termux `pkg install gfortran` (available in the main repo).
-- If your compiler rejects `-std=f2018`, drop the flag — the code is also
-  valid Fortran 2008.
+  Termux `pkg install gfortran`.
+- **2M_gz fails** — the `gzip` binary must be on `$PATH` (the program shells
+  out `gzip -dc` into a temp file under `/tmp`).
+- **Cyrillic looks garbled** — the RU catalog is UTF-8; run in a UTF-8
+  terminal (`LANG=ru_RU.UTF-8`).
+
+## Известные отклонения / documented deviations
+
+- `--zeros 0` = загрузить весь файл источника (в каноническом Python это
+  означает «0 нулей»; семантика выровнена с MATLAB-портом и здесь задокументирована).
+- `2M_gz` использует внешний `gzip` (в Python есть встроенный модуль gzip).
+- Сообщения каталога RU печатаются в UTF-8 как есть (без транслитерации).
+- Спецширина полей PASS/FAIL в таблице selfcheck расширена до 16 колонок,
+  чтобы русские «ПРОЙДЕНО/ПРОПУСК» не обрезались байтово.
 
 ## Кратко (по-русски)
 
-- Реализация на Fortran 2018 (подмножество F2008), собирается gfortran
-  одной командой, внешних библиотек нет.
-- `./run_verify.sh --zeros 10000 --source 50k --objection all` — CLI и
-  вердикты идентичны эталону на Python.
-- `spinor38/` — Порт Test 38: алгоритм Якоби написан с нуля, данные из
-  `../spinor64/data/`.
-
-## 📁 Complete file inventory
-
-| Entry | Size | Kind |
-|---|---|---|
-| `spinor38/` | 2 files, 8.6 KB | directory |
-| `README.md` | 2.5 KB | file |
-| `ab_cloud_verify.f90` | 23.5 KB | file |
-| `ab_cloud_verify_en.f90` | 12.1 KB | file |
-| `ab_cloud_verify_ru.f90` | 13.6 KB | file |
-| `run_verify.sh` | 2.1 KB | file |
-| **Total (recursive)** | **7 files, 62.4 KB** | |
-
-## 🔬 Deep dive — the Fortran port in the parity matrix
-
-The Fortran 2018 port keeps the house numerical style of
-the discipline: explicit everything, array bounds checked at runtime
-(`-fcheck=all` is on by default), and warnings that are meant to be
-treated as errors. If a regression sneaks into the statistics code,
-this port fails loudly and early — that is its role in the parity
-matrix. The reporting variants mirror the shared flag language, so the
-port slots into cross-language replays without special-casing.
-
-## ▶ Running — toolchain, entry point, flags
-
-- **Toolchain:** gfortran with -O2 -std=f2018 -fcheck=all -Wall -Wextra
-- **Entry point:** `bash run_verify.sh   # compiles, then runs`
-
-| Flag | Values | Meaning |
-|---|---|---|
-| `--zeros N` | integer, `0` = all | how many ordinates to use (default 10 000) |
-| `--source NAME` | `auto`, `zeta_zeros_50000`, `zeta_zeros_500k`, `zeta_zeros_2M`, `zeta_zeros_highT`, `zeros6`, `zeta_zeros_50000_csv` | which frozen dataset from `../data/` to load (`auto` picks sensibly for the requested N) |
-| `--objection X` | `all`, `1`, `2`, `3` | run the full suite or a single objection test |
-| `--lang X` | `en`, `ru` | report language on stdout |
-
-All inputs resolve against `../data/` — the frozen Odlyzko tables
-described in `../data/README.md`. Nothing is downloaded or generated at
-runtime; a run either reads the committed bytes or aborts. Reference
-statistics every implementation must reproduce: pair-correlation KS =
-0.047 with p = 0.27, Byers–Yang flux defect 3.5e-15, ⟨r⟩ = 0.5848 ±
-0.0260 against the GUE value 0.5992, Connes self-duality via four zero
-modes, Dirac slope v_F ≈ 0.125 with R² = 0.9997, b(50000) = 1.2126.
-
-## 🧭 Cross-language parity
-
-This port exists to prove the suite is language-independent: same frozen
-inputs, same 37 tests, same numbers out. If this implementation ever
-disagrees with the Julia reference (`../../code/ab_cloud_full.jl`) or
-with the other nine ports, the discrepancy is a bug in the port — the
-data and the definitions are shared. CI exercises the interpreted
-subset; the compiled ports are expected to be replayed locally with the
-same one-line command shown above. The Test-38 companion lives in
-`spinor38/` where present, and the spinor64 correction experiment — the
-one that established 64/64 GUE-consistency for the Klein-quartic
-structures — lives in `../spinor64/`.
-
-## Кратко (по-русски)
-
-- Порт существует для доказательства паритета: одинаковые замороженные
-  данные, тот же набор тестов, те же эталонные числа (KS = 0.047,
-  p = 0.27; дефект 3.5e-15; ⟨r⟩ = 0.5848 ± 0.0260).
-- Флаги одинаковы во всех десяти реализациях — одна и та же командная
-  строка проигрывается в каждой папке.
-- Расхождение с эталоном трактуется как баг порта, а не как открытие.
-
-- Фортран-2018 порт: явный код, проверка границ массивов
-  (`-fcheck=all` по умолчанию), предупреждения — как ошибки.
-- Роль в матрице паритета: громко и рано падать на регрессиях.
-- Те же флаги, что у всех портов — без исключений при повторных прогонах.
+- Портировано на канон CANON_SPEC.md v3.0: грам-точка — сид `2πk/W(k/e)` и
+  РОВНО 8 итераций Ньютона на 5-членном тета (старая формула `2π·W(k/e)` была
+  неверной и удалена); b(N) — строго последовательное суммирование; GUE —
+  таблица 32768 точек (SMAX=5); KS с λ-поправкой; CvM; AD с клампами
+  1e-300/1−1e-16; ⟨r⟩ по соседним промежуткам.
+- Self-check §8: 28 замороженных якорей, печать PASS/FAIL/SKIP + Δ,
+  код возврата 1 при любом провале. Вердикты честные: строки выводятся
+  только в той ветке, которую выбрали вычисленные числа.
+- `ab_cloud_verify_en.f90` / `_ru.f90` — тонкие обёртки (`#define` +
+  `#include`, §10), дублированной математики нет. Язык основного бинарника
+  выбирается на лету: `--lang en|ru`.
+- Проверка: Python-зеркало точного порядка операций даёт 28/28 якорей
+  (грам-точки и bN_off — бит-в-бит; статистика в пределах ULP libm).

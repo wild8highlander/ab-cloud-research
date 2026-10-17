@@ -78,6 +78,10 @@ and an empirical law b(N) ≈ 7.0312 · N^(−0.1685), R² = 0.9895 (an alternat
 gives R² = 0.9994). The exponent is **empirical**: the monograph's α = 1/2 refers to the
 Hofstadter AB-flux per plaquette, *not* to this convergence rate.
 
+The v3.0 suite reproduces the canon bit-close: b(50000) = 1.2125526772588608 (Δ ≲ 8e-15
+across languages), and on the regression grid N = 50·2^k (plus the last point) measures
+b(N) ≈ 7.051 · N^(−0.1685), R² = 0.9888 — matching the canonical exponent −0.1685.
+
 ### Objection 2 — statistical significance (GUE)
 
 **Claim:** the normalised spacings of zeta zeros follow GUE (Wigner–Dyson).
@@ -97,6 +101,22 @@ KS = 0.047 with p = 0.27 on 500 mpmath-certified zeros (Montgomery test), and
 > verifiers now match it. On the frozen first 500 zeros of `data/zeta_zeros_50000.txt` the
 > corrected law gives KS D = 0.0495 (p = 0.168), where the old GOE-as-GUE law gave
 > D = 0.1165 (p ≈ 0) — a false rejection of the true hypothesis.
+
+> **v3.0 correction — the honest large-n outcome.** v2.x still printed "GUE not
+> rejected" as an unconditional verdict. With the canonical kernel (Gram points
+> solved from θ(t) = πk, GUE CDF via the 32768-point table) the suite now reports
+> the raw statistics on all 50 000 zeros: mean spacing 0.999976 (unfolding
+> validated), D = 0.021619, p ≈ 9.6e-21, W² = 8.178, A² = 61.49, ⟨r⟩ = 0.6119 vs
+> the GUE surmise 0.5992. **The exact Wigner–Dyson surmise IS formally rejected at
+> n = 50 000** — the known finite-T corrections of the zeta zeros, not a data
+> artifact — while at n ≈ 500 it is not rejected (p ≈ 0.17). Both statements are
+> now printed with their numbers; no canned verdicts remain. Additionally, the
+> v2.x Gram points were the bare Lambert-W seed `2πk/W(k/e)` (three languages even
+> had `2π·W(n/e)` — a factor n lost — and two hardcoded `17.44` for k = 0), so
+> language implementations disagreed with each other by O(1) — far from the
+> advertised ~1e-12. All ten now implement the identical Newton-refined canon
+> and self-check 28 frozen anchors before printing any verdict (see
+> `CANON_SPEC.md`).
 
 ### Objection 3 — decay rate at large T
 
@@ -256,6 +276,18 @@ A typical full run prints, per objection:
 Numerical agreement between languages is expected at the level of double-precision round-off:
 identical input zeros → identical b(N) tables to ~1e-12, identical KS statistics to ~1e-9.
 Any larger deviation means the loader picked a different file — check `--source`.
+
+**Measured v3.0 parity (6 machine-verified implementations on this repo's frozen data):**
+`bN(50000) = 1.2125526772588608` — C++/Go/Rust/Julia/JS all within 8e-15 of the golden
+and of each other (most anchors bit-identical, Δ = 0); `KS D = 0.0216193370329823` within
+4e-16; slope −0.168466, CI [−0.1802, −0.1568] identical in C++/Go/Rust/Julia/JS.
+Fortran/R/MATLAB/Haskell implement the same `CANON_SPEC.md` kernel with the same embedded
+anchors and self-check at runtime wherever those toolchains are available.
+
+**Self-check.** Every implementation starts with 28 frozen anchors
+(lambert_w 6 · gram_point 8 · bN 7 · statistics 7, tolerances 1e-12…1e-6) from
+`data/abcloud_golden.json` and exits non-zero if any anchor fails — the suite now
+verifies *itself* before verifying anything else.
 
 ---
 

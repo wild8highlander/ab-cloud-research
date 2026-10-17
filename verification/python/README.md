@@ -1,3 +1,9 @@
+> **CANON_SPEC v3.0.** This implementation follows `../CANON_SPEC.md` — the unified kernel
+> (θ-Newton Gram points, 32768-point GUE CDF table, λ-corrected KS p-value, CvM/AD/⟨r⟩),
+> 28 frozen golden anchors self-checked before any verdict, honest branch-selected conclusions,
+> thin `_en`/`_ru` language pins. Measured self-check: 28/28 PASS (machine-verified for
+> python/C++/Go/Rust/Julia/JS; fortran/R/MATLAB/Haskell — same spec, runtime self-check).
+
 # Python Verification — the Reference Implementation
 
 This folder is the **reference implementation** of the three-objection
