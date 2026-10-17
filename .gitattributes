@@ -1,0 +1,28 @@
+# Linguist: keep the language statistics honest for a research repository.
+# Auto-generated run artifacts and bulk datasets must not drown the source.
+
+# ── generated run artifacts ──────────────────────────────────────────
+results/** linguist-generated
+verification/spinor64/output/** linguist-generated
+**/unpacked/** linguist-generated
+**/run_data/** linguist-generated
+
+# ── bulk frozen datasets (ζ zeros) ───────────────────────────────────
+verification/zeros*.txt linguist-generated
+verification/zeta_zeros*.txt linguist-generated
+code/zeros*.txt linguist-generated
+code/zeta_zeros*.txt linguist-generated
+**/frozen/zeros/*.txt linguist-generated
+AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/06_code/python/python_clone/abcloud/data/*.txt linguist-generated
+
+# ── vendored / machine-readable metadata ─────────────────────────────
+**/Cargo.lock linguist-generated
+package-lock.json linguist-generated
+AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/02_data/checksums.sha256 linguist-generated
+
+# ── documentation ────────────────────────────────────────────────────
+*.md linguist-documentation
+.github/** linguist-documentation
+
+# ── shell scripts are code, not docs ─────────────────────────────────
+*.sh linguist-language=Shell

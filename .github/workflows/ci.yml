@@ -36,6 +36,16 @@ jobs:
           test -f monographs/zh/text/AB_Cloud_Monograph_v22_ZH.pdf
           test -f monographs/original-v21/ru/text/AB_Cloud_Monograph_v21_RU_with_Verification.docx
           test -f monographs/original-v21/en/text/AB_Cloud_Monograph_v21_EN_with_Verification.pdf
+          test -f verification/zeros1.txt
+          test -f verification/zeros50k.txt
+          test -f verification/zeta_zeros_13661.txt
+          test -f verification/zeta_zeros_500k_odlyzko.txt
+          test -f verification/zeta_zeros_2M_odlyzko.txt
+          test -f verification/zeta_zeros_highT_blocks.txt
+          test -f AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/02_data/processed/research_registry.json
+          test -f AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/06_code/lab_standalone/ab_cloud_full.jl
+          test -f .github/scripts/docs_health.py
+          test -f .github/docs-health-allowlist.json
           test -f CITATION.cff
           echo "All canonical artifacts present"
       - name: Validate CITATION.cff
@@ -48,28 +58,36 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
+      # The glob surface lives in .markdownlint-cli2.jsonc (single source of
+      # truth): the curated root/docs/formal/code/verification/Hilbert_Polya
+      # set plus the Academic Package's authored docs and the Meridian docs.
       - name: Lint the curated markdown surface
         uses: DavidAnson/markdownlint-cli2-action@v24
         with:
           config: .markdownlint-cli2.jsonc
-          globs: |
-            *.md
-            docs/**/*.md
-            formal/**/*.md
-            code/**/*.md
-            verification/**/*.md
-            Hilbert_Polya/*.md
-            Hilbert_Polya/docs/*.md
-            apps/*.md
-            .github/*.md
 
   yaml:
-    name: Workflow YAML lint
+    name: YAML lint (whole repository)
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
-      - name: yamllint (project config)
-        run: pipx install yamllint && yamllint -c .yamllint.yaml .github/workflows/
+      - name: yamllint over every tracked YAML (workflows, configs, mkdocs, data)
+        run: |
+          pipx install yamllint
+          files=$(git ls-files '*.yml' '*.yaml')
+          echo "linting $(echo "$files" | wc -l) YAML files"
+          yamllint -c .yamllint.yaml $files
+
+  data-formats:
+    name: JSON & TOML validity (every file)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Parse every tracked JSON and TOML file
+        run: python3 .github/scripts/check_data_formats.py
 
   ruff:
     name: Python lint (ruff — real-defect gate)
@@ -110,3 +128,6 @@ jobs:
       - name: Run the realtime spinor memory tests
         working-directory: AB_Cloud_Quantum_Research/research/realtime_spinor_memory
         run: pytest tests/ -q
+      - name: Run the Academic Package contract tests
+        working-directory: AB_Cloud_Academic_Package/AB_Cloud_Academic_Package
+        run: pytest 09_tests/python/ -q

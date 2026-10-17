@@ -91,7 +91,6 @@
 - [The bridge — ζ-decorated Dirac operator](#-the-bridge--ζ-decorated-dirac-operator)
 - [The clean suite — D1–D8, test by test](#-the-clean-suite--d1d8-test-by-test)
 - [The extensions — D9–D14, test by test](#-the-extensions--d9d14-test-by-test)
-- [Per-test documentation suite](#-per-test-documentation-suite)
 - [Repository map](#-repository-map)
 - [Quick start](#-quick-start)
 - [Makefile command reference](#-makefile-command-reference)

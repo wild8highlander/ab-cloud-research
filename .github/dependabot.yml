@@ -12,7 +12,59 @@ updates:
     directory: "/AB_Cloud_Quantum_Research/modules/core_spectrum"
     schedule:
       interval: "monthly"
+  - package-ecosystem: "pip"
+    directory: "/AB_Cloud_Quantum_Research/modules/processor_ab"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "pip"
+    directory: "/Hilbert_Polya"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "pip"
+    directory: "/AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/06_code"
+    schedule:
+      interval: "monthly"
   - package-ecosystem: "npm"
     directory: "/Wave_attractors/wave_attractors/scripts/monograph"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "npm"
+    directory: "/apps/ab-cloud-lab3d"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "npm"
+    directory: "/apps/ab-cloud-dashboard"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "gomod"
+    directory: "/verification/go"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "gomod"
+    directory: "/verification/go/spinor38"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "gomod"
+    directory: "/meridian-spectral-observatory/ports/go"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "gomod"
+    directory: "/AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/06_code/go"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "cargo"
+    directory: "/verification/rust"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "cargo"
+    directory: "/verification/rust/spinor38"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "cargo"
+    directory: "/meridian-spectral-observatory/ports/rust"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "cargo"
+    directory: "/AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/06_code/rust"
     schedule:
       interval: "monthly"

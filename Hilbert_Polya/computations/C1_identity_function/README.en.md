@@ -98,12 +98,12 @@ The headline table, verbatim from the source:
 
 | Quantity | Value | Status |
 |---|---|---|
-| Closure |Γ(½+iu)|² = π/cosh πu | residual 2.59e-39 (dps 40) | proven |
-| Closure |Γ(iu)|² = π/(u·sinh πu) | residual 2.57e-39 | proven |
-| Product |Γ(¼+iu)|·|Γ(¾+iu)| (Legendre) | residual 1.27e-39 | proven |
+| Closure \|Γ(½+iu)\|² = π/cosh πu | residual 2.59e-39 (dps 40) | proven |
+| Closure \|Γ(iu)\|² = π/(u·sinh πu) | residual 2.57e-39 | proven |
+| Product \|Γ(¼+iu)\|·\|Γ(¾+iu)\| (Legendre) | residual 1.27e-39 | proven |
 | Candidate form of the single modulus | structural mismatch 0.765 | refuted |
-| Reality of Z_id (K2) | max|Im Z_id| = 4.9e-29 | proven |
-| Z_id zeros on [0,200] vs mpmath (K3) | 79 zeros, max|Δγ| = 2.8e-14 | confirmed |
+| Reality of Z_id (K2) | max\|Im Z_id\| = 4.9e-29 | proven |
+| Z_id zeros on [0,200] vs mpmath (K3) | 79 zeros, max\|Δγ\| = 2.8e-14 | confirmed |
 | Gram points (K7) | 220 points, 4 violations (classical) | reproduced |
 
 Rows 1–3 are T1: the two edge closures and the Legendre line product, all verified at dps = 40 far below the 1e-30 threshold. Row 4 is the honest refutation, published with the passes. Rows 5–7 are the graph measurements: reality of the assembled function, the zero match against the internal mpmath reference, and the classical Gram interlace with exactly its four classical exceptions.

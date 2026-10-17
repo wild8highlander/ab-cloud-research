@@ -10,8 +10,8 @@
 [![Status](https://img.shields.io/badge/verdict-PASS%203%2F3-3a6b4f?style=flat-square)](#tldr)
 [![Lattice](https://img.shields.io/badge/lattice-L%20%3D%2024%20%E2%86%92%2096-2EA043?style=flat-square)](#the-three-stage-scan)
 [![Configs](https://img.shields.io/badge/configurations-242-3b4f58?style=flat-square)](#the-dials)
-[![Best D](https://img.shields.io/badge/best%20pooled%20D-0.0318-c96f4a?style=flat-square)](#headline-result)
-[![GUE floor](https://img.shields.io/badge/GUE%20floor%20(L%3D96)-0.0220-4FB3BE?style=flat-square)](#headline-result)
+[![Best D](https://img.shields.io/badge/best%20pooled%20D-0.0318-c96f4a?style=flat-square)](#headline-result-the-convergence-ladder)
+[![GUE floor](https://img.shields.io/badge/GUE%20floor%20(L%3D96)-0.0220-4FB3BE?style=flat-square)](#headline-result-the-convergence-ladder)
 [![ζ zeros](https://img.shields.io/badge/ζ%20zeros-50%20000-8A2BE2?style=flat-square)](../verification/data/zeta_zeros_50000.txt)
 [![Determinism](https://img.shields.io/badge/seed-96%20%C2%B7%20base%2B3500-6B6455?style=flat-square)](#seeds-byte-level-determinism-on-a-fixed-platform)
 
@@ -19,7 +19,7 @@
 
 *One measured window — **Nv ≈ 8–16, q ≈ 0.7–1.0, W = 0.5–1.0, α = 0.5 (strictly)** — takes the headline statistic of test 34b from the WARN band (**D = 0.1096**) to the deep PASS band (**D = 0.0318**): a **×3.4** improvement, within 0.010 of the finite-sample GUE floor (0.0220).*
 
-[TL;DR](#tldr) · [The convergence ladder](#headline-result) · [Why this window](#why-a-window-and-why-this-window-mechanism) · [Hilbert–Pólya reading](#hilbertp%C3%B3lya-reading-h5--yes-via-the-convergence-ladder) · [Reproduce](#reproduce-everything) · [Figure gallery](#figure-gallery)
+[TL;DR](#tldr) · [The convergence ladder](#headline-result-the-convergence-ladder) · [Why this window](#why-a-window-and-why-this-window-mechanism) · [Hilbert–Pólya reading](#hilbertp%C3%B3lya-reading-h5--yes-via-the-convergence-ladder) · [Reproduce](#reproduce-everything) · [Figure gallery](#figure-gallery)
 
 </div>
 

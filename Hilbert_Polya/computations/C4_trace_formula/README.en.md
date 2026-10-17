@@ -130,13 +130,13 @@ Why the null verdict is **conservative**: the scale knob was removed (fixed s = 
 
 | Quantity | Value | Status |
 |---|---|---|
-| M0: the Q(a) identity | |ΔQ| ≤ 1.7e-12 on the grid a ∈ [0.1, 3] | calibrated |
+| M0: the Q(a) identity | \|ΔQ\| ≤ 1.7e-12 on the grid a ∈ [0.1, 3] | calibrated |
 | Built-in control B = −C₀ | 0.023095708966 — 12 digits | classical identity confirmed |
-| M1: trace formula for H_ξ | |ΔK| ≤ 1.2e-5 (abs), 1e-6…1e-4 rel. at x ≤ 0.35 | T6 verified |
+| M1: trace formula for H_ξ | \|ΔK\| ≤ 1.2e-5 (abs), 1e-6…1e-4 rel. at x ≤ 0.35 | T6 verified |
 | PC0: zeros window vs the comb | r = +0.9998, relative residual 2.1% | method sees the prime weight |
 | M2: 52 gates | r_EF −0.93…+1.00, null clouds; best (Nv = 16) r_EF = 0.9978, z = 2.62 | conservative branch of H5 — YES via the convergence ladder (v2.0.8) |
 | Gap in the trace metric | ≈ 0.5 orders by residual (best 6.7% vs 2.1%), at L = 24 | the finite-size branch of the H5 convergence ladder |
-| C3 protocol reproduction | |Δ mean_spacing| = 1.45e-16 | bit-for-bit |
+| C3 protocol reproduction | \|Δ mean_spacing\| = 1.45e-16 | bit-for-bit |
 
 Row takeaways, one line each: **M0** — the closed form (★) is certified as a stand-in for the direct zero-file sum (worst point 1.73e-12 at a = 3.0; the diff grows smoothly with a, the signature of a quadrature floor). **B = −C₀** — derivation and zero data cross-certified at twelve digits. **M1** — theorem T6 verified (max abs 1.2039516971052964e-05 at x = 2.0; relative 1.37e-6 at x = 0.08 to 1.67e-4 at x = 0.35). **PC0** — the metric, comb and pipeline demonstrably detect the prime weight when present. **M2** — the best gate sits in the working window at r_EF = 0.9978 (z = 2.62), the family's fixed-L clouds are broad — the conservative branch of H5 (v2.0.8). **Gap** — the L = 24 finite-size branch of the H5 convergence ladder, consistent with C3's level-matching and C5's class stability. **C3 reproduction** — the shared engine reproduces C3's committed mean spacing at float64 round-off (1.4477981779965596e-16): campaigns audit each other bit-for-bit.
 

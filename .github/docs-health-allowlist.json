@@ -1,0 +1,21 @@
+{
+  "_comment": [
+    "docs-health ratchet allowlist. Keep this list SHORT and shrinking:",
+    "every pattern here silences a class of known-broken links that live in",
+    "auto-generated or historical-export artefacts. New breakage in hand-written",
+    "docs must be fixed, never allowlisted.",
+    "",
+    "Classes kept here (2026-10-17):",
+    "1. monographs/original-v21 Word-export TOC anchors (#_Toc1000NN) — the .md",
+    "   export of the historical v21 DOCX; its internal TOC anchors are Word ids.",
+    "2. results/Test H1-H8 */final_report.md cross-run plot links — the generated",
+    "   final reports reference plots from earlier runs of the H-series campaign.",
+    "3. meridian docs appendix log — appendix_run_2026-09-09_L72_H5.log is not",
+    "   committed (runner-local artefact)."
+  ],
+  "skip_targets": [
+    "#_Toc[0-9]+",
+    "\\.\\./run_[0-9_-]+/test_[0-9a-z_]+/plots/plot_[0-9]+\\.png",
+    "appendix_run_2026-09-09_L72_H5\\.log"
+  ]
+}

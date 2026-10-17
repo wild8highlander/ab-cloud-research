@@ -16,7 +16,7 @@ number the monographs quote.**
 [![KS](https://img.shields.io/badge/Montgomery%20KS-0.047%20%C2%B7%20p%3D0.27-8C6D1F?style=flat-square)](#-the-39-tests-grouped)
 [![Seeds](https://img.shields.io/badge/seeds-fixed%20%C2%B7%20byte--identical-3E515B?style=flat-square)](#-running)
 
-[Files](#-files) · [The 39 tests](#-the-39-tests-grouped) · [Running](#-running) · [CLI flags](#-cli-flags-selection) · [Two-pass protocol](#-two-pass-protocol) · [Historical note](#-historical-note)
+[Files](#-files) · [The 39 tests](#-the-39-tests-grouped) · [Running](#-running) · [CLI flags](#-cli-flags-selection) · [Two-pass protocol](#-two-pass-protocol)
 
 </div>
 
@@ -32,8 +32,7 @@ number the monographs quote.**
 3. [🚀 Running](#-running)
 4. [🎚 CLI flags (selection)](#-cli-flags-selection)
 5. [🔁 Two-pass protocol](#-two-pass-protocol)
-6. [📜 Historical note](#-historical-note)
-7. [🔗 Related layers of the project](#-related-layers-of-the-project)
+6. [🔗 Related layers of the project](#-related-layers-of-the-project)
 
 </details>
 

@@ -251,6 +251,7 @@ All 37 rows of `data/gates_table.csv` (v2.0.5 regeneration), values rounded to s
 | C_Nv64_midpoint | Nv = 64, midpoint | 0.572014 | +0.038597 | −0.635098 | 0.523 |
 | D_decoy_signs_random | decoy, random phases | 0.595673 | −0.004311 | +0.778586 | 0.923 |
 | D_decoy_Nv32_random | decoy, Nv = 32 random | 0.610275 | +0.016576 | −0.500665 | 0.692 |
+
 Representative rows with the verdict-bearing z-score (the same `data/gates_table.csv`, six-decimal rounding; full precision in the CSV). The z_EF column is the distance of the v2 fluctuation statistic from the gate's own block-shuffle null cloud; \|z_EF\| ≤ 3.275 across the family, and the honest synthetic-GUE null (−0.186±0.697) contains the family mean (+0.497) at z ≈ 1.0 — the null zone.
 
 | Gate | Change | ⟨r⟩ | r_H7 | r_EF (fluct) | z_EF |
@@ -267,6 +268,7 @@ Representative rows with the verdict-bearing z-score (the same `data/gates_table
 | C_W0.1_midpoint | W 0.1, midpoint | 0.597462 | −0.006519 | −0.470285 | −2.128342 |
 | C_q0.5_mass0.15 | q 0.5, mass 0.15 | 0.601644 | +0.036214 | −0.699783 | −2.796536 |
 | D_decoy_Nv32_random | decoy | 0.610275 | +0.016576 | −0.500665 | −2.044398 |
+
 ### Family statistics from the committed verdict
 
 The verdict block of `data/results.json` (v2.0.5) records: n_gates_new = 35; rH7_abs_max = 0.0972 (`B_torus_aniso1.25`), p_r_min = 0.015, family Bonferroni 0.57; r_mean 0.5690–0.6328, mean 0.6009±0.0155 (canonical band 0.5996±0.03, 35/37 strict); rEF_fluct mean +0.4965, sd 0.4652, min −0.6998, max +0.9645; z_EF_abs_max = 3.275; GUE_mean = −0.1856, GUE_sd = 0.6967 (the honest synthetic-GUE null of the **fluctuation** statistic; the v1 raw-statistic null 0.788±0.376 is retired); PC0p_r = 0.9999999999999996; PC0_Hxi_r = 0.9997876852323586 (C4 committed). The committed verdict string reads (translation of the Russian original): "the H2 result is stable: all 37 configurations (35 new + 2 decoys) in the GUE class — the class of the ζ zeros — per the C8 protocol — ⟨r⟩ = 0.569–0.633…" — the H2 result is stable: every handle keeps the family in the GUE class (the zeros' class); the rank/heat branches stay at their limits.

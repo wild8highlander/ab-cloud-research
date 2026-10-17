@@ -10,6 +10,9 @@
 [![Julia Suite](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/julia.yml?branch=main&style=for-the-badge&logo=julia&label=Julia%20Tests&color=9558B2)](https://github.com/wild8highlander/ab-cloud-research/actions/workflows/julia.yml)
 [![Docs](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/deploy-docs.yml?branch=main&style=for-the-badge&logo=materialformkdocs&label=Docs&color=blue)](https://wild8highlander.github.io/ab-cloud-research)
 [![CodeQL](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/codeql.yml?branch=main&style=for-the-badge&logo=github&label=CodeQL&color=2EA043)](https://github.com/wild8highlander/ab-cloud-research/actions/workflows/codeql.yml)
+[![Docs health](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/docs-health.yml?branch=main&style=for-the-badge&logo=github&label=Docs%20Health&color=8B5CF6)](https://github.com/wild8highlander/ab-cloud-research/actions/workflows/docs-health.yml)
+[![Polyglot](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/polyglot.yml?branch=main&style=for-the-badge&logo=github&label=Polyglot&color=F59E0B)](https://github.com/wild8highlander/ab-cloud-research/actions/workflows/polyglot.yml)
+[![Formal](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/formal.yml?branch=main&style=for-the-badge&logo=leanprover&label=Formal&color=7C4DFF)](https://github.com/wild8highlander/ab-cloud-research/actions/workflows/formal.yml)
 [![Zenodo DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21825394-blue?style=for-the-badge&logo=zenodo&label=DOI)](https://doi.org/10.5281/zenodo.21825394)
 [![Zenodo Concept](https://img.shields.io/badge/Concept%20DOI-10.5281%2Fzenodo.21825393-blueviolet?style=for-the-badge&logo=zenodo&label=All%20Versions)](https://doi.org/10.5281/zenodo.21825393)
 [![Citation](https://img.shields.io/badge/Cite-CITATION.cff-informational?style=for-the-badge&logo=latex)](./CITATION.cff)
@@ -109,7 +112,7 @@ GUE random-matrix universality · 39-test two-pass Julia verification suite ·
 - [The construction in one screen](#-the-construction-in-one-screen)
 - [Repository architecture](#-repository-architecture)
 - [Key verified results](#-key-verified-results)
-- [Full test ledger — the two-pass flagship run (2026-09-02)](#-full-test-ledger--the-two-pass-flagship-run-2026-09-02)
+- [Full test ledger — the two-pass flagship run (2026-09-02)](#-full-test-ledger--the-two-pass-flagship-run)
 - [The 64 spinor structures — full data](#-the-64-spinor-structures--full-data)
 - [Monographs (5 editions)](#-monographs-5-editions)
 - [Monograph editions & formats — the full matrix](#-monograph-editions--formats--the-full-matrix)
@@ -122,7 +125,7 @@ GUE random-matrix universality · 39-test two-pass Julia verification suite ·
 - [Makefile command reference](#-makefile-command-reference)
 - [Results & reproducibility](#-results--reproducibility)
 - [Statistical deep-dive — how to read the numbers](#-statistical-deep-dive--how-to-read-the-numbers)
-- [Verification history timeline](#-verification-history-timeline)
+- [Verification history](#-results--reproducibility)
 - [ζ-zero dataset inventory](#%EF%B8%8F-%CE%B6-zero-dataset-inventory)
 - [Flagship-run artifact inventory (run_20260902_134759)](#%EF%B8%8F-flagship-run-artifact-inventory-run_20260902_134759)
 - [Repository by the numbers](#-repository-by-the-numbers)
@@ -1396,7 +1399,7 @@ repository, each starting where *you* are:
 
 **🔍 The reviewer in a hurry (15 minutes).**
 [Highlights](#-highlights) → [Computation data at a glance](#-computation-data-at-a-glance)
-→ the [test ledger](#-full-test-ledger--the-two-pass-flagship-run-2026-09-02)
+→ the [test ledger](#-full-test-ledger--the-two-pass-flagship-run)
 → spot-check two numbers of your choice against
 [FINAL_REPORT](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/FINAL_REPORT/final_report.md)
 → the [license](#-license) if the verdict matters to your use case.
@@ -1411,7 +1414,7 @@ repository, each starting where *you* are:
 **🧮 The mathematician (at your own pace).**
 The [64 spinor structures](#-the-64-spinor-structures--full-data) and the
 Klein quartic orbit theorem → Connes self-duality and Chern anchors in the
-[ledger](#-full-test-ledger--the-two-pass-flagship-run-2026-09-02)
+[ledger](#-full-test-ledger--the-two-pass-flagship-run)
 → the `.tex` sources of the monograph ([monographs/*/text](monographs/en/text/))
 → ζ dataset provenance in [verification/data/README.md](verification/data/README.md).
 

@@ -2942,7 +2942,7 @@ The observatory is an instrumental line: its gates measure but do not prove. Gat
 ## 30b. The observatory's README (English version, verbatim)
 
 
-**Language / Язык:** [🇬🇧 English](../../../meridian-spectral-observatory/README.md) · [🇷🇺 Русский](../../../meridian-spectral-observatory/README.ru.md)
+**Language / Язык:** [🇬🇧 English](../../../../meridian-spectral-observatory/README.md) · [🇷🇺 Русский](../../../../meridian-spectral-observatory/README.ru.md)
 
 **A suite of verification codes for the "AB-Cloud" project — from the lattice Aharonov–Bohm model to the statistics of the zeros of the Riemann zeta function.**
 
@@ -5181,9 +5181,9 @@ verification apparatus.**
 
 This is the **unified academic edition** of the whole AB-Cloud research
 programme: one self-contained package consolidating the three research
-laboratories of the repository — [`AB_Cloud_Quantum_Research`](../../../AB_Cloud_Quantum_Research/)
-(spectral core and AB processor), [`dirac-lab`](../../../dirac-lab/) (the Dirac
-skeleton) and [`Hilbert_Polya`](../../../Hilbert_Polya/) (the Hilbert–Pólya bridge) —
+laboratories of the repository — [`AB_Cloud_Quantum_Research`](../../../../AB_Cloud_Quantum_Research/)
+(spectral core and AB processor), [`dirac-lab`](../../../../dirac-lab/) (the Dirac
+skeleton) and [`Hilbert_Polya`](../../../../Hilbert_Polya/) (the Hilbert–Pólya bridge) —
 together with the verification heritage of the earlier submission package
 (the 38-test reference run and its addenda). The unified edition carries
 **no version numbers**: it is a living academic structure (`00_meta` …

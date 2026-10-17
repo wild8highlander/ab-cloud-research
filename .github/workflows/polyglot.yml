@@ -1,0 +1,196 @@
+name: Polyglot syntax gate
+
+# Every code file in the repository must at least PARSE in its language.
+# This is the "no file rots silently" gate: it does not run the science,
+# it guarantees that whatever a commit touches, the language toolchain can
+# still read it. Heavy semantic verification lives in ci.yml (pytest),
+# julia.yml (the suite smoke run) and formal.yml (proof assistants).
+#
+# Language matrix (tracked files, counts at introduction):
+#   julia    — 63 .jl  (Meta.parseall — syntax only, no execution)
+#   go       — 12 .go  (go vet ./... per module; stdlib-only crates)
+#   rust     — 9 .rs   (cargo check --offline per crate; zero dependencies)
+#   c/cpp    — 11 .cpp/.c (g++ -fsyntax-only; system headers only)
+#   fortran  — 4 .f90  (gfortran -cpp -fsyntax-only; wrappers include the kernel)
+#   java     — 1 .java (javac)
+#   js       — 32 .js  (node --check — syntax only, no execution)
+#   r        — 5 .R    (R parse)
+#   python   — 415 .py (ruff + pytest in ci.yml — not duplicated here)
+#   shell    — 18 .sh  (bash -n in ci.yml's data-formats job — not duplicated)
+#
+# Known exclusions (documented, deliberate):
+#   matlab  — verification/matlab is validated by the Julia canon numbers, not
+#             by CI (no Octave parse-only gate is reliable enough for the
+#             toolbox-specific syntax used there);
+#   haskell — verification/haskell is compiled by the formal toolchain locally;
+#             a GHC install on the runner costs more than the value at this size.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: polyglot-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  julia:
+    name: Julia — parse every .jl
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: julia-actions/setup-julia@v3
+        with:
+          version: "1.10"
+      - name: Meta.parseall over every tracked Julia file
+        run: |
+          julia --startup-file=no -e '
+            files = filter(f -> endswith(f, ".jl"), split(read(`git ls-files`, String)))
+            isempty(files) && error("no Julia files found")
+            fails = String[]
+            for f in files
+              try
+                Base.Meta.parseall(read(f, String); filename = f)
+                println("parse OK: ", f)
+              catch e
+                println("PARSE FAIL: ", f, " — ", sprint(showerror, e))
+                push!(fails, f)
+              end
+            end
+            isempty(fails) || error("$(length(fails)) Julia file(s) failed to parse: ", join(fails, ", "))'
+
+  go:
+    name: Go — vet every module
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v6
+        with:
+          go-version: "stable"
+      - name: go vet ./... in every module that has a go.mod
+        run: |
+          set -euo pipefail
+          found=0
+          for mod in $(git ls-files '*.go' | xargs -r -n1 dirname | xargs -r -n1 dirname | sort -u); do
+            [ -f "$mod/go.mod" ] || continue
+            found=1
+            echo "── go vet in $mod"
+            (cd "$mod" && GOFLAGS=-mod=mod GOCACHE="$RUNNER_TEMP/gocache" go vet ./...)
+          done
+          [ "$found" = 1 ] || { echo "no go.mod modules found"; exit 1; }
+
+  rust:
+    name: Rust — cargo check every crate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - name: cargo check --offline in every crate (all are dependency-free)
+        run: |
+          set -euo pipefail
+          found=0
+          for man in $(git ls-files '*Cargo.toml'); do
+            found=1
+            dir=$(dirname "$man")
+            echo "── cargo check in $dir"
+            (cd "$dir" && cargo check --offline --all-targets)
+          done
+          [ "$found" = 1 ] || { echo "no Cargo.toml crates found"; exit 1; }
+
+  c-cpp:
+    name: C/C++ — syntax-only compile of every translation unit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - name: g++ -fsyntax-only over every .cpp/.c
+        run: |
+          set -euo pipefail
+          status=0
+          for f in $(git ls-files '*.cpp' '*.cc' '*.c'); do
+            echo "── syntax-only: $f"
+            g++ -std=c++17 -fsyntax-only "$f" || status=1
+          done
+          exit $status
+
+  fortran:
+    name: Fortran — syntax-only compile of every .f90
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - name: gfortran -cpp -fsyntax-only over every .f90
+        run: |
+          set -euo pipefail
+          status=0
+          for f in $(git ls-files '*.f90' '*.f95'); do
+            echo "── syntax-only: $f"
+            gfortran -cpp -fsyntax-only -I"$(dirname "$f")" "$f" || status=1
+          done
+          exit $status
+
+  java:
+    name: Java — compile every .java
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: javac over every tracked .java
+        run: |
+          set -euo pipefail
+          out="$RUNNER_TEMP/javac-out"
+          mkdir -p "$out"
+          status=0
+          for f in $(git ls-files '*.java'); do
+            echo "── javac: $f"
+            javac -d "$out" "$f" || status=1
+          done
+          exit $status
+
+  js:
+    name: JavaScript — node --check every .js
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+      - name: node --check over every tracked .js (no execution)
+        run: |
+          set -euo pipefail
+          status=0
+          for f in $(git ls-files '*.js' '*.mjs' '*.cjs'); do
+            echo "── check: $f"
+            node --check "$f" || status=1
+          done
+          exit $status
+
+  r:
+    name: R — parse every .R
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - name: parse() over every tracked R file
+        run: |
+          set -euo pipefail
+          status=0
+          while IFS= read -r f; do
+            echo "── parse: $f"
+            Rscript -e "invisible(parse('$f'))" || status=1
+          done < <(git ls-files '*.R')
+          exit $status

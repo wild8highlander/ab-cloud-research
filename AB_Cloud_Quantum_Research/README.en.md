@@ -70,7 +70,7 @@ Version **1.1.0** · proprietary license · Python / Julia / C / C++ / Rust / Go
 - [Quick start](#-quick-start)
 - [Web laboratories](#-web-laboratories)
 - [Honesty discipline](#-honesty-discipline)
-- [Roadmaps](#-roadmaps)
+- [Roadmaps](#-roadmaps-chained)
 - [Citation](#-citation)
 - [License](#-license)
 - [Russian version](#russian-version)

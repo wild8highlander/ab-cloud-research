@@ -17,7 +17,7 @@
 [![Reference](https://img.shields.io/badge/reference-Nature%20Physics%202026-8C6D1F?style=flat-square)](https://doi.org/10.1038/s41567-026-03453-7)
 [![CI](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/wave-attractors.yml?branch=main&style=flat-square&label=wave--attractors%20CI)](https://github.com/wild8highlander/ab-cloud-research/actions/workflows/wave-attractors.yml)
 
-[What is reproduced](#-what-is-reproduced) · [Key results](#-key-results-full-protocol) · [Physics](#-physics-in-one-paragraph) · [Layout](#-repository-layout) · [Quick start](#-quick-start) · [Reproducibility](#-reproducibility-notes) · [Citation](#-citation)
+[What is reproduced](#-what-is-reproduced) · [Key results](#-key-results-full-protocol-24-rays--1600-bounces--100) · [Physics](#-physics-in-one-paragraph) · [Layout](#-repository-layout) · [Quick start](#-quick-start) · [Reproducibility](#-reproducibility-notes) · [Citation](#-citation)
 
 </div>
 

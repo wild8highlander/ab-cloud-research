@@ -113,8 +113,8 @@ Why should a numerical package about the zeta function care? Because spin struct
 
 **spinor64 (T8).**
 
-6. **E1 — inventory.** Enumerate the 64 spin-structure classes of the Klein quartic on the lattice discretisation; build the class graph (64 classes / 84 edges in the committed accounting); split into orbits under the symmetry action; compute the Arf count (odd vs even) and the forced zero-mode count per orbit representative; verify isospectrality *within* each orbit by direct diagonalisation.
-7. **E2 — reduction.** Impose the phase coding φx = π(e1+e3+e5), φy = π(e2+e4+e6) mod 2π; observe that the Hamiltonian depends on the sign vector e only through the pair (φx mod 2π, φy mod 2π); conclude the 2×2 = 4 class reduction and verify that ⟨r⟩ is determined by that pair alone, in the reference table and in an independent re-run.
+1. **E1 — inventory.** Enumerate the 64 spin-structure classes of the Klein quartic on the lattice discretisation; build the class graph (64 classes / 84 edges in the committed accounting); split into orbits under the symmetry action; compute the Arf count (odd vs even) and the forced zero-mode count per orbit representative; verify isospectrality *within* each orbit by direct diagonalisation.
+2. **E2 — reduction.** Impose the phase coding φx = π(e1+e3+e5), φy = π(e2+e4+e6) mod 2π; observe that the Hamiltonian depends on the sign vector e only through the pair (φx mod 2π, φy mod 2π); conclude the 2×2 = 4 class reduction and verify that ⟨r⟩ is determined by that pair alone, in the reference table and in an independent re-run.
 
 The original method statement, preserved: *an 11-channel ladder (n_real up to 5, n_spacings up to 1715): Nv, extra disorder w, boundaries; classification by ⟨r⟩ and KS against three references. spinor64: the 64 spin-structure classes of the Klein quartic (φx = π(e1+e3+e5), φy = π(e2+e4+e6) mod 2π) — the reduction to 2×2 = 4 classes; isospectrality is checked within orbits.*
 

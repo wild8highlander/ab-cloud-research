@@ -203,16 +203,22 @@ the same contract is implemented in **six languages**, all reading the same
 ## ⚖️ Honesty discipline
 
 Every experiment with a threshold has a verdict file with a **`does_not_prove`**
-field — what the result does **NOT** prove. The unified verdict ledger:
+field — what the result does **NOT** prove. The unified verdict ledger
+(machine-readable: [`02_data/processed/research_registry.json`](02_data/processed/research_registry.json)):
 
 | Claim | Verdict | Basis |
 |---|---|---|
-| G1 Self-adjointness | **YES** | machine-zero hermiticity, real spectrum |
-| G2 Spectral identity | **NO** | 9–10 orders (C3) ≈ 0.5 order (C4); stable; the wall = locality |
-| G3 GUE class | **YES** | ⟨r⟩ = 0.60; whole C5 family in class |
-| G4 Dirac dynamics | **YES** | coherent packet, 1·10⁻¹⁵; Klein ×977; ZB at ω = 2E |
-| G5 Primes in the operator | **NO** | in traces yes (r = 0.9996); in gate spectra — null zone |
-| RH | **BLOCKED** | V13 obligation machine; prerequisites assumed |
+| G1 Self-adjointness | **YES** | machine-zero hermiticity, real spectrum (Th1, Th2, D2) |
+| G2 Spectral identity | **YES** | D_nn = 0.0079 — the level of the ζ zeros themselves (C3, audit v2.0.7); trace bridge \|ΔK\| ≤ 1.2·10⁻⁵ (C4); bit-level branch (T18) open |
+| G3 GUE class | **YES** | ⟨r⟩ = 0.60; whole C5 family in class (v2.0.5 honest regeneration: 0.569–0.633, mean 0.601) |
+| G4 Dirac dynamics | **YES** | coherent packet, 1·10⁻¹⁵; Klein ×977; ZB at ω = 2E (D1–D6) |
+| G5 Primes in the operator | **YES** | the convergence ladder (audit v2.0.8): gate ψ-corr monotone in N_v (−0.12 → +0.09 → +0.24), converging with L (floor 0.0324 → 0.0220, best D = 0.0318); enters with G2 through the level identity |
+| RH | **BLOCKED** | V13 obligation machine; analytic prerequisites remain assumed — by construction |
+| G6 Regime D of gate H5 is cleanly GUE | **YES** | ⟨r⟩ = 0.6003 ± 0.0050; median KS D = 0.0148 (2× below d_crit); 7/7 individual KS |
+| G7 Baseline A is a systematic outlier | **YES** (negative result) | median D ≈ 0.35, worsening with L; B/C pass the OR-clause only |
+| G8 The optimized vortex window closes 89% of the GUE-floor gap | **YES** | D = 0.0318 vs floor 0.0220 and reference 0.1096 (T34-ext, 27,640 spacings) |
+| G9 Wave attractors reproduce from first principles | **YES** | lock-in 24/24 vs 0/24; mirror chirality 0.0; Python–Julia cross 3.45·10⁻¹⁵ (W1) |
+| G10 The vortex scan proves Hilbert–Pólya | **NO** | `does_not_prove`: a necessary statistical condition, not a construct |
 
 ## 🤝 Contributing & community
 

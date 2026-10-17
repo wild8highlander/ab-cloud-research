@@ -24,7 +24,7 @@ precision:
   dps_default: 40                  # decimal places, arbitrary precision paths
   dps_rational_identities: 256      # 256-bit exact-layer checks
 
-lattice:                            # the AB-cloud lattice (all levels)
+lattice: # the AB-cloud lattice (all levels)
   alpha: 0.5                        # Aharonov-Bohm flux per plaquette (in units of pi)
   sizes: [16, 24, 32, 36, 48]       # L values used across campaigns
   boundary: "torus"
@@ -46,32 +46,32 @@ monte_carlo:
   n_events: 2000
   statistics: ["r_ratio", "gap_prob", "spectral_form_factor", "level_number_variance"]
 
-gue_windows:                         # pre-registered statistical windows
-  r_ratio:        { gue: [0.5992, 0.6150], goe: [0.5260, 0.5360], gse: [0.6560, 0.6760] }
-  nearest_gap:    { gue: [0.55, 0.75],   goe: [0.45, 0.55],   gse: [0.70, 0.85] }
-  form_factor:   { plateau: 1.0, tolerance: 0.05, t_peak: 2.0 }
+gue_windows: # pre-registered statistical windows
+  r_ratio: {gue: [0.5992, 0.6150], goe: [0.5260, 0.5360], gse: [0.6560, 0.6760]}
+  nearest_gap: {gue: [0.55, 0.75], goe: [0.45, 0.55], gse: [0.70, 0.85]}
+  form_factor: {plateau: 1.0, tolerance: 0.05, t_peak: 2.0}
 
-dirac_layer:                        # dirac-lab decisive quantities
-  continuum_limit:  { v_f_expected: "2t", e1_l_limit: "4*pi", r2_min: 0.9997 }
-  zero_tower:       { count: 4, gamma_polarity: 0 }
-  berry_phase:      { expected: "pi", tolerance: 1.0e-12 }
-  landau_levels:    { law: "E_n^2 ~ n", r2_min: 0.9998 }
-  klein_tunneling: { angle_deg: 0, t_dirac_min: 0.9, t_schrodinger_max: 0.01 }
-  zitterbewegung:  { omega_expected: "2E", r2_min: 0.9996 }
-  chiral_pairing:  { norm_max: 4.0e-15 }
+dirac_layer: # dirac-lab decisive quantities
+  continuum_limit: {v_f_expected: "2t", e1_l_limit: "4*pi", r2_min: 0.9997}
+  zero_tower: {count: 4, gamma_polarity: 0}
+  berry_phase: {expected: "pi", tolerance: 1.0e-12}
+  landau_levels: {law: "E_n^2 ~ n", r2_min: 0.9998}
+  klein_tunneling: {angle_deg: 0, t_dirac_min: 0.9, t_schrodinger_max: 0.01}
+  zitterbewegung: {omega_expected: "2E", r2_min: 0.9996}
+  chiral_pairing: {norm_max: 4.0e-15}
 
-bridge:                             # Hilbert-Polya bridge
-  gates: { family: 87, extended: 20, blind: 20 }
-  trace_formula: { kernel_tolerance: 1.2e-5, twisted_tolerance: 9.6e-6 }
+bridge: # Hilbert-Polya bridge
+  gates: {family: 87, extended: 20, blind: 20}
+  trace_formula: {kernel_tolerance: 1.2e-5, twisted_tolerance: 9.6e-6}
   alpha_zero_modes: 0.3333333333333333   # 1/3 counting-law point (T13)
-  nonlocal_twin: { r_h7_target: 1.0, r_ef_target: 0.999 }
+  nonlocal_twin: {r_h7_target: 1.0, r_ef_target: 0.999}
 
-processor:                          # AB processor (V20+)
+processor: # AB processor (V20+)
   isa_class: "AB-cloud Givens-QR"
-  compile_fidelity: { max_1mF_4x4: 4.4e-16, max_1mF_8x8: 6.7e-16 }
-  chsh: { s_expected: "2*sqrt(2)", tolerance: 4.4e-16, protection_trials: 1000 }
+  compile_fidelity: {max_1mF_4x4: 4.4e-16, max_1mF_8x8: 6.7e-16}
+  chsh: {s_expected: "2*sqrt(2)", tolerance: 4.4e-16, protection_trials: 1000}
 
-spinor:                             # no-long-term-memory study
+spinor: # no-long-term-memory study
   phase_models: ["pi/2", "pi/3", "pi/7"]
   cycle_close: "N = 2k exactly"
   reset_reconstruction_max: "1/N (chance level)"
@@ -79,8 +79,8 @@ spinor:                             # no-long-term-memory study
 output:
   root: "./out"
   formats: ["md", "json", "csv"]
-  figures: { dpi: 600, formats: ["png", "svg"] }
-  logs: { jsonl: true, rotate_at_mb: 10 }
+  figures: {dpi: 600, formats: ["png", "svg"]}
+  logs: {jsonl: true, rotate_at_mb: 10}
 
 cli:
   lang: "en"                        # ru | en (message catalogues)

@@ -1,20 +1,45 @@
 # PR auto-labeling by changed paths
 "julia-suite":
   - changed-files:
-    - any-glob-to-any-file: "code/**"
+      - any-glob-to-any-file: "code/**"
+      - any-glob-to-any-file: "meridian-spectral-observatory/**"
 "verification":
   - changed-files:
-    - any-glob-to-any-file: "verification/**"
+      - any-glob-to-any-file: "verification/**"
+      - any-glob-to-any-file: "Hilbert_Polya/computations/**"
 "3d-lab":
   - changed-files:
-    - any-glob-to-any-file: "lab-3d/**"
+      - any-glob-to-any-file: "lab-3d/**"
+      - any-glob-to-any-file: "dirac-lab/**"
 "monographs":
   - changed-files:
-    - any-glob-to-any-file: "monographs/**"
+      - any-glob-to-any-file: "monographs/**"
+      - any-glob-to-any-file: "AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/01_monographs/**"
+"academic-package":
+  - changed-files:
+      - any-glob-to-any-file: "AB_Cloud_Academic_Package/**"
+"core-modules":
+  - changed-files:
+      - any-glob-to-any-file: "AB_Cloud_Quantum_Research/**"
+"formal":
+  - changed-files:
+      - any-glob-to-any-file: "formal/**"
+      - any-glob-to-any-file: "AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/06_code/formal/**"
+"web-lab":
+  - changed-files:
+      - any-glob-to-any-file: "AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/07_web_lab/**"
+      - any-glob-to-any-file: "apps/**"
+      - any-glob-to-any-file: "Wave_attractors/**"
 "documentation":
   - changed-files:
-    - any-glob-to-any-file: "docs/**"
-    - any-glob-to-any-file: "*.md"
+      - any-glob-to-any-file: "docs/**"
+      - any-glob-to-any-file: "*.md"
+      - any-glob-to-any-file: "**/README*.md"
 "ci":
   - changed-files:
-    - any-glob-to-any-file: ".github/**"
+      - any-glob-to-any-file: ".github/**"
+"data":
+  - changed-files:
+      - any-glob-to-any-file: "verification/zeros*.txt"
+      - any-glob-to-any-file: "code/zeros*.txt"
+      - any-glob-to-any-file: "**/zeta_zeros*.txt"

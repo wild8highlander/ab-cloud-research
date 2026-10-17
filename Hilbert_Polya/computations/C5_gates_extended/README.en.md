@@ -114,6 +114,7 @@ Representative rows from `data/gates_table.csv` (v2.0.5 regeneration; six-decima
 | C_W0.1_midpoint | W 0.1, midpoint | 0.597462 | −0.006519 | −0.470285 | −2.128342 |
 | C_q0.5_mass0.15 | q 0.5, mass 0.15 | 0.601644 | +0.036214 | −0.699783 | −2.796536 |
 | D_decoy_Nv32_random | decoy | 0.610275 | +0.016576 | −0.500665 | −2.044398 |
+
 Committed family statistics (`data/results.json`, v2.0.5): n_gates_new = 35; rH7_abs_max = 0.0972 (`B_torus_aniso1.25`, Bonferroni 0.57); r_mean 0.5690–0.6328, mean 0.6009±0.0155; rEF_fluct mean +0.4965, sd 0.4652; z_EF_abs_max 3.275; GUE_mean = −0.1856, GUE_sd = 0.6967 (honest fluctuation null; the v1 raw-statistic null 0.788±0.376 is retired); PC0p_r = 0.9999999999999996; PC0_Hxi_r = 0.9997876852323586.
 
 ## How to read the numbers

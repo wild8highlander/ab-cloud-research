@@ -4,6 +4,7 @@
 |---|---|
 | [`raw/`](raw/README.md) | byte copies of the sources' curated datasets (read-only) |
 | [`processed/`](processed/) | the unified research registry — the single source of numbers |
+| [`frozen/`](frozen/README.md) | the frozen ζ-zero datasets the verification suite reads (byte-identical to the repo's `verification/` canon) |
 | [`synthetic/`](synthetic/README.md) | SYNTHETIC-marked demo data |
 | [`external/`](external/README.md) | external sources (Odlyzko tables) — links + notes |
 | [`schemas/`](schemas/) | JSON Schema, SQL DDL, Avro, Protobuf for the registry |

@@ -16,5 +16,11 @@ sources; parameters in `config.yaml`):
 4. **Pre-registration discipline**: GUE/GOE/GSE windows fixed in
    `config.yaml: gue_windows`; no post-hoc re-tuning.
 
+The ζ-zero inputs themselves are **frozen datasets, not samples**: the
+byte-identical copies the suite reads live in `frozen/` (50k / 100k /
+13 661 / high-T blocks); the two large Odlyzko bulk tables are pinned by
+checksum under the `external/` link-and-notes policy. Nothing in this
+package re-samples, re-truncates or re-derives them.
+
 The unified package itself samples nothing: it consolidates. The protocol
 above documents how the numbers it carries were obtained.

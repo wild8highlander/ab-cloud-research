@@ -43,7 +43,7 @@ python3 campaigns/run_c6_primes.py
 4. [The prime-flow picture](#the-prime-flow-picture)
 5. [T4: exact co-location](#t4-exact-co-location)
 6. [The flow dictionary at a glance](#the-flow-dictionary-at-a-glance)
-7. [T5: the resolution kernel δ(d)](#t5-the-resolution-kernel-dd)
+7. [T5: the resolution kernel δ(d)](#results)
 8. [M2: the ψ-ladder](#m2-the-ψ-ladder)
 9. [The ψ-ladder for newcomers](#the-ψ-ladder-for-newcomers)
 10. [M3: universality washes the codings out](#m3-universality-washes-the-codings-out)

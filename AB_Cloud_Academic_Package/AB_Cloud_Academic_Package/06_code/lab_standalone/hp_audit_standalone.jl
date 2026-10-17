@@ -10,20 +10,22 @@
 #    «отдельный код, в котором только проверка H — тесты из меню h — чтобы не
 #     вносить правки в дальнейшем в огромный код, а в более компактный, который
 #     конкретно проверяет нужное нам конкретно сейчас».
-#    → This file contains ONLY the H1–H7 Hilbert–Pólya audits (plus their
+#    → This file contains ONLY the H1–H8 Hilbert–Pólya audits (plus their
 #      physics/statistics core, lifted VERBATIM from the suite so every number
 #      matches the full suite bit-for-bit at equal seeds). Edit HERE first;
 #      port a stabilized change back into ab_cloud_v23_v2.jl when both must
 #      stay in sync.
 #
 #  WHAT'S INSIDE
-#    • 7 GATES (unique console names): H1 PRIME-TRACE (raw-FT Bragg comb at
+#    • 8 GATES (unique console names): H1 PRIME-TRACE (raw-FT Bragg comb at
 #      ω = log p + composite DECOY control + regime-matched nulls + DEEPEN
 #      P95 protocol), H2 WEYL-DOS (raw N(E) staircase, AICc showdown),
 #      H3 POWER-LAW (exponent ladder, dictionary falsification), H4
 #      CRITICAL-Q (sharpness scan + domain guard), H5 REGIME-2×2 (ensemble
 #      showdown + α-profile: finetuning vs plateau), H6 HERMIT-STRESS
-#      (self-adjointness/stability), H7 SEQ-CORR (level↔zero correlation);
+#      (self-adjointness/stability), H7 SEQ-CORR (level↔zero correlation),
+#      H8 NUM-TRACE (integer comb ω = log(n) for ALL n — the «all numbers»
+#      hypothesis H1 does not test — + N(E) counting family + gap arithmetic);
 #    • v23.6 honest done-line: "done → PASS/WARN" carries the REAL verdict;
 #    • HP·MERIDIAN console (v23.7-SA): unique gate names, environment
 #      doctor, gate intel with cost estimates, config profiles, failure-
@@ -66,6 +68,117 @@
 #       append-only lines; the check is now the TTY type itself.
 #       Verified on sandbox julia 1.10.4 AND 1.12.0 under a real pty.
 #
+#  v24.3-SA — audit-pass fixes (2026-10-15, external review):
+#    1) PRESET STATE LEAK: apply_preset! only overwrote its own fields, so the
+#       console's SMOKE→FAST switch silently kept validation-grade controls
+#       (ζ cap 2000 instead of 20000, h1_configs 2, deep 4/4, jitter 2, ladder
+#       [16,20,24], gue_calib 3, t_max 20). Every preset now starts from the
+#       code defaults — a preset is a complete parameter set.
+#    2) H1 COST ESTIMATE undercounted: the two stage-3 GUE nulls, the per-regime
+#       GUE null of the sweep and the PER-MARGINAL-REGIME DEEPEN block were
+#       missing (67 promised vs ≈172 actual at defaults, worst case).
+#    3) GATE_MIN's :fast column still carried pre-v24.1 smoke-grade minutes
+#       (H5 «2 min» at L=72 where ONE 5184×5184 solve takes minutes) — now
+#       honest orders of magnitude, consistent with the v23.8 «hours, NOT a
+#       hang» note and the live cost banner.
+#    4) H3: duplicated v23.6 comment block removed.
+#    5) _hp_soft_warn: dense-solve growth L³ → L⁶ (was understated ~90×).
+#
+#  v24.3.1-SA — hotfix (2026-10-15, same day): the v24.3 header block above was
+#    inserted WITHOUT the leading '#' on its continuation lines, and the START
+#    line below lost its '#' — every include() died at line 70 with ParseError
+#    «extra tokens after end of expression» (the file could not load at all).
+#    Comments only, zero code changes. Verified end-to-end on julia 1.10.4:
+#    clean include, preset state-leak / cost-estimator / soft-warn runtime
+#    tests, and a live SMOKE battery across all 8 gates.
+#
+#  v25-PLASMA — «супер-оформление» visual layer (2026-10-15, user spec):
+#    A spectral-visual shell over the existing HP·MERIDIAN console — every
+#    audit number is unchanged; only the presentation gets a plasma skin.
+#      1) PLASMA BANNER — ASCII solar system on startup: nucleus «(H)» in the
+#         center, three elliptical orbits with H1–H7 satellites (each gate has
+#         a stable Greek sigil: λ ρ β q α 𝒩 ζ + 256-color), an outer ζ-belt
+#         populated with the REAL ζ-zero count (≤60 sampled dots), and a
+#         caption strip carrying seed · L · L²-sites · ζ-zeros. Visible at
+#         every `hp_console()` opening and at the top of every batch battery.
+#      2) PLASMA PROGRESS BAR — the v23.8 ▰▱ block is replaced by a 28-cell
+#         orbit ring with a comet head (◉) that advances around it + a 4-cell
+#         dimming tail (•···) trailing behind; above the orbit a 28-cell ζ
+#         signal trace (Braille glyphs ⠁⠃⠇) wobbles with elapsed time so the
+#         bar visibly pulses EVEN when a long LAPACK call freezes frac — the
+#         v23.8 heartbeat made visual. T+ and ETA stay.
+#      3) GATE TELESCOPE FRAME — each H1..H7 gate now opens with a 72-col
+#         double border «telescope»: orbit sigil ⤬···H1···PRIME-TRACE···⤬,
+#         dotted rail, title + about one-liner. The verdict ribbon at the
+#         battery end is one color-coded cell per gate (✓ / ! / ✗) — the
+#         whole run's shape at a glance.
+#      4) DARK-HTML REPORT — final_report.html rewritten with a dark
+#         plasma theme (bg #0b0d1a, accent #00d7af, gate palette matching
+#         the console), a hero banner with an ANIMATED SVG solar system
+#         (H nucleus + H1–H7 satellites + ζ-belt, all rotating at different
+#         rates; prefers-reduced-motion respected), a parameters strip, a
+#         verdict ribbon row, and one CARD PER GATE (sigil + verdict pill
+#         + sub-check table + plot + notes). Self-contained — no external
+#         CSS/JS/fonts. The MD report (two-files contract) is unchanged.
+#    Every plasma helper is wrapped in try/catch — a decoration failure
+#    NEVER kills a gate (the audit's numbers are the deliverable; the
+#    visuals are the suit they ride in). Fall-back behavior on non-TTY:
+#    the banner prints the plain-ASCII skeleton, the bar emits one-line
+#    updates instead of in-place redraws, the HTML is fully self-rendered.
+#
+#  v25.2-NUMINA — H8 NUM-TRACE gate (2026-10-16, user spec):
+#    «добавить еще один тест, который бы проверял гипотезу «AB-облако кодирует
+#    все числа» — следуя логике кода, в том же стиле и формате с глубокими
+#    проверками». H1 answers ONE question — «is there a Bragg comb at
+#    ω = log p for PRIMES p?» (the Riemann–Weil ζ signature) — and treats
+#    composite-log firing as a specificity FAILURE. The user's hypothesis is a
+#    DIFFERENT, stronger claim: the AB cloud encodes ALL integers n, so H1's
+#    empty prime comb does not test it at all (under «all numbers» nothing
+#    singles the prime logs out — the H1 report says this explicitly). New
+#    gate H8 NUM-TRACE tests it directly, reusing H1's machinery bit-for-bit
+#    (same _hp_raw_ft detector, SAME seed streams: +100+k baseline,
+#    +40 000+… sweep — so the two headlines are directly comparable):
+#      D1 INTEGER COMB — the raw-FT periodogram scanned at ω = log(n) for
+#         EVERY n in 2..hp_num_nmax (window auto-extends to log(nmax)+0.25,
+#         H1's v23.6 convention). Targets split into three PRE-REGISTERED
+#         classes: primes (fire under BOTH hypotheses), prime powers p^k
+#         (the explicit formula's harmonics k·log p — fire under ζ too), and
+#         composites with ≥2 DISTINCT prime factors (silent under ζ, LOUD
+#         under «all numbers» — THE discriminator; H1's decoy semantics
+#         INVERTED: log(21) firing is H8's positive signal). Calibration is
+#         PER-TARGET: each log(n) is judged against the P95 of its OWN null
+#         distribution (vortex-free same-α + size-matched GUE draws) — with
+#         ~200 targets a H1-style 4-draw max ceiling is statistically empty,
+#         and the nulls carry the same Hann leakage/merging physics, so
+#         unresolved neighbors stay a fair test. Coverage per class + the
+#         prime/composite discrimination ratio decide the headline
+#         (ALL-NUMBERS / ζ-HARMONIC ONLY / MIXED / ISOLATED BUMP / ABSENT);
+#         a positive headline carries a mandatory L-escalation note (the
+#         Hann main lobe 2π/span blurs n ≳ 1/Δω).
+#      D2 COUNTING FAMILY — the raw N(E) staircase (H2's AICc machinery, NEW
+#         dictionary): ⌊E⌋-linear (a·E+b — the Σ_{n≤E}1 / Tₙ↔n counting),
+#         divisor-summatory (a·E·lnE+b·E+c — the SAME basis as the ζ ansatz:
+#         coefficients, not basis, separate the stories), π(E)-shape
+#         (a·E/lnE+b), lattice-DOS reference; |ΔAICc|>10 decisive (H2 rule).
+#      D3 GAP ARITHMETIC — Spearman ρ of the central-band gaps gₙ = Tₙ₊₁−Tₙ
+#         vs d(n), Ω(n), φ(n), σ(n), ln(n): the «hidden bijection Tₙ ↔ n»
+#         probe H1/H7 never ran. H7's discipline: MA high-pass BOTH sides
+#         (the slow DOS trend is common-mode), permutation null
+#         (hp_num_shufs shuffles per function) + independent GUE gap
+#         anchors. Honest expectation: zero.
+#      D4 REGIME SWEEP + DEEPEN — H1's reviewer discipline verbatim: B/C/D
+#         re-measured against their OWN regime-matched nulls (2+2 shallow),
+#         any regime reading above «absent» triggers the pre-registered
+#         DEEPEN rule (null pool → 2×hp_deep_nulls per type, AB ensemble
+#         +hp_deep_configs, verdict by coverage collapse vs per-target P95).
+#    HONESTY (H1 convention): the test's PASS/FAIL certifies the DETECTOR —
+#    the ζ control must DISCRIMINATE the classes (loud on primes+powers,
+#    ≥100× quieter on composites, medians) and the nulls must calibrate to
+#    ≈5% measured false hits; the all-numbers verdict is the HEADLINE, never
+#    forced into pass/fail. New config: hp_num_nmax (comb depth, 200),
+#    hp_num_shufs (permutation draws, 200). Console/CLI: gate 8, groups
+#    gD = {H7, H8}, batch h8, battery «all» = 8 gates.
+#
 #  START — THREE WAYS
 #    1) REPL:      julia> include("hp_audit_standalone.jl")
 #                  → the HP·MERIDIAN console OPENS ITSELF.
@@ -80,9 +193,9 @@
 #              ENV["HP_SA_COLOR"]="0" → plain ASCII output.
 #
 #  CONSOLE COMMANDS (all wired, all failure-isolated)
-#    1..7 run gate · a all seven · gA gB gC gD reviewer groups A–D
+#    1..8 run gate · a all eight · gA gB gC gD reviewer groups A–D
 #    s SMOKE (~2-3 min) · f FAST (~10-20 min) · F FULL (hours) · r reset
-#    p parameters — ALL 35 HPConfig fields with short hints + full docs
+#    p parameters — ALL 37 HPConfig fields with short hints + full docs
 #      (? field), soft sanity warnings, save/load/ls config profiles
 #    i gate intel (decides-what + per-preset cost) · d doctor (zeros, output
 #      dir, sanity) · v last run verdicts · z ζ-zeros path · h help · q quit
@@ -111,7 +224,7 @@ using Statistics
 using Printf
 using Dates
 
-const HP_SA_VERSION = "24.2-SA"   # console identity: HP·MERIDIAN
+const HP_SA_VERSION = "25.2-NUMINA"   # console identity: HP·MERIDIAN
 export hp_console, hp_menu, main, make_hp_config, apply_preset!,
        hp_params_menu!, run_battery_core, load_zeros, register_audits!,
        HPConfig, HP_AUDITS
@@ -1761,7 +1874,7 @@ supersampled, real legend) — verbatim bridge from the suite."""
 function _repplot_to_fig(p::RepPlot, w::Int, h::Int)::ABPlotV23.Fig
     f = ABPlotV23.make_fig(w, h;
         title = p.title, subtitle = "",
-        footer = @sprintf("hp_audit_standalone v23.6 · ABPlotV23 engine · %s", _utc_stamp_v23()),
+        footer = @sprintf("hp_audit_standalone %s · ABPlotV23 engine · %s", "v" * HP_SA_VERSION, _utc_stamp_v23()),
         theme = "dark", ss = 2)
     nser = length(p.series)
     ABPlotV23.add_panel!(f, 1, 1, 1, 1;
@@ -2088,12 +2201,23 @@ const SLUGS = Dict{Int,String}()
 msg(cfg, key::String) = key == "pass" ? "PASS" : key == "warn" ? "WARN" :
                          key == "fail" ? "FAIL" : key
 
-"""LIVE progress bar (v23.8). Draws IN PLACE on a terminal (\r + erase-to-EOL)
+"""LIVE progress bar (v25-PLASMA). Draws IN PLACE on a terminal (\r + erase-to-EOL)
 through the tee-bypassing _live_write channel, so it is visible while the gate
 runs — not replayed after it. Updates are TIME-throttled (≥ 0.8 s between
 frames), so the ≤ 40-solve H5 (v24.1 budget) draws one frame per solve
 instead of being silenced by the old 2%-step rule. Shows elapsed,
-ETA (linear extrapolation from frac) and the current sub-step text."""
+ETA (linear extrapolation from frac) and the current sub-step text.
+
+The user's spec (2026-10-15): «Плазменный прогресс-бар: вместо ▰▱▱ — орбита,
+по ней бежит спутник, хвост кометы, подпись с ETA; плюс фоновый "сигнал ζ"».
+We render:
+  · a 28-cell orbit ring, with the comet head (◉) at angle = 2π·frac;
+  · a 4-cell comet tail (···) trailing the head;
+  · a faint ζ-signal trace (the noise dots ABOVE the orbit) that wobbles as
+    a function of `frac + el/4`, so the bar visibly pulses even when a long
+    LAPACK call freezes frac at one value — the user can see the gate is alive;
+  · the %, label, T+ and ETA stay from v23.8 — the science text is unchanged.
+"""
 function prog_update(frac::Real, extra::AbstractString = "")
     f = clamp(Float64(frac), 0.0, 1.0)
     now = time()
@@ -2103,18 +2227,77 @@ function prog_update(frac::Real, extra::AbstractString = "")
     _PROG_LAST_T[] = now
     el = now - _PROG_T0[]
     eta = 0.02 < f < 1.0 ? el * (1.0 - f) / f : NaN
-    pct = clamp(round(Int, 100f), 0, 100)
-    full = pct ÷ 10
+    # ── ORBIT RENDER ──────────────────────────────────────────────────────
+    # 28-cell ellipse; the satellite comet head advances around it.
+    orb_n = 28
+    head_idx = clamp(round(Int, f * orb_n), 1, orb_n)
+    # comet trail of 4 dots behind the head (one is the head itself)
+    tail_len = 4
+    # the orbit ring: ring chars at "·", head "◉", trail "·" (dimmer) behind.
+    ring = Vector{String}(undef, orb_n)
+    fill!(ring, _mr_c("·", "dim"))
+    # paint the comet head + tail (tail trails BEHIND the head, decreasing)
+    for t in 0:tail_len
+        idx = head_idx - t
+        idx < 1 && (idx += orb_n)   # wrap around the ring
+        if t == 0
+            ring[idx] = _mr_c("◉", "accent")
+        else
+            # tail cells: progressively dimmer
+            tail_key = t <= 2 ? "gold" : "dim"
+            ring[idx] = _mr_c(t == 1 ? "•" : "·", tail_key)
+        end
+    end
+    # mark the START (⊙) and END (⊙) cells so the user can see the loop
+    ring[1] = (head_idx == 1) ? _mr_c("◉", "accent") : _mr_c("⊙", "title")
+    ring[orb_n] = (head_idx == orb_n) ? _mr_c("◉", "accent") : _mr_c("⊙", "ok")
+    orbit_str = _mr_c("[", "dim") * join(ring) * _mr_c("]", "dim")
+
+    # ── ζ-SIGNAL TRACE (above the orbit) ─────────────────────────────────
+    # 28 cells of faint flicker — a synthetic ζ-signal "alive" indicator.
+    # The trace wobbles from `el` (so it visibly moves even when frac is
+    # frozen by a LAPACK call) — this is the v23.8 heartbeat made visual.
+    trace_n = 28
+    trace = Vector{String}(undef, trace_n)
+    for i in 1:trace_n
+        # phase from elapsed time + position; amplitude small (4 levels)
+        ph = (el / 3.5) + (i - 1) * 0.45
+        amp = sin(ph) + 0.4 * sin(ph * 2.3 + 1.1)
+        a = clamp(round(Int, amp + 1.0), 0, 3)
+        glyph = a == 0 ? " " : a == 1 ? _mr_c("⠁", "dim") :
+                          a == 2 ? _mr_c("⠃", "accent") : _mr_c("⠇", "title")
+        trace[i] = glyph
+    end
+    trace_str = _mr_c("ζ ", "dim") * join(trace) * _mr_c("  ", "dim")
+
+    # ── assemble the body: trace above, orbit below + percent/ETA/tag ────
     body = string(
-        _mr_c("▰"^full * "▱"^(10 - full), "accent"), " ",
-        _mr_c(@sprintf("%5.1f%%", 100f), "bold"), " ",
+        trace_str, "\n  ",
+        orbit_str, "  ",
+        _mr_c(@sprintf("%5.1f%%", 100f), "bold"), "  ",
         _mr_c(_PROG_LABEL[], "title"),
         _mr_c(" · T+" * _prog_hms(el), "dim"),
         isnan(eta) ? "" : _mr_c(" · ETA " * _prog_hms(eta), "dim"),
         isempty(_PROG_TAG[]) ? "" : _mr_c(" · " * _PROG_TAG[], "warn"),
         isempty(extra) ? "" : _mr_c(" · " * extra, "gold"))
     if _prog_tty()
-        _live_write("\r\033[K  " * body) # in-place redraw: one line, always current
+        # two-line in-place redraw. First frame writes fresh; subsequent
+        # frames move up + clear + rewrite both lines. \r\033[K clears a row
+        # from col 0 to EOL; \033[1A moves up 1 row. The \r before \n is needed
+        # because raw-mode TTYs don't reset column on \n (cooked-mode TTYs do
+        # but the explicit \r makes us safe in both worlds).
+        tail = orbit_str * "  " *
+               _mr_c(@sprintf("%5.1f%%", 100f), "bold") * "  " *
+               _mr_c(_PROG_LABEL[], "title") *
+               _mr_c(" · T+" * _prog_hms(el), "dim") *
+               (isnan(eta) ? "" : _mr_c(" · ETA " * _prog_hms(eta), "dim")) *
+               (isempty(_PROG_TAG[]) ? "" : _mr_c(" · " * _PROG_TAG[], "warn")) *
+               (isempty(extra) ? "" : _mr_c(" · " * extra, "gold"))
+        if first || !_LIVE_DRAWN[]
+            _live_write("  " * trace_str * "\r\n  " * tail)
+        else
+            _live_write("\r\033[1A\033[K" * trace_str * "\r\n\033[K  " * tail)
+        end
         _LIVE_DRAWN[] = true
     else
         _live_write("  " * body * "\n") # non-tty (file/pipe): append-only lines
@@ -2238,7 +2421,7 @@ function hc_verdict_table(cfg, label::String, rec::Vector{Tuple{String,Bool,Stri
 end
 
 # ═════════════════════════════════════════════════════════════════════════════
-# §3. STANDALONE CONFIG — the exact cfg.* slice the H1–H7 runners touch,
+# §3. STANDALONE CONFIG — the exact cfg.* slice the H1–H8 runners touch,
 #     with the SUITE launch defaults (so numbers match the suite runs)
 # ═════════════════════════════════════════════════════════════════════════════
 
@@ -2252,6 +2435,7 @@ mutable struct HPConfig
     hp_pass_fraction::Float64; hp_regime_mode::Symbol
     hp_deep_nulls::Int; hp_deep_configs::Int
     hp_alpha_scan::Bool; hp_alpha_scan_n::Int
+    hp_num_nmax::Int; hp_num_shufs::Int # H8 NUM-TRACE: integer-comb depth (ω = log n, n = 2..nmax), permutation draws for the gap null
     # AB physics constants (suite defaults)
     ab_t::Float64; ab_center_fraction::Float64; ab_alpha_test16::Float64
     ab_K_smooth_window::Int; ab_n_realizations::Int
@@ -2263,7 +2447,7 @@ function make_hp_config()::HPConfig
     return HPConfig(
         56, 40, 21, 0.05, 1.0, [2, 3, 5, 7, 11, 13], 40.0, 0.025, 3, 20_000,
         [28, 36, 44, 52, 60], 56, 60, 12, 0.35, 0.02, 5, 2026, 0.022, 0.90,
-        :showdown, 20, 10, true, 40,
+        :showdown, 20, 10, true, 40, 200, 200,
         1.0, 0.6, 0.5, 3, 5, 4.0, 1.0, [4], [1.0], 12_000)
 end
 
@@ -2288,6 +2472,8 @@ function params_banner(cfg::HPConfig)
                         "  |  q-grid $(cfg.hp_n_q_grid) pts on " *
                         "[" * @sprintf("%.2f", cfg.hp_q_min) * ", " *
                         @sprintf("%.2f", cfg.hp_q_max) * "]")
+    _mr_kv("int-comb",  @sprintf("H8: n = 2..%d (ω ≤ %.2f) · shufs=%d",
+                                 cfg.hp_num_nmax, log(max(2, cfg.hp_num_nmax)), cfg.hp_num_shufs))
     _mr_kv("ladder",    join(cfg.hp_L_ladder, " → ") *
                         "  |  t_max=" * @sprintf("%.0f", cfg.hp_t_max) *
                         " · dt=" * @sprintf("%.3f", cfg.hp_dt))
@@ -2955,12 +3141,13 @@ function mean_adjacent_spacing_ratio(eigs::Vector{<:Real})::Tuple{Float64,Int}
 end
 
 # ═════════════════════════════════════════════════════════════════════════
-# §6. HP AUDITS H1–H7 — verbatim lift of the v23.6 HP block
-#     (helpers, regimes, H1 DEEPEN protocol, H5 α-profile, H4 domain guard)
+# §6. HP AUDITS H1–H8 — verbatim lift of the v23.6 HP block (H1–H7)
+#     + the v25.2-NUMINA H8 gate (helpers, regimes, H1 DEEPEN protocol,
+#       H5 α-profile, H4 domain guard)
 # ═════════════════════════════════════════════════════════════════════════
 
 struct HPAudit
-    id::Int          # 301..307 (menu H1..H7; report/test_301_… directories)
+    id::Int          # 301..308 (menu H1..H8; report/test_301_… directories)
     group::String    # "A".."D"
     slug::String
     title::String
@@ -3401,6 +3588,30 @@ function _hp_register!()
             "the answer against independent GUE–GUE pairs (whose |r| distribution IS the null) plus a shuffled control. " *
             "Honest expectation: zero — and the suite now states it explicitly instead of leaving the hole open.",
             hp_h07_sequence_correlation),
+        HPAudit(308, "D", "all_numbers_trace",
+            "H8. All-numbers trace (integer comb, counting family, gap arithmetic)",
+            "integer comb at ω = log(n) for ALL n (composites = the SIGNAL, H1's decoys inverted) + N(E) arithmetic-family AICc + gap↔arithmetic — the «AB-облако кодирует все числа» test H1 does not cover",
+            "The user's hypothesis «AB-облако кодирует все числа» (2026-10-16) is STRONGER and DIFFERENT from «the AB " *
+            "cloud = ζ zeros»: it predicts structure at log(n) for EVERY n — so H1's absent prime comb does not touch it " *
+            "(under «all numbers» nothing singles the primes out). This gate INVERTS H1's decoy semantics: a peak at " *
+            "log(21)/log(33) — H1's specificity FAILURE — is here the POSITIVE signal. Three detectors on ONE pipeline, " *
+            "bit-for-bit H1's spectra (same seed streams +100/+40 000): (1) the INTEGER COMB — the raw-FT periodogram " *
+            "scanned at ω = log(n) for every n in 2..hp_num_nmax, targets split into pre-registered classes (primes / " *
+            "prime powers p^k = the explicit formula's harmonics / ≥2-distinct-prime composites = THE discriminator), " *
+            "each target judged against the P95 of its OWN null distribution (vortex-free same-α + size-matched GUE — " *
+            "per-target percentiles, because ~200 targets make a 4-draw max ceiling empty; the nulls carry the same Hann " *
+            "leakage/merging, so unresolved neighbors stay a fair test); (2) the COUNTING FAMILY on the raw N(E) " *
+            "staircase (H2's AICc machinery, new dictionary): ⌊E⌋-linear (Σ1 — the Tₙ↔n counting), divisor-summatory " *
+            "E·lnE (Σd(n) — the SAME basis as the ζ ansatz), π(E)-shape, lattice-DOS reference; (3) GAP ARITHMETIC — " *
+            "Spearman ρ(gₙ, f(n)) for f ∈ {d, Ω, φ, σ, ln} with H7's discipline (MA high-pass both sides, permutation " *
+            "null hp_num_shufs, GUE anchors) — the «hidden bijection Tₙ ↔ n» probe. REGIME SWEEP + DEEPEN (reviewer " *
+            "discipline verbatim, H1's seed streams): B/C/D vs their own regime-matched null pools, non-robust regimes " *
+            "deepened by hp_deep_configs under the pre-registered coverage-collapse rule. HONESTY (H1 convention): PASS " *
+            "certifies the DETECTOR — the ζ control must DISCRIMINATE the classes (loud on primes+powers, ≥100× quieter " *
+            "on composites, medians) and the nulls must calibrate to ≈5% measured false hits; the all-numbers verdict is " *
+            "the headline, never forced into pass/fail; a positive headline carries a mandatory L-escalation (the Hann " *
+            "main lobe 2π/span blurs n ≳ 10 at suite sizes).",
+            hp_h08_all_numbers),
     )
     for a in audits
         push!(HP_AUDITS, a)
@@ -3446,6 +3657,60 @@ function _hp_isprime(n::Int)::Bool
         d += 2
     end
     return true
+end
+
+"""Prime power p^k with k ≥ 2 by smallest-factor division (H8's class
+machinery — 1 and primes are NOT prime powers; 4, 8, 9, 16, 25, 27, 32 … are).
+The ζ explicit formula has pure tones at k·log(p) — exactly the prime-power
+logs — so this class fires under BOTH hypotheses («= ζ» and «all numbers»)
+and is non-discriminating; the ≥2-distinct-prime composites are the only
+class where the two predictions differ."""
+function _hp_isprimepower(n::Int)::Bool
+    n < 4 && return false
+    f = 2
+    while f * f <= n
+        if n % f == 0
+            m = n ÷ f
+            while m % f == 0
+                m ÷= f
+            end
+            return m == 1 # nothing but the smallest factor remains ⇒ n = f^k
+        end
+        f += 1
+    end
+    return false # n is prime (exponent 1) — not a power
+end
+
+"""Arithmetic tables d(n) (divisor count), Ω(n) (prime factors with
+multiplicity), φ(n), σ(n) for n = 1..M by classic sieves — the H8
+gap-correlator features. O(M·H(M)) ≈ 20k ops at M = 2000, no dependencies."""
+function _hp_arith_tables(M::Int)
+    M >= 1 || return Int[], Int[], Int[], Int[]
+    d = fill(0, M)
+    om = fill(0, M)
+    phi = collect(1:M)
+    sig = fill(0, M)
+    for i in 1:M, j in i:i:M   # divisor sweep: d, σ
+        d[j] += 1
+        sig[j] += i
+    end
+    for i in 2:M               # Ω: +1 per prime POWER dividing n (multiplicity!)
+        om[i] == 0 || continue # composite — already counted by its smaller primes
+        pk = i                 # i is prime: sweep p, p², p³ …
+        while pk <= M
+            for j in pk:pk:M
+                om[j] += 1
+            end
+            pk *= i
+        end
+    end
+    for i in 2:M               # φ: the standard multiplicative sieve
+        phi[i] == i || continue # i is prime (untouched by smaller factors)
+        for j in i:i:M
+            phi[j] -= phi[j] ÷ i
+        end
+    end
+    return d, om, phi, sig
 end
 
 function hp_h01_berry_keating(cfg::HPConfig, zeta_zeros::Vector{Float64})
@@ -4163,10 +4428,6 @@ function hp_h03_power_law(cfg::HPConfig, zeta_zeros::Vector{Float64})
               "the dictionary anchor; the Dirac-cone proximity of the low window is stated as its own physics " *
               "headline rather than being buried inside the rejection.")
     ok = r2min_lo >= 0.98 && r2min_bu >= 0.98 && perL_decisive && extrap_finite
-    # v23.6: extrap_finite added — the table's "L→∞ (note)" row must never
-    # disagree with the runner verdict (needs ≥ 3 ladder rungs; ALWAYS true at
-    # the real-scale 5-rung ladder, so real-scale semantics are unchanged;
-    # the done-line, the aggregate line and the runner now share one verdict). && extrap_finite
     # v23.6: extrap_finite added — the table's "L→∞ (note)" row must never
     # disagree with the runner verdict (needs ≥ 3 ladder rungs; ALWAYS true at
     # the real-scale 5-rung ladder, so real-scale semantics are unchanged;
@@ -4959,9 +5220,624 @@ function hp_h07_sequence_correlation(cfg::HPConfig, zeta_zeros::Vector{Float64})
 end
 
 
+# ── H8: all-numbers trace (integer comb + counting family + gap arithmetic) ──
+# Companion gate to H1 — tests the user's hypothesis «AB-облако кодирует все
+# числа» (v25.2-NUMINA spec), which H1 does NOT test: H1 asks the ζ-SPECIFIC
+# question («Bragg comb at ω = log p for primes p — the Riemann–Weil zero
+# signature») and treats composite-log firing as a specificity FAILURE, while
+# the all-numbers claim predicts structure at log(n) for EVERY n — under it
+# the absence of a prime-only comb is even EXPECTED. The decoy semantics are
+# INVERTED here: a peak at log(21) — H1's failure mode — is H8's positive
+# signal. Four detectors, one pipeline; see the v25.2-NUMINA header block.
+"""H8 NUM-TRACE runner: integer comb (three target classes, per-target P95
+null calibration) + arithmetic counting-family AICc showdown on the raw N(E)
++ gap↔arithmetic Spearman correlations with a permutation null + H1's regime
+sweep / DEEPEN discipline. Returns true iff the DETECTOR rows pass (the H1
+honesty convention); the all-numbers verdict is the headline and never
+enters ok."""
+function hp_h08_all_numbers(cfg::HPConfig, zeta_zeros::Vector{Float64})
+    _mr_gate_head(8, "NUM-TRACE",
+                  "All-numbers trace — integer comb, counting family, gap arithmetic",
+                  "Does the AB cloud encode ALL integers n (ω = log n, composites INCLUDED), not just the prime logs H1 scans?")
+
+    L = cfg.hp_L
+    nmax = max(10, cfg.hp_num_nmax)
+    ns = collect(2:nmax)
+    # ── the three pre-registered target classes (v25.2-NUMINA) ──
+    #   1 = primes        — fire under BOTH «= ζ» and «all numbers» (shared controls)
+    #   2 = prime powers  — p^k, k ≥ 2: the explicit formula's harmonics k·log p —
+    #                       fire under ζ too; non-discriminating
+    #   3 = composites with ≥ 2 DISTINCT prime factors — silent under ζ, LOUD
+    #                       under «all numbers» → THE discriminating class
+    #                       (H1's decoys 21/33/54/56 live here — semantics inverted)
+    cls = Int[_hp_isprime(m) ? 1 : (_hp_isprimepower(m) ? 2 : 3) for m in ns]
+    ns_p = ns[cls .== 1]
+    ns_pp = ns[cls .== 2]
+    ns_c = ns[cls .== 3]
+    ω_targets = [log(m) for m in ns]
+    ωgrid = collect(0.3:0.004:(log(nmax) + 0.25)) # H1's window convention, auto-extended to every target
+    snr_min = 50.0        # absolute single-target «loud» floor (H1's D1 threshold)
+    ctrl_min = 100.0      # ζ-control per-target floor (H1's control threshold)
+    false_rate = 0.05     # per-target false-hit expectation at P95 (the null tail mass)
+    low_cut = 13          # the semi-resolved low-n zone: log-spacing ≥ 0.06 there
+
+    @printf(" Integer comb: %d targets ω = log(n), n = 2..%d (window [0.3, %.2f] step 0.004) | classes: %d primes, %d prime powers, %d ≥2-prime composites\n",
+            length(ns), nmax, ωgrid[end], length(ns_p), length(ns_pp), length(ns_c))
+    @printf(" Discriminator class (THE «all numbers» signal — H1's decoys inverted): log(6)=%.4f, log(10)=%.4f, log(21)=%.4f, … log(%d)=%.4f\n",
+            log(6), log(10), nmax >= 21 ? log(21) : log(ns_c[1]), ns_c[end], log(ns_c[end]))
+    @printf(" Calibration: PER-TARGET P95 of each log(n)'s OWN null distribution (vortex-free same-α + size-matched GUE) — ~%d targets make a H1-style 4-draw max ceiling statistically empty\n",
+            length(ns))
+    @printf(" Cross-reference: an H1 lone bump (e.g. regime D at log(2), 19.4 vs P95 7.7) enters here as a LOW-n prime-class target; the question is whether COMPOSITE-class targets join it above their own P95s\n")
+
+    snr_of(P, med, ω) = begin
+        i = argmin(abs.(ωgrid .- ω))
+        return med > 1e-300 ? P[i] / med : 0.0
+    end
+    snrs_of_target(P, med) = [snr_of(P, med, ω) for ω in ω_targets]
+
+    """Pre-registered decision table (v25.2-NUMINA). Coverage = fraction of a
+    class above its own per-target P95; disc = median SNR(primes ∪ powers) /
+    median SNR(composites) — the SAME statistic the ζ control must pass.
+    ISOLATED BUMP needs a STRONG low-n exceedance (≥ 2× its P95 — the regime-D
+    19.4-vs-7.7 shape) with the high-n band at the false tail."""
+    classify_comb = function (hits::BitVector, snrs::Vector{Float64}, p95s::Vector{Float64}, dω::Float64)
+        cov_p = mean(hits[cls .== 1])
+        cov_pp = mean(hits[cls .== 2])
+        cov_c = mean(hits[cls .== 3])
+        n_hits = count(hits)
+        med_pab = median(vcat(snrs[cls .== 1], snrs[cls .== 2]))
+        med_cab = median(snrs[cls .== 3])
+        disc = med_cab > 1e-300 ? med_pab / med_cab : Inf
+        low = ns .<= low_cut
+        n_high = count(.!low)
+        n_hits_high = count(hits .& .!low)
+        ratios_low = snrs[low] ./ p95s[low]
+        i_str = argmax(ratios_low)
+        strength_low = ratios_low[i_str]
+        if cov_p >= 0.5 && cov_c >= 0.5
+            tok = disc <= 3.0 ? "ALL-NUMBERS" : "ALL-NUMBERS-LIKE"
+            txt = @sprintf("%s — primes %.0f%% AND composites %.0f%% above their P95s (disc ratio %.1f)%s",
+                           tok, 100.0 * cov_p, 100.0 * cov_c, disc,
+                           tok == "ALL-NUMBERS-LIKE" ?
+                               ": composites systematically quieter — kernel-limited separation at Δω, ESCALATE L before any claim" :
+                               ": composites as loud as primes — headline discovery, ESCALATE")
+        elseif cov_p >= 0.5 && cov_c <= 3.0 * false_rate
+            tok = "ζ-HARMONIC ONLY"
+            txt = @sprintf("ζ-HARMONIC ONLY — primes %.0f%% fire, composites silent (%.0f%% ≤ %.0f%% false tail): a prime/prime-power comb, NOT all numbers",
+                           100.0 * cov_p, 100.0 * cov_c, 100.0 * 3.0 * false_rate)
+        elseif cov_p >= 0.5
+            tok = "MIXED"
+            txt = @sprintf("MIXED — primes %.0f%% fire, composites %.0f%% partial: ζ main-lobe bleed vs a genuine all-numbers comb is INDISTINGUISHABLE at Δω ≈ %.2f → escalate L",
+                           100.0 * cov_p, 100.0 * cov_c, dω)
+        elseif strength_low >= 2.0 && n_hits_high <= 3.0 * false_rate * n_high + 3
+            tok = "ISOLATED BUMP"
+            txt = @sprintf("ISOLATED BUMP — strongest low-n exceedance %.1f× its P95 at log(%d), high-n band at the %.0f%% false tail: a lone resonance (the regime-D log(2) story), NOT a comb",
+                           strength_low, ns[low][i_str], 100.0 * false_rate)
+        else
+            tok = "ABSENT"
+            txt = @sprintf("ABSENT — %d/%d targets above P95 ≈ the %.0f%% false-hit tail (no arithmetic comb in ANY class)",
+                           n_hits, length(ns), 100.0 * false_rate)
+        end
+        return tok, txt, cov_p, cov_pp, cov_c, n_hits, disc
+    end
+
+    # ── stage 1: AB-cloud spectra — the SAME seed stream H1 stage 1 scanned ──
+    # (hp_seed + 100 + k, bit-for-bit): the H8 integer comb reads the spectra
+    # H1's prime comb read, so the two headlines are directly comparable.
+    P_ab = zeros(Float64, length(ωgrid))
+    n_raw = 0
+    n_used = 0
+    span = 0.0
+    for k in 1:cfg.hp_h1_configs
+        seed = cfg.hp_seed + 100 + k
+        prog_update(0.02 + 0.16 * (k - 1) / max(cfg.hp_h1_configs, 1),
+                    @sprintf("H8 config %d/%d", k, cfg.hp_h1_configs))
+        c = _hp_std_config(cfg, L, seed)
+        evals = _hp_spectrum(cfg, c)
+        n_raw = length(evals)
+        span = max(span, maximum(evals) - minimum(evals))
+        P_ab .+= _hp_raw_ft(evals, ωgrid)
+        n_used += 1
+        log_comp(@sprintf(" H8: config seed=%d raw FT on the integer comb (%d levels, span %.2f)",
+                          seed, n_raw, span))
+        ab_gc!() # suite convention: explicit collection after every heavy solve (OOM guard)
+    end
+    P_ab ./= max(n_used, 1)
+    med_ab = median(P_ab)
+    snrs_ab = snrs_of_target(P_ab, med_ab)
+    prog_update(0.18, "H8: AB spectra done")
+
+    # ── stage 2: ζ positive control — the DISCRIMINATION test ──
+    # The ζ zeros must be loud on primes AND prime powers (the k·log p tones of
+    # the explicit formula) and QUIET on the ≥2-prime composites: that is what
+    # makes the composite class a valid discriminator. Quantified as the
+    # discrimination ratio disc = median SNR(primes ∪ powers) / median
+    # SNR(composites) — MEDIANS, not maxima, so the few composites sitting in
+    # the Hann skirt of a 10⁷ prime tone cannot flip the control. disc ≥ 100 =
+    # the detector CAN tell the classes apart at this resolution/cap; the AB
+    # side is judged by the SAME ratio (reported, never gating — H1 honesty).
+    snrs_z = Float64[]
+    snrs_z_pp = Float64[]
+    snrs_z_c = Float64[]
+    Pz = Float64[]
+    med_z = 1.0
+    zeta_ok = false
+    disc_z = NaN
+    if isempty(zeta_zeros)
+        println(" ζ positive control: SKIPPED (no zeros loaded) — class discrimination UNVALIDATED → WARN")
+    else
+        zslice = zeta_zeros[1:min(end, cfg.hp_zeta_cap)]
+        prog_update(0.20, @sprintf("H8: ζ control on %d zeros", length(zslice)))
+        Pz = _hp_raw_ft(zslice, ωgrid)
+        med_z = median(Pz)
+        snrs_z = [snr_of(Pz, med_z, log(m)) for m in ns_p]
+        snrs_z_pp = [snr_of(Pz, med_z, log(m)) for m in ns_pp]
+        snrs_z_c = [snr_of(Pz, med_z, log(m)) for m in ns_c]
+        k_sig = count(>=(ctrl_min), snrs_z) + count(>=(ctrl_min), snrs_z_pp)
+        med_pz = median(vcat(snrs_z, snrs_z_pp))
+        med_cz = isempty(snrs_z_c) ? 0.0 : median(snrs_z_c)
+        disc_z = med_cz > 1e-300 ? med_pz / med_cz : Inf
+        cls_ok = k_sig >= max(2, (length(ns_p) + length(ns_pp)) ÷ 2)
+        disc_ok = disc_z >= 100.0
+        zeta_ok = cls_ok && disc_ok
+        @printf(" ζ control D1 (%d zeros): primes SNR %.1e…%.1e (median %.1e) | prime powers median %.1e | composites median %.1e (max %.1e)\n",
+                length(zslice),
+                isempty(snrs_z) ? 0.0 : minimum(snrs_z), isempty(snrs_z) ? 0.0 : maximum(snrs_z),
+                isempty(snrs_z) ? 0.0 : median(snrs_z),
+                isempty(snrs_z_pp) ? 0.0 : median(snrs_z_pp), med_cz,
+                isempty(snrs_z_c) ? 0.0 : maximum(snrs_z_c))
+        @printf("   → %d/%d prime-class targets ≥ %.0f → comb %s | discrimination ratio %.1e → detector %s\n",
+                k_sig, length(ns_p) + length(ns_pp), ctrl_min,
+                cls_ok ? "CONFIRMED (primes + harmonics)" : "NOT CONFIRMED",
+                disc_z, disc_ok ? "DISCRIMINATES the classes — valid H8 detector" :
+                                  "CANNOT discriminate — H8 verdicts INVALID at this resolution/cap (raise hp_zeta_cap/L)")
+    end
+
+    # ── stage 3: baseline null pool → PER-TARGET P95 ──
+    # hp_deep_nulls vortex-free (same α, W = 0 — same smooth DOS skeleton, no
+    # vortex phases) + hp_deep_nulls size-matched GUE draws, fresh +60_000
+    # streams (disjoint from every other HP stream). Each draw contributes an
+    # SNR vector over ALL targets; the P95 is PER TARGET, so a target sitting
+    # in a busy neighborhood (Hann leakage from its neighbors) is judged
+    # against nulls that leak the SAME way — the calibration stays fair at ANY
+    # resolution. The pool size is 2×hp_deep_nulls, NOT H1's 2+2: H8 scores
+    # coverage RATES (~5% false tail), and a percentile needs draws to stand on.
+    prog_update(0.24, "H8: baseline null pool")
+    n_null = max(2, cfg.hp_deep_nulls)
+    null_draws = Vector{Vector{Float64}}() # per draw: SNR at every target
+    for i in 1:n_null
+        c0 = ABCloudConfig(L, L, Vortex[], cfg.ab_alpha_test16, cfg.ab_t, :open,
+                           0.0, cfg.hp_seed + 60_000 + 700 + i, :monumental)
+        ev0 = _hp_spectrum(cfg, c0)
+        P0 = _hp_raw_ft(ev0, ωgrid)
+        push!(null_draws, snrs_of_target(P0, median(P0)))
+        log_comp(@sprintf(" H8: vortex-free null %d/%d (seed=%d), max target-SNR %.2f",
+                          i, n_null, cfg.hp_seed + 60_000 + 700 + i, maximum(null_draws[end])))
+        ab_gc!()
+    end
+    for i in 1:n_null
+        gue = gue_matrix_eigenvalues(n_raw; seed = cfg.hp_seed + 60_000 + 800 + i)
+        Pg = _hp_raw_ft(gue, ωgrid)
+        push!(null_draws, snrs_of_target(Pg, median(Pg)))
+        log_comp(@sprintf(" H8: GUE null %d/%d (seed=%d, n=%d), max target-SNR %.2f",
+                          i, n_null, cfg.hp_seed + 60_000 + 800 + i, n_raw, maximum(null_draws[end])))
+        ab_gc!()
+    end
+    p95_ab = Float64[quantile(Float64[d[j] for d in null_draws], 0.95) for j in eachindex(ns)]
+    hits_ab = snrs_ab .> p95_ab
+    false_meas = mean(Float64[count(d .> p95_ab) for d in null_draws]) / length(ns)
+    tok_ab, txt_ab, cov_p, cov_pp, cov_c, n_hits, disc_ab =
+        classify_comb(hits_ab, snrs_ab, p95_ab, 2π / max(span, 1e-9))
+    med_p95 = median(p95_ab)
+    # resolution honesty: the Hann main-lobe scale of the raw FT — how many
+    # targets are individually separable (the nulls merge identically, so the
+    # coverage statistic stays fair; individual composite-peak CLAIMS do not)
+    dω = 2π / max(span, 1e-9)
+    dω_nn = Float64[]
+    for (i, ω) in enumerate(ω_targets)
+        if i == 1
+            push!(dω_nn, ω_targets[2] - ω_targets[1])
+        elseif i == length(ns)
+            push!(dω_nn, ω_targets[end] - ω_targets[end-1])
+        else
+            push!(dω_nn, min(ω_targets[i+1] - ω_targets[i], ω_targets[i] - ω_targets[i-1]))
+        end
+    end
+    n_res = count(dω_nn .> dω)
+    @printf("\n AB-cloud integer comb (%d-config ensemble, %d raw levels, span %.2f): %d/%d targets above their P95 (false-hit expectation ≈ %.0f, measured null tail %.1f%%)\n",
+            n_used, n_raw, span, n_hits, length(ns), false_rate * length(ns), 100.0 * false_meas)
+    @printf("   coverage: primes %d/%d (%.0f%%) | prime powers %d/%d (%.0f%%) | composites %d/%d (%.0f%%)\n",
+            count(hits_ab[cls .== 1]), length(ns_p), 100.0 * cov_p,
+            count(hits_ab[cls .== 2]), length(ns_pp), 100.0 * cov_pp,
+            count(hits_ab[cls .== 3]), length(ns_c), 100.0 * cov_c)
+    @printf("   class SNR medians: prime-class %.2f vs composite %.2f → discrimination ratio %.2f (ζ control: %.1e)\n",
+            median(vcat(snrs_ab[cls .== 1], snrs_ab[cls .== 2])), median(snrs_ab[cls .== 3]),
+            disc_ab, disc_z)
+    @printf("   null pool: %d draws (%d vortex-free + %d GUE) → per-target P95 median %.2f (min %.2f / max %.2f)\n",
+            length(null_draws), n_null, n_null, med_p95, minimum(p95_ab), maximum(p95_ab))
+    top5 = sortperm(snrs_ab; rev = true)[1:min(5, end)]
+    @printf("   top targets: %s\n",
+            join([@sprintf("log(%d)=%.3f SNR %.1f%s", ns[i], ω_targets[i], snrs_ab[i],
+                           hits_ab[i] ? " ✓" : "") for i in top5], "  "))
+    @printf("   resolution: Hann scale Δω ≈ %.3f — %d/%d targets individually resolvable%s; coverage stays null-fair, individual claims need L ≫\n",
+            dω, n_res, length(ns),
+            n_res > 0 ? @sprintf(" (n ≲ %d)", ns[findlast(dω_nn .> dω)]) : " (NONE at this span — class statistics carry the verdict)")
+    _mr_status(startswith(tok_ab, "ALL-NUMBERS") ? "◆" :
+               (tok_ab == "ζ-HARMONIC ONLY" || tok_ab == "MIXED") ? "◆" : "●",
+               startswith(tok_ab, "ALL-NUMBERS") || tok_ab == "ζ-HARMONIC ONLY" ? "gold" : "accent",
+               "INTEGER COMB VERDICT: " * txt_ab)
+    log_comp(@sprintf(" H8: baseline comb %s — coverage primes %.2f / powers %.2f / composites %.2f, disc %.2f, false tail %.3f",
+                      tok_ab, cov_p, cov_pp, cov_c, disc_ab, false_meas))
+    nulls_ok = length(null_draws) >= 4 && all(isfinite, p95_ab) && med_p95 > 0.0 &&
+               false_meas > 0.0 && false_meas <= 0.20
+    # ── stage 4: regime sweep + DEEPEN (H1's reviewer discipline, verbatim streams) ──
+    # The comb verdict above is measured at the HP-standard point (regime A).
+    # Before ANY headline (absent OR present) becomes a model-class statement
+    # it must hold at the H5 showdown's best-faith points B/C/D — each against
+    # its OWN regime-matched null pool (reviewer round 2). Pool size = the SAME
+    # 2×hp_deep_nulls backbone as the baseline (coverage rates need
+    # percentiles, not maxima); seeds are H1's sweep/deepen streams
+    # (+40 000+1 000j+…), so where H1 deepened a regime the null draws are
+    # bit-for-bit the same spectra. A regime reading anything but ABSENT —
+    # INCLUDING an ISOLATED BUMP (a lone exceedance above the nulls is exactly
+    # what H1's discipline flags MARGINAL, cf. the regime-D log(2) story) —
+    # triggers DEEPEN: the AB ensemble is extended by hp_deep_configs configs
+    # and re-classified against the SAME (already deep) null pool —
+    # pre-registered: a composite coverage collapsing into the false tail was
+    # the nulls' own noise; a standing coverage is the headline.
+    reg_rows = Tuple{String,String,Float64,Float64,Float64,String}[] # (key, token, cov_p, cov_pp, cov_c, verdict)
+    reg_ctx = Dict{String,Tuple{Int,Vector{Float64},Vector{Vector{Float64}}}}() # key → (raw levels/config, AB periodogram, null draws)
+    deep_info = Tuple{String,Float64,Float64,Int,String}[] # (key, deep AB max SNR, P95 of null maxima, n draws, deep token)
+    deep_draws = Dict{String,Vector{Float64}}() # key → pooled null max-SNR draws (plot data)
+    sweep_ok = true
+    if cfg.hp_regime_mode === :showdown
+        sweep = [R for R in hp_regimes(cfg) if !(R.nv_mode === :suite && R.alpha_mode === :suite)] # regime A already measured above
+        @printf("\n Regime sweep (reviewer discipline): %d extra parameter points × %d configs, each vs its OWN regime-matched per-target nulls (2×%d draws)\n",
+                length(sweep), cfg.hp_h1_configs, n_null)
+        for (j, R) in enumerate(sweep)
+            prog_update(0.44 + 0.22 * (j - 1) / max(length(sweep), 1),
+                        @sprintf("H8 regime %s (%d/%d)", R.key, j, length(sweep)))
+            P_r = zeros(Float64, length(ωgrid))
+            n_r = 0
+            n_rraw = 0
+            for k in 1:cfg.hp_h1_configs
+                seed = cfg.hp_seed + 40_000 + 1_000 * j + k # H1's sweep stream — the same spectra the prime comb scanned
+                ev = _hp_spectrum(cfg, _hp_regime_config(cfg, L, seed, R))
+                n_rraw = length(ev)
+                P_r .+= _hp_raw_ft(ev, ωgrid)
+                n_r += 1
+            end
+            P_r ./= max(n_r, 1)
+            draws_r = Vector{Vector{Float64}}()
+            for i in 1:n_null # vortex-free at the SAME regime α (H1's deepen stream)
+                c_vf = ABCloudConfig(L, L, Vortex[], _hp_regime_alpha(cfg, R), cfg.ab_t, :open,
+                                     0.0, cfg.hp_seed + 40_000 + 1_000 * j + 700 + i, :monumental)
+                Pv = _hp_raw_ft(_hp_spectrum(cfg, c_vf), ωgrid)
+                push!(draws_r, snrs_of_target(Pv, median(Pv)))
+                ab_gc!()
+            end
+            for i in 1:n_null # size-matched GUE nulls (H1's deepen stream)
+                Pg = _hp_raw_ft(gue_matrix_eigenvalues(n_rraw;
+                                    seed = cfg.hp_seed + 40_000 + 1_000 * j + 800 + i), ωgrid)
+                push!(draws_r, snrs_of_target(Pg, median(Pg)))
+                ab_gc!()
+            end
+            p95_r = Float64[quantile(Float64[d[l] for d in draws_r], 0.95) for l in eachindex(ns)]
+            snrs_r = snrs_of_target(P_r, median(P_r))
+            hits_r = snrs_r .> p95_r
+            tok_r, txt_r, covp_r, covpp_r, covc_r, _, _ =
+                classify_comb(hits_r, snrs_r, p95_r, 2π / max(span, 1e-9))
+            push!(reg_rows, (R.key, tok_r, covp_r, covpp_r, covc_r, txt_r))
+            reg_ctx[R.key] = (n_rraw, copy(P_r), draws_r)
+            deep_draws[R.key] = Float64[maximum(d) for d in draws_r]
+            @printf(" regime %s (%s): max target-SNR %.1f at log(%d) | coverage primes %.0f%% / composites %.0f%% (%d null draws) → %s\n",
+                    R.key, _hp_regime_desc(cfg, L, R), maximum(snrs_r), ns[argmax(snrs_r)],
+                    100.0 * covp_r, 100.0 * covc_r, length(draws_r), tok_r)
+            log_comp(@sprintf(" H8 regime %s: coverage primes %.2f / powers %.2f / composites %.2f → %s",
+                              R.key, covp_r, covpp_r, covc_r, tok_r))
+            ab_gc!()
+        end
+        # DEEPEN: every regime whose shallow reading is anything but ABSENT
+        marginal_keys = String[rr[1] for rr in reg_rows if rr[2] != "ABSENT"]
+        if !isempty(marginal_keys) && cfg.hp_deep_configs >= 1
+            @printf("\n DEEPEN protocol (H1 discipline): %d regime(s) reading above a robust negative (%s) → AB ensemble +%d configs, re-classified against the SAME %d-draw null pool; pre-registered: coverage collapsing into the %.0f%% false tail was null noise, a standing coverage is the headline\n",
+                    length(marginal_keys), join(marginal_keys, ","), cfg.hp_deep_configs,
+                    2 * n_null, 100.0 * 3.0 * false_rate)
+            for (j, R) in enumerate(sweep)
+                R.key in marginal_keys || continue
+                n_rraw_d, P_r0, draws_d = reg_ctx[R.key]
+                prog_update(0.44 + 0.22 * (j - 0.5) / max(length(sweep), 1),
+                            @sprintf("H8 deepen regime %s", R.key))
+                P_ext = copy(P_r0)
+                n_ext = cfg.hp_h1_configs
+                for i in 1:cfg.hp_deep_configs
+                    seed = cfg.hp_seed + 40_000 + 1_000 * j + 600 + i # H1's deepen AB sub-stream
+                    ev = _hp_spectrum(cfg, _hp_regime_config(cfg, L, seed, R))
+                    P_ext .+= _hp_raw_ft(ev, ωgrid)
+                    n_ext += 1
+                    log_comp(@sprintf(" H8 deepen [%s] AB config %d/%d (seed=%d)",
+                                      R.key, i, cfg.hp_deep_configs, seed))
+                end
+                P_ext ./= max(n_ext, 1)
+                snrs_deep = snrs_of_target(P_ext, median(P_ext))
+                p95_deep = Float64[quantile(Float64[d[l] for d in draws_d], 0.95) for l in eachindex(ns)]
+                hits_d = snrs_deep .> p95_deep
+                tok_d, txt_d, covp_d, covpp_d, covc_d, _, _ =
+                    classify_comb(hits_d, snrs_deep, p95_deep, 2π / max(span, 1e-9))
+                idx = findfirst(rr -> rr[1] == R.key, reg_rows)
+                reg_rows[idx] = (R.key, tok_d, covp_d, covpp_d, covc_d, txt_d)
+                push!(deep_info, (R.key, maximum(snrs_deep),
+                                  quantile(Float64[maximum(d) for d in draws_d], 0.95),
+                                  length(draws_d), tok_d))
+                @printf("   [%s] deep AB (%d configs): max target-SNR %.1f at log(%d) | coverage primes %.0f%% / composites %.0f%% vs per-target P95 of %d draws → %s\n",
+                        R.key, n_ext, maximum(snrs_deep), ns[argmax(snrs_deep)],
+                        100.0 * covp_d, 100.0 * covc_d, length(draws_d), tok_d)
+                log_comp(@sprintf(" H8 deepen [%s]: deep coverage primes %.2f / composites %.2f → %s",
+                                  R.key, covp_d, covc_d, tok_d))
+                ab_gc!()
+            end
+        elseif !isempty(marginal_keys)
+            println(" DEEPEN protocol: SKIPPED (hp_deep_configs < 1) — the shallow readings stand, honestly flagged")
+        end
+        sweep_ok = all(rr[2] == "ABSENT" for rr in reg_rows)
+    else
+        println("\n Regime sweep: SKIPPED (:$((cfg.hp_regime_mode)) mode — HP-standard point only; switch hp_regime_mode to :showdown for the reviewer's cross-check)")
+    end
+    # ── stage 5: counting-family showdown on the RAW N(E) (H2 machinery, new dictionary) ──
+    # H2 asked the ζ-vs-lattice question. The «all numbers» hypothesis makes a
+    # DIFFERENT counting prediction: if Tₙ ↔ n then N(E) ∝ E (the ⌊E⌋ family);
+    # a divisor-encoding would give the Σ_{n≤E}d(n) shape E·lnE + (2γ−1)E —
+    # the SAME BASIS H2's ζ-ansatz uses (coefficients, not basis, separate the
+    # stories); π(E) ~ E/lnE is the prime-encoding shape. All fitted on the
+    # same staircase as H2's machinery, AICc decides, |Δ| > 10 decisive.
+    prog_update(0.84, "H8: counting-family fits")
+    Lw = cfg.hp_L_weyl
+    seedN = cfg.hp_seed + 60_000 + 101
+    rawN = _hp_spectrum(cfg, _hp_std_config(cfg, Lw, seedN))
+    refN = _hp_spectrum(cfg, ABCloudConfig(Lw, Lw, Vortex[], cfg.ab_alpha_test16,
+                                           cfg.ab_t, :open, 0.0, seedN + 1, :monumental))
+    posN = filter(>(1e-9), rawN) # positive branch of the RAW spectrum (H2 convention)
+    n_grid = clamp(cfg.hp_weyl_grid, 20, 400)
+    Eg = collect(range(posN[1], posN[end]; length = n_grid))
+    N_raw = Float64[searchsortedlast(posN, E) for E in Eg]
+    N_ref = Float64[searchsortedlast(refN, E) for E in Eg]
+    npts = length(Eg)
+    lw = max.(log.(Eg), 0.05) # π(E) basis guard: E/lnE undefined below E = 1 — clamped, reported
+    X0 = hcat(Eg, ones(npts))                              # M0 ⌊E⌋-linear: N = a·E + b (Σ_{n≤E}1, the Tₙ↔n counting)
+    X1 = hcat([E * log(E) for E in Eg], Eg, ones(npts))    # M1 divisor-summatory: a·E·lnE + b·E + c (Σd(n) — ζ's basis too)
+    X2 = hcat(Eg ./ lw, ones(npts))                        # M2 prime-counting: a·E/lnE + b (π(E))
+    X3 = hcat(N_ref, ones(npts))                           # M3 lattice DOS: the vortex-free cumulative spectrum
+    c0, rss0, r20 = _hp_linlsq(X0, N_raw); a0 = _hp_aicc(npts, rss0, 2)
+    c1, rss1, r21 = _hp_linlsq(X1, N_raw); a1 = _hp_aicc(npts, rss1, 3)
+    c2, rss2, r22 = _hp_linlsq(X2, N_raw); a2 = _hp_aicc(npts, rss2, 2)
+    c3, rss3, r23 = _hp_linlsq(X3, N_raw); a3 = _hp_aicc(npts, rss3, 2)
+    models = Tuple{String,Float64,Float64,Int,Vector{Float64},Matrix{Float64}}[
+        ("M0 ⌊E⌋-linear (Σ1: Tₙ↔n)", a0, r20, 2, c0, X0),
+        ("M1 Σd(n) E·lnE-basis (ζ-basis)", a1, r21, 3, c1, X1),
+        ("M2 π(E) E/lnE", a2, r22, 2, c2, X2),
+        ("M3 lattice DOS (vortex-free)", a3, r23, 2, c3, X3),
+    ]
+    aiccs = Float64[m[2] for m in models]
+    ordered = sortperm(aiccs)
+    best_i = ordered[1]
+    daicc_best = aiccs[ordered[2]] - aiccs[best_i]
+    r2_best = models[best_i][3]
+    count_ok = npts >= 30 && isfinite(r2_best) && r2_best >= 0.95
+    @printf("\n Counting-family showdown on the raw N(E) (%d×%d lattice, %d positive levels, %d grid points):\n",
+            Lw, Lw, length(posN), npts)
+    for (i, m) in enumerate(models)
+        @printf("   %-30s R² = %.5f  AICc = %+.1f%s\n", m[1], m[3], m[2],
+                i == best_i ? "  ← best" : "")
+    end
+    @printf("   ΔAICc(best ↔ runner-up) = %.1f (%s) → winner: %s\n",
+            daicc_best, daicc_best > 10.0 ? "decisive" : "INCONCLUSIVE (|Δ| ≤ 10)",
+            models[best_i][1])
+    @printf("   (M1's basis IS H2's ζ-ansatz basis — the FAMILY ordering carries the arithmetic story; ζ's frozen 1/2π coefficients stay H2's business)\n")
+    log_comp(@sprintf(" H8 counting family: best %s (AICc %.1f, R² %.5f), ΔAICc %.1f",
+                      models[best_i][1], models[best_i][2], r2_best, daicc_best))
+    ab_gc!()
+
+    # ── stage 6: gap ↔ arithmetic correlations (the «hidden bijection Tₙ ↔ n» probe) ──
+    # H7 correlates AB fluctuations with ζ's; NOBODY correlated the level GAPS
+    # with arithmetic functions of the level INDEX — the direct test of «Tₙ
+    # codes n». H7's discipline applies: a moving-average high-pass on BOTH
+    # sides (the slow DOS curvature is common-mode and would fake a trend
+    # correlation with the smooth ln n), Spearman ranks, and the honest null =
+    # permutations of the feature against the fixed gap series + independent
+    # GUE gap anchors. Honest expectation: zero.
+    prog_update(0.88, "H8: gap-arithmetic correlations")
+    seedG = cfg.hp_seed + 60_000 + 600
+    evG = _hp_spectrum(cfg, _hp_std_config(cfg, L, seedG))
+    bandG = central_band_eigs(evG, cfg.ab_center_fraction)
+    gaps = diff(bandG) # gap n sits between levels n and n+1 — its index is n
+    m_g = length(gaps)
+    d_t, om_t, phi_t, sig_t = _hp_arith_tables(m_g + 1)
+    feats = Tuple{String,Vector{Float64}}[
+        ("d(n)",  Float64[d_t[k] for k in 1:m_g]),
+        ("Ω(n)",  Float64[om_t[k] for k in 1:m_g]),
+        ("φ(n)",  Float64[phi_t[k] for k in 1:m_g]),
+        ("σ(n)",  Float64[sig_t[k] for k in 1:m_g]),
+        ("ln(n)", log.(collect(1.0:Float64(m_g)))),
+    ]
+    win_g = max(3, round(Int, 0.05 * m_g))
+    g_hp = _hp_fluct_hp(gaps; win = win_g)
+    n_shuf = max(50, cfg.hp_num_shufs)
+    rng_g = MersenneTwister(cfg.hp_seed + 60_000 + 950)
+    # independent GUE gap anchors FIRST — each anchor is one more draw of
+    # «independent gaps vs f(n)», so they are POOLED into the per-function null
+    # (demanding an anchor sit inside the shuffle-only P95 is a ~40% false-alarm
+    # design across 5 functions × 2 anchors — the classic calibration trap; the
+    # pooled band keeps the anchors honest without over-tightening it)
+    anchor_ρ = Dict{String,Float64}()
+    for k in 1:2
+        gb = sort(central_band_eigs(gue_matrix_eigenvalues(length(bandG);
+                            seed = cfg.hp_seed + 60_000 + 900 + k), 1.0))
+        gg_hp = _hp_fluct_hp(diff(gb); win = win_g)
+        for (nm, f) in feats
+            f_hp = _hp_fluct_hp(f; win = win_g)
+            anchor_ρ[nm] = max(get(anchor_ρ, nm, 0.0), abs(_hp_spearman(gg_hp, f_hp)))
+        end
+        ab_gc!()
+    end
+    ρ_ab = Float64[]
+    bands_f = Float64[]
+    @printf("\n Gap↔arithmetic correlations (central band %d levels → %d gaps, MA high-pass win=%d, Spearman):\n",
+            length(bandG), m_g, win_g)
+    for (fi, (nm, f)) in enumerate(feats)
+        f_hp = _hp_fluct_hp(f; win = win_g)
+        ρ = _hp_spearman(g_hp, f_hp)
+        sh = Float64[abs(_hp_spearman(g_hp, f_hp[randperm(rng_g, m_g)])) for _ in 1:n_shuf]
+        b95 = quantile(vcat(sh, get(anchor_ρ, nm, 0.0)), 0.95) # shuffles ∪ GUE anchors
+        push!(ρ_ab, ρ)
+        push!(bands_f, b95)
+        @printf("   %-6s ρ = %+.4f  | null |ρ| P95 = %.4f (permutation ∪ GUE anchors) → %s\n",
+                nm, ρ, b95, abs(ρ) > b95 ? "OUTSIDE" : "inside")
+        prog_update(0.88 + 0.08 * fi / length(feats), @sprintf("H8: gap correlations %d/%d", fi, length(feats)))
+        ab_gc!()
+    end
+    band_g = maximum(bands_f)
+    i_mx = argmax(abs.(ρ_ab))
+    gue_ρmax = maximum(values(anchor_ρ); init = 0.0)
+    gap_ok = n_shuf >= 100
+    gap_detected = abs(ρ_ab[i_mx]) > band_g
+    @printf("   max |ρ_AB| = %.4f (%s) vs pooled band %.4f | GUE anchors max |ρ| = %.4f (pooled into the null) → %s\n",
+            abs(ρ_ab[i_mx]), feats[i_mx][1], band_g, gue_ρmax,
+            gap_detected ? "GAP-ARITHMETIC CORRELATION DETECTED" : "no gap-arithmetic correlation")
+    log_comp(@sprintf(" H8 gaps: max |rho| %.4f (%s), band %.4f, GUE anchor %.4f, %d shuffles",
+                      abs(ρ_ab[i_mx]), feats[i_mx][1], band_g, gue_ρmax, n_shuf))
+
+    # ── the verdict table (H1 convention: scored = detector + method; the
+    #    all-numbers headline is physics and never forced into pass/fail) ──
+    prog_update(0.98, "H8: verdict")
+    rec = Tuple{String,Bool,String}[]
+    push!(rec, ("ζ control discriminates (D1)", zeta_ok,
+        isempty(zeta_zeros) ? "skipped — no zeros loaded" :
+        @sprintf("prime-class comb %s; discrimination ratio %.1e (composites ≥100× quieter) → detector %s",
+                 count(>=(ctrl_min), vcat(snrs_z, snrs_z_pp)) >= max(2, (length(ns_p) + length(ns_pp)) ÷ 2) ?
+                     "confirmed" : "NOT confirmed", disc_z,
+                 disc_z >= 100.0 ? "valid" : "INVALID — classes unresolvable at this cap/resolution")))
+    push!(rec, ("null calibration (per-target P95)", nulls_ok,
+        @sprintf("%d draws (%d vortex-free + %d GUE), per-target P95 median %.2f; measured null tail %.1f%% (target ≈ %.0f%%)",
+                 length(null_draws), n_null, n_null, med_p95, 100.0 * false_meas, 100.0 * false_rate)))
+    push!(rec, ("integer comb verdict (headline)", true,
+        @sprintf("baseline: %s — primes %.0f%%, powers %.0f%%, composites %.0f%% above their P95s; disc %.2f",
+                 tok_ab, 100.0 * cov_p, 100.0 * cov_pp, 100.0 * cov_c, disc_ab)))
+    push!(rec, ("comb regime-robust (sweep)", sweep_ok,
+        isempty(reg_rows) ? "skipped — :$((cfg.hp_regime_mode)) mode (single HP-standard point)" :
+        @sprintf("tokens per regime: %s%s",
+                 join([@sprintf("[%s] %s (composites %.0f%%)", rr[1], rr[2], 100.0 * rr[5]) for rr in reg_rows], " "),
+                 isempty(deep_info) ? "" :
+                     @sprintf(" DEEPENED: %s", join([@sprintf("[%s] %s", di[1], di[5]) for di in deep_info], ", ")))))
+    push!(rec, ("counting-family fits (N(E))", count_ok,
+        @sprintf("winner %s (R² %.5f%s) by %.1f AICc over the runner-up%s",
+                 models[best_i][1], r2_best, r2_best >= 0.95 ? "" : " < the 0.95 floor",
+                 daicc_best, daicc_best > 10.0 ? "" : " — INCONCLUSIVE (|Δ| ≤ 10)")))
+    push!(rec, ("gap↔arithmetic correlations", gap_ok,
+        @sprintf("max |ρ| %.4f (%s) vs pooled null band %.4f (%d shuffles ∪ 2 GUE anchors); anchors max %.4f%s",
+                 abs(ρ_ab[i_mx]), feats[i_mx][1], band_g, n_shuf, gue_ρmax,
+                 n_shuf >= 100 ? "" : " — <100 shuffles, band noisy (method WARN)")))
+    hc_verdict_table(cfg, "Test H8", rec; pass_label = "HP audit")
+
+    # ── report plots ──
+    if REP.current !== nothing
+        p1 = RepPlot(@sprintf("H8 — integer-comb periodogram (coverage: primes %.0f%%, powers %.0f%%, composites %.0f%%; verdict: %s)",
+                              100.0 * cov_p, 100.0 * cov_pp, 100.0 * cov_c, tok_ab),
+                     "angular frequency ω", "P(ω)/median(P)  [series ratios]")
+        isempty(zeta_zeros) || add_series!(p1, "ζ control SNR", ωgrid, Pz ./ med_z, 'l')
+        add_series!(p1, "AB-cloud SNR", ωgrid, P_ab ./ med_ab, 'l')
+        add_series!(p1, "prime targets", ω_targets[cls .== 1], snrs_ab[cls .== 1], 's')
+        add_series!(p1, "prime-power targets", ω_targets[cls .== 2], snrs_ab[cls .== 2], 's')
+        add_series!(p1, "composite targets (THE discriminator)", ω_targets[cls .== 3], snrs_ab[cls .== 3], 's')
+        rep_plot!(p1)
+        p2 = RepPlot("H8 — per-target calibration: SNR at ω = log(n) vs its OWN null P95 (hits above the line)",
+                     "target n", "SNR")
+        add_series!(p2, "AB SNR", Float64.(ns), snrs_ab, 's')
+        add_series!(p2, "per-target P95(null)", Float64.(ns), p95_ab, 'l')
+        rep_plot!(p2)
+        p3 = RepPlot(@sprintf("H8 — raw N(E) counting family: winner %s (ΔAICc = %.1f, R² = %.4f)",
+                              models[best_i][1], daicc_best, r2_best),
+                     "E (hopping units)", "cumulative count N(E)")
+        add_series!(p3, "raw N(E) staircase", Eg, N_raw, 's')
+        for m in models
+            add_series!(p3, m[1], Eg, m[6] * m[5], 'l')
+        end
+        rep_plot!(p3)
+        isempty(reg_rows) || begin
+            reg_all = vcat([("A", cov_p, cov_c)], [(rr[1], rr[3], rr[5]) for rr in reg_rows])
+            p4 = RepPlot("H8 — regime sweep: class coverage per regime vs its own per-target null P95s",
+                         "parameter regime (A = baseline, then B/C/D of the H5 showdown)",
+                         "coverage above P95, %")
+            add_series!(p4, "primes coverage %", collect(1.0:Float64(length(reg_all))),
+                        [100.0 * rr[2] for rr in reg_all], 's')
+            add_series!(p4, "composites coverage %", collect(1.0:Float64(length(reg_all))),
+                        [100.0 * rr[3] for rr in reg_all], 's')
+            add_series!(p4, @sprintf("false-hit tail %.0f%%", 100.0 * false_rate),
+                        [0.5, Float64(length(reg_all)) + 0.5], fill(100.0 * false_rate, 2), 'l')
+            rep_plot!(p4)
+        end
+        isempty(deep_info) || begin
+            p5 = RepPlot("H8 — DEEPEN protocol: null max-SNR distributions vs the deep AB bump (coverage verdict in the table)",
+                         "null draw # (sorted within each deepened regime; vortex-free + GUE pooled)", "max target-SNR of the realization")
+            xoff = 0.0
+            for di in deep_info
+                draws = get(deep_draws, di[1], Float64[])
+                isempty(draws) && continue
+                sd = sort(draws)
+                add_series!(p5, @sprintf("[%s] null maxima (n=%d)", di[1], length(sd)),
+                            collect(1.0:Float64(length(sd))) .+ xoff, sd, 's')
+                add_series!(p5, @sprintf("[%s] P95 = %.1f", di[1], di[3]),
+                            [xoff + 0.5, xoff + length(sd) - 0.5], [di[3], di[3]], 'l')
+                add_series!(p5, @sprintf("[%s] deep AB max = %.1f", di[1], di[2]),
+                            [xoff + 0.5, xoff + length(sd) - 0.5], [di[2], di[2]], 'l')
+                xoff += length(sd) + 1.0
+            end
+            rep_plot!(p5)
+        end
+    end
+    rep_note!("H1 and H8 ask DIFFERENT questions on the SAME detector: H1 — «is there a Bragg comb at ω = log p " *
+              "for PRIMES p?» (the Riemann–Weil zero signature; composite firing there is a specificity FAILURE), " *
+              "H8 — «does the AB cloud encode ALL integers n?» (the user's hypothesis; composite firing is the POSITIVE " *
+              "signal — the decoy semantics are inverted). Under «all numbers» H1's empty prime comb is even EXPECTED, " *
+              "so H1's verdicts neither confirm nor refute this gate. TARGET CLASSES (pre-registered): primes fire under " *
+              "BOTH hypotheses; prime powers p^k are the explicit formula's harmonics k·log p (fire under ζ too); composites " *
+              "with ≥2 DISTINCT prime factors (log 6, log 10, log 21 …) are silent under ζ and loud under «all numbers» — " *
+              "the only class where the predictions differ. CALIBRATION: per-target P95 of each log(n)'s OWN null " *
+              "distribution (vortex-free same-α + size-matched GUE) — with ~200 targets a H1-style 4-draw max ceiling is " *
+              "statistically empty, and per-target percentiles keep the test fair at ANY resolution (the nulls carry the " *
+              "same Hann leakage/merging as the AB spectrum). The measured null tail (~5%) is the calibrated false-hit " *
+              "rate; coverage is judged against it. RESOLUTION HONESTY: the Hann main lobe is 2π/span — at suite L most " *
+              "targets beyond n ≈ 10 are NOT individually separable; COVERAGE stays null-fair, but any POSITIVE headline " *
+              "carries a mandatory L-escalation (span ∝ L ⇒ Δω ∝ 1/L) before individual composite peaks may be claimed. " *
+              "The discrimination ratio (median prime-class SNR / median composite SNR) is the same statistic the ζ control " *
+              "must pass at ≥ 100 to validate the detector — medians, so Hann-skirt bleed of a 10⁷ prime tone into a few " *
+              "neighboring composites cannot flip it. COUNTING FAMILY: M0 (a·E+b) is the ⌊E⌋/Σ1 counting a Tₙ↔n bijection " *
+              "predicts; M1 (a·E·lnE+b·E+c) is the divisor-summatory shape — the SAME basis as H2's ζ-ansatz (the family " *
+              "ordering, not the basis, carries the arithmetic story); M2 (a·E/lnE+b) is the π(E) prime-encoding shape; " *
+              "M3 is the vortex-free lattice DOS. GAP ARITHMETIC: Spearman ρ(gₙ, f(n)) for f ∈ {d, Ω, φ, σ, ln} after a " *
+              "moving-average high-pass on BOTH sides (the slow DOS curvature is common-mode — unfiltered it fakes a trend " *
+              "correlation with the smooth ln n); the null is PERMUTATION (hp_num_shufs shuffles of the feature against the " *
+              "fixed gap series) plus independent GUE gap anchors. REGIME SWEEP + DEEPEN follow H1's reviewer discipline " *
+              "verbatim, with the same seed streams — where H1 deepened a regime, H8's null draws are bit-for-bit the same " *
+              "spectra, so the two gates' headlines are directly comparable.")
+    ok = zeta_ok && nulls_ok && sweep_ok && count_ok && gap_ok # detector validity + regime-robustness + method; the comb verdict is the headline
+    log_result(@sprintf(" Test H8: ζ control %s (disc %.1e), null pool %d draws (tail %.1f%%), AB comb coverage primes %.0f%% / powers %.0f%% / composites %.0f%% → %s%s → %s",
+                        zeta_ok ? "validated" : isempty(zeta_zeros) ? "skipped" : "NOT validated",
+                        disc_z, length(null_draws), 100.0 * false_meas,
+                        100.0 * cov_p, 100.0 * cov_pp, 100.0 * cov_c, tok_ab,
+                        isempty(reg_rows) ? "" :
+                            @sprintf("; sweep: %s", all(rr -> rr[2] == "ABSENT", reg_rows) ?
+                                         "every regime ABSENT" :
+                                         join([@sprintf("[%s] %s", rr[1], rr[2]) for rr in reg_rows], ", ")),
+                        ok ? msg(cfg, "pass") : msg(cfg, "warn")))
+    return ok
+end
+
+
 # ═════════════════════════════════════════════════════════════════════════════
 # §6. RUNNER SHELL — honest done-line (v23.6 №1), plots flush, battery
 # ═════════════════════════════════════════════════════════════════════════════
+
+
 
 function register_audits!()
     isempty(HP_AUDITS) || return
@@ -5095,8 +5971,14 @@ the gate runs — banner and reality can never drift apart again)."""
 function _hp_diag_est(cfg::HPConfig, k::Int)::Int
     n_sweep = cfg.hp_regime_mode === :showdown ? 3 : 0 # regimes B/C/D in H1's sweep (H1 sweeps ONLY in :showdown — v24.2 honesty for :regime_d too)
     if k == 1
-        return cfg.hp_h1_configs + 2 + n_sweep * (cfg.hp_h1_configs + 1) +
-               2 * cfg.hp_deep_nulls + cfg.hp_deep_configs
+        # v24.3 FIX (cost honesty): the old formula missed (a) the two SIZE-MATCHED
+        # GUE nulls of stage 3 and the one GUE null per sweep regime — each is a
+        # full n_raw×n_raw dense eigensolve, NOT a cheap side quantity — and
+        # (b) the DEEPEN block runs PER MARGINAL REGIME (up to n_sweep times),
+        # not once. Worst case at defaults: 67 promised vs ≈172 actual.
+        return cfg.hp_h1_configs + 4 +
+               n_sweep * (cfg.hp_h1_configs + 2 +
+                          2 * cfg.hp_deep_nulls + cfg.hp_deep_configs)
     elseif k == 2
         return 2
     elseif k == 3
@@ -5109,6 +5991,15 @@ function _hp_diag_est(cfg::HPConfig, k::Int)::Int
         return 2 + cfg.hp_jitter_trials + length(cfg.hp_L_ladder)
     elseif k == 7
         return 1 # + 2·n_cal GUE pairs, but those are m-sized (≈ central band), ~100× cheaper
+    elseif k == 8
+        # H8 NUM-TRACE: baseline AB configs + the per-target null pool (2×deep_nulls:
+        # vortex-free + GUE) + the N(E) pair + 1 gap spectrum (the m-sized GUE gap
+        # anchors are ~100× cheaper, H7 convention); sweep regimes: AB configs + the
+        # SAME 2×deep_nulls regime-matched pool + worst-case DEEPEN (hp_deep_configs)
+        # per regime — the v24.3 honesty convention (promise the worst case).
+        n_sweep = cfg.hp_regime_mode === :showdown ? 3 : 0
+        return cfg.hp_h1_configs + 2 * cfg.hp_deep_nulls + 3 +
+               n_sweep * (cfg.hp_h1_configs + 2 * cfg.hp_deep_nulls + cfg.hp_deep_configs)
     end
     return 0
 end
@@ -5140,8 +6031,15 @@ function _hp_run_all!(cfg::HPConfig, zeta_zeros::Vector{Float64}, sel::Vector{In
         idx = findfirst(x -> x.id == 300 + k, HP_AUDITS)
         idx === nothing && (println("no audit H$k"); continue)
         a = HP_AUDITS[idx]
-        println("\n" * _mr_c("▶ GATE H" * string(k), "gold") *
-                "  " * _mr_c(replace(a.title, r"^H\d+\.\s*" => ""), "bold"))
+        # v25-PLASMA: per-gate «telescope» frame — orbit sigil (λ/ρ/β/q/α/𝒩/ζ)
+        # in the gate's plasma palette color, double border «telescope» look.
+        # All decoration is wrapped — the original line below stays.
+        try
+            _hp_gate_telescope(k, a)
+        catch
+            println("\n" * _mr_c("▶ GATE H" * string(k), "gold") *
+                    "  " * _mr_c(replace(a.title, r"^H\d+\.\s*" => ""), "bold"))
+        end
         _hp_print_gate_cost(cfg, k) # visible NOW — the gate's own header replays only when the gate ends
         flush(stdout)
         res = _hp_run!(a, cfg, zeta_zeros)
@@ -5160,7 +6058,121 @@ function _hp_run_all!(cfg::HPConfig, zeta_zeros::Vector{Float64}, sel::Vector{In
         @sprintf("%s %d/%d gates PASS (detector-validity verdicts; physics headlines inside)",
                  npass == length(sel) ? "✓" : "!", npass, length(sel)),
     ])
+    # v25-PLASMA: color-coded verdict ribbon — one cell per gate, colored by
+    # verdict (PASS=green · WARN=amber · FAIL=red · RUN=dim), with the gate's
+    # emblem letter on top. A glance at the bottom of the battery shows the
+    # whole run's shape.
+    _hp_verdict_ribbon(sel)
     return npass
+end
+
+# ── §PLASMA-GATE: per-gate «telescope» frame + verdict ribbon ───────────
+# The user's spec (2026-10-15):
+#   «Оформление гейтов: у каждого H1–H7 своя орбита-эмблема, цвет из палитры,
+#    рамка-"телескоп", сводная "лента" вердиктов в конце батареи».
+#
+# Telescope frame: a 72-col double border with the gate sigil orbiting around
+# the codename (e.g. «λ ⤬ H1 ⤬ PRIME-TRACE»). The orbit sigil is the gate's
+# Greek letter (from _PLASMA_ANSI), in the gate's plasma color, so each gate
+# has a stable visual identity across runs.
+
+"""Per-gate «telescope» frame. The orbit sigil λ/ρ/β/q/α/𝒩/ζ sits between
+two ⤬ separators around the codename — the user said «рамка-телескоп», so
+we use the ⤬ (cross-star) bracket to evoke an eyepiece. The bottom line is
+the gate's `about` text (one-liner from HPAudit)."""
+function _hp_gate_telescope(k::Int, a::HPAudit)
+    W = 72
+    sigil = _PLASMA_ANSI[k][2]      # Greek letter
+    gname = _PLASMA_ANSI[k][3]      # codename
+    codename = "H" * string(k) * " · " * gname
+    # top frame — sigil orbit + codename
+    println()
+    println(_hp_pc("╔" * "═"^W * "╗", "nucleus"))
+    # line: «[···λ···H1···PRIME-TRACE···]» centered
+    inner = sigil * "  " * codename
+    pad = max(0, W - textwidth(inner) - 2)   # -2 for the two ⤬
+    pad_l = pad ÷ 2
+    pad_r = pad - pad_l
+    eyepiece = _hp_pc("⤬", "nucleus") *
+               _hp_pc("·"^pad_l, "orbit") * " " * _hp_pc(inner, k) * " " *
+               _hp_pc("·"^pad_r, "orbit") * _hp_pc("⤬", "nucleus")
+    println(_hp_pc("║", "nucleus") * eyepiece * _hp_pc("║", "nucleus"))
+    # divider line — dotted «telescope» rail
+    println(_hp_pc("╟", "nucleus") * _hp_pc("·"^W, "orbit") * _hp_pc("╢", "nucleus"))
+    # title (wrapped)
+    title_clean = replace(a.title, r"^H\d+\.\s*" => "")
+    for ln in _mr_wrap(title_clean, W - 4)
+        pad_t = max(0, W - textwidth(ln))
+        println(_hp_pc("║", "nucleus") * "  " * _mr_c(ln, "bold") *
+                " "^pad_t * _hp_pc("║", "nucleus"))
+    end
+    # about line (dim)
+    about = a.about
+    for ln in _mr_wrap(about, W - 4)
+        pad_a = max(0, W - textwidth(ln))
+        println(_hp_pc("║", "nucleus") * "  " * _mr_c(ln, "dim") *
+                " "^pad_a * _hp_pc("║", "nucleus"))
+    end
+    println(_hp_pc("╚" * "═"^W * "╝", "nucleus"))
+    return nothing
+end
+
+"""Color-coded verdict ribbon at the end of a battery. Each gate gets a
+single fixed-width cell showing its sigil + verdict glyph, colored by
+verdict (PASS=green, WARN=amber, FAIL=red, RUN-not-finished=dim). The
+result is an 8-cell ribbon the user can read at a glance:
+  λ✓  ρ✓  β!  q✓  α✓  𝒩✓  ζ✓  ℕ✓   →  7/8 PASS, 1 WARN
+"""
+function _hp_verdict_ribbon(sel::Vector{Int})
+    try
+        W = 72
+        # find the most recent state per gate id (the console may run a gate
+        # several times in one session; we want the LAST verdict)
+        last_state = Dict{Int,MiniTestState}()
+        for st in ALL_STATES
+            k = st.id - 300
+            last_state[k] = st
+        end
+        println(_mr_c("─"^W, "dim"))
+        println(_mr_c("  VERDICT RIBBON", "title"))
+        # build the ribbon — one cell per selected gate
+        cells = String[]
+        for k in sel
+            st = get(last_state, k, nothing)
+            verdict = st === nothing ? "—" : st.status
+            sigil = _PLASMA_ANSI[k][2]
+            # verdict glyph + color
+            if verdict == "PASS"
+                vg, vk = "✓", "ok"
+            elseif verdict == "WARN"
+                vg, vk = "!", "warn"
+            elseif verdict == "FAIL"
+                vg, vk = "✗", "err"
+            else
+                vg, vk = "·", "dim"
+            end
+            cell = _hp_pc(sigil, k) * _mr_c(vg, vk)
+            push!(cells, cell)
+        end
+        ribbon = join(cells, "  ")
+        println("  " * ribbon)
+        # legend strip — pass/warn/fail counts
+        n_pass = count(last_state[k].status == "PASS" for k in sel
+                       if haskey(last_state, k))
+        n_warn = count(last_state[k].status == "WARN" for k in sel
+                       if haskey(last_state, k))
+        n_fail = count(last_state[k].status == "FAIL" for k in sel
+                       if haskey(last_state, k))
+        n_unknown = length(sel) - n_pass - n_warn - n_fail
+        summary = @sprintf("  %d/%d PASS · %d WARN · %d FAIL · %d —",
+                          n_pass, length(sel), n_warn, n_fail, n_unknown)
+        println(_mr_c(summary, n_pass == length(sel) ? "ok" : "warn"))
+        println(_mr_c("─"^W, "dim"))
+    catch err
+        # never let the ribbon fail the run
+        println("  [verdict ribbon unavailable: ", sprint(showerror, err), "]")
+    end
+    return nothing
 end
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -5187,7 +6199,7 @@ function write_run_reports(run_dir::String, cfg::HPConfig, tag::String, t_wall::
 
     # 2) logs/full_run_log.txt — ONE consolidated log (computation + console)
     open(joinpath(logs_dir, "full_run_log.txt"), "w") do io
-        println(io, "FULL RUN LOG — $(basename(run_dir)) (hp_audit_standalone v23.6, $tag)")
+        println(io, "FULL RUN LOG — $(basename(run_dir)) (hp_audit_standalone " * HP_SA_VERSION * ", $tag)")
         println(io, "ONE consolidated file: every test's computation log + console capture, in run order")
         println(io, "(two-files contract: the whole run is readable from final_report.md/html + this log)")
         for st in ALL_STATES
@@ -5263,44 +6275,434 @@ function write_run_reports(run_dir::String, cfg::HPConfig, tag::String, t_wall::
         print(io, String(take!(md)))
     end
 
-    # 4) final_report.html — same content, minimal self-contained styling
-    html = IOBuffer()
-    println(html, "<!DOCTYPE html><html><head><meta charset=\"utf-8\">")
-    println(html, "<title>HP deep audit — $(basename(run_dir))</title>")
-    println(html, "<style>body{font-family:Georgia,serif;max-width:1100px;margin:2em auto;padding:0 1em;color:#1a1a2e;background:#fafafa}",
-            "h1,h2,h3{font-family:'Helvetica Neue',Arial,sans-serif}h2{border-bottom:2px solid #16324f;padding-bottom:.2em;margin-top:2em}",
-            "table{border-collapse:collapse;width:100%;font-size:.92em}td,th{border:1px solid #bbb;padding:.35em .5em;vertical-align:top}",
-            "th{background:#16324f;color:#fff;text-align:left}.pass{color:#0a7d32;font-weight:bold}.warn{color:#b8860b;font-weight:bold}",
-            "code,pre{background:#eef1f4;border-radius:4px;padding:.1em .3em}img{max-width:100%;border:1px solid #ccc;margin:.4em 0}",
-            "blockquote{border-left:4px solid #16324f;margin:0;padding:.1em 1em;color:#333}</style></head><body>")
-    println(html, "<h1>Hilbert-Pólya Deep Audit — standalone battery</h1>")
-    @printf(html, "<p><b>Run:</b> %s · <b>preset:</b> %s · <b>date:</b> %s · <b>wall:</b> %s · ζ zeros: <b>%s</b></p>",
-            basename(run_dir), tag, _prog_now_str(), _prog_hms(t_wall), zeta_loaded ? "yes" : "NO")
-    @printf(html, "<p><b>Battery verdict:</b> %d/%d PASS + %d WARN (detector-validity semantics)</p>",
-            n_pass, length(ALL_STATES), length(ALL_STATES) - n_pass)
-    for st in ALL_STATES
-        println(html, "<h2>", st.title, " — <span class=\"", st.status == "PASS" ? "pass" : "warn", "\">", st.status, "</span></h2>")
-        isempty(st.headline) || println(html, "<blockquote>", st.headline, "</blockquote>")
-        isempty(st.rows) || begin
-            println(html, "<table><tr><th>sub-check</th><th>status</th><th>detail</th></tr>")
-            for (name, ok, note) in st.rows
-                @printf(html, "<tr><td>%s</td><td class=\"%s\">%s</td><td>%s</td></tr>",
-                        name, ok ? "pass" : "warn", ok ? "PASS" : "WARN", note)
-            end
-            println(html, "</table>")
-        end
-        for p in st.pngs
-            println(html, "<img src=\"", relpath(p, run_dir), "\" alt=\"plot\">")
-        end
-        for n in st.notes
-            println(html, "<p><i>", n, "</i></p>")
-        end
-    end
-    println(html, "</body></html>")
+    # 4) final_report.html — v25-PLASMA dark theme: hero banner with animated
+    #    SVG orbits (H nucleus + H1–H7 satellites + ζ-belt), gate tiles (one
+    #    per gate with verdict color + sub-check table + plots + notes).
+    #    Self-contained — no external CSS/JS, no fonts beyond system stacks.
+    html = _plasma_html_report(cfg, run_dir, tag, t_wall, zeta_loaded, n_pass)
     open(joinpath(run_dir, "final_report.html"), "w") do io
-        print(io, String(take!(html)))
+        print(io, html)
     end
     return nothing
+end
+
+# ═════════════════════════════════════════════════════════════════════════════
+# §PLASMA-HTML. Dark-theme final_report.html with hero banner + animated SVG
+#     orbits + gate tiles. The user's spec (2026-10-15):
+#       «Оформление отчётов: final_report.html с тёмной темой, hero-баннером,
+#        анимированными SVG-орбитами и врезками-плитками по гейтам».
+# ═════════════════════════════════════════════════════════════════════════════
+
+# HTML escape — names contain Greek (α, ρ), Cyrillic, etc.
+_plasma_h_esc(s) = replace(replace(replace(replace(String(s),
+    "&" => "&amp;"), "<" => "&lt;"), ">" => "&gt;"), "\"" => "&quot;")
+
+# per-gate CSS hex colors matching _PLASMA_ANSI (256-color mapping to hex)
+const _PLASMA_HEX = Dict{Int,String}(
+    1 => "#00d7af",  # cyan-green   (38;5;45)
+    2 => "#00afff",  # sky-blue     (38;5;39)
+    3 => "#ffaf00",  # orange       (38;5;214)
+    4 => "#ff5fd7",  # magenta      (38;5;213)
+    5 => "#ff5faf",  # pink-violet  (38;5;212)
+    6 => "#875fff",  # indigo       (38;5;99)
+    7 => "#5fd787",  # mint         (38;5;120)
+    8 => "#ff5f5f",  # salmon       (38;5;203) — H8 NUM-TRACE integer comb
+)
+
+"""Build the full HTML document. Returns a String."""
+function _plasma_html_report(cfg::HPConfig, run_dir::String, tag::String,
+                            t_wall::Float64, zeta_loaded::Bool, n_pass::Int)
+    n_states = length(ALL_STATES)
+    n_warn = n_states - n_pass
+    zeta_n = 0
+    try
+        zeta_n = length(load_zeros(_hp_discover_zeros()))
+    catch
+    end
+    io = IOBuffer()
+    println(io, "<!DOCTYPE html>")
+    println(io, "<html lang=\"en\"><head><meta charset=\"utf-8\">")
+    println(io, "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">")
+    println(io, "<title>HP·Meridian — Hilbert–Pólya Audit · ", _plasma_h_esc(basename(run_dir)), "</title>")
+    println(io, "<style>")
+    # ── dark theme palette ────────────────────────────────────────────────────
+    println(io, """
+      :root {
+        --bg: #0b0d1a;
+        --bg-elev: #131628;
+        --bg-card: #181b30;
+        --fg: #e6e8f0;
+        --fg-dim: #9099b3;
+        --fg-muted: #5b6280;
+        --border: #232844;
+        --accent: #00d7af;
+        --pass: #2ecc71;
+        --warn: #f1c40f;
+        --fail: #e74c3c;
+        --h1: #ffaf00;
+        --h2: #00afff;
+        --h3: #ff5fd7;
+        --h4: #ff5fd7;
+        --h5: #ff5faf;
+        --h6: #875fff;
+        --h7: #5fd787;
+        --h8: #ff5f5f;
+        --nucleus: #ffd700;
+        --orbit: #2a2f50;
+        --orbit2: #3a4070;
+        --belt: #1a2a55;
+        --zeros: #66c5ff;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        background: var(--bg);
+        background-image:
+          radial-gradient(circle at 20% 10%, rgba(0,215,175,.04) 0, transparent 40%),
+          radial-gradient(circle at 80% 30%, rgba(255,95,215,.03) 0, transparent 45%),
+          radial-gradient(circle at 50% 90%, rgba(135,95,255,.04) 0, transparent 40%);
+        color: var(--fg);
+        font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        line-height: 1.55;
+        padding: 0;
+        min-height: 100vh;
+      }
+      .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5em; }
+      code, pre, .mono { font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace; }
+
+      /* HERO */
+      .hero {
+        position: relative;
+        margin-top: 1.5em;
+        padding: 2.2em 1.5em 1.2em;
+        border-radius: 18px;
+        background: linear-gradient(135deg, rgba(20,24,40,.95) 0%, rgba(10,12,26,.95) 100%);
+        border: 1px solid var(--border);
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute; inset: 0;
+        background-image: radial-gradient(ellipse at top, rgba(0,215,175,.08) 0, transparent 50%);
+        pointer-events: none;
+      }
+      .hero-grid { display: grid; grid-template-columns: minmax(360px, 1fr) 2fr; gap: 2em; align-items: center; }
+      @media (max-width: 800px) { .hero-grid { grid-template-columns: 1fr; } }
+      .hero-orbit { width: 100%; max-width: 360px; aspect-ratio: 1; }
+      .hero-text h1 {
+        font-family: 'Inter', sans-serif;
+        font-weight: 800;
+        font-size: clamp(1.6em, 3.5vw, 2.4em);
+        letter-spacing: -.01em;
+        background: linear-gradient(135deg, #ffd700 0%, #ff5fd7 50%, #00d7af 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: .2em;
+      }
+      .hero-text .tagline { color: var(--fg-dim); font-size: 1.05em; margin-bottom: 1.2em; }
+      .hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: .8em; margin-top: 1em; }
+      .stat { padding: .8em 1em; background: rgba(0,0,0,.25); border: 1px solid var(--border); border-radius: 10px; }
+      .stat .label { color: var(--fg-muted); font-size: .75em; letter-spacing: .08em; text-transform: uppercase; }
+      .stat .value { color: var(--fg); font-size: 1.4em; font-weight: 700; margin-top: .15em; font-family: 'JetBrains Mono', monospace; }
+      .stat .value.pass { color: var(--pass); }
+      .stat .value.warn { color: var(--warn); }
+      .stat .value.fail { color: var(--fail); }
+
+      /* PARAMETERS strip */
+      .params-strip {
+        margin: 1.5em 0;
+        padding: 1em 1.4em;
+        background: var(--bg-elev);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        color: var(--fg-dim);
+      }
+      .params-strip .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: .6em; }
+      .params-strip .k { color: var(--fg-muted); font-size: .85em; }
+      .params-strip .v { color: var(--fg); font-family: 'JetBrains Mono', monospace; }
+
+      /* VERDICT RIBBON */
+      .ribbon-row {
+        margin: 1em 0 2em;
+        padding: 1em 1.4em;
+        background: var(--bg-elev);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        display: flex; flex-wrap: wrap; gap: 1em; align-items: center;
+      }
+      .ribbon-cell {
+        display: inline-flex; align-items: center; gap: .35em;
+        padding: .4em .8em;
+        border-radius: 999px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: .95em;
+        border: 2px solid currentColor;
+      }
+      .ribbon-cell.pass { color: var(--pass); background: rgba(46,204,113,.08); }
+      .ribbon-cell.warn { color: var(--warn); background: rgba(241,196,15,.08); }
+      .ribbon-cell.fail { color: var(--fail); background: rgba(231,76,60,.08); }
+      .ribbon-cell.dim  { color: var(--fg-muted); border-color: var(--border); }
+
+      /* GATE TILES */
+      .gates {
+        display: grid; gap: 1.5em;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 580px), 1fr));
+      }
+      .gate-tile {
+        background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-elev) 100%);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 1.5em 1.5em 1.2em;
+        position: relative;
+        overflow: hidden;
+      }
+      .gate-tile::before {
+        content: "";
+        position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        background: var(--gate-color);
+      }
+      .gate-head { display: flex; align-items: baseline; gap: .6em; margin-bottom: .5em; flex-wrap: wrap; }
+      .gate-head .sigil {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.6em; font-weight: 800;
+        color: var(--gate-color);
+        text-shadow: 0 0 12px currentColor;
+      }
+      .gate-head .num { font-family: 'JetBrains Mono', monospace; color: var(--fg-muted); font-size: .85em; }
+      .gate-head .name { font-weight: 700; color: var(--fg); font-size: 1.15em; letter-spacing: -.01em; }
+      .gate-head .verdict {
+        margin-left: auto;
+        padding: .25em .7em;
+        border-radius: 999px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: .85em; font-weight: 700;
+        border: 1px solid currentColor;
+      }
+      .gate-head .verdict.pass { color: var(--pass); background: rgba(46,204,113,.08); }
+      .gate-head .verdict.warn { color: var(--warn); background: rgba(241,196,15,.08); }
+      .gate-head .verdict.fail { color: var(--fail); background: rgba(231,76,60,.08); }
+      .gate-head .verdict.dim  { color: var(--fg-muted); border-color: var(--border); }
+      .gate-headline {
+        color: var(--fg-dim); font-size: .98em; margin: .6em 0 1em;
+        padding-left: .8em; border-left: 2px solid var(--gate-color);
+      }
+      .gate-table { width: 100%; border-collapse: collapse; font-size: .92em; margin-bottom: .8em; }
+      .gate-table th, .gate-table td { text-align: left; padding: .5em .7em; border-bottom: 1px solid var(--border); }
+      .gate-table th { color: var(--fg-muted); font-weight: 600; font-size: .8em; text-transform: uppercase; letter-spacing: .06em; }
+      .gate-table td.status { width: 5em; font-family: 'JetBrains Mono', monospace; }
+      .gate-table td.status.pass { color: var(--pass); font-weight: 700; }
+      .gate-table td.status.warn { color: var(--warn); font-weight: 700; }
+      .gate-table td.detail { color: var(--fg-dim); }
+      .gate-plot {
+        margin: .8em 0;
+        border-radius: 8px; overflow: hidden;
+        border: 1px solid var(--border);
+      }
+      .gate-plot img { display: block; max-width: 100%; height: auto; background: #fff; }
+      .gate-notes { color: var(--fg-dim); font-size: .88em; font-style: italic; margin-top: .6em; padding-left: .8em; border-left: 2px solid var(--border); }
+      .gate-notes p { margin: .25em 0; }
+
+      /* footer */
+      footer {
+        margin: 3em 0 2em; padding-top: 1.5em;
+        border-top: 1px solid var(--border);
+        color: var(--fg-muted); font-size: .85em;
+        display: flex; flex-wrap: wrap; gap: 1.5em; justify-content: space-between;
+      }
+      footer a { color: var(--accent); text-decoration: none; }
+
+      /* small SVG orbit animation */
+      @keyframes orbit-rot { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+      @keyframes orbit-rot-rev { from { transform: rotate(0); } to { transform: rotate(-360deg); } }
+      @keyframes pulse { 0%, 100% { opacity: .6; } 50% { opacity: 1; } }
+      .orbit-inner  { animation: orbit-rot 14s linear infinite; transform-origin: 200px 200px; }
+      .orbit-mid   { animation: orbit-rot-rev 22s linear infinite; transform-origin: 200px 200px; }
+      .orbit-outer { animation: orbit-rot 32s linear infinite; transform-origin: 200px 200px; }
+      .belt-rot    { animation: orbit-rot-rev 48s linear infinite; transform-origin: 200px 200px; }
+      .nucleus-pulse { animation: pulse 3.5s ease-in-out infinite; transform-origin: 200px 200px; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .orbit-inner, .orbit-mid, .orbit-outer, .belt-rot, .nucleus-pulse { animation: none; }
+      }
+    """)
+    println(io, "</style></head><body>")
+    println(io, "<div class=\"container\">")
+
+    # ── HERO ───────────────────────────────────────────────────────────────
+    println(io, "<section class=\"hero\">")
+    println(io, "<div class=\"hero-grid\">")
+    # left: animated SVG solar system
+    println(io, """
+      <svg class=\"hero-orbit\" viewBox=\"0 0 400 400\" xmlns=\"http://www.w3.org/2000/svg\" aria-label=\"Hilbert–Pólya solar system\">
+        <!-- soft gradient backdrop -->
+        <defs>
+          <radialGradient id=\"halo\" cx=\"50%\" cy=\"50%\" r=\"50%\">
+            <stop offset=\"0%\" stop-color=\"#ffd700\" stop-opacity=\".35\"/>
+            <stop offset=\"50%\" stop-color=\"#ff5faf\" stop-opacity=\".10\"/>
+            <stop offset=\"100%\" stop-color=\"#00d7af\" stop-opacity=\"0\"/>
+          </radialGradient>
+          <linearGradient id=\"nuc-g\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">
+            <stop offset=\"0%\" stop-color=\"#ffd700\"/>
+            <stop offset=\"100%\" stop-color=\"#ff8c00\"/>
+          </linearGradient>
+        </defs>
+        <circle cx=\"200\" cy=\"200\" r=\"180\" fill=\"url(#halo)\"/>
+        <!-- belt -->
+        <g class=\"belt-rot\">
+          <ellipse cx=\"200\" cy=\"200\" rx=\"188\" ry=\"100\" fill=\"none\" stroke=\"#1a2a55\" stroke-width=\"1\" stroke-dasharray=\"2 4\"/>""")
+    # ζ-zero dots on belt
+    belt_n = min(zeta_n, 60)
+    for i in 1:belt_n
+        θ = 2π * (i - 1) / max(1, belt_n)
+        x = 200 + 188 * cos(θ)
+        y = 200 + 100 * sin(θ)
+        println(io, "<circle cx=\"$x\" cy=\"$y\" r=\"1.6\" fill=\"#66c5ff\" opacity=\".7\"/>")
+    end
+    println(io, "</g>")
+    # outer orbit (H6, H7, H8)
+    println(io, """
+      <g class=\"orbit-outer\">
+        <ellipse cx=\"200\" cy=\"200\" rx=\"150\" ry=\"78\" fill=\"none\" stroke=\"#3a4070\" stroke-width=\"1\"/>
+        <circle cx=\"350\" cy=\"200\" r=\"6\" fill=\"#875fff\"><title>H6 HERMIT-STRESS</title></circle>
+        <circle cx=\"50\"  cy=\"200\" r=\"6\" fill=\"#5fd787\"><title>H7 SEQ-CORR</title></circle>
+        <circle cx=\"125\" cy=\"267\" r=\"6\" fill=\"#ff5f5f\"><title>H8 NUM-TRACE</title></circle>
+      </g>""")
+    # middle orbit (H4, H5)
+    println(io, """
+      <g class=\"orbit-mid\">
+        <ellipse cx=\"200\" cy=\"200\" rx=\"108\" ry=\"56\" fill=\"none\" stroke=\"#2a2f50\" stroke-width=\"1\"/>
+        <circle cx=\"308\" cy=\"200\" r=\"6\" fill=\"#ff5fd7\"><title>H4 CRITICAL-Q</title></circle>
+        <circle cx=\"92\"  cy=\"200\" r=\"6\" fill=\"#ff5faf\"><title>H5 REGIME-2×2</title></circle>
+      </g>""")
+    # inner orbit (H1, H2, H3)
+    println(io, """
+      <g class=\"orbit-inner\">
+        <ellipse cx=\"200\" cy=\"200\" rx=\"60\" ry=\"32\" fill=\"none\" stroke=\"#3a4070\" stroke-width=\"1\"/>
+        <circle cx=\"260\" cy=\"200\" r=\"5\" fill=\"#00d7af\"><title>H1 PRIME-TRACE</title></circle>
+        <circle cx=\"170\" cy=\"168\" r=\"5\" fill=\"#00afff\"><title>H2 WEYL-DOS</title></circle>
+        <circle cx=\"170\" cy=\"232\" r=\"5\" fill=\"#ffaf00\"><title>H3 POWER-LAW</title></circle>
+      </g>""")
+    # nucleus
+    println(io, """
+      <g class=\"nucleus-pulse\">
+        <circle cx=\"200\" cy=\"200\" r=\"18\" fill=\"url(#nuc-g)\"/>
+        <text x=\"200\" y=\"206\" text-anchor=\"middle\" font-family=\"JetBrains Mono, monospace\" font-weight=\"800\" font-size=\"18\" fill=\"#0b0d1a\">H</text>
+      </g>
+    </svg>""")
+    # right: title + stats
+    println(io, "<div class=\"hero-text\">")
+    println(io, "<h1>HP·MERIDIAN — Hilbert–Pólya Deep Audit</h1>")
+    println(io, "<p class=\"tagline\">Arithmetic specificity, not just universality — 8 falsifiable gates H1–H8 between prime arithmetic and GUE spectral statistics.</p>")
+    println(io, "<div class=\"hero-stats\">")
+    println(io, "<div class=\"stat\"><div class=\"label\">PASS</div><div class=\"value pass\">", n_pass, "/", n_states, "</div></div>")
+    println(io, "<div class=\"stat\"><div class=\"label\">WARN</div><div class=\"value warn\">", n_warn, "</div></div>")
+    println(io, "<div class=\"stat\"><div class=\"label\">ζ zeros</div><div class=\"value\">", zeta_n, "</div></div>")
+    println(io, "<div class=\"stat\"><div class=\"label\">Lattice L</div><div class=\"value\">", cfg.hp_L, "</div></div>")
+    println(io, "<div class=\"stat\"><div class=\"label\">Seed</div><div class=\"value\">", cfg.hp_seed, "</div></div>")
+    println(io, "<div class=\"stat\"><div class=\"label\">Wall</div><div class=\"value\">", _prog_hms(t_wall), "</div></div>")
+    println(io, "</div>")
+    println(io, "<p style=\"margin-top:.8em;color:var(--fg-muted);font-size:.85em;\">",
+            "Run: <span class=\"mono\">", _plasma_h_esc(basename(run_dir)), "</span> · ",
+            "preset: <span class=\"mono\">", _plasma_h_esc(tag), "</span> · ",
+            "date: <span class=\"mono\">", _plasma_h_esc(_prog_now_str()), "</span> · ",
+            "ζ loaded: <span class=\"mono\">", zeta_loaded ? "yes" : "NO", "</span></p>")
+    println(io, "</div>")  # /hero-text
+    println(io, "</div>")  # /hero-grid
+    println(io, "</section>")  # /hero
+
+    # ── PARAMETERS STRIP ───────────────────────────────────────────────────
+    println(io, "<div class=\"params-strip\">")
+    println(io, "<div class=\"row\">")
+    println(io, "<div><div class=\"k\">L · L_weyl</div><div class=\"v\">", cfg.hp_L, " · ", cfg.hp_L_weyl, "</div></div>")
+    println(io, "<div><div class=\"k\">ensemble · seed</div><div class=\"v\">", cfg.hp_n_ensemble, " · ", cfg.hp_seed, "</div></div>")
+    println(io, "<div><div class=\"k\">α / W_eff</div><div class=\"v\">", @sprintf("%.4f", cfg.ab_alpha_test16), " · ", @sprintf("%.2f", ab_w_eff(cfg)), "</div></div>")
+    println(io, "<div><div class=\"k\">deep-nulls · configs</div><div class=\"v\">", cfg.hp_deep_nulls, " · ", cfg.hp_deep_configs, "</div></div>")
+    println(io, "<div><div class=\"k\">α-profile</div><div class=\"v\">", cfg.hp_alpha_scan, " (n=", cfg.hp_alpha_scan_n, ")</div></div>")
+    println(io, "<div><div class=\"k\">primes</div><div class=\"v\">", join(cfg.hp_primes, ","), "</div></div>")
+    println(io, "<div><div class=\"k\">q-grid</div><div class=\"v\">", cfg.hp_n_q_grid, " pts on [", @sprintf("%.2f", cfg.hp_q_min), ", ", @sprintf("%.2f", cfg.hp_q_max), "]</div></div>")
+    println(io, "<div><div class=\"k\">ladder</div><div class=\"v\">", join(cfg.hp_L_ladder, " → "), "</div></div>")
+    println(io, "<div><div class=\"k\">t_max · dt</div><div class=\"v\">", @sprintf("%.0f", cfg.hp_t_max), " · ", @sprintf("%.3f", cfg.hp_dt), "</div></div>")
+    println(io, "</div></div>")
+
+    # ── VERDICT RIBBON ─────────────────────────────────────────────────────
+    println(io, "<div class=\"ribbon-row\">")
+    println(io, "<span style=\"color:var(--fg-muted);font-size:.8em;letter-spacing:.08em;text-transform:uppercase;\">Verdict Ribbon</span>")
+    for st in ALL_STATES
+        k = st.id - 300
+        if k < 1 || k > 8
+            continue
+        end
+        sigil = _PLASMA_ANSI[k][2]
+        vclass = st.status == "PASS" ? "pass" : st.status == "WARN" ? "warn" :
+                 st.status == "FAIL" ? "fail" : "dim"
+        vg = st.status == "PASS" ? "✓" : st.status == "WARN" ? "!" :
+             st.status == "FAIL" ? "✗" : "·"
+        println(io, "<span class=\"ribbon-cell ", vclass, "\"><span style=\"color:var(--h", k, ");\">",
+                sigil, "</span> ", vg, " H", k, "</span>")
+    end
+    println(io, "</div>")
+
+    # ── GATE TILES ─────────────────────────────────────────────────────────
+    println(io, "<section class=\"gates\">")
+    for st in ALL_STATES
+        k = st.id - 300
+        # gate color hex
+        gate_hex = get(_PLASMA_HEX, k, "#9099b3")
+        sigil = (1 <= k <= 8) ? _PLASMA_ANSI[k][2] : "·"
+        title_clean = replace(st.title, r"^H\d+\.\s*" => "")
+        vclass = st.status == "PASS" ? "pass" : st.status == "WARN" ? "warn" :
+                 st.status == "FAIL" ? "fail" : "dim"
+        println(io, "<article class=\"gate-tile\" style=\"--gate-color:", gate_hex, ";\">")
+        # head
+        println(io, "<div class=\"gate-head\">")
+        println(io, "<span class=\"sigil\">", sigil, "</span>")
+        println(io, "<span class=\"num\">H", k, "</span>")
+        println(io, "<span class=\"name\">", _plasma_h_esc(title_clean), "</span>")
+        println(io, "<span class=\"verdict ", vclass, "\">", st.status, "</span>")
+        println(io, "</div>")
+        # headline
+        isempty(st.headline) || println(io, "<div class=\"gate-headline\">",
+                                        _plasma_h_esc(st.headline), "</div>")
+        # sub-check table
+        if !isempty(st.rows)
+            println(io, "<table class=\"gate-table\">")
+            println(io, "<thead><tr><th>sub-check</th><th>status</th><th>detail</th></tr></thead><tbody>")
+            for (name, ok, note) in st.rows
+                println(io, "<tr><td>", _plasma_h_esc(name), "</td>",
+                        "<td class=\"status ", ok ? "pass" : "warn", "\">",
+                        ok ? "PASS" : "WARN", "</td>",
+                        "<td class=\"detail\">", _plasma_h_esc(note), "</td></tr>")
+            end
+            println(io, "</tbody></table>")
+        end
+        # plots
+        for p in st.pngs
+            println(io, "<div class=\"gate-plot\">")
+            println(io, "<img src=\"", _plasma_h_esc(relpath(p, run_dir)), "\" alt=\"", _plasma_h_esc(st.title), " plot\">")
+            println(io, "</div>")
+        end
+        # notes
+        if !isempty(st.notes)
+            println(io, "<div class=\"gate-notes\">")
+            for n in st.notes
+                println(io, "<p>", _plasma_h_esc(n), "</p>")
+            end
+            println(io, "</div>")
+        end
+        println(io, "</article>")
+    end
+    println(io, "</section>")  # /gates
+
+    # ── FOOTER ─────────────────────────────────────────────────────────────
+    println(io, "<footer>")
+    println(io, "<div>HP·Meridian v", HP_SA_VERSION, " · standalone Hilbert–Pólya audit · ",
+            "detector-validity verdicts (physics headlines live inside the tests)</div>")
+    println(io, "<div>Author: Isaev Iskhak Khamzatovich · ORCID 0009-0003-7299-0701</div>")
+    println(io, "</footer>")
+
+    println(io, "</div>")  # /container
+    println(io, "</body></html>")
+    return String(take!(io))
 end
 
 # ═════════════════════════════════════════════════════════════════════════
@@ -5311,6 +6713,16 @@ end
 # ═════════════════════════════════════════════════════════════════════════
 
 function apply_preset!(cfg::HPConfig, which::Symbol)
+    # v24.3 FIX (state leak): a preset is a COMPLETE parameter set. The old code
+    # only overwrote its own fields, so switching SMOKE→FAST in the console kept
+    # the smoke-shrunk controls (ζ cap 2000 instead of 20000, h1_configs 2,
+    # deep 4/4, jitter 2, ladder [16,20,24], gue_calib 3, t_max 20) — a «FAST»
+    # run silently rode validation-grade controls. Every preset now starts from
+    # the code defaults; fields the preset does not name keep their default.
+    _defaults = make_hp_config()
+    for f in fieldnames(HPConfig)
+        setfield!(cfg, f, getfield(_defaults, f))
+    end
     if which === :fast
         cfg.hp_L = 72; cfg.hp_L_weyl = 72; cfg.hp_n_ensemble = 100
         cfg.hp_alpha_scan_n = 40; cfg.hp_regime_mode = :showdown
@@ -5346,7 +6758,7 @@ end
 
 function usage()
     println(_mr_c("usage: ", "bold") *
-            _mr_c("julia hp_audit_standalone.jl [fast|full|smoke] [h1..h7|all] [seed=N] [zeros=path]", "title"))
+            _mr_c("julia hp_audit_standalone.jl [fast|full|smoke] [h1..h8|all] [seed=N] [zeros=path]", "title"))
     println("  " * _mr_c("no args + terminal", "gold") *
             _mr_c(" → HP·MERIDIAN console; with args → batch battery", "dim"))
     println("  " * _mr_c("REPL", "gold") *
@@ -5357,11 +6769,20 @@ end
 # ── console identity: unique gate names + honest per-preset cost hints ──
 const GATE_NAME = Dict{Int,String}(
     1 => "PRIME-TRACE", 2 => "WEYL-DOS", 3 => "POWER-LAW", 4 => "CRITICAL-Q",
-    5 => "REGIME-2×2", 6 => "HERMIT-STRESS", 7 => "SEQ-CORR")
+    5 => "REGIME-2×2", 6 => "HERMIT-STRESS", 7 => "SEQ-CORR", 8 => "NUM-TRACE")
 const GATE_MIN = Dict{Int,Tuple{Float64,Float64,Float64}}( # (smoke, fast, full), minutes
-    1 => (0.4, 0.5, 25.0), 2 => (0.15, 0.05, 2.0), 3 => (0.3, 0.4, 20.0),
-    4 => (0.2, 0.2, 15.0), 5 => (0.4, 2.0, 90.0), 6 => (0.5, 0.5, 45.0),
-    7 => (0.05, 0.05, 5.0))
+    # v24.3 FIX: the :fast column still carried pre-v24.1 smoke-grade numbers
+    # (H5 «2 min» at L=72, where ONE 5184×5184 dense solve already takes
+    # minutes) — contradicting the file's own v23.8 note «hours, NOT a hang».
+    # Orders below assume ~1–3 min per 5184² solve, ~15–40 s per 3136² solve.
+    1 => (0.4, 120.0, 30.0), 2 => (0.15, 5.0, 2.0), 3 => (0.3, 10.0, 8.0),
+    4 => (0.2, 75.0, 20.0), 5 => (0.4, 80.0, 25.0), 6 => (0.5, 40.0, 12.0),
+    7 => (0.05, 5.0, 3.0),
+    # H8 NUM-TRACE: the per-target null pool (2×deep_nulls) runs at EVERY regime —
+    # coverage rates need percentiles, not maxima — so the gate costs ≈ H1's worst
+    # case even when every regime reads absent. :fast ≈ 46 + 3×53 = 205 solves at
+    # L=72 worst case; smoke ≈ 40 small solves at L=20.
+    8 => (0.6, 130.0, 40.0))
 
 function _fmt_min(m::Float64)
     m <= 0 && return "—"
@@ -5386,6 +6807,89 @@ function _color_init!()
 end
 _hpc(s::AbstractString, key::String) =
     _COLOR_ON[] ? string("\e[", _ANSI[key], "m", s, "\e[0m") : String(s)
+
+# ═════════════════════════════════════════════════════════════════════════════
+# §PLASMA. PLASMA·ORBIT DECOR (v25-PLASMA, 2026-10-15)
+#     A spectral-visual layer over the existing HP·MERIDIAN console:
+#       • plasma banner  — ASCII solar system (H nucleus · elliptical orbits ·
+#                          H1–H7 satellites · ζ-zero outer belt), driven by
+#                          REAL run data (seed, L, ζ count);
+#       • plasma bar     — orbit-bound satellite w/ comet tail instead of ▰▱,
+#                          with a background ζ-signal trace;
+#       • gate emblems   — per-Hk orbit sigil + palette color + telescope frame;
+#       • verdict ribbon — color-coded summary strip after a battery;
+#       • dark HTML      — final_report.html with hero banner, animated SVG
+#                          orbits, gate tiles (replaces the bare Georgia page).
+#     Every helper is wrapped in try/catch — a decoration failure must NEVER
+#     kill a gate (the audit's numbers are the deliverable; the visuals are
+#     the suit they ride in).
+# ═════════════════════════════════════════════════════════════════════════════
+
+# ── plasma palette: per-gate 256-color + emblem sigil. Each Hk has a stable
+#    identity the user can recognize across runs (color-blind safe — hue
+#    spreads ~45° around the wheel, value held near 0.5). The Greek letters
+#    pick a physics mnemonic: λ=wavelength, ρ=density, β=power, q=critical,
+#    α=regime, 𝒩=Hermitian, ρ′=sequence — the user's own vocabulary.
+const _PLASMA_ANSI = Dict{Int,Tuple{String,String,String}}(
+    1 => ("38;5;45",  "λ", "PRIME-TRACE"),   # cyan-green   — Bragg comb
+    2 => ("38;5;39",  "ρ", "WEYL-DOS"),       # sky-blue     — staircase N(E)
+    3 => ("38;5;214", "β", "POWER-LAW"),      # orange       — exponent ladder
+    4 => ("38;5;213", "q", "CRITICAL-Q"),     # magenta      — sharpness scan
+    5 => ("38;5;212", "α", "REGIME-2×2"),     # pink-violet  — ensemble showdown
+    6 => ("38;5;99",  "𝒩", "HERMIT-STRESS"),  # indigo       — self-adjointness
+    7 => ("38;5;120", "ζ", "SEQ-CORR"),        # mint         — level↔zero
+    8 => ("38;5;203", "ℕ", "NUM-TRACE")        # salmon       — the integer comb (all numbers)
+)
+# core plasma accents (not gate-specific): nucleus, orbit, comet, ζ-belt
+const _PLASMA_CORE_ANSI = Dict{String,String}(
+    "nucleus" => "1;38;5;226",   # bright yellow — the H core
+    "orbit"   => "38;5;238",     # dim slate     — orbit ring
+    "orbit2"  => "38;5;60",      # dim blue-grey — inner orbit
+    "comet"  => "1;38;5;208",    # bright orange — comet head
+    "tail"   => "38;5;94",       # burnt orange  — comet tail
+    "belt"   => "38;5;24",      # deep blue     — ζ belt ring
+    "zeros"  => "38;5;75",       # light blue    — ζ zero dots
+    "halo"   => "38;5;58",      # olive glow    — nucleus halo
+)
+
+"""Colored string by plasma key (gate id or core-key) — falls back to plain
+string when color is off, so a redirected log file stays clean ASCII."""
+_hp_pc(s::AbstractString, gate::Int) =
+    _COLOR_ON[] ? string("\e[", _PLASMA_ANSI[gate][1], "m", s, "\e[0m") : String(s)
+_hp_pc(s::AbstractString, key::String) =
+    _COLOR_ON[] ? string("\e[", _PLASMA_CORE_ANSI[key], "m", s, "\e[0m") : String(s)
+
+"""Stable orbital radius for gate Hk — three elliptical orbits, satellites
+spaced ~120° apart on each ring so they never collide visually. Returns
+(r_x, r_y, θ) where r_* are character-cell radii and θ is the start angle."""
+function _plasma_orbit_params(k::Int)
+    # H1,H2,H3 inner · H4,H5 middle · H6,H7,H8 outer — matches group semantics
+    ring = k <= 3 ? (10, 5, (k - 1) * 2.0944) :        # 120° apart
+            k <= 5 ? (18, 9, (k - 4) * 3.1416) :        # 180° apart
+                    (26, 13, (k - 6) * 2.0944)          # 120° apart (H6,H7,H8)
+    return ring
+end
+
+"""Gated-safe paint: write a colored cell at canvas (x,y) into a 1-indexed
+character grid of size (h,w). Out-of-bounds writes are silently dropped —
+the orbits naturally extend past the canvas on small terminals and the
+banner degrades gracefully instead of erroring."""
+function _plasma_paint!(canvas::Matrix{String}, x::Float64, y::Float64, glyph::String,
+                        ansi_key::String; w::Int, h::Int)
+    ix = round(Int, x); iy = round(Int, y)
+    (1 <= ix <= w && 1 <= iy <= h) || return
+    canvas[iy, ix] = _COLOR_ON[] ?
+        string("\e[", _PLASMA_CORE_ANSI[ansi_key], "m", glyph, "\e[0m") : glyph
+    return
+end
+function _plasma_paint_gate!(canvas::Matrix{String}, x::Float64, y::Float64, k::Int;
+                             w::Int, h::Int)
+    ix = round(Int, x); iy = round(Int, y)
+    (1 <= ix <= w && 1 <= iy <= h) || return
+    g = _PLASMA_ANSI[k][2]
+    canvas[iy, ix] = _hp_pc(g, k)
+    return
+end
 
 # true when fd 0 is a terminal — the ground truth for "a human is typing"
 # (Base has no isatty in 1.10; ccall works on linux/windows/mac alike)
@@ -5437,6 +6941,8 @@ const HP_FIELD_HINT = Dict{Symbol,String}(
     :hp_deep_configs   => "H1 DEEPEN: extra AB configs",
     :hp_alpha_scan     => "H5 α-profile on/off (finetuning axis)",
     :hp_alpha_scan_n   => "H5 α-profile: configs per α point (plan caps to ≤2)",
+    :hp_num_nmax       => "H8: integer comb depth (targets ω = log n, n = 2..nmax)",
+    :hp_num_shufs      => "H8: permutation draws for the gap-arithmetic null",
     :ab_t              => "AB hopping t (suite default 1.0)",
     :ab_center_fraction=> "central band fraction kept (0.6)",
     :ab_alpha_test16   => "α screening length — THE finetuning axis",
@@ -5474,6 +6980,8 @@ const HP_FIELD_DOC = Dict{Symbol,String}(
     :hp_deep_configs => "H1 DEEPEN: extra AB configurations run when a regime is MARGINAL/PRESENT, judged against the null P95. Pre-registered stop rule: below P95 → generic artifact, above → escalate.",
     :hp_alpha_scan => "H5 α-profile (v23.6 №3): scans GUE quality along α ∈ {25/900, 0.05, 0.1, 0.2, 0.35, 0.5} at sparse Nv to distinguish 'narrow tuned peak' from 'plateau of small α'. Never scored — headline only.",
     :hp_alpha_scan_n => "Configs per α point of the H5 α-profile (independent seed stream +900000). The v24.1 budget caps this at ≤2 per point (≤ 40 total solves); the α=0.5 endpoint independently replicates regime A.",
+    :hp_num_nmax => "Depth of the H8 integer comb: targets ω = log(n) for EVERY n in 2..hp_num_nmax (log 200 ≈ 5.30; window auto-extends to log(nmax)+0.25). The three classes — primes, prime powers p^k, ≥2-distinct-prime composites — are counted inside this range; the composites are the DISCRIMINATING class (loud under «all numbers», silent under ζ — H1's decoy semantics inverted). Raising nmax thickens the composite statistics but adds unresolved high-n targets (spacing 1/n below the Hann main lobe) — the per-target null P95 keeps them fair and the verdict counts them honestly.",
+    :hp_num_shufs => "Permutation draws behind the H8 gap-arithmetic null: the detrended gap series is shuffled against each arithmetic feature (d, Ω, φ, σ, ln) this many times to build the |ρ| band. 200 = a stable 95th percentile; below 100 the band is noisy and the gate says so.",
     :ab_t => "Hopping amplitude t of the AB cloud Hamiltonian (suite default 1.0). Sets the overall bandwidth scale; keep 1.0 unless you deliberately probe the t-dependence.",
     :ab_center_fraction => "Fraction of the spectrum kept as the 'central band' after diagonalization (0.6 = suite). The unfolded statistics are computed inside this window; wider = more levels but harder edges.",
     :ab_alpha_test16 => "THE finetuning axis of the whole audit (v23.6 H5 α-profile): α=0.5 is the published baseline where GUE FAILS; α=25/900≈0.0278 (sharp-flux, monograph value) is where GUE is restored. Do not change casually.",
@@ -5536,7 +7044,7 @@ function _hp_soft_warn(cfg::HPConfig, name::Symbol)::String
         (cfg.hp_q_min <= 0.3 && cfg.hp_q_max >= 1.0) ||
             return "q-window [$(cfg.hp_q_min), $(cfg.hp_q_max)] misses the claimed criticals 0.3…1.0 — the H4 domain guard will fire"
     end
-    name === :hp_L && cfg.hp_L > 60 && return "L>60: run time grows ≈ L³ — record-grade territory, plan hours"
+    name === :hp_L && cfg.hp_L > 60 && return "L>60: dense-solve time grows ≈ L⁶ (16→72 ≈ 8000×) — record-grade territory, plan hours"
     name === :hp_L && cfg.hp_L < 12 && return "L<12: too few levels for unfolding statistics"
     name === :hp_n_ensemble && cfg.hp_n_ensemble > 7 &&
         return "ensemble > 7/regime: the v24.1 H5 plan caps it (≤ 40 dense solves total, user cap 2026-09-09)"
@@ -5753,12 +7261,167 @@ function _hp_hpcenter(t::AbstractString, w::Int)
     return " "^l * String(t) * " "^(pad - l)
 end
 
+# ═════════════════════════════════════════════════════════════════════════════
+# §PLASMA-BANNER. ASCII solar system — the visual identity of a run.
+#     The user's spec (2026-10-15):
+#       «Плазменный баннер при старте: ядро-H в центре, эллиптические орбиты,
+#        спутники-гейты H1…H7 на орбитах, ζ-нули как точки на внешнем поясе, с
+#        привязкой к реальным данным (seed, L, число нулей)».
+#     Driven by REAL run data: the nucleus shows L² + seed, the outer belt is
+#     populated with the actual count of ζ zeros (capped at 60 dots so the
+#     banner fits on a 72-col terminal). Every paint goes through the gated
+#     helpers, so a non-TTY log file gets the plain-ASCII skeleton — the
+#     scientific content survives the channel.
+# ═════════════════════════════════════════════════════════════════════════════
+
+"""Number of ζ zeros to actually draw on the outer belt. The user has up to
+50 000 ordinates; rendering all would push the banner past the terminal. We
+sample a stable equi-spaced subset of ≤60 — the BELT COUNT is shown to the
+right of the nucleus so the real number is still visible."""
+function _plasma_belt_sample(n_zeros::Int, cap::Int = 60)
+    n_zeros <= 0 && return Int[]
+    n_zeros <= cap && return collect(1:n_zeros)
+    # stable stride — same n_zeros ⇒ same belt every run
+    return [round(Int, 1 + (i - 1) * (n_zeros - 1) / (cap - 1)) for i in 1:cap]
+end
+
+"""Render the plasma solar system into a (h × w) character grid and return
+it as a Vector{String} ready to print. Geometry: nucleus at (cx,cy); three
+elliptical orbits; H1–H7 satellites placed at their stable (r,θ); an outer
+ζ-belt ring with sampled zero dots. The grid is sized 25 × 70 by default —
+fits the 72-col terminal the rest of the console already targets."""
+function _plasma_render_solar(cfg::HPConfig, zeros_path::String; w::Int = 70, h::Int = 25)
+    canvas = fill(" ", h, w)
+    cx = w / 2; cy = h / 2 + 0.5
+
+    # 1) NUCLEUS HALO — three concentric faint rings, painted first so the
+    #    orbits and satellites land on top
+    for r in (2.0, 1.5, 1.0)
+        for θ in 0:0.35:6.283
+            _plasma_paint!(canvas, cx + r * cos(θ), cy + r * 0.45 * sin(θ),
+                           "·", "halo"; w = w, h = h)
+        end
+    end
+    # nucleus glyph — draw a 3-char-wide marker "(" "H" ")" centered.
+    # The double-husk evokes an atomic nucleus (the user's «ядро-H» spec).
+    for (dx, dy, g) in ((-1, 0, "("), (0, 0, "H"), (1, 0, ")"))
+        ix = round(Int, cx + dx); iy = round(Int, cy + dy)
+        (1 <= ix <= w && 1 <= iy <= h) || continue
+        canvas[iy, ix] = _hp_pc(g, "nucleus")
+    end
+
+    # 2) ORBIT RINGS — three elliptical orbits, dim color
+    orbit_specs = [(10.0, 5.0, "orbit2"), (18.0, 9.0, "orbit"), (26.0, 13.0, "orbit")]
+    for (rx, ry, key) in orbit_specs
+        # step so each orbit has ≈ 2*(rx+ry) cells — smooth ellipse
+        θs = 0:0.18:6.283
+        for θ in θs
+            x = cx + rx * cos(θ)
+            y = cy + ry * sin(θ) * 0.55   # squash y for terminal aspect
+            _plasma_paint!(canvas, x, y, "·", key; w = w, h = h)
+        end
+    end
+
+    # 3) SATELLITES — H1..H8 on their orbits
+    for k in 1:8
+        rx, ry, θ0 = _plasma_orbit_params(k)
+        # place at the orbital θ0
+        x = cx + rx * cos(θ0)
+        y = cy + ry * sin(θ0) * 0.55
+        _plasma_paint_gate!(canvas, x, y, k; w = w, h = h)
+        # tiny tail trailing the satellite (3 cells behind, on the orbit)
+        for t in (1.0, 2.0, 3.0)
+            tx = cx + rx * cos(θ0 - 0.18 * t)
+            ty = cy + ry * sin(θ0 - 0.18 * t) * 0.55
+            ix = round(Int, tx); iy = round(Int, ty)
+            (1 <= ix <= w && 1 <= iy <= h) || continue
+            if canvas[iy, ix] == " " || canvas[iy, ix] == _hp_pc("·", "orbit2")
+                canvas[iy, ix] = _hp_pc("·", "tail")
+            end
+        end
+    end
+
+    # 4) ζ-ZERO OUTER BELT — sample real zeros as dots on a ring just outside
+    #    the outermost orbit (rx+8, ry+4). The belt itself is drawn as a faint
+    #    dotted ring; the zeros sit on it.
+    n_zeros = 0
+    try
+        n_zeros = isfile(zeros_path) ? length(load_zeros(zeros_path)) : 0
+    catch
+        n_zeros = 0
+    end
+    belt_rx, belt_ry = 32.0, 16.0
+    # faint belt ring
+    for θ in 0:0.25:6.283
+        x = cx + belt_rx * cos(θ)
+        y = cy + belt_ry * sin(θ) * 0.55
+        _plasma_paint!(canvas, x, y, "·", "belt"; w = w, h = h)
+    end
+    # zero dots
+    idxs = _plasma_belt_sample(n_zeros)
+    nidx = length(idxs)
+    for (i, _) in enumerate(idxs)
+        θ = 2π * (i - 1) / max(1, nidx) + 0.1
+        x = cx + belt_rx * cos(θ)
+        y = cy + belt_ry * sin(θ) * 0.55
+        _plasma_paint!(canvas, x, y, "∘", "zeros"; w = w, h = h)
+    end
+
+    # 5) assemble rows — every row is a single println-able string
+    return [join(canvas[y, :], "") for y in 1:h]
+end
+
+"""The plasma banner: solar system + a one-line caption carrying the REAL
+run numbers (seed, L, L² sites, ζ count). Printed once before the command
+menu so the user sees their universe at a glance."""
+function _hp_plasma_banner(cfg::HPConfig, zeros_path::String)
+    try
+        rows = _plasma_render_solar(cfg, zeros_path)
+        n_zeros = 0
+        try
+            n_zeros = isfile(zeros_path) ? length(load_zeros(zeros_path)) : 0
+        catch
+        end
+        # caption strip — the four real numbers the user named in the spec
+        cap_l = "  ⟡ HILBERT–PÓLYA SPECTRAL UNIVERSE"
+        cap_r = @sprintf("seed=%d · L=%d · %d sites · ζ-zeros=%d ⟡",
+                         cfg.hp_seed, cfg.hp_L, cfg.hp_L^2, n_zeros)
+        # pad cap_r to the right edge
+        pad = max(0, 70 - textwidth(cap_l) - textwidth(cap_r))
+        println(_hpc(cap_l * " "^pad * cap_r, "title"))
+        println(_hpc("  " * "─"^68, "dim"))
+        for r in rows
+            println(r)
+        end
+        println(_hpc("  " * "─"^68, "dim"))
+        # legend — per-gate color swatch + name, two rows of four
+        leg_left = join([_hp_pc("$(k)", k) * _hp_pc("=", "dim") *
+                        _hp_pc(_PLASMA_ANSI[k][2], k) *
+                        _hp_pc(":" * _PLASMA_ANSI[k][3], "dim") for k in 1:4], "  ")
+        leg_right = join([_hp_pc("$(k)", k) * _hp_pc("=", "dim") *
+                         _hp_pc(_PLASMA_ANSI[k][2], k) *
+                         _hp_pc(":" * _PLASMA_ANSI[k][3], "dim") for k in 5:7], "  ")
+        println("  " * leg_left)
+        println("  " * leg_right)
+        println(_hpc("  ⟟ " * _hp_pc("∘", "zeros") *
+                     " = real ζ-zero ordinate on the outer belt (sampled, see ζ-zeros count above)",
+                     "dim"))
+    catch err
+        # never let a decoration error kill the console — fall back to plain
+        println("  [plasma banner unavailable: ", sprint(showerror, err), "]")
+    end
+    return nothing
+end
+
 function _hp_banner(cfg::HPConfig, preset::Symbol, zeros_path::String)
     W = 72
     println(_hpc("╔" * "═"^W * "╗", "title"))
     println(_hpc("║", "title") * _hp_hpcenter("HP·MERIDIAN — Hilbert–Pólya Audit Console", W) * _hpc("║", "title"))
-    println(_hpc("║", "title") * _hp_hpcenter("7 gates between prime arithmetic and GUE spectral statistics", W) * _hpc("║", "title"))
+    println(_hpc("║", "title") * _hp_hpcenter("8 gates between prime arithmetic and GUE spectral statistics", W) * _hpc("║", "title"))
     println(_hpc("╚" * "═"^W * "╝", "title"))
+    # v25-PLASMA: the solar system banner rides under the title frame, driven
+    # by REAL run data (seed, L, ζ count). Falls back silently on any error.
+    _hp_plasma_banner(cfg, zeros_path)
     for a in HP_AUDITS
         k = a.id - 300
         short = replace(a.title, r"^H\d+\.\s*" => "")
@@ -5766,7 +7429,7 @@ function _hp_banner(cfg::HPConfig, preset::Symbol, zeros_path::String)
                 _hpc(rpad(get(GATE_NAME, k, ""), 13), "bold"), short)
     end
     println(_hpc("─"^W, "dim"))
-    println("  1-7 run gate · a all · gA gB gC gD reviewer group · f/F/s preset · r reset")
+    println("  1-8 run gate · a all · gA gB gC gD reviewer group · f/F/s preset · r reset")
     println("  p parameters (all fields, profiles) · i intel · d doctor · v last run")
     println("  z ζ-zeros path · b params banner · h help · q quit (code stays loaded)")
     println(_hpc("─"^W, "dim"))
@@ -5845,7 +7508,7 @@ end
 
 function _hp_view_last()
     rdir = joinpath(pwd(), "results")
-    isdir(rdir) || (println(_hpc(" no runs yet in $rdir — run a gate first (1-7 or a)", "warn")); return)
+    isdir(rdir) || (println(_hpc(" no runs yet in $rdir — run a gate first (1-8 or a)", "warn")); return)
     ds = [d for d in readdir(rdir) if startswith(d, "run_") && isdir(joinpath(rdir, d))]
     isempty(ds) && (println(_hpc(" no run_* directories yet in $rdir", "warn")); return)
     sort!(ds; by = d -> stat(joinpath(rdir, d)).mtime)
@@ -5866,7 +7529,7 @@ end
 
 function _hp_help()
     println(_hpc("─"^72, "dim"))
-    println("  RUN     1..7 one gate · a all seven · gA/gB/gC/gD reviewer groups")
+    println("  RUN     1..8 one gate · a all eight · gA/gB/gC/gD reviewer groups")
     println("  SCALE   s SMOKE (~2-3 min, validation) · f FAST (L=72, hours — heavy, phone: plan days for H5) ·")
     println("          F FULL (L=56, hours, record-grade) · r reset parameters")
     println("  H5 FOCUS 5d — focused regime-D run: ALL 40 solves on [D], N=40 (p: hp_regime_mode=:regime_d|:showdown)")
@@ -5911,13 +7574,13 @@ function hp_console(cfg::HPConfig = make_hp_config())
             if c in ("q", "quit", "exit", "x")
                 println(_hpc(" console closed — the audit code STAYS LOADED in this session:", "dim"))
                 println("   hp_console()            reopen this console")
-                println("   main([\"full\"])          batch battery (fast|full|smoke · h1..h7 · seed= · zeros=)")
+                println("   main([\"full\"])          batch battery (fast|full|smoke · h1..h8 · seed= · zeros=)")
                 println("   hp_params_menu!(cfg)    parameter editor on your own config")
                 return nothing
-            elseif occursin(r"^[1-7]$", c)
+            elseif occursin(r"^[1-8]$", c)
                 run_battery_core(cfg, [parse(Int, c)], "menu"; zeros_path = zeros_path)
             elseif c in ("a", "all")
-                run_battery_core(cfg, collect(1:7), "menu"; zeros_path = zeros_path)
+                run_battery_core(cfg, collect(1:8), "menu"; zeros_path = zeros_path)
             elseif occursin(r"^g[abcd]$", c)
                 grp = uppercase(string(c[2]))
                 sel = Int[a.id - 300 for a in HP_AUDITS if a.group == grp]
@@ -5982,7 +7645,7 @@ function main(args::Vector{String} = ARGS)
     if isempty(args) && _hp_stdin_tty() && get(ENV, "HP_SA_NO_MENU", "0") != "1"
         # started with no arguments from a terminal → console, not a surprise battery
         println(_hpc(" no CLI args → opening the HP·MERIDIAN console", "dim"))
-        println(_hpc(" (batch: julia hp_audit_standalone.jl [fast|full|smoke] [h1..h7|all] [seed=N] [zeros=path])", "dim"))
+        println(_hpc(" (batch: julia hp_audit_standalone.jl [fast|full|smoke] [h1..h8|all] [seed=N] [zeros=path])", "dim"))
         return hp_console()
     end
     mode = :fast
@@ -5997,7 +7660,7 @@ function main(args::Vector{String} = ARGS)
             zeros_path = String(split(a, '=')[2])
         elseif startswith(la, "seed=")
             cfg.hp_seed = parse(Int, split(a, '=')[2])
-        elseif occursin(r"^h[1-7]$", la)
+        elseif occursin(r"^h[1-8]$", la)
             push!(sel, parse(Int, la[2]))
         elseif la == "all"
             empty!(sel)
@@ -6005,13 +7668,18 @@ function main(args::Vector{String} = ARGS)
             println("ignoring unknown arg: $a"); usage()
         end
     end
-    isempty(sel) && (sel = collect(1:7))
+    isempty(sel) && (sel = collect(1:8))
 
     _mr_banner("HP·MERIDIAN — HILBERT–PÓLYA DEEP AUDIT", "v" * HP_SA_VERSION,
-               "arithmetic specificity, not just universality — 7 falsifiable gates H1–H7",
+               "arithmetic specificity, not just universality — 8 falsifiable gates H1–H8",
                "core from ab_cloud_v23_v2.jl (suite) · ABPlotV23 journal engine")
     apply_preset!(cfg, mode)
     register_audits!()
+    # v25-PLASMA: ride the solar-system banner in batch mode too — the user's
+    # visual identity, present wherever the suite runs. Use auto-discovery if
+    # the user didn't pass zeros=path explicitly.
+    _color_init!()
+    _hp_plasma_banner(cfg, isempty(zeros_path) ? _hp_discover_zeros() : zeros_path)
     params_banner(cfg)
 
     run_battery_core(cfg, sel, string(mode); zeros_path = zeros_path)

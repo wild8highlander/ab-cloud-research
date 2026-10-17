@@ -8,14 +8,14 @@
 monographs are checkable without running anything.**
 
 [![Files](https://img.shields.io/badge/files-459%20%C2%B7%208.4%20MB-0E7C86?style=flat-square)](#-complete-file-inventory)
-[![Tests](https://img.shields.io/badge/tests-37%20%C2%B7%20two%20passes-2EA043?style=flat-square)](#-run_202609022026134759--layout)
-[![Reference run](https://img.shields.io/badge/reference%20run-2026--09--02%20%C2%B7%20Julia%201.12.0-4FB3BE?style=flat-square)](#-run_202609022026134759--layout)
-[![Zeros](https://img.shields.io/badge/zeros-50%20000%20Odlyzko-9558B2?style=flat-square)](#-run_202609022026134759--layout)
-[![Pass 2](https://img.shields.io/badge/pass%202-HARDCORE%20%C2%B7%2096%C3%9796-C96F4A?style=flat-square)](#-run_202609022026134759--layout)
+[![Tests](https://img.shields.io/badge/tests-37%20%C2%B7%20two%20passes-2EA043?style=flat-square)](#-run_20260902_134759--layout)
+[![Reference run](https://img.shields.io/badge/reference%20run-2026--09--02%20%C2%B7%20Julia%201.12.0-4FB3BE?style=flat-square)](#-run_20260902_134759--layout)
+[![Zeros](https://img.shields.io/badge/zeros-50%20000%20Odlyzko-9558B2?style=flat-square)](#-run_20260902_134759--layout)
+[![Pass 2](https://img.shields.io/badge/pass%202-HARDCORE%20%C2%B7%2096%C3%9796-C96F4A?style=flat-square)](#-run_20260902_134759--layout)
 [![KS](https://img.shields.io/badge/Montgomery%20KS-0.047%20%C2%B7%20p%3D0.27-3A6B4F?style=flat-square)](#-the-37-tests-folder-names-are-self-describing)
 [![Reproduce](https://img.shields.io/badge/reproduce-30--60%20min%20%C2%B7%20seeded-8C6D1F?style=flat-square)](#-regenerating-the-plots)
 
-[Layout](#-run_202609022026134759--layout) · [The 37 tests](#-the-37-tests-folder-names-are-self-describing) · [Regenerating plots](#-regenerating-the-plots) · [Flat logs](#-flat-reference-logs) · [How to read](#-how-to-read-a-run-folder) · [Deep dive](#-deep-dive--anatomy-of-the-flagship-run)
+[Layout](#-run_20260902_134759--layout) · [The 37 tests](#-the-37-tests-folder-names-are-self-describing) · [Regenerating plots](#-regenerating-the-plots) · [Flat logs](#-flat-reference-logs) · [How to read](#-how-to-read-a-run-folder) · [Deep dive](#-deep-dive--anatomy-of-the-flagship-run)
 
 </div>
 
@@ -27,7 +27,7 @@ monographs are checkable without running anything.**
 <summary><strong>Expand / collapse</strong></summary>
 
 1. [🗃 What lives here](#-what-lives-here)
-2. [🗺 `run_20260902_134759/` — layout](#-run_202609022026134759--layout)
+2. [🗺 `run_20260902_134759/` — layout](#-run_20260902_134759--layout)
 3. [🧪 The 37 tests (folder names are self-describing)](#-the-37-tests-folder-names-are-self-describing)
 4. [♻️ Regenerating the plots](#-regenerating-the-plots)
 5. [📋 Flat reference logs](#-flat-reference-logs)
@@ -112,7 +112,7 @@ julia code/julia/ab_cloud_full.jl --test all      # 30–60 min; writes a NEW ti
 ```
 
 The committed `run_20260902_134759` numbers are reproducible because the suite is seeded and
-reads the frozen data in [`verification/data/`](../../../verification/data/).
+reads the frozen data in [`verification/data/`](../../verification/data/).
 
 ---
 

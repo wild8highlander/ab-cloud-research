@@ -1,0 +1,80 @@
+name: Docs health
+
+# Documentation & sync integrity on every push:
+#   1. internal-links  — every relative link and anchor in every tracked .md
+#                        resolves to a real file / heading (GitHub annotations).
+#   2. readme-coverage — every directory that carries docs/code/data has a README.
+#   3. sync-guard      — the Academic Package's byte-copies (Julia suite, HP
+#                        audit, D-variants, formal layer, frozen zeros) match
+#                        the canon, and the verdict layer agrees with the
+#                        research registry (the funnel).
+#   4. external-links  — weekly lychee crawl of http(s) links (report-only;
+#                        the internal gate above is the blocking one).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 5 * * 1"   # weekly Monday 05:00 UTC — external-link crawl
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-health-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  internal-links:
+    name: Internal links & anchors (every .md)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - name: Resolve every relative link and anchor in tracked markdown
+        run: python3 .github/scripts/docs_health.py links
+
+  readme-coverage:
+    name: README coverage (every documented directory)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - name: Flag documented directories without a README
+        run: python3 .github/scripts/docs_health.py readmes
+
+  sync-guard:
+    name: Package ⇄ canon sync + verdict layer
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - name: Byte-copy drift + verdict-layer consistency
+        run: python3 .github/scripts/docs_health.py sync
+
+  external-links:
+    name: External links (lychee — report only)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - name: Crawl http(s) links in markdown (doi/zenodo/orcid excluded)
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress --max-retries 2 --exclude-mail
+            --exclude 'doi.org|zenodo.org|orcid.org|star-history.com'
+            './**/*.md' './docs/**/*.md'
+          output: lychee-report.md
+        continue-on-error: true   # report-only: flaky external hosts must not block merges
+      - name: Upload the crawl report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lychee-report
+          path: lychee-report.md
+          if-no-files-found: ignore
+          retention-days: 30

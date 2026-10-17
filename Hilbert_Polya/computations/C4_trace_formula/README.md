@@ -261,13 +261,13 @@ A note on two committed formulations of the gap. The results table measures ≈ 
 
 | Quantity | Value | Status |
 |---|---|---|
-| M0: the Q(a) identity | |ΔQ| ≤ 1.7e-12 on the grid a ∈ [0.1, 3] | calibrated |
+| M0: the Q(a) identity | \|ΔQ\| ≤ 1.7e-12 on the grid a ∈ [0.1, 3] | calibrated |
 | Built-in control B = −C₀ | 0.023095708966 — 12 digits | classical identity confirmed |
-| M1: trace formula for H_ξ | |ΔK| ≤ 1.2e-5 (abs), 1e-6…1e-4 rel. at x ≤ 0.35 | T6 verified |
+| M1: trace formula for H_ξ | \|ΔK\| ≤ 1.2e-5 (abs), 1e-6…1e-4 rel. at x ≤ 0.35 | T6 verified |
 | PC0: zeros window vs the comb | r = +0.9998, relative residual 2.1% | method sees the prime weight |
 | M2: 52 gates | r_EF −0.93…+1.00, null clouds; best gate (Nv = 16) r_EF = 0.9978, z = 2.62 | conservative branch of H5 — YES via the convergence ladder (v2.0.8) |
 | Gap in the trace metric | ≈ 0.5 orders by residual (best 6.7% vs 2.1%), at L = 24 | the finite-size branch of the H5 convergence ladder |
-| C3 protocol reproduction | |Δ mean_spacing| = 1.45e-16 | bit-for-bit |
+| C3 protocol reproduction | \|Δ mean_spacing\| = 1.45e-16 | bit-for-bit |
 
 **M0 — the Q(a) identity.** The direct sum of Q(a) over the zeros file (tail analytic, from the smooth density N̄′) matches the closed form (★) through mpmath with max |ΔQ| = 1.7e-12 (committed: 1.7314760736297785e-12). The committed grid shows the discrepancy growing smoothly and monotonically with a — 2.79e-13 at a = 0.10, 4.42e-13 at 0.45, 7.97e-13 at 1.2, 1.30e-12 at 2.2, 1.73e-12 at 3.0 — the signature of a quadrature floor rather than a structural mismatch. Status *calibrated*: the closed form is certified as a stand-in for the direct sum in everything that follows.
 

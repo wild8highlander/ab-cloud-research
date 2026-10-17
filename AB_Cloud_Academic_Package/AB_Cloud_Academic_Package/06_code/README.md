@@ -1,4 +1,4 @@
-# 06_code — the unified CLI (six languages, one contract)
+# 06_code — the unified CLI (six languages, one contract) + the research cores + the formal layer
 
 | Runner | Language | Entry | Status |
 |---|---|---|---|
@@ -50,9 +50,30 @@ in the Python reference; the cross-language runners delegate to it (exit 2)
 ├── plugins/   example plugin + API
 ├── hooks/     pre_run.sh (the honesty gate) + post_run.sh
 ├── scripts/   bootstrap, smoke_test, release, update_checksums, update_manifest, build_monograph
-├── lab_standalone/   the three standalone Julia research programs (see lab_standalone/README.md)
+├── lab_standalone/   the standalone Julia research programs (see lab_standalone/README.md)
+├── meridian/    the two Meridian D-variants of the canon (RH_Unified_D.jl, RH_Sweep_Pro_D.jl) — byte copies of `code/RH_*_D.jl`
+├── formal/      the four proof-assistant ports (lean4 · coq · agda · isabelle) — byte copies of the repo's `formal/` tree
 ├── Makefile · Dockerfile · requirements*.txt · environment.yml
 ```
+
+## Canon sync policy
+
+`lab_standalone/ab_cloud_full.jl` and `lab_standalone/hp_audit_standalone.jl`
+are **byte copies of the canonical suite** (`code/ab_cloud_full.jl` — the
+Aurora edition the CI Julia job runs — and `code/hp_audit_standalone.jl`,
+HP·MERIDIAN 25.2-NUMINA). The CI `sync-guard` job
+(see `.github/workflows/docs-health.yml`) re-checks this on every push and
+flags the package the moment its copies drift from the canon. Do not edit
+these files inside the package: change the canon, then re-copy.
+
+## The formal layer inside the package
+
+`formal/` carries the four independent proof assistants verbatim from the
+repository: `lean4` (lake build + the executable `abcloud-verify`
+re-derivation), `coq`, `agda` and `isabelle`. They type-check against the
+same frozen anchors (see `formal/lean4/ABCloud/Embed.lean`) and are exercised
+by the repo's `Formal verification` workflow — the package keeps them so the
+formal layer travels with the data and the code it verifies.
 
 ## The honesty gate
 

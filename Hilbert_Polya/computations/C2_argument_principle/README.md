@@ -381,9 +381,9 @@ What the historical continuum did with mainframes and hand-checking, C2 does wit
 | S(T) | N(T) − N̄(T); the classical residual, bounded in the campaign's check by 1.7994 ≤ 1.8 on [0, 1.13e6]. |
 | γ_n | The ordinate of the n-th zero on the critical line; Σγ² is their second moment (criterion K6). |
 | Contour | The rectangle (2,0)→(2,T)→(0,T)→(0,0) with a small semicircular detour above s = 1. |
-| Adaptive Turing step | Recursive bisection of contour arcs; leaf condition |wrap| ≤ 0.3 AND length ≤ h_safe. |
-| h_safe | Arc-length ceiling derived from bounds on |ζ′/ζ|; the anti-aliasing guard. |
-| Arithmetic bridge | numpy-vs-mpmath recomputation of the same contour; committed |ΔN| = 2.6e-26 at T = 100.07. |
+| Adaptive Turing step | Recursive bisection of contour arcs; leaf condition \|wrap\| ≤ 0.3 AND length ≤ h_safe. |
+| h_safe | Arc-length ceiling derived from bounds on \|ζ′/ζ\|; the anti-aliasing guard. |
+| Arithmetic bridge | numpy-vs-mpmath recomputation of the same contour; committed \|ΔN\| = 2.6e-26 at T = 100.07. |
 | Anchor / block | The first three heights (T = 10, 27.72, 51.37) / the remaining ten heights of the run. |
 | n_on_line_file | On-line zero count from the committed zero registry; the independent half of the equality. |
 | K4 / K5 / K6 | Campaign criteria: argument-principle consistency; von Mangoldt counting identity (S(T) ≤ 1.8); second moment Σγ². |

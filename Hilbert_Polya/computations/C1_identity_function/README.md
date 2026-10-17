@@ -169,12 +169,12 @@ The campaign's headline table, numbers verbatim from the committed verdict:
 
 | Quantity | Value | Status |
 |---|---|---|
-| Closure |Γ(½+iu)|² = π/cosh πu | residual 2.59e-39 (dps 40) | proven |
-| Closure |Γ(iu)|² = π/(u·sinh πu) | residual 2.57e-39 | proven |
-| Product |Γ(¼+iu)|·|Γ(¾+iu)| (Legendre) | residual 1.27e-39 | proven |
+| Closure \|Γ(½+iu)\|² = π/cosh πu | residual 2.59e-39 (dps 40) | proven |
+| Closure \|Γ(iu)\|² = π/(u·sinh πu) | residual 2.57e-39 | proven |
+| Product \|Γ(¼+iu)\|·\|Γ(¾+iu)\| (Legendre) | residual 1.27e-39 | proven |
 | Candidate form of the single modulus | structural mismatch 0.765 | refuted |
-| Reality of Z_id (K2) | max|Im Z_id| = 4.9e-29 | proven |
-| Z_id zeros on [0,200] vs mpmath (K3) | 79 zeros, max|Δγ| = 2.8e-14 | confirmed |
+| Reality of Z_id (K2) | max\|Im Z_id\| = 4.9e-29 | proven |
+| Z_id zeros on [0,200] vs mpmath (K3) | 79 zeros, max\|Δγ\| = 2.8e-14 | confirmed |
 | Gram points (K7) | 220 points, 4 violations (classical) | reproduced |
 
 Read it as two halves. The first three rows are T1 — the Γ-ladder: two edge closures at Re s = 0 and Re s = 1 and the Legendre pair product on the line, each verified at dps = 40 with residuals of 1.27–2.59e-39 against a threshold of 1e-30. The fourth row is the honest refutation: the candidate elementary form of the single modulus misses with structural mismatch 0.765 — not 1 — and the miss is published, not buried. The last three rows are the graph measurements: the imaginary part of Z_id on the line (K2), the zero match against the internal mpmath reference (K3), and the classical Gram interlace (K7), reproduced with exactly the four known violations among the 220 points.

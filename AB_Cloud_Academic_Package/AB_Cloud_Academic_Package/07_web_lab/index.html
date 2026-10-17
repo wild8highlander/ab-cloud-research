@@ -370,14 +370,14 @@ const DATA = {
    "claim_ru": "Спектральное тождество",
    "claim_en": "Spectral identity",
    "verdict": "YES",
-   "basis": "D_nn 0.0079 — the level of the zeta zeros themselves (shifted zero windows and the GUE zero class: 0.0079 ± 0.0005, C3); family 0.0069–0.0092; trace bridge |Delta K| <= 1.2e-5 (C4); audit v2.0.7 — the bit-level branch (T18) remains open"
+   "basis": "D_nn 0.0079 — the level of the zeta zeros themselves (shifted zero windows and the GUE zero class: 0.0079 ± 0.0005, C3); family 0.0069–0.0092 in the zeros' band; GUE class <r> = 0.60 (C5); trace bridge |Delta K| <= 1.2e-5 (C4); audit v2.0.7"
   },
   {
    "id": "G3",
    "claim_ru": "Класс GUE",
    "claim_en": "GUE class",
    "verdict": "YES",
-   "basis": "<r> = 0.60 at N_v >= 8; all of C5 in class (v2.0.5 honest regeneration: <r> = 0.569–0.633, mean 0.601; D7: 0.608 vs 0.5992)"
+   "basis": "<r> = 0.60 at N_v >= 8; all of C5 in class (v2.0.5 honest regeneration: <r> = 0.569–0.633, mean 0.601, canonical band 0.5996 ± 0.03; D7: 0.608 vs 0.5992)"
   },
   {
    "id": "G4",
@@ -391,7 +391,7 @@ const DATA = {
    "claim_ru": "Простые в операторе",
    "claim_en": "Primes in the operator",
    "verdict": "YES",
-   "basis": "the convergence ladder (audit v2.0.8): gate psi-corr monotone in Nv (−0.12 → +0.09 → +0.24), converging with L (Vortex scan: GUE floor 0.0324 → 0.0220 at L = 24 → 96, best pooled D = 0.0318); zeros 0.972 → 1 by the explicit formula; enters with G2 through the level identity; bit-level branch open (T18, C6)"
+   "basis": "the convergence ladder (audit v2.0.8): gate psi-corr monotone in Nv (−0.12 → +0.09 → +0.24 at Nv = 0 → 2 → 16, peak in the working window), converging with L (Vortex scan: GUE floor 0.0324 → 0.0220 at L = 24 → 96, best pooled D = 0.0318); zeros 0.972 → 1 by the explicit formula; enters with G2 through the level identity; bit-level branch open (T18, C6)"
   },
   {
    "id": "RH",
@@ -399,6 +399,41 @@ const DATA = {
    "claim_en": "Riemann hypothesis",
    "verdict": "BLOCKED",
    "basis": "V13 obligation machine; analytic prerequisites remain assumed"
+  },
+  {
+   "id": "G6",
+   "claim_ru": "Комбинированный режим D гейта H5 достигает GUE чисто",
+   "claim_en": "Combined regime D of gate H5 reaches GUE cleanly",
+   "verdict": "YES",
+   "basis": "<r> = 0.6003 +- 0.0050; median KS_D = 0.0148 (2x below d_crit = 0.031); 7/7 individual KS pass (meridian H5, L=72, 2026-09-09)"
+  },
+  {
+   "id": "G7",
+   "claim_ru": "Базовая линия A — систематический выброс",
+   "claim_en": "Baseline A is a systematic outlier",
+   "verdict": "NO",
+   "basis": "median D ~ 0.35, worsening with L; OR-clause regimes B/C reach <r> but fail individual KS (meridian H5)"
+  },
+  {
+   "id": "G8",
+   "claim_ru": "Оптимизированное вихревое окно закрывает 89% разрыва до GUE-пола",
+   "claim_en": "The optimized vortex window closes 89% of the gap to the GUE floor",
+   "verdict": "YES",
+   "basis": "D = 0.0318 vs floor 0.0220 and reference 0.1096 (T34-ext, 96x96, 5 realizations, pooled 27,640 spacings)"
+  },
+  {
+   "id": "G9",
+   "claim_ru": "Волновые аттракторы воспроизводятся из первых принципов",
+   "claim_en": "Wave attractors reproduce from first principles",
+   "verdict": "YES",
+   "basis": "lock-in 24/24 vs 0/24 control; chirality mirror-sum 0.0; frequency invariance exact; Python-Julia 3.45e-15 (W1)"
+  },
+  {
+   "id": "G10",
+   "claim_ru": "Сканирование вихрей доказывает гипотезу Гильберта-Поли",
+   "claim_en": "The vortex scan proves the Hilbert-Polya conjecture",
+   "verdict": "NO",
+   "basis": "does_not_prove: the scan establishes a necessary statistical condition (D -> finite-sample floor) any H-P candidate must satisfy; it neither proves RH nor exhibits the H-P operator"
   }
  ],
  "numbers": [

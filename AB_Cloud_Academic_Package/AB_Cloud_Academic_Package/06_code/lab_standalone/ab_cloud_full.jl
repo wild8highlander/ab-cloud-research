@@ -1,71 +1,16 @@
 #!/usr/bin/env julia
 #
-# ═══════════════════════════════════════════════════════════════════════════════
-# CHANGELOG v3.3 (2026-09-19 — TEST 34G geometry sweep, finite-size lab port):
-#   • NEW TEST 39 (id 39, menu 39 / CLI --test=39): "TEST 34G — Test 34
-#     GEOMETRY SWEEP" — the finite-size_lab.jl Test-34 laboratory ported into
-#     the v23 suite (user spec 2026-09-19: «чтобы то, что есть в коде
-#     finite-size lab v1, было отражено и во втором коде — дополнительный
-#     прогон на разных геометриях для теста 34»).
-#     - 7 closed surfaces: torus, Klein bottle, pillow orbifold, cube sphere,
-#       Hurwitz PSL(2,7)/PSL(2,8)/PSL(2,13) (magnetic Cayley graphs, ord B=3,
-#       ord C=7, heptagon flux 2π·q·α·Nv) — builders ported verbatim from the
-#       lab so the physics matches the lab run-for-run.
-#     - BIG-MATRIX parity: every scalable geometry auto-scales to the SAME
-#       site budget (t34g_L, default 96 → ~9216 sites; Klein/pillow → 136,
-#       cube → 40); Hurwitz |G| is mathematically fixed (168/504/1092) and
-#       reported honestly. Values-only windowed diagonalization
-#       (LAPACK hetrd! + chunked stebz!) keeps RAM at ~n²·16 B.
-#     - Lab Test-34 metrics per geometry × reps: two-sample KS D/p on the
-#       unfolded spacings (ζ side: suite-canonical `normalized_spacings`),
-#       Montgomery R₂(s) + plateau [1,2], d_GUE vs d_Pois, composite verdict
-#       (p>0.01 ∨ D<0.10) ∧ d_GUE<d_Pois ∧ plateau∈[0.75,1.25]; pooled
-#       verdict per geometry + UNIVERSAL verdict; report plot + notes.
-#   • Config knobs (menu 73): t34g_L, t34g_reps, t34g_geoms, t34g_alpha,
-#     t34g_nv, t34g_q, t34g_W (CLI --t34g-l / --t34g-reps / --t34g-geoms).
-#   • Test 39 is self-contained: run_test_two_pass skips its pass 2 (the
-#     sweep already covers every geometry), quick_check caps it small.
-#
 # ╔══════════════════════════════════════════════════════════════════════════╗
-# CHANGELOG v3.2 (2026-09-16 — estimator-validity patch series, pre-submission audit):
-#   • Patch A — Test 34 (both passes): ζ-side unfolding switched to the
-#     suite-canonical per-zero log-density estimator (`normalized_spacings`).
-#     The 2500-zero sliding window lagged the log-growing ζ density (stretch
-#     up to ≈2× at the low end) and turned the ζ reference into a mixture —
-#     the root cause of the pooled D = 0.1096 (window-lag artifact, not
-#     physics). Predicted post-fix pooled D = 0.03–0.06 (falsifiable).
-#   • Patch B — Test 34 pass 1: uniform-stride position subsampling removed
-#     (stride × mean spacing starved the R₂ histogram at s_max = 3.0).
-#   • Patch C — Test 34b: cartesian `for i, j … break` exited BOTH loops
-#     (Julia semantics) → R₂ histogram held i = 1 pairs only; 6000-position
-#     head cap removed. Nested loops, inner-only break, full resolution.
-#   • Patch D — NEW ab_r2_estimator_selftest(): GUE-2000² calibration of the
-#     shared R₂ core (gate ⟨|ΔR₂|⟩_cal < 0.06); R₂ sub-checks of Tests 34/34b
-#     are calibration-gated — a vacuous R₂ number can no longer pass silently.
-#   • Patch E — ab_hc_nreal default 5 → 20 (ensemble depth for Tests 28b/35b).
-#   • Patch F — calibration-gate fix: the Patch D gate ⟨|ΔR₂|⟩_cal < 0.06 sat
-#     BELOW the estimator's own Poisson noise floor (measured 0.084–0.099 at
-#     n_calib = 2000, ds = 0.05, across seeds; analytic floor ≈ √(g/(M·ds)),
-#     mean|Δ| ≈ 0.09–0.10), so Tests 34/34b failed calibration on EVERY run.
-#     Gate raised to 0.15 — ≈ 1.5× above the noise floor, still ≈ 3–6× below
-#     the Patch B/C defect classes (≈ 0.5–0.9). Core verified on a Poisson
-#     reference: mean g = 0.973, mean|Δ| = 0.101 (pure noise, no bias).
-#   All patches are estimator/verdict-path changes: no physics, no windows
-#   were altered (Patch F restores the Patch D gate to an attainable level).
-#   • Patch G — re-include safety: top-level `using .ABUI3` replaced with an
-#     explicit `import .ABUI3: …` of the same name list. Re-including this
-#     file in one REPL session (e.g. after a mid-file parse error aborts the
-#     first include) redefines module ABUI3; the stale + the new `using`
-#     entries then make every ab_* name ambiguous (UndefVarError with the
-#     "two or more modules export different bindings" hint). Explicit
-#     imports overwrite the Main binding on each include → self-heals.
-# ═══════════════════════════════════════════════════════════════════════════════
+# ║ ✦ AB-CLOUD — VERIFICATION SUITE · AURORA EDITION ║
+# ║ визуальный движок ABUI · truecolor ANSI, Termux-safe ║
+# ║ Самодостаточный модуль (только stdlib). Публичные имена: префикс ab_. ║
+# ╚══════════════════════════════════════════════════════════════════════════╝
 
 # ═══════════════════════════════════════════════════════════════════════════════
-#  UI3 · визуальный движок AB-CLOUD v3 — truecolor ANSI, Termux-safe
+#  AURORA · визуальный движок AB-CLOUD — truecolor ANSI, Termux-safe
 #  Самодостаточный модуль (только stdlib). Все публичные имена с префиксом ab_.
 # ═══════════════════════════════════════════════════════════════════════════════
-module ABUI3
+module ABUI
 
 using Printf: @sprintf
 import Dates
@@ -74,7 +19,16 @@ export ab_w, ab_box, ab_panel_header, ab_show_banner, ab_render_bar,
        ab_render_loopbar, ab_start_line, ab_done_line, ab_paint_result,
        ab_verdict_icon, ab_celebrate, ab_ico, ab_ico_lab, ab_ico_h,
        ab_color_on, ab_color_off, ab_cyn, ab_grn, ab_red, ab_ylw, ab_mag,
-       ab_blu, ab_gry, ab_wht, ab_org, ab_B, ab_D, ab_R
+       ab_blu, ab_gry, ab_wht, ab_org, ab_B, ab_D, ab_R,
+       ab_gold, ab_vio, ab_ice, ab_rule
+
+# ═══ AURORA DEEP PALETTE ════════════════════════════════════════════════════
+# чёрно-синее небо, полярное сияние и золото: заголовки — лёд/синь,
+# акценты и вердикты PASS — золото, FAIL — алый, WARN — янтарь
+const _AUR_ICE  = (125, 211, 252)   # ледяной голубой (основной тон)
+const _AUR_SKY  = (91, 141, 255)    # синь (вторичный тон)
+const _AUR_GOLD = (232, 199, 102)   # светлое золото (акценты, ETA, WARN)
+const _AUR_GRN  = (52, 211, 153)    # полярная зелень (PASS)
 
 # ─── цветовой шлюз: отчёты всегда получают чистый текст ───────────────────────
 const COLOR = Ref{Bool}(true)
@@ -83,11 +37,27 @@ ab_color_off() = (COLOR[] = false; nothing)
 
 _ab() = COLOR[]
 _p3(r::Int, g::Int, b::Int) = _ab() ? "\e[38;2;$(r);$(g);$(b)m" : ""
-ab_cyn() = _p3(0,229,255);   ab_grn() = _p3(80,250,123)
-ab_red() = _p3(255,85,85);   ab_ylw() = _p3(255,214,102)
-ab_mag() = _p3(255,121,198); ab_blu() = _p3(96,165,250)
-ab_gry() = _p3(130,140,155); ab_wht() = _p3(235,240,255)
-ab_org() = _p3(255,159,64)
+ab_cyn() = _p3(_AUR_ICE...);  ab_grn() = _p3(_AUR_GRN...)
+ab_red() = _p3(255,95,110);   ab_ylw() = _p3(_AUR_GOLD...)
+ab_mag() = _p3(167,139,250);  ab_blu() = _p3(_AUR_SKY...)
+ab_gry() = _p3(139,152,178);  ab_wht() = _p3(235,240,255)
+ab_org() = _p3(255,159,90)
+ab_gold() = _p3(212,175,55)   # глубокое золото (орнаменты, баннеры)
+ab_vio()  = _p3(167,139,250)  # фиолетовое сияние
+ab_ice()  = _p3(_AUR_ICE...)  # лёд (заголовки разделов)
+
+"Орнаментальная линия-разделитель AURORA: ✦ ── ❄ ── ✦"
+function ab_rule(width::Int = 66; ornament::Bool = true)::String
+    _ab() || return "─"^width
+    o1 = ab_gold() * "✦" * ab_R()
+    o2 = ab_ice() * "❄" * ab_R()
+    o3 = ab_gold() * "✦" * ab_R()
+    line = ornament ?
+        o1 * ab_D() * "─"^((width - 12) ÷ 2) * ab_R() * o2 *
+        ab_D() * "─"^((width - 12) ÷ 2) * ab_R() * o3 :
+        ab_D() * "─"^width * ab_R()
+    return line
+end
 ab_B() = _ab() ? "\e[1m" : ""
 ab_D() = _ab() ? "\e[2m" : ""
 ab_R() = _ab() ? "\e[0m" : ""
@@ -148,11 +118,11 @@ _hms(sec::Real) = begin
 end
 
 # ─── спиннер ──────────────────────────────────────────────────────────────────
-const _SPIN_FRAMES = "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
+const _SPIN_FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
 const _SPIN = Ref{Int}(0)
 function _spin_str()
     _SPIN[] = _SPIN[] % length(_SPIN_FRAMES) + 1
-    ch = string(_SPIN_FRAMES[_SPIN[]])
+    ch = _SPIN_FRAMES[_SPIN[]]
     return _ab() ? ab_cyn() * ab_B() * ch * ab_R() : ch
 end
 
@@ -176,10 +146,12 @@ end
 _accent(::Val{:cyan}) = ab_cyn(); _accent(::Val{:green}) = ab_grn()
 _accent(::Val{:magenta}) = ab_mag(); _accent(::Val{:yellow}) = ab_ylw()
 _accent(::Val{:blue}) = ab_blu();  _accent(::Val{:red}) = ab_red()
+_accent(::Val{:gold}) = ab_gold(); _accent(::Val{:violet}) = ab_vio()
+_accent(::Val{:ice}) = ab_ice()
 
 # ─── рамочный бокс ╔═╗ с уже готовыми (раскрашенными) строками ────────────────
 function ab_box(rows::Vector{String}; title::String = "", note::String = "",
-                accent::Symbol = :cyan)
+                accent::Symbol = :gold)
     content = filter(!=("SEP"), rows)
     maxw = isempty(content) ? 40 : maximum(ab_w, content)
     inner = clamp(maxw + 2, 56, 76)
@@ -210,7 +182,7 @@ end
 
 # ─── шапка раздела (лаборатория / 3D / HP / конфиг) ───────────────────────────
 function ab_panel_header(title::AbstractString, subtitle::AbstractString = "";
-                         accent::Symbol = :cyan)
+                         accent::Symbol = :ice)
     A = _accent(Val{accent}())
     w1 = clamp(max(ab_w(title), isempty(subtitle) ? 0 : ab_w(subtitle)) + 6, 48, 78)
     io = IOBuffer()
@@ -238,16 +210,18 @@ const _ART = [
 function ab_show_banner(title::AbstractString, infos::Vector{String})
     println()
     if _ab() && stdout isa Base.TTY
+        # баннер: градиент ледяного синего → золота (AURORA Deep)
         for line in _ART
-            println(_grad(rpad(line, 59), (0, 229, 255), (255, 121, 198)))
+            println(_grad(rpad(line, 59), _AUR_ICE, _AUR_GOLD))
         end
-        println(ab_D(), "─"^66, ab_R())
-        println(ab_B(), ab_wht(), "  🌌  ", title, ab_R())
+        println("   ", ab_rule(66))
+        println(ab_B(), ab_gold(), "  ✦  ", ab_R(), ab_B(), ab_wht(), title, ab_R())
         for s in infos
-            println("   ", ab_D(), "│", ab_R(), " ", ab_gry(), s, ab_R())
+            println("   ", ab_gold(), "│", ab_R(), " ", ab_gry(), s, ab_R())
         end
-        println(ab_D(), "─"^66, ab_R())
-        println(ab_D(), "   UI3 visual engine · truecolor · progress v3 · ", Dates.format(Dates.now(), "yyyy-mm-dd HH:MM"), ab_R())
+        println("   ", ab_rule(66))
+        println(ab_D(), "   ❄ AURORA visual engine · truecolor · ",
+                Dates.format(Dates.now(), "yyyy-mm-dd HH:MM"), ab_R())
     else
         println(repeat("=", 60))
         println(title)
@@ -270,11 +244,14 @@ function ab_render_bar(; label::String, frac::Float64, extra::String,
     cio = IOBuffer()
     for j in 1:barw
         t = barw <= 1 ? 0.0 : (j - 1) / (barw - 1)
-        r = round(Int, 0 + (80) * t); g = round(Int, 190 + 60 * t); b = round(Int, 255 - 132 * t)
+        # заполнение: ледяной синий → золото (полярное сияние)
+        r = round(Int, _AUR_ICE[1] + (_AUR_GOLD[1] - _AUR_ICE[1]) * t)
+        g = round(Int, _AUR_ICE[2] + (_AUR_GOLD[2] - _AUR_ICE[2]) * t)
+        b = round(Int, _AUR_ICE[3] + (_AUR_GOLD[3] - _AUR_ICE[3]) * t)
         if j <= nfill
             print(cio, _ab() ? "\e[38;2;$(r);$(g);$(b)m" : "", "▰")
         else
-            print(cio, _ab() ? "\e[38;2;70;80;95m" : "", "▱")
+            print(cio, _ab() ? "\e[38;2;38;52;84m" : "", "▱")
         end
     end
     _ab() && print(cio, "\e[0m")
@@ -309,9 +286,12 @@ function ab_render_loopbar(; label::String, k::Int, n::Int, frac::Float64,
     for j in 1:barw
         t = barw <= 1 ? 0.0 : (j - 1) / (barw - 1)
         if j <= nfill
-            print(cio, _ab() ? @sprintf("\e[38;2;%d;%d;%dm", round(Int, 0 + 80t), round(Int, 190 + 60t), round(Int, 255 - 132t)) : "", "▰")
+            print(cio, _ab() ? @sprintf("\e[38;2;%d;%d;%dm",
+                round(Int, _AUR_ICE[1] + (_AUR_GOLD[1] - _AUR_ICE[1]) * t),
+                round(Int, _AUR_ICE[2] + (_AUR_GOLD[2] - _AUR_ICE[2]) * t),
+                round(Int, _AUR_ICE[3] + (_AUR_GOLD[3] - _AUR_ICE[3]) * t)) : "", "▰")
         else
-            print(cio, _ab() ? "\e[38;2;70;80;95m" : "", "▱")
+            print(cio, _ab() ? "\e[38;2;38;52;84m" : "", "▱")
         end
     end
     _ab() && print(cio, "\e[0m")
@@ -325,9 +305,9 @@ function ab_render_loopbar(; label::String, k::Int, n::Int, frac::Float64,
     return ab_trunc(s, width)
 end
 
-# ─── строки старта/финиша теста ───────────────────────────────────────────────
+# ─── строки старта/финиша теста (AURORA-орнаменты) ────────────────────────────
 function ab_start_line(label::AbstractString, ts::AbstractString)::String
-    return "  " * ab_grn() * ab_B() * "▶" * ab_R() * " [" * ab_cyn() * label * ab_R() * "]" *
+    return "  " * ab_ice() * ab_B() * "❄" * ab_R() * " [" * ab_cyn() * label * ab_R() * "]" *
            ab_D() * " started " * ts * ab_R()
 end
 
@@ -336,12 +316,12 @@ function ab_done_line(label::AbstractString, hms_s::AbstractString,
     local verdict::String, ico::String
     if ok
         verdict = ab_grn() * ab_B() * "PASS" * ab_R()
-        ico = ab_grn() * "✔" * ab_R()
+        ico = ab_gold() * "✦" * ab_R()
     else
         verdict = ab_red() * ab_B() * "FAIL/WARN" * ab_R()
         ico = ab_red() * "✖" * ab_R()
     end
-    return ico * " [" * ab_cyn() * label * ab_R() * "] done in " * ab_ylw() * hms_s * ab_R() *
+    return ico * " [" * ab_cyn() * label * ab_R() * "] done in " * ab_gold() * hms_s * ab_R() *
            ab_D() * " — " * ts * ab_R() * " → " * verdict
 end
 
@@ -373,691 +353,243 @@ ab_ico(id::Int) = get(_ICO_TEST, id, "🧪")
 ab_ico_lab(id::Int) = _ICO_LAB[mod1(id, length(_ICO_LAB))]
 ab_ico_h(id::Int) = _ICO_HP[mod1(id, length(_ICO_HP))]
 
-# ─── финальный салют ──────────────────────────────────────────────────────────
+# ─── финальный салют (полярное сияние) ────────────────────────────────────────
 function ab_celebrate()
     _ab() && stdout isa Base.TTY || return
     println()
-    println(_grad("   ✦ ──────────────────────────────────────────── ✦",
-                  (255, 214, 102), (255, 121, 198)))
-    println("      ✨ ", ab_B(), ab_ylw(), "SESSION COMPLETE · СЕССИЯ ЗАВЕРШЕНА", ab_R(), " ✨")
-    println(_grad("   ✦ ──────────────────────────────────────────── ✦",
-                  (255, 121, 198), (0, 229, 255)))
+    println("   ", _grad("✦ ──────────────────────────────────────────── ❄ ──────────────────────────────────────────── ✦",
+                      _AUR_ICE, _AUR_GOLD))
+    println("      ", ab_gold(), "✨ ", ab_B(), "SESSION COMPLETE · СЕССИЯ ЗАВЕРШЕНА", ab_R(), " ✨")
+    println("   ", _grad("✦ ──────────────────────────────────────────── ❄ ──────────────────────────────────────────── ✦",
+                      _AUR_GOLD, _AUR_ICE))
     return
 end
 
-end # module ABUI3
+end # module ABUI
 
-# Patch G: explicit imports instead of `using` — list identical to ABUI3's
-# export list above; see the changelog Patch G entry for the rationale.
-import .ABUI3: ab_w, ab_box, ab_panel_header, ab_show_banner, ab_render_bar,
+# Explicit imports instead of `using` — the name list is identical to ABUI's
+# export list above (re-including the file in one REPL session self-heals).
+import .ABUI: ab_w, ab_box, ab_panel_header, ab_show_banner, ab_render_bar,
        ab_render_loopbar, ab_start_line, ab_done_line, ab_paint_result,
        ab_verdict_icon, ab_celebrate, ab_ico, ab_ico_lab, ab_ico_h,
        ab_color_on, ab_color_off, ab_cyn, ab_grn, ab_red, ab_ylw, ab_mag,
-       ab_blu, ab_gry, ab_wht, ab_org, ab_B, ab_D, ab_R
-# =============================================================================
-#  AB-CLOUD VERIFICATION SUITE — SUPERCOMBO v23.0
-#  v21 computational core (38 tests + hardcore passes + Physics Lab + 3D Lab)
-#  ×  v22.2 journal-grade plotting engine (module ABPlotV23)
-#  ×  v22.2 corrected THREE-PASS Test 38 (38a + 38b hardcore + 38c ladder)
-# Author: Isaev Iskhak Khamzatovich (ORCID: 0009-0003-7299-0701)
-# DOI: 10.5281/zenodo.21825394
-# Repo: https://github.com/wild8highlander/research-papers
-# =============================================================================
-# =============================================================================
-# CHANGELOG v23.6 (2026-09-07 — «третий разбор: deepen-протокол H1, α-скан H5,
-#   окно/декой-контроль H1, guard домена H4, честный done-line; пресеты
-#   fast L=16 / full L=56»; файл переименован в ab_cloud_v23_v2.jl):
-#   • №1 DONE-LINE (последний остаток бага класса «WARN поверх PASS»): строка
-#     «[HP H#] done in … → PASS» печаталась из finally-блока _hp_run! по флагу
-#     «не упал по исключению» и выглядела как вердикт, противоречащий строкам
-#     «N sub-checks, M failed → WARN». Теперь done-line печатает ФАКТИЧЕСКИЙ
-#     вердикт теста (PASS/WARN; ERROR — только при исключении).
-#   • №2 H1 DEEPEN-ПРОТОКОЛ (мандат рецензента: «если бугорок не воспроизводится
-#     в нулях — углубляться»): потолок нулей режима из ОДНОЙ vortex-free + ОДНОЙ
-#     GUE реализации — шумная оценка экстремума; зазор SNR 7.6 vs 6.8 (режим C
-#     прогона run_20260906_185208) не решающего качества. Для каждого режима,
-#     вошедшего в MARGINAL/PRESENT, потолок переоценивается распределением из
-#     hp_deep_nulls (20) vortex-free + 20 GUE реализаций и бугорок судится
-#     против 95-го перцентиля максимумов нулей (заранееRegistered правило
-#     останова): ≤ P95 → «generic flux-geometry artifact» → режим ABSENT,
-#     sweep PASS; > P95 → необъяснён даже глубокими нулями → честный WARN
-#     с эскалацией. Ансамбль AB режима расширяется на hp_deep_configs (10)
-#     конфигураций. Новый график №5 (распределение max-SNR нулей vs AB).
-#   • №3 H5 α-ПРОФИЛЬ (finetuning vs plateau): прогон 185208 показал, что
-#     чистый GUE-проход даёт не «оба рычага сразу», а рычаг α=25/900 при любой
-#     плотности (C и D). Недостающий эксперимент — профиль GUE-качества ВДОЛЬ
-#     α при фиксированной разреженной Nv: α ∈ {25/900, 0.05, 0.1, 0.2, 0.35,
-#     0.5} × hp_alpha_scan_n конфигураций. PLATEAU (GUE держится на всей
-#     малой α) → «sharp-flux режим GUE-универсален, артефакт — большой α»;
-#     NARROW (проход только в узком окне у 25/900) → истинный finetuning.
-#     Точка α=0.5 независимо реплицирует режим A (другой сид-поток). Строка
-#     «α-profile (headline, never scored)» + 2 графика (KS-pass % и median D
-#     vs α). Аналогия методологии — H4-профиль (seeds, floor, пороги).
-#   • №5 H1 ОКНО + СПЕЦИФИЧНОСТЬ: список целей из меню может содержать
-#     композиты (21, 33, 54, 56 в прогоне 185208), но окно D1-скана было
-#     жёстко [0.3, 3.0] — цели выше log(17) давали фиксированный пол 0.093 и
-#     строка «7/14 primes ≥ 100» выглядела как «половина простых молчит».
-#     Теперь окно автоматически расширяется до max(3.0, ω_max+0.2); цели
-#     делятся на простые и КОМПОЗИТНЫЕ ДЕКОЙ (специфичность-контроль: в ζ
-#     Брэгг-гребень обязан стоять на ВСЕХ простых и МОЛЧАТЬ на декоях —
-#     zeta_ok теперь требует и того, и другого; в AB декой-пик при молчащих
-#     простых был бы аргументом ПРОТИВ арифметики).
-#   • №4 H4 GUARD ДОМЕНА: прогон 185208 шёл по q ∈ [5, 81]×5 точек — заявленные
-#     критические 0.3/0.5/1.0 НЕ входили в домен, и проверка «location vs
-#     claimed criticals» вырождалась (любой пик автоматически «off 55% span»).
-#     Если ни один заявленный критический не внутри [q_min, q_max], строка
-#     «location vs claimed criticals» теперь честно FAIL-класса (WARN теста)
-#     с явным объяснением — молчаливая деградация невозможна. Дефолты (0.05,
-#     1.0, 21 точка) не изменились — они уже покрывают критические.
-#   • ПРЕСЕТЫ fast/full (запрос пользователя: «решётку оставить 56, а 16 —
-#     как отдельный быстрый прогон»): в HP-меню добавлены
-#     f. FAST battery — L=16, ensemble=100 (быстрый тест, ~10-20 мин),
-#     F. FULL battery — L=56, ensemble=40, alpha_scan_n=30 (глубокий прогон).
-#     Дефолт hp_L остаётся 56. Новые параметры: hp_deep_nulls=20,
-#     hp_deep_configs=10, hp_alpha_scan=true, hp_alpha_scan_n=40 (пункты
-#     16-18 меню параметров).
-# =============================================================================
-# CHANGELOG v23.5 (2026-09-06 — «второй разбор рецензента: режимные null-контроли
-#   H1, баг двойного вердикта H5, консолидированные лог+репорт»):
-#   • H1 (FIX семантики sweep): под-чек «fingerprint regime-robust (sweep)»
-#     больше не рисует PASS поверх «mixed/MARGINAL». В каждом режиме B/C/D
-#     прогоняются РЕЖИМНО-СОПОСТАВЛЕННЫЕ null-контроли — vortex-free решётка
-#     на α режима + GUE matched-size со свежими сидами — и вердикт режима
-#     выносится против СОБСТВЕННОГО потолка нулей режима (absent / MARGINAL /
-#     PRESENT, та же 10×-маржа, что у базлайна). Ровно как просил рецензент:
-#     если log(2)-бугорок воспроизводится и в нулях на тех же параметрах — это
-#     «generic lattice artifact, not primes», и ABSENT становится режимно-
-#     устойчивым (PASS); если НЕ воспроизводится — это единственное место
-#     аудита, где честно ставится WARN и требуется углубление. Статус sweep
-#     теперь ВХОДИТ в общий ok теста H1 (никаких PASS поверх контента строки).
-#   • H5 (FIX реального бага отчётности): строки «7 sub-checks, 1 failed →
-#     WARN» и итоговой «… → PASS» противоречили друг другу — ok считался как
-#     n_pass ≥ 1 и молча перезаписывал WARN таблицы. Теперь итоговый статус =
-#     строгий AND всех скоринговых строк (физический вывод живёт в headline-
-#     строке, которая никогда не скорится): провал режима доезжает до финала.
-#     Дополнительно: (а) сырой индивидуальный KS-pass % печатается явно в
-#     каждой режимной строке, проход через OR-ветку помечается «OR-clause
-#     only» — 0/40 индивидуальных прохождений больше не прячется за медианой;
-#     (б) новая скоринговая строка «clean GUE pass (no OR-clause)»; (в)
-#     headline «PARAMETER ARTIFACT … not a model property» переформулирован
-#     честно: чистый проход даёт ТОЛЬКО режим D, где ОБА рычага подкручены
-#     одновременно (Nv=L²/36 И α=25/900) — это finetuning-история в духе
-#     Test 38, а не аргумент против неё.
-#   • ОТЧЁТЫ (запрос пользователя): консолидация прогона в ДВА файла —
-#     (1) FINAL_REPORT/logs/full_run_log.txt — ОДИН файл со всеми per-test
-#     computation-логами и stdout-захватами (плюс прежний computation_log_full);
-#     (2) final_report.md/html/pdf/docx — мастер-документ теперь СОДЕРЖИТ
-#     полные отчёты каждого теста inline (не только копии в подпапках):
-#     открыл один файл — увидел весь прогон; «сырые» копии отчётов/логов в
-#     reports//logs/ сохранены как раньше. Блоки per-test отчётов кэшируются
-#     в памяти (REP.report_blocks), поэтому inline-вставка байт-в-байт та же,
-#     что в report.* каждого теста, без обратного парсинга markdown.
-#   • Меню/описания: about-строки H1/H5 обновлены (режимные null-контроли,
-#     strict-AND статус, OR-clause маркировка).
-# =============================================================================
-# CHANGELOG v23.4 (2026-09-06 — «ответ на разбор прогона HP-аудита: режимное
-# противостояние 2×2 в H5/H1 + синхронизация семантики PASS/WARN»):
-#   • H5 → РЕЖИМНОЕ ПРОТИВОСТОЯНИЕ (действие рецензента №1): первый прогон
-#     измерял ансамбль ТОЛЬКО в HP-стандартной точке (разреженные Nv=4,
-#     α=0.5) — в 22 раза ниже собственного монограф-якоря плотности кода
-#     (25/900 = 2.78% → Nv = L²/36 = 87 при L=56; тот же рычаг поднял
-#     сравнительную строку Test 32 до ⟨r⟩=0.5975=GUE). Вопрос «свойство
-#     класса моделей или артефакт точки параметров?» теперь решается полным
-#     факторным экспериментом 2×2 {плотность} × {α}: режим A — опубликованный
-#     базис (bit-for-bit, тот же сид-поток), B — монограф-плотность Nv=L²/36,
-#     C — резкий поток α=25/900≈0.0278 (ИСХОДНОЕ проектное значение
-#     ab_alpha_test16), D — оба рычага вместе. VERDICT-строка на режим +
-#     заголовок «ROBUST (model-class) vs PARAMETER ARTIFACT»; regime A
-#     воспроизводит опубликованные числа в точности. Новый cfg.hp_regime_mode
-#     (:showdown | :baseline; меню 's' → пункт 15), базовый режим ≈4× быстрее.
-#   • H1 → РЕЖИМНАЯ ПРОВЕРКА ОТПЕЧАТКА («для чистоты», действие рецензента
-#     №1): AB-спектры повторно измеряются в режимах B/C/D (те же точки
-#     параметров, что у H5); ABSENT-вердикт засчитывается как утверждение о
-#     классе моделей только если он устойчив по всем режимам. Калибровка
-#     детектора (ζ-контроль, нули) не зависит от режимов и не повторяется.
-#   • H3 → СИНХРОНИЗАЦИЯ СЕМАНТИКИ (действие рецензента №2): «словарь
-#     ОТВЕРГНУТ» — ожидаемый честный негатив и получает тот же PASS-статус,
-#     что «отпечатка нет» в H1 и «корреляции нет» в H7 (один и тот же класс
-#     исходов не должен расщепляться на PASS и WARN). Решающая строка —
-#     per-L фальсификация (min|p̂−2| ≥ 0.5 и ≥ 5σ на КАЖДОЙ ступени);
-#     нестабильная экстраполяция L→∞ (p_∞=0.40±6.28) переведена в
-#     информационную заметку — вердикт на ней не держится. Наблюдение
-#     рецензента о 2D-Дираке вынесено в отдельную заголовочную строку
-#     «Dirac-cone readout»: low-окно прилипает к якорю p=1/2 (вихревой
-#    near-edge-режим), объём дрейфует между якорями.
-#   • H4 → ЛОКАЦИОННАЯ ЧЕСТНОСТЬ: резонанс q*=0.145 НЕ совпадает ни с одним
-#     заявленным q_c (ближайший 0.3, промах 16% области скана) → вердикт
-#     «реален, но НЕПРЕДСКАЗАН» выделен в отдельную строку verdict-таблицы
-#     («location vs claimed criticals»); PASS-критерий (существование резкой
-#     структуры) не изменён. Добавлена оговорка о 2 сидах на точку в rep_note.
-#   • Меню/отчёты: H5 в меню — «Large ensemble × parameter-regime showdown»;
-#     описания H1/H3/H4/H5 в реестре дополнены; _hp_params_show — пункт 15.
-# =============================================================================
-# CHANGELOG v23.3 (2026-09-06 — «пункт меню 'h': глубокий аудит Гильберта-Пойа,
-# 7 тестов арифметической специфичности по предложению рецензента»):
-#   • NEW MENU KEY 'h' — HILBERT-PÓLYA DEEP AUDIT (по аналогии с 'l. Physics lab'
-#     и 'd3. 3D lab'; идентификаторы отчётов 301-307, каталоги test_301_*…test_307_*).
-#     Тезис рецензента: GUE-статистика УНИВЕРСАЛЬНА (билльярд Синая, ядра тяжёлых
-#     атомов, случайные графы) — совпадение с GUE необходимо, но недостаточно для
-#     вывода «это оператор Гильберта-Пойа». Батарея бьёт по единственному
-#     различающему вопросу: несёт ли спектр СПЕЦИФИЧЕСКИ АРИФМЕТИЧЕСКУЮ (простые
-#     числа) информацию, а не только универсальную.
-#       Группа A — «знает ли спектр о простых числах»:
-#         H1 (301) Отпечаток Берри-Китинга: периодограмма ОСТАТКА K(t) после
-#             вычитания аналитической GUE-огибающей (K_box из Test 35) — пики
-#             ровно на ω = log(2), log(3), log(5)…; ζ-контроль (позитивный) и
-#             3 GUE-нуля (негативные) калибруют детектор. Единственный тест
-#             набора, специфичный именно для дзета-функции (формула Римана-Вейля).
-#         H2 (302) Закон роста СЫРОЙ (никогда не разворачиваемой) плотности
-#             N(E): ζ-анзац {E·lnE, E, 1} против естественной решёточной DOS —
-#             решает R²/AICc (|ΔAICc|>10 = решающее разделение). Локальное
-#             разворачивание, применяемое везде, стирает именно эту информацию.
-#       Группа B — «словарь Eₙ∝(n−q)² — физика решётки или игрушка»:
-#         H3 (303) Прямой фит степенного закона на РЕАЛЬНОМ (независимо
-#             диагонализованном) спектре решётки: Eₙ~n^p в окнах «край/объём»,
-#             экстраполяция L→∞ по схеме Test 38; p→2 (словарь) против
-#             p=1/2 (2D-дираковская DOS) и p=1 (квадратичный низ полосы).
-#         H4 (304) Скан резкости по критическому q: мелкая сетка q × 2 сида
-#             шума при ЗАМОРОЖЕННЫХ позициях вихрей; проминентность провала
-#             KS_D(q) под квадратичный базис в единицах пола шума (z≥3 = резко).
-#             Первый фальсифицируемый тест самой аналогии «критическая линия»
-#             (заявленные q_c = 1/2, 0.3, 1.0 помечены на профиле).
-#       Группа C — «свойство класса моделей или удачное зерно one seed»:
-#         H5 (305) Большой ансамбль: 40 независимых конфигураций (позиции И
-#             сид остаточного беспорядка меняются) → распределения ⟨r⟩ и KS-D,
-#             честный % в GUE-полосе ±0.022 с вальдовским ДИ, σ-разброс.
-#         H6 (306) Стресс-тест самосопряжённости/устойчивости: (a) open↔torus,
-#             (b) джиттер позиций вихрей и α ×12, (c) лестница L с проверкой
-#             max|H−H†| на машинной точности на КАЖДОЙ ступени (систематическая
-#             версия разовой проверки 3D hardcore H1).
-#       Группа D — «тест, который никто ещё честно не прогонял»:
-#         H7 (307) Корреляция на уровне ПОСЛЕДОВАТЕЛЬНОСТИ: после разворачивания
-#             n-й уровень AB-cloud против n-го γₙ (Пирсон/Спирмен по ФЛУКТУАЦИЯМ
-#             вокруг средней плотности; сырые корреляции тривиально ≈1). Калибровка
-#             — независимые GUE-GUE пары той же длины + перемешанный контроль.
-#             Честный ожидаемый результат — ноль; теперь он явно проверен и
-#             прописан (закрывает дыру «а вы вообще это проверяли?»).
-#   • ДОБРОСОВЕСТНЫЙ КОНТРАКТ: H1-H4 и H7 — инструменты фальсификации; их
-#     PASS/FAIL заверяет ВАЛИДНОСТЬ ИЗМЕРИТЕЛЬНОЙ ЦЕПОЧКИ (позитивный контроль
-#     срабатывает, негативный молчит, фиты устойчивы), а физический исход
-#     (отпечаток есть/нет, значение p_∞, резко/плавно, корреляция) выносится в
-#     заголовок и никогда не подгоняется под pass/fail. H5 и H6 несут настоящие
-#     pass/fail-критерии. Прогресс-бар ([HP H#] started → живые кадры → done),
-#     отчёты md/html/pdf/docx + PNG + GIF-тур, COMP_LOG — всё по стандарту suite.
-#   • КОНФИГ: 20 новых полей cfg.hp_* (меню 's' внутри аудита; сброс 'r').
-#     Дефолты: L=56, ансамбль 40, сетка q 21×[0.05,1.0], окно K(t) t≤40/dt=0.025,
-#     лестница L=28→60, ζ-контроль 20 000 нулей, сид 2026.
-# =============================================================================
-# CHANGELOG v23.2 (2026-09-06 — «бар теста 17 жив, лаборатория видна»):
-#   • FIX (тест 17 — «прогресс-бар неправильно работает и тест долго
-#     запускается»): три корневые причины устранены —
-#       (1) в тесте НЕ БЫЛО ни одного prog_update: бар двухпроходной обёртки
-#           стоял на 0% весь проход 1 (и на 52% весь HARDCORE), потом прыгал
-#           на 45%/97%. Теперь тест двигает бар по 5 фазам
-#           (H(1/2) → duality(1/2) → H(1/3) → duality(1/3) → H(1/4));
-#       (2) все 7 строк результатов печатались ПОСЛЕ всех вычислений — после
-#           баннера терминал молчал 1–3 минуты («завис при запуске»).
-#           Теперь каждая строка печатается сразу после своих солвов;
-#       (3) count_zero_eigenvalues(α) и spectral_symmetry_defect(α) строили
-#           ОДНУ И ТУ ЖЕ H(α, torus, W=0) и дважды гоняли тот же heevr.
-#           Новый хелпер zero_modes_and_symmetry_defect объединяет пару:
-#           тест 17 — 7 солвов → 5 (~30% быстрее), лестница 17b — 4 → 3 на
-#           ступень (−25%).
-#   • FIX (замирающие часы бара): heevr-солвы хелперов 17/18/33/37/39 и
-#     _lab_spectrum теперь пишут log_comp ПЕРЕД диагонализацией —
-#     prog_heartbeat тикает во время солва, elapsed-часы не замирают.
-#   • FIX (лаборатория без прогресса): _lab_run! владеет стандартным
-#     однострочным баром run_test-style — [Lab E##] started → живой кадр →
-#     done-строка «→ DONE» для КАЖДОГО из 22 экспериментов. Хуки фракций:
-#     E16 (5×heevrd с векторами), E18/E19 (полные солвы, E19 — самая
-#     тяжёлая одиночная операция лаборатории), E21 (LBM-шаги), E22
-#     (шаги Hadamard-блуждания). Раньше E16/E19/E21/E22 молчали минутами.
-#   • FIX (немые решёточные тесты): prog_update-фазы добавлены в тесты
-#     18 (4 блока), 19 (лестница 12..72), 32 (3 солва), 33 (⟨r⟩-солв),
-#     37 (фазы вместо голых heartbeat), 39 (Hermitian-контроль + НЕМЫЙ
-#     не-эрмитов zgeev 5184² — минуты тишины), 41 (каждый солв лестницы
-#     10..112 × реализации).
-#   • Тест 38 не тронут (его pbar v23.1 остаётся эталоном loop-бара).
-#     Вывод/критерии PASS всех тестов не изменены — правки только
-#     инструментальные (прогресс/лог) + устранение дублирующих солвов
-#     в 17/17b (те же значения, меньше LAPACK-вызовов).
-# =============================================================================
-# CHANGELOG v23.1 (2026-09-04 — «одна строка бара, один движок графиков, полный прогон»):
-#   • FIX (тест 38): прогресс-бар pbar больше НЕ РАСТЯГИВАЕТСЯ — кадр жёстко
-#     ограничен реальной шириной терминала (displaysize−1, минимум 40 колонок)
-#     и завершается ANSI-очисткой до конца строки \e[K: хвост «elapsed · ETA»
-#     больше не заворачивает бар на вторую строку, а более короткие кадры
-#     стирают остатки более длинных. При нехватке места усекается МЕТКА, а не
-#     бар/проценты. (Наглядно: тест 38 с его 6 фазами pbar идёт одной
-#     заполняемой строкой от начала до конца.)
-#   • ДВИЖОК ГРАФИКОВ ДЛЯ ВСЕХ ТЕСТОВ, только новый: старые системы отрисовки
-#     ВЫВЕДЕНЫ ИЗ ЭКСПЛУАТАЦИИ И УДАЛЕНЫ —
-#       (1) Plots.jl-писатели try_plot_convergence/gue_spacing/decay и проба
-#           PLOTS_AVAILABLE (последний внешний пакет — больше не нужен);
-#       (2) самодельные векторные бэкенды v21 plot_to_svg / plot_to_pdf и их
-#           хелперы (_PAL, _nice_ticks, _fmt_tick, _M, Images_hex);
-#       (3) конфиг-поле cfg.plot, пункт меню 17, флаги --no-plot/--verbose
-#           (последние два остались no-op для старых скриптов).
-#     ВСЁ рисует встроенный журнальный движок ABPlotV23: per-test PNG
-#     1600×1000 (supersampling ×2, Hershey, dark navy) + animation.gif
-#     (прогрессивный тур по всем графикам теста, кадры — тем же движком).
-#     rep_plot_formats по умолчанию ["png"]; список «png,svg,pdf» принимается,
-#     но фильтруется с громким предупреждением; index/report-тексты обновлены.
-#   • ВЫБОРОЧНЫЙ ПРОГОН = ПОЛНЫЙ ПРОГОН: запуск отдельного теста из меню
-#     (цифра 1..38 и клавиша «3») теперь идёт через run_test_two_pass —
-#     основной проход + HARDCORE-проход (глубокие b-варианты test1b..test44b),
-#     для 19/29/31 ещё и третий SERIES-проход; тест 38 самодостаточен
-#     (38a+38b hardcore+38c). После прогона пишется index.html + FINAL_REPORT
-#     (как у CLI --test). Отключение двухпроходности: --no-two-pass.
-#   • ЧИСТКА МУСОРА (аудит нулевых ссылок, удалено ~9 КБ): zlib_store,
-#     RCanvas/RCanvas_make/draw_disc!/draw_rect_fill! (остатки выведенного из
-#     эксплуатации растеризатора v21), stroke_circle!/_mix/Scale/plot_step!/
-#     _steps_x/_steps_y/hist!/heatmap! (мёртвый API модуля ABPlotV23),
-#     log_comp_calc, rep_capture_line!, rmt_sample-обёртка, N_MAGIC_POINTS,
-#     семь никогда не вызывавшихся GUE-якорей *_theory (R2/K/Σ²/Δ₃ GUE/Poisson).
-#   • Сохранили: write_heatmap_png/svg (лабораторные тепловые карты),
-#     _svg_esc/_winansi/_pdf_esc (писатели отчётов), draw_line!/draw_text!
-#     (сырые массивы — тег «plot k/N» на кадрах GIF), все кэши/меню/CLI.
-# =============================================================================
-# CHANGELOG v23.0 (2026-09-04 — «SUPERCOMBO: ядро v21 × движок v22 × Test 38 v22»):
-#   • ГЛАВНОЕ: все отчётные PNG-графики набора теперь рисует профессиональный
-#     движок ABPlotV23, перенесённый из v22.2 и изолированный в MODULE
-#     (supersampling ×2, векторный шрифт Hershey, тема dark navy, настоящие
-#     легенды, сетки, лог-оси, инфо-боксы). Кривой самодельный растеризатор
-#     v21 выведен из эксплуатации: тот же вызов plot_to_canvas теперь
-#     транслирует RepPlot-модель в ABPlotV23.Fig (адаптер _repplot_to_fig), so
-#     ВСЕ 74+ графика 38 тестов, Physics Lab и 3D Lab получили журнальное
-#     качество БЕЗ единого изменения в самих тестах. GIF-тур (animation.gif)
-#     рисуется тем же движком; SVG/PDF остаются векторными бэкендами v21.
-#     PNG пишется в дизайн-размере 1600×1000 (pHYs 192 dpi).
-#   • Test 38 (Curie point) ЗАМЕНЁН на исправленную трёхпроходную версию
-#     v22.2: 38a — основная кривая Λ(T) с V1..V5 (включая p-value-grade
-#     калибровку квантиль-сэмплера), 38b — hardcore на L₂ (A1..A7 c точными
-#     негативными контролями no-flux/static-dephasing), 38c — рецензентская
-#     лестница C1..C5 (density scan, Binder/FSS лестница 24→96 из 6 ступеней,
-#     shared-curve disclosure, refine-граница, терминология crossover).
-#     Кэш спектров (CSV, resume между запусками), paired-realization дизайн,
-#     Chebyshev-разворот, бюджет времени (--t38-cap), шести-панельная
-#     журнальная фигура. Старые test38_curie_point/test38b_curie_hardcore
-#     удалены целиком (аудит: их помощники не использовались вне пары).
-#     Two-pass runner знает, что 38 самодостаточен: pass 2 встроен в 38b.
-#   • ЯЗЫК: в интерактивном меню клавиша «g» переключает язык EN↔RU на лету
-#     (cfg.lang; работают обе раскладки: g/G и п/П).
-#   • CLI: --t38-l1/--t38-l2/--t38-seeds/--t38-cap/--t38-cache/--t38-ram/
-#     --t38-quick/--t38-fresh/--t38c-sizes/--t38c-seeds (+ поля Config).
-#   • BUGFIX (v21-импорт): в шапке файла перед «# AB-Cloud ...» был лишний
-#     пробел — строка выбивалась из баннера.
-#   • BUGFIX (найден при тестировании v23): Julia-директива DateFormat 'U'
-#     означает ПОЛНОЕ ИМЯ МЕСЯЦА — литеральный "UTC" в строке формата
-#     рендерился как «SeptemberTC» (v22 обходила через Libc.strftime, адаптер
-#     v23 сначала воспроизвёл дефект конкатенацией формата — исправлено:
-#     метка времени собирается конкатенацией "yyyy-mm-dd HH:MM" * " UTC").
-#   • BUGFIX (интеграционный): в отчётчике остался висячий printf с png_w/png_h
-#     после перевода PNG-ветки на движок (Test 37 падал UndefVarError на
-#     записи артефактов) — printf переписан, переменные png_w/png_h убраны.
-#   • BUGFIX (интеграционный): условие «(no plots queued)» в report.md не
-#     уступало место движковым фигурам — Test 38 теперь честно перечисляет
-#     plots/t38_curie_panels.png в разделе Plots.
-#   • ИНТЕГРАЦИЯ: имена v22 разведены с v21 во избежание коллизий методов —
-#     rmt_sample! → t38_qsample!, _make_cdf → ab23_make_cdf; добавлены
-#     недостающие импорты (Random.AbstractRNG, LinearAlgebra.qr/diagind —
-#     v21 импортирует stdlib выборочно); мастер-сид v22 CFG.seed → поле
-#     Config.t38_seed (потоки RNG v22 воспроизводимы при том же сиде);
-#     каталог кэша спектров v22 CFG.plot_dir → <output_dir>/t38_cache;
-#     вызовы фигурного API в Test 38 квалифицированы через ABPlotV23.
-#   • Проверено на Julia 1.10: parse 1210 top-level expr, include + меню,
-#     тесты 1, 2 (+two-pass hardcore), 3, 28, 37, 38 (quick и two-pass,
-#     кэш-резюме), переключение языка g, GIF/SVG/PDF/PNG-артефакты.
-# =============================================================================
-# CHANGELOG v21.0 (2026-09-03 — «3D two-pass 36³→54³ hardcore + ζ-50 audit»):
-#   • NEW 3D TWO-PASS ENGINE (user request: «двойное прохождение каждого теста:
-#     первый прогон на 36×36×36, второй на 54×54×54 с более углублённым хардкор
-#     режимом»). Every 3D test now runs TWO passes: pass 1 on the PRIMARY
-#     lattice (cfg.d3_L_primary, default 36³ — sparse engine, ~4 GB RAM budget)
-#     and pass 2 on the SECONDARY lattice (cfg.d3_L_secondary, default 54³ —
-#     ~6 GB RAM budget) with the HARDCORE audit block appended:
-#       (H1) hermiticity re-audit max|H−H†| at L₂, (H2) build determinism
-#       (two independent builds → max|H₁−H₂| = 0), (H3) chiral algebra
-#       ΓHΓ+H at α=1/2 (exact sparse check), (H4) cross-pass consistency
-#       (⟨r⟩ drift L₁→L₂, spectral-extent drift), (H5) deeper spectrum
-#       window (d3_sp_depth_hc > d3_sp_depth). Both the run-all mode and
-#       every single test run two-pass (toggle: menu 's' / --d3-no-two-pass).
-#   • NEW SPARSE 3D ENGINE: h3d_build_sparse (SparseArrays stdlib, 7 nnz/row)
-#     + _h3_window_lu — shift-invert Lanczos (sparse LU + full
-#     reorthogonalization) extracting a window of the spectrum around a
-#     chosen centre. Dense L ≤ 20 paths are BYTE-IDENTICAL to v20; L > 20
-#     auto-routes to the sparse engine (cfg.d3_engine :auto|:dense|:sparse).
-#     RAM guard: the LU fill is measured; when the pass budget
-#     (d3_ram_mb1/d3_ram_mb2 = 4096/6144 MB) cannot hold factor + basis the
-#     window L is downgraded LOUDLY (36³→33³→…) so a run never OOMs and
-#     never takes days (user spec: «чтобы одна была рассчитана на 4 гигабайт
-#     рам, а вторая на 6 гигабайт»). 36³ dense would need ~35 GB and days —
-#     the sparse engine does 36³ (RAM-guarded to ~33³ on a 4 GB box) in
-#     minutes-to-a-quarter-hour per window on 2 cores, faster on more.
-#     HONEST LIMITATION (printed by the engine when it happens): on CLEAN
-#     degenerate builds (α=1/2, W=0) any Krylov method saturates at the
-#     DISTINCT spectrum — multiplicities (the zero towers, ±E pairs) are not
-#     resolved; symmetry/gauge/determinism verdicts stay exact, spacing
-#     statistics on those builds are labeled diagnostic (the disorder builds
-#     W>0 used by the class tests resolve every level).
-#   • 3D defaults RAISED: d3_L default 10 → 20 (dense, ~2.2 GB eig peak,
-#     measured 156 s on 2 cores — the full 8000-level spectrum), per user
-#     request «поднять дефолт». Two-pass lattice defaults: L₁=18 (4 GB pass),
-#     L₂=20 (6 GB pass) — both DENSE (full spectra, hours-not-days run-all);
-#     36³/54³ remain available per-test / via the 's' menu (sparse engine).
-#   • 3D-34 (ζ critical strip) now verifies the FIRST 50 EMBEDDED ZEROS
-#     (was: first 10 hardcoded). The zero list comes from the embedded
-#     Odlyzko dataset itself (load_embedded_zeros) and is cross-checked
-#     against the literature constants printed in v20. Hardcore pass 2
-#     tightens the bracket δ 0.02→0.01, the bisection tolerance 5e-3→1e-3
-#     and extends the strip heatmap to t = 150 (γ₅₀ ≈ 143.1).
-#   • MAIN Test 34 (chiral binary α=1/2) gained a ζ-DICTIONARY subcheck on
-#     the first 50 embedded zeros: monotonicity, the Hilbert–Pólya ±Eₖ pairing
-#     construction (exact AIII defect of the dictionary operator), and the
-#     ⟨r⟩ spacing-ratio diagnostic of the 49 normalized spacings.
-#   • WARN CALIBRATION (user: «посмотреть где варны и проверить что с этим
-#     можно сделать»): at the default 50k dataset Tests 4/5/6/11 report
-#     asymptotic p ≈ 0 — the Wigner-surmise approximation floor, not a data
-#     failure (the suite's own Test 12 two-sample machinery vs the EXACT GUE
-#     reference passes at the same data). Tests 4/5/6 now print a CALIBRATED
-#     verdict line (2-sample KS vs the exact-GUE reference pool + the
-#     surmise-floor D_ref) whenever the GUE reference is already built, and
-#     Test 11 prints the same floor next to its A². The strict verdicts are
-#     deliberately UNCHANGED (suite semantics); the calibration lines make
-#     the WARNs actionable instead of alarming.
-#   • 3D bug fixes found during the v21 audit: t3_02 materialized Matrix(H)
-#     (35 GB at 36³!) — now nnz on the sparse structure; t3_03's level-count
-#     check accepts the sparse window; t3_22 uses the _h3_eig dispatch
-#     (was: raw eigvals on a possibly-sparse build); t3_18's L₂ cap follows
-#     the new dense cap; all clamp(…,4,16) lattice caps follow the engine.
-# =============================================================================
-# CHANGELOG v20.0 (2026-09-02d — «3D Lab: electron/positron + critical line»):
-#   • NEW 3D-31 Dirac ZITTERBEWEGUNG: the e⁻ position operator in a ±E
-#     superposition trembles at ω = E₊−E₋ (Schrödinger 1930; observed in
-#     graphene / trapped-ion Dirac simulators). The 3D α=1/2 chiral tower
-#     supplies the exact ±E pairs; the amplitude |⟨+|r̂|−⟩| and the closed
-#     elliptical orbit are computed exactly from the two-state dynamics;
-#     pure-state control row does NOT tremble.
-#   • NEW 3D-32 e⁻/e⁺ CHARGE CONJUGATION: conj(H(q,α)) = H(−q,−α) ⇒ identical
-#     spectra (the e⁻/e⁺ asymmetry lives in phases, not energies) + 3D Lorentz
-#     RK4 helices around a flux LINE: mirrored deflection for the ± pair,
-#     |v| conserved (B does no work), vz drift identical.
-#   • NEW 3D-33 PARTICLE MODE — the critical-line crossing theorem (user
-#     hypothesis): the electron winding around the vortex line crosses the
-#     polar branch-cut ray (the AB analog of Re s = 1/2) EXACTLY once per
-#     revolution — measured N_cross = Δ⌊θ/2π⌋ for e⁻ and e⁺, both windings,
-#     with the zero-slot counter k = θ/π climbing the line; non-winding
-#     launches cross 0 times (the honest contrast row).
-#   • NEW 3D-34 WAVE MODE — the ζ critical strip: a full complex ζ(s)
-#     evaluator (Euler–Maclaurin, self-anchored: ζ(2), ζ(4), ζ(1/2)) draws
-#     the famous Z(t) graph, brackets the first 10 embedded zeros (bisection
-#     |root−γₖ| < 5e-3), writes the |ζ(σ+it)| strip heatmap, and prints the
-#     wave/particle complementarity (smeared orbital wave = the whole
-#     function; localized particle = crossing events; AB orbit levels
-#     Eₙ ∝ (n−q)² are the Hilbert–Pólya dictionary).
-#   • 3D-block fixes (user request: «проверить все баги 3д блока… и их
-#     актуальности»): (1) the chiral tests 3D-4/3D-9 silently FAILed on odd
-#     d3_L (odd torus wrap bonds break bipartiteness BY CONSTRUCTION) — now
-#     auto-rebuild on the even sub-lattice with an honest note; (2) verdicts
-#     that were hardwired `true` (3D-6/7/8/16/17) now really check: ⟨r⟩
-#     universality window (catches the historical Hermitian-collapse bug that
-#     gave ⟨r⟩ ≈ 0.36), spacing-std window, determinism/reproducibility
-#     max|δE| < 1e-9; (3) the silent heavy sweeps (3D-18/19/23/25/26/29 and
-#     the new tests) feed prog_update — the 3D menu now owns a progress bar
-#     (milestone lines when piped), so a long test is never silent; (4) the
-#     menu accepts «3d-31»/«3D31» spellings and EOF-safe parse; (5) stale
-#     counts fixed: MSG title said «37 Tests» with 38 tests installed.
-# =============================================================================
-# CHANGELOG v19.1 (2026-09-02 audit):
-#   • LIVE-DISPLAY PUMP (fix 2026-09-02b — "зависает на тесте 10"): the
-#     stdout-tee readers no longer write to the live terminal synchronously
-#     under _PROG_IO_LOCK. A frozen/failed console (Windows QuickEdit text
-#     selection, closed fd, IDE backpressure) stopped the pipe drain, the
-#     64 KB tee pipe filled and the whole run deadlocked mid-suite with the
-#     REPL unresponsive. Now one fire-and-forget pump task owns ALL live
-#     terminal writes; the readers drain-first (audit capture can never
-#     block), forwarding is best-effort — the suite always completes even
-#     with a dead console. See section 16.1b.
-#   • Test 20 (TKNN Chern) completed in pass 1: all three literature anchors
-#     α = 1/4, 1/3, 1/5 (was 1/3 only) + the α=1/2 mass-regularized branch
-#     (C₁ = 0 both signs) moved up from the hardcore pass; stale "C₁=1 at
-#     α=1/2" claims removed (per-band C₁ is UNDEFINED at the Dirac touching).
-#   • NEW Test 37: (1/2)! via Γ — the half-factorial audit. Verifies the
-#     uniqueness of the Γ-construction (Bohr–Mollerup log-convexity + the
-#     reflection self-dual fixed point Γ(1/2)² = π) and that the suite's
-#     GUE β=2 surmise normalization 32/π² is exactly the (1/2)! = √π/2
-#     identity in disguise. Hardcore pass 2 = 256-bit BigFloat re-audit.
-#   • Dead code removed: tknn_chern_number_first_band (retired twisted-torus
-#     FHS, corrupted docstring), ab_cloud_twisted_hamiltonian (retired twist
-#     family), ab_phase_2d_solid_angle (the monograph's linearized signed-
-#     area formula — produces uniform 4πΣq flux, kept only as a pitfall note).
-#   • GUE reference build (fix 2026-09-02c — "зависает на тесте 11"): the
-#     12000² default reference is ONE silent LAPACK eigensolve (≈ 7–8 min on
-#     2 cores, ≈ 3.2 GB) — on small machines it looked like a hang and could
-#     swap-thrash. Now: RAM guard auto-downscales the matrix when free memory
-#     cannot hold it (loud message + --matrix-size hint, AB_NO_RAM_GUARD=1
-#     escape, AB_RAM_BUDGET_MB test hook), a live ticker labels the silent
-#     phase on multi-thread runs, and the pre-solve advisory names the ETA.
-#   • NEW Test 38: Curie point of the AB cloud (user request — "нагрев магнита").
-#     The suite's magnetism = the statistical vortex flux breaking TRS → GUE,
-#     the ζ-zero class. Two thermal channels: pure bond dephasing leaves the
-#     class IMMUNE (measured 2026-09-02, kept as the pass-2 control row);
-#     Debye–Waller screening of ALL flux — vortex charges q_eff = q·e^(−T²/2)
-#     + background α_eff = α·e^(−T²/2) — melts it. Order parameter Λ(T) =
-#     ⟨ln[p₂/p₁]⟩ self-calibrated on exact laws; T_c: Λ(T_c) = Λ(0)/2 (half-
-#     decay convention) — the thermal budget of the Hilbert–Pólya mechanism.
-#     Pass 2 = finite-size scaling, Binder peak, deep-T control, flux
-#     monotonicity, dephasing-immunity control, jackknife CI.
-# =============================================================================
+       ab_blu, ab_gry, ab_wht, ab_org, ab_B, ab_D, ab_R,
+       ab_gold, ab_vio, ab_ice, ab_rule
+# ═══════════════════════════════════════════════════════════════════════════════
+#  AB-CLOUD VERIFICATION SUITE · AURORA EDITION
+#  computational core (39 tests + hardcore passes + Physics Lab + 3D Lab)
+#  × journal-grade plotting engine (module ABPlot)
+#  × corrected THREE-PASS Test 38 (38a + 38b hardcore + 38c ladder)
+# ═══════════════════════════════════════════════════════════════════════════════
 # DESIGN NOTES (the physics choices behind the suite's defaults)
 # =============================================================================
 # 1. VORTEX PHASE MODELS. ABCloudConfig carries `vortex_phase_model` with two
-#    values:
-#    • :monumental (DEFAULT) — the atan smooth gauge ported from
-#      AB_Cloud_Monumental_v6_3.jl (vertical bonds only, factor 0.5,
-#      principal-value atan2, unwrapped coordinate on the torus wrap bond).
-#      Phases are GENERIC IRRATIONAL multiples of π for ANY q (every vertical
-#      bond sees every vortex) → H is genuinely complex → full GUE is
-#      reachable. Measured probe (exact Test-33 protocol, L=10..50, Nv=26,
-#      α=0.5, W=4, bulk 0.6):
-#          :monumental q=1.0 torus: 0.542 → 0.561 → 0.543 → 0.598  ← GUE ✓
-#          :dirac       q=1.0 torus: 0.493 → 0.474 → 0.475 → 0.481 (GOE/Poisson)
-#          :monumental q=0.3 open : 0.566 → 0.582 → 0.593 → 0.590  ← GUE ✓
-#          :dirac       q=0.3 open : 0.416 → 0.464 → 0.511 → 0.450
-#    • :dirac (legacy) — smooth polar-angle gauge + EXPLICIT Dirac string
-#      (ab_phase_2d_full): exact flux localization 2πq on the vortex
-#      plaquette (0 elsewhere; torus: the documented −2πq wrap artifact)
-#      + exact Byers-Yang unobservability at integer q. (Audit 2026-08-31:
-#      the builder previously used the monograph's LINEARIZED signed-area
-#      phase here, which produced a position-independent UNIFORM flux
-#      4π·Σq on every plaquette — the flux theorems then passed only
-#      vacuously at integer q and FAILED at fractional q; the true
-#      smooth+string construction is now in place and verified.)
-#    TEST-TO-MODEL ASSIGNMENT (physically motivated):
-#    • Tests 15, 24, 25, 26(flux) verify THEOREMS about the Dirac-string
-#      formulation (plaquette flux = 2πq mod 2π localized on the vortex
-#      plaquette; Byers-Yang identity for integer q) and are run on :dirac.
-#      In the monumental smooth gauge the flux is DISTRIBUTED over many
-#      plaquettes and integer-q vortices are OBSERVABLE — those theorems
-#      would fail BY CONSTRUCTION, not from a bug; the tests print an
-#      explanatory note.
-#    • ALL statistics tests (16, 17, 18, 26(⟨r⟩), 27, 28, 29-33, 34-36) use
-#      the :monumental default. Vortex-free constructions (clean Hofstadter)
-#      are IDENTICAL under both models (no vortices → no vortex phase).
-#    • Fundamental trade-off (documented for the monograph): exact flux
-#      localization 2πq + exact Byers-Yang unobservability of integer flux
-#      (tests 15/24/25/26) ⟺ real hopping phases at integer q ⟺ GOE
-#      ceiling; complex generic phases + GUE ⟺ integer-q vortices
-#      observable ⟺ distributed flux. No single gauge can satisfy both —
-#      both are exposed as explicit models instead of silently picking one.
+#  values:
+#  •:monumental (DEFAULT) — the atan smooth gauge ported from
+#  AB_Cloud_Monumental_v6_3.jl (vertical bonds only, factor 0.5,
+#  principal-value atan2, unwrapped coordinate on the torus wrap bond).
+#  Phases are GENERIC IRRATIONAL multiples of π for ANY q (every vertical
+#  bond sees every vortex) → H is genuinely complex → full GUE is
+#  reachable. Measured probe (exact Test-33 protocol, L=10..50, Nv=26,
+#  α=0.5, W=4, bulk 0.6):
+# :monumental q=1.0 torus: → ← GUE ✓
+# :dirac q=1.0 torus: → (GOE/Poisson)
+# :monumental q=0.3 open: → ← GUE ✓
+# :dirac q=0.3 open: →
+#  •:dirac (legacy) — smooth polar-angle gauge + EXPLICIT Dirac string
+#  (ab_phase_2d_full): exact flux localization 2πq on the vortex
+#  plaquette (0 elsewhere; torus: the documented −2πq wrap artifact)
+#  + exact Byers-Yang unobservability at integer q. (Audit:
+#  the builder previously used the monograph's LINEARIZED signed-area
+#  phase here, which produced a position-independent UNIFORM flux
+#  4π·Σq on every plaquette — the flux theorems then passed only
+#  vacuously at integer q and FAILED at fractional q; the true
+#  smooth+string construction is now in place and verified.)
+#  TEST-TO-MODEL ASSIGNMENT (physically motivated):
+#  • Tests 15, 24, 25, 26(flux) verify THEOREMS about the Dirac-string
+#  formulation (plaquette flux = 2πq mod 2π localized on the vortex
+#  plaquette; Byers-Yang identity for integer q) and are run on:dirac.
+#  In the monumental smooth gauge the flux is DISTRIBUTED over many
+#  plaquettes and integer-q vortices are OBSERVABLE — those theorems
+#  would fail BY CONSTRUCTION, not from a bug; the tests print an
+#  explanatory note.
+#  • ALL statistics tests (16, 17, 18, 26(⟨r⟩), 27, 28, 29-33, 34-36) use
+#  the:monumental default. Vortex-free constructions (clean Hofstadter)
+#  are IDENTICAL under both models (no vortices → no vortex phase).
+#  • Fundamental trade-off (documented for the monograph): exact flux
+#  localization 2πq + exact Byers-Yang unobservability of integer flux
+#  (tests 15/24/25/26) ⟺ real hopping phases at integer q ⟺ GOE
+#  ceiling; complex generic phases + GUE ⟺ integer-q vortices
+#  observable ⟺ distributed flux. No single gauge can satisfy both
+#  both are exposed as explicit models instead of silently picking one.
 #
 # 2. DENSITY-SCALED VORTEX COUNT (Test 33). Holding Nv fixed (26) across
-#    L = 10..50 turns L=10 into a 26%-density vortex soup → ⟨r⟩ ≈ 0.67
-#    super-GUE spikes → non-monotone trend. The monograph anchors Nv=25 at
-#    30×30 (density 2.8%); the L-scaling keeps that density:
-#    Nv(L) = round(25·L²/900), bumped to even for charge neutrality
-#    (L=10: 4, L=20: 12, L=30: 26 = monograph, L=50: 70), ⟨r⟩ averaged over
-#    ≤5 vortex configurations per L. Verified: 0.505 → 0.568 → 0.587 → 0.594
-#    — monotone ✓, L=50 = 0.594 matches the monograph table exactly → PASS.
+#  L = 10..50 turns L=10 into a 26%-density vortex soup → ⟨r⟩ ≈ 0.67
+#  super-GUE spikes → non-monotone trend. The monograph anchors Nv=25 at
+#  30×30 (density 2.8%); the L-scaling keeps that density:
+#  Nv(L) = round(25·L²/900), bumped to even for charge neutrality
+#  (L=10: 4, L=20: 12, L=30: 26 = monograph, L=50: 70), ⟨r⟩ averaged over
+#  ≤5 vortex configurations per L. Verified: →
+#  — monotone ✓, L=50 = 0.594 matches the monograph table exactly → PASS.
 #
 # 3. TEST 32 PASS CRITERION = documented tolerance band. The header prints
-#    ⟨r⟩ = 0.5992 ± 0.022 (monograph §11.1 acceptance window; ±0.022 ≈ 2
-#    ensemble-σ of ⟨r⟩ for ~3000-level bulk spectra) and the test PASSes on
-#    |⟨r⟩ − 0.5992| < 0.022. A bootstrap-CI-containment criterion is a
-#    statistical anti-pattern: the CI shrinks as n_realizations grows, so
-#    any small systematic offset makes the test HARDER the MORE data is
-#    collected. Measured finite-L offset at the exact 72×72 protocol
-#    (n=10): −0.005..−0.009 below the asymptotic GUE value — inside the
-#    band; W=0 is furthest from GUE (disorder here HELPS GUE proximity),
-#    W≥6 drifts Poisson-ward. Users wanting max margin: --ab-W 3.0.
+#  ⟨r⟩ = 0.5992 ± 0.022 (monograph §11.1 acceptance window; ±0.022 ≈ 2
+#  ensemble-σ of ⟨r⟩ for ~3000-level bulk spectra) and the test PASSes on
+#  |⟨r⟩ − 0.5992| < 0.022. A bootstrap-CI-containment criterion is a
+#  statistical anti-pattern: the CI shrinks as n_realizations grows, so
+#  any small systematic offset makes the test HARDER the MORE data is
+#  collected. Measured finite-L offset at the exact 72×72 protocol
+#  (n=10): −0.005..−0.009 below the asymptotic GUE value — inside the
+#  band; W=0 is furthest from GUE (disorder here HELPS GUE proximity),
+#  W≥6 drifts Poisson-ward. Users wanting max margin: --ab-W 3.0.
 #
 # 4. DISORDER STRENGTH W comes from cfg.ab_W (default 4.0, CLI --ab-W).
-#    W=8.0 makes the vortex on-site potential ~10× the hopping t=1 →
-#    disorder-localized Poisson spectrum (no reference implementation uses
-#    it: Monumental W_default=2.0, RH_Sweep_Pro cfg.W=2.0,
-#    RH_Unified_v5 W::Real=2.0, RH_Unified cfg.W=2.0).
+#  W=8.0 makes the vortex on-site potential ~10× the hopping t=1 →
+#  disorder-localized Poisson spectrum (no reference implementation uses
+#  it: Monumental W_default=2.0, RH_Sweep_Pro cfg.W=2.0,
+#  RH_Unified_v5 W: Real=2.0, RH_Unified cfg.W=2.0).
 #
 # 5. BULK PROTOCOL (Tests 32/33/35). ⟨r⟩ is computed over the central
-#    cfg.ab_center_fraction (=0.6) of the spectrum, matching the monograph
-#    bulk and every reference implementation; band edges bias ⟨r⟩ downward
-#    (full-spectrum ⟨r⟩ ≈ 0.534 GOE-like at 72×72 vs bulk 0.59).
+#  cfg.ab_center_fraction (=0.6) of the spectrum, matching the monograph
+#  bulk and every reference implementation; band edges bias ⟨r⟩ downward
+#  (full-spectrum ⟨r⟩ ≈ 0.534 GOE-like at 72×72 vs bulk 0.59).
 #
 # 6. GRAM POINT PRECISION. Riemann–Siegel theta carries the standard
-#    higher-order corrections 1/(48t) + 7/(5760t³) → Gram points accurate to
-#    ≲1e-9 rel. for t ≥ 10.
+#  higher-order corrections 1/(48t) + 7/(5760t³) → Gram points accurate to
+#  ≲1e-9 rel. for t ≥ 10.
 #
 # 7. CHARGE NEUTRALITY. With enforce_neutrality=true and an ODD Nv, the
-#    deterministic minimal-imbalance split (⌈Nv/2⌉ vs ⌊Nv/2⌋, |net| = 1) is
-#    used instead of a random charge walk (a random walk gives net charge
-#    fluctuations ±√Nv between realizations).
+#  deterministic minimal-imbalance split (⌈Nv/2⌉ vs ⌊Nv/2⌋, |net| = 1) is
+#  used instead of a random charge walk (a random walk gives net charge
+#  fluctuations ±√Nv between realizations).
 #
 # 8. DEGENERACIES AND ⟨r⟩. Spectra with EXACT degeneracies (complex-
-#    conjugate pairs in the non-Hermitian Test 31, symmetry-protected
-#    degeneracies) produce 0/0 spacing ratios; those ratios are skipped so
-#    the mean cannot turn NaN.
+#  conjugate pairs in the non-Hermitian Test 31, symmetry-protected
+#  degeneracies) produce 0/0 spacing ratios; those ratios are skipped so
+#  the mean cannot turn NaN.
 #
 # 9. TEST 33 IS A SINGLE PASS. The L-scaling test already spans several
-#    lattice sizes and ignores cfg.ab_nx / ab_nv_list; running a secondary
-#    pass would repeat it verbatim.
+#  lattice sizes and ignores cfg.ab_nx / ab_nv_list; running a secondary
+#  pass would repeat it verbatim.
 #
-# 10. LIBRARY / SCRIPT / REPL MODES. main() runs when the file is executed
-#     as a script AND when it is include()d into an INTERACTIVE session
-#     (isinteractive()); include()d non-interactively = silent library mode
-#     for probe drivers. NOTE: `x == @__FILE__ || y` does NOT parse (the
-#     macro swallows `||` as its argument) — the comparison must be
-#     parenthesized: (x == @__FILE__) || y.
+# 10. LIBRARY / SCRIPT / REPL MODES. main runs when the file is executed
+#  as a script AND when it is included into an INTERACTIVE session
+#  (isinteractive); included non-interactively = silent library mode
+#  for probe drivers. NOTE: `x == @__FILE__ || y` does NOT parse (the
+#  macro swallows `||` as its argument) — the comparison must be
+#  parenthesized: (x == @__FILE__) || y.
 #
 # 11. EOF-PROOF AND CRASH-PROOF MENUS. With stdin closed/exhausted (piped
-#     runner, /dev/null, IDE driver) 50 consecutive empty reads → graceful
-#     exit. A typo in any numeric menu field (e.g. "10k") is caught,
-#     reported, and the menu redrawn; Ctrl+C returns to the menu (q quits).
+#  runner, /dev/null, IDE driver) 50 consecutive empty reads → graceful
+#  exit. A typo in any numeric menu field (e.g. "10k") is caught,
+#  reported, and the menu redrawn; Ctrl+C returns to the menu (q quits).
 #
-# 12. DISORDER CAP + BIG-SAMPLE TEST 36 + FINAL_REPORT (2026-08-29 user spec).
-#     • Tests 32/33/36 measure at W_eff = min(cfg.ab_W, cfg.ab_W_max)
-#       (default cap 1.0, CLI --ab-w-max, config menu item 66): W=4.0 makes
-#       the vortex on-site potential q·W ≈ 1.2 exceed the hopping t=1 near
-#       cores → disorder-driven vortex motion → realization-dependent,
-#       Poisson-drifting ⟨r⟩ (measured 0.48–0.53 at 96×96/q=0.3). Each of
-#       the three tests PRINTS the disorder→vortex-motion→statistics
-#       explanation and records it into its report notes.
-#     • Test 33 L-grid extended to [10,20,30,50,80,112] (monograph anchors
-#       L≤50; L=80/112 verify the GUE plateau; L=112 = 12544² dense eig,
-#       RAM warning printed).
-#     • Test 36 accumulates realizations until the ⟨r⟩ sample reaches
-#       25 000 (pass 1) / 50 000 (pass 2) eigenvalues (CLI
-#       --ab37-n-eigs-pass1/-pass2, config menu 67/68); the byte verdict is
-#       the 120-window averaged |Δ⟨r⟩| (single-window value = diagnostic —
-#       its ±0.02-0.03 window luck previously flipped verdicts run-to-run).
-#     • Test 32 comparison row (q=0.3, run when the configured q is integer)
-#       has its OWN W and Nv knobs: ab_W_cmp (default 0.5 — user asked to
-#       lower W for the q=0.3 run; NaN = follow the primary W_eff; CLI
-#       --ab-w-cmp, config menu 69) and ab_nv_cmp (default 144 = the
-#       monograph anchor density 2.78% at 72×72; 0 = follow primary Nv;
-#       CLI --ab-nv-cmp, config menu 70). VALIDATED 2026-08-29
-#       (run_20260829_060208): W=0.5 + Nv=144 → ⟨r⟩=0.5975±0.0064, 0.28%
-#       from GUE, nearest class GUE (d_GUE=0.0021) — the row now reproduces
-#       the monograph measurement density out of the box. The row PRINTS
-#       its nearest universality class (GUE/GOE/Poisson) and its vortex
-#       density vs the monograph 2.8% anchor, with honest lever guidance:
-#       a REAL diagonal W cannot break time-reversal symmetry, so a
-#       fractional-q row that lands between GOE 0.5307 and GUE 0.5992 is a
-#       weak-TRS (sparse vortices) signature — the lever is Nv density,
-#       not lower W.
-#     • HARDCORE pass-2 variants for the LATTICE tests: two-pass mode routes
-#       pass 2 of EVERY lattice test 15–35 to a testNNb deep-validation variant
-#       (the same STATS_SECONDARY_HARDCORE mechanism as the 1b–14b ζ variants):
-#       MORE realizations (floor cfg.ab_hc_nreal, default 5, config menu
-#       71 / CLI --ab-hc-nreal), DENSER grids (mod-4 L-grids, 9-point α scans,
-#       16×16 BZ), FULL-system scans (every plaquette, artifact classification),
-#       256-BIGFLOAT precision audits (Choptyuk closed forms), and ensemble
-#       deep checks (bootstrap CI of the mean, realization scatter vs the
-#       monograph ±0.022 band, sign counts, per-realization KS stability).
-#       Test 32/33 keep their dedicated test40b/test41b; Test 36's pass 2
-#       already scales through its own AB_PASS sample targets (25k → 50k).
-#     • THIRD pass (SERIES) for Tests 19 / 29 / 31 (user spec 2026-08-31):
-#       after the HARDCORE audit, a THIRD run — test19c / test37c / test39c
-#       (menu ids 19/29/31) — is dedicated to the test's REAL report series,
-#       following the test22b plot pattern: 19c draws the α-selective Dirac
-#       1/L ladder (α ∈ {0.4, 0.5, 0.6}: 4π collapse at 1/2 vs gapless
-#       neighbours), 29c draws the ρ(α) fine scan at the secondary resolution
-#       + the contrast-vs-window series, 31c draws the Hatano–Nelson
-#       realization ENSEMBLE (n × σ grid, scatter + ensemble mean per σ).
-#       Gated by ab_run_third_pass (default ON; CLI --third-pass /
-#       --no-third-pass, config menu 72); the progress bar splits three ways
-#       and the OVERALL verdict of these tests includes pass 3.
-#     • FOURTH pass (AUDIT) for Test 19 (user spec 2026-09-04: «максимально
-#       полный честный тест в 4 прогона»): after the SERIES run, test19d
-#       measures the Dirac cone DIRECTLY in momentum space — a boundary-twist
-#       scan E_min(θ) = v_F·θ/L (pure-holonomy y-twist, zero bulk flux) —
-#       audits the zero tower at the EIGENVECTOR level (sublattice-
-#       polarization sums, AIII index 2+2), verifies the 2π-twist holonomy
-#       (Byers-Yang at the twist level), the bit-exact clean rebuild, the
-#       1/L² collapse E_min·L = 4π + c/L² (intercept within 0.5% of 4π), and
-#       the cross-pass v_F consistency (4 independent estimates within 6%).
-#       Gated together with pass 3 by ab_run_third_pass; the progress bar
-#       splits FOUR ways for Test 19 and the OVERALL verdict includes pass 4.
-#     • ζ-DICTIONARY rework (user spec 2026-09-04, Test 27): the v21 stub
-#       embedded only the FIRST 50 zeros (49 spacings — "diagnostic only").
-#       Pass 1 now embeds the first 20,000 zeros (honest ⟨r⟩ class verdict),
-#       the HARDCORE pass embeds the FULL 50,000-zero dataset with the deep
-#       statistics: exact ±E pairing probes on the 100,000-dim dictionary,
-#       ⟨r⟩ GUE-window + synthetic Poisson discrimination control, 5×10k
-#       block stationarity, and the KS GUE-vs-GOE classification.
-#     • Every flow ends with a FINAL_REPORT folder inside the run dir
-#       (results/run_.../FINAL_REPORT): master final_report.md/html/pdf,
-#       copies of ALL per-test reports and logs, session computation log,
-#       verdict list, config snapshot, artifact map — suite, Physics Lab,
-#       3D Lab and QUICK CHECK alike.
+# 12. DISORDER CAP + BIG-SAMPLE TEST 36 + FINAL_REPORT.
+#  • Tests 32/33/36 measure at W_eff = min(cfg.ab_W, cfg.ab_W_max)
+#  (default cap 1.0, CLI --ab-w-max, config menu item 66): W=4.0 makes
+#  the vortex on-site potential q·W ≈ 1.2 exceed the hopping t=1 near
+#  cores → disorder-driven vortex motion → realization-dependent,
+#  Poisson-drifting ⟨r⟩ (measured 0.48–0.53 at 96×96/q=0.3). Each of
+#  the three tests PRINTS the disorder→vortex-motion→statistics
+#  explanation and records it into its report notes.
+#  • Test 33 L-grid extended to [10,20,30,50,80,112] (monograph anchors
+#  L≤50; L=80/112 verify the GUE plateau; L=112 = 12544² dense eig,
+#  RAM warning printed).
+#  • Test 36 accumulates realizations until the ⟨r⟩ sample reaches
+#  25 000 (pass 1) / 50 000 (pass 2) eigenvalues (CLI
+#  --ab37-n-eigs-pass1/-pass2, config menu 67/68); the byte verdict is
+#  the 120-window averaged |Δ⟨r⟩| (single-window value = diagnostic
+#  its ±0.02-0.03 window luck previously flipped verdicts run-to-run).
+#  • Test 32 comparison row (q=0.3, run when the configured q is integer)
+#  has its OWN W and Nv knobs: ab_W_cmp (default 0.5 — user asked to
+#  lower W for the q=0.3 run; NaN = follow the primary W_eff; CLI
+#  --ab-w-cmp, config menu 69) and ab_nv_cmp (default 144 = the
+#  monograph anchor density 2.78% at 72×72; 0 = follow primary Nv;
+#  CLI --ab-nv-cmp, config menu 70). VALIDATED
+# : W=0.5 + Nv=144 → ⟨r⟩=0.5975±0.0064, 0.28%
+#  from GUE, nearest class GUE (d_GUE=0.0021) — the row now reproduces
+#  the monograph measurement density out of the box. The row PRINTS
+#  its nearest universality class (GUE/GOE/Poisson) and its vortex
+#  density vs the monograph 2.8% anchor, with honest lever guidance:
+#  a REAL diagonal W cannot break time-reversal symmetry, so a
+#  fractional-q row that lands between GOE 0.5307 and GUE 0.5992 is a
+#  weak-TRS (sparse vortices) signature — the lever is Nv density,
+#  not lower W.
+#  • HARDCORE pass-2 variants for the LATTICE tests: two-pass mode routes
+#  pass 2 of EVERY lattice test 15–35 to a testNNb deep-validation variant
+#  (the same STATS_SECONDARY_HARDCORE mechanism as the 1b–14b ζ variants):
+#  MORE realizations (floor cfg.ab_hc_nreal, default 5, config menu
+#  71 / CLI --ab-hc-nreal), DENSER grids (mod-4 L-grids, 9-point α scans,
+#  16×16 BZ), FULL-system scans (every plaquette, artifact classification),
+#  256-BIGFLOAT precision audits (Choptyuk closed forms), and ensemble
+#  deep checks (bootstrap CI of the mean, realization scatter vs the
+#  monograph ±0.022 band, sign counts, per-realization KS stability).
+#  Test 32/33 keep their dedicated test40b/test41b; Test 36's pass 2
+#  already scales through its own AB_PASS sample targets.
+#  • THIRD pass (SERIES) for Tests 19 / 29 / 31 (suite spec):
+#  after the HARDCORE audit, a THIRD run — test19c / test37c / test39c
+#  (menu ids 19/29/31) — is dedicated to the test's REAL report series,
+#  following the test22b plot pattern: 19c draws the α-selective Dirac
+#  1/L ladder (α ∈ {0.4, 0.5, 0.6}: 4π collapse at 1/2 vs gapless
+#  neighbours), 29c draws the ρ(α) fine scan at the secondary resolution
+#  + the contrast-vs-window series, 31c draws the Hatano–Nelson
+#  realization ENSEMBLE (n × σ grid, scatter + ensemble mean per σ).
+#  Gated by ab_run_third_pass (default ON; CLI --third-pass /
+#  --no-third-pass, config menu 72); the progress bar splits three ways
+#  and the OVERALL verdict of these tests includes pass 3.
+#  • FOURTH pass for Test 19 («максимально
+#  полный честный тест в 4 прогона»): after the SERIES run, test19d
+#  measures the Dirac cone DIRECTLY in momentum space — a boundary-twist
+#  scan E_min(θ) = v_F·θ/L (pure-holonomy y-twist, zero bulk flux)
+#  audits the zero tower at the EIGENVECTOR level (sublattice-
+#  polarization sums, AIII index 2+2), verifies the 2π-twist holonomy
+#  (Byers-Yang at the twist level), the bit-exact clean rebuild, the
+#  1/L² collapse E_min·L = 4π + c/L² (intercept within 0.5% of 4π), and
+#  the cross-pass v_F consistency (4 independent estimates within 6%).
+#  Gated together with pass 3 by ab_run_third_pass; the progress bar
+#  splits FOUR ways for Test 19 and the OVERALL verdict includes pass 4.
+#  • ζ-DICTIONARY rework: the stub
+#  embedded only the FIRST 50 zeros (49 spacings — "diagnostic only").
+#  Pass 1 now embeds the first 20,000 zeros (honest ⟨r⟩ class verdict),
+#  the HARDCORE pass embeds the FULL 50,000-zero dataset with the deep
+#  statistics: exact ±E pairing probes on the 100,000-dim dictionary,
+#  ⟨r⟩ GUE-window + synthetic Poisson discrimination control, 5×10k
+#  block stationarity, and the KS GUE-vs-GOE classification.
+#  • Every flow ends with a FINAL_REPORT folder inside the run dir
+#  (results/run_.../FINAL_REPORT): master final_report.md/html/pdf,
+#  copies of ALL per-test reports and logs, session computation log,
+#  verdict list, config snapshot, artifact map — suite, Physics Lab,
+#  3D Lab and QUICK CHECK alike.
 #
 # =============================================================================
 # SUITE FEATURES
 # =============================================================================
 # * PHYSICS LAB (main-menu key 'l'): 22 experiment configurations, each with
-#   a full physics explanation:
-#   E1 vortex layouts (5)          E10 pair interaction dE(d)
-#   E2 position jitter scan        E11 Byers-Yang fine q-scan
-#   E3 charge-flip (Z2) scan       E12 finite-size <r>(L)
-#   E4 onsite disorder W sweep     E13 open-vs-torus edges
-#   E5 magic-alpha sweep (61 pts)  E14 DOS Dirac dip
-#   E6 named-alpha card            E15 Chern staircase C1(a)
-#   E7 e-/e+ AB interferometry     E16 IPR localization vs W
-#   E8 orbit quantization (n-q)^2  E17 spinorial loop (gamma*)
-#   E9 vortex-antivortex scan      E18 full spectral card
-#   E19-E22: AB-cloud 2D/3D spatial maps, REAL 2D hydrodynamics of e-/e+
-#   jets (D2Q9 Lattice-Boltzmann, Kármán wake behind flux tubes), quantum
-#   Hadamard walk with AB phases.
+#  a full physics explanation:
+#  E1 vortex layouts (5) E10 pair interaction dE(d)
+#  E2 position jitter scan E11 Byers-Yang fine q-scan
+#  E3 charge-flip (Z2) scan E12 finite-size <r>(L)
+#  E4 onsite disorder W sweep E13 open-vs-torus edges
+#  E5 magic-alpha sweep (61 pts) E14 DOS Dirac dip
+#  E6 named-alpha card E15 Chern staircase C1(a)
+#  E7 e-/e+ AB interferometry E16 IPR localization vs W
+#  E8 orbit quantization (n-q)^2 E17 spinorial loop (gamma*)
+#  E9 vortex-antivortex scan E18 full spectral card
+#  E19-E22: AB-cloud 2D/3D spatial maps, REAL 2D hydrodynamics of e-/e+
+#  jets (D2Q9 Lattice-Boltzmann, Kármán wake behind flux tubes), quantum
+#  Hadamard walk with AB phases.
 # * 3D LAB (main-menu key 'd3' — the bare digit '3' runs test 3): independent
-#   3D Hofstadter stack with vortex LINES — 34 tests: construction,
-#   statistics, Byers-Yang 3D, mass/Weyl proxies, edges, localization, AND
-#   the modern Dirac e⁻/e⁺ block (v20.0): zitterbewegung, charge
-#   conjugation, the particle-mode critical-line crossing theorem, and the
-#   wave-mode ζ critical-strip landscape (3D-31…3D-34).
-#   NOT part of run-all 1-38.
+#  3D Hofstadter stack with vortex LINES — 34 tests: construction,
+#  statistics, Byers-Yang 3D, mass/Weyl proxies, edges, localization, AND
+#  the modern Dirac e⁻/e⁺ block: zitterbewegung, charge
+#  conjugation, the particle-mode critical-line crossing theorem, and the
+#  wave-mode ζ critical-strip landscape (3D-31…3D-34).
+#  NOT part of run-all 1-38.
 # * QUICK CHECK (main-menu key 'f'): full 38-test suite on a 16×16 primary /
-#   32×32 secondary two-pass (seconds instead of minutes).
+#  32×32 secondary two-pass (seconds instead of minutes).
 # * REPORTING ENGINE: every run/experiment writes results/run_.../ with
-#   md/html/pdf/docx reports, PNG(600dpi)/SVG/PDF plots, animation.gif,
-#   full computation logs and console captures.
+#  md/html/pdf/docx reports, PNG(600dpi)/SVG/PDF plots, animation.gif,
+#  full computation logs and console captures.
 # =============================================================================
 # SCOPE NOTE (read this first)
 # -----------------------------------------------------------------------------
@@ -1070,7 +602,7 @@ import .ABUI3: ab_w, ab_box, ab_panel_header, ab_show_banner, ab_render_bar,
 
 # In an earlier version, this script did NOT construct or diagonalize the
 # physical AB-Cloud Hofstadter lattice Hamiltonian — it only tested the
-# zeta-zero sequence. The AB-cloud Hamiltonian (v23 §1.3, eq. 1.4) IS now
+# zeta-zero sequence. The AB-cloud Hamiltonian (§1.3, eq. 1.4) IS now
 # implemented (section 6b), along with the 3D PSL(2,7) Klein quartic
 # embedding (section 6c), and Tests 15-22 directly verify the AB-cloud
 # model claims. Where the earlier code says "matrix size" or "reference
@@ -1080,23 +612,23 @@ import .ABUI3: ab_w, ab_box, ab_panel_header, ab_show_banner, ab_render_bar,
 # =============================================================================
 # Usage
 # -----------------------------------------------------------------------------
-# julia ab_cloud_v23.jl # interactive
-# julia ab_cloud_v23.jl --zeros 50000 --test all
-# julia ab_cloud_v23.jl --zeros 50000 --source embedded
-# julia ab_cloud_v23.jl --zeros 200000 --source 2M --test all
-# julia ab_cloud_v23.jl --zeros 20000 --matrix-size 3000 --test all
-# julia ab_cloud_v23.jl --config # interactive config
-# julia ab_cloud_v23.jl --help
+# julia ab_cloud_full.jl # interactive
+# julia ab_cloud_full.jl --zeros 50000 --test all
+# julia ab_cloud_full.jl --zeros 50000 --source embedded
+# julia ab_cloud_full.jl --zeros 200000 --source 2M --test all
+# julia ab_cloud_full.jl --zeros 20000 --matrix-size 3000 --test all
+# julia ab_cloud_full.jl --config # interactive config
+# julia ab_cloud_full.jl --help
 # =============================================================================
 # Dependencies: Julia ≥ 1.6, standard library only (Printf, LinearAlgebra,
-# Random, Statistics, Dates, SparseArrays). v23.1: NO optional packages —
-# the built-in ABPlotV23 engine renders every plot (png + gif).
+# Random, Statistics, Dates, SparseArrays).: NO optional packages
+# the built-in ABPlot engine renders every plot (png + gif).
 # =============================================================================
 
 import Printf: @printf, @sprintf
-import LinearAlgebra: norm, eigvals, eigvals!, Hermitian, I, Diagonal, eigen, Symmetric, SymTridiagonal, LAPACKException, det, rmul!, mul!, dot, LAPACK # v23.7: + LAPACK module (t34g windowed diagonalization: hetrd!/stebz!); v21.0: + SymTridiagonal/eigvals! for the sparse 3D engine # dot = FHS link product (Test 20); mul!/rmul! in-place ops for Test 27
+import LinearAlgebra: norm, eigvals, eigvals!, Hermitian, I, Diagonal, eigen, Symmetric, SymTridiagonal, LAPACKException, det, rmul!, mul!, dot, LAPACK # : + LAPACK module (t34g windowed diagonalization: hetrd!/stebz!);: + SymTridiagonal/eigvals! for the sparse 3D engine # dot = FHS link product (Test 20); mul!/rmul! in-place ops for Test 27
 import Random: seed!, randperm, rand, randn, randn!, rand!, default_rng, MersenneTwister # rand! for the hardcore bootstrap buffer; randn! fills the lean GUE matrix buffer in place
-import SparseArrays: SparseMatrixCSC, sparse, nnz, lu, issuccess # v21.0: the 3D sparse engine (stdlib only; nnz shadowed locally in t3_02 is legal Julia)
+import SparseArrays: SparseMatrixCSC, sparse, nnz, lu, issuccess # : the 3D sparse engine (stdlib only; nnz shadowed locally in t3_02 is legal Julia)
 import Statistics: mean, std, median, quantile, cor, var
 import Dates
 
@@ -1139,8 +671,8 @@ modify the same state. Fields are grouped by purpose:
 - `ad_sample_cap` — cap on #spacings used for Anderson–Darling
  (default 50_000 = the FULL embedded ζ-set)
 - `t31_lmax` — max lattice L for the TEST 30 Dirac-gap 1/L fit (default 72,
-  CLI `--t31-lmax`; grid is all L ≡ 0 (mod 4) up to lmax drawn from
-  [8,12,16,20,24,28,32,36,40,48,64,72,80,96]; exact
+ CLI `--t31-lmax`; grid is all L ≡ 0 (mod 4) up to lmax drawn from
+ [8,12,16,20,24,28,32,36,40,48,64,72,80,96]; exact
  dense diagonalization is O(L⁶) — L=96 already costs minutes, "L=20000"
  (4·10⁸ sites) is beyond any exact-diagonalization method)
 - `rmt_cdf_table` — interpolation table for the β=2 surmise CDF (serves
@@ -1152,7 +684,7 @@ modify the same state. Fields are grouped by purpose:
  `--L-max 140 [--L-count 8]` (geometric grid)
  (2) Menu: press `c` → item 18 (explicit list)
  → item 19 (auto-grid by L_max)
- (3) Code: edit `default_config()` below.
+ (3) Code: edit `default_config` below.
  Default: `[2.0, 5.0, 10.0, 20.0, 50.0]`.
 - `rigidity_n_windows` — window placements for Σ²(L)
 - `rigidity_n_windows_d3` — window placements for Δ₃(L) (costlier)
@@ -1165,8 +697,8 @@ mutable struct Config
  lang::String
  test::String
  output_dir::String
- # v23.1: the retired `plot` (Plots.jl toggle) and `verbose` fields were
- # REMOVED — nothing read them; the ABPlotV23 engine renders unconditionally.
+ # : the retired `plot` (Plots.jl toggle) and `verbose` fields were
+ # REMOVED — nothing read them; the ABPlot engine renders unconditionally.
  # ── Original test parameters ──
  n_checkpoints::Int
  n_monotone::Int
@@ -1189,13 +721,13 @@ mutable struct Config
  # ── AB-cloud test parameters (Tests 15, 16, 30, 31, 32) ──
  # Launch-standard working values:
  # Nx=Ny=72, q=1.0, α=1/2, OPEN boundary, Nv=[4] primary / [2] secondary.
- ab_nx::Int # default 72 — Test 16 lattice width ()
- ab_ny::Int # default 72 — Test 16 lattice height ()
- ab_nv_list::Vector{Int} # default [4] — primary vortex count ()
+ ab_nx::Int # default 72 — Test 16 lattice width
+ ab_ny::Int # default 72 — Test 16 lattice height
+ ab_nv_list::Vector{Int} # default [4] — primary vortex count
  ab_q_list::Vector{Float64} # default [1.0] — vortex charge magnitude (magnetic flux strength)
  ab_alpha::Float64 # default 0.5 — uniform AB flux per plaquette
  ab_t::Float64 # default 1.0 — hopping amplitude
- ab_lattice::Symbol # default :open — :open or :torus
+ ab_lattice::Symbol # default:open —:open or:torus
  ab_seed::Int # default 96 — RNG seed for vortex placement
  ab_sweep_mode::String # "nv" (sweep Nv at each q), "q" (sweep q at each Nv), "both" (full grid)
  ab_n_realizations::Int # default 5 — #vortex configs to average ⟨r⟩ over (bootstrap CI)
@@ -1215,8 +747,8 @@ mutable struct Config
  ab_sigma_jitter::Float64 # σ dithering amplitude
  ab_vortex_pos_jitter::Float64 # vortex position jitter (lattice units)
  ab_vortex_charge_flip::Float64 # Bernoulli charge-flip probability ∈ [0,1]
- ab_vortex_layout::Symbol # :random | :hexagonal | :ring | :grid | :centers
- ab_vortex_radius::Float64 # layout radius fraction (for :ring/:hexagonal)
+ ab_vortex_layout::Symbol # :random |:hexagonal |:ring |:grid |:centers
+ ab_vortex_radius::Float64 # layout radius fraction (for:ring/:hexagonal)
  ab_vortex_core_size::Float64 # vortex core size for softened Coulomb
  ab_bk_sigma::Bool # apply Bogomolny-Keating 0.27/√N σ-correction
  ab_onsite_noise_eps::Float64 # residual ε ~ U(-eps, eps) on-site disorder
@@ -1228,12 +760,12 @@ mutable struct Config
  ab_byte_tol::Float64 # byte quantization tolerance
  ab_n_bytes::Int # #bytes for RNG entropy test
  ab_byte_seed::Int # RNG seed for byte robustness test
- ab_W_max::Float64 # cap on effective W in Tests 32/33/36 (user spec: W ≤ 1.0; CLI --ab-w-max)
+ ab_W_max::Float64 # cap on effective W in Tests 32/33/36 (CLI --ab-w-max)
  ab37_n_eigs_pass1::Int # Test 36 pass-1 ⟨r⟩ sample target in eigenvalues (default 25 000)
  ab37_n_eigs_pass2::Int # Test 36 pass-2 ⟨r⟩ sample target in eigenvalues (default 50 000)
  ab_W_cmp::Float64 # Test-32 comparison-row W (q=0.3 row); NaN = follow primary W_eff (CLI --ab-w-cmp)
  ab_nv_cmp::Int # Test-32 comparison-row Nv (default 144 = 2.78% anchor density, validated; 0 = follow primary; CLI --ab-nv-cmp)
- ab_hc_nreal::Int # HARDCORE pass-2 realization floor for the lattice b-variants — Tests 15–35 (v3.2 default 20, was 5; CLI --ab-hc-nreal, menu 71)
+ ab_hc_nreal::Int # HARDCORE pass-2 realization floor for the lattice b-variants — Tests 15–35 (default 20,; CLI --ab-hc-nreal, menu 71)
  ab_eigs_per_seed::Int # #eigs per seed for K(t) per-seed averaging (0=auto)
  ab_K_t_values::Vector{Float64} # t grid for K(t) test
  ab_R2_s_values::Vector{Float64} # s grid for R2 test
@@ -1253,6 +785,7 @@ mutable struct Config
     rep_gif::Bool
  rep_plot_formats::Vector{String}
     rep_report_formats::Vector{String}
+    rep_preset::String # AURORA-пресет оформления отчётов: aurora | ice | gold | emerald
  # # two-pass config fields
  # physics-lab parameter block — edited from the LAB menu
  # (physics_lab_menu! → 's'). Defaults: 72×72 matrix per launch standard.
@@ -1261,9 +794,9 @@ mutable struct Config
  lab_W::Float64 # default 4.0 — onsite disorder (lab)
  lab_q::Float64 # default 1.0 — vortex charge magnitude (lab)
  lab_nv::Int # default 4 — vortex count (lab)
- lab_layout::Symbol # default :random — vortex layout (lab)
- lab_lattice::Symbol # default :torus — boundary (lab)
- lab_model::Symbol # default :monumental — vortex phase model (lab)
+ lab_layout::Symbol # default:random — vortex layout (lab)
+ lab_lattice::Symbol # default:torus — boundary (lab)
+ lab_model::Symbol # default:monumental — vortex phase model (lab)
  lab_pos_jitter::Float64 # default 0.0 — vortex position jitter (lab)
  lab_charge_flip::Float64 # default 0.0 — charge-flip probability (lab)
  lab_neutrals::Bool # default true — alternating vortex signs (lab)
@@ -1285,16 +818,16 @@ mutable struct Config
  d3_W::Float64 # default 0.0 — onsite disorder (3D GOE/Anderson experiments)
  d3_mass::Float64 # default 0.0 — staggered mass texture amplitude
  d3_tz_stagger::Bool # default false — alternate tz sign layer by layer
- d3_boundary::Symbol # default :torus — :torus | :open_z | :open_xy | :open_all
+ d3_boundary::Symbol # default:torus —:torus |:open_z |:open_xy |:open_all
  d3_nv_lines::Int # default 0 — extra vortex lines along z (0..6)
  d3_line_q::Float64 # default 1.0 — charge of those lines
  d3_neutrals::Bool # default true — alternate ±q for the extra lines
  d3_seed::Int # default 777 — RNG seed (W pattern + line placement)
- # ── v21.0 3D two-pass + sparse engine ──
+ # ── 3D two-pass + sparse engine ──
  d3_two_pass::Bool # default true — every 3D test runs pass 1 (L₁) + pass 2 hardcore (L₂)
  d3_L_primary::Int # default 18 — pass-1 lattice (sized for ~4 GB RAM)
  d3_L_secondary::Int # default 20 — pass-2 lattice (sized for ~6 GB RAM)
- d3_engine::Symbol # :auto (default) | :dense | :sparse — L>20 auto-routes to sparse
+ d3_engine::Symbol # :auto (default) |:dense |:sparse — L>20 auto-routes to sparse
  d3_sp_depth::Int # default 900 — sparse-engine window size, pass 1
  d3_sp_depth_hc::Int # default 1300 — sparse-engine window size, hardcore pass 2
  d3_ram_mb1::Int # default 4096 — pass-1 RAM budget, MB (sparse-engine guard)
@@ -1302,13 +835,13 @@ mutable struct Config
  # TEST 30 Dirac-gap scaling — largest lattice L on the 1/L grid.
  # All grid points are L ≡ 0 (mod 4) — only then do the Dirac points
  # k=(π/2,π/2) lie on the discrete torus k-grid.
- # Default 72 (user standard 2026-08-30; was 48, then 64): exact dense
+ # Default 72 (user standard;, then 64): exact dense
  # diagonalization is O((L²)³) = O(L⁶) — L=72 ≈ 1 min, L=96 already
  # minutes on this hardware class (raise via --t31-lmax).
  t31_lmax::Int # default 72 — max L for TEST 30 (≡ 0 mod 4, dense eig O(L⁶))
 
- # ── v23.0 SUPERCOMBO: Test 38 three-pass (ported from the v22.2 RunCfg) ──
- t38_seed::Int # master seed of the three-pass Test 38 (v22 default 20260903)
+ # ──: Test 38 three-pass (ported from the RunCfg) ──
+ t38_seed::Int # master seed of the three-pass Test 38 (default 20260903)
  t38_l1::Int # 38a main lattice (dense eig, N = L²; default 72² = 5184 nodes)
  t38_l2::Int # 38b hardcore lattice (default 96² = 9216 nodes)
  t38_seeds::Int # paired realizations per (T, lattice) — layout fixed per k
@@ -1317,12 +850,12 @@ mutable struct Config
  t38_ram::Float64 # dense-matrix RAM guard (bytes; auto-downgrades L1/L2/C2)
  t38_quick::Bool # smoke mode (tiny lattices — pipeline check only)
  t38_fresh::Bool # wipe the spectrum cache before running
- t38_c2_sizes::Vector{Int} # 38c C2 staircase rungs (default 24→96, 6 rungs)
+ t38_c2_sizes::Vector{Int} # 38c C2 staircase rungs (default 6 rungs)
  t38_c2_seeds::Int # 38c C2 realizations per (T, L)
 
- # ── v23.3 Hilbert-Pólya deep audit (menu key 'h') — arithmetic-specificity battery ──
+ # ── Hilbert-Pólya deep audit (menu key 'h') — arithmetic-specificity battery ──
  hp_L::Int # default 56 — matrix L×L for H1-H4/H6/H7 (dense eig; even L keeps the H6 torus rung legal)
- hp_n_ensemble::Int # default 40 — H5 ensemble size (reviewer: 30-50+; suite standard is 2-6)
+ hp_n_ensemble::Int # default 40 — H5 ensemble size (: 30-50+; suite standard is 2-6)
  hp_n_q_grid::Int # default 21 — H4 q-scan resolution
  hp_q_min::Float64 # default 0.05 — H4 scan left edge
  hp_q_max::Float64 # default 1.0 — H4 scan right edge (covers claimed criticals 0.3 / 1/2 / 1.0)
@@ -1341,13 +874,13 @@ mutable struct Config
  hp_seed::Int # default 2026 — master seed of the HP battery (per-test streams derive from it)
  hp_gue_band::Float64 # default 0.022 — H5 GUE band half-width on ⟨r⟩ (monograph §11.1)
  hp_pass_fraction::Float64 # default 0.90 — H5 required in-band fraction
- hp_regime_mode::Symbol # default :showdown — H1/H5 parameter-regime sweep: :showdown = full 2×2 {Nv sparse | L²/36 density} × {α=0.5 | α=25/900}; :baseline = HP-standard point only (~4× faster)
- hp_deep_nulls::Int # default 20 — H1 DEEPEN protocol (v23.6): null realizations per type (vortex-free / GUE) for the P95 ceiling re-estimate on marginal regimes
+ hp_regime_mode::Symbol # default:showdown — H1/H5 parameter-regime sweep: showdown = full 2×2 {Nv sparse | L²/36 density} × {α=0.5 | α=25/900};:baseline = HP-standard point only (~4× faster)
+ hp_deep_nulls::Int # default 20 — H1 DEEPEN protocol: null realizations per type (vortex-free / GUE) for the P95 ceiling re-estimate on marginal regimes
  hp_deep_configs::Int # default 10 — H1 DEEPEN protocol: extra AB configs per marginal regime (raised from hp_h1_configs=3)
- hp_alpha_scan::Bool # default true — H5 α-profile (v23.6): GUE quality vs screening α at fixed sparse Nv — the finetuning-vs-plateau readout
+ hp_alpha_scan::Bool # default true — H5 α-profile: GUE quality vs screening α at fixed sparse Nv — the finetuning-vs-plateau readout
  hp_alpha_scan_n::Int # default 40 — H5 α-profile configs per α point (30 at the L=56 full preset — cost guard)
 
- # ── v23.7 TEST 34G — geometry sweep (finite-size lab port, test id 39) ──
+ # ── TEST 34G — geometry sweep (finite-size lab port, test id 39) ──
  # Budget L: every scalable geometry auto-scales to ≈ L² sites (default 96 →
  # ~9216 sites — the same big matrix as the torus at 96×96; Klein/pillow →
  # 136 (9248), cube sphere → 40 (9128); Hurwitz PSL stays at fixed |G|).
@@ -1363,7 +896,7 @@ end
 
 const MSG = Dict{String, Dict{String, String}}(
  "en" => Dict(
- "title" => "AB-Cloud Verification Suite v23 SUPERCOMBO — 38 Tests (v21 core × v22 plotlab)",
+ "title" => "AB-Cloud Verification Suite — 39 Tests · AURORA Edition",
  "loading" => "Loading {count} zeros from '{file}' ...",
  "loading_embedded" => "Loading {count} zeros from EMBEDDED dataset (50k, Odlyzko) ...",
  "loaded" => "Loaded {count} zeros | T in [{tmin:.4f}, {tmax:.4f}]",
@@ -1566,7 +1099,7 @@ end
 # ─────────────────────────────────────────────────────────────────────────────
 
 """
- lambert_w(x::Float64; maxiter=50, tol=1e-15) → Float64
+ lambert_w(x: Float64; maxiter=50, tol=1e-15) → Float64
 
 Principal branch W₀ of the Lambert W function via Halley's method.
 Used only to compute the Gram-point approximation γ̃_n ≈ 2πn / W(n/e).
@@ -1587,7 +1120,7 @@ function lambert_w(x::Float64; maxiter::Int=50, tol::Float64=1e-15)::Float64
 end
 
 """
- gram_point(n::Int) → Float64
+ gram_point(n: Int) → Float64
 
 Compute the n-th Gram point γ̃_n, defined by θ(γ̃_n) = nπ where θ is the
 Riemann–Siegel theta function. Uses the Lambert-W asymptotic as the initial
@@ -1614,24 +1147,24 @@ end
 
 # REFERENCE SPACING LAW. The ζ-zero GOF tests (KS / χ² / CvM / A²) use the
 # **GUE (β=2)** Wigner surmise — the Montgomery–Odlyzko conjecture class:
-#   p₂(s) = (32/π²)·s²·exp(−4s²/π),
-#   F₂(s) = erf(2s/√π) − (4s/π)·exp(−4s²/π)   (closed form; erf via
-#   regularized_gamma_p(1/2, x²) — no external deps).
+#  p₂(s) = (32/π²)·s²·exp(−4s²/π),
+#  F₂(s) = erf(2s/√π) − (4s/π)·exp(−4s²/π) (closed form; erf via
+#  regularized_gamma_p(1/2, x²) — no external deps).
 # CAUTION: the frequently quoted 1 − exp(−πs²/4) (pdf (πs/2)e^{−πs²/4}) is
 # the **GOE (β=1)** surmise — using it under a "GUE" label silently
 # overstates every deviation statistic. Numerical audit (probe on the
 # embedded 50k set):
-#   * real 2000×2000 GUE matrix pool vs β=1 law: A²=16.6 (the "GUE reference"
-#     itself rejects the β=1 law!), vs β=2 law: A²=0.6 — near-perfect;
-#   * ζ data (n=49999): A² 1056.5 (β=1) → 61.5 (β=2) — 17× smaller; the rest
-#     is genuine physics (low-T convergence + long-range correlations);
-#   * var(sp)=0.159 ≈ β=2 surmise 3π/8−1=0.178, and NOT β=1's 4/π−1=0.273.
-# Default law is :gue2; --rmt-law goe selects the GOE legacy law.
+#  * real 2000×2000 GUE matrix pool vs β=1 law: A²=16.6 (the "GUE reference"
+#  itself rejects the β=1 law!), vs β=2 law: A²=0.6 — near-perfect;
+#  * ζ data (n=49999): A² 1056.5 (β=1) → 61.5 (β=2) — 17× smaller; the rest
+#  is genuine physics (low-T convergence + long-range correlations);
+#  * var(sp)=0.159 ≈ β=2 surmise 3π/8−1=0.178, and NOT β=1's 4/π−1=0.273.
+# Default law is:gue2; --rmt-law goe selects the GOE legacy law.
 """GOE (β=1) Wigner surmise CDF: P(s) = 1 − exp(−πs²/4). The OLD gue_cdf —
 kept under an honest name (legacy mode, --rmt-law goe)."""
 goe_surmise_cdf(s::Float64) = 1.0 - exp(-π * s^2 / 4)
 
-# v23.1: goe_surmise_pdf removed (its only caller, the gue_pdf overlay
+# : goe_surmise_pdf removed (its only caller, the gue_pdf overlay
 # helper, was retired with the Plots.jl writers).
 
 """GUE (β=2) Wigner surmise CDF:
@@ -1682,7 +1215,7 @@ function rmt_build_cdf_table!()
 end
 
 """Table-accelerated β=2 surmise CDF. Uniform-grid linear interp on
-[0,5]; exact gue2_surmise_cdf fallback for s ≥ 5 / table off. For the :goe
+[0,5]; exact gue2_surmise_cdf fallback for s ≥ 5 / table off. For the:goe
 law the (cheap, exponential) exact GOE CDF is returned directly."""
 function rmt_table_cdf(s::Float64)::Float64
     s < 0 && return 0.0
@@ -1702,7 +1235,7 @@ end
 # ── Inverse-CDF sampler for the ACTIVE spacing law (exact-law MC null) ──────
 # Test 11's null ensemble needs i.i.d. samples OF THE LAW ITSELF. A quantile
 # grid Q[j] ≈ F⁻¹(j·umax/M) is built ONCE by bisection on the dispatched
-# gue_cdf (works for the :gue2 table engine AND the :goe closed form), then
+# gue_cdf (works for the:gue2 table engine AND the:goe closed form), then
 # each draw costs O(1): u ~ U(0,umax) → linear interp on the uniform-u grid.
 # Self-check at build time probes 257 nodes and reports worst |F(Q[j]) − u_j|
 # (bounded by the CDF table's own ≤1e-9 error bar).
@@ -1752,7 +1285,7 @@ function rmt_sample!(rng, out::AbstractVector{Float64})
     M = _RMT_QUANT_N
     for k in eachindex(out)
         # Uniform grid coordinate x ~ U(0, M) → quantile level u = umax·(j/M)
-        # ~ U(0, umax). (The old `u = rand()*umax; x = u*M` double-counted
+        # ~ U(0, umax). (The old `u = rand*umax; x = u*M` double-counted
         # umax and sampled quantile levels U(0, umax²) — a latent tail
         # truncation whenever umax < 1.)
         x = rand(rng) * M
@@ -1766,7 +1299,7 @@ end
 
 
 # Active reference law for ALL spacing GOF tests (KS / χ² / CvM / A²):
-#   :gue2 (default — the Montgomery–Odlyzko class) or :goe (legacy).
+# :gue2 (default — the Montgomery–Odlyzko class) or:goe (legacy).
 const RMT_SPACING_LAW = Ref{Symbol}(:gue2)
 rmt_law_name() = RMT_SPACING_LAW[] === :goe ? "GOE β=1 surmise" : "GUE β=2 surmise"
 rmt_law_var() = RMT_SPACING_LAW[] === :goe ? 4.0 / π - 1.0 : 3.0 * π / 8.0 - 1.0
@@ -1775,7 +1308,7 @@ rmt_law_var() = RMT_SPACING_LAW[] === :goe ? 4.0 / π - 1.0 : 3.0 * π / 8.0 - 1
 Every spacing GOF test (ks_test / chi2_gue_test / cvm_test /
 anderson_darling_stat) and the plot overlays go through this single point,
 so the whole suite switches laws coherently.
-for :gue2 the CDF is served from the interpolation table
+for:gue2 the CDF is served from the interpolation table
 (RMT_TABLE_ON, default true — ~30× faster, |ΔF| ≤ 1e-9 vs exact); the exact
 surmise stays reachable via --rmt-table off and inside the test-11 PASS 3
 cross-check."""
@@ -1785,7 +1318,7 @@ function gue_cdf(s::Float64)::Float64
  return gue2_surmise_cdf(s)
 end
 
-# v23.1: the gue_pdf overlay helper was removed with the retired Plots.jl
+# : the gue_pdf overlay helper was removed with the retired Plots.jl
 # writers (its only callers); gue2_surmise_pdf stays — Test 37's quadrature
 # and the GUE normalization audit call it directly.
 
@@ -1799,7 +1332,7 @@ half of a zero sequence starts at index N/2+1, so `offset=N/2` makes
 `zeta_zeros[1]` (the (N/2+1)-th zero) compare with `gram_point(N/2+1)`.
 Without it, Test 10 silently compared high-T zeros with low-T Gram points.
 
-DOCUMENTED STATISTICAL PROPERTY (audit note 2026-08-31, measured on the
+DOCUMENTED STATISTICAL PROPERTY (audit note, measured on the
 embedded 50k set): θ(γ_k)/π − k averages −1.4998 (≈ −3/2, std ≈ 0.28)
 uniformly over k — the k-th zero sits midway between Gram points g_{k−2}
 and g_{k−1}, so the |γ_k − g_k| pairing carries a systematic
@@ -1983,7 +1516,7 @@ format_int_list(xs::Vector{Int})::String = join(string.(xs), ", ")
 format_float_list(xs::Vector{Float64})::String = join([@sprintf("%.3f", x) for x in xs], ", ")
 
 """Normalize a comma-separated format list from the CLI/config menu:
-strip whitespace around tokens, lowercase, drop empties (FIX 2026-09-02).
+strip whitespace around tokens, lowercase, drop empties (NOTE:.
 Without this, "PNG, SVG" produced tokens " PNG"/" SVG" that never matched
 the "png"/"svg" membership checks — both formats were silently skipped by
 the report writer while the menu kept displaying them as enabled."""
@@ -2071,7 +1604,7 @@ chi2_cdf(x::Float64, df::Real)::Float64 = regularized_gamma_p(Float64(df) / 2.0,
 # ─────────────────────────────────────────────────────────────────────────────
 
 """
- ks_asymptotic_pvalue(λ::Float64) → Float64
+ ks_asymptotic_pvalue(λ: Float64) → Float64
 
 Asymptotic two-sided Kolmogorov p-value P(K > λ) = 2·Σ_{k=1}^∞ (−1)^{k−1}·exp(−2·k²·λ²).
 
@@ -2089,7 +1622,7 @@ function ks_asymptotic_pvalue(λ::Float64)::Float64
  # returned p≈0.044 instead of the exact p≈1.0 — a false rejection of a
  # PERFECTLY consistent sample). For λ < 0.6 use the complementary
  # (Poisson-summation) form instead, which converges in a handful of terms:
- #   P(D > λ) = 1 − (√(2π)/λ)·Σ_{k≥1} exp(−(2k−1)²π²/(8λ²)).
+ #  P(D > λ) = 1 − (√(2π)/λ)·Σ_{k≥1} exp(−(2k−1)²π²/(8λ²)).
  # Validated against scipy.stats.kstwobign.sf across λ ∈ [1e-4, 10].
  if λ < 0.6
      s2 = 0.0
@@ -2307,7 +1840,7 @@ function unfolded_positions(zeta_zeros::Vector{Float64})::Vector{Float64}
 end
 
 """
- number_variance(positions, L; n_windows=3000, rng=default_rng()) → Float64
+ number_variance(positions, L; n_windows=3000, rng=default_rng) → Float64
 
 Number variance Σ²(L): variance of the level count inside randomly placed
 windows of (unfolded) length L.
@@ -2333,7 +1866,7 @@ function number_variance(positions::Vector{Float64}, L::Float64;
 end
 
 """
- delta3_rigidity(positions, L; n_windows=500, n_grid=300, rng=default_rng()) → Float64
+ delta3_rigidity(positions, L; n_windows=500, n_grid=300, rng=default_rng) → Float64
 
 Spectral rigidity Δ₃(L) (Dyson–Mehta statistic): mean squared deviation of the
 (unfolded) staircase function from its best local straight-line fit, averaged
@@ -2404,7 +1937,7 @@ eigenvalues. Standard construction: H = (G + G†)/2 where G = (R + i·I)/√2
 with R, I independent real N(0,1) N×N matrices. Diagonalized via
 `LinearAlgebra.eigvals` on a `Hermitian` wrapper (no external packages).
 
-Memory-lean fill (v19b): the real/imag parts are drawn directly into the
+Memory-lean fill: the real/imag parts are drawn directly into the
 interleaved ComplexF64 buffer and H is symmetrized IN PLACE — peak RAM is
 one complex matrix (N²·16 B) + LAPACK workspace, instead of the ≈3.4× that
 the previous temporary chain (reG+imG+G+G†+A all live at once) required.
@@ -2413,7 +1946,7 @@ the difference between running and OOM-ing on a 4 GB box.
 
 All draws come from the same seeded MersenneTwister in a fixed order, so
 results stay fully deterministic per (N, seed). The interleaved fill
-consumes the RNG stream in a different order than v19a, so the reference
+consumes the RNG stream in a different order than, so the reference
 REALIZATION for a given seed differs from earlier releases (statistically
 identical GUE — same law, new draws).
 
@@ -2422,10 +1955,10 @@ Cost is O(N³) (measured, 2-core box): 2000² ≈ 2–3 s, 4000² ≈ 16 s,
 with a size/RAM/time estimate is printed for N ≥ 8000.
 """
 function gue_matrix_eigenvalues(N::Int; seed::Int=42)::Vector{Float64}
- # Use LOCAL RNG instead of default_rng() + seed! — was
- # polluting the global default_rng() state for subsequent tests.
+ # Use LOCAL RNG instead of default_rng + seed! — was
+ # polluting the global default_rng state for subsequent tests.
  rng = MersenneTwister(seed)
- # FIX 2026-09-02c: name the silent phase honestly — one blocking LAPACK
+ # NOTE: name the silent phase honestly — one blocking LAPACK
  # eigensolve produces NO output until it returns, which is exactly the
  # "зависает на тесте 11" look. State the ETA, the RAM and the override.
  N ≥ 8000 && @printf(" Large GUE reference: %dx%d complex matrix ≈ %.1f GB + LAPACK workspace — ONE silent LAPACK eigensolve, NO output until done, NOT a hang (O(N³), ≈ %.0f min on 2 cores). Lower via --matrix-size / menu 14 if needed.\n",
@@ -2446,7 +1979,7 @@ function gue_matrix_eigenvalues(N::Int; seed::Int=42)::Vector{Float64}
  @inbounds for j in 1:N # (G_jj + conj(G_jj))/2 = Re(G_jj) exactly
   G[j, j] = complex(real(G[j, j]), 0.0)
  end
- # FIX 2026-09-02c: live ticker over the blocking eigvals call. Julia's
+ # NOTE: live ticker over the blocking eigvals call. Julia's
  # scheduler is cooperative — a ccall monopolizes its thread, so the ticker
  # can only run when ≥ 2 threads exist; on a 1-thread run the pre-solve
  # advisory above is the honest fallback. TTY: refreshes the bar's phase
@@ -2508,8 +2041,8 @@ Returns the sorted vector of ⟨r⟩ values (length = n_samples).
 function monte_carlo_r_mean_distribution(N_matrix::Int, n_samples::Int;
  seed::Int=42, prog_base::Float64=0.0, prog_span::Float64=1.0,
  center_frac::Float64=1.0)::Vector{Float64}
- # Use LOCAL RNG instead of default_rng() + seed! — was
- # polluting the global default_rng() state.
+ # Use LOCAL RNG instead of default_rng + seed! — was
+ # polluting the global default_rng state.
  rng = MersenneTwister(seed)
  r_dist = Vector{Float64}(undef, n_samples)
  log_comp_section("MC GUE ensemble build")
@@ -2590,12 +2123,12 @@ function unfold_gue_eigenvalues(eigs::Vector{Float64}; trim_frac::Float64=0.1,
  hi = min(n, round(Int, (1.0 - trim_frac) * n))
  idxs = Float64.(lo:hi)
  xfit = eigs[lo:hi]
- # v19b NUMERICS FIX: fit in coordinates scaled to [−1, 1]. The raw
+ #  NUMERICS FIX: fit in coordinates scaled to [−1, 1]. The raw
  # Vandermonde matrix in eigenvalue units has condition number ≈
  # (2·λ_max)^poly_deg — at the 12 000² default (λ_max ≈ 155, deg 9) that is
  # ~10²¹, far beyond Float64: `V \ y` silently returned an oscillating
  # polynomial and the unfolded spacings exploded (spikes up to ≈ 43 at
- # N=6000 → 2-sample KS D ≈ 0.31 garbage). Same bug class as fitting in
+ # N=-sample KS D ≈ 0.31 garbage). Same bug class as fitting in
  # raw t on the ζ side. Scaling is an exact change of variables — the
  # fitted curve is identical up to restored precision.
  c = (maximum(xfit) + minimum(xfit)) / 2
@@ -2618,7 +2151,7 @@ end
  # 6b. AB-CLOUD HAMILTONIAN
 # ─────────────────────────────────────────────────────────────────────────────
 
-# The v23 monograph (§1.3, eq. 1.4) defines the AB-cloud Hofstadter Hamiltonian:
+# The monograph (§1.3, eq. 1.4) defines the AB-cloud Hofstadter Hamiltonian:
 
 # H_{ij} = -t · exp(i φ_{ij})
 # φ_{ij} = Σ_k q_k · [ arg(r_i - r_k) - arg(r_j - r_k) ]
@@ -2628,7 +2161,7 @@ end
 # k indexes the N_v topological vortices
 # q_k = ±1 is the topological charge of vortex k (electron / positron)
 # r_k is the position of vortex k
-# arg() is the planar angle (atan2)
+# arg is the planar angle (atan2)
 
 # Physical meaning: each vortex k contributes a phase equal to q_k times the
 # angle subtended by the (j → i) hop as seen from r_k. Going AROUND vortex k
@@ -2674,12 +2207,12 @@ Fields:
 - `Nx`, `Ny`: lattice dimensions (Nx·Ny sites).
 - `vortices`: vector of `Vortex` (topological defects carrying AB flux).
 - `alpha`: uniform AB flux per plaquette (in units of Φ₀ = h/e).
- α = 1/2 is the self-dual / chiral-symmetric point per Connes & v23 §6.3.
+ α = 1/2 is the self-dual / chiral-symmetric point per Connes & §6.3.
 - `t`: nearest-neighbour hopping amplitude (default 1.0; sets the energy unit).
 - `lattice`: `:open` or `:torus` (periodic boundary conditions).
 - `W`: diagonal disorder strength (monograph: W=4).
 - `disorder_seed`: RNG seed for the residual on-site disorder ε.
- Default 96 . Vary this in bootstrap tests
+ Default 96. Vary this in bootstrap tests
  (Test 32) so each realization gets a DIFFERENT disorder pattern.
 - `vortex_phase_model`: `:monumental` (DEFAULT — atan smooth gauge
  ported from AB_Cloud_Monumental_v6_3.jl; complex phases → GUE reachable)
@@ -2696,7 +2229,7 @@ struct ABCloudConfig
  lattice::Symbol
  W::Float64 # diagonal disorder strength (monograph: W=4)
  disorder_seed::Int # RNG seed for residual ε
- vortex_phase_model::Symbol # :monumental (default) | :dirac (legacy)
+ vortex_phase_model::Symbol # :monumental (default) |:dirac (legacy)
 end
 
  # Backward-compatible outer constructors (preserves all existing call sites):
@@ -2712,7 +2245,7 @@ ABCloudConfig(Nx::Int, Ny::Int, vortices::Vector{Vortex}, alpha::Float64,
 # ─────────────────────────────────────────────────────────────────────────────
  # 6b-2. MONOGRAPH VORTEX FORMULA
 # ─────────────────────────────────────────────────────────────────────────────
-# HISTORICAL NOTE (retired model, audit 2026-08-31). Monograph Appendix A.1
+# HISTORICAL NOTE (retired model, audit). Monograph Appendix A.1
 # (Python code lines 2802-2806) used the LINEARIZED signed-area vortex phase:
 #
 # φ_hop(i→j) = 2π·α·(ix_i - 1) # Landau gauge Peierls
@@ -2724,7 +2257,7 @@ ABCloudConfig(Nx::Int, Ny::Int, vortices::Vector{Vortex}, alpha::Float64,
 # POSITION-INDEPENDENT UNIFORM flux 4π·Σ_k q_k on EVERY plaquette, not an
 # AB vortex at all (measured: flux/2π = 2.0 for a unit plaquette at ANY rk).
 # The retired ab_phase_2d_solid_angle implementation of this dead end was
-# removed in the v19.1 audit; the :dirac builder path uses the true
+# removed in the audit; the:dirac builder path uses the true
 # smooth-gauge + explicit Dirac-string construction (ab_phase_2d_full),
 # which is what the flux theorems (Tests 15/24/26) are stated for.
 
@@ -2753,7 +2286,7 @@ Properties (why this lifts the GOE ceiling):
  → the Hamiltonian is complex Hermitian → GUE statistics reachable at
  α = 1/2 with ANY q (integer q included).
 - EVERY vertical bond receives a contribution from EVERY vortex (long-range
- smooth field), vs the :dirac model where only string-crossing bonds are
+ smooth field), vs the:dirac model where only string-crossing bonds are
  affected — this distributed scattering is what ergodizes the spectrum.
 - Singular-free: the (dx=0, dy=0) case (site exactly on a vortex) returns
  angle 0, matching Monumental line 328-329.
@@ -2850,7 +2383,7 @@ GEOMETRIC CONSTRUCTION
 For each vortex at position `rk = (xk, yk)`, thread a Dirac string — a
 horizontal half-line from the vortex to the right edge of the lattice:
 
- string_k = { (x, y) : y = yk, x ≥ xk }
+ string_k = { (x, y): y = yk, x ≥ xk }
 
 A bond (j → i) CROSSES this string iff:
  (a) it is a VERTICAL bond (ri[1] == rj[1]), AND
@@ -2910,11 +2443,11 @@ function dirac_string_phase(ri::Tuple{Float64,Float64}, rj::Tuple{Float64,Float6
  # Since x_v is a half-integer (e.g. 5.5), floor=5 and ceil=6 — but the
  # bond at x=5 is the LEFT edge of the vortex plaquette, and the bond
  # at x=6 is the RIGHT edge. The string starts at the vortex and goes
- # RIGHT, so it does NOT cross x=5 (left edge) but DOES cross x=6, 7, ...,
+ # RIGHT, so it does NOT cross x=5 (left edge) but DOES cross x=6, 7,...,
  # Nx, 1, 2, 3, 4 (wrapping around). It returns to the vortex from the
  # left, so it does NOT cross x=5 either (the string ends there).
 
- # Conclusion: string crosses vertical bonds at x ∈ {6, 7, ..., Nx, 1, 2, 3, 4}
+ # Conclusion: string crosses vertical bonds at x ∈ {6, 7,..., Nx, 1, 2, 3, 4}
  # i.e. ALL columns except x = floor(x_v) = 5.
 
  # Gauge consistency: total string contribution around torus = -(Nx-1)·2π·qk.
@@ -2922,7 +2455,7 @@ function dirac_string_phase(ri::Tuple{Float64,Float64}, rj::Tuple{Float64,Float6
  # around the torus, contributing +2π·qk around the x-cycle. So the total
  # holonomy around the x-cycle is 2π·qk·(1 - (Nx-1)) = 2π·qk·(2 - Nx).
  # For the wavefunction to be single-valued on the torus, we need
- # qk·(2 - Nx) ∈ ℤ. With Nx=12, this means qk ∈ {0.1, 0.2, 0.3, ...}
+ # qk·(2 - Nx) ∈ ℤ. With Nx=12, this means qk ∈ {0.1, 0.2, 0.3,...}
  # (multiples of 0.1) work. The user should pick q compatible with Nx.
  x_v = rk[1]
  x_b = ri[1]
@@ -2958,7 +2491,7 @@ function ab_phase_2d_full(ri::Tuple{Float64,Float64}, rj::Tuple{Float64,Float64}
 end
 
 """
- build_ab_cloud_hamiltonian(cfg::ABCloudConfig) → Hermitian{ComplexF64}
+ build_ab_cloud_hamiltonian(cfg: ABCloudConfig) → Hermitian{ComplexF64}
 
 Construct the AB-cloud Hofstadter Hamiltonian as a dense Hermitian matrix.
 Dense is fine for Nx·Ny ≤ ~1600 (eigen takes <2 s). For larger lattices,
@@ -2989,7 +2522,7 @@ function build_ab_cloud_hamiltonian(cfg::ABCloudConfig)
  Nx, Ny, N, α, t, W, torus ? "torus" : "open", length(vortices), model))
 
  # For torus geometry, magnetic translation consistency requires α·Ny ∈ ℤ.
- # CLEANED 2026-08-31 (audit fix №2): the old clamp chain also accepted
+ # CLEANED: the old clamp chain also accepted
  # HALF-integer α·Ny (the ±0.5 clauses — an anti-periodic up-wrap that breaks
  # magnetic translations and contradicted this function's own docstring);
  # the ±1/±2/±0.0 clauses were dead code (|frac(α·Ny)| ≤ 0.5 always). All
@@ -3031,12 +2564,12 @@ function build_ab_cloud_hamiltonian(cfg::ABCloudConfig)
  # (φ_right(iy+1) − φ_right(iy)) = 2π·α on EVERY plaquette.
  φ = 2π * α * iy
  # Vortex phase on x-hops:
- # - :dirac model — SMOOTH gauge part only (the explicit Dirac string lives
- #   on vertical bonds, so it contributes nothing here; kept explicit via
- #   ab_phase_2d_full for documentation symmetry — it returns 0 on x-hops).
- #   On the torus x-wrap bond pass the UNWRAPPED coordinate (Nx+1, iy) so
- #   the smooth polar angles stay continuous across the seam.
- # - :monumental model — NONE (Monumental puts vortex phases
+ # -:dirac model — SMOOTH gauge part only (the explicit Dirac string lives
+ #  on vertical bonds, so it contributes nothing here; kept explicit via
+ #  ab_phase_2d_full for documentation symmetry — it returns 0 on x-hops).
+ #  On the torus x-wrap bond pass the UNWRAPPED coordinate (Nx+1, iy) so
+ #  the smooth polar angles stay continuous across the seam.
+ # -:monumental model — NONE (Monumental puts vortex phases
  # on vertical bonds only; x-hops carry the pure Landau Peierls phase)
  if model === :dirac
  rj_phase = wrap ? (Float64(Nx + 1), Float64(iy)) : rj
@@ -3086,9 +2619,9 @@ function build_ab_cloud_hamiltonian(cfg::ABCloudConfig)
  # INDEPENDENT uniform flux 4π·Σq on EVERY plaquette — the flux
  # theorems then passed only vacuously at integer q and FAILED at
  # fractional q (monograph Appendix A.1 formula — implementation
- # removed in the v19.1 audit, see the header historical note).
+ # removed in the audit, see the header historical note).
  # For the torus y-wrap bond pass the UNWRAPPED top coordinate
- # (ix, iy+1) — same discipline as the :monumental branch above.
+ # (ix, iy+1) — same discipline as the:monumental branch above.
  rj_phase = wrap ? (Float64(ix), Float64(iy + 1)) : rj
  for v in vortices
  rk = (v.x, v.y)
@@ -3279,7 +2812,7 @@ function central_band_eigs(sorted_eigs::Vector{Float64}, frac::Float64)::Vector{
 end
 
 """Circular distance on the mod-2π circle: min |a−b| over the 2π wrap.
-Fix 2026-08-31: the flux tests compared mod2pi(x+π)−π values with |·| < tol;
+Fix: the flux tests compared mod2pi(x+π)−π values with |·| < tol;
 whenever the true flux is ±π (half-integer q) the two sides can land on
 OPPOSITE sides of the branch cut (−π vs +π) and |·| reports a phantom 2π
 mismatch for quantities that are identical mod 2π."""
@@ -3416,13 +2949,13 @@ measured 0.000000 at every σ because a real matrix's conjugate pairs
 double the moduli exactly — see the block comment above).
 
 DEFINITION — order-independent, finite for 1-D, curve and 2-D cloud spectra:
- s_i = min_{j≠i} |E_i − E_j|,  r_i = min(s_i, s_{j*(i)}) / max(s_i, s_{j*(i)}),
+ s_i = min_{j≠i} |E_i − E_j|, r_i = min(s_i, s_{j*(i)}) / max(s_i, s_{j*(i)}),
  ⟨r⟩ = mean_i r_i.
 Repulsion → locally uniform NN distances → ⟨r⟩ nearer 1; Poisson-like
 clustering → lower ⟨r⟩. The SAME statistic is applied to every row of the
 σ-sweep (including the Hermitian anchor, where the point set is a line),
 so the ⟨r⟩-vs-σ gate compares like with like (direction: RISES with σ —
-2-D repulsion; recalibrated against measured ensembles 2026-08-31).
+2-D repulsion; recalibrated against measured ensembles).
 
 REFERENCE: r_poisson is the same statistic on n_poisson size-matched
 uniform clouds in the spectrum's OWN bounding box (geometry-adapted, no
@@ -3432,7 +2965,7 @@ baseline is deterministic across runs. Returns (r, baseline, n).
 """
 function nn_gap_ratio(E::Vector{ComplexF64}; n_poisson::Int=0,
                       seed::Int=7937)::Tuple{Float64,Float64,Int}
- # seed default MUST be a true Int literal: `seed::Int=0x1f31` (UInt16) made
+ # seed default MUST be a true Int literal: `seed: Int=0x1f31` (UInt16) made
  # the kw-sock signature (Int64, UInt16, …) and EVERY no-kwarg call died with
  # `MethodError: no method matching var"#nn_gap_ratio#43"` — pass 1 (17773),
  # 39b σ-sweep (20038) and 39c ensemble (20169) all aborted before their
@@ -3502,7 +3035,7 @@ end
  MAGIC_ALPHA_POINTS
 
 61 "magic" α points for testing RMT universality across the full α domain.
-Order: 0.0 → 0.87298 (covers all categories of α from monograph §4.3).
+Order: (covers all categories of α from monograph §4.3).
 """
 const MAGIC_ALPHA_POINTS = AlphaPoint[
  AlphaPoint(0.00000, "0", "zero"),
@@ -3572,21 +3105,21 @@ const MAGIC_ALPHA_VALUES = [p.value for p in MAGIC_ALPHA_POINTS]
 const MAGIC_ALPHA_LABELS = [p.label for p in MAGIC_ALPHA_POINTS]
 
 """
- get_magic_alpha_values()
+ get_magic_alpha_values
 
 Return all 61 magic α values (sorted ascending by value).
 """
 get_magic_alpha_values() = copy(MAGIC_ALPHA_VALUES)
 
 """
- get_magic_alpha_labels()
+ get_magic_alpha_labels
 
 Return all 61 magic α labels (same order as values).
 """
 get_magic_alpha_labels() = copy(MAGIC_ALPHA_LABELS)
 
 """
- get_magic_alpha_by_category(category::String)
+ get_magic_alpha_by_category(category: String)
 
 Return AlphaPoint[] filtered by category.
 Categories: "zero", "rational", "π-fraction", "π-multiplier", "√", "constant", "special"
@@ -3596,7 +3129,7 @@ function get_magic_alpha_by_category(category::String)
 end
 
 """
- resolve_alpha_sweep(cfg::Config) -> Tuple{Vector{Float64}, Vector{String}}
+ resolve_alpha_sweep(cfg: Config) -> Tuple{Vector{Float64}, Vector{String}}
 
 Resolve the active α-sweep list for Test 16 / Test 34 based on cfg flags.
 
@@ -3630,7 +3163,7 @@ end
  generate_extended_magic_alphas(alpha_min, alpha_max) -> Tuple{Vector{Float64},Vector{String}}
 
 Generate a broader α-sweep covering integers, half-integers, π-multiples,
-π-fractions π/k, √k, and special constants (φ, e, ln 2, 1/π, ...).
+π-fractions π/k, √k, and special constants (φ, e, ln 2, 1/π,...).
 Ported from RH_Unified_v5.jl line 1242. Useful for deep-sweep presets.
 """
 function generate_extended_magic_alphas(alpha_min::Real=-16.0, alpha_max::Real=16.0)
@@ -3699,9 +3232,9 @@ function generate_extended_magic_alphas(alpha_min::Real=-16.0, alpha_max::Real=1
  return uniq_v, uniq_l
 end
 
- # ── GUE closed-form references (v23.1: the *_theory one-liners below were
-#    removed — no test ever called them; every test prints its own
-#    asymptotics inline. R_MEAN_GSE stays: classify_universality_class uses it)
+ # ── GUE closed-form references (: the *_theory one-liners below were
+#  removed — no test ever called them; every test prints its own
+#  asymptotics inline. R_MEAN_GSE stays: classify_universality_class uses it)
 const R_MEAN_GSE = 0.67620 # Gaussian Symplectic Ensemble ⟨r⟩ (Atas et al. 2013)
 
 """
@@ -3976,13 +3509,13 @@ function connes_self_duality_defect(α::Float64, Nx::Int, Ny::Int)
  cfg_1α = ABCloudConfig(Nx, Ny, Vortex[], 1.0/α, 1.0, :open, 4.0)
  H_α = build_ab_cloud_hamiltonian(cfg_α)
  H_1α = build_ab_cloud_hamiltonian(cfg_1α)
- # Values-only Hermitian path (user size-standard 2026-08-30): the old
+ # Values-only Hermitian path (user size-standard): the old
  # safe_eigvals ran FULL zgeev WITH eigenvectors — at 72² that is minutes
  # and multiple GB, which priced the 72/96 standard out of Tests 17/17b.
  # The builder guarantees H_ij = conj(H_ji) (Hermitian), so heevr
  # values-only returns the same real spectrum at ~50× lower cost.
  log_comp(@sprintf(" heevr values-only solves ×2: N=%d (α=%.4f open, W=4) + N=%d (α=%.4f open, W=4) — connes_self_duality_defect",
-                   Nx * Ny, α, Nx * Ny, 1.0/α)) # FIX 2026-09-06: сердцебиение бара во время солвов
+                   Nx * Ny, α, Nx * Ny, 1.0/α)) # NOTE: сердцебиение бара во время солвов
  ev_α = sort(eigvals(Hermitian(H_α)))
  ev_1α = sort(eigvals(Hermitian(H_1α)))
  return norm(ev_α - ev_1α) / max(norm(ev_α), 1e-30)
@@ -4008,7 +3541,7 @@ function spectral_symmetry_defect(α::Float64, Nx::Int, Ny::Int)
  cfg = ABCloudConfig(Nx, Ny, Vortex[], α, 1.0, :torus, 0.0)
  H = build_ab_cloud_hamiltonian(cfg)
  log_comp(@sprintf(" heevr values-only solve: N=%d (α=%.4f, torus, W=0) — spectral_symmetry_defect",
-                   Nx * Ny, α)) # FIX 2026-09-06: сердцебиение бара во время солва
+                   Nx * Ny, α)) # NOTE: сердцебиение бара во время солва
  ev = sort(eigvals(Hermitian(H))) # values only (RAM: no eigenvector block)
  # For spectral symmetry E → -E: ev[i] + ev[N+1-i] = 0 for all i
  # So ev + reverse(ev) = 0 vector. Normalise by ||ev||.
@@ -4034,7 +3567,7 @@ function count_zero_eigenvalues(α::Float64, Nx::Int, Ny::Int; tol::Float64=1e-8
  # safe_eigvals (full zgeev + vectors) made count_zero the runtime
  # bottleneck at the 72×72 launch-standard lattice.
  log_comp(@sprintf(" heevr values-only solve: N=%d (α=%.4f, torus, W=0) — count_zero_eigenvalues",
-                   Nx * Ny, α)) # FIX 2026-09-06: сердцебиение бара ВО ВРЕМЯ солва (log_comp → prog_heartbeat), elapsed-часы больше не замирают
+                   Nx * Ny, α)) # NOTE: сердцебиение бара ВО ВРЕМЯ солва (log_comp → prog_heartbeat), elapsed-часы больше не замирают
  ev = sort(eigvals(Hermitian(H)))
  return count(e -> abs(e) < tol, ev)
 end
@@ -4042,11 +3575,11 @@ end
 """
  zero_modes_and_symmetry_defect(α, Nx, Ny; tol=1e-8) → (Int, Float64)
 
-FIX 2026-09-06 (прогресс-бар и скорость теста 17): count_zero_eigenvalues(α) и
+NOTE:(прогресс-бар и скорость теста 17): count_zero_eigenvalues(α) и
 spectral_symmetry_defect(α) строили ОДНУ И ТУ ЖЕ матрицу H(α, torus, W=0) и
 дважды гоняли один и тот же values-only heevr. Хелпер объединяет пару:
 одна сборка, один солв, оба ответа — на решётке 72×72 это минус один heevr
-на каждую пару вызовов (тест 17: 7 солвов → 5; лестница 17b: 4 → 3 на
+на каждую пару вызовов (тест 17: 7 солвов → 5; лестница 17b: на
 ступень, ~25-30% быстрее). Возвращает (zero_mode_count, E→-E defect).
 """
 function zero_modes_and_symmetry_defect(α::Float64, Nx::Int, Ny::Int; tol::Float64=1e-8)
@@ -4105,7 +3638,7 @@ function dirac_cone_velocity(eigs::Vector{<:Real}; centre::Float64=0.0,
  return (v_F, found, info)
 end
 
-# RETIRED (v19.1 audit): tknn_chern_number_first_band — the old twisted-torus
+# RETIRED (audit): tknn_chern_number_first_band — the old twisted-torus
 # single-state FHS helper. It was never called by any test (superseded by
 # harper_chern_first_band below), its docstring was corrupted mid-sentence,
 # and its plaquette holonomy mixed non-inverted links (Ux·Uy·Ux_inv·Uy_inv
@@ -4114,13 +3647,13 @@ end
 
 """
  harper_chern_first_band(alpha; n_kx=24, n_ky=8, mass=0.0)
- → (C1::Int, min_gap::Float64, n_singular_links::Int)
+ → (C1: Int, min_gap: Float64, n_singular_links: Int)
 
 TEXTBOOK TKNN Chern number of the lowest Hofstadter sub-band: Fukui–
 Hatsugai–Suzuki lattice field strength on the MAGNETIC Brillouin zone,
 computed on the q×q Harper cell (q = denominator of alpha = p/q).
 
-WHY NOT THE TWISTED-TORUS FHS (the retired test22 path): on a finite L×L
+WHY NOT THE TWISTED-TORUS FHS: on a finite L×L
 torus the twisted-BC family H(φx, φy) shifts the crystal momentum
 k → k + (φx/L, φy/L); at commensurate flux the occupied band's k-set is
 mapped onto ITSELF (a permutation), so the twist-space occupied bundle is
@@ -4131,8 +3664,8 @@ lottery (+2/−5/−6/+4 across grids/LAPACKs, not reproducible).
 
 Construction (gauge matched to build_ab_cloud_hamiltonian, phase 2πα·iy on
 right bonds → magnetic cell = q sites along y):
-    H[m,m]   = −2t·cos(kx + 2πα·m)              (m = 0..q−1)
-    H[m,m+1] = −t;  H[q−1,0] = −t·e^{+i·q·ky}   (+ h.c.)
+ H[m,m] = −2t·cos(kx + 2πα·m) (m = 0..q−1)
+ H[m,m+1] = −t; H[q−1,0] = −t·e^{+i·q·ky} (+ h.c.)
 k-grid: kx = 2π·a/n_kx, ky = (2π/q)·b/n_ky — the MAGNETIC BZ (ky period
 2π/q; sampling the full ky period folds q sub-bands into "band 1" and
 returns q·C₁ — replica measured +3/+4/+5 at α=1/3,1/4,1/5).
@@ -4197,7 +3730,7 @@ function harper_chern_first_band(alpha::Float64; n_kx::Int=24, n_ky::Int=8,
  return round(Int, C / (2π)), min_gap, n_sing
 end
 
-# RETIRED (v19.1 audit): ab_cloud_twisted_hamiltonian — the twisted-BC family
+# RETIRED (audit): ab_cloud_twisted_hamiltonian — the twisted-BC family
 # H(φx, φy). It had NO remaining callers (the only consumer, the twisted-torus
 # FHS path, is itself retired — see the harper_chern_first_band docstring):
 # at commensurate flux the twist is a crystal-momentum shift k → k + (φ/L),
@@ -4206,18 +3739,18 @@ end
 
 """
  random_vortex_configuration(Nv, Nx, Ny; q_magnitude=1.0,
- enforce_neutrality=true, rng=default_rng(),
+ enforce_neutrality=true, rng=default_rng,
  place_at_centers=false) → Vector{Vortex}
 
 Generate a random vortex configuration with `Nv` vortices on the `Nx`×`Ny`
 lattice.
 
-`q_magnitude::Float64=1.0` — magnitude of each vortex charge. The
+`q_magnitude: Float64=1.0` — magnitude of each vortex charge. The
 actual charges are ±`q_magnitude`. Default 1.0 (integer) gives ZERO spectral
 effect by the Byers-Yang theorem; the user should pass a fractional value
 (e.g. 0.3) for a real AB effect.
 
-`place_at_centers::Bool=false` — if true, place vortices at random
+`place_at_centers: Bool=false` — if true, place vortices at random
 PLAQUETTE CENTERS (half-integer positions (ix+0.5, iy+0.5)). This is the
 cleanest configuration for the Dirac string implementation: the string
 extends from the center of a plaquette to the right edge, crossing exactly
@@ -4273,7 +3806,7 @@ end
  # 6c. 3D PSL(2,7) KLEIN QUARTIC EMBEDDING
 # ─────────────────────────────────────────────────────────────────────────────
 
-# The v23 monograph (§2.4, §6.3) repeatedly invokes PSL(2,7) (the automorphism
+# The monograph (§2.4, §6.3) repeatedly invokes PSL(2,7) (the automorphism
 # group of the Klein quartic, order 168) as the "topological hardware" on which
  # the AB-cloud software runs. Earlier editions, however, never implemented an explicit
 # 3D realisation of PSL(2,7). This section provides one.
@@ -4291,7 +3824,7 @@ end
 
 # 3D EMBEDDING DECISION: K₄ in S³ via the (3,4)-torus-knot Seifert surface
 # -----------------------------------------------------------------------
-# We embed K₄ in the 3-sphere S³ = { (z₁, z₂) ∈ C² : |z₁|² + |z₂|² = 1 } via
+# We embed K₄ in the 3-sphere S³ = { (z₁, z₂) ∈ C²: |z₁|² + |z₂|² = 1 } via
 # the Milnor fibre of the Brieskorn–Pham singularity
 
 # z₁³ + z₂⁴ = 0
@@ -4351,7 +3884,7 @@ function rotation_matrix(axis::AbstractVector{<:Real}, angle::Real)
 end
 
 """
- psl27_generators_so3() → (S, T, ST_axis)
+ psl27_generators_so3 → (S, T, ST_axis)
 
 Returns the two generators of PSL(2,7) as 3×3 special orthogonal matrices:
 - `S`: rotation by π about the x-axis (order 2)
@@ -4362,7 +3895,7 @@ The choice of ST_axis is critical: ST must be order 7. The standard
 (2,3,7) triangle group realisation places this axis along
 (1, 1, 1)/√3 — but only when S and T are chosen with the correct relative
 orientation. We verify the order-7 condition explicitly in
-`verify_psl27_generators()`.
+`verify_psl27_generators`.
 """
 function psl27_generators_so3()
  # S = rotation by π about x-axis
@@ -4438,7 +3971,7 @@ function psl27_full_group(S::Matrix{Float64}, T::Matrix{Float64}; max_order::Int
 end
 
 """
- fano_plane_points() → Vector{Vector{Int}}
+ fano_plane_points → Vector{Vector{Int}}
 
 The Fano plane is the projective plane PG(2,2) over GF(2): 7 points, 7 lines,
 3 points per line, 3 lines through each point. Its automorphism group is
@@ -4458,7 +3991,7 @@ function fano_plane_points()
 end
 
 """
- fano_plane_to_R3() → Vector{Vector{Float64}}
+ fano_plane_to_R3 → Vector{Vector{Float64}}
 
 Embed the 7 Fano-plane points as 7 vertices in R³ respecting the 168-element
 PSL(2,7) symmetry. We place them on the unit sphere at the vertices of an
@@ -4495,7 +4028,7 @@ end
 
 Embed the Klein quartic K₄ in S³ via the Milnor fibre of z₁³ + z₂⁴ = 0.
 
-The Milnor fibre is the surface { (z₁, z₂) ∈ C² : z₁³ + z₂⁴ = ε } ∩ S³,
+The Milnor fibre is the surface { (z₁, z₂) ∈ C²: z₁³ + z₂⁴ = ε } ∩ S³,
 which for small ε > 0 is a smooth genus-3 surface. For ε = 0 we get the cone
 on the (3,4)-torus knot, but for ε ≠ 0 we get the smooth Seifert surface.
 
@@ -4648,7 +4181,7 @@ function embed_klein_quartic_in_S3(; n_theta::Int=14, n_phi1::Int=42, epsilon::F
 end
 
 """
- verify_psl27_orbits(K::KleinQuartic3D) → (n_orbits, orbit_sizes, info)
+ verify_psl27_orbits(K: KleinQuartic3D) → (n_orbits, orbit_sizes, info)
 
 Verify that the 168-element PSL(2,7) group acts on P¹(F₇) = {1..8}.
 
@@ -4689,7 +4222,7 @@ function verify_psl27_orbits(K::KleinQuartic3D)
 end
 
 """
- verify_genus_via_euler_characteristic(K::KleinQuartic3D) → (chi, expected, ok)
+ verify_genus_via_euler_characteristic(K: KleinQuartic3D) → (chi, expected, ok)
 
 For a closed orientable genus-g surface, χ = 2 − 2g. For K₄ with g = 3:
 χ = 2 − 6 = −4. This function returns the expected χ (stored in K) and a
@@ -4705,7 +4238,7 @@ function verify_genus_via_euler_characteristic(K::KleinQuartic3D)
 end
 
 """
- dirac_spectrum_klein_quartic(K::KleinQuartic3D; n_lowest=20) → Vector{Float64}
+ dirac_spectrum_klein_quartic(K: KleinQuartic3D; n_lowest=20) → Vector{Float64}
 
 Compute the lowest `n_lowest` eigenvalues of the Dirac operator on the Klein
 quartic mesh. The Dirac operator is approximated by the graph Laplacian's
@@ -9763,11 +9296,11 @@ const EMBEDDED_ZEROS_50K_STR = """
 const EMBEDDED_ZEROS_COUNT = 50_000
 
 """
- load_embedded_zeros() → Vector{Float64}
+ load_embedded_zeros → Vector{Float64}
 
 Parse the embedded 50,000-zero string into a `Vector{Float64}`.
 Skips comment lines (starting with '#') and empty tokens. The parsing is
-straight `split` + `parse(Float64, ...)`; for 50k numbers this completes in
+straight `split` + `parse(Float64,...)`; for 50k numbers this completes in
 well under a second.
 """
 function load_embedded_zeros()::Vector{Float64}
@@ -9841,9 +9374,9 @@ function load_zeros(cfg::Config)::Vector{Float64}
  fpath3 = joinpath(pwd(), fname)
  if !isfile(fpath3)
  # GRACEFUL FALLBACK: previously this returned Float64[]
- # (which then triggered "no_data" exit in main()). Now we warn
+ # (which then triggered "no_data" exit in main). Now we warn
  # and fall back to the embedded 50k dataset, so the script never
- # hard-exits just because the user requested more zeros than the
+ # hard-exits just because more zeros were requested than the
  # embedded dataset has and the external file is missing.
  println(stderr, "WARNING: External data file not found: $fpath")
  println(stderr, " Requested source: '$src' (file: $fname)")
@@ -9901,15 +9434,15 @@ results_log = String[]
 
  # capture ALL stdout during run_all_tests so the saved report
 # contains the full execution log (tables, p-values, residuals, plots,
- # side-by-side comparisons) — not just the summary "Test N: ... → PASS" lines.
-# Mechanism: redirect_stdout() to a pipe, an @async task copies pipe
+ # side-by-side comparisons) — not just the summary "Test N:... → PASS" lines.
+# Mechanism: redirect_stdout to a pipe, an @async task copies pipe
 # output to both the original stdout (live terminal) and this buffer.
-# save_report() then dumps the buffer contents into the report file.
+# save_report then dumps the buffer contents into the report file.
 const STDOUT_CAPTURE = IOBuffer()
 
 # ══════════════════════════════════════════════════════════════════════
  # COMP_LOG — global computation log buffer.
-# log_comp() appends a timestamped entry; save_report() dumps the full
+# log_comp appends a timestamped entry; save_report dumps the full
 # log into a "FULL COMPUTATION LOG" section of the report file.
 # Every computation is stamped into the log — "see every computation made".
 # ══════════════════════════════════════════════════════════════════════
@@ -9949,16 +9482,16 @@ last_log_line() = _LAST_LOG_LINE[]
 function log_result(s::String)
  _LAST_LOG_LINE[] = s
  push!(results_log, s)
- println(ab_paint_result(s)) # UI3: цвета только на консоли, в лог — чистый текст
+ println(ab_paint_result(s)) # ABUI: цвета только на консоли, в лог — чистый текст
 end
 
 # ═════════════════════════════════════════════════════════════════════════════
 # 9a. SINGLE-LINE PROGRESS BAR
 #
-# One dynamic line per running test, repainted in place via '\r' on STDERR —
+# One dynamic line per running test, repainted in place via '\r' on STDERR
 # never multi-line, never fills the REPL:
 #
-#   Test 11 ██████████░░░░░░  62.0% 00:00:41 · MC 1000/2000 · 2026-08-28 17:02:33
+#  Test 11 ██████████░░░░░░ 62.0% 00:00:41 · MC 1000/2000 ·:33
 #
 # The frame carries: label, bar, percent, ELAPSED time and the current
 # DATE+TIME of the run — the timestamp is the on-screen proof that the code
@@ -9968,14 +9501,14 @@ end
 #
 # Layout rules that keep the line intact on ANY terminal:
 #  * the frame width is derived from the ACTUAL terminal width
-#    (displaysize(stderr), re-read at every repaint) and never exceeds it —
-#    a hard-coded width is the classic source of wrapped bar lines (a "· 2026-0"
-#    tail on the next row and the following frame concatenated onto it);
+#  (displaysize(stderr), re-read at every repaint) and never exceeds it
+#  a hard-coded width is the classic source of wrapped bar lines (a long
+#  tail wrapping to the next row and the following frame concatenated onto it);
 #  * every frame write ends with an ANSI clear-to-end-of-line and every erase
-#    is "\r" + clear-to-EOL — both are width-independent, so no stale
-#    characters survive and no padding spaces can wrap;
+#  is "\r" + clear-to-EOL — both are width-independent, so no stale
+#  characters survive and no padding spaces can wrap;
 #  * when a phase tag ("eig 96×96", "report", "gif") does not fit, it is
-#    shortened first; the timestamp is the last thing to be cut.
+#  shortened first; the timestamp is the last thing to be cut.
 #
 # When stderr is NOT a terminal (piped run, IDE runner, CI) the in-place bar
 # is suppressed automatically and only the sparse milestone lines are printed,
@@ -10019,9 +9552,9 @@ end
 _prog_tty() = PROGRESS_ENABLED[] && (stderr isa Base.TTY)
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# 16.1b LIVE-DISPLAY PUMP — fire-and-forget terminal writer (FIX 2026-09-02b)
+# 16.1b LIVE-DISPLAY PUMP — fire-and-forget terminal writer (NOTE:
 # ═══════════════════════════════════════════════════════════════════════════════
-# WHY THIS EXISTS — the "suite freezes mid-run (зависает на тесте 10)" class:
+# WHY THIS EXISTS — the "suite freezes mid-run " class:
 # the stdout tee readers used to write to the LIVE terminal synchronously and
 # UNDER _PROG_IO_LOCK. A console that is slow, frozen (Windows QuickEdit text
 # selection), closed, or failing blocks that write — the reader then stops
@@ -10034,11 +9567,11 @@ _prog_tty() = PROGRESS_ENABLED[] && (stderr isa Base.TTY)
 # output chunks, tee lines, bar clear/frame). Producers only push to an
 # UNBOUNDED channel (never blocks, cannot throw) and the stdout readers drain
 # their pipes FIRST, forwarding best-effort afterwards. Consequences:
-#   • the tee pipe ALWAYS drains → the suite can never deadlock on output;
-#   • a frozen console only lags the cosmetics (the queue absorbs the tail
-#     and catches up when/if the console unfreezes);
-#   • _PROG_IO_LOCK now guards only queue/state bookkeeping — it is NEVER
-#     held across an I/O operation, so it can no longer transmit a freeze.
+#  • the tee pipe ALWAYS drains → the suite can never deadlock on output;
+#  • a frozen console only lags the cosmetics (the queue absorbs the tail
+#  and catches up when/if the console unfreezes);
+#  • _PROG_IO_LOCK now guards only queue/state bookkeeping — it is NEVER
+#  held across an I/O operation, so it can no longer transmit a freeze.
 # Order of bar ops vs output chunks is preserved (single queue, single
 # consumer), so the one-visible-bar-line guarantee is unchanged.
 const _DISP_Q     = Channel{Any}(Inf)        # unbounded — put! never blocks
@@ -10055,8 +9588,8 @@ function _disp_ensure_pump!()
 end
 
 """Queue a terminal work item — NEVER blocks on console state.
-Items: (:write, io, data) | (:println, io, line) | (:bar, :clear, nothing) |
-       (:bar, :frame, nothing) | (:stop, nothing, nothing)."""
+Items: (:write, io, data) | (:println, io, line) | (:bar,:clear, nothing) |
+ (:bar,:frame, nothing) | (:stop, nothing, nothing)."""
 function _disp_push!(item::Tuple)
     put!(_DISP_Q, item)
     _disp_ensure_pump!()
@@ -10184,19 +9717,19 @@ output while the test is in a silent heavy phase and is reused in place."""
 function prog_clear_for_output()
  _PROG_ACTIVE[] || return
  (PROGRESS_ENABLED[] && (stderr isa Base.TTY)) || return
- # FIX 2026-09-02b: goes through the display pump — a frozen console can no
+ # NOTE: goes through the display pump — a frozen console can no
  # longer block the caller while it holds _PROG_IO_LOCK.
  _disp_push!((:bar, :clear, nothing))
 end
 
-# prog_repaint() redraws the CURRENT frame in place; both stdout readers and
+# prog_repaint redraws the CURRENT frame in place; both stdout readers and
 # the report writer call it right AFTER printing their chunk, so the bar is
 # visible at all times (single line, never multi-row). The trailing ANSI
 # clear-to-EOL erases whatever is left of a previous, wider frame.
 function prog_repaint()
  _PROG_ACTIVE[] || return
  _prog_tty() || return
- _disp_push!((:bar, :frame, nothing)) # FIX 2026-09-02b: via pump
+ _disp_push!((:bar, :frame, nothing)) # NOTE: via pump
 end
 
 """Set the frame's tag (right of the percent, before the timestamp) and
@@ -10226,7 +9759,7 @@ function prog_update(frac::Real, extra::AbstractString = "")
  if _prog_tty()
   t = time()
   if Float64(frac) >= 1.0 || t - _PROG_LAST[] >= 0.2
-   _disp_push!((:bar, :frame, nothing)) # FIX 2026-09-02b: via pump
+   _disp_push!((:bar, :frame, nothing)) # NOTE: via pump
    _PROG_LAST[] = t
   end
  else
@@ -10245,14 +9778,14 @@ end
 
 """Heartbeat: repaint the current frame (same frac/extra) so the elapsed
 clock keeps ticking while a test is between explicit progress points.
-Called from log_comp() — i.e. automatically at every logged computation."""
+Called from log_comp — i.e. automatically at every logged computation."""
 function prog_heartbeat()
  _PROG_ACTIVE[] || return
  _prog_tty() || return
  t = time()
  t - _PROG_LAST[] < 0.25 && return
  _PROG_LAST[] = t
- _disp_push!((:bar, :frame, nothing)) # FIX 2026-09-02b: via pump
+ _disp_push!((:bar, :frame, nothing)) # NOTE: via pump
 end
 
 function prog_finish(ok::Bool, elapsed_s::Real)
@@ -10261,7 +9794,7 @@ function prog_finish(ok::Bool, elapsed_s::Real)
  _PROG_BASE[] = 0.0
  _PROG_SPAN[] = 1.0
  if PROGRESS_ENABLED[] && (stderr isa Base.TTY)
-  _disp_push!((:bar, :clear, nothing)) # FIX 2026-09-02b: via pump
+  _disp_push!((:bar, :clear, nothing)) # NOTE: via pump
  end
  println(ab_done_line(_PROG_LABEL[], _prog_hms(elapsed_s), _prog_now_str(), ok))
 end
@@ -10270,15 +9803,15 @@ end
 # date/time of the run; the live frame shows both continuously.
 
 function _test_prog_label(id::Int)::String
- return @sprintf("Test %2d", id) # short test name goes to the done-line via last_log_line()
+ return @sprintf("Test %2d", id) # short test name goes to the done-line via last_log_line
 end
 
-# v23.1: the optional Plots.jl dependency and its PLOTS_AVAILABLE probe are
+# : the optional Plots.jl dependency and its PLOTS_AVAILABLE probe are
 # RETIRED together with the try_plot_* writers — every plot of the suite is
-# rendered by the built-in ABPlotV23 journal engine (png + gif tour).
+# rendered by the built-in ABPlot journal engine (png + gif tour).
 
 # ─────────────────────────────────────────────────────────────────────────────
- # 10. TESTS 1–10 (original reviewer-objection suite)
+ # 10. TESTS 1–10 (original -objection suite)
 # ─────────────────────────────────────────────────────────────────────────────
 
 # ── Test 1: b(N) Convergence Table ──────────────────────────────────────────
@@ -10307,7 +9840,7 @@ function test1_convergence_table(zeta_zeros::Vector{Float64}, cfg::Config)
  unique!(checkpoints)
 
  if isempty(checkpoints)
- # max(1, …) guard (fix 2026-08-31): the old fallback produced N = 0
+ # max(1, …) guard (fix): the old fallback produced N = 0
  # for tiny max_N (round(0.01·max_N) = 0) → compute_bN(z, 0) → NaN row.
  checkpoints = [round(Int, max_N * r) for r in [0.01, 0.05, 0.1, 0.2, 0.5, 1.0]]
  checkpoints = unique(filter(n -> n ≥ 1, checkpoints))
@@ -10340,16 +9873,16 @@ end
 # meaning of Test 1 — b(N) = (1/N)·Σ|γ_k − γ̃_k| must converge — but verifies
 # it with machinery the primary table never had:
 #
-#   H0  reproduction:   prefix-sum b(N) must equal direct compute_bN (1e-9)
-#   H1  dense scan:     ~25 geometric checkpoints (ratio 1.22) vs ~8 in pass 1
-#   H2  monotonicity:   EVERY consecutive pair must not rise above a √N noise band
-#   H3  out-of-sample:  power-law fit on the first 60% of the scan must PREDICT
-#                       the remaining 40% (median err < 5%, max < 15%)
-#   H4  stationarity:   tail half [N/2+1, N] with the CORRECT Gram offset vs head
-#   H5  bootstrap:      95% CI of b(N_max) + PASS margin must survive a 2σ/√N
-#                       pessimistic resampling of the deviation series
-#   H6  outlier audit:  peak |Δ| < 10% of Σd and 1%-trimmed mean within 15% of b
-#   H7  reference:      Gram points strictly increasing over the whole range
+#  H0 reproduction: prefix-sum b(N) must equal direct compute_bN (1e-9)
+#  H1 dense scan: ~25 geometric checkpoints (ratio 1.22) vs ~8 in pass 1
+#  H2 monotonicity: EVERY consecutive pair must not rise above a √N noise band
+#  H3 out-of-sample: power-law fit on the first 60% of the scan must PREDICT
+#  the remaining 40% (median err < 5%, max < 15%)
+#  H4 stationarity: tail half [N/2+1, N] with the CORRECT Gram offset vs head
+#  H5 bootstrap: 95% CI of b(N_max) + PASS margin must survive a 2σ/√N
+#  pessimistic resampling of the deviation series
+#  H6 outlier audit: peak |Δ| < 10% of Σd and 1%-trimmed mean within 15% of b
+#  H7 reference: Gram points strictly increasing over the whole range
 #
 # The flag below routes _rep_inner_test(id==1) to this variant, so BOTH passes
 # produce full report artifacts (rep engine, plots, logs) like a normal test.
@@ -10371,7 +9904,7 @@ const STATS_SECONDARY_HARDCORE = Ref(false)
 const STATS_TERTIARY_SERIES = Ref(false)
 
 # STATS_QUATERNARY_AUDIT — pass 4 routing flag for the AUDIT d-variant
-# (test19d, menu id 19 — user spec 2026-09-04: «максимально полный честный
+# (test19d, menu id 19 — «максимально полный честный
 # тест в 4 прогона»). The d-pass is the FOURTH run of Test 19: pass 1 =
 # primary standard fit, pass 2 = HARDCORE dense-grid audit (19b), pass 3 =
 # SERIES α-ladder (19c), pass 4 = AUDIT — the machinery passes 1–3 never had:
@@ -10403,13 +9936,13 @@ const T19_SERIES_CACHE = Ref{Any}(nothing)
 const T33_LAST = Ref{Any}(nothing)
 const T34_LAST = Ref{Any}(nothing)
 
-# AB_PASS — which two-pass pass is currently running (:primary or :secondary).
+# AB_PASS — which two-pass pass is currently running (:primary or:secondary).
 # Set ONLY by _run_test_two_pass_impl around each run_test call and restored
-# to :primary in `finally`. Tests that need pass-specific sample targets read
+# to:primary in `finally`. Tests that need pass-specific sample targets read
 # it — currently Test 36 (byte robustness): pass 1 accumulates
 # cfg.ab37_n_eigs_pass1 = 25 000 eigenvalues, pass 2 accumulates
-# cfg.ab37_n_eigs_pass2 = 50 000 (user spec 2026-08-29). Direct single-test
-# runs (menu number, --test) always see :primary.
+# cfg.ab37_n_eigs_pass2 = 50 000. Direct single-test
+# runs (menu number, --test) always see:primary.
 const AB_PASS = Ref{Symbol}(:primary)
 
 # ── Shared hardcore helpers ───────────────────────────────────
@@ -10463,9 +9996,9 @@ end
 Walk-forward one-step-ahead relative errors on the back 40% of a dense b(N)
 scan: each hidden point must be PREDICTED before it is revealed by the best
 of three laws refit on ALL earlier points —
-  A: power law b ≈ C·N^(−α) (log-log regression),
-  B: reciprocal-log b ≈ a + b/log(N) (Test 3's alternative fit),
-  C: local log-log secant through the last two revealed points.
+ A: power law b ≈ C·N^(−α) (log-log regression),
+ B: reciprocal-log b ≈ a + b/log(N) (Test 3's alternative fit),
+ C: local log-log secant through the last two revealed points.
 One-step-ahead with refit is scale-robust (a single global power-law fit
 falsely warns at 20k zeros where b(N) crosses over to ~C/log N), yet any
 kink, plateau or regime break in b(N) spikes the error by orders of magnitude.
@@ -10519,7 +10052,7 @@ function hc_verdict_table(cfg::Config, label::String,
  status = overall ? msg(cfg, "pass") : msg(cfg, "warn")
  tail = max_N > 0 ? ", b($max_N)=$(round(b_final, digits=4))" : ""
  log_result(" $label [$pass_label]: $(length(rec)) sub-checks, $n_fail failed$tail → $status")
- # ── verdict-map plot (2026-08-31): one marker per sub-check of the table
+ # ── verdict-map plot: one marker per sub-check of the table
  # above — ABOVE the zero line = passed, BELOW = failed, x = row number.
  # Replaces the retired "auto-extracted numeric rows (col1 vs col2)" stdout
  # scraper, which plotted raw first-two-numbers-of-every-line pairs —
@@ -10593,7 +10126,7 @@ function test1b_convergence_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  end
  h1_ok = length(dens) ≥ 10 || max_N < 250 # tiny datasets cannot be dense — auto-skip
  push!(rec, ("H1 dense scan", h1_ok, @sprintf("%d checkpoints", length(dens))))
- # ── real report plot (2026-08-31): the b(N) convergence trace this pass
+ # ── real report plot: the b(N) convergence trace this pass
  # just computed — the report must SHOW the measured series, not only a
  # verdict number (user: "графики выдают пустоту").
  if REP.current !== nothing
@@ -10932,7 +10465,7 @@ end
 # ── Test 5 hardcore: high-T GUE approach, denser T-sweep audit ─────────────
 # T1 dense geometric T_min sweep with per-threshold KS p
 # T2 asymptotic trend: p(largest T) ≥ p(smallest T) AND best p ≥ 0.01
-#    (same best-p criterion as the primary pass — preserves its meaning)
+#  (same best-p criterion as the primary pass — preserves its meaning)
 # T3 top-band unfolding mean within 2% of 1
 function test5b_gue_ks_highT_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
@@ -11176,8 +10709,8 @@ end
 # B1 primary criterion re-checked (CI width < 0.1)
 # B2 second-seed bootstrap: medians within 0.02 AND CI overlap ≥ 60% of union
 # B3 jackknife (leave-one-out) slope range must sit inside the bootstrap CI
-#    (jackknife is deterministic — a deterministic estimate outside a 95% CI
-#    exposes a mis-sized bootstrap)
+#  (jackknife is deterministic — a deterministic estimate outside a 95% CI
+#  exposes a mis-sized bootstrap)
 # B4 half-grid bootstrap median within 0.05 of the full-grid median
 function test9b_bootstrap_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
@@ -11199,7 +10732,7 @@ function test9b_bootstrap_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  logN_all = log.(Float64.(Ns))
  logb_all = log.(max.(bNs_all, 1e-300))
 
- function boot_ci!(seed) # seed::Integer (hex literals arrive as UInt16/UInt64)
+ function boot_ci!(seed) # seed: Integer (hex literals arrive as UInt16/UInt64)
   rng = MersenneTwister(seed)
   slopes = Float64[]
   n_boot = clamp(cfg.n_bootstrap, 100, 500)
@@ -11238,7 +10771,7 @@ function test9b_bootstrap_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
   _, b_k, _, _, _ = linreg(logN_all[idx], logb_all[idx])
   push!(jk, b_k)
  end
- # GUARD (fix 2026-08-31): extrema() on an EMPTY vector throws
+ # GUARD (fix): extrema on an EMPTY vector throws
  # ArgumentError (collection must be non-empty) — the old line crashed
  # test 9b whenever max_N < 400 (length(Ns) < 4 → the loop breaks
  # immediately, jk stays empty and the isempty(jk) check below was
@@ -11272,10 +10805,10 @@ end
 
 # ── Test 10 hardcore: cross-validation + offset-discipline tripwire ────────
 # V1 decile-block segment means must be non-increasing (shape check)
-# V2 random-subsample convergence: dev(f) must DECREASE with f (0.3→0.9)
+# V2 random-subsample convergence: dev(f) must DECREASE with f
 # V3 OFFSET TRIPWIRE: second half with the WRONG Gram offset (0) must be
-#    significantly worse than with the correct offset — this tripwire pins the
-#    is active; if this ever passes, the statistic has gone blind
+#  significantly worse than with the correct offset — this tripwire pins the
+#  is active; if this ever passes, the statistic has gone blind
 # V4 even-odd subsample vs full within cfg.stability_threshold
 function test10b_crossval_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
@@ -11343,7 +10876,7 @@ function test10b_crossval_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
   @sprintf("wrong offset +%.1f%% worse", 100 * trip)))
 
  # V4 — even-odd subsample (indices 1,3,5,...) vs full
- b_even = sum(@view d[1:2:max_N]) / length(1:2:max_N) # reuse d (was a full gram_point re-walk)
+ b_even = sum(@view d[1:2:max_N]) / length(1:2:max_N) # reuse d
  dev_even = abs(b_even - b_full) / b_full
  v4_ok = dev_even < cfg.stability_threshold
  @printf(" V4 even-odd  : b_even=%.6f vs full %.6f, dev=%.2f%% (limit %.0f%%)\n",
@@ -11359,7 +10892,7 @@ end
 # A1 two-seed MC p-value stability |p1 − p2| ≤ 0.05
 # A2 disjoint-half A² agreement (relative diff < 50%)
 # A3 data A² below the reference 99% quantile (looser than primary's 95%
-#    verdict — pass 1 still governs the suite summary)
+#  verdict — pass 1 still governs the suite summary)
 function test11b_ad_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 11 (secondary, HARDCORE): $(msg(cfg, "obj2plus_title")) — A² reproducibility audit")
@@ -11382,7 +10915,7 @@ function test11b_ad_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  # ≈ 31·A²_pool and saturated p at 1.0000; the two-seed stability check
  # below now measures genuine MC noise of a REAL p-value.
  mc_n = length(sp) # post-cap data size (full range: 49 999)
- function mc_pvalue(seed) # seed::Integer (hex literals arrive as UInt16/UInt64)
+ function mc_pvalue(seed) # seed: Integer (hex literals arrive as UInt16/UInt64)
   rng = MersenneTwister(seed)
   cnt = 0
   buf_t11b = Vector{Float64}(undef, mc_n)
@@ -11390,7 +10923,7 @@ function test11b_ad_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
   for (i, _) in enumerate(1:n_mc)
    rmt_sample!(rng, buf_t11b)
    anderson_darling_stat(buf_t11b; cdf_func=gue_cdf) ≥ A2_data && (cnt += 1)
-   prog_update(i / n_mc, @sprintf("A1 MC(seed=%#x) %d/%d", seed, i, n_mc)) # FIX 2026-09-02c: the hardcore MC used to be silent between every-500 lines
+   prog_update(i / n_mc, @sprintf("A1 MC(seed=%#x) %d/%d", seed, i, n_mc)) # NOTE: the hardcore MC used to be silent between every-500 lines
    i % 500 == 0 && @printf("   MC(seed=%#x) progress: %d/%d\n", seed, i, n_mc)
   end
   return cnt / n_mc
@@ -11473,7 +11006,7 @@ function test11b_ad_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
   for i in 1:n_mc2
    rmt_sample!(rng_t11e2, buf_a5)
    cnt_e += anderson_darling_stat(buf_a5; cdf_func=ecdf_ens) ≥ A2_emp
-   prog_update(i / n_mc2, @sprintf("A5 two-sample MC %d/%d", i, n_mc2)) # FIX 2026-09-02c
+   prog_update(i / n_mc2, @sprintf("A5 two-sample MC %d/%d", i, n_mc2)) # NOTE:
    i % 250 == 0 && @printf("   A5 two-sample MC: %d/%d\n", i, n_mc2)
   end
   p_two = cnt_e / n_mc2
@@ -11492,9 +11025,9 @@ end
 
 # ── Test 12 hardcore: 2-sample KS symmetry & robustness audit ──────────────
 # W1 reference-half symmetry: |D(real,A) − D(real,B)| < 0.02 for disjoint
-#    halves A/B of the GUE reference spacings
+#  halves A/B of the GUE reference spacings
 # W2 block consistency: 4 contiguous real blocks vs ref — ≥ 3/4 agree with
-#    the full-sample verdict at α = 0.01
+#  the full-sample verdict at α = 0.01
 # W3 effect-size bound: full-sample D < the α=0.01 KS critical value (≈ 1.63·√(1/n1+1/n2))
 function test12b_two_ks_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
@@ -11731,7 +11264,7 @@ function test3_convergence_rate(zeta_zeros::Vector{Float64}, cfg::Config)
  @printf(" R² = %.6f | SE(slope) = %.6f\n", R2, se)
  @printf(" → b(N) ≈ %.4f · N^(%.4f)\n", exp(a), b)
  @printf(" The convergence exponent is empirical (not predicted by theory)\n")
- @printf(" of the v23 monograph. The monograph's α=1/2 refers to the AB-phase\n")
+ @printf(" of the monograph. The monograph's α=1/2 refers to the AB-phase\n")
  @printf(" (Hofstadter flux per plaquette), NOT to the b(N) convergence rate.\n")
 
  # Alternative fit: b(N) vs 1/log(N)
@@ -11741,7 +11274,7 @@ function test3_convergence_rate(zeta_zeros::Vector{Float64}, cfg::Config)
  @printf(" (If b(N) ≈ C/log(N), this fit should have high R²)\n")
 
  # PASS criterion is fit QUALITY (R²), not the exponent value.
- # The monograph v23 does not predict a specific b(N) decay exponent;
+ # The monograph does not predict a specific b(N) decay exponent;
  # the historical 0.5 expectation was a misinterpretation of α=1/2.
  status = R2 > 0.9 ? msg(cfg, "pass") : msg(cfg, "warn")
  log_result(" Test 3: α = $(round(-b, digits=4)) (empirical; no expected value), R²=$(round(R2, digits=4)) → $status")
@@ -11750,9 +11283,9 @@ end
 
 # ── Test 4: GUE KS Test (Full Range) ────────────────────────────────────────
 """
-    _gue_calibration_note(cfg, sp_data; stat::Symbol=:ks) -> Nothing
+ _gue_calibration_note(cfg, sp_data; stat: Symbol=:ks) -> Nothing
 
-v21.0 WARN calibration («посмотреть где варны и проверить что с этим можно
+ WARN calibration («посмотреть где варны и проверить что с этим можно
 сделать»). At the default 50k dataset the ONE-SAMPLE GoF tests against the
 WIGNER SURMISE report asymptotic p ≈ 0 — the surmise is only an
 approximation of the exact GUE spacing law (surmise-vs-exact CDF distance
@@ -11765,12 +11298,12 @@ strict verdict: (a) D_ref — the KS distance of the REFERENCE spacings to
 the surmise (the surmise floor itself), (b) the two-sample KS p between
 the data and the reference pool. The strict verdicts are deliberately
 UNCHANGED; the calibration line makes a WARN actionable instead of
-alarming. Statistic kwarg: :ks → ks_test on the reference; :chi2 prints
+alarming. Statistic kwarg: ks → ks_test on the reference;:chi2 prints
 the two-sample KS note only (χ² has no reference-side analogue here).
 """
 function _gue_calibration_note(cfg::Config, sp_data::Vector{Float64}; stat::Symbol = :ks)
     if cfg.gue_matrix_size <= 0
-        println(" CALIBRATED (v21.0): SKIPPED — this run has no GUE reference (--matrix-size N enables the exact-GUE calibration view)")
+        println(" CALIBRATED : SKIPPED — this run has no GUE reference (--matrix-size N enables the exact-GUE calibration view)")
         return
     end
     ref = get_gue_ref(cfg) # cached: one build per run serves Tests 4/5/6/11/12 alike
@@ -11778,13 +11311,13 @@ function _gue_calibration_note(cfg::Config, sp_data::Vector{Float64}; stat::Symb
     if stat === :ks
         D_ref, _ = ks_test(ref.spacings)
         _, p2 = ks_test_2sample(sp_data, ref.spacings)
-        @printf(" CALIBRATED (v21.0): surmise floor D_ref = %.4f (exact-GUE reference vs the same surmise, n_ref=%d); two-sample KS data-vs-exact-GUE: p = %.4f → %s\n",
+        @printf(" CALIBRATED : surmise floor D_ref = %.4f (exact-GUE reference vs the same surmise, n_ref=%d); two-sample KS data-vs-exact-GUE: p = %.4f → %s\n",
                 D_ref, length(ref.spacings), p2,
                 p2 > 0.05 ? "data CONSISTENT with the exact GUE reference — the WARN is the surmise floor at this n" :
                             "deviation CONFIRMED beyond the reference floor (see Test 11 A4/A5)")
     else
         _, p2 = ks_test_2sample(sp_data, ref.spacings)
-        @printf(" CALIBRATED (v21.0): two-sample KS data-vs-exact-GUE reference: p = %.4f → %s\n",
+        @printf(" CALIBRATED : two-sample KS data-vs-exact-GUE reference: p = %.4f → %s\n",
                 p2,
                 p2 > 0.05 ? "data CONSISTENT with the exact GUE reference — the WARN is the surmise floor at this n" :
                             "deviation CONFIRMED beyond the reference floor (see Test 11 A4/A5)")
@@ -11832,7 +11365,7 @@ function test4_gue_ks_full(zeta_zeros::Vector{Float64}, cfg::Config)
  @printf(" H0 (%s): %s\n", rmt_law_name(), pval > 0.05 ? "NOT REJECTED" : "REJECTED")
  @printf(" rejection is EXPECTED. See Test 5 for high-T sub-range.\n")
  @printf(" Use --convergence-watch \"1000,5000,20000,50000\" to SEE convergence.\n")
- pval ≤ 0.05 && _gue_calibration_note(cfg, sp; stat = :ks) # v21.0 WARN calibration
+ pval ≤ 0.05 && _gue_calibration_note(cfg, sp; stat = :ks) #  WARN calibration
 
  status = pval > 0.05 ? msg(cfg, "pass") : msg(cfg, "warn")
  log_result(" Test 4: KS D=$(round(D, digits=4)), p=$(round(pval, digits=6)) → $status")
@@ -11877,7 +11410,7 @@ function test5_gue_ks_highT(zeta_zeros::Vector{Float64}, cfg::Config)
 
  @printf(" %12.0f %12d %12.6f %12.6f %8s\n",
  T_min, length(high_zeros), D, pval, pval > 0.05 ? "KEEP" : "REJECT")
- pval ≤ 0.05 && T_min == maximum(T_mins) && _gue_calibration_note(cfg, sp; stat = :ks) # v21.0: calibrate at the deepest T
+ pval ≤ 0.05 && T_min == maximum(T_mins) && _gue_calibration_note(cfg, sp; stat = :ks) # : calibrate at the deepest T
 
  # Convergence watch: subsample at this T_min
  if !isempty(cfg.convergence_watch_sizes)
@@ -11935,7 +11468,7 @@ function test6_chi2_histogram(zeta_zeros::Vector{Float64}, cfg::Config)
  end
 
  _, _, pval_main = chi2_gue_test(sp; nbins=cfg.chi2_bins)
- pval_main ≤ 0.05 && _gue_calibration_note(cfg, sp; stat = :chi2) # v21.0 WARN calibration
+ pval_main ≤ 0.05 && _gue_calibration_note(cfg, sp; stat = :chi2) #  WARN calibration
  status = pval_main > 0.05 ? msg(cfg, "pass") : msg(cfg, "warn")
  log_result(" Test 6: χ² p=$(round(pval_main, digits=6)) → $status")
  return pval_main > 0.05
@@ -12045,7 +11578,7 @@ function test9_bootstrap_slope(zeta_zeros::Vector{Float64}, cfg::Config)
 
  n_boot = cfg.n_bootstrap
  # Use local RNG instead of global seed!(42) — prevents
- # polluting the global default_rng() state for subsequent tests.
+ # polluting the global default_rng state for subsequent tests.
  rng_boot = MersenneTwister(42)
  boot_slopes = Float64[]
 
@@ -12068,7 +11601,7 @@ function test9_bootstrap_slope(zeta_zeros::Vector{Float64}, cfg::Config)
  @printf(" Bootstrap median slope: %.4f\n", med_slope)
  @printf(" 95%% CI: [%.4f, %.4f]\n", ci_lo, ci_hi)
  @printf(" Reference question: does the CI contain -0.5? %s\n", ci_lo ≤ -0.5 ≤ ci_hi ? "YES" : "NO")
- @printf(" Reframed: -0.5 was never predicted by the v23 monograph; the\n")
+ @printf(" Reframed: -0.5 was never predicted by the monograph; the\n")
  @printf(" actual bootstrap CI is reported honestly without forced comparison.\n")
 
  # PASS criterion is CI TIGHTNESS, not containment of -0.5.
@@ -12105,7 +11638,7 @@ function test10_cross_validation(zeta_zeros::Vector{Float64}, cfg::Config)
  # offset=N÷2 so gram_point(k + N/2) is used
  bN_second = compute_bN(zeta_zeros[N÷2+1:N], N÷2; offset=N÷2)
 
- # Every other zero: zeros[1], zeros[3], zeros[5], ... are γ_1, γ_3, γ_5, ...
+ # Every other zero: zeros[1], zeros[3], zeros[5],... are γ_1, γ_3, γ_5,...
  even_indices = 1:2:N
  even_zeros = zeta_zeros[even_indices]
  bN_even = 0.0
@@ -12171,7 +11704,7 @@ function get_gue_ref(cfg::Config)::GueRefCache
  GUE_REF[].seed == cfg.gue_matrix_seed
  return GUE_REF[]
  end
- # FIX 2026-09-02c: RAM GUARD — the silent "hang on test 11" killer. The
+ # NOTE: RAM GUARD — the silent "hang on test 11" killer. The
  # eigensolve below needs ≈ N²·16 B for the matrix plus a comparable LAPACK
  # workspace (measured ≈ 3.2 GB total at the 12000² default). Without that
  # headroom the allocation swap-thrashes or dies — the user sees a frozen
@@ -12217,20 +11750,20 @@ end
  gue_ensemble_reference(R, N_mat; seed_base=112, tag="GUE ensemble") → NamedTuple
 
 Build an ensemble of R independent N_mat×N_mat GUE matrices (seeds
-seed_base .. seed_base+R−1) and pool their bulk spacings after the SAME
+seed_base.. seed_base+R−1) and pool their bulk spacings after the SAME
 unfolding pipeline as the single-matrix reference (trim 10 %, degree-9
 polynomial). The pool is Test 11's BIG multi-seed empirical reference:
 
-  • n_ref ≈ R·0.8·N_mat spacings — 16 800 for the R=6, N_mat=3500 ensemble,
-    ≈ 1.75× the single-matrix default pool (9 600 at gue_matrix_size=12 000;
-    the old 2000² default gave 1 600) — so reference-side noise falls as
-    1/√n_ref and the pooled CDF resolves CDF deviations ε ≈ 1/√n_ref
-    (≈ 1.0 % at n_ref = 9 600, ≈ 0.8 % at 16 800);
-  • per-realization A²_k each sit at the ~0.8 null scale for a healthy
-    reference and double as a cross-seed stability check ("was seed 112
-    the problem?" — answerable by direct measurement);
-  • pooled mean/std vs the analytic law decide whether a data/reference
-    mismatch is born on the matrix side (unfolding artefact) or in the data.
+ • n_ref ≈ R·0.8·N_mat spacings — 16 800 for the R=6, N_mat=3500 ensemble,
+ ≈ 1.75× the single-matrix default pool (9 600 at gue_matrix_size=12 000;
+ the old 2000² default gave 1 600) — so reference-side noise falls as
+ 1/√n_ref and the pooled CDF resolves CDF deviations ε ≈ 1/√n_ref
+ (≈ 1.0 % at n_ref = 9 600, ≈ 0.8 % at 16 800);
+ • per-realization A²_k each sit at the ~0.8 null scale for a healthy
+ reference and double as a cross-seed stability check ("was seed 112
+ the problem?" — answerable by direct measurement);
+ • pooled mean/std vs the analytic law decide whether a data/reference
+ mismatch is born on the matrix side (unfolding artefact) or in the data.
 
 Cost: R · O(N_mat³) eigensolves (measured, 2-core: 2000² ≈ 2–3 s →
 3000² ≈ 7 s, 3500² ≈ 11 s).
@@ -12315,7 +11848,7 @@ function test11_anderson_darling(zeta_zeros::Vector{Float64}, cfg::Config)
  sp = sp[sort(randperm(rng_t11a, length(sp))[1:cfg.ad_sample_cap])]
  end
  sp_contig = length(sp) == sp_loaded_n # true → block table keeps its T order
- # cap default 5000 → 50_000 — the test now really consumes the
+ # cap default — the test now really consumes the
  # FULL embedded ζ-range (49 999 spacings) instead of the first 5000.
  @printf(" Using %d spacings (cap=%d%s)\n", length(sp), cfg.ad_sample_cap,
  length(sp) < cfg.ad_sample_cap ? ", full loaded range — no subsampling" : "")
@@ -12365,9 +11898,9 @@ function test11_anderson_darling(zeta_zeros::Vector{Float64}, cfg::Config)
  @printf(" Monte-Carlo p-value (data ≥ null): %.4f [n_mc=%d], Wilson 95%% CI [%.4f, %.4f]\n",
  pval_mc, n_mc, ci_lo, ci_hi)
  @printf(" H0 (%s): %s\n", rmt_law_name(), pval_mc > 0.05 ? "NOT REJECTED" : "REJECTED")
- # v21.0 WARN calibration: the surmise floor of the reference itself
+ #  WARN calibration: the surmise floor of the reference itself
  D_ref11, _ = ks_test(ref_sp)
- @printf(" Surmise floor (v21.0): D_ref = %.4f — the exact-GUE reference sits THIS far from the analytic surmise; A²/n = %.2e of the data should be read against it\n",
+ @printf(" Surmise floor : D_ref = %.4f — the exact-GUE reference sits THIS far from the analytic surmise; A²/n = %.2e of the data should be read against it\n",
  D_ref11, A2_data / length(sp))
 
  # ── Effect size — a bare A² number is uninterpretable without n ──
@@ -12408,7 +11941,7 @@ function test11_anderson_darling(zeta_zeros::Vector{Float64}, cfg::Config)
   Tq > 0 && !(any(t -> abs(t - Tq) < 0.15 * Tq, T_mins_a2)) && push!(T_mins_a2, Tq)
  end
  sort!(T_mins_a2)
- # init −1.0 (was 0.0): with a TOTAL rejection every subrange returns p=0.0000
+ # init −1.0: with a TOTAL rejection every subrange returns p=0.0000
  # and the old strict `>` never updated best_T_* → the verdict fell into the
  # wrong branch ("no high-T subrange with ≥100 zeros available" despite a full
  # table). `≥` below lets ties resolve to the HIGHEST-T (most asymptotic) row.
@@ -12531,7 +12064,7 @@ function test11_anderson_darling(zeta_zeros::Vector{Float64}, cfg::Config)
  # lives. Verdict-informing diagnostic; the log_result gate above is unchanged.
  if RMT_SPACING_LAW[] === :gue2
   R_ens = 4        # hardcore pass 2 uses 6 × 3500²
-  N_ens = 3000     # 2000 → 3000: 3.4× more eigenvalues per matrix
+  N_ens = 3000     # : 3.4× more eigenvalues per matrix
   t_est = R_ens * 4.79 * (N_ens / 2000.0)^3
   @printf("  ensemble: %d realizations × %dx%d GUE, seeds %d–%d (diag est. ≈ %.0f s)\n",
    R_ens, N_ens, N_ens, cfg.gue_matrix_seed, cfg.gue_matrix_seed + R_ens - 1, t_est)
@@ -12704,7 +12237,7 @@ function test13_number_variance(zeta_zeros::Vector{Float64}, cfg::Config)
  repeat("─",6), repeat("─",12), repeat("─",12), repeat("─",12), repeat("─",12))
 
  # Compute ONCE and reuse for both the printed table and the verdict
- # (fix 2026-08-31: the verdict loop re-ran number_variance on the SAME
+ # (fix: the verdict loop re-ran number_variance on the SAME
  # (already advanced) RNG — the verdict then compared DIFFERENT random
  # window draws than the table printed, and doubled the runtime).
  table = Tuple{Float64,Float64,Float64,Float64}[] # (L, σ2_data, σ2_gue, ratio)
@@ -12797,7 +12330,7 @@ end
 # ─────────────────────────────────────────────────────────────────────────────
 
  # Earlier editions tested only the zeta-zero sequence itself against GUE
- # surmise; this suite adds direct verification of the AB-cloud model claims from the v23
+ # surmise; this suite adds direct verification of the AB-cloud model claims from the
 # monograph, by actually constructing and diagonalising the Hofstadter
 # Hamiltonian with AB vortices and the 3D PSL(2,7) Klein quartic embedding.
 
@@ -13040,7 +12573,7 @@ function test15_ab_cloud_construction(zeta_zeros::Vector{Float64}, cfg::Config)
 
  # : strictly 4 vortices with magnetic flux strength 1.0
  # (or whatever the cfg.ab_q_list contains). Vortex count comes from
- # resolve_vortex_count() — falls back to 4 if no matrices are built.
+ # resolve_vortex_count — falls back to 4 if no matrices are built.
  # If user explicitly sets Nv=0, use 1 (this test needs at least one vortex
  # for flux verification; Nv=0 is meaningless here).
  n_vortices_req = max(1, resolve_vortex_count(cfg))
@@ -13095,7 +12628,7 @@ function test15_ab_cloud_construction(zeta_zeros::Vector{Float64}, cfg::Config)
  # 2π·α=π to every plaquette, complicating the expected-value comparison).
  # The TRS breaking from fractional vortices is still present at α=0.
  # this test verifies DIRAC-STRING-formulation theorems
- # (localized 2πq plaquette flux) — run on the legacy :dirac model.
+ # (localized 2πq plaquette flux) — run on the legacy:dirac model.
  cfg_ab = ABCloudConfig(Nx, Ny, vortices, 0.0, 1.0, :open, 4.0, 96, :dirac)
  println(" Vortex phase model: :dirac (flux theorems are formulated for\n the Dirac-string gauge — see the header design notes)")
  H = build_ab_cloud_hamiltonian(cfg_ab)
@@ -13161,18 +12694,18 @@ function test16_ab_cloud_gue_classification(zeta_zeros::Vector{Float64}, cfg::Co
 
  # All parameters now come from cfg (LAUNCH STANDARD):
  # ab_nx, ab_ny
- # ab_nv_list ( default [4] — : 4 vortices in run 72)
- # ab_q_list ( default [1.0] — : magnetic flux strength 1.0)
+ # ab_nv_list (default [4] —: 4 vortices in run 72)
+ # ab_q_list (default [1.0] —: magnetic flux strength 1.0)
  # ab_alpha (default 0.5 — used by chiral/Dirac tests 17-19)
  # ab_alpha_test16
- # ab_lattice (default :open)
+ # ab_lattice (default:open)
  # ab_sweep_mode ("nv" | "q" | "both")
  # ab_n_realizations
  # ab_ks_bootstrap_n (default 200 — for Monte-Carlo KS p-value)
  # ab_use_mc_pvalue (default true — correct for single-matrix spectra)
  # ab_use_magic_alphas
  # ab_custom_alpha_points
- # ab_nv_list_secondary ( default [2] — 2 vortices in run 96, set by run_test_two_pass)
+ # ab_nv_list_secondary (default [2] — 2 vortices in run 96, set by run_test_two_pass)
  Nx = cfg.ab_nx
  Ny = cfg.ab_ny
  t_hop = cfg.ab_t
@@ -13244,7 +12777,7 @@ function test16_ab_cloud_gue_classification(zeta_zeros::Vector{Float64}, cfg::Co
   log_comp(@sprintf(" test16: MC GUE ensemble skipped (N_mat=%d > 5000 cap) — mc p-value = NaN", N_mat))
  end
 
- # Use local RNG instead of default_rng() + seed! .
+ # Use local RNG instead of default_rng + seed!.
  rng = MersenneTwister(cfg.ab_seed)
 
  # Outer α-sweep loop — for each α, run the full (Nv, q) inner sweep.
@@ -13291,7 +12824,7 @@ function test16_ab_cloud_gue_classification(zeta_zeros::Vector{Float64}, cfg::Co
  total_real_units = max(1, length(α_sweep_vals) * length(sweep_grid) * n_real)
  done_real_units = 0
  for (Nv, q_mag) in sweep_grid
- # FRACTIONAL-CHARGE DENSITY COMPENSATION (user standard 2026-08-30):
+ # FRACTIONAL-CHARGE DENSITY COMPENSATION (user standard):
  # a vortex of charge q carries q·2π flux — at q < 1 each vortex breaks
  # TRS q× weaker. The validated compensation (Test 33: q=0.3, Nv=144 on
  # 72² → ⟨r⟩ = 0.5975, GUE) keeps the vortex NUMBER DENSITY at the
@@ -13399,7 +12932,7 @@ function test16_ab_cloud_gue_classification(zeta_zeros::Vector{Float64}, cfg::Co
  end
 
  # Asymptotic KS p-value (the OLD metric that always gives ~0)
- # (dead D_first/p_first tuple removed 2026-08-31 audit — never used)
+ # (dead D_first/p_first tuple removed audit — never used)
  n_sp_est = max(1, round(Int, center_frac * Nx * Ny))
  p_asymptotic = NaN
  if isfinite(D_avg) && n_sp_est > 0
@@ -13505,7 +13038,7 @@ function test17_alpha_half_self_duality(zeta_zeros::Vector{Float64}, cfg::Config
  println("Verify H(α) and H(1/α) are isospectral at the fixed point α = 1/2")
  println(repeat("─",60))
 
- # LAUNCH-STANDARD lattice (user spec 2026-08-30): pass 1 runs at
+ # LAUNCH-STANDARD lattice: pass 1 runs at
  # cfg.ab_nx × cfg.ab_ny (default 72×72); in two-pass mode pass 2 is routed
  # to test17b which climbs the size ladder capped at the 96×96 secondary.
 
@@ -13522,32 +13055,32 @@ function test17_alpha_half_self_duality(zeta_zeros::Vector{Float64}, cfg::Config
  # running it at the launch resolution is a free consistency check that
  # the invariant survives at production sizes.
  Nx, Ny = cfg.ab_nx, cfg.ab_ny # launch standard 72×72 (96×96 in two-pass)
- Nx * Ny > 2500 && @printf(" ⚠ RUNTIME: ~5 value-only Hermitian diagonalizations at %dx%d — expect ≈ 1–2 min (FIX 2026-09-06: было 7 — дублирующие пары count+symmetry объединены, бар теперь движется по фазам)\n", Nx, Ny)
+ Nx * Ny > 2500 && @printf(" ⚠ RUNTIME: ~5 value-only Hermitian diagonalizations at %dx%d — expect ≈ 1–2 min \n", Nx, Ny)
 
  # The α=1/2 specific property is the EXISTENCE OF ZERO MODES (Dirac points).
  # On a bipartite lattice, ALL α have spectral E→-E symmetry (generic),
  # but only α=1/2 has DEGENERATE zero modes (Dirac cones at E=0).
  # At α=1/3 (q=3), the spectrum is GAPPED at E=0 (no zero modes).
  #
- # TORUS COMPATIBILITY GUARD (fix 2026-08-31): the helpers build :torus
+ # TORUS COMPATIBILITY GUARD (fix): the helpers build:torus
  # Hamiltonians, and build_ab_cloud_hamiltonian asserts α·Ny ∈ ℤ. On
  # lattices whose Ny is not divisible by 3 or 4 (e.g. the documented
- # 16×16 quick-check: α=1/3 → 16/3 ∉ ℤ) the old code CRASHED with
+ # 16×16 quick-check: α=1//3 ∉ ℤ) the old code CRASHED with
  # AssertionError mid-test. Incompatible rows are now SKIPPED with an
  # explicit note instead of killing the test.
  _torus_ok(a::Float64) = abs(a * Ny - round(a * Ny)) < 1e-9
 
- # FIX 2026-09-06 (прогресс-бар теста 17 + «долго запускается») — три причины жалобы:
- #   (1) внутри теста НЕ БЫЛО ни одного prog_update — бар двухпроходной обёртки
- #       стоял на 0% весь проход 1 (и на 52% весь HARDCORE-проход), потом прыгал;
- #   (2) ВСЕ 7 строк результатов печатались только ПОСЛЕ всех вычислений — после
- #       баннера терминал молчал 1–3 минуты и выглядело это как «тест завис при
- #       запуске». Теперь каждая строка печатается сразу после своих солвов;
- #   (3) count_zero_eigenvalues(α) и spectral_symmetry_defect(α) строили ОДНУ И
- #       ТУ ЖЕ H(α, torus, W=0) и дважды гоняли один и тот же heevr — пары
- #       объединены через zero_modes_and_symmetry_defect: 7 солвов → 5 (~30%
- #       быстрее). Каждый солв пишет log_comp → elapsed-часы бара тикают и во
- #       время диагонализации (раньше часы замирали на время heevr).
+ # NOTE:(прогресс-бар теста 17 + «долго запускается») — три причины жалобы:
+ #  (1) внутри теста НЕ БЫЛО ни одного prog_update — бар двухпроходной обёртки
+ #  стоял на 0% весь проход 1 (и на 52% весь HARDCORE-проход), потом прыгал;
+ #  (2) ВСЕ 7 строк результатов печатались только ПОСЛЕ всех вычислений — после
+ #  баннера терминал молчал 1–3 минуты и выглядело это как «тест завис при
+ #  запуске». Теперь каждая строка печатается сразу после своих солвов;
+ #  (3) count_zero_eigenvalues(α) и spectral_symmetry_defect(α) строили ОДНУ И
+ #  ТУ ЖЕ H(α, torus, W=0) и дважды гоняли один и тот же heevr — пары
+ #  объединены через zero_modes_and_symmetry_defect: 7 солвов → 5 (~30%
+ #  быстрее). Каждый солв пишет log_comp → elapsed-часы бара тикают и во
+ #  время диагонализации (раньше часы замирали на время heevr).
  _nphases17 = 5 # H(1/2) солв + duality(1/2) + H(1/3) солв + duality(1/3) + H(1/4)
  _phase17 = Ref(0)
  _adv17!(label::AbstractString) = begin
@@ -13615,13 +13148,13 @@ end
 function test18_chiral_symmetry_AIII(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 18: Chiral Symmetry AIII at α = 1/2")
- println("Verify S·H·S = -H (sublattice chiral symmetry, v23 §6.3.2)")
+ println("Verify S·H·S = -H (sublattice chiral symmetry, §6.3.2)")
  println(repeat("─",60))
 
  Nx, Ny = cfg.ab_nx, cfg.ab_ny
 
  # SPECTRAL chiral symmetry test: at α=1/2 the spectrum is symmetric
- # under E → -E (this is the v23 §6.3.2 claim — NOT just the trivial
+ # under E → -E (this is the §6.3.2 claim — NOT just the trivial
  # bipartite-lattice sublattice symmetry, which holds for any α).
  # We test: ||eigvals(H) + reverse(eigvals(H))|| / ||eigvals(H)|| ≈ 0
  # (i.e. for every eigenvalue +E there's a matching -E).
@@ -13635,7 +13168,7 @@ function test18_chiral_symmetry_AIII(zeta_zeros::Vector{Float64}, cfg::Config)
  H_half = build_ab_cloud_hamiltonian(cfg_half)
  # Hermitian eigvals (see Test 16 note).
  log_comp(@sprintf(" heevr values-only solve: N=%d — test18 H(1/2, W=0)", Nx * Ny))
- prog_update(0.08, "18: H(1/2, W=0) build+solve") # FIX 2026-09-06: тест 18 был так же нем, как 17 — 4 молчаливых блока по ~1 мин
+ prog_update(0.08, "18: H(1/2, W=0) build+solve") # NOTE: тест 18 был так же нем, как 17 — 4 молчаливых блока по ~1 мин
  ev_half = sort(eigvals(Hermitian(H_half)))
  # For spectral symmetry E → -E, ev[i] + ev[N+1-i] = 0,
  # so the defect is ||ev + reverse(ev)|| / ||ev|| (NOT reverse(-ev)).
@@ -13740,11 +13273,11 @@ end
 function test19_dirac_cone_velocity(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 19: Dirac Cone Linear Dispersion, v_F")
- println("Verify linear E(k) ≈ v_F·|k| at the Dirac point E=0 (v23 §7.1)")
+ println("Verify linear E(k) ≈ v_F·|k| at the Dirac point E=0 (§7.1)")
  println(repeat("─",60))
 
  # Test the SCALING E_min ~ 1/L (the signature of a Dirac cone).
- # The v23 monograph reports v_F ≈ 0.125 for the Harper model at α=1/2,
+ # The monograph reports v_F ≈ 0.125 for the Harper model at α=1/2,
  # but the exact value depends on the magnetic unit cell convention
  # (magnetic BZ reduction factor q=2 shifts k by π/L vs 2π/L).
  # We report the empirical v_F and verify the 1/L scaling (linear fit).
@@ -13753,28 +13286,28 @@ function test19_dirac_cone_velocity(zeta_zeros::Vector{Float64}, cfg::Config)
  results = Tuple{Int,Float64,Int,String}[] # (L, E_min, n_zeros, info)
  # three changes so this test fits in ~4 GB RAM and can PASS:
  # (a) L-grid [24,36,48,72,96] → [12,18,24,36,48]. L=96 alone needs
- #     9216² × 16 B = 1.36 GB per matrix copy and safe_eigvals computed ALL
- #     eigenvectors (heevrd) on top of it → OOM-kill on 4 GB boxes. The 1/L
- #     Dirac scaling is scale-free — [12..48] demonstrates it with R²≈1.
- # (b) W=4.0 → 0.0: clean lattice. The builder's ε noise (active when W>0)
- #     puts the zero modes at |E| ~ 0.01, so the zero-mode counter
- #     (tol = 1e-6) found ZERO of them → the `all(n_zero > 0)` criterion
- #     could never PASS. On the clean lattice the Dirac zero modes are
- #     exact to machine precision.
+ #  9216² × 16 B = 1.36 GB per matrix copy and safe_eigvals computed ALL
+ #  eigenvectors (heevrd) on top of it → OOM-kill on 4 GB boxes. The 1/L
+ #  Dirac scaling is scale-free — [12..48] demonstrates it with R²≈1.
+ # (b) W=: clean lattice. The builder's ε noise (active when W>0)
+ #  puts the zero modes at |E| ~ 0.01, so the zero-mode counter
+ #  (tol = 1e-6) found ZERO of them → the `all(n_zero > 0)` criterion
+ #  could never PASS. On the clean lattice the Dirac zero modes are
+ #  exact to machine precision.
  # (c) safe_eigvals → eigvals(Hermitian(·)): eigenvalues only (heevr,
- #     jobz='N'), no eigenvector block — ~3× lower peak memory.
+ #  jobz='N'), no eigenvector block — ~3× lower peak memory.
  # (d) L-grid must be ≡ 0 (mod 4). The Dirac points sit at
- #     k = (π/2, π/2); the discrete k-grid 2πn/L contains them only when
- #     L/4 ∈ ℤ. At L=18 (≡ 2 mod 4) the zero modes VANISH (count 0, the
- #     gap opens) and E_min jumps off the 1/L law → R² fell to 0.92.
- #     Grid [12, 16, 24, 32, 48] — all ≡ 0 mod 4, span 4×, E_min·L ≈ const
- #     to ~1e-2 → R² ≈ 0.999.
- # (e) 2026-08-30 user size-standard: pass-1 grid now caps at 72 (hardcore
- #     caps at 96, see test19b) — grid [12, 16, 24, 32, 48, 64, 72], span 6×.
- #     All rungs ≡ 0 mod 4. Values-only heevr: L=72 ≈ 430 MB/copy ≈ ~1 min,
- #     comfortably inside the pass-1 budget.
+ #  k = (π/2, π/2); the discrete k-grid 2πn/L contains them only when
+ #  L/4 ∈ ℤ. At L=18 (≡ 2 mod 4) the zero modes VANISH (count 0, the
+ #  gap opens) and E_min jumps off the 1/L law → R² fell to 0.92.
+ #  Grid [12, 16, 24, 32, 48] — all ≡ 0 mod 4, span 4×, E_min·L ≈ const
+ #  to ~1e-2 → R² ≈ 0.999.
+ # (e) user size-standard: pass-1 grid now caps at 72 (hardcore
+ #  caps at 96, see test19b) — grid [12, 16, 24, 32, 48, 64, 72], span 6×.
+ #  All rungs ≡ 0 mod 4. Values-only heevr: L=72 ≈ 430 MB/copy ≈ ~1 min,
+ #  comfortably inside the pass-1 budget.
  for (iL19, L) in enumerate([12, 16, 24, 32, 48, 64, 72]) # ≡ 0 (mod 4), pass-1 cap 72 (user standard)
- prog_update((iL19 - 1) / 7.0, @sprintf("19: L=%d build+heevr (%d/7)", L, iL19)) # FIX 2026-09-06: лестница была немой — L=72 ≈ 1 мин молчания на ступень
+ prog_update((iL19 - 1) / 7.0, @sprintf("19: L=%d build+heevr (%d/7)", L, iL19)) # NOTE: лестница была немой — L=72 ≈ 1 мин молчания на ступень
  cfg_ab = ABCloudConfig(L, L, Vortex[], 0.5, 1.0, :torus, 0.0)
  H = build_ab_cloud_hamiltonian(cfg_ab)
  ev = eigvals(Hermitian(H))
@@ -13801,7 +13334,7 @@ function test19_dirac_cone_velocity(zeta_zeros::Vector{Float64}, cfg::Config)
  # b corresponds to v_F · (2π/L) if Dirac cone at Γ
  vF_convention_2pi = b / (2π)
  vF_convention_pi = b / π
- # v23.2 FOUR-pass hand-off (user spec 2026-09-04): clear + stash this
+ #  FOUR-pass hand-off: clear + stash this
  # pass's v_F for the pass-4 AUDIT cross-pass consistency check (D6).
  # Clearing HERE guarantees a rerun never sees stale values from a
  # previous run even when passes 3/4 are skipped mid-flow.
@@ -13811,7 +13344,7 @@ function test19_dirac_cone_velocity(zeta_zeros::Vector{Float64}, cfg::Config)
  @printf("\n Linear fit: E_min = %.4f + %.4f/L, R² = %.6f\n", a, b, R2)
  @printf(" If Dirac cone at Γ (k_min = 2π/L): v_F = b/(2π) = %.4f\n", vF_convention_2pi)
  @printf(" If Dirac cone at BZ edge (k_min = π/L): v_F = b/π = %.4f\n", vF_convention_pi)
- @printf(" v23 §7.1 reports v_F ≈ 0.125 (specific lattice/gauge convention).\n")
+ @printf(" §7.1 reports v_F ≈ 0.125 (specific lattice/gauge convention).\n")
  @printf(" PASS criterion: R² > 0.95 (linear 1/L scaling confirmed → Dirac cone exists).\n")
 
  ok = R2 > 0.95 && all(r -> r[3] > 0, results) # zero modes present AND linear scaling
@@ -13823,16 +13356,16 @@ function test19_dirac_cone_velocity(zeta_zeros::Vector{Float64}, cfg::Config)
 end
 
 # ── Test 20 (menu id): TKNN Chern number — magnetic-BZ FHS ──────────────────
-# PASS-1 CONTRACT (v19.1 — was: single anchor 1/3 only):
-#   ① literature anchors α = 1/4, 1/3, 1/5 (GAPPED): C₁ = +1 for the lowest
-#      band — TKNN Diophantine t₁ = +1, the v23 §4.1.2 per-sub-band contract;
-#   ② α = 1/2 Dirac-touching diagnostic: the two sub-bands TOUCH at Dirac
-#      points (min band gap ≈ 1e-16 on any grid), so a per-band C₁ is
-#      mathematically UNDEFINED there (the same physics Test 29 measures as
-#      the DOS dip) — the honest α=1/2 statement is the touching gap itself;
-#   ③ α = 1/2 mass-regularized branch (moved up from the hardcore pass):
-#      mass·diag((−1)^m) opens the gap and the chirality-balanced Dirac
-#      points give C₁ = 0 for BOTH mass signs on the pinned 24×12 grid.
+# PASS-1 CONTRACT (— was: single anchor 1/3 only):
+#  ① literature anchors α = 1/4, 1/3, 1/5 (GAPPED): C₁ = +1 for the lowest
+#  band — TKNN Diophantine t₁ = +1, the §4.1.2 per-sub-band contract;
+#  ② α = 1/2 Dirac-touching diagnostic: the two sub-bands TOUCH at Dirac
+#  points (min band gap ≈ 1e-16 on any grid), so a per-band C₁ is
+#  mathematically UNDEFINED there (the same physics Test 29 measures as
+#  the DOS dip) — the honest α=1/2 statement is the touching gap itself;
+#  ③ α = 1/2 mass-regularized branch (moved up from the hardcore pass):
+#  mass·diag((−1)^m) opens the gap and the chirality-balanced Dirac
+#  points give C₁ = 0 for BOTH mass signs on the pinned 24×12 grid.
 # All rows are q×q-cell diagonalisations — sub-second by design.
 function test22_chern_number_tknn(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
@@ -14033,30 +13566,30 @@ end
 # ─────────────────────────────────────────────────────────────────────────────
 # 11d. TEST 37 (menu id): (1/2)! VIA THE GAMMA FUNCTION — half-factorial audit
 # The suite's central statistical law — the GUE (β=2) Wigner surmise
-#     p₂(s) = (32/π²)·s²·exp(−4s²/π)
+#  p₂(s) = (32/π²)·s²·exp(−4s²/π)
 # works ONLY because the factorial extends to fractional arguments through Γ,
 # and the normalization constant 32/π² is exactly the half-factorial identity
 # in disguise:
-#     ∫₀^∞ s² e^{−4s²/π} ds = ½·(π/4)^{3/2}·Γ(3/2) = ½·(π/4)^{3/2}·(1/2)!
-#                           = π²/32      (because (1/2)! = √π/2),
+#  ∫₀^∞ s² e^{−4s²/π} ds = ½·(π/4)^{3/2}·Γ(3/2) = ½·(π/4)^{3/2}·(1/2)!
+#  = π²/32 (because (1/2)! = √π/2),
 # so N·π²/32 = 1 ⟺ N = 32/π². Every χ²/KS/A-D verdict in this suite therefore
 # rests on the half-factorial construction. The audit:
-#   ① Γ(1/2) = √π and (1/2)! = Γ(3/2) = √π/2 (machine ε, suite's own Lanczos
-#     lgamma — the same machinery that serves every χ² CDF in the suite);
-#   ② the half-integer ladder (3/2)! = 3√π/4, (5/2)! = 15√π/8 and the
-#     recurrence (x+1)! = (x+1)·x! — the whole tower from Γ(1/2) alone;
-#   ③ UNIQUENESS OF THE CONSTRUCTION:
-#       · reflection self-dual fixed point — x = 1/2 is the ONLY point where
-#         Γ(x) = Γ(1−x), and Γ(1/2)² = π there (the α↔1/α self-duality theme
-#         of Tests 17/18 in factorial form);
-#       · Bohr–Mollerup: ln Γ is strictly log-convex on the half-grid, so Γ
-#         is the UNIQUE log-convex factorial extension — (1/2)! is not a
-#         convention but a theorem;
-#   ④ the physics payoff: N = 1/[½·(π/4)^{3/2}·(1/2)!] == 32/π² exactly;
-#     ∫p₂ ds = 1 and ⟨s²⟩ = 3π/8 (⟨s⟩ = 1) by Simpson quadrature of the
-#     suite's own gue2_surmise_pdf; the same P(1/2, x²) regularized gamma
-#     differentiates to (2/√π)e^{−x²} — the erf kernel χ² CDFs (df odd)
-#     are built on.
+#  ① Γ(1/2) = √π and (1/2)! = Γ(3/2) = √π/2 (machine ε, suite's own Lanczos
+#  lgamma — the same machinery that serves every χ² CDF in the suite);
+#  ② the half-integer ladder (3/2)! = 3√π/4, (5/2)! = 15√π/8 and the
+#  recurrence (x+1)! = (x+1)·x! — the whole tower from Γ(1/2) alone;
+#  ③ UNIQUENESS OF THE CONSTRUCTION:
+#  · reflection self-dual fixed point — x = 1/2 is the ONLY point where
+#  Γ(x) = Γ(1−x), and Γ(1/2)² = π there (the α↔1/α self-duality theme
+#  of Tests 17/18 in factorial form);
+#  · Bohr–Mollerup: ln Γ is strictly log-convex on the half-grid, so Γ
+#  is the UNIQUE log-convex factorial extension — (1/2)! is not a
+#  convention but a theorem;
+#  ④ the physics payoff: N = 1/[½·(π/4)^{3/2}·(1/2)!] == 32/π² exactly;
+#  ∫p₂ ds = 1 and ⟨s²⟩ = 3π/8 (⟨s⟩ = 1) by Simpson quadrature of the
+#  suite's own gue2_surmise_pdf; the same P(1/2, x²) regularized gamma
+#  differentiates to (2/√π)e^{−x²} — the erf kernel χ² CDFs (df odd)
+#  are built on.
 # Pass 2 (HARDCORE, test44b): the same identities re-audited at 256-bit.
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -14116,14 +13649,14 @@ function test44_half_factorial_gamma(zeta_zeros::Vector{Float64}, cfg::Config)
 
  # ── ③ uniqueness of the construction ──
  # (a) reflection self-dual fixed point: Γ(1/2)² = π (x = 1/2 is the only
- #     self-dual point of Γ(x)Γ(1−x) = π/sin(πx))
+ #  self-dual point of Γ(x)Γ(1−x) = π/sin(πx))
  refl_err = abs(g_half^2 - π) / π
  @printf(" reflection self-duality: Γ(1/2)² = %.15f  vs π = %.15f  rel.err = %.2e\n",
   g_half^2, π, refl_err)
  push!(rec, ("Γ(1/2)² = π (self-dual)", refl_err < 1e-12,
   @sprintf("x=1/2 — the UNIQUE fixed point of x ↔ 1−x in the reflection formula, rel.err %.2e", refl_err)))
  # (b) Bohr–Mollerup log-convexity: lnΓ strictly convex on the half-grid —
- #     the UNIQUE log-convex factorial extension
+ #  the UNIQUE log-convex factorial extension
  hx = collect(0.5:0.25:3.0)
  lg = [lgamma_lanczos(x) for x in hx]
  d1 = diff(lg)
@@ -14184,15 +13717,15 @@ end
 # logabsgamma live in the non-stdlib SpecialFunctions.jl — this suite is
 # stdlib-only), so the 256-bit truth is computed from scratch by the
 # double-exponential (tanh-sinh) rule on the u-substituted Gaussian integrals
-#     Γ(n + 1/2) = ∫₀^∞ 2·u^{2n}·e^{−u²} du   (u = √x — kills the x^{−1/2}
+#  Γ(n + 1/2) = ∫₀^∞ 2·u^{2n}·e^{−u²} du (u = √x — kills the x^{−1/2}
 # endpoint singularity; the integrand is analytic → DE converges
 # double-exponentially; audit grid h = 1/32, t ∈ [−6.25, 6.25]:
 # |Γ(1/2)_DE − √π| ≈ 1.2e−28 at 256-bit, probe-validated):
-#   H1  Float64 round-off of the suite's Lanczos lgamma measured against the
-#       256-bit DE truth (Γ(1/2), (1/2)! at machine-ε relative scale)
-#   H2  normalization identity at 256-bit: 1/[½·(π/4)^{3/2}·Γ(3/2)_DE] == 32/π²
-#   H3  ladder/reflection/recurrence at 256-bit: Γ(5/2)_DE = 3√π/4,
-#       Γ(1/2)_DE² = π, (1/2)!_DE = ½·Γ(1/2)_DE
+#  H1 Float64 round-off of the suite's Lanczos lgamma measured against the
+#  256-bit DE truth (Γ(1/2), (1/2)! at machine-ε relative scale)
+#  H2 normalization identity at 256-bit: 1/[½·(π/4)^{3/2}·Γ(3/2)_DE] == 32/π²
+#  H3 ladder/reflection/recurrence at 256-bit: Γ(5/2)_DE = 3√π/4,
+#  Γ(1/2)_DE² = π, (1/2)!_DE = ½·Γ(1/2)_DE
 function test44b_half_factorial_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 37 (pass 2, HARDCORE): (1/2)! via Γ — 256-bit precision audit")
@@ -14211,9 +13744,9 @@ function test44b_half_factorial_hardcore(zeta_zeros::Vector{Float64}, cfg::Confi
    end
    return s * h_de
   end
-  Γ_half_b = _gamma_half_int(0)   # Γ(1/2)   (independent DE value)
-  f_half_b = _gamma_half_int(1)   # (1/2)!   = Γ(3/2)
-  f_32_b   = _gamma_half_int(2)   # (3/2)!   = Γ(5/2)
+  Γ_half_b = _gamma_half_int(0)   # Γ(1/2) (independent DE value)
+  f_half_b = _gamma_half_int(1)   # (1/2)! = Γ(3/2)
+  f_32_b   = _gamma_half_int(2)   # (3/2)! = Γ(5/2)
   sqrt_pi_b = sqrt(big(π))
   @printf(" DE reference: |Γ(1/2)_256 − √π| = %.2e (independent quadrature)\n",
    Float64(abs(Γ_half_b - sqrt_pi_b)))
@@ -14249,9 +13782,9 @@ end
 
 
 
-# 12. PLOT RENDERING — v23.1 NOTE
+# 12. PLOT RENDERING — NOTE
 # The old section 12 (ASCII bars + optional Plots.jl writers try_plot_*) is
-# RETIRED: every plot of the suite now comes from the built-in ABPlotV23
+# RETIRED: every plot of the suite now comes from the built-in ABPlot
 # journal engine (png, supersampled) plus the animation.gif progressive tour,
 # written per-test by the reporting pipeline. No external plotting package.
 
@@ -14259,12 +13792,14 @@ end
 
 function save_report(cfg::Config)
  ts = Dates.format(Dates.now(), "yyyy-mm-dd_HH-MM-SS")
- fname = "ab_cloud_v20_verify_report_$(ts).txt"
+ fname = "ab_cloud_verify_report_$(ts).txt"
  mkpath(cfg.output_dir)
  fpath = joinpath(cfg.output_dir, fname)
 
  open(fpath, "w") do f
- println(f, "AB-Cloud Verification Report")
+ println(f, "✦ ══════════════════════════════════════════════════════════════ ✦")
+ println(f, "  ❄ AB-CLOUD VERIFICATION REPORT · AURORA EDITION")
+ println(f, "✦ ══════════════════════════════════════════════════════════════ ✦")
  println(f, "Generated: $(Dates.now())")
  println(f, "Author: Isaev Iskhak Khamzatovich")
  println(f, "ORCID: 0009-0003-7299-0701")
@@ -14335,13 +13870,13 @@ function save_report(cfg::Config)
  println(f, repeat("=", 60))
  println(f, "")
 
- # FULL COMPUTATION LOG ── every log_comp() call captured ──
+ # FULL COMPUTATION LOG ── every log_comp call captured ──
  comp_text = get_comp_log()
 
  # ── Mirror the full logs into the run's FINAL_REPORT folder ──
- # (2026-08-29 user spec: "итоговый отчёт ... собрал все репорты и логи и
+ # ("итоговый отчёт... собрал все репорты и логи и
  # шаги выполнения всех тестов в отдельную последнюю папку"). The per-run
- # FINAL_REPORT dir is created here; rep_finalize_run() fills in the master
+ # FINAL_REPORT dir is created here; rep_finalize_run fills in the master
  # report + per-test copies afterwards. Guarded: reporting may be off.
  if REP.enabled && !isempty(REP.run_dir)
  try
@@ -14376,7 +13911,7 @@ function save_report(cfg::Config)
  println(f, repeat("=", 60))
  println(f, "")
 
- # ── Existing summary section (Test N: ... → PASS / WARN lines) ──
+ # ── Existing summary section (Test N:... → PASS / WARN lines) ──
  println(f, repeat("=", 60))
  println(f, "SUMMARY — one-line per-test verdicts (results_log)")
  println(f, repeat("=", 60))
@@ -14415,7 +13950,7 @@ function config_menu!(cfg::Config)
  @printf(" 14. GUE matrix size: %d\n", cfg.gue_matrix_size)
  @printf(" 15. GUE matrix seed: %d\n", cfg.gue_matrix_seed)
  @printf(" 16. AD sample cap: %d\n", cfg.ad_sample_cap)
- println(" 17. Plot engine: ABPlotV23 (built-in, always on — Plots.jl toggle retired in v23.1)")
+ println(" 17. Plot engine: ABPlot (built-in, always on — Plots.jl toggle retired in )")
  @printf(" 18. L-values [Sigma^2/D3]: %s\n", format_l_values(cfg.rigidity_L_values))
  @printf(" 19. L-max auto-grid: build geometric L grid up to L_max\n")
  println(" ── AB-cloud test parameters (Tests 15, 16, 30, 31, 32) ──")
@@ -14469,7 +14004,7 @@ function config_menu!(cfg::Config)
  println(" 63. Plot formats: ", join(cfg.rep_plot_formats, ","))
  println(" 64. Report formats: ", join(cfg.rep_report_formats, ","))
  println(" 65. PHYSICS LAB: experiment configurations (72×72 lab matrix default; 's' inside = all parameters)")
- @printf(" 66. W_max (disorder cap Tests 32/33/36): %.2f (W_eff = min(W, W_max); user spec ≤ 1.0)\n", cfg.ab_W_max)
+ @printf(" 66. W_max (disorder cap Tests 32/33/36): %.2f (W_eff = min(W, W_max))\n", cfg.ab_W_max)
  @printf(" 67. Test 36 pass-1 ⟨r⟩ sample target: %d eigenvalues\n", cfg.ab37_n_eigs_pass1)
  @printf(" 68. Test 36 pass-2 ⟨r⟩ sample target: %d eigenvalues\n", cfg.ab37_n_eigs_pass2)
  println(" 69. Test 32 comparison-row W (q=0.3 row): ",
@@ -14480,6 +14015,8 @@ function config_menu!(cfg::Config)
  println(" 71. HARDCORE realization floor (pass-2 b-variants, Tests 15–35): ", cfg.ab_hc_nreal)
  println(" 72. Third SERIES pass for Tests 19/29/31 (19c/29c/31c real report series): ",
  cfg.ab_run_third_pass ? "ON" : "OFF")
+ println(" 74. Report preset (AURORA-тема отчётов): ", cfg.rep_preset,
+ "  [aurora | ice | gold | emerald]")
  println("\n Enter number to change, or 'q' to return:")
 
  # prompt was printed twice (copy-paste artifact).
@@ -14550,9 +14087,9 @@ function config_menu!(cfg::Config)
  print(" New AD sample cap [current=$(cfg.ad_sample_cap)]: ")
  v = strip(readline()); !isempty(v) && (cfg.ad_sample_cap = parse(Int, v))
  elseif answer == "17"
- println(" Plot rendering is handled entirely by the built-in ABPlotV23 engine")
+ println(" Plot rendering is handled entirely by the built-in ABPlot engine")
  println(" (png 1600×1000 supersampled + animation.gif tour). The old Plots.jl")
- println(" toggle (cfg.plot) was retired in v23.1 — nothing to configure here.")
+ println(" toggle (cfg.plot) — nothing to configure here.")
  elseif answer == "18"
  println(" Enter L-values separated by commas, spaces, or semicolons.")
  println(" Example: 2, 5, 10, 20, 50, 100, 140")
@@ -14624,7 +14161,7 @@ function config_menu!(cfg::Config)
  println(" ERROR: $(string(e))")
  end
  elseif answer == "24"
- # FIX 2026-09-02: this item used to write ONLY cfg.ab_alpha — the field
+ # NOTE: this item used to write ONLY cfg.ab_alpha — the field
  # read by Tests 32/33 — while Tests 16/27/36/42/43 and the Test-16
  # single-α sweep read cfg.ab_alpha_test16 (no menu item touched it), so
  # a custom α silently changed nothing for those tests. Both fields are
@@ -14797,9 +14334,9 @@ function config_menu!(cfg::Config)
         cfg.rep_gif = !cfg.rep_gif
         println(" GIF animation: ", cfg.rep_gif ? "ON" : "OFF")
     elseif answer == "63"
-        # FIX 2026-09-02: tokens are normalized (strip+lowercase) via
+        # NOTE: tokens are normalized (strip+lowercase) via
         # _normalize_format_list — "PNG, SVG" used to disable both formats.
-        print(" Plot formats png [svg/pdf retired in v23.1; current=$(join(cfg.rep_plot_formats,","))]: ")
+        print(" Plot formats png [current=$(join(cfg.rep_plot_formats,","))]: ")
         v = strip(readline()); !isempty(v) && (cfg.rep_plot_formats = _normalize_format_list(v))
     elseif answer == "64"
         print(" Report formats md,html,pdf,docx [current=$(join(cfg.rep_report_formats,","))]: ")
@@ -14807,9 +14344,9 @@ function config_menu!(cfg::Config)
     elseif answer == "65"
         physics_lab_menu!(cfg)
     elseif answer == "58"
- # Secondary-pass Nv list (default [2], : 2 vortices in run 96)
+ # Secondary-pass Nv list (default [2],: 2 vortices in run 96)
  println(" Enter Nv list for SECOND pass (when two-pass is enabled).")
- println(" Default is [2] per user spec (2 vortices in 96×96 run).")
+ println(" Default is [2] per  (2 vortices in 96×96 run).")
  println(" Example: 2 or 2,4")
  print(" New Nv list (secondary) [current=$(format_int_list(cfg.ab_nv_list_secondary))]: ")
  v = strip(readline())
@@ -14857,7 +14394,7 @@ function config_menu!(cfg::Config)
  println(" Test 32 comparison row (q=0.3) vortex count Nv. 0 = follow primary Nv.")
  println(" Monograph anchor density: 25/900 = 2.78% → Nv=144 at 72×72. More vortices =")
  println(" stronger time-reversal breaking — THE lever for a GOE-stuck fractional-q row.")
- println(" DEFAULT 144 is VALIDATED (run 2026-08-29 06:11): with W=0.5 → ⟨r⟩=0.5975,")
+ println(" DEFAULT 144 is VALIDATED : with W=0.5 → ⟨r⟩=0.5975,")
  println(" 0.28% from GUE, nearest class GUE.")
  print(" New comparison-row Nv [current=$(cfg.ab_nv_cmp)]: ")
  v = strip(readline()); !isempty(v) && try
@@ -14889,11 +14426,11 @@ function config_menu!(cfg::Config)
  println(" Test 19 additionally runs the FOURTH AUDIT pass (19d): twist-")
  println(" spectroscopy cone measurement E_min(θ) = v_F·θ/L, zero-mode")
  println(" eigenvector index audit, 2π-holonomy, bit-exact rebuild, 1/L²")
- println(" collapse and cross-pass v_F consistency (user spec 2026-09-04).")
+ println(" collapse and cross-pass v_F consistency .")
  cfg.ab_run_third_pass = !cfg.ab_run_third_pass
  println(" Third SERIES pass is now ", cfg.ab_run_third_pass ? "ON" : "OFF")
  elseif answer == "73"
- # ── v23.7 TEST 34G geometry sweep (test id 39) ──
+ # ── TEST 34G geometry sweep (test id 39) ──
  println(" TEST 34G (test 39) — Test 34 GEOMETRY SWEEP, finite-size lab port.")
  println(" Every geometry (torus / Klein / pillow / cube / Hurwitz PSL(2,q)) runs")
  println(" the direct AB-vs-ζ comparison at the SAME site budget ≈ L² (default")
@@ -14914,6 +14451,15 @@ function config_menu!(cfg::Config)
  v = strip(readline()); !isempty(v) && try; cfg.t34g_W = max(0.0, parse(Float64, v)); catch; end
  println(" Test 34G sweep now: L=$(cfg.t34g_L) (~$(cfg.t34g_L^2) sites), reps=$(cfg.t34g_reps), ")
  println(" geoms='$(cfg.t34g_geoms)', α=$(cfg.t34g_alpha), Nv=$(cfg.t34g_nv), q=$(cfg.t34g_q), W=$(cfg.t34g_W)")
+ elseif answer == "74"
+ println(" AURORA presets: aurora (синь+золото) · ice (холодный лёд) · gold (золото) · emerald (изумруд)")
+ print(" Report preset [current=$(cfg.rep_preset)]: ")
+ v = strip(readline())
+ if !isempty(v) && lowercase(v) in ("aurora", "ice", "gold", "emerald")
+ cfg.rep_preset = lowercase(v)
+ else
+ !isempty(v) && println(" Unknown preset — keeping $(cfg.rep_preset)")
+ end
  end
  catch e
  # stay alive — report and redraw the config menu.
@@ -14924,10 +14470,10 @@ function config_menu!(cfg::Config)
 end
 
 # ╔══════════════════════════════════════════════════════════════════════╗
-# ║  16. REPORTING & PLOTTING ENGINE — 100% self-contained.              ║
-# ║  No external packages: byte-level writers for PNG (own deflate),     ║
-# ║  GIF89a (own LZW), PDF (core-font vector), DOCX (stored ZIP), SVG,   ║
-# ║  MD, HTML. One drawing model → three raster/vector backends.         ║
+# ║ 16. REPORTING & PLOTTING ENGINE — 100% self-contained. ║
+# ║ No external packages: byte-level writers for PNG (own deflate), ║
+# ║ GIF89a (own LZW), PDF (core-font vector), DOCX (stored ZIP), SVG, ║
+# ║ MD, HTML. One drawing model → three raster/vector backends. ║
 # ╚══════════════════════════════════════════════════════════════════════╝
 
 # ── 16.1 Checksums ──────────────────────────────────────────────────────
@@ -15155,7 +14701,7 @@ end
 # ── 16.4 GIF89a writer (own LZW, fixed 6-6-6 web palette + gray ramp) ──
 # GIF89a stores EVERY 16-bit integer (width, height, delay,
 # image-descriptor extents) LITTLE-ENDIAN (LSB first). The old code wrote
-# them via htonl()-style big-endian (`reinterpret(UInt8, [hton(UInt16(x))])`),
+# them via htonl-style big-endian (`reinterpret(UInt8, [hton(UInt16(x))])`),
 # so every produced GIF declared e.g. 800×500 as 0x2003×0xF401 (8195×62465)
 # — structurally invalid in every real decoder even though the signature
 # "GIF89a" looked fine. _le16 writes the canonical LSB-first pair.
@@ -15319,7 +14865,7 @@ SCREEN rows (row 1 = top): the font table itself is stored top-down (gy=0 is
 the glyph TOP, gy=6 the baseline-side bottom), so with flip_y=false (the new
 default) each stroke lands at row y0 + gy·scale and the text reads correctly.
 the old default flip_y=true computed yy = H − y — designed for MATH
-y-up coordinates — but every caller passes py()-derived SCREEN rows, so all
+y-up coordinates — but every caller passes py-derived SCREEN rows, so all
 raster text rendered MIRRORED at reflected positions (x tick labels at the
 canvas top, upside-down titles). SVG/PDF were unaffected (separate code
 path). flip_y=true is kept only for hypothetical math-space callers."""
@@ -15352,7 +14898,7 @@ text_width(s::String, scale::Int) = 6 * scale * length(s)
 
 # ── 16.6 Raster drawing primitives on raw H×W×3 arrays (Bresenham) ────
 # (still used by the GIF tag overlay draw_text!; the retired RCanvas
-#  struct and its make/disc/rect helpers were removed in v23.1)
+#  struct and its make/disc/rect helpers were removed in)
 function draw_line!(img::Array{UInt8,3}, x1::Int, y1::Int, x2::Int, y2::Int,
                     col::Tuple{Int,Int,Int})
     H, W = size(img, 1), size(img, 2)
@@ -15373,16 +14919,16 @@ function draw_line!(img::Array{UInt8,3}, x1::Int, y1::Int, x2::Int, y2::Int,
 end
 
 # ╔══════════════════════════════════════════════════════════════════════╗
-# ║  16.6b MODULE ABPlotV23 — journal-grade plotting engine (from v22.2)  ║
+# ║ 16.6b MODULE ABPlot — journal-grade plotting engine (from) ║
 # ╚══════════════════════════════════════════════════════════════════════╝
-# Professional figure engine grafted from ab_cloud_v22.jl and isolated in a
+# Professional figure engine, isolated in a
 # MODULE, so its internals (Canvas / Theme / Fig / Panel, Hershey vector
 # fonts, hand-written DEFLATE/PNG encoder, colormaps, ticks) can never clash
-# with the v21 raster/SVG helpers that follow. Every report figure of the
+# with the raster/SVG helpers that follow. Every report figure of the
 # suite is now rendered through this engine (RepPlot → Fig adapter below),
-# and the v22 three-pass Test 38 draws its six-panel journal figure with
-# ABPlotV23.make_fig / add_panel! / save_fig directly.
-module ABPlotV23
+# and the three-pass Test 38 draws its six-panel journal figure with
+# ABPlot.make_fig / add_panel! / save_fig directly.
+module ABPlot
 
 using Printf: @sprintf
 
@@ -15720,7 +15266,7 @@ function _deflate_fixed(raw::Vector{UInt8})
 end
 
 """
-    save_png(path, w, h, rgb::Vector{UInt8})
+ save_png(path, w, h, rgb: Vector{UInt8})
 
 Write an 8-bit RGB PNG (row-major, 3 bytes/pixel). Fully self-contained.
 """
@@ -16027,7 +15573,7 @@ _glyph_adv(ch::Char) = begin
     g === nothing ? 9.0 : (g[2] - g[1] + 2)
 end
 
-"""Render stroke text. (x,y) = baseline anchor. align: :left, :center, :right. angle deg CCW."""
+"""Render stroke text. (x,y) = baseline anchor. align: left,:center,:right. angle deg CCW."""
 function draw_text!(cv::Canvas, x::Real, y::Real, s::AbstractString, size_px::Real,
                     col::RGBA32; align::Symbol = :left, angle::Real = 0.0,
                     lw::Real = 1.4, spacing::Real = 1.0)
@@ -16089,16 +15635,16 @@ function make_theme(name::String)
                    hexcol("#17BECF"), hexcol("#7F7F7F")],
             hexcol("#2CA02C"), hexcol("#D62728"), hexcol("#E6A100"),
             RGBA32(1.0f0, 1.0f0, 1.0f0, 0.88f0))
-    else # "dark" — deep navy-black, journal-grade on screen
+    else # "aurora" / "dark" — AURORA Deep: черно-синее небо, золото, полярное сияние
         Theme(name,
-            hexcol("#0A0E1A"), hexcol("#0D1322"), hexcol("#5F6F94"),
-            hexcol("#1D2A47"), hexcol("#141D33"),
-            hexcol("#D8E1F3"), hexcol("#8B98B8"), hexcol("#EAF0FB"),
-            RGBA32[hexcol("#4FC3F7"), hexcol("#FF9E4A"), hexcol("#62D99A"),
-                   hexcol("#FF5D5D"), hexcol("#5B8DFF"), hexcol("#E06BFF"),
-                   hexcol("#FFD166"), hexcol("#7FE3D2")],
-            hexcol("#62D99A"), hexcol("#FF5D5D"), hexcol("#FFD166"),
-            RGBA32(0.05f0, 0.08f0, 0.16f0, 0.90f0))
+            hexcol("#050A18"), hexcol("#0A1630"), hexcol("#C9A227"),
+            hexcol("#24365E"), hexcol("#13203D"),
+            hexcol("#D8E1F3"), hexcol("#8B98B8"), hexcol("#E8C766"),
+            RGBA32[hexcol("#5BC0FF"), hexcol("#E8C766"), hexcol("#7FE3D2"),
+                   hexcol("#FF8A5C"), hexcol("#A78BFA"), hexcol("#62D99A"),
+                   hexcol("#FF6B8A"), hexcol("#93A8FF")],
+            hexcol("#62D99A"), hexcol("#FF5D6B"), hexcol("#E8C766"),
+            RGBA32(0.03f0, 0.06f0, 0.13f0, 0.92f0))
     end
 end
 
@@ -16131,8 +15677,8 @@ function cmap(name::String, t::Real)
         stops = [hexcol("#2166AC"), hexcol("#67A9CF"), hexcol("#F7F7F7"),
                  hexcol("#EF8A62"), hexcol("#B2182B")]
         _ramp(stops, t)
-    elseif name == "bin"     # binary pattern: background → bright cyan
-        _ramp([hexcol("#0D1322"), hexcol("#1C6FD4"), hexcol("#63E5FF")], t)
+    elseif name == "bin"     # binary pattern: aurora background → gold-cyan
+        _ramp([hexcol("#0A1630"), hexcol("#1C6FD4"), hexcol("#E8C766")], t)
     else
         _VIRIDIS_LUT[round(Int, t * 255)+1]
     end
@@ -16213,7 +15759,7 @@ end
 
 # --- plot spec storage ---
 mutable struct PlotEl
-    kind::Symbol           # :line :scatter :hist :band :text :hline :vline :heat :ann
+    kind::Symbol           # :line:scatter:hist:band:text:hline:vline:heat:ann
     args::Any
     kwargs::Any
 end
@@ -16259,16 +15805,16 @@ mutable struct Fig
 end
 
 """
-    make_fig(w, h; title, subtitle, footer, theme="dark", ss=2)
+ make_fig(w, h; title, subtitle, footer, theme="dark", ss=2)
 """
 function make_fig(w::Int, h::Int; title::String = "", subtitle::String = "",
-                  footer::String = "", theme::String = "dark", ss::Int = 2)
+                  footer::String = "", theme::String = "aurora", ss::Int = 2)
     Fig(Canvas(w, h; ss = ss), make_theme(theme), title, subtitle, footer,
         Panel[], 0, w, h)
 end
 
 """
-    add_panel!(fig, r, c, rows, cols; kwargs...) -> Panel
+ add_panel!(fig, r, c, rows, cols; kwargs...) -> Panel
 
 Add panel at grid position (r, c) of a rows×cols grid (1-based). kw: title,
 xlabel, ylabel, xlog, ylog, tag, legend, legend_loc, xlim, ylim, colorbar, cblab, infobox.
@@ -16459,7 +16005,7 @@ function scatter!(f::Fig, xs::AbstractVector, ys::AbstractVector;
     p
 end
 
-# v23.1: module hist!/_ebin/heatmap! removed — no test ever called them; the
+# : module hist!/_ebin/heatmap! removed — no test ever called them; the
 # :hist/:heat renderer branches stay as harmless engine internals.
 
 "Filled band between ylo and yhi arrays (confidence envelope)."
@@ -16957,10 +16503,10 @@ end
 
 
 """
-    render_rgb(f) -> Array{UInt8,3} (H, W, 3)
+ render_rgb(f) -> Array{UInt8,3} (H, W, 3)
 
 Paint the finished figure (title, panels, footer) and downsample the
-supersampled raster to 8-bit RGB — the bridge to the v21 report writer
+supersampled raster to 8-bit RGB — the bridge to the report writer
 (write_png / GIF encoder expect exactly this layout). Same painting and
 downsampling math as `save_fig`, minus the file I/O.
 """
@@ -16999,7 +16545,7 @@ function render_rgb(f::Fig)::Array{UInt8,3}
     return out
 end
 
-end # module ABPlotV23
+end # module ABPlot
 
 # ── 16.7 Plot model → raster (PNG/GIF) and vector (SVG/PDF) backends ───
 mutable struct RepPlot
@@ -17016,64 +16562,64 @@ function add_series!(p::RepPlot, name::String, xs::Vector{<:Real}, ys::Vector{<:
     return p
 end
 
-# v23.1: _plot_bounds removed together with the retired svg/pdf backends —
-# the ABPlotV23 bridge (_repplot_to_fig) computes its own data limits.
+# : _plot_bounds removed together with the retired svg/pdf backends
+# the ABPlot bridge (_repplot_to_fig) computes its own data limits.
 
 const _PLOT_W = 1600; const _PLOT_H = 1000   # design size of the engine PNG
 
 
-# ── 16.7b RepPlot → ABPlotV23 bridge (v23 SUPERCOMBO) ───────────────────
-# The legacy hand-rolled rasterizer is RETIRED (it is exactly the part of v21
+# ── 16.7b RepPlot → ABPlot bridge ───────────────────
+# The legacy hand-rolled rasterizer is RETIRED (it is exactly the part of
 # that rendered «кривые» PNGs). plot_to_canvas keeps its call signature — the
 # report writer and the GIF tour still call it — but now TRANSLATES the
-# RepPlot model into an ABPlotV23 journal figure (dark navy theme, Hershey
+# RepPlot model into an ABPlot journal figure (dark navy theme, Hershey
 # vector fonts, supersampled canvas, real legend) and returns the rendered
 # (H, W, 3) frame. Style map: 'l' → line, 's' → scatter, 'L' → line+markers;
 # series colors follow the theme palette order; multi-series plots get a
-# real legend box. SVG/PDF vector backends of v21 are RETIRED in v23.1.
+# real legend box. SVG/PDF vector backends of are RETIRED in.
 struct RV23Canvas
     img::Array{UInt8,3}
 end
 
-# BUGFIX (found in v23 testing): Julia's DateFormat parses 'U' as the FULL
+# NOTE: Julia's DateFormat parses 'U' as the FULL
 # MONTH NAME directive — a literal "UTC" inside the format string rendered
-# as "SeptemberTC" (v22 dodged this via Libc.strftime). Concatenate instead.
-_utc_stamp_v23() = Dates.format(Dates.now(), "yyyy-mm-dd HH:MM") * " UTC"
+# as "SeptemberTC" (dodged this via Libc.strftime). Concatenate instead.
+_utc_stamp() = Dates.format(Dates.now(), "yyyy-mm-dd HH:MM") * " UTC"
 
-function _repplot_to_fig(p::RepPlot, w::Int, h::Int)::ABPlotV23.Fig
-    f = ABPlotV23.make_fig(w, h;
+function _repplot_to_fig(p::RepPlot, w::Int, h::Int)::ABPlot.Fig
+    f = ABPlot.make_fig(w, h;
         title = p.title, subtitle = "",
-        footer = @sprintf("AB-Cloud v23.0 SUPERCOMBO · ABPlotV23 engine · %s",
-                          _utc_stamp_v23()),
-        theme = "dark", ss = 2)
+        footer = @sprintf("AB-Cloud · ABPlot engine · AURORA theme · %s",
+                          _utc_stamp()),
+        theme = "aurora", ss = 2)
     nser = length(p.series)
-    ABPlotV23.add_panel!(f, 1, 1, 1, 1;
+    ABPlot.add_panel!(f, 1, 1, 1, 1;
         xlabel = p.xlabel, ylabel = p.ylabel,
         legend = nser > 1, legend_loc = :topright)
     for (i, (name, xs, ys, style)) in enumerate(p.series)
         isempty(xs) && continue
         if style == 's'
-            ABPlotV23.scatter!(f, xs, ys; color = i, marker = :circle,
+            ABPlot.scatter!(f, xs, ys; color = i, marker = :circle,
                                size = 3.6, label = name)
         else # 'l' and 'L' both draw the line; 'L' adds the markers
-            ABPlotV23.plot!(f, xs, ys; color = i, width = 2.2, label = name,
+            ABPlot.plot!(f, xs, ys; color = i, width = 2.2, label = name,
                             marker = style == 'L' ? :circle : nothing, msize = 3.4)
         end
     end
     return f
 end
 
-"""Rasterize the plot model through the ABPlotV23 journal engine
-(v23 SUPERCOMBO replacement of the retired v21 rasterizer)."""
+"""Rasterize the plot model through the ABPlot journal engine
+(replacement of the retired rasterizer)."""
 function plot_to_canvas(p::RepPlot, width_px::Int = _PLOT_W, height_px::Int = _PLOT_H)
     w = clamp(Int(width_px), 320, 4096)
     h = clamp(Int(height_px), 200, 4096)
     f = _repplot_to_fig(p, w, h)
-    return RV23Canvas(ABPlotV23.render_rgb(f))
+    return RV23Canvas(ABPlot.render_rgb(f))
 end
 
 
-# XML text escaping for the SVG backends (fix 2026-08-31: titles/series
+# XML text escaping for the SVG backends (fix: titles/series
 # names containing & < > produced invalid SVG; the DOCX writer already
 # escaped — this closes the gap).
 _svg_esc(s::String) = begin
@@ -17088,13 +16634,19 @@ _svg_esc(s::String) = begin
 end
 
 # ── 16.8 PDF backend (core Helvetica, vector strokes; WinAnsi text) ────
-_winansi(s::String) = begin
+_winansi(s::AbstractString) = begin
     io = IOBuffer()
+    _subs = Dict{Char,String}('α'=>"a", 'β'=>"b", 'γ'=>"g", 'δ'=>"d", 'Δ'=>"D",
+        'Σ'=>"S", 'σ'=>"s", 'π'=>"pi", 'ζ'=>"z", 'τ'=>"t", 'φ'=>"f", 'ω'=>"w",
+        'λ'=>"l", 'ρ'=>"r", 'ε'=>"e", '⟨'=>"<", '⟩'=>">", '²'=>"2", '³'=>"3",
+        '—'=>"-", '–'=>"-", '≈'=>"~", '≠'=>"!=", '≤'=>"<=", '≥'=>">=",
+        '✦'=>"*", '❄'=>"*", '◈'=>"o", '✖'=>"x", '✓'=>"v", '∈'=>"in", '∑'=>"S",
+        '≪'=>"<<", '≫'=>">>", '√'=>"sqrt", '⇒'=>"=>", '←'=>"<-", '→'=>"->", 'Γ'=>"G", '−'=>"-", '½'=>"1/2", '∫'=>"Int", '₀'=>"0", '∞'=>"inf", '═'=>"=", '─'=>"-", '║'=>"|", '╔'=>"+", '╗'=>"+", '╚'=>"+", '╝'=>"+", '╠'=>"+", '╣'=>"+", '╟'=>"|", '╢'=>"|", '▸'=>">", '±'=>"+-")
     for ch in s
-        if ch in collect("αβγΔΣπ⟨⟩²")
-            print(io, '?')
+        if haskey(_subs, ch)
+            print(io, _subs[ch])
         elseif codepoint(ch) <= 255
-            # FIX 2026-08-31: print(io, ch) emitted UTF-8 (2 bytes) for
+            # NOTE: print(io, ch) emitted UTF-8 (2 bytes) for
             # Latin-1 chars (multiplication/accented letters) and the PDF
             # (WinAnsi) showed double-accent mojibake. Write the RAW BYTE.
             write(io, UInt8(codepoint(ch)))
@@ -17104,7 +16656,7 @@ _winansi(s::String) = begin
     end
     String(take!(io))
 end
-_pdf_esc(s::String) = replace(_winansi(s), "\\" => "\\\\", "(" => "\\(", ")" => "\\)")
+_pdf_esc(s::AbstractString) = replace(_winansi(s), "\\" => "\\\\", "(" => "\\(", ")" => "\\)")
 
 # ── 16.9 DOCX writer (stored ZIP: content types + rels + document.xml) ─
 function _zip_store(files::Vector{Tuple{String,Vector{UInt8}}})::Vector{UInt8}
@@ -17143,22 +16695,49 @@ function _zip_store(files::Vector{Tuple{String,Vector{UInt8}}})::Vector{UInt8}
 end
 
 function docx_xml(blocks::Vector{Tuple{String,String,String}})  # (kind,text,mono)
+    # ═══ AURORA DOCX: золотые заголовки, ледяные подзаголовки, тёмные лог-панели,
+    # цветные вердикты (PASS/WARN/FAIL). Полностью валидный WordprocessingML. ═══
     io = IOBuffer()
     print(io, """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>""")
+    # шапка-баннер
+    print(io, """<w:p><w:pPr><w:spacing w:before="120" w:after="60"/></w:pPr><w:r><w:rPr><w:b/><w:color w:val="C9A227"/><w:sz w:val="30"/></w:rPr><w:t xml:space="preserve">✦ AB-CLOUD · AURORA EDITION ✦</w:t></w:r></w:p>""")
+    print(io, """<w:p><w:pPr><w:pBdr><w:bottom w:val="single" w:sz="8" w:space="2" w:color="C9A227"/></w:pBdr></w:pPr><w:r><w:rPr><w:color w:val="8B98B8"/><w:sz w:val="17"/></w:rPr><w:t xml:space="preserve">verification suite · черно-синий стиль с золотом · reports/logs of the run</w:t></w:r></w:p>""")
+    _vxrun(w) = """<w:r><w:rPr><w:b/><w:color w:val="$(w)"/><w:sz w:val="26"/></w:rPr><w:t xml:space="preserve">$(w)</w:t></w:r>"""
     for (kind, text, _mono) in blocks
         t = replace(text, "&" => "&amp;", "<" => "&lt;", ">" => "&gt;")
         if kind == "h1"
-            print(io, """<w:p><w:pPr><w:spacing w:before="240"/></w:pPr><w:r><w:rPr><w:b/><w:sz w:val="40"/></w:rPr><w:t xml:space="preserve">$(t)</w:t></w:r></w:p>""")
+            print(io, """<w:p><w:pPr><w:spacing w:before="280" w:after="80"/><w:pBdr><w:bottom w:val="single" w:sz="12" w:space="3" w:color="C9A227"/></w:pBdr></w:pPr><w:r><w:rPr><w:b/><w:color w:val="E8C766"/><w:sz w:val="40"/></w:rPr><w:t xml:space="preserve">✦ $(t)</w:t></w:r></w:p>""")
         elseif kind == "h2"
-            print(io, """<w:p><w:r><w:rPr><w:b/><w:sz w:val="30"/></w:rPr><w:t xml:space="preserve">$(t)</w:t></w:r></w:p>""")
+            print(io, """<w:p><w:pPr><w:spacing w:before="200" w:after="60"/></w:pPr><w:r><w:rPr><w:b/><w:color w:val="5BC0FF"/><w:sz w:val="28"/></w:rPr><w:t xml:space="preserve">❄ $(t)</w:t></w:r></w:p>""")
         elseif kind == "log"
             esc = replace(_mono, "&" => "&amp;", "<" => "&lt;")
-            print(io, """<w:p><w:r><w:rPr><w:rFonts w:ascii="Courier New" w:hAnsi="Courier New"/><w:sz w:val="16"/></w:rPr><w:t xml:space="preserve">$(esc)</w:t></w:r></w:p>""")
+            # тёмная терминальная панель: заливка #0A1630, текст #9FB0D0
+            for ln in split(esc, '\n')
+                isempty(strip(ln)) && continue
+                print(io, """<w:p><w:pPr><w:shd w:val="clear" w:fill="0A1630"/><w:spacing w:after="0" w:line="220" w:lineRule="exact"/></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Consolas" w:hAnsi="Consolas"/><w:color w:val="9FB0D0"/><w:sz w:val="14"/></w:rPr><w:t xml:space="preserve">$(ln)</w:t></w:r></w:p>""")
+            end
+        elseif startswith(text, "Verdict:")
+            # строка вердикта: цветное слово вердикта + чипы
+            parts = split(text, '|')
+            v = strip(strip(parts[1])[length("Verdict:")+1:end])
+            vcol = v == "PASS" ? "62D99A" : v == "WARN" ? "E8C766" : v == "FAIL" ? "FF5D6B" : "93A8FF"
+            print(io, """<w:p><w:pPr><w:shd w:val="clear" w:fill="0E1D3D"/><w:spacing w:before="160" w:after="120"/></w:pPr><w:r><w:rPr><w:b/><w:color w:val="8B98B8"/><w:sz w:val="24"/></w:rPr><w:t xml:space="preserve">VERDICT:  </w:t></w:r>$(_vxrun(vcol))""")
+            for p in parts[2:end]
+                pt = strip(p)
+                isempty(pt) && continue
+                print(io, """<w:r><w:rPr><w:color w:val="8B98B8"/><w:sz w:val="19"/></w:rPr><w:t xml:space="preserve">   |   $(replace(pt, "&" => "&amp;", "<" => "&lt;", ">" => "&gt;"))</w:t></w:r>""")
+            end
+            print(io, "</w:p>")
         else
-            print(io, """<w:p><w:r><w:rPr><w:sz w:val="22"/></w:rPr><w:t xml:space="preserve">$(t)</w:t></w:r></w:p>""")
+            if startswith(text, "- `")
+                print(io, """<w:p><w:pPr><w:pBdr><w:left w:val="single" w:sz="10" w:space="6" w:color="C9A227"/></w:pBdr></w:pPr><w:r><w:rPr><w:color w:val="D8E1F3"/><w:sz w:val="21"/></w:rPr><w:t xml:space="preserve">◈ $(t)</w:t></w:r></w:p>""")
+            else
+                print(io, """<w:p><w:r><w:rPr><w:color w:val="D8E1F3"/><w:sz w:val="22"/></w:rPr><w:t xml:space="preserve">$(t)</w:t></w:r></w:p>""")
+            end
         end
     end
+    print(io, """<w:p><w:pPr><w:spacing w:before="280"/><w:pBdr><w:top w:val="single" w:sz="8" w:space="4" w:color="C9A227"/></w:pBdr></w:pPr><w:r><w:rPr><w:color w:val="8B98B8"/><w:sz w:val="17"/></w:rPr><w:t xml:space="preserve">✦ ❄ ✦  AB-Cloud · AURORA Edition — стиль отчёта: чёрно-синее небо с золотом</w:t></w:r></w:p>""")
     print(io, "</w:body></w:document>")
     String(take!(io))
 end
@@ -17166,9 +16745,9 @@ end
 function write_docx(path::String, blocks::Vector{Tuple{String,String,String}})
     doc = docx_xml(blocks)
     files = Vector{Tuple{String,Vector{UInt8}}}()
-    push!(files, ("[Content_Types].xml", codeunits("""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+ push!(files, ("[Content_Types].xml", codeunits("""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>""")))
-    push!(files, ("_rels/.rels", codeunits("""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+ push!(files, ("_rels/.rels", codeunits("""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>""")))
     push!(files, ("word/document.xml", codeunits(doc)))
     open(path, "w") do f
@@ -17186,7 +16765,7 @@ Base.@kwdef mutable struct RepTest
     verdict::String = ""
     headline::String = ""
     log_start::Int = 0
-    ext_pngs::Vector{Tuple{String,String}} = Tuple{String,String}[] # engine figures (v23)
+    ext_pngs::Vector{Tuple{String,String}} = Tuple{String,String}[] # engine figures
 end
 
 Base.@kwdef mutable struct RepState
@@ -17194,14 +16773,14 @@ Base.@kwdef mutable struct RepState
     root::String = "results"
     run_dir::String = ""
     dpi::Int = 600
-    plot_formats::Vector{String} = ["png"] # v23.1: png only (svg/pdf retired)
+    plot_formats::Vector{String} = ["png"] # : png only (svg/pdf retired)
     report_formats::Vector{String} = ["md", "html", "pdf", "docx"]
     gif::Bool = true
     current::Union{Nothing,RepTest} = nothing
     log_buf::Vector{String} = String[]          # all COMP_LOG lines this run
     stdout_lines::Vector{String} = String[]     # captured console lines this test
     summary::Vector{Tuple{Int,String,String,String}} = Tuple{Int,String,String,String}[] # id,slug,verdict,headline
-    report_blocks::Dict{Int,Vector{Tuple{String,String,String}}} = Dict{Int,Vector{Tuple{String,String,String}}}() # v23.5: per-test report blocks → inline master FINAL_REPORT
+    report_blocks::Dict{Int,Vector{Tuple{String,String,String}}} = Dict{Int,Vector{Tuple{String,String,String}}}() # : per-test report blocks → inline master FINAL_REPORT
     t_start::Float64 = 0.0                      # wall-clock start of the run (FINAL_REPORT duration line)
     cfg::Union{Nothing,Config} = nothing        # live config ref → FINAL_REPORT config snapshot (end-of-run values)
 end
@@ -17228,7 +16807,7 @@ let meta = (
  (16,"ab_gue_class","AB-cloud GUE classification","Statistical: ⟨r⟩ over the central bulk window vs GUE 0.5992, MC p-value as diagnostics."),
  (17,"connes_self_duality","Connes self-duality α↔1/α","EXACT: isospectrality under α ↔ 1/α to machine precision."),
  (18,"chiral_AIII","Chiral symmetry AIII at α=1/2","EXACT: ||SHS+H||/||H|| ≈ 1e-16 on the pure lattice (W=0); W>0 is the honest breaker."),
- (19,"dirac_cone","Dirac cone v_F ≈ 0.125","EXACT-geometry: zero modes at (π/2,π/2) require L/4∈ℤ; gap scaling fit R². FOUR-pass (user spec 2026-09-04): primary fit → 11-pt hardcore audit → α-series → twist-spectroscopy AUDIT (direct E_min(θ)=v_F·θ/L, eigenvector index 2+2, 2π-holonomy, bit-exact rebuild, 1/L² collapse, cross-pass v_F ≤ 6%)."),
+ (19,"dirac_cone","Dirac cone v_F ≈ 0.125","EXACT-geometry: zero modes at (π/2,π/2) require L/4∈ℤ; gap scaling fit R². FOUR-pass : primary fit → 11-pt hardcore audit → α-series → twist-spectroscopy AUDIT (direct E_min(θ)=v_F·θ/L, eigenvector index 2+2, 2π-holonomy, bit-exact rebuild, 1/L² collapse, cross-pass v_F ≤ 6%)."),
  (20,"chern_tknn","TKNN Chern number C₁=1 (gapped anchors)","EXACT: FHS C₁=+1 on the MAGNETIC BZ (q×q Harper; anchors α=1/4,1/3,1/5); α=1/2 = Dirac touching, per-band C undefined — touching-ladder rungs need L ≡ 0 (mod 4) so (π/2,π/2) lies on the k-grid; sub-second by design (q×q cells)."),
  (21,"gamma_phase","γ* spinorial phase ≈ π/2","EXACT geometric phase check."),
  (22,"ab_phase","AB phase Φ_AB = π/7 = δ_C","EXACT flux-phase identity."),
@@ -17236,26 +16815,26 @@ let meta = (
  (24,"dirac_string_flux","Dirac string flux verification","EXACT: plaquette flux = 2πq (mod 2π); tolerance = round-off accumulation across the lattice."),
  (25,"byers_yang","Byers-Yang theorem check","EXACT: spectra identical for q and q+1 (Δ~1e-15); fractional q must DIFFER (non-neutral config)."),
  (26,"pbc_torus","PBC torus Dirac string","Mixed: flux identities exact; ⟨r⟩ on 4 neutral vortices over the bulk window (statistical)."),
- (27,"binary_chiral","Binary chiral symmetry at α=1/2","EXACT: defect 0 on pure lattice; W>0 row is the honest breaker control. ζ-dictionary (v23.2 rework): pass 1 embeds 20,000 zeros (honest ⟨r⟩ verdict), HARDCORE embeds the full 50,000 with ±E pairing probes, ⟨r⟩ GUE-window + Poisson discrimination control, 5×10k block stationarity and KS GUE-vs-GOE classification."),
+ (27,"binary_chiral","Binary chiral symmetry at α=1/2","EXACT: defect 0 on pure lattice; W>0 row is the honest breaker control. ζ-dictionary : pass 1 embeds 20,000 zeros (honest ⟨r⟩ verdict), HARDCORE embeds the full 50,000 with ±E pairing probes, ⟨r⟩ GUE-window + Poisson discrimination control, 5×10k block stationarity and KS GUE-vs-GOE classification."),
  (28,"f_gue_merit","f_GUE figure of merit","Statistical: fraction of spectral diagnostics consistent with GUE."),
  (29,"dirac_dip","Dirac dip in DOS at α=1/2","Semi-exact: DOS dip depth vs prediction."),
  (30,"vf_scaling","Dirac cone vF scaling vs L","EXACT-geometry: FIRST DISTINCT Dirac level above the zero tower ~ 1/L (the old ev[j0+1]-ev[j0] hit the valley-degenerate partner ~1e-15 → gaps 0.0); L/4∈ℤ grid up to t31_lmax; linear fit R²."),
  (31,"hatano_nelson","Hatano-Nelson non-Hermitian skin","Deterministic non-Hermitian spectral property: complex eigenvalue count/pattern."),
  (32,"rmean_bootstrap","Multi-realization ⟨r⟩ bootstrap","Statistical: ⟨r⟩ = 0.5992 ± 0.022 (tolerance band = monograph §11.1); CI printed as diagnostics. Effective disorder capped: W_eff = min(ab_W, ab_W_max ≤ 1.0) — disorder must not drive the vortex motion."),
- (33,"l_scaling_rmean","L-scaling ⟨r⟩ (10→20→30→50→80→112)","Statistical finite-size trend: monotone approach to 0.594-0.599; monograph anchors L≤50, extended points L=80/112 (user spec 2026-08-29) check the GUE plateau; W_eff capped at ab_W_max."),
+ (33,"l_scaling_rmean","L-scaling ⟨r⟩ (10→20→30→50→80→112)","Statistical finite-size trend: monotone approach to 0.594-0.599; monograph anchors L≤50, extended points L=80/112  check the GUE plateau; W_eff capped at ab_W_max."),
  (34,"direct_vs_zeta","DIRECT AB-cloud vs ζ (full loaded set)","Statistical: unfolded-spacing KS (effect size D<0.10) + Montgomery R₂(s) vs ζ-zeros and GUE. full 50k range, not ζ-5000."),
  (35,"form_factor_Kt","Spectral form factor K(t)","Statistical: raw (1/n)|Σe^{itε}|² vs finite-box GUE reference K_box(t)=t(1−sinc(2πt)); RMS over t≥0.3."),
  (36,"byte_robust","Byte-level robustness","Mixed: |Δr| under 256-level quantization + RNG entropy (statistical). Sample accumulated to 25 000 (pass 1) / 50 000 (pass 2) eigenvalues; verdict = multi-window average over 120×15-eig windows (single window = diagnostic); W_eff capped at ab_W_max."),
  (37,"half_factorial_gamma","(1/2)! via Γ — half-factorial & GUE normalization","EXACT: Γ(1/2) = √π, (1/2)! = Γ(3/2) = √π/2, ladder + recurrence (suite's own Lanczos lgamma); UNIQUENESS of the Γ-construction via the reflection self-dual fixed point Γ(1/2)² = π and Bohr–Mollerup log-convexity; the GUE β=2 surmise normalization 32/π² verified as the half-factorial identity (∫p₂ = ⟨s⟩ = 1, ⟨s²⟩ = 3π/8 by quadrature). Pass 2 = 256-bit BigFloat re-audit."),
- (38,"curie_point","Curie point of the vortex-flux lattice magnet (v23 three-pass)","STATISTICAL+EXACT (v22.2 three-pass rewrite): order parameter Λ(T)=⟨ln[p_GUE(s)/p_GOE(s)]⟩ — the KL lean — on Chebyshev-unfolded spacings of a paired-realization vortex-flux lattice; Debye–Waller thermal screening w(T)=exp(−σ1·T/2) melts the TRS-breaking flux. 38a main curve + V1 p-value-grade sampler calibration; 38b hardcore lattice (A1..A7, exact negative controls: no-flux, static dephasing); 38c reviewer ladder C1..C5 (density scan, Binder/FSS staircase 24→96, shared-curve disclosure, refine bound, crossover terminology). Spectrum cache (CSV, resumable), --t38-cap budget, six-panel journal figure. T*(L) is a finite-L crossover scale (half-decay convention)."),
- (39,"t34g_geom_sweep","TEST 34G — Test 34 geometry sweep (finite-size lab port)","Statistical, geometry-universal (v23.7, user spec 2026-09-19): the finite-size_lab.jl Test-34 laboratory ported into the suite. 7 closed surfaces — torus, Klein bottle, pillow orbifold, cube sphere, Hurwitz PSL(2,7)/PSL(2,8)/PSL(2,13) magnetic Cayley graphs (ord B=3, ord C=7, heptagon flux 2π·q·α·Nv). Every scalable geometry auto-scales to the SAME site budget ≈ L² (default 96 → ~9216 sites; Klein/pillow 136 → 9248, cube 40 → 9128); Hurwitz |G| is mathematically fixed (168/504/1092). Per geometry × reps: two-sample KS D/p on unfolded spacings (ζ side: suite-canonical normalized_spacings), Montgomery R₂(s) plateau, d_GUE vs d_Pois, composite verdict; pooled verdict per geometry + UNIVERSAL verdict. Knobs: menu 73 / --t34g-l / --t34g-reps / --t34g-geoms."),
+ (38,"curie_point","Curie point of the vortex-flux lattice magnet (three-pass)","STATISTICAL+EXACT : order parameter Λ(T)=⟨ln[p_GUE(s)/p_GOE(s)]⟩ — the KL lean — on Chebyshev-unfolded spacings of a paired-realization vortex-flux lattice; Debye–Waller thermal screening w(T)=exp(−σ1·T/2) melts the TRS-breaking flux. 38a main curve + V1 p-value-grade sampler calibration; 38b hardcore lattice (A1..A7, exact negative controls: no-flux, static dephasing); 38c ladder C1..C5 (density scan, Binder/FSS staircase 24→96, shared-curve disclosure, refine bound, crossover terminology). Spectrum cache (CSV, resumable), --t38-cap budget, six-panel journal figure. T*(L) is a finite-L crossover scale (half-decay convention)."),
+ (39,"t34g_geom_sweep","TEST 34G — Test 34 geometry sweep (finite-size lab port)","Statistical, geometry-universal : the finite-size_lab.jl Test-34 laboratory ported into the suite. 7 closed surfaces — torus, Klein bottle, pillow orbifold, cube sphere, Hurwitz PSL(2,7)/PSL(2,8)/PSL(2,13) magnetic Cayley graphs (ord B=3, ord C=7, heptagon flux 2π·q·α·Nv). Every scalable geometry auto-scales to the SAME site budget ≈ L² (default 96 → ~9216 sites; Klein/pillow 136 → 9248, cube 40 → 9128); Hurwitz |G| is mathematically fixed (168/504/1092). Per geometry × reps: two-sample KS D/p on unfolded spacings (ζ side: suite-canonical normalized_spacings), Montgomery R₂(s) plateau, d_GUE vs d_Pois, composite verdict; pooled verdict per geometry + UNIVERSAL verdict. Knobs: menu 73 / --t34g-l / --t34g-reps / --t34g-geoms."),
 )
     for (id, slug, title, note) in meta
         TEST_META[id] = (slug, title, note)
     end
 end
 
-# Active suite ids — the 39-test suite (v23.7: + Test 34G geometry sweep).
+# Active suite ids — the 39-test suite (: + Test 34G geometry sweep).
 const SUITE_IDS = collect(1:39)
 
 rep_enabled_id(id::Int) = REP.enabled && haskey(TEST_META, id)
@@ -17266,21 +16845,23 @@ function rep_init!(cfg::Config)
     REP.root = cfg.rep_root
     REP.dpi = cfg.rep_dpi
     REP.gif = cfg.rep_gif
-    # v23.1: the v21 hand-rolled vector backends (svg/pdf) are RETIRED — every
-    # plot is rendered by the ABPlotV23 engine (png) + the animation.gif tour.
+    # : the hand-rolled vector backends (svg/pdf) are RETIRED — every
+    # plot is rendered by the ABPlot engine (png) + the animation.gif tour.
     # Legacy format lists are accepted, filtered to png, and loudly reported.
     requested = lowercase.(String.(strip.(cfg.rep_plot_formats)))
     REP.plot_formats = filter(f -> f == "png", requested)
     isempty(REP.plot_formats) && (REP.plot_formats = ["png"])
     retired = filter(f -> f != "png", requested)
     isempty(retired) || println(" PLOTS: retired format(s) [", join(retired, ", "),
-        "] ignored — the ABPlotV23 engine renders png only (+ gif tour)")
+        "] ignored — the ABPlot engine renders png only (+ gif tour)")
     REP.report_formats = cfg.rep_report_formats
+    REP_PRESET[] = haskey(_AUR_PRESETS, lowercase(strip(cfg.rep_preset))) ?
+        lowercase(strip(cfg.rep_preset)) : "aurora"
     ts = Dates.format(Dates.now(), "yyyymmdd_HHMMSS")
     REP.run_dir = joinpath(REP.root, "run_$ts")
     mkpath(REP.run_dir)
     empty!(REP.summary)
-    empty!(REP.report_blocks) # v23.5: fresh per-run cache of report blocks
+    empty!(REP.report_blocks) # : fresh per-run cache of report blocks
     REP.t_start = time()
     REP.cfg = cfg # live reference — FINAL_REPORT config snapshot reads end-of-run values
     println(" REPORTS: writing per-test reports and plots to '", REP.run_dir, "/'")
@@ -17313,57 +16894,208 @@ end
 
 # ── 16.11 Text report → PDF (paginated Helvetica) ──────────────────────
 function report_blocks_to_pdf(blocks::Vector{Tuple{String,String,String}})::Vector{UInt8}
-    # `lines` must hold (kind, text) pairs — a plain `String[]`
-    # type made push!(lines, ("log", …)) throw MethodError (Cannot convert
-    # Tuple{String,String} to String), which crashed EVERY test at
-    # report-writing time (pdf is in the default rep_report_formats).
+    # ═══ AURORA PDF · черно-синяя A4-страница, золотые заголовки, сияние ═══
+    # Дизайн: тёмный фон #050A18, градиентная шапка-баннер на 1-й странице,
+    # золотые h1/подчёркивания, ледяные h2, цветные вердикты (PASS/WARN/FAIL),
+    # терминальные логи Courier, орнаментальный колонтитул с номером страницы.
+    # Структура объектов повторяет проверенную схему: на каждую страницу —
+    # ДВА объекта (словарь страницы + поток содержимого), чтобы дерево /Pages
+    # всегда ссылалось на словари (qpdf-чистота).
+    _A4W, _A4H = 595.0, 842.0
+    _ML, _MR = 48.0, 48.0
+    _CW = _A4W - _ML - _MR                      # ширина контента
+    _c(hx) = (hx = lstrip(hx, '#'); (parse(Int, hx[1:2], base=16)/255, parse(Int, hx[3:4], base=16)/255, parse(Int, hx[5:6], base=16)/255))
+    _col(r, g, b) = @sprintf("%.4f %.4f %.4f rg\n", r, g, b)
+    _strok(r, g, b) = @sprintf("%.4f %.4f %.4f RG\n", r, g, b)
+    C_BG   = _c("050A18"); C_PANEL = _c("0A1630"); C_PANEL2 = _c("13203D")
+    _pal = _aur_pal()
+    C_GOLD = _c(_pal.gold); C_GOLD2 = _c(_pal.gold2)
+    C_ICE  = _c(_pal.ice);  C_TXT  = _c("D8E1F3")
+    C_DIM  = _c("8B98B8"); C_LOG  = _c("9FB0D0")
+    C_PASS = _c("62D99A"); C_FAIL = _c("FF5D6B"); C_WARN = _c("E8C766")
+
+    # перенос длинных строк по словам (ширина ≈ 0.53·размер для Helvetica,
+    # 0.60·размер для Courier — консервативно)
+    _wrap(s::AbstractString, maxc::Int) = begin
+        out = String[]
+        for raw in split(s, '\n')
+            ln = String(raw)
+            while ab_w(ln) > maxc
+                cut = min(length(ln), maxc)
+                sp = findlast(' ', ln[1:min(end, maxc)])
+                cut = sp === nothing ? maxc : Int(sp)
+                cut < 1 && (cut = maxc)
+                push!(out, String(ln[1:cut]))
+                ln = ln[nextind(ln, cut):end]
+            end
+            push!(out, ln)
+        end
+        out
+    end
+
+    # ── 1. блоки → типизированные строки ──
     lines = Vector{Tuple{String,String}}()
+    first_h1 = ""
     for (kind, text, mono) in blocks
         if kind == "log"
-            for ln in split(mono, '\n'); push!(lines, ("log", String(ln))); end
-        elseif kind in ("h1", "h2")
-            push!(lines, (kind, text))
+            for ln in _wrap(mono, 118); push!(lines, ("log", String(ln))); end
+        elseif kind == "h1"
+            isempty(first_h1) && (first_h1 = text; continue)  # шапка-баннер
+            push!(lines, ("h1", text))
+        elseif kind == "h2"
+            push!(lines, ("h2", text))
         else
-            for ln in split(text, '\n'); push!(lines, ("p", String(ln))); end
+            if startswith(text, "Verdict:")
+                push!(lines, ("verdict", text))
+                continue
+            end
+            for (i, ln) in enumerate(_wrap(text, 96))
+                push!(lines, (startswith(ln, "- `") ? "li" :
+                              startswith(ln, "Reproduce with:") ? "kbd" : "p",
+                              String(ln)))
+            end
         end
     end
-    pages = Vector{Vector{String}}(); cur = String[]
-    # FIX 2026-08-31: the old 52-line page limit placed lines 37..52 at
-    # y = 800 - 22*k < 0 — INVISIBLE (silently dropped tails of computation
-    # logs on every dense page). Break as soon as the NEXT line's y would
-    # leave the visible area (y >= 40 keeps a bottom margin).
-    _page_step(kind::String) = kind in ("h1", "h2") ? 26 : 22
+
+    # ── 2. раскладка страниц (y — верхняя граница строки) ──
+    page1_h1 = first_h1
+    _top(page::Int) = page == 1 ? 640.0 : 792.0
+    _bot = 52.0
+    pages = Vector{Vector{String}}()
+    cur = String[]; y = 0.0; page = 1
+    _room(step) = (y - step) >= _bot
+    function _newpage()
+        isempty(cur) || push!(pages, cur)
+        cur = String[]; page += 1; y = _top(page)
+    end
+    y = _top(1)
     for (kind, ln) in lines
-        step = _page_step(kind)
-        if !isempty(cur) && 800 - step * (length(cur) + 1) < 40
-            push!(pages, cur); cur = String[]
-        end
         if kind == "h1"
-            push!(cur, @sprintf("BT /F1 18 Tf 50 %d Td (%s) Tj ET\n", 800 - 26 * length(cur), _pdf_esc(ln)))
+            _room(30) || _newpage()
+            y -= 20
+            push!(cur, _strok(C_GOLD2...))
+            push!(cur, @sprintf("%.3f w  %.1f %.1f m %.1f %.1f l S\n", 0.8, _ML, y + 4, _A4W - _MR, y + 4))
+            push!(cur, _col(C_GOLD...))
+            push!(cur, @sprintf("BT /F2 14 Tf %.1f %.1f Td (%s) Tj ET\n", _ML, y, _pdf_esc("✦ " * ln)))
+            y -= 10
         elseif kind == "h2"
-            push!(cur, @sprintf("BT /F1 13 Tf 50 %d Td (%s) Tj ET\n", 800 - 26 * length(cur), _pdf_esc(ln)))
+            _room(26) || _newpage()
+            y -= 18
+            push!(cur, _col(C_ICE...))
+            push!(cur, @sprintf("BT /F2 11.5 Tf %.1f %.1f Td (%s) Tj ET\n", _ML, y, _pdf_esc("❄ " * ln)))
+            push!(cur, _strok(C_GOLD2...), @sprintf("%.3f w  %.1f %.1f m %.1f %.1f l S\n", 0.4, _ML, y - 4, _ML + 64, y - 4))
+            y -= 6
+        elseif kind == "verdict"
+            _room(34) || _newpage()
+            v = strip(split(ln, '|')[1][length("Verdict:")+1:end])
+            vcol = v == "PASS" ? C_PASS : v == "WARN" ? C_WARN : v == "FAIL" ? C_FAIL : C_ICE
+            y -= 10
+            # панель вердикта: подложка + золотая рамка
+            push!(cur, _col(C_PANEL...), @sprintf("%.1f %.1f %.1f %.1f re f\n", _ML, y - 10, _CW, 24))
+            push!(cur, _strok(C_GOLD2...), @sprintf("%.4f w %.1f %.1f %.1f %.1f re S\n", 0.7, _ML, y - 10, _CW, 24))
+            push!(cur, _col(vcol...))
+            push!(cur, @sprintf("BT /F2 12 Tf %.1f %.1f Td (%s) Tj ET\n", _ML + 12, y - 2, _pdf_esc("✦ VERDICT: " * uppercase(v))))
+            rest = strip(join(split(ln, '|')[2:end], " | "))
+            isempty(rest) || begin
+                push!(cur, _col(C_DIM...))
+                push!(cur, @sprintf("BT /F1 8 Tf %.1f %.1f Td (%s) Tj ET\n", _ML + 150, y - 1, _pdf_esc(rest)))
+            end
+            y -= 18
+        elseif kind == "kbd"
+            _room(16) || _newpage()
+            y -= 14
+            push!(cur, _col(C_PANEL2...), @sprintf("%.1f %.1f %.1f %.1f re f\n", _ML, y - 3, _CW, 14))
+            push!(cur, _col(_c("A8D8FF")...))
+            push!(cur, @sprintf("BT /F3 8 Tf %.1f %.1f Td (%s) Tj ET\n", _ML + 8, y, _pdf_esc(ln)))
+            y -= 4
+        elseif kind == "li"
+            _room(14) || _newpage()
+            y -= 13.5
+            push!(cur, _col(C_GOLD...))
+            push!(cur, @sprintf("BT /F1 9 Tf %.1f %.1f Td (%s) Tj ET\n", _ML + 2, y, _pdf_esc("◈")))
+            push!(cur, _col(C_TXT...))
+            push!(cur, @sprintf("BT /F1 9 Tf %.1f %.1f Td (%s) Tj ET\n", _ML + 14, y, _pdf_esc(ln[3:end])))
         elseif kind == "log"
-            esc = _pdf_esc(ln)
-            push!(cur, @sprintf("BT /F1 7 Tf 50 %d Td (%s) Tj ET\n", 800 - 22 * length(cur), esc))
-        else
-            push!(cur, @sprintf("BT /F1 10 Tf 50 %d Td (%s) Tj ET\n", 800 - 22 * length(cur), _pdf_esc(ln)))
+            _room(9) || _newpage()
+            y -= 8.6
+            push!(cur, _col(C_LOG...))
+            push!(cur, @sprintf("BT /F3 6.4 Tf %.1f %.1f Td (%s) Tj ET\n", _ML + 2, y, _pdf_esc(ln)))
+        else # p
+            _room(15) || _newpage()
+            y -= 13
+            push!(cur, _col(C_TXT...))
+            push!(cur, @sprintf("BT /F1 9.5 Tf %.1f %.1f Td (%s) Tj ET\n", _ML + 2, y, _pdf_esc(ln)))
         end
     end
     isempty(cur) || push!(pages, cur)
+
+    # ── 3. шапка-баннер страницы 1 (градиентное сияние + золото) ──
+    function _banner_ops()
+        io = IOBuffer()
+        bh = 170.0
+        n = 34
+        for i in 0:n-1
+            t = i / (n - 1)
+            r = C_BG[1] + (C_PANEL2[1] - C_BG[1]) * t
+            g = C_BG[2] + (C_PANEL2[2] - C_BG[2]) * t
+            b = C_BG[3] + (C_PANEL2[3] - C_BG[3]) * t
+            print(io, _col(r, g, b), @sprintf("0 %.2f %.0f %.3f re f\n", _A4H - bh + i * (bh / n), _A4W, bh / n + 0.6))
+        end
+        # золотые орнаментные линии баннера
+        print(io, _strok(C_GOLD2...), @sprintf("1.1 w  %.1f %.1f m %.1f %.1f l S\n", _ML, _A4H - bh - 10, _A4W - _MR, _A4H - bh - 10))
+        print(io, _strok(C_ICE...),   @sprintf("0.5 w  %.1f %.1f m %.1f %.1f l S\n", _ML, _A4H - bh - 14, _A4W - _MR, _A4H - bh - 14))
+        # лого: ✦ AB-CLOUD ✦
+        print(io, _col(C_GOLD...), @sprintf("BT /F2 9 Tf %.1f %.1f Td (%s) Tj ET\n", _ML, _A4H - 34, _pdf_esc("✦")))
+        print(io, _col(C_TXT...),  @sprintf("BT /F2 21 Tf %.1f %.1f Td (%s) Tj ET\n", _ML + 16, _A4H - 38, _pdf_esc("AB-CLOUD")))
+        print(io, _col(C_GOLD...), @sprintf("BT /F2 9 Tf %.1f %.1f Td (%s) Tj ET\n", _ML + 152, _A4H - 34, _pdf_esc("✦")))
+        print(io, _col(C_DIM...),  @sprintf("BT /F1 7.5 Tf %.1f %.1f Td (%s) Tj ET\n", _ML + 16, _A4H - 54, _pdf_esc("VERIFICATION SUITE · AURORA EDITION")))
+        # заголовок отчёта (перенос по словам, 2 строки максимум)
+        ttl = page1_h1
+        for (i, seg) in enumerate(_wrap(ttl, 62))
+            i > 2 && break
+            print(io, _col(C_GOLD...), @sprintf("BT /F2 %s Tf %.1f %.1f Td (%s) Tj ET\n",
+                i == 1 ? "13.5" : "12", _ML + 2, _A4H - 84 - (i - 1) * 17, _pdf_esc(seg)))
+        end
+        print(io, _col(C_DIM...),  @sprintf("BT /F1 7.5 Tf %.1f %.1f Td (%s) Tj ET\n", _ML + 2, _A4H - 130,
+            _pdf_esc("Author: Isaev Iskhak Khamzatovich (ORCID 0009-0003-7299-0701) · DOI 10.5281/zenodo.21825394")))
+        print(io, _col(C_ICE...),  @sprintf("BT /F1 7 Tf %.1f %.1f Td (%s) Tj ET\n", _ML + 2, _A4H - 142,
+            _pdf_esc("github.com/wild8highlander/research-papers · " * Dates.format(Dates.now(), "yyyy-mm-dd HH:MM"))))
+        String(take!(io))
+    end
+
+    # ── 4. фоновый прямоугольник + колонтитул каждой страницы ──
+    function _page_frame(no::Int)
+        io = IOBuffer()
+        print(io, _col(C_BG...), @sprintf("0 0 %.0f %.0f re f\n", _A4W, _A4H))
+        if no > 1
+            print(io, _col(C_PANEL...), @sprintf("0 %.0f %.0f 26 re f\n", _A4H - 26, _A4W))
+            print(io, _col(C_DIM...), @sprintf("BT /F2 7.5 Tf %.1f %.1f Td (%s) Tj ET\n",
+                _ML, _A4H - 18, _pdf_esc("AB-CLOUD · AURORA")))
+            print(io, _strok(C_GOLD2...), @sprintf("0.5 w %.1f %.1f m %.1f %.1f l S\n", _ML, _A4H - 26, _A4W - _MR, _A4H - 26))
+        end
+        print(io, _strok(C_GOLD2...), @sprintf("0.7 w %.1f %.1f m %.1f %.1f l S\n", _ML, 40, _A4W - _MR, 40))
+        print(io, _col(C_GOLD...), @sprintf("BT /F1 7 Tf %.1f %.1f Td (%s) Tj ET\n", _ML, 28, _pdf_esc("✦")))
+        print(io, _col(C_DIM...), @sprintf("BT /F1 7 Tf %.1f %.1f Td (%s) Tj ET\n", _ML + 12, 28,
+            _pdf_esc("AB-Cloud · AURORA Edition — verification report")))
+        print(io, _col(C_ICE...), @sprintf("BT /F1 7 Tf %.1f %.1f Td (%s) Tj ET\n", _A4W - _MR - 54, 28,
+            _pdf_esc("page " * string(no) * " / " * string(length(pages)))))
+        String(take!(io))
+    end
+
+    # ── 5. сборка объектов PDF ──
     objs = String[]
-    # FIX 2026-08-31 (qpdf "Pages tree includes non-dictionary object"):
-    # each page emits TWO objects — the page dict (3+2i) and its content
-    # stream (4+2i). Kids listed 4,5,6… — i.e. mostly content streams, so
-    # half the page tree pointed at streams and qpdf flagged the file.
+    _FONT_BASE = 3 + 2 * length(pages)   # page dicts: 3,5,7…; streams: 4,6,8…; fonts after them
     kids = join(["$(3 + 2 * (i - 1)) 0 R" for i in 1:length(pages)], " ")
     push!(objs, "<< /Type /Catalog /Pages 2 0 R >>")
     push!(objs, "<< /Type /Pages /Kids [$kids] /Count $(length(pages)) >>")
-    for pg in pages
-        content = "0 0 0 RG\n" * join(pg)
-        push!(objs, "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 850] /Contents $(length(objs)+2) 0 R /Resources << /Font << /F1 5 0 R >> >> >>")
+    for (i, pg) in enumerate(pages)
+        content = _page_frame(i) * (i == 1 ? _banner_ops() : "") * join(pg)
+        push!(objs, "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents $(length(objs)+2) 0 R /Resources << /Font << /F1 $(_FONT_BASE+1) 0 R /F2 $(_FONT_BASE+2) 0 R /F3 $(_FONT_BASE+3) 0 R >> >> >>")
         push!(objs, "<< /Length $(sizeof(content)) >>\nstream\n$content\nendstream")
     end
     push!(objs, "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>")
+    push!(objs, "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>")
+    push!(objs, "<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>")
     out = IOBuffer()
     print(out, "%PDF-1.4\n%\xE2\xE3\xCF\xD3\n")
     offsets = Int[]
@@ -17387,7 +17119,7 @@ end
 # "plot k/N" tag in the bottom-right corner marks every segment.
 const _WEB_PAL = let pal = NTuple{3,UInt8}[(255,255,255),(0,0,0),(31,119,180),(214,39,40),
     (44,160,44),(255,127,14),(148,103,189),(120,120,120),(230,230,230),(200,200,200),
-    # FIX 2026-08-31: series colors 6/7/8/10 of _PAL were missing here —
+    # NOTE: series colors 6/7/8/10 of _PAL were missing here —
     # every GIF animation collapsed those series into the same fallback
     # gray (idx_of default) and the legend became unreadable.
     (140,86,75),(23,190,207),(188,128,189),(128,128,128)]
@@ -17499,6 +17231,259 @@ write_progressive_gif(path::String, p::RepPlot; frames::Int = 16) =
 # ── 16.13 Per-test report finalization ─────────────────────────────────
 _md_escape(s::String) = replace(s, "|" => "\\|")
 
+# ═══════════════════════════════════════════════════════════════════════════════
+# 16.13a AURORA HTML DESIGN SYSTEM — черно-синее небо, золото, полярное сияние
+# Единый визуальный язык для report.html, final_report.html и index.html:
+# лого-баннер со свечением, орнаментальные разделители ✦ ❄ ◈, бейджи вердиктов,
+# стат-карточки, дашборд-навигация, терминальные блоки логов. Чистый CSS,
+# без внешних ресурсов — отчёты выглядят одинаково офлайн и онлайн.
+# ═══════════════════════════════════════════════════════════════════════════════
+# ── пресеты AURORA: переопределяют золотой/ледяной акценты всей дизайн-системы ──
+const _AUR_PRESETS = Dict{String,NamedTuple{(:gold, :gold2, :ice, :logo),
+    Tuple{String,String,String,NTuple{4,String}}}}(
+    "aurora"  => (gold = "#E8C766", gold2 = "#C9A227", ice = "#5BC0FF",
+                  logo = ("#5BC0FF", "#9EC7FF", "#E8C766", "#C9A227")),
+    "ice"     => (gold = "#7FB3FF", gold2 = "#4E8FE8", ice = "#9ED2FF",
+                  logo = ("#9ED2FF", "#5BC0FF", "#7FB3FF", "#4E8FE8")),
+    "gold"    => (gold = "#FFD166", gold2 = "#D4AF37", ice = "#F0E3B2",
+                  logo = ("#F0E3B2", "#E8C766", "#FFD166", "#D4AF37")),
+    "emerald" => (gold = "#62D99A", gold2 = "#2FA374", ice = "#5BC0FF",
+                  logo = ("#5BC0FF", "#7FE3D2", "#62D99A", "#2FA374")),
+)
+const REP_PRESET = Ref{String}("aurora")
+_aur_pal() = get(_AUR_PRESETS, REP_PRESET[], _AUR_PRESETS["aurora"])
+
+"CSS-переопределение акцентов под выбранный пресет (после базовой таблицы стилей)"
+function _aur_css_preset()::String
+    p = _aur_pal()
+    return """
+:root{--gold:$(p.gold);--gold2:$(p.gold2);--ice:$(p.ice)}
+"""
+end
+
+const _AUR_HESC_MAP = Pair{String,String}["&" => "&amp;", "<" => "&lt;", ">" => "&gt;", "\"" => "&quot;"]
+_aur_hesc(x::AbstractString) = foldl(replace, _AUR_HESC_MAP; init = String(x))
+_aur_verdict_class(v::AbstractString) = occursin(r"^(PASS|DONE)$", uppercase(v)) ? "pass" :
+    occursin("WARN", uppercase(v)) ? "warn" :
+    occursin("FAIL", uppercase(v)) ? "fail" : "done"
+_aur_verdict_ru(v::AbstractString) = uppercase(v) == "PASS" ? "ПРОЙДЕН" :
+    uppercase(v) == "WARN" ? "ПРЕДУПРЕЖДЕНИЕ" :
+    uppercase(v) == "FAIL" ? "СБОЙ" : "ВЫПОЛНЕН"
+
+const _AUR_CSS = """
+:root{--bg:#050A18;--panel:#0A1630;--panel2:#0E1D3D;--line:#24365E;
+--gold:#E8C766;--gold2:#C9A227;--ice:#5BC0FF;--txt:#D8E1F3;--dim:#8B98B8;
+--pass:#62D99A;--warn:#E8C766;--fail:#FF5D6B;--done:#93A8FF}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:
+ radial-gradient(1100px 500px at 15% -10%, rgba(91,140,255,.16), transparent 60%),
+ radial-gradient(900px 420px at 85% 0%, rgba(232,199,102,.10), transparent 55%),
+ radial-gradient(1400px 700px at 50% 110%, rgba(91,192,255,.08), transparent 60%),
+ var(--bg);
+ color:var(--txt);font:16px/1.65 system-ui,'Segoe UI',Roboto,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px 80px}
+a{color:var(--ice);text-decoration:none}
+a:hover{color:var(--gold)}
+code{background:rgba(91,192,255,.10);border:1px solid rgba(91,192,255,.25);
+ border-radius:6px;padding:1px 7px;font-size:.86em;color:#A8D8FF}
+.orn{color:var(--gold)}
+.ornline{display:flex;align-items:center;gap:14px;color:var(--gold2);
+ margin:10px 0 4px;font-size:13px;letter-spacing:2px;white-space:nowrap;overflow:hidden}
+.ornline::before,.ornline::after{content:"";height:1px;flex:1;
+ background:linear-gradient(90deg,transparent,rgba(201,162,39,.75),transparent)}
+.ornline .fl{color:var(--ice)}
+/* ── лого-баннер ── */
+.hero{position:relative;text-align:center;padding:46px 20px 30px;margin-bottom:26px}
+.hero .halo{position:absolute;inset:-40px 0 auto 0;height:280px;pointer-events:none;
+ background:radial-gradient(560px 190px at 50% 60px, rgba(91,192,255,.20), transparent 70%),
+ radial-gradient(420px 150px at 50% 90px, rgba(232,199,102,.13), transparent 70%)}
+.logo{position:relative;display:inline-block;filter:drop-shadow(0 0 16px rgba(91,192,255,.30)) drop-shadow(0 0 34px rgba(232,199,102,.16))}
+.logo text{font-family:system-ui,'Segoe UI',Roboto,sans-serif;font-weight:800}
+.lg-plain{font-weight:800;letter-spacing:.12em;color:var(--gold)}
+.tagline{position:relative;color:var(--dim);letter-spacing:.42em;font-size:12px;margin-top:6px;text-transform:uppercase}
+.title{position:relative;font-size:clamp(19px,2.6vw,27px);font-weight:700;
+ color:var(--txt);margin:16px auto 4px;max-width:56ch}
+.subtitle{position:relative;color:var(--dim);font-size:14px}
+.badges{position:relative;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.chip{border:1px solid var(--line);background:rgba(14,29,61,.72);border-radius:999px;
+ padding:5px 14px;font-size:12.5px;color:var(--dim);white-space:nowrap}
+.chip b{color:var(--txt);font-weight:600}
+/* ── бейджи вердиктов ── */
+.badge{display:inline-flex;align-items:center;gap:7px;border-radius:999px;
+ padding:5px 15px;font-weight:700;font-size:13px;letter-spacing:.06em;border:1px solid}
+.badge::before{content:"✦";font-size:12px}
+.badge.pass{color:var(--pass);border-color:rgba(98,217,154,.45);background:rgba(98,217,154,.08)}
+.badge.warn{color:var(--warn);border-color:rgba(232,199,102,.45);background:rgba(232,199,102,.08)}
+.badge.fail{color:var(--fail);border-color:rgba(255,93,107,.5);background:rgba(255,93,107,.08)}
+.badge.done{color:var(--done);border-color:rgba(147,168,255,.45);background:rgba(147,168,255,.08)}
+/* ── стат-карточки ── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:26px 0}
+.stat{position:relative;border:1px solid var(--line);border-radius:14px;padding:16px 18px;
+ background:linear-gradient(160deg,rgba(14,29,61,.9),rgba(10,22,48,.65));overflow:hidden}
+.stat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--sc,var(--ice))}
+.stat .n{font-size:30px;font-weight:800;color:var(--sc,var(--ice));line-height:1.1}
+.stat .l{font-size:12px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
+/* ── карточки-секции ── */
+.card{border:1px solid var(--line);border-radius:16px;background:rgba(10,22,48,.66);
+ padding:22px 26px;margin:18px 0;box-shadow:0 8px 30px rgba(0,0,0,.35)}
+.card>h2{margin:0 0 12px;font-size:17px;letter-spacing:.04em;color:var(--gold)}
+.card>h2 .fl{color:var(--ice);margin-right:8px}
+h2{font-size:17px;color:var(--gold);margin:26px 0 10px}
+h2 .fl{color:var(--ice);margin-right:8px}
+p{margin:8px 0}
+.note{color:var(--dim)}
+/* ── дашборд-сетка тестов ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:14px;margin:20px 0}
+.tcard{border:1px solid var(--line);border-radius:14px;padding:14px 16px;
+ background:linear-gradient(160deg,rgba(14,29,61,.85),rgba(10,22,48,.55));
+ transition:border-color .15s, transform .15s;display:block;color:var(--txt)}
+.tcard:hover{border-color:var(--gold2);transform:translateY(-2px);color:var(--txt)}
+.tcard .tid{font-size:12px;color:var(--dim);letter-spacing:.1em}
+.tcard .tn{font-weight:600;margin:4px 0 10px;font-size:14.5px;line-height:1.4}
+.tcard .tv{font-size:12px}
+/* ── таблицы ── */
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+th{color:var(--gold);text-align:left;border-bottom:1px solid var(--gold2);
+ padding:9px 12px;font-weight:600;letter-spacing:.04em;white-space:nowrap}
+td{border-bottom:1px solid rgba(36,54,94,.6);padding:9px 12px;vertical-align:top}
+tr:hover td{background:rgba(91,192,255,.045)}
+td.v{text-align:center;font-weight:700}
+td.v.pass{color:var(--pass)} td.v.warn{color:var(--warn)}
+td.v.fail{color:var(--fail)} td.v.done{color:var(--done)}
+/* ── логи-терминал ── */
+pre.aur-log{background:#040814;border:1px solid var(--line);border-left:3px solid var(--gold2);
+ border-radius:12px;padding:16px 18px;overflow-x:auto;font:11.5px/1.55 'JetBrains Mono',
+ 'Fira Code',Consolas,monospace;color:#9FB0D0;max-height:520px}
+pre.aur-log::-webkit-scrollbar{height:10px;width:10px}
+pre.aur-log::-webkit-scrollbar-thumb{background:#24365E;border-radius:6px}
+pre.aur-log::-webkit-scrollbar-track{background:transparent}
+ul.plots{list-style:none;padding:0;margin:8px 0}
+ul.plots li{padding:7px 12px;border-left:2px solid var(--gold2);margin:7px 0;
+ background:rgba(14,29,61,.5);border-radius:0 10px 10px 0;font-size:14px}
+.kbd{border:1px solid var(--line);border-radius:8px;background:#040814;padding:8px 14px;
+ font:13px Consolas,monospace;color:#A8D8FF;display:inline-block;margin:2px 0}
+.footer{margin-top:46px;text-align:center;color:var(--dim);font-size:13px}
+.footer .ornline{justify-content:center}
+.topbar{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
+ background:rgba(5,10,24,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1180px;margin:0 auto;padding:10px 28px;display:flex;
+ align-items:center;gap:18px;font-size:13.5px}
+.topbar .lg{font-weight:800;letter-spacing:.12em;color:var(--gold)}
+@media print{.topbar{display:none}body{background:#fff;color:#111}
+ .card,.stat,.tcard{box-shadow:none}pre.aur-log{color:#333;background:#f6f6f6}}
+"""
+
+function _aur_hero(title::AbstractString, subtitle::AbstractString, verdict::AbstractString = "")
+    io = IOBuffer()
+    p = _aur_pal(); l = p.logo
+    println(io, "<div class=\"hero\"><div class=\"halo\"></div>")
+    println(io, "<svg class=\"logo\" width=\"620\" height=\"96\" viewBox=\"0 0 620 96\" role=\"img\" aria-label=\"AB-CLOUD\">")
+    println(io, "<defs><linearGradient id=\"lgaur\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"0\">",
+        "<stop offset=\"0\" stop-color=\"", l[1], "\"/><stop offset=\".35\" stop-color=\"", l[2], "\"/>",
+        "<stop offset=\".75\" stop-color=\"", l[3], "\"/><stop offset=\"1\" stop-color=\"", l[4], "\"/></linearGradient></defs>")
+    println(io, "<text x=\"310\" y=\"64\" text-anchor=\"middle\" font-size=\"50\" letter-spacing=\"14\" fill=\"url(#lgaur)\">✦ AB-CLOUD ✦</text></svg>")
+    println(io, "<div class=\"tagline\">verification suite · aurora edition</div>")
+    println(io, "<div class=\"ornline\"><span>✦</span><span class=\"fl\">❄</span><span>✦</span></div>")
+    isempty(title) || println(io, "<div class=\"title\">", _aur_hesc(title), "</div>")
+    isempty(subtitle) || println(io, "<div class=\"subtitle\">", _aur_hesc(subtitle), "</div>")
+    if !isempty(verdict)
+        cls = _aur_verdict_class(verdict)
+        println(io, "<div class=\"badges\"><span class=\"badge ", cls, "\">",
+            _aur_hesc(uppercase(verdict)), " · ", _aur_verdict_ru(verdict), "</span></div>")
+    end
+    println(io, "</div>")
+    String(take!(io))
+end
+
+_aur_topbar(links::Vector{Pair{String,String}} = Pair{String,String}[]) = begin
+    io = IOBuffer()
+    println(io, "<div class=\"topbar\"><div class=\"in\"><span class=\"lg\">✦ AB-CLOUD</span>")
+    for (txt, href) in links
+        println(io, "<a href=\"", href, "\">", _aur_hesc(txt), "</a>")
+    end
+    println(io, "</div></div>")
+    String(take!(io))
+end
+
+_aur_html_head(title::AbstractString) =
+    "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\">" *
+    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" *
+    "<title>" * _aur_hesc(title) * "</title><style>" * _AUR_CSS * _aur_css_preset() * "</style></head><body>"
+
+_aur_footer(note::AbstractString = "AB-Cloud · AURORA Edition · отчёты собираются в run-каталоге") = begin
+    io = IOBuffer()
+    println(io, "<div class=\"footer\"><div class=\"ornline\"><span>✦</span><span class=\"fl\">❄</span><span>✦</span></div>")
+    println(io, "<div>", _aur_hesc(note), "</div></div></body></html>")
+    String(take!(io))
+end
+
+"Строка 'Verdict: X | ...' → html-герой с бейджем и чипами"
+function _aur_verdict_hero(line::AbstractString)::String
+    parts = split(line, "|"; limit = 4)
+    verdict = ""
+    chips = String[]
+    for p in parts
+        t = strip(p)
+        if occursin(r"^\s*verdict\s*:"i, t)
+            verdict = strip(replace(t, r"^\s*verdict\s*:\s*"i => ""))
+        elseif !isempty(t)
+            push!(chips, t)
+        end
+    end
+    io = IOBuffer()
+    cls = _aur_verdict_class(verdict)
+    println(io, "<div class=\"card\" style=\"text-align:center\">")
+    isempty(verdict) || println(io, "<span class=\"badge ", cls, "\" style=\"font-size:15px\">",
+        _aur_hesc(uppercase(verdict)), " · ", _aur_verdict_ru(verdict), "</span>")
+    isempty(chips) || println(io, "<div class=\"badges\">",
+        join(("<span class=\"chip\">" * _aur_hesc(c) * "</span>" for c in chips), " "), "</div>")
+    println(io, "</div>")
+    String(take!(io))
+end
+
+"Блоки отчёта (kind,text,mono) → AURORA-HTML. kind ∈ h1,h2,p,log"
+function _aur_blocks_html(blocks::Vector{Tuple{String,String,String}}; anchor::String = "")::String
+    io = IOBuffer()
+    li_open = Ref(false)
+    card_open = Ref(false)
+    close_li!() = (li_open[] && println(io, "</ul>"); li_open[] = false; nothing)
+    close_card!() = (card_open[] && println(io, "</div>"); card_open[] = false; nothing)
+    for (kind, text, mono) in blocks
+        if kind == "h2"
+            close_li!(); close_card!()
+            println(io, "<div class=\"card\"><h2><span class=\"fl\">❄</span>", _aur_hesc(text), "</h2>")
+            card_open[] = true
+        elseif kind == "h1"
+            close_li!(); close_card!()
+            id = isempty(anchor) ? "" : " id=\"" * anchor * "\""
+            println(io, "<div class=\"ornline\"><span>✦</span><span class=\"fl\">❄</span><span>✦</span></div>")
+            println(io, "<h1", id, " style=\"font-size:21px;color:var(--gold)\">", _aur_hesc(text), "</h1>")
+        elseif kind == "log"
+            close_li!()
+            println(io, "<pre class=\"aur-log\">", _aur_hesc(mono), "</pre>")
+        else # p
+            if startswith(text, "Verdict:")
+                close_li!(); close_card!()
+                print(io, _aur_verdict_hero(text))
+            elseif startswith(text, "- `")
+                li_open[] || (println(io, "<ul class=\"plots\">"); li_open[] = true)
+                body = _aur_hesc(text[3:end])
+                body = replace(body, r"`([^`]+)`" => s"<code>\1</code>")
+                println(io, "<li>◈ ", body, "</li>")
+            elseif startswith(text, "Reproduce with:")
+                close_li!()
+                println(io, "<p><span class=\"kbd\">", _aur_hesc(text), "</span></p>")
+            else
+                close_li!()
+                println(io, "<p>", _aur_hesc(text), "</p>")
+            end
+        end
+    end
+    close_li!(); close_card!()
+    return String(take!(io))
+end
+
 function _write_test_report!(rt::RepTest)
     (slug, title, _) = TEST_META[rt.id]
     dir = joinpath(REP.run_dir, @sprintf("test_%02d_%s", rt.id, slug))
@@ -17507,17 +17492,25 @@ function _write_test_report!(rt::RepTest)
     # ── 1. logs (instant, crash-proof) ──
     log_txt = join(REP.log_buf[rt.log_start+1:end], '\n')
     open(joinpath(dir, "logs", "computation_log.txt"), "w") do f
-        write(f, "FULL COMPUTATION LOG — test $(rt.id): $(rt.name)\n")
-        write(f, "every log_comp() entry emitted while this test ran:\n\n")
+        write(f, "✦ ════════════════════════════════════════════════════════════════ ✦\n")
+        write(f, "  ❄ FULL COMPUTATION LOG — test $(rt.id): $(rt.name)\n")
+        write(f, "    every log_comp() entry emitted while this test ran\n")
+        write(f, "    AB-Cloud · AURORA Edition · timestamps + deltas\n")
+        write(f, "✦ ════════════════════════════════════════════════════════════════ ✦\n\n")
         write(f, isempty(log_txt) ? "(no log_comp entries)\n" : log_txt * "\n")
+        write(f, "\n✦ ═════════════════════ КОНЕЦ ЛОГА ТЕСТА · END ═════════════════════ ✦\n")
     end
     open(joinpath(dir, "logs", "stdout_capture.txt"), "w") do f
+        write(f, "✦ ──────────────────────────────────────────────────────────────── ✦\n")
+        write(f, "  ❄ CONSOLE CAPTURE — test $(rt.id): $(rt.name) · AB-Cloud AURORA\n")
+        write(f, "✦ ──────────────────────────────────────────────────────────────── ✦\n")
         write(f, join(REP.stdout_lines, '\n'))
+        write(f, "\n✦ ─────────────────────────────── END ─────────────────────────── ✦\n")
     end
     # ── 2. report blocks ──
     blocks = Vector{Tuple{String,String,String}}()
     push!(blocks, ("h1", "Test $(rt.id): $(rt.name)", ""))
-    push!(blocks, ("p", "Verdict: $(rt.verdict)   |   Generated: $(now)   |   Suite: AB-Cloud v23 SUPERCOMBO (Julia $(string(VERSION)))", ""))
+    push!(blocks, ("p", "Verdict: $(rt.verdict)   |   Generated: $(now)   |   Suite: AB-Cloud · AURORA (Julia $(string(VERSION)))", ""))
     push!(blocks, ("h2", "What this test verifies", ""))
     push!(blocks, ("p", TEST_META[rt.id][3], ""))
     for n in rt.notes
@@ -17534,47 +17527,71 @@ function _write_test_report!(rt::RepTest)
             "fabricates filler charts)", ""))
     else
         for k in 1:n_plots
-            push!(blocks, ("p", "- `plots/plot_" * lpad(k, 2, "0") * ".png` — 1600×1000, ABPlotV23 engine (supersampled)", ""))
+            push!(blocks, ("p", "- `plots/plot_" * lpad(k, 2, "0") * ".png` — 1600×1000, ABPlot engine (supersampled)", ""))
         end
         for (epath, elabel) in rt.ext_pngs
             push!(blocks, ("p", "- `plots/$(basename(epath))` — $(_md_escape(elabel)) (journal-engine multi-panel figure)", ""))
         end
-        # v23.1: promise animation.gif ONLY when RepPlot-queued plots exist —
+        # : promise animation.gif ONLY when RepPlot-queued plots exist —
         # the gif tour renders those; ext_pngs (engine figures like Test 38's
         # six-panel t38_curie_panels.png) are already final PNG files.
         REP.gif && n_plots > 0 && push!(blocks, ("p", "- `plots/animation.gif` — animated reveal of every plot of this test", ""))
     end
     push!(blocks, ("h2", "Independent verification guide", ""))
-    push!(blocks, ("p", "Reproduce with: julia ab_cloud_v23.jl --test $(rt.id) --no-two-pass", ""))
+    push!(blocks, ("p", "Reproduce with: julia ab_cloud_full.jl --test $(rt.id) --no-two-pass", ""))
     push!(blocks, ("p", "Every computation is logged in logs/computation_log.txt (timestamps + deltas); raw console output in logs/stdout_capture.txt.", ""))
     push!(blocks, ("h2", "FULL COMPUTATION LOG", ""))
     push!(blocks, ("log", "", isempty(log_txt) ? "(no log_comp entries)" : log_txt))
     push!(blocks, ("h2", "CONSOLE CAPTURE", ""))
     push!(blocks, ("log", "", join(REP.stdout_lines, '\n')))
-    # v23.5: cache the assembled blocks — the run-level FINAL_REPORT embeds them
-    # INLINE (user request 2026-09-06: the master report must read as ONE
+    # : cache the assembled blocks — the run-level FINAL_REPORT embeds them
+    # INLINE (the master report must read as ONE
     # document covering the whole run, not just link to scattered files).
     REP.report_blocks[rt.id] = blocks
     # ── 3. fast reports ──
     "md" in REP.report_formats && open(joinpath(dir, "report.md"), "w") do f
+        # AURORA-оформление: орнаментированная шапка + бейдж вердикта
+        println(f, "# ✦ AB-CLOUD · AURORA — Test $(rt.id): $(rt.name)")
+        println(f)
+        println(f, "> ✦ ❄ ✦  **AURORA Edition** — отчёт о верификации · verification report")
+        println(f)
         for (kind, text, mono) in blocks
-            kind == "h1" ? println(f, "# ", text) :
-            kind == "h2" ? println(f, "\n## ", text) :
-            kind == "log" ? println(f, "\n```text\n", mono, "\n```") :
+            if kind == "h1"
+                # заголовок уже в шапке — пропускаем дубль
+            elseif kind == "h2"
+                println(f, "\n## ❄ ", text)
+            elseif kind == "log"
+                println(f, "\n```text\n", mono, "\n```")
+            elseif startswith(text, "Verdict:")
+                v = strip(split(text, '|')[1][length("Verdict:")+1:end])
+                ico = uppercase(v) == "PASS" ? "✅" : uppercase(v) == "WARN" ? "⚠️" :
+                      uppercase(v) == "FAIL" ? "❌" : "🔷"
+                println(f, "\n### ", ico, " Вердикт · Verdict: **", v, "**")
+                rest = strip(join(split(text, '|')[2:end], "|"))
+                isempty(rest) || println(f, rest)
+            else
                 println(f, text)
+            end
         end
+        println(f)
+        println(f, "---")
+        println(f, "✦ AB-Cloud · AURORA Edition · generated ", now,
+            " · Author: Isaev Iskhak Khamzatovich (ORCID 0009-0003-7299-0701) · DOI 10.5281/zenodo.21825394")
     end
     "html" in REP.report_formats && open(joinpath(dir, "report.html"), "w") do f
-        println(f, "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>Test $(rt.id): ",
-            title, "</title><style>body{font-family:system-ui;margin:2em;max-width:120ch}",
-            "pre{background:#f4f4f4;padding:1em;overflow-x:auto;font-size:11px}h1{border-bottom:2px solid #333}</style></head><body>")
-        for (kind, text, mono) in blocks
-            kind == "h1" ? println(f, "<h1>", text, "</h1>") :
-            kind == "h2" ? println(f, "<h2>", text, "</h2>") :
-            kind == "log" ? println(f, "<pre>", replace(mono, "<" => "&lt;"), "</pre>") :
-                println(f, "<p>", text, "</p>")
-        end
-        println(f, "</body></html>")
+        print(f, _aur_html_head("Test $(rt.id): " * title * " — AB-Cloud · AURORA"))
+        print(f, _aur_topbar(Pair{String,String}["Дашборд прогона" => "../index.html",
+                                                "Итоговый отчёт" => "../FINAL_REPORT/final_report.html"]))
+        println(f, "<div class=\"wrap\">")
+        print(f, _aur_hero("Test $(rt.id) — " * rt.name,
+                           "AB-Cloud Verification Suite · AURORA Edition"))
+        println(f, "<div class=\"badges\" style=\"margin-top:-6px\">",
+            "<span class=\"chip\">Generated: <b>", now, "</b></span>",
+            "<span class=\"chip\">Suite: <b>AB-Cloud · AURORA</b></span>",
+            "<span class=\"chip\">Julia <b>", string(VERSION), "</b></span></div>")
+        print(f, _aur_blocks_html(blocks[2:end]))   # h1 уже в баннере
+        print(f, _aur_footer("Test $(rt.id) · " * title * " · AB-Cloud AURORA"))
+        println(f, "</div>")
     end
     "pdf" in REP.report_formats && open(joinpath(dir, "report.pdf"), "w") do f
         write(f, report_blocks_to_pdf(blocks))
@@ -17586,14 +17603,14 @@ function _write_test_report!(rt::RepTest)
     prog_clear_for_output()
     println(" REPORT: test $(rt.id) → ", dir, " (text/log artifacts done)")
     prog_tag!("report")
-    # ── 4. plots LAST: png (ABPlotV23 engine) → gif tour ──
-    # v23.1: the retired v21 svg/pdf vector backends are GONE — the png step
+    # ── 4. plots LAST: png (ABPlot engine) → gif tour ──
+    # : the retired svg/pdf vector backends are GONE — the png step
     # IS the fast step now, and the gif tour follows immediately.
-    # LIVENESS (2026-08-31 "зависает" fix): in a piped/non-TTY console the
+    # LIVENESS: in a piped/non-TTY console the
     # progress bar is INVISIBLE (prog_* no-ops), so the whole artifact phase
     # used to be minutes of absolute silence — ≈ 5–6 s per 600-dpi PNG
     # deflate × N plots + the GIF tour, after every pass of every test.
-    # Forensics of the user's 2026-08-31 runs: two test-30 runs were killed
+    # Forensics of the user's runs: two test-30 runs were killed
     # exactly inside plot_01.png (png missing, console silent) and the full
     # run stalled right after test 20's artifacts — users read the silence as
     # a hang ("32 тест зависает и не грузится") and Ctrl-C the run mid-write.
@@ -17602,16 +17619,16 @@ function _write_test_report!(rt::RepTest)
     # a real freeze localizes itself to an exact step in the audit trail
     # instead of being indistinguishable from a dead process.
     npl = length(rt.plots)
-    npl > 0 && @printf(" ARTIFACTS: %d plot%s queued → PNG 1600×1000 (ABPlotV23 engine, supersampled) + gif tour ≈ 2–15 s\n",
+    npl > 0 && @printf(" ARTIFACTS: %d plot%s queued → PNG 1600×1000 (ABPlot engine, supersampled) + gif tour ≈ 2–15 s\n",
         npl, npl == 1 ? "" : "s")
     for (k, p) in enumerate(rt.plots)
         prog_tag!(@sprintf("plots %d/%d", k, max(npl, 1))) # live phase
         stemfull = joinpath(dir, "plots", "plot_" * lpad(k, 2, "0"))
         if "png" in REP.plot_formats
             t_png = time()
-            @printf(" plot %d/%d: writing PNG 1600×1000 (ABPlotV23 supersampled engine)…\n",
+            @printf(" plot %d/%d: writing PNG 1600×1000 (ABPlot supersampled engine)…\n",
                 k, max(npl, 1))
-            # v23 SUPERCOMBO: the PNG is rendered by the ABPlotV23 journal
+            # : the PNG is rendered by the ABPlot journal
             # engine at its native design size 1600×1000 with ×2 supersampling
             # (anti-aliased lines, Hershey vector fonts, dark navy theme);
             # pHYs = 192 dpi → honest 8.3×5.2 in print size.
@@ -17638,42 +17655,82 @@ end
 
 # ── 16.14 Run-level index + FINAL_REPORT ────────────────────────────────
 """
-rep_finalize_run(scope = "AB-Cloud v23 SUPERCOMBO — full verification suite")
+rep_finalize_run(scope = "AB-Cloud — full verification suite")
 
 Closes the reporting run:
 1. rewrites `index.html` (verdict table for every recorded test);
 2. builds the FINAL_REPORT folder — ONE last directory inside the run dir
-   (`results/run_YYYYmmdd_HHMMSS/FINAL_REPORT/`) that gathers ALL run
-   information in one place (2026-08-29 user spec):
-   • `final_report.md/.html/.pdf` — master document: run header, config
-     snapshot, verdict table with headlines, execution steps, artifact map;
-   • `reports/test_XX_<slug>/` — COPIES of every test's report files
-     (report.md/.html/.pdf/.docx) — the folder is self-contained;
-   • `logs/test_XX_<slug>/` — COPIES of every test's computation log +
-     stdout capture;
-   • `logs/computation_log_full.txt` — the whole session computation log;
-   • `logs/results_verdicts.txt` — the one-line `results_log` verdicts;
-   (for the 38-test suite run, `logs/full_execution_log.txt` +
-   `logs/computation_log.txt` are written by save_report()).
+ (`results/run_YYYYmmdd_HHMMSS/FINAL_REPORT/`) that gathers ALL run
+ information in one place:
+ • `final_report.md/.html/.pdf` — master document: run header, config
+ snapshot, verdict table with headlines, execution steps, artifact map;
+ • `reports/test_XX_<slug>/` — COPIES of every test's report files
+ (report.md/.html/.pdf/.docx) — the folder is self-contained;
+ • `logs/test_XX_<slug>/` — COPIES of every test's computation log +
+ stdout capture;
+ • `logs/computation_log_full.txt` — the whole session computation log;
+ • `logs/results_verdicts.txt` — the one-line `results_log` verdicts;
+ (for the 38-test suite run, `logs/full_execution_log.txt` +
+ `logs/computation_log.txt` are written by save_report).
 Called at the end of every reporting flow: full suite, single test,
 Physics-Lab 'a' (all experiments), 3D-Lab runs, QUICK CHECK.
 """
-function rep_finalize_run(scope::String = "AB-Cloud v20 — full verification suite")
+function rep_finalize_run(scope::String = "AB-Cloud — full verification suite")
     REP.enabled && !isempty(REP.summary) || return
+    # ═══ AURORA DASHBOARD: index.html — стат-карточки, сетка тестов, таблица ═══
+    n_all = length(REP.summary)
+    n_pass = count(t -> t[3] == "PASS", REP.summary)
+    n_warn = count(t -> t[3] == "WARN", REP.summary)
+    n_fail = count(t -> t[3] == "FAIL", REP.summary)
+    n_done = n_all - n_pass - n_warn - n_fail
+    now = Dates.format(Dates.now(), "yyyy-mm-dd HH:MM:SS")
     idx = joinpath(REP.run_dir, "index.html")
     open(idx, "w") do f
-        println(f, "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>AB-Cloud v20 — run report</title>",
-            "<style>body{font-family:system-ui;margin:2em}table{border-collapse:collapse}td,th{border:1px solid #999;padding:6px 14px}",
-            ".PASS{background:#cfc}.WARN{background:#ffc}.FAIL{background:#fcc}.DONE{background:#cde}</style></head><body>")
-        println(f, "<h1>AB-Cloud v20 — verification run</h1><p>", Dates.format(Dates.now(), "yyyy-mm-dd HH:MM:SS"),
-            " | Julia ", string(VERSION), "</p><table><tr><th>Test</th><th>Verdict</th><th>Headline</th><th>Report</th></tr>")
-        for (id, slug, verdict, headline) in REP.summary
-            _hh = replace(replace(replace(headline, "&" => "&amp;"), "<" => "&lt;"), ">" => "&gt;")
-            println(f, "<tr><td>", id, "</td><td class=\"", verdict, "\">", verdict,
-                "</td><td>", _hh, "</td><td><a href=\"test_",
-                lpad(id, 2, "0"), "_", slug, "/report.html\">report</a></td></tr>")
+        print(f, _aur_html_head("AB-Cloud · AURORA — дашборд прогона"))
+        print(f, _aur_topbar(Pair{String,String}["Итоговый отчёт" => "FINAL_REPORT/final_report.html"]))
+        println(f, "<div class=\"wrap\">")
+        print(f, _aur_hero("Дашборд прогона · Run Dashboard", scope))
+        println(f, "<div class=\"badges\" style=\"margin-top:-6px\">",
+            "<span class=\"chip\">Generated: <b>", now, "</b></span>",
+            "<span class=\"chip\">Julia <b>", string(VERSION), "</b></span>",
+            "<span class=\"chip\">Тестов: <b>", n_all, "</b></span></div>")
+        # стат-карточки
+        println(f, "<div class=\"stats\">")
+        for (col, num, lab) in (("var(--ice)", n_all, "всего тестов · total"),
+                                ("var(--pass)", n_pass, "пройдено · pass"),
+                                ("var(--warn)", n_warn, "предупреждения · warn"),
+                                ("var(--fail)", n_fail, "сбои · fail"),
+                                ("var(--done)", n_done, "выполнено · done"))
+            println(f, "<div class=\"stat\" style=\"--sc:", col, "\"><div class=\"n\">", num,
+                "</div><div class=\"l\">", lab, "</div></div>")
         end
-        println(f, "</table></body></html>")
+        println(f, "</div>")
+        # сетка карточек тестов
+        println(f, "<h2><span class=\"fl\">❄</span>Тесты прогона · Tests of this run</h2>")
+        println(f, "<div class=\"grid\">")
+        for (id, slug, verdict, headline) in REP.summary
+            cls = _aur_verdict_class(verdict)
+            ico = cls == "pass" ? "✦" : cls == "warn" ? "◆" : cls == "fail" ? "✖" : "◈"
+            println(f, "<a class=\"tcard\" href=\"test_",
+                lpad(id, 2, "0"), "_", slug, "/report.html\">")
+            println(f, "<div class=\"tid\">TEST ", lpad(id, 2, "0"), " · ", _aur_hesc(slug), "</div>")
+            println(f, "<div class=\"tn\">", isempty(headline) ? _aur_hesc(TEST_META[id][2]) : _aur_hesc(headline), "</div>")
+            println(f, "<div class=\"tv badge ", cls, "\">", _aur_hesc(verdict),
+                " · ", _aur_verdict_ru(verdict), "</div></a>")
+        end
+        println(f, "</div>")
+        # сводная таблица
+        println(f, "<h2><span class=\"fl\">❄</span>Сводка вердиктов · Verdict table</h2>")
+        println(f, "<div class=\"card\"><table><tr><th>Test</th><th>Вердикт</th><th>Headline</th><th>Отчёт</th></tr>")
+        for (id, slug, verdict, headline) in REP.summary
+            cls = _aur_verdict_class(verdict)
+            println(f, "<tr><td>", id, "</td><td class=\"v ", cls, "\">", _aur_hesc(verdict),
+                "</td><td>", _aur_hesc(headline), "</td><td><a href=\"test_",
+                lpad(id, 2, "0"), "_", slug, "/report.html\">report.html ↗</a></td></tr>")
+        end
+        println(f, "</table></div>")
+        print(f, _aur_footer(scope))
+        println(f, "</div>")
     end
     println(" REPORT INDEX: ", idx)
     _rep_write_final_report!(scope)
@@ -17712,8 +17769,8 @@ function _rep_cfg_snapshot_lines()::Vector{String}
         push!(lines, @sprintf("3d                    = L=%d, α=%g, tz=%g, W=%g, mass=%g, boundary=:%s, lines=%d q=%g, seed=%d",
             c.d3_L, c.d3_alpha, c.d3_tz, c.d3_W, c.d3_mass,
             c.d3_boundary, c.d3_nv_lines, c.d3_line_q, c.d3_seed))
-        push!(lines, @sprintf("reporting             = enabled=%s, dir=%s, dpi=%d, formats=%s",
-            c.rep_enabled, c.rep_root, c.rep_dpi, join(c.rep_report_formats, ",")))
+        push!(lines, @sprintf("reporting             = enabled=%s, dir=%s, dpi=%d, formats=%s, preset=%s",
+            c.rep_enabled, c.rep_root, c.rep_dpi, join(c.rep_report_formats, ","), c.rep_preset))
     catch e
         push!(lines, "(config snapshot error: $(sprint(showerror, e)))")
     end
@@ -17761,31 +17818,41 @@ function _rep_write_final_report!(scope::String)
                         occursin("pass 1 result", l) || occursin("pass 2 result", l),
                    split(comp_full, '\n'))
     open(joinpath(fdir_l, "computation_log_full.txt"), "w") do f
-        write(f, "FULL COMPUTATION LOG (whole session) — every log_comp() entry\n\n")
+        write(f, "✦ ────────────────────────────────────────────────── ❄ ────────────────────────────────────────────────── ✦\n")
+        write(f, "  FULL COMPUTATION LOG (whole session) — every log_comp() entry\n")
+        write(f, "  AB-Cloud · AURORA Edition · consolidated computation audit trail\n")
+        write(f, "✦ ────────────────────────────────────────────────── ❄ ────────────────────────────────────────────────── ✦\n\n")
         write(f, isempty(comp_full) ? "(empty)\n" : comp_full * "\n")
     end
     open(joinpath(fdir_l, "results_verdicts.txt"), "w") do f
-        write(f, "ONE-LINE VERDICTS (results_log)\n\n")
+        write(f, "✦ ────────────────────────────────────────────────── ❄ ────────────────────────────────────────────────── ✦\n")
+        write(f, "  ONE-LINE VERDICTS (results_log) · AB-Cloud · AURORA Edition\n")
+        write(f, "✦ ────────────────────────────────────────────────── ❄ ────────────────────────────────────────────────── ✦\n\n")
         for line in results_log
             println(f, line)
         end
     end
-    # ── 2b. THE consolidated log file (user request 2026-09-06): ONE file with
+    # ── 2b. THE consolidated log file: ONE file with
     # every per-test computation log + console capture of the run, in run order.
     # Together with final_report.* this makes the WHOLE run readable from exactly
     # two files, in every report format.
     open(joinpath(fdir_l, "full_run_log.txt"), "w") do f
-        write(f, "FULL RUN LOG — $(REP.run_dir)\n")
-        write(f, "ONE consolidated file: every test's computation log + console capture, in run order\n")
-        write(f, "(user spec 2026-09-06: the whole run must be readable from two files — final_report.* + this log)\n\n")
+        write(f, "✦ ═══════════════════════════════════════════════════════════════════════ ✦\n")
+        write(f, "  ❄  FULL RUN LOG — $(REP.run_dir)\n")
+        write(f, "     ONE consolidated file: every test's computation log + console capture\n")
+        write(f, "     AB-Cloud · AURORA Edition — the whole run reads from two files:\n")
+        write(f, "     final_report.* + this log\n")
+        write(f, "✦ ═══════════════════════════════════════════════════════════════════════ ✦\n\n")
         for (id, slug, verdict, headline) in REP.summary
             tdir_name = @sprintf("test_%02d_%s", id, slug)
-            write(f, repeat("═", 70) * "\n")
-            write(f, @sprintf("TEST %d — %s   [%s]\n", id, slug, verdict))
-            write(f, repeat("═", 70) * "\n")
+            ico = verdict == "PASS" ? "✦" : verdict == "WARN" ? "◆" :
+                  verdict == "FAIL" ? "✖" : "◈"
+            write(f, "\n✦ ───────────────────────────────────────────────────────────────────── ✦\n")
+            write(f, @sprintf("  %s TEST %d — %s   [%s]\n", ico, id, slug, verdict))
+            write(f, "✦ ───────────────────────────────────────────────────────────────────── ✦\n")
             for (lbl, sub) in (("computation log", "computation_log.txt"), ("console capture", "stdout_capture.txt"))
                 p = joinpath(fdir_l, tdir_name, sub)
-                write(f, "--- $lbl ($sub) ---\n")
+                write(f, "  --- $lbl ($sub) ---\n")
                 if isfile(p)
                     try write(f, read(p, String)); catch; write(f, "(unreadable)\n"); end
                     write(f, "\n")
@@ -17795,6 +17862,7 @@ function _rep_write_final_report!(scope::String)
             end
             write(f, "\n")
         end
+        write(f, "✦ ═════════════════════════════ КОНЕЦ ЛОГА · END OF LOG ═════════════════════════════ ✦\n")
     end
 
     # ── 3. verdict statistics ──
@@ -17809,20 +17877,20 @@ function _rep_write_final_report!(scope::String)
     push!(blocks, ("h1", "FINAL REPORT — $scope", ""))
     push!(blocks, ("p", "Generated: $now   |   Julia $(string(VERSION))   |   " *
         (isnan(dur) ? "duration: n/a" : @sprintf("wall duration: %.1f s (%.1f min)", dur, dur/60)) *
-        "   |   Suite: AB-Cloud v20", ""))
+        "   |   Suite: AB-Cloud", ""))
     push!(blocks, ("p", "Author: Isaev Iskhak Khamzatovich (ORCID 0009-0003-7299-0701) | " *
         "DOI 10.5281/zenodo.21825394 | github.com/wild8highlander/research-papers", ""))
     push!(blocks, ("h2", "What this folder is", ""))
     push!(blocks, ("p", "FINAL_REPORT is the LAST folder of the run and gathers ALL run information: " *
-        "the master report (this document, in md/html/pdf/docx) — which since v23.5 EMBEDS every test's full " *
+        "the master report (this document, in md/html/pdf/docx) — which EMBEDS every test's full " *
         "report inline (see 'Full per-test reports' below), so the whole run reads from ONE document — and the " *
         "consolidated ONE-FILE log logs/full_run_log.txt (every test's computation log + console capture). " *
         "Raw copies of every test's report files (reports/) and logs (logs/) are kept as before; heavy plot " *
         "artifacts (png/gif) stay in each test's own folder ../test_XX_<slug>/plots/ — the per-test tables " *
         "below point there.", ""))
     push!(blocks, ("h2", "How to reproduce", ""))
-    push!(blocks, ("p", "Full suite:        julia ab_cloud_v20.jl --test all", ""))
-    push!(blocks, ("p", "Single test:       julia ab_cloud_v20.jl --test 33 --no-two-pass", ""))
+    push!(blocks, ("p", "Full suite:        julia ab_cloud_full.jl --test all", ""))
+    push!(blocks, ("p", "Single test:       julia ab_cloud_full.jl --test 33 --no-two-pass", ""))
     push!(blocks, ("p", "Disorder cap:      --ab-w-max 1.0   (Tests 32/33/36 use W_eff = min(ab_W, W_max))", ""))
     push!(blocks, ("p", "Test 36 targets:   --ab37-n-eigs-pass1 25000 --ab37-n-eigs-pass2 50000", ""))
     push!(blocks, ("p", "Labs: main menu 'l' (Physics Lab), 'd3' (3D Lab); every experiment writes " *
@@ -17844,7 +17912,7 @@ function _rep_write_final_report!(scope::String)
         "logs/results_verdicts.txt (one-line verdicts), logs/test_XX_*/ (per-test).", ""))
     push!(blocks, ("p", "Run index: ../index.html — verdict table with direct links to every per-test report.", ""))
 
-    # ── 4b. Full per-test reports INLINE (user request 2026-09-06): the master
+    # ── 4b. Full per-test reports INLINE: the master
     # document must read as ONE self-contained report of the whole run in every
     # format (md/html/pdf/docx), not just link to scattered files. The blocks
     # cached at per-test report time are reused byte-for-byte (no md parsing).
@@ -17853,8 +17921,8 @@ function _rep_write_final_report!(scope::String)
     push!(blocks, ("h2", "Full per-test reports (gathered inline — one-file read of the whole run)", ""))
     push!(blocks, ("p", "Every test's full report (method, verdict-table content, plot list, verification guide) is " *
         "embedded below in run order. Computation logs and console captures are consolidated separately in " *
-        "logs/full_run_log.txt — the run's single log file (user request 2026-09-06: everything readable from " *
-        "two files: this report + that log).", ""))
+        "logs/full_run_log.txt — the run's single log file: everything readable from " *
+        "two files — this report + that log.", ""))
     n_inlined = 0
     for (id, slug, verdict, headline) in REP.summary
         haskey(REP.report_blocks, id) || continue
@@ -17873,28 +17941,51 @@ function _rep_write_final_report!(scope::String)
 
     # ── 5. write md / html / pdf (+docx when enabled) ──
     "md" in REP.report_formats && open(joinpath(fdir, "final_report.md"), "w") do f
-        for (kind, text, mono) in blocks
-            kind == "h1" ? println(f, "# ", text) :
-            kind == "h2" ? println(f, "\n## ", text) :
+        println(f, "# ✦ AB-CLOUD · AURORA — ИТОГОВЫЙ ОТЧЁТ · FINAL REPORT")
+        println(f)
+        println(f, "> ✦ ❄ ✦  **", scope, "**")
+        println(f)
+        println(f, "**Generated:** $now  ·  **Julia:** $(string(VERSION))  ·  **Suite:** AB-Cloud · AURORA  ·  " *
+            (isnan(dur) ? "duration: n/a" : @sprintf("**Wall duration:** %.1f s (%.1f min)", dur, dur/60)))
+        println(f)
+        println(f, "**Author:** Isaev Iskhak Khamzatovich (ORCID 0009-0003-7299-0701) · DOI 10.5281/zenodo.21825394 · github.com/wild8highlander/research-papers")
+        println(f)
+        println(f, "**Итог прогона · Run score:** ✅ PASS × $n_pass · ⚠️ WARN × $n_warn · ❌ FAIL × $n_fail · 🔷 DONE × $n_done (из $n_all)")
+        println(f)
+        for (kind, text, mono) in blocks[3:end]   # заголовок и мета уже в шапке
+            kind == "h1" ? println(f, "\n---\n\n# ✦ ", text) :
+            kind == "h2" ? println(f, "\n## ❄ ", text) :
             kind == "log" ? println(f, "\n```text\n", mono, "\n```") :
-                println(f, text)
+                startswith(text, "Verdict:") ?
+                    println(f, "\n### 🏁 ", text) : println(f, text)
         end
+        println(f)
+        println(f, "---")
+        println(f, "✦ AB-Cloud · AURORA Edition · FINAL_REPORT собирает весь прогон в одном месте ❄")
     end
     "html" in REP.report_formats && open(joinpath(fdir, "final_report.html"), "w") do f
-        println(f, "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>FINAL REPORT — ",
-            scope, "</title><style>body{font-family:system-ui;margin:2em;max-width:120ch}",
-            "pre{background:#f4f4f4;padding:1em;overflow-x:auto;font-size:11px}",
-            "h1{border-bottom:2px solid #333}</style></head><body>")
-        # FIX 2026-08-31: escape &, < and > (only "<" was replaced — a literal
-        # "&" or "<>" inside a headline/log line produced invalid HTML).
-        _hesc(x::String) = replace(replace(replace(x, "&" => "&amp;"), "<" => "&lt;"), ">" => "&gt;")
-        for (kind, text, mono) in blocks
-            kind == "h1" ? println(f, "<h1>", _hesc(text), "</h1>") :
-            kind == "h2" ? println(f, "<h2>", _hesc(text), "</h2>") :
-            kind == "log" ? println(f, "<pre>", _hesc(mono), "</pre>") :
-                println(f, "<p>", _hesc(text), "</p>")
+        print(f, _aur_html_head("FINAL REPORT — " * scope * " · AB-Cloud AURORA"))
+        print(f, _aur_topbar(Pair{String,String}["Дашборд прогона" => "../index.html"]))
+        println(f, "<div class=\"wrap\">")
+        print(f, _aur_hero("Итоговый отчёт · Final Report", scope, n_fail == 0 && n_warn == 0 ? "PASS" : ""))
+        println(f, "<div class=\"badges\" style=\"margin-top:-6px\">",
+            "<span class=\"chip\">Generated: <b>", now, "</b></span>",
+            "<span class=\"chip\">Julia <b>", string(VERSION), "</b></span>",
+            "<span class=\"chip\">", isnan(dur) ? "duration: n/a" :
+                @sprintf("Wall duration: <b>%.1f s (%.1f min)</b>", dur, dur/60), "</span></div>")
+        # стат-карточки прогона
+        println(f, "<div class=\"stats\">")
+        for (col, num, lab) in (("var(--pass)", n_pass, "пройдено · pass"),
+                                ("var(--warn)", n_warn, "предупреждения · warn"),
+                                ("var(--fail)", n_fail, "сбои · fail"),
+                                ("var(--done)", n_done, "выполнено · done"))
+            println(f, "<div class=\"stat\" style=\"--sc:", col, "\"><div class=\"n\">", num,
+                "</div><div class=\"l\">", lab, "</div></div>")
         end
-        println(f, "</body></html>")
+        println(f, "</div>")
+        print(f, _aur_blocks_html(blocks[3:end]))   # заголовок/мета уже в баннере
+        print(f, _aur_footer(scope * " · AB-Cloud AURORA"))
+        println(f, "</div>")
     end
     "pdf" in REP.report_formats && open(joinpath(fdir, "final_report.pdf"), "w") do f
         write(f, report_blocks_to_pdf(blocks))
@@ -17912,22 +18003,22 @@ function _rep_write_final_report!(scope::String)
     return
 end
 
-# ── 16.15 stdout tee (the auto-plot scraper was retired 2026-08-31 — plots
-#    are queued by the tests themselves; see hc_verdict_table's verdict map) ──
+# ── 16.15 stdout tee (the auto-plot scraper was retired — plots
+#  are queued by the tests themselves; see hc_verdict_table's verdict map) ──
 
 """Run thunk with stdout teed into REP.stdout_lines (live console kept)."""
 function rep_tee_stdout(thunk::Function)
     REP.enabled || return thunk()
     orig = stdout
     rd, wr = redirect_stdout()
-    ab_color_off() # stdout перенаправлен в tee — отчёт получит чистый текст (UI3)
-    _disp_acquire!() # pump owns the live side for this test (FIX 2026-09-02b)
+    ab_color_off() # stdout перенаправлен в tee — отчёт получит чистый текст (ABUI)
+    _disp_acquire!() # pump owns the live side for this test (NOTE:
     task = @async begin
         try
             while !eof(rd)
                 line = readline(rd)
                 push!(REP.stdout_lines, line)
- # FIX 2026-09-02b: clear+line+frame used to run UNDER _PROG_IO_LOCK with a
+ # NOTE: clear+line+frame used to run UNDER _PROG_IO_LOCK with a
  # SYNCHRONOUS println into the outer pipe — a frozen console or a stalled
  # outer reader blocked this task holding the lock, the test task then
  # deadlocked on the same lock inside prog_update, the pipe filled to
@@ -17952,7 +18043,7 @@ function rep_tee_stdout(thunk::Function)
         out = thunk()
     finally
         redirect_stdout(orig)
-        ab_color_on() # stdout восстановлен (UI3)
+        ab_color_on() # stdout восстановлен (ABUI)
         close(wr)
         wait(task)
         _disp_flush_wait(2.0) # bounded grace — never a shutdown hang
@@ -17962,7 +18053,7 @@ function rep_tee_stdout(thunk::Function)
 end
 
 # (rep_auto_plots! — the "auto-extracted numeric rows (col1 vs col2)" stdout
-# scraper — RETIRED 2026-08-31, user verdict: the charts were "пустота, никакой
+# scraper — RETIRED, user verdict: the charts were "пустота, никакой
 # смысловой нагрузки". Plotting the first two numbers of every captured console
 # line pairs unrelated constants (row index vs a threshold printed mid-sentence)
 # into every report and the GIF tour. Tests now queue REAL plots instead:
@@ -17989,7 +18080,7 @@ function run_test(id::Int, zeta_zeros::Vector{Float64}, cfg::Config)::Bool
                     _rep_inner_test(id, zeta_zeros, cfg)
                 end
             catch e
-                # FIX 2026-08-31: an exception used to skip rep_finish! — the
+                # NOTE: an exception used to skip rep_finish! — the
                 # test then vanished from summary/index.html entirely and
                 # REP.current hung until the next rep_begin!. Record FAIL.
                 rep_finish!(id, "FAIL", "EXCEPTION: " * sprint(showerror, e))
@@ -17997,10 +18088,10 @@ function run_test(id::Int, zeta_zeros::Vector{Float64}, cfg::Config)::Bool
             end
             rt = REP.current
             if rt !== nothing
-                # (the rep_auto_plots! scraper is RETIRED 2026-08-31 — a pass
+                # (the rep_auto_plots! scraper is RETIRED — a pass
                 # without queued plots says so honestly in its report; every
                 # HARDCORE pass carries the hc_verdict_table verdict map)
-                # FIX 2026-08-31: verdict "FAIL/WARN" matched neither the
+                # NOTE: verdict "FAIL/WARN" matched neither the
                 # summary counters (PASS/WARN/FAIL) nor the index.html CSS
                 # classes — every failure silently inflated "N DONE".
                 rep_finish!(id, out ? "PASS" : "FAIL", last_log_line())
@@ -18016,11 +18107,11 @@ end
 
 
 # ╔══════════════════════════════════════════════════════════════════════╗
-# ║  17. PHYSICS LAB — experiment configurations menu                     ║
-# ║  Opened from: config menu item 65, or main-menu key 'l'.              ║
-# ║  Each experiment = preset parameters + explanation + run + report.    ║
-# ║  Experiments register into TEST_META (ids ≥ 100) so the reporting     ║
-# ║  engine writes full md/html/pdf/docx + plots + logs for each of them. ║
+# ║ 17. PHYSICS LAB — experiment configurations menu ║
+# ║ Opened from: config menu item 65, or main-menu key 'l'. ║
+# ║ Each experiment = preset parameters + explanation + run + report. ║
+# ║ Experiments register into TEST_META (ids ≥ 100) so the reporting ║
+# ║ engine writes full md/html/pdf/docx + plots + logs for each of them. ║
 # ╚══════════════════════════════════════════════════════════════════════╝
 
 struct LabExp
@@ -18035,7 +18126,7 @@ end
 const LAB_EXPS = LabExp[]
 
 """Reduced-lattice ABCloudConfig derived from the user config (lab defaults
-72×72 torus, :monumental phases — GUE-reachable at any q).
+72×72 torus,:monumental phases — GUE-reachable at any q).
 
 every keyword left at its sentinel falls back to the user-
 configurable lab block (cfg.lab_* — edit via LAB menu → 's'), so a lab run
@@ -18078,7 +18169,7 @@ function lab_cfg(cfg::Config; L::Int = 0, alpha::Float64 = NaN, W::Float64 = NaN
 end
 
 function _lab_spectrum(c::ABCloudConfig)
- log_comp(@sprintf(" heevr values-only solve: N=%d — _lab_spectrum", c.Nx * c.Ny)) # FIX 2026-09-06: сердцебиение бара во время лабораторного солва
+ log_comp(@sprintf(" heevr values-only solve: N=%d — _lab_spectrum", c.Nx * c.Ny)) # NOTE: сердцебиение бара во время лабораторного солва
  return sort(real.(eigvals(Hermitian(build_ab_cloud_hamiltonian(c)))))
 end
 
@@ -18178,8 +18269,7 @@ function lab_e04(cfg::Config)
     add_series!(p, "GOE 0.5307", xs, fill(0.5307, length(xs)), 'l')
     rep_plot!(p)
     rep_note!("W scales the vortex Coulomb potential — NOT an Anderson ε ~ U(−W,W): the " *
-              "on-site ε is a fixed 0.01-amplitude floor in the builder (banner fix №3, " *
-              "2026-08-31). W=0 keeps the pure Hofstadter problem; small W decorrelates " *
+              "on-site ε is a fixed 0.01-amplitude floor in the builder . W=0 keeps the pure Hofstadter problem; small W decorrelates " *
               "symmetry-protected degeneracies (→ toward GUE); large W localizes (⟨r⟩ → " *
               "Poisson 0.386 at strong vortex disorder in 2D). The GUE plateau width is " *
               "the useful diagnostic.")
@@ -18188,11 +18278,11 @@ end
 
 # ── E5: magic-α sweep (61 points) ─────────────────────────────────────
 function lab_e05(cfg::Config)
-    L = cfg.lab_L # launch standard 72 (was 24 — 61 α points; lower
+    L = cfg.lab_L # launch standard 72 (— 61 α points; lower
     # it in the LAB menu if the sweep feels slow: cost ∝ L³ per dense diagonalization)
  # magic α values are mostly IRRATIONAL (1/π, golden ratio, …) — the
-    # torus requires α·L ∈ ℤ (STRICT since 2026-08-31, audit fix №2 — no
-    # half-integer twist any more), so the old :torus default crashed the
+    # torus requires α·L ∈ ℤ (STRICT since, audit fix №2 — no
+    # half-integer twist any more), so the old:torus default crashed the
     # sweep with AssertionError at the first irrational α. The sweep runs on
     # the open lattice (no flux-quantisation constraint).
     println("\n Magic-α sweep: 61 monograph points, ⟨r⟩ per α (L=$L, monumental, W=4, open):")
@@ -18456,8 +18546,8 @@ function lab_e14(cfg::Config)
     flank = max(maximum(hist[1:8]), maximum(hist[end-7:end]))
     println("   center bins = ", join(mid, ","), ", flank max = ", flank,
             " → dip contrast ", round(flank / max(1, maximum(mid)), digits = 2))
- # scalar + range needs broadcasting (lo .+ …); the plain +
-    # threw MethodError (+(::Float64, ::StepRangeLen)).
+ # scalar + range needs broadcasting (lo.+ …); the plain +
+    # threw MethodError (+(: Float64,: StepRangeLen)).
     ctr = collect(lo .+ (hi - lo) .* ((0.5:nb - 0.5) ./ nb))
     p = RepPlot("E14: DOS(E) — Dirac dip at α=1/2 (L=$L)", "E", "count")
     add_series!(p, "DOS", ctr, float.(hist), 'l')
@@ -18493,7 +18583,7 @@ end
 "Standalone lowest-band C₁: REAL Fukui–Hatsugai–Suzuki on the magnetic BZ
 (q×q Harper cell per α), via harper_chern_first_band. Returns NaN where the
 subband gap closes (per-band C₁ undefined — e.g. the α=1/2 Dirac touching).
-(The v19.0 stub here just returned 1.0 for α ≤ 1/2 — a fake 'Diophantine
+(The stub here just returned 1.0 for α ≤ 1/2 — a fake 'Diophantine
 check' with unused p/q variables; at α = 2/5 the true lowest-band C₁ is 3,
 so the hardcoded rule was wrong exactly where it mattered.)"
 function test22_chern_number_tknn_nocfg(alpha::Float64, L::Int)
@@ -18511,7 +18601,7 @@ function lab_e16(cfg::Config)
     println("\n Anderson localization proxy: IPR of eigenstates vs W (L=$L):")
     xs = Float64[]; ips = Float64[]
     for (iw16, w) in enumerate((0.0, 2.0, 4.0, 8.0, 16.0))
-        prog_update((iw16 - 1) / 5.0, @sprintf("E16: W=%.0f build+heevrd %d/5", w, iw16)) # FIX 2026-09-06: полный eigen С векторами — самая тяжёлая операция лаборатории; раньше вся E16 молчала
+        prog_update((iw16 - 1) / 5.0, @sprintf("E16: W=%.0f build+heevrd %d/5", w, iw16)) # NOTE: полный eigen С векторами — самая тяжёлая операция лаборатории; раньше вся E16 молчала
         c = lab_cfg(cfg; L = L, W = w)
         H = build_ab_cloud_hamiltonian(c)
         log_comp(@sprintf(" heevrd FULL solve (vectors): N=%d — E16 W=%.0f", L * L, w)) # сердцебиение во время солва
@@ -18558,7 +18648,7 @@ function lab_e18(cfg::Config)
     L = cfg.lab_L
     println("\n Full spectral card (L=$L, α=1/2, W=cfg, monumental):")
     c = lab_cfg(cfg; L = L)
-    prog_update(0.10, "E18: spectral card build+heevr") # FIX 2026-09-06: солв был нем
+    prog_update(0.10, "E18: spectral card build+heevr") # NOTE: солв был нем
     ev = _lab_spectrum(c)
     bulk = central_band_eigs(ev, 0.6)
     r, n = mean_adjacent_spacing_ratio(bulk)
@@ -18575,8 +18665,8 @@ function lab_e18(cfg::Config)
     @printf("   ⟨r⟩(bulk) = %.4f | spacings n = %d | Σ²(L=5) = %.3f (GUE ≈ 0.56)\n", r, ks - 1, sig2)
     # K(t) quick
     ts = [0.3, 0.5, 0.7, 1.0]
- # the generator must live inside sum(), not inside exp()
-    # (exp(::Generator) → MethodError).
+ # the generator must live inside sum, not inside exp
+    # (exp(: Generator) → MethodError).
     K = [abs2(sum(exp(2π * im * t * u) for u in (bulk .- mean(bulk)) ./ std(bulk))) / ks for t in ts]
     @printf("   K(t): %s\n   GUE box: %s\n",
         join([@sprintf("K(%.1f)=%.2f", t, K[i]) for (i, t) in enumerate(ts)], "  "),
@@ -18616,7 +18706,7 @@ function _lab_register!()
         LabExp(104, "W_sweep", "Vortex-potential depth W sweep (W = 0…8)",
             "the classic W-scan: ⟨r⟩(W) between GOE and Poisson",
             "W is the vortex Coulomb depth V = q·W/(r²/N+1); the on-site ε is a fixed " *
-            "0.01 floor, NOT ε ~ U(−W,W) (banner fix №3, 2026-08-31). W decorrelates " *
+            "0.01 floor, NOT ε ~ U(−W,W) . W decorrelates " *
             "degeneracies at small W and localizes at large W; the GUE plateau marks the " *
             "useful window — the statistical tests 32/33 run it capped at W_eff ≤ 1.", lab_e04),
         LabExp(105, "magic_alpha", "Magic-α sweep (61 monograph points)",
@@ -18740,7 +18830,7 @@ function _lab_params_reset!(cfg::Config)
     return
 end
 
-# soft sanity hint: on a :torus the flux-quantisation constraint α·L ∈ ℤ must hold
+# soft sanity hint: on a:torus the flux-quantisation constraint α·L ∈ ℤ must hold
 # (same condition build_ab_cloud_hamiltonian asserts)
 function _lab_torus_hint(cfg::Config)
     cfg.lab_lattice == :torus || return
@@ -18927,7 +19017,7 @@ function physics_lab_menu!(cfg::Config)
                     _lab_run!(e, cfg)
                 end
                 # FINAL_REPORT: gather every E1–E22 report/log into one last
-                # folder (user spec 2026-08-29: "добавить и в лабораторию")
+                # folder
                 rep_finalize_run("Physics Lab — all experiments E1–E22")
                 continue
             end
@@ -18951,7 +19041,7 @@ function physics_lab_menu!(cfg::Config)
 end
 
 function _lab_run!(e::LabExp, cfg::Config)
-    # FIX 2026-09-06 (лаборатория без прогресса): каждый эксперимент теперь идёт
+    # NOTE:(лаборатория без прогресса): каждый эксперимент теперь идёт
     # под стандартным однострочным баром — [Lab E##] started → живой кадр с
     # elapsed-часами → done-строка. Эксперименты с внутренними prog_update
     # (E16/E18/E19/E21/E22) двигают фракцию; остальные получают живой таймер и
@@ -18974,7 +19064,7 @@ function _lab_run!(e::LabExp, cfg::Config)
         end
         rt = REP.current
         if rt !== nothing
- # (rep_auto_plots! retired 2026-08-31 — experiments without an
+ # (rep_auto_plots! retired — experiments without an
             # explicit RepPlot, e.g. E19's pure-heatmap output, now report
             # "no series plots" instead of a scraped-junk curve)
             rt.headline = last_log_line()
@@ -19003,8 +19093,8 @@ end
 
 
 # ╔══════════════════════════════════════════════════════════════════════╗
-# ║  18. QUANTUM HYDRO LAB: e⁻/e⁺ jets (LBM), Hadamard walk,             ║
-# ║      AB-cloud 2D/3D spatial maps, heatmap writer                     ║
+# ║ 18. QUANTUM HYDRO LAB: e⁻/e⁺ jets (LBM), Hadamard walk, ║
+# ║ AB-cloud 2D/3D spatial maps, heatmap writer ║
 # ╚══════════════════════════════════════════════════════════════════════╝
 
 """Grayscale→color heatmap PNG from a Float64 matrix (values auto-scaled)."""
@@ -19022,7 +19112,7 @@ function write_heatmap_png(path::String, M::AbstractMatrix{<:Real}; cols::Symbol
         else # gray
             (round(Int, 255t), round(Int, 255t), round(Int, 255t))
         end
-        # FIX 2026-08-31: write row 1 of M to the BOTTOM image row — the
+        # NOTE: write row 1 of M to the BOTTOM image row — the
         # SVG heatmap (and every spatial map convention) puts matrix row 1
         # at the bottom; the PNG used to render the same matrix VERTICALLY
         # FLIPPED relative to its own SVG twin.
@@ -19061,7 +19151,7 @@ function lab_e19(cfg::Config)
     println("\n AB-cloud construction & 2D spatial distribution (L=$L, α=$(cfg.lab_alpha), $(cfg.lab_nv) vortices):")
     c = lab_cfg(cfg; L = L)
     H = build_ab_cloud_hamiltonian(c)
-    prog_update(0.15, "E19: H built") # FIX 2026-09-06: E19 была немой на весь тяжёлый блок
+    prog_update(0.15, "E19: H built") # NOTE: E19 была немой на весь тяжёлый блок
     Hc = Matrix(H)
     site_amp = vec([sum(abs.(Hc[:, i])) for i in 1:(L * L)])       # per-site coupling mass
     log_comp(@sprintf(" heevrd FULL solve (vectors): N=%d — E19 ψ₀/mid-band maps (самая тяжёлая одиночная операция лаборатории)", L * L)) # сердцебиение во время солва
@@ -19140,7 +19230,7 @@ function lab_e21(cfg::Config)
     w = (4 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 36, 1 / 36, 1 / 36, 1 / 36)
     ex = (0, 1, 0, -1, 0, 1, -1, -1, 1); ey = (0, 0, 1, 0, -1, 1, 1, -1, -1)
  # opp[7]/opp[9] were self-opposites — NW(−1,+1) must reflect to
-    # SE(+1,−1) and vice versa (was opp[7]=7, opp[9]=9).
+    # SE(+1,−1) and vice versa.
     opp = (1, 4, 5, 2, 3, 8, 9, 6, 7)
     q_v = 0.3
     cx, cy, R = LX ÷ 3, LY ÷ 2, max(4.0, round(Float64, min(LX, LY) / 10))   # vortex-pair obstacle region (scales with grid)
@@ -19158,7 +19248,7 @@ function lab_e21(cfg::Config)
     end
     en_series = Float64[]
     for step in 1:NSTEPS
-        prog_update(step / NSTEPS, @sprintf("E21 LBM %dx%d, step %d/%d", LX, LY, step, NSTEPS)) # FIX 2026-09-06: бар движется каждый шаг (внутренний троттлинг 0.2 с); раньше весь LBM-прогон молчал и печатал одну строку в конце
+        prog_update(step / NSTEPS, @sprintf("E21 LBM %dx%d, step %d/%d", LX, LY, step, NSTEPS)) # NOTE: бар движется каждый шаг (внутренний троттлинг 0.2 с); раньше весь LBM-прогон молчал и печатал одну строку в конце
         # collide (BGK) + force (jet drive), then stream
         for y in 1:LY, x in 1:LX
             inobst(x, y) && continue
@@ -19202,7 +19292,7 @@ function lab_e21(cfg::Config)
         end
  # Julia's `f = nf` copies
         # the REFERENCE, so from step 2 on `nf` and `f` aliased one buffer —
-        # the `nf .= 0` wipe then erased the just-collided state and the
+        # the `nf.= 0` wipe then erased the just-collided state and the
         # streaming read saw all zeros (density range [0.000, 0.000], max
         # |v_x| = 0.000 forever). Swap the two buffers instead.
         f, nf = nf, f
@@ -19268,7 +19358,7 @@ function lab_e22(cfg::Config)
     widths = Float64[]
     probs_each = Vector{Dict{Tuple{Int,Int},Float64}}()
     for s in 1:STEPS
-        prog_update(s / STEPS, @sprintf("E22 Hadamard walk N=%d, step %d/%d", N, s, STEPS)) # FIX 2026-09-06: словарь растёт ~N² на шаг — весь прогон молчал до конца
+        prog_update(s / STEPS, @sprintf("E22 Hadamard walk N=%d, step %d/%d", N, s, STEPS)) # NOTE: словарь растёт ~N² на шаг — весь прогон молчал до конца
         ψ = step!(ψ)
         if s % 12 == 0
             P = Dict{Tuple{Int,Int},Float64}()
@@ -19348,12 +19438,12 @@ end
 
 
 # ╔══════════════════════════════════════════════════════════════════════╗
-# ║  19. 3D LAB: 3D Hofstadter stack with vortex lines, 30 tests         ║
-# ║  Own menu (main-menu key 'd3'); NOT in "run all tests".               ║
+# ║ 19. 3D LAB: 3D Hofstadter stack with vortex lines, 30 tests ║
+# ║ Own menu (main-menu key 'd3'); NOT in "run all tests". ║
 # ╚══════════════════════════════════════════════════════════════════════╝
 
 """
-    h3d_build(L; alpha, tz, tz_sign, vlines, W, openx, openy, openz, mass, seed)
+ h3d_build(L; alpha, tz, tz_sign, vlines, W, openx, openy, openz, mass, seed)
 
 3D Hofstadter stack: L×L×L cubic lattice. Uniform flux α through every x-y
 plaquette (Peierls e^{2πiαy} on x-hops); vortex LINES along z at (xi,yi)
@@ -19362,7 +19452,7 @@ sits on the y-hops crossing the branch-cut ray, so integer lines are
 exactly gauge-trivial (Byers–Yang) and fractional lines respond at O(1);
 z-hopping tz with optional staggered sign (mass term for Weyl tests);
 onsite disorder W; per-axis boundary selection. Returns dense Matrix.
-`seed::Int` makes the W disorder pattern reproducible
+`seed: Int` makes the W disorder pattern reproducible
 (seed = nothing keeps the historical global-RNG behavior).
 """
 function h3d_build(L::Int; alpha::Float64 = 0.5, tz::Float64 = 1.0,
@@ -19400,13 +19490,13 @@ function h3d_build(L::Int; alpha::Float64 = 0.5, tz::Float64 = 1.0,
         # 2D header), so the line would be invisible for ANY q; unwrapped
         # ghost angles on the wrap bonds fix that but break the gauge
         # transform (integer lines stopped being Byers–Yang-trivial). The
-        # honest construction — same as the 2D :dirac model used by the
+        # honest construction — same as the 2D:dirac model used by the
         # passing flux tests — puts the FULL flux 2πq on the bonds crossing
         # the branch-cut ray {(t, yi): t < xi} (a y-hop at column x < xi
         # straddling y = yi):
-        #   integer q  → e^{2πiq} = 1 → spectrum IDENTICAL to line-free
-        #                (Byers–Yang, exact to machine ε),
-        #   fractional q → string bonds carry e^{2πiq} ≠ 1 → O(1) response.
+        #  integer q → e^{2πiq} = 1 → spectrum IDENTICAL to line-free
+        #  (Byers–Yang, exact to machine ε),
+        #  fractional q → string bonds carry e^{2πiq} ≠ 1 → O(1) response.
         if y < L || !openy
             y2 = y % L + 1
             ph = 0.0
@@ -19470,14 +19560,14 @@ function _d3_lines(cfg::Config)
 end
 
 """
-    h3d_cfg(cfg; kwargs...) -> Hermitian matrix
+ h3d_cfg(cfg; kwargs...) -> Hermitian matrix
 
 Build the 3D stack from the configured D3 parameter block. Every kwarg
 overrides the cfg value (test-specific contrasts, e.g. `alpha = 0.25`);
 `extra_vlines` (default true) appends the user's cfg vortex lines — pass
 `extra_vlines = false` in tests that define their own lines.
 """
-const _D3_L_MAX = 54 # v21.0: sparse engine reaches 54³ (dense caps at _D3_DENSE_LMAX)
+const _D3_L_MAX = 54 # : sparse engine reaches 54³ (dense caps at _D3_DENSE_LMAX)
 function h3d_cfg(cfg::Config; L::Union{Nothing,Int} = nothing,
                  alpha::Float64 = cfg.d3_alpha, tz::Float64 = cfg.d3_tz,
                  tz_stagger::Bool = cfg.d3_tz_stagger,
@@ -19489,7 +19579,7 @@ function h3d_cfg(cfg::Config; L::Union{Nothing,Int} = nothing,
     use_sparse = cfg.d3_engine === :sparse ||
                  (cfg.d3_engine === :auto && Lv > _D3_DENSE_LMAX)
     if use_sparse
-        # v21.0 sparse path — same physics, 7 nnz/row, windowed spectrum via _h3_eig
+        #  sparse path — same physics, 7 nnz/row, windowed spectrum via _h3_eig
         lines = Tuple{Float64,Float64,Float64}[]
         if vlines !== nothing
             append!(lines, vlines)
@@ -19514,7 +19604,7 @@ function h3d_cfg(cfg::Config; L::Union{Nothing,Int} = nothing,
         end
         return Hs
     end
-    L = Lv # dense path — v20-identical below
+    L = Lv # dense path — -identical below
     ox, oy, oz = open_from_cfg ? _d3_boundary_map(cfg.d3_boundary) : (openx, openy, openz)
     lines = Tuple{Float64,Float64,Float64}[]
     if vlines !== nothing
@@ -19528,19 +19618,19 @@ end
 
 
 # ════════════════════════════════════════════════════════════════════════════
-# v21.0 SPARSE 3D ENGINE — Hofstadter stack without the dense memory wall.
+#  SPARSE 3D ENGINE — Hofstadter stack without the dense memory wall.
 # ════════════════════════════════════════════════════════════════════════════
 # Why: the dense builder materializes an N×N ComplexF64 matrix, N = L³ — at
 # 36³ that is 46656² ≈ 35 GB and a full dense diagonalization takes DAYS, so
 # the user-requested 36³/54³ passes are impossible densely (54³ ≈ 395 GB).
 # The sparse engine stores the same Hamiltonian with 7 nonzeros per row
 # (~6.5 MB at 36³) and extracts a WINDOW of the spectrum around a chosen
-# centre by shift-invert Lanczos (sparse LU + full reorthogonalization —
+# centre by shift-invert Lanczos (sparse LU + full reorthogonalization
 # the standard, predictable interior-eigenvalue method). Accuracy is
-# validated against the dense path to ~1e-12 (see the v21 changelog).
+# validated against the dense path to ~1e-12 (see the changelog).
 #
-# Engine selection (cfg.d3_engine): :dense keeps the v20 byte-identical
-# dense path; :sparse always builds sparse; :auto (default) uses dense for
+# Engine selection (cfg.d3_engine): dense keeps the byte-identical
+# dense path;:sparse always builds sparse;:auto (default) uses dense for
 # L ≤ _D3_DENSE_LMAX (full spectrum, fast) and sparse above.
 # ════════════════════════════════════════════════════════════════════════════
 
@@ -19569,7 +19659,7 @@ end
 """Sparse twin of h3d_build: identical Peierls phases, identical RNG draw
 order (W pattern stream) and identical bond set — the sparse and dense
 builders produce elementwise-equal matrices for the same arguments
-(verified in the v21 audit, max|dense−sparse| = 0)."""
+(verified in the audit, max|dense−sparse| = 0)."""
 function h3d_build_sparse(L::Int; alpha::Float64 = 0.5, tz::Float64 = 1.0,
                           tz_stagger::Bool = false, vlines = Tuple{Float64,Float64,Float64}[],
                           W::Float64 = 0.0, openx::Bool = false, openy::Bool = false,
@@ -19640,7 +19730,7 @@ function _h3_edges_lanczos(Hs::SparseMatrixCSC{ComplexF64}; steps::Int = 160,
 end
 
 """
-    _h3_window_lu(Hs, σ, target; kwargs…) -> (vals, vecs, resmax, …)
+ _h3_window_lu(Hs, σ, target; kwargs…) -> (vals, vecs, resmax, …)
 
 Shift-invert Lanczos with FULL reorthogonalization: the `target`
 eigenvalues nearest σ of a sparse Hermitian matrix. OP = (H−σI)⁻¹ through
@@ -19651,7 +19741,7 @@ window (the determinism tests rely on this)."""
 function _h3_window_lu(Hs::SparseMatrixCSC{ComplexF64}, σ::Float64, target::Int;
                        seed::Int = 1234, m_max::Int = 2600, tol::Float64 = 1e-9,
                        wantvecs::Bool = false, verbose::Bool = true)
-    # v21.0 shift-invert Lanczos, CHUNKED: the basis grows in chunks of 200
+    #  shift-invert Lanczos, CHUNKED: the basis grows in chunks of 200
     # and the ONE canonical residual selection runs after each chunk — the
     # loop stops at the first chunk where `target` levels have converged
     # (no duplicate monitor logic to drift out of sync). Deterministic.
@@ -19725,7 +19815,7 @@ function _h3_window_lu(Hs::SparseMatrixCSC{ComplexF64}, σ::Float64, target::Int
         # which is mathematically inert for a block-diagonal T)
         bev = beta[1:m-1]
         bev[bev .< 1e-300] .= 1e-300
-        # v21.0: LAPACK stegr (the SymTridiagonal driver) is flaky on some
+        # : LAPACK stegr (the SymTridiagonal driver) is flaky on some
         # OpenBLAS builds — it threw LAPACKException(22) on a perfectly
         # clean tridiagonal (max|α|=564, min β=0.1, no NaNs, m=199). The
         # dense divide-and-conquer syevd path is deterministic-robust and
@@ -19816,14 +19906,14 @@ function _h3_window_guarded(Lstart::Int, target::Int; build::Function,
 end
 
 """
-    _h3_eig(H) — the 3D spectrum funnel (v21 dispatch).
+ _h3_eig(H) — the 3D spectrum funnel (dispatch).
 
-Dense builds (Hermitian wrapper): the v20 byte-identical full spectrum.
+Dense builds (Hermitian wrapper): the byte-identical full spectrum.
 Sparse builds: the RAM-guarded shift-invert window around the spectral
 centre; fills D3_LAST_STATS for the two-pass cross-checks."""
 function _h3_eig(H::AbstractMatrix)
     ev = sort(real.(eigvals(H)))
-    if D3_LAST_STATS[] === nothing # v21.0: first build of the pass = the base build
+    if D3_LAST_STATS[] === nothing # : first build of the pass = the base build
         b = central_band_eigs(ev, 0.6)
         D3_LAST_STATS[] = (levels = length(ev),
                            r = length(b) ≥ 3 ? mean_adjacent_spacing_ratio(b)[1] : NaN,
@@ -19838,7 +19928,7 @@ function _h3_eig(Hs::SparseMatrixCSC{ComplexF64})
     r = _h3_window_guarded(Lstart, D3_SP_DEPTH[]; build = build, wantvecs = false)
     b = central_band_eigs(r.vals, 0.6)
     rmean = length(b) ≥ 3 ? mean_adjacent_spacing_ratio(b)[1] : NaN
-    if D3_LAST_STATS[] === nothing # v21.0: first build of the pass = the base build
+    if D3_LAST_STATS[] === nothing # : first build of the pass = the base build
         D3_LAST_STATS[] = (levels = length(r.vals), r = rmean,
                            lo = r.vals[1], hi = r.vals[end],
                            emin = ed.Emin, emax = ed.Emax, resmax = r.resmax)
@@ -19876,7 +19966,7 @@ function _d3_params_show(cfg::Config)
     @printf("  9. Line charge q: %g\n", cfg.d3_line_q)
     println(" 10. Alternate ± charges (neutrals): ", cfg.d3_neutrals ? "ON" : "OFF")
     println(" 11. RNG seed (W pattern + line placement): ", cfg.d3_seed)
-    println("  ── v21.0 two-pass + sparse engine ──")
+    println("  ── two-pass + sparse engine ──")
     println(" 12. Two-pass mode: ", cfg.d3_two_pass ? "ON" : "OFF",
             "  (pass 1 → pass 2 HARDCORE + audits + cross-pass)")
     @printf(" 13. Pass-1 lattice L₁: %d³  (%d sites — %s)\n", cfg.d3_L_primary,
@@ -19904,7 +19994,7 @@ function _d3_params_reset!(cfg::Config)
     cfg.d3_two_pass = true; cfg.d3_L_primary = 18; cfg.d3_L_secondary = 20
     cfg.d3_engine = :auto; cfg.d3_sp_depth = 900; cfg.d3_sp_depth_hc = 1300
     cfg.d3_ram_mb1 = 4096; cfg.d3_ram_mb2 = 6144
-    println("  3D parameters reset to v21.0 defaults (L=20³, α=1/2, tz=1, W=0, :torus, no lines;")
+    println("  3D parameters reset to defaults (L=20³, α=1/2, tz=1, W=0, :torus, no lines;")
     println("  two-pass ON: L₁=18³ → L₂=20³ hardcore; engine :auto; budgets 4096/6144 MB).")
     return
 end
@@ -20049,7 +20139,7 @@ end
 
 _h3_eig(H) = sort(real.(eigvals(H)))
 _h3_r(ev) = mean_adjacent_spacing_ratio(central_band_eigs(ev, 0.6))[1]
-# v21.0: TRUE spectral extent in both engines (dense: full spectrum;
+# : TRUE spectral extent in both engines (dense: full spectrum;
 # sparse: cheap edge Lanczos — the _h3_eig window is NOT the extent)
 _h3_extent(H::SparseMatrixCSC{ComplexF64}) = _h3_edges_lanczos(H)
 function _h3_extent(H::AbstractMatrix)
@@ -20081,7 +20171,7 @@ end
 t3_01(cfg) = begin H = h3d_cfg(cfg); d = maximum(abs.(H - H')); @printf("   max|H−H†| = %.2e → %s\n", d, d < 1e-12 ? "OK" : "FAIL"); d < 1e-12 end
 t3_02(cfg) = begin
     H = h3d_cfg(cfg)
-    # FIX v21.0: the old `count(abs.(Matrix(H)) .> 1e-12)` MATERIALIZED the
+    # FIX: the old `count(abs.(Matrix(H)).> 1e-12)` MATERIALIZED the
     # dense matrix — 35 GB at 36³. Count on the matrix structure instead.
     nnzH = H isa SparseMatrixCSC ? nnz(H) : count(abs.(Matrix(H)) .> 1e-12)
     L = clamp(cfg.d3_L, 4, _D3_L_MAX); ox, oy, oz = _d3_boundary_map(cfg.d3_boundary)
@@ -20094,7 +20184,7 @@ end
 t3_03(cfg) = begin
     H = h3d_cfg(cfg); ev = _h3_eig(H)
     L = clamp(cfg.d3_L, 4, _D3_L_MAX); N = L^3
-    # v21.0: dense → the full N-level spectrum; sparse → the extracted window
+    # : dense → the full N-level spectrum; sparse → the extracted window
     if H isa SparseMatrixCSC
         @printf("   window λ_min=%.4f λ_max=%.4f — %d levels of N=%d finite & non-empty (sparse engine)\n",
                 ev[1], ev[end], length(ev), N)
@@ -20104,7 +20194,7 @@ t3_03(cfg) = begin
     length(ev) == N && isfinite(ev[1])
 end
 function t3_04(cfg)
-    # FIX 2026-09-02d: an ODD d3_L torus is NOT bipartite — the wrap bond
+    # NOTE: an ODD d3_L torus is NOT bipartite — the wrap bond
     # pairs same-sublattice sites, so E↔−E fails BY CONSTRUCTION and the
     # test used to report a misleading FAIL for a perfectly valid lattice.
     # Auto-rebuild on the even sub-lattice with an honest note.
@@ -20120,12 +20210,12 @@ function t3_04(cfg)
 end
 t3_05(cfg) = begin ev = _h3_eig(h3d_cfg(cfg; alpha = 0.5, W = 0.0, mass = 0.0)); nz = count(e -> abs(e) < 1e-8, ev); nn = count(e -> abs(e) < 0.05, ev); @printf("   exact zero modes: %d | near-zero |E|<0.05: %d (α=1/2 Dirac/Weyl tower; tz≠0 shifts the tower off E=0 — the count is a diagnostics, not a pass/fail)\n", nz, nn); nz >= 0 end
 # group B — statistics
-# FIX 2026-09-02d: these diagnostics used to return `true` unconditionally —
+# NOTE: these diagnostics used to return `true` unconditionally
 # the «a. Run ALL 3D tests» PASS counter therefore counted them without any
 # check performed. Real verdicts now; the clean-torus degeneracy physics is
 # respected (3D-6/7/8 verdict on the W-decorrelated build — see t3_06).
 t3_06(cfg) = begin
-    # FIX 2026-09-02d (relevance): the CLEAN torus at W=0 is degenerate-clustered
+    # NOTE:(relevance): the CLEAN torus at W=0 is degenerate-clustered
     # (measured ⟨r⟩ ≈ 0.32 — the z-shifted 2D bands pile up), so a GUE window on
     # the user's raw config would be meaningless. The honest universality check:
     # add cluster-breaking disorder W_eff ∈ [1, 3] (the t3_25 regime where the
@@ -20148,7 +20238,7 @@ t3_07(cfg) = begin
 end
 t3_08(cfg) = begin
     # W_eff ≥ 2 puts the stack deep in the Wigner–Dyson regime (measured
-    # 2026-09-02: std 0.634/0.576/0.544 at W=1/1.5/2 — the tail of the
+    # : std 0.634/0.576/0.544 at W=1/1.5/2 — the tail of the
     # residual band clustering decays with W); the window is the GOE/GUE
     # surmise family σ ≈ 0.52-0.53.
     We = min(max(cfg.d3_W, 2.0), 3.0)
@@ -20220,7 +20310,7 @@ t3_18(cfg) = begin
     p = RepPlot("3D-18: ⟨r⟩ vs L — finite-size approach to GUE", "L", "⟨r⟩")
     rs = Float64[]
     for (si, L) in enumerate(Ls)
-        prog_update(si / length(Ls), "sweep L=$L — dense eig $(L^3)³") # FIX 2026-09-02d: silent-sweep UX
+        prog_update(si / length(Ls), "sweep L=$L — dense eig $(L^3)³") # NOTE: silent-sweep UX
         r = _h3_r(_h3_eig(h3d_cfg(cfg; L = L)))
         push!(rs, r)
         @printf("   sweep L=%d: ⟨r⟩=%.4f\n", L, r)
@@ -20241,7 +20331,7 @@ t3_19(cfg) = begin
     p = RepPlot("3D-19: mid-gap vs staggered mass", "mass m", "mid-gap")
     gs = Float64[]; N = 0
     for (si, m) in enumerate(ms)
-        prog_update(si / length(ms), "sweep mass=$m") # FIX 2026-09-02d
+        prog_update(si / length(ms), "sweep mass=$m") # NOTE:
         H = h3d_cfg(cfg; tz_stagger = true, mass = m, W = 0.0)
         ev = _h3_eig(H); N = length(ev)
         g = ev[N÷2+1] - ev[N÷2]
@@ -20274,7 +20364,7 @@ t3_23(cfg) = begin
     p = RepPlot("3D-23: butterfly ⟨r⟩(α) — flux scan", "α (flux per plaquette)", "⟨r⟩")
     rs = Float64[]
     for (si, a) in enumerate(als)
-        prog_update(si / length(als), "sweep α=$a") # FIX 2026-09-02d
+        prog_update(si / length(als), "sweep α=$a") # NOTE:
         r = _h3_r(_h3_eig(h3d_cfg(cfg; alpha = a, W = 0.0, mass = 0.0)))
         push!(rs, r)
         @printf("   sweep α=%g: ⟨r⟩=%.4f\n", a, r)
@@ -20289,13 +20379,13 @@ end
 t3_24(cfg) = begin ev = _h3_eig(h3d_cfg(cfg; alpha = 0.75, W = 0.0, mass = 0.0)); r = _h3_r(ev); @printf("   α=3/4 slice: ⟨r⟩ = %.4f (subband map)\n", r); true end
 # group E — disorder / localization
 t3_25(cfg) = begin
- # ⟨r⟩(W) disorder curve 0→6 (GUE→GOE drift); the W=0 and W=3
+ # ⟨r⟩(W) disorder curve (GUE→GOE drift); the W=0 and W=3
     # sweep points ARE the verdict pair — verdict line byte-identical
     Ws = [0.0, 0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0]
     p = RepPlot("3D-25: ⟨r⟩ vs disorder W (GUE→GOE drift)", "W", "⟨r⟩")
     rs = Float64[]
     for (si, W) in enumerate(Ws)
-        prog_update(si / length(Ws), "sweep W=$W") # FIX 2026-09-02d
+        prog_update(si / length(Ws), "sweep W=$W") # NOTE:
         r = _h3_r(_h3_eig(h3d_cfg(cfg; W = W)))
         push!(rs, r)
         @printf("   sweep W=%g: ⟨r⟩=%.4f\n", W, r)
@@ -20313,7 +20403,7 @@ t3_26(cfg) = begin
     Ws = [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
     p = RepPlot("3D-26: IPR(mid) vs W — localization onset", "W", "IPR")
     rs = Float64[]; N = 0
-    # v21.0: full eigen+VECTORS is only affordable to _D3_IPR_LMAX dense
+    # : full eigen+VECTORS is only affordable to _D3_IPR_LMAX dense
     # (sparse builds take the window Ritz vector at the mid instead)
     Lraw26 = clamp(cfg.d3_L, 4, _D3_L_MAX)
     sparse_ipr = cfg.d3_engine === :sparse ||
@@ -20356,7 +20446,7 @@ t3_29(cfg) = begin
     p = RepPlot("3D-29: ⟨r⟩ vs tz — quasi-2D crossover", "tz", "⟨r⟩")
     rs = Float64[]
     for (si, tz) in enumerate(tzs)
-        prog_update(si / length(tzs), "sweep tz=$tz") # FIX 2026-09-02d
+        prog_update(si / length(tzs), "sweep tz=$tz") # NOTE:
         r = _h3_r(_h3_eig(h3d_cfg(cfg; tz = tz, W = 0.0, mass = 0.0)))
         push!(rs, r)
         @printf("   sweep tz=%g: ⟨r⟩=%.4f\n", tz, r)
@@ -20371,7 +20461,7 @@ end
 t3_30(cfg) = begin ev = _h3_eig(h3d_cfg(cfg)); b = central_band_eigs(ev, 0.4); @printf("   full card: n=%d bulk levels, mean=%.3f, std=%.3f\n", length(b), mean(b), std(b)); true end
 
 # ══════════════════════════════════════════════════════════════════════════
-# 3D-31…3D-34 (v20.0, user request 2026-09-02): MODERN Dirac e⁻/e⁺ block.
+# 3D-31…3D-34 (, MODERN Dirac e⁻/e⁺ block.
 # ══════════════════════════════════════════════════════════════════════════
 # The user's hypothesis: an electron moving as a PARTICLE crosses the
 # critical line, while as a WAVE it "performs" the ζ function — smeared
@@ -20397,7 +20487,7 @@ end
 
 # ── the ζ machinery (wave mode, 3D-34) ─────────────────────────────────────
 # Euler–Maclaurin tail: ζ(s) = Σ_{k<M} k^{−s} + M^{−s}·[M/(s−1) + 1/2 +
-#   Σ_j B_{2j}/(2j)!·s^{⟨2j−1⟩}·M^{−2j+1}]  — the standard high-precision
+#  Σ_j B_{2j}/(2j)!·s^{⟨2j−1⟩}·M^{−2j+1}] — the standard high-precision
 # method for arbitrary complex s (same family as Mathematica's); converges
 # for ANY s ≠ 1 once M ≳ 2|s|. Self-anchored in 3D-34 against ζ(2), ζ(4),
 # ζ(1/2) and the first ten embedded Odlyzko zeros.
@@ -20408,7 +20498,7 @@ const _D3_B2J_FACT = # B_{2j}/(2j)! precomputed: 1/6/2!, −1/30/4!, 1/42/6!, �
      43867.0 / 798 / 6402373705728000, -174611.0 / 330 / 121645100408832000)
 
 """
-    _d3_zeta(s; M = 0, P = 10) → ComplexF64
+ _d3_zeta(s; M = 0, P = 10) → ComplexF64
 
 Riemann zeta ζ(s) for complex s ≠ 1 via the Euler–Maclaurin expansion.
 M = 0 → auto (max(30, ⌈2|s|⌉ + 16)). Accuracy ≥ 1e-12 for |s| ≤ 100.
@@ -20699,7 +20789,7 @@ end
 # ── 3D-33: particle mode — the critical-line crossing theorem ─────────────
 function t3_33(cfg)
     println("\n 3D-33: electron as PARTICLE — crossing the CRITICAL LINE (winding theorem):")
-    println("   The hypothesis under test (user, 2026-09-02): a moving electron, measured")
+    println("   The hypothesis under test : a moving electron, measured")
     println("   as a particle, ALWAYS crosses the critical line — the line where the zeros")
     println("   live. AB dictionary (the suite's Hilbert–Pólya picture): the vortex LINE")
     println("   is the puncture, its polar-gauge branch-cut ray is the critical line (the")
@@ -20731,7 +20821,7 @@ function t3_33(cfg)
     paths = Dict{String, NamedTuple}()
     θ0 = atan(y0, x0)
     for (k, (label, sgn, vperp_s, trapped)) in enumerate(cases)
-        prog_update(k / length(cases), "integrate $label") # FIX 2026-09-02d: never silent
+        prog_update(k / length(cases), "integrate $label") # NOTE: never silent
         r = _d3_helix_shoot(sgn, x0, y0, 0.0, vperp_s, vz0, qv, σ;
                             T = T, dt = 0.005, trap = trapped, B0 = B0)
         θ = r.theta
@@ -20810,10 +20900,10 @@ function t3_34(cfg)
     @printf("   anchors: ζ(2) rel.err %.2e (π²/6) | ζ(4) rel.err %.2e (π⁴/90)\n", e2, e4)
     @printf("            ζ(1/2) = %.13f (abs.err %.2e vs −1.4603545088095868)\n", zh, eh)
     # B. zero bracketing on the critical line — the FIRST 50 EMBEDDED ZEROS
-    # (v21.0: was the first 10 hardcoded; the list now comes from the embedded
+    # (: was the first 10 hardcoded; the list now comes from the embedded
     # Odlyzko dataset itself and is cross-checked against the literature
-    # constants v20 printed. Hardcore pass 2 tightens δ 0.02→0.01, the
-    # bisection tolerance 5e-3→1e-3 and extends the heatmap to t = 150.)
+    # constants printed. Hardcore pass 2 tightens δ the
+    # bisection tolerance 5e-e-3 and extends the heatmap to t = 150.)
     zs_lit10 = (14.134725142, 21.022039639, 25.010857580, 30.424876126,
                 32.935061588, 37.586178159, 40.918719012, 43.327073281,
                 48.005150881, 49.773832478)
@@ -20828,7 +20918,7 @@ function t3_34(cfg)
     nbis = D3_HARD[] ? 48 : 40
     bracketed = 0; worst = 0.0
     for (k, g) in enumerate(zs50)
-        prog_update(0.15 + 0.25 * k / nz, "zero bracket $k/$nz (δ=$δ)") # v21.0: never silent
+        prog_update(0.15 + 0.25 * k / nz, "zero bracket $k/$nz (δ=$δ)") # : never silent
         Zl = _d3_hardy_Z(g - δ); Zr = _d3_hardy_Z(g + δ)
         Zl * Zr < 0 && (bracketed += 1)
         a, b = g - δ, g + δ # bisect to the sign-change root
@@ -20855,7 +20945,7 @@ function t3_34(cfg)
     rep_plot!(p1)
     # D. the critical-strip heatmap |ζ(σ+it)| (rows σ, cols t; row 1 = bottom)
     if REP.enabled && !isempty(REP.run_dir)
-        prog_update(0.5, "strip heatmap — ζ over σ×t grid") # FIX 2026-09-02d
+        prog_update(0.5, "strip heatmap — ζ over σ×t grid") # NOTE:
         sigmas = collect(0.0:0.025:1.0)
         tvals = collect(0.05:(D3_HARD[] ? 0.2 : 0.1):max(40.0, D3_HARD[] ? 150.0 : 40.0)) # t>0: never hits the s=1 pole
         M = [log10(1.0 + abs(_d3_zeta(complex(σ, t)))) for σ in sigmas, t in tvals]
@@ -20877,7 +20967,7 @@ function t3_34(cfg)
     println("     revolution — the crossings climb the zero slots θ/π = 2, 4, 6, …")
     rep_note!("WAVE MODE: ζ(s) is evaluated for complex s by the Euler–Maclaurin tail " *
               "expansion (self-anchored on ζ(2) = π²/6, ζ(4) = π⁴/90, ζ(1/2) = " *
-              "−1.4603545088… and the FIRST FIFTY embedded Odlyzko zeros (v21.0): " *
+              "−1.4603545088… and the FIRST FIFTY embedded Odlyzko zeros : " *
               "Z(γₖ±δ) straddles 0 and " *
               "bisection lands within tolerance of each γₖ). The 2D graph is the same " *
               "construction the user references ('the zeta function graph on the " *
@@ -20914,7 +21004,7 @@ function _register_3d!()
         (25, "3D GOE drift", "⟨r⟩ under W: 0.5992→0.5307"), (26, "IPR W=6", "localization onset"),
         (27, "IPR W=0", "clean 3D metal reference"), (28, "Dipole lines", "two opposite vortex lines"),
         (29, "Anisotropy tz=0.3", "quasi-2D crossover"), (30, "Full card", "bulk summary of the 3D spectrum"),
-        # v20.0 — the modern Dirac e⁻/e⁺ block (user request 2026-09-02)
+        #  — the modern Dirac e⁻/e⁺ block
         (31, "Dirac zitterbewegung", "e⁻ trembles at ω=E₊−E₋ (±E Dirac tower, Compton amplitude)"),
         (32, "e⁻/e⁺ charge conjugation", "C: q→−q, α→−α — identical spectra + mirrored 3D helices"),
         (33, "e⁻ particle: critical line", "winding theorem — 1 ray crossing per revolution, zero-slot staircase"),
@@ -20933,12 +21023,12 @@ end
 
 
 # ════════════════════════════════════════════════════════════════════════════
-# v21.0 3D TWO-PASS — pass 1 (L₁, ~4 GB budget) + pass 2 HARDCORE (L₂, ~6 GB)
+#  3D TWO-PASS — pass 1 (L₁, ~4 GB budget) + pass 2 HARDCORE (L₂, ~6 GB)
 # ════════════════════════════════════════════════════════════════════════════
-# Every 3D test runs twice (user request: «двойное прохождение каждого теста:
+# Every 3D test runs twice («двойное прохождение каждого теста:
 # первый прогон … 36×36×36, второй … 54×54×54 … более углублённый хардкор
 # режим»). Defaults L₁=18³/L₂=20³ are DENSE (full spectra — run-all completes
-# in hours, both passes fit the 4/6 GB budgets the user specified); 36³/54³
+# in hours, both passes fit the 4/6 GB budgets the standard); 36³/54³
 # are honored via the sparse engine (menu 's' items 13/14 or CLI --d3-l1/--d3-l2)
 # with the RAM guard downgrading L loudly when a factor would not fit.
 # Pass 2 appends the HARDCORE audit block (H1–H4 below) and the cross-pass
@@ -20947,10 +21037,10 @@ end
 """HARDCORE AUDITS (pass 2). All checks are MATRIX-LEVEL and run on the
 sparse twin of the secondary build (cheap, exact — the sparse and dense
 builders are elementwise-equal, itself verified as H4):
-  H1 hermiticity   max|H−H†| at machine ε on the L₂ build
-  H2 determinism   two independent builds → max|H₁−H₂| = 0 (bit-for-bit)
-  H3 chiral        ΓHΓ+H = 0 at α=1/2 (clean torus, even L) — exact AIII
-  H4 cross-engine  max|H_sparse − H_dense| = 0 when L₂ ≤ dense cap
+ H1 hermiticity max|H−H†| at machine ε on the L₂ build
+ H2 determinism two independent builds → max|H₁−H₂| = 0 (bit-for-bit)
+ H3 chiral ΓHΓ+H = 0 at α=1/2 (clean torus, even L) — exact AIII
+ H4 cross-engine max|H_sparse − H_dense| = 0 when L₂ ≤ dense cap
 """
 function _d3_hardcore_audits(cfg::Config)::Bool
     L = clamp(cfg.d3_L, 4, _D3_L_MAX)
@@ -21031,7 +21121,7 @@ function _d3_hardcore_audits(cfg::Config)::Bool
     return ok
 end
 
-"""Cross-pass consistency (v21.0): the same test at L₁ vs L₂ must agree on
+"""Cross-pass consistency: the same test at L₁ vs L₂ must agree on
 the bulk ⟨r⟩ within the finite-size drift window and on the spectral extent
 within a few percent. Stats come from the FIRST _h3_eig build of each pass."""
 function _d3_cross_pass(id::Int, s1::Union{Nothing,NamedTuple}, s2::Union{Nothing,NamedTuple})::Bool
@@ -21070,7 +21160,7 @@ function _d3_run_one(tt::T3, cfg::Config)::Bool
     return res === true
 end
 
-"""The v21.0 two-pass wrapper: owns the progress bar for BOTH passes
+"""The two-pass wrapper: owns the progress bar for BOTH passes
 (pass 1 → [0, 0.45] of the bar, pass 2 → [0.52, 0.80], audits → [0.82, 0.97]),
 stamps the done-line with elapsed time, restores cfg in `finally`."""
 function _d3_two_pass!(tt::T3, cfg::Config)::Bool
@@ -21170,7 +21260,7 @@ end
 """3D Lab menu (main-menu key 'd3' — the bare digit '3' is
 test 3 again). Independent of tests 1-38 / run-all. 's' opens the extended
 D3 parameter menu (matrix size, α, tz, W, mass, boundary, vortex lines, seed).
-3D-31…3D-34 (v20.0) are the modern Dirac e⁻/e⁺ block: zitterbewegung,
+3D-31…3D-34 are the modern Dirac e⁻/e⁺ block: zitterbewegung,
 charge conjugation, the particle-mode critical-line crossing theorem, and
 the wave-mode ζ critical-strip landscape."""
 function three_d_menu!(cfg::Config)
@@ -21184,7 +21274,7 @@ function three_d_menu!(cfg::Config)
                 cfg.d3_mass, cfg.d3_boundary, cfg.d3_nv_lines, cfg.d3_line_q, cfg.d3_seed)
         eng = cfg.d3_L > _D3_DENSE_LMAX && cfg.d3_engine !== :dense ? "sparse (window)" :
               cfg.d3_engine === :sparse ? "sparse (window)" : "dense (full spectrum)"
-        @printf("  v21.0 two-pass: %s | pass 1 L=%d³ (%d MB) → pass 2 HARDCORE L=%d³ (%d MB) | engine %s\n",
+        @printf("  two-pass: %s | pass 1 L=%d³ (%d MB) → pass 2 HARDCORE L=%d³ (%d MB) | engine %s\n",
                 cfg.d3_two_pass ? "ON " : "OFF", cfg.d3_L_primary, cfg.d3_ram_mb1,
                 cfg.d3_L_secondary, cfg.d3_ram_mb2, eng)
         for t in T3D
@@ -21212,7 +21302,7 @@ function three_d_menu!(cfg::Config)
             elseif ans == "r" || ans == "к" # reset
                 _d3_params_reset!(cfg)
                 continue
-            elseif ans == "2" # v21.0: two-pass toggle
+            elseif ans == "2" # : two-pass toggle
                 cfg.d3_two_pass = !cfg.d3_two_pass
                 println("  Two-pass mode is now ", cfg.d3_two_pass ? "ON (pass 1 L=$(cfg.d3_L_primary)³ → pass 2 HARDCORE L=$(cfg.d3_L_secondary)³)" : "OFF (single pass at L=$(cfg.d3_L)³)")
                 continue
@@ -21220,7 +21310,7 @@ function three_d_menu!(cfg::Config)
                 npass = 0
                 t_all = time()
                 for t in T3D
-                    # v21.0: EVERY 3D test runs the two-pass shell (pass 1 +
+                    # : EVERY 3D test runs the two-pass shell (pass 1 +
                     # hardcore pass 2 + audits + cross-pass) when d3_two_pass;
                     # with the toggle OFF the shell degrades to the legacy
                     # single pass (same code path, byte-identical semantics).
@@ -21234,12 +21324,12 @@ function three_d_menu!(cfg::Config)
                 end
                 @printf("\n 3D suite (two-pass %s): %d/%d explicit OVERALL PASS — wall time %s\n",
                         cfg.d3_two_pass ? "on" : "off", npass, length(T3D), _prog_hms(time() - t_all))
-                # FINAL_REPORT inside the 3D section too (user spec 2026-08-29)
+                # FINAL_REPORT inside the 3D section too
                 rep_finalize_run(cfg.d3_two_pass ?
                     "3D Lab — Hofstadter stack suite (two-pass $(cfg.d3_L_primary)³ → $(cfg.d3_L_secondary)³ hardcore)" :
                     "3D Lab — Hofstadter stack suite (all tests)")
             else
-                # FIX 2026-09-02d: tolerate «31», «3d31», «3D-31» spellings
+                # NOTE: tolerate «31», «3d31», «3D-31» spellings
                 tnum = ans
                 low = lowercase(tnum)
                 if startswith(low, "3d")
@@ -21278,7 +21368,7 @@ function three_d_menu!(cfg::Config)
 end
 
 
-# ── 20. QUICK CHECK (16×16 → 32×32 two-pass) ───────────────────────────
+# ── 20. QUICK CHECK (16××32 two-pass) ───────────────────────────
 function quick_check_all(zeta_zeros::Vector{Float64}, cfg::Config)
     println("\n QUICK CHECK: the full 38-test suite on 16×16 (pass 1) and 32×32 (pass 2)")
     watched = (:ab_nx, :ab_ny, :ab_nx_secondary, :ab_ny_secondary, :ab_run_two_pass,
@@ -21305,12 +21395,12 @@ function quick_check_all(zeta_zeros::Vector{Float64}, cfg::Config)
 end
 
 # ╔══════════════════════════════════════════════════════════════════════╗
-# ║  14b. HILBERT-PÓLYA DEEP AUDIT — menu key 'h' (v23.3)                 ║
-# ║  7 falsifiable tests H1–H7: ARITHMETIC SPECIFICITY, NOT JUST          ║
-# ║  UNIVERSALITY (reviewer proposal 2026-09-06, "добавить новый пункт    ║
-# ║  в меню по предложению рецензента").                                  ║
+# ║ 14b. HILBERT-PÓLYA DEEP AUDIT — menu key 'h' ║
+# ║ 7 falsifiable tests H1–H7: ARITHMETIC SPECIFICITY, NOT JUST ║
+# ║ UNIVERSALITY (proposal, "добавить новый пункт ║
+# ║ в меню по предложению рецензента"). ║
 # ╚══════════════════════════════════════════════════════════════════════╝
-# WHY THIS BATTERY EXISTS (the reviewer's thesis, kept verbatim in spirit):
+# WHY THIS BATTERY EXISTS (the 's thesis, kept verbatim in spirit):
 # GUE statistics are UNIVERSAL — they show up in millions of chaotic quantum
 # systems (Sinai billiards, heavy nuclei, random graphs) that have nothing to
 # do with prime numbers. Matching GUE is a NECESSARY but wildly INSUFFICIENT
@@ -21319,50 +21409,50 @@ end
 # ness to a professional standard. What NO test in the suite measures is the
 # only question that separates a genuine H–P candidate from generic chaos:
 #
-#     does the spectrum carry SPECIFICALLY ARITHMETIC (prime-number)
-#     information, not just universal statistics?
+#  does the spectrum carry SPECIFICALLY ARITHMETIC (prime-number)
+#  information, not just universal statistics?
 #
-# The 7 tests are grouped exactly as the reviewer proposed:
-#   Group A — "does the spectrum know about primes?"
-#     H1  Berry–Keating prime-oscillation fingerprint: subtract the analytic
-#         GUE envelope from K(t) (the Test-35 K_box), periodogram of the
-#         RESIDUAL, look for peaks EXACTLY at ω = log(2), log(3), log(5)…
-#         — the Riemann–Weil explicit formula links zeros to a prime sum;
-#         a generic chaotic system produces no such peaks.
-#     H2  Raw (NEVER-unfolded) density N(E): fit the staircase against the
-#         ζ-type {E·lnE, E, 1} Weyl ansatz AND against the natural lattice
-#         DOS reference; decide by R² and AIC. The everywhere-used local
-#         window unfolding FORCES mean spacing 1 and erases exactly the
-#         information this test restores.
-#   Group B — "is the Eₙ∝(n−q)² dictionary real lattice physics or a toy?"
-#     H3  Power-law exponent p on the REAL independently-diagonalized
-#         lattice spectrum (NOT the toy ring of lab E8): Eₙ ~ (n−n₀)^p by
-#         log-log regression (Test-3 machinery, R² as the yardstick),
-#         extrapolated L→∞ with the Test-38 scheme. The dictionary claims
-#         p→2; the honest lattice alternatives are p=1/2 (2D Dirac DOS)
-#         and p=1 (quadratic band bottom).
-#     H4  Critical-q sharpness scan: if q really plays the role of "1/2" in
-#         Re(s)=1/2, the GUE-quality metrics (KS_D, ⟨r⟩) must peak SHARPLY
-#         at the claimed critical q — not drift smoothly. Fine q-grid +
-#         noise-floor calibration = the first falsifiable test of the
-#         "critical line" analogy itself.
-#   Group C — "model-class property or a lucky seed?"
-#     H5  Large ensemble: 40 independent vortex configurations (the suite's
-#         standard is n_realizations = 2–6) → honest distributions of ⟨r⟩,
-#         KS_D and the H3 exponent, with the honest % passed and a Wald CI.
-#     H6  Self-adjointness / stability stress test around the H–P claim:
-#         (a) open ↔ torus boundary switch, (b) vortex-position and α
-#         jitter, (c) L-growth with the hermiticity defect max|H−H†| checked
-#         at machine ε on EVERY rung (systematic, vs the one-off checks of
-#         the 3D hardcore audit).
-#   Group D — "the check nobody ran honestly"
-#     H7  SEQUENCE-level (not distribution-level) correlation: after
-#         unfolding, does the n-th AB-cloud level correlate with the n-th
-#         real zero γₙ (Pearson/Spearman)? Independent GUE realizations
-#         correlate at ZERO — calibrated here against independent GUE–GUE
-#         pairs. Test 34 compares statistics; nothing in the suite ever
-#         tested pointwise sequence identity. The honest expected answer is
-#         zero, and the suite now says so explicitly.
+# The 7 tests are grouped exactly as the proposed:
+#  Group A — "does the spectrum know about primes?"
+#  H1 Berry–Keating prime-oscillation fingerprint: subtract the analytic
+#  GUE envelope from K(t) (the Test-35 K_box), periodogram of the
+#  RESIDUAL, look for peaks EXACTLY at ω = log(2), log(3), log(5)…
+#  — the Riemann–Weil explicit formula links zeros to a prime sum;
+#  a generic chaotic system produces no such peaks.
+#  H2 Raw (NEVER-unfolded) density N(E): fit the staircase against the
+#  ζ-type {E·lnE, E, 1} Weyl ansatz AND against the natural lattice
+#  DOS reference; decide by R² and AIC. The everywhere-used local
+#  window unfolding FORCES mean spacing 1 and erases exactly the
+#  information this test restores.
+#  Group B — "is the Eₙ∝(n−q)² dictionary real lattice physics or a toy?"
+#  H3 Power-law exponent p on the REAL independently-diagonalized
+#  lattice spectrum (NOT the toy ring of lab E8): Eₙ ~ (n−n₀)^p by
+#  log-log regression (Test-3 machinery, R² as the yardstick),
+#  extrapolated L→∞ with the Test-38 scheme. The dictionary claims
+#  p→2; the honest lattice alternatives are p=1/2 (2D Dirac DOS)
+#  and p=1 (quadratic band bottom).
+#  H4 Critical-q sharpness scan: if q really plays the role of "1/2" in
+#  Re(s)=1/2, the GUE-quality metrics (KS_D, ⟨r⟩) must peak SHARPLY
+#  at the claimed critical q — not drift smoothly. Fine q-grid +
+#  noise-floor calibration = the first falsifiable test of the
+#  "critical line" analogy itself.
+#  Group C — "model-class property or a lucky seed?"
+#  H5 Large ensemble: 40 independent vortex configurations (the suite's
+#  standard is n_realizations = 2–6) → honest distributions of ⟨r⟩,
+#  KS_D and the H3 exponent, with the honest % passed and a Wald CI.
+#  H6 Self-adjointness / stability stress test around the H–P claim:
+#  (a) open ↔ torus boundary switch, (b) vortex-position and α
+#  jitter, (c) L-growth with the hermiticity defect max|H−H†| checked
+#  at machine ε on EVERY rung (systematic, vs the one-off checks of
+#  the 3D hardcore audit).
+#  Group D — "the check nobody ran honestly"
+#  H7 SEQUENCE-level (not distribution-level) correlation: after
+#  unfolding, does the n-th AB-cloud level correlate with the n-th
+#  real zero γₙ (Pearson/Spearman)? Independent GUE realizations
+#  correlate at ZERO — calibrated here against independent GUE–GUE
+#  pairs. Test 34 compares statistics; nothing in the suite ever
+#  tested pointwise sequence identity. The honest expected answer is
+#  zero, and the suite now says so explicitly.
 #
 # HONESTY CONTRACT (deliberate design decision): H1–H4 and H7 are
 # falsification instruments — their PASS/FAIL verdict certifies that the
@@ -21399,7 +21489,7 @@ function _hp_params_show(cfg::Config)
     println("\n ── Current HP parameters (cfg.hp_* — used by audits H1-H7) ──")
     @printf("  1. Matrix size L (H1-H4, H6, H7): %d  → %d×%d = %d sites (even L keeps torus runs legal)\n",
             cfg.hp_L, cfg.hp_L, cfg.hp_L, cfg.hp_L^2)
-    @printf("  2. H5 ensemble size per regime (reviewer: 30-50+): %d independent configurations\n", cfg.hp_n_ensemble)
+    @printf("  2. H5 ensemble size per regime : %d independent configurations\n", cfg.hp_n_ensemble)
     @printf("  3. H4 q-grid: %d points on [%g, %g]\n", cfg.hp_n_q_grid, cfg.hp_q_min, cfg.hp_q_max)
     print("  4. H1 prime frequency set ω = log(p): ", join(cfg.hp_primes, ", "), "\n")
     @printf("  5. H1 form-factor window: t ∈ (0, %.1f], sampling dt = %g (Δω = 2π/t_max = %.3f resolves log2↔log3)\n",
@@ -21416,7 +21506,7 @@ function _hp_params_show(cfg::Config)
     @printf(" 14. H5 required in-band fraction: %g\n", cfg.hp_pass_fraction)
     @printf(" 15. H1/H5 parameter-regime sweep: %s  (:showdown = 4 regimes — 2×2 {Nv sparse | Nv=L²/36 monograph} × {α=ab_alpha_test16 | α=25/900}; :baseline = HP-standard point only, ≈4× faster)\n",
             cfg.hp_regime_mode)
-    @printf(" 16. H1 DEEPEN protocol: %d null realizations/type + %d extra AB configs per marginal regime (P95 ceiling re-estimate — v23.6)\n",
+    @printf(" 16. H1 DEEPEN protocol: %d null realizations/type + %d extra AB configs per marginal regime (P95 ceiling re-estimate — )\n",
             cfg.hp_deep_nulls, cfg.hp_deep_configs)
     @printf(" 17. H5 α-profile (finetuning vs plateau): %s, %d configs per α point on α ∈ {25/900, 0.05, 0.1, 0.2, 0.35, 0.5}\n",
             cfg.hp_alpha_scan ? "ON" : "OFF", cfg.hp_alpha_scan_n)
@@ -21432,9 +21522,9 @@ function _hp_params_reset!(cfg::Config)
     return
 end
 
-"""HP battery presets (v23.6, user spec: «решётку оставить 56, а 16 — как
+"""HP battery presets (, «решётку оставить 56, а 16 — как
 отдельный быстрый прогон»). FAST = L=16 quick test (~10-20 min); FULL = L=56
-deep run (the monograph-scale matrices). Both keep :showdown mode and the
+deep run (the monograph-scale matrices). Both keep:showdown mode and the
 current seed so results stay comparable across presets."""
 function _hp_apply_preset!(cfg::Config, which::Symbol)
     if which === :fast
@@ -21587,7 +21677,7 @@ end
 # All seven audits reuse the SAME standard spectrum recipe as the suite's
 # GUE-measurement family (Test 35b hardcore block): Nv = resolve_vortex_count
 # neutral vortices at plaquette centers, q = resolve_q_magnitude, α =
-# ab_alpha_test16, W = ab_w_eff (≤ 1.0 cap), :monumental model. No test here
+# ab_alpha_test16, W = ab_w_eff (≤ 1.0 cap),:monumental model. No test here
 # invents its own physics — only its own QUESTION.
 
 """Standard HP vortex configuration (same recipe as Test 35b: neutral set at
@@ -21603,7 +21693,7 @@ function _hp_std_vortices(cfg::Config, L::Int, rng::MersenneTwister)
 end
 
 """Standard HP ABCloudConfig. `alpha = NaN` → suite α (ab_alpha_test16).
-`lattice` defaults to :open (launch standard, no torus α·L ∈ ℤ constraint —
+`lattice` defaults to:open (launch standard, no torus α·L ∈ ℤ constraint —
 H4/H6 deliberately scan/jitter α, which a torus would forbid)."""
 function _hp_std_config(cfg::Config, L::Int, seed::Int; lattice::Symbol = :open,
                         alpha::Float64 = NaN,
@@ -21690,7 +21780,7 @@ shows Bragg peaks at ω = log p (and harmonics k·log p). Normalization by Σw²
 makes white-noise phases → P ≈ 1; the SNR yardstick is P(log p)/median(P) over
 the scanned band (empirically calibrated: ζ control 10⁶–10⁹, GUE/vortex-free
 nulls ≤ 5). This is where the explicit formula LIVES — the two-level K(t)
-residual route (D2, the reviewer's literal estimator) is retained as a
+residual route (D2, the 's literal estimator) is retained as a
 cross-check but is intrinsically less sensitive (the 1-level signal enters
 the 2-level statistic only at subleading order)."""
 function _hp_raw_ft(T::Vector{Float64}, ωgrid::Vector{Float64})
@@ -21799,35 +21889,35 @@ function _hp_wald_ci(k::Int, n::Int)
     return (p, clamp(p - h, 0.0, 1.0), clamp(p + h, 0.0, 1.0))
 end
 
-# ── HP parameter regimes (reviewer action 2026-09-06) ──────────────────
+# ── HP parameter regimes (action) ──────────────────
 # The first H5 run measured the ensemble ONLY at the HP-standard point
 # (sparse Nv = resolve_vortex_count = 4, α = ab_alpha_test16 = 0.5) and found
-# a REPRODUCIBLE GUE miss (KS 0/40, σ = 0.0087). The reviewer's objection:
+# a REPRODUCIBLE GUE miss (KS 0/40, σ = 0.0087). The 's objection:
 # "the model systematically misses GUE" is indistinguishable from "we tested
 # the wrong parameter point" until the ensemble is re-measured at the model's
 # best-faith points. Two suite-own reference points motivate the 2×2:
-#   (i)  the monograph DENSITY anchor 25/900 = 2.78% of sites → Nv = L²/36
-#        (87 vortices at L = 56 — 22× the sparse count). This is the SAME
-#        lever that lifted the Test-32 comparison row to ⟨r⟩ = 0.5975 = GUE
-#        (validated run_20260829: Nv_cmp = 144 = 2.78% at 72×72), and the
-#        Test-38 density law is Nv = f·L²/36 with f = 1.
-#   (ii) the SHARP-FLUX screening length α = 25/900 ≈ 0.0278 — the ORIGINAL
-#        design default of ab_alpha_test16 (the field comment still reads
-#        "default 25/900 ≈ 0.0278"; the v23 launch default was later moved to
-#        0.5, the critical line). α = 0.028 is genuinely different physics:
-#        near-unscreend flux tubes vs fat soft vortices at α = 0.5.
+#  (i) the monograph DENSITY anchor 25/900 = 2.78% of sites → Nv = L²/36
+#  (87 vortices at L = 56 — 22× the sparse count). This is the SAME
+#  lever that lifted the Test-32 comparison row to ⟨r⟩ = 0.5975 = GUE
+#  (validated run_20260829: Nv_cmp = 144 = 2.78% at 72×72), and the
+#  Test-38 density law is Nv = f·L²/36 with f = 1.
+#  (ii) the SHARP-FLUX screening length α = 25/900 ≈ 0.0278 — the ORIGINAL
+#  design default of ab_alpha_test16 (the field comment still reads
+#  "default 25/900 ≈ 0.0278"; the launch default was later moved to
+#  0.5, the critical line). α = 0.028 is genuinely different physics:
+#  near-unscreend flux tubes vs fat soft vortices at α = 0.5.
 # The 2×2 factorial {density} × {α} attributes every ensemble outcome to its
 # lever; regime A reproduces the published baseline bit-for-bit (identical
 # seed streams). The same regimes re-check H1's fingerprint-absent verdict
-# ("для чистоты", per the same reviewer action). W stays at the HP standard
+# ("для чистоты", per the same action). W stays at the HP standard
 # everywhere (ab_w_eff ≤ 1.0) so density and α are the ONLY moving levers.
 const HP_ALPHA_SMALL = 25.0 / 900.0 # ≈ 0.0278 — sharp-flux screening length (monograph 30×30 density read as α)
 
 struct HPRegime
     key::String        # "A".."D"
     tag::String        # short label for report rows / plot legends
-    nv_mode::Symbol    # :suite (resolve_vortex_count) | :density (max(4, round(L²/36)))
-    alpha_mode::Symbol # :suite (ab_alpha_test16) | :small (HP_ALPHA_SMALL)
+    nv_mode::Symbol    # :suite (resolve_vortex_count) |:density (max(4, round(L²/36)))
+    alpha_mode::Symbol # :suite (ab_alpha_test16) |:small (HP_ALPHA_SMALL)
 end
 
 function hp_regimes(cfg::Config)
@@ -21886,12 +21976,12 @@ function _hp_register!()
             "sequence to a sum over prime powers, so ζ's own K(t) oscillates at exactly these frequencies (positive control) " *
             "while independent GUE spectra do not (null control). A generic chaotic system leaves no such fingerprint — " *
             "this is the single test in the suite that is SPECIFIC to the zeta function, not just to GUE universality. " *
-            "REGIME SWEEP (reviewer actions 2026-09-06, rounds 1+2): an ABSENT verdict must be regime-robust to count as a " *
+            "REGIME SWEEP : an ABSENT verdict must be regime-robust to count as a " *
             "model-class statement, so the AB spectra are re-checked at the H5 showdown's parameter points (monograph " *
             "density Nv = L²/36, sharp-flux α = 25/900, combined); every extra regime ALSO runs its OWN regime-matched " *
             "null controls (vortex-free at the same α + GUE at matched size), and the sweep sub-check is SCORED against " *
             "that ceiling — a bump reproduced by the nulls is a generic lattice artifact (PASS), an unexplained one is " *
-            "an honest WARN. :baseline mode skips the sweep. v23.6 (round 3): the window auto-extends to every target " *
+            "an honest WARN. :baseline mode skips the sweep. (): the window auto-extends to every target " *
             "and the list splits into primes vs COMPOSITE DECOYS (the ζ comb must be silent on the decoys — a real " *
             "specificity control); a MARGINAL/PRESENT regime triggers the DEEPEN protocol — the null ceiling is " *
             "re-estimated from hp_deep_nulls + hp_deep_nulls realizations and the bump is judged against the P95 of " *
@@ -21914,8 +22004,7 @@ function _hp_register!()
             "diagonalized lattice spectrum — until now. For every rung of the refinement ladder the positive branch of the " *
             "true spectrum is fitted by Eₙ ~ (n)^p in a near-edge and a bulk window (Test-3 log-log machinery, R² as the " *
             "yardstick), and p̂(L) is extrapolated L→∞ exactly like Test 38's hardcore A1. Theory anchors: dictionary p = 2, " *
-            "2D Dirac DOS p = 1/2 (N(E) ∝ E² near the cone), quadratic band bottom p = 1. VERDICT SEMANTICS (reviewer sync " *
-            "2026-09-06): a REJECTED dictionary is the EXPECTED honest negative and passes the audit exactly like H1's " *
+            "2D Dirac DOS p = 1/2 (N(E) ∝ E² near the cone), quadratic band bottom p = 1. VERDICT SEMANTICS : a REJECTED dictionary is the EXPECTED honest negative and passes the audit exactly like H1's " *
             "absent fingerprint or H7's zero correlation — the test fails only on method grounds (bad fits, or the " *
             "spectrum actually approaching p = 2). The verdict rests on the per-L fits (each ≫5σ from 2), NOT on the " *
             "unstable L→∞ extrapolation, which is reported as an informational note; the Dirac-cone proximity of the " *
@@ -21929,7 +22018,7 @@ function _hp_register!()
             "charge — a smooth drift would falsify the analogy. Fixed vortex positions across the grid (only the charge " *
             "varies), two independent disorder seeds per point for a noise floor, a quadratic baseline minus profile test " *
             "for prominence, and the claimed criticals q = 1/2 (self-dual analog), 0.3 (toy dictionary) and 1.0 " *
-            "(Byers–Yang) marked on the profile. LOCATION HONESTY (reviewer sync 2026-09-06): a sharp feature is scored " *
+            "(Byers–Yang) marked on the profile. LOCATION HONESTY : a sharp feature is scored " *
             "for EXISTENCE only — a resonance AWAY from every claimed critical is reported as 'real but UNPREDICTED' and " *
             "does NOT corroborate the critical-line analogy; a dedicated verdict row states the distance explicitly.",
             hp_h04_critical_q),
@@ -21939,20 +22028,20 @@ function _hp_register!()
             "Every suite average rests on n_realizations = 2–6, and the first H5 run measured the ensemble ONLY at the " *
             "sparse HP-standard point (Nv=4, α=0.5) — 22× below the suite's own monograph density anchor (25/900 = 2.78% " *
             "→ Nv = L²/36 = 87 at L=56; the SAME lever that lifted the Test-32 comparison row to ⟨r⟩ = 0.5975 = GUE). " *
-            "The reviewer's objection: 'the model systematically misses GUE' is indistinguishable from 'we tested the " *
+            "The 's objection: 'the model systematically misses GUE' is indistinguishable from 'we tested the " *
             "wrong parameter point' until the ensemble is re-measured at the model's best-faith points. This audit now " *
             "runs the full 2×2 factorial — A: published baseline (reproduced bit-for-bit), B: monograph density, " *
             "C: sharp-flux α = 25/900 ≈ 0.0278 (the ORIGINAL ab_alpha_test16 design value), D: both levers combined — " *
             "each with hp_n_ensemble independent configurations (placement AND disorder vary), and reports per-regime " *
             "⟨r⟩/KS distributions, Wald 95% CIs, the scatter σ, and the regime-robustness headline: a GUE failure that " *
             "survives all four regimes is a model-class property; recovery at any regime is parameter-dependent. " *
-            "v23.5 (reviewer round 2): the RAW individual KS-pass % is explicit in every regime row; a regime passing " *
+            ": the RAW individual KS-pass % is explicit in every regime row; a regime passing " *
             "only via the median-D OR-clause is flagged 'OR-clause only' (0/40 individual passes = systematic, not " *
             "noise); a dedicated row tracks whether a CLEAN pass exists at all; and the test status is the strict AND " *
             "of all scored rows — a failing baseline propagates, no silent WARN→PASS override; the only clean pass " *
             "sitting at the doubly-tuned point is reported as the finetuning story it is. (regime table = evidence; " *
             "best-of-4 selection is pre-registered, not post hoc). :baseline mode runs regime A only (≈4× faster). " *
-            "v23.6 (round 3): a new α-PROFILE stage sweeps GUE quality ALONG the screening axis at fixed sparse Nv " *
+            "(): a new α-PROFILE stage sweeps GUE quality ALONG the screening axis at fixed sparse Nv " *
             "(α ∈ {25/900, 0.05, 0.1, 0.2, 0.35, 0.5} × hp_alpha_scan_n configs): PLATEAU-LOW = the whole sharp-flux " *
             "side is GUE-universal (the α=0.5 baseline is the outlier); NARROW = finetuning confirmed along the axis. " *
             "The α-profile is a readout row (never scored); the regime table remains the scored evidence.",
@@ -21992,24 +22081,24 @@ end
 # TWO detectors, run through the IDENTICAL pipeline for all four spectra
 # (AB ensemble / ζ positive control / vortex-free nulls / GUE nulls):
 #
-#   D1 (PRIMARY) — raw-position 1-level Fourier transform (_hp_raw_ft).
-#       The Riemann–Weil explicit formula makes the zero-density fluctuation a
-#       sum of PURE TONES in the raw ordinate T: δρ(T) ∝ Σ_{p,k}(log p)/p^{k/2}
-#       cos(kT·log p). A spectrum with arithmetic information shows Bragg peaks
-#       at ω = log p. Empirical calibration (v23.3 run): ζ fires at SNR 10⁶–10⁹
-#       (peaks at log 2, log 3, log 5, log 13 AND the harmonics 3·log 2, 4·log 2);
-#       GUE nulls ≤ 5.2; vortex-free Hofstadter nulls ≤ 2.1.
-#   D2 (cross-check, the reviewer's literal estimator) — K(t) minus the analytic
-#       GUE envelope (Test-35 K_box), quadratic detrend, angular periodogram.
-#       Retained and reported honestly: the 1-level explicit-formula signal
-#       enters the TWO-level statistic only at subleading order, so D2's ζ
-#       control does NOT fire at suite scale — the report says so explicitly.
+#  D1 (PRIMARY) — raw-position 1-level Fourier transform (_hp_raw_ft).
+#  The Riemann–Weil explicit formula makes the zero-density fluctuation a
+#  sum of PURE TONES in the raw ordinate T: δρ(T) ∝ Σ_{p,k}(log p)/p^{k/2}
+#  cos(kT·log p). A spectrum with arithmetic information shows Bragg peaks
+#  at ω = log p. Empirical calibration (run): ζ fires at SNR 10⁶–10⁹
+#  (peaks at log 2, log 3, log 5, log 13 AND the harmonics 3·log 2, 4·log 2);
+#  GUE nulls ≤ 5.2; vortex-free Hofstadter nulls ≤ 2.1.
+#  D2 (cross-check, the 's literal estimator) — K(t) minus the analytic
+#  GUE envelope (Test-35 K_box), quadratic detrend, angular periodogram.
+#  Retained and reported honestly: the 1-level explicit-formula signal
+#  enters the TWO-level statistic only at subleading order, so D2's ζ
+#  control does NOT fire at suite scale — the report says so explicitly.
 #
 # HONESTY: the test's PASS/FAIL certifies the DETECTOR (positive control fires,
 # nulls stay silent); the AB fingerprint verdict is the headline, never forced
 # into pass/fail.
 """Primality by trial division (the H1 target lists are tiny — no Primes.jl
-dependency). v23.6: the hp_primes list may legally contain COMPOSITES (they
+dependency).: the hp_primes list may legally contain COMPOSITES (they
 become specificity decoys in H1), so the split must be exact."""
 function _hp_isprime(n::Int)::Bool
     n < 2 && return false
@@ -22032,8 +22121,8 @@ function hp_h01_berry_keating(cfg::Config, zeta_zeros::Vector{Float64})
     L = cfg.hp_L
     n_t = max(50, round(Int, cfg.hp_t_max / cfg.hp_dt))
     tvals = [cfg.hp_dt * k for k in 1:n_t] # t = 0 dropped: K(0) is the self-pair artifact
-    # v23.6 (reviewer round 3, №5): the target list may contain COMPOSITES
-    # (21, 33, 54, 56 in run_20260906_185208) and targets above the old hardcoded
+    #  (№5): the target list may contain COMPOSITES
+    # (21, 33, 54, 56 in the validated run) and targets above the old hardcoded
     # window [0.3, 3.0] (log 21 = 3.0445 > 3.0) — those scored a meaningless
     # floor (0.093) and made "7/14 primes ≥ 100" read as "half the primes silent".
     # The window now AUTO-EXTENDS to cover every target, and the list SPLITS into
@@ -22046,13 +22135,13 @@ function hp_h01_berry_keating(cfg::Config, zeta_zeros::Vector{Float64})
     ω_targets = [log(p) for p in primes]
     ω_decoys = [log(p) for p in decoys]
     ωgrid = collect(0.3:0.004:max(3.0, maximum(vcat(ω_targets, ω_decoys)) + 0.2))
-    snr_min = 50.0        # D1 fingerprint threshold (empirical null ceiling ≤ 5.2 → 10× margin + floor)
+    snr_min = 50.0        # D1 fingerprint threshold (empirical null ceiling ≤ × margin + floor)
     ctrl_min = 100.0      # D1 ζ-control threshold (empirical: 10⁶+)
     null_lim = 10.0       # D1 null ceiling limit
 
     @printf(" AB spectrum: %d configs on %d×%d (FULL raw spectrum, no unfolding) | ζ control: first %s zeros\n",
             cfg.hp_h1_configs, L, L, isempty(zeta_zeros) ? "0" : @sprintf("%d", min(length(zeta_zeros), cfg.hp_zeta_cap)))
-    @printf(" D1 scan: ω ∈ [0.3, %.1f] step 0.004 (auto-extended to every target, v23.6) | thresholds: fingerprint ≥ %.0f, control ≥ %.0f, null ceiling < %.0f\n",
+    @printf(" D1 scan: ω ∈ [0.3, %.1f] step 0.004 (auto-extended to every target, ) | thresholds: fingerprint ≥ %.0f, control ≥ %.0f, null ceiling < %.0f\n",
             ωgrid[end], snr_min, ctrl_min, null_lim)
     @printf(" Prime targets (%d): %s\n",
             length(primes), join([@sprintf("log(%d)=%.4f", p, log(p)) for p in primes], "  "))
@@ -22109,7 +22198,7 @@ function hp_h01_berry_keating(cfg::Config, zeta_zeros::Vector{Float64})
         snrs_z = [snr_of(Pz, med_z, ω) for ω in ω_targets]
         snrs_z_decoy = [snr_of(Pz, med_z, ω) for ω in ω_decoys]
         k_sig = count(>=(ctrl_min), snrs_z)
-        # v23.6 specificity clause: the Bragg comb must fire on the primes AND be
+        #  specificity clause: the Bragg comb must fire on the primes AND be
         # silent on the composite decoys — a comb that also fires at log(21)/
         # log(33) is a generic periodicity artifact, not arithmetic.
         decoy_max_z = isempty(snrs_z_decoy) ? 0.0 : maximum(snrs_z_decoy)
@@ -22124,7 +22213,7 @@ function hp_h01_berry_keating(cfg::Config, zeta_zeros::Vector{Float64})
                 decoy_max_z, decoys[argmax(snrs_z_decoy)],
                 decoys_silent ? "SILENT" : "FIRING — generic comb alarm!",
                 decoys_silent ? "ok" : "VIOLATED")
-        # D2 route on ζ (the reviewer's literal estimator — sensitivity cross-check)
+        # D2 route on ζ (the 's literal estimator — sensitivity cross-check)
         K_z = compute_K_form_factor(zslice, tvals; smooth_window = cfg.ab_K_smooth_window)
         res_z = _hp_k_residual(K_z, tvals)
         Pz2 = _hp_periodogram(res_z, tvals, ωgrid)
@@ -22180,8 +22269,8 @@ function hp_h01_berry_keating(cfg::Config, zeta_zeros::Vector{Float64})
                               "ABSENT — no prime-log signature above the noise ceiling (GUE-universal statistics only)")
     @printf(" Cross-check vs Test 35: RMS(K_AB − K_box, t ≥ 0.3) = %.4f (Test 35 target < 0.30)\n", rms_env)
 
-    # ── stage 5: fingerprint regime sweep (reviewer actions 2026-09-06, rounds 1+2) ──
-    # ROUND 1: "перепрогнать H1 ... с Nv по формуле L²/36 и на α≈0.028". The ABSENT
+    # ── stage 5: fingerprint regime sweep (actions, ) ──
+    # ROUND 1: "перепрогнать H1... с Nv по формуле L²/36 и на α≈0.028". The ABSENT
     # verdict above is measured at the HP-standard point (sparse Nv,
     # α = ab_alpha_test16 = 0.5). Before "no prime signature" becomes a
     # MODEL-CLASS statement it must hold at the model's best-faith parameter
@@ -22191,7 +22280,7 @@ function hp_h01_berry_keating(cfg::Config, zeta_zeros::Vector{Float64})
     # ISOLATED single-prime bump is not the ζ signature (the ζ control fires on
     # ALL 6 primes SIMULTANEOUSLY at SNR 10⁷–10⁹; log 2 ≈ 0.693 is nothing
     # arithmetically special and square-lattice periodicities can easily resona-
-    # te nearby). Fix (exactly the reviewer's prescription): every extra regime
+    # te nearby). Fix (exactly the 's prescription): every extra regime
     # now runs its OWN regime-matched null controls — a vortex-free lattice at
     # the SAME α (same smooth DOS skeleton, no vortex phases) and a GUE spectrum
     # at matched size (fresh seeds). A bump reproduced by the nulls at the same
@@ -22205,7 +22294,7 @@ function hp_h01_berry_keating(cfg::Config, zeta_zeros::Vector{Float64})
     sweep_ok = true
     if cfg.hp_regime_mode === :showdown
         sweep = [R for R in hp_regimes(cfg) if !(R.nv_mode === :suite && R.alpha_mode === :suite)] # regime A already measured above
-        @printf("\n Regime sweep (reviewer actions): %d extra parameter points × %d configs, each vs its OWN regime-matched nulls\n",
+        @printf("\n Regime sweep : %d extra parameter points × %d configs, each vs its OWN regime-matched nulls\n",
                 length(sweep), cfg.hp_h1_configs)
         println("   (the ζ fingerprint signature is a simultaneous Bragg comb on ALL primes at SNR ≥ 10²; an isolated")
         println("    log(2) bump is the classic generic resonance — the regime-matched nulls below decide which it is)")
@@ -22227,7 +22316,7 @@ function hp_h01_berry_keating(cfg::Config, zeta_zeros::Vector{Float64})
             mx = isempty(snrs_r) ? 0.0 : maximum(snrs_r)
             pm = primes[argmax(snrs_r)]
             reg_ctx[R.key] = (n_rraw, copy(P_r)) # deepen stage extends exactly this ensemble
-            # regime-matched nulls (reviewer round 2): SAME parameters, NO arithmetic
+            # regime-matched nulls: SAME parameters, NO arithmetic
             c_vf = ABCloudConfig(L, L, Vortex[], _hp_regime_alpha(cfg, R), cfg.ab_t, :open,
                                  0.0, cfg.hp_seed + 40_000 + 1_000 * j + 900, :monumental)
             Pv = _hp_raw_ft(_hp_spectrum(cfg, c_vf), ωgrid)
@@ -22248,23 +22337,23 @@ function hp_h01_berry_keating(cfg::Config, zeta_zeros::Vector{Float64})
             ab_gc!() # suite convention: explicit collection after every heavy solve (OOM guard)
         end
 
-        # ── v23.6 DEEPEN protocol (reviewer round 3, №2) ──
+        # ── DEEPEN protocol (№2) ──
         # The round-2 ceiling is estimated from ONE vortex-free + ONE GUE
         # realization per regime — an extreme-value statistic whose single-draw
         # noise is comparable to the observed 7.6-vs-6.8 margin (regime C,
-        # run_20260906_185208), so a MARGINAL verdict is not decision-grade.
+        # the validated run), so a MARGINAL verdict is not decision-grade.
         # PRE-REGISTERED stop rule: re-estimate the null-maximum DISTRIBUTION
         # with hp_deep_nulls realizations per type, extend the regime AB
         # ensemble by hp_deep_configs configs, and judge the bump against the
         # 95th percentile of the null maxima:
-        #   bump ≤ P95 → generic flux-geometry artifact → regime ABSENT — the
-        #                reviewer's question ("lattice artifact or primes?") is
-        #                CLOSED by data, the sweep returns to PASS;
-        #   bump > P95 → unexplained even against deep nulls → honest WARN +
-        #                escalation (zoom scan around the bump, per-config check).
+        #  bump ≤ P95 → generic flux-geometry artifact → regime ABSENT — the
+        #  's question ("lattice artifact or primes?") is
+        #  CLOSED by data, the sweep returns to PASS;
+        #  bump > P95 → unexplained even against deep nulls → honest WARN +
+        #  escalation (zoom scan around the bump, per-config check).
         marginal_keys = [rr[1] for rr in reg_rows if !startswith(rr[4], "absent")]
         if !isempty(marginal_keys) && cfg.hp_deep_nulls >= 2
-            @printf("\n DEEPEN protocol (v23.6): %d regime(s) at/above their 1+1-realization ceiling (%s) → null distribution from %d vortex-free + %d GUE realizations, AB ensemble +%d configs; pre-registered rule: deep AB bump ≤ P95(null maxima) → generic artifact → absent\n",
+            @printf("\n DEEPEN protocol : %d regime(s) at/above their 1+1-realization ceiling (%s) → null distribution from %d vortex-free + %d GUE realizations, AB ensemble +%d configs; pre-registered rule: deep AB bump ≤ P95(null maxima) → generic artifact → absent\n",
                     length(marginal_keys), join(marginal_keys, ","),
                     cfg.hp_deep_nulls, cfg.hp_deep_nulls, cfg.hp_deep_configs)
             for (j, R) in enumerate(sweep)
@@ -22310,7 +22399,7 @@ function hp_h01_berry_keating(cfg::Config, zeta_zeros::Vector{Float64})
                         R.key, deep_mx, deep_pm, n_ext, minimum(null_maxima), median(null_maxima), p95,
                         maximum(null_maxima), length(null_maxima),
                         deep_verd == "absent" ?
-                            "bump ≤ P95 → GENERIC FLUX-GEOMETRY ARTIFACT — fingerprint absent (the reviewer's question closed by data)" :
+                            "bump ≤ P95 → GENERIC FLUX-GEOMETRY ARTIFACT — fingerprint absent (the 's question closed by data)" :
                         deep_verd == "PRESENT" ?
                             "bump > P95 AND above the decisive threshold — headline discovery candidate, ESCALATE" :
                             "bump > P95 → unexplained even vs deep nulls — ESCALATE (zoom scan around the bump, per-config persistence)")
@@ -22329,7 +22418,7 @@ function hp_h01_berry_keating(cfg::Config, zeta_zeros::Vector{Float64})
             sweep_ok = all(startswith(rr[4], "absent") for rr in reg_rows)
         end
     else
-        println("\n Regime sweep: SKIPPED (:baseline mode — HP-standard point only; switch hp_regime_mode to :showdown for the reviewer's cross-check)")
+        println("\n Regime sweep: SKIPPED (:baseline mode — HP-standard point only; switch hp_regime_mode to :showdown for the 's cross-check)")
     end
 
     rec = Tuple{String,Bool,String}[]
@@ -22356,29 +22445,29 @@ function hp_h01_berry_keating(cfg::Config, zeta_zeros::Vector{Float64})
         fp_present ? @sprintf("PRESENT — max SNR %.1e at log(%d)", maximum(snrs_ab), primes[argmax(snrs_ab)]) :
             fp_marginal ? @sprintf("MARGINAL — max SNR %.1f vs ceiling %.1f", maximum(snrs_ab), max_snr_null) :
                           @sprintf("ABSENT — max SNR %.1f < threshold %.0f", isempty(snrs_ab) ? 0.0 : maximum(snrs_ab), threshold)))
-    # regime sweep headline (reviewer actions, rounds 1+2): the negative must
+    # regime sweep headline (actions, ): the negative must
     # survive the model's best-faith parameter points AND be distinguishable
     # from generic lattice resonances (regime-matched nulls) before it counts
-    # as a model-class statement. v23.5: the row is SCORED (its boolean enters
+    # as a model-class statement.: the row is SCORED (its boolean enters
     # ok) — a mixed/MARGINAL content can no longer hide under a PASS label.
     reg_all_absent = !isempty(reg_rows) && all(startswith(rr[4], "absent") for rr in reg_rows)
     reg_any_present = any(startswith(rr[4], "PRESENT") for rr in reg_rows)
     reg_unexpl = [rr for rr in reg_rows if startswith(rr[4], "MARGINAL")]
     deep_tail = isempty(deep_info) ? "" :
-        @sprintf(" DEEPENED (v23.6, pre-registered P95 rule): %s", join([
+        @sprintf(" DEEPENED : %s", join([
             @sprintf("[%s] deep AB %.1f vs P95 %.1f → %s", di[1], di[2], di[3], di[5]) for di in deep_info], "; "))
-    # v23.5: this row is now a GENUINE sub-check (its boolean enters ok) — no
-    # more PASS painted over "mixed/MARGINAL" content (reviewer round 2).
+    # : this row is now a GENUINE sub-check (its boolean enters ok) — no
+    # more PASS painted over "mixed/MARGINAL" content.
     push!(rec, ("fingerprint regime-robust (sweep)", sweep_ok,
         isempty(reg_rows) ? "skipped — :baseline mode (single HP-standard point)" :
         @sprintf("max SNR per regime (own null ceiling in parens): %s → %s%s",
                  join([@sprintf("[%s] %.1f (%.1f)", rr[1], rr[2], rr[5]) for rr in reg_rows], " "),
                  reg_all_absent ? "every regime bump sits WITHIN its regime-matched null ceiling → generic lattice/flux-geometry artifact, NOT primes — ARITHMETIC FINGERPRINT ABSENT is regime-robust" :
                  reg_any_present ? "PRESENT above the regime-matched nulls — headline discovery: deepen (more seeds/configs) before any claim" :
-                 @sprintf("MARGINAL above regime nulls at %s → NOT explained by non-arithmetic spectra at the same parameters — deepen before any claim (reviewer round 2)",
+                 @sprintf("MARGINAL above regime nulls at %s → NOT explained by non-arithmetic spectra at the same parameters — deepen before any claim ",
                           join([@sprintf("[%s] %.1f vs ceiling %.1f", rr[1], rr[2], rr[5]) for rr in reg_unexpl], ", ")),
                  deep_tail)))
-    # v23.5: this row GATES the test status (same consistency rule as H5 — a
+    # : this row GATES the test status (same consistency rule as H5 — a
     # failed row may never be silently overridden in the final log line).
     env_ok = rms_env < 0.30
     push!(rec, ("Envelope cross-check (D2)", env_ok,
@@ -22429,9 +22518,9 @@ function hp_h01_berry_keating(cfg::Config, zeta_zeros::Vector{Float64})
                         collect(2.0:Float64(length(reg_all))), [rr[5] for rr in reg_rows], 's')
             rep_plot!(p4)
         end
-        # v23.6: DEEPEN protocol — the null max-SNR distribution vs the deep AB bump
+        # : DEEPEN protocol — the null max-SNR distribution vs the deep AB bump
         isempty(deep_info) || begin
-            p5 = RepPlot("H1 — DEEPEN protocol (v23.6): null max-SNR distributions vs the deep AB bump; pre-registered rule: bump ≤ P95 → generic flux-geometry artifact",
+            p5 = RepPlot("H1 — DEEPEN protocol : null max-SNR distributions vs the deep AB bump; pre-registered rule: bump ≤ P95 → generic flux-geometry artifact",
                          "null draw # (sorted within each deepened regime; vortex-free + GUE pooled)", "max prime-SNR of the realization")
             xoff = 0.0
             for di in deep_info
@@ -22452,13 +22541,13 @@ function hp_h01_berry_keating(cfg::Config, zeta_zeros::Vector{Float64})
     end
     rep_note!("D1 (primary) is the 1-level raw-position Fourier transform: the Riemann–Weil explicit formula " *
               "puts the arithmetic information into pure tones ω = k·log(p) of the RAW density, so a spectrum " *
-              "carrying it shows Bragg peaks there. Empirical calibration at v23.3 defaults: ζ control fires at " *
+              "carrying it shows Bragg peaks there. Empirical calibration at defaults: ζ control fires at " *
               "SNR 10⁶–10⁹ (log 2, log 3, log 5, log 13 AND harmonics 3·log 2, 4·log 2 — the explicit-formula " *
               "signature), vortex-free Hofstadter nulls ≤ 2.1, GUE nulls ≤ 5.2. D2 (the K(t)-residual route) is " *
               "the two-level cross-check: intrinsically less sensitive because the 1-level explicit-formula " *
               "signal enters the 2-level statistic only at subleading order — its ζ control honestly does NOT " *
               "fire at suite scale, which the report states explicitly. The AB verdict compares against the " *
-              "EMPIRICAL null ceiling with a 10× margin. REGIME SWEEP (reviewer actions 2026-09-06, rounds 1+2): " *
+              "EMPIRICAL null ceiling with a 10× margin. REGIME SWEEP : " *
               "the AB spectra are re-measured at the H5 showdown's parameter points — monograph density Nv = L²/36, " *
               "sharp-flux α = 25/900, and both combined — because an ABSENT fingerprint counts as a model-class " *
               "statement only if it survives the model's best-faith points. Round 2: each extra regime ALSO runs its " *
@@ -22467,7 +22556,7 @@ function hp_h01_berry_keating(cfg::Config, zeta_zeros::Vector{Float64})
               "reproduce at the same parameters is a generic lattice/flux-geometry artifact (the ζ signature is a " *
               "simultaneous comb on ALL primes at SNR 10⁷+, not a single-prime bump), while a bump above the regime " *
               "nulls earns an honest WARN and deeper study; the sweep status enters the test status — no PASS " *
-              "painted over MARGINAL content. v23.6 (reviewer round 3): (a) the D1 window AUTO-EXTENDS to every " *
+              "painted over MARGINAL content. : (a) the D1 window AUTO-EXTENDS to every " *
               "target and the target list SPLITS into primes vs composite DECOYS — the ζ Bragg comb must be silent " *
               "on the decoys (specificity clause folded into zeta_ok), and the AB decoy SNR is reported alongside; " *
               "(b) a MARGINAL/PRESENT regime triggers the DEEPEN protocol: the regime null ceiling is re-estimated " *
@@ -22610,7 +22699,7 @@ function hp_h03_power_law(cfg::Config, zeta_zeros::Vector{Float64})
     @printf("\n Theory anchors: dictionary (n−q)² → p = 2 | 2D Dirac DOS (N(E)∝E²) → p = 1/2 | quadratic band bottom → p = 1\n")
     println(" (the Eₙ=(n−q)² dictionary of lab E8 is a 1D-ring identity — the REAL 2D spectrum decides)")
 
-    # ── Dirac-cone readout (reviewer observation 2026-09-06, promoted to a
+    # ── Dirac-cone readout (observation, promoted to a
     # headline row): the low window (vortex-dominated near-edge, where the
     # dictionary WOULD live if it were real) sits much closer to the 2D-Dirac
     # anchor 1/2 than the bulk — worth stating on its own line, not burying
@@ -22643,7 +22732,7 @@ function hp_h03_power_law(cfg::Config, zeta_zeros::Vector{Float64})
             dic_supported ? "SUPPORTED (would be a headline)" :
                             "REJECTED — expected honest negative: the real spectrum is not (n−q)² lattice physics")
 
-    # ── per-L decisive evidence (reviewer sync 2026-09-06): the unstable
+    # ── per-L decisive evidence (sync): the unstable
     # L→∞ fit must not carry the verdict — with per-L se ≈ 0.001–0.009 and
     # every p̂ ≈ 0.3–0.7, EACH rung already rejects p = 2 by ≫ 5σ on its own.
     perL_decisive = false
@@ -22674,7 +22763,7 @@ function hp_h03_power_law(cfg::Config, zeta_zeros::Vector{Float64})
             @sprintf("min |p̂−2| = %.3f at ≥ %.0fσ (every rung/window; se ≤ %.4f) — the rejection does NOT rest on the L→∞ extrapolation",
                      perL_min_dev, perL_min_sigma, max(maximum(se_low, init = 0.0), maximum(se_bulk, init = 0.0))) :
             "needs ≥ 1 ladder rung"))
-    # L→∞ extrapolation — INFORMATIONAL note (reviewer sync): an unstable
+    # L→∞ extrapolation — INFORMATIONAL note (sync): an unstable
     # extrapolation (se ≫ estimate, non-monotone rung scatter) is a property
     # of the 5-point linear-in-1/L fit, NOT a physics alarm; the verdict is
     # already carried by the per-L row above. Row fails only when the ladder
@@ -22685,10 +22774,10 @@ function hp_h03_power_law(cfg::Config, zeta_zeros::Vector{Float64})
         !extrap_finite ? "needs ≥ 3 ladder rungs" :
         extrap_stable ?
             @sprintf("stable: p_∞ = %.4f ± %.4f (se limit 0.15)", p_inf_bu, se_inf_bu) :
-            @sprintf("UNSTABLE (informational): p_∞ = %.4f ± %.4f, se ≫ estimate — non-monotone rung scatter; the verdict rests on the per-L fits, NOT on this extrapolation (reviewer sync 2026-09-06)",
+            @sprintf("UNSTABLE (informational): p_∞ = %.4f ± %.4f, se ≫ estimate — non-monotone rung scatter; the verdict rests on the per-L fits, NOT on this extrapolation ",
                      p_inf_bu, se_inf_bu)))
-    # dictionary verdict — semantics synchronized with H1/H7 (reviewer action
-    # 2026-09-06): a REJECTED dictionary is the EXPECTED honest negative
+    # dictionary verdict — semantics synchronized with H1/H7 (action
+    # ): a REJECTED dictionary is the EXPECTED honest negative
     # (same status as H1's absent fingerprint / H7's zero correlation), so
     # the row is true either way and carries the headline; SUPPORTED would be
     # a discovery headline. Only method rows above can fail the test.
@@ -22700,7 +22789,7 @@ function hp_h03_power_law(cfg::Config, zeta_zeros::Vector{Float64})
     push!(rec, ("Dirac-cone readout (low window)", true,
         (isfinite(d_dir_low) && isfinite(d_dir_bu)) ?
             (d_dir_low < d_dir_bu ?
-                @sprintf("mean |p̂−1/2|: low %.3f < bulk %.3f → the near-edge (vortex-dominated) spectrum is Dirac-cone-like, not dictionary-like — reviewer observation 2026-09-06, promoted to a headline",
+                @sprintf("mean |p̂−1/2|: low %.3f < bulk %.3f → the near-edge (vortex-dominated) spectrum is Dirac-cone-like, not dictionary-like —  observation , promoted to a headline",
                          d_dir_low, d_dir_bu) :
                 @sprintf("mean |p̂−1/2|: low %.3f vs bulk %.3f — no special Dirac proximity", d_dir_low, d_dir_bu)) :
             "no ladder rungs fitted"))
@@ -22725,11 +22814,11 @@ function hp_h03_power_law(cfg::Config, zeta_zeros::Vector{Float64})
         end
         rep_plot!(p)
     end
-    rep_note!("Fitting the REAL spectrum (not the toy ring of lab E8) answers the reviewer's question " *
+    rep_note!("Fitting the REAL spectrum (not the toy ring of lab E8) answers the 's question " *
               "directly: if the (n−q)² dictionary were the lattice physics, p̂(L) would extrapolate to 2. " *
               "The honest 2D alternatives are p = 1/2 (Dirac cone: N(E) ∝ E² near E = 0) in the low window " *
               "and p ≈ 1 (constant DOS of a quadratic band) in the bulk — both falsify the dictionary claim. " *
-              "VERDICT SEMANTICS (reviewer sync 2026-09-06): a REJECTED dictionary is the EXPECTED honest " *
+              "VERDICT SEMANTICS : a REJECTED dictionary is the EXPECTED honest " *
               "negative and PASSES the audit exactly like H1's absent fingerprint and H7's zero correlation " *
               "(one and the same outcome class must not split into PASS and WARN across tests); the test fails " *
               "only on method grounds — fit quality below floor, too few rungs, or the spectrum actually " *
@@ -22738,11 +22827,11 @@ function hp_h03_power_law(cfg::Config, zeta_zeros::Vector{Float64})
               "the dictionary anchor; the Dirac-cone proximity of the low window is stated as its own physics " *
               "headline rather than being buried inside the rejection.")
     ok = r2min_lo >= 0.98 && r2min_bu >= 0.98 && perL_decisive && extrap_finite
-    # v23.6: extrap_finite added — the table's "L→∞ (note)" row must never
+    # : extrap_finite added — the table's "L→∞ (note)" row must never
     # disagree with the runner verdict (needs ≥ 3 ladder rungs; ALWAYS true at
     # the real-scale 5-rung ladder, so real-scale semantics are unchanged;
     # the done-line, the aggregate line and the runner now share one verdict). && extrap_finite
-    # v23.6: extrap_finite added — the table's "L→∞ (note)" row must never
+    # : extrap_finite added — the table's "L→∞ (note)" row must never
     # disagree with the runner verdict (needs ≥ 3 ladder rungs; ALWAYS true at
     # the real-scale 5-rung ladder, so real-scale semantics are unchanged;
     # the done-line, the aggregate line and the runner now share one verdict).
@@ -22778,7 +22867,7 @@ function hp_h04_critical_q(cfg::Config, zeta_zeros::Vector{Float64})
     @printf(" Scan: %d charges on q ∈ [%.3f, %.3f] × 2 seeds, %d×%d lattice, %d vortices (fixed positions)\n",
             n_q, qgrid[1], qgrid[end], L, L, length(pos_fixed))
     println(" Claimed criticals marked on the profile: q = 1/2 (self-dual analog), 0.3 (toy dictionary), 1.0 (Byers–Yang)")
-    # v23.6 DOMAIN GUARD (reviewer round 3, №4): run_20260906_185208 scanned
+    #  DOMAIN GUARD (№4): the validated run scanned
     # q ∈ [5, 81] with the claimed criticals 0.3/0.5/1.0 ALL outside — the
     # location check degraded silently (any resonance is trivially "off 55% of
     # span"). A domain that contains no claimed critical makes this test's
@@ -22786,7 +22875,7 @@ function hp_h04_critical_q(cfg::Config, zeta_zeros::Vector{Float64})
     # WARNs until the default domain [0.05, 1.0] (menu item 3) is restored.
     claimed_all = [0.5, 0.3, 1.0]
     domain_covers = any(qc -> qc >= qgrid[1] && qc <= qgrid[end], claimed_all)
-    domain_covers || println(" ⚠ DOMAIN GUARD (v23.6): NONE of the claimed criticals (0.3, 0.5, 1.0) lies inside the scan domain — the location check below is DEGENERATE. Restore q ∈ [0.05, 1.0] (HP parameter menu item 3) to test the claimed criticals.")
+    domain_covers || println(" ⚠ DOMAIN GUARD : NONE of the claimed criticals (0.3, 0.5, 1.0) lies inside the scan domain — the location check below is DEGENERATE. Restore q ∈ [0.05, 1.0] (HP parameter menu item 3) to test the claimed criticals.")
 
     ks_prof = Float64[] # mean KS_D profile (lower = better GUE match)
     r_prof = Float64[]  # mean ⟨r⟩ profile
@@ -22843,7 +22932,7 @@ function hp_h04_critical_q(cfg::Config, zeta_zeros::Vector{Float64})
     claimed = [0.5, 0.3, 1.0]
     nearest = claimed[argmin(abs.(claimed .- q_star))]
     sharp = (z_dip >= 3.0) && (width_frac <= 0.35)
-    # LOCATION HONESTY (reviewer sync 2026-09-06): the scan certifies the
+    # LOCATION HONESTY (sync): the scan certifies the
     # EXISTENCE of sharp structure, never the critical-line analogy — a
     # resonance away from every claimed critical is 'real but UNPREDICTED'.
     # Coincidence window: 2 grid steps (the profile resolution limit).
@@ -22871,10 +22960,10 @@ function hp_h04_critical_q(cfg::Config, zeta_zeros::Vector{Float64})
                 @sprintf("SMOOTH: max z = %.2f, width %.2f span — no narrow critical-q feature", z_dip, width_frac)))
     push!(rec, ("location vs claimed criticals", on_claim || domain_covers,
         !domain_covers ?
-            @sprintf("DEGENERATE (v23.6 guard): claimed criticals 0.3/0.5/1.0 all OUTSIDE the scan domain [%.3f, %.3f] — the off/coincide verdict carries no information; set the q-domain back to [0.05, 1.0] (menu item 3) and rerun", qgrid[1], qgrid[end]) :
+            @sprintf("DEGENERATE : claimed criticals 0.3/0.5/1.0 all OUTSIDE the scan domain [%.3f, %.3f] — the off/coincide verdict carries no information; set the q-domain back to [0.05, 1.0] (menu item 3) and rerun", qgrid[1], qgrid[end]) :
         on_claim ? @sprintf("resonance at q* = %.3f COINCIDES with q_c = %.1f (within 2 grid steps) — supports the critical-line analogy",
                             q_star, nearest) :
-                   @sprintf("resonance at q* = %.3f does NOT coincide with any claimed critical (nearest %.1f, off by %.3f = %.0f%% of span) → the sharp feature is real but UNPREDICTED — the analogy is NOT corroborated (reviewer sync 2026-09-06)",
+                   @sprintf("resonance at q* = %.3f does NOT coincide with any claimed critical (nearest %.1f, off by %.3f = %.0f%% of span) → the sharp feature is real but UNPREDICTED — the analogy is NOT corroborated ",
                             q_star, nearest, abs(q_star - nearest), 100 * abs(q_star - nearest) / (qf[end] - qf[1]))))
     push!(rec, ("⟨r⟩ scan range", true,
         @sprintf("%.4f … %.4f across the grid", minimum(r_prof), maximum(r_prof))))
@@ -22902,12 +22991,12 @@ function hp_h04_critical_q(cfg::Config, zeta_zeros::Vector{Float64})
               "dip of the cubic-smoothed profile in units of that floor, AND the half-prominence width must stay " *
               "below 35% of the scan span — a wide residual hump is baseline curvature, not a critical point. " *
               "A smooth profile is the expected outcome for a generic vortex model and FALSIFIES the " *
-              "'q plays the role of 1/2' analogy. LOCATION HONESTY (reviewer sync 2026-09-06): the scan answers " *
+              "'q plays the role of 1/2' analogy. LOCATION HONESTY : the scan answers " *
               "'is there sharp structure' — it does NOT answer 'does the structure sit where the theory needs " *
               "it'; a resonance away from every claimed critical is reported as real-but-unpredicted, and the " *
               "analog claim is scored by the dedicated location row. Noise-floor caveat: 2 seeds per point make " *
               "σ a 1-parameter estimate — z is indicative, not distribution-level proof.")
-    ok = all_finite && σ_floor > 1e-9 && domain_covers # v23.6: a degenerate domain (no claimed critical inside) fails the test honestly
+    ok = all_finite && σ_floor > 1e-9 && domain_covers # : a degenerate domain (no claimed critical inside) fails the test honestly
     log_result(@sprintf(" Test H4: %d q-points, KS_D min %.4f at q*=%.3f, z=%.2f → %s%s%s → %s",
                         n_q, ks_prof[k_dip], q_star, z_dip,
                         sharp ? "sharp" : "smooth",
@@ -22918,7 +23007,7 @@ function hp_h04_critical_q(cfg::Config, zeta_zeros::Vector{Float64})
 end
 
 # ── H5: large ensemble × parameter-regime showdown ─────────────────────
-# (reviewer action 2026-09-06) The v23.3 first run measured the ensemble ONLY
+# (action) The first run measured the ensemble ONLY
 # at the HP-standard point (sparse Nv=4, α=0.5): ⟨r⟩ in-band 87.5%, KS-vs-GUE
 # 0/40 with a tiny realization scatter σ = 0.0087 — a REPRODUCIBLE miss, but
 # is it a property of the MODEL or of the PARAMETER POINT? This audit runs a
@@ -22942,10 +23031,10 @@ function hp_h05_ensemble(cfg::Config, zeta_zeros::Vector{Float64})
             0.5992 - band_hw, 0.5992 + band_hw, band_hw)
     @printf(" Regime pass rule: in-band ≥ %.0f%% AND (KS-pass ≥ 90%% OR median KS_D < 0.10) — scored PER regime\n",
             100 * cfg.hp_pass_fraction)
-    println("   (v23.5 transparency, reviewer round 2: the RAW individual KS-pass % is always shown; a regime")
+    println("   Transparency: the RAW individual KS-pass % is always shown; a regime")
     println("    passing only via the median-D OR-clause is flagged 'OR-clause only' — 0% individual passes on 40")
     println("    seeds is a systematic, reproducible deviation, not noise)")
-    println(" Regimes (2×2 factorial, reviewer action 2026-09-06; W fixed at the HP standard):")
+    println(" Regimes (2×2 factorial; W fixed at the HP standard):")
     for R in regs
         @printf("   [%s] %s — %s\n", R.key, R.tag, _hp_regime_desc(cfg, L, R))
     end
@@ -22993,10 +23082,10 @@ function hp_h05_ensemble(cfg::Config, zeta_zeros::Vector{Float64})
     @printf(" → for comparison: the standard suite averages rest on n_realizations = %d (Tests 28/32 family)\n",
             cfg.ab_n_realizations)
 
-    # ── regime synthesis: the reviewer's question, answered with a table ──
+    # ── regime synthesis: the 's question, answered with a table ──
     pass_reg = [r.frac_band >= cfg.hp_pass_fraction &&
                 (r.frac_ks >= 0.90 || r.med_D < 0.10) for r in results]
-    # v23.5 (reviewer round 2): a regime can "pass" through the OR-clause while
+    # : a regime can "pass" through the OR-clause while
     # 0% of its individual realizations pass KS — that is a SYSTEMATIC,
     # reproducible deviation (40 seeds!), not noise, and must not be hidden
     # behind the disjunction. Track CLEAN (no OR-clause) separately:
@@ -23015,7 +23104,7 @@ function hp_h05_ensemble(cfg::Config, zeta_zeros::Vector{Float64})
                 pass_reg[i] ? (clean_reg[i] ? "GUE REACHED (clean)" : "GUE reached — OR-clause only") : "misses GUE")
     end
     best = results[best_i]
-    # v23.5 headline (reviewer round 2): "PARAMETER ARTIFACT … not a model
+    #  headline: "PARAMETER ARTIFACT … not a model
     # property" was too comforting — the only clean pass sits at the point
     # where BOTH levers are tuned simultaneously, which READS AS FINETUNING
     # (the Test-38 story), not as evidence against it. Say exactly that.
@@ -23031,8 +23120,8 @@ function hp_h05_ensemble(cfg::Config, zeta_zeros::Vector{Float64})
                  isempty(or_keys) ? "none" : join(or_keys, ","))
     println(" → ", headline)
 
-    # ── v23.6 α-PROFILE (reviewer round 3, №3): finetuning vs plateau ──
-    # run_20260906_185208 showed the clean GUE pass rides on α = 25/900 in BOTH
+    # ── α-PROFILE (№3): finetuning vs plateau ──
+    # the validated run showed the clean GUE pass rides on α = 25/900 in BOTH
     # densities ([C] and [D]) — so the story is about the SCREENING AXIS, not
     # the (Nv, α) pair. The missing experiment: GUE quality ALONG α at fixed
     # sparse Nv. PLATEAU (clean pass for every small α up to some α*) reads as
@@ -23046,7 +23135,7 @@ function hp_h05_ensemble(cfg::Config, zeta_zeros::Vector{Float64})
         αgrid = [HP_ALPHA_SMALL, 0.05, 0.1, 0.2, 0.35, 0.5]
         Nα = max(10, cfg.hp_alpha_scan_n)
         Nv_sparse = resolve_vortex_count(cfg)
-        @printf("\n ── α-PROFILE (v23.6, finetuning vs plateau): %d α-points × %d configs at FIXED sparse Nv=%d — where along the screening axis does GUE live?\n",
+        @printf("\n ── α-PROFILE : %d α-points × %d configs at FIXED sparse Nv=%d — where along the screening axis does GUE live?\n",
                 length(αgrid), Nα, Nv_sparse)
         println("   (clean pass across the small-α side → PLATEAU: 'sharp-flux regime is GUE-universal, the α=0.5 baseline is the outlier';")
         println("    clean pass only near 25/900 → NARROW: finetuning confirmed; the α=0.5 endpoint independently replicates regime A)")
@@ -23117,7 +23206,7 @@ function hp_h05_ensemble(cfg::Config, zeta_zeros::Vector{Float64})
         @sprintf("clean at [%s] (raw individual KS-pass ≥ 90%%); OR-clause-only at [%s]",
                  join(clean_keys, ","), isempty(or_keys) ? "none" : join(or_keys, ","))))
     push!(rec, ("synthesis (headline, never scored)", true, headline))
-    # v23.6: α-profile row — a READOUT (headline), never scored: it qualifies
+    # : α-profile row — a READOUT (headline), never scored: it qualifies
     # the finetuning narrative (plateau vs narrow) but the regime table above
     # remains the scored evidence.
     isempty(α_prof) || push!(rec, ("α-profile (headline, never scored)", true,
@@ -23163,10 +23252,10 @@ function hp_h05_ensemble(cfg::Config, zeta_zeros::Vector{Float64})
         add_series!(p3, "GUE band +$(band_hw)", [0.5, Float64(n_reg) + 0.5],
                     [0.5992 + band_hw, 0.5992 + band_hw], 'l')
         rep_plot!(p3)
-        # v23.6: α-profile plots (KS-pass % and median D along the screening axis)
+        # : α-profile plots (KS-pass % and median D along the screening axis)
         isempty(α_prof) || begin
             Nv_sp = resolve_vortex_count(cfg)
-            p5 = RepPlot(@sprintf("H5 — α-profile (v23.6): %s — individual KS-pass %% vs screening α at sparse Nv=%d", α_class, Nv_sp),
+            p5 = RepPlot(@sprintf("H5 — α-profile : %s — individual KS-pass %% vs screening α at sparse Nv=%d", α_class, Nv_sp),
                          "screening length α", "individual KS-pass % (p > 0.01)")
             add_series!(p5, "KS-pass %", [a.α for a in α_prof], [100 * a.frac_ks for a in α_prof], 'L')
             add_series!(p5, "clean threshold 90%", [0.0, 0.5], [90.0, 90.0], 'l')
@@ -23181,7 +23270,7 @@ function hp_h05_ensemble(cfg::Config, zeta_zeros::Vector{Float64})
     rep_note!("Placement AND residual-disorder patterns vary across realizations (independent MersenneTwister " *
               "streams), so the scatter σ is the honest realization noise of the model, not a bootstrap " *
               "resample of one configuration; the Wald CI quantifies the binomial uncertainty of each in-band " *
-              "fraction. REGIME DESIGN (reviewer action 2026-09-06): a PRE-REGISTERED 2×2 factorial — {sparse " *
+              "fraction. REGIME DESIGN : a PRE-REGISTERED 2×2 factorial — {sparse " *
               "Nv | monograph density Nv = L²/36 (the 25/900 = 2.78% anchor; the same lever that lifted the " *
               "Test-32 comparison row to GUE)} × {α = ab_alpha_test16 | sharp-flux α = 25/900 ≈ 0.0278 (the " *
               "ORIGINAL design default of ab_alpha_test16)}; regime A reproduces the published baseline " *
@@ -23189,15 +23278,15 @@ function hp_h05_ensemble(cfg::Config, zeta_zeros::Vector{Float64})
               "contrasts a REGIME-ROBUST failure (model-class property at every tested point) against a " *
               "PARAMETER-DEPENDENT outcome; the regime TABLE is the evidence, the 'best' regime is reported " *
               "for orientation, and best-of-4 selection is pre-registered, not post hoc. A model-class " *
-              "property needs ≥ 90% of realizations inside the band at a regime. STATUS SEMANTICS v23.5 " *
-              "(reviewer round 2): the test status is the strict AND of all scored rows — a regime that " *
+              "property needs ≥ 90% of realizations inside the band at a regime. STATUS SEMANTICS " *
+              ": the test status is the strict AND of all scored rows — a regime that " *
               "misses GUE (e.g. the published baseline) propagates to the test status instead of being " *
               "silently overridden by the synthesis ('1 failed → WARN' and the final line now always agree). " *
               "A 'GUE reached' via the median-D OR-clause is flagged separately from a CLEAN pass, because " *
               "0/40 individual KS passes is a systematic, reproducible deviation, not noise; and the only " *
               "clean pass in the 2×2 sits at the doubly-tuned point (density AND sharp-flux together), which " *
               "reads as finetuning — consistent with the Test-38 story — rather than as evidence against it. " *
-              "v23.6 α-PROFILE (reviewer round 3): run 185208 showed the clean pass rides on α = 25/900 in BOTH " *
+              "α-PROFILE : run 185208 showed the clean pass rides on α = 25/900 in BOTH " *
               "densities ([C],[D]), so the missing experiment is the GUE-quality profile ALONG the screening axis " *
               "at fixed sparse Nv — α ∈ {25/900, 0.05, 0.1, 0.2, 0.35, 0.5} × hp_alpha_scan_n independent configs " *
               "on a disjoint seed stream. PLATEAU-LOW (clean for all α ≤ α*) reads as 'the sharp-flux side is " *
@@ -23205,7 +23294,7 @@ function hp_h05_ensemble(cfg::Config, zeta_zeros::Vector{Float64})
               "confirms finetuning along the axis; the α = 0.5 endpoint independently replicates regime A from a " *
               "different stream (internal consistency check). The α-profile is a READOUT row (never scored) — " *
               "the regime table remains the scored evidence.")
-    # STATUS SEMANTICS v23.5 (the reviewer's bug report, fixed at the root):
+    # STATUS SEMANTICS (the 's bug report, fixed at the root):
     # previously ok = … && n_pass >= 1 while the verdict table counted the
     # per-regime rows → "7 sub-checks, 1 failed → WARN" was silently overwritten
     # by "… → PASS" on the next line. The status is now the strict AND of every
@@ -23389,7 +23478,7 @@ function hp_h07_sequence_correlation(cfg::Config, zeta_zeros::Vector{Float64})
     # asymmetry is inherent and is noted in the report)
     fl_z = [smooth_counting_function(g) - Float64(k - 1) for (k, g) in enumerate(gam)]
     fl_ab_m = fl_ab[1:m]
-    # EDGE TRIM (calibration round 2 fix): the local-window unfolding is biased
+    # EDGE TRIM (calibration fix): the local-window unfolding is biased
     # at the sequence EDGES (half the window falls outside the support), and
     # that bias is the SAME shape for every spectrum — untrimmed GUE–GUE pairs
     # correlated at |r| ≈ 0.65 (measured) instead of the theoretical 1/√m ≈ 0.06
@@ -23481,7 +23570,7 @@ function hp_h07_sequence_correlation(cfg::Config, zeta_zeros::Vector{Float64})
               "true counting function is the thing under test). Independent GUE realizations correlate at " *
               "zero — that is exactly why GUE universality is compatible with NO pointwise H-P identification.")
     ok = n_cal >= 3 && abs(r_shuf) <= max(band_null, 2.5 / sqrt(m_kept)) &&
-         abs(ρ_spear) <= max(band_null, 0.05) + 0.05 # method validity + table alignment (v23.6); the AB verdict is the headline
+         abs(ρ_spear) <= max(band_null, 0.05) + 0.05 # method validity + table alignment; the AB verdict is the headline
     log_result(@sprintf(" Test H7: Pearson r=%+.5f (band %.5f), Spearman ρ=%+.5f → %s → %s",
                         r_pearson, max(band_null, 2.5 / sqrt(m_kept)), ρ_spear,
                         inside ? "sequence independence confirmed" : "CORRELATION DETECTED",
@@ -23496,11 +23585,11 @@ end
 function _hp_run!(a::HPAudit, cfg::Config, zeta_zeros::Vector{Float64})
     owned = _prog_owned_start(@sprintf("HP H%d", a.id - 300))
     t0 = time()
-    verdict = "ERROR" # v23.6 (reviewer round 3, №1): the done-line must carry the
+    verdict = "ERROR" #  (№1): the done-line must carry the
     # ACTUAL test verdict, not the exception flag. Previously the finally-block
-    # printed `ok ? "PASS" : "ERROR"` with ok = "no exception was thrown", so a
+    # printed `ok ? "PASS": "ERROR"` with ok = "no exception was thrown", so a
     # test whose sub-checks said "… → WARN" still finished with "done → PASS" —
-    # the exact PASS-over-WARN optics the reviewer already flagged once. The
+    # the exact PASS-over-WARN optics the already flagged once. The
     # verdict now propagates: res === true → PASS, otherwise WARN; exceptions
     # keep the ERROR label (and rep_finish! already recorded FAIL).
     try
@@ -23686,7 +23775,7 @@ function test31_dirac_string_flux(zeta_zeros::Vector{Float64}, cfg::Config)
  println("Verify: vortex plaquette flux = 2π·q (mod 2π), other plaquettes ≈ 0")
  println(repeat("─",60))
 
- Nx, Ny = cfg.ab_nx, cfg.ab_ny # was 12×12, now two-pass
+ Nx, Ny = cfg.ab_nx, cfg.ab_ny # ×12, now two-pass
  # Use cfg.ab_q_list[1] (default 1.0) instead of hardcoded 0.3
  q_mag = resolve_q_magnitude(cfg)
  # Single vortex at a known plaquette center — placed at lattice midline,
@@ -23694,7 +23783,7 @@ function test31_dirac_string_flux(zeta_zeros::Vector{Float64}, cfg::Config)
  ix_v = max(2, Nx ÷ 3)
  iy_v = max(2, Ny ÷ 2)
  vortices = [Vortex(Float64(ix_v) + 0.5, Float64(iy_v) + 0.5, q_mag)]
- # Dirac-string flux theorems → legacy :dirac model
+ # Dirac-string flux theorems → legacy:dirac model
  cfg_ab = ABCloudConfig(Nx, Ny, vortices, 0.0, 1.0, :open, 4.0, 96, :dirac) # α=0 (no background flux)
  println(" Vortex phase model: :dirac (this test verifies the Dirac-string\n flux construction — see the header design notes)")
  H = build_ab_cloud_hamiltonian(cfg_ab)
@@ -23746,8 +23835,8 @@ function test32_byers_yang_theorem(zeta_zeros::Vector{Float64}, cfg::Config)
  println("Fractional q=0.3 → spectrum genuinely different")
  println(repeat("─",60))
 
- Nx, Ny = cfg.ab_nx, cfg.ab_ny # was 12×12, now two-pass
- # Use local RNG instead of default_rng() + seed! .
+ Nx, Ny = cfg.ab_nx, cfg.ab_ny # ×12, now two-pass
+ # Use local RNG instead of default_rng + seed!.
  rng = MersenneTwister(42)
  # Same vortex POSITIONS for both integer and fractional charges
  vortices_q0 = Vortex[]
@@ -23764,7 +23853,7 @@ function test32_byers_yang_theorem(zeta_zeros::Vector{Float64}, cfg::Config)
 
  # Byers-Yang flux-quantization identity is a statement about
  # the Dirac-string formulation (integer 2π flux ≡ 0 mod 2π → pure gauge).
- # Run on the legacy :dirac model where it holds EXACTLY.
+ # Run on the legacy:dirac model where it holds EXACTLY.
  # W=0.0 for all three configs. Byers-Yang is an identity of the
  # HOPPING/flux sector: H(q=1 vortex, α) = U† H(q=0, α) U (pure gauge) only
  # when the Hamiltonians are otherwise identical. The vortex on-site potential
@@ -23782,7 +23871,7 @@ function test32_byers_yang_theorem(zeta_zeros::Vector{Float64}, cfg::Config)
  length(vortices_q1), sum(abs(v.q) for v in vortices_q1),
  length(vortices_q03), sum(abs(v.q) for v in vortices_q03)); flush(stdout)
 
- prog_update(0.15, "32: H(q=0) build+heevr") # FIX 2026-09-06: 3 молчаливых солва на 72² — бар двигается по фазам
+ prog_update(0.15, "32: H(q=0) build+heevr") # NOTE: 3 молчаливых солва на 72² — бар двигается по фазам
  ev_q0 = sort(eigvals(Hermitian(build_ab_cloud_hamiltonian(cfg_q0))))
  prog_update(0.50, "32: H(q=1) build+heevr")
  ev_q1 = sort(eigvals(Hermitian(build_ab_cloud_hamiltonian(cfg_q1))))
@@ -23822,7 +23911,7 @@ function test33_pbc_torus_dirac_string(zeta_zeros::Vector{Float64}, cfg::Config)
  println(repeat("─",60))
  flush(stdout)
 
- # Use the same Nx, Ny, alpha as Test 16, but force :torus.
+ # Use the same Nx, Ny, alpha as Test 16, but force:torus.
  # Pick q compatible with the gauge-consistency condition q·(2 - Nx) ∈ ℤ.
  # With Nx = 12, q = 0.1 works (0.1 · (-10) = -1 ∈ ℤ). With Nx = 54, q = 0.5 works
  # (0.5 · (-52) = -26 ∈ ℤ). We default to a small lattice for fast turnaround.
@@ -23857,7 +23946,7 @@ function test33_pbc_torus_dirac_string(zeta_zeros::Vector{Float64}, cfg::Config)
  @printf(" Dirac string: PERIODIC — wraps around the torus in the +x direction.\n"); flush(stdout)
  @printf(" String crosses every vertical column except the vortex's own (floor(x_v)).\n\n"); flush(stdout)
 
- # Use local RNG instead of default_rng() + seed! .
+ # Use local RNG instead of default_rng + seed!.
  rng = MersenneTwister(cfg.ab_seed + 33)
 
  # Place a single vortex at a plaquette center for clean flux verification.
@@ -23867,7 +23956,7 @@ function test33_pbc_torus_dirac_string(zeta_zeros::Vector{Float64}, cfg::Config)
  vortices = [Vortex(Float64(ix_v) + 0.5, Float64(iy_v) + 0.5, +q_mag)]
 
  # --- Build Hamiltonian with α=0 for flux verification ---
- # flux assertions (a)/(b) are Dirac-string theorems → :dirac
+ # flux assertions (a)/(b) are Dirac-string theorems →:dirac
  cfg_torus_flux = ABCloudConfig(Nx, Ny, vortices, α_flux, 1.0, :torus, 4.0, 96, :dirac)
  @printf(" Vortex phase models: flux check → :dirac, ⟨r⟩ check → :monumental\n"); flush(stdout)
  @printf(" Building H_flux..."); flush(stdout)
@@ -23911,7 +24000,7 @@ function test33_pbc_torus_dirac_string(zeta_zeros::Vector{Float64}, cfg::Config)
  end
 
  # --- Build Hamiltonian with user's α for ⟨r⟩ test ---
- # the ⟨r⟩ GUE check runs on the default :monumental
+ # the ⟨r⟩ GUE check runs on the default:monumental
  # model (complex smooth-gauge phases → GUE reachable at any q).
  # use the STANDARD neutral 4-vortex protocol (as Tests 16/32),
  # not the single unpaired q=+1 vortex from the flux check. A single
@@ -23941,8 +24030,8 @@ function test33_pbc_torus_dirac_string(zeta_zeros::Vector{Float64}, cfg::Config)
  # the bulk is GUE-like (same 72×72/torus/q monumental protocol as Test 32,
  # which measures 0.5911 on the bulk window). Criterion intent is the bulk
  # statistic; window matches Tests 32/33 (cfg.ab_center_fraction).
- log_comp(@sprintf(" heevr values-only solve: N=%d — test33 ⟨r⟩ torus", Nx * Ny)) # FIX 2026-09-06: сердцебиение во время солва
- prog_update(0.80, "33: ⟨r⟩ heevr solve") # FIX 2026-09-06: солв был нем (сборки уже печатают "Building H...")
+ log_comp(@sprintf(" heevr values-only solve: N=%d — test33 ⟨r⟩ torus", Nx * Ny)) # NOTE: сердцебиение во время солва
+ prog_update(0.80, "33: ⟨r⟩ heevr solve") # NOTE: солв был нем (сборки уже печатают "Building H...")
  ev = eigvals(Hermitian(H)) # values only — no eigenvector block (RAM)
  ev_bulk = central_band_eigs(sort(ev), cfg.ab_center_fraction)
  r_mean, n_r = mean_adjacent_spacing_ratio(ev_bulk)
@@ -23982,7 +24071,7 @@ end
 # Test 30: Dirac cone velocity v_F = 1/(2·N_y) at α=1/2
 # Test 31: Hatano-Nelson non-Hermitian test (σ≠1/2 → complex → Poisson)
 # Test 32: 200-realization ⟨r⟩ bootstrap (target 0.5994 ± 0.022)
-# Test 33: L-scaling for AB-cloud lattice (L=10→0.487, L=30→0.595)
+# Test 33: L-scaling for AB-cloud lattice (L= L=)
 # ─────────────────────────────────────────────────────────────────────────────
 
 # ── Test 27: Binary chiral symmetry at α=1/2 ───────────────────────────────
@@ -24015,7 +24104,7 @@ function test34_chiral_binary_alpha_half(zeta_zeros::Vector{Float64}, cfg::Confi
  # the naive `H_pert = H + S * H * S` keeps FOUR 5184²
  # matrices live inside one expression (H, two product temporaries, the
  # sum) → RSS peaked at 3.4 GB → OOM-kill. Compute the defect with ONE
- # reusable buffer: T = S·H; rmul!(T, S) → T = S·H·S; T .+= H.
+ # reusable buffer: T = S·H; rmul!(T, S) → T = S·H·S; T.+= H.
  H_norm = sqrt(sum(abs2.(H)))
  T = S * H
  rmul!(T, S)
@@ -24066,35 +24155,35 @@ function test34_chiral_binary_alpha_half(zeta_zeros::Vector{Float64}, cfg::Confi
  @printf(" W = 0.0, Nv = 2 (vortices q=±%.3f): chiral defect = %.2e → %s\n",
  q_mag, defect_v, defect_v > 0.01 ? "BROKEN" : "PRESERVED (expected: bond phases; Byers-Yang)")
 
- # ── v23.2 ζ-DICTIONARY SUBCHECK (user spec 2026-09-04: «в первом прогоне
- # 20 тысяч значений» — replaces the v21.0 50-zero stub): the Hilbert–Pólya
+ # ── ζ-DICTIONARY SUBCHECK («в первом прогоне
+ # 20 тысяч значений» — replaces the 50-zero stub): the Hilbert–Pólya
  # reading of Test 27's chiral binary is that the ζ zeros themselves can sit
- # on the ±E spectrum of an AIII operator. The v21 stub embedded only the
+ # on the ±E spectrum of an AIII operator. The stub embedded only the
  # FIRST 50 zeros (49 spacings — "diagnostic only"); this pass embeds the
  # first 20,000 and verifies the exact statements the dictionary must
  # satisfy:
- #   Z1  monotone zero list over the FULL 20k prefix (min gap printed)
- #   Z2  EXACT ±E pairing of the dictionary D = diag(±γₖ/2) — the AIII
- #       chiral defect of the 40,000-dim operator, computed O(n) via the
- #       sector-exchange permutation (a dense 40k×40k Γ would cost 12.8 GB;
- #       the permutation form IS the same operator identity, and the Γ² = I
- #       probe on a seeded random vector validates the implementation)
- #   Z3  zero-mode tower of the dictionary (AIII index anchor; γ₁ = 14.1347
- #       ⇒ the tower must be 0)
- #   Z4  the HONEST Oganesyan–Huse ⟨r⟩ over 19,998 RAW consecutive-gap
- #       ratios — at n=20k this is a REAL class verdict now (window ±0.025
- #       around the GUE 0.5996 excludes Poisson 0.3863 AND GOE 0.5307), not
- #       the v21 "n=49: diagnostic only" stub. (The v21 code fed
- #       normalized_spacings into mean_adjacent_spacing_ratio, which re-sorts
- #       them — a gaps-of-sorted-gaps statistic, 0.3450 at n=50; the honest
- #       unfolding-free statistic runs on the raw gap sequence.)
- #   Z5  KS distance vs the GUE surmise — PRINTED as a diagnostic only: the
- #       first-50k prefix REJECTS the surmise at n=20k (D ≈ 0.024, the
- #       documented finite-T effect of Tests 4/5); the verdict version
- #       (D-window + GUE-vs-GOE classification) lives in the hardcore pass.
- # Calibration (embedded set, measured 2026-09-04): ⟨r⟩(20k) = 0.6134,
+ #  Z1 monotone zero list over the FULL 20k prefix (min gap printed)
+ #  Z2 EXACT ±E pairing of the dictionary D = diag(±γₖ/2) — the AIII
+ #  chiral defect of the 40,000-dim operator, computed O(n) via the
+ #  sector-exchange permutation (a dense 40k×40k Γ would cost 12.8 GB;
+ #  the permutation form IS the same operator identity, and the Γ² = I
+ #  probe on a seeded random vector validates the implementation)
+ #  Z3 zero-mode tower of the dictionary (AIII index anchor; γ₁ = 14.1347
+ #  ⇒ the tower must be 0)
+ #  Z4 the HONEST Oganesyan–Huse ⟨r⟩ over 19,998 RAW consecutive-gap
+ #  ratios — at n=20k this is a REAL class verdict now (window ±0.025
+ #  around the GUE 0.5996 excludes Poisson 0.3863 AND GOE 0.5307), not
+ #  the "n=49: diagnostic only" stub. (The code fed
+ #  normalized_spacings into mean_adjacent_spacing_ratio, which re-sorts
+ #  them — a gaps-of-sorted-gaps statistic, 0.3450 at n=50; the honest
+ #  unfolding-free statistic runs on the raw gap sequence.)
+ #  Z5 KS distance vs the GUE surmise — PRINTED as a diagnostic only: the
+ #  first-50k prefix REJECTS the surmise at n=20k (D ≈ 0.024, the
+ #  documented finite-T effect of Tests 4/5); the verdict version
+ #  (D-window + GUE-vs-GOE classification) lives in the hardcore pass.
+ # Calibration (embedded set, measured): ⟨r⟩(20k) = 0.6134,
  # min Δγ = 0.0353, D(20k) = 0.0241 — every window carries ≥ 1.4× margin.
- println(" ζ-dictionary subcheck (v23.2) — first $(T27_ZETA_PASS1) embedded zeros:")
+ println(" ζ-dictionary subcheck  — first $(T27_ZETA_PASS1) embedded zeros:")
  zs20k = try
      z_all = load_embedded_zeros()
      length(z_all) >= T27_ZETA_PASS1 ? z_all[1:T27_ZETA_PASS1] : Float64[]
@@ -24137,7 +24226,7 @@ function test34_chiral_binary_alpha_half(zeta_zeros::Vector{Float64}, cfg::Confi
  return (defect < 1e-10) && ok_zeta
 end
 
-# ── ζ-dictionary deep-audit machinery (Test 27 v23.2, user spec 2026-09-04) ──
+# ── ζ-dictionary deep-audit machinery (Test 27,) ──
 # Dictionary widths per pass: pass 1 embeds the first 20,000 zeros, the
 # HARDCORE pass re-embeds the FULL 50,000-zero dataset with the deeper
 # statistics (Poisson discrimination control, block stationarity, KS
@@ -24147,14 +24236,14 @@ const T27_ZETA_HARDCORE = 50_000
 const T27_ZETA_CACHE = Ref{Any}(nothing) # pass-1 → pass-2 hand-off (D_KS at 20k)
 
 """
-    zeta_honest_r(zs) → (r_mean, n_ratios)
+ zeta_honest_r(zs) → (r_mean, n_ratios)
 
 The honest Oganesyan–Huse spacing-ratio statistic ⟨r⟩ of a SORTED level
 list: r_i = min(δᵢ, δᵢ₊₁)/max(δᵢ, δᵢ₊₁) over CONSECUTIVE raw gaps
 δᵢ = γᵢ₊₁ − γᵢ. Unfolding-free (no ρ(t) model enters) — the correct
 statistic for the ζ dictionary and for any class comparison.
 
-NOTE on the v21 stub: feeding `normalized_spacings` into
+NOTE on the stub: feeding `normalized_spacings` into
 `mean_adjacent_spacing_ratio` re-sorts the spacings and measures gaps of
 sorted gaps — a double-differentiated statistic (0.3450 at n=50), NOT ⟨r⟩.
 """
@@ -24177,17 +24266,17 @@ function zeta_honest_r(zs::Vector{Float64})::Tuple{Float64,Int}
 end
 
 """
-    zeta_dictionary_audit(zs) → (pair_max, pair_defect, gamma2_defect, n_zero, min_abs)
+ zeta_dictionary_audit(zs) → (pair_max, pair_defect, gamma2_defect, n_zero, min_abs)
 
 Exact AIII audit of the ±E chiral dictionary
 D = diag(+γ₁/2 … +γₙ/2, −γ₁/2 … −γₙ/2) (2n-dim) WITHOUT materializing Γ:
 the sector-exchange operator is the index permutation σ(i) = i+n (mod 2n),
 so every statement costs O(n) time and O(n) memory:
-  pair_max      max |dᵢ + d_{σ(i)}| — the ±E pairing is exact iff 0.0
-  pair_defect   ‖D + ΓDΓ‖_F / ‖D‖_F = √Σ(dᵢ + d_{σ(i)})² / ‖d‖ (exact iff 0)
-  gamma2_defect ‖Γ(Γv) − v‖ on a seeded random probe (the Γ² = I identity)
-  n_zero        #{|d| < 1e-12} — the AIII index anchor of the dictionary
-  min_abs       min |γₖ| (γ₁ = 14.1347 for the embedded set ⇒ n_zero must be 0)
+ pair_max max |dᵢ + d_{σ(i)}| — the ±E pairing is exact iff 0.0
+ pair_defect ‖D + ΓDΓ‖_F / ‖D‖_F = √Σ(dᵢ + d_{σ(i)})² / ‖d‖ (exact iff 0)
+ gamma2_defect ‖Γ(Γv) − v‖ on a seeded random probe (the Γ² = I identity)
+ n_zero #{|d| < 1e-12} — the AIII index anchor of the dictionary
+ min_abs min |γₖ| (γ₁ = 14.1347 for the embedded set ⇒ n_zero must be 0)
 A dense 40k×40k (pass 1) or 100k×100k (pass 2) Γ matrix would cost 12.8 / 80 GB
 — the permutation form is the SAME operator identity at O(n).
 """
@@ -24223,7 +24312,7 @@ end
 # ── Test 28 (menu id): f_GUE figure of merit ────────────────────────────────
 # f_GUE answers "how far has the AB-cloud spectrum moved from Poisson toward
 # GUE?" measured on the NUMBER VARIANCE Σ²(L=2):
-#     f_GUE = (Σ²_Poisson − Σ²_data) / (Σ²_Poisson − Σ²_GUE)
+#  f_GUE = (Σ²_Poisson − Σ²_data) / (Σ²_Poisson − Σ²_GUE)
 # Σ²_Poisson(L) = L = 2 exactly. The GUE end point is MEASURED, not taken
 # from a formula: the same number-variance estimator with the same window
 # count is run on the suite's GUE reference spectrum (get_gue_ref), so both
@@ -24241,8 +24330,8 @@ function test30_f_GUE_figure_of_merit(zeta_zeros::Vector{Float64}, cfg::Config)
  Nx = cfg.ab_nx
  Ny = cfg.ab_ny
  α = cfg.ab_alpha_test16
- W = ab_w_eff(cfg) # W=1.0 standard (2026-08-31 fix №1: was raw ab_W=4.0 — at q·W ≫ t the vortex potential pins the spectrum toward Poisson)
- Nv = resolve_vortex_count(cfg) # unified resolver (was list[1] with a divergent 25 fallback)
+ W = ab_w_eff(cfg) # W=1.0 standard
+ Nv = resolve_vortex_count(cfg) # unified resolver
  q_mag = isempty(cfg.ab_q_list) ? 1.0 : cfg.ab_q_list[1]
  rng = MersenneTwister(cfg.ab_seed)
 
@@ -24342,7 +24431,7 @@ function test37_dirac_dip_dos(zeta_zeros::Vector{Float64}, cfg::Config)
 
  # Was hardcoded 20×20; now the LAUNCH-STANDARD lattice (cfg.ab_nx × ab_ny,
  # default 72×72) — the dip is a bulk feature and must be measured at the
- # run's resolution (user spec 2026-08-30: pass 1 = 72×72, hardcore = 96×96).
+ # run's resolution.
  Nx, Ny = cfg.ab_nx, cfg.ab_ny
  W = 0.0 # clean: the dip is a band-structure feature, not a disorder effect
  vortices = Vortex[] # no vortices for this band-structure test
@@ -24350,7 +24439,7 @@ function test37_dirac_dip_dos(zeta_zeros::Vector{Float64}, cfg::Config)
  # anchors α ∈ {0.4, 0.5, 0.6} satisfied this at the OLD 20×20 (8/10/12)
  # but NOT at the launch-standard 72×72 (28.8 / 36 / 43.2) — the α=0.4 and
  # α=0.6 builds threw "Torus geometry needs α·Ny ∈ ℤ" and the timer wrapper
- # reported a bare "FAIL/WARN" with no ρ lines. Fix (2026-08-31): snap each
+ # reported a bare "FAIL/WARN" with no ρ lines. Fix: snap each
  # anchor to the nearest fraction m/Ny (≤ 1/(2·Ny) ≈ 0.007 away) so the
  # lattice stays at the user's 72×72 / 96×96 standard.
  snap_alpha(a::Float64, L::Int) = round(a * L) / L
@@ -24375,7 +24464,7 @@ function test37_dirac_dip_dos(zeta_zeros::Vector{Float64}, cfg::Config)
  end
 
  ρ_half = central_density(α_half)
- prog_update(0.35, "37: α=1/2 done") # FIX 2026-09-06: были голые prog_heartbeat — бар двигается по фазам
+ prog_update(0.35, "37: α=1/2 done") # NOTE: были голые prog_heartbeat — бар двигается по фазам
  ρ_04 = central_density(α_lo)
  prog_update(0.70, "37: α=0.4 done")
  ρ_06 = central_density(α_hi)
@@ -24414,24 +24503,24 @@ function test38_dirac_cone_vF(zeta_zeros::Vector{Float64}, cfg::Config)
  # 1/L law → R² = 0.29.
  # TWO bugs.
  # (1) GAP MEASURE: skipping the 4 exact
- #     zero modes is necessary but NOT sufficient: on the π-flux torus the
- #     first positive level is (valley × direction) DEGENERATE — measured on
- #     L=16: ev[131..138] are ALL 0.765368647302 (8-fold, splitting < 1e-15).
- #     gap = ev[j0+1] − ev[j0] therefore measured the intra-multiplet
- #     machine noise (~1e-15) for EVERY L → "Gaps: 0.0, 0.0, …", R² = 0.03,
- #     v_F = 0. The Dirac gap is the first DISTINCT positive level E₁ above
- #     the zero tower (|E| ≤ 1e-8 sits at machine ε). E₁·L → 4π ≈ 12.57 as
- #     L grows (probe: 11.31 at L=8 → 12.53 at L=48) → v_F = slope/2π → 2 = 2t,
- #     the exact π-flux-square-lattice value (t=1).
+ #  zero modes is necessary but NOT sufficient: on the π-flux torus the
+ #  first positive level is (valley × direction) DEGENERATE — measured on
+ #  L=16: ev[131..138] are ALL 0.765368647302 (8-fold, splitting < 1e-15).
+ #  gap = ev[j0+1] − ev[j0] therefore measured the intra-multiplet
+ #  machine noise (~1e-15) for EVERY L → "Gaps: 0.0, 0.0, …", R² = 0.03,
+ #  v_F = 0. The Dirac gap is the first DISTINCT positive level E₁ above
+ #  the zero tower (|E| ≤ 1e-8 sits at machine ε). E₁·L → 4π ≈ 12.57 as
+ #  L grows (probe: 11.31 at L= at L=48) → v_F = slope/2π → 2 = 2t,
+ #  the exact π-flux-square-lattice value (t=1).
  # (2) GRID SPAN: a short [8,12,16,20,24] grid spans only 3× in L and leaves
- #     the 1/L law under-determined; the default cap is now 64 (10 points,
- #     8× span). Honest hardware note: exact dense diagonalization is
- #     O((L²)³) = O(L⁶) and the matrix has L² complex sites — L=96 already
- #     costs minutes and >1.3 GB, so a "check up to L=20000" (4·10⁸ sites,
- #     10¹⁶ bytes) is beyond any exact-diagonalization method; the 1/L law
- #     is demonstrated by the SPAN + point density of the grid instead.
+ #  the 1/L law under-determined; the default cap is now 64 (10 points,
+ #  8× span). Honest hardware note: exact dense diagonalization is
+ #  O((L²)³) = O(L⁶) and the matrix has L² complex sites — L=96 already
+ #  costs minutes and >1.3 GB, so a "check up to L=20000" (4·10⁸ sites,
+ #  10¹⁶ bytes) is beyond any exact-diagonalization method; the 1/L law
+ #  is demonstrated by the SPAN + point density of the grid instead.
  L_all = [8, 12, 16, 20, 24, 28, 32, 36, 40, 48, 64, 72, 80, 96]
- # 2026-08-30 user size-standard: default t31_lmax raised to 72 → the
+ #  user size-standard: default t31_lmax raised to 72 → the
  # pass-1 grid tops out at the launch-standard 72×72 (hardcore test38b
  # caps at the 96×96 secondary). 72 added to L_all so the cap is exact.
  L_list = filter(l -> l ≤ max(8, cfg.t31_lmax), L_all)
@@ -24454,9 +24543,9 @@ function test38_dirac_cone_vF(zeta_zeros::Vector{Float64}, cfg::Config)
    L, gap, gap * L, time() - t0)
  end
 
- # Use the shared linreg() function (with its division-by-zero
+ # Use the shared linreg function (with its division-by-zero
  # and n<3 guards) instead of inline arithmetic that can produce Inf/NaN.
- # Also: 1.0 ./ L_list where L_list is Vector{Int} works in Julia, but to be
+ # Also: 1.0./ L_list where L_list is Vector{Int} works in Julia, but to be
  # safe we convert to Float64 first.
  xs = 1.0 ./ Float64.(L_list)
  intercept, slope, R2, se, _ = linreg(xs, gaps)
@@ -24483,7 +24572,7 @@ function test38_dirac_cone_vF(zeta_zeros::Vector{Float64}, cfg::Config)
   [minimum(xs), maximum(xs)], [intercept + slope * minimum(xs), intercept + slope * maximum(xs)], 'l')
  rep_plot!(p31)
 
- # FIX 2026-08-31: guard the R² verdict against trivial fits. With
+ # NOTE: guard the R² verdict against trivial fits. With
  # --t31-lmax 12 the grid has only 2 points → linreg is exact → R² = 1.0
  # REGARDLESS of the actual law → the old check passed any 2-point grid
  # automatically. The 1/L claim needs ≥ 3 grid points.
@@ -24502,7 +24591,7 @@ function test39_hatano_nelson(zeta_zeros::Vector{Float64}, cfg::Config)
  println(repeat("─",60))
 
  # Build Hermitian H at α=1/2 — with the STANDARD on-site disorder
- # W_eff = min(ab_W, W_max ≤ 1.0) (user spec 2026-08-30: W=1 everywhere;
+ # W_eff = min(ab_W, W_max ≤ 1.0) (W=1 everywhere;
  # was W=0). The diagonal potential stays real → the anchor row remains
  # exactly Hermitian (n_imag_H = 0 is the H1 contract).
  Nx, Ny = cfg.ab_nx, cfg.ab_ny
@@ -24512,13 +24601,13 @@ function test39_hatano_nelson(zeta_zeros::Vector{Float64}, cfg::Config)
  W_std = ab_w_eff(cfg)
  cfg_H = ABCloudConfig(Nx, Ny, vortices, 0.5, 1.0, :torus, W_std)
  H = build_ab_cloud_hamiltonian(cfg_H)
- log_comp(@sprintf(" heevr values-only solve: N=%d — test39 Hermitian control", Nx * Ny)) # FIX 2026-09-06: сердцебиение во время солва
+ log_comp(@sprintf(" heevr values-only solve: N=%d — test39 Hermitian control", Nx * Ny)) # NOTE: сердцебиение во время солва
  ev_H = eigvals(Hermitian(H)) # values only (RAM); H here is the Hermitian control build
  n_imag_H = count(e -> abs(imag(e)) > 1e-10, ev_H)
 
  # Build NON-Hermitian H_NH = H + i·(σ-1/2)·ln|γ|·J at σ=0.7
  σ = 0.7
- γ = 5.0 # was 1.5 — too weak; bumped to 5.0 for visible skin effect
+ γ = 5.0 #  — too weak; bumped to 5.0 for visible skin effect
  # log_comp the skin parameter
  log_comp(@sprintf(" Hatano-Nelson: σ=%.2f, γ=%.2f, g=(σ-1/2)·ln|γ|=%.4f",
  σ, γ, (σ - 0.5) * log(abs(γ))))
@@ -24537,8 +24626,8 @@ function test39_hatano_nelson(zeta_zeros::Vector{Float64}, cfg::Config)
  J[j,i] = 1.0 # was −1.0 (that made icJ Hermitian — see above)
  end
  H_NH = H + im * (σ - 0.5) * log(abs(γ)) * J
- log_comp(@sprintf(" zgeev FULL non-Hermitian solve: N=%d — test39 H_NH (самый тяжёлый солв сьюита после теста 38)", Nx * Ny)) # FIX 2026-09-06
- prog_update(0.50, "39: non-Hermitian zgeev N=5184 — минуты") # FIX 2026-09-06: был немой zgeev
+ log_comp(@sprintf(" zgeev FULL non-Hermitian solve: N=%d — test39 H_NH (самый тяжёлый солв сьюита после теста 38)", Nx * Ny)) # NOTE:
+ prog_update(0.50, "39: non-Hermitian zgeev N=5184 — минуты") # NOTE: был немой zgeev
  ev_NH = eigvals(H_NH)
  n_imag_NH = count(e -> abs(imag(e)) > 0.01, ev_NH)
  max_imag = maximum(abs.(imag.(ev_NH)))
@@ -24571,7 +24660,7 @@ function test39_hatano_nelson(zeta_zeros::Vector{Float64}, cfg::Config)
   r_mean_NH, r_pois_NH, r_pois_NH, r_mean_Hnn)
 
  ok_complex = n_imag_NH > 0 && max_imag > 0.01
- # GATE (recalibrated against measured data, 2026-08-31): the old gate
+ # GATE (recalibrated against measured data,): the old gate
  # assumed skin effect → Poisson clustering → ⟨r⟩(σ=0.7) < ⟨r⟩(σ=0.5).
  # Real runs show the OPPOSITE: once the spectrum leaves the 1-D real axis,
  # the 2-D NN ratio RISES above both the σ=0.5 line-spectrum value and the
@@ -24586,14 +24675,14 @@ function test39_hatano_nelson(zeta_zeros::Vector{Float64}, cfg::Config)
  return ok_complex && ok_poisson
 end
 
-# ── Effective disorder helper (user spec 2026-08-29) ────────────────────────
+# ── Effective disorder helper ────────────────────────
 """
 ab_w_eff(cfg) -> Float64
 
 Effective on-site disorder strength used by the STATISTICAL ⟨r⟩ tests
 (33 bootstrap, 34 L-scaling, 37 byte robustness):
 
-    W_eff = min(cfg.ab_W, cfg.ab_W_max)      # default cap ab_W_max = 1.0
+ W_eff = min(cfg.ab_W, cfg.ab_W_max) # default cap ab_W_max = 1.0
 
 WHY THE CAP (user: "W=4.0 задаёт огромный беспорядок — должно быть около 1"):
 the vortex diagonal potential V_i = Σ_k q_k·W/(r_ik²·N⁻¹+1) scales linearly
@@ -24604,9 +24693,9 @@ eigenstates then follow the disorder landscape instead of the AB phases and
 realization — a disordered vortex cloud can emulate almost any statistics.
 Capping W at ≈1 keeps the disorder energy below the kinetic energy so the
 measured ⟨r⟩ reflects the Aharonov-Bohm phase physics.
-Since 2026-08-30 the launch standard W_eff applies to the statistical tests
+Since the launch standard W_eff applies to the statistical tests
 (16/16b ⟨r⟩-GUE, 31/31b Hatano) as well — the chiral tests use it for their
-ε-channel rows. Since 2026-08-31 (audit fix №1, user verdict "все сразу") NO
+ε-channel rows. Since NO
 test uses raw ab_W any more: Т28 (f_GUE pass 1), Т34/Т34b (direct vs ζ) and
 Т35/Т35b (form factor K(t)) were the LAST five raw-W sites and now take W_eff —
 at W = 4 with q = 1 the vortex potential (q·W ≫ t) pins the spectrum toward
@@ -24641,7 +24730,7 @@ const _DISORDER_STATISTICS_NOTE = [
  # #2: Used cfg.ab_nx (72×72 = 5184 sites) — too slow for bootstrap
  # #3: Used α=cfg.ab_alpha_test16=0.5 (Dirac point) without explaining
  # #4: q=1.0 (integer) — Byers-Yang → no real AB effect (⟨r⟩ → Poisson)
- # #5: Used :open BC — strong finite-size effects at α=1/2
+ # #5: Used:open BC — strong finite-size effects at α=1/2
  # #6: vortex_onsite_potential used HARDCODED rng seed 96 — every
  # realization got the SAME disorder pattern, defeating bootstrap
  # W comes from cfg.ab_W (default 4.0; the reference implementations use
@@ -24655,7 +24744,7 @@ function test40_200_realization_rmean(zeta_zeros::Vector{Float64}, cfg::Config)
  println("TEST 32: ⟨r⟩ bootstrap over independent realizations")
  println("Target: ⟨r⟩ = 0.5992 ± 0.022 vs GUE 0.5992 (machine-precision match)")
  println(repeat("─",60))
- # Disorder → vortex motion → statistics explanation (user request:
+ # Disorder → vortex motion → statistics explanation (
  # "поставить объяснения в тест, что беспорядок влияет на движение вихрей и
  # соответственно сказывается на статистике"). Printed AND recorded into the
  # per-test report notes (rep_note!).
@@ -24672,28 +24761,28 @@ function test40_200_realization_rmean(zeta_zeros::Vector{Float64}, cfg::Config)
  # The 6 bug fixes from are KEPT (disorder_seed, Byers-Yang warning,
  # BC logic, n_realizations from cfg, etc.). Only the lattice size reverted.
 
- # × 2 passes ≈ 1-3 min. With --ab-n-realizations 200 → 30-60 min. This is the
+ # × 2 passes ≈ 1-3 min. With --ab-n-realizations -60 min. This is the
  # intended regime 1.
  Nx, Ny = cfg.ab_nx, cfg.ab_ny # back to cfg (72×72 default)
 
- Nv = resolve_vortex_count(cfg) # unified resolver (was list[1] with a divergent 25 fallback) # monograph anchor 25 when the list is empty
+ Nv = resolve_vortex_count(cfg) # unified resolver # monograph anchor 25 when the list is empty
  q_mag_cfg = isempty(cfg.ab_q_list) ? 1.0 : cfg.ab_q_list[1]
  α = cfg.ab_alpha_test16
- # W — effective disorder, CAPPED at cfg.ab_W_max (default 1.0, user spec
- # 2026-08-29): W=8.0 would make V_i = Σ_k q_k·W/(r²/N+1) ≈ ±8 per nearby
+ # W — effective disorder, CAPPED at cfg.ab_W_max (default 1.0,
+ # ): W=8.0 would make V_i = Σ_k q_k·W/(r²/N+1) ≈ ±8 per nearby
  # vortex → disorder energy ≫ hopping t=1 → localized Poisson spectrum;
  # even the suite default ab_W=4.0 at q=0.3 gives V≈1.2 > t near cores and
  # drifts ⟨r⟩ off GUE (measured 0.48–0.53 at 96×96). W_eff = min(ab_W, 1.0)
  # keeps the disorder energy below the kinetic energy. CLI: --ab-W (raw),
  # --ab-w-max (cap).
  W = ab_w_eff(cfg)
- # Comparison-row knobs (2026-08-29 user spec: "уменьшить поток w для
+ # Comparison-row knobs ("уменьшить поток w для
  # прогона q=0.3"). The PRIMARY row (row 1 = the verdict) always runs at
  # the primary W_eff / Nv above. A COMPARISON row (row 2 = q=0.3, present
  # when the configured q is integer) runs at its own
- #   W_row  = isnan(cfg.ab_W_cmp) ? W : min(cfg.ab_W_cmp, cfg.ab_W_max)
- #   Nv_row = cfg.ab_nv_cmp > 0 ? cfg.ab_nv_cmp : Nv
- # so the fractional-q physics can be probed (lower W per the user spec,
+ #  W_row = isnan(cfg.ab_W_cmp) ? W: min(cfg.ab_W_cmp, cfg.ab_W_max)
+ #  Nv_row = cfg.ab_nv_cmp > 0 ? cfg.ab_nv_cmp: Nv
+ # so the fractional-q physics can be probed (lower W per the,
  # or MORE vortices — the density lever) without touching the verdict row.
  # central-bulk window for ⟨r⟩ (monograph bulk=0.6), consistent
  # with Tests 16/33/36 instead of the full spectrum.
@@ -24704,16 +24793,16 @@ function test40_200_realization_rmean(zeta_zeros::Vector{Float64}, cfg::Config)
  # cfg.ab_hc_nreal (default 5) — ensemble deep checks need more data.
  n_realizations = max(3, STATS_SECONDARY_HARDCORE[] ?
  max(cfg.ab_n_realizations, cfg.ab_hc_nreal) : cfg.ab_n_realizations)
- # Default to :torus (gauge-compatible with q=1.0 since
+ # Default to:torus (gauge-compatible with q=1.0 since
  # q·(2-Nx) = 1·(2-72) = -70 ∈ ℤ, and with q=0.3 since 0.3·(-70) = -21.0 ∈ ℤ
  # for Nx=72 but 0.3·(-94) = -28.2 ∉ ℤ for Nx=96 — so the BC logic below will
- # automatically fall back to :open when needed).
+ # automatically fall back to:open when needed).
  bc_choice = :torus
 
  # Byers-Yang note (see the header design notes)
  # Byers-Yang note (see the header design notes)
  # In the pure Dirac-string model integer q gives phases that are multiples
- # of π → H real → GOE ceiling. The :monumental model's phases are
+ # of π → H real → GOE ceiling. The:monumental model's phases are
  # GENERICALLY COMPLEX for ANY q — integer-q vortices carry an observable
  # effective flux, Byers-Yang's unobservability argument no longer applies.
  # PRIMARY = the user's configured q; when it is integer we ADDITIONALLY
@@ -24731,7 +24820,7 @@ function test40_200_realization_rmean(zeta_zeros::Vector{Float64}, cfg::Config)
  q_list_test = [q_mag_cfg]
  end
 
- # Per-realization disorder seed (was hardcoded 96)
+ # Per-realization disorder seed
  # Each realization now gets a DIFFERENT on-site disorder pattern, which is
  # the entire point of bootstrap.
  rng = MersenneTwister(cfg.ab_seed)
@@ -24749,7 +24838,7 @@ function test40_200_realization_rmean(zeta_zeros::Vector{Float64}, cfg::Config)
  # Torus gauge consistency: q·(2 - Nx) ∈ ℤ required
  q_gauge_prod = q_mag * (2 - Nx)
  if abs(q_gauge_prod - round(q_gauge_prod)) > 1e-9
- # Not gauge-compatible — fall back to :open
+ # Not gauge-compatible — fall back to:open
  bc_actual = :open
  @printf(" [q=%.3f] Torus not gauge-compatible (q·(2-Nx)=%.4f ∉ ℤ) → using :open BC\n",
  q_mag, q_gauge_prod)
@@ -24832,7 +24921,7 @@ function test40_200_realization_rmean(zeta_zeros::Vector{Float64}, cfg::Config)
  @printf(" Deviation from GUE 0.5992: %+.4f (%.2f%%)\n",
  r_mean - 0.5992, 100*abs(r_mean-0.5992)/0.5992)
  if qi_ > 1
- # HONEST comparison-row readout (user spec 2026-08-29: the row must
+ # HONEST comparison-row readout (the row must
  # explain itself, "чтобы не путаться"). Which universality class is
  # the row NEAREST to? GOE-proximity = weakly broken time-reversal
  # symmetry: a fractional vortex carries only q·2π = 0.6π flux, and at
@@ -24899,7 +24988,7 @@ function test40_200_realization_rmean(zeta_zeros::Vector{Float64}, cfg::Config)
  # statistical anti-pattern: as n_realizations grows the CI shrinks toward the
  # point estimate, so ANY small systematic offset makes the test HARDER to
  # pass the more data is collected. Measured model offset at the exact 72×72
- # protocol (probe7, n=10, :monumental): true ⟨r⟩ = 0.5936 ± 0.0035 (W=3) /
+ # protocol (probe7, n=10,:monumental): true ⟨r⟩ = 0.5936 ± 0.0035 (W=3) /
  # 0.5901 ± 0.0054 (W=4) — a genuine finite-L offset of −0.005..−0.009,
  # comfortably inside ±0.022, yet the old criterion FAILed it already at n≥8.
  # The CI is still computed and printed as a diagnostic below.
@@ -24919,24 +25008,24 @@ end
 # Routed by run_test_two_pass via STATS_SECONDARY_HARDCORE — the same mechanism
 # as the 1b…14b ζ-statistics variants. The plain pass 2 for this test is just
 # a bigger-lattice rerun; this variant is strictly HARDER instead:
-#   H1  MORE realizations per row: n ≥ cfg.ab_hc_nreal (floor, default 5) —
-#       enforced inside test40 when the hardcore flag is up; the ensemble CI
-#       tightens ≈ √(n/5) vs the primary pass.
-#   H2  ANCHOR DENSITY on ANY lattice: the comparison row (q=0.3) Nv is
-#       rescaled to the monograph density 25/900 = 2.78% of Nx·Ny (the
-#       validated lever — at 96×96 that is Nv=256, keeping the fractional-q
-#       row in the same physical regime as the validated 72×72/Nv=144 run).
-#   H3  ENSEMBLE deep checks per row (from the r_vals the base test stores):
-#       • bootstrap percentile 95% CI of the ensemble mean (10 000 resamples)
-#         vs GUE 0.5992 — DIAGNOSTIC ONLY: the verdict stays on the fixed
-#         ±0.022 band (CI containment is an anti-pattern as n grows — see
-#         the note in test40);
-#       • realization scatter std(r_vals) vs the monograph ensemble band
-#         ±0.022 — this is the test of the suite's own thesis: vortex
-#         arrangements differ per realization, so the ENSEMBLE must be
-#         stable, not just one mean lucky;
-#       • sign count of realizations above/below GUE (systematic-offset
-#         sanity readout).
+#  H1 MORE realizations per row: n ≥ cfg.ab_hc_nreal (floor, default 5)
+#  enforced inside test40 when the hardcore flag is up; the ensemble CI
+#  tightens ≈ √(n/5) vs the primary pass.
+#  H2 ANCHOR DENSITY on ANY lattice: the comparison row (q=0.3) Nv is
+#  rescaled to the monograph density 25/900 = 2.78% of Nx·Ny (the
+#  validated lever — at 96×96 that is Nv=256, keeping the fractional-q
+#  row in the same physical regime as the validated 72×72/Nv=144 run).
+#  H3 ENSEMBLE deep checks per row (from the r_vals the base test stores):
+#  • bootstrap percentile 95% CI of the ensemble mean (10 000 resamples)
+#  vs GUE 0.5992 — DIAGNOSTIC ONLY: the verdict stays on the fixed
+#  ±0.022 band (CI containment is an anti-pattern as n grows — see
+#  the note in test40);
+#  • realization scatter std(r_vals) vs the monograph ensemble band
+#  ±0.022 — this is the test of the suite's own thesis: vortex
+#  arrangements differ per realization, so the ENSEMBLE must be
+#  stable, not just one mean lucky;
+#  • sign count of realizations above/below GUE (systematic-offset
+#  sanity readout).
 function test40b_rmean_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 32 (pass 2, HARDCORE): ⟨r⟩ bootstrap — deep validation")
@@ -24946,7 +25035,7 @@ function test40b_rmean_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println(repeat("─",60))
  Nx, Ny = cfg.ab_nx, cfg.ab_ny # = secondary lattice in two-pass mode
  n_hc = max(cfg.ab_n_realizations, cfg.ab_hc_nreal)
- # Honest runtime estimate (measured calibration 2026-08-31: heevr
+ # Honest runtime estimate (measured calibration: heevr
  # values-only t(L) ≈ 56·(L/96)⁶ s per realization): 2 q-rows × n_hc.
  # The old banner hardcoded "≈ 1–2 min each" and printed "expect ≈ 20–30
  # min" even at 24×24, where the whole pass takes SECONDS — fake runtime
@@ -24959,7 +25048,7 @@ function test40b_rmean_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  est_min < 90.0 ? @sprintf("%.0f–%.0f min", est_min, 1.5 * est_min) :
  @sprintf("%.1f–%.1f h", est_min / 60.0, 1.5 * est_min / 60.0))
  # H2: comparison row at the monograph anchor density of the CURRENT lattice.
- # BUGFIX 2026-08-31: hc_nv was computed and PRINTED but never ASSIGNED —
+ # NOTE: hc_nv was computed and PRINTED but never ASSIGNED —
  # the comparison row silently ran with the STALE cfg.ab_nv_cmp (forensics
  # of the 10:42 run: the banner promised Nv=16 while the row ran Nv=144 —
  # a 25%-density vortex soup instead of the 2.78% anchor). The assignment
@@ -24988,7 +25077,7 @@ function test40b_rmean_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  end
  rows, n_used, W_used = data
  println("\n ─── HARDCORE ensemble checks (per row) ───")
- # Verdict rows feed hc_verdict_table (2026-08-31): test40b was the ONLY
+ # Verdict rows feed hc_verdict_table: test40b was the ONLY
  # hardcore variant that never routed through hc_verdict_table, so its
  # pass-2 report carried no verdict-map plot at all (the 10:42 report:
  # "no plots queued", empty plots/ dir) — the "graphs are empty" complaint
@@ -25022,43 +25111,43 @@ end
 # ── Test 33 (menu id): L-scaling for AB-cloud lattice ────────────────────────
 # W = 8.0 is ~10× the hopping t=1.0 for nearby vortices → disorder-
 # localized spectrum → the scan degrades (measured:
-# 0.604→0.495→0.429→0.494, non-monotone, L=50 far from GUE). The four
+# → non-monotone, L=50 far from GUE). The four
 # reference implementations all use W≈2.0 (Monumental W_default=2.0,
-# RH_Sweep_Pro cfg.W=2.0, RH_Unified_v5 W::Real=2.0, RH_Unified cfg.W=2.0),
+# RH_Sweep_Pro cfg.W=2.0, RH_Unified_v5 W: Real=2.0, RH_Unified cfg.W=2.0),
 # and the suite default cfg.ab_W=4.0 ("monograph standard 30×30/Nv=25/W=4")
 # is the documented value. W comes from ab_w_eff(cfg) = min(cfg.ab_W, W_max ≤ 1.0)
 # since the W-cap standard (the raw-W measurements below are HISTORY, kept for
 # reference; CLI: --ab-W with --ab-w-max > 1 reproduces them).
 # measured at cfg.ab_W = 4.0, central 60% bulk window, Nv=26, α=0.5:
-#   q=1.0 comparison (torus): 0.505 → 0.503 → 0.461 → 0.521
-#   q=0.3 verdict (open BC):  0.458 → 0.479 → 0.460 → 0.434
-#   → WARN (monotone within tolerance; final still far from GUE 0.595 —
-#   see at α=1/2 this construction needs the fractional-q AB phase,
-#   and 26 weak q=0.3 vortices only partially break TRS at these sizes).
-#   With W=8.0 the run degrades to FAIL: 0.604 → 0.495 → 0.429 → 0.494
-#   (disorder-localized, non-monotone — the vortex potential is ~10× the
-#   hopping).
-# 2026-08-29 USER SPEC: (a) the scan must REACH L=112 (was capped at L=50);
+#  q=1.0 comparison (torus): →
+#  q=0.3 verdict (open BC): →
+#  → WARN (monotone within tolerance; final still far from GUE 0.595
+#  see at α=1/2 this construction needs the fractional-q AB phase,
+#  and 26 weak q=0.3 vortices only partially break TRS at these sizes).
+#  With W=8.0 the run degrades to FAIL: →
+#  (disorder-localized, non-monotone — the vortex potential is ~10× the
+#  hopping).
+#  USER SPEC: (a) the scan must REACH L=112;
 # the L grid is now [10, 20, 30, 50, 80, 112] — the monograph anchors
 # (§11.3: 0.487/0.562/0.595/0.594) apply to L ≤ 50, the two new points
 # check that the GUE plateau HOLDS at L=80/112. (b) W is capped:
 # W = min(cfg.ab_W, cfg.ab_W_max) (default 1.0) — at W=4 the vortex
 # on-site potential q·W ≈ 1.2 exceeds the hopping t=1 near cores and the
 # disorder-driven vortex motion pushes ⟨r⟩ toward Poisson (measured
-# 0.427→0.589→0.595→0.571 WARN, and worse on 96×96). L=112 means a
+# → WARN, and worse on 96×96). L=112 means a
 # 12544×12544 dense Hermitian diagonalization (≈2.5 GB matrix + LAPACK
 # workspace): keep ≥ 8 GB RAM free; a warning is printed before the run.
 function test41_lattice_L_scaling(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 33: L-Scaling for AB-Cloud Lattice")
  println("L=10→0.487 (Poisson), L=20→0.562, L=30→0.595, L=50→0.594 (monograph),")
- println("L=80, L=112 → GUE plateau check (extended range, user spec 2026-08-29)")
+ println("L=80, L=112 → GUE plateau check (extended range,  )")
  println(repeat("─",60))
  foreach(println, _DISORDER_STATISTICS_NOTE)
  rep_note!(join(_DISORDER_STATISTICS_NOTE, '\n'))
 
  L_list = [10, 20, 30, 50, 80, 112]
- # ── RAM GATE (2026-08-31 "зависает" fix) ──
+ # ── RAM GATE ──
  # The L=112 rung builds a 12544×12544 complex Hermitian matrix (2.5 GB)
  # and needs ≈ 4.5× that with LAPACK workspace. On a memory-limited box it
  # swap-thrashes INSIDE one non-interruptible LAPACK call — many minutes of
@@ -25098,7 +25187,7 @@ function test41_lattice_L_scaling(zeta_zeros::Vector{Float64}, cfg::Config)
  # NOTE: the monograph's W=8.0 (§11.1) is inconsistent with its own §4.2
  # standard (W=4) and with every reference implementation (all use W=2.0).
  # We use the CAPPED effective disorder W_eff = min(cfg.ab_W, ab_W_max)
- # (default 1.0, user spec: disorder must stay ≤ 1.0 — see Test 32 note).
+ # (default 1.0, disorder must stay ≤ 1.0 — see Test 32 note).
 
  # α is FIXED at 0.5 (the critical line), and the L-scaling is in the LATTICE
  # SIZE, not in Nv. The old code's "Nv = α·L²" was a different (invalid)
@@ -25110,25 +25199,25 @@ function test41_lattice_L_scaling(zeta_zeros::Vector{Float64}, cfg::Config)
  # Nv fixed at 25 1
  Nv_fixed = 25
  q_mag_cfg = isempty(cfg.ab_q_list) ? 1.0 : cfg.ab_q_list[1]
- # With the :monumental atan smooth gauge the hopping
+ # With the:monumental atan smooth gauge the hopping
  # phases are GENERICALLY COMPLEX for ANY q — H is complex Hermitian, no GOE
  # ceiling, GUE 0.595 reachable (complex phases break TRS at integer q; real
  # integer q — described the Dirac-string model, not this one).
  #
  # Holding Nv FIXED at 26 across L = 10..50 breaks the monograph protocol:
- # under :monumental a fixed Nv=26 at L=10 is a 26%-density vortex soup →
+ # under:monumental a fixed Nv=26 at L=10 is a 26%-density vortex soup →
  # ⟨r⟩ ≈ 0.67 (super-GUE fluctuations), breaking the monograph's monotone
- # Poisson→GUE crossover (measured prototype: 0.673 → 0.575 → 0.532 →
+ # Poisson→GUE crossover (measured prototype: → 0.532 →
  # 0.607, FAIL). The monograph anchors its protocol at Nv=25 ON A 30×30
  # lattice (density 2.8%); the L-scaling must keep the DENSITY constant:
- #       Nv(L) = round(25·L²/900) (bumped to even for neutrality)
- #   → L=10: 4, L=20: 12, L=30: 26 (= monograph), L=50: 70,
- #     L=80: 178, L=112: 350 (density kept at 2.8%).
+ #  Nv(L) = round(25·L²/900) (bumped to even for neutrality)
+ #  → L=10: 4, L=20: 12, L=30: 26 (= monograph), L=50: 70,
+ #  L=80: 178, L=112: 350 (density kept at 2.8%).
  # Probe (3 realizations/L, W=4, α=0.5, bulk 0.6), q=0.3 open BC:
- #   0.512 → 0.583 → 0.592 → 0.584 — monotone ✓, final ≈ GUE ✓,
- # reproducing the monograph crossover 0.487 → 0.562 → 0.595 → 0.594.
+ #  → — monotone ✓, final ≈ GUE ✓,
+ # reproducing the monograph crossover →
  # Additionally ⟨r⟩ is now AVERAGED over cfg.ab_n_realizations vortex
- # configurations per L (was a single configuration — noise ±0.03-0.06).
+ # configurations per L.
  # VERDICT: from the fractional q=0.3 run (kept for Byers-Yang consistency —
  # NOT for the old Byers-Yang reason, but because fractional-q vortices are
  # the reference-file standard (Monumental/RH sweeps all use q=0.3) and are
@@ -25149,7 +25238,7 @@ function test41_lattice_L_scaling(zeta_zeros::Vector{Float64}, cfg::Config)
  # to cfg.ab_hc_nreal (default 5) — the plateau χ² needs tighter per-L SEs.
  n_cap_34 = STATS_SECONDARY_HARDCORE[] ? max(5, cfg.ab_hc_nreal) : 5
  n_avg_34 = max(1, min(cfg.ab_n_realizations, n_cap_34))
- # FIX 2026-09-06: лестница L=10..112 × реализации — минуты тишины на солв
+ # NOTE: лестница L=10..112 × реализации — минуты тишины на солв
  # (L=112: 12544² heevr). Бар двигается на КАЖДОМ солве (троттлинг 0.2 с).
  n_solves_34 = length(q_list_34) * length(L_active) * n_avg_34
  _isolve34 = Ref(0)
@@ -25178,13 +25267,13 @@ function test41_lattice_L_scaling(zeta_zeros::Vector{Float64}, cfg::Config)
  for k_real in 1:n_avg_34
  _isolve34[] += 1
  prog_update(_isolve34[] / n_solves_34,
-     @sprintf("41: q=%.2f L=%d heevr N=%d (solve %d/%d)", q_mag, L, L * L, _isolve34[], n_solves_34)) # FIX 2026-09-06
+     @sprintf("41: q=%.2f L=%d heevr N=%d (solve %d/%d)", q_mag, L, L * L, _isolve34[], n_solves_34)) # NOTE:
  vortices = random_vortex_configuration(Nv, L, L;
  q_magnitude=q_mag,
  enforce_neutrality=true,
  rng=rng, place_at_centers=true)
- # BC: :torus requires gauge consistency q·(2−L) ∈ ℤ (same rule as
- # Test 32); fall back to :open when it fails (e.g. q=0.3, L=10/20/50).
+ # BC: torus requires gauge consistency q·(2−L) ∈ ℤ (same rule as
+ # Test 32); fall back to:open when it fails (e.g. q=0.3, L=10/20/50).
  bc_34 = :torus
  q_gp = q_mag * (2 - L)
  if abs(q_gp - round(q_gp)) > 1e-9
@@ -25207,7 +25296,7 @@ function test41_lattice_L_scaling(zeta_zeros::Vector{Float64}, cfg::Config)
  se_L = n_avg_34 > 1 ? std(r_real) / sqrt(n_avg_34) : 0.0
  push!(r_ses, se_L)
  # Reference column: monograph §11.3 anchors for L ≤ 50; for the extended
- # points (L=80/112, user spec 2026-08-29) the reference is the GUE plateau
+ # points (L=80/112,) the reference is the GUE plateau
  # value 0.595 (marked * — no monograph anchor exists beyond L=50).
  ref_34 = L == 10 ? "0.487" : L == 20 ? "0.562" : L == 30 ? "0.595" :
   L == 50 ? "0.594" : "0.595*"
@@ -25240,7 +25329,7 @@ function test41_lattice_L_scaling(zeta_zeros::Vector{Float64}, cfg::Config)
  @printf(" Monotone increase: %s\n", monotone ? "YES" : "NO")
  @printf(" Final L=%d close to GUE 0.595 (|Δ|<0.05): %s\n",
  L_active[end], final_close_to_GUE ? "YES" : "NO")
- rep_note!(@sprintf("Extended L-scan to L=%d (user spec 2026-08-29); W_eff=%.2f; verdict q=%.2f; trend %s",
+ rep_note!(@sprintf("Extended L-scan to L=%d ; W_eff=%.2f; verdict q=%.2f; trend %s",
  L_active[end], W, verdict_q, join([round(r, digits=3) for r in r_means], " → ")))
  if q_is_integer_34
  cmp_means = results_34[q_mag_cfg]
@@ -25264,15 +25353,15 @@ end
 # for this test is NEAR-VERBATIM (the L grid is fixed INSIDE the test, the
 # secondary 96×96 setting does not change it) — this variant makes pass 2
 # strictly harder instead:
-#   H1  MORE realizations per L: cap lifted 5 → cfg.ab_hc_nreal (default 5)
-#       (enforced inside test41 when the hardcore flag is up);
-#   H2  WEIGHTED GUE-plateau test: inverse-variance weighted mean over the
-#       plateau points L ≥ 50 vs GUE 0.5992 + a χ²/dof consistency readout —
-#       stricter than the base monotonicity + final-point criteria, which a
-#       lucky final point could satisfy on a noisy plateau;
-#   H3  RAM honesty: L is NOT pushed beyond 112 — L=128 would need a
-#       16384² complex matrix ≈ 4.3 GB + LAPACK workspace (OOM risk on the
-#       8 GB-class device); the reason is printed instead of attempted.
+#  H1 MORE realizations per L: cap lifted 5 → cfg.ab_hc_nreal (default 5)
+#  (enforced inside test41 when the hardcore flag is up);
+#  H2 WEIGHTED GUE-plateau test: inverse-variance weighted mean over the
+#  plateau points L ≥ 50 vs GUE 0.5992 + a χ²/dof consistency readout
+#  stricter than the base monotonicity + final-point criteria, which a
+#  lucky final point could satisfy on a noisy plateau;
+#  H3 RAM honesty: L is NOT pushed beyond 112 — L=128 would need a
+#  16384² complex matrix ≈ 4.3 GB + LAPACK workspace (OOM risk on the
+#  8 GB-class device); the reason is printed instead of attempted.
 function test41b_lscaling_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 33 (pass 2, HARDCORE): L-scaling — deep validation")
@@ -25280,7 +25369,7 @@ function test41b_lscaling_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("GUE-plateau χ² over L ≥ 50, no L beyond 112 (RAM honesty: L=128 ≈ 4.3 GB).")
  println(repeat("─",60))
  n_hc = max(5, max(cfg.ab_n_realizations, cfg.ab_hc_nreal))
- # Honest runtime estimate (measured calibration 2026-08-31, t(L) ≈
+ # Honest runtime estimate (measured calibration, t(L) ≈
  # 56·(L/96)⁶ s per eig): Σ over the ladder ≈ 56·2.883 ≈ 161 s per
  # realization-row; 2 q-rows × n_hc rows, ±3× machine factor. The old
  # banner printed a flat "1.5–3 h" even on tiny lattices/boxes.
@@ -25305,7 +25394,7 @@ function test41b_lscaling_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  r_means = r_means_d[verdict_q]
  r_ses = r_ses_d[verdict_q]
  idxs = findall(≥(50), L_list)
- # SE floor (fix 2026-08-31): n_real = 1 yields se = 0 → weights 1e12 →
+ # SE floor (fix): n_real = 1 yields se = 0 → weights 1e12 →
  # χ²/dof ≈ 1e12 and a meaningless "OVERDISPERSED" diagnostic. Floor at
  # the monograph band scale (0.022/√n — the per-realization σ the suite
  # documents) so the weighted plateau statistics stay finite and honest.
@@ -25325,7 +25414,7 @@ function test41b_lscaling_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  chi2, dof, chi2dof, chi2dof ≤ 2.0 ? "consistent ✓" : "OVERDISPERSED ⚠")
  rep_note!(@sprintf("Test 33 HARDCORE plateau (q=%.2f): weighted ⟨r⟩=%.4f vs GUE (|Δ|=%.4f, %s band), χ²/dof=%.2f.",
  verdict_q, wm, abs(wm - 0.5992), in_band ? "in" : "OUT of", chi2dof))
- # ── real report plot (2026-08-31): the ⟨r⟩(L) curve + GUE plateau line the
+ # ── real report plot: the ⟨r⟩(L) curve + GUE plateau line the
  # χ² audit above is computed FROM — the report shows the measured scaling.
  if REP.current !== nothing
   p33 = RepPlot(@sprintf("Test 33b — ⟨r⟩(L) scaling, q=%.2f (weighted plateau ⟨r⟩=%.4f, χ²/dof=%.2f)",
@@ -25349,37 +25438,37 @@ end
 # Two-pass mode now routes pass 2 of EVERY lattice test 15–35 to its b-variant
 # (the same STATS_SECONDARY_HARDCORE mechanism as the 1b–14b ζ variants and the
 # 32b/33b statistics variants). Design rules (identical for all b-variants):
-#   • SAME physics meaning as the base test, strictly HARDER machinery —
-#     pass 1 sweeps breadth, pass 2 goes deep (more realizations / denser
-#     grids / full-system scans / higher precision);
-#   • exact identities are verified on DEDICATED small lattices (they are
-#     size-independent — the Test 17 precedent), keeping the hardcore pass
-#     cheap where depth, not size, adds information;
-#   • statistical ensembles lift the realization floor to cfg.ab_hc_nreal
-#     (default 5, menu 71 / CLI --ab-hc-nreal) and always print an honest
-#     RUNTIME banner before the silent diagonalization phase;
-#   • every variant records rep_note! lines (FINAL_REPORT) and logs a
-#     "Test NNb (hardcore)" result line; verdicts reuse hc_verdict_table.
-# Test 36 keeps its own pass-scaling (AB_PASS sample targets 25k→50k) —
+#  • SAME physics meaning as the base test, strictly HARDER machinery
+#  pass 1 sweeps breadth, pass 2 goes deep (more realizations / denser
+#  grids / full-system scans / higher precision);
+#  • exact identities are verified on DEDICATED small lattices (they are
+#  size-independent — the Test 17 precedent), keeping the hardcore pass
+#  cheap where depth, not size, adds information;
+#  • statistical ensembles lift the realization floor to cfg.ab_hc_nreal
+#  (default 5, menu 71 / CLI --ab-hc-nreal) and always print an honest
+#  RUNTIME banner before the silent diagonalization phase;
+#  • every variant records rep_note! lines (FINAL_REPORT) and logs a
+#  "Test NNb (hardcore)" result line; verdicts reuse hc_verdict_table.
+# Test 36 keeps its own pass-scaling (AB_PASS sample targets)
 # its pass 2 was already deep before this block existed.
 # ═════════════════════════════════════════════════════════════════════════════
 
 # ── Test 15b (menu id 15, HARDCORE pass 2): construction deep audit ──────────
 # The base test checks THREE hand-picked plaquettes (vortex-1, vortex-2, one
 # empty). This pass is strictly harder:
-#   H1  FULL plaquette scan of the base's exact ±-quartet on the launch-
-#       standard lattice cfg.ab_nx × cfg.ab_ny (96×96 in two-pass mode —
-#       user spec 2026-08-30; was a dedicated 24×24): EXACTLY the 4 vortex
-#       plaquettes carry ±2πq (mod 2π, sign = vortex sign), ALL others
-#       < 1e-9. The identity is size-independent; the scan itself is O(N)
-#       plaquette lookups (~9k at 96²) — the full sweep stays free.
-#   H2  every expected plaquette checked against ITS OWN vortex sign (not just
-#       "nonzero somewhere") — catches sign/layout swaps the base cannot see.
-#   H3  hermiticity of the built H (verify_hermitian).
-#   NOTE on W: the :dirac builder's W only scales the vortex on-site
-#   potential; plaquette flux is carried by the HOPPING phases, so the
-#   verdict is W-independent (the 4.0 below is the historical probe value,
-#   not a disorder level entering the statistics).
+#  H1 FULL plaquette scan of the base's exact ±-quartet on the launch-
+#  standard lattice cfg.ab_nx × cfg.ab_ny (96×96 in two-pass mode
+#  was a dedicated 24×24): EXACTLY the 4 vortex
+#  plaquettes carry ±2πq (mod 2π, sign = vortex sign), ALL others
+#  < 1e-9. The identity is size-independent; the scan itself is O(N)
+#  plaquette lookups (~9k at 96²) — the full sweep stays free.
+#  H2 every expected plaquette checked against ITS OWN vortex sign (not just
+#  "nonzero somewhere") — catches sign/layout swaps the base cannot see.
+#  H3 hermiticity of the built H (verify_hermitian).
+#  NOTE on W: the:dirac builder's W only scales the vortex on-site
+#  potential; plaquette flux is carried by the HOPPING phases, so the
+#  verdict is W-independent (the 4.0 below is the historical probe value,
+#  not a disorder level entering the statistics).
 function test15b_construction_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 15 (pass 2, HARDCORE): AB-cloud construction — deep validation")
@@ -25446,16 +25535,16 @@ end
 # ── Test 16b (menu id 16, HARDCORE pass 2): GUE classification deep pass ─────
 # The base test sweeps BREADTH (α × (Nv, q) grid at n_real realizations); the
 # hardcore pass goes DEEP at the launch-standard verdict config:
-#   H1  MORE realizations: n ≥ cfg.ab_hc_nreal (default 5) fresh vortex
-#       configurations with per-realization disorder seeds, at
-#       α = ab_alpha_test16, Nv/q from the cfg resolvers (the same config the
-#       single-α base verdict uses).
-#   H2  ENSEMBLE deep checks (protocol of Test 32b): bootstrap 10k percentile
-#       CI of ⟨r⟩ vs GUE 0.5992 (diagnostic), realization scatter vs the
-#       monograph ±0.022 band (FAIL basis — the suite's own vortex thesis),
-#       sign count above/below GUE.
-#   H3  bulk-window discipline: central cfg.ab_center_fraction window (band
-#       edges bias ⟨r⟩ down — the base's own protocol).
+#  H1 MORE realizations: n ≥ cfg.ab_hc_nreal (default 5) fresh vortex
+#  configurations with per-realization disorder seeds, at
+#  α = ab_alpha_test16, Nv/q from the cfg resolvers (the same config the
+#  single-α base verdict uses).
+#  H2 ENSEMBLE deep checks (protocol of Test 32b): bootstrap 10k percentile
+#  CI of ⟨r⟩ vs GUE 0.5992 (diagnostic), realization scatter vs the
+#  monograph ±0.022 band (FAIL basis — the suite's own vortex thesis),
+#  sign count above/below GUE.
+#  H3 bulk-window discipline: central cfg.ab_center_fraction window (band
+#  edges bias ⟨r⟩ down — the base's own protocol).
 function test16b_gue_classification_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 16 (pass 2, HARDCORE): ⟨r⟩ → GUE classification — deep validation")
@@ -25466,7 +25555,7 @@ function test16b_gue_classification_hardcore(zeta_zeros::Vector{Float64}, cfg::C
  alpha = cfg.ab_alpha_test16
  Nv0 = resolve_vortex_count(cfg)
  q_mag = resolve_q_magnitude(cfg)
- # Fractional-charge density compensation (user standard 2026-08-30):
+ # Fractional-charge density compensation (user standard):
  # q < 1 → keep the monograph vortex density 25/900 = 2.78% of N_sites
  # (validated: q=0.3, Nv=144 @72² → ⟨r⟩ = 0.5975 GUE).
  Nv = q_mag < 1.0 - 1e-9 ? max(Nv0, round(Int, Nx * Ny / 36)) : Nv0 # density compensation is for WEAKER (q<1) vortices only
@@ -25518,7 +25607,7 @@ function test16b_gue_classification_hardcore(zeta_zeros::Vector{Float64}, cfg::C
   @sprintf("⟨r⟩ = %.4f ± %.4f vs GUE 0.5992 (n=%d)", r_m, r_se, n)))
  push!(rec, ("scatter ≤ 0.022", scat ≤ 0.022,
   @sprintf("σ=%.4f %s monograph band", scat, scat ≤ 0.022 ? "≤ ✓" : "> REALIZATION-DEPENDENT")))
- # ── real report plots (2026-08-31): the ensemble this pass measured —
+ # ── real report plots: the ensemble this pass measured —
  # per-realization ⟨r⟩ trace + the bootstrap-mean distribution (10k).
  if REP.current !== nothing
   p16 = RepPlot(@sprintf("Test 16b — per-realization ⟨r⟩ (mean %.4f ± %.4f, n=%d)",
@@ -25547,15 +25636,15 @@ end
 # standard); the hardcore pass verifies it ACROSS sizes (a topology claim
 # must be size-independent) and re-audits the spectral symmetries on each
 # size:
-#   H1  zero_modes(α=1/2) == 4 on the ladder L ∈ {24, 48, cfg.ab_nx}
-#       (→ {24, 48, 96} in two-pass mode — user size-standard 2026-08-30;
-#       2 Dirac points × 2). Every ladder rung is divisible by 6, which
-#       keeps α·L ∈ ℤ for BOTH α = 1/2 and α = 1/3 (Landau-gauge
-#       consistency of the torus builder).
-#   H2  spectral E→−E defect < 1e-10 at α=1/2 AND α=1/3 on every size
-#       (generic bipartite symmetry)
-#   H3  α↔1/α duality defect reported on every size (boundary-spoiled on any
-#       finite torus — informational, NOT a verdict)
+#  H1 zero_modes(α=1/2) == 4 on the ladder L ∈ {24, 48, cfg.ab_nx}
+#  (→ {24, 48, 96} in two-pass mode — user size-standard;
+#  2 Dirac points × 2). Every ladder rung is divisible by 6, which
+#  keeps α·L ∈ ℤ for BOTH α = 1/2 and α = 1/3 (Landau-gauge
+#  consistency of the torus builder).
+#  H2 spectral E→−E defect < 1e-10 at α=1/2 AND α=1/3 on every size
+#  (generic bipartite symmetry)
+#  H3 α↔1/α duality defect reported on every size (boundary-spoiled on any
+#  finite torus — informational, NOT a verdict)
 function test17b_self_duality_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 17 (pass 2, HARDCORE): Connes self-duality — cross-size audit")
@@ -25566,11 +25655,11 @@ function test17b_self_duality_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  symm_ok = true
  L_ladder = sort(unique(filter(l -> l % 6 == 0, [24, 48, cfg.ab_nx]))) # caps at 96 in two-pass; %6 keeps α·L ∈ ℤ for α = 1/2 AND 1/3
  for (ir17, L) in enumerate(L_ladder)
-  # FIX 2026-09-06: бар двигается ПЕРЕД ступенью, а не после — ступень L=72/96
+  # NOTE: бар двигается ПЕРЕД ступенью, а не после — ступень L=72/96
   # это ~30–60 с молчаливых heevr; раньше fraкция стояла на месте всю лестницу.
   prog_update((ir17 - 1) / length(L_ladder),
               @sprintf("17b: L=%d heevr ladder (%d/%d)", L, ir17, length(L_ladder)))
-  z_half, s_half = zero_modes_and_symmetry_defect(0.5, L, L) # FIX 2026-09-06: было count_zero + spectral — 2 солва ОДНОЙ матрицы → 1 (−25% на ступень)
+  z_half, s_half = zero_modes_and_symmetry_defect(0.5, L, L) # NOTE: было count_zero + spectral — 2 солва ОДНОЙ матрицы → 1 (−25% на ступень)
   s_third = spectral_symmetry_defect(1.0 / 3, L, L)
   d_half = connes_self_duality_defect(0.5, L, L)
   zeros_all4 &= (z_half == 4)
@@ -25590,28 +25679,28 @@ function test17b_self_duality_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
 end
 
 # ── Test 18b (menu id 18, HARDCORE pass 2): chiral AIII deep audit ───────────
-# Launch-standard lattice cfg.ab_nx × cfg.ab_ny (96×96 in two-pass mode —
-# user spec 2026-08-30; was a dedicated 24×24 torus). The SHS = −H identity
+# Launch-standard lattice cfg.ab_nx × cfg.ab_ny (96×96 in two-pass mode
+#  was a dedicated 24×24 torus). The SHS = −H identity
 # is exact and size-independent, and the chiral operator is a Diagonal ±1
 # wrapper — S·H products are O(N²) row/column scalings, so the audit stays
 # cheap at production sizes. Harder machinery:
-#   H1  exact row: ‖S·H·S + H‖/‖H‖ < 1e-10 at α=1/2, W=0, no vortices
-#   H2  QUANTITATIVE ε_rms contract at W = ab_w_eff(cfg): at Nv=0 the builder's
-#       residual ε ~ U(−0.01,0.01) (monograph §4.2, FIXED amplitude) is the
-#       only on-site term; SHS+H = 2·diag(V), ‖H_hop‖²_F = 4N →
-#       defect = 2‖V‖_F/‖H‖_F ≈ ε_rms = 0.01/√3 = 5.7735e-3, size-independent
-#       (validated replica; measured 5.7627e-3 in past runs = 0.2% off).
-#       Check: defect ∈ [0.5, 2.0]·ε_rms (the old ">1e-3" threshold carried
-#       no information — ε_rms is the model's ceiling, it could never fail).
-#       NOTE: at Nv=0 the Hamiltonian does not depend on the VALUE of W,
-#       only on W>0 — the defect is W-independent by construction.
-#   H2v vortex-preservation row (expectation FLIPPED — the old "broken by
-#       vortices" check tested an impossibility): the builder puts ALL
-#       vortex structure on BONDS (hopping phases), bond phases preserve
-#       bipartiteness → defect must be < 1e-10 at W=0 for ANY vortex config
-#       (integer q additionally Byers-Yang trivial)
-#   H3  operator sanity: S² = I (‖S² − I‖/‖I‖ < 1e-12) — the chiral operator
-#       itself is validated, not just its action on one H
+#  H1 exact row: ‖S·H·S + H‖/‖H‖ < 1e-10 at α=1/2, W=0, no vortices
+#  H2 QUANTITATIVE ε_rms contract at W = ab_w_eff(cfg): at Nv=0 the builder's
+#  residual ε ~ U(−0.01,0.01) (monograph §4.2, FIXED amplitude) is the
+#  only on-site term; SHS+H = 2·diag(V), ‖H_hop‖²_F = 4N →
+#  defect = 2‖V‖_F/‖H‖_F ≈ ε_rms = 0.01/√3 = 5.7735e-3, size-independent
+#  (validated replica; measured 5.7627e-3 in past runs = 0.2% off).
+#  Check: defect ∈ [0.5, 2.0]·ε_rms (the old ">1e-3" threshold carried
+#  no information — ε_rms is the model's ceiling, it could never fail).
+#  NOTE: at Nv=0 the Hamiltonian does not depend on the VALUE of W,
+#  only on W>0 — the defect is W-independent by construction.
+#  H2v vortex-preservation row (expectation FLIPPED — the old "broken by
+#  vortices" check tested an impossibility): the builder puts ALL
+#  vortex structure on BONDS (hopping phases), bond phases preserve
+#  bipartiteness → defect must be < 1e-10 at W=0 for ANY vortex config
+#  (integer q additionally Byers-Yang trivial)
+#  H3 operator sanity: S² = I (‖S² − I‖/‖I‖ < 1e-12) — the chiral operator
+#  itself is validated, not just its action on one H
 function test18b_chiral_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 18 (pass 2, HARDCORE): chiral symmetry AIII — deep audit")
@@ -25678,14 +25767,14 @@ end
 # ── Test 19b (menu id 19, HARDCORE pass 2): Dirac 1/L law deep audit ─────────
 # The base fits E_min(1/L) on 5 points; the hardcore pass doubles the grid
 # density and audits the zero tower point-by-point:
-#   H1  L-grid 16:8:96 (11 points, all ≡ 0 mod 4 — the Dirac points
-#       k=(π/2,π/2) lie on the discrete torus grid only when L/4 ∈ ℤ):
-#       R² > 0.95 (same contract, 6× span → far harder to fake by luck)
-#   H2  zero tower == 4 exact modes at EVERY L (|E| ≤ 1e-6; 2 Dirac × 2)
-#   H3  E_min·L drift toward the 4π ≈ 12.57 Dirac limit: the LAST point must
-#       sit closer to 4π than the FIRST (finite-size corrections shrink)
-# 2026-08-30 user size-standard: the grid top now caps at the SECONDARY
-# lattice (cfg.ab_nx = 96×96 in two-pass mode; was 48). 11 points, step 8,
+#  H1 L-grid 16:8:96 (11 points, all ≡ 0 mod 4 — the Dirac points
+#  k=(π/2,π/2) lie on the discrete torus grid only when L/4 ∈ ℤ):
+#  R² > 0.95 (same contract, 6× span → far harder to fake by luck)
+#  H2 zero tower == 4 exact modes at EVERY L (|E| ≤ 1e-6; 2 Dirac × 2)
+#  H3 E_min·L drift toward the 4π ≈ 12.57 Dirac limit: the LAST point must
+#  sit closer to 4π than the FIRST (finite-size corrections shrink)
+#  user size-standard: the grid top now caps at the SECONDARY
+# lattice (cfg.ab_nx = 96×96 in two-pass mode;). 11 points, step 8,
 # span 6× — the 1/L law is determined over twice the old range, and the
 # L=96 rung doubles as a cross-check that the zero tower and the 4π limit
 # hold at the hardcore launch resolution. Cost honesty: heevr values-only
@@ -25719,7 +25808,7 @@ function test19b_dirac_velocity_hardcore(zeta_zeros::Vector{Float64}, cfg::Confi
   ab_gc!()
  end
  a, b, R2, se, _ = linreg(1.0 ./ Ls, E_mins)
- # v23.2 FOUR-pass hand-off: stash the fitted v_F AND the full (L, E_min)
+ #  FOUR-pass hand-off: stash the fitted v_F AND the full (L, E_min)
  # series — pass 4 (test19d) re-fits this series as E_min·L = 4π + c/L² (the
  # honest quantitative upgrade of the one-sided drift check above).
  T19_VF_CACHE["pass2 (11-pt mod-4 ≤96)"] = b / (2π)
@@ -25739,7 +25828,7 @@ function test19b_dirac_velocity_hardcore(zeta_zeros::Vector{Float64}, cfg::Confi
   "2 Dirac points × 2, |E| ≤ 1e-6 at every size"))
  push!(rec, ("E_min·L → 4π", drift_ok,
   @sprintf("%.3f → %.3f (target 12.566)", E_mins[1] * L_grid[1], E_mins[end] * L_grid[end])))
- # ── real report plot (2026-08-31): the 1/L law this pass fitted — measured
+ # ── real report plot: the 1/L law this pass fitted — measured
  # points + least-squares line, so the report shows the actual fit quality.
  if REP.current !== nothing
   p19 = RepPlot(@sprintf("Test 19b — E_min vs 1/L (%d sizes, R²=%.4f, v_F=%.3f)",
@@ -25758,24 +25847,24 @@ end
 # audits that fit on a dense grid — but neither run shows WHAT MAKES α=1/2
 # special. The c-pass turns that into a REAL three-curve series on the clean
 # lattice (deterministic — no ensemble lottery):
-#   α ∈ {0.4, 0.5, 0.6} × L ∈ {20, 40, 60, 80}. Every rung is ≡ 0 (mod 20),
-#   so all three α are EXACT on the torus (α·L ∈ ℤ: 0.4·20=8 … 0.6·80=48)
-#   AND ≡ 0 (mod 4), keeping the Dirac points on the discrete k-grid.
+#  α ∈ {0.4, 0.5, 0.6} × L ∈ {20, 40, 60, 80}. Every rung is ≡ 0 (mod 20),
+#  so all three α are EXACT on the torus (α·L ∈ ℤ: 0.4·20=8 … 0.6·80=48)
+#  AND ≡ 0 (mod 4), keeping the Dirac points on the discrete k-grid.
 # Physics under the curves:
-#   α=1/2 (q=2 even): Dirac point AT E=0 → E_min = 4π·v_F/L → E_min·L → 4π.
-#   α=0.4/0.6 (= 2/5, 3/5 — q=5 ODD): the middle Hofstadter band crosses E=0
-#   (no central gap) → E_min ~ level spacing ~ 1/L² → E_min·L → 0. The
-#   4π-vs-0 separation of the E_min·L series IS the α=1/2 Dirac signature,
-#   drawn here from measured data instead of a verdict card.
+#  α=1/2 (q=2 even): Dirac point AT E=0 → E_min = 4π·v_F/L → E_min·L → 4π.
+#  α=0.4/0.6 (= 2/5, 3/5 — q=5 ODD): the middle Hofstadter band crosses E=0
+#  (no central gap) → E_min ~ level spacing ~ 1/L² → E_min·L → 0. The
+#  4π-vs-0 separation of the E_min·L series IS the α=1/2 Dirac signature,
+#  drawn here from measured data instead of a verdict card.
 # Contracts (SERIES pass 3):
-#   S1  α=0.5 1/L fit R² > 0.95 (the pass-1 contract reproduced on this grid)
-#   S2  α=0.5 Dirac scale: E_min·L(L=80) ∈ [8, 18] (4π = 12.566 ± 40%)
-#   S3  α-selectivity: E_min·L(0.5) > 2× max(E_min·L(0.4), E_min·L(0.6))
-#       at the largest rung — the Dirac scale must NOT appear off α=1/2
+#  S1 α=0.5 1/L fit R² > 0.95 (the pass-1 contract reproduced on this grid)
+#  S2 α=0.5 Dirac scale: E_min·L(L=80) ∈ [8, 18] (4π = 12.566 ± 40%)
+#  S3 α-selectivity: E_min·L(0.5) > 2× max(E_min·L(0.4), E_min·L(0.6))
+#  at the largest rung — the Dirac scale must NOT appear off α=1/2
 # Runtime honesty: 12 value-only heevr solves (largest 80² ≈ 30–60 s) →
-#   ≈ 2–3 min total. Zero-tower count printed per row as a diagnostic
-#   (4 exact modes expected ONLY at α=0.5; q=5 neighbours have none — the
-#   count itself is part of the series story).
+#  ≈ 2–3 min total. Zero-tower count printed per row as a diagnostic
+#  (4 exact modes expected ONLY at α=0.5; q=5 neighbours have none — the
+#  count itself is part of the series story).
 function test19c_dirac_alpha_series(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 19 (pass 3, SERIES): Dirac cone — α-selective 1/L series")
@@ -25805,7 +25894,7 @@ function test19c_dirac_alpha_series(zeta_zeros::Vector{Float64}, cfg::Config)
  end
  x19c = 1.0 ./ Float64.(L_grid)
  a5, b5, R2_5, _, _ = linreg(x19c, E_by_α[2])
- # v23.2 FOUR-pass hand-off: stash the α=0.5 series v_F for pass 4 (D6).
+ #  FOUR-pass hand-off: stash the α=0.5 series v_F for pass 4 (D6).
  T19_VF_CACHE["pass3 (α=0.5 series ≤80)"] = b5 / (2π)
  EL = [E_by_α[i][end] * L_grid[end] for i in 1:3] # E_min·L at the largest rung
  scale5 = EL[2]
@@ -25845,59 +25934,59 @@ function test19c_dirac_alpha_series(zeta_zeros::Vector{Float64}, cfg::Config)
 end
 
 # ── Test 19d (menu id 19, pass 4 AUDIT): twist spectroscopy + index audit ────
-# Fourth pass of Test 19 (user spec 2026-09-04: «максимально полный честный
+# Fourth pass of Test 19 («максимально полный честный
 # тест в 4 прогона»). Passes 1–3 verify the cone INDIRECTLY, through the
 # finite-size law E_min ~ 1/L — a circumference measurement. The d-pass
 # measures the cone DIRECTLY in momentum space and audits the zero tower at
 # the eigenvector level — machinery the first three passes never had:
 #
-#   D1  TWIST SPECTROSCOPY (direct E(k) at the Dirac point): a boundary
-#       twist θ on the y-handle (multiply ONLY the y-wrap bond by e^{iθ} —
-#       a pure holonomy: each top-row plaquette carries BOTH seam bonds and
-#       the ±θ cancels around it, so the bulk flux is unchanged) shifts the
-#       discrete k-grid by k_y → k_y + θ/L. The Dirac tower (E = 0 at θ = 0)
-#       moves onto the cone: E_min(θ) = v_F·θ/L EXACTLY for θ ∈ (0, π] (the
-#       nearest OTHER cone image sits at (2π−θ)/L ≥ π/L). No-intercept
-#       linear fit over θ = π/5…π at L = 48 → linearity R², v_F_twist =
-#       slope·L (validation run 2026-09-04: R² = 1.000000, v_F = 1.9990 —
-#       an INDEPENDENT measurement vs the 1/L fits 1.8998/1.9447/1.9550).
-#   D2  ZERO-MODE EIGENVECTOR AUDIT (θ = 0, full eigen — pass 1–3 are
-#       values-only): tower == 4 at the STRICT |E| ≤ 1e-10 (pass 2 used
-#       1e-6) and the AIII index anchor via BASIS-INVARIANT subspace sums:
-#       Tr(P_A P_tower) = Tr(P_B P_tower) = 2 exactly (chirality-balanced
-#       Dirac pair, index 0). LAPACK may return mixed tower vectors (any
-#       orthonormal mix of 2 pure-A + 2 pure-B modes is still an eigenvector
-#       at E ≈ 1e-14) — per-vector purities are printed as diagnostics, the
-#       subspace sums carry the verdict.
-#   D3  HOLONOMY CHECKS: θ = 2π reproduces H(0) to 1e-15 AND the full
-#       spectrum to 1e-10 (Byers-Yang at the twist level — measured
-#       ‖ΔH‖/‖H‖ = 2.5e-17, max|ΔE| = 4.4e-14); θ = π annihilates the tower
-#       (n_zero == 0 — the anti-periodic sector has no Dirac modes) and the
-#       cusp value E_min(π)·L → 2π (measured 6.2787 vs 6.2832, window
-#       ±20%). The θ = π state is 4-fold degenerate (both cones × the two
-#       branches meeting at the cusp) — printed as a diagnostic.
-#   D4  DETERMINISM: a fresh W=0 rebuild is BIT-IDENTICAL (‖ΔH‖_F = 0.0
-#       exactly) — the clean-lattice fast path must consume no RNG state;
-#       catches any future builder regression (hidden global state,
-#       threading, reordered draws).
-#   D5  1/L² COLLAPSE (uses the pass-2 series, T19_SERIES_CACHE): the
-#       pass-2 drift check was one-sided ("approaching 4π"); the honest law
-#       is E_min·L = 4π + c/L² — fit intercept within 0.5% of 4π, R² > 0.999,
-#       |c| ∈ [40, 150] (measured on the 2026-09-04 run: intercept 12.5662
-#       = 4π − 0.0016%, c = −82.05, R² = 0.999996 — the 1/L² model
-#       describes ALL eleven pass-2 points to ~5e-4 absolute).
-#   D6  CROSS-PASS v_F CONSISTENCY (T19_VF_CACHE from passes 1/2/3): four
-#       independent v_F estimates (primary 7-pt fit, 11-pt mod-4 fit,
-#       α = 0.5 series, twist spectroscopy) must agree within 6% AND all sit
-#       in [1.85, 2.05] — converging to the analytic lattice value
-#       v_F = 2t = 2 (E_min·L → 2π·v_F = 4π).
+#  D1 TWIST SPECTROSCOPY (direct E(k) at the Dirac point): a boundary
+#  twist θ on the y-handle (multiply ONLY the y-wrap bond by e^{iθ}
+#  a pure holonomy: each top-row plaquette carries BOTH seam bonds and
+#  the ±θ cancels around it, so the bulk flux is unchanged) shifts the
+#  discrete k-grid by k_y → k_y + θ/L. The Dirac tower (E = 0 at θ = 0)
+#  moves onto the cone: E_min(θ) = v_F·θ/L EXACTLY for θ ∈ (0, π] (the
+#  nearest OTHER cone image sits at (2π−θ)/L ≥ π/L). No-intercept
+#  linear fit over θ = π/5…π at L = 48 → linearity R², v_F_twist =
+#  slope·L (validation run: R² = 1.000000, v_F = 1.9990
+#  an INDEPENDENT measurement vs the 1/L fits 1.8998/1.9447/1.9550).
+#  D2 ZERO-MODE EIGENVECTOR AUDIT (θ = 0, full eigen — pass 1–3 are
+#  values-only): tower == 4 at the STRICT |E| ≤ 1e-10 (pass 2 used
+#  1e-6) and the AIII index anchor via BASIS-INVARIANT subspace sums:
+#  Tr(P_A P_tower) = Tr(P_B P_tower) = 2 exactly (chirality-balanced
+#  Dirac pair, index 0). LAPACK may return mixed tower vectors (any
+#  orthonormal mix of 2 pure-A + 2 pure-B modes is still an eigenvector
+#  at E ≈ 1e-14) — per-vector purities are printed as diagnostics, the
+#  subspace sums carry the verdict.
+#  D3 HOLONOMY CHECKS: θ = 2π reproduces H(0) to 1e-15 AND the full
+#  spectrum to 1e-10 (Byers-Yang at the twist level — measured
+#  ‖ΔH‖/‖H‖ = 2.5e-17, max|ΔE| = 4.4e-14); θ = π annihilates the tower
+#  (n_zero == 0 — the anti-periodic sector has no Dirac modes) and the
+#  cusp value E_min(π)·L → 2π (measured 6.2787 vs 6.2832, window
+#  ±20%). The θ = π state is 4-fold degenerate (both cones × the two
+#  branches meeting at the cusp) — printed as a diagnostic.
+#  D4 DETERMINISM: a fresh W=0 rebuild is BIT-IDENTICAL (‖ΔH‖_F = 0.0
+#  exactly) — the clean-lattice fast path must consume no RNG state;
+#  catches any future builder regression (hidden global state,
+#  threading, reordered draws).
+#  D5 1/L² COLLAPSE (uses the pass-2 series, T19_SERIES_CACHE): the
+#  pass-2 drift check was one-sided ("approaching 4π"); the honest law
+#  is E_min·L = 4π + c/L² — fit intercept within 0.5% of 4π, R² > 0.999,
+#  |c| ∈ [40, 150] (measured on the run: intercept 12.5662
+#  = 4π − 0.0016%, c = −82.05, R² = 0.999996 — the 1/L² model
+#  describes ALL eleven pass-2 points to ~5e-4 absolute).
+#  D6 CROSS-PASS v_F CONSISTENCY (T19_VF_CACHE from passes 1/2/3): four
+#  independent v_F estimates (primary 7-pt fit, 11-pt mod-4 fit,
+#  α = 0.5 series, twist spectroscopy) must agree within 6% AND all sit
+#  in [1.85, 2.05] — converging to the analytic lattice value
+#  v_F = 2t = 2 (E_min·L → 2π·v_F = 4π).
 #
 # Runtime honesty: 7 dense solves at L=48 (5 twist + 1 full eigen + 1 twoπ)
 # + 2 builds ≈ 1–2 min. L = 48 ≡ 0 (mod 16): both Dirac k_x ∈ {π/2, 3π/2}
 # and k_y lie on the discrete grid (tower == 4 guaranteed; pass-2 measured
 # E_min·L = 12.5305 at L = 48 — reproduced bit-level by the twist replica).
 """
-    apply_y_twist!(H, Nx, Ny, θ) → H
+ apply_y_twist!(H, Nx, Ny, θ) → H
 
 Pure-holonomy boundary twist on the y-handle: multiplies ONLY the y-wrap
 bond of every column by e^{iθ} (and its Hermitian partner by e^{−iθ}).
@@ -26117,22 +26206,22 @@ end
 # The base proves the machinery on one anchor; the hardcore pass runs the full
 # topological contract on the magnetic-BZ Harper construction (all rows are
 # q×q-cell diagonalisations — seconds total, so the size ladder reaches 72):
-#   H1  literature anchors α = 1/4, 1/3, 1/5: C₁ = +1 (TKNN Diophantine t₁=+1),
-#       grid-converged (12-pt → 24-pt identical)
-#   H2  size ladder L = 12..72 at α = 1/3 (n_k = L × L/q BZ samples): C₁ = +1
-#       on EVERY size — the finite-lattice leg (user spec: sizes up to 72×72)
-#   H3  α = 1/2 Dirac-touching audit: bare min band gap ≈ 1e-16 at every size
-#       (per-band C₁ undefined); mass-regularized branch (mass·diag((−1)^m)):
-#       gap opens, C₁ = 0 for BOTH mass signs (chirality-balanced Dirac
-#       points), stable across the ladder.
-#       GRID CONTRACT (bug found 2026-08-31 — user run printed "done in
-#       0:00:00 → FAIL/WARN"): every touching-ladder rung needs L ≡ 0 (mod 4)
-#       so the Dirac points (kx, ky) = (±π/2, ±π/2) lie ON the FHS k-grid;
-#       the old L = 10 rung missed them, measured a finite gap 1.75 and
-#       failed the touching check SPURIOUSLY. The whole audit is q×q-cell
-#       work — milliseconds — so "done in 0:00:00" is the DESIGN cost, not a
-#       skip. Four real report plots queued: C₁ ladder, anchor convergence,
-#       touching depth, mass-gap opening.
+#  H1 literature anchors α = 1/4, 1/3, 1/5: C₁ = +1 (TKNN Diophantine t₁=+1),
+#  grid-converged (12-pt → 24-pt identical)
+#  H2 size ladder L = 12..72 at α = 1/3 (n_k = L × L/q BZ samples): C₁ = +1
+#  on EVERY size — the finite-lattice leg
+#  H3 α = 1/2 Dirac-touching audit: bare min band gap ≈ 1e-16 at every size
+#  (per-band C₁ undefined); mass-regularized branch (mass·diag((−1)^m)):
+#  gap opens, C₁ = 0 for BOTH mass signs (chirality-balanced Dirac
+#  points), stable across the ladder.
+#  GRID CONTRACT (bug found — user run printed "done in
+#  0:00:00 → FAIL/WARN"): every touching-ladder rung needs L ≡ 0 (mod 4)
+#  so the Dirac points (kx, ky) = (±π/2, ±π/2) lie ON the FHS k-grid;
+#  the old L = 10 rung missed them, measured a finite gap 1.75 and
+#  failed the touching check SPURIOUSLY. The whole audit is q×q-cell
+#  work — milliseconds — so "done in 0:00:00" is the DESIGN cost, not a
+#  skip. Four real report plots queued: C₁ ladder, anchor convergence,
+#  touching depth, mass-gap opening.
 function test22b_chern_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 20 (pass 2, HARDCORE): TKNN Chern number — deep audit")
@@ -26171,7 +26260,7 @@ function test22b_chern_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  # α = 1/2 touching audit — rungs L ≡ 0 (mod 4): kx = 2π·a/L hits π/2 iff
  # a = L/4 ∈ ℤ, ky = π·b/(L/2) hits π/2 iff b = L/4 ∈ ℤ. Off-grid rungs
  # simply MISS the Dirac points (L = 10 → gap 1.75, numpy-mirror-checked)
- # and would fail the check spuriously — that was the 2026-08-31 bug.
+ # and would fail the check spuriously — that was the bug.
  touch_ok = true
  touch_L = Float64[]       # report-plot data: touching depth
  touch_depth = Float64[]   # −log₁₀(bare gap): ≈ 15.3 touching, small = gapped
@@ -26193,7 +26282,7 @@ function test22b_chern_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  _, g_bare_2412, _ = harper_chern_first_band(0.5; n_kx=24, n_ky=12)
  c_m, g_m, _ = harper_chern_first_band(0.5; n_kx=24, n_ky=12, mass=0.3)
  c_p, g_p, _ = harper_chern_first_band(0.5; n_kx=24, n_ky=12, mass=-0.3)
- # FIX 2026-08-31: the contract is "gap opens, C₁ = 0 for BOTH mass signs"
+ # NOTE: the contract is "gap opens, C₁ = 0 for BOTH mass signs"
  # — the old check verified only the m = +0.3 gap (g_p was computed but
  # never tested, so a gapless −0.3 branch would have passed silently).
  mass_ok = (c_m == 0) && (c_p == 0) && (g_m > 0.1) && (g_p > 0.1)
@@ -26239,12 +26328,12 @@ end
 # ── Test 21b (menu id 21, HARDCORE pass 2): γ* BigFloat precision audit ──────
 # The base evaluates eq:gamma-star in Float64; the hardcore pass recomputes
 # the closed forms at 256-bit precision and audits the parameter sensitivity:
-#   H1  Float64 round-off quantified: |a_C, b_C (Float64) − 256-bit truth|
-#       must sit at the 1e-16 relative scale (the formulas are stable)
-#   H2  arg(γ*) within 1° of π/2 at 256-bit (the same contract with NO float
-#       noise — isolates physics from arithmetic)
-#   H3  δ_C sensitivity: arg(γ*) at δ ∈ {π/7 − 1e-6, π/7, π/7 + 1e-6} stays
-#       within 1° of π/2 — the 90° claim is not a fine-tuning accident
+#  H1 Float64 round-off quantified: |a_C, b_C (Float64) − 256-bit truth|
+#  must sit at the 1e-16 relative scale (the formulas are stable)
+#  H2 arg(γ*) within 1° of π/2 at 256-bit (the same contract with NO float
+#  noise — isolates physics from arithmetic)
+#  H3 δ_C sensitivity: arg(γ*) at δ ∈ {π/7 − 1e-6, π/7, π/7 + 1e-6} stays
+#  within 1° of π/2 — the 90° claim is not a fine-tuning accident
 function test23b_gamma_star_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 21 (pass 2, HARDCORE): γ* spinorial phase — 256-bit precision audit")
@@ -26289,12 +26378,12 @@ function test23b_gamma_star_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
 end
 
 # ── Test 22b (menu id 22, HARDCORE pass 2): AB phase BigFloat audit ──────────
-#   H1  exact rational identity at 256-bit: 2π·(1/14) == π/7 bit-for-bit, and
-#       the Float64 result within 1e-15 of the 256-bit truth (base contract)
-#   H2  flux LINEARITY: Φ_AB(p/14) = p·(π/7) holds exactly for p ∈ {1,2,3}
-#       at 256-bit — the AB phase is linear in the enclosed flux
-#   H3  δ_C identity: Φ_AB == δ_C both at Float64 and 256-bit (the spinorial
-#       holonomy claim of §3.2)
+#  H1 exact rational identity at 256-bit: 2π·(1/14) == π/7 bit-for-bit, and
+#  the Float64 result within 1e-15 of the 256-bit truth (base contract)
+#  H2 flux LINEARITY: Φ_AB(p/14) = p·(π/7) holds exactly for p ∈ {1,2,3}
+#  at 256-bit — the AB phase is linear in the enclosed flux
+#  H3 δ_C identity: Φ_AB == δ_C both at Float64 and 256-bit (the spinorial
+#  holonomy claim of §3.2)
 function test24b_ab_phase_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 22 (pass 2, HARDCORE): AB phase Φ_AB = π/7 — 256-bit audit")
@@ -26332,12 +26421,12 @@ function test24b_ab_phase_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
 end
 
 # ── Test 23b (menu id 23, HARDCORE pass 2): complex factor BigFloat audit ────
-#   H1  |CF| = 1 by construction — verified to 1e-30 at 256-bit (Float64 gives
-#       only ~1e-16): the log-periodic factor is a pure phase
-#   H2  β_imag closed form: 256-bit value vs the Float64 evaluation AND vs the
-#       LaTeX constant 2.854 (|Δ| < 1e-3, the base's documented anchor)
-#   H3  c_AB = 1 − |CF_hard| ≈ 0.02063 (|Δ| < 1e-3, base contract) with the
-#       256-bit refinement of the hardcoded amplitude reported
+#  H1 |CF| = 1 by construction — verified to 1e-30 at 256-bit (Float64 gives
+#  only ~1e-16): the log-periodic factor is a pure phase
+#  H2 β_imag closed form: 256-bit value vs the Float64 evaluation AND vs the
+#  LaTeX constant 2.854 (|Δ| < 1e-3, the base's documented anchor)
+#  H3 c_AB = 1 − |CF_hard| ≈ 0.02063 (|Δ| < 1e-3, base contract) with the
+#  256-bit refinement of the hardcoded amplitude reported
 function test25b_complex_factor_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 23 (pass 2, HARDCORE): complex fractal factor — 256-bit audit")
@@ -26377,15 +26466,15 @@ end
 # ── Test 24b (menu id 24, HARDCORE pass 2): Dirac-string flux deep audit ─────
 # The base verifies ONE vortex at ONE position; the hardcore pass runs the
 # FULL plaquette scan for a family of single-vortex configurations:
-#   H1  position A (Nx÷3, Ny÷2) and position B (2Nx÷3, Ny÷4), q=+1: exactly
-#       one plaquette at 2πq, ALL others < 1e-9 — the scan runs on the
-#       SECONDARY lattice cfg.ab_nx × cfg.ab_ny (96×96 in two-pass mode),
-#       positions scale with it ((8,12)/(16,6) at 24×24 → (32,48)/(64,24)
-#       at 96×96); the flux identity is exact on any size, the full scan
-#       is therefore exhaustive
-#   H2  charge family at position A: q = −1 and q = +0.3 — the flux is
-#       charge-linear (2πq mod 2π) and must hold identically for fractional q
-#   H3  hermiticity of every built H
+#  H1 position A (Nx÷3, Ny÷2) and position B (2Nx÷3, Ny÷4), q=+1: exactly
+#  one plaquette at 2πq, ALL others < 1e-9 — the scan runs on the
+#  SECONDARY lattice cfg.ab_nx × cfg.ab_ny (96×96 in two-pass mode),
+#  positions scale with it ((8,12)/(16,6) at 24×24 → (32,48)/(64,24)
+#  at 96×96); the flux identity is exact on any size, the full scan
+#  is therefore exhaustive
+#  H2 charge family at position A: q = −1 and q = +0.3 — the flux is
+#  charge-linear (2πq mod 2π) and must hold identically for fractional q
+#  H3 hermiticity of every built H
 function test31b_dirac_flux_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 24 (pass 2, HARDCORE): Dirac-string flux — exhaustive scan")
@@ -26437,16 +26526,16 @@ end
 # ── Test 25b (menu id 25, HARDCORE pass 2): Byers–Yang deep audit ────────────
 # The base checks q=1 vs q=0 on ONE layout; the hardcore pass proves the flux
 # quantization identity across layouts AND integer multiples:
-#   H1  q=+1 neutral quartet vs q=0: Δ < 1e-10 for 3 independent layouts
-#   H2  integer multiples: q=2 quartet (charges ±2) and q=−1 quartet
-#       (sign-flipped) — Byers–Yang holds for ANY integer flux, Δ < 1e-10
-#   H3  fractional q ∈ {0.3, 0.5} single vortex: Δ > 1e-3 (the genuine AB
-#       effect must persist — the theorem is an INTEGER-q statement)
-#   Launch-standard lattice cfg.ab_nx × cfg.ab_ny (96×96 in two-pass mode —
-#   user spec 2026-08-30; was a dedicated 24×24 open :dirac lattice), W=0,
-#   α=0. The identity is gauge-topological and size-independent; the cost
-#   is 12 value-only Hermitian diagonalizations at N = ab_nx² (heevr,
-#   ≈ 30–60 s each at 96²) — an honest ≈ 10–15 min hardcore block.
+#  H1 q=+1 neutral quartet vs q=0: Δ < 1e-10 for 3 independent layouts
+#  H2 integer multiples: q=2 quartet (charges ±2) and q=−1 quartet
+#  (sign-flipped) — Byers–Yang holds for ANY integer flux, Δ < 1e-10
+#  H3 fractional q ∈ {0.3, 0.5} single vortex: Δ > 1e-3 (the genuine AB
+#  effect must persist — the theorem is an INTEGER-q statement)
+#  Launch-standard lattice cfg.ab_nx × cfg.ab_ny (96×96 in two-pass mode
+#  was a dedicated 24×24 open:dirac lattice), W=0,
+#  α=0. The identity is gauge-topological and size-independent; the cost
+#  is 12 value-only Hermitian diagonalizations at N = ab_nx² (heevr,
+#  ≈ 30–60 s each at 96²) — an honest ≈ 10–15 min hardcore block.
 function test32b_byers_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 25 (pass 2, HARDCORE): Byers–Yang — multi-layout / multi-q audit")
@@ -26472,7 +26561,7 @@ function test32b_byers_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
    ev_q = sort(eigvals(Hermitian(build_ab_cloud_hamiltonian(
     ABCloudConfig(Nx, Ny, q_vortices, 0.0, 1.0, :open, 0.0, 96, :dirac)))))
    Δ = maximum(abs.(ev_q .- ev_q0)) / emax
-   # (deduped 2026-08-31: the +1/else branches were byte-identical)
+   # (deduped: the +1/else branches were byte-identical)
    int_ok &= (Δ < 1e-10)
    @printf(" layout %d, q=%s: Δ = %.2e %s\n", layout, q_tag, Δ,
     Δ < 1e-10 ? "< 1e-10 ✓" : "✗")
@@ -26510,14 +26599,14 @@ end
 # ── Test 26b (menu id 26, HARDCORE pass 2): PBC torus deep validation ────────
 # The base does a single-configuration ⟨r⟩ + a count-only artifact scan; the
 # hardcore pass is strictly harder:
-#   H1  EXHAUSTIVE artifact classification: EVERY non-vortex plaquette flux is
-#       either < 1e-6 OR exactly the periodic-string wrap value (∓2πq) — the
-#       base only counts unexplained plaquettes without identifying them
-#   H2  ⟨r⟩ ENSEMBLE: n ≥ cfg.ab_hc_nreal neutral-quartet realizations
-#       (:monumental, α = cfg.ab_alpha, W = ab_w_eff — the disorder-statistics
-#       cap; the base keeps its own W protocol) → mean ± SE + bootstrap CI +
-#       scatter vs ±0.022 + sign counts
-#   H3  hermiticity + τ per realization
+#  H1 EXHAUSTIVE artifact classification: EVERY non-vortex plaquette flux is
+#  either < 1e-6 OR exactly the periodic-string wrap value (∓2πq) — the
+#  base only counts unexplained plaquettes without identifying them
+#  H2 ⟨r⟩ ENSEMBLE: n ≥ cfg.ab_hc_nreal neutral-quartet realizations
+#  (:monumental, α = cfg.ab_alpha, W = ab_w_eff — the disorder-statistics
+#  cap; the base keeps its own W protocol) → mean ± SE + bootstrap CI +
+#  scatter vs ±0.022 + sign counts
+#  H3 hermiticity + τ per realization
 function test33b_torus_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 26 (pass 2, HARDCORE): PBC torus Dirac string — deep validation")
@@ -26544,15 +26633,15 @@ function test33b_torus_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  flux_v = mod2pi(plaquette_flux(H_flux, Nx, Ny, ix_v, iy_v; torus=true) + π) - π
  flux_v_ok = flux_circdist(flux_v, mod2pi(2π * q_mag + π) - π) < 1e-6
  artifact_val = mod2pi(-2π * q_mag + π) - π # the periodic string returns −2πq
- # Classification (fix 2026-08-31, seam-aware + circular distance):
+ # Classification (fix, seam-aware + circular distance):
  # ① the smooth polar-angle gauge is NOT globally defined on the torus —
- #   plaquettes touching the x/y seams (ix = Nx or iy = Ny) pick up
- #   generic gauge-holonomy flux that is neither 0 nor the −2πq string
- #   artifact at ANY q. The old classifier counted them "unexplained" and
- #   failed H1 for a mathematically correct spectrum. They are now their
- #   own honest "seam (gauge holonomy)" class.
+ #  plaquettes touching the x/y seams (ix = Nx or iy = Ny) pick up
+ #  generic gauge-holonomy flux that is neither 0 nor the −2πq string
+ #  artifact at ANY q. The old classifier counted them "unexplained" and
+ #  failed H1 for a mathematically correct spectrum. They are now their
+ #  own honest "seam (gauge holonomy)" class.
  # ② classification uses flux_circdist — at half-integer q the −2πq
- #   artifact lands on the ±π branch cut and |·| saw a phantom 2π gap.
+ #  artifact lands on the ±π branch cut and |·| saw a phantom 2π gap.
  n_clean = 0; n_art = 0; n_unexplained = 0; n_seam = 0
  for ix in 1:Nx, iy in 1:Ny
   (ix == ix_v && iy == iy_v) && continue
@@ -26616,43 +26705,43 @@ function test33b_torus_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
 end
 
 # ── Test 27b (menu id 27, HARDCORE pass 2): binary chiral deep audit ─────────
-# Launch-standard lattice cfg.ab_nx × cfg.ab_ny (96×96 in two-pass mode —
-# user spec 2026-08-30; was a dedicated 24×24 torus). The exact identity is
+# Launch-standard lattice cfg.ab_nx × cfg.ab_ny (96×96 in two-pass mode
+#  was a dedicated 24×24 torus). The exact identity is
 # size-independent; the ε_rms and vortex rows are analytic size-independent
 # contracts, and the Coulomb W-scan ratio is scale-invariant (the potential
 # enters normalized: V_i ~ q·W/(r²·N⁻¹+1) with r²·N⁻¹ spanning the same
 # range at every L). Harder machinery:
-#   H1  verdict anchor: defect(α=1/2, W=0, clean) < 1e-10 (the binary contract)
-#   H2  QUANTITATIVE ε_rms contract at W = ab_w_eff(cfg), Nv=0: the residual
-#       ε ~ U(−0.01,0.01) is FIXED-amplitude (monograph §4.2) → at Nv=0 the
-#       Hamiltonian does not depend on the VALUE of W, only on W>0, and
-#       defect = 2‖ε‖_F/‖H‖_F ≈ ε_rms = 0.01/√3 = 5.7735e-3 exactly
-#       (measured 5.7627e-3 in past runs — 0.2% off; the old ">1e-2"
-#       threshold was UNREACHABLE: ε_rms is the model's ceiling)
-#   H2v vortex-preservation row (expectation FLIPPED): vortices live on
-#       BONDS → AIII preserved at W=0, defect < 1e-10 (Byers-Yang for
-#       integer q) — the old "broken by vortices" check was impossible to
-#       satisfy and flagged a correct spectrum as a failure
-#   H3  REAL W-scan WITH vortices (Nv=2, q=±|q|): the Coulomb on-site term
-#       V_i = Σ_k q_k·W/(r²_ik·N⁻¹+1) scales LINEARLY with W → defect(W)
-#       grows ~linearly (replica probe at 24×24: 0.101 → 0.747 over
-#       W ∈ [0.5, 4], ratio ≈ 7.4; the normalized potential makes the
-#       ratio — the checked quantity — scale-invariant across L). Check: monotone + ratio ∈ [5, 12].
-#       PLUS the Nv=0 ε-floor scan printed as a labelled diagnostic — it is
-#       W-INDEPENDENT by construction (past runs: bit-identical 5.7627e-3
-#       for W=0.5..4 — documented, not a bug: see _DISORDER_STATISTICS_NOTE)
-#   Z1–Z6  v23.2 ζ-DICTIONARY DEEP AUDIT (user spec 2026-09-04: «во втором
-#       хардкоре 50 тысяч с углубленными проверками»): the FULL embedded
-#       50,000-zero dataset drives the 100,000-dim ±E chiral dictionary AND
-#       the deep statistics the pass-1 20k subcheck only previews —
-#       exact ±E pairing probes (O(n), no dense Γ), honest ⟨r⟩ over 49,998
-#       raw-gap ratios with a GUE window + a synthetic Poisson CONTROL of
-#       the same length (the dataset's DISCRIMINATION-POWER check), 5×10k
-#       block stationarity, and the KS GUE-vs-GOE classification with a
-#       depth-improvement diagnostic vs the pass-1 D(20k) baseline.
-#       Calibrations measured on the embedded set (2026-09-04):
-#       ⟨r⟩(50k) = 0.6119, block spread 0.0050, D_GUE(50k) = 0.0216 vs
-#       D_GOE(50k) = 0.0880 (Poisson control 0.283) — every window ≥ 1.4×.
+#  H1 verdict anchor: defect(α=1/2, W=0, clean) < 1e-10 (the binary contract)
+#  H2 QUANTITATIVE ε_rms contract at W = ab_w_eff(cfg), Nv=0: the residual
+#  ε ~ U(−0.01,0.01) is FIXED-amplitude (monograph §4.2) → at Nv=0 the
+#  Hamiltonian does not depend on the VALUE of W, only on W>0, and
+#  defect = 2‖ε‖_F/‖H‖_F ≈ ε_rms = 0.01/√3 = 5.7735e-3 exactly
+#  (measured 5.7627e-3 in past runs — 0.2% off; the old ">1e-2"
+#  threshold was UNREACHABLE: ε_rms is the model's ceiling)
+#  H2v vortex-preservation row (expectation FLIPPED): vortices live on
+#  BONDS → AIII preserved at W=0, defect < 1e-10 (Byers-Yang for
+#  integer q) — the old "broken by vortices" check was impossible to
+#  satisfy and flagged a correct spectrum as a failure
+#  H3 REAL W-scan WITH vortices (Nv=2, q=±|q|): the Coulomb on-site term
+#  V_i = Σ_k q_k·W/(r²_ik·N⁻¹+1) scales LINEARLY with W → defect(W)
+#  grows ~linearly (replica probe at 24×24: over
+#  W ∈ [0.5, 4], ratio ≈ 7.4; the normalized potential makes the
+#  ratio — the checked quantity — scale-invariant across L). Check: monotone + ratio ∈ [5, 12].
+#  PLUS the Nv=0 ε-floor scan printed as a labelled diagnostic — it is
+#  W-INDEPENDENT by construction (past runs: bit-identical 5.7627e-3
+#  for W=0.5..4 — documented, not a bug: see _DISORDER_STATISTICS_NOTE)
+#  Z1–Z6 ζ-DICTIONARY DEEP AUDIT («во втором
+#  хардкоре 50 тысяч с углубленными проверками»): the FULL embedded
+#  50,000-zero dataset drives the 100,000-dim ±E chiral dictionary AND
+#  the deep statistics the pass-1 20k subcheck only previews
+#  exact ±E pairing probes (O(n), no dense Γ), honest ⟨r⟩ over 49,998
+#  raw-gap ratios with a GUE window + a synthetic Poisson CONTROL of
+#  the same length (the dataset's DISCRIMINATION-POWER check), 5×10k
+#  block stationarity, and the KS GUE-vs-GOE classification with a
+#  depth-improvement diagnostic vs the pass-1 D(20k) baseline.
+#  Calibrations measured on the embedded set:
+#  ⟨r⟩(50k) = 0.6119, block spread 0.0050, D_GUE(50k) = 0.0216 vs
+#  D_GOE(50k) = 0.0880 (Poisson control 0.283) — every window ≥ 1.4×.
 function test34b_chiral_binary_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 27 (pass 2, HARDCORE): binary chiral symmetry — deep audit")
@@ -26692,7 +26781,7 @@ function test34b_chiral_binary_hardcore(zeta_zeros::Vector{Float64}, cfg::Config
   W_std, defect_W, eps_rms_pred, eps_ok ? "∈ [0.5, 2.0]× ✓" : "OUT OF WINDOW ✗")
  @printf(" H2v vortex row (Nv=2, W=0):    defect = %.2e %s (bond phases PRESERVE AIII)\n",
   defect_v, defect_v < 1e-10 ? "< 1e-10 ✓" : "≥ ✗ BROKEN?!")
- # H3: REAL W-scan — WITH vortices (Coulomb term scales with W) ...
+ # H3: REAL W-scan — WITH vortices (Coulomb term scales with W)...
  w_scan_vals = Tuple{Float64,Float64}[]
  for W in (0.5, 1.0, 2.0, 4.0)
   H_Ws = build_ab_cloud_hamiltonian(ABCloudConfig(Nx, Ny, vort2, 0.5, 1.0, :torus, W))
@@ -26717,7 +26806,7 @@ function test34b_chiral_binary_hardcore(zeta_zeros::Vector{Float64}, cfg::Config
    W, d_W0, abs(d_W0 - eps_rms_pred) < 0.2 * eps_rms_pred ? "≈ ε_rms (W-independent ✓)" : "")
   prog_heartbeat()
  end
- # ── v23.2 ζ-DICTIONARY DEEP AUDIT — full 50,000-zero embedded dataset ──
+ # ── ζ-DICTIONARY DEEP AUDIT — full 50,000-zero embedded dataset ──
  zs_hc = try
   z_all = load_embedded_zeros()
   length(z_all) >= T27_ZETA_HARDCORE ? z_all[1:T27_ZETA_HARDCORE] : Float64[]
@@ -26843,7 +26932,7 @@ function test34b_chiral_binary_hardcore(zeta_zeros::Vector{Float64}, cfg::Config
  push!(rec, ("Coulomb W-scan linear", scan_ok,
   @sprintf("Nv=2: monotone, defect %.3f→%.3f, ratio %.2f ∈ [5, 12]",
    w_scan_vals[1][2], w_scan_vals[end][2], scan_ratio)))
- # v23.2 ζ-dictionary deep-audit rows (only when the 50k dataset actually ran;
+ #  ζ-dictionary deep-audit rows (only when the 50k dataset actually ran;
  # the "skip, not fail" convention of the Z0 guard applies when it didn't).
  zeta_ran_hc && push!(rec, ("ζ-dict exact ±E pairing", zeta_ok_hc_pair,
   @sprintf("100k-dim dictionary: max|d+d_σ| = %.1e, ‖D+ΓDΓ‖/‖D‖ = %.2e, Γ² probe %.1e, tower %d",
@@ -26856,7 +26945,7 @@ function test34b_chiral_binary_hardcore(zeta_zeros::Vector{Float64}, cfg::Config
  zeta_ran_hc && push!(rec, ("ζ-50k KS GUE-class", zeta_ok_hc_ks,
   @sprintf("D_GUE = %.4f < 0.030 and < D_GOE = %.4f (Poisson would be ≈0.28)",
    D_hc, D_goehc)))
- # ── real report plot (2026-08-31): the Coulomb W-scan this pass measured —
+ # ── real report plot: the Coulomb W-scan this pass measured —
  # defect(W) vs the analytic ε_rms floor, so the report shows the scan.
  if REP.current !== nothing
   p27 = RepPlot(@sprintf("Test 27b — chiral defect vs Coulomb W, Nv=2 (ratio %.2f)",
@@ -26873,11 +26962,11 @@ end
 # The base measures f_GUE on ONE Hamiltonian; the hardcore pass measures it on
 # an ENSEMBLE (n ≥ cfg.ab_hc_nreal realizations, same estimator, same measured
 # GUE reference → identical estimator bias on every realization):
-#   H1  ⟨f_GUE⟩ > 0.90 (base contract, ensemble-averaged)
-#   H2  bootstrap 10k CI of the mean vs the 0.90 contract (diagnostic)
-#   H3  realization scatter vs 0.10 (FAIL basis — realization-dependent f_GUE
-#       would mean the Poisson→GUE progress is a vortex-layout accident)
-# HARDCORE parameter standard (user spec 2026-08-31): W = ab_w_eff(cfg) (=1.0
+#  H1 ⟨f_GUE⟩ > 0.90 (base contract, ensemble-averaged)
+#  H2 bootstrap 10k CI of the mean vs the 0.90 contract (diagnostic)
+#  H3 realization scatter vs 0.10 (FAIL basis — realization-dependent f_GUE
+#  would mean the Poisson→GUE progress is a vortex-layout accident)
+# HARDCORE parameter standard (suite spec): W = ab_w_eff(cfg) (=1.0
 # under default config), q = 1.0, Nv = 4 — the pass-1 cfg-list defaults
 # (Nv=25, raw ab_W) deliberately do NOT extend to this pass.
 function test30b_fgue_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
@@ -26887,7 +26976,7 @@ function test30b_fgue_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println(repeat("─",60))
  Nx, Ny = cfg.ab_nx, cfg.ab_ny
  α = cfg.ab_alpha_test16
- # HARDCORE standard (user spec 2026-08-31): W=1.0, q=1.0, Nv=4.
+ # HARDCORE standard (suite spec): W=1.0, q=1.0, Nv=4.
  W_std = ab_w_eff(cfg) # min(ab_W, ab_W_max=1.0) → 1.0 under default config
  Nv = 4 # compact neutral ensemble (2× +q, 2× −q via enforce_neutrality)
  q_mag = 1.0
@@ -26934,7 +27023,7 @@ function test30b_fgue_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
   H = nothing; cfg_ab = nothing; ev = nothing; vortices = nothing
   ab_gc!()
  end
- # NaN-safe ensemble (fix 2026-08-31): one degenerate realization
+ # NaN-safe ensemble (fix): one degenerate realization
  # (f_k = NaN from < 50 spacings) used to poison mean/std/quantile and
  # fail BOTH verdict rows for the whole ensemble. Finite values are
  # ensembled; the verdict reports the honest n_used.
@@ -26955,7 +27044,7 @@ function test30b_fgue_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
   @sprintf("⟨f_GUE⟩ = %.4f ± %.4f (n=%d of %d finite)", f_m, f_se, n_used, n_hc)))
  push!(rec, ("scatter < 0.10", n_used > 1 && scat < 0.10,
   @sprintf("σ=%.4f %s", scat, n_used > 1 ? (scat < 0.10 ? "stable across vortex layouts" : "REALIZATION-DEPENDENT") : "n/a (single finite realization)")))
- # ── real report plot (2026-08-31): per-realization f_GUE ensemble vs the
+ # ── real report plot: per-realization f_GUE ensemble vs the
  # 0.90 contract — the report shows the ensemble, not only its mean.
  if REP.current !== nothing
   p28 = RepPlot(@sprintf("Test 28b — per-realization f_GUE (⟨f⟩=%.4f ± %.4f, n=%d)",
@@ -26969,13 +27058,13 @@ end
 
 # ── Test 29b (menu id 29, HARDCORE pass 2): Dirac dip deep audit ─────────────
 # Was 20×20 everywhere; the hardcore anchors now run on the SECONDARY lattice
-# (cfg.ab_nx × ab_ny = 96×96 in two-pass mode — user spec 2026-08-30):
-#   H1  FINE α-scan 0.40:0.025:0.60 (9 points, audit lattice L_mid = min(96,48),
-#       W=0, clean): ρ(α) has a STRICT minimum at α=0.5 (both neighbours larger)
-#   H2  anchors α ∈ {0.4, 0.5, 0.6} at the FULL 96×96 + window robustness:
-#       the dip holds for |E| < {0.3, 0.5, 0.8} (reuses the anchor spectra)
-#   H3  size sharpening: contrast(96×96) ≥ 0.9·contrast(L_mid) — the dip must
-#       NOT wash out with system size (0.9 tolerance for finite-size wiggles)
+# (cfg.ab_nx × ab_ny = 96×96 in two-pass mode
+#  H1 FINE α-scan 0.40:0.025:0.60 (9 points, audit lattice L_mid = min(96,48),
+#  W=0, clean): ρ(α) has a STRICT minimum at α=0.5 (both neighbours larger)
+#  H2 anchors α ∈ {0.4, 0.5, 0.6} at the FULL 96×96 + window robustness:
+#  the dip holds for |E| < {0.3, 0.5, 0.8} (reuses the anchor spectra)
+#  H3 size sharpening: contrast(96×96) ≥ 0.9·contrast(L_mid) — the dip must
+#  NOT wash out with system size (0.9 tolerance for finite-size wiggles)
 function test37b_dirac_dip_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 29 (pass 2, HARDCORE): Dirac dip in DOS — fine-scan deep audit")
@@ -27059,7 +27148,7 @@ function test37b_dirac_dip_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
   @sprintf("%.2f× → %.2f× (tolerance 0.9)", c_mid, c_main)))
  ev_mid = nothing; ev_main = nothing
  ab_gc!()
- # ── real report plot (2026-08-31): the fine α-scan with the Dirac dip —
+ # ── real report plot: the fine α-scan with the Dirac dip —
  # the curve the "strict dip" verdict is computed FROM.
  if REP.current !== nothing
   p29b = RepPlot(@sprintf("Test 29b — ρ(|E|<0.5) vs α @%dx%d: dip ρ=%.4f, contrast %.2f→%.2f",
@@ -27076,20 +27165,20 @@ end
 # 3 anchors at the secondary one; the c-pass is the SERIES run that draws the
 # physics curves themselves at the FULL secondary resolution (cfg.ab_nx = 96
 # in two-pass mode) — clean lattice, deterministic:
-#   S1  FINE 9-point α scan AT the secondary lattice: α = k/L, k ∈
-#       {k0−10, k0−7, k0−4, k0−1, k0, k0+1, k0+4, k0+7, k0+10}, k0 = L÷2
-#       (every α = k/L is EXACT on the torus by construction). Strict dip at
-#       k0 (ρ(|E|<0.5) below ALL other 8 points).
-#   S2  CONTRAST-vs-WINDOW series (free data — reuses the k0 and k0−10
-#       spectra): ρ(w) for w ∈ {0.1, 0.2, 0.3, 0.5, 0.8} on both curves;
-#       contrast(w) = ρ_off(w)/ρ_dip(w) must GROW as the window shrinks
-#       (Dirac ρ ∝ E inside the window vs metallic ρ ≈ const off the dip).
-#   S3  Size cross-check vs the mid lattice: contrast(96, w=0.5) ≥
-#       0.8·contrast(L_mid = min(cfg.ab_nx, 48), w=0.5) — the same
-#       no-wash-out tolerance the 29b contract uses.
+#  S1 FINE 9-point α scan AT the secondary lattice: α = k/L, k ∈
+#  {k0−10, k0−7, k0−4, k0−1, k0, k0+1, k0+4, k0+7, k0+10}, k0 = L÷2
+#  (every α = k/L is EXACT on the torus by construction). Strict dip at
+#  k0 (ρ(|E|<0.5) below ALL other 8 points).
+#  S2 CONTRAST-vs-WINDOW series (free data — reuses the k0 and k0−10
+#  spectra): ρ(w) for w ∈ {0.1, 0.2, 0.3, 0.5, 0.8} on both curves;
+#  contrast(w) = ρ_off(w)/ρ_dip(w) must GROW as the window shrinks
+#  (Dirac ρ ∝ E inside the window vs metallic ρ ≈ const off the dip).
+#  S3 Size cross-check vs the mid lattice: contrast(96, w=0.5) ≥
+#  0.8·contrast(L_mid = min(cfg.ab_nx, 48), w=0.5) — the same
+#  no-wash-out tolerance the 29b contract uses.
 # Runtime honesty: 9 solves at 96² (heevr values-only ≈ 56 s each, measured
-#   2026-08-31) + 2 at 48² ≈ 8–12 min — the price of a fine scan at the
-#   launch resolution.
+# ) + 2 at 48² ≈ 8–12 min — the price of a fine scan at the
+#  launch resolution.
 function test37c_dirac_dip_series(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 29 (pass 3, SERIES): Dirac dip — fine α-scan + window series")
@@ -27097,7 +27186,7 @@ function test37c_dirac_dip_series(zeta_zeros::Vector{Float64}, cfg::Config)
  L_main = cfg.ab_nx # secondary lattice in two-pass mode (96×96 default)
  L_mid = min(L_main, 48)
  k0 = round(Int, L_main / 2) # α = 1/2 snapped to the exact torus grid
- # FAR-OFF-RUNG GUARD (fix 2026-08-31): on small lattices (L_main < 22)
+ # FAR-OFF-RUNG GUARD (fix): on small lattices (L_main < 22)
  # the k0−10 rung is filtered out, ev_off stayed EMPTY and the S2 window
  # series divided 0/0 → NaN → guaranteed FAIL with nonsense output.
  # Clamp the rung into the valid range instead.
@@ -27106,7 +27195,7 @@ function test37c_dirac_dip_series(zeta_zeros::Vector{Float64}, cfg::Config)
  k_off = filter(k -> 1 ≤ k ≤ L_main - 1, k_off)
  (k_off_rung in k_off) || push!(k_off, k_off_rung)
  sort!(k_off)
- # RUNTIME calibration (2026-08-31, dsyevd/heevrd values-only measured):
+ # RUNTIME calibration:
  # t(L) ≈ 56 s · (L/96)⁶ (O(N³) = O(L⁶)); 96² ≈ 56 s, 72² ≈ 11 s, 48² ≈ 0.9 s
  est = max(1, round(Int, (length(k_off) * 56 * (L_main / 96)^6 + 2) / 60))
  @printf(" Fine scan: %d points α = k/%d around k=%d (α=1/2 EXACT), window |E|<0.5\n",
@@ -27211,13 +27300,13 @@ end
 
 # ── Test 30b (menu id 30, HARDCORE pass 2): Dirac cone v_F deep audit ────────
 # The base fits the 1/L law on its default grid; the hardcore pass:
-#   H1  DENSE mod-4 grid 16:8:96 (11 points, capped at the secondary lattice
-#       cfg.ab_nx — user size-standard 2026-08-30, was [8,12,…,48]):
-#       R² > 0.95 (same contract, 6× span)
-#   H2  zero tower == 4 exact modes at EVERY L (|E| ≤ 1e-8)
-#   H3  E₁·L constancy: cv = std(E₁·L)/mean ≤ 5% across the grid (the Dirac
-#       scaling law is E₁·L → 4π = const — pointwise scatter is the honest
-#       measure, the fit alone can hide wiggles)
+#  H1 DENSE mod-4 grid 16:8:96 (11 points, capped at the secondary lattice
+#  cfg.ab_nx — user size-standard, was [8,12,…,48]):
+#  R² > 0.95 (same contract, 6× span)
+#  H2 zero tower == 4 exact modes at EVERY L (|E| ≤ 1e-8)
+#  H3 E₁·L constancy: cv = std(E₁·L)/mean ≤ 5% across the grid (the Dirac
+#  scaling law is E₁·L → 4π = const — pointwise scatter is the honest
+#  measure, the fit alone can hide wiggles)
 function test38b_vF_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 30 (pass 2, HARDCORE): Dirac cone velocity — dense-grid audit")
@@ -27260,7 +27349,7 @@ function test38b_vF_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  push!(rec, ("zero tower == 4 ∀L", zeros_ok, "|E| ≤ 1e-8 at every size"))
  push!(rec, ("E₁·L cv ≤ 5%", cv ≤ 0.05,
   @sprintf("cv = %.2f%% (Dirac law: E₁·L → 4π = const)", 100 * cv)))
- # ── real report plots (2026-08-31): the 1/L fit and the E₁·L constancy law
+ # ── real report plots: the 1/L fit and the E₁·L constancy law
  # this pass audited — measured points + fit + 4π target line.
  if REP.current !== nothing
   p30 = RepPlot(@sprintf("Test 30b — gap vs 1/L (%d sizes, R²=%.4f, v_F=%.3f)",
@@ -27280,25 +27369,25 @@ end
 
 # ── Test 31b (menu id 31, HARDCORE pass 2): Hatano–Nelson deep audit ─────────
 # Was a dedicated 32×32 torus; now the SECONDARY lattice (cfg.ab_nx = 96×96 in
-# two-pass mode — user spec 2026-08-30) with the STANDARD W_eff (≤ 1.0):
-#   H1  σ=0.5 anchor: exactly Hermitian (n_complex = 0, max|Im| < 1e-10)
-#   H2  σ-sweep {0.6, 0.7, 0.8}: complex eigenvalues appear (n_complex > 0,
-#       max|Im| > 0.01) and grow monotonically with σ
-#   H3  ⟨r⟩(2-D NN ratio) drops: r(σ=0.8) < r(σ=0.5) — the skin effect drives
-#       the spectrum toward Poisson, as the base contract expects
-# RAM/runtime honesty: the non-Hermitian rows are general zgeev eigen-solves —
+# two-pass mode
+#  H1 σ=0.5 anchor: exactly Hermitian (n_complex = 0, max|Im| < 1e-10)
+#  H2 σ-sweep {0.6, 0.7, 0.8}: complex eigenvalues appear (n_complex > 0,
+#  max|Im| > 0.01) and grow monotonically with σ
+#  H3 ⟨r⟩(2-D NN ratio) drops: r(σ=0.8) < r(σ=0.5) — the skin effect drives
+#  the spectrum toward Poisson, as the base contract expects
+# RAM/runtime honesty: the non-Hermitian rows are general zgeev eigen-solves
 # at N = 9216 each costs ≈ 4–8× a Hermitian solve. The anti-Hermitian
 # dressing i·g·J is applied IN PLACE (J = horizontal nearest-neighbour
 # symmetric current → add i·g to H[i,i+1] and H[i+1,i]; no second matrix is
 # ever allocated), H is rebuilt and freed per row; peak ≈ 2 matrix copies +
 # zgeev workspace ≈ 5–6 GB at 96² (N² × 16 B = 1.27 GB per matrix copy;
-# the 2026-08-31 07:51 run printed "peak RAM ≈ 0.0 GB" because the formula
+# the run printed "peak RAM ≈ 0.0 GB" because the formula
 # below was missing one factor of N — it computed MEGABYTES, not GB).
 function test39b_hatano_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 31 (pass 2, HARDCORE): Hatano–Nelson skin effect — σ-sweep")
  println(repeat("─",60))
- L = cfg.ab_nx # secondary lattice in two-pass mode (96×96 default; was 32×32)
+ L = cfg.ab_nx # secondary lattice in two-pass mode (96×96 default; ×32)
  q_mag = resolve_q_magnitude(cfg)
  W_std = ab_w_eff(cfg)
  γ = 5.0
@@ -27336,9 +27425,9 @@ function test39b_hatano_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
   m_im = maximum(abs.(imag.(ev_NH)))
   # 2-D NN gap ratio + per-row Poisson baseline (conjugate-pair safe —
   # the old |E| proxy was structurally zero, see nn_gap_ratio docstring).
-  # BUGFIX 2026-08-31 (user run 07:51:48 "done in 00:09:09 → FAIL/WARN", no
+  # NOTE:(user run 07:51:48 "done in 00:09:09 → FAIL/WARN", no
   # σ-row output): the σ=0.5 anchor row is Vector{Float64} (eigvals∘Hermitian)
-  # and nn_gap_ratio has ONLY a ::Vector{ComplexF64} method → MethodError on
+  # and nn_gap_ratio has ONLY a: Vector{ComplexF64} method → MethodError on
   # the FIRST row aborted the whole pass before any verdict. Pass-1 test39
   # already converts (ComplexF64.(ev_H)) — the b-variant simply missed it.
   r_k, r_pois_k, _ = nn_gap_ratio(ComplexF64.(ev_NH))
@@ -27353,8 +27442,8 @@ function test39b_hatano_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  end
  anchor_ok = (n_complex_vals[1] == 0) && (max_imag_vals[1] < 1e-10)
  sweep_ok = all(n_complex_vals[i] > 0 && max_imag_vals[i] > 0.01 for i in 2:length(σ_grid)) &&
-  all(n_complex_vals[i] >= n_complex_vals[i-1] for i in 3:length(σ_grid)) # monotone over the WHOLE series (was end-vs-first)
- # H3 (recalibrated 2026-08-31, see base-test gate comment): ⟨r⟩ RISES with σ —
+  all(n_complex_vals[i] >= n_complex_vals[i-1] for i in 3:length(σ_grid)) # monotone over the WHOLE series
+ # H3 (recalibrated, see base-test gate comment): ⟨r⟩ RISES with σ —
  # 2-D spectral area with repulsion vs the 1-D Hermitian line spectrum.
  r_rise = r_vals32[end] > r_vals32[1]
  @printf(" H1 anchor σ=0.5: %s | H2 sweep: %s | H3 ⟨r⟩ rise: %s (%.4f → %.4f)\n",
@@ -27371,7 +27460,7 @@ function test39b_hatano_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  push!(rec, ("⟨r⟩ rises with σ (2-D repulsion)", r_rise,
   @sprintf("%.4f (σ=0.5, 1-D line) → %.4f (σ=0.8, 2-D area; Poisson-box %s)",
    r_vals32[1], r_vals32[end], isnan(r_pois_vals[end]) ? "n/a" : @sprintf("%.4f", r_pois_vals[end]))))
- # ── real report plots (2026-08-31): the σ-sweep this pass actually measured.
+ # ── real report plots: the σ-sweep this pass actually measured.
  # Replaces the era when this test's report carried only the retired stdout-
  # scraper chart ("col1 vs col2") or nothing at all.
  if REP.current !== nothing
@@ -27402,29 +27491,29 @@ end
 # STATISTICAL question: is the skin-effect signature stable across the
 # standard vortex ensemble, or a single-realization accident? The c-pass is
 # the SERIES run that answers it:
-#   n = max(ab_n_realizations, ab_hc_nreal) realizations (seed-stamped,
-#   STANDARD ensemble: Nv=4 neutral via enforce_neutrality, q from
-#   ab_q_list, W = W_eff) × σ ∈ {0.5, 0.6, 0.7, 0.8}, γ = 5.0, at the
-#   SERIES lattice L = min(48, cfg.ab_nx) — the ensemble is the point, not
-#   the size (the 96² size physics is pass 2's job).
+#  n = max(ab_n_realizations, ab_hc_nreal) realizations (seed-stamped,
+#  STANDARD ensemble: Nv=4 neutral via enforce_neutrality, q from
+#  ab_q_list, W = W_eff) × σ ∈ {0.5, 0.6, 0.7, 0.8}, γ = 5.0, at the
+#  SERIES lattice L = min(48, cfg.ab_nx) — the ensemble is the point, not
+#  the size (the 96² size physics is pass 2's job).
 # Series data per (σ, realization): n_complex, max|Im(E)|, ⟨r⟩NN (2-D NN gap
 # ratio with the per-row Poisson baseline). Report: scatter of every
 # realization + the mean line per σ on all three metrics.
 # Contracts (SERIES pass 3):
-#   S1  σ=0.5 anchor: n_complex = 0 and max|Im| < 1e-10 for EVERY realization
-#       (Hermitian is exact — the i·g·J dressing is only applied for σ > 0.5)
-#   S2  σ ∈ {0.6, 0.7, 0.8}: n_complex > 0 for EVERY (σ, realization) pair
-#       (55% fraction at 96²; even an order of magnitude less at 48² ≫ 0)
-#   S3  ⟨r⟩NN ensemble mean RISES: r̄(σ=0.8) > r̄(σ=0.5) — recalibrated
-#       2026-08-31 against measured ensembles (the old drop direction was
-#       never observed: 2-D spectral repulsion beats the 1-D line value)
-#   S4  max|Im| grows: max̄|Im|(σ=0.8) > max̄|Im|(σ=0.6) (g = (σ−1/2)·ln|γ|)
-# BUGFIX note: every row — INCLUDING the Hermitian σ=0.5 anchor — is fed to
-#   nn_gap_ratio as ComplexF64.(ev); the ::Vector{Float64} MethodError that
-#   killed the 07:51 pass-2 run (Task 16) must never regress here.
+#  S1 σ=0.5 anchor: n_complex = 0 and max|Im| < 1e-10 for EVERY realization
+#  (Hermitian is exact — the i·g·J dressing is only applied for σ > 0.5)
+#  S2 σ ∈ {0.6, 0.7, 0.8}: n_complex > 0 for EVERY (σ, realization) pair
+#  (55% fraction at 96²; even an order of magnitude less at 48² ≫ 0)
+#  S3 ⟨r⟩NN ensemble mean RISES: r̄(σ=0.8) > r̄(σ=0.5) — recalibrated
+#  against measured ensembles (the old drop direction was
+#  never observed: 2-D spectral repulsion beats the 1-D line value)
+#  S4 max|Im| grows: max̄|Im|(σ=0.8) > max̄|Im|(σ=0.6) (g = (σ−1/2)·ln|γ|)
+# NOTE: every row — INCLUDING the Hermitian σ=0.5 anchor — is fed to
+#  nn_gap_ratio as ComplexF64.(ev); the: Vector{Float64} MethodError that
+#  killed the 07:51 pass-2 run (Task 16) must never regress here.
 # Runtime honesty: n × (1 heevr + 3 zgeev) solves at N ≤ 2304; measured
-#   2026-08-31: heevr 48² ≈ 0.9 s, zgeev ≈ 4–8× heevr → ≈ 2–4 min at n = 5
-#   (the H0 matrix is built once per realization, σ-rows copy it).
+# : heevr 48² ≈ 0.9 s, zgeev ≈ 4–8× heevr → ≈ 2–4 min at n = 5
+#  (the H0 matrix is built once per realization, σ-rows copy it).
 function test39c_hatano_series(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 31 (pass 3, SERIES): Hatano–Nelson — realization ensemble")
@@ -27435,7 +27524,7 @@ function test39c_hatano_series(zeta_zeros::Vector{Float64}, cfg::Config)
  γ = 5.0
  σ_grid = (0.5, 0.6, 0.7, 0.8)
  n_real = max(cfg.ab_n_realizations, cfg.ab_hc_nreal)
- # RUNTIME calibration (2026-08-31, measured): heevr 48² ≈ 0.9 s,
+ # RUNTIME calibration: heevr 48² ≈ 0.9 s,
  # zgeev ≈ 4–8× heevr (5.5 s midpoint) — O(N³) → t(L) = t(48)·(L/48)⁶
  est = max(1, round(Int, n_real * (3 * 5.5 + 0.9) * (L / 48)^6 / 60))
  @printf(" Ensemble: n=%d realizations × σ ∈ {0.5, 0.6, 0.7, 0.8}, γ = %.1f\n",
@@ -27552,14 +27641,14 @@ end
 # ── Test 34b (menu id 34, HARDCORE pass 2): direct AB vs ζ deep pass ─────────
 # The base compares n_real=5 realizations against the full ζ range; the
 # hardcore pass is strictly harder:
-#   H1  MORE realizations: n ≥ cfg.ab_hc_nreal pooled into the AB side
-#   H2  FINER pair correlation: ds = 0.05 (was 0.1), s_max = 4.0 (was 3.0) —
-#       ⟨|ΔR₂|⟩ is evaluated at 2× bin resolution over a wider window
-#   H3  realization-level KS stability: two-sample D(AB_k, ζ) per realization,
-#       min/median/max reported — a single lucky pooled D cannot hide a
-#       bimodal ensemble
-#   Verdict: the base composite contract on the enriched sample
-#   ((p > 0.01 || D < 0.10) && ⟨|ΔR₂|⟩ < 0.10 && closer to GUE than Poisson)
+#  H1 MORE realizations: n ≥ cfg.ab_hc_nreal pooled into the AB side
+#  H2 FINER pair correlation: ds = 0.05, s_max = 4.0
+#  ⟨|ΔR₂|⟩ is evaluated at 2× bin resolution over a wider window
+#  H3 realization-level KS stability: two-sample D(AB_k, ζ) per realization,
+#  min/median/max reported — a single lucky pooled D cannot hide a
+#  bimodal ensemble
+#  Verdict: the base composite contract on the enriched sample
+#  ((p > 0.01 || D < 0.10) && ⟨|ΔR₂|⟩ < 0.10 && closer to GUE than Poisson)
 function test36b_ab_vs_zeta_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 34 (pass 2, HARDCORE): direct AB vs ζ — deep validation")
@@ -27568,9 +27657,9 @@ function test36b_ab_vs_zeta_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  n_zeta = length(zeta_zeros)
  Nx, Ny = cfg.ab_nx, cfg.ab_ny
  α = cfg.ab_alpha_test16
- Nv = resolve_vortex_count(cfg) # single source of truth (was ab_nv_list[end] — disagreed with Tests 28/32 on multi-entry lists)
+ Nv = resolve_vortex_count(cfg) # single source of truth
  q_mag = isempty(cfg.ab_q_list) ? 1.0 : cfg.ab_q_list[1]
- W = ab_w_eff(cfg) # W=1.0 standard (2026-08-31 fix №1: was raw ab_W=4.0)
+ W = ab_w_eff(cfg) # W=1.0 standard
  n_hc = max(cfg.ab_n_realizations, cfg.ab_hc_nreal)
  est_min = round(Int, n_hc * 2.5)
  @printf(" ⚠ RUNTIME: n=%d AB realizations at %dx%d + ζ unfolding (%d zeros) → ≈ %d–%d min\n",
@@ -27579,7 +27668,7 @@ function test36b_ab_vs_zeta_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  rep_note!(@sprintf("Test 34 HARDCORE pass 2: n=%d realizations, R₂ ds=0.05/s_max=4.0, per-realization KS stability.",
   n_hc))
  zeta_blk = zeta_zeros
- # ── Patch A (v3.2): ζ-side unfolding switched to the suite-canonical
+ # ── ζ-side unfolding switched to the suite-canonical
  # per-zero log-density estimator (`normalized_spacings`, the estimator of
  # Tests 4–12). The previous sliding-window local-mean unfolding (window =
  # 5% of 50k = 2500 zeros) LAGS the log-growing ζ density: near the low end
@@ -27616,7 +27705,7 @@ function test36b_ab_vs_zeta_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  function pair_corr_R2(unfolded_pos, s_max, ds)
   n_bins = max(1, Int(fld(s_max, ds)))
   hist = zeros(n_bins)
-  # ── Patch C (v3.2): two estimator defects removed. (1) The compound loop
+  # ── Two estimator defects removed. (1) The compound loop
   # `for i in …, j in …` is a SINGLE cartesian loop in Julia: the inner
   # `break` exited BOTH loops after the first over-s_max pair, so the
   # histogram held only i = 1's pairs — the analytic fingerprint of run
@@ -27626,7 +27715,7 @@ function test36b_ab_vs_zeta_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
   # Nested loops with an inner-only break — O(M·⟨pairs⟩) ≈ O(4M) because
   # the break fires after ≈ s_max mean-spacings — over the FULL position
   # sequence restore the estimator the verdict windows were calibrated for.
-  # Patch D's self-calibration now enforces estimator validity at every run.
+  # The estimator self-calibration now enforces validity at every run.
   M = length(unfolded_pos)
   pos = unfolded_pos
   for i in 1:(M - 1)
@@ -27679,7 +27768,7 @@ function test36b_ab_vs_zeta_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  end
  D_ks, p_ks = ks2sample(ab_all, zeta_unfolded)
  prog_update(0.72, "R₂ fine hist")
- # ── Patch D (v3.2): estimator self-calibration gates the R₂ sub-checks ──
+ # ── Estimator self-calibration gates the R₂ sub-checks ──
  calib_ok, calib_val = ab_r2_estimator_selftest()
  @printf(" R₂ estimator self-calibration (GUE 2000²): ⟨|ΔR₂|⟩_cal = %s (gate < 0.15) → %s\n",
   isnan(calib_val) ? "n/a" : @sprintf("%.4f", calib_val), calib_ok ? "OK" : "FAILED — R₂ sub-checks gated")
@@ -27714,7 +27803,7 @@ function test36b_ab_vs_zeta_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
   @sprintf("d_GUE=%.4f < d_Pois=%.4f", dist_gue, dist_poi)))
  push!(rec, ("KS ensemble stability", (per_real_D[end] - per_real_D[1]) < 0.10,
   @sprintf("D spread %.4f..%.4f (median %.4f)", per_real_D[1], per_real_D[end], d_med)))
- # ── real report plots (2026-08-31): the R₂(s) comparison the KS/⟨|ΔR₂|⟩
+ # ── real report plots: the R₂(s) comparison the KS/⟨|ΔR₂|⟩
  # verdicts are computed FROM + per-realization KS stability trace.
  if REP.current !== nothing
   p34 = RepPlot(@sprintf("Test 34b — R₂(s): AB pool vs ζ (⟨|ΔR₂|⟩=%.4f)", mean_diff),
@@ -27736,12 +27825,12 @@ end
 
 # ── Test 35b (menu id 35, HARDCORE pass 2): spectral form factor deep pass ───
 # The base averages K(t) over blocks of ONE pooled run; the hardcore pass:
-#   H1  ENSEMBLE K(t): per-realization K curves (n ≥ cfg.ab_hc_nreal) →
-#       ensemble mean ± std per t; verdict on the ENSEMBLE mean (a single
-#       realization cannot own the ramp)
-#   H2  DENSER t-grid: midpoints inserted (17 → 33 points over [0.02, 2.0])
-#   H3  realization scatter of RMS(K − K_box): reported with a 0.15 FAIL
-#       basis — the ramp must be an ensemble property, not per-realization luck
+#  H1 ENSEMBLE K(t): per-realization K curves (n ≥ cfg.ab_hc_nreal) →
+#  ensemble mean ± std per t; verdict on the ENSEMBLE mean (a single
+#  realization cannot own the ramp)
+#  H2 DENSER t-grid: midpoints inserted (points over [0.02, 2.0])
+#  H3 realization scatter of RMS(K − K_box): reported with a 0.15 FAIL
+#  basis — the ramp must be an ensemble property, not per-realization luck
 function test42b_form_factor_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 35 (pass 2, HARDCORE): spectral form factor K(t) — ensemble pass")
@@ -27749,9 +27838,9 @@ function test42b_form_factor_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println(repeat("─",60))
  Nx, Ny = cfg.ab_nx, cfg.ab_ny
  α = cfg.ab_alpha_test16
- Nv = resolve_vortex_count(cfg) # single source of truth (was ab_nv_list[end] — disagreed with Tests 28/32 on multi-entry lists)
+ Nv = resolve_vortex_count(cfg) # single source of truth
  q_mag = isempty(cfg.ab_q_list) ? 1.0 : cfg.ab_q_list[1]
- W = ab_w_eff(cfg) # W=1.0 standard (2026-08-31 fix №1: was raw ab_W=4.0)
+ W = ab_w_eff(cfg) # W=1.0 standard
  n_hc = max(cfg.ab_n_realizations, cfg.ab_hc_nreal)
  est_min = round(Int, n_hc * 2.5)
  @printf(" ⚠ RUNTIME: n=%d realizations at %dx%d → expect ≈ %d–%d min\n",
@@ -27813,7 +27902,7 @@ function test42b_form_factor_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
   @sprintf("Corr(K, K_box) = %.4f", corr_gue)))
  push!(rec, ("RMS scatter ≤ 0.15", rms_scatter ≤ 0.15,
   @sprintf("σ=%.4f across %d realizations", rms_scatter, n_hc)))
- # ── real report plot (2026-08-31): ensemble K(t) vs the GUE box prediction
+ # ── real report plot: ensemble K(t) vs the GUE box prediction
  # and the ζ reference — the curves the corr/RMS verdicts are computed FROM.
  if REP.current !== nothing
   p35 = RepPlot(@sprintf("Test 35b — ensemble K(t) (corr box %.4f, corr ζ %.4f)",
@@ -27826,14 +27915,14 @@ function test42b_form_factor_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  return hc_verdict_table(cfg, "Test 35b", rec)
 end
 
-# ── Patch D (v3.2): pair-correlation estimator self-calibration ─────────────
+# ── Pair-correlation estimator self-calibration ─────────────
  # Before any R₂ verdict is computed, the estimator is validated against a
  # synthetic process with a KNOWN pair correlation: the bulk spectrum of a
  # GUE matrix (rank n_calib), slidin-window unfolded to unit mean spacing.
  # For a correct estimator the measured ⟨|R₂_est − R₂_GUE|⟩ (ds = 0.05,
  # s ≤ 4) sits at the estimator's own Poisson noise floor ≈ 0.09–0.10 at
  # n = 2000 (bin σ ≈ √(g/(M·ds)); stable across seeds and unbiased on a
- # Poisson reference — Patch F audit); the two defect classes removed by
+ # Poisson reference — self-calibration audit); the two defect classes removed by
  # Patches B/C (cartesian break-exit; stride starvation) yield ≈ 0.5–0.9 —
  # an unambiguous separation, three to six times the noise-aware gate. A failed
  # calibration GATES the R₂ sub-checks: they are recorded as failed
@@ -27861,11 +27950,11 @@ end
  s_grid, R2_est = ab_pair_corr_R2_core(cumsum([0.0; sp]), s_max, ds)
  R2_gue = 1.0 .- (sin.(π .* s_grid) ./ (π .* s_grid)) .^ 2
  val = mean(abs.(R2_est .- R2_gue))
- return (val < 0.15, val) # Patch F: was 0.06 — below the ≈0.10 noise floor → deterministic false failure
+ return (val < 0.15, val) # gate sits above the ≈0.10 noise floor (below → deterministic false failure)
  end
  
  # Core pair-correlation histogram shared by pass 1, HARDCORE 34b and the
- # self-calibration (single implementation — Patch C semantics: nested
+ # self-calibration (single implementation — nested-loop semantics:
  # loops, inner-only break, full position resolution).
  function ab_pair_corr_R2_core(unfolded_pos::Vector{Float64}, s_max::Float64,
  ds::Float64)
@@ -27907,18 +27996,18 @@ function test36_direct_ab_vs_zeta5000(zeta_zeros::Vector{Float64}, cfg::Config)
  println(" Two-sample KS on unfolded spacings + Montgomery R₂(s) side-by-side")
  println(repeat("─",60))
 
- # Standard configuration (2026-08-31): cfg lattice (72×72), W = ab_w_eff ≤ 1.0.
+ # Standard configuration: cfg lattice (72×72), W = ab_w_eff ≤ 1.0.
  # (The old "HP configuration 2 (30×30 / Nv=25 / W=4)" anchor comment is retired:
  # the lattice is cfg-driven since the size audit, and raw W=4 vortex-pins the
- # spectrum toward Poisson — fix №1 of the 2026-08-31 audit.)
+ # spectrum toward Poisson — fix №1 of the audit.)
  Nx = cfg.ab_nx
  Ny = cfg.ab_ny
  α = cfg.ab_alpha_test16
  t_hop = cfg.ab_t
  lat = cfg.ab_lattice
- Nv = resolve_vortex_count(cfg) # single source of truth (was ab_nv_list[end] — disagreed with Tests 28/32 on multi-entry lists)
- q_mag = isempty(cfg.ab_q_list) ? 1.0 : cfg.ab_q_list[1] # 0.3 → 1.0
- W = ab_w_eff(cfg) # W=1.0 standard (was raw ab_W=4.0)
+ Nv = resolve_vortex_count(cfg) # single source of truth
+ q_mag = isempty(cfg.ab_q_list) ? 1.0 : cfg.ab_q_list[1] # 
+ W = ab_w_eff(cfg) # W=1.0 standard
  n_real = cfg.ab_n_realizations
  center_frac = cfg.ab_center_fraction
  unfold_win = cfg.ab_unfold_window
@@ -27936,7 +28025,7 @@ function test36_direct_ab_vs_zeta5000(zeta_zeros::Vector{Float64}, cfg::Config)
  # KS test uses ALL realizations' spacings (averaged);
  # R₂ uses ONE representative realization's cumulative positions to avoid
  # the spurious "30 sequences each starting at 0" artifact.
- rng = MersenneTwister(cfg.ab_seed + 119) # cfg-driven seed (was hardcoded 112+7 — ignored --ab-seed and collided with Test 16's family)
+ rng = MersenneTwister(cfg.ab_seed + 119) # cfg-driven seed
  ab_unfolded_all = Float64[]
  ab_unfolded_pos_representative = Float64[] # for R₂ (first realization)
  done_real = 0
@@ -28003,7 +28092,7 @@ function test36_direct_ab_vs_zeta5000(zeta_zeros::Vector{Float64}, cfg::Config)
  return false
  end
 
- # ── ζ zeros unfolding: Patch A (v3.2) — the suite-canonical per-zero
+ # ── ζ zeros unfolding: the suite-canonical per-zero
  # log-density estimator (`normalized_spacings`), exactly the estimator of
  # Tests 4–12. The previous sliding-window local-mean form (window = 5% of
  # the block = 2500 zeros) was adopted in the name of estimator symmetry
@@ -28078,7 +28167,7 @@ function test36_direct_ab_vs_zeta5000(zeta_zeros::Vector{Float64}, cfg::Config)
  end
  hist = zeros(n_bins)
  M = length(unfolded_pos)
- # ── Patch B (v3.2): the 2026-08-31 uniform-stride subsampling is removed.
+ # ── The uniform-stride subsampling is removed.
  # A stride of s over the CUMULATIVE position sequence multiplies the mean
  # spacing by s (retained positions are s mean-spacings apart), so with
  # s_max = 3.0 every retained pair satisfies d ≥ s_max after the first
@@ -28088,7 +28177,7 @@ function test36_direct_ab_vs_zeta5000(zeta_zeros::Vector{Float64}, cfg::Config)
  # d_GUE = 0.073 — is preserved in the composite-criterion note below).
  # The early `break` at d ≥ s_max already bounds the double loop at
  # O(M·⟨pairs⟩) ≈ O(4M): the stride bought nothing and destroyed the
- # estimator. Full resolution restored; Patch D's self-calibration now
+ # estimator. Full resolution restored; the estimator self-calibration now
  # enforces estimator validity at every run.
  pos = unfolded_pos
  for i in 1:(M - 1)
@@ -28115,7 +28204,7 @@ function test36_direct_ab_vs_zeta5000(zeta_zeros::Vector{Float64}, cfg::Config)
 
  s_max = 3.0
  ds = 0.1
- # ── Patch D (v3.2): estimator self-calibration gates the R₂ verdicts ──
+ # ── Estimator self-calibration gates the R₂ verdicts ──
  calib_ok, calib_val = ab_r2_estimator_selftest()
  @printf(" R₂ estimator self-calibration (GUE 2000²): ⟨|ΔR₂|⟩_cal = %s (gate < 0.15) → %s\n",
   isnan(calib_val) ? "n/a" : @sprintf("%.4f", calib_val), calib_ok ? "OK" : "FAILED — R₂ sub-checks gated")
@@ -28149,7 +28238,7 @@ function test36_direct_ab_vs_zeta5000(zeta_zeros::Vector{Float64}, cfg::Config)
  # criterion accepts — checks for GROSS mismatch (broken unfolding, wrong
  # universality class) while tolerating the documented finite-size offset.
  ks_pass = (p_ks > 0.01) || (D_ks < 0.10)
- r2_pass = (mean_diff < 0.10) && calib_ok # Patch D: calibration-gated
+ r2_pass = (mean_diff < 0.10) && calib_ok # calibration-gated
  dist_to_gue = mean(abs.(R2_ab .- R2_gue))
  dist_to_poisson = mean(abs.(R2_ab .- R2_poisson))
  gue_closer = dist_to_gue < dist_to_poisson
@@ -28183,16 +28272,16 @@ function test42_spectral_form_factor_Kt(zeta_zeros::Vector{Float64}, cfg::Config
  println(" Compare empirical K(t) against K_GUE_theory(t) = min(t, 1)")
  println(repeat("─", 60))
 
- # Standard configuration (2026-08-31): cfg lattice (72×72), W = ab_w_eff ≤ 1.0
- # (was "HP configuration 2" with raw W=4 — retired together with the 30×30 anchor)
+ # Standard configuration: cfg lattice (72×72), W = ab_w_eff ≤ 1.0
+ # 
  Nx = cfg.ab_nx
  Ny = cfg.ab_ny
  α = cfg.ab_alpha_test16
  t_hop = cfg.ab_t
  lat = cfg.ab_lattice
- Nv = resolve_vortex_count(cfg) # single source of truth (was ab_nv_list[end] — disagreed with Tests 28/32 on multi-entry lists)
- q_mag = isempty(cfg.ab_q_list) ? 1.0 : cfg.ab_q_list[1] # 0.3 → 1.0
- W = ab_w_eff(cfg) # W=1.0 standard (was raw ab_W=4.0)
+ Nv = resolve_vortex_count(cfg) # single source of truth
+ q_mag = isempty(cfg.ab_q_list) ? 1.0 : cfg.ab_q_list[1] # 
+ W = ab_w_eff(cfg) # W=1.0 standard
  n_real = cfg.ab_n_realizations
  center_frac = cfg.ab_center_fraction
 
@@ -28247,7 +28336,7 @@ function test42_spectral_form_factor_Kt(zeta_zeros::Vector{Float64}, cfg::Config
  smooth_window=smooth_window,
  eigs_per_seed=eigs_per_seed)
  # finite-block GUE reference ("spectrum in a box", connected):
- #     K_box(t) = t·(1 − sinc(2πt)),  sinc(x) = sin(x)/x.
+ #  K_box(t) = t·(1 − sinc(2πt)), sinc(x) = sin(x)/x.
  # The asymptotic min(t,1) reference omitted the box-oscillation term
  # (1 − sinc(2πt)), which is O(1) at t ≲ 0.3 AND t ≳ 1.3 for finite blocks —
  # the measured AB spectrum follows K_box to RMS ≈ 0.21 (vs 0.30 target)
@@ -28256,7 +28345,7 @@ function test42_spectral_form_factor_Kt(zeta_zeros::Vector{Float64}, cfg::Config
  K_gue = [t * (1.0 - sinc_norm(2π * t)) for t in t_values]
  K_poisson = zeros(length(t_values)) # Poisson K(t) is delta(0); off-zero = 0
 
- # ζ reference over the FULL loaded range (was the first 5000 zeros)
+ # ζ reference over the FULL loaded range
  prog_update(0.65, "K(t) ζ unfolding")
  n_zeta = length(zeta_zeros)
  zeta_blk = zeta_zeros[1:n_zeta]
@@ -28313,27 +28402,27 @@ end
  # Verify that the GUE classification is not a float-precision
 # artifact: (a) ⟨r⟩ must survive 256-level quantization (|Δr| < byte_tol),
 # (b) the RNG bytes must have Shannon entropy ≥ 7.9 bits AND |χ²_z| < 3.0.
-# 2026-08-29 USER SPEC (two fixes):
+#  USER SPEC (two fixes):
 # (1) SAMPLE SIZE. The run previously used whatever the central-60% window of
-#     cfg.ab_n_realizations realizations accumulated (measured: n=304 and
-#     n=1228 spacings — far too noisy). Now each pass ACCUMULATES realizations
-#     until the ⟨r⟩ sample reaches a pass-specific target:
-#     pass 1 (primary) → cfg.ab37_n_eigs_pass1 = 25 000 eigenvalues,
-#     pass 2 (secondary) → cfg.ab37_n_eigs_pass2 = 50 000 eigenvalues
-#     (AB_PASS[] marker set by run_test_two_pass; hard cap 64 realizations).
+#  cfg.ab_n_realizations realizations accumulated (measured: n=304 and
+#  n=1228 spacings — far too noisy). Now each pass ACCUMULATES realizations
+#  until the ⟨r⟩ sample reaches a pass-specific target:
+#  pass 1 (primary) → cfg.ab37_n_eigs_pass1 = 25 000 eigenvalues,
+#  pass 2 (secondary) → cfg.ab37_n_eigs_pass2 = 50 000 eigenvalues
+#  (AB_PASS[] marker set by run_test_two_pass; hard cap 64 realizations).
 # (2) DISORDER CAP. W = ab_w_eff(cfg) = min(cfg.ab_W, cfg.ab_W_max ≤ 1.0):
-#     at W=4 the vortex potential (q·W ≈ 1.2 > hopping t=1) disorder-drives
-#     the vortex motion and the ⟨r⟩ statistics become realization-dependent
-#     (raw ⟨r⟩ 0.4471/0.4504 = Poisson-side). With W ≤ 1 the AB phases
-#     dominate and the byte-robustness statement is about the PHASE physics.
+#  at W=4 the vortex potential (q·W ≈ 1.2 > hopping t=1) disorder-drives
+#  the vortex motion and the ⟨r⟩ statistics become realization-dependent
+#  (raw ⟨r⟩ 0.4471/0.4504 = Poisson-side). With W ≤ 1 the AB phases
+#  dominate and the byte-robustness statement is about the PHASE physics.
 # (3) VERDICT ESTIMATOR (honesty fix, direct consequence of (1)/(2)): the
-#     byte check previously compared raw vs quantized ⟨r⟩ on ONE 15-eig
-#     window — 14 spacings carry ±0.02–0.03 of window luck alone (measured:
-#     run 2 flipped to FAIL at |Δr| = 0.0243 > tol 0.0200 with the SAME
-#     methodology as the PASS run). Now the decisive check averages raw and
-#     quantized ⟨r⟩ over 120 evenly-spaced 15-eig windows (noise ÷ √120 ≈ 11),
-#     so the verdict measures the SYSTEMATIC quantization bias, not window
-#     luck. The single-window value stays printed as a legacy diagnostic.
+#  byte check previously compared raw vs quantized ⟨r⟩ on ONE 15-eig
+#  window — 14 spacings carry ±0.02–0.03 of window luck alone (measured:
+#  run 2 flipped to FAIL at |Δr| = 0.0243 > tol 0.0200 with the SAME
+#  methodology as the PASS run). Now the decisive check averages raw and
+#  quantized ⟨r⟩ over 120 evenly-spaced 15-eig windows (noise ÷ √120 ≈ 11),
+#  so the verdict measures the SYSTEMATIC quantization bias, not window
+#  luck. The single-window value stays printed as a legacy diagnostic.
 function test43_byte_robustness(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n" * repeat("═", 60))
  println("TEST 36: Byte-level robustness — quantization + RNG entropy")
@@ -28347,16 +28436,16 @@ function test43_byte_robustness(zeta_zeros::Vector{Float64}, cfg::Config)
  α = cfg.ab_alpha_test16
  t_hop = cfg.ab_t
  lat = cfg.ab_lattice
- Nv = resolve_vortex_count(cfg) # single source of truth (was ab_nv_list[end] — disagreed with Tests 28/32 on multi-entry lists)
- q_mag = isempty(cfg.ab_q_list) ? 1.0 : cfg.ab_q_list[1] # 0.3 → 1.0
- W = ab_w_eff(cfg) # user spec: effective disorder must NOT exceed W_max (1.0)
+ Nv = resolve_vortex_count(cfg) # single source of truth
+ q_mag = isempty(cfg.ab_q_list) ? 1.0 : cfg.ab_q_list[1] # 
+ W = ab_w_eff(cfg) #  effective disorder must NOT exceed W_max (1.0)
  n_real = cfg.ab_n_realizations
  center_frac = cfg.ab_center_fraction
  byte_tol = cfg.ab_byte_tol
  n_bytes = cfg.ab_n_bytes
  byte_seed = cfg.ab_byte_seed
- # Pass-aware sample target (user spec: pass 1 → 25 000, pass 2 → 50 000).
- # AB_PASS[] is :primary for single-test/menu runs and during two-pass pass 1,
+ # Pass-aware sample target.
+ # AB_PASS[] is:primary for single-test/menu runs and during two-pass pass 1,
  # :secondary during two-pass pass 2 (set/restored by run_test_two_pass).
  target_eigs = AB_PASS[] === :secondary ? cfg.ab37_n_eigs_pass2 :
   cfg.ab37_n_eigs_pass1
@@ -28371,7 +28460,7 @@ function test43_byte_robustness(zeta_zeros::Vector{Float64}, cfg::Config)
  rng = MersenneTwister(cfg.ab_seed + 88)
  ab_eigs_all = Float64[]
  # Accumulate realizations until the ⟨r⟩ sample reaches the pass target
- # (user spec: 25 000 / 50 000 eigenvalues). n_real is the MINIMUM; the loop
+ # . n_real is the MINIMUM; the loop
  # continues past it while the sample is below target. Hard cap 64
  # realizations: on tiny lattices the target may be unreachable — the run
  # then says so HONESTLY instead of silently pretending the sample is big.
@@ -28438,7 +28527,7 @@ function test43_byte_robustness(zeta_zeros::Vector{Float64}, cfg::Config)
  #
  # ESTIMATOR 1 (legacy, diagnostic only): ONE 15-eig window from the center
  # of realization 1. 14 spacings → window-to-window luck of ±0.02-0.03 in
- # |Δr| (measured 2026-08-29: |Δr| = 0.0015 PASS vs 0.0243 FAIL/WARN on two
+ # |Δr| (measured: |Δr| = 0.0015 PASS vs 0.0243 FAIL/WARN on two
  # runs of the same methodology) — NOT a stable verdict basis.
  n_byte_window = 15
  central_first = let e1 = ab_eigs_all
@@ -28524,7 +28613,7 @@ Run test `id` twice:
  Pass 1: lattice size = cfg.ab_nx × cfg.ab_ny (default 72×72) with Nv = cfg.ab_nv_list (default [4])
  Pass 2: lattice size = cfg.ab_nx_secondary × cfg.ab_ny_secondary (default 96×96) with Nv = cfg.ab_nv_list_secondary (default [2])
 
-Two-pass now ALSO swaps the vortex count list between passes (per user spec):
+Two-pass now ALSO swaps the vortex count list between passes (per
  - pass 1 (72×72) uses cfg.ab_nv_list (default [4])
  - pass 2 (96×96) uses cfg.ab_nv_list_secondary (default [2])
 
@@ -28536,51 +28625,51 @@ If a test panics or throws, the `finally` block restores cfg before propagating.
 
 Special cases:
  • Tests 1–14 (lattice-independent statistics): pass 2 becomes the HARDCORE
-   deep-validation variant (test1b…test14b) instead of a verbatim rerun —
-   these tests ignore the lattice, so the generic pass 2 carried zero
-   information. Pass 1 output is unchanged; overall verdict = pass1 AND pass2.
+ deep-validation variant (test1b…test14b) instead of a verbatim rerun —
+ these tests ignore the lattice, so the generic pass 2 carried zero
+ information. Pass 1 output is unchanged; overall verdict = pass1 AND pass2.
  • Tests 15–35 (lattice): pass 2 likewise becomes the HARDCORE b-variant
-   (test15b…test42b: dense grids, full-system scans, ensembles at
-   ab_hc_nreal realizations, 256-bit precision audits). Test 33 previously
-   SKIPPED pass 2 (its L grid is internal); it now runs test41b as pass 2.
+ (test15b…test42b: dense grids, full-system scans, ensembles at
+ ab_hc_nreal realizations, 256-bit precision audits). Test 33 previously
+ SKIPPED pass 2 (its L grid is internal); it now runs test41b as pass 2.
  • Test 36 (byte robustness): pass 2 keeps its own AB_PASS sample scaling
-   (25k → 50k eigenvalues) — already deep, no b-variant.
- • Test 19 (v23.2, user spec 2026-09-04): runs FOUR passes when the series
-   gate is on — pass 3 = 19c α-series, pass 4 = 19d AUDIT (twist
-   spectroscopy + eigenvector index + 1/L² collapse + cross-pass v_F);
-   overall verdict = pass1 AND pass2 AND pass3 AND pass4, progress bar
-   splits four ways.
+ (eigenvalues) — already deep, no b-variant.
+ • Test 19 (, runs FOUR passes when the series
+ gate is on — pass 3 = 19c α-series, pass 4 = 19d AUDIT (twist
+ spectroscopy + eigenvector index + 1/L² collapse + cross-pass v_F);
+ overall verdict = pass1 AND pass2 AND pass3 AND pass4, progress bar
+ splits four ways.
 """
 # ╔════════════════════════════════════════════════════════════════════════════╗
-# ║  TEST 34G (id 39) — TEST 34 GEOMETRY SWEEP · finite-size lab PORT (v23.7)  ║
+# ║ TEST 34G (id 39) — TEST 34 GEOMETRY SWEEP · finite-size lab PORT ║
 # ╚════════════════════════════════════════════════════════════════════════════╝
-# User spec 2026-09-19: «чтобы то, что есть в коде finite-size lab v1, было
+# User spec: «чтобы то, что есть в коде finite-size lab, было
 # отражено и во втором коде — дополнительный прогон на разных геометриях для
 # теста 34». This section ports the lab's GEOMETRY ENGINE + Test-34 metrics
 # into the suite verbatim (same builders, same statistics, same composite
 # verdict), so a Test-34 comparison can be run on every closed surface:
 #
-#   :torus   T² flat periodic lattice (genus 1) — the lab's original model
-#   :klein   Klein bottle  = T² / glide tau     (demigenus 2, non-orientable;
-#            vortices enter as vortex-antivortex pairs, net flux 0)
-#   :pillow  Pillow orbifold = T² / (x ~ -x)    (sphere w/ 4 cone points)
-#   :cubic   Cube sphere: cube surface subdivided LxL per face (octahedral)
-#   :psl27   Klein quartic    PSL(2,7)  |G|=168  = 84(g-1), g=3   HURWITZ
-#   :psl28   Macbeath surface PSL(2,8)  |G|=504  = 84(g-1), g=7   HURWITZ
-#   :psl213  Fricke-Klein     PSL(2,13) |G|=1092 = 84(g-1), g=14  HURWITZ
-#            Hurwitz surfaces = magnetic Cayley graphs Cay(G; B, C) with
-#            ord(B)=3, ord(C)=7 ((2,3,7) generators, deterministic search);
-#            every heptagonal C-face carries the flux 2π·q·α·Nv — the torus
-#            vortex-flux knob transplanted to the Hurwitz tiling.
+# :torus T² flat periodic lattice (genus 1) — the lab's original model
+# :klein Klein bottle = T² / glide tau (demigenus 2, non-orientable;
+#  vortices enter as vortex-antivortex pairs, net flux 0)
+# :pillow Pillow orbifold = T² / (x ~ -x) (sphere w/ 4 cone points)
+# :cubic Cube sphere: cube surface subdivided LxL per face (octahedral)
+# :psl27 Klein quartic PSL(2,7) |G|=168 = 84(g-1), g=3 HURWITZ
+# :psl28 Macbeath surface PSL(2,8) |G|=504 = 84(g-1), g=7 HURWITZ
+# :psl213 Fricke-Klein PSL(2,13) |G|=1092 = 84(g-1), g=14 HURWITZ
+#  Hurwitz surfaces = magnetic Cayley graphs Cay(G; B, C) with
+#  ord(B)=3, ord(C)=7 ((2,3,7) generators, deterministic search);
+#  every heptagonal C-face carries the flux 2π·q·α·Nv — the torus
+#  vortex-flux knob transplanted to the Hurwitz tiling.
 #
-# BIG-MATRIX PARITY (the same fix as the lab v1.1): every scalable geometry
-# auto-scales to the SAME site budget ≈ L² (t34g_L, default 96 → 9216 sites):
-#   torus 96² = 9216 · Klein/pillow L=136 → 9248 · cube L=40 → 9128
+# BIG-MATRIX PARITY (the same fix as the lab): every scalable geometry
+# auto-scales to the SAME site budget ≈ L² (t34g_L, default sites):
+#  torus 96² = 9216 · Klein/pillow L= · cube L=
 # Hurwitz |G| is FIXED by mathematics (84(g-1)) — computed fully, reported
 # honestly as irreducible.
 #
 # All names carry the `t34g_` prefix — zero collisions with the rest of the
-# suite (the v23 AB-cloud builder itself is untouched).
+# suite (the AB-cloud builder itself is untouched).
 # ═════════════════════════════════════════════════════════════════════════════
 
 struct T34G_Geom
@@ -28592,7 +28681,7 @@ struct T34G_Geom
     hurwitz   :: Bool
     aut_order :: Int          # |Aut| for Hurwitz surfaces (site count), 0 otherwise
     q_field   :: Int          # GF(q) for the Cayley models
-    model     :: Symbol       # :flat | :fold | :sphere | :cayley
+    model     :: Symbol       # :flat |:fold |:sphere |:cayley
 end
 
 const T34G_GEOMS = [
@@ -29061,7 +29150,7 @@ end
 
 t34g_r2_plateau(centers, R2) = mean(R2[1.0 .<= centers .<= 2.0])
 
-"Lab composite Test-34 verdict (v23-compatible)."
+"Lab composite Test-34 verdict (suite-compatible)."
 t34g_verdict(D, p, dGUE, dPois, plateau) =
     ((p > 0.01) || (D < 0.10)) && (dGUE < dPois) && (0.75 <= plateau <= 1.25)
 
@@ -29090,7 +29179,7 @@ function test39_t34g_geometry_sweep(zeta_zeros::Vector{Float64}, cfg::Config)
  budget, budget * budget, reps, alpha, Nv, q_mag, W)
  @printf(" ζ reference: %d zeros (suite-canonical normalized_spacings unfolding)\n", n_zeta)
  isempty(zeta_zeros) && (println(" ERROR: no zeros loaded"); return false)
- # ζ side: the suite-canonical per-zero log-density estimator (Patch A) +
+ # ζ side: the suite-canonical per-zero log-density estimator (suite-canonical) +
  # unit-mean guard — exactly the Test 34 reference distribution.
  zeta_sp = normalized_spacings(zeta_zeros)
  filter!(s -> 0 < s < 10, zeta_sp)
@@ -29219,7 +29308,7 @@ function _run_test_two_pass_impl(id::Int, zeta_zeros::Vector{Float64}, cfg::Conf
  log_comp_section("Test $id — pass 1 (primary: standard implementation)")
  _prog_narrow!(0.0, 0.45) # inner progress sites fill the first half of the bar
  t1 = time_ns()
- # try/catch (fix 2026-08-31): pass 1 of the ζ tests was the ONLY unwrapped
+ # try/catch (fix): pass 1 of the ζ tests was the ONLY unwrapped
  # run_test call — an exception aborted the whole two-pass block (pass 2
  # never ran) while every other branch degraded to pass2 = false.
  pass1 = try
@@ -29269,8 +29358,8 @@ function _run_test_two_pass_impl(id::Int, zeta_zeros::Vector{Float64}, cfg::Conf
  # single-line progress bar splits THREE ways — pass 1 → [0, 0.28],
  # pass 2 → [0.34, 0.64], pass 3 → [0.70, 0.97]. Other tests keep the
  # historical two-way split [0, 0.45] / [0.52, 0.97].
- # v23.2: Test 19 additionally runs a FOURTH pass (AUDIT, test19d — user
- # spec 2026-09-04), so ITS bar splits FOUR ways: pass 1 → [0, 0.20],
+ # : Test 19 additionally runs a FOURTH pass (AUDIT, test19d — user
+ # spec), so ITS bar splits FOUR ways: pass 1 → [0, 0.20],
  # pass 2 → [0.26, 0.50], pass 3 → [0.55, 0.75], pass 4 → [0.80, 0.97].
  third_here = cfg.ab_run_third_pass && (id == 19 || id == 29 || id == 31)
  fourth_here = third_here && (id == 19) # Test 19 only: the 19d twist AUDIT pass
@@ -29300,16 +29389,16 @@ function _run_test_two_pass_impl(id::Int, zeta_zeros::Vector{Float64}, cfg::Conf
  return pass1
  end
 
- # Test 38 (v23 SUPERCOMBO): the v22.2 three-pass implementation already runs
+ # Test 38: the three-pass implementation already runs
  # its own hardcore audit internally (38a main + 38b hardcore L₂ + 38c C1/C2
  # ladder) and is cache-resumable. Rerunning it on the secondary lattice would
  # duplicate the SAME audit — pass 2 is folded into 38b by construction.
  if id == 38
-     log_comp(" pass 2 SKIPPED — Test 38 v23 is internally three-pass (38a + 38b hardcore + 38c reviewer ladder); the hardcore audit is built in")
+     log_comp(" pass 2 SKIPPED — Test 38 is internally three-pass (38a + 38b hardcore + 38c ladder); the hardcore audit is built in")
      prog_update_abs(1.0, "t38 self-contained")
      return pass1
  end
- # Test 39 (v23.7 TEST 34G): the geometry sweep is SELF-CONTAINED — one pass
+ # Test 39 (TEST 34G): the geometry sweep is SELF-CONTAINED — one pass
  # already runs Test 34 on EVERY geometry (7 surfaces × reps each). A generic
  # secondary-lattice rerun would duplicate the identical sweep verbatim (the
  # test reads its own t34g_* knobs, not ab_nx/ab_ny).
@@ -29339,12 +29428,12 @@ function _run_test_two_pass_impl(id::Int, zeta_zeros::Vector{Float64}, cfg::Conf
  # HARDCORE pass 2 for the lattice b-variants (Tests 15–35): routes run_test
  # to the testNNb deep-validation variant (same mechanism as the 1b–14b ζ
  # variants); ALWAYS restored in the `finally` below. Test 36 is excluded —
- # its pass 2 already scales through the AB_PASS sample targets (25k → 50k).
- # (fix 2026-08-31: the flag really excludes 36 now — the old `(15 ≤ id ≤ 36)`
+ # its pass 2 already scales through the AB_PASS sample targets.
+ # (fix: the flag really excludes 36 now — the old `(15 ≤ id ≤ 36)`
  # contradicted this comment and armed a nonexistent id-36 b-variant.)
- # Test 37 (v19.1): included — its pass 2 is the 256-bit BigFloat re-audit
+ # Test 37: included — its pass 2 is the 256-bit BigFloat re-audit
  # (test44b), no lattice dependence, so the secondary lattice swap is inert.
- STATS_SECONDARY_HARDCORE[] = (15 ≤ id ≤ 35) || (id == 37) # v23: 38 self-contained
+ STATS_SECONDARY_HARDCORE[] = (15 ≤ id ≤ 35) || (id == 37) # : 38 self-contained
  (15 ≤ id ≤ 35) && log_comp(
  " pass 2 = HARDCORE variant (denser grids / more realizations / deep checks — see the b-variant block)")
  (id == 37) && log_comp(
@@ -29371,7 +29460,7 @@ function _run_test_two_pass_impl(id::Int, zeta_zeros::Vector{Float64}, cfg::Conf
  pass3 = true
  elapsed3 = 0.0
  if third_here
- STATS_SECONDARY_HARDCORE[] = false # fix 2026-08-31: hc flag stayed armed through pass 3 (the ts/hc "mutual exclusivity" was only dispatch-order luck)
+ STATS_SECONDARY_HARDCORE[] = false # fix: hc flag stayed armed through pass 3 (the ts/hc "mutual exclusivity" was only dispatch-order luck)
  log_comp_section("Test $id — pass 3 (tertiary: SERIES — real report series, $(cfg.ab_nx)×$(cfg.ab_ny) regime)")
  prog_update_abs(p3_lo, "pass3 series")
  _prog_narrow!(p3_lo, p3_wd) # inner progress sites fill the last third
@@ -29388,7 +29477,7 @@ function _run_test_two_pass_impl(id::Int, zeta_zeros::Vector{Float64}, cfg::Conf
  pass3 ? "PASS" : "FAIL/WARN", elapsed3))
  STATS_TERTIARY_SERIES[] = false
  end
- # ── pass 4 (AUDIT, Test 19 only — test19d, v23.2 user spec 2026-09-04):
+ # ── pass 4:
  # the fourth run is the honest-audit pass the first three never had:
  # direct momentum-space cone measurement by boundary-twist scanning
  # (E_min(θ) = v_F·θ/L), zero-mode EIGENVECTOR index audit, 2π-twist
@@ -29441,7 +29530,7 @@ function _run_test_two_pass_impl(id::Int, zeta_zeros::Vector{Float64}, cfg::Conf
  AB_PASS[] = :primary # never leak the secondary marker into the next test
  STATS_SECONDARY_HARDCORE[] = false # never leak the hardcore flag either
  STATS_TERTIARY_SERIES[] = false # never leak the series flag either
- STATS_QUATERNARY_AUDIT[] = false # never leak the audit flag either (v23.2 pass 4)
+ STATS_QUATERNARY_AUDIT[] = false # never leak the audit flag either (pass 4)
  _prog_narrow!(0.0, 1.0)
  end
 end
@@ -29450,7 +29539,7 @@ end
  # Vortex-count resolver — single source of truth for "how many
 # vortices does this test use?".
 
- # RULE ():
+ # RULE:
 # • If cfg.gue_matrix_size == 0 (no matrices) → use 4 vortices in ANY test
 # (the "no-matrix → 4 vortices" fallback, hardcoded standard).
 # • Otherwise use the first entry of cfg.ab_nv_list (primary pass) or
@@ -29470,7 +29559,7 @@ Spec:
  • If the relevant list is empty, also fall back to 4.
 """
 function resolve_vortex_count(cfg::Config; pass::Symbol=:primary)::Int
- # [user spec] no matrices → 4 vortices in any test
+ # [] no matrices → 4 vortices in any test
  if cfg.gue_matrix_size == 0
  return 4
  end
@@ -29491,12 +29580,12 @@ function resolve_q_magnitude(cfg::Config)::Float64
 end
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# Test 38 (v23 SUPERCOMBO) — CURIE POINT of the vortex-flux lattice magnet
-# The corrected v22.2 THREE-PASS implementation replaces the v21 pair
+# Test 38 — CURIE POINT of the vortex-flux lattice magnet
+# The corrected THREE-PASS implementation replaces the pair
 # (test38_curie_point + test38b_curie_hardcore — both REMOVED; an audit
 # confirmed their helpers had no callers outside the pair).
 # ═══════════════════════════════════════════════════════════════════════════════
-# PHYSICS (v22 rewrite of the v21 lattice magnet): spinless tight-binding H on
+# PHYSICS (rewrite of the lattice magnet): spinless tight-binding H on
 # an L×L torus, H_ij = −[cos φ_b + i·w(T)·sin φ_b], H_ii = W_i ~ N(0, W²);
 # φ_b = wrapped sum of vortex phases q_ν·π·exp(−d²/2ξ²) over Nv = f·L²/36
 # seeded vortices (jittered lattice, alternating vorticity, net flux 0).
@@ -29512,25 +29601,25 @@ end
 # anti-tuning protocol; C1 demonstrates the order is not knife-edge).
 #
 # THREE PASSES (budget-aware, cache-resumable across runs):
-#   38a — main measurement, L = cfg.t38_l1 (default 72² = 5184 nodes),
-#         checks V1..V5 (sampler calibration, magnet exists, melt completes,
-#         crossover scale in range, decay depth);
-#   38b — hardcore pass, L = cfg.t38_l2 (default 96² = 9216 nodes),
-#         checks A1..A7 (finite-size drift, reproducibility, monotone melt,
-#         unique crossing, coarse-vs-refine, negative controls);
-#   38c — reviewer-response ladder: C1 density scan (obj. 1), C2 Binder/FSS
-#         staircase 24→96, 6 rungs (obj. 3), C3 shared-curve disclosure
-#         (obj. 2+4), C4 refine-grid bound (obj. 5), C5 terminology (obj. 6).
+#  38a — main measurement, L = cfg.t38_l1 (default 72² = 5184 nodes),
+#  checks V1..V5 (sampler calibration, magnet exists, melt completes,
+#  crossover scale in range, decay depth);
+#  38b — hardcore pass, L = cfg.t38_l2 (default 96² = 9216 nodes),
+#  checks A1..A7 (finite-size drift, reproducibility, monotone melt,
+#  unique crossing, coarse-vs-refine, negative controls);
+#  38c — -response ladder: C1 density scan (obj. 1), C2 Binder/FSS
+#  staircase 6 rungs (obj. 3), C3 shared-curve disclosure
+#  (obj. 2+4), C4 refine-grid bound (obj. 5), C5 terminology (obj. 6).
 # The two-pass runner treats 38 as SELF-CONTAINED: the hardcore audit already
 # lives in pass 38b, so no secondary-lattice rerun is scheduled for it.
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# v23 port note: v21 uses SELECTIVE stdlib imports, so three names the v22
+#  port note: uses SELECTIVE stdlib imports, so three names the
 # three-pass Test 38 relies on must be imported explicitly here.
 import LinearAlgebra: qr, diagind
 import Random: AbstractRNG
 
-# ── console progress bar (ported verbatim from v22.2; clash-free in v21) ────
+# ── console progress bar (ported verbatim from; clash-free in) ────
 const _PBAR_T0 = Ref(0.0)
 const _PBAR_MS = Ref(0)          # last printed milestone (0..10), non-TTY mode
 const _PBAR_OPEN = Ref(false)    # an in-place bar line is on screen (TTY mode)
@@ -29545,14 +29634,14 @@ function fmt_hms(s::Real)
 end
 
 """
-    pbar(k, n; label = "progress", width = 22)
+ pbar(k, n; label = "progress", width = 22)
 
 Live progress bar for loops; call with the 1-based iteration index `k` of `n`.
 TTY: in-place carriage-return update, newline at k == n. Non-TTY (the suite's
 stdout is redirected during tests): milestone lines every 10% plus a final
 100% line — logs stay grep-friendly.
 
-FIX v23.1 («прогресс-бар теста 38 растягивается»): the bar is now guaranteed
+FIX («прогресс-бар теста 38 растягивается»): the bar is now guaranteed
 to stay ONE terminal line. The elapsed/ETA tail grows over time and the old
 frame never erased to end-of-line, so the line wrapped onto a second row on
 ~80-column consoles and smeared residue when a later frame was shorter than
@@ -29569,7 +29658,7 @@ function pbar(k::Int, n::Int; label::String = "progress", width::Int = 22)
     frac = k / n
     el = time() - _PBAR_T0[]
     if isa(stdout, Base.TTY)
-        # UI3 v3: truecolor-бар со спиннером, градиентом, up/ETA и счётчиком (k/n)
+        # ABUI: truecolor-бар со спиннером, градиентом, up/ETA и счётчиком (k/n)
         line = ab_render_loopbar(; label = label, k = k, n = n, frac = frac,
             elapsed = el, width = max(40, displaysize(stdout)[2] - 1))
         print(stdout, "\r", line, "\e[K")
@@ -29598,9 +29687,9 @@ function pbar_done()
     end
 end
 
-# ── Wigner surmises + KS machinery (v22 Test-38 dependencies; the names are
-#    clash-free in v21 — verified by audit; _make_cdf renamed ab23_make_cdf
-#    and the quantile sampler renamed t38_qsample! to be collision-proof) ────
+# ── Wigner surmises + KS machinery (Test-38 dependencies; the names are
+#  clash-free in — verified by audit; _make_cdf renamed ab23_make_cdf
+#  and the quantile sampler renamed t38_qsample! to be collision-proof) ────
 wigner_goe_pdf(s) = 0.5 * π * s * exp(-0.25 * π * s^2)
 wigner_gue_pdf(s) = 32.0 / π^2 * s^2 * exp(-4.0 / π * s^2)
 
@@ -29652,7 +29741,7 @@ function ks_test1(data::AbstractVector, cdf::Function)
     return d, _ks_Q(λ)
 end
 
-"Adjacent-gap ratios rᵢ = min(sᵢ,sᵢ₊₁)/max(sᵢ,sᵢ₊₁) (v22 helper, clash-free)."
+"Adjacent-gap ratios rᵢ = min(sᵢ,sᵢ₊₁)/max(sᵢ,sᵢ₊₁) ."
 function gap_ratios(evs::AbstractVector{Float64})
     s = diff(evs)
     n = length(s) - 1
@@ -29664,24 +29753,24 @@ function gap_ratios(evs::AbstractVector{Float64})
     return out
 end
 
-# ── v22 → v23 reporting bridges ----------------------------------------------
-"Verdict banner tag (v22 vcolor): :pass → PASS, :warn → WARN, :fail → FAIL."
+# ── → reporting bridges ----------------------------------------------
+"Verdict banner tag : :pass → PASS, :warn → WARN, :fail → FAIL."
 function vcolor(v::Symbol)
     v == :pass ? "PASS" : v == :warn ? "WARN" : "FAIL"
 end
 
-"Verdict subtitle line (v22 vsub)."
+"Verdict subtitle line ."
 function ab23_vsub(v::Symbol, extra::String = "")
     tag = v == :pass ? "VERDICT: PASS" : v == :warn ? "VERDICT: WARN" : "VERDICT: FAIL"
     return extra == "" ? tag : tag * "  ·  " * extra
 end
 
-"Suite-standard figure on the dark-navy journal theme (v22 suite_fig bridge)."
+"Suite-standard figure on the dark-navy journal theme ."
 function ab23_suite_fig(; title = "", subtitle = "", footer = "")
     foot = footer == "" ?
-        @sprintf("AB-Cloud v23.0 SUPERCOMBO · ABPlotV23 engine (from ab_cloud_v22.2) · %s",
-                 _utc_stamp_v23()) : footer
-    return ABPlotV23.make_fig(1600, 1000; theme = "dark", ss = 2,
+        @sprintf("AB-Cloud · ABPlot engine · AURORA theme · %s",
+                 _utc_stamp()) : footer
+    return ABPlot.make_fig(1600, 1000; theme = "aurora", ss = 2,
                               title = String(title), subtitle = String(subtitle),
                               footer = foot)
 end
@@ -29694,8 +29783,8 @@ function rep_ext_png!(path::String, label::String)
     return nothing
 end
 
-"Save an ABPlotV23 figure into the current test's report (plots/ dir) and register it."
-function ab23_save_report_fig!(f::ABPlotV23.Fig, name::String, title::String)
+"Save an ABPlot figure into the current test's report (plots/ dir) and register it."
+function ab23_save_report_fig!(f::ABPlot.Fig, name::String, title::String)
     png_path = ""
     if REP.enabled && REP.current !== nothing && haskey(TEST_META, REP.current.id)
         dir = joinpath(REP.run_dir,
@@ -29707,21 +29796,21 @@ function ab23_save_report_fig!(f::ABPlotV23.Fig, name::String, title::String)
         mkpath(d)
         png_path = joinpath(d, name * ".png")
     end
-    ABPlotV23.save_fig(f, png_path)
+    ABPlot.save_fig(f, png_path)
     rep_ext_png!(png_path, title)
     println(@sprintf("        figure → %s (%.1f KB)", png_path, filesize(png_path) / 1024))
     return png_path
 end
 
-"Verdict bookkeeping for the engine-run Test 38 (v22 register_result bridge)."
+"Verdict bookkeeping for the engine-run Test 38 ."
 function ab23_register_result(id, name, verdict::Symbol, t, metrics)
     tag = verdict === :pass ? "PASS" : verdict === :warn ? "WARN" : "FAIL"
-    log_result(@sprintf(" Test 38 (v23 three-pass) %s: %s — %.1f min, %d spectra in cache",
+    log_result(@sprintf(" Test 38 (three-pass) %s: %s — %.1f min, %d spectra in cache",
                         String(id), tag * " · " * String(name), t / 60, length(T38_CACHE)))
     return verdict
 end
 
-const T38_MODEL_TAG = "v22C1"     # bump → all cached spectra invalid
+const T38_MODEL_TAG = "C1"     # bump → all cached spectra invalid
 const T38_W_DIS = 0.6             # on-site disorder width (frozen)
 const T38_ALPHA = 3.0             # vortex screening length ξ = α·a (frozen)
 const T38_SIGMA1 = 2.3            # Debye–Waller slope σ_A²(T) = σ1·T (frozen)
@@ -29729,7 +29818,7 @@ const T38_T_HI = 2.6              # hot endpoint of every Λ(T) curve
 const T38_TC_MAX = 3.0            # hard upper bound of the T_c search domain
 const T38_NV_SCALE = 1.0          # default vortex density factor f
 const T38_DEPH = 0.5              # A7 static dephasing amplitude (rad)
-# C2 finite-size staircase (moved into RunCfg in v22.1): default rungs jump
+# C2 finite-size staircase (moved into RunCfg in): default rungs jump
 # 24 →(+12)→ 36 →(+12)→ 48 →(+16)→ 64 →(+16)→ 80 →(+16)→ 96. Every rung is
 # cached per (T, L, k) and resumes across --t38-cap chunks; rungs that fail
 # the RAM guard are dropped automatically.
@@ -29757,7 +29846,7 @@ end
 
 const LAMBDA_GUE = t38_lambda_mean(_logpdf_gue, _logpdf_goe, _logpdf_gue)
 const LAMBDA_GOE = t38_lambda_mean(_logpdf_gue, _logpdf_goe, _logpdf_goe)
-const T38_LIT_GUE = 0.047432    # reviewer's independent quadrature (verbatim)
+const T38_LIT_GUE = 0.047432    # 's independent quadrature (verbatim)
 const T38_LIT_GOE = -0.064271
 if abs(LAMBDA_GUE - T38_LIT_GUE) > 5e-4 || abs(LAMBDA_GOE - T38_LIT_GOE) > 5e-4
     error("Test 38 analytic anchors drifted: Λ_GUE=$LAMBDA_GUE Λ_GOE=$LAMBDA_GOE")
@@ -29777,10 +29866,10 @@ end
 
 # --- quantile (inverse-CDF) sampler for the surmises — V1 ---------------------
 """
-    rmt_build_quant_table(pdf_log; smax, n) -> (xs, cs, umax)
+ rmt_build_quant_table(pdf_log; smax, n) -> (xs, cs, umax)
 
-CDF table of a Wigner surmise on [0, smax]. NOTE (historical, v21 line ~867):
-the original sampler drew `u = rand()*umax; x = u*M` — mapping u∈[0,umax]
+CDF table of a Wigner surmise on [0, smax]. NOTE (historical, line ~867):
+the original sampler drew `u = rand*umax; x = u*M` — mapping u∈[0,umax]
 linearly onto the full table double-counts the upper edge (`umax` doubling)
 and biases the tail. The fix is to draw u∈[0,1) uniform and invert the CDF
 directly, which is exactly what `t38_qsample!` does.
@@ -29805,7 +29894,7 @@ end
 
 # --- Chebyshev unfolding (stable rank-density fit; no Vandermonde) ------------
 """
-    unfold_cheb!(evs; deg, trim) -> kept level count
+ unfold_cheb!(evs; deg, trim) -> kept level count
 
 Fits the integrated density N̂(E) of the kept window with a Chebyshev series
 (degree `deg`, least squares via qr) and rescales to unit mean spacing. The
@@ -29875,8 +29964,8 @@ end
 
 # --- the lattice magnet -------------------------------------------------------
 """
-    t38_build_lattice(rng, L; T, f, alpha, W, deph, flux_on, screen_scale)
-        -> Hermitian{ComplexF64} (dense, N = L²)
+ t38_build_lattice(rng, L; T, f, alpha, W, deph, flux_on, screen_scale)
+ -> Hermitian{ComplexF64} (dense, N = L²)
 
 The vortex layout is drawn from `rng` ONCE per realization index k and is
 bitwise identical at every T and for every control variant (paired design):
@@ -29963,7 +30052,7 @@ function t38_cache_load!(cfg::Config)
         parts = split(line, '|')
         length(parts) < 5 && continue
         try
-            # record = lam|rbar|nlev|secs|key   (key LAST: it contains '|')
+            # record = lam|rbar|nlev|secs|key (key LAST: it contains '|')
             key = join(parts[5:end], '|')
             T38_CACHE[key] =
                 (lam = parse(Float64, parts[1]), rbar = parse(Float64, parts[2]),
@@ -29985,12 +30074,12 @@ function t38_cache_put!(cfg::Config, key::String, rec::NamedTuple)
 end
 
 """
-    t38_solve(L, T, k; f, control) -> (lam, rbar, nlev, secs, cached)
+ t38_solve(L, T, k; f, control) -> (lam, rbar, nlev, secs, cached)
 
 One (lattice, temperature, realization) spectrum. Cache key contains every
 parameter that can change the matrix: model tag, L, T, seed index k, density
 factor f, control variant. The realization RNG is
-`MersenneTwister(cfg.t38_seed + 60000 + 7919*k)` — dependent on k ONLY (v21
+`MersenneTwister(cfg.t38_seed + 60000 + 7919*k)` — dependent on k ONLY (
 paired-design convention): the vortex layout is bitwise identical across T,
 between coarse and refine grids, and across passes.
 """
@@ -30013,7 +30102,7 @@ end
 # --- statistics helpers -------------------------------------------------------
 "Half-decay crossover scale T*(L): linear-interpolated crossing of Λ(T)
 through the endpoint midpoint. NaN when the curve never crosses (honest
-failure, v21 `_curie_locate_tc` convention). Returns (T*, n_crossings)."
+failure, the `_curie_locate_tc` convention). Returns (T*, n_crossings)."
 function t38_locate_Ts(Ts::AbstractVector{Float64}, Ls::AbstractVector{Float64})
     (isempty(Ts) || isempty(Ls)) && return (NaN, 0)
     ord = sortperm(Ts)
@@ -30051,7 +30140,7 @@ end
 
 # --- V1: sampler calibration (the only p-value-grade check of Test 38) --------
 """
-Returns (verdict, info::Vector{String}). Gates: quantile-sampler MC of each
+Returns (verdict, info: Vector{String}). Gates: quantile-sampler MC of each
 surmise must reproduce (i) the analytic KL lean (|ΔΛ| ≤ 0.006), (ii) the
 surmise CDF under KS (p ≥ 10⁻³), (iii) the 2-D-quadrature ⟨r⟩ of the same
 surmise process (|Δ| ≤ 0.003) — three INDEPENDENT evaluations of one sampler.
@@ -30105,7 +30194,7 @@ function _pool(vals::Vector{Float64})
     return (mean(ok), std(ok) / sqrt(max(length(ok), 1)), length(ok))
 end
 
-function test38_curie_v23(zeta_zeros::Vector{Float64}, cfg::Config)
+function test38_curie(zeta_zeros::Vector{Float64}, cfg::Config)
     t0 = time()
     cfg.t38_fresh && isfile(t38_cache_path(cfg)) && (rm(t38_cache_path(cfg)); empty!(T38_CACHE))
     ncached = t38_cache_load!(cfg)
@@ -30328,7 +30417,7 @@ function test38_curie_v23(zeta_zeros::Vector{Float64}, cfg::Config)
                      nf_mean, dp_mean))
 
     # ======================================================================
-    # PASS 38c — reviewer-response checks C1..C5
+    # PASS 38c — -response checks C1..C5
     # ======================================================================
     # C1: vortex-density scan at T=0 (objection #1: density is not knife-edge)
     f_pts = sort(unique(vcat(fscan, T38_NV_SCALE)))
@@ -30365,8 +30454,8 @@ function test38_curie_v23(zeta_zeros::Vector{Float64}, cfg::Config)
                      isempty(robust_fs) ? "—" : @sprintf("%.2f, %.2f", minimum(robust_fs), maximum(robust_fs)),
                      f_width))
 
-    # C2: finite-size scaling staircase 24→96 (objection #3: v21's A1 had
-    # only two sizes and no extrapolation; since v22.1 the default ladder is
+    # C2: finite-size scaling staircase (objection #3: 's A1 had
+    # only two sizes and no extrapolation; since the default ladder is
     # six rungs in five jumps — 12, 12, 16, 16, 16 — each cached/resumable).
     # Primary observable: the order
     # parameter AT the thermodynamic crossover scale, m*(L) = ⟨m⟩(T*(72), L).
@@ -30490,26 +30579,26 @@ function test38_curie_v23(zeta_zeros::Vector{Float64}, cfg::Config)
                                     "all passes complete")))
 
     # ---- panel 1: Λ(T) both passes ----
-    p1 = ABPlotV23.add_panel!(f, 1, 1, 2, 3; title = "Λ(T): flux-magnet order parameter",
+    p1 = ABPlot.add_panel!(f, 1, 1, 2, 3; title = "Λ(T): flux-magnet order parameter",
         xlabel = "T", ylabel = "Λ(T)", legend = true, legend_loc = :bottomleft)
-    ABPlotV23.hline!(f, LAMBDA_GUE; color = 3, dash = "4,4", label = "Λ_GUE")
-    ABPlotV23.hline!(f, LAMBDA_GOE; color = 4, dash = "4,4", label = "Λ_GOE")
-    ABPlotV23.hline!(f, 0.0; color = 7, dash = "2,4", width = 1.2, label = "Λ = 0")
+    ABPlot.hline!(f, LAMBDA_GUE; color = 3, dash = "4,4", label = "Λ_GUE")
+    ABPlot.hline!(f, LAMBDA_GOE; color = 4, dash = "4,4", label = "Λ_GOE")
+    ABPlot.hline!(f, 0.0; color = 7, dash = "2,4", width = 1.2, label = "Λ = 0")
     if !isempty(allT_a)
-        ABPlotV23.band!(f, allT_a, pool_a .- 2 .* se_a, pool_a .+ 2 .* se_a; color = 1, alpha = 0.16,
+        ABPlot.band!(f, allT_a, pool_a .- 2 .* se_a, pool_a .+ 2 .* se_a; color = 1, alpha = 0.16,
               label = "38a ±2SE")
-        ABPlotV23.plot!(f, allT_a, pool_a; color = 1, width = 2.4, marker = :circle, msize = 3.2,
+        ABPlot.plot!(f, allT_a, pool_a; color = 1, width = 2.4, marker = :circle, msize = 3.2,
               label = "38a L=$L1")
     end
     okb = [isfinite(x) for x in pool_b]
-    (sum(okb) > 1) && ABPlotV23.plot!(f, allT_b[okb], pool_b[okb]; color = 2, width = 2.2,
+    (sum(okb) > 1) && ABPlot.plot!(f, allT_b[okb], pool_b[okb]; color = 2, width = 2.2,
                             marker = :square, msize = 3.4, label = "38b L=$L2")
-    isfinite(Tstar_a) && ABPlotV23.vline!(f, Tstar_a; color = 7, dash = "6,3", label = "T*(38a)")
-    isfinite(Tstar_b) && ABPlotV23.vline!(f, Tstar_b; color = 6, dash = "6,3", width = 1.4,
+    isfinite(Tstar_a) && ABPlot.vline!(f, Tstar_a; color = 7, dash = "6,3", label = "T*(38a)")
+    isfinite(Tstar_b) && ABPlot.vline!(f, Tstar_b; color = 6, dash = "6,3", width = 1.4,
                                 label = "T*(38b)")
 
     # ---- panel 2: per-seed pairing detail (zoom) ----
-    p2 = ABPlotV23.add_panel!(f, 1, 2, 2, 3; title = "paired realizations (layout fixed per k)",
+    p2 = ABPlot.add_panel!(f, 1, 2, 2, 3; title = "paired realizations (layout fixed per k)",
         xlabel = "T", ylabel = "Λ(T)", legend = true, legend_loc = :bottomleft)
     for k in 1:S
         tk = Float64[]; lk = Float64[]
@@ -30517,39 +30606,39 @@ function test38_curie_v23(zeta_zeros::Vector{Float64}, cfg::Config)
             vv = get(lam_a, (T, k), NaN)
             isfinite(vv) && (push!(tk, T); push!(lk, vv))
         end
-        length(tk) > 1 && ABPlotV23.plot!(f, tk, lk; color = k, width = 1.6, marker = :dot,
+        length(tk) > 1 && ABPlot.plot!(f, tk, lk; color = k, width = 1.6, marker = :dot,
                                 msize = 2.4, label = "38a k=$k")
     end
     okb1 = [isfinite(get(lam_b, (T, 1), NaN)) for T in allT_b]
-    (sum(okb1) > 1) && ABPlotV23.plot!(f, allT_b[okb1],
+    (sum(okb1) > 1) && ABPlot.plot!(f, allT_b[okb1],
         [get(lam_b, (T, 1), NaN) for T in allT_b[okb1]]; color = 6, width = 1.8,
         marker = :square, msize = 3.0, label = "38b k=1")
-    ABPlotV23.hline!(f, LAMBDA_GUE; color = 3, dash = "4,4", label = "")
-    ABPlotV23.hline!(f, LAMBDA_GOE; color = 4, dash = "4,4", label = "")
+    ABPlot.hline!(f, LAMBDA_GUE; color = 3, dash = "4,4", label = "")
+    ABPlot.hline!(f, LAMBDA_GOE; color = 4, dash = "4,4", label = "")
 
     # ---- panel 3: T* locator detail ----
-    p3 = ABPlotV23.add_panel!(f, 1, 3, 2, 3; title = "half-decay crossover scale T*(L)",
+    p3 = ABPlot.add_panel!(f, 1, 3, 2, 3; title = "half-decay crossover scale T*(L)",
         xlabel = "T", ylabel = "Λ(T)", legend = false, legend_loc = :topleft)
     mid_a = (lam0 + lamhi) / 2
     mid_b = (lam0_b + lamhi_b) / 2
     if !isempty(allT_a)
-        ABPlotV23.plot!(f, allT_a, pool_a; color = 1, width = 2.2, marker = :circle, msize = 3.0,
+        ABPlot.plot!(f, allT_a, pool_a; color = 1, width = 2.2, marker = :circle, msize = 3.0,
               label = "")
     end
-    (sum(okb) > 1) && ABPlotV23.plot!(f, allT_b[okb], pool_b[okb]; color = 2, width = 2.0,
+    (sum(okb) > 1) && ABPlot.plot!(f, allT_b[okb], pool_b[okb]; color = 2, width = 2.0,
                             marker = :square, msize = 3.0, label = "")
-    ABPlotV23.hline!(f, mid_a; color = 7, dash = "5,4", width = 1.4, label = "")
-    isfinite(Tstar_a) && ABPlotV23.vline!(f, Tstar_a; color = 7, dash = "5,4", width = 1.6, label = "")
-    isfinite(Tstar_a) && ABPlotV23.text!(f, Tstar_a + 0.04, mid_a + 0.028,
+    ABPlot.hline!(f, mid_a; color = 7, dash = "5,4", width = 1.4, label = "")
+    isfinite(Tstar_a) && ABPlot.vline!(f, Tstar_a; color = 7, dash = "5,4", width = 1.6, label = "")
+    isfinite(Tstar_a) && ABPlot.text!(f, Tstar_a + 0.04, mid_a + 0.028,
         @sprintf("T*(%d)=%.3f", L1, Tstar_a); size = 11, color = 7)
-    isfinite(Tstar_b) && ABPlotV23.vline!(f, Tstar_b; color = 6, dash = "5,4", width = 1.4, label = "")
-    isfinite(Tstar_b) && ABPlotV23.text!(f, Tstar_b + 0.04, mid_b - 0.034,
+    isfinite(Tstar_b) && ABPlot.vline!(f, Tstar_b; color = 6, dash = "5,4", width = 1.4, label = "")
+    isfinite(Tstar_b) && ABPlot.text!(f, Tstar_b + 0.04, mid_b - 0.034,
         @sprintf("T*(%d)=%.3f", L2, Tstar_b); size = 11, color = 6)
-    ABPlotV23.annotate!(f, 0.1, mid_a, "half-decay mid (Λ(0)+Λ(T_hi))/2"; tx = 0.1, ty = mid_a + 0.045,
+    ABPlot.annotate!(f, 0.1, mid_a, "half-decay mid (Λ(0)+Λ(T_hi))/2"; tx = 0.1, ty = mid_a + 0.045,
               size = 10, arrow = false)
 
     # ---- panel 4: C1 density scan ----
-    p4 = ABPlotV23.add_panel!(f, 2, 1, 2, 3; title = "C1: density scan at T=0 (obj. 1)",
+    p4 = ABPlot.add_panel!(f, 2, 1, 2, 3; title = "C1: density scan at T=0 (obj. 1)",
         xlabel = "density factor f  (Nv = f·L²/36)", ylabel = "Λ(0)", legend = false,
         legend_loc = :topleft)
     fx = Float64[]; fy = Float64[]; flo = Float64[]; fhi = Float64[]
@@ -30559,20 +30648,20 @@ function test38_curie_v23(zeta_zeros::Vector{Float64}, cfg::Config)
         push!(fx, ff); push!(fy, m); push!(flo, m - 2se); push!(fhi, m + 2se)
     end
     if length(fx) > 1
-        ABPlotV23.band!(f, fx, flo, fhi; color = 1, alpha = 0.16, label = "")
-        ABPlotV23.plot!(f, fx, fy; color = 1, width = 2.2, marker = :diamond, msize = 4.0, label = "")
+        ABPlot.band!(f, fx, flo, fhi; color = 1, alpha = 0.16, label = "")
+        ABPlot.plot!(f, fx, fy; color = 1, width = 2.2, marker = :diamond, msize = 4.0, label = "")
     end
-    ABPlotV23.hline!(f, 0.02; color = 7, dash = "4,4", width = 1.4, label = "")
-    ABPlotV23.hline!(f, LAMBDA_GUE; color = 3, dash = "3,5", width = 1.2, label = "")
-    isempty(robust_fs) || ABPlotV23.band!(f, [minimum(robust_fs), maximum(robust_fs)],
+    ABPlot.hline!(f, 0.02; color = 7, dash = "4,4", width = 1.4, label = "")
+    ABPlot.hline!(f, LAMBDA_GUE; color = 3, dash = "3,5", width = 1.2, label = "")
+    isempty(robust_fs) || ABPlot.band!(f, [minimum(robust_fs), maximum(robust_fs)],
                                 [minimum(flo .- 0.004), minimum(flo .- 0.004)],
                                 [maximum(fhi .+ 0.004), maximum(fhi .+ 0.004)];
                                 color = 3, alpha = 0.10, label = "")
-    isempty(fy) || ABPlotV23.text!(f, fx[1] + 0.03, maximum(fhi) + 0.008,
+    isempty(fy) || ABPlot.text!(f, fx[1] + 0.03, maximum(fhi) + 0.008,
         @sprintf("robust width w=%.2f", f_width); size = 11, color = 3)
 
     # ---- panel 5: C2 FSS ladder — m*(L) → thermodynamic anchor ----
-    p5 = ABPlotV23.add_panel!(f, 2, 2, 2, 3; title = "C2: FSS staircase m*(T*,L) → anchor (obj. 3)",
+    p5 = ABPlot.add_panel!(f, 2, 2, 2, 3; title = "C2: FSS staircase m*(T*,L) → anchor (obj. 3)",
         xlabel = "1 / L", ylabel = "m*(T*, L)", legend = true,
         legend_loc = :bottomright,
         xticks = ([0.0, 0.01, 0.02, 0.03, 0.04],
@@ -30580,13 +30669,13 @@ function test38_curie_v23(zeta_zeros::Vector{Float64}, cfg::Config)
     xinv = [1.0 / Ls for Ls in c2sizes]
     okm = [isfinite(m) for m in m_star]
     if count(okm) >= 2
-        ABPlotV23.band!(f, xinv[okm], m_star[okm] .- 0.12, m_star[okm] .+ 0.12; color = 1,
+        ABPlot.band!(f, xinv[okm], m_star[okm] .- 0.12, m_star[okm] .+ 0.12; color = 1,
               alpha = 0.14, label = "±SE")
-        ABPlotV23.plot!(f, xinv[okm], m_star[okm]; color = 1, width = 2.2, marker = :circle,
+        ABPlot.plot!(f, xinv[okm], m_star[okm]; color = 1, width = 2.2, marker = :circle,
               msize = 3.6,
               label = @sprintf("stairs %d→%d", minimum(c2sizes), maximum(c2sizes)))
     end
-    ABPlotV23.hline!(f, m_anchor; color = 7, dash = "4,4", width = 1.6,
+    ABPlot.hline!(f, m_anchor; color = 7, dash = "4,4", width = 1.6,
            label = "anchor (m(0)+m(T_hi))/2")
     if count(okm) >= 3
         # 1/L LSQ over every rung EXCEPT the smallest (small-L deep-
@@ -30597,13 +30686,13 @@ function test38_curie_v23(zeta_zeros::Vector{Float64}, cfg::Config)
              max(sum((x .- x̄)^2 for x in xs), eps())
         icpt = ȳ - sl * x̄
         xext = [0.0; xs]
-        ABPlotV23.plot!(f, xext, icpt .+ sl .* xext; color = 6, width = 1.4, dash = "2,4",
+        ABPlot.plot!(f, xext, icpt .+ sl .* xext; color = 6, width = 1.4, dash = "2,4",
               label = @sprintf("LSQ 1/L (L≥%d)", round(Int, 1.0 / xs[1])))
-        ABPlotV23.text!(f, 0.012, icpt, @sprintf("m(L→∞) ≈ %+.3f", icpt); size = 11, color = 6)
+        ABPlot.text!(f, 0.012, icpt, @sprintf("m(L→∞) ≈ %+.3f", icpt); size = 11, color = 6)
     end
 
     # ---- panel 6: C3/C5 disclosure text ----
-    p6 = ABPlotV23.add_panel!(f, 2, 3, 2, 3;
+    p6 = ABPlot.add_panel!(f, 2, 3, 2, 3;
         title = "C3 + C5: disclosure & terminology",
         xlabel = "", ylabel = "", legend = false,
         xlim = (0.0, 1.0), ylim = (0.0, 1.0),
@@ -30617,7 +30706,7 @@ function test38_curie_v23(zeta_zeros::Vector{Float64}, cfg::Config)
     for (i, l) in enumerate(lines6)
         col = startswith(l, "SHARED") || startswith(l, "TERMINOLOGY") ? 7 :
               startswith(l, "  ") ? 0 : 5
-        ABPlotV23.text!(f, 0.02, y0 - (i - 1) * 0.083, l; size = 11, color = col)
+        ABPlot.text!(f, 0.02, y0 - (i - 1) * 0.083, l; size = 11, color = col)
     end
 
     ab23_save_report_fig!(f, "t38_curie_panels", "Test 38 — Curie point (38a + 38b + 38c)")
@@ -30634,7 +30723,7 @@ function test38_curie_v23(zeta_zeros::Vector{Float64}, cfg::Config)
                ("C2_rungs", join(c2sizes, "/")),
                ("spectra_cached", string(length(T38_CACHE)))]
     ab23_register_result("t38", "Curie 3-pass (72²+96²+38c)", v, dt, metrics)
-    return v !== :fail  # v21 dispatch wants a Bool
+    return v !== :fail  #  dispatch wants a Bool
 end
 
 function _rep_inner_test(id::Int, zeta_zeros::Vector{Float64}, cfg::Config)::Bool
@@ -30672,7 +30761,7 @@ function _rep_inner_test(id::Int, zeta_zeros::Vector{Float64}, cfg::Config)::Boo
  ts_flag && id == 19 && return test19c_dirac_alpha_series(zeta_zeros, cfg)
  ts_flag && id == 29 && return test37c_dirac_dip_series(zeta_zeros, cfg)
  ts_flag && id == 31 && return test39c_hatano_series(zeta_zeros, cfg)
- # pass 4 AUDIT routing (19d, v23.2 — user spec 2026-09-04) — the flag is set
+ # pass 4 AUDIT routing (19d, —) — the flag is set
  # ONLY by run_test_two_pass around pass 4; menu / --test / --no-two-pass runs
  # and passes 1–3 always see `false`. Mutually exclusive with hc/ts in time.
  sq_flag = STATS_QUATERNARY_AUDIT[]
@@ -30715,7 +30804,7 @@ function _rep_inner_test(id::Int, zeta_zeros::Vector{Float64}, cfg::Config)::Boo
  hc_flag && id == 34 && return test36b_ab_vs_zeta_hardcore(zeta_zeros, cfg)
  hc_flag && id == 35 && return test42b_form_factor_hardcore(zeta_zeros, cfg)
  hc_flag && id == 37 && return test44b_half_factorial_hardcore(zeta_zeros, cfg)
- # v23: id 38 has NO hardcore b-variant anymore — the v22 three-pass Curie
+ # : id 38 has NO hardcore b-variant anymore — the three-pass Curie
  # implementation runs its own 38b hardcore pass internally (self-contained).
 
  id == 1 && return test1_convergence_table(zeta_zeros, cfg)
@@ -30755,7 +30844,7 @@ function _rep_inner_test(id::Int, zeta_zeros::Vector{Float64}, cfg::Config)::Boo
  id == 35 && return test42_spectral_form_factor_Kt(zeta_zeros, cfg)
  id == 36 && return test43_byte_robustness(zeta_zeros, cfg)
  id == 37 && return test44_half_factorial_gamma(zeta_zeros, cfg)
- id == 38 && return test38_curie_v23(zeta_zeros, cfg)
+ id == 38 && return test38_curie(zeta_zeros, cfg)
  id == 39 && return test39_t34g_geometry_sweep(zeta_zeros, cfg)
  return false
 end
@@ -30763,15 +30852,15 @@ end
 
 function run_all_tests(zeta_zeros::Vector{Float64}, cfg::Config)
  # tee stdout — every println / @printf goes BOTH to the live
- # terminal AND to STDOUT_CAPTURE, so save_report() can dump the full
+ # terminal AND to STDOUT_CAPTURE, so save_report can dump the full
  # execution log into the report file — the full run is auditable:
  # "добавить полные логи выполнения, чтобы знать, что и где ломается".
  truncate(STDOUT_CAPTURE, 0)
  take!(STDOUT_CAPTURE)
  orig_stdout = stdout
  rd, wr = redirect_stdout()
- ab_color_off() # stdout перенаправлен в tee — отчёт получит чистый текст (UI3)
- _disp_acquire!() # pump owns ALL live writes until the suite ends (FIX 2026-09-02b)
+ ab_color_off() # stdout перенаправлен в tee — отчёт получит чистый текст (ABUI)
+ _disp_acquire!() # pump owns ALL live writes until the suite ends (NOTE:
  capture_task = @async begin
  try
  # The naive loop `while !eof(rd); readavailable(rd)`
@@ -30790,7 +30879,7 @@ function run_all_tests(zeta_zeros::Vector{Float64}, cfg::Config)
   b = read(rd, UInt8)
   data = vcat(UInt8[b], read(rd, bytesavailable(rd)))
   isempty(data) && continue
- # FIX 2026-09-02b — DRAIN FIRST, forward best-effort. The audit capture
+ # NOTE:— DRAIN FIRST, forward best-effort. The audit capture
   # (IOBuffer) can never block or throw, so this loop ALWAYS empties the
   # pipe even if the live console is frozen/broken. The old order
   # (lock → console write → capture) let one bad console write stop the
@@ -30815,7 +30904,7 @@ function run_all_tests(zeta_zeros::Vector{Float64}, cfg::Config)
  try
  println("\n$(repeat("═",60))")
  println("🚀  ", fmt(cfg, "title"))
- println("    Running all $(length(SUITE_IDS)) tests with $(length(zeta_zeros)) zeros · UI3 visual engine v3")
+ println("    Running all $(length(SUITE_IDS)) tests with $(length(zeta_zeros)) zeros · AURORA visual engine")
  if cfg.ab_run_two_pass && !cfg.ab_run_primary_only
  println("TWO-PASS MODE: $(cfg.ab_nx)×$(cfg.ab_ny) (Nv=$(cfg.ab_nv_list)) " *
  "then $(cfg.ab_nx_secondary)×$(cfg.ab_ny_secondary) (Nv=$(cfg.ab_nv_list_secondary))")
@@ -30853,7 +30942,7 @@ function run_all_tests(zeta_zeros::Vector{Float64}, cfg::Config)
  # tests was never collected — julia only compacts under pressure).
  GC.gc(true); GC.gc(true)
  # return freed pages to the OS. julia's GC keeps freed heap
- # pooled; LAPACK/OpenBLAS free() their work arrays but glibc retains them
+ # pooled; LAPACK/OpenBLAS free their work arrays but glibc retains them
  # in arenas, so RSS stays at the per-test peak (~1.2 GB for a 72×72
  # eigval) and the NEXT test's allocations OOM even though live heap is
  # ~27 MB. malloc_trim hands the arenas back to the kernel between tests.
@@ -30888,18 +30977,18 @@ function run_all_tests(zeta_zeros::Vector{Float64}, cfg::Config)
  @printf(" %s Test %2d [%s]: %s\n", ab_verdict_icon(results[k]), id, labels[k], ab_paint_result(s))
  end
  @printf("\n ⏱  Total time: %.1f seconds\n", elapsed)
- # v23.1: the run-level "Generating plots ..." pass (try_plot_* + Plots.jl)
- # is retired — every test already writes its own ABPlotV23 png artifacts and
+ # : the run-level "Generating plots..." pass (try_plot_* + Plots.jl)
+ # is retired — every test already writes its own ABPlot png artifacts and
  # the animation.gif tour at rep_finish! time, so there is nothing left to do here.
  finally
- # Restore stdout BEFORE save_report, so "Saving report to ..." goes
+ # Restore stdout BEFORE save_report, so "Saving report to..." goes
  # to the live terminal only (not into the captured buffer / report).
  redirect_stdout(orig_stdout)
- ab_color_on() # stdout восстановлен — ANSI снова разрешён (UI3)
+ ab_color_on() # stdout восстановлен — ANSI снова разрешён (ABUI)
  close(wr)
  wait(capture_task)
- # FIX 2026-09-02b: bounded grace so the pump paints the tail on a healthy
- # console; a frozen console can only cost these 5 s — the :stop below is
+ # NOTE: bounded grace so the pump paints the tail on a healthy
+ # console; a frozen console can only cost these 5 s — the:stop below is
  # fire-and-forget, so shutdown can never hang on console I/O.
  _disp_flush_wait(5.0)
  _disp_release!()
@@ -30911,14 +31000,14 @@ end
 # ══════════════════════════════════════════════════════════════════════
  # PRESETS — 10 ready-made configurations ported/adapted from RH_Unified_v5
 # Usage:
-# julia ab_cloud_v20.jl --preset quick
-# julia ab_cloud_v20.jl --preset magic
-# julia ab_cloud_v20.jl --preset deep_sweep
+# julia ab_cloud_full.jl --preset quick
+# julia ab_cloud_full.jl --preset magic
+# julia ab_cloud_full.jl --preset deep_sweep
 # Interactive menu: press 'p' to list and apply a preset.
 # ══════════════════════════════════════════════════════════════════════
 
 """
- preset_quick()
+ preset_quick
 
 Fast smoke-test preset: small lattice, few realizations, single α.
 ~30 sec runtime. Useful for CI / quick syntax-and-physics sanity check.
@@ -30939,7 +31028,7 @@ function preset_quick!(cfg::Config)
 end
 
 """
- preset_full()
+ preset_full
 
 Full balanced analysis: 30×30 lattice (900 sites), 5 realizations, single α=1/2.
 ~5 min runtime. Good trade-off between statistical power and runtime.
@@ -30961,9 +31050,9 @@ function preset_full!(cfg::Config)
 end
 
 """
- preset_magic!()
+ preset_magic!
 
-Sweep all 61 magic α points (π/k, √k, 1/k, φ, e, ...). Smaller lattice to keep
+Sweep all 61 magic α points (π/k, √k, 1/k, φ, e,...). Smaller lattice to keep
 runtime tractable: 12×12 with 3 realizations per α → 61 × 3 ≈ 180 matrices.
 ~15 min runtime. Confirms GUE universality across the full α domain.
 """
@@ -30981,7 +31070,7 @@ function preset_magic!(cfg::Config)
 end
 
 """
- preset_deep_sweep!()
+ preset_deep_sweep!
 
 Extended α-sweep over [-16, +16] using generate_extended_magic_alphas.
 Generates ~120 α points (integers, half-integers, π-multiples, √k, constants).
@@ -31084,7 +31173,7 @@ end
 Single irrational α (no Hofstadter bands). Tests pure GUE statistics on
 a quasi-periodic lattice.
 
-Available symbols: :inv_pi, :inv_e, :phi, :sqrt2, :sqrt3, :ln2, :e_frac
+Available symbols: inv_pi,:inv_e,:phi,:sqrt2,:sqrt3,:ln2,:e_frac
 """
 function preset_irrational!(cfg::Config; alpha_symbol::Symbol=:inv_pi)
  alpha_values = Dict(
@@ -31118,7 +31207,7 @@ function preset_custom!(cfg::Config)
 end
 
 """
- list_presets()
+ list_presets
 
 Print the catalog of available presets.
 """
@@ -31152,7 +31241,7 @@ end
 Apply the named preset to cfg. Returns true on success, false on unknown name.
 """
 function apply_preset!(cfg::Config, name::AbstractString)::Bool
- # was `name::String`. The main menu passes `strip(readline())`,
+ # was `name: String`. The main menu passes `strip(readline)`,
  # which is a SubString{String} → MethodError on EVERY menu-driven preset
  # application. Accept any AbstractString and normalize to String.
  name = String(lowercase(strip(String(name))))
@@ -31177,10 +31266,10 @@ end
 function default_config()::Config
  Config(
  # the FULL embedded range of
- # 50 000 zeros is used by default (was 2_000_000 hoping for an external
+ # 50 000 zeros is used by default (hoping for an external
  # file). Larger N is still available via --zeros N / config-menu item 1:
- # auto_source() then picks the smallest external file that has >= N zeros
- # (50k → 500k → 2M → zeros6); if the file is absent, load_zeros() falls
+ # auto_source then picks the smallest external file that has >= N zeros
+ # (→ 2M → zeros6); if the file is absent, load_zeros falls
  # back to the embedded dataset with a clear warning (never hard-exits).
  50_000, # zeros_count — FULL embedded range
  "auto", # source: auto_source(50_000) → "embedded" (count ≤ capacity)
@@ -31188,14 +31277,14 @@ function default_config()::Config
  "en", # lang
  "interactive", # test
  ".", # output_dir
- # (v23.1: retired `plot` and `verbose` fields removed from Config)
+ # (: retired `plot` and `verbose` fields removed from Config)
  # ── Original test parameters ──
- # chi2_bins: 30 → 300 (10x — Test 6 had too few bins)
+ # chi2_bins: (10x — Test 6 had too few bins)
  # highT_mins: [100,1000,10000] → [1000,10000,100000] (10x — Test 5 T thresholds too low for asymptotic GUE)
  0, # n_checkpoints (0 = auto)
- 500, # n_monotone 20 → 500 ()
+ 500, # n_monotone
  1000, # n_bootstrap
- 300, # chi2_bins 30 → 300 (10x )
+ 300, # chi2_bins (10x)
  [1000.0, 10000.0, 100000.0], # highT_mins 10x
  0.8, # stability_fraction
  0.10, # stability_threshold
@@ -31203,9 +31292,9 @@ function default_config()::Config
  0.15, # power_law_tolerance
  0.10, # slope_ci_tolerance
  # ── Advanced RMT parameters ──
- 12000, # gue_matrix_size 2000 → 12000 (v19b: low-noise GUE reference for the test 12 2-sample KS & 12b W1 symmetry audit; diag O(N³) ≈ 7–8 min, ≈ 3.2 GB RAM on 2 cores — lower via --matrix-size on small machines)
- 112, # gue_matrix_seed 42 → 112 ()
- 50_000, # ad_sample_cap 5000 → 50_000 (full embedded 50k range)
+ 12000, # gue_matrix_size (: low-noise GUE reference for the test 12 2-sample KS & 12b W1 symmetry audit; diag O(N³) ≈ 7–8 min, ≈ 3.2 GB RAM on 2 cores — lower via --matrix-size on small machines)
+ 112, # gue_matrix_seed
+ 50_000, # ad_sample_cap (full embedded 50k range)
  # 9-point geometric L grid (, for Σ²/Δ₃ tests 13/14)
  [2.0, 4.535939472087519, 10.287373447220801, 23.331451641676946,
  52.91502622129181, 120.00967805185182, 272.17831785395487,
@@ -31214,25 +31303,25 @@ function default_config()::Config
  500, # rigidity_n_windows_d3 (Δ₃)
  300, # rigidity_n_grid
  # ── AB-cloud test parameters (MONOGRAPH STANDARD: 30×30/Nv=25/W=4) ──
- 72, # ab_nx 30 → 72 (: matrix 72×72 = 5184 sites)
+ 72, # ab_nx (: matrix 72×72 = 5184 sites)
  72,
  [4], # ab_nv_list → [4] (: strictly 4 vortices in run 72)
  [1.0], # ab_q_list → [1.0] (: magnetic flux strength 1.0)
  0.5, # ab_alpha — uniform AB flux (Connes self-dual point; for chiral/Dirac tests)
  1.0, # ab_t — hopping amplitude
- :open, # ab_lattice — :open (Dirac string clean) or :torus (Test 32)
+ :open, # ab_lattice —:open (Dirac string clean) or:torus (Test 32)
  96, # ab_seed — RNG seed for vortex placement (reproducibility)
  "nv", # ab_sweep_mode single config (Nv=25)
  5,
- # ab_ks_bootstrap_n: 200 → 30 (— 200 was overkill, 30 is sufficient
+ # ab_ks_bootstrap_n: (— 200 was overkill, 30 is sufficient
  # for stable MC p-value; also faster when lattice is small enough for MC to run)
  30, # ab_ks_bootstrap_n — #GUE matrices for Monte-Carlo KS p-value
  true, # ab_use_mc_pvalue — use MC p-value (correct for single-matrix spectra)
- 0.6, # ab_center_fraction 0.5 → 0.6 (monograph: bulk=0.6)
+ 0.6, # ab_center_fraction (monograph: bulk=0.6)
  0.05, # ab_unfold_window — local-mean unfolding window fraction
  # monograph standard config ──
  4.0, # ab_W diagonal disorder strength (monograph §4.2: W=4)
- 0.5, # ab_alpha_test16 25/900 → 0.5 (CRITICAL LINE; )
+ 0.5, # ab_alpha_test16 25/ (CRITICAL LINE;)
  [20.0, 50.0, 100.0, 200.0, 500.0],
  Int[], # convergence_watch_sizes — empty by default
  # ── Extended physics & jitter defaults ──
@@ -31242,7 +31331,7 @@ function default_config()::Config
  0.0, # ab_sigma_jitter — σ dithering (off by default)
  0.0, # ab_vortex_pos_jitter — vortex position jitter
  0.0, # ab_vortex_charge_flip — Bernoulli charge flip prob
- :random, # ab_vortex_layout — :random (default), :hexagonal, :ring, :grid, :centers
+ :random, # ab_vortex_layout —:random (default),:hexagonal,:ring,:grid,:centers
  0.35, # ab_vortex_radius — layout radius fraction (0.35 = 35% of L)
  0.5, # ab_vortex_core_size — vortex core size
  false, # ab_bk_sigma — Bogomolny-Keating correction (off)
@@ -31255,7 +31344,7 @@ function default_config()::Config
  0.02, # ab_byte_tol — byte quantization tolerance
  200_000, # ab_n_bytes — #bytes for RNG entropy
  12345, # ab_byte_seed — RNG seed for byte test
- # ── Disorder cap + Test-36 sample targets (2026-08-29 user spec) ──
+ # ── Disorder cap + Test-36 sample targets ──
  # ab_W_max: Tests 32/33/36 use W_eff = min(ab_W, ab_W_max). W=4.0 at q=0.3
  # gives a vortex on-site potential V≈q·W=1.2 > hopping t=1 near cores →
  # disorder-driven vortex motion → Poisson-drift of ⟨r⟩ (measured 0.48–0.53
@@ -31268,7 +31357,7 @@ function default_config()::Config
  # noise). User spec: pass 1 collects 25 000 eigs, pass 2 collects 50 000.
  25_000, # ab37_n_eigs_pass1 — ⟨r⟩ sample target for Test 36 pass 1
  50_000, # ab37_n_eigs_pass2 — ⟨r⟩ sample target for Test 36 pass 2
- # ── Test-32 comparison-row knobs (2026-08-29 user spec + validated run) ──
+ # ── Test-32 comparison-row knobs ──
  # The q=0.3 row runs with its OWN disorder strength and vortex count.
  # ab_W_cmp = 0.5 halves the row's disorder energy (q·W = 0.15 vs 0.30 at
  # the primary cap) — user asked to lower W for the q=0.3 run ("уменьшить
@@ -31281,7 +31370,7 @@ function default_config()::Config
  # fractional vortex carries only q·2π = 0.6π flux (3.3× weaker phase
  # winding than integer q). The lever that CAN lift the q=0.3 row toward
  # GUE is the vortex DENSITY — ab_nv_cmp — not a lower W.
- # VALIDATED (run_20260829_060208, 2026-08-29 06:11): W_cmp=0.5 +
+ # VALIDATED: W_cmp=0.5 +
  # Nv_cmp=144 (= monograph anchor density 2.78% at 72×72) →
  # ⟨r⟩=0.5975 ± 0.0064, deviation from GUE 0.28%, nearest class GUE
  # (d_GUE=0.0021, d_GOE=0.0668, d_Poi=0.2113). This combo is therefore
@@ -31289,7 +31378,7 @@ function default_config()::Config
  # density out of the box. 0 = follow the primary Nv.
  0.5, # ab_W_cmp — W for the Test-32 comparison row (NaN = follow primary; CLI --ab-w-cmp)
  144, # ab_nv_cmp — Nv for the Test-32 comparison row (VALIDATED 2.78% anchor density; 0 = follow primary; CLI --ab-nv-cmp)
- 20, # ab_hc_nreal — HARDCORE realization floor, Tests 15–35 (v3.2 default 20, was 5 — ensemble depth for the 28b/35b sub-checks per the 2026-09-16 audit; CLI --ab-hc-nreal, menu 71)
+ 20, # ab_hc_nreal — HARDCORE realization floor, Tests 15–35 (default 20, — ensemble depth for the 28b/35b sub-checks; CLI --ab-hc-nreal, menu 71)
  0, # ab_eigs_per_seed — 0 = auto (no per-seed K(t) averaging)
  [0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0, 1.5, 2.0], # ab_K_t_values
  [0.1, 0.3, 0.5, 0.7, 1.0, 1.5, 2.0, 2.5, 3.0], # ab_R2_s_values
@@ -31307,8 +31396,9 @@ function default_config()::Config
     "results", # rep_root
     600, # rep_dpi
     true, # rep_gif
- ["png"], # rep_plot_formats — v23.1: png only (svg/pdf vector backends retired; ABPlotV23 engine + gif tour)
+ ["png"], # rep_plot_formats —: png only (svg/pdf vector backends retired; ABPlot engine + gif tour)
     ["md", "html", "pdf", "docx"], # rep_report_formats
+    "aurora", # rep_preset — тема оформления отчётов (aurora | ice | gold | emerald)
  # # two-pass defaults
  # physics-lab defaults — 72×72 matrix per launch standard
  72, # lab_L — lab matrix L×L (2D AB-cloud experiments)
@@ -31330,7 +31420,7 @@ function default_config()::Config
  41, # lab_walk_n — E22 Hadamard window (odd)
  60, # lab_walk_steps — E22 Hadamard steps
  0.25, # lab_walk_alpha — E22 AB phase per column
- # 3D-lab defaults — v21.0: L raised 10 → 20 (user request «поднять дефолт»;
+ # 3D-lab defaults —: L raised (;
  # 20³ = 8000 sites, dense eig measured 156 s / 2.19 GB peak on 2 cores)
  20, # d3_L — cubic lattice L×L×L
  0.5, # d3_alpha — flux per x-y plaquette
@@ -31338,27 +31428,27 @@ function default_config()::Config
  0.0, # d3_W — onsite disorder
  0.0, # d3_mass — staggered mass texture amplitude
  false, # d3_tz_stagger — alternate tz sign
- :torus, # d3_boundary — :torus | :open_z | :open_xy | :open_all
+ :torus, # d3_boundary —:torus |:open_z |:open_xy |:open_all
  0, # d3_nv_lines — extra vortex lines along z
  1.0, # d3_line_q — charge of the extra lines
  true, # d3_neutrals — alternate ±q
  777, # d3_seed — RNG seed (W pattern + line placement)
- # ── v21.0 3D two-pass + sparse-engine defaults ──
+ # ── 3D two-pass + sparse-engine defaults ──
  # Two-pass lattices are DENSE by default (full spectra, run-all in hours):
  # L₁=18³ (~1.2 GB eig peak, ~4 GB budget), L₂=20³ (measured 2.19 GB, 6 GB
  # budget). 36³/54³ stay available (sparse engine auto-routes at L>20).
  true, # d3_two_pass — every 3D test: pass 1 (L₁) + hardcore pass 2 (L₂)
  18, # d3_L_primary — pass-1 lattice (sized for the 4 GB budget)
  20, # d3_L_secondary — pass-2 lattice (sized for the 6 GB budget)
- :auto, # d3_engine — :auto | :dense | :sparse
+ :auto, # d3_engine —:auto |:dense |:sparse
  900, # d3_sp_depth — sparse window size, pass 1
  1300, # d3_sp_depth_hc — sparse window size, hardcore pass 2
  4096, # d3_ram_mb1 — pass-1 RAM budget (MB)
  6144, # d3_ram_mb2 — pass-2 RAM budget (MB)
  72, # t31_lmax — TEST 30 Dirac-gap 1/L grid cap (≡0 mod 4, O(L⁶) cost;
      # pass-1 standard 72, hardcore 38b caps at the 96 secondary)
- # ── v23.0 SUPERCOMBO: Test 38 three-pass defaults (v22.2 values) ──
- 20260903, # t38_seed — master seed (v22 run semantics preserved)
+ # ──: Test 38 three-pass defaults (values) ──
+ 20260903, # t38_seed — master seed (run semantics preserved)
  72, # t38_l1 — 38a main lattice (dense eig N = L²)
  96, # t38_l2 — 38b hardcore lattice
  2, # t38_seeds — paired realizations per (T, lattice)
@@ -31367,11 +31457,11 @@ function default_config()::Config
  2.4e9, # t38_ram — dense-matrix RAM guard (bytes)
  false, # t38_quick — smoke mode (pipeline check)
  false, # t38_fresh — wipe the spectrum cache before running
- [24, 36, 48, 64, 80, 96], # t38_c2_sizes — C2 FSS staircase rungs 24→96
+ [24, 36, 48, 64, 80, 96], # t38_c2_sizes — C2 FSS staircase rungs
  10, # t38_c2_seeds — C2 realizations per (T, L)
- # ── v23.3 Hilbert-Pólya deep audit (menu 'h') — arithmetic-specificity battery ──
+ # ── Hilbert-Pólya deep audit (menu 'h') — arithmetic-specificity battery ──
  56, # hp_L — matrix L×L for H1-H4/H6/H7 (56² = 3136 sites; even L keeps the H6 torus rung legal)
- 40, # hp_n_ensemble — H5 ensemble size (reviewer: 30-50+)
+ 40, # hp_n_ensemble — H5 ensemble size (: 30-50+)
  21, # hp_n_q_grid — H4 q-scan resolution
  0.05, # hp_q_min — H4 scan left edge
  1.0, # hp_q_max — H4 scan right edge (covers the claimed criticals 0.3 / 1/2 / 1.0)
@@ -31390,12 +31480,12 @@ function default_config()::Config
  2026, # hp_seed — master seed of the HP battery
  0.022, # hp_gue_band — H5 GUE band half-width on ⟨r⟩ (monograph §11.1 tolerance)
  0.90, # hp_pass_fraction — H5 required in-band fraction
- :showdown, # hp_regime_mode — H1/H5 parameter-regime sweep: :showdown = full 2×2 {Nv sparse | Nv=L²/36 monograph} × {α=ab_alpha_test16 | α=25/900 sharp-flux}; :baseline = HP-standard point only (≈4× faster)
- 20,  # hp_deep_nulls — H1 DEEPEN protocol (FIX v3: поле отсутствовало в default_config)
- 10,  # hp_deep_configs — H1 DEEPEN protocol (FIX v3)
- true, # hp_alpha_scan — H5 α-profile (FIX v3)
- 40,  # hp_alpha_scan_n — H5 α-profile configs per α point (FIX v3)
- # ── v23.7 TEST 34G — geometry sweep (finite-size lab port, test id 39) ──
+ :showdown, # hp_regime_mode — H1/H5 parameter-regime sweep: showdown = full 2×2 {Nv sparse | Nv=L²/36 monograph} × {α=ab_alpha_test16 | α=25/900 sharp-flux};:baseline = HP-standard point only (≈4× faster)
+ 20,  # hp_deep_nulls — H1 DEEPEN protocol (FIX: поле отсутствовало в default_config)
+ 10,  # hp_deep_configs — H1 DEEPEN protocol (FIX)
+ true, # hp_alpha_scan — H5 α-profile (FIX)
+ 40,  # hp_alpha_scan_n — H5 α-profile configs per α point (FIX)
+ # ── TEST 34G — geometry sweep (finite-size lab port, test id 39) ──
  96, # t34g_L — site budget L: every scalable geometry runs ≈ L² sites (CLI --t34g-l)
  2, # t34g_reps — realizations per geometry (CLI --t34g-reps)
  "all", # t34g_geoms — "all" or comma list (CLI --t34g-geoms)
@@ -31406,7 +31496,7 @@ function default_config()::Config
  )
 end
 
-"Parse '24,36,48' → Int[24,36,48] (v23: Test-38c C2 staircase CLI)."
+"Parse '24,36,48' → Int[24,36,48] (Test-38c C2 staircase CLI)."
 function parse_int_list(s::AbstractString)
     out = Int[]
     for tok in split(s, ',')
@@ -31442,14 +31532,16 @@ function parse_args!(cfg::Config)
     elseif a == "--no-gif"
         cfg.rep_gif = false; i += 1
     elseif a == "--plot-formats" && i+1 ≤ length(args)
-        # normalize tokens (FIX 2026-09-02): "PNG, SVG" used to produce
+        # normalize tokens (NOTE: "PNG, SVG" used to produce
         # " PNG"/" SVG" which never matched "png"/"svg" — the formats were
         # then silently skipped by the report writer.
-        # v23.1: only "png" is renderable (svg/pdf backends retired); the
+        # : only "png" is renderable (svg/pdf backends retired); the
         # list is honored but rep_init! filters it and warns on retired tokens.
         cfg.rep_plot_formats = _normalize_format_list(args[i+1]); i += 2
     elseif a == "--report-formats" && i+1 ≤ length(args)
         cfg.rep_report_formats = _normalize_format_list(args[i+1]); i += 2
+    elseif a == "--rep-preset" && i+1 ≤ length(args)
+        cfg.rep_preset = lowercase(strip(args[i+1])); i += 2
     elseif a == "--test" && i+1 ≤ length(args)
  cfg.test = lowercase(strip(args[i+1])); i += 2
  elseif a == "--data-dir" && i+1 ≤ length(args)
@@ -31502,13 +31594,13 @@ function parse_args!(cfg::Config)
  v = parse(Int, args[i+1]); v ≥ 8 || error("--t31-lmax must be ≥ 8, got $v")
  cfg.t31_lmax = v; i += 2
     elseif a == "--t38-seed" && i+1 ≤ length(args)
-        # v23.0: master seed of the three-pass Test 38
+        # : master seed of the three-pass Test 38
         cfg.t38_seed = parse(Int, args[i+1]); i += 2
     elseif a == "--t38-l1" && i+1 ≤ length(args)
-        # v23.0: 38a main lattice (dense eig N = L²; RAM guard may downgrade)
+        # : 38a main lattice (dense eig N = L²; RAM guard may downgrade)
         cfg.t38_l1 = parse(Int, args[i+1]); i += 2
     elseif a == "--t38-l2" && i+1 ≤ length(args)
-        # v23.0: 38b hardcore lattice
+        # : 38b hardcore lattice
         cfg.t38_l2 = parse(Int, args[i+1]); i += 2
     elseif a == "--t38-seeds" && i+1 ≤ length(args)
         cfg.t38_seeds = max(1, parse(Int, args[i+1])); i += 2
@@ -31528,7 +31620,7 @@ function parse_args!(cfg::Config)
         cfg.t38_c2_sizes = parse_int_list(args[i+1]); i += 2
     elseif a == "--t38c-seeds" && i+1 ≤ length(args)
         cfg.t38_c2_seeds = max(2, parse(Int, args[i+1])); i += 2
-    elseif a == "--d3-l" && i+1 ≤ length(args) # v21.0 3D two-pass / engine flags
+    elseif a == "--d3-l" && i+1 ≤ length(args) #  3D two-pass / engine flags
         cfg.d3_L = clamp(parse(Int, args[i+1]), 4, _D3_L_MAX); i += 2
     elseif a == "--d3-l1" && i+1 ≤ length(args)
         cfg.d3_L_primary = clamp(parse(Int, args[i+1]), 4, _D3_L_MAX); i += 2
@@ -31570,7 +31662,7 @@ function parse_args!(cfg::Config)
  elseif a == "--ab-q-list" && i+1 ≤ length(args)
  cfg.ab_q_list = parse_float_list(args[i+1]); i += 2
  elseif a == "--ab-alpha" && i+1 ≤ length(args)
- # FIX 2026-09-02: this flag used to set ONLY cfg.ab_alpha — the field read
+ # NOTE: this flag used to set ONLY cfg.ab_alpha — the field read
  # by Tests 32/33 — while Tests 16/27/36/42/43 and the Test-16 single-α
  # sweep read cfg.ab_alpha_test16, which NO CLI flag touched. A custom
  # --ab-alpha silently changed nothing for those tests. Both fields are
@@ -31633,7 +31725,7 @@ function parse_args!(cfg::Config)
  elseif a == "--ab-magic-alphas"
  cfg.ab_use_magic_alphas = true; i += 1
  elseif a == "--ab-custom-alphas" && i+1 ≤ length(args)
- # allow_negative=true (FIX 2026-09-02): α points are legitimately
+ # allow_negative=true (NOTE: α points are legitimately
  # negative (deep_sweep sweeps [-16, +16]); the old >0-only parser
  # rejected them with "float-list values must be > 0".
  cfg.ab_custom_alpha_points = parse_float_list(args[i+1]; allow_negative = true); i += 2
@@ -31672,12 +31764,12 @@ function parse_args!(cfg::Config)
  cfg.ab_W = parse(Float64, args[i+1]); i += 2
  elseif a == "--ab-w-max" && i+1 ≤ length(args)
  # Cap on the EFFECTIVE disorder used by Tests 32/33/36:
- # W_eff = min(ab_W, ab_W_max). Default 1.0 (user spec 2026-08-29:
+ # W_eff = min(ab_W, ab_W_max). Default 1.0 (
  # "W должно быть значительно меньше, в районе W=1, и не превышать 1.0").
  cfg.ab_W_max = parse(Float64, args[i+1]); i += 2
  elseif a == "--ab-w-cmp" && i+1 ≤ length(args)
  # Test-32 comparison-row (q=0.3) disorder strength. Default 0.5
- # (user spec 2026-08-29: lower W for the q=0.3 run). Pass "follow"
+ # . Pass "follow"
  # to track the primary W_eff instead of an independent value.
  v_cmp = args[i+1]
  cfg.ab_W_cmp = lowercase(v_cmp) in ("follow", "nan", "none") ? NaN :
@@ -31694,7 +31786,7 @@ function parse_args!(cfg::Config)
  # variants 16/26/28/34/35 read it directly). Default 10.
  cfg.ab_hc_nreal = parse(Int, args[i+1]); i += 2
  elseif a == "--t34g-l" && i+1 ≤ length(args)
- # v23.7 TEST 34G geometry sweep knobs (test id 39)
+ #  TEST 34G geometry sweep knobs (test id 39)
  cfg.t34g_L = parse(Int, args[i+1]); i += 2
  elseif a == "--t34g-reps" && i+1 ≤ length(args)
  cfg.t34g_reps = parse(Int, args[i+1]); i += 2
@@ -31735,7 +31827,7 @@ function parse_args!(cfg::Config)
  # Second-pass vortex count list (default [2])
  cfg.ab_nv_list_secondary = parse_int_list(args[i+1]); i += 2
  elseif a == "--no-plot" || a == "--verbose"
- # v23.1: both flags are retired no-ops (Plots.jl toggle + verbose field
+ # : both flags are retired no-ops (Plots.jl toggle + verbose field
  # removed from Config). Accepted silently so old driver scripts keep working.
  i += 1
  elseif a == "--no-progress"
@@ -31751,11 +31843,11 @@ function parse_args!(cfg::Config)
  Offset-Gram matching, non-mutating tests, proper imports
  KS p-value, exact chi2 CDF (any df)
  (regularized incomplete gamma, valid for ANY df),
- 
- 
+
+
  Embedded 50,000 real Riemann zeros (self-contained).
 
- Usage: julia ab_cloud_v20.jl [OPTIONS]
+ Usage: julia ab_cloud_full.jl [OPTIONS]
 
  Options:
  --zeros N Number of zeta zeros to load
@@ -31769,27 +31861,27 @@ function parse_args!(cfg::Config)
  --test N|all Run specific test [1-38] or all
  (default: interactive)
  --data-dir DIR Path to external data directory (default: data/)
- --output-dir DIR Where to write reports/plots (default: .)
+ --output-dir DIR Where to write reports/plots (default:.)
  --checkpoints N Number of convergence checkpoints (0=auto)
  --monotone N Number of monotonicity checks
  --bootstrap N Number of bootstrap samples (default: 1000)
  --chi2-bins N Number of chi^2 histogram bins
- default 300 (was 30, 10x per user spec)
+ default 300
  --highT-mins LIST T thresholds for Test 5 (comma-separated floats)
  default "1000,10000,100000"
- (was "100,1000,10000", 10x per user spec)
+
  --stability-thresh F Stability threshold (default: 0.10)
  --bN-thresh F b(N) pass threshold (default: 2.0)
  --power-law-tol F Power-law tolerance (default: 0.15)
  --slope-tol F Slope CI tolerance (default: 0.10)
  --matrix-size N GUE reference matrix size (default: 12000). Diag is
-                 O(N³): 12000² ≈ 7–8 min & ≈ 3.2 GB RAM (2 cores);
-                 use 2000–6000 on small machines
+ O(N³): 12000² ≈ 7–8 min & ≈ 3.2 GB RAM (2 cores);
+ use 2000–6000 on small machines
  --matrix-seed N GUE reference-matrix RNG seed (default: 112)
  --ad-cap N Anderson-Darling sample cap (default: 50000 = full ζ-set)
  --rmt-law LAW Reference spacing law: "gue2" (default; GUE β=2 Wigner
  surmise — the Montgomery–Odlyzko class) or "goe" (legacy
- β=1 surmise; the legacy :goe law was mislabeled as GUE in early releases)
+ β=1 surmise; the legacy:goe law was mislabeled as GUE in early releases)
  --rmt-table on|off β=2 CDF interpolation table (default: on —
  ~30× faster, |ΔF| ≤ 1e-9; "off" = exact series/CF)
  --t31-lmax N Max lattice L for TEST 30 Dirac-gap scaling (default: 72,
@@ -31803,10 +31895,10 @@ function parse_args!(cfg::Config)
  Recommended for Σ²(L)/Δ₃(L) — gives equal weight
  per decade on log-log plots. Example:
  --L-max 140 --L-count 8
- (produces 9 nodes: 2, 3.36, 5.65, ..., 127.43)
+ (produces 9 nodes: 2, 3.36, 5.65,..., 127.43)
  --L-count N Number of grid intervals for --L-max (default: 8).
  Ignored if --L-values is also given.
- --no-plot (retired no-op — the ABPlotV23 engine always renders)
+ --no-plot (no-op — the ABPlot engine always renders)
  --no-progress Disable the single-line progress bar
  (bar auto-disables when output is piped)
  --verbose (retired no-op)
@@ -31839,10 +31931,10 @@ function parse_args!(cfg::Config)
  --ab-nx-secondary N Second-pass lattice width (default 96)
  --ab-ny-secondary N Second-pass lattice height (default 96)
  --ab-nv-list-secondary LIST Second-pass vortex counts
- (default "2" — 2 vortices in run 96, per user spec)
+ (default "2" — 2 vortices in run 96, per)
 
  AB-cloud Monte-Carlo (Tests 16, 34, 36, 37, 38):
- --ab-ks-bootstrap-n N #GUE matrices for MC p-value (default 30, was 200)
+ --ab-ks-bootstrap-n N #GUE matrices for MC p-value (default 30,)
  --ab-n-realizations N #vortex configs to average ⟨r⟩ over (default 5)
  --ab-use-mc-p Use MC p-value (default, correct for single-matrix spectra)
  --ab-use-asymptotic-p Use asymptotic KS p-value (faster, but ALWAYS ~0 for single matrix)
@@ -31856,13 +31948,13 @@ function parse_args!(cfg::Config)
  Tests 28/32/33 previously HARDCODED W=8.0;
  reference implementations use W = 2.0)
  If --matrix-size 0 (no GUE reference matrix), the vortex count
- automatically falls back to 4 in ANY test (per user spec).
+ automatically falls back to 4 in ANY test (per).
 
  Presets:
  --preset quick|full|magic|deep_sweep|many_vortices|high_jitter|
  ring|random|irrational|custom
  Apply a named preset (overrides default_config fields).
- See list_presets() in code for the full table.
+ See list_presets in code for the full table.
 
  Interactive menu keys:
  1-38 Run specific test
@@ -31873,18 +31965,18 @@ function parse_args!(cfg::Config)
  q Quit
 
  Examples:
- julia ab_cloud_v20.jl
- julia ab_cloud_v23.jl --zeros 50000 --test all
- julia ab_cloud_v23.jl --zeros 50000 --source embedded --test all
- julia ab_cloud_v23.jl --zeros 200000 --source 2M --test all
- julia ab_cloud_v23.jl --zeros 20000 --matrix-size 3000 --test all
- julia ab_cloud_v20.jl --L-values "2,5,10,20,50,100,140" --test 13
- julia ab_cloud_v20.jl --L-max 140 --L-count 8 --test 14
- julia ab_cloud_v20.jl --config --lang ru
+ julia ab_cloud_full.jl
+ julia ab_cloud_full.jl --zeros 50000 --test all
+ julia ab_cloud_full.jl --zeros 50000 --source embedded --test all
+ julia ab_cloud_full.jl --zeros 200000 --source 2M --test all
+ julia ab_cloud_full.jl --zeros 20000 --matrix-size 3000 --test all
+ julia ab_cloud_full.jl --L-values "2,5,10,20,50,100,140" --test 13
+ julia ab_cloud_full.jl --L-max 140 --L-count 8 --test 14
+ julia ab_cloud_full.jl --config --lang ru
  """)
  exit(0)
  else
- # FIX 2026-08-31: unknown flags were skipped SILENTLY — a typo like
+ # NOTE: unknown flags were skipped SILENTLY — a typo like
  # `--ab-w 4` (the flag is --ab-W) or a missing value then silently
  # changed nothing. Print an honest warning and keep going.
  @printf(" WARNING: unrecognized CLI argument \"%s\" (flag typo or missing value?)\n", a)
@@ -31912,7 +32004,7 @@ function main()
  ab_show_banner(fmt(cfg, "title"), [
      "Author: Isaev Iskhak Khamzatovich | ORCID: 0009-0003-7299-0701",
      "Repo: https://github.com/wild8highlander/research-papers",
-     "Plot engine: ABPlotV23 (built-in journal engine — png + gif tour, no external packages)",
+     "Plot engine: ABPlot (built-in journal engine — png + gif tour, no external packages)",
      "Self-contained: 50,000 embedded Riemann zeros (Odlyzko)",
      "Default: requesting $(cfg.zeros_count) zeros from source '$(cfg.source)'"])
 
@@ -31931,9 +32023,9 @@ function main()
  zeta_zeros = load_zeros(cfg)
  if isempty(zeta_zeros)
  println(msg(cfg, "no_data"))
- # FIX 2026-09-02: exit(1) here killed an INTERACTIVE session that
- # had include()d this file (the footer runs main() when
- # isinteractive()). Script mode still exits with code 1; a REPL
+ # NOTE: exit(1) here killed an INTERACTIVE session that
+ # had included this file (the footer runs main when
+ # isinteractive). Script mode still exits with code 1; a REPL
  # session just returns control to the caller instead of dying.
  isinteractive() || exit(1)
  return
@@ -31946,10 +32038,10 @@ function main()
 
  if cfg.test == "all"
  run_all_tests(zeta_zeros, cfg)
- rep_finalize_run("AB-Cloud v23 SUPERCOMBO — full 38-test verification suite")
+ rep_finalize_run("AB-Cloud — full verification suite")
  elseif cfg.test != "interactive"
- # FIX 2026-09-02: --test abc (or --test 99) used to die with a raw
- # ArgumentError stack trace from parse(Int, ...) — or to run a
+ # NOTE: --test abc (or --test 99) used to die with a raw
+ # ArgumentError stack trace from parse(Int,...) — or to run a
  # nonexistent id silently returning false. Validate cleanly first.
  test_id = tryparse(Int, cfg.test)
  if test_id === nothing || !(test_id in SUITE_IDS)
@@ -31963,10 +32055,10 @@ function main()
  else
  run_test(test_id, zeta_zeros, cfg)
  end
- rep_finalize_run("AB-Cloud v23 SUPERCOMBO — single-test run (test $(test_id))")
+ rep_finalize_run("AB-Cloud — single-test run (test $(test_id))")
  else
  # when stdin is exhausted/closed (piped driver, /dev/null, IDE
- # runner) readline() returns "" forever — the menu was redrawn in an
+ # runner) readline returns "" forever — the menu was redrawn in an
  # infinite loop. 50 consecutive empty reads → graceful exit.
  # any exception inside the loop (a typo like "10k" in the 'r'
  # branch → parse(Int,"10k") ArgumentError, or a failed test) used to kill
@@ -31988,12 +32080,12 @@ function main()
  if answer == "q" || answer == "й"
          println(cfg.lang == "ru" ? "\n До свидания!" : "\n Goodbye!")
          ab_celebrate()
- rep_finalize_run("AB-Cloud v23 SUPERCOMBO — interactive session")
+ rep_finalize_run("AB-Cloud — interactive session")
  break
  elseif answer == "a" || answer == "ф"
  run_all_tests(zeta_zeros, cfg)
  # FINAL_REPORT right after the suite — no need to wait for 'q'
- rep_finalize_run("AB-Cloud v23 SUPERCOMBO — full 38-test verification suite")
+ rep_finalize_run("AB-Cloud — full verification suite")
  elseif answer == "p" || answer == "з"
  list_presets()
  print("Enter preset name [Enter=cancel]: ")
@@ -32014,9 +32106,9 @@ function main()
  elseif answer == "3"
  println("  The 3D lab moved to key 'd3' — typing 3 now runs TEST 3 (full two-pass: primary + hardcore).")
  run_test_two_pass(3, zeta_zeros, cfg)
- rep_finalize_run("AB-Cloud v23 SUPERCOMBO — single-test run (test 3)")
+ rep_finalize_run("AB-Cloud — single-test run (test 3)")
  elseif answer == "g" || answer == "G" || answer == "п" || answer == "П"
-  # v23.0: live UI language switch (user request «в меню выбирать язык»)
+  # : live UI language switch
   cfg.lang = cfg.lang == "en" ? "ru" : "en"
   println(cfg.lang == "ru" ?
       " Язык интерфейса: РУССКИЙ (клавиша g — переключить обратно)" :
@@ -32051,7 +32143,7 @@ function main()
  if test_id === nothing
  println("Invalid input. Enter 1-38, 'a', 'p', 'c', 'l', 'd3', 'f', 'h', 'r', 'g', or 'q'.")
  elseif test_id in SUITE_IDS
- # v23.1 («запуск теста отдельно должен гонять и хардкор»): a selective
+ #  («запуск теста отдельно должен гонять и хардкор»): a selective
  # run is now a FULL run — the two-pass wrapper executes the primary pass
  # AND the hardcore deep-validation pass (test…b variant) for EVERY test
  # 1..38 (Test 38 runs its self-contained 38a+38b hardcore+38c triple).
@@ -32061,7 +32153,7 @@ function main()
  " Full run of test $test_id: primary pass + HARDCORE pass (two-pass mode).")
  run_test_two_pass(test_id, zeta_zeros, cfg)
  # Same finalization as the CLI --test path: index.html + FINAL_REPORT.
- rep_finalize_run("AB-Cloud v23 SUPERCOMBO — single-test run (test $(test_id))")
+ rep_finalize_run("AB-Cloud — single-test run (test $(test_id))")
  else
  println("Invalid test number. Use 1-38.")
  end
@@ -32079,17 +32171,17 @@ function main()
  end
 end
 
-# run main() when executed as a
-# script AND when include()d into an INTERACTIVE session (REPL / IDE
-# "execute file"). A bare trailing `main()` would open the interactive
-# menu right after include(); non-interactive include() stays a
+# run main when executed as a
+# script AND when included into an INTERACTIVE session (REPL / IDE
+# "execute file"). A bare trailing `main` would open the interactive
+# menu right after include; non-interactive include stays a
 # silent library load
-# but SILENTLY skipped main() on include() — users perceived this as
+# but SILENTLY skipped main on include — users perceived this as
 # "the interactive menu does not open". New behavior:
-#   julia ab_cloud_v20.jl        → menu (script mode)
-#   include("ab_cloud_v20.jl")   → menu when the session is interactive;
-#                                  silent library mode otherwise (probe
-#                                  drivers, --test automation, notebooks)
+#  julia ab_cloud_full.jl → menu (script mode)
+#  include("ab_cloud_full.jl") → menu when the session is interactive;
+#  silent library mode otherwise (probe
+#  drivers, --test automation, notebooks)
 if (abspath(PROGRAM_FILE) == @__FILE__) || isinteractive()
     main()
 end
