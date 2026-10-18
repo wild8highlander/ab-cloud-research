@@ -5,4 +5,4 @@ R3,technical,language runners diverge from the contract,medium,medium,contract.j
 R4,technical,checksum rot after partial clones,medium,low,update_checksums.py --verify-only in reproduce.sh,managed
 R5,editorial,translation drift in the 5 abstract languages,medium,medium,abstracts marked as abstracts; RU/EN are the record,managed
 R6,editorial,loss of the heritage run archive context,low,high,provenance.jsonl + dossier §3 + CHANGELOG heritage section,managed
-R7,scientific,RH-adjacent hype cycle (external),medium,high,the package never claims; blocked verdict is the brand,open
+R7,scientific,RH-adjacent hype cycle (external),medium,high,the package never claims a theorem; the certified-with-boundary wording (does_not_prove + O11 ∀n residual) is the brand,open

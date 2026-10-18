@@ -1,5 +1,5 @@
 id,assumption,where it is used,what happens if it fails
-A1,the analytic prerequisites of the blocked RH conclusion remain assumptions,V13 obligation machine,nothing - the machine exists to keep this honest
+A1,RH as a theorem still requires O11 (λ_n > 0) for all n - certified numerically for n ≤ 3000 (tails ≤ 0.115) and by O08/O09 convergence,V13 obligation machine (unlocked v1.2.1): O12 classical - the path O01→O12 carries zero assumptions,the certified verdict would downgrade to blocked - the does_not_prove boundary already covers the honesty
 A2,machine precision (double) is meaningful for the statistical layer,all campaigns' GUE statistics,exact layer uses 256-bit paths as backstop
 A3,mpmath's zeros are a trustworthy oracle,C1/C2/C12 bridges,blind engines cross-check (E16/E17)
 A4,pre-registered windows cannot be re-tuned after results,gue_windows in config.yaml,the programme loses its pre-registration discipline

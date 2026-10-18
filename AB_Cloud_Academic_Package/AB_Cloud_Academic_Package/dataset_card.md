@@ -1,8 +1,8 @@
 # Dataset card — AB-Cloud unified package
 
 - **What**: the consolidated research registry of the AB-Cloud programme
-  (24 flagship results, 6 verdicts, 20 registry rows, 6 levels) + the curated
-  raw tables of the three source laboratories.
+  (37 flagship results, 11 verdicts, 53 registry rows, 10 levels) + the curated
+  raw tables of the source laboratories (7 raw series).
 - **Where**: `02_data/` (registry in `processed/`, byte-copies in `raw/`).
 - **Licence**: ODbL 1.0 for data; umbrella `LICENSE` for the honesty clause.
 - **Funnel rule**: every display in the package derives from

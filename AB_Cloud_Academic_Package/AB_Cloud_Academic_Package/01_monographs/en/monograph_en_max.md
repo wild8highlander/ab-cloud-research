@@ -4305,7 +4305,7 @@ The software stack. Python (numpy/scipy/mpmath) — the canonical level II/III i
 
 The unified CLI (`06_code/`): the `run` command with a common contract in six languages; surface: init, doctor, explain, plan, fetch, validate, preprocess, analyze, visualize, report, monograph, lab, api, test, bench, lint, docs, package, cite. The web lab (`07_web_lab/`): a standalone `index.html` (no CDNs), a Streamlit `app.py`, an API, PWA, i18n, themes. Monograph builds: `06_code/scripts/build_monograph.sh` — PDF (tectonic) + DOCX.
 
-The integrity tests (`09_tests/python/`): package structure (required dirs/files); the config schema (`rh_status: certified` — the machine verdict); i18n parity; the CLI contract; checksums; monograph structure (required RU/EN sections, the blocked verdict, campaign-bound numbers, built PDF/DOCX); reports and the lab.
+The integrity tests (`09_tests/python/`): package structure (required dirs/files); the config schema (`rh_status: certified` — the machine verdict); i18n parity; the CLI contract; checksums; monograph structure (required RU/EN sections, the certified verdict, campaign-bound numbers, built PDF/DOCX); reports and the lab.
 
 
 ---

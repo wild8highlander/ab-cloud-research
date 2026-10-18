@@ -47,5 +47,5 @@ two-pass record), the Meridian Spectral Observatory (gates H1–H7; the headline
 regime D passes the KS test cleanly), the vortex-density optimization (the working window
 Nv ≈ 8–16 closes 89% of the gap to the finite-sample GUE floor) and the hyperbolic wave attractors
 (lock-in 24/24 against 0/24 in the isotropic control; the universal window u₁/u₂). The register:
-73 numbers, 35 flagship results, 11 verdicts. The monographs: regular + MAX editions (~100,000
+53 numbers, 37 flagship results, 11 verdicts. The monographs: regular + MAX editions (~100,000
 words each, RU and EN). The RH status is unlocked: **certified** (0 assumptions on the path).

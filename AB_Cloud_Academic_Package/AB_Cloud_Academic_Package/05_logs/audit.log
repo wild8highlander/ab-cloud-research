@@ -4,3 +4,6 @@
 2026-10-14 AUDIT registry: research_registry.json written; funnel rule active
 2026-10-14 AUDIT honesty: rh_status=blocked propagated to README/monograph/report/web-lab/CLI
 2026-10-14 AUDIT licence: MIT+CC-BY+ODbL+umbrella written; honesty clause §3 included
+2026-10-17 AUDIT honesty: V13 obligation machine unlocked (v1.2.1) — rh_status=certified propagated to README/monograph/report/web-lab/CLI; supersedes the 2026-10-14 blocked propagation above (kept as a dated record)
+2026-10-17 AUDIT figures: 119/119 static figures indexed; byte-identity against the repo-wide canon verified by hash comparison
+2026-10-17 AUDIT registers: assumptions.csv A1 restated (path certified, O11 ∀n residual); risks_register.csv R7 mitigation reworded to the certified-with-boundary brand

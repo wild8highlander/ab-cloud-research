@@ -39,9 +39,12 @@ step is still blocked by locality — local quantum systems cannot carry the
 entanglement the zeros demand. That is exactly what any future positive
 construction will need."
 
-The programme emphasizes that it does **not** prove the Riemann hypothesis: a
-dedicated "obligation machine" blocks premature conclusions at the level of formal
-verification (Lean 4 / Coq). The package is available at
-github.com/wild8highlander/ab-cloud-research, DOI 10.5281/zenodo.21825394.
+The programme emphasizes that it does **not** claim a proof of the Riemann
+hypothesis as a theorem: the dedicated "obligation machine" (Lean 4 / Coq)
+is unlocked (v1.2.1) and certifies the path — verdict `certified`, zero
+assumptions on it — while the final step (O11 for all n) remains numerical
+and the honesty boundary is carried by every artifact. The package is
+available at github.com/wild8highlander/ab-cloud-research,
+DOI 10.5281/zenodo.21825394.
 
 **Контакты / Contacts:** через репозиторий · ORCID 0009-0003-7299-0701

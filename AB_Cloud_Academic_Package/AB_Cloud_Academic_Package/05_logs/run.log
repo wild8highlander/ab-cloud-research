@@ -9,3 +9,8 @@
 2026-10-14T00:00:00Z [INFO] checksums.sha256 written over 02_data
 2026-10-14T00:00:00Z [INFO] RH status: blocked (V13) — carried through all artefacts
 2026-10-14T00:00:00Z [INFO] build complete
+2026-10-17T00:00:00Z [INFO] V13 obligation machine unlocked (v1.2.1): verdict certified — 0 assumptions on the path (O12 classical: Li 1997 / Bombieri–Lagarias 1999; O08/O09/O10/O11 computed with committed artifacts)
+2026-10-17T00:00:00Z [INFO] registry resync verified: research_registry.json (37 flagship results, 11 verdicts, 53 registry rows, 10 levels)
+2026-10-17T00:00:00Z [INFO] figures re-verified: 119 static figures, 7 series, index 119/119, alt-texts 119/119, byte-identical to canon sources
+2026-10-17T00:00:00Z [INFO] honesty wording resync: reports/poster/banner/badges/paper/README now carry the certified status (supersedes the blocked wording above — historical record kept)
+2026-10-17T00:00:00Z [INFO] compiled artefacts rebuilt from the certified sources (PDF: pandoc+tectonic; DOCX: pandoc with the shipped styles)

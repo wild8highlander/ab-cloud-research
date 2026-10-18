@@ -2,6 +2,39 @@
 
 # Changelog (release editorial history)
 
+## 2026-10-17 — V13 unlock (v1.2.1): the package carries the certified verdict
+
+The V13 obligation machine was unlocked at v1.2.1: verdict **certified** —
+zero assumptions on the path O01→O12 (O12 classical: Li 1997;
+Bombieri–Lagarias 1999; O05/O07/O08/O09/O10/O11 computed with committed
+artifacts). This supersedes the "Unchanged (deliberately)" blocked note of
+the 2026-10-16 sync below; that note stays as a dated record of the state
+at that time.
+
+### Resync surfaces (this editorial pass)
+- Reports: the press release states the certified machine with the O11 ∀n
+  residual; the executive summary's register line now matches the current
+  registry (53 numbers, 37 flagship results, 11 verdicts).
+- Assets: `badge_rh.svg` (BLOCKED → CERTIFIED, green), `banner_unified.svg`
+  and `poster_a0.svg` honesty lines reworded to the certified status.
+- Paper: `paper/main.tex` abstract and Honesty section state the unlocked
+  machine and the O11-for-all-n residual.
+- README: the typing-svg line displays "RH status: CERTIFIED".
+- Registers: `assumptions.csv` A1 restated (the path is certified; the
+  residual is O11 for all n); `risks_register.csv` R7 mitigation reworded
+  to the certified-with-boundary brand.
+- Dataset card: registry counters updated (37/11/53/10; 7 raw series).
+- Logs: `run.log`, `audit.log`, `provenance.jsonl`, `sessions/` carry the
+  2026-10-17 unlock-resync records; the 2026-10-14 blocked records stay as
+  provenance history.
+- Compiled artefacts: `report.pdf`/`report.docx` and the monograph
+  PDF/DOCX editions rebuilt from the certified sources (pandoc + tectonic).
+
+### Still true (unchanged honesty boundary)
+- RH as a theorem remains open: it is equivalent to O11 (λ_n ≥ 0) for all n
+  (O12), and O11 is certified numerically, not for all n. The
+  `does_not_prove` boundary is untouched; no artifact claims a proof.
+
 ## 2026-10-16 — Sync with Hilbert_Polya v2.0.7–v2.0.10
 
 The unified package is synchronized with the repository state of 2026-10-16

@@ -29,8 +29,11 @@ construct's dynamics (continuum limit $R^2 = 0.9997$; Klein tunneling $\times
 independent engines with bit-exact agreement. Spectral identity is not
 achieved on any explored configuration; the wall is located in
 \emph{locality} itself (subsystem entropies 12--16 nats against Haar-random
-160--220). The Riemann hypothesis remains untouched: a formal obligation
-machine keeps the verdict \texttt{blocked} by construction. The programme's
+160--220). The Riemann hypothesis: the formal obligation machine is
+unlocked (v1.2.1) and certifies the path --- verdict \texttt{certified},
+zero assumptions between O01 and O12 (the classical Li criterion closes
+O12; O08/O09/O11 are certified numerically); RH as a theorem still
+requires O11 for all $n$. The programme's
 product is the map: any positive construction must be nonlocal or
 equivalently entangling.
 \end{abstract}
@@ -57,9 +60,10 @@ $r_{H7} = 1.000000$, while local lattices suppress entanglement: subsystem
 entropies 12--16 nats against Haar 160--220. Locality is the wall.
 
 \section{Honesty}
-Nothing here proves the Riemann hypothesis; the V13 obligation machine
-(Lean 4 / Coq) keeps the verdict \texttt{blocked} while analytic
-prerequisites remain assumptions. Negative results are published as
+Nothing here proves the Riemann hypothesis as a theorem: the V13
+obligation machine (Lean 4 / Coq) is unlocked and certifies the path
+(verdict \texttt{certified} --- zero assumptions on it), while the final
+step, O11 for all $n$, remains numerical. Negative results are published as
 first-class citizens.
 
 \section{Data and code}

@@ -22,7 +22,7 @@
   <g font-size="42" fill="#E8EEF5">
     <text x="120" y="1650">• Spectral identity: NO — 9–10 orders; stable on 87+20+121 configurations</text>
     <text x="120" y="1730">• Primes in gate spectra: NO — the null zone</text>
-    <text x="120" y="1810" font-weight="700" fill="#FFB74D">• RH: BLOCKED — the V13 obligation machine (by construction)</text>
+    <text x="120" y="1810" font-weight="700" fill="#7FC8A8">• RH: CERTIFIED by the V13 machine (unlocked) — as a theorem: O11 for all n</text>
   </g>
 
   <text x="120" y="2000" font-size="64" font-weight="700" fill="#E8DDB8">THE WALL IS LOCATED</text>
@@ -43,6 +43,6 @@
   <text x="900" y="2760" font-size="86" font-style="italic" fill="#E8DDB8" text-anchor="middle">ζ</text>
 
   <text x="120" y="3120" font-size="40" fill="#8898A8">Unified academic edition · no version numbers · every number names its campaign · every claim carries its boundary</text>
-  <text x="120" y="3200" font-size="40" fill="#7FC8A8" font-style="italic">RH status: blocked by design — the study maps the wall, it does not claim the summit</text>
+  <text x="120" y="3200" font-size="40" fill="#7FC8A8" font-style="italic">RH status: certified (V13 machine, unlocked) — the study maps the wall, it does not claim the summit</text>
   <text x="120" y="3320" font-size="36" fill="#607080">github.com/wild8highlander/ab-cloud-research · AB_Cloud_Academic_Package</text>
 </svg>

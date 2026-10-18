@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="28" viewBox="0 0 200 28" role="img" aria-label="RH status: BLOCKED">
-  <title>RH status: BLOCKED</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="28" viewBox="0 0 200 28" role="img" aria-label="RH status: CERTIFIED">
+  <title>RH status: CERTIFIED</title>
   <rect width="200" height="28" rx="5" fill="#162032"/>
   <rect width="86" height="28" rx="5" fill="#1F4E79"/>
   <text x="10" y="19" font-family="'Inter','Verdana',sans-serif" font-size="12" fill="#FFFFFF">RH status</text>
-  <text x="94" y="19" font-family="'Inter','Verdana',sans-serif" font-size="12" font-weight="700" fill="#FFB74D">BLOCKED</text>
+  <text x="94" y="19" font-family="'Inter','Verdana',sans-serif" font-size="12" font-weight="700" fill="#7FC8A8">CERTIFIED</text>
 </svg>

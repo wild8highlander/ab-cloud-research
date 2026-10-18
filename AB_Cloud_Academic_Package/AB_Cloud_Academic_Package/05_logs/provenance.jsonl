@@ -1,3 +1,5 @@
 {"ts":"2026-10-14T00:00:00Z","event":"build","steps":22,"honesty":"rh_status=blocked carried through"}
 {"ts":"2026-10-14T00:00:00Z","event":"data","raw_files_copied":92,"transform":"none"}
 {"ts":"2026-10-14T00:00:00Z","event":"figures","files":76,"captions":"fresh RU/EN"}
+{"ts":"2026-10-17T00:00:00Z","event":"resync","steps":6,"honesty":"rh_status=certified (V13 unlocked, v1.2.1) carried through; supersedes the blocked build record above"}
+{"ts":"2026-10-17T00:00:00Z","event":"figures","files":119,"index":"119/119","alt_texts":"119/119","source_check":"byte-identical to canon (repo-wide hash audit)"}
