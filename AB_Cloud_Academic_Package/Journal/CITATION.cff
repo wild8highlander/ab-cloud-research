@@ -1,0 +1,45 @@
+cff-version: 1.2.0
+message: "If you use these submission packages, please cite them as below."
+title: "AB-Cloud Research Programme: Journal Submission Deliverables (NSR JINR, SciPost Physics, arXiv preprint)"
+authors:
+  - family-names: "Isaev"
+    given-names: "Iskhak Khamzatovich"
+    orcid: "https://orcid.org/0009-0003-7299-0701"
+date-released: "2026-10-18"
+repository-code: "https://github.com/wild8highlander/ab-cloud-research/tree/main/AB_Cloud_Academic_Package/Journal"
+abstract: >-
+  The sealed, venue-tailored submission packages of the AB-Cloud research
+  programme, compiled from the unified academic edition. Three packages:
+  NSR (JINR) - full manuscript (100 pp.) on the official nsr.cls v1.5 class
+  with cover letter, 48 figures and supplemental material (code + run data);
+  SciPost Physics - Publication version (60 pp.) plus a condensed Core
+  version (11 pp.) on the official SciPost.cls; arXiv - a flat preprint
+  package (standard article class, inline bibliography, 48 figures). Each
+  zip is sealed with SHA-256 checksums and carries its own step-by-step
+  submission wizard guide. The study is a numerical and formal
+  investigation of a mathematical model; it does not prove the Riemann
+  hypothesis - the honesty layer (does_not_prove fields, verdict:
+  certified, RH conclusion unlocked) travels with every package. Gate
+  ledger of the programme (unified edition, synced 2026-10-16): G1-G5
+  YES; blind campaign C17 NEGATIVE by its pre-registered criterion; the
+  algebraic_map section closes the pixel encoding exactly in Q.
+keywords:
+  - Riemann zeta
+  - Hilbert-Polya
+  - Aharonov-Bohm
+  - lattice Dirac operator
+  - GUE statistics
+  - peer review
+  - submission package
+preferred-citation:
+  type: data
+  authors:
+    - family-names: "Isaev"
+      given-names: "Iskhak Khamzatovich"
+      orcid: "https://orcid.org/0009-0003-7299-0701"
+  title: "AB-Cloud Research Programme: Journal Submission Deliverables"
+  year: 2026
+  doi: "10.5281/zenodo.21825394"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.21825394"
