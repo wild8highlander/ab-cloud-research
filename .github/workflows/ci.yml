@@ -115,7 +115,7 @@ jobs:
       - name: Install scientific stack + pytest
         run: |
           pip install --disable-pip-version-check \
-            numpy scipy matplotlib mpmath sympy pytest
+            numpy scipy matplotlib mpmath sympy pytest pyyaml jsonschema
       - name: Run the unified test suite
         working-directory: AB_Cloud_Quantum_Research
         run: pytest tests/test_unified.py -q
@@ -138,3 +138,16 @@ jobs:
       - name: Run the Academic Package contract tests
         working-directory: AB_Cloud_Academic_Package/AB_Cloud_Academic_Package
         run: pytest 09_tests/python/ -q
+      - name: Run the Hilbert-Polya module tests
+        working-directory: Hilbert_Polya
+        run: pytest tests/ -q
+      # The package's Python clone is CLI-driven (its tests_* modules are
+      # library code, not pytest-collectable): smoke it through the intended
+      # entry point so 06_code stays exercised on every push.
+      - name: Smoke-run the Python clone suite (tests 1-2, small zero budget)
+        working-directory: AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/06_code/python/python_clone
+        run: |
+          python3 -m abcloud.cli --test 1,2 --no-two-pass --zeros 2000 \
+            --no-progress --out "${RUNNER_TEMP}/abclone-smoke"
+      - name: Smoke-run the Vortex T34 engine sanity script
+        run: python3 Vortex_optimization/scripts/test_engine.py

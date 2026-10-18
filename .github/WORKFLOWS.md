@@ -7,8 +7,9 @@ runs locally; it is read by GitHub Apps and Actions.
 
 | Workflow | File | What it does |
 |---|---|---|
-| CI | `ci.yml` | canonical-artifact presence checks (v23 suite, formal layer, monographs, frozen ζ-zero datasets, package registry, CITATION.cff), CITATION.cff validation (cffconvert), markdownlint (curated surface incl. the Academic Package's authored docs and Meridian docs, `.markdownlint-cli2.jsonc`), YAML lint over **every tracked YAML file** (yamllint, `.yamllint.yaml`), **JSON/TOML validity over every tracked file** + `bash -n` over every shell script (`check_data_formats.py`), **ruff** (real-defect gate: `ruff.toml`), **pytest** (all four Python test suites **+ the Academic Package contract suite**) |
+| CI | `ci.yml` | canonical-artifact presence checks (v23 suite, formal layer, monographs, frozen ζ-zero datasets, package registry, CITATION.cff), CITATION.cff validation (cffconvert), markdownlint (curated surface incl. the Academic Package's authored docs and Meridian docs, `.markdownlint-cli2.jsonc`), YAML lint over **every tracked YAML file** (yamllint, `.yamllint.yaml`), **JSON/TOML validity over every tracked file** + `bash -n` over every shell script (`check_data_formats.py`), **ruff** (real-defect gate: `ruff.toml`), **pytest** (all five Python test suites — the unified, processor, core-spectrum and Hilbert–Polya suites **+ the Academic Package contract suite** — plus smoke runs of the package's Python clone and the Vortex engine) |
 | Docs health | `docs-health.yml` | documentation & sync integrity on every push: **internal links & anchors over every tracked `.md`** (GitHub annotations), **README coverage** (every documented directory), **package ⇄ canon sync-guard** (byte-copies of the Julia suite, HP audit, D-variants, formal layer, frozen zeros + verdict-layer ⇄ registry consistency) — plus a weekly **lychee** crawl of external links (report-only artifact) |
+| Repo integrity | `repo-integrity.yml` | whole-repository file integrity on every push: **workflow trigger sanity** (every `push`/`pull_request` branch filter must include `main` — catches silently-dead CI), **SHA256 verification of every committed manifest** (`SHA256SUMS.txt`, `manifest.sha256`, `checksums.sha256`), **CSV parse**, **SVG/XML well-formedness** and **nbformat notebook validation** over every tracked file of the respective kind |
 | Polyglot syntax gate | `polyglot.yml` | every code file in the repository must parse in its language: Julia (`Meta.parseall` over all `.jl`), Go (`go vet ./...` per module), Rust (`cargo check --offline` per crate — all dependency-free), C/C++ (`g++ -fsyntax-only`), Fortran (`gfortran -cpp -fsyntax-only`), Java (`javac`), JavaScript (`node --check`), R (`parse`); Python/shell are covered by ci.yml's ruff and data-formats jobs — see the matrix in the file header for the documented exclusions (matlab, haskell) |
 | Julia suite | `julia.yml` | parse check of `code/ab_cloud_full.jl` + smoke run (`--test 1`, ~1 min) on every push/PR/week; the **full two-pass 39-test suite** runs on demand via `workflow_dispatch` |
 | Formal verification | `formal.yml` | compiles the formal layer in **four proof assistants**: Lean 4 (`lean-action` → `lake build` + `lake exe abcloud-verify` — the 8/8 frozen-reference gate), Coq (`coq_makefile && make`), Agda (`agda -i . -i .`), Isabelle/HOL (`isabelle build -D formal/isabelle`, official docker image) |
@@ -62,6 +63,7 @@ python3 .github/scripts/check_data_formats.py  # JSON/TOML validity + bash -n
 python3 -m pytest AB_Cloud_Quantum_Research/tests -q     # unified suite
 python3 -m pytest AB_Cloud_Quantum_Research/modules -q   # module suites
 python3 -m pytest AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/09_tests/python -q  # package contract suite
+python3 -m pytest Hilbert_Polya/tests -q      # Hilbert-Polya suite
 julia code/ab_cloud_full.jl --test 1          # the same smoke run julia.yml executes
 cd formal/lean4 && lake build && lake exe abcloud-verify   # the formal gate
 python3 verification/sections/section3_ab_cloud/python/verify.py   # smoke test
@@ -82,13 +84,15 @@ Some GitHub features are repository settings, not files — flip them once in
 
 ## Кратко (по-русски)
 
-- Служебная папка GitHub: 13 воркфлоу (CI с ruff, pytest по всем сюитам пакета,
+- Служебная папка GitHub: 14 воркфлоу (CI с ruff, pytest по всем сюитам пакета,
   валидацией каждого JSON/TOML и bash-скрипта, markdownlint по авторской
   документации, yamllint по всему репозиторию; **docs-health** — битые ссылки и
   якоря во всех `.md` при каждом пуше + покрытие README + sync-guard
   «пакет ⇄ канон» + недельный lychee-обход внешних ссылок; **polyglot** —
   синтаксис-гейт каждого кодового файла: Julia/Go/Rust/C-C++/Fortran/Java/JS/R;
-  Julia-сюит со смоук-прогоном, формальная верификация
+  **repo-integrity** — sanity триггеров воркфлоу, проверка всех SHA256-манифестов,
+  парсинг каждого CSV, SVG/XML и ноутбука; Julia-сюит со смоук-прогоном,
+  формальная верификация
   Lean4/Coq/Agda/Isabelle, сборка документации на Pages, CodeQL,
   release-drafter, dependency-review, stale, авторазметка PR, приветствие
   новичков, авто-мерж Dependabot), шаблоны issue/PR, dependabot (actions +

@@ -30,6 +30,8 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v7
+      - name: Ensure PyYAML (script needs yaml; don't rely on the runner image)
+        run: python3 -m pip install --quiet pyyaml
       - name: Every branch filter must include main; every workflow must declare "on"
         run: python3 .github/scripts/check_workflow_triggers.py
 
