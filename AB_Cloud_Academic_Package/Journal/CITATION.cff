@@ -5,12 +5,12 @@ authors:
   - family-names: "Isaev"
     given-names: "Iskhak Khamzatovich"
     orcid: "https://orcid.org/0009-0003-7299-0701"
-date-released: "2026-10-18"
+date-released: "2026-10-19"
 repository-code: "https://github.com/wild8highlander/ab-cloud-research/tree/main/AB_Cloud_Academic_Package/Journal"
 abstract: >-
   The sealed, venue-tailored submission packages of the AB-Cloud research
   programme, compiled from the unified academic edition. Three packages:
-  NSR (JINR) - full manuscript (100 pp.) on the official nsr.cls v1.5 class
+  NSR (JINR) - full manuscript (99 pp.) on the official nsr.cls v1.5 class
   with cover letter, 48 figures and supplemental material (code + run data);
   SciPost Physics - Publication version (60 pp.) plus a condensed Core
   version (11 pp.) on the official SciPost.cls; arXiv - a flat preprint

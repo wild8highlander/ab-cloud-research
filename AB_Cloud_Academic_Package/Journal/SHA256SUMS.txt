@@ -1,0 +1,23 @@
+# AB-Cloud Journal shelf — folder-level SHA-256 sums
+# Re-seal of 2026-10-19 (see CHANGELOG.md). Pins the eight sealed, upload-bound
+# artifacts: four zips + four preview PDFs. The shelf's editorial files (README,
+# guides, FAQ, changelog, this file) are deliberately not covered.
+#
+# Verified byte-identity cross-checks (2026-10-19):
+#   NSR_manuscript_preview.pdf          == nsr_submission/manuscript_NSR.pdf
+#                                          (inside NSR_JINR_submission_AB-Cloud.zip)
+#   SciPost_manuscript_preview.pdf      == scipost_submission/scipost_manuscript.pdf
+#                                          (inside SciPost_Physics_submission_AB-Cloud.zip)
+#   SciPost_core_manuscript_preview.pdf == scipost_submission/scipost_core_manuscript.pdf
+#                                          (inside SciPost_Physics_submission_AB-Cloud.zip)
+#
+# Verify:  sha256sum -c SHA256SUMS.txt   (run inside AB_Cloud_Academic_Package/Journal/)
+
+6ed73b9fd3f24d6bad8c899acfed1a6e024f37b1e580f088401ff49cf5fcab8e  NSR_JINR_submission_AB-Cloud.zip
+0629f40fee4f99d2093ba6d97d464539594d9d04cb28c778d28b008988e7c9d3  SciPost_Physics_submission_AB-Cloud.zip
+42d01ccba055f243aec05451442eb9dff27303937e68907d64b43c9ea0aec3f1  arXiv_submission_AB-Cloud.zip
+9a427ca1de41713aad56f5233eaedf004e38b996ca69ffadd1772c7d198efee1  AB-Cloud.zip
+debfff39e3f54d9b1e147aadd10a6711945178dffa4d20d515657cd760accc65  NSR_manuscript_preview.pdf
+9f14435cfdb483ee7257ca36b36b71243c605f1ffa63df78c6bdee1fa61e7f92  SciPost_manuscript_preview.pdf
+b99974ba81ab6cc66fb6fa44a9c7e60b936ebf2d29116779fd172feadf703c5f  SciPost_core_manuscript_preview.pdf
+07c9d50d84c66248a6e753fd234093ddd98a120b0a7e1bf5850b45dcecce1c1b  arXiv_manuscript_preview.pdf

@@ -13,8 +13,8 @@ wizard instructions straight on GitHub, without downloading a single byte.
 
 > [!IMPORTANT]
 > **Provenance rule.** The copy **inside the zip is the source of truth**;
-> these visible copies were re-extracted on **2026-10-18** from the
-> 2026-10-18 re-seal and are stamped with a provenance note at the top. The
+> these visible copies were extracted on **2026-10-19** from the
+> 2026-10-19 re-seal and are stamped with a provenance note at the top. The
 > zips themselves are pinned by [`../SHA256SUMS.txt`](../SHA256SUMS.txt) — if
 > a zip is ever re-sealed again, the mirrored guide must be re-extracted in
 > the same commit, and [`../CHANGELOG.md`](../CHANGELOG.md) must say so.

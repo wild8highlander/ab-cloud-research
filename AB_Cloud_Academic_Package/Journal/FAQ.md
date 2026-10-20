@@ -37,7 +37,10 @@ README:
    the four zips and four preview PDFs against the committed sums.
 2. **Package level** — after unzipping, `sha256sum -c SHA256SUMS.txt`
    inside the package directory checks **every** file the venue will
-   receive (1,151 files for NSR, 1,150 for SciPost, 128 for arXiv).
+   receive, as pinned by the package's own manifest (868 files for NSR,
+   867 for SciPost, 50 for arXiv — every file except the manifest itself;
+   the zip entry counters reported by `unzip -l`, 1,151 / 1,150 / 128,
+   additionally include folder entries).
 
 If a check fails, re-download first; if it fails again, do **not** upload
 that copy — see question 9.
@@ -46,13 +49,16 @@ that copy — see question 9.
 
 Yes. The NSR and SciPost zips ship the official class files they were built
 with (`nsr.cls` v1.5 + `nsr.bst`; `SciPost.cls` + `SciPost_bibstyle.bst`),
-so `pdflatex <manuscript>.tex` (run twice) reproduces the compiled PDF
-locally — `compile_notes.md` in the NSR package records the exact build
-recipe. The arXiv package needs no extra files at all: it is deliberately
+and `compile_notes.md` in the NSR package records the exact build recipe:
+the reference PDFs are compiled with Tectonic 0.15.0 (XeTeX bundle), with two
+tiny local compatibility patches to a LOCAL copy of `nsr.cls` (fancyhdr
+v4.0.1); with TeX Live (`fancyhdr` ≥ 4.1) the unpatched journal class
+compiles the manuscript as-is via `pdflatex <manuscript>.tex` (run twice).
+The arXiv package needs no extra files at all: it is deliberately
 flat (standard `article` class, inline `thebibliography`), which is exactly
-what arXiv's auto-builder accepts without surprises. All three compile with
-pdfLaTeX; Unicode-heavy constructs were transliterated to standard macros
-during packaging for that reason.
+what arXiv's auto-builder accepts without surprises. Unicode-heavy
+constructs were transliterated to standard macros during packaging for that
+reason.
 
 ## 5. Does any of this prove the Riemann Hypothesis?
 
@@ -120,7 +126,7 @@ download is by far the most common cause. If the mismatch persists, compare
 your sum against the values in [`SHA256SUMS.txt`](SHA256SUMS.txt) manually
 (one line per artifact). A *file you produced* (an edited PDF, a rebuilt
 zip) will legitimately fail — the sums pin the current sealed bytes
-(re-sealed 2026-10-18; the 2026-10-08 originals and the rebuild record live
+(re-sealed 2026-10-19; the 2026-10-08 originals and the rebuild record live
 in [`CHANGELOG.md`](CHANGELOG.md)); that is the design, not a bug. If a
 fresh download from this repository still fails, do not upload it anywhere:
 open the issue with the Author at

@@ -10,8 +10,8 @@ compiled from the unified edition, sealed with SHA-256, ready to upload.**
 *NSR (JINR) · SciPost Physics · arXiv · 48 figures each · supplemental included*
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=Fira+Code&size=15&pause=1400&color=E8DDB8&center=true&vCenter=true&random=false&width=660&height=34&lines=Three+packages+%C2%B7+three+wizards+%C2%B7+one+manuscript;NSR+%28JINR%29%3A+100+pp.+on+official+nsr.cls+v1.5;SciPost%3A+60+pp.+Publication+%2B+11+pp.+Core;arXiv%3A+flat+main.tex+%C2%B7+zip-and-upload+ready">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=15&pause=1400&color=0B1F35&center=true&vCenter=true&random=false&width=660&height=34&lines=Three+packages+%C2%B7+three+wizards+%C2%B7+one+manuscript;NSR+%28JINR%29%3A+100+pp.+on+official+nsr.cls+v1.5;SciPost%3A+60+pp.+Publication+%2B+11+pp.+Core;arXiv%3A+flat+main.tex+%C2%B7+zip-and-upload+ready" alt="Typing introduction: three packages, three wizards, one manuscript; NSR JINR 100 pp. on official nsr.cls v1.5; SciPost 60 pp. Publication plus 11 pp. Core; arXiv flat main.tex, zip-and-upload ready"/>
+  <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=Fira+Code&size=15&pause=1400&color=E8DDB8&center=true&vCenter=true&random=false&width=660&height=34&lines=Three+packages+%C2%B7+three+wizards+%C2%B7+one+manuscript;NSR+%28JINR%29%3A+99+pp.+on+official+nsr.cls+v1.5;SciPost%3A+60+pp.+Publication+%2B+11+pp.+Core;arXiv%3A+flat+main.tex+%C2%B7+zip-and-upload+ready">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=15&pause=1400&color=0B1F35&center=true&vCenter=true&random=false&width=660&height=34&lines=Three+packages+%C2%B7+three+wizards+%C2%B7+one+manuscript;NSR+%28JINR%29%3A+99+pp.+on+official+nsr.cls+v1.5;SciPost%3A+60+pp.+Publication+%2B+11+pp.+Core;arXiv%3A+flat+main.tex+%C2%B7+zip-and-upload+ready" alt="Typing introduction: three packages, three wizards, one manuscript; NSR JINR 99 pp. on official nsr.cls v1.5; SciPost 60 pp. Publication plus 11 pp. Core; arXiv flat main.tex, zip-and-upload ready"/>
 </picture>
 
 [![Packages](https://img.shields.io/badge/packages-3%20sealed%20zips-7FA8D0?style=for-the-badge)](#-packages)
@@ -23,7 +23,7 @@ compiled from the unified edition, sealed with SHA-256, ready to upload.**
 [![Guides](https://img.shields.io/badge/wizard_guides-3%20visible%20copies-E8DDB8?style=for-the-badge)](guides/README.md)
 [![FAQ](https://img.shields.io/badge/FAQ-11%20answers-7FC8A8?style=for-the-badge)](FAQ.md)
 [![Prepared](https://img.shields.io/badge/packages_prepared-2026--10--08-8B7E5A?style=for-the-badge)](#-packages)
-[![Resealed](https://img.shields.io/badge/full_re--seal-2026--10--18-9558B2?style=for-the-badge)](CHANGELOG.md)
+[![Resealed](https://img.shields.io/badge/full_re--seal-2026--10--19-9558B2?style=for-the-badge)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-strictly__personal-8B7E5A?style=for-the-badge)](#-license--attribution)
 
 </div>
@@ -45,9 +45,10 @@ compiled from the unified edition, sealed with SHA-256, ready to upload.**
 > [§ License & attribution](#-license--attribution)
 > and [FAQ §5](FAQ.md#5-does-any-of-this-prove-the-riemann-hypothesis).
 
-**Packages prepared:** 8 October 2026 · **Full re-seal (all 8 artifacts rebuilt, text as-is):** 18 October 2026 ·
-**Shelf uplift (this README & scaffolding):** 18 October 2026 ·
-**Verdict sync (editorial, packages untouched):** 19 October 2026 ·
+**Packages prepared:** 8 October 2026 · **Committed to the repository:** 16 October 2026 ·
+**Shelf uplift (FAQ, CITATION.cff, status board, guides index):** 18 October 2026 ·
+**Verdict sync (editorial, packages untouched):** 18 October 2026 ·
+**Full re-seal (service files fixed, NSR Appendix B corrected & rebuilt):** 19 October 2026 ·
 from [github.com/wild8highlander/ab-cloud-research](https://github.com/wild8highlander/ab-cloud-research)
 
 <div align="center">
@@ -83,7 +84,7 @@ packages safely from here to a referee's desk.
 ```mermaid
 graph LR
 E["🟢 Unified edition<br/>(one shelf up)"] -->|"compiled from,<br/>2026-10-08"| Z["📦 3 sealed zips<br/>+ all-in-one bundle"]
-Z -->|"full article · 100 pp."| V1["🏛️ NSR (JINR)<br/>nsr.jinr.int"]
+Z -->|"full article · 99 pp."| V1["🏛️ NSR (JINR)<br/>nsr.jinr.int"]
 Z -->|"Publication · 60 pp.<br/>or Core · 11 pp."| V2["🏛️ SciPost Physics<br/>scipost.org"]
 Z -->|"preprint · math-ph"| V3["🏛️ arXiv<br/>arxiv.org"]
 Z -.->|"SHA-256 inside<br/>+ folder level"| X["✅ Two-level<br/>verification"]
@@ -117,14 +118,19 @@ Full ledger — every campaign, gate and negative result:
 
 > [!IMPORTANT]
 > **Timeline honesty.** The audit wave of 16 October 2026 postdates the
-> packages' compilation (8 October 2026); the re-seal of 18 October 2026
-> reproduced the manuscripts byte-faithfully with the text untouched. The
-> manuscripts therefore document the reference-run record as compiled,
-> while the table above is the shelf's authoritative verdict statement —
-> the two coexist without contradiction, each labelled with its date. A
-> verdict-synced re-issue of the packages, if ever wanted, follows the
-> sealed-package routine of [CHANGELOG](CHANGELOG.md) and has not been
-> performed; the [FAQ §11](FAQ.md#11-where-do-the-current-verdicts-live)
+> packages' compilation (8 October 2026). The re-seal of 19 October 2026
+> corrected only stale editorial service text inside the zips (guide
+> headers, dead cross-references, licence guidance) and one stale
+> duplicated sentence-pair in the NSR manuscript's Appendix B provenance
+> text, then rebuilt the NSR PDF with the original engine and documented
+> recipe (Tectonic 0.15.0 — now 99 pp.); the SciPost and arXiv manuscripts
+> are untouched and their PDFs remain byte-faithful to the 2026-10-08
+> build. The manuscripts therefore document the reference-run record as
+> compiled, while the table above is the shelf's authoritative verdict
+> statement — the two coexist without contradiction, each labelled with
+> its date. A verdict-synced re-issue of the packages, if ever wanted,
+> follows the sealed-package routine of [CHANGELOG](CHANGELOG.md) and has
+> not been performed; the [FAQ §11](FAQ.md#11-where-do-the-current-verdicts-live)
 > explains the layering.
 
 ## 🗺️ Which file do you need?
@@ -152,18 +158,18 @@ Full ledger — every campaign, gate and negative result:
 
 | File | For | Content |
 |---|---|---|
-| `NSR_JINR_submission_AB-Cloud.zip` | Natural Science Review (JINR), [nsr.jinr.int](https://nsr.jinr.int) | Full manuscript (100 pp.) on official `nsr.cls` v1.5, cover letter, 48 figures, supplemental (code + run data), wizard guide, SHA256SUMS — 1,151 files |
-| `SciPost_Physics_submission_AB-Cloud.zip` | SciPost Physics, [scipost.org](https://scipost.org) | Publication version (60 pp.) + condensed **Core version (11 pp.)** on official `SciPost.cls`, cover letter, 48 figures, supplemental, wizard guide, SHA256SUMS — 1,150 files |
-| `arXiv_submission_AB-Cloud.zip` | [arXiv.org](https://arxiv.org) preprint | Flat package: `main.tex` (standard article class, inline bibliography), `figures/` (48), metadata README, SHA256SUMS — 128 files, zip-and-upload ready |
+| `NSR_JINR_submission_AB-Cloud.zip` | Natural Science Review (JINR), [nsr.jinr.int](https://nsr.jinr.int) | Full manuscript (99 pp.) on official `nsr.cls` v1.5, cover letter, 48 figures, supplemental (code + run data), wizard guide, SHA256SUMS — 1,151 entries |
+| `SciPost_Physics_submission_AB-Cloud.zip` | SciPost Physics, [scipost.org](https://scipost.org) | Publication version (60 pp.) + condensed **Core version (11 pp.)** on official `SciPost.cls`, cover letter, 48 figures, supplemental, wizard guide, SHA256SUMS — 1,150 entries |
+| `arXiv_submission_AB-Cloud.zip` | [arXiv.org](https://arxiv.org) preprint | Flat package: `main.tex` (standard article class, inline bibliography), `figures/` (48), metadata README, SHA256SUMS — 128 entries, zip-and-upload ready |
 | `AB-Cloud.zip` | all-in-one bundle | the three venue zips above, all four preview PDFs and a mini README in one archive |
 
 <details>
-<summary>📦 What's inside — <code>NSR_JINR_submission_AB-Cloud.zip</code> (1,151 files · 25.7&nbsp;MB uncompressed)</summary>
+<summary>📦 What's inside — <code>NSR_JINR_submission_AB-Cloud.zip</code> (1,151 entries · 24.5&nbsp;MB uncompressed)</summary>
 
 ```text
 nsr_submission/
 ├── manuscript_NSR.tex                LaTeX-2e source, official nsr.cls v1.5
-├── manuscript_NSR.pdf                compiled reference PDF (100 pp., journal layout)
+├── manuscript_NSR.pdf                compiled reference PDF (99 pp., journal layout)
 ├── cover_letter_NSR.tex / .pdf       cover letter for the wizard
 ├── README_how_to_submit.md           step-by-step wizard guide → guides/NSR_JINR_how_to_submit.md
 ├── compile_notes.md                  exact local build recipe
@@ -176,13 +182,13 @@ nsr_submission/
     ├── python_clone/                 self-contained abcloud Python package
     │                                 (core, runner, 38-test suites, zeta data)
     ├── lab_standalone/               preserved standalone Julia lab codes
-    └── run_data/                     full run data (988 files)
+    └── run_data/                     full run data (788 files in 200 folders)
 ```
 
 </details>
 
 <details>
-<summary>📦 What's inside — <code>SciPost_Physics_submission_AB-Cloud.zip</code> (1,150 files · 25.5&nbsp;MB uncompressed)</summary>
+<summary>📦 What's inside — <code>SciPost_Physics_submission_AB-Cloud.zip</code> (1,150 entries · 24.3&nbsp;MB uncompressed)</summary>
 
 ```text
 scipost_submission/
@@ -200,7 +206,7 @@ scipost_submission/
 </details>
 
 <details>
-<summary>📦 What's inside — <code>arXiv_submission_AB-Cloud.zip</code> (128 files · 3.7&nbsp;MB uncompressed)</summary>
+<summary>📦 What's inside — <code>arXiv_submission_AB-Cloud.zip</code> (128 entries · 3.5&nbsp;MB uncompressed)</summary>
 
 ```text
 arxiv_submission/
@@ -215,7 +221,7 @@ no class files by design — standard article class, inline thebibliography
 </details>
 
 <details>
-<summary>📦 What's inside — <code>AB-Cloud.zip</code> (the bundle, 8 files · 33.3&nbsp;MB uncompressed)</summary>
+<summary>📦 What's inside — <code>AB-Cloud.zip</code> (the bundle, 8 files · 32.0&nbsp;MB uncompressed)</summary>
 
 ```text
 NSR_JINR_submission_AB-Cloud.zip       the three venue zips,
@@ -233,6 +239,7 @@ README.md                              mini README mirroring the packages table
 ## 👁️ Preview PDFs (not for upload)
 
 - `NSR_manuscript_preview.pdf` — compiled reference PDF of the NSR manuscript
+  (99 pp., journal layout)
   *(byte-identical to `nsr_submission/manuscript_NSR.pdf` — verified, see* [`SHA256SUMS.txt`](SHA256SUMS.txt)*)*
 - `SciPost_manuscript_preview.pdf` — Publication version
   *(byte-identical to `scipost_submission/scipost_manuscript.pdf` — verified)*
@@ -314,8 +321,9 @@ The same `figures/` and `supplemental/` serve both.
 | [`SciPost_how_to_submit.md`](guides/SciPost_how_to_submit.md) | SciPost wizard | `scipost_submission/README_how_to_submit.md` |
 | [`arXiv_metadata.md`](guides/arXiv_metadata.md) | arXiv metadata & endorsement | `arxiv_submission/README_arxiv_metadata.md` |
 
-Render-friendly copies, extracted 2026-10-18, each stamped with a provenance
-note. Index and provenance rule: [`guides/README.md`](guides/README.md).
+Render-friendly copies, extracted 2026-10-19 from the 2026-10-19 re-seal,
+each stamped with a provenance note. Index and provenance rule:
+[`guides/README.md`](guides/README.md).
 
 ## ❓ FAQ
 

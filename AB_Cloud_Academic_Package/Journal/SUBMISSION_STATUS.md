@@ -29,7 +29,7 @@ was *prepared* — this board records what *happened*.
 
 | Venue | Package | Article type | Status | Submitted on | Manuscript ID | Next action |
 |---|---|---|---|---|---|---|
-| **NSR (JINR)** — [nsr.jinr.int](https://nsr.jinr.int) | `NSR_JINR_submission_AB-Cloud.zip` | Full article, 100 pp., official `nsr.cls` v1.5 | 🟡 Prepared | — | — | Run the NSR wizard — [`guides/NSR_JINR_how_to_submit.md`](guides/NSR_JINR_how_to_submit.md) |
+| **NSR (JINR)** — [nsr.jinr.int](https://nsr.jinr.int) | `NSR_JINR_submission_AB-Cloud.zip` | Full article, 99 pp., official `nsr.cls` v1.5 | 🟡 Prepared | — | — | Run the NSR wizard — [`guides/NSR_JINR_how_to_submit.md`](guides/NSR_JINR_how_to_submit.md) |
 | **SciPost Physics** — [scipost.org](https://scipost.org) | `SciPost_Physics_submission_AB-Cloud.zip` | Publication (60 pp.) **or** Core (11 pp.) — pick one | 🟡 Prepared | — | — | Choose the article type, run the SciPost wizard — [`guides/SciPost_how_to_submit.md`](guides/SciPost_how_to_submit.md) |
 | **arXiv** — [arxiv.org](https://arxiv.org) | `arXiv_submission_AB-Cloud.zip` | Preprint, math-ph (cross-lists math.NT, math.SP) | 🟡 Prepared | — | — | Request endorsement (first-time submitter), then submit — [`guides/arXiv_metadata.md`](guides/arXiv_metadata.md) |
 
@@ -43,10 +43,10 @@ was *prepared* — this board records what *happened*.
 
 | Date | Event |
 |---|---|
-| 2026-10-08 | All three packages compiled from the unified edition, sealed with SHA-256 and committed to this shelf. |
-| 2026-10-18 | Shelf uplift: folder-level checksums, visible `guides/`, FAQ, CITATION.cff — packages untouched at this point. |
-| 2026-10-18 | **Full re-seal** (see [`CHANGELOG.md`](CHANGELOG.md)): all eight artifacts rebuilt with the original engine (Tectonic 0.15.0), manuscript text untouched; service files inside the zips corrected (stale v23 naming, cross-references, licence guidance); checksums regenerated everywhere; previews re-synced byte-identical to their in-zip sources. Statuses unchanged: nothing has been submitted yet. |
-| 2026-10-19 | Verdict sync (editorial — **packages untouched**): the shelf's documents now carry the unified edition's 2026-10-16 audit state (G2 YES, G5 YES, C17 NEGATIVE, algebraic_map exact closure) — see [`CHANGELOG.md`](CHANGELOG.md) and the README's "Where the science stands now". The eight sealed artifacts, their sums and the `guides/` mirrors are unchanged. Statuses unchanged: nothing has been submitted yet. |
+| 2026-10-08 | All three packages compiled from the unified edition and sealed with SHA-256. |
+| 2026-10-16 | Packages, previews and shelf assets committed to the repository (commits `34a732f`, `4616fc7`). |
+| 2026-10-18 | Shelf uplift, editorial commit (`70da9ce`): FAQ, CITATION.cff, status board, guides index, verdict-synced README. The folder-level checksums, the visible guide mirrors and the assets catalogue announced at the time were **not** included in that commit — they landed with the 2026-10-19 re-seal below. Packages untouched. |
+| 2026-10-19 | **Full re-seal** (see [`CHANGELOG.md`](CHANGELOG.md)): stale service text inside the zips corrected (guide headers, dead `…_v23.zip` cross-references, licence guidance, Core page count); one stale duplicated paragraph removed from the NSR manuscript's Appendix B and the NSR PDF rebuilt with the original engine (Tectonic 0.15.0 — now 99 pp.); in-zip and folder-level checksums regenerated; previews re-synced (NSR preview = new build; the other three byte-faithful to 2026-10-08); `SHA256SUMS.txt`, the three `guides/` mirrors and `assets/README.md` created. Statuses unchanged: nothing has been submitted yet. |
 
 ## How to update this file (Author's routine)
 

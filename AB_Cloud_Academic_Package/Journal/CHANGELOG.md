@@ -4,118 +4,122 @@ The Journal shelf is **sealed, not versioned**: the submission packages are
 frozen artifacts — each zip carries its own `SHA256SUMS.txt`, and the
 folder-level [`SHA256SUMS.txt`](SHA256SUMS.txt) pins the zips and preview
 PDFs byte-for-byte. This changelog therefore records the *editorial history
-of the shelf* — what was added **around** the sealed packages — rather than
-version bumps. The packages themselves are never edited in place: a corrected
-manuscript means a rebuilt, re-sealed zip and a fresh line below.
+of the shelf* — what was added **around** the sealed packages and when the
+packages themselves were re-sealed. The packages are never edited in place:
+a corrected manuscript means a rebuilt, re-sealed zip and a fresh line below.
 
-## 2026-10-19 — Verdict sync: the shelf speaks the 2026-10-16 audit state
+> [!IMPORTANT]
+> **Record correction (2026-10-19).** An earlier revision of this changelog
+> dated below described a "full re-seal of 2026-10-18" and announced
+> folder-level checksums, visible guide copies and an assets catalogue as
+> landed. A repository audit on 2026-10-19 showed that none of that had
+> actually been committed: the zips kept their 2026-10-08 bytes (committed
+> 2026-10-16), and the announced scaffolding files were absent from the
+> repository. The 2026-10-18 entry below has been rewritten to describe
+> only what that commit actually contained; the re-seal itself was performed
+> and committed on 2026-10-19 (entry below). The shelf's honesty layer
+> applies to its own history as well.
 
-Editorial sync only — **no sealed byte touched**: the eight artifacts, the
-folder-level sums, the in-zip manifests and the `guides/` mirrors are
-exactly as the 2026-10-18 re-seal left them. What changed is the shelf's
-prose about the science, now aligned with the unified edition's verdict
-ledger as synced on 2026-10-16 (see
-`../AB_Cloud_Academic_Package/CHANGELOG.md`):
+## 2026-10-19 — Full re-seal: performed, verified and committed
 
-- **README gains "Where the science stands now"** — a compact ledger table
-  mirroring the unified edition's honesty discipline: G1–G5 all **YES**
-  (G2 flipped NO → YES on the gates' D_nn = 0.0079, C3 audit v2.0.7, with
-  the bit-level branch T18 recorded as the verdict's stated boundary; G5
-  flipped NO → YES on the convergence ladder, audit v2.0.8: gate
-  ψ-correlation −0.12 → +0.09 → +0.24, floor 0.0324 → 0.0220, best
-  D = 0.0318), RH **CERTIFIED — not proved** (V13, unlocked v1.2.1), the
-  blind campaign **C17 NEGATIVE** by its pre-registered criterion (1.04×
-  over the primes-free null, z_GUE = −3.3; the C17b valley windows read
-  the blind count exactly, 19.0004 → 19 and 25.00005 → 25), and the
-  **algebraic_map** exact closure in ℚ (all 25 char-poly coefficients,
-  D_25 = 0; the two branches of Φ agree to 10⁻³⁰³; the Weyl bound explains
-  the decoding error).
-- **FAQ §5 extended** with the same gate state and the negative results; a
-  new **FAQ §11** explains the layering — the packages carry the
-  reference-run record they were compiled with (2026-10-08), the living
-  ledger lives in the unified edition (2026-10-16) — and why the two
-  coexist without contradiction.
-- **CITATION.cff** abstract names the current gate state; the FAQ badge
-  moves 10 → 11 answers; `guides/README.md` and the status board's event
-  log point to the synced ledger.
-- Timeline honesty is explicit throughout: the 16 October 2026 audit wave
-  postdates the packages' compilation (8 October 2026); a verdict-synced
-  re-issue of the packages would follow the sealed-package routine below
-  and has not been performed.
+The re-seal announced for 2026-10-18 was **actually executed** on this date,
+together with everything the 2026-10-18 uplift had announced but not
+committed. Details:
 
-## 2026-10-18 — Full re-seal: all eight artifacts rebuilt
-
-Every upload-bound artifact on the shelf — the three venue zips, the
-all-in-one bundle and all four preview PDFs — was **rebuilt and re-sealed**.
-The rebuild is a faithful reproduction, not a revision:
-
-- **Manuscript text: untouched.** No character of any manuscript, cover
-  letter or form-metadata block changed. All six PDFs were recompiled with
-  the same engine the original build used (Tectonic 0.15.0, XeTeX bundle,
-  following the documented recipe in `compile_notes.md`), and every
-  recompiled PDF matches its predecessor page-for-page — 100 pp. (NSR),
-  60 pp. + 11 pp. (SciPost Publication + Core), 54 pp. (arXiv) — with byte
-  sizes within 5 bytes of the sealed originals (the delta is PDF build
-  metadata only).
-- **Service files inside the zips: corrected.** The stale "AB-Cloud v23"
-  package naming in the guides' headers now reads "the unified academic
-  edition"; the SciPost guide's two references to the arXiv package use the
-  real filename (`arXiv_submission_AB-Cloud.zip`, not `…_v23.zip`); the
-  arXiv metadata README's own header drops the stale v23 tag while its
-  paste-ready form metadata (title included) stays untouched; the bundle's
-  mini README now lists the real zip names, fixes its preview byte-identity
-  notes, and corrects the arXiv licence guidance to the **non-exclusive
-  licence to distribute** (consistent with the strictly personal licence —
-  the old "CC BY 4.0 recommended" line contradicted it); each in-zip guide
-  gained a short shelf-pointers note (visible `guides/` copies, folder-level
-  sums, status tracker); `compile_notes.md` records the rebuild
-  verification.
+- **NSR manuscript: one stale paragraph removed, PDF rebuilt.** Appendix B
+  of `manuscript_NSR.tex` carried two contradictory provenance paragraphs —
+  a leftover "This appendix reproduces the complete Julia source …" sentence
+  superseded by the Supplemental-Material paragraph next to it ("…the
+  verbatim 32,095-line listing … is not printed in the body …"). The stale
+  paragraph was deleted; no other character of the manuscript changed. The
+  PDF was recompiled with the original engine and documented recipe
+  (Tectonic 0.15.0, XeTeX bundle, the two local `nsr.cls` compatibility
+  patches of `compile_notes.md`): the manuscript is now **99 pp.** in the
+  journal layout (the removal shortened the flow by one page; the trailing
+  content is unchanged and was verified against the previous build's final
+  pages). The shipped `nsr.cls` remains byte-identical to the journal
+  original. The line-count figures inside the manuscript ("31,239-line")
+  were audited and stand: they refer to the build that executed the
+  26.04-hour reference run, while the 32,095-line listing shipped in
+  Appendix B / supplemental is the v3.3 build of 2026-09-19 — two builds,
+  both named with their own correct numbers.
+- **Service files inside the zips: corrected.** The stale "AB-Cloud v23
+  academic package" naming in the NSR and SciPost guide headers now reads
+  "the unified academic edition"; the SciPost guide's two references to the
+  arXiv package use the real filename (`arXiv_submission_AB-Cloud.zip`, not
+  `…_v23.zip`); the SciPost guide's Core version is described as its actual
+  11 pages (was "~15 pp."); the arXiv metadata README's own header drops the
+  stale v23 tag, its suggested Comments field now states the real arXiv
+  compile size ("54 pages, 48 figures" — was "60 pages"), and its licence
+  line now recommends the **non-exclusive licence to distribute** (consistent
+  with the strictly personal licence — the earlier wording read as a
+  CC BY 4.0 recommendation); each in-zip guide gained a short shelf-pointers
+  note (visible `guides/` copies, folder-level sums, status tracker);
+  `compile_notes.md` records the rebuild verification.
+- **Bundle mini README: rewritten.** The all-in-one bundle's README listed
+  stale zip names (`…_AB-Cloud_v23.zip`), carried the same stale v23 title
+  and a "CC BY 4.0 recommended" arXiv licence line contradicting the shelf.
+  It now lists the real zip names, adds the verified preview byte-identity
+  notes, carries the corrected licence guidance and points to the shelf.
 - **Checksums: regenerated everywhere.** In-zip `SHA256SUMS.txt` of all
-  three packages rebuilt and self-verified (`sha256sum -c` PASS);
-  file counts unchanged (1,151 / 1,150 / 128 / 8); the folder-level
-  [`SHA256SUMS.txt`](SHA256SUMS.txt) re-pins the eight new artifacts;
-  the four preview PDFs remain byte-identical to their in-zip sources.
-- **`guides/` mirrors re-extracted** from the re-sealed zips in the same
-  commit, per the provenance rule.
-- The 2026-10-08 sealing remains the scientific reference point: the
-  manuscripts' content identity across the re-seal is documented above and
-  in `nsr_submission/compile_notes.md`.
+  three packages rebuilt and self-verified (`sha256sum -c` PASS; 868 / 867 /
+  50 entries); file-entry counts unchanged (1,151 / 1,150 / 128 / 8); the
+  folder-level [`SHA256SUMS.txt`](SHA256SUMS.txt) — now actually present —
+  pins the eight new artifacts and records three verified byte-identity
+  cross-checks (NSR, SciPost and SciPost-Core previews against their in-zip
+  sources).
+- **Missing scaffolding landed.** The folder-level `SHA256SUMS.txt`, the
+  three visible `guides/` mirrors (extracted from the re-sealed zips with
+  provenance stamps) and `assets/README.md` — announced on 2026-10-18 — are
+  committed with this re-seal.
+- **Previews re-synced.** `NSR_manuscript_preview.pdf` replaced with the new
+  99 pp. build (byte-identical to the in-zip `manuscript_NSR.pdf`); the
+  SciPost, SciPost-Core and arXiv previews are unchanged — their PDFs are
+  byte-faithful to the 2026-10-08 build.
+- **Editorial surfaces updated.** README (honest dates, 99 pp., precise
+  entry/size counts, timeline-honesty block), FAQ (verification counts,
+  build-recipe wording, re-seal date), CITATION.cff (release date), and
+  this changelog. Statuses unchanged: nothing has been submitted yet.
 
-## 2026-10-18 — Journal shelf uplift (parity with the Academic Package)
+## 2026-10-18 — Journal shelf uplift (editorial)
 
-The shelf catches up with its parent folder's standards. At this stage the
-eight sealed artifacts still kept their 2026-10-08 bytes; the same-day
-**full re-seal** above then rebuilt them. The scaffolding below is new
-relative to the original shelf:
+The shelf caught up with its parent folder's standards **in its editorial
+layer**. Committed on this date (commit `70da9ce`):
 
-- **Folder-level checksums.** `SHA256SUMS.txt` now pins the four zips and
-  four preview PDFs with SHA-256, so integrity is verifiable *before* any
-  download is trusted (previously the sums existed only *inside* the zips —
-  a chicken-and-egg gap for first-time verifiers). The file also records a
-  verified cross-check: `NSR_manuscript_preview.pdf` is byte-identical to
-  `nsr_submission/manuscript_NSR.pdf`, and `SciPost_manuscript_preview.pdf`
-  is byte-identical to `scipost_submission/scipost_manuscript.pdf`.
-- **`guides/` — the wizard guides leave the zips.** Visible, render-ready
-  copies of `README_how_to_submit.md` (NSR, SciPost) and
-  `README_arxiv_metadata.md` (arXiv), each stamped with a provenance note:
-  the copy inside the zip remains the source of truth.
 - **`SUBMISSION_STATUS.md`.** A hand-maintained tracker for the submission
   life-cycle of all three venues (Prepared → Submitted → Under review →
   Decision) with an event log and update instructions for the Author.
-- **`FAQ.md`.** Ten answers covering the questions the shelf actually
-  triggers: which SciPost version, arXiv endorsement, the "not for upload"
-  previews, the two-level verification workflow, the honesty boundary, the
-  strictly personal licence, and what to do when a checksum fails.
+- **`FAQ.md`.** Answers covering the questions the shelf actually triggers:
+  which SciPost version, arXiv endorsement, the "not for upload" previews,
+  the two-level verification workflow, the honesty boundary, the strictly
+  personal licence, and what to do when a checksum fails.
 - **`CITATION.cff`.** The shelf becomes formally citable (CFF 1.2.0, DOI
   10.5281/zenodo.21825394) alongside the unified edition's own citation
   file.
-- **`assets/README.md`.** The banner and emblem art get their own
-  catalogue note, matching the parent assets folder convention.
-- **`README.md` rebuilt.** Honest-boundary block, "What this shelf is",
-  a "Which file do you need?" router, per-zip content trees, the two-level
-  verification section, the status board, the guides index and the citation
-  block — while preserving every existing guarantee of the previous
-  revision (packages table, SciPost choice guidance, human steps, licence).
+- **`guides/README.md`.** The index and the provenance rule for the visible
+  guide mirrors.
+- **`README.md` rebuilt.** Honest-boundary block, the verdict-sync section
+  "Where the science stands now", a "Which file do you need?" router,
+  per-zip content trees, the two-level verification section, the status
+  board, the guides index and the citation block.
+
+> [!NOTE]
+> **Not landed with this commit** (contrary to what an earlier revision of
+> this changelog stated): the folder-level `SHA256SUMS.txt`, the three
+> visible `guides/` guide mirrors, `assets/README.md`, and the re-seal of
+> the packages. All of the above arrived with the **2026-10-19** re-seal
+> entry above; the eight sealed artifacts kept their 2026-10-08 bytes until
+> that date. The repository's commit history is the audit trail.
+
+## 2026-10-16 — Packages committed to the repository
+
+The four zips (`NSR_JINR_submission_AB-Cloud.zip`,
+`SciPost_Physics_submission_AB-Cloud.zip`, `arXiv_submission_AB-Cloud.zip`,
+`AB-Cloud.zip`), the four preview PDFs, the shelf `assets/` (banner,
+emblem) and the first `README.md` were committed to
+[github.com/wild8highlander/ab-cloud-research](https://github.com/wild8highlander/ab-cloud-research)
+(commits `34a732f`, `4616fc7`). The zips' bytes date from the 2026-10-08
+sealing and stayed untouched until the 2026-10-19 re-seal.
 
 ## 2026-10-08 — Initial sealed packages
 
