@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 360" font-family="Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="Energy levels morph from uncorrelated Poisson positions to repelled GUE positions">
+  <defs>
+    <style>
+      :root { --bg:#ffffff; --line:#dbe2ea; --fg:#1f2937; --mut:#6b7280;
+              --poi:#9ca3af; --gue:#0077bb; --gold:#d9a441; }
+      @media (prefers-color-scheme: dark) {
+        :root { --bg:#0f172a; --line:#243149; --fg:#f1f5f9; --mut:#94a3b8;
+                --poi:#64748b; --gue:#33bbee; --gold:#e8b56a; }
+      }
+      text { fill: var(--fg); }
+      .mut { fill: var(--mut); }
+    </style>
+  </defs>
+
+  <rect width="920" height="360" fill="var(--bg)"/>
+
+  <text x="50" y="40" font-size="19" font-weight="700">Level repulsion: from Poisson to GUE</text>
+  <text x="50" y="62" font-size="13" class="mut">uncorrelated levels cluster; GUE levels push each apart &#8212; the signature the AB-cloud shares with the &#950; zeros</text>
+
+  <!-- Poisson row -->
+  <text x="50" y="122" font-size="14" font-weight="600" fill="var(--poi)">Poisson &#183; &#10216;r&#10217; &#8776; 0.386</text>
+  <line x1="50" y1="170" x2="560" y2="170" stroke="var(--line)" stroke-width="2"/>
+  <g fill="var(--poi)">
+    <circle cy="170" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="72;72;72;72"/></circle>
+    <circle cy="170" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="86;86;86;86"/></circle>
+    <circle cy="170" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="97;97;97;97"/></circle>
+    <circle cy="170" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="188;188;188;188"/></circle>
+    <circle cy="170" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="203;203;203;203"/></circle>
+    <circle cy="170" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="330;330;330;330"/></circle>
+    <circle cy="170" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="342;342;342;342"/></circle>
+    <circle cy="170" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="356;356;356;356"/></circle>
+    <circle cy="170" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="500;500;500;500"/></circle>
+  </g>
+  <text x="580" y="175" font-size="13" class="mut">levels fall where they please &#8212; small gaps abound</text>
+
+  <!-- GUE row -->
+  <text x="50" y="238" font-size="14" font-weight="600" fill="var(--gue)">GUE &#183; &#10216;r&#10217; = 0.5996</text>
+  <line x1="50" y1="286" x2="560" y2="286" stroke="var(--line)" stroke-width="2"/>
+  <g fill="var(--gue)">
+    <circle cy="286" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="72;72;112;112"/></circle>
+    <circle cy="286" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="86;86;150;150"/></circle>
+    <circle cy="286" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="97;97;190;190"/></circle>
+    <circle cy="286" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="188;188;236;236"/></circle>
+    <circle cy="286" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="203;203;296;296"/></circle>
+    <circle cy="286" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="330;330;362;362"/></circle>
+    <circle cy="286" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="342;342;428;428"/></circle>
+    <circle cy="286" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="356;356;462;462"/></circle>
+    <circle cy="286" r="7"><animate attributeName="cx" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.45;0.55;1" keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1" values="500;500;520;520"/></circle>
+  </g>
+  <text x="580" y="291" font-size="13" class="mut">mutual repulsion &#8212; gaps avoid zero</text>
+
+  <!-- verdict chips -->
+  <g font-size="13">
+    <rect x="726" y="98" width="164" height="34" rx="17" fill="none" stroke="var(--poi)" stroke-width="1.4"/>
+    <text x="808" y="120" text-anchor="middle" class="mut">no repulsion</text>
+    <rect x="726" y="270" width="164" height="34" rx="17" fill="none" stroke="var(--gue)" stroke-width="1.6"/>
+    <text x="808" y="292" text-anchor="middle" fill="var(--gue)" font-weight="600">level repulsion</text>
+  </g>
+
+  <text x="50" y="342" font-size="12" class="mut">conceptual animation &#8212; illustrative positions, not raw data &#183; statistics: verification/ &#183; Montgomery test KS = 0.047, p = 0.27</text>
+</svg>

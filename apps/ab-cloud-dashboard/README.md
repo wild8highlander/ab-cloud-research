@@ -1,5 +1,7 @@
 # AB-Cloud Dashboard — React Application №1
 
+> **🧭 Navigation:** [apps/](../README.md) · [lab3d](../ab-cloud-lab3d/README.md) · [Root](../../README.md)
+
 Interactive real-time dashboard of the AB-Cloud verification suite.
 React 18 + Vite, **no charting dependencies** — every plot is hand-rolled
 SVG, so the whole app is a few source files with a tiny bundle.
@@ -38,6 +40,16 @@ the orbit representative to ≈ 1e-14 — a direct in-browser refutation of the
 all 64 spinor structures verified in-browser.
 
 ## Architecture
+
+The three tabs as data flows from the committed evidence (bundle committed
+prebuilt in `dist/` — runs without Node):
+
+```mermaid
+flowchart LR
+    R["committed evidence<br/>runs · logs · datasets"] --> T1["tab 1<br/>run report · 37 verdicts"]
+    R --> T2["tab 2<br/>real-time ζ statistics"]
+    R --> T3["tab 3<br/>Test 38 · 64 spinors"]
+```
 
 | Piece | Where | Notes |
 |---|---|---|

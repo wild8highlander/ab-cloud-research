@@ -264,6 +264,18 @@ per-test ledgers: [`tests/*/results.json`](tests/README.md).
 | vortex channel K(0.5) (L = 48 cloud) | **0.607** vs zeros 0.396 | lattice reproduces the zeros | D14 |
 | Julia cross-implementation | **ALL PASS** | independent port | all |
 
+The transition that the table above encodes in numbers — ⟨r⟩ moving from the
+clean range 0.41–0.52 into the GUE window 0.605–0.608 once ζ decoration is
+switched on — animated as the level-repulsion mechanism itself:
+
+<p align="center">
+<img src="../assets/visuals/animated/gue_transition.svg" alt="Animated scheme: energy levels morph from clustered Poisson positions to mutually repelled GUE positions" width="780">
+</p>
+
+*Conceptual animation (theme-adaptive) — illustrative positions, not raw
+measurement. The measured effect: D7 turns ⟨r⟩ 0.41–0.52 → 0.605–0.608, and
+D10 shows repulsion protecting transport.*
+
 ## 🌉 The bridge — ζ-decorated Dirac operator
 
 The construction follows the parent repository verbatim:

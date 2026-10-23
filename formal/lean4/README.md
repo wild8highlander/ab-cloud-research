@@ -7,6 +7,8 @@
 
 # 🟩 `formal/lean4` — the executable Lean 4 re-derivation
 
+> **🧭 Navigation:** [formal/](../README.md) · [Root](../../README.md)
+
 > **A Float64 port of the reference pipeline that lives inside a proof assistant — and re-derives the frozen flagship numbers from the raw ζ-zero dataset.**
 
 This folder contains the Lean 4 development of the AB-Cloud formal layer: the exact algebraic skeleton (residual nonnegativity, the Gram-offset lattice, group orders, the trace identity Tr(AB) = Tr(BA)) proved with `sorry`-free kernels where exactness is possible, and — the centrepiece — **`ABCloud.lean`, an executable 12th language**: a full Float64 port of the Python reference pipeline (Lambert W → Gram points → b(N) ladder → unfolded spacings → GUE CDF → KS / Cramér–von Mises → log–log fit).

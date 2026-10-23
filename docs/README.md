@@ -4,6 +4,8 @@
 
 # 📚 Docs — MkDocs Material Documentation Site
 
+> **🧭 Navigation:** [Root README](../README.md) · [monographs/](../monographs/README.md)
+
 **The sources of the GitHub Pages documentation site
 (<https://wild8highlander.github.io/ab-cloud-research>) — the narrative layer of the project,
 built with MkDocs Material and auto-deployed on every push to `main`.**

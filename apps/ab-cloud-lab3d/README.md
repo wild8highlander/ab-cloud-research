@@ -1,5 +1,7 @@
 # AB-Cloud Lab 3D — React Application №2
 
+> **🧭 Navigation:** [apps/](../README.md) · [dashboard](../ab-cloud-dashboard/README.md) · [Root](../../README.md)
+
 Interactive WebGL laboratory (React 18 + Vite + **Three.js**) visualizing
 the 3D-1…3D-34 experiments of the Julia suite. Every scene is computed in
 the browser — the γ values are not pre-baked pictures but live geometry.
@@ -30,6 +32,17 @@ experiment 3D-34: on startup it verifies itself against the known anchors
 refuses to draw (so a silent numerical bug can never fake the picture).
 
 ## Architecture
+
+The three scenes over one shared React + Three.js core (bundle committed
+prebuilt in `dist/` — runs without Node):
+
+```mermaid
+flowchart LR
+    S1["scene 1<br/>Hofstadter lattice + vortices"] --> CORE["React + Three.js core<br/>committed dist/ · no build step"]
+    S2["scene 2<br/>Dirac cone"] --> CORE
+    S3["scene 3<br/>ζ critical strip"] --> CORE
+    CORE -->|"matches"| LAB["lab-3d/<br/>offline pipelines"]
+```
 
 | Piece | Where | Notes |
 |---|---|---|

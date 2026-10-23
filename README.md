@@ -163,6 +163,24 @@ Every number above traces to a named test in the
 [reference 37-test log](results/Test%201-37%20ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt) —
 full computation logs ship with every run of the suite.
 
+The universality claim can be seen directly from the frozen data. The chart
+below is recomputed from the committed 50,000-zero dataset (no simulation
+involved): the unfolded nearest-neighbour spacings of the ζ zeros follow the
+GUE Wigner surmise and rule out the GOE/Poisson alternatives at a glance.
+
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/visuals/charts/zeros_pair_correlation.dark.svg">
+  <img src="assets/visuals/charts/zeros_pair_correlation.light.svg" alt="Nearest-neighbour spacing histogram of the 50,000 frozen zeta zeros against the GUE and GOE Wigner surmises" width="860">
+</picture>
+</p>
+
+> **How to read this chart.** Built with matplotlib directly from
+> `AB_Cloud_Academic_Package/.../02_data/frozen/zeros/zeros50k.txt` (SHA-256
+> pinned). The unfolding uses the Riemann–von Mangoldt counting function; the
+> recomputed ratio statistic ⟨r⟩ = 0.6119 over 49,998 gaps lands inside the
+> suite's own GUE band [0.5772, 0.6212].
+
 ## 📊 Computation data at a glance
 
 Every figure in this table is a stored, re-derivable artifact — nothing is
@@ -221,6 +239,27 @@ The claim under test (Hilbert–Pólya in computational form): the cloud's spect
 is GUE-universal **if and only if** the phases come from the critical line
 σ = 1/2 — turning the Riemann Hypothesis into a statement about the universality
 class of a quantum system.
+
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/visuals/ai/ab_cloud_concept_dark.png">
+  <img src="assets/visuals/ai/ab_cloud_concept_light.png" alt="Conceptual illustration: glowing vortices on a Hofstadter lattice feeding dashed phase curves into a vertical critical line marked with zero points" width="820">
+</picture>
+</p>
+
+*Conceptual illustration (AI-generated, not raw data): vortices on the
+Hofstadter lattice hand their Aharonov–Bohm phases — derived from ζ zeros —
+to the spectrum, and the critical line collects the result.*
+
+And the mechanism itself, animated: phases flow from the zeros into a rotating
+topological vortex while the phase dial tracks the exact flux Φ_AB = π/7
+(Test 22):
+
+<p align="center">
+<img src="assets/visuals/animated/ab_flux_vortex.svg" alt="Animated scheme: zeta-zero phases flow along dashed curves into a slowly rotating topological vortex on a lattice, with a synchronized phase dial showing Phi_AB = pi over 7" width="820">
+</p>
+
+*Conceptual animation (SMIL/CSS, theme-adaptive) — illustrative, not raw data.*
 
 **Programme status — where the claim stands after the v2.0.x audit series.**
 Three summary statements, each traceable to the ledgers and audits below:
@@ -572,6 +611,20 @@ Reading the tiers:
   precomputed table — **7× faster** (18.0 s exact vs 2.6 s per tabled
   evaluation) with no change in the verdict.
 
+The same ledger as a picture — every test ranked by its wall-clock cost and
+coloured by tier:
+
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/visuals/charts/test_cost_ranking.dark.svg">
+  <img src="assets/visuals/charts/test_cost_ranking.light.svg" alt="Horizontal bar chart ranking the 37 flagship tests by wall-clock duration, coloured by cost tier from seconds to over an hour" width="760">
+</picture>
+</p>
+
+> **Data:** the timing table above, verbatim from the flagship run
+> (`run_20260902_134759`). Exact mathematics is cheap; Monte-Carlo honesty is
+> what costs an hour.
+
 ## 🧬 The 64 spinor structures — full data
 
 The Klein quartic carries **64** spinor structures. The `spinor64`
@@ -632,6 +685,19 @@ table: [verification/spinor64/output/spinor64_table.csv](verification/spinor64/o
 - **64 / 64 verdicts: GUE-consistent.** No structure is special.
 - Consequence for the monograph: no spinor structure is statistically
   special; §3.2.5 (v2.2.1) and App. D (v23) carry the corrected narrative.
+
+All four holonomy classes against the GUE reference, in one picture:
+
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/visuals/charts/spinor64_classes.dark.svg">
+  <img src="assets/visuals/charts/spinor64_classes.light.svg" alt="Dot chart of the four spinor holonomy classes with their mean nearest-neighbour ratio against the analytic GUE line and the ensemble confidence band" width="760">
+</picture>
+</p>
+
+> **Data:** the per-class table above (`verification/spinor64/output/spinor64_table.csv`).
+> Every class sits inside the size-matched GUE ensemble band; the min p-value
+> across 64 structures is 0.36.
 
 ### Reproduce
 

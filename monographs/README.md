@@ -4,6 +4,8 @@
 
 # 📖 Monographs — Five Editions, Trilingual Core
 
+> **🧭 Navigation:** [Root README](../README.md) · [AB_Cloud_Academic_Package](../AB_Cloud_Academic_Package/README.md)
+
 **All written outcomes of the project: the rewritten trilingual monograph v22 (Russian,
 English, Chinese), the original author monograph v21 with its English edition, and the
 corrected v21.1 editions with the errata note — every number bound to a named test.**

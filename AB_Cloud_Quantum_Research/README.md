@@ -88,6 +88,16 @@ weight provably lives in the heat trace of the operator; the machine state is
 a volatile spinor phase executing steps in real time. **Storage = 0 is an
 architectural principle proved by theorems, not a slogan.**
 
+The one-machine intuition, animated — phases flow from ζ zeros into a
+rotating topological vortex while the dial tracks the exact flux (Φ_AB = π/7
+at α = 1/2, Test 22):
+
+<p align="center">
+<img src="../assets/visuals/animated/ab_flux_vortex.svg" alt="Animated scheme: zeta-zero phases flow into a rotating topological vortex on a lattice with a synchronized phase dial" width="780">
+</p>
+
+*Conceptual animation (theme-adaptive) — illustrative, not raw data.*
+
 The program accepts three commitments and keeps them everywhere:
 
 1. **Reads, does not carry.** Nothing the machine needs is stored: the six

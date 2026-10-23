@@ -4,6 +4,8 @@
 
 # ⌨️ Code — The Canonical Julia Suite
 
+> **🧭 Navigation:** [Root README](../README.md) · [verification/](../verification/README.md) · [results/](../results/README.md)
+
 **`ab_cloud_full.jl` — the single-file, dependency-free numerical program that produces every
 number the monographs quote.**
 
@@ -59,6 +61,20 @@ This folder holds the **canonical numerical program** of the project. Language: 
 ---
 
 ## 🧪 The 39 tests, grouped
+
+The full price list of the suite as a picture — every test ranked by its
+wall-clock duration in the flagship run, coloured by cost tier:
+
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/visuals/charts/test_cost_ranking.dark.svg">
+  <img src="../assets/visuals/charts/test_cost_ranking.light.svg" alt="Horizontal bar chart ranking the 37 flagship tests by wall-clock duration, coloured by cost tier" width="720">
+</picture>
+</p>
+
+> **Data:** real timings of the flagship run `run_20260902_134759`
+> (see the [root README ledger](../README.md#computational-cost-of-every-test-real-timings-of-the-flagship-run)).
+> Exact/structural tests cost seconds; Monte-Carlo honesty costs up to an hour.
 
 | Group | Tests | Verifies |
 |---|---|---|

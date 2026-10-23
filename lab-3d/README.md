@@ -45,6 +45,19 @@ yields p = 0.27–0.88, the L² distance between the two P(s) densities is
 Wigner surmise), and a permutation test excludes randomness at
 Z = 14.10σ (p < 10⁻⁴⁴).
 
+The object all ten modes probe — the lattice with its embedded zeros:
+
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/visuals/ai/ab_cloud_concept_dark.png">
+  <img src="../assets/visuals/ai/ab_cloud_concept_light.png" alt="Conceptual illustration: vortices on a lattice feeding phase curves into a vertical critical line" width="760">
+</picture>
+</p>
+
+*Conceptual illustration (AI-generated, not raw data): the Hofstadter lattice
+with topological vortices whose phases derive from ζ zeros — the 3D lab adds
+a third dimension to exactly this object.*
+
 ## Key Results
 
 | Metric | Value | Theory / Reference |
@@ -126,6 +139,25 @@ GUE → GOE → Poisson by changing σ alone.
 | H | Deep Riemann zeros | NN-spacing PDF, R₂(x), K(τ), S(T), τₙ = ħ/γₙ |
 | I | 3D Bridge | 9 visualizations tying the AB-Cloud spectrum to the zeros |
 | J | Advanced 3D | Chern marker, edge states, J(x,y,z), winding, Hofstadter butterfly, exceptional points |
+
+The modes as a map — six physics probes feed the full-verification run, and
+three deep-dive families extend it:
+
+```mermaid
+flowchart TD
+    subgraph CORE["physics probes — modes A–F"]
+        direction LR
+        A["A · 3D solver"] --- B["B · RMT for zeros"]
+        B --- C["C · finite-size scaling"]
+        D["D · Arf invariant"] --- E["E · decay times"]
+        E --- F["F · Dirac cone"]
+    end
+    G["G · FULL VERIFICATION<br/>all reviewer points in one run"]
+    CORE --> G
+    G --> H["H · deep Riemann zeros<br/>NN-spacing · R₂ · K(τ)"]
+    G --> I["I · 3D bridge<br/>9 visualizations"]
+    G --> J["J · advanced 3D<br/>Chern marker · butterfly"]
+```
 
 ## Committed Verification Runs (outputs/, 2026-07-31)
 

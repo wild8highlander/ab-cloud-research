@@ -59,6 +59,25 @@ Three things happen here that no numerical run can deliver:
    ([`formal.yml`](../.github/workflows/formal.yml)); the Lean executable
    exits non-zero if any frozen number drifts beyond its committed tolerance.
 
+The two layers and the CI gate that binds them:
+
+```mermaid
+flowchart LR
+    subgraph EXACT["exact layer — proved, not computed"]
+        CO["Coq<br/>certified arithmetic"]
+        AG["Agda<br/>builtins only"]
+        IS["Isabelle/HOL<br/>classical wing"]
+    end
+    LE["Lean 4 executable<br/>the 12th language<br/>8/8 PASS vs frozen refs"]
+    D["frozen dataset<br/>50 000 zeros"] --> LE
+    CI["formal.yml<br/>on every push"] --> LE
+    CI --> CO
+    CI --> AG
+    CI --> IS
+    CO -.->|"Tr(AB) = Tr(BA) · 28+21+7+7+1 = 64<br/>Gram lattice · flux certificates"| LE
+    LE --> X["non-zero exit on drift"]
+```
+
 $$
 b(N) \;=\; \frac{1}{N}\sum_{k=1}^{N}\bigl|\gamma_k-\tilde\gamma_k\bigr|,
 \qquad

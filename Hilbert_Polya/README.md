@@ -156,6 +156,45 @@ ladder of density and size (primes-in-operator — YES via the convergence
 ladder, v2.0.8); and the weight of primes Λ(n)/√n is *proven* to live in
 the heat trace of the zero operator — Theorem T6, |ΔK| ≤ 1.2e-5.**
 
+The object of the whole programme — the zero sequence itself — straight from
+the frozen dataset:
+
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/visuals/charts/zeros_critical_strip.dark.svg">
+  <img src="../assets/visuals/charts/zeros_critical_strip.light.svg" alt="The first 100 non-trivial zeta zeros plotted along the critical line Re(s) = 1/2" width="680">
+</picture>
+</p>
+
+> **Data:** first 100 ordinates of the frozen dataset `zeros50k.txt`
+> (SHA-256 pinned). γ₁ = 14.134725142, γ₁₀₀ = 236.5242 — the exact sequence
+> every gate, closure and trace identity in this package is tuned against.
+
+The package in one diagram — computations feed theorems, both feed the
+committed verdict ledger, and the ledger is what the monographs narrate:
+
+```mermaid
+flowchart LR
+    subgraph COMP["computations C1–C16"]
+        C1["Γ-closures · Z_id"]
+        C2["argument principle"]
+        C3["gate family · co-location"]
+        C4["trace formula"]
+    end
+    subgraph THM["theorems T1–T10"]
+        T6["T6 · trace formula for H_ξ"]
+        T3["T3 · RH in the strip"]
+    end
+    V["verdict ledger<br/>committed · machine-stamped"]
+    M["monographs RU/EN<br/>DOCX · PDF · HTML"]
+    C1 --> V
+    C2 --> V
+    C3 --> V
+    C4 --> T6
+    T6 --> V
+    V --> M
+```
+
 ## Headline results
 
 | # | Result | Value | Where |

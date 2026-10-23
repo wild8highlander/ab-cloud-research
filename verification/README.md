@@ -4,6 +4,8 @@
 
 # 🌐 Verification Suite — the AB-Cloud Hypothesis on 10 Languages
 
+> **🧭 Navigation:** [Root README](../README.md) · [code/](../code/README.md) · [spinor64/](spinor64/README.md)
+
 **The independent cross-language verification package: the same numerical program implemented
 ten times — in C++, Fortran, Go, Haskell, JavaScript, Julia, MATLAB, Python, R and Rust — so
 that any reviewer can re-derive every headline number in the language they trust, on any OS,
@@ -117,6 +119,23 @@ KS = 0.047 with p = 0.27 on 500 mpmath-certified zeros (Montgomery test), and
 > advertised ~1e-12. All ten now implement the identical Newton-refined canon
 > and self-check 28 frozen anchors before printing any verdict (see
 > `CANON_SPEC.md`).
+
+The 50,000-zero distribution behind this objection, computed directly from
+the frozen dataset:
+
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/visuals/charts/zeros_pair_correlation.dark.svg">
+  <img src="../assets/visuals/charts/zeros_pair_correlation.light.svg" alt="Nearest-neighbour spacing histogram of the 50,000 frozen zeta zeros against the GUE and GOE Wigner surmises" width="780">
+</picture>
+</p>
+
+> **How this chart relates to the verdicts above.** The histogram (n = 50,000,
+> Riemann–von Mangoldt unfolding) shows the overall GUE-shaped level
+> repulsion, and the ratio statistic ⟨r⟩ = 0.6119 stays GUE-class — but the
+> honest v3.0 outcome stands: at n = 50,000 the *exact* Wigner–Dyson surmise
+> is formally rejected by KS (known finite-T corrections of the zeros), while
+> at n ≈ 500 it is not rejected. Both regimes are visible in the tail.
 
 ### Objection 3 — decay rate at large T
 
@@ -232,6 +251,20 @@ Full provenance, formats and column layout: [`data/README.md`](data/README.md).
 ---
 
 ## 🧬 spinor64 and the Test-38 ports (added in v1.1.0)
+
+The experiment behind the ports, in one picture — all four holonomy classes
+sit inside the GUE ensemble band:
+
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/visuals/charts/spinor64_classes.dark.svg">
+  <img src="../assets/visuals/charts/spinor64_classes.light.svg" alt="Dot chart of the four spinor holonomy classes against the analytic GUE line and the ensemble confidence band" width="720">
+</picture>
+</p>
+
+> **Data:** the per-class table of E2 (`spinor64/output/spinor64_table.csv`):
+> ⟨r⟩ = 0.5935–0.6027 across classes, 64-structure mean 0.5984 ± 0.0035,
+> min p_mc = 0.36 — no structure is statistically special.
 
 `spinor64/` is the **reference Python implementation** that settled the spinor-uniqueness
 question: **all 64 spinor structures of the Klein quartic give GUE-consistent statistics**.

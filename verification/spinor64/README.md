@@ -1,10 +1,20 @@
 # spinor64 — Verification of All 64 Spinor Structures of the Klein Quartic
 
+> **🧭 Navigation:** [verification/](../README.md) · [Root README](../../README.md)
+
 Reference implementation and full run over the 64 spinor structures of the
 Klein quartic. The verified truth:
 **every one of the 64 spinor structures gives GUE-consistent statistics.**
 
 ## The two experiments (E1 + E2)
+
+```mermaid
+flowchart TD
+    K["Klein quartic {3,7}<br/>56 vertices · PSL(2,7), order 168"] -->|"64 spinor structures"| E1["E1 · exact symmetry<br/>orbits 28/21/7/7/1<br/>isospectrality 8.9e-15"]
+    K --> E2["E2 · AB-cloud statistics<br/>L = 44 · α = 1/2 · Nv = 54<br/>vs 100 GUE matrices 1936×1936"]
+    E1 --> Z["zero modes 2/3/7<br/>gauge residual 7.1e-15"]
+    E2 --> Y["all 64 GUE-consistent<br/>⟨r⟩ = 0.5984 ± 0.0035<br/>min p = 0.36"]
+```
 
 ### E1 — exact symmetry (no statistics involved)
 
@@ -84,6 +94,18 @@ VERDICT PASS.
 - Run: `python3 verification/spinor64/run_spinor64.py` (~10 minutes); the frozen data in
   `data/` makes the run reproducible. The Test 38 ports re-check the same contract with
   their own Jacobi algorithm.
+
+The E2 verdict at a glance — every holonomy class on the GUE line:
+
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../../assets/visuals/charts/spinor64_classes.dark.svg">
+  <img src="../../assets/visuals/charts/spinor64_classes.light.svg" alt="Dot chart of the four spinor holonomy classes against the analytic GUE line and the ensemble confidence band" width="720">
+</picture>
+</p>
+
+> **Data:** the per-class table in `output/spinor64_table.csv`; the same chart
+> is embedded in the [root README](../../README.md#the-64-spinor-structures--full-data).
 
 ## 📁 Complete file inventory
 

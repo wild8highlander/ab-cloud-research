@@ -1,5 +1,7 @@
 # AB Research Program
 
+> **🧭 Navigation:** [processor_ab](../processor_ab/README.md) · [AB_Cloud_Quantum_Research](../../README.md) · [Root](../../../README.md)
+
 **A self-contained computational package of the Hilbert–Pólya program:
 19 campaigns (V1–V19), 6 theorems with full proofs, interval
 certificates, a formal obligation layer, a web laboratory with a
@@ -238,6 +240,36 @@ in both languages and committed data:
 | V17 | `V17_electron_critical_line/` | 17. Electron on the critical line | ζ-cloud guides ×1.62 |
 | V18 | `V18_ab_processor/` | 18. AB operator as a processor | exact gates; AB-Pong 0:1 |
 | V19 | `V19_branch_stitching/` | 19. Branch stitching of the algebraic function (R2) | ALGEBRAIC_CERTIFICATE: phases 1e-40, alternation 100%, coherence 0.9995 |
+
+The 19 campaigns as a map — statistics feed the arithmetic bridge, the audit
+watches everything, and V13 carries the formal verdict:
+
+```mermaid
+flowchart LR
+    subgraph STATS["statistics"]
+        V01["V01 blind spectrum"]
+        V02["V02 null models"]
+        V03["V03 critical scan"]
+        V11["V11 universality"]
+    end
+    subgraph BRIDGE["arithmetic bridge"]
+        V06["V06 spectral identity"]
+        V07["V07 arithmetic trace · Th6"]
+        V12["V12 certificates · Th3"]
+        V15["V15 Li criterion · Th4"]
+    end
+    subgraph FOUND["operator foundations"]
+        V04["V04 passport · Th1"]
+        V08["V08 self-adjoint · Th2"]
+        V09["V09 symmetry · Th5"]
+    end
+    V13["V13 formal bridge<br/>RH: certified"]
+    V14["V14 claim audit · 19/19"]
+    STATS --> BRIDGE
+    BRIDGE --> V13
+    V14 -.-> STATS
+    V14 -.-> BRIDGE
+```
 
 ## Theorems (Th1–Th6)
 

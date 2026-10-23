@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 430" font-family="Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="Aharonov-Bohm phases from zeta zeros feed a rotating topological vortex on a Hofstadter lattice">
+  <defs>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2f7fd1"/>
+      <stop offset="1" stop-color="#d9a441"/>
+    </linearGradient>
+    <style>
+      :root {
+        --bg:#ffffff; --grid:#dbe2ea; --fg:#1f2937; --mut:#6b7280;
+        --accent:#0077bb; --gold:#d9a441; --vortex:#0077bb; --dial:#0077bb;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg:#0f172a; --grid:#243149; --fg:#f1f5f9; --mut:#94a3b8;
+          --accent:#33bbee; --gold:#e8b56a; --vortex:#33bbee; --dial:#33bbee;
+        }
+      }
+      .spin { animation: rot 9s linear infinite; transform-origin: 300px 215px; }
+      .needle { animation: rot 9s linear infinite; transform-origin: 806px 300px; }
+      .pulse { animation: pl 9s ease-in-out infinite; }
+      @keyframes rot { to { transform: rotate(360deg); } }
+      @keyframes pl { 0%,100% { opacity:.55; } 50% { opacity:1; } }
+      text { fill: var(--fg); }
+      .mut { fill: var(--mut); }
+    </style>
+  </defs>
+
+  <rect width="920" height="430" fill="var(--bg)"/>
+
+  <!-- lattice -->
+  <g stroke="var(--grid)" stroke-width="1">
+    <path d="M60,80 H540 M60,148 H540 M60,215 H540 M60,283 H540 M60,350 H540"/>
+    <path d="M60,80 V350 M150,80 V350 M240,80 V350 M300,80 V350 M330,80 V350 M420,80 V350 M510,80 V350"/>
+  </g>
+  <g fill="var(--grid)">
+    <circle cx="150" cy="148" r="2.4"/><circle cx="240" cy="148" r="2.4"/><circle cx="420" cy="148" r="2.4"/><circle cx="510" cy="148" r="2.4"/>
+    <circle cx="60" cy="283" r="2.4"/><circle cx="150" cy="283" r="2.4"/><circle cx="240" cy="283" r="2.4"/><circle cx="420" cy="283" r="2.4"/><circle cx="510" cy="283" r="2.4"/>
+    <circle cx="150" cy="350" r="2.4"/><circle cx="330" cy="350" r="2.4"/><circle cx="510" cy="350" r="2.4"/>
+  </g>
+
+  <!-- flows from zeta zeros into the vortex -->
+  <g fill="none" stroke="url(#flow)" stroke-width="2.2" stroke-dasharray="7 5" class="pulse">
+    <path d="M700,95 C560,105 420,140 322,190"/>
+    <path d="M700,215 C570,215 440,215 340,215"/>
+    <path d="M700,335 C560,325 420,290 322,240"/>
+  </g>
+
+  <!-- zero markers -->
+  <g>
+    <circle cx="700" cy="95" r="7" fill="var(--gold)"/>
+    <circle cx="700" cy="215" r="7" fill="var(--gold)"/>
+    <circle cx="700" cy="335" r="7" fill="var(--gold)"/>
+    <text x="716" y="88" font-size="14" class="mut">&#947;&#8321; = 14.1347</text>
+    <text x="716" y="208" font-size="14" class="mut">&#947;&#8322; = 21.0220</text>
+    <text x="716" y="328" font-size="14" class="mut">&#947;&#8323; = 25.0109</text>
+    <text x="640" y="415" font-size="13" class="mut">non-trivial zeros of &#950;(s)</text>
+  </g>
+
+  <!-- rotating vortex -->
+  <g class="spin" stroke="var(--vortex)" fill="none" stroke-linecap="round">
+    <path d="M300,215 m0,-14 a14,14 0 1,1 -13,19" stroke-width="3"/>
+    <path d="M300,215 m0,-34 a34,34 0 1,1 -32,45" stroke-width="2.6"/>
+    <path d="M300,215 m0,-56 a56,56 0 1,1 -53,74" stroke-width="2.2"/>
+    <path d="M300,215 m0,-80 a80,80 0 1,1 -76,105" stroke-width="1.8"/>
+    <path d="M286,196 l-8,7 10,3 z" fill="var(--vortex)" stroke="none"/>
+    <path d="M250,170 l-10,5 8,7 z" fill="var(--vortex)" stroke="none"/>
+  </g>
+  <circle cx="300" cy="215" r="5" fill="var(--vortex)"/>
+  <text x="300" y="392" font-size="14" text-anchor="middle">topological vortex</text>
+  <text x="300" y="411" font-size="12" text-anchor="middle" class="mut">monumental gauge &#183; charge q</text>
+
+  <!-- phase dial -->
+  <g>
+    <circle cx="806" cy="300" r="40" fill="none" stroke="var(--dial)" stroke-width="2.5"/>
+    <g stroke="var(--mut)" stroke-width="1">
+      <path d="M806,264 v7 M806,329 v7 M770,300 h7 M835,300 h7"/>
+    </g>
+    <g class="needle">
+      <path d="M806,300 L806,270" stroke="var(--gold)" stroke-width="3.4" stroke-linecap="round"/>
+      <circle cx="806" cy="300" r="4.5" fill="var(--gold)"/>
+    </g>
+    <text x="806" y="366" font-size="14" text-anchor="middle" font-weight="600">&#934;AB = &#960;/7 (exact)</text>
+    <text x="806" y="243" font-size="13" text-anchor="middle" class="mut">phase dial</text>
+  </g>
+
+  <!-- title -->
+  <text x="60" y="42" font-size="19" font-weight="700">Aharonov&#8211;Bohm phases from &#950; zeros</text>
+  <text x="60" y="64" font-size="13" class="mut">each vortex carries a phase derived from a non-trivial zero &#8212; the lattice becomes a phase resonator</text>
+</svg>

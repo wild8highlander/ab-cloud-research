@@ -58,6 +58,17 @@ codes, the v19 reference-run artifacts and the original package READMEs).
 each tailored to its venue's class files and wizard, with preview PDFs for the
 eye and SHA-256 sums inside for the audit.
 
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/visuals/ai/ab_cloud_concept_dark.png">
+  <img src="../assets/visuals/ai/ab_cloud_concept_light.png" alt="Conceptual illustration: vortices on a lattice feeding phase curves into a vertical critical line" width="760">
+</picture>
+</p>
+
+*Conceptual illustration of the packaged object (AI-generated, not raw data):
+the Hofstadter lattice with ζ-zero vortices, bound and shipped as one
+auditable artefact.*
+
 ## 🏛️ The two shelves
 
 ```mermaid

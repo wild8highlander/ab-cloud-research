@@ -157,6 +157,21 @@ function of the vortex configuration* — is exactly what the companion
 
 ### 🌀 RH line — maximizing the cloud ↔ zeros correlation
 
+The reference standard this line optimises against — the frozen zero sequence
+itself, with the GUE signature the correlation is measured on:
+
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/visuals/charts/zeros_pair_correlation.dark.svg">
+  <img src="../assets/visuals/charts/zeros_pair_correlation.light.svg" alt="Nearest-neighbour spacing histogram of the 50,000 frozen zeta zeros against the GUE and GOE Wigner surmises" width="780">
+</picture>
+</p>
+
+> **Data:** recomputed with matplotlib from the frozen `zeros50k.txt`
+> (SHA-256 pinned); ⟨r⟩ = 0.6119 over 49,998 gaps — inside the suite's GUE
+> band [0.5772, 0.6212]. This is the distribution the RH line tries to make
+> the cloud reproduce.
+
 | File | Lines | What it is |
 |---|---:|---|
 | `RH_Unified.jl` | 2 572 | single self-contained file: 500 real ζ-zeros, 61 "magic" α-points, 6 vortices (hexagon), `RHConfig` (33 parameters), jitter, 4 vortex layouts, 9 presets |

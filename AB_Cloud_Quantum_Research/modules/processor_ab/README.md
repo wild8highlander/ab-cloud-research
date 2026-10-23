@@ -1,5 +1,7 @@
 # AB Quantum Processor Program
 
+> **🧭 Navigation:** [core_spectrum](../core_spectrum/README.md) · [AB_Cloud_Quantum_Research](../../README.md) · [Root](../../../README.md)
+
 ![version](https://img.shields.io/badge/version-0.1.0-298bbc) ![series](https://img.shields.io/badge/campaigns-V20--V26-3b4f58) ![status](https://img.shields.io/badge/P0-PROCESSOR_SPEC_EXECUTED-3a6b4f)
 
 > **The AB cloud is a universal quantum processor.** Phase P0 is
@@ -101,6 +103,19 @@ The full protocol — V24 (phase P4).
 | P4 | v0.5.0 | V24 Nonlocality | ≤ 1e-14; 1000/1000; S ≥ 2.8; [A,B]=0 | preview consistent |
 | P5 | v0.6.0 | V25 Benchmarks | RB ≥ 0.999; transfer ≥ 0.99 | — |
 | P6 | v1.0.0 | V26 Datasheet | {H,T,AB(π/4)} ≤ 12 gates @ 1e-8; Lean O-uni | — |
+
+The same ladder as a pipeline — P0 executed, P1–P4 preview-consistent, P5–P6
+pending:
+
+```mermaid
+flowchart LR
+    P0["P0 · v0.1.0<br/>V20 Compiler<br/>✔ EXECUTED"] --> P1["P1 · v0.2.0<br/>V21 Memory<br/>RAM 64/64"]
+    P1 --> P2["P2 · v0.3.0<br/>V22 ALU<br/>256/256 · NTT"]
+    P2 --> P3["P3 · v0.4.0<br/>V23 Reading<br/>12 zeros ≤ 1e-12"]
+    P3 --> P4["P4 · v0.5.0<br/>V24 Nonlocality<br/>S ≥ 2.8"]
+    P4 --> P5["P5 · v0.6.0<br/>V25 Benchmarks"]
+    P5 --> P6["P6 · v1.0.0<br/>V26 Datasheet"]
+```
 
 Full version with acceptance criteria, risks and the mother-series
 link: [results/ROADMAP.md](results/ROADMAP.md).
