@@ -1,5 +1,7 @@
 # C10 · Phase coding with hard co-location (R2, T12)
 
+> **🧭 Navigation:** [computations/](../README.md) · [Hilbert_Polya/](../../README.md) · [Root README](../../../README.md)
+
 <p align="center"><img src="../../assets/illustrations/ill_pixel_encoding.png" width="640" alt="Prime phases painted exactly onto the lattice shutters"/></p>
 
 <p align="center"><img src="../../assets/avatars/hp_cast_strip.svg" width="760" alt="Bridge avatar cast"/></p>
@@ -121,3 +123,21 @@ Committed verdict (EN, verbatim): "Hard co-location (Φ_p,Φ_q) ≡ Φ_pq holds 
 
 ---
 *Hilbert Polya Bridge v2.0.0 · C10*
+
+---
+
+<!-- enriched-r3 -->
+
+This folder documents one **campaign of the Hilbert–Pólya Bridge series**. The computational kernel is shared — every campaign builds its Hamiltonians and spectra through [`engine/`](../../engine/README.md) — while the committed verdicts for all campaigns live in [`data/`](../../data/README.md). This page narrates the campaign's question, method and measured outcome; the numbers it quotes are frozen in the evidence base and are reproducible bit-for-bit. The campaign map of the whole series is in [`computations/`](../README.md).
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `anim_coloc.gif` | 346 KB | animation |
+| `anim_coloc.mp4` | 197 KB | video |
+
+**Subfolders:** `data/` · `figures/`
+
+
+**Where next:** [engine/](../../engine/README.md) · [data/](../../data/README.md)

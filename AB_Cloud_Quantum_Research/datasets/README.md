@@ -65,3 +65,19 @@ negative results published*
 [license](../../LICENSE) · © Isaev Iskhak Khamzatovich
 
 </div>
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The curated CSV datasets of the program — the quantitative layer that the web lab and the documentation quote. Schemas and provenance for these files are described in the program documentation.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `campaign_timeline.csv` | 6.0 KB | CSV dataset |
+| `flagship_numbers.csv` | 1.5 KB | CSV dataset |
+| `zeta_zeros_reference.csv` | 23 KB | CSV dataset |

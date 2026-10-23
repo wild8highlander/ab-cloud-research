@@ -1,5 +1,7 @@
 # independent_verification/ — the IVP01–IVP10 protocol
 
+> **🧭 Navigation:** [Hilbert_Polya/](../README.md) · [Root README](../../README.md)
+
 <p align="center"><img src="../assets/illustrations/ill_direct_input_error.png" width="600" alt="Blind input checked against a pre-fixed threshold"/></p>
 
 <p align="center"><img src="../assets/avatars/hp_cast_strip.svg" width="720" alt="Bridge avatar cast"/></p>
@@ -84,3 +86,11 @@ release stopper.
 - [../data/README.md](../data/README.md) — the committed verdicts and reproduction hashes
 - [../results/RESULTS.md](../results/RESULTS.md) — the public ledger of numbers
 - [../hpbridge/README.md](../hpbridge/README.md) — the `validate.py` implementation of the checks
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The IVP01–IVP10 protocol: ten independent checks performed outside the main campaign loop, each with its own document.

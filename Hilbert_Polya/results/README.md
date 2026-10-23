@@ -1,5 +1,7 @@
 # results/ — the ledgers of the series
 
+> **🧭 Navigation:** [Hilbert_Polya/](../README.md) · [Root README](../../README.md)
+
 <p align="center"><img src="../assets/illustrations/ill_spectrum_emerge.png" width="600" alt="The spectrum emerging from the ledger rows"/></p>
 
 <p align="center"><img src="../assets/avatars/hp_cast_strip.svg" width="720" alt="Bridge avatar cast"/></p>
@@ -66,3 +68,11 @@ edit of the ledger.
 - [../docs/README.md](../docs/README.md) — the interpretive layer: theory, methods, validation
 - [../CHANGELOG.md](../CHANGELOG.md) — the release history between ledger versions
 - [../independent_verification/README.md](../independent_verification/README.md) — the protocol that guards the committed layer
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is the **ledger layer** of its module: the committed verdicts, run summaries and cross-verification records. The convention is that a result does not exist until its ledger row is committed — everything downstream (figures, monographs, README claims) replays these files rather than recomputing. The honest FAIL rows are kept verbatim: a negative result is a citizen here, not an embarrassment.
+
+The ledgers of the series: the committed verdict documents that every figure, theorem and monograph quote traces back to.

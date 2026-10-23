@@ -88,6 +88,8 @@ wave_attractors/
 
 ```bash
 # 1. ray-level experiments + cross-reference dump (≈ 1 min)
+> **🧭 Navigation:** [Wave_attractors/](../README.md) · [Root README](../../README.md)
+
 python3 wave_attractors/scripts/run_experiments.py
 
 # 2. frequency independence + ray-density map (≈ 30 s)
@@ -144,3 +146,15 @@ repository (see the root `CITATION.cff`):
 
 See the root [LICENSE](../../LICENSE) — Strictly Personal · Custom Research
 License.
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is the **documentation shelf** of its module: the Markdown documents that explain theory, methods and protocol beyond what the READMEs carry. The documents are committed sources — rendered versions, where they exist, are generated from these files. Start with the module README for orientation, then read the documents in the order suggested there.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `wave-attractors.md` | 4.8 KB | Markdown document |

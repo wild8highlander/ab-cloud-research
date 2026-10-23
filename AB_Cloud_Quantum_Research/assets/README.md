@@ -47,3 +47,20 @@ negative results published*
 [license](../../LICENSE) · © Isaev Iskhak Khamzatovich
 
 </div>
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is the **visual-identity shelf** of its module: the logos, banners and small vector decorations that the module's README pages embed. Nothing here carries numerical content — the files are artwork and layout assets, referenced relatively by the surrounding documentation. The images are committed so that every README renders identically on GitHub, in a local clone, and inside the archived package.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `banner.gif` | 343 KB | animation |
+| `logo_abcloud.svg` | 1.5 KB | vector figure |
+| `logo_abcloud_dark.png` | 14 KB | figure (PNG) |
+| `logo_abcloud_light.png` | 14 KB | figure (PNG) |
+
+**Subfolders:** `avatars/`

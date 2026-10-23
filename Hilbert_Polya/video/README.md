@@ -4,6 +4,10 @@
 
 </div>
 
+> **🧭 Navigation:** [Hilbert_Polya/](../README.md) · [Root README](../../README.md)
+
+
+
 <div align="center">
 
 <img src="../assets/avatars/hp_cast_strip.svg" alt="The Bridge avatar cast" width="820"/>
@@ -241,3 +245,11 @@ revision.
 
 *Hilbert–Pólya Bridge · v2.0.0 · the film is the honesty discipline,
 rendered at 24 frames per second.*
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The video layer: the render scripts and the committed MP4, plus the storyboard figures. The heavier binary artifacts stay minimal here.

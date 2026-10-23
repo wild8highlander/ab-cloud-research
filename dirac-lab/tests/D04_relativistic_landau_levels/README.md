@@ -1,5 +1,7 @@
 # Test D4 — The Relativistic Landau Ladder: Eₙ² ∝ n Against a Schrödinger Control
 
+> **🧭 Navigation:** [tests/](../README.md) · [dirac-lab/](../../README.md) · [Root README](../../../README.md)
+
 > Test D4 — the √(n) ladder with R² ≥ 0.9998 and the chiral n=0 level at E=0
 
 ![Verdict](https://img.shields.io/badge/verdict-PASS_5%2F5-2EA043?style=for-the-badge&label=D4) ![Seed](https://img.shields.io/badge/seed-96-blue?style=flat-square&label=deterministic) ![DPI](https://img.shields.io/badge/figures-600%20dpi-orange?style=flat-square) ![Mode](https://img.shields.io/badge/run-FULL-informational?style=flat-square)
@@ -81,3 +83,20 @@ Deterministic **seed 96** (parent convention); ζ tables from the Odlyzko-derive
 ---
 
 *Part of the [AB-Cloud Dirac Laboratory](../../README.md) — test D4 of 14. Full context: the research monograph ([EN](../../monographs/tex/Dirac_Lab_Monograph_EN.pdf) · [RU](../../monographs/tex/Dirac_Lab_Monograph_RU.pdf)) and the [per-test monograph](monograph.pdf) in this folder.*
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `D4_landau_levels.csv` | 549 B | CSV dataset |
+| `monograph.pdf` | 868 KB | PDF document |
+| `monograph.tex` | 11 KB | LaTeX source |
+| `results.json` | 1.1 KB | JSON data / config |
+
+**Subfolders:** `figures/`

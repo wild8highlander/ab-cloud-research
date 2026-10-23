@@ -45,3 +45,15 @@ negative results published*
 [license](../../LICENSE) · © Isaev Iskhak Khamzatovich
 
 </div>
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is the **documentation shelf** of its module: the Markdown documents that explain theory, methods and protocol beyond what the READMEs carry. The documents are committed sources — rendered versions, where they exist, are generated from these files. Start with the module README for orientation, then read the documents in the order suggested there.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `ARCHITECTURE.md` | 10 KB | Markdown document |

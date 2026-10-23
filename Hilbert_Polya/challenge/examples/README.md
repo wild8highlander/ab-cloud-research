@@ -1,5 +1,19 @@
 # Hilbert_Polya/challenge/examples — what lives here
 
+> **🧭 Navigation:** [challenge/](../README.md) · [Hilbert_Polya/](../../README.md) · [Root README](../../../README.md)
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+A worked example submission (JSON) showing the exact shape the protocol gate expects.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `example_gate.json` | 249 B | JSON data / config |
+
 worked examples for the Hilbert–Pólya challenge protocol
 
 ## Inventory

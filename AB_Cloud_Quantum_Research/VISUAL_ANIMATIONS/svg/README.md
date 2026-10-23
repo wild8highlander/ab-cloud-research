@@ -33,3 +33,11 @@ Vector graphics: the architecture flow, the critical line, the folder map, spino
 *Part of the [AB-Cloud Research](../../../README.md) repository · DOI [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394) · © 2026 Isaev Iskhak Khamzatovich — personal proprietary use, see the [license terms](../../../LICENSE).*
 
 </div>
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+Seven animated SVGs (SMIL): they play right inside GitHub READMEs and need no JavaScript. The architecture map and the zero-reading cycles are here.

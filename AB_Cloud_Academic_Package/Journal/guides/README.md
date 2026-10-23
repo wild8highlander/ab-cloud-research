@@ -26,3 +26,19 @@ wizard instructions straight on GitHub, without downloading a single byte.
 > (G1–G5, C17, algebraic_map — synced 2026-10-16), start from the
 > [README](../README.md#-where-the-science-stands-now) and the
 > [FAQ](../FAQ.md#5-does-any-of-this-prove-the-riemann-hypothesis).
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The guides are the submission wizards of the journal shelf: step-by-step DOCX walkthroughs that can be read without unzipping anything. They complement the interactive web guides linked from the journal README.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `NSR_JINR_how_to_submit.md` | 6.0 KB | Markdown document |
+| `SciPost_how_to_submit.md` | 5.8 KB | Markdown document |
+| `arXiv_metadata.md` | 5.7 KB | Markdown document |

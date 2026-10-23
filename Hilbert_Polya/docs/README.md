@@ -1,5 +1,7 @@
 # docs/ — the documentation of the series
 
+> **🧭 Navigation:** [Hilbert_Polya/](../README.md) · [Root README](../../README.md)
+
 <p align="center"><img src="../assets/illustrations/ill_critical_line.png" width="600" alt="The critical line as a spine running through the five stages of the Bridge"/></p>
 
 <p align="center"><img src="../assets/avatars/hp_riemann.svg" width="110" alt="Riemann, guardian of the zeta zeros"/></p>
@@ -116,3 +118,13 @@ less docs/theory.md docs/methods.md docs/trace_formula.md docs/validation.md
 - [../results/](../results/) — RESULTS.md, the living ledger of numbers
 - [../computations/](../computations/) — the per-campaign evidence these documents summarize
 - [../monograph/](../monograph/) — the full theorem and appendix volumes
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is the **documentation shelf** of its module: the Markdown documents that explain theory, methods and protocol beyond what the READMEs carry. The documents are committed sources — rendered versions, where they exist, are generated from these files. Start with the module README for orientation, then read the documents in the order suggested there.
+
+The documentation of the series: theory, methods and protocol documents in Markdown, referenced throughout the campaign and monograph layers.
+
+**Subfolders:** `v2/`

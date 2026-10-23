@@ -1,5 +1,7 @@
 # docs/v2 — the version 2.0 documents
 
+> **🧭 Navigation:** [docs/](../README.md) · [Hilbert_Polya/](../../README.md) · [Root README](../../../README.md)
+
 <p align="center"><img src="../../assets/illustrations/ill_spectrum_emerge.png" width="600" alt="A spectrum emerging from the lattice: the v2.0 campaigns probing the operator that almost exists"/></p>
 
 <p align="center"><img src="../../assets/avatars/hp_hilbert.svg" width="110" alt="Hilbert, sponsor of the operator programme"/></p>
@@ -96,3 +98,11 @@ change does not touch the v1 verdicts:
 - [../trace_formula.md](../trace_formula.md) — the v1 trace formula that T17 generalizes to the Dirichlet class
 - [../../computations/](../../computations/) — the committed v2 verdicts C9–C16
 - [../../campaigns/README.md](../../campaigns/README.md) — the v2 drivers run_c9…run_c16
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The version 2.0 documents: the second-generation theory and protocol texts that the v2 campaigns (C9–C16) follow.

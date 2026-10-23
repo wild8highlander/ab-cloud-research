@@ -1,5 +1,7 @@
 # Bridge Explorer (Streamlit)
 
+> **🧭 Navigation:** [Hilbert_Polya/](../README.md) · [Root README](../../README.md)
+
 <p align="center"><img src="../assets/illustrations/ill_montage_bench.png" width="600" alt="The explorer bench: handles, spectrum and verdicts of the resonator side by side"/></p>
 
 <p align="center"><img src="../assets/avatars/hp_agent_vera.svg" width="110" alt="Agent Vera, the interactive demonstrator"/></p>
@@ -110,3 +112,17 @@ streamlit run explorer/streamlit_app.py
 - [../data/README.md](../data/README.md) — the evidence the verdict tab replays
 - [../docs/v2/README.md](../docs/v2/README.md) — the v2.0 documents and metric conventions
 - [../computations/](../computations/) — the per-campaign folders behind tabs 2 and 3
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The Bridge Explorer: a Streamlit application for interacting with the resonator's live gate — the same engine the campaigns use, driven by hand.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `streamlit_app.py` | 9.5 KB | Python source |

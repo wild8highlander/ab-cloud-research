@@ -31,3 +31,11 @@ Everything that assembles dirac-lab's documents lives here: [`monograph_en.json`
 *Part of the [AB-Cloud Research](../../README.md) repository · DOI [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394) · © 2026 Isaev Iskhak Khamzatovich — personal proprietary use, see the [license terms](../../LICENSE).*
 
 </div>
+
+---
+
+<!-- enriched-r3 -->
+
+This folder holds the **pipeline scripts** of its module: the deterministic code paths that turn frozen inputs into reports, figures and verdicts. The scripts follow the repository's seed discipline — same input, same seed, same bytes out — so a re-run on the pinned platform reproduces the committed artifacts. Nothing here is executed at import time by other modules; they are entry points, documented in the module README.
+
+The generation scripts of the laboratory: the drivers that produce the test folders, figures and ledgers from the shared core.

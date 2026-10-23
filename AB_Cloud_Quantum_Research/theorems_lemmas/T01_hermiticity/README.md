@@ -1,5 +1,7 @@
 # Th1. Hermiticity and the reality of the spectrum — theorem derivation
 
+> **🧭 Navigation:** [theorems_lemmas/](../README.md) · [AB_Cloud_Quantum_Research/](../../README.md) · [Root README](../../../README.md)
+
 **Campaign:** V4 · **Formal reduction:** A1 (spectral theorem) · **Documents:**
 `theorem_th1_{ru,en}.{pdf,docx}` ·
 **Figure:** `figures/th1_4dim_ru.png`, `figures/th1_4dim_en.png`
@@ -24,3 +26,31 @@ test_th1_passport.py (the certificate, Nv = 16/64/256, seed 96); computations/V0
 ## Boundaries (honest)
 
 Th1 says nothing about matching the spectrum to the ζ zeros: the series' verdicts there are the level identity — YES at the zeros' level (V6/V16, the D_nn bridge, v2.0.7) with the bit-level branch open (V16) and the blind-coding / σ-scan design claims refuted (V1, V3). The λ ↔ −λ symmetry breaks already at W > 0 and is not restored by vortices.
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is the derivation shell of **Th1 · Hermiticity** — one of the six theorem tiles of the AB Cloud Quantum Research study. It keeps the bilingual derivation monographs (RU/EN, PDF + DOCX), each built around the 2×2 measurement figure. The certificate quoted by the theorem layer for this tile: **‖H − H†‖ = 0.0**; the machine-readable statement and thresholds live in [`_json/`](../_json/README.md). The derivation narrative below is the source the documents render.
+
+```mermaid
+flowchart LR
+    T1["Th1 · Hermiticity"] --> T2["Th2 · self-adjointness"] --> T3["Th3 · Kato corridors"] --> T4["Th4 · Li formula"] --> T5["Th5 · block reduction"] --> T6["Th6 · trace formula"]
+    style T1 fill:#1f6feb,color:#fff
+```
+
+*The theorem chain Th1–Th6 — the highlighted node is this tile; certificates in the theorem-layer table.*
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `theorem_th1_en.docx` | 397 KB | Word document |
+| `theorem_th1_en.pdf` | 787 KB | PDF document |
+| `theorem_th1_ru.docx` | 421 KB | Word document |
+| `theorem_th1_ru.pdf` | 832 KB | PDF document |
+
+**Subfolders:** `figures/`
+
+
+**Where next:** [machine-readable JSON](../_json/README.md)

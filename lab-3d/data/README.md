@@ -18,6 +18,12 @@
 
 ## 🧭 Navigation
 
+<!-- enriched-r3 -->
+
+This folder holds **frozen, committed data**: the byte-identical inputs that the verification pipeline reads. The discipline of the repository is that nothing downstream depends on a recomputation — every figure, test and document replays these committed files, so editing or regenerating them in place is forbidden by convention. Where a file also exists in another module's canon, the copies are byte-identical by design.
+
+The frozen ζ-zero input of the laboratory: the exact zeros the 3D visualizations decorate.
+
 [⬅ lab-3d/](../README.md) · [🏠 Repo root](../../README.md)
 
 ---

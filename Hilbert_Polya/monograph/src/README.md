@@ -1,5 +1,7 @@
 # monograph/src/ — reserved slot for series template overrides
 
+> **🧭 Navigation:** [monograph/](../README.md) · [Hilbert_Polya/](../../README.md) · [Root README](../../../README.md)
+
 <p align="center"><img src="../../assets/illustrations/ill_montage_bench.png" width="600" alt="The render bench of the monograph series"/></p>
 
 <p align="center"><img src="../../assets/avatars/hp_cast_strip.svg" width="720" alt="Bridge avatar cast"/></p>
@@ -59,3 +61,11 @@ repository root) would pick them up without any change to the scripts.
 - [../README.md](../README.md) — the parent folder: volumes, content sources, preprint
 - [../../scripts/README.md](../../scripts/README.md) — the renderers that would consume overrides from here
 - [../../results/README.md](../../results/README.md) — the ledgers the volumes quote from
+
+---
+
+<!-- enriched-r3 -->
+
+This folder holds the **pipeline scripts** of its module: the deterministic code paths that turn frozen inputs into reports, figures and verdicts. The scripts follow the repository's seed discipline — same input, same seed, same bytes out — so a re-run on the pinned platform reproduces the committed artifacts. Nothing here is executed at import time by other modules; they are entry points, documented in the module README.
+
+A reserved slot for series template overrides: intentionally minimal — the default rendering templates live with the build pipeline.

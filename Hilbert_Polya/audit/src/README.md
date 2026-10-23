@@ -1,5 +1,7 @@
 # 🛠 `audit/src` — Build Sources of the HPB Canonization Audit
 
+> **🧭 Navigation:** [audit/](../README.md) · [Hilbert_Polya/](../../README.md) · [Root README](../../../README.md)
+
 The build pipeline of the analytical report
 `HPB_audit_canonization_2026-10-13_ru` (its shipped outputs — `.pdf` and
 `.docx` — live one level up in [`../`](../)). Nothing here is runtime code of
@@ -29,3 +31,22 @@ node audit_docx.js
 > and rebuild; the build log's input hashes will reflect the change.
 
 Landing page of the shipped report: [`../README.md`](../README.md)
+
+---
+
+<!-- enriched-r3 -->
+
+This folder holds the **pipeline scripts** of its module: the deterministic code paths that turn frozen inputs into reports, figures and verdicts. The scripts follow the repository's seed discipline — same input, same seed, same bytes out — so a re-run on the pinned platform reproduces the committed artifacts. Nothing here is executed at import time by other modules; they are entry points, documented in the module README.
+
+The build sources of the HPB canonization audit: the scripts that regenerate the audit document from the committed verdicts.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `audit_build.py` | 17 KB | Python source |
+| `audit_content.py` | 63 KB | Python source |
+| `audit_content2.py` | 24 KB | Python source |
+| `audit_content3.py` | 27 KB | Python source |
+| `audit_docx.js` | 16 KB | JavaScript source |
+| `content.json` | 115 KB | JSON data / config |

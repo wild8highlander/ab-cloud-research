@@ -37,3 +37,11 @@ The chapters deliberately mirror the package's honesty rules: regime tables stat
 *Part of the [AB-Cloud Research](../../README.md) repository · DOI [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394) · © 2026 Isaev Iskhak Khamzatovich — personal proprietary use, see the [license terms](../../LICENSE).*
 
 </div>
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is the **documentation shelf** of its module: the Markdown documents that explain theory, methods and protocol beyond what the READMEs carry. The documents are committed sources — rendered versions, where they exist, are generated from these files. Start with the module README for orientation, then read the documents in the order suggested there.
+
+The observatory's documentation set: theory, protocol and port guides in Markdown.

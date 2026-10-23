@@ -1,5 +1,8 @@
 # ⚡ The machine without long-term memory: real-time spinor phase models
 
+
+> **🧭 Navigation:** [research/](../README.md) · [AB_Cloud_Quantum_Research/](../../README.md) · [Root README](../../../README.md)
+
 **A supplementary study of the [AB Cloud Quantum Research](../../../README.md)
 program · v1.0.0** · 3 models (θ = π/2 · π/3 · π/7) · 5 campaigns with
 pre-registered thresholds (all PASS) · 3 theorems · 12 documents
@@ -164,3 +167,13 @@ negative results published*
 **AB Cloud Quantum Research** · v1.1.0 · [license](../../../LICENSE) · © Isaev Iskhak Khamzatovich
 
 </div>
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+A standing research thread: the machine **without long-term memory** — real-time spinor phase models in which the reading is recomputed from scratch and nothing is stored. The folder carries the model code and its own detailed note.
+
+**Subfolders:** `data/` · `docs/` · `experiments/` · `figures/` · `spinor/` · `tests/` · `theorems/`

@@ -19,6 +19,12 @@ The operational report of the T-34 study — the Russian-language PDF listed bel
 
 ## 🧭 Navigation
 
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The Russian-language report of the study: HTML + PDF rendered from the same source as the monograph.
+
 [⬅ Vortex_optimization/](../README.md) · [→ monograph](../monograph/) · [🏠 Repo root](../../README.md)
 
 ---

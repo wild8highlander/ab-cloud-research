@@ -13,6 +13,10 @@ at 199/199.**
 
 </div>
 
+> **🧭 Navigation:** [ports/](../README.md) · [meridian-spectral-observatory/](../../README.md) · [Root README](../../../README.md)
+
+
+
 ## What this is
 
 The Go mirror of the meridian-spectral-observatory kernel — bit-matched
@@ -66,3 +70,30 @@ silent omissions anywhere.
 **[↑ Ports overview](../README.md)** · [golden/](../golden/README.md) · [PORT_SPEC.md](../PORT_SPEC.md)
 
 </div>
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is part of the **port matrix of the Meridian Spectral Observatory**: one kernel re-expressed across languages, sharing the frozen zero table and checked against the same golden anchors. The [`golden/`](../golden/README.md) shelf defines the reference values; the [`data/`](../data/README.md) shelf holds the shared input. A port that reproduces the anchors bit-for-bit demonstrates that the observatory's arithmetic is a property of the specification, not of one runtime. The matrix overview is in [`ports/`](../README.md).
+
+The Go port of the observatory kernel, checked against the same golden anchors as the other languages.
+
+```mermaid
+flowchart LR
+    D["data/<br/>shared zero table"] --> P["this port<br/>Go"] --> G["golden/<br/>reference anchors"]
+    style P fill:#1f6feb,color:#fff
+```
+
+*Every port reads the same table and must reproduce the same anchors.*
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `abcloud_unified.go` | 596 KB | Go source |
+| `go.mod` | 26 B | Go module file |
+| `main.go` | 69 KB | Go source |
+
+
+**Where next:** [golden anchors](../golden/README.md) · [data/](../data/README.md)

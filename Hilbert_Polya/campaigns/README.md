@@ -1,5 +1,7 @@
 # campaigns/ — the verdict excursions
 
+> **🧭 Navigation:** [Hilbert_Polya/](../README.md) · [Root README](../../README.md)
+
 <p align="center"><img src="../assets/illustrations/ill_shutter_wall.png" width="600" alt="A wall of lattice shutters, one gate per campaign of the Bridge series"/></p>
 
 <p align="center"><img src="../assets/avatars/hp_cast_strip.svg" width="720" alt="Bridge avatar cast"/></p>
@@ -123,3 +125,11 @@ file: set its path as `ZFILE` in the campaign scripts.
 - [../engine/README.md](../engine/README.md) — the resonator kernel the recomputations call
 - [../computations/](../computations/) — one folder per campaign: READMEs, monographs, figures, data
 - [../docs/README.md](../docs/README.md) — theory, methods, trace formula, validation
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The verdict excursions: the per-campaign scripts that replay committed data and produce the excursion figures. Every script imports its machinery from `hpbridge/` — one construction, one seed discipline.

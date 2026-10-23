@@ -17,6 +17,13 @@ This folder is the designated output directory of [`../ab_lab.py`](../ab_lab.py)
 
 ## 🧭 Navigation
 
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The folder is empty by design: it is the output directory that `ab_lab.py` fills with SHA256-pinned reports when hypotheses are actually run. A report appears here only after a run, and it is published as-is — PASS and FAIL alike.
+
 [⬅ HYPOTHESIS_LAB/](../README.md) · [🏠 Repo root](../../../README.md)
 
 ---

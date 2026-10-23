@@ -18,6 +18,20 @@ The C++ twin (standard library only), re-stating the same two invariants as ever
 
 ## 🧭 Navigation
 
+<!-- enriched-r3 -->
+
+This folder is one of the **six language twins** of the computational kernel. The Python reference lives in `hpbridge/`; each twin re-states the same two invariants (shorthand-named Γ-closure + Λ-sieve) in another language and runtime, and must finish with the same numbers. The contract between the twins and the verification protocol is the three-line control block `verify_control.txt`. If the twins agree, the agreement is a property of the mathematics rather than of Python, `mpmath`, or any particular standard library. This twin is the **C++** member of the six-port family; its control block is checked by the series' tests.
+
+```mermaid
+flowchart LR
+    P["hpbridge/<br/>Python reference"] --> T["this twin<br/>C++"] --> V["verify_control.txt<br/>the same three lines"]
+    style T fill:#1f6feb,color:#fff
+```
+
+*One sentence, six tongues — the twin must end with the reference numbers.*
+
+**Where next:** [hpbridge/](../../hpbridge/README.md)
+
 [⬅ multilang/](../README.md) · [🏠 Repo root](../../../README.md)
 
 ---

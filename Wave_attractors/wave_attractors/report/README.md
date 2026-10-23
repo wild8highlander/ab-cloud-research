@@ -18,6 +18,12 @@ The working report of the study as a single PDF — the process-level companion 
 
 ## 🧭 Navigation
 
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The Russian-language report of the study (PDF).
+
 [⬅ wave_attractors/](../README.md) · [→ monograph](../monograph/) · [🏠 Repo root](../../../README.md)
 
 ---

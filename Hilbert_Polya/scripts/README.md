@@ -1,5 +1,7 @@
 # scripts/ — the build pipelines
 
+> **🧭 Navigation:** [Hilbert_Polya/](../README.md) · [Root README](../../README.md)
+
 <p align="center"><img src="../assets/illustrations/ill_montage_bench.png" width="600" alt="Backstage bench where figures, covers and workbooks are assembled"/></p>
 
 <p align="center"><img src="../assets/avatars/hp_cast_strip.svg" width="720" alt="Bridge avatar cast"/></p>
@@ -94,3 +96,11 @@ content-JSON → PDF+DOCX run over the 13 monograph documents of the series.
 - [../monograph/README.md](../monograph/README.md) — the volumes produced by the render chain
 - [../figures/README.md](../figures/README.md) — the logo and infographic outputs
 - [../figures_hires/README.md](../figures_hires/README.md) — the 600 dpi figure library
+
+---
+
+<!-- enriched-r3 -->
+
+This folder holds the **pipeline scripts** of its module: the deterministic code paths that turn frozen inputs into reports, figures and verdicts. The scripts follow the repository's seed discipline — same input, same seed, same bytes out — so a re-run on the pinned platform reproduces the committed artifacts. Nothing here is executed at import time by other modules; they are entry points, documented in the module README.
+
+The build pipelines of the series: rendering, checking and packaging entry points that turn the content source into the committed volumes.

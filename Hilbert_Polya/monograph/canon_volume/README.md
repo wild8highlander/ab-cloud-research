@@ -21,6 +21,12 @@ The canonical edition of the monograph — the book as a coherent whole — in R
 
 ## 🧭 Navigation
 
+<!-- enriched-r3 -->
+
+This folder holds one **bound volume** of the Hilbert–Pólya Bridge monograph series. Each volume exists in Russian and English and in two formats (PDF and DOCX), all rendered from a single content source — [`monograph/content/`](../content/README.md) — so the languages and formats cannot drift apart. The volume map of the whole series is in [`monograph/`](../README.md), and the raw verdicts behind every quoted number are committed in [`data/`](../../data/README.md).
+
+**Where next:** [content source](../content/README.md) · [data/](../../data/README.md)
+
 [⬅ monograph/](../README.md) · [🏠 Repo root](../../../README.md)
 
 ---

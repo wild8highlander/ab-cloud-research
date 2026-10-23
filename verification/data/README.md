@@ -1,5 +1,7 @@
 # Frozen Verification Data — Riemann Zeta Zeros
 
+> **🧭 Navigation:** [verification/](../README.md) · [Root README](../../README.md)
+
 The single source of truth for every numeric experiment in this repository:
 all ten language implementations of `../`, the Julia suite `../../code/`, the
 spinor64 experiment `../spinor64/` and the React dashboard
@@ -144,3 +146,11 @@ spacing mean/var, KS D/p, Cramér–von Mises W², Anderson–Darling A², ⟨r�
 zeros use `zeta_zeros_50000_embedded.txt` (source `50k_full`, 12 digits,
 byte-identical values to the golden's `zeros50k.txt`). The `auto` source
 selection in every verifier accounts for this.
+
+---
+
+<!-- enriched-r3 -->
+
+This folder holds **frozen, committed data**: the byte-identical inputs that the verification pipeline reads. The discipline of the repository is that nothing downstream depends on a recomputation — every figure, test and document replays these committed files, so editing or regenerating them in place is forbidden by convention. Where a file also exists in another module's canon, the copies are byte-identical by design.
+
+The frozen verification data: the Riemann ζ zero tables (several formats and heights, plus the compressed archive) that every language port reads. This is the canon of the whole verification layer — treat every file here as read-only.

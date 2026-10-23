@@ -1,5 +1,20 @@
 # 🎨 Journal Shelf Assets
 
+> **🧭 Navigation:** [Journal/](../README.md) · [AB_Cloud_Academic_Package/](../../README.md) · [Root README](../../../README.md)
+
+<!-- enriched-r3 -->
+
+This folder is the **visual-identity shelf** of its module: the logos, banners and small vector decorations that the module's README pages embed. Nothing here carries numerical content — the files are artwork and layout assets, referenced relatively by the surrounding documentation. The images are committed so that every README renders identically on GitHub, in a local clone, and inside the archived package.
+
+The shelf keeps the journal's own cover art and badge figures, separate from the main package identity in `08_assets/`.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `banner.svg` | 8.6 KB | vector figure |
+| `logo_journal_ai.png` | 97 KB | figure (PNG) |
+
 The banner and emblem art of the **Journal submission shelf** README. The banner
 is a hand-written SVG with SMIL animation (no build step, no external fonts,
 view-source friendly); the emblem is an exported raster logo; the README embeds

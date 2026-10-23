@@ -30,3 +30,11 @@ Each `R2_L*_Nv*_q*_W*_a*_<protocol>.npz` file is one optimization curve of the T
 *Part of the [AB-Cloud Research](../../README.md) repository · DOI [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394) · © 2026 Isaev Iskhak Khamzatovich — personal proprietary use, see the [license terms](../../LICENSE).*
 
 </div>
+
+---
+
+<!-- enriched-r3 -->
+
+This folder holds **frozen, committed data**: the byte-identical inputs that the verification pipeline reads. The discipline of the repository is that nothing downstream depends on a recomputation — every figure, test and document replays these committed files, so editing or regenerating them in place is forbidden by convention. Where a file also exists in another module's canon, the copies are byte-identical by design.
+
+The frozen scan curves (NumPy archives): the measured D-statistic landscapes over the vortex-dial windows, as committed by the large-scale scan.

@@ -1,5 +1,7 @@
 # Test D12 — The Infinite Berry–Keating Ladder: Nu → ∞ at Fixed Density
 
+> **🧭 Navigation:** [tests/](../README.md) · [dirac-lab/](../../README.md) · [Root README](../../../README.md)
+
 > Test D12 — delta-train peak exact to Nu = 32768; envelope 1.9×10⁻⁴; coverage 1.0; ⟨r⟩ extensive
 
 ![Verdict](https://img.shields.io/badge/verdict-PASS_9%2F9-2EA043?style=for-the-badge&label=D12) ![Seed](https://img.shields.io/badge/seed-96-blue?style=flat-square&label=deterministic) ![DPI](https://img.shields.io/badge/figures-600%20dpi-orange?style=flat-square) ![Mode](https://img.shields.io/badge/run-FULL-informational?style=flat-square) ![Julia](https://img.shields.io/badge/Julia_cross-ALL_PASS-9558B2?style=flat-square&label=independent)
@@ -86,3 +88,20 @@ Deterministic **seed 96** (parent convention); ζ tables from the Odlyzko-derive
 ---
 
 *Part of the [AB-Cloud Dirac Laboratory](../../README.md) — test D12 of 14. Full context: the research monograph ([EN](../../monographs/tex/Dirac_Lab_Monograph_EN.pdf) · [RU](../../monographs/tex/Dirac_Lab_Monograph_RU.pdf)) and the [per-test monograph](monograph.pdf) in this folder.*
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `D12_bk_ladder_infinite.csv` | 858 B | CSV dataset |
+| `monograph.pdf` | 1.4 MB | PDF document |
+| `monograph.tex` | 13 KB | LaTeX source |
+| `results.json` | 1.9 KB | JSON data / config |
+
+**Subfolders:** `figures/`

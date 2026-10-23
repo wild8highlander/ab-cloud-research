@@ -22,6 +22,13 @@ Ready-to-embed animated explainers: the campaign timeline, the compiler gate flo
 
 ## 🧭 Navigation
 
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+Five GIF animations covering the architecture, the blind zero reading, the spinor cycles and the reproducibility pipeline. GIFs play anywhere, including inside GitHub READMEs.
+
 [⬅ VISUAL_ANIMATIONS/](../README.md) · [🏠 Repo root](../../../README.md)
 
 ---

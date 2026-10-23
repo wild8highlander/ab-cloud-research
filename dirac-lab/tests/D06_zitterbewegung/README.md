@@ -1,5 +1,7 @@
 # Test D6 — Zitterbewegung at ω = 2E: Trembling Motion from Interband Coherence
 
+> **🧭 Navigation:** [tests/](../README.md) · [dirac-lab/](../../README.md) · [Root README](../../../README.md)
+
 > Test D6 — frequency ratios 0.99958 (box) and 0.9998 (torus dipole)
 
 ![Verdict](https://img.shields.io/badge/verdict-PASS_2%2F2-2EA043?style=for-the-badge&label=D6) ![Seed](https://img.shields.io/badge/seed-96-blue?style=flat-square&label=deterministic) ![DPI](https://img.shields.io/badge/figures-600%20dpi-orange?style=flat-square) ![Mode](https://img.shields.io/badge/run-FULL-informational?style=flat-square)
@@ -78,3 +80,20 @@ Deterministic **seed 96** (parent convention); ζ tables from the Odlyzko-derive
 ---
 
 *Part of the [AB-Cloud Dirac Laboratory](../../README.md) — test D6 of 14. Full context: the research monograph ([EN](../../monographs/tex/Dirac_Lab_Monograph_EN.pdf) · [RU](../../monographs/tex/Dirac_Lab_Monograph_RU.pdf)) and the [per-test monograph](monograph.pdf) in this folder.*
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `D6_zitterbewegung.csv` | 158 B | CSV dataset |
+| `monograph.pdf` | 992 KB | PDF document |
+| `monograph.tex` | 9.9 KB | LaTeX source |
+| `results.json` | 485 B | JSON data / config |
+
+**Subfolders:** `figures/`

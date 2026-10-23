@@ -1,5 +1,7 @@
 # Th4. The spectral formula of the Li coefficients — theorem derivation
 
+> **🧭 Navigation:** [theorems_lemmas/](../README.md) · [AB_Cloud_Quantum_Research/](../../README.md) · [Root README](../../../README.md)
+
 **Campaign:** V15 · **Formal reduction:** A6 (convergence of the Li series) · **Documents:**
 `theorem_th4_{ru,en}.{pdf,docx}` ·
 **Figure:** `figures/th4_4dim_ru.png`, `figures/th4_4dim_en.png`
@@ -24,3 +26,31 @@ test_th4_li.py; computations/V15_li_criterion/; claim_v15.json; the zero file ze
 ## Boundaries (honest)
 
 The positivity of λ_n is certified numerically up to n = 3000 (O11 — computed; tails ≤ 0.115); for all n the question is equivalent to RH by the classical Li/Bombieri–Lagarias criterion (O12 — proven). The path agreement depends on the tail model.
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is the derivation shell of **Th4 · Li formula** — one of the six theorem tiles of the AB Cloud Quantum Research study. It keeps the bilingual derivation monographs (RU/EN, PDF + DOCX), each built around the 2×2 measurement figure. The certificate quoted by the theorem layer for this tile: **two paths ≤ 4.4e−11**; the machine-readable statement and thresholds live in [`_json/`](../_json/README.md). The derivation narrative below is the source the documents render.
+
+```mermaid
+flowchart LR
+    T1["Th1 · Hermiticity"] --> T2["Th2 · self-adjointness"] --> T3["Th3 · Kato corridors"] --> T4["Th4 · Li formula"] --> T5["Th5 · block reduction"] --> T6["Th6 · trace formula"]
+    style T4 fill:#1f6feb,color:#fff
+```
+
+*The theorem chain Th1–Th6 — the highlighted node is this tile; certificates in the theorem-layer table.*
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `theorem_th4_en.docx` | 415 KB | Word document |
+| `theorem_th4_en.pdf` | 790 KB | PDF document |
+| `theorem_th4_ru.docx` | 463 KB | Word document |
+| `theorem_th4_ru.pdf` | 856 KB | PDF document |
+
+**Subfolders:** `figures/`
+
+
+**Where next:** [machine-readable JSON](../_json/README.md)

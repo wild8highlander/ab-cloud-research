@@ -41,3 +41,11 @@ Which file to open first: the `.pdf` for reading, the `.md` for diffing and quot
 *Part of the [AB-Cloud Research](../../../README.md) repository · DOI [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394) · © 2026 Isaev Iskhak Khamzatovich — personal proprietary use, see the [license terms](../../../LICENSE).*
 
 </div>
+
+---
+
+<!-- enriched-r3 -->
+
+This shelf holds the **text layer of the v22 monograph edition**: the canonical Markdown source, the LaTeX source, an interactive HTML version, and the typeset DOCX and PDF. Every figure and every number in the text is bound to a named test of the verified suite with a full computation log. The figures referenced by the text live in the sibling [`figures/`](../figures/README.md) shelf; the other language editions are parallel folders of [`monographs/`](../README.md).
+
+**Subfolders:** `preprint/`

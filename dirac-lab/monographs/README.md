@@ -1,5 +1,7 @@
 # monographs/ — The research monograph, three editions
 
+> **🧭 Navigation:** [dirac-lab/](../README.md) · [Root README](../../README.md)
+
 The full research monograph — *The Dirac Skeleton of the AB-Cloud* — weaves all
 fourteen tests into one argument. It exists in three synchronized editions; the
 numbers, section structure and verdict ledger are identical across all of them.
@@ -37,3 +39,15 @@ traceable to [`../results/run_20261006_081031/`](../results/run_20261006_081031/
 fourteen tests owns a focused monograph (LaTeX source + compiled PDF, 4–5 pp.)
 inside its own folder — see [`../tests/`](../tests/), one folder per test with
 its own README, verdict ledger, data table and 600-dpi figure set.
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The research monograph of the laboratory in three editions: English, Russian and the LaTeX sources.
+
+## Folder contents
+
+**Subfolders:** `en/` · `ru/` · `tex/`

@@ -1,5 +1,7 @@
 # Test 38 -- 64 spinor structures of the Klein quartic (FORTRAN port)
 
+> **🧭 Navigation:** [fortran/](../README.md) · [verification/](../../README.md) · [Root README](../../../README.md)
+
 FORTRAN port of the validated C++ reference `verification/cpp/spinor38/spinor38.cpp`.
 
 The program uses ONLY the frozen data files and a self-implemented cyclic
@@ -62,3 +64,19 @@ output format is shared across all ten languages so their verdict
 lines can be diffed mechanically; any line that differs from the
 validated C++ reference (`../../cpp/spinor38/spinor38.cpp`) marks a
 port bug.
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a **cross-language port of Test 38** — the verification of all 64 spinor structures of the Klein quartic. The reference implementation and the full story live in [`verification/spinor64/`](../../spinor64/README.md); every port here reads the same frozen data, runs the same two experiments (exact symmetry orbits and AB-cloud statistics) and must reproduce the reference verdicts. The ports exist for the same reason as the rest of the parity layer: to show that the conclusions survive a change of language, compiler and standard library. A disagreement would be a bug in the port, not a new discovery. This port is the **Fortran** member of the parity matrix.
+
+```mermaid
+flowchart LR
+    R["spinor64/<br/>reference verdicts"] --> P["this port<br/>Fortran"] --> V["same frozen data<br/>same verdicts"]
+    style P fill:#1f6feb,color:#fff
+```
+
+*The parity loop of Test 38 — disagreement means a port bug, not a discovery.*
+
+**Where next:** [spinor64 reference](../../spinor64/README.md)

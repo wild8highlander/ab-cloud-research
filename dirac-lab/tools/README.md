@@ -1,5 +1,7 @@
 # tools/ — repository maintenance utilities
 
+> **🧭 Navigation:** [dirac-lab/](../README.md) · [Root README](../../README.md)
+
 Self-contained scripts that regenerate the **per-test documentation suite**
 (`tests/D01…D14`) from the validated code modules. Both scripts use paths
 relative to the repository root, so they work from any checkout.
@@ -49,3 +51,18 @@ figures resolved against the canonical `figures/` folder. Any TeX distribution
 with XeTeX support
 (the repository CI used [Tectonic](https://tectonic-typesetting.github.io))
 builds them without extra assets.
+
+---
+
+<!-- enriched-r3 -->
+
+This folder holds the **pipeline scripts** of its module: the deterministic code paths that turn frozen inputs into reports, figures and verdicts. The scripts follow the repository's seed discipline — same input, same seed, same bytes out — so a re-run on the pinned platform reproduces the committed artifacts. Nothing here is executed at import time by other modules; they are entry points, documented in the module README.
+
+Repository maintenance utilities for the laboratory: housekeeping scripts that keep the folders and ledgers consistent.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `make_extra_figures.py` | 27 KB | Python source |
+| `run_into_folder.py` | 4.1 KB | Python source |

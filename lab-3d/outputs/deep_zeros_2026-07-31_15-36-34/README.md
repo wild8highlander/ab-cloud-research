@@ -41,3 +41,11 @@ the deep embedded-zeros session — high-depth zero embedding runs and their rep
 *Part of the [AB-Cloud Research](../../../README.md) repository · DOI [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394) · © 2026 Isaev Iskhak Khamzatovich — personal proprietary use, see the [license terms](../../../LICENSE).*
 
 </div>
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a **committed run artifact**: the outputs of one execution of the module's pipeline, frozen at the moment of generation. The run directories are named by their UTC timestamp and are never edited after the fact — the reports, figures and data tables inside are the evidence that the pipeline ran and what it produced. Regenerating them is always possible from the scripts; the committed copies exist so that no reader ever has to.
+
+**Where next:** [outputs hub](../README.md)

@@ -1,5 +1,18 @@
 # 🎨 Observatory Assets
 
+> **🧭 Navigation:** [meridian-spectral-observatory/](../README.md) · [Root README](../../README.md)
+
+<!-- enriched-r3 -->
+
+This folder is the **visual-identity shelf** of its module: the logos, banners and small vector decorations that the module's README pages embed. Nothing here carries numerical content — the files are artwork and layout assets, referenced relatively by the surrounding documentation. The images are committed so that every README renders identically on GitHub, in a local clone, and inside the archived package.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `banner_dark.svg` | 24 KB | vector figure |
+| `banner_light.svg` | 24 KB | vector figure |
+
 The animated banner art of the meridian-spectral-observatory landing pages.
 
 | File | Used by |

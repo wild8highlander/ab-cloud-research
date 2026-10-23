@@ -1,5 +1,7 @@
 # Per-Section Micro-Verifications
 
+> **🧭 Navigation:** [verification/](../README.md) · [Root README](../../README.md)
+
 Self-contained Python checks (stdlib only, no data files, no dependencies)
 that verify concrete numeric claims in under a second. Every check prints its
 raw numbers and exits non-zero on failure, so they double as CI smoke tests.
@@ -21,3 +23,15 @@ raw numbers and exits non-zero on failure, so they double as CI smoke tests.
 python3 verification/sections/section3_ab_cloud/python/verify.py
 python3 verification/sections/section6_riemann_zeros/python/verify.py
 ```
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+Per-section micro-verifications: one folder per monograph section, each checking that section's claims in isolation.
+
+## Folder contents
+
+**Subfolders:** `section3_ab_cloud/` · `section6_riemann_zeros/`

@@ -1,5 +1,7 @@
 # lab-3d/outputs — Committed Verification Runs (2026-07-31)
 
+> **🧭 Navigation:** [lab-3d/](../README.md) · [Root README](../../README.md)
+
 Four complete, timestamped output folders produced by the 3D laboratory on
 2026-07-31 and committed verbatim so the figures and numbers can be inspected
 without re-running the simulations. Every folder follows the same report
@@ -67,3 +69,18 @@ If you regenerate an output and it differs, the lab treats that as a
 reportable event — check first for floating-point stack differences (BLAS
 orderings), then for actual drift. The committed files are the archival
 truth; local re-renders are for confidence, not for replacing evidence.
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a **committed run artifact**: the outputs of one execution of the module's pipeline, frozen at the moment of generation. The run directories are named by their UTC timestamp and are never edited after the fact — the reports, figures and data tables inside are the evidence that the pipeline ran and what it produced. Regenerating them is always possible from the scripts; the committed copies exist so that no reader ever has to.
+
+The committed verification runs of 2026-07-31: four timestamped run folders, each with its own PDF report, figure set and run manifest. The folders are never edited after the fact; regenerate from `code/` if needed.
+
+## Folder contents
+
+**Subfolders:** `3d_advanced_2026-07-31_15-51-47/` · `3d_bridge_2026-07-31_15-36-37/` · `deep_zeros_2026-07-31_15-36-34/` · `full_verification_2026-07-31_15-33-39/`
+
+
+**Where next:** [outputs hub](../README.md)

@@ -20,6 +20,13 @@ The three Python generators that rebuild everything in gif/, html/ and svg/ from
 
 ## 🧭 Navigation
 
+
+<!-- enriched-r3 -->
+
+This folder holds the **pipeline scripts** of its module: the deterministic code paths that turn frozen inputs into reports, figures and verdicts. The scripts follow the repository's seed discipline — same input, same seed, same bytes out — so a re-run on the pinned platform reproduces the committed artifacts. Nothing here is executed at import time by other modules; they are entry points, documented in the module README.
+
+The render scripts that rebuild the GIF, SVG and HTML layers from the module's own sources — the "rebuild everything" entry points.
+
 [⬅ VISUAL_ANIMATIONS/](../README.md) · [🏠 Repo root](../../../README.md)
 
 ---

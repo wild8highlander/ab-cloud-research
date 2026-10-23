@@ -12,6 +12,10 @@ fresh clone without Julia — reads the identical table from disk.**
 
 </div>
 
+> **🧭 Navigation:** [ports/](../README.md) · [meridian-spectral-observatory/](../../README.md) · [Root README](../../../README.md)
+
+
+
 ## What this is
 
 [`monumental_zeta_zeros_1000.txt`](monumental_zeta_zeros_1000.txt) holds the
@@ -49,3 +53,28 @@ need the same update.
 **[↑ Ports overview](../README.md)** · [python package data](../python/abcloud/data/README.md)
 
 </div>
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is part of the **port matrix of the Meridian Spectral Observatory**: one kernel re-expressed across languages, sharing the frozen zero table and checked against the same golden anchors. The [`golden/`](../golden/README.md) shelf defines the reference values; the [`data/`](../data/README.md) shelf holds the shared input. A port that reproduces the anchors bit-for-bit demonstrates that the observatory's arithmetic is a property of the specification, not of one runtime. The matrix overview is in [`ports/`](../README.md).
+
+The shared zero table: the one input every port reads, kept byte-identical across languages.
+
+```mermaid
+flowchart LR
+    D["data/<br/>shared zero table"] --> P["this port<br/>data"] --> G["golden/<br/>reference anchors"]
+    style P fill:#1f6feb,color:#fff
+```
+
+*Every port reads the same table and must reproduce the same anchors.*
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `monumental_zeta_zeros_1000.txt` | 20 KB | plain-text dataset / log |
+
+
+**Where next:** [golden anchors](../golden/README.md) · [data/](../data/README.md)

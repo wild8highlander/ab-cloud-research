@@ -1,5 +1,7 @@
 # Th5. Block reduction by symmetry — theorem derivation
 
+> **🧭 Navigation:** [theorems_lemmas/](../README.md) · [AB_Cloud_Quantum_Research/](../../README.md) · [Root README](../../../README.md)
+
 **Campaign:** V9 · **Formal reduction:** A2 (simultaneous diagonalization) · **Documents:**
 `theorem_th5_{ru,en}.{pdf,docx}` ·
 **Figure:** `figures/th5_4dim_ru.png`, `figures/th5_4dim_en.png`
@@ -24,3 +26,31 @@ test_th5_block_reduction.py; computations/V09_symmetry_reduction/; claim_v09.jso
 ## Boundaries (honest)
 
 For asymmetric vortex placements the reduction does not apply — this is a boundary of the scope, not a defect; partially symmetric configurations give approximate invariant subspaces (not included in the package).
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is the derivation shell of **Th5 · block reduction** — one of the six theorem tiles of the AB Cloud Quantum Research study. It keeps the bilingual derivation monographs (RU/EN, PDF + DOCX), each built around the 2×2 measurement figure. The certificate quoted by the theorem layer for this tile: **7.1e−15**; the machine-readable statement and thresholds live in [`_json/`](../_json/README.md). The derivation narrative below is the source the documents render.
+
+```mermaid
+flowchart LR
+    T1["Th1 · Hermiticity"] --> T2["Th2 · self-adjointness"] --> T3["Th3 · Kato corridors"] --> T4["Th4 · Li formula"] --> T5["Th5 · block reduction"] --> T6["Th6 · trace formula"]
+    style T5 fill:#1f6feb,color:#fff
+```
+
+*The theorem chain Th1–Th6 — the highlighted node is this tile; certificates in the theorem-layer table.*
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `theorem_th5_en.docx` | 428 KB | Word document |
+| `theorem_th5_en.pdf` | 881 KB | PDF document |
+| `theorem_th5_ru.docx` | 440 KB | Word document |
+| `theorem_th5_ru.pdf` | 916 KB | PDF document |
+
+**Subfolders:** `figures/`
+
+
+**Where next:** [machine-readable JSON](../_json/README.md)

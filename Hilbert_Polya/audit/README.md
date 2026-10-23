@@ -1,5 +1,7 @@
 # audit/ — external audit of the package and its results
 
+> **🧭 Navigation:** [Hilbert_Polya/](../README.md) · [Root README](../../README.md)
+
 *October 13, 2026 · auditors: an independent session (Super Z) · commit e913629 (v2.0.0)*
 
 ## What is here
@@ -34,3 +36,20 @@ separate placeholder script is needed.
 
 The report's content sources are `src/audit_content*.py`; text edits go only
 there, followed by a rebuild.
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The external audit of the package and its results: the audit document (DOCX + PDF) produced outside the main development loop.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `HPB_audit_canonization_2026-10-13_ru.docx` | 62 KB | Word document |
+| `HPB_audit_canonization_2026-10-13_ru.pdf` | 232 KB | PDF document |
+
+**Subfolders:** `src/`

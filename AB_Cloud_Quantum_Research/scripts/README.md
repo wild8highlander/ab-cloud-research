@@ -67,3 +67,27 @@ negative results published*
 [license](../../LICENSE) · © Isaev Iskhak Khamzatovich
 
 </div>
+
+---
+
+<!-- enriched-r3 -->
+
+This folder holds the **pipeline scripts** of its module: the deterministic code paths that turn frozen inputs into reports, figures and verdicts. The scripts follow the repository's seed discipline — same input, same seed, same bytes out — so a re-run on the pinned platform reproduces the committed artifacts. Nothing here is executed at import time by other modules; they are entry points, documented in the module README.
+
+The pipelines of the AB Cloud Quantum Research package: deterministic entry points that rebuild figures, documents and checks from the frozen data.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `make_atlas.py` | 7.9 KB | Python source |
+| `make_avatars.py` | 2.2 KB | Python source |
+| `make_banner.py` | 7.5 KB | Python source |
+| `make_datasets.py` | 8.5 KB | Python source |
+| `make_release.py` | 1.8 KB | Python source |
+| `make_theorem_docs.py` | 5.2 KB | Python source |
+| `make_theorem_readmes.py` | 22 KB | Python source |
+| `make_tiled_figures.py` | 22 KB | Python source |
+| `make_timeline.py` | 4.8 KB | Python source |
+| `make_whitepaper.py` | 21 KB | Python source |
+| `validate_package.py` | 8.3 KB | Python source |

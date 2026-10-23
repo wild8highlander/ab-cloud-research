@@ -68,3 +68,11 @@ negative results published*
 [license](../../LICENSE) · © Isaev Iskhak Khamzatovich
 
 </div>
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The bridge page of the formal layer: it points into the formal verification material of the unified package (the Lean 4 / Coq wing and the exact layer) without duplicating it.

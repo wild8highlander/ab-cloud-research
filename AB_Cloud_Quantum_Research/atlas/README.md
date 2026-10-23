@@ -53,3 +53,18 @@ negative results published*
 [license](../../LICENSE) · © Isaev Iskhak Khamzatovich
 
 </div>
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The atlas of flagship results: the two poster-grade images that gather the program's headline numbers into one view, embedded by the main README.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `atlas_flagships_en.png` | 744 KB | figure (PNG) |
+| `atlas_flagships_ru.png` | 754 KB | figure (PNG) |

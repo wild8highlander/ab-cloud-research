@@ -121,6 +121,8 @@ wave_attractors/
 
 ```bash
 # 1. ray-level experiments + cross-reference dump (≈ 1 min)
+> **🧭 Navigation:** [Wave_attractors/](../README.md) · [Root README](../../README.md)
+
 python3 wave_attractors/scripts/run_experiments.py
 
 # 2. frequency independence + ray-density map (≈ 30 s)
@@ -197,3 +199,18 @@ repository (see the root `CITATION.cff`):
 
 See the root [LICENSE](../../LICENSE) — Strictly Personal · Custom Research
 License.
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `REPRODUCING.md` | 4.4 KB | Markdown document |
+| `requirements.txt` | 421 B | plain-text dataset / log |
+
+**Subfolders:** `data/` · `figures/` · `monograph/` · `report/` · `scripts/`

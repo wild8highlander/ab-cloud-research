@@ -12,6 +12,10 @@ scripts that produce them. No anchor, no test.**
 
 </div>
 
+> **🧭 Navigation:** [ports/](../README.md) · [meridian-spectral-observatory/](../../README.md) · [Root README](../../../README.md)
+
+
+
 ## What lives here
 
 | File | What it is |
@@ -60,3 +64,34 @@ julia gen_hp_battery.jl   .. hp_battery_golden.json
 **[↑ Ports overview](../README.md)** · [PORT_SPEC.md](../PORT_SPEC.md) · [Julia originals](../../)
 
 </div>
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is part of the **port matrix of the Meridian Spectral Observatory**: one kernel re-expressed across languages, sharing the frozen zero table and checked against the same golden anchors. The [`golden/`](../golden/README.md) shelf defines the reference values; the [`data/`](../data/README.md) shelf holds the shared input. A port that reproduces the anchors bit-for-bit demonstrates that the observatory's arithmetic is a property of the specification, not of one runtime. The matrix overview is in [`ports/`](../README.md).
+
+The reference anchors: the golden values (Julia + JSON) that every port must reproduce bit-for-bit. This shelf is the arbiter of the port matrix.
+
+```mermaid
+flowchart LR
+    D["data/<br/>shared zero table"] --> P["this port<br/>golden"] --> G["golden/<br/>reference anchors"]
+    style P fill:#1f6feb,color:#fff
+```
+
+*Every port reads the same table and must reproduce the same anchors.*
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `abcloud_golden.json` | 21 KB | JSON data / config |
+| `abcloud_golden_stack.json` | 19 KB | JSON data / config |
+| `gen_golden.jl` | 19 KB | Julia source |
+| `gen_golden_stack.jl` | 22 KB | Julia source |
+| `gen_hp_battery.jl` | 7.2 KB | Julia source |
+| `hp_battery_checkpoint.jl` | 11 KB | Julia source |
+| `hp_battery_golden.json` | 8.5 KB | JSON data / config |
+
+
+**Where next:** [golden anchors](../golden/README.md) · [data/](../data/README.md)

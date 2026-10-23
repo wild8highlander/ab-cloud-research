@@ -88,6 +88,8 @@ wave_attractors/
 
 ```bash
 # 1. ray-level experiments + cross-reference dump (≈ 1 min)
+> **🧭 Navigation:** [Wave_attractors/](../README.md) · [Root README](../../README.md)
+
 python3 wave_attractors/scripts/run_experiments.py
 
 # 2. frequency independence + ray-density map (≈ 30 s)
@@ -144,3 +146,13 @@ repository (see the root `CITATION.cff`):
 
 See the root [LICENSE](../../LICENSE) — Strictly Personal · Custom Research
 License.
+
+---
+
+<!-- enriched-r3 -->
+
+This folder holds **repository infrastructure**: configuration that controls automated checks and pipelines for this module. It is operational plumbing rather than research content — the scientific claims live in the module's README, docs and committed verdicts. Changes here affect builds and continuous integration, not the mathematics.
+
+## Folder contents
+
+**Subfolders:** `workflows/`

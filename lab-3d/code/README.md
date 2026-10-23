@@ -1,5 +1,7 @@
 # lab-3d/code — Simulation Sources (Python + Julia)
 
+> **🧭 Navigation:** [lab-3d/](../README.md) · [Root README](../../README.md)
+
 All source modules of the 3D laboratory. Every experiment is reachable from
 the interactive menu of the main script, and every module can also be run or
 imported standalone.
@@ -205,3 +207,44 @@ Fixes applied in the same sweep (all mechanical, no behaviour change):
 - Intra-package flat imports (`from config import …`) → package-qualified
   (`from code.config import …`) for `config`, `verifier_core`,
   `tasks_parametric` and friends.
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The simulation sources of the laboratory: the Python and Julia implementations of the 3D experiments, one file per experiment family. The committed outputs in `outputs/` were produced by exactly these sources.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `AB_CLOUD_ALL_HYPOTHESES.py` | 15 KB | Python source |
+| `AB_Cloud_FEM_v6_python.py` | 44 KB | Python source |
+| `AB_Cloud_FEM_v6_python_en.py` | 44 KB | Python source |
+| `AB_Cloud_FEM_v8c.py` | 20 KB | Python source |
+| `AB_Cloud_FEM_v8c_en.py` | 20 KB | Python source |
+| `AB_Cloud_FEM_v8d.py` | 16 KB | Python source |
+| `AB_Cloud_FEM_v8d_en.py` | 15 KB | Python source |
+| `AB_Cloud_Vortex_System_v2.py` | 85 KB | Python source |
+| `AB_Cloud_Vortex_System_v2_EN.py` | 85 KB | Python source |
+| `AB_Cloud_Vortex_System_v2_RU.py` | 90 KB | Python source |
+| `AB_Cloud_topological_magnetism_simulations.py` | 24 KB | Python source |
+| `CODE_OF_CONDUCT.md` | 5.4 KB | Markdown document |
+| `Generate_Zeta_Zeros_PythonCall_EN.jl` | 24 KB | Julia source |
+| `__init__.py` | 687 B | Python source |
+| `__init___v2.py` | 42 B | Python source |
+| `ab_cloud_3d.jl` | 222 KB | Julia source |
+| `ab_cloud_3d.py` | 80 KB | Python source |
+| `ab_cloud_3d_en.jl` | 214 KB | Julia source |
+| `ab_cloud_3d_en.py` | 78 KB | Python source |
+| `ab_cloud_advanced.py` | 22 KB | Python source |
+| `ab_cloud_advanced_v2.py` | 34 KB | Python source |
+| `ab_cloud_extended_kopt_study.py` | 23 KB | Python source |
+| `ab_cloud_extended_kopt_study_en.py` | 24 KB | Python source |
+| `ab_cloud_genus_universality.py` | 17 KB | Python source |
+| `ab_cloud_genus_universality_en.py` | 17 KB | Python source |
+| … and 71 more files | | |
+
+**Subfolders:** `figs/`

@@ -17,6 +17,19 @@
 </div>
 
 > 🧭 **Navigation:** [↑ main README](../README.md) · [📚 monographs](../MONOGRAPH_ARCHIVE/README.md) · [🧪 hypothesis lab](../HYPOTHESIS_LAB/README.md) · [🎞 animations](../VISUAL_ANIMATIONS/README.md)
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The program glossary: the shared vocabulary of gates, levels, verdicts and obligations, so that every document means the same word the same way.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `glossary.md` | 4.7 KB | Markdown document |
+
 # 📖 glossary/ — the program glossary
 
 A terminology dictionary of AB Cloud Quantum Research: bilingual entries

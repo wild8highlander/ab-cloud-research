@@ -1,5 +1,7 @@
 # Original Author Monograph v21 — with Verification (RU + EN) and the v21.1 Corrections
 
+> **🧭 Navigation:** [monographs/](../README.md) · [Root README](../../README.md)
+
 This folder preserves the **original author monograph** (v21) exactly as
 supplied, together with its **full English edition**, the 16-slide decks, the
 shared figure media — and, since v1.1.0, the **corrected v21.1 editions**
@@ -88,3 +90,11 @@ accordingly — the `*_corrected.*` editions patch §3.2.5 and change nothing
 else. If you need the physics as currently verified, cite the v22/v22.1
 editions; reach for this folder when you need the author's original
 narrative or the exact wording of the withdrawn claim.
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The archived v21 monograph: the previous generation of the text, kept for provenance, with its own language folders and media shelf.

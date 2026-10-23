@@ -23,6 +23,13 @@ The Russian-labelled mirror of [`../en/`](../en/): one PNG per theorem (`th1…t
 
 ## 🧭 Navigation
 
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The Russian-labelled twins of the EN tiles — byte-parallel content, different captions, so the RU and EN documents stay in sync.
+
 [⬅ AB_Cloud_Quantum_Research/](../README.md) · [→ EN tiles](../en/) · [🏠 Repo root](../../../README.md)
 
 ---

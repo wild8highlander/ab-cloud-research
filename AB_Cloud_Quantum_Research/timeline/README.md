@@ -50,3 +50,18 @@ negative results published*
 [license](../../LICENSE) · © Isaev Iskhak Khamzatovich
 
 </div>
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The campaign timeline map: the poster-grade images that place the program's campaigns on one time axis, embedded by the main README.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `campaign_timeline_en.png` | 426 KB | figure (PNG) |
+| `campaign_timeline_ru.png` | 461 KB | figure (PNG) |

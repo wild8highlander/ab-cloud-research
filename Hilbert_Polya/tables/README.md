@@ -1,5 +1,7 @@
 # tables/ — the summary workbook of the series
 
+> **🧭 Navigation:** [Hilbert_Polya/](../README.md) · [Root README](../../README.md)
+
 <p align="center"><img src="../assets/illustrations/ill_trace_formula.png" width="600" alt="Trace formula terms laid out as spreadsheet columns"/></p>
 
 <p align="center"><img src="../assets/avatars/hp_cast_strip.svg" width="720" alt="Bridge avatar cast"/></p>
@@ -68,3 +70,11 @@ is stale.
 - [../scripts/README.md](../scripts/README.md) — `build_workbook.py` and the rest of the pipeline
 - [../results/RESULTS.md](../results/RESULTS.md) — the living ledger the sheets must match
 - [../monograph/README.md](../monograph/README.md) — the bound volumes that quote the same tables
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The summary workbook of the series (Excel): the one-spreadsheet view of the campaign verdicts.

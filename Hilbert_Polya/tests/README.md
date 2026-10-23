@@ -1,5 +1,7 @@
 # tests/ — the pytest suite of the series
 
+> **🧭 Navigation:** [Hilbert_Polya/](../README.md) · [Root README](../../README.md)
+
 <p align="center"><img src="../assets/illustrations/ill_direct_input_error.png" width="600" alt="Committed verdicts fed straight into the test bench"/></p>
 
 <p align="center"><img src="../assets/avatars/hp_cast_strip.svg" width="720" alt="Bridge avatar cast"/></p>
@@ -96,3 +98,11 @@ and a green IVP run are two views of one consistent state.
 - [../independent_verification/README.md](../independent_verification/README.md) — the release-time protocol over the same verdicts
 - [../data/README.md](../data/README.md) — the committed files the "committed" tests read
 - [../results/RESULTS.md](../results/RESULTS.md) — the ledger that assumes a green suite
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The pytest suite of the series: it replays the committed verdicts and checks the invariants the theorems claim, so a regression cannot pass silently.

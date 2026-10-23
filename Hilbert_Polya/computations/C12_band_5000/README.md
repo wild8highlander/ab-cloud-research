@@ -1,5 +1,7 @@
 # C12 · Argument principle band to T=5000 (R4, T14)
 
+> **🧭 Navigation:** [computations/](../README.md) · [Hilbert_Polya/](../../README.md) · [Root README](../../../README.md)
+
 <p align="center"><img src="../../assets/illustrations/ill_critical_line.png" width="640" alt="The critical line verified out to T = 5000"/></p>
 
 <p align="center"><img src="../../assets/avatars/hp_cast_strip.svg" width="760" alt="Bridge avatar cast"/></p>
@@ -120,3 +122,16 @@ Committed verdict (EN, verbatim): "RH verified in the band T ≤ 5000: N_online 
 
 ---
 *Hilbert Polya Bridge v2.0.0 · C12*
+
+---
+
+<!-- enriched-r3 -->
+
+This folder documents one **campaign of the Hilbert–Pólya Bridge series**. The computational kernel is shared — every campaign builds its Hamiltonians and spectra through [`engine/`](../../engine/README.md) — while the committed verdicts for all campaigns live in [`data/`](../../data/README.md). This page narrates the campaign's question, method and measured outcome; the numbers it quotes are frozen in the evidence base and are reproducible bit-for-bit. The campaign map of the whole series is in [`computations/`](../README.md).
+
+## Folder contents
+
+**Subfolders:** `data/` · `figures/`
+
+
+**Where next:** [engine/](../../engine/README.md) · [data/](../../data/README.md)

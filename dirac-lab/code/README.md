@@ -1,5 +1,7 @@
 # code/ — Computational core of the Dirac Laboratory
 
+> **🧭 Navigation:** [dirac-lab/](../README.md) · [Root README](../../README.md)
+
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white)]()
 [![Julia](https://img.shields.io/badge/Julia-1.10+-9558B2?style=flat-square&logo=julia&logoColor=white)]()
 [![Verdicts](https://img.shields.io/badge/Run-14%2F14%20PASS-2EA043?style=flat-square)]()
@@ -93,3 +95,9 @@ reproducible via `make benchmark` / `python3 ../scripts_gen/benchmark.py`).
 *(core D1–D8; the extension maps are above)*
 
 Full documentation: the parent [`README.md`](../README.md#-repository-map) and monograph §12.
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.

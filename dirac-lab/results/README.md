@@ -1,5 +1,7 @@
 # results/ — Run artifacts and cross-verification
 
+> **🧭 Navigation:** [dirac-lab/](../README.md) · [Root README](../../README.md)
+
 | Artifact | Content |
 |---|---|
 | `run_20261006_081031/REPORT.md` | **Master verdict ledger** of the canonical run (D1–D8, 8/8 PASS, 33 checks) |
@@ -30,3 +32,24 @@ julia   ../code/dirac_lab_cross_ext2.jl
 ```
 
 Every number quoted in the READMEs and both monographs regenerates from these artifacts.
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is the **ledger layer** of its module: the committed verdicts, run summaries and cross-verification records. The convention is that a result does not exist until its ledger row is committed — everything downstream (figures, monographs, README claims) replays these files rather than recomputing. The honest FAIL rows are kept verbatim: a negative result is a citizen here, not an embarrassment.
+
+The run artifacts and cross-verification records of the laboratory: JSON verdicts and the run ledgers.
+
+## Folder contents
+
+| File | Size | What it is |
+|---|---|---|
+| `CROSS_VERIFICATION.md` | 8.1 KB | Markdown document |
+| `PERFORMANCE.md` | 3.0 KB | Markdown document |
+| `cross_verification_ext.json` | 953 B | JSON data / config |
+| `cross_verification_ext2.json` | 2.3 KB | JSON data / config |
+| `cross_verification_ext3.json` | 2.3 KB | JSON data / config |
+| `cross_verification_julia.json` | 1.0 KB | JSON data / config |
+
+**Subfolders:** `run_20261006_081031/`

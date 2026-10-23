@@ -1,5 +1,7 @@
 # algebraic_map — the algebraic function of the Jacobi encoding
 
+> **🧭 Navigation:** [Hilbert_Polya/](../README.md) · [Root README](../../README.md)
+
 This directory lifts the pixel protocol (`video/pixel_decoding.py`,
 Appendix H.8) from a "numerical algorithm" to an **explicit algebraic
 function** and answers the question: *which formulas does the encoding
@@ -82,3 +84,13 @@ Lanczos "black box" — a ready instrument for the blind protocol N7 of
 are now exactly computable and verifiable over ℚ; (c) corollary
 identities (K1–K8 in the report) have been found and proven, including
 practical checksums.
+
+---
+
+<!-- enriched-r3 -->
+
+This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
+
+The algebraic map: the algebraic function of the Jacobi encoding, kept as a separate mini-module with its own data, figures and report.
+
+**Subfolders:** `data/` · `figures/` · `report/`
