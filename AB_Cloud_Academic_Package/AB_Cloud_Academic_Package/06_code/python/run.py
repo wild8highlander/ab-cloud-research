@@ -18,9 +18,17 @@ import time
 from pathlib import Path
 
 try:
-    import click
     import typer
     from typer.models import OptionInfo
+    try:  # typer >= 0.27 vendors click as typer._click and no longer
+        # pulls the standalone 'click' package -- expose the one API
+        # run.py uses through a tiny namespace shim.
+        from typer._click.globals import get_current_context
+        import types as _types
+        click = _types.SimpleNamespace(
+            get_current_context=get_current_context)
+    except (ImportError, AttributeError):  # typer < 0.27: real click
+        import click
 except ImportError:  # pragma: no cover - graceful degradation
     typer = None
     click = None

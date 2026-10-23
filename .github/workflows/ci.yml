@@ -115,7 +115,7 @@ jobs:
       - name: Install scientific stack + pytest
         run: |
           pip install --disable-pip-version-check \
-            numpy scipy matplotlib mpmath sympy pytest pyyaml jsonschema
+            numpy scipy matplotlib mpmath sympy pytest pyyaml jsonschema typer
       - name: Run the unified test suite
         working-directory: AB_Cloud_Quantum_Research
         run: pytest tests/test_unified.py -q
