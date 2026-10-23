@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="84" viewBox="0 0 1200 84" role="img" aria-label="Report build: the seal is pressed onto the assembled report">
+<defs><filter id="glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1224"/><stop offset="1" stop-color="#070b16"/></linearGradient></defs>
+<rect x="1.5" y="1.5" width="1197" height="81" rx="14" fill="url(#bg1)" stroke="#1c2740" stroke-width="1.4"/>
+<rect x="700" y="14" width="190" height="58" rx="3" fill="#0b1520" stroke="#cfe8f0" stroke-width="1.5"/>
+<path d="M716,30 L874,30 M716,42 L852,42 M716,54 L860,54" stroke="#33506a" stroke-width="2"/>
+<g>
+<animateTransform attributeName="transform" type="translate" values="0,0;0,0;0,17;0,17;0,0;0,0" keyTimes="0;0.3;0.38;0.52;0.6;1" dur="3.6s" repeatCount="indefinite"/>
+<line x1="470" y1="8" x2="470" y2="26" stroke="#ffd60a" stroke-width="4" stroke-linecap="round"/>
+<rect x="448" y="26" width="44" height="10" rx="2" fill="#ffd60a"/></g>
+<circle cx="795" cy="43" r="15" fill="none" stroke="#ff2ec4" stroke-width="2">
+<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.36;0.44;0.85;1" dur="3.6s" repeatCount="indefinite"/></circle>
+<circle cx="795" cy="43" r="6" fill="#ff2ec4">
+<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.36;0.44;0.85;1" dur="3.6s" repeatCount="indefinite"/></circle>
+<text x="300" y="48" font-family="'Courier New',monospace" font-size="12" fill="#6f97a4">w1_report_build</text>
+</svg>

@@ -283,6 +283,149 @@ Social preview card for a mathematical physics research project, dark navy backg
 Square minimal logo icon, very dark navy background hex 05060f, a glowing abstract monogram of two interlocked angular shapes made of thin luminous circuit traces forming a toroidal resonator symbol, cyan gradient glow with subtle magenta accent, high contrast, vector-like, centered, generous margins, no other elements, no text, no watermark
 ```
 
+## Wave_attractors deep-dive (v2 wave-deep-dive)
+
+The W1 folder keeps its own sub-family: one hero, one unique banner per README
+(13 folders), and the study avatar. Targets live in `Wave_attractors/assets/ai/`
+(WebP); the SMIL companions live in `Wave_attractors/assets/visuals/`.
+Generation sizes: hero and banners `1344x768` (banners center-cropped to `1344x672`, 2:1;
+hero center-cropped to `1344x756`, 16:9), avatar `1024x1024`.
+
+### P-W1 · `wave-hero` #hero
+
+- **Target file:** Wave_attractors/assets/ai/hero.webp — top hero of Wave_attractors/README.md
+- **Generation size:** `1344x768` → crop `1344x756`
+
+```text
+Dramatic wide scientific hero image: a dark anisotropic polygonal cavity seen from above, a single glowing cyan ray bouncing chaotically between walls and cascading onto a closed chiral loop route glowing bright cyan with a faint magenta mirror-twin echo, expanding concentric wavefronts, a subtle hyperbolic dispersion cone of light, deep navy void, volumetric glow, floating particles, dark deep-navy background, glowing neon cyan and magenta accents, subtle violet and gold highlights, elegant scientific visualization style, high detail, cinematic lighting, no text, no letters, no words, no numbers, no watermark, no logo, clean composition
+```
+
+### P-W2 · `wave-banner-ci` #banner
+
+- **Target file:** Wave_attractors/assets/ai/banner-ci.webp — .github/README.md
+- **Generation size:** `1344x768` → crop `1344x672`
+
+```text
+Continuous integration pipeline visualized as a luminous circuit board where glowing checkmarked stages flow like wave pulses through channels, status beacon nodes in magenta and gold, cyan data streams, dark deep-navy background, glowing neon cyan and magenta accents, subtle violet and gold highlights, elegant scientific visualization style, high detail, cinematic lighting, no text, no letters, no words, no numbers, no watermark, no logo, clean composition
+```
+
+### P-W3 · `wave-banner-workflows` #banner
+
+- **Target file:** Wave_attractors/assets/ai/banner-workflows.webp — .github/workflows/README.md
+- **Generation size:** `1344x768` → crop `1344x672`
+
+```text
+Automated workflow machinery made of light: branching directed acyclic graph of glowing nodes and edges, a wavefront passing through the branches, gears of translucent light, deep navy scene, cyan and violet glow, dark deep-navy background, glowing neon cyan and magenta accents, subtle violet and gold highlights, elegant scientific visualization style, high detail, cinematic lighting, no text, no letters, no words, no numbers, no watermark, no logo, clean composition
+```
+
+### P-W4 · `wave-banner-assets` #banner
+
+- **Target file:** Wave_attractors/assets/ai/banner-assets.webp — assets/README.md
+- **Generation size:** `1344x768` → crop `1344x672`
+
+```text
+An elegant dark gallery shelf with framed abstract wave artworks and glowing color swatches in cyan, magenta, violet and gold, museum spotlight beams, refined composition, dark deep-navy background, glowing neon cyan and magenta accents, subtle violet and gold highlights, elegant scientific visualization style, high detail, cinematic lighting, no text, no letters, no words, no numbers, no watermark, no logo, clean composition
+```
+
+### P-W5 · `wave-banner-docs` #banner
+
+- **Target file:** Wave_attractors/assets/ai/banner-docs.webp — docs/README.md
+- **Generation size:** `1344x768` → crop `1344x672`
+
+```text
+An open futuristic book on a dark desk, glowing hyperbola curves and wave-interference diagrams rising holographically from its pages, dust motes in the light beam, cyan glow, dark deep-navy background, glowing neon cyan and magenta accents, subtle violet and gold highlights, elegant scientific visualization style, high detail, cinematic lighting, no text, no letters, no words, no numbers, no watermark, no logo, clean composition
+```
+
+### P-W6 · `wave-banner-package` #banner
+
+- **Target file:** Wave_attractors/assets/ai/banner-package.webp — wave_attractors/README.md
+- **Generation size:** `1344x768` → crop `1344x672`
+
+```text
+Cross-section blueprint of a scientific software package: nested glowing modules, data vaults, script conduits and figure frames arranged like an orbital station schematic, dark background, cyan blueprint lines, gold connectors, dark deep-navy background, glowing neon cyan and magenta accents, subtle violet and gold highlights, elegant scientific visualization style, high detail, cinematic lighting, no text, no letters, no words, no numbers, no watermark, no logo, clean composition
+```
+
+### P-W7 · `wave-banner-data` #banner
+
+- **Target file:** Wave_attractors/assets/ai/banner-data.webp — wave_attractors/data/README.md
+- **Generation size:** `1344x768` → crop `1344x672`
+
+```text
+Crystalline frozen data structures: translucent cubic lattice cells containing glowing grid tables and tree diagrams like frozen CSV and JSON, ice-cyan glow with gold accents, dark void, macro depth of field, dark deep-navy background, glowing neon cyan and magenta accents, subtle violet and gold highlights, elegant scientific visualization style, high detail, cinematic lighting, no text, no letters, no words, no numbers, no watermark, no logo, clean composition
+```
+
+### P-W8 · `wave-banner-figures` #banner
+
+- **Target file:** Wave_attractors/assets/ai/banner-figures.webp — wave_attractors/figures/README.md
+- **Generation size:** `1344x768` → crop `1344x672`
+
+```text
+A dark museum gallery hall of glowing framed scientific figures: wave maps, phase diagrams, ray trajectories inside ornate thin frames, dramatic spotlights, cyan and magenta rim light, dark deep-navy background, glowing neon cyan and magenta accents, subtle violet and gold highlights, elegant scientific visualization style, high detail, cinematic lighting, no text, no letters, no words, no numbers, no watermark, no logo, clean composition
+```
+
+### P-W9 · `wave-banner-monograph` #banner
+
+- **Target file:** Wave_attractors/assets/ai/banner-monograph.webp — wave_attractors/monograph/README.md
+- **Generation size:** `1344x768` → crop `1344x672`
+
+```text
+Two massive scholarly tomes side by side on a dark wooden lectern, embossed chiral loop emblem glowing gold on their covers, volumetric library light, violet accent glow, dark deep-navy background, glowing neon cyan and magenta accents, subtle violet and gold highlights, elegant scientific visualization style, high detail, cinematic lighting, no text, no letters, no words, no numbers, no watermark, no logo, clean composition
+```
+
+### P-W10 · `wave-banner-report` #banner
+
+- **Target file:** Wave_attractors/assets/ai/banner-report.webp — wave_attractors/report/README.md
+- **Generation size:** `1344x768` → crop `1344x672`
+
+```text
+A sealed official research report lying on a dark official desk, glowing magenta wax seal depicting a chiral closed loop, gold trim on the cover, cinematic rim lighting, dark deep-navy background, glowing neon cyan and magenta accents, subtle violet and gold highlights, elegant scientific visualization style, high detail, cinematic lighting, no text, no letters, no words, no numbers, no watermark, no logo, clean composition
+```
+
+### P-W11 · `wave-banner-scripts` #banner
+
+- **Target file:** Wave_attractors/assets/ai/banner-scripts.webp — wave_attractors/scripts/README.md
+- **Generation size:** `1344x768` → crop `1344x672`
+
+```text
+A pipeline of glowing code streams flowing from floating terminal windows into a polygonal cavity where they ignite a closed wave route, cyan code rain, dark background, dark deep-navy background, glowing neon cyan and magenta accents, subtle violet and gold highlights, elegant scientific visualization style, high detail, cinematic lighting, no text, no letters, no words, no numbers, no watermark, no logo, clean composition
+```
+
+### P-W12 · `wave-banner-julia` #banner
+
+- **Target file:** Wave_attractors/assets/ai/banner-julia.webp — wave_attractors/scripts/julia/README.md
+- **Generation size:** `1344x768` → crop `1344x672`
+
+```text
+Abstract dual-language parity emblem: two intertwined light streams in cyan and violet converging into one identical waveform, mirror symmetry concept, precision and identity, dark background, gold spark at the convergence point, dark deep-navy background, glowing neon cyan and magenta accents, subtle violet and gold highlights, elegant scientific visualization style, high detail, cinematic lighting, no text, no letters, no words, no numbers, no watermark, no logo, clean composition
+```
+
+### P-W13 · `wave-banner-monograph-build` #banner
+
+- **Target file:** Wave_attractors/assets/ai/banner-monograph-build.webp — wave_attractors/scripts/monograph/README.md
+- **Generation size:** `1344x768` → crop `1344x672`
+
+```text
+An automated printing atelier: a conveyor of glowing pages assembling into a book block, gears of translucent light, floating typography blocks, dark workshop, cyan and gold, dark deep-navy background, glowing neon cyan and magenta accents, subtle violet and gold highlights, elegant scientific visualization style, high detail, cinematic lighting, no text, no letters, no words, no numbers, no watermark, no logo, clean composition
+```
+
+### P-W14 · `wave-banner-report-build` #banner
+
+- **Target file:** Wave_attractors/assets/ai/banner-report-build.webp — wave_attractors/scripts/report/README.md
+- **Generation size:** `1344x768` → crop `1344x672`
+
+```text
+A typographic compose room: glowing metal type blocks, a sealed document sheet taking shape under a beam of light, dark scene, magenta seal glow, gold accents, dark deep-navy background, glowing neon cyan and magenta accents, subtle violet and gold highlights, elegant scientific visualization style, high detail, cinematic lighting, no text, no letters, no words, no numbers, no watermark, no logo, clean composition
+```
+
+### P-W15 · `wave-avatar` #avatar
+
+- **Target file:** Wave_attractors/assets/ai/avatar.webp — the W1 emblem on all fourteen folder READMEs
+- **Generation size:** `1024x1024`
+
+```text
+Heraldic emblem of a hyperbolic wave attractor: a closed chiral loop route inside a polygonal cavity medallion, glowing cyan route with a magenta mirror echo, a thin gold outer ring, dark enamel background, symmetrical scientific sigil, centered composition, dark deep-navy background, glowing neon cyan and magenta accents, subtle violet and gold highlights, elegant scientific visualization style, high detail, cinematic lighting, no text, no letters, no words, no numbers, no watermark, no logo, clean composition
+```
+
 ## 🧰 Video prompts (for Runway / Pika / Sora / Kling → WebP loop)
 
 Convert with `scripts/readme/make-gif.sh video.mp4` (ffmpeg → animated WebP,

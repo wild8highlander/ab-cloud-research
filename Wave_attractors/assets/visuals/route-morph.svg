@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="200" viewBox="0 0 860 200" role="img" aria-label="Chiral attractor pair: two mirrored closed routes traversed in opposite senses, equal and opposite circulation">
+<defs><filter id="glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1224"/><stop offset="1" stop-color="#070b16"/></linearGradient></defs>
+<rect x="1.5" y="1.5" width="857" height="197" rx="14" fill="url(#bg1)" stroke="#1c2740" stroke-width="1.4"/>
+<line x1="430" y1="26" x2="430" y2="166" stroke="#a78bfa" stroke-width="1.2" stroke-dasharray="4 7" opacity="0.35"/>
+<path d="M301.7,117.4 L271.4,147.7 L228.6,147.7 L198.3,117.4 L198.3,74.6 L228.6,44.3 L271.4,44.3 L301.7,74.6 Z" fill="none" stroke="#00e5ff" stroke-width="2.6" filter="url(#glow)"/><circle r="5" fill="#e6ffff" filter="url(#glow)"><animateMotion dur="4.0s" begin="0s" repeatCount="indefinite" path="M301.7,117.4 L271.4,147.7 L228.6,147.7 L198.3,117.4 L198.3,74.6 L228.6,44.3 L271.4,44.3 L301.7,74.6 Z"/></circle>
+<path d="M661.7,74.6 L631.4,44.3 L588.6,44.3 L558.3,74.6 L558.3,117.4 L588.6,147.7 L631.4,147.7 L661.7,117.4 Z" fill="none" stroke="#ff2ec4" stroke-width="2.6" filter="url(#glow)"/><circle r="5" fill="#ffd6f1" filter="url(#glow)"><animateMotion dur="4.0s" begin="0s" repeatCount="indefinite" path="M661.7,74.6 L631.4,44.3 L588.6,44.3 L558.3,74.6 L558.3,117.4 L588.6,147.7 L631.4,147.7 L661.7,117.4 Z"/></circle>
+<path d="M398,90 L428,90 M398,102 L428,102" stroke="#a78bfa" stroke-width="2.4">
+<animate attributeName="opacity" values="1;0.35;1" dur="2.4s" repeatCount="indefinite"/></path>
+<text x="250" y="184" text-anchor="middle" font-family="'Courier New',monospace" font-size="13" fill="#cfe8f0">C</text>
+<text x="610" y="184" text-anchor="middle" font-family="'Courier New',monospace" font-size="13" fill="#cfe8f0">C_mir</text>
+<text x="430" y="52" text-anchor="middle" font-family="'Courier New',monospace" font-size="12" fill="#6f97a4">C + C_mir = 0</text>
+</svg>

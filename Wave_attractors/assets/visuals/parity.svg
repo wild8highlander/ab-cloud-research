@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="140" viewBox="0 0 860 140" role="img" aria-label="Python and Julia trajectories converge into one identical line">
+<defs><filter id="glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1224"/><stop offset="1" stop-color="#070b16"/></linearGradient></defs>
+<rect x="1.5" y="1.5" width="857" height="137" rx="14" fill="url(#bg1)" stroke="#1c2740" stroke-width="1.4"/>
+<path d="M50,48 Q95,28 140,48 T230,48 T320,48 T410,48 T500,48" fill="none" stroke="#00e5ff" stroke-width="2"/><circle r="3.4" fill="#e6ffff" filter="url(#glow)"><animateMotion dur="4.2s" begin="0s" repeatCount="indefinite" path="M50,48 Q95,28 140,48 T230,48 T320,48 T410,48 T500,48"/></circle>
+<path d="M50,92 Q95,112 140,92 T230,92 T320,92 T410,92 T500,92" fill="none" stroke="#ff2ec4" stroke-width="2"/><circle r="3.4" fill="#ffd6f1" filter="url(#glow)"><animateMotion dur="4.2s" begin="0s" repeatCount="indefinite" path="M50,92 Q95,112 140,92 T230,92 T320,92 T410,92 T500,92"/></circle>
+<line x1="500" y1="70" x2="810" y2="70" stroke="#ffd60a" stroke-width="2.6" filter="url(#glow)"/>
+<circle cx="500" cy="70" r="6.5" fill="#ffd60a"><animate attributeName="r" values="6.5;9;6.5" dur="2s" repeatCount="indefinite"/></circle>
+<circle r="3.6" fill="#fff3cf" filter="url(#glow)"><animateMotion dur="1.9s" begin="0s" repeatCount="indefinite" path="M500,70 L810,70"/></circle>
+<text x="52" y="24" font-family="'Courier New',monospace" font-size="12" fill="#00e5ff">Python</text>
+<text x="52" y="126" font-family="'Courier New',monospace" font-size="12" fill="#ff2ec4">Julia</text>
+<text x="600" y="58" font-family="'Courier New',monospace" font-size="13" fill="#cfe8f0">identical</text>
+<text x="600" y="96" font-family="'Courier New',monospace" font-size="11" fill="#6f97a4">max dev 3.45e-15</text>
+</svg>

@@ -1,175 +1,126 @@
-<!-- AB-ENRICHED:v1 · sub -->
+<!-- AB-ENRICHED:v2 · wave-deep-dive · CI workflows -->
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:00e5ff,100:05060f&section=header" alt="" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=venice&height=60&color=0:05060f,50:ff2ec4,100:05060f&section=header&text=W1%20CI%20WORKFLOWS&fontSize=22&fontColor=e5e7eb&fontAlignY=55&animation=twoline" alt="W1 CI workflows" width="100%"/>
 
-**🧭 [⬆ .github/](../README.md) · [🏠 Root README](../../../README.md)**
+<img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=14&duration=2600&pause=1000&color=ff2ec4&center=true&vCenter=true&width=720&lines=wave-attractors.yml+%C2%B7+two+jobs+one+verdict;Quick+protocol+on+every+push;Julia+replays+what+Python+wrote" alt="Typing: workflow tagline"/>
+
+**🧭 [⬆ .github/](../README.md) · [⬆⬆ Wave_attractors/](../../README.md) · [🏠 Root README](../../../README.md)**
 
 </div>
-Hyperbolic Wave Attractors: Numerical Reproduction Study
-
-**Self-organization of waves into closed, chiral, broadband trajectories in
-an anisotropic (hyperbolic) cavity — a numerical reproduction of
-"Hyperbolic wave attractors" (Nature Physics, 2026, CUNY ASRC), packaged as
-study W1 of the AB-Cloud Research repository.**
-
-A popular account of the reference experiment (in Russian) is available at
-[Naked Science, 30.09.2026](https://naked-science.ru/article/physics/volny-samoorganizovalis-vstrukturu).
-
----
-
-## What is reproduced
-
-In the reference experiment, elastodynamic waves launched into an
-odd-shaped cavity made of a hyperbolic metamaterial skip chaotic
-scattering and self-organize into **robust, chiral, broadband, scale-invariant
-closed routes** — *hyperbolic wave attractors*. This study rebuilds the
-phenomenon from first principles, at two description levels:
-
-| Level | Model | Physics |
-|-------|-------|---------|
-| Rays  | `ray_billiard.py` — exact k-vector billiard in a polygon | indefinite dispersion `ky² − kx²/η = K²`, group-velocity cone `±arctan(1/√η)`, non-specular Vieta-root reflection |
-| Waves | `wave_directional.py` — frequency-domain anisotropic Helmholtz (sparse LU) | same dispersion, PEC walls, band-averaged driven response |
-| Companion | `ab_water.py` — Aharonov–Bohm water-wave scattering (Berry 1980; OIST 2026) | vortex-induced geometric phase, rotating nodal patterns |
-
-## Key results (full protocol, 24 rays × 1600 bounces, η = 100)
-
-| Observable | Value | Experiment |
-|---|---|---|
-| Attractor lock-in, hyperbolic vs isotropic | **24/24 (1.00)** vs **0/24 (0.00)** | E2 |
-| Wavelength cascade at slope reflections | mean \|k\| growth **×7.6** (transient), max ×65 | E1 |
-| Geometric convergence to the route | q = 0.992 (median) | E1 |
-| Chirality: mirror pair C + C_mir | **0.0 (machine precision)**, Hausdorff 0.0 | E3 |
-| Coexisting circulation senses | C = ±0.4683, ±0.0317, 0 (spontaneous selection) | E3 |
-| Frequency independence (K = 1 vs K = 7) | max deviation **0.0** (exact) | E4a |
-| Ray-density corridor contrast | **×5.47** on the route | E4c |
-| Python ↔ Julia short-horizon identity | max deviation **3.45·10⁻¹⁵** over 1200 bounce points | cross-verification |
-| AB water waves: phase winding | W(−α) = −W(α) exactly; mirror correlation **1.0** | companion |
-
-The **attractor phase diagram** (E5) maps the lock-in fraction over the
-(slope length s × vertical-wall extent y_v) plane: a robust attractor phase
-at small slopes and a regular (non-attracting) phase at steep slopes — the
-numerical analogue of the "attractor phase transitions" reported in the
-reference study.
-
-## Physics in one paragraph
-
-The hyperbolic dispersion confines the group velocity to a narrow cone
-around the optical axis (half-angle arctan(1/√η); 5.71° at η = 100), while
-reflection off an inclined wall is governed by tangential phase matching on
-the *open* iso-frequency hyperbola: the reflected state is the second
-intersection of the line k_t = const with the hyperbola (Vieta root), not a
-mirror image. Each slope reflection therefore jumps the wave vector along
-the hyperbola — |k| grows geometrically (the **wavelength cascade** of the
-reference paper) and the propagation angle saturates at the dispersion
-asymptote. In a chamber that combines vertical walls (specular for this
-dispersion: kx → −kx) with shallow slopes (s < 1/√η), the cascade funnels
-every launched ray onto one and the same closed route; the route is chiral,
-frequency-independent, and coexists with its mirror sibling. The unbounded
-|k| cascade is regularised in the wave model by the grid cutoff — the
-numerical analogue of the metamaterial unit-cell cutoff in the experiment.
-
-## Repository layout
-
-```
-wave_attractors/
-├── README.md                  ← this file (English)
-├── scripts/
-│   ├── ray_billiard.py        ← ray core + self-tests (python3 ray_billiard.py)
-│   ├── run_experiments.py     ← E1/E2/E3/E5 + cross-reference dump
-│   ├── e4_frequency.py        ← E4a invariance + E4c ray density
-│   ├── wave_helmholtz.py      ← isotropic-drive wave response
-│   ├── wave_directional.py    ← directional-drive band-averaged wave maps
-│   ├── ab_water.py            ← companion: AB effect with water waves
-│   ├── dump_reference_csv.py  ← launch states for the Julia port
-│   ├── verify_cross.py        ← Python ↔ Julia cross-verification
-│   ├── make_figures.py        ← all figures (300 dpi)
-│   └── julia/
-│       └── wave_attractors.jl ← Julia port (stdlib only, Julia ≥ 1.10)
-├── data/                      ← CSV/JSON/NPZ outputs (regenerable)
-├── figures/                   ← PNG figures (300 dpi)
-├── report/                    ← scientific report (PDF, Russian)
-└── docs/                      ← report source notes
-```
-
-## Quick start
-
-```bash
-# 1. ray-level experiments + cross-reference dump (≈ 1 min)
-> **🧭 Navigation:** [.github/](../README.md) · [Wave_attractors/](../../README.md) · [Root README](../../../README.md)
-
-python3 wave_attractors/scripts/run_experiments.py
-
-# 2. frequency independence + ray-density map (≈ 30 s)
-python3 wave_attractors/scripts/e4_frequency.py
-
-# 3. wave-level simulation (needs scipy; ≈ 1 min)
-python3 wave_attractors/scripts/wave_directional.py
-
-# 4. companion AB study (≈ 10 s)
-python3 wave_attractors/scripts/ab_water.py
-
-# 5. Julia cross-verification (needs julia >= 1.10; ≈ 1 min)
-python3 wave_attractors/scripts/dump_reference_csv.py
-julia wave_attractors/scripts/julia/wave_attractors.jl wave_attractors
-python3 wave_attractors/scripts/verify_cross.py
-
-# 6. figures
-python3 wave_attractors/scripts/make_figures.py
-```
-
-Or simply: `make wave-attractors` (full) / `make wave-attractors-quick`
-(CI protocol) — see the top-level `Makefile`.
-
-## Reproducibility notes
-
-* All launch states are seeded (`numpy.random.default_rng`); the corner
-  handling is deterministic (bisector reflection — a rounded-corner defect
-  model), so the Python and Julia trajectories are bitwise-comparable up to
-  floating-point operation order (measured max deviation 3.45·10⁻¹⁵ over
-  1200 bounce points, `data/cross_verification.json`).
-* Individual long-horizon (1600-bounce) trajectories are chaotic during the
-  cascade phase: round-off differences amplify exponentially. Cross-language
-  agreement is therefore verified on (i) short-horizon trajectories and
-  (ii) statistical attractor observables (lock fraction, period set,
-  cascade scale) — both pass.
-* The wave model uses a moderate anisotropy (η = 9) where the whole cascade
-  is grid-resolvable; the ray level covers the strongly hyperbolic regime
-  (η = 100). The grid cutoff plays the role of the metamaterial unit-cell
-  cutoff that terminates the cascade in the experiment.
-* CI: `.github/workflows/wave-attractors.yml` runs the quick protocol and
-  the Julia cross-verification on every push.
-
-## Citation
-
-If you use this study, please cite both the reference experiment and this
-repository (see the root `CITATION.cff`):
-
-* Hyperbolic wave attractors, *Nature Physics* (2026),
-  DOI: 10.1038/s41567-026-03453-7 (CUNY Advanced Science Research Center).
-* Isaev I. K., AB-Cloud Research — study W1: Hyperbolic wave attractors
-  (numerical reproduction), 2026. Zenodo DOI: 10.5281/zenodo.21825394.
-
-## License
-
-See the root [LICENSE](../../../LICENSE) — Strictly Personal · Custom Research
-License.
-
----
-
-<!-- enriched-r3 -->
-
-This folder holds **repository infrastructure**: configuration that controls automated checks and pipelines for this module. It is operational plumbing rather than research content — the scientific claims live in the module's README, docs and committed verdicts. Changes here affect builds and continuous integration, not the mathematics.
-
-## Folder contents
-
-| File | Size | What it is |
-|---|---|---|
-| `wave-attractors.yml` | 3.7 KB | workflow config |
 
 <div align="center">
 
-<img src="../../../assets/svg/divider-cyan.svg" alt="—" width="100%" height="12"/>
-<sub>⚡ Part of <a href="../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+<img src="../../assets/visuals/glyph-workflows.svg" alt="Animated workflows glyph — a pulsing directed graph inside a magenta medallion" width="72"/>
+
+<img src="../../assets/ai/banner-workflows.webp" alt="AI banner: automated workflow machinery made of light, a wavefront passing through branching graph nodes (prompt P-W3)" width="100%"/>
+
+</div>
+
+# 🔁 `.github/workflows` — the W1 study workflow
+
+> **One YAML file, two jobs, one verdict.** [`wave-attractors.yml`](wave-attractors.yml)
+> is the automated conscience of the hyperbolic wave-attractor study: it replays the
+> quick experimental protocol on every push, then makes the Julia port prove that it
+> still agrees with Python to machine precision.
+
+[![Workflow](https://img.shields.io/badge/workflow-wave--attractors.yml-ff2ec4?style=flat-square)](wave-attractors.yml)
+[![CI](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/wave-attractors.yml?branch=main&style=flat-square&label=status)](https://github.com/wild8highlander/ab-cloud-research/actions/workflows/wave-attractors.yml)
+[![Trigger](https://img.shields.io/badge/trigger-push%20%C2%B7%20PR%20%C2%B7%20manual-1c2740?style=flat-square)](wave-attractors.yml)
+
+> **🧭 Navigation:** [⬆ .github/](../README.md) · [⬆⬆ Wave_attractors/](../../README.md) · [🏠 Root README](../../../README.md)
+
+---
+
+## 🗺 Job graph
+
+```mermaid
+flowchart TB
+    TRIGGER["push / PR touching wave_attractors/**<br/>or manual workflow_dispatch"] --> J1
+
+    subgraph J1["job 1 · python-pipeline · ubuntu-latest · ≤ 25 min"]
+        S1["ray-core self-tests<br/>(≤ 5 min)"] --> S2["quick protocol E1/E2/E3/E5<br/>(≤ 10 min)"]
+        S2 --> S3["E4 frequency + ray density<br/>(≤ 6 min)"]
+        S3 --> S4["Helmholtz wave maps --quick<br/>(≤ 6 min)"]
+        S4 --> S5["E6 eta scan --quick<br/>(≤ 6 min)"]
+        S5 --> S6["E7 time-domain --quick<br/>(≤ 10 min)"]
+        S6 --> S7["AB water companion<br/>(≤ 5 min)"]
+        S7 --> S8["dump_reference_csv.py<br/>reference for the port"]
+    end
+
+    S8 --> ART1["📦 artifact w1-data"]
+    ART1 --> J2
+
+    subgraph J2["job 2 · julia-cross-verification · needs job 1 · ≤ 20 min"]
+        T1["setup Julia 1.10"] --> T2["wave_attractors.jl<br/>ray port (≤ 10 min)"]
+        T2 --> T3["td_check.jl · E7 TD kernel<br/>(≤ 5 min)"]
+        T3 --> T4["verify_cross.py + verify_td_cross.py<br/>(≤ 5 min)"]
+        T4 --> T5["verify_repro.py<br/>verifier sanity"]
+    end
+
+    J2 --> ART2["📦 artifact w1-cross-verification"]
+```
+
+## ⏱ Step budgets at a glance
+
+| Job | Step | Command (condensed) | Timeout |
+|---|---|---|---:|
+| python-pipeline | Ray-core self-tests | `ray_billiard.py` | 5 min |
+| | Quick protocol | `run_experiments.py --quick` | 10 min |
+| | E4 | `e4_frequency.py` | 6 min |
+| | Wave maps | `wave_directional.py --quick` | 6 min |
+| | E6 η-scan | `e6_eta_scan.py --quick` | 6 min |
+| | E7 time-domain | `e7_time_domain.py --quick` | 10 min |
+| | AB companion | `ab_water.py` | 5 min |
+| | Reference dump | `dump_reference_csv.py` | — |
+| julia-cross-verification | Julia ray port | `julia wave_attractors.jl wave_attractors` | 10 min |
+| | Julia TD kernel | `julia td_check.jl …/julia_td` | 5 min |
+| | Cross-verification | `verify_cross.py` · `verify_td_cross.py` | 5 min |
+| | Reproducibility sanity | `verify_repro.py --reference … --candidate …` | 5 min |
+
+<details>
+<summary><strong>📦 Artifacts & permissions (click)</strong></summary>
+
+| Artifact | Contents | Retention |
+|---|---|---|
+| `w1-data` | the regenerated `wave_attractors/data/` tree | 14 days |
+| `w1-cross-verification` | `cross_verification.json` + `td_cross_verification.json` | 14 days |
+
+The workflow declares `permissions: contents: read` — it can read the repository and
+nothing else. Both jobs upload their artifacts `if: always()`, so even a red run
+leaves an inspectable trail.
+
+</details>
+
+<details>
+<summary><strong>🔬 Why the two-job split (click)</strong></summary>
+
+The split mirrors the study's own reproducibility doctrine: **job 1 produces**, **job 2
+disproves**. The Python pipeline is allowed to be fast and approximate (`--quick`
+protocol); the Julia job then re-derives the same physics from the frozen reference
+dump with an independent implementation. If the two ever disagree beyond floating-point
+noise — the study's measured identity is *3.45·10⁻¹⁵* over 1200 bounce points for rays
+and *2.4·10⁻¹⁵* over 400 steps for the TD kernel — the run goes red, and no number on
+this folder's READMEs is trusted until it is green again.
+
+</details>
+
+## 🧭 Where to go next
+
+[🏗 .github shelf](../README.md) · [📦 Package README](../../wave_attractors/README.md) ·
+[⚙️ Julia port](../../wave_attractors/scripts/julia/README.md)
+
+---
+
+<div align="center">
+
+<img src="../../assets/visuals/wave-divider-magenta.svg" alt="Animated wave divider" width="100%" height="16"/>
+
+<a href="../../README.md"><img src="../../assets/ai/avatar.webp" alt="Study W1 avatar" width="56"/></a>
+
+<sub>🌀 <strong>Hyperbolic Wave Attractors — study W1</strong> · part of
+<a href="../../../README.md">AB-Cloud Research</a> ·
+DOI <a href="https://doi.org/10.5281/zenodo.21825394">10.5281/zenodo.21825394</a> ·
+<a href="../README.md">⬆ parent</a></sub>
 
 </div>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150" role="img" aria-label="Rotating study seal: a chiral closed loop inside a gold ring">
+<defs><filter id="glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1224"/><stop offset="1" stop-color="#070b16"/></linearGradient></defs>
+<circle cx="75" cy="75" r="66" fill="#0a1220" stroke="#ffd60a" stroke-width="2.6">
+<animate attributeName="stroke-width" values="2.6;4;2.6" dur="3s" repeatCount="indefinite"/></circle>
+<circle cx="75" cy="75" r="58" fill="none" stroke="#ffd60a" stroke-width="1" opacity="0.6" stroke-dasharray="4 6">
+<animateTransform attributeName="transform" type="rotate" values="0 75 75;360 75 75" dur="14s" repeatCount="indefinite"/></circle>
+<path d="M106.4,62.0 L88.0,43.6 L62.0,43.6 L43.6,62.0 L43.6,88.0 L62.0,106.4 L88.0,106.4 L106.4,88.0 Z" fill="none" stroke="#ff2ec4" stroke-width="2.4" filter="url(#glow)"/><circle r="4.4" fill="#ffd6f1" filter="url(#glow)"><animateMotion dur="3.6s" begin="0s" repeatCount="indefinite" path="M106.4,62.0 L88.0,43.6 L62.0,43.6 L43.6,62.0 L43.6,88.0 L62.0,106.4 L88.0,106.4 L106.4,88.0 Z"/></circle>
+<circle cx="75" cy="75" r="4" fill="#ffd60a"><animate attributeName="opacity" values="1;0.35;1" dur="1.8s" repeatCount="indefinite"/></circle>
+</svg>

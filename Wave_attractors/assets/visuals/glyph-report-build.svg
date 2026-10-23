@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="folder glyph">
+<defs><filter id="glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="32" cy="32" r="30" fill="#0a1220" stroke="#ffd60a" stroke-width="2">
+<animate attributeName="stroke-width" values="2;3.4;2" dur="2.8s" repeatCount="indefinite"/></circle>
+<circle cx="32" cy="32" r="26.5" fill="none" stroke="#ffd60a" stroke-width="0.9" opacity="0.55" stroke-dasharray="3 5">
+<animateTransform attributeName="transform" type="rotate" values="0 32 32;360 32 32" dur="13s" repeatCount="indefinite"/></circle>
+<path d="M32,10 L32,22 M26,10 L38,10" stroke="#ffd60a" stroke-width="2.4" stroke-linecap="round"/>
+<g><animateTransform attributeName="transform" type="translate" values="0,0;0,0;0,5;0,5;0,0" keyTimes="0;0.35;0.45;0.6;0.7" dur="3s" repeatCount="indefinite"/>
+<rect x="24" y="22" width="16" height="7" rx="2" fill="#ffd60a"/></g>
+<circle cx="32" cy="40" r="7.5" fill="none" stroke="#ffd60a" stroke-width="1.8">
+<animate attributeName="opacity" values="0.25;0.25;1;1;0.25" keyTimes="0;0.4;0.55;0.85;1" dur="3s" repeatCount="indefinite"/></circle>
+<path d="M18,52 L46,52" stroke="#ffd60a" stroke-width="1.6" opacity="0.7"/>
+</svg>

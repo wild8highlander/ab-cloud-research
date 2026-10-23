@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="folder glyph">
+<defs><filter id="glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="32" cy="32" r="30" fill="#0a1220" stroke="#ffd60a" stroke-width="2">
+<animate attributeName="stroke-width" values="2;3.4;2" dur="2.8s" repeatCount="indefinite"/></circle>
+<circle cx="32" cy="32" r="26.5" fill="none" stroke="#ffd60a" stroke-width="0.9" opacity="0.55" stroke-dasharray="3 5">
+<animateTransform attributeName="transform" type="rotate" values="0 32 32;360 32 32" dur="13s" repeatCount="indefinite"/></circle>
+<g>
+<animateTransform attributeName="transform" type="rotate" values="0 32 32;360 32 32" dur="17s" repeatCount="indefinite"/>
+<rect x="30" y="7" width="4" height="11" rx="1.2" fill="#ffd60a" opacity="0.9" transform="rotate(0 32 32)"/><rect x="30" y="7" width="4" height="11" rx="1.2" fill="#ffd60a" opacity="0.9" transform="rotate(45 32 32)"/><rect x="30" y="7" width="4" height="11" rx="1.2" fill="#ffd60a" opacity="0.9" transform="rotate(90 32 32)"/><rect x="30" y="7" width="4" height="11" rx="1.2" fill="#ffd60a" opacity="0.9" transform="rotate(135 32 32)"/><rect x="30" y="7" width="4" height="11" rx="1.2" fill="#ffd60a" opacity="0.9" transform="rotate(180 32 32)"/><rect x="30" y="7" width="4" height="11" rx="1.2" fill="#ffd60a" opacity="0.9" transform="rotate(225 32 32)"/><rect x="30" y="7" width="4" height="11" rx="1.2" fill="#ffd60a" opacity="0.9" transform="rotate(270 32 32)"/><rect x="30" y="7" width="4" height="11" rx="1.2" fill="#ffd60a" opacity="0.9" transform="rotate(315 32 32)"/><circle cx="32" cy="32" r="11" fill="none" stroke="#ffd60a" stroke-width="2.4"/>
+<circle cx="32" cy="32" r="4" fill="#ffd60a"/></g>
+</svg>

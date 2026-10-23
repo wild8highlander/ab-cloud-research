@@ -1,45 +1,122 @@
-<!-- AB-ENRICHED:v1 · sub -->
+<!-- AB-ENRICHED:v2 · wave-deep-dive · visual identity shelf -->
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:00e5ff,100:05060f&section=header" alt="" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=venice&height=60&color=0:05060f,50:a78bfa,100:05060f&section=header&text=W1%20VISUAL%20IDENTITY%20SHELF&fontSize=22&fontColor=e5e7eb&fontAlignY=55&animation=twoline" alt="W1 visual identity shelf" width="100%"/>
+
+<img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=14&duration=2600&pause=1000&color=a78bfa&center=true&vCenter=true&width=720&lines=49+hand-crafted+and+AI-rendered+assets;SMIL+animations+%C2%B7+no+build+step;every+README+of+the+folder+dressed+from+here" alt="Typing: assets tagline"/>
 
 **🧭 [⬆ Wave_attractors/](../README.md) · [🏠 Root README](../../README.md)**
 
 </div>
-# 🎨 Wave_attractors Assets
-
-> **🧭 Navigation:** [Wave_attractors/](../README.md) · [Root README](../../README.md)
-
-<!-- enriched-r3 -->
-
-This folder is the **visual-identity shelf** of its module: the logos, banners and small vector decorations that the module's README pages embed. Nothing here carries numerical content — the files are artwork and layout assets, referenced relatively by the surrounding documentation. The images are committed so that every README renders identically on GitHub, in a local clone, and inside the archived package.
-
-## Folder contents
-
-| File | Size | What it is |
-|---|---|---|
-| `avatars.svg` | 4.1 KB | vector figure |
-| `banner.svg` | 5.3 KB | vector figure |
-
-The banner and avatar art of the **Wave_attractors bench** README. Everything here is
-hand-written SVG with SMIL animation (no build step, no external fonts,
-view-source friendly) or exported raster logos; the READMEs embed it with
-plain `<img>`/`<picture>` tags.
-
-| File | What it is |
-|---|---|
-| `avatars.svg` | animated SVG art |
-| `banner.svg` | animated SVG art |
-
-> [!NOTE]
-> Art only — no data, no code, no results. The READMEs that consume these
-> files live one level up: [`../README.md`](../README.md). The ports subtree
-> keeps its own separate family in
-> [`meridian-spectral-observatory/ports/assets/`](../../meridian-spectral-observatory/ports/assets/).
 
 <div align="center">
 
-<img src="../../assets/svg/divider-cyan.svg" alt="—" width="100%" height="12"/>
-<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+<img src="../assets/visuals/glyph-assets.svg" alt="Animated assets glyph — three palette swatches inside a violet medallion" width="72"/>
+
+<img src="../assets/ai/banner-assets.webp" alt="AI banner: a dark gallery shelf of framed wave artworks and glowing palette swatches (prompt P-W4)" width="100%"/>
+
+</div>
+
+# 🎨 `assets/` — every pixel study W1 wears
+
+> **The visual-identity shelf of the Hyperbolic Wave Attractors folder.** Nothing here
+> carries numerical content — these are artworks, animations and layout pieces, referenced
+> relatively by the fourteen README pages of the folder. Everything is committed, so every
+> README renders identically on GitHub, in a local clone and inside the archived package:
+> no external CDN except the two explicitly shared services (capsule-render,
+> readme-typing-svg).
+
+[![Tier](https://img.shields.io/badge/tier-artwork-a78bfa?style=flat-square)](../README.md)
+[![Family](https://img.shields.io/badge/SMIL%20animations-32-00e5ff?style=flat-square)](visuals/)
+[![Family](https://img.shields.io/badge/AI%20renders-15-ff2ec4?style=flat-square)](ai/)
+[![Prompts](https://img.shields.io/badge/registry-AI_PROMPTS.md-ffd60a?style=flat-square)](../../assets/prompts/AI_PROMPTS.md)
+
+> **🧭 Navigation:** [⬆ Wave_attractors/](../README.md) · [🏠 Root README](../../README.md)
+
+---
+
+## 🌈 The folder palette
+
+<div align="center">
+
+<img src="../assets/visuals/swatches.svg" alt="The five project colors glowing in sequence: #05060f, #00e5ff, #ff2ec4, #a78bfa, #ffd60a" width="720"/>
+
+</div>
+
+## 🗂 What lives here
+
+| Family | Files | What they are |
+|---|---|---|
+| `banner.svg` · `avatars.svg` | 2 | the original hand-written animated banner and the study cast (rays, attractors, battery, Py↔Julia parity) |
+| [`visuals/`](visuals/) | 32 | the v2 SMIL animation family: 4 wave dividers, 13 folder glyphs, hero cascade, chiral pair, cone sweep, E1–E7 pipeline, data lattice, seal, book, frames, parity, press, stamp, circuit, gear, swatches, blueprint |
+| [`ai/`](ai/) | 15 | AI-rendered art: the W1 hero, 13 unique folder banners (one per README) and the study avatar — all WebP, all from registered prompts |
+
+**Total: 49 committed visual assets**, every one referenced by at least one README page
+of this folder (see the map below).
+
+<details>
+<summary><strong>🗺️ Consumption map — who wears what (click)</strong></summary>
+
+```mermaid
+flowchart LR
+    subgraph ART["assets/"]
+        B["banner.svg<br/>avatars.svg"]
+        V["visuals/ · 32 SVG"]
+        A["ai/ · 15 WebP"]
+    end
+    B --> MAIN["Wave_attractors/<br/>README.md"]
+    A --> MAIN
+    V --> MAIN
+    A --> GH[".github/README.md"]
+    V --> GH
+    A --> WF[".github/workflows/"]
+    V --> WF
+    A --> DOC["docs/"]
+    V --> DOC
+    A --> PKG["wave_attractors/ package shelf<br/>data · figures · monograph · report · scripts"]
+    V --> PKG
+    A --> SUB["scripts sub-shelves<br/>julia · monograph · report"]
+    V --> SUB
+```
+
+Every page picks its **accent color** from the folder palette — gold for infrastructure,
+magenta for CI and the report, violet for assets and the code layer, cyan for the
+physics — so the fourteen pages read as one family without being clones.
+
+</details>
+
+<details>
+<summary><strong>🛠 Craft rules of this shelf (click)</strong></summary>
+
+* **SMIL, not CSS/JS** — all animations in `visuals/` are declarative SMIL
+  (`<animate>`, `<animateTransform>`, `<animateMotion>`): they run inside `<img>`
+  tags on GitHub, need no build step and no external fonts, and stay view-source friendly.
+* **No inline `<svg>` in READMEs** — the repository markdownlint forbids inline SVG HTML;
+  every animation is referenced through an `<img>` tag with a descriptive `alt` text.
+* **AI art is registered** — each render in `ai/` corresponds to a prompt ID
+  (P-W1 … P-W16) in the central registry [`assets/prompts/AI_PROMPTS.md`](../../assets/prompts/AI_PROMPTS.md)
+  of the repository, so every image can be regenerated byte-consistently in spirit.
+* **WebP over PNG** — AI renders ship as WebP (≈5–10× smaller than PNG at equal quality);
+  the PNG originals stay in the generation staging, not in the repository.
+
+</details>
+
+## 🧭 Where to go next
+
+[🌀 Section README](../README.md) · [📦 Package shelf](../wave_attractors/README.md) ·
+[🏗 Infrastructure](../.github/README.md)
+
+---
+
+<div align="center">
+
+<img src="visuals/wave-divider-violet.svg" alt="Animated wave divider" width="100%" height="16"/>
+
+<a href="../README.md"><img src="ai/avatar.webp" alt="Study W1 avatar" width="56"/></a>
+
+<sub>🌀 <strong>Hyperbolic Wave Attractors — study W1</strong> · part of
+<a href="../../README.md">AB-Cloud Research</a> ·
+DOI <a href="https://doi.org/10.5281/zenodo.21825394">10.5281/zenodo.21825394</a> ·
+<a href="../README.md">⬆ section</a></sub>
 
 </div>

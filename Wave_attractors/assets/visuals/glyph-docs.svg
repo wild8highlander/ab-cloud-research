@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="folder glyph">
+<defs><filter id="glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="32" cy="32" r="30" fill="#0a1220" stroke="#00e5ff" stroke-width="2">
+<animate attributeName="stroke-width" values="2;3.4;2" dur="2.8s" repeatCount="indefinite"/></circle>
+<circle cx="32" cy="32" r="26.5" fill="none" stroke="#00e5ff" stroke-width="0.9" opacity="0.55" stroke-dasharray="3 5">
+<animateTransform attributeName="transform" type="rotate" values="0 32 32;360 32 32" dur="13s" repeatCount="indefinite"/></circle>
+<path d="M12,22 C19,18 26,18 31,21 L31,46 C26,43 19,43 12,46 Z" fill="none" stroke="#00e5ff" stroke-width="2"/>
+<path d="M52,22 C45,18 38,18 33,21 L33,46 C38,43 45,43 52,46 Z" fill="none" stroke="#00e5ff" stroke-width="2"/>
+<path d="M17,28 C21,26 25,26 28,28 M17,34 C21,32 25,32 28,34" stroke="#00e5ff" stroke-width="1.2" fill="none" opacity="0.75">
+<animate attributeName="opacity" values="0.75;0.3;0.75" dur="3s" repeatCount="indefinite"/></path>
+</svg>

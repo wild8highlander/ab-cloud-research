@@ -1,12 +1,25 @@
-<!-- AB-ENRICHED:v1 · sub -->
+<!-- AB-ENRICHED:v2 · wave-deep-dive · study package W1 -->
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:00e5ff,100:05060f&section=header" alt="" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=cylinder&height=72&color=0:05060f,50:00e5ff,100:05060f&section=header&text=STUDY%20PACKAGE%20%C2%B7%20W1&fontSize=22&fontColor=e5e7eb&fontAlignY=55&animation=fadeIn" alt="Study package W1" width="100%"/>
+
+<img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=14&duration=2600&pause=1000&color=00e5ff&center=true&vCenter=true&width=720&lines=everything+regenerates+from+this+folder;rays+%C2%B7+waves+%C2%B7+companion+%C2%B7+audit;31%2F31+data+%C2%B7+12%2F12+figures+bitwise" alt="Typing: package tagline"/>
 
 **🧭 [⬆ Wave_attractors/](../README.md) · [🏠 Root README](../../README.md)**
 
 </div>
-Hyperbolic Wave Attractors: Numerical Reproduction Study
+
+<div align="center">
+
+<img src="../assets/visuals/glyph-package.svg" alt="Animated package glyph — a hexagonal blueprint with a pulsing core" width="72"/>
+
+<img src="../assets/ai/banner-package.webp" alt="AI banner: cross-section blueprint of the study package — modules, data vaults and script conduits wired like an orbital station (prompt P-W6)" width="100%"/>
+
+</div>
+
+# 📦 `wave_attractors/` — the study package
+
+**Hyperbolic Wave Attractors: Numerical Reproduction Study.**
 
 **Self-organization of waves into closed, chiral, broadband trajectories in
 an anisotropic (hyperbolic) cavity — a numerical reproduction of
@@ -15,6 +28,8 @@ study W1 of the AB-Cloud Research repository.**
 
 A popular account of the reference experiment (in Russian) is available at
 [Naked Science, 30.09.2026](https://naked-science.ru/article/physics/volny-samoorganizovalis-vstrukturu).
+
+> **🧭 Navigation:** [⬆ Wave_attractors/](../README.md) · [🏠 Root README](../../README.md)
 
 ---
 
@@ -79,6 +94,34 @@ isotropic control) with the k-space cascade locked on the IFC hyperbola
 and piling up below the unit-cell fold |kₓ| ≈ ω_p/c; the truncation scan
 (32…192 cells) shows the homogenisation convergence of the attractor.
 
+<details>
+<summary><strong>🧪 The experiment battery as a graph (click)</strong></summary>
+
+```mermaid
+flowchart TD
+    RB["ray_billiard.py<br/>ray core + self-tests"] --> RE["run_experiments.py<br/>E1 cascade · E2 lock-in<br/>E3 chirality · E5 phase diagram"]
+    RB --> E4["e4_frequency.py<br/>E4a invariance · E4c ray density"]
+    RB --> E6["e6_eta_scan.py<br/>E6 universality window"]
+    WH["wave_helmholtz.py"] --> WD["wave_directional.py<br/>band-averaged wave maps"]
+    WD --> E6
+    E6 --> E7["e7_time_domain.py<br/>ADE-FDTD + truncation"]
+    AB["ab_water.py<br/>AB water companion"]
+    RE --> DUMP["dump_reference_csv.py"] --> JL["julia/wave_attractors.jl"] --> VC["verify_cross.py"]
+    E7 --> TDC["julia/td_check.jl"] --> VTD["verify_td_cross.py"]
+    ALL["all of the above"] --> FIG["make_figures.py<br/>12 figures · 300 dpi"]
+```
+
+Every driver writes its summary pair into [`data/`](data/README.md); the figure builder
+reads those frozen records, never the live state of the simulators.
+
+</details>
+
+<div align="center">
+
+<img src="../assets/visuals/pipeline-flow.svg" alt="Animated E1–E7 pipeline: a pulse travels along the seven experiment stages" width="100%"/>
+
+</div>
+
 ## Physics in one paragraph
 
 The hyperbolic dispersion confines the group velocity to a narrow cone
@@ -97,6 +140,12 @@ frequency-independent, and coexists with its mirror sibling. The unbounded
 numerical analogue of the metamaterial unit-cell cutoff in the experiment.
 
 ## Repository layout
+
+<div align="center">
+
+<img src="../assets/visuals/blueprint.svg" alt="Animated blueprint cross-section of the package: data, figures, scripts and monograph modules wired to the W1 hub" width="100%"/>
+
+</div>
 
 ```
 wave_attractors/
@@ -129,8 +178,6 @@ wave_attractors/
 
 ```bash
 # 1. ray-level experiments + cross-reference dump (≈ 1 min)
-> **🧭 Navigation:** [Wave_attractors/](../README.md) · [Root README](../../README.md)
-
 python3 wave_attractors/scripts/run_experiments.py
 
 # 2. frequency independence + ray-density map (≈ 30 s)
@@ -170,8 +217,8 @@ Or simply: `make wave-attractors` (full) / `make wave-attractors-quick`
   is grid-resolvable; the ray level covers the strongly hyperbolic regime
   (η = 100). The grid cutoff plays the role of the metamaterial unit-cell
   cutoff that terminates the cascade in the experiment.
-* CI: `.github/workflows/wave-attractors.yml` runs the quick protocol and
-  the Julia cross-verification on every push.
+* CI: [`.github/workflows/wave-attractors.yml`](../.github/workflows/wave-attractors.yml)
+  runs the quick protocol and the Julia cross-verification on every push.
 
 ## Reproducibility
 
@@ -208,24 +255,29 @@ repository (see the root `CITATION.cff`):
 See the root [LICENSE](../../LICENSE) — Strictly Personal · Custom Research
 License.
 
+## 🗂 Folder contents
+
+| Item | What it is |
+|---|---|
+| [`REPRODUCING.md`](REPRODUCING.md) | rebuild-from-source guide (three tiers) |
+| [`requirements.txt`](requirements.txt) | Python dependencies |
+| [`data/`](data/README.md) | frozen experiment records E1–E7 (CSV/JSON/NPZ) |
+| [`figures/`](figures/README.md) | the 12 numbered publication figures |
+| [`monograph/`](monograph/README.md) | W1 monograph volumes (EN/RU, DOCX + PDF) |
+| [`report/`](report/README.md) | the Russian-language working report (PDF) |
+| [`scripts/`](scripts/README.md) | the executable layer: simulators, drivers, verifiers |
+
 ---
-
-<!-- enriched-r3 -->
-
-This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
-
-## Folder contents
-
-| File | Size | What it is |
-|---|---|---|
-| `REPRODUCING.md` | 4.4 KB | Markdown document |
-| `requirements.txt` | 421 B | plain-text dataset / log |
-
-**Subfolders:** `data/` · `figures/` · `monograph/` · `report/` · `scripts/`
 
 <div align="center">
 
-<img src="../../assets/svg/divider-cyan.svg" alt="—" width="100%" height="12"/>
-<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+<img src="../assets/visuals/wave-divider-cyan.svg" alt="Animated wave divider" width="100%" height="16"/>
+
+<a href="../README.md"><img src="../assets/ai/avatar.webp" alt="Study W1 avatar" width="56"/></a>
+
+<sub>🌀 <strong>Hyperbolic Wave Attractors — study W1</strong> · part of
+<a href="../../README.md">AB-Cloud Research</a> ·
+DOI <a href="https://doi.org/10.5281/zenodo.21825394">10.5281/zenodo.21825394</a> ·
+<a href="../README.md">⬆ section</a></sub>
 
 </div>

@@ -1,9 +1,11 @@
-<!-- AB-ENRICHED:v1 · section=Wave_attractors -->
+<!-- AB-ENRICHED:v2 · section=Wave_attractors · wave-deep-dive -->
 <div align="center">
 
 <img src="https://capsule-render.vercel.app/api?type=waving&height=90&color=0:05060f,50:00e5ff,100:05060f&section=header&text=HYPERBOLIC%20WAVE%20ATTRACTORS&fontSize=26&fontColor=e5e7eb&fontAlignY=55&animation=fadeIn" alt="HYPERBOLIC WAVE ATTRACTORS" width="100%"/>
 
 <img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=15&duration=2800&pause=1100&color=00e5ff&center=true&vCenter=true&width=760&lines=Rays+cascade+onto+closed+routes;Chiral+attractor+twins;Group-velocity+cone+geometry" alt="Typing: section tagline"/>
+
+<img src="assets/ai/avatar.webp" alt="Study W1 avatar emblem — a chiral closed wave route inside a polygonal cavity medallion" width="150"/>
 
 </div>
 <details>
@@ -28,6 +30,8 @@ flowchart LR
 **Self-organization of waves into closed, chiral, broadband trajectories in an anisotropic
 (hyperbolic) cavity — a numerical reproduction of "Hyperbolic wave attractors"
 (Nature Physics, 2026, CUNY ASRC), packaged as study W1 of the AB-Cloud Research repository.**
+
+<img src="assets/ai/hero.webp" alt="AI hero: a glowing ray cascading inside the anisotropic cavity onto its closed chiral attractor route, with the dashed mirror twin and expanding wavefronts (prompt P-W1)" width="100%"/>
 
 [![Study](https://img.shields.io/badge/study-W1-0E7C86?style=flat-square)](#-what-is-reproduced)
 [![Lock-in](https://img.shields.io/badge/lock--in-24%2F24%20%C2%B7%201.00-2EA043?style=flat-square)](#-key-results-full-protocol)
@@ -111,6 +115,21 @@ The **attractor phase diagram** (E5) maps the lock-in fraction over the
 and a regular (non-attracting) phase at steep slopes — the numerical analogue of the
 "attractor phase transitions" reported in the reference study.
 
+<details>
+<summary><strong>🌀 The chiral pair, animated — why <code>C + C_mir = 0</code> (click)</strong></summary>
+
+<div align="center">
+
+<img src="assets/visuals/route-morph.svg" alt="Animated chiral pair: the closed route C traversed counterclockwise in cyan and its mirror twin C_mir traversed clockwise in magenta, separated by the mirror axis and exactly cancelling" width="760"/>
+
+<sub><strong>E3 in one picture</strong> — the two comets run the mirrored routes in opposite senses;
+the 24/24 lock-in of E2 selects one of them spontaneously, and the reflection symmetry
+forces the circulations to cancel exactly (machine zero, Hausdorff 0.0).</sub>
+
+</div>
+
+</details>
+
 ---
 
 ## 🧠 Physics in one paragraph
@@ -137,6 +156,16 @@ flowchart LR
     A -.->|"mirror twin · C + C_mir = 0"| A
     W["wave model<br/>grid cutoff = unit-cell cutoff"] -.->|"band-averaged<br/>driven response"| A
 ```
+
+<div align="center">
+
+<img src="assets/visuals/cone-pulse.svg" alt="Animated group-velocity cone: the ray direction is locked inside the narrow ±5.71° cone around the optical axis and sweeps within it while wavefronts propagate" width="760"/>
+
+<sub><strong>The cone, animated</strong> — at η = 100 the group velocity cannot leave the ±5.71° cone;
+every slope reflection merely re-aims the ray <em>inside</em> it, which is why the cascade
+funnels instead of scattering.</sub>
+
+</div>
 
 ---
 
@@ -250,10 +279,10 @@ License: see the root [LICENSE](../LICENSE) — Strictly Personal · Custom Rese
 </p>
 
 <div align="center">
-<img src="../assets/svg/divider-cyan.svg" alt="—" width="100%" height="14"/>
+<img src="assets/visuals/wave-divider-cyan.svg" alt="Animated wave divider" width="100%" height="18"/>
 
 <!-- AI end-cap — prompt P-13, registry: assets/prompts/AI_PROMPTS.md -->
-<img src="../assets/banners/banner-Wave_attractors.webp" alt="AI-rendered section art (prompt P-13)" width="100%"/>
+<img src="../assets/banners/banner-wave-attractors.webp" alt="AI-rendered section art (prompt P-13)" width="100%"/>
 
 <sub>🖼️ Section art: <a href="../assets/prompts/AI_PROMPTS.md">P-13</a> · palette <code>#05060f · #00e5ff · #ff2ec4 · #a78bfa · #ffd60a</code></sub>
 
