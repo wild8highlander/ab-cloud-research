@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ffd60a,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ raw/](../README.md) · [🏠 Root README](../../../../../README.md)**
+
+</div>
 # 📈 Raw Zero Tables — the Dirac-lab input set
 
 Three tables of Riemann zeta zeros on the critical line, stored raw with their
@@ -24,3 +32,8 @@ file is the provenance stamp; keep it when re-distributing within the package.
 > to "fix" anything — cite a different table instead.
 
 Part of [`AB_Cloud_Academic_Package/02_data/raw/`](../)
+
+<div align="center">
+
+<img src="../../../../../assets/svg/divider-gold.svg" alt="—" width="100%" height="12"/>
+</div>

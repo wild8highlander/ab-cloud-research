@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ theorems_lemmas/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 <div align="center">
 
 [![Shelf](https://img.shields.io/badge/Shelf-ab-cloud-quantum-4FC3F7?style=flat-square)](../README.md)
@@ -46,3 +54,8 @@ Every theorem directory one level up ([`../T01_hermiticity/`](../T01_hermiticity
 This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
 
 The machine-readable layer of the theorem suite: one JSON per theorem, carrying the statement, the certificate and the thresholds in a form the tests and the web lab can consume directly.
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
+</div>

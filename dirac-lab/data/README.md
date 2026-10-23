@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:00e5ff,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ dirac-lab/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 # data/ — ζ-zero dataset
 
 > **🧭 Navigation:** [dirac-lab/](../README.md) · [Root README](../../README.md)
@@ -32,3 +40,10 @@ caching scripts; the tests read them read-only.
 This folder holds **frozen, committed data**: the byte-identical inputs that the verification pipeline reads. The discipline of the repository is that nothing downstream depends on a recomputation — every figure, test and document replays these committed files, so editing or regenerating them in place is forbidden by convention. Where a file also exists in another module's canon, the copies are byte-identical by design.
 
 The ζ-zero dataset of the laboratory: the frozen input that the ζ-decorated operators (D7–D14) read. Handle as read-only canon.
+
+<div align="center">
+
+<img src="../../assets/svg/divider-cyan.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

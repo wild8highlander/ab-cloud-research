@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ffd60a,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ raw/](../README.md) · [🏠 Root README](../../../../../README.md)**
+
+</div>
 # data/ — the committed campaign verdicts
 
 <p align="center"><img src="../../../../../Hilbert_Polya/assets/illustrations/ill_trace_formula.png" width="600" alt="The trace formula as a ledger: committed verdicts weighed against the explicit formula"/></p>
@@ -208,3 +216,10 @@ C6 (primes), C7 (dynamics), C8 (statistics).
 - [../engine/README.md](../../../../../Hilbert_Polya/engine/README.md) — the seeded kernel that makes the verdicts reproducible
 - [../docs/validation.md](../../../../../Hilbert_Polya/docs/validation.md) — the thresholds each verdict is judged against
 - [../computations/](../../../../../Hilbert_Polya/computations/) — per-campaign folders with data, figures and monographs
+
+<div align="center">
+
+<img src="../../../../../assets/svg/divider-gold.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

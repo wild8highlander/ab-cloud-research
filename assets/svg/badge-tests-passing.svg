@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="210" height="24" viewBox="0 0 210 24" role="img" aria-label="all 39 tests passing">
+  <defs>
+    <linearGradient id="rg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#12172b"/>
+      <stop offset="1" stop-color="#05060f"/>
+    </linearGradient>
+  </defs>
+  <rect x="0.5" y="0.5" width="209" height="23" rx="12" fill="url(#rg)" stroke="#22c55e" stroke-opacity="0.55"/>
+  <rect x="0.5" y="0.5" width="209" height="23" rx="12" fill="none" stroke="#22c55e" stroke-opacity="0.9">
+    <animate attributeName="stroke-opacity" values="0.9;0.25;0.9" dur="2.2s" repeatCount="indefinite"/>
+  </rect>
+  <circle cx="14" cy="12" r="4" fill="#22c55e">
+    <animate attributeName="opacity" values="1;0.25;1" dur="1.4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="14" cy="12" r="7" fill="#22c55e" opacity="0.35">
+    <animate attributeName="r" values="4;8;4" dur="1.4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.4;0;0.4" dur="1.4s" repeatCount="indefinite"/>
+  </circle>
+  <text x="27" y="16" fill="#e5e7eb" font-size="11" font-family="ui-monospace,'Cascadia Mono','JetBrains Mono',Menlo,Consolas,monospace" letter-spacing="0.5">ALL 39 TESTS PASSING</text>
+</svg>

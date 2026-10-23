@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ AB_Cloud_Quantum_Research/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 <div align="center">
 
 <img src="../assets/logo_abcloud_light.png" width="110" alt="AB Cloud Quantum Research"/>
@@ -160,5 +168,12 @@ compiles the program's target set within the ISA class). A PASS here means
 *Test as strictly as you test us: pre-registration · blindness · replication*
 
 **AB Cloud Quantum Research** · HYPOTHESIS_LAB · v1.1.0 · © Isaev Iskhak Khamzatovich
+
+</div>
+
+<div align="center">
+
+<img src="../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
 
 </div>

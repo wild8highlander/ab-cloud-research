@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:00e5ff,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ tests/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 # Test D10 — Montgomery in Motion: Pair Correlation and Transport Imaging of the ζ Cloud
 
 > **🧭 Navigation:** [tests/](../README.md) · [dirac-lab/](../../README.md) · [Root README](../../../README.md)
@@ -104,3 +112,8 @@ This folder is a small but functional **shelf of its module**: it keeps a focuse
 | `results.json` | 1.3 KB | JSON data / config |
 
 **Subfolders:** `figures/`
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-cyan.svg" alt="—" width="100%" height="12"/>
+</div>

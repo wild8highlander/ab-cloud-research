@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:00e5ff,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ dirac-lab/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 <div align="center">
 
 [![Shelf](https://img.shields.io/badge/Shelf-labs-7FC8A8?style=flat-square)](../README.md)
@@ -39,3 +47,8 @@ Everything that assembles dirac-lab's documents lives here: [`monograph_en.json`
 This folder holds the **pipeline scripts** of its module: the deterministic code paths that turn frozen inputs into reports, figures and verdicts. The scripts follow the repository's seed discipline — same input, same seed, same bytes out — so a re-run on the pinned platform reproduces the committed artifacts. Nothing here is executed at import time by other modules; they are entry points, documented in the module README.
 
 The generation scripts of the laboratory: the drivers that produce the test folders, figures and ledgers from the shared core.
+
+<div align="center">
+
+<img src="../../assets/svg/divider-cyan.svg" alt="—" width="100%" height="12"/>
+</div>

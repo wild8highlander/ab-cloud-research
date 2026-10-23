@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:a78bfa,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ Hilbert_Polya/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 # engine/ — the core of the resonator
 
 > **🧭 Navigation:** [Hilbert_Polya/](../README.md · [Root README](../../README.md)
@@ -124,3 +132,10 @@ print(gue_spectrum(8).shape, rvm_count(100.0), sieve_lambda(10))"
 - [../docs/methods.md](../docs/methods.md) — the spectral pipeline this engine implements
 - [../campaigns/README.md](../campaigns/README.md) — the campaigns that consume the kernel
 - [../data/README.md](../data/README.md) — the verdicts whose reproducibility the seeds guarantee
+
+<div align="center">
+
+<img src="../../assets/svg/divider-violet.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

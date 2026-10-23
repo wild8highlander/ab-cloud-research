@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ Vortex_optimization/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 <div align="center">
 
 [![Shelf](https://img.shields.io/badge/Shelf-labs-7FC8A8?style=flat-square)](../README.md)
@@ -38,3 +46,8 @@ Each `R2_L*_Nv*_q*_W*_a*_<protocol>.npz` file is one optimization curve of the T
 This folder holds **frozen, committed data**: the byte-identical inputs that the verification pipeline reads. The discipline of the repository is that nothing downstream depends on a recomputation — every figure, test and document replays these committed files, so editing or regenerating them in place is forbidden by convention. Where a file also exists in another module's canon, the copies are byte-identical by design.
 
 The frozen scan curves (NumPy archives): the measured D-statistic landscapes over the vortex-dial windows, as committed by the large-scale scan.
+
+<div align="center">
+
+<img src="../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
+</div>

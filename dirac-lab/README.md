@@ -1,3 +1,24 @@
+<!-- AB-ENRICHED:v1 · section=dirac-lab -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&height=90&color=0:05060f,50:00e5ff,100:05060f&section=header&text=DIRAC%20LABORATORY&fontSize=26&fontColor=e5e7eb&fontAlignY=55&animation=fadeIn" alt="DIRAC LABORATORY" width="100%"/>
+
+<img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=15&duration=2800&pause=1100&color=00e5ff&center=true&vCenter=true&width=760&lines=Zitterbewegung+on+a+Dirac+cone;Relativistic+Landau+ladder;Berry+phase+%3D+%CF%80" alt="Typing: section tagline"/>
+
+</div>
+<details>
+<summary><strong>🗺️ How <code>dirac-lab/</code> connects to the repository (click)</strong></summary>
+
+```mermaid
+flowchart LR
+    ROOT["🏠 Root README"] --> SEC["Dirac Laboratory"]
+    DATA["🧊 Frozen data<br/>verification/data/"] -.-> SEC
+    SEC --> OUT["Dirac-dynamics test benches D01–Dxx"]
+    SEC <-.-> SIB["lab-3d · verification"]
+```
+
+</details>
+
 <div align="center">
 
 <img src="assets/banner.svg" alt="AB-Cloud Dirac Laboratory — animated banner: the Dirac cone with the Zitterbewegung wave packet shuttling across it, the relativistic Landau ladder Eₙ² ∝ n, the Berry phase π dial and the ζ-decorated zeros" width="100%"/>
@@ -642,3 +663,14 @@ The laboratory inherits the parent programme's **Custom Research License**
 (personal author license): copyright (c) 2026 Isaev Iskhak Khamzatovich,
 all rights reserved. The cached ζ-zero tables retain the attribution of the
 original Andrew Odlyzko datasets documented in `data/README.md`.
+
+<div align="center">
+<img src="../assets/svg/divider-cyan.svg" alt="—" width="100%" height="14"/>
+
+<!-- AI end-cap — prompt P-07, registry: assets/prompts/AI_PROMPTS.md -->
+<img src="../assets/banners/banner-dirac-lab.webp" alt="AI-rendered section art (prompt P-07)" width="100%"/>
+
+<sub>🖼️ Section art: <a href="../assets/prompts/AI_PROMPTS.md">P-07</a> · palette <code>#05060f · #00e5ff · #ff2ec4 · #a78bfa · #ffd60a</code></sub>
+
+<sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
+</div>

@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ffd60a,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ 01_monographs/](../README.md) · [🏠 Root README](../../../../README.md)**
+
+</div>
 # Monograph templates
 
 Templates for extending or translating the unified monograph.
@@ -18,3 +26,10 @@ Templates for extending or translating the unified monograph.
    meaning; the LICENSE §3 honesty clause applies to translations.
 4. Mark the volume `translation — not the record of record` until a second
    speaker of the language has reviewed it (governance protocol §4).
+
+<div align="center">
+
+<img src="../../../../assets/svg/divider-gold.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

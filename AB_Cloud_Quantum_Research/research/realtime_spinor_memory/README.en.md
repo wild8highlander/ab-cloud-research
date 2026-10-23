@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ realtime_spinor_memory/](README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 # ⚡ The Machine With No Long-Term Memory: Spinor Phase Real-Time Models
 
 **Supplementary study of [AB Cloud Quantum Research](../../../README.md)
@@ -122,4 +130,9 @@ negative results published*
 
 **AB Cloud Quantum Research** · v1.1.0 · [license](../../../LICENSE) · © Isaev Iskhak Khamzatovich
 
+</div>
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
 </div>

@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:22c55e,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ results/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 <div align="center">
 
 [![Shelf](https://img.shields.io/badge/Shelf-results%20·%20H‑shelf-00E5FF?style=flat-square)](../README.md)
@@ -46,4 +54,9 @@ The only items on this shelf are the eight run folders themselves — they are a
 
 *Part of the [AB-Cloud Research](../../README.md) repository · DOI [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394) · © 2026 Isaev Iskhak Khamzatovich — personal proprietary use, see the [license terms](../../LICENSE).*
 
+</div>
+
+<div align="center">
+
+<img src="../../assets/svg/divider-green.svg" alt="—" width="100%" height="12"/>
 </div>

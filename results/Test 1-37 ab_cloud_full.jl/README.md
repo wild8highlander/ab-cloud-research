@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:22c55e,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ results/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 <div align="center">
 
 <img src="assets/banner.svg" alt="Results — animated banner: the run terminal with verdict lines appearing one by one and a blinking cursor, the archive drawer with the FINAL_REPORT stamp, and the zeros flowing in" width="100%"/>
@@ -184,3 +192,10 @@ byte-identical statistics.
 <p align="center">
   <sub><em>Printed page → test → log: the chain is complete and committed.</em></sub>
 </p>
+
+<div align="center">
+
+<img src="../../assets/svg/divider-green.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

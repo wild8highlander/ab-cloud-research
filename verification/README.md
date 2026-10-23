@@ -1,3 +1,26 @@
+<!-- AB-ENRICHED:v1 · section=verification -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&height=90&color=0:05060f,50:00e5ff,100:05060f&section=header&text=VERIFICATION%20SUITE&fontSize=26&fontColor=e5e7eb&fontAlignY=55&animation=fadeIn" alt="VERIFICATION SUITE" width="100%"/>
+
+<img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=15&duration=2800&pause=1100&color=00e5ff&center=true&vCenter=true&width=760&lines=Ten+languages+%C2%B7+one+number+each;Same+frozen+%CE%B6-data+%C2%B7+same+verdicts;Cross-language+agreement+%7E1e-12" alt="Typing: section tagline"/>
+
+<img src="../assets/svg/progress-verification.svg" alt="progress-verification" width="420"/>
+
+</div>
+<details>
+<summary><strong>🗺️ How <code>verification/</code> connects to the repository (click)</strong></summary>
+
+```mermaid
+flowchart LR
+    ROOT["🏠 Root README"] --> SEC["Verification Suite (10 languages)"]
+    DATA["🧊 Frozen data<br/>verification/data/"] -.-> SEC
+    SEC --> OUT["10 independent ports — identical headline numbers"]
+    SEC <-.-> SIB["code · formal"]
+```
+
+</details>
+
 <div align="center">
 
 <img src="assets/banner.svg" alt="Verification — animated banner: the ring of ten language chips (Python, Julia, C++, Fortran, Go, JavaScript, Haskell, Rust, MATLAB, R) pulsing in turn around the ζ-core, with the frozen data and spinor blocks" width="100%"/>
@@ -415,3 +438,14 @@ reference statistics is treated as a bug in the port, not an opinion.
 <p align="center">
   <sub><em>Ten languages, one frozen dataset, one truth — a drift is a bug, not an opinion.</em></sub>
 </p>
+
+<div align="center">
+<img src="../assets/svg/divider-cyan.svg" alt="—" width="100%" height="14"/>
+
+<!-- AI end-cap — prompt P-02, registry: assets/prompts/AI_PROMPTS.md -->
+<img src="../assets/banners/banner-verification.webp" alt="AI-rendered section art (prompt P-02)" width="100%"/>
+
+<sub>🖼️ Section art: <a href="../assets/prompts/AI_PROMPTS.md">P-02</a> · palette <code>#05060f · #00e5ff · #ff2ec4 · #a78bfa · #ffd60a</code></sub>
+
+<sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
+</div>

@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:00e5ff,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ matlab/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 # Test 38 -- 64 spinor structures of the Klein quartic (MATLAB port)
 
 > **🧭 Navigation:** [matlab/](../README.md) · [verification/](../../README.md) · [Root README](../../../README.md)
@@ -80,3 +88,10 @@ flowchart LR
 *The parity loop of Test 38 — disagreement means a port bug, not a discovery.*
 
 **Where next:** [spinor64 reference](../../spinor64/README.md)
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-cyan.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

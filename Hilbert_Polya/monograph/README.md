@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:a78bfa,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ Hilbert_Polya/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 # monograph/ — the summary volumes and their content sources
 
 > **🧭 Navigation:** [Hilbert_Polya/](../README.md · [Root README](../../README.md)
@@ -101,3 +109,10 @@ only stores sources and outputs. To change what the volumes *say*, edit
 - [../computations/C1_identity_function/README.md](../computations/C1_identity_function/README.md) — a per-campaign monograph next to its data
 - [../scripts/README.md](../scripts/README.md) — the render pipeline that builds this folder
 - [../results/RESULTS.md](../results/RESULTS.md) — the ledger every volume quotes from
+
+<div align="center">
+
+<img src="../../assets/svg/divider-violet.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

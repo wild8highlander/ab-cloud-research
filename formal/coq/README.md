@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:a78bfa,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ formal/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 <div align="center">
 
 [![Shelf](https://img.shields.io/badge/Shelf-formal-7C4DFF?style=flat-square)](../README.md)
@@ -30,4 +38,9 @@ Compile it locally with `coq_makefile -f _CoqProject && make` (or open the folde
 
 *Part of the [AB-Cloud Research](../../README.md) repository · DOI [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394) · © 2026 Isaev Iskhak Khamzatovich — personal proprietary use, see the [license terms](../../LICENSE).*
 
+</div>
+
+<div align="center">
+
+<img src="../../assets/svg/divider-violet.svg" alt="—" width="100%" height="12"/>
 </div>

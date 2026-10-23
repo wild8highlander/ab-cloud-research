@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ffd60a,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ monographs/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 # Monograph v22 — Russian Edition
 
 > **🧭 Navigation:** [monographs/](../README.md) · [Root README](../../README.md)
@@ -102,3 +110,10 @@ live in `results/` — verification requires running nothing.
   Appendix D with spinor64: 64/64 GUE).
 - Cite the `.md` source; edit the typesetting in the `.tex` + xelatex ×2.
 - Every number is bound to a named test; the logs are in `results/`.
+
+<div align="center">
+
+<img src="../../assets/svg/divider-gold.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

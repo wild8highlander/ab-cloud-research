@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ core_spectrum/](../README.md) · [🏠 Root README](../../../../README.md)**
+
+</div>
 # multilang/ — multilanguage twins of the computational kernel
 
 Six ports of one protocol: the **Γ-closure** |Γ(½+iu)|² = π/cosh(πu)
@@ -56,3 +64,10 @@ cc -O2 c/stitch_core.c -lm && ./a.out c/stitch_control.txt
 node javascript/stitch_core.js javascript/stitch_control.txt
 diff c/stitch_control.txt javascript/stitch_control.txt   # conc/coherence bit-for-bit
 ```
+
+<div align="center">
+
+<img src="../../../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

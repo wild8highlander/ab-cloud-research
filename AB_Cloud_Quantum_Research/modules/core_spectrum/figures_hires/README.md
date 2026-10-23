@@ -1,6 +1,21 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ core_spectrum/](../README.md) · [🏠 Root README](../../../../README.md)**
+
+</div>
 # figures_hires/ — print-grade 600 dpi figures
 
 20 plots × ru/en: fig01 (blind control) … fig20 (branch stitching).
 Theme — light (print). Source: `scripts/make_figures.py`; data —
 committed verdicts from data/ only. Screen and monograph copies —
 `computations/V*/figures/{ru,en}/`.
+
+<div align="center">
+
+<img src="../../../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

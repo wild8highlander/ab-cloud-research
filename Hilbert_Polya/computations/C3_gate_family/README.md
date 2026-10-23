@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:a78bfa,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ computations/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 # C3 · The H7 Gate Family — the definitive guide to the 52-gate vortex-lattice search
 
 ![version](https://img.shields.io/badge/version-2.0.0-298bbc) ![](https://img.shields.io/badge/series-C1--C8-3b4f58) ![](https://img.shields.io/badge/statuses-honest-3a6b4f)
@@ -742,3 +750,9 @@ explicit and separates it from everything measured here.
 
 *Hilbert Polya Bridge v2.0.0 · C3 · The H7 gate family*
 
+<div align="center">
+
+<img src="../../../assets/svg/divider-violet.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

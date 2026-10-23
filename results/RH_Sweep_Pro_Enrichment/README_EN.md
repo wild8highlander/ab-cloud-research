@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:22c55e,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ RH_Sweep_Pro_Enrichment/](README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 # RH_Sweep_Pro_Enrichment — scientific enrichment kit for run folders
 
 > Companion to `RH_Sweep_Pro_D.jl` (RH·SWEEP PRO v1.0) and the
@@ -104,3 +112,10 @@ RH_Sweep_Pro_Enrichment/
 Distributed under the ab-cloud-research repository license. When using,
 cite the `Vortex_optimization` catalog (test 34) and this kit
 (`RH_Sweep_Pro_Enrichment` v1.0).
+
+<div align="center">
+
+<img src="../../assets/svg/divider-green.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="README.md">⬆ parent section</a></sub>
+
+</div>

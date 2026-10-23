@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ core_spectrum/](../README.md) · [🏠 Root README](../../../../README.md)**
+
+</div>
 # data/ — committed verdicts of the V1–V19 series
 
 Each campaign publishes a verdict `vNN_verdict.json` (for example,
@@ -23,3 +31,10 @@ artifacts: `v16_rows.csv`, `v17_trajectories.csv`, `v18_pong_log.csv`,
    self-contained and works offline.
 3. No third-party research code is imported.
 4. The JSON verdicts are read by campaigns/run_v*.py and rpbridge/ivp.py.
+
+<div align="center">
+
+<img src="../../../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

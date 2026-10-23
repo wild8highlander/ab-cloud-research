@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:a78bfa,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ monograph/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 <div align="center">
 
 [![Shelf](https://img.shields.io/badge/Shelf-hilbert-polya-FFB74D?style=flat-square)](../README.md)
@@ -46,3 +54,8 @@ This is the *source* layer of the monograph machine: Python content modules (`ru
 This folder holds the **pipeline scripts** of its module: the deterministic code paths that turn frozen inputs into reports, figures and verdicts. The scripts follow the repository's seed discipline — same input, same seed, same bytes out — so a re-run on the pinned platform reproduces the committed artifacts. Nothing here is executed at import time by other modules; they are entry points, documented in the module README.
 
 The single source of content: the Python source modules from which every volume, in both languages and both formats, is rendered. This is the anti-drift mechanism of the monograph layer.
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-violet.svg" alt="—" width="100%" height="12"/>
+</div>

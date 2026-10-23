@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ffd60a,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ Journal/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 # 🧭 Guides — the submission wizards, visible without unzipping
 
 Each sealed zip on this shelf carries its own step-by-step guide inside.
@@ -42,3 +50,10 @@ The guides are the submission wizards of the journal shelf: step-by-step DOCX wa
 | `NSR_JINR_how_to_submit.md` | 6.0 KB | Markdown document |
 | `SciPost_how_to_submit.md` | 5.8 KB | Markdown document |
 | `arXiv_metadata.md` | 5.7 KB | Markdown document |
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-gold.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

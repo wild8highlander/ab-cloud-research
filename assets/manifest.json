@@ -1,0 +1,250 @@
+{
+  "_meta": {
+    "project": "AB-Cloud Research",
+    "palette": {
+      "background": "#05060f",
+      "cyan": "#00e5ff",
+      "magenta": "#ff2ec4",
+      "violet": "#a78bfa",
+      "gold": "#ffd60a"
+    },
+    "note": "Registry mapping every visual asset to the README(s) that use it. Validated by .github/workflows/assets-validate.yml",
+    "prompt_registry": "assets/prompts/AI_PROMPTS.md"
+  },
+  "banners": {
+    "hero-main": {
+      "file": "assets/banners/hero-main.webp",
+      "prompt": "P-01",
+      "used_by": [
+        "README.md"
+      ],
+      "size": "1344x756",
+      "format": "webp"
+    }
+  },
+  "icons": {
+    "icon-resonator": {
+      "file": "assets/icons/icon-resonator.png",
+      "prompt": "P-17"
+    },
+    "icon-zeta": {
+      "file": "assets/icons/icon-zeta.png",
+      "prompt": "P-18"
+    },
+    "icon-julia": {
+      "file": "assets/icons/icon-julia.png",
+      "prompt": "P-19"
+    },
+    "icon-verify": {
+      "file": "assets/icons/icon-verify.png",
+      "prompt": "P-20"
+    },
+    "icon-book": {
+      "file": "assets/icons/icon-book.png",
+      "prompt": "P-21"
+    },
+    "icon-chip": {
+      "file": "assets/icons/icon-chip.png",
+      "prompt": "P-22"
+    },
+    "icon-globe": {
+      "file": "assets/icons/icon-globe.png",
+      "prompt": "P-23"
+    },
+    "icon-crystal": {
+      "file": "assets/icons/icon-crystal.png",
+      "prompt": "P-24"
+    },
+    "icon-atom": {
+      "file": "assets/icons/icon-atom.png",
+      "prompt": "P-25"
+    }
+  },
+  "backgrounds": {
+    "bg-starfield": {
+      "file": "assets/backgrounds/bg-starfield.webp",
+      "prompt": "P-26"
+    },
+    "bg-matrix": {
+      "file": "assets/backgrounds/bg-matrix.webp",
+      "prompt": "P-27"
+    }
+  },
+  "og": {
+    "og-image": {
+      "files": [
+        "assets/og/og-image.png",
+        "assets/og/og-image.webp"
+      ],
+      "prompt": "P-28",
+      "size": "1152x604"
+    }
+  },
+  "avatar": {
+    "files": [
+      "assets/avatar/avatar.png",
+      "assets/avatar/avatar-256.png"
+    ],
+    "prompt": "P-29"
+  },
+  "svg": {
+    "divider-animated": "assets/svg/divider-animated.svg",
+    "badge-tests-passing": "assets/svg/badge-tests-passing.svg",
+    "progress-bars": [
+      "assets/svg/progress-tests.svg",
+      "assets/svg/progress-verification.svg",
+      "assets/svg/progress-formal.svg",
+      "assets/svg/progress-dataset.svg",
+      "assets/svg/progress-spinor64.svg",
+      "assets/svg/progress-monographs.svg"
+    ],
+    "dividers": {
+      "divider-animated": "assets/svg/divider-animated.svg",
+      "divider-cyan": "assets/svg/divider-cyan.svg",
+      "divider-magenta": "assets/svg/divider-magenta.svg",
+      "divider-violet": "assets/svg/divider-violet.svg",
+      "divider-gold": "assets/svg/divider-gold.svg",
+      "divider-green": "assets/svg/divider-green.svg",
+      "divider-purple": "assets/svg/divider-purple.svg",
+      "divider-blue": "assets/svg/divider-blue.svg",
+      "divider-gray": "assets/svg/divider-gray.svg"
+    }
+  },
+  "section_banners": {
+    "verification": {
+      "file": "assets/banners/banner-verification.webp",
+      "prompt": "P-02",
+      "size": "1344x336",
+      "format": "webp",
+      "used_by": [
+        "verification/README.md"
+      ]
+    },
+    "formal": {
+      "file": "assets/banners/banner-formal.webp",
+      "prompt": "P-03",
+      "size": "1344x336",
+      "format": "webp",
+      "used_by": [
+        "formal/README.md"
+      ]
+    },
+    "monographs": {
+      "file": "assets/banners/banner-monographs.webp",
+      "prompt": "P-04",
+      "size": "1344x336",
+      "format": "webp",
+      "used_by": [
+        "monographs/README.md"
+      ]
+    },
+    "quantum": {
+      "file": "assets/banners/banner-quantum.webp",
+      "prompt": "P-05",
+      "size": "1344x336",
+      "format": "webp",
+      "used_by": [
+        "quantum/README.md"
+      ]
+    },
+    "hilbert-polya": {
+      "file": "assets/banners/banner-hilbert-polya.webp",
+      "prompt": "P-06",
+      "size": "1344x336",
+      "format": "webp",
+      "used_by": [
+        "hilbert-polya/README.md"
+      ]
+    },
+    "dirac-lab": {
+      "file": "assets/banners/banner-dirac-lab.webp",
+      "prompt": "P-07",
+      "size": "1344x336",
+      "format": "webp",
+      "used_by": [
+        "dirac-lab/README.md"
+      ]
+    },
+    "lab-3d": {
+      "file": "assets/banners/banner-lab-3d.webp",
+      "prompt": "P-08",
+      "size": "1344x336",
+      "format": "webp",
+      "used_by": [
+        "lab-3d/README.md"
+      ]
+    },
+    "results": {
+      "file": "assets/banners/banner-results.webp",
+      "prompt": "P-09",
+      "size": "1344x336",
+      "format": "webp",
+      "used_by": [
+        "results/README.md"
+      ]
+    },
+    "academic": {
+      "file": "assets/banners/banner-academic.webp",
+      "prompt": "P-10",
+      "size": "1344x336",
+      "format": "webp",
+      "used_by": [
+        "academic/README.md"
+      ]
+    },
+    "code": {
+      "file": "assets/banners/banner-code.webp",
+      "prompt": "P-11",
+      "size": "1344x336",
+      "format": "webp",
+      "used_by": [
+        "code/README.md"
+      ]
+    },
+    "apps": {
+      "file": "assets/banners/banner-apps.webp",
+      "prompt": "P-12",
+      "size": "1344x336",
+      "format": "webp",
+      "used_by": [
+        "apps/README.md"
+      ]
+    },
+    "wave-attractors": {
+      "file": "assets/banners/banner-wave-attractors.webp",
+      "prompt": "P-13",
+      "size": "1344x336",
+      "format": "webp",
+      "used_by": [
+        "wave-attractors/README.md"
+      ]
+    },
+    "vortex": {
+      "file": "assets/banners/banner-vortex.webp",
+      "prompt": "P-14",
+      "size": "1344x336",
+      "format": "webp",
+      "used_by": [
+        "vortex/README.md"
+      ]
+    },
+    "meridian": {
+      "file": "assets/banners/banner-meridian.webp",
+      "prompt": "P-15",
+      "size": "1344x336",
+      "format": "webp",
+      "used_by": [
+        "meridian/README.md"
+      ]
+    },
+    "docs": {
+      "file": "assets/banners/banner-docs.webp",
+      "prompt": "P-16",
+      "size": "1344x336",
+      "format": "webp",
+      "used_by": [
+        "docs/README.md"
+      ]
+    }
+  }
+}

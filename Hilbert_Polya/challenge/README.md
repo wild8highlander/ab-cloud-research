@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:a78bfa,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ Hilbert_Polya/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 <div align="center">
 
 [![Shelf](https://img.shields.io/badge/Shelf-Hilbert–Pólya%20·%20challenge-FFB74D?style=flat-square)](../README.md)
@@ -44,3 +52,8 @@ This folder is a small but functional **shelf of its module**: it keeps a focuse
 The public protocol gate: the challenge folder that lets an outsider submit their own run of the protocol and get it checked against the committed verdicts.
 
 **Subfolders:** `examples/` · `submissions/`
+
+<div align="center">
+
+<img src="../../assets/svg/divider-violet.svg" alt="—" width="100%" height="12"/>
+</div>

@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ AB_Cloud_Quantum_Research/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 <!-- enriched 1.1.0 -->
 <div align="center">
 
@@ -81,3 +89,8 @@ The curated CSV datasets of the program — the quantitative layer that the web 
 | `campaign_timeline.csv` | 6.0 KB | CSV dataset |
 | `flagship_numbers.csv` | 1.5 KB | CSV dataset |
 | `zeta_zeros_reference.csv` | 23 KB | CSV dataset |
+
+<div align="center">
+
+<img src="../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
+</div>

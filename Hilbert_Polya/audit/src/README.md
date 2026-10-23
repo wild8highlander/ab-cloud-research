@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:a78bfa,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ audit/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 # 🛠 `audit/src` — Build Sources of the HPB Canonization Audit
 
 > **🧭 Navigation:** [audit/](../README.md) · [Hilbert_Polya/](../../README.md) · [Root README](../../../README.md)
@@ -50,3 +58,10 @@ The build sources of the HPB canonization audit: the scripts that regenerate the
 | `audit_content3.py` | 27 KB | Python source |
 | `audit_docx.js` | 16 KB | JavaScript source |
 | `content.json` | 115 KB | JSON data / config |
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-violet.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

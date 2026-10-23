@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:00e5ff,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ tests/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 # Test D2 — The Zero-Mode Tower: Dirac Torus Structure and Its Index Content
 
 > **🧭 Navigation:** [tests/](../README.md) · [dirac-lab/](../../README.md) · [Root README](../../../README.md)
@@ -91,3 +99,8 @@ Deterministic **seed 96** (parent convention); ζ tables from the Odlyzko-derive
 This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
 
 **Subfolders:** `figures/`
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-cyan.svg" alt="—" width="100%" height="12"/>
+</div>

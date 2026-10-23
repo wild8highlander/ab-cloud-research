@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:a78bfa,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ Hilbert_Polya/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 # results/ — the ledgers of the series
 
 > **🧭 Navigation:** [Hilbert_Polya/](../README.md) · [Root README](../../README.md)
@@ -76,3 +84,10 @@ edit of the ledger.
 This folder is the **ledger layer** of its module: the committed verdicts, run summaries and cross-verification records. The convention is that a result does not exist until its ledger row is committed — everything downstream (figures, monographs, README claims) replays these files rather than recomputing. The honest FAIL rows are kept verbatim: a negative result is a citizen here, not an embarrassment.
 
 The ledgers of the series: the committed verdict documents that every figure, theorem and monograph quote traces back to.
+
+<div align="center">
+
+<img src="../../assets/svg/divider-violet.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ffd60a,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ ru/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 <div align="center">
 
 [![Shelf](https://img.shields.io/badge/Shelf-monographs-F06292?style=flat-square)](../README.md)
@@ -49,3 +57,8 @@ Which file to open first: the `.pdf` for reading, the `.md` for diffing and quot
 This shelf holds the **text layer of the v22 monograph edition**: the canonical Markdown source, the LaTeX source, an interactive HTML version, and the typeset DOCX and PDF. Every figure and every number in the text is bound to a named test of the verified suite with a full computation log. The figures referenced by the text live in the sibling [`figures/`](../figures/README.md) shelf; the other language editions are parallel folders of [`monographs/`](../README.md).
 
 **Subfolders:** `preprint/`
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-gold.svg" alt="—" width="100%" height="12"/>
+</div>

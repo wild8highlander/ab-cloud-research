@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:22c55e,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ Test 1-37 ab_cloud_full.jl/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 <div align="center">
 
 [![Shelf](https://img.shields.io/badge/Shelf-results%20·%20flagship-00E5FF?style=flat-square)](../README.md)
@@ -75,4 +83,9 @@ Run `julia --project=. code/ab_cloud_full.jl` from the repository root (v23 is t
 
 *Part of the [AB-Cloud Research](../../../README.md) repository · DOI [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394) · © 2026 Isaev Iskhak Khamzatovich — personal proprietary use, see the [license terms](../../../LICENSE).*
 
+</div>
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-green.svg" alt="—" width="100%" height="12"/>
 </div>

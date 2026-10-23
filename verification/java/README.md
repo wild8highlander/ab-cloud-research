@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:00e5ff,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ verification/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 <div align="center">
 
 [![Shelf](https://img.shields.io/badge/Shelf-verification-2EA043?style=flat-square)](../README.md)
@@ -40,3 +48,8 @@ Compile and run with plain `javac`/`java`; the exact commands and the expected c
 This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
 
 The Java port shelf: the folder hosts the spinor38 Java port (see the `spinor38/` subfolder).
+
+<div align="center">
+
+<img src="../../assets/svg/divider-cyan.svg" alt="—" width="100%" height="12"/>
+</div>

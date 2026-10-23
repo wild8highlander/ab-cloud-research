@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="14" viewBox="0 0 600 14" role="img" aria-label="divider gray">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#05060f"/>
+      <stop offset="0.18" stop-color="#8B949E"/>
+      <stop offset="0.5" stop-color="#00e5ff"/>
+      <stop offset="0.82" stop-color="#8B949E"/>
+      <stop offset="1" stop-color="#05060f"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00e5ff" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#00e5ff" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#00e5ff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <line x1="0" y1="7" x2="600" y2="7" stroke="url(#g)" stroke-width="2"
+        stroke-dasharray="10 7" stroke-linecap="round">
+    <animate attributeName="stroke-dashoffset" from="0" to="34" dur="1.6s" repeatCount="indefinite"/>
+  </line>
+  <line x1="0" y1="7" x2="600" y2="7" stroke="url(#glow)" stroke-width="6" stroke-opacity="0.35">
+    <animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="2.8s" repeatCount="indefinite"/>
+  </line>
+</svg>

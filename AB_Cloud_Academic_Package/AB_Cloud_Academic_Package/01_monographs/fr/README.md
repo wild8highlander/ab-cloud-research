@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ffd60a,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ 01_monographs/](../README.md) · [🏠 Root README](../../../../README.md)**
+
+</div>
 <div align="center">
 
 # Le programme de recherche AB-Cloud : monographie unifiée (résumé en français)
@@ -58,3 +66,10 @@ Le récit consolide les trois laboratoires de recherche du programme. **Niveau I
 ## Keywords
 
 Mots-clés : fonction zêta de Riemann · Hilbert–Pólya · Aharonov–Bohm · opérateur de Dirac sur réseau · matrices aléatoires · GUE · Montgomery–Odlyzko · Berry–Keating · Connes · vérification aveugle · reproductibilité
+
+<div align="center">
+
+<img src="../../../../assets/svg/divider-gold.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

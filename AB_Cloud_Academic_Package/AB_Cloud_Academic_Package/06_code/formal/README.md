@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ffd60a,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ 06_code/](../README.md) · [🏠 Root README](../../../../README.md)**
+
+</div>
 <div align="center">
 
 <img src="assets/formal-banner.svg" alt="AB-Cloud Formal Verification" width="100%"/>
@@ -271,3 +279,10 @@ masks the others:
 3. **A new assistant** — create `formal/<assistant>/`, add a CI job to
    `formal.yml`, add a column to the matrix. Keep the dependency surface
    empty; that is the house style.
+
+<div align="center">
+
+<img src="../../../../assets/svg/divider-gold.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

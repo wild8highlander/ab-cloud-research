@@ -1,3 +1,26 @@
+<!-- AB-ENRICHED:v1 · section=code -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&height=90&color=0:05060f,50:9558B2,100:05060f&section=header&text=CODE%20%E2%80%94%20CANONICAL%20JULIA%20SUITE&fontSize=26&fontColor=e5e7eb&fontAlignY=55&animation=fadeIn" alt="CODE — CANONICAL JULIA SUITE" width="100%"/>
+
+<img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=15&duration=2800&pause=1100&color=9558B2&center=true&vCenter=true&width=760&lines=Julia+v23+%C2%B7+39+tests;Two-pass+flagship+design;Exit-code+gated+tolerances" alt="Typing: section tagline"/>
+
+<img src="../assets/svg/progress-tests.svg" alt="progress-tests" width="420"/>
+
+</div>
+<details>
+<summary><strong>🗺️ How <code>code/</code> connects to the repository (click)</strong></summary>
+
+```mermaid
+flowchart LR
+    ROOT["🏠 Root README"] --> SEC["Canonical Julia Suite"]
+    DATA["🧊 Frozen data<br/>verification/data/"] -.-> SEC
+    SEC --> OUT["the canonical suite + Test-38 ports"]
+    SEC <-.-> SIB["verification · results"]
+```
+
+</details>
+
 <div align="center">
 
 <img src="assets/banner.svg" alt="Code — animated banner: the suite terminal with the test ledger appearing line by line and the animated progress bar, the Julia triple-loop emblem and the headline numbers" width="100%"/>
@@ -161,3 +184,14 @@ flowchart LR
 <p align="center">
   <sub><em>One file, thirty-two thousand lines, every quoted number — reproducible.</em></sub>
 </p>
+
+<div align="center">
+<img src="../assets/svg/divider-purple.svg" alt="—" width="100%" height="14"/>
+
+<!-- AI end-cap — prompt P-11, registry: assets/prompts/AI_PROMPTS.md -->
+<img src="../assets/banners/banner-code.webp" alt="AI-rendered section art (prompt P-11)" width="100%"/>
+
+<sub>🖼️ Section art: <a href="../assets/prompts/AI_PROMPTS.md">P-11</a> · palette <code>#05060f · #00e5ff · #ff2ec4 · #a78bfa · #ffd60a</code></sub>
+
+<sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
+</div>

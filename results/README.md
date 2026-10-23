@@ -1,3 +1,26 @@
+<!-- AB-ENRICHED:v1 · section=results -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&height=90&color=0:05060f,50:22c55e,100:05060f&section=header&text=RESULTS%20%E2%80%94%20RUN%20ARTIFACTS&fontSize=26&fontColor=e5e7eb&fontAlignY=55&animation=fadeIn" alt="RESULTS — RUN ARTIFACTS" width="100%"/>
+
+<img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=15&duration=2800&pause=1100&color=22c55e&center=true&vCenter=true&width=760&lines=Reference+run+artifacts;453+files+%C2%B7+39+directories;Nothing+hand-typed" alt="Typing: section tagline"/>
+
+<img src="../assets/svg/progress-tests.svg" alt="progress-tests" width="420"/>
+
+</div>
+<details>
+<summary><strong>🗺️ How <code>results/</code> connects to the repository (click)</strong></summary>
+
+```mermaid
+flowchart LR
+    ROOT["🏠 Root README"] --> SEC["Results & Artifacts"]
+    DATA["🧊 Frozen data<br/>verification/data/"] -.-> SEC
+    SEC --> OUT["frozen logs, reports and per-test artifacts"]
+    SEC <-.-> SIB["verification · code"]
+```
+
+</details>
+
 <div align="center">
 
 <img src="assets/banner.svg" alt="Results — animated banner: a run terminal with verdict lines appearing one by one and a blinking cursor, the FINAL_REPORT stamp pulsing, eight H-gate chips lighting in sequence, and the zeros flowing beneath" width="1152"/>
@@ -167,4 +190,15 @@ the paper trail ends here and starts here.*
 
 **[↑ back to top](#-what-lives-here)** · [Repository root](../README.md) · [Academic Package](../AB_Cloud_Academic_Package/README.md)
 
+</div>
+
+<div align="center">
+<img src="../assets/svg/divider-green.svg" alt="—" width="100%" height="14"/>
+
+<!-- AI end-cap — prompt P-09, registry: assets/prompts/AI_PROMPTS.md -->
+<img src="../assets/banners/banner-results.webp" alt="AI-rendered section art (prompt P-09)" width="100%"/>
+
+<sub>🖼️ Section art: <a href="../assets/prompts/AI_PROMPTS.md">P-09</a> · palette <code>#05060f · #00e5ff · #ff2ec4 · #a78bfa · #ffd60a</code></sub>
+
+<sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
 </div>

@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:00e5ff,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ dirac-lab/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 # tests/ — one folder per test, one monograph per folder
 
 > **🧭 Navigation:** [dirac-lab/](../README.md) · [Root README](../../README.md)
@@ -87,3 +95,10 @@ cd tests/D07_zeta_decoration && tectonic monograph.tex    # or: make monograph D
 
 All cross-checks **ALL PASS** (deviations 1e-14…2e-12) — details in
 [`results/CROSS_VERIFICATION.md`](../results/CROSS_VERIFICATION.md).
+
+<div align="center">
+
+<img src="../../assets/svg/divider-cyan.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

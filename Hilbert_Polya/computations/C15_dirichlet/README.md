@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:a78bfa,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ computations/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 # C15 · Dirichlet L-functions pipeline (T17)
 
 > **🧭 Navigation:** [computations/](../README.md) · [Hilbert_Polya/](../../README.md) · [Root README](../../../README.md)
@@ -104,3 +112,10 @@ This folder documents one **campaign of the Hilbert–Pólya Bridge series**. Th
 
 
 **Where next:** [engine/](../../engine/README.md) · [data/](../../data/README.md)
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-violet.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

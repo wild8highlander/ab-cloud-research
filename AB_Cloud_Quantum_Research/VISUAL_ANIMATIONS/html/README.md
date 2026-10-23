@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ VISUAL_ANIMATIONS/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 <div align="center">
 
 [![Shelf](https://img.shields.io/badge/Shelf-ab-cloud-quantum-4FC3F7?style=flat-square)](../README.md)
@@ -40,3 +48,8 @@ Self-contained interactive tours (open in any browser, no server): the architect
 This folder is a small but functional **shelf of its module**: it keeps a focused set of artifacts that the parent README references. The listing below is generated from the folder itself, so it is exact; the parent README explains how these pieces fit into the study. Nothing here is a compiled binary or an external download — everything is committed source, data or documentation.
 
 Six interactive HTML pages that run fully offline — open `index.html` for the visual portal linking every animation. No network, no dependencies, no build step.
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
+</div>

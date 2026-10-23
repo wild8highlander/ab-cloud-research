@@ -1,3 +1,24 @@
+<!-- AB-ENRICHED:v1 · section=Wave_attractors -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&height=90&color=0:05060f,50:00e5ff,100:05060f&section=header&text=HYPERBOLIC%20WAVE%20ATTRACTORS&fontSize=26&fontColor=e5e7eb&fontAlignY=55&animation=fadeIn" alt="HYPERBOLIC WAVE ATTRACTORS" width="100%"/>
+
+<img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=15&duration=2800&pause=1100&color=00e5ff&center=true&vCenter=true&width=760&lines=Rays+cascade+onto+closed+routes;Chiral+attractor+twins;Group-velocity+cone+geometry" alt="Typing: section tagline"/>
+
+</div>
+<details>
+<summary><strong>🗺️ How <code>Wave_attractors/</code> connects to the repository (click)</strong></summary>
+
+```mermaid
+flowchart LR
+    ROOT["🏠 Root README"] --> SEC["Wave Attractors"]
+    DATA["🧊 Frozen data<br/>verification/data/"] -.-> SEC
+    SEC --> OUT["attractor campaigns and ray-tracing figures"]
+    SEC <-.-> SIB["Vortex_optimization · Hilbert_Polya"]
+```
+
+</details>
+
 <div align="center">
 
 <img src="assets/banner.svg" alt="Hyperbolic Wave Attractors — animated banner: the anisotropic cavity with a ray cascading onto the closed chiral attractor route, its mirror twin, expanding wavefronts and the group-velocity cone" width="100%"/>
@@ -227,3 +248,14 @@ License: see the root [LICENSE](../LICENSE) — Strictly Personal · Custom Rese
 <p align="center">
   <sub><em>Chaotic cavity in — one chiral route out. The route is the physics.</em></sub>
 </p>
+
+<div align="center">
+<img src="../assets/svg/divider-cyan.svg" alt="—" width="100%" height="14"/>
+
+<!-- AI end-cap — prompt P-13, registry: assets/prompts/AI_PROMPTS.md -->
+<img src="../assets/banners/banner-Wave_attractors.webp" alt="AI-rendered section art (prompt P-13)" width="100%"/>
+
+<sub>🖼️ Section art: <a href="../assets/prompts/AI_PROMPTS.md">P-13</a> · palette <code>#05060f · #00e5ff · #ff2ec4 · #a78bfa · #ffd60a</code></sub>
+
+<sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
+</div>

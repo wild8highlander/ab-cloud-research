@@ -1,3 +1,26 @@
+<!-- AB-ENRICHED:v1 · section=monographs -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&height=90&color=0:05060f,50:ffd60a,100:05060f&section=header&text=MONOGRAPHS&fontSize=26&fontColor=e5e7eb&fontAlignY=55&animation=fadeIn" alt="MONOGRAPHS" width="100%"/>
+
+<img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=15&duration=2800&pause=1100&color=ffd60a&center=true&vCenter=true&width=760&lines=Five+editions+%C2%B7+RU+%C2%B7+EN+%C2%B7+ZH;57+plates+%40+600+dpi;Every+number+traceable+to+the+suite" alt="Typing: section tagline"/>
+
+<img src="../assets/svg/progress-monographs.svg" alt="progress-monographs" width="420"/>
+
+</div>
+<details>
+<summary><strong>🗺️ How <code>monographs/</code> connects to the repository (click)</strong></summary>
+
+```mermaid
+flowchart LR
+    ROOT["🏠 Root README"] --> SEC["Monographs (5 editions)"]
+    DATA["🧊 Frozen data<br/>verification/data/"] -.-> SEC
+    SEC --> OUT["trilingual scholarly apparatus (pdf · tex · docx · html · pptx)"]
+    SEC <-.-> SIB["results · verification"]
+```
+
+</details>
+
 <div align="center">
 
 <img src="assets/banner.svg" alt="Monographs — animated banner: the three book spines RU/EN/ZH on a shelf, a page flipping over the open book, the edition timeline v21 → v21.1 → v22.1 and the floating formula card" width="100%"/>
@@ -177,3 +200,14 @@ what is committed is exactly what was built.
 <p align="center">
   <sub><em>Five editions, three languages, seven formats — one verified text.</em></sub>
 </p>
+
+<div align="center">
+<img src="../assets/svg/divider-gold.svg" alt="—" width="100%" height="14"/>
+
+<!-- AI end-cap — prompt P-04, registry: assets/prompts/AI_PROMPTS.md -->
+<img src="../assets/banners/banner-monographs.webp" alt="AI-rendered section art (prompt P-04)" width="100%"/>
+
+<sub>🖼️ Section art: <a href="../assets/prompts/AI_PROMPTS.md">P-04</a> · palette <code>#05060f · #00e5ff · #ff2ec4 · #a78bfa · #ffd60a</code></sub>
+
+<sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
+</div>

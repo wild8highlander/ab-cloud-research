@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ AB_Cloud_Quantum_Research/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 <!-- enriched 1.1.0 -->
 <div align="center">
 
@@ -65,3 +73,8 @@ The campaign timeline map: the poster-grade images that place the program's camp
 |---|---|---|
 | `campaign_timeline_en.png` | 426 KB | figure (PNG) |
 | `campaign_timeline_ru.png` | 461 KB | figure (PNG) |
+
+<div align="center">
+
+<img src="../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
+</div>

@@ -1,6 +1,9 @@
 <div align="center">
 
-<img src="assets/banner-v2.svg" alt="AB-Cloud Research" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&height=170&color=0:05060f,30:0e1a4a,60:00e5ff,100:ff2ec4&section=header&text=AB%E2%80%91CLOUD%20RESEARCH&fontSize=44&fontColor=e5e7eb&fontAlignY=34&desc=Phase%20resonator%20for%20the%20zeros%20of%20the%20Riemann%20zeta%20function&descSize=16&descAlignY=60&animation=fadeIn" alt="AB-Cloud Research" width="100%"/>
+
+<!-- AI-rendered hero — prompt P-01, registry: assets/prompts/AI_PROMPTS.md -->
+<img src="assets/banners/hero-main.webp" alt="AI-rendered hero: phase resonator with ζ-zeros on the critical line" width="100%"/>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <!-- HERO / STATUS BADGES -->
@@ -82,6 +85,15 @@
 [![Artifacts](https://img.shields.io/badge/Flagship%20artifacts-453%20files%20%2F%2039%20directories-orange?style=for-the-badge&label=Evidence)](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/)
 [![Spinor64](https://img.shields.io/badge/Spinor%20structures-64%2F64%20GUE--consistent-2EA043?style=for-the-badge&label=Spinor64)](verification/spinor64/)
 
+<!-- ━━━ LIVE STATUS STRIP · animated SVG assets (assets/svg/) ━━━ -->
+<p align="center">
+  <a href="results/"><img src="assets/svg/badge-tests-passing.svg" alt="ALL 39 TESTS PASSING (live badge)" height="24"/></a>
+</p>
+<p align="center">
+  <img src="assets/svg/progress-tests.svg" alt="Julia suite: 39/39 tests passing" width="430"/><br/>
+  <img src="assets/svg/progress-verification.svg" alt="Cross-language verification: 10/10 languages" width="430"/>
+</p>
+
 ---
 
 ### 🔬 **AB-Cloud — a phase resonator for the zeros of the Riemann zeta function**
@@ -90,6 +102,9 @@
 GUE random-matrix universality · 39-test two-pass Julia verification suite ·
 10-language independent verification · formal layer in Lean 4 / Coq / Agda / Isabelle ·
 3D lattice laboratory**
+
+<!-- ━━━ TYPING MANIFEST · readme-typing-svg ━━━ -->
+<img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=600&size=17&duration=3200&pause=900&color=00E5FF&center=true&vCenter=true&width=860&lines=Phase+resonator+for+Riemann+%CE%B6+zeros;39+tests+%C3%97+two+passes+%E2%80%94+all+passing;10+languages+%C2%B7+one+number+each+%C2%B7+agreement+%7E1e-12;Lean+4+%C2%B7+Coq+%C2%B7+Agda+%C2%B7+Isabelle+%E2%80%94+8%2F8+PASS;2%2C001%2C058+frozen+%CE%B6-zeros+%C2%B7+SHA-256+sealed" alt="Typing: project manifest"/>
 
 </div>
 
@@ -107,6 +122,7 @@ GUE random-matrix universality · 39-test two-pass Julia verification suite ·
 ## 📑 Table of Contents
 
 - [Highlights](#-highlights)
+- [Motion gallery](#-motion-gallery)
 - [Computation data at a glance](#-computation-data-at-a-glance)
 - [What is the AB-cloud?](#-what-is-the-ab-cloud)
 - [The construction in one screen](#-the-construction-in-one-screen)
@@ -180,6 +196,32 @@ GUE Wigner surmise and rule out the GOE/Poisson alternatives at a glance.
 > pinned). The unfolding uses the Riemann–von Mangoldt counting function; the
 > recomputed ratio statistic ⟨r⟩ = 0.6119 over 49,998 gaps lands inside the
 > suite's own GUE band [0.5772, 0.6212].
+
+## 🎞️ Motion gallery
+
+<table>
+<tr>
+<td align="center" width="33%">
+<img src="AB_Cloud_Quantum_Research/VISUAL_ANIMATIONS/gif/zeros_rising.gif" alt="zeros rising — ζ-zeros climbing the critical line" width="100%"/><br/>
+<sub><strong>zeros_rising</strong> — ζ-zeros climbing the critical line</sub>
+</td>
+<td align="center" width="33%">
+<img src="AB_Cloud_Quantum_Research/VISUAL_ANIMATIONS/gif/spinor_cycles.gif" alt="spinor cycles — the 64 spinor structures in motion" width="100%"/><br/>
+<sub><strong>spinor_cycles</strong> — the 64 spinor structures in motion</sub>
+</td>
+<td align="center" width="33%">
+<img src="AB_Cloud_Quantum_Research/VISUAL_ANIMATIONS/gif/pipeline_flow.gif" alt="pipeline flow — two-pass verification pipeline" width="100%"/><br/>
+<sub><strong>pipeline_flow</strong> — two-pass verification pipeline</sub>
+</td>
+</tr>
+</table>
+
+> Full animation catalogue: [AB_Cloud_Quantum_Research/VISUAL_ANIMATIONS/](AB_Cloud_Quantum_Research/VISUAL_ANIMATIONS/README.md)
+> · visual language & component library: [.readme-components/](.readme-components/README.md)
+
+<div align="center">
+<img src="assets/svg/divider-animated.svg" alt="—" width="100%" height="14"/>
+</div>
 
 ## 📊 Computation data at a glance
 
@@ -332,6 +374,10 @@ The monographs ([EN](monographs/en/text/AB_Cloud_Monograph_v22_EN.pdf) ·
 [ZH](monographs/zh/text/AB_Cloud_Monograph_v22_ZH.pdf)) carry the full
 analytic story: seven chapters, the spinor-structure calculus on the Klein
 quartic, and the verification appendices that mirror this repository.
+
+<div align="center">
+<img src="assets/svg/divider-animated.svg" alt="—" width="100%" height="14"/>
+</div>
 
 ## 🏛️ Repository architecture
 

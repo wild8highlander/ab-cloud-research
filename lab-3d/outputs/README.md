@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ lab-3d/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 # lab-3d/outputs — Committed Verification Runs (2026-07-31)
 
 > **🧭 Navigation:** [lab-3d/](../README.md) · [Root README](../../README.md)
@@ -84,3 +92,10 @@ The committed verification runs of 2026-07-31: four timestamped run folders, eac
 
 
 **Where next:** [outputs hub](../README.md)
+
+<div align="center">
+
+<img src="../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

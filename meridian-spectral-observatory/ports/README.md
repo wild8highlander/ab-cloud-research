@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:a78bfa,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ meridian-spectral-observatory/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 <div align="center">
 
 <img src="assets/banner.svg" alt="Ports banner: a terminal compiling the same computational kernel in four languages with 199/199 verdicts appearing one by one, the golden-selftest stamp pulsing, four language chips breathing in sequence, and the zeros flowing beneath" width="1152"/>
@@ -328,5 +336,12 @@ Author's written consent.
 and every deviation is a documented paragraph, not a surprise.*
 
 **[↑ back to top](#-the-ports-cast)** · [PORT_SPEC.md](PORT_SPEC.md) · [golden/](golden/README.md) · [Observatory root](../README.md) · [Repository](../../README.md)
+
+</div>
+
+<div align="center">
+
+<img src="../../assets/svg/divider-violet.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
 
 </div>

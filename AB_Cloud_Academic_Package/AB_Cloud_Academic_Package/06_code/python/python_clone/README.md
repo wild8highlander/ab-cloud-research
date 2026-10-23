@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ffd60a,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ python/](../README.md) · [🏠 Root README](../../../../../README.md)**
+
+</div>
 # `python_clone/` — The Python Reimplementation of the Suite
 > A faithful, dependency-light Python port of all 38 tests: same statistics, same verdict algebra, same embedded 50,000-zero dataset — cross-validating the Julia apparatus in a second language.
 
@@ -44,3 +52,10 @@ The statistics family (Tests 1–14) reproduces **full equivalence** — same st
 
 ---
 _This README is part of the GitHub edition of the AB-Cloud v23 package (v34). Package overview: [06_code/README.md](../../README.md)._
+
+<div align="center">
+
+<img src="../../../../../assets/svg/divider-gold.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

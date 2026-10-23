@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ V10_inverse_problem/](README.md) · [🏠 Root README](../../../../../README.md)**
+
+</div>
 # V10 · The Inverse Problem
 
 ![version](https://img.shields.io/badge/version-1.2.0-298bbc) ![](https://img.shields.io/badge/series-V01--V19-3b4f58) ![](https://img.shields.io/badge/status-honest-3a6b4f)
@@ -80,3 +88,8 @@ python3 -m pytest tests/ -q                     # theorem machinery
 ---
 
 *AB Research Program v1.1.0 · V10 · The Inverse Problem*
+
+<div align="center">
+
+<img src="../../../../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
+</div>

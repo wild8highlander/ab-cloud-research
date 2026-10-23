@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ AB_Cloud_Quantum_Research/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 <!-- enriched 1.1.0 -->
 <div align="center">
 
@@ -68,3 +76,8 @@ The atlas of flagship results: the two poster-grade images that gather the progr
 |---|---|---|
 | `atlas_flagships_en.png` | 744 KB | figure (PNG) |
 | `atlas_flagships_ru.png` | 754 KB | figure (PNG) |
+
+<div align="center">
+
+<img src="../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
+</div>

@@ -1,32 +1,68 @@
-# assets — Project Branding
+<!-- AB-ENRICHED:v1 · section=assets -->
+<div align="center">
 
-Currently two files:
+<img src="https://capsule-render.vercel.app/api?type=waving&height=90&color=0:05060f,50:8B949E,100:05060f&section=header&text=ASSETS%20%E2%80%94%20PROJECT%20BRANDING&fontSize=26&fontColor=e5e7eb&fontAlignY=55&animation=fadeIn" alt="ASSETS — PROJECT BRANDING" width="100%"/>
+
+<img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=15&duration=2800&pause=1100&color=8B949E&center=true&vCenter=true&width=760&lines=Banners+%C2%B7+icons+%C2%B7+SVG;One+palette+to+rule+them+all" alt="Typing: section tagline"/>
+
+</div>
+<details>
+<summary><strong>🗺️ How <code>assets/</code> connects to the repository (click)</strong></summary>
+
+```mermaid
+flowchart LR
+    ROOT["🏠 Root README"] --> SEC["Assets & Branding"]
+    DATA["🧊 Frozen data<br/>verification/data/"] -.-> SEC
+    SEC --> OUT["branding, banners, icons and SVG components"]
+    SEC <-.-> SIB["docs · .readme-components"]
+```
+
+</details>
+
+# assets — Project Branding & Visual Library
+
+The single source of every shared visual in the repository. Two layers:
+
+**1. Vector layer (hand-authored, animated)** — `banner.svg`, `banner-v2.svg`
+(root README heritage), `visuals/` (animated + AI concept art + charts),
+and `svg/` — the live component set (SMIL-animated, referenced via `<img>`):
 
 | File | Purpose |
 |---|---|
 | `banner-v2.svg` | the repository banner rendered at the top of the root README (project title, the AB-cloud motif: a Hofstadter-style phase field with vortex flux tubes over the critical-line zeros) |
 | `banner.svg` | the earlier v1 banner of the same motif (superseded at the root README by `banner-v2.svg`) |
+| `svg/divider-*.svg` | animated gradient dividers — 9 palette variants (cyan/magenta/violet/gold/green/purple/blue/gray + universal) |
+| `svg/badge-tests-passing.svg` | pulsing live badge «ALL 39 TESTS PASSING» |
+| `svg/progress-*.svg` | animated progress bars traced to the results registry (tests, verification, formal, dataset, spinor64, monographs) |
+
+**2. AI-rendered raster layer (generated, prompt-registered)** — produced by
+the project image model, one prompt per asset in
+[prompts/AI_PROMPTS.md](prompts/AI_PROMPTS.md), mapped in
+[manifest.json](manifest.json), validated by the `assets-validate` workflow:
+
+| Folder | Contents |
+|---|---|
+| `banners/` | `hero-main.webp` (16:9 root hero, P-01) + 15 section end-caps 4:1 (P-02…P-16) |
+| `icons/` | 9 flat-line icons (resonator, ζ-spiral, Julia, shield, book, chip, globe, crystal, atom — P-17…P-25) |
+| `backgrounds/` | 2 tileable backgrounds: starfield, formula matrix (P-26…P-27) |
+| `og/` | social preview card (P-28) — upload via *Settings → Social preview* |
+| `avatar/` | avatar art + 256 px copy (P-29) |
+| `prompts/` | the centralized prompt registry (regeneration workflow inside) |
 
 ## Notes
 
 - SVG is used deliberately: it stays crisp on retina displays and costs a
-  few kilobytes, unlike a raster banner.
-- The banner is referenced from `../README.md` (currently as
-  `assets/banner-v2.svg`) with a relative path, so it renders both on
-  GitHub and on the MkDocs site.
-- Adding a new asset? Keep this folder for images only — figures that
-  belong to documents live in `../monographs/*/figures/` and
-  `../monographs/original-v21/media/`, run plots in `../results/` (to be
-  regenerated) — and register the file in this README.
-
-## 📁 Complete file inventory
-
-| Entry | Size | Kind |
-|---|---|---|
-| `README.md` | 2.2 KB | markdown guide |
-| `banner.svg` | 24.7 KB | SVG vector |
-| `banner-v2.svg` | 6.2 KB | SVG vector |
-| **Total (files)** | **33.1 KB** | 3 files + 0 subdirectories |
+  few kilobytes, unlike a raster banner. Inline `<svg>` in Markdown is
+  forbidden (GitHub sanitizes it) — always reference SVG files via `<img>`.
+- WebP is used for all generated raster assets: GitHub renders it natively
+  and every banner is 19–109 KB (limits: STYLE §6 in
+  `../.readme-components/STYLE_GUIDE.md`).
+- Component snippets for README composition live in
+  `../.readme-components/` — the visual style guide is the authoritative
+  palette reference.
+- Adding a new asset? Generate → optimize → register in `manifest.json` →
+  add its prompt to `prompts/AI_PROMPTS.md`. The CI validator will fail on
+  orphans and on missing manifest entries.
 
 ## 🔬 Deep dive — shared visual identity, single source
 
@@ -45,3 +81,9 @@ committed script or is original artwork of the author; nothing is
 downloaded third-party media. That keeps the strictly-personal licensing
 of the whole repository clean and traceable — there is no inherited
 third-party copyright anywhere in the visual layer.
+
+<div align="center">
+<img src="../assets/svg/divider-gray.svg" alt="—" width="100%" height="14"/>
+
+<sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
+</div>

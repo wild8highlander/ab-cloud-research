@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:a78bfa,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ Hilbert_Polya/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 # multilang/ — multilingual twins of the kernel
 
 > **🧭 Navigation:** [Hilbert_Polya/](../README.md · [Root README](../../README.md)
@@ -286,3 +294,10 @@ folder exists.
 - [../hpbridge/README.md](../hpbridge/README.md) — the Python reference implementation of the kernel
 - [../data/README.md](../data/README.md) — where committed verdicts and hashes live
 - [../tests/README.md](../tests/README.md) — the pytest layer over the same arithmetic
+
+<div align="center">
+
+<img src="../../assets/svg/divider-violet.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

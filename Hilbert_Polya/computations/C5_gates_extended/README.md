@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:a78bfa,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ computations/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 # C5 · The Extended Gate Family — six new handle dimensions and the stability of the H2 result
 
 <p align="center"><img src="../../assets/illustrations/ill_shutter_wall.png" width="860" alt="A wall of lattice shutters: thirty-five new gates hung on six new handle dimensions, all at the zeros' level — the GUE class"/></p>
@@ -412,3 +420,9 @@ The verdict is falsifiable at three independent dials, and the committed data ma
 ---
 *Hilbert Polya Bridge v2.0.0 · C5 · The extended gate family*
 
+<div align="center">
+
+<img src="../../../assets/svg/divider-violet.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

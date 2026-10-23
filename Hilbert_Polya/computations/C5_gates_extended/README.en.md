@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:a78bfa,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ C5_gates_extended/](README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 # C5 · The extended gate family — international quick reference
 
 <p align="center"><img src="../../assets/illustrations/ill_vortex_lattice.png" width="860" alt="The vortex lattice under a six-dimensional stress test: twists, anisotropy, flux, mass, core profile, signs"/></p>
@@ -226,3 +234,10 @@ The verdict is falsifiable at three independent dials, and the committed data ma
 
 ---
 *Hilbert Polya Bridge v1.0.0 · C5 · The extended gate family*
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-violet.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="README.md">⬆ parent section</a></sub>
+
+</div>

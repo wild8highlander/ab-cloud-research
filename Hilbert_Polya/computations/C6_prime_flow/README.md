@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:a78bfa,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ computations/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 # C6 · The Prime Flow, the Co-location Kernel and the ψ-Ladder — where the arithmetic of primes actually lives
 
 <p align="center"><img src="../../assets/illustrations/ill_prime_flow.png" width="860" alt="The prime flow: phases Φ_p = ½ ln p streaming through the vortex lattice, composite nodes landing exactly on additive superpositions"/></p>
@@ -354,3 +362,9 @@ Universality is an attractor, not a witness: the spectrum erases the coding no m
 ---
 *Hilbert Polya Bridge v2.0.0 · C6 · The prime flow, the co-location kernel and the ψ-ladder*
 
+<div align="center">
+
+<img src="../../../assets/svg/divider-violet.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

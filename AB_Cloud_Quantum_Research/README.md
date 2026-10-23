@@ -1,3 +1,24 @@
+<!-- AB-ENRICHED:v1 · section=AB_Cloud_Quantum_Research -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&height=90&color=0:05060f,50:ff2ec4,100:05060f&section=header&text=QUANTUM%20RESEARCH%20PACK&fontSize=26&fontColor=e5e7eb&fontAlignY=55&animation=fadeIn" alt="QUANTUM RESEARCH PACK" width="100%"/>
+
+<img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=15&duration=2800&pause=1100&color=ff2ec4&center=true&vCenter=true&width=760&lines=The+packaged+program;Live+laboratories+%C2%B7+visual+campaigns;One+click+from+data+to+figure" alt="Typing: section tagline"/>
+
+</div>
+<details>
+<summary><strong>🗺️ How <code>AB_Cloud_Quantum_Research/</code> connects to the repository (click)</strong></summary>
+
+```mermaid
+flowchart LR
+    ROOT["🏠 Root README"] --> SEC["Quantum Research Pack"]
+    DATA["🧊 Frozen data<br/>verification/data/"] -.-> SEC
+    SEC --> OUT["packaged experiments, animations and campaign data"]
+    SEC <-.-> SIB["lab-3d · dirac-lab"]
+```
+
+</details>
+
 <div align="center">
 
 <picture>
@@ -758,4 +779,15 @@ negative results published*
 
 **AB Cloud Quantum Research** · v1.1.0 · © Isaev Iskhak Khamzatovich
 
+</div>
+
+<div align="center">
+<img src="../assets/svg/divider-magenta.svg" alt="—" width="100%" height="14"/>
+
+<!-- AI end-cap — prompt P-05, registry: assets/prompts/AI_PROMPTS.md -->
+<img src="../assets/banners/banner-AB_Cloud_Quantum_Research.webp" alt="AI-rendered section art (prompt P-05)" width="100%"/>
+
+<sub>🖼️ Section art: <a href="../assets/prompts/AI_PROMPTS.md">P-05</a> · palette <code>#05060f · #00e5ff · #ff2ec4 · #a78bfa · #ffd60a</code></sub>
+
+<sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
 </div>

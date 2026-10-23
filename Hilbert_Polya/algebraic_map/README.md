@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:a78bfa,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ Hilbert_Polya/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 # algebraic_map — the algebraic function of the Jacobi encoding
 
 > **🧭 Navigation:** [Hilbert_Polya/](../README.md) · [Root README](../../README.md)
@@ -94,3 +102,10 @@ This folder is a small but functional **shelf of its module**: it keeps a focuse
 The algebraic map: the algebraic function of the Jacobi encoding, kept as a separate mini-module with its own data, figures and report.
 
 **Subfolders:** `data/` · `figures/` · `report/`
+
+<div align="center">
+
+<img src="../../assets/svg/divider-violet.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

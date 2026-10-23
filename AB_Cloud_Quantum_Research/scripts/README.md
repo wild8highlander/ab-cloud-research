@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ AB_Cloud_Quantum_Research/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 <!-- enriched 1.1.0 -->
 <div align="center">
 
@@ -91,3 +99,8 @@ The pipelines of the AB Cloud Quantum Research package: deterministic entry poin
 | `make_timeline.py` | 4.8 KB | Python source |
 | `make_whitepaper.py` | 21 KB | Python source |
 | `validate_package.py` | 8.3 KB | Python source |
+
+<div align="center">
+
+<img src="../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
+</div>

@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:4FC3F7,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ apps/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 # AB-Cloud Lab 3D — React Application №2
 
 > **🧭 Navigation:** [apps/](../README.md) · [dashboard](../ab-cloud-dashboard/README.md) · [Root](../../README.md)
@@ -100,3 +108,10 @@ actually does. For publication-grade output use the offline pipelines in
 The reference scene — the **36³ Hofstadter configuration** — is the same
 one the 3D-lab preprint ([lab-3d/preprint/](../../lab-3d/preprint/)) opens
 with, so the app and the paper start from identical ground.
+
+<div align="center">
+
+<img src="../../assets/svg/divider-blue.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

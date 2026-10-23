@@ -1,3 +1,24 @@
+<!-- AB-ENRICHED:v1 · section=lab-3d -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&height=90&color=0:05060f,50:ff2ec4,100:05060f&section=header&text=3D%20LATTICE%20LABORATORY&fontSize=26&fontColor=e5e7eb&fontAlignY=55&animation=fadeIn" alt="3D LATTICE LABORATORY" width="100%"/>
+
+<img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=15&duration=2800&pause=1100&color=ff2ec4&center=true&vCenter=true&width=760&lines=36%C2%B3+Hofstadter+lattice;WebGL+in+the+browser;Zero+installation" alt="Typing: section tagline"/>
+
+</div>
+<details>
+<summary><strong>🗺️ How <code>lab-3d/</code> connects to the repository (click)</strong></summary>
+
+```mermaid
+flowchart LR
+    ROOT["🏠 Root README"] --> SEC["3D Lattice Lab"]
+    DATA["🧊 Frozen data<br/>verification/data/"] -.-> SEC
+    SEC --> OUT["interactive WebGL lattice lab + prebuilt bundles"]
+    SEC <-.-> SIB["apps · AB_Cloud_Quantum_Research"]
+```
+
+</details>
+
 <div align="center">
 
 <img src="assets/banner.svg" alt="AB-Cloud 3D — animated banner: the rotating 36³ lattice wireframe with the pulsing vortex node and orbit, the critical strip with blinking zeros, and the σ-ensemble dial" width="100%"/>
@@ -285,3 +306,14 @@ Quick start:
 cd lab-3d && make help     # lab-specific targets
 pip install -r requirements.txt   # pinned, small dependency set
 ```
+
+<div align="center">
+<img src="../assets/svg/divider-magenta.svg" alt="—" width="100%" height="14"/>
+
+<!-- AI end-cap — prompt P-08, registry: assets/prompts/AI_PROMPTS.md -->
+<img src="../assets/banners/banner-lab-3d.webp" alt="AI-rendered section art (prompt P-08)" width="100%"/>
+
+<sub>🖼️ Section art: <a href="../assets/prompts/AI_PROMPTS.md">P-08</a> · palette <code>#05060f · #00e5ff · #ff2ec4 · #a78bfa · #ffd60a</code></sub>
+
+<sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
+</div>

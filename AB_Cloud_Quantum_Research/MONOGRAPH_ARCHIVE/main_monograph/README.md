@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ MONOGRAPH_ARCHIVE/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 <div align="center">
 
 [![Shelf](https://img.shields.io/badge/Shelf-ab-cloud-quantum-4FC3F7?style=flat-square)](../README.md)
@@ -45,3 +53,8 @@ This folder is a small but functional **shelf of its module**: it keeps a focuse
 The archived main monograph in both languages (DOCX + PDF): the large publication that the archive README describes. For the current unified edition, see the package layer `01_monographs/`.
 
 **Subfolders:** `latex/`
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
+</div>

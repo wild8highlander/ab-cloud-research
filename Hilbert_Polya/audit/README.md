@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:a78bfa,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ Hilbert_Polya/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 # audit/ — external audit of the package and its results
 
 > **🧭 Navigation:** [Hilbert_Polya/](../README.md) · [Root README](../../README.md)
@@ -53,3 +61,10 @@ The external audit of the package and its results: the audit document (DOCX + PD
 | `HPB_audit_canonization_2026-10-13_ru.pdf` | 232 KB | PDF document |
 
 **Subfolders:** `src/`
+
+<div align="center">
+
+<img src="../../assets/svg/divider-violet.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

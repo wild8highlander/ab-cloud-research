@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ffd60a,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ lean4/](../README.md) · [🏠 Root README](../../../../../../README.md)**
+
+</div>
 # formal/lean4 — Machine-checked AB-Cloud core in Lean 4
 
 ![Lean4](https://img.shields.io/badge/Lean4-4.19.0-2E7D32?style=flat-square&logo=lean&logoColor=white)
@@ -101,3 +109,10 @@ a self-consistency test.
   Python reference; float parsing is a self-contained decimal parser whose
   round-off differs from platform `strtod` by at most 1 ulp — absorbed by
   the tolerances.
+
+<div align="center">
+
+<img src="../../../../../../assets/svg/divider-gold.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

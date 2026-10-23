@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ffd60a,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ 01_monographs/](../README.md) · [🏠 Root README](../../../../README.md)**
+
+</div>
 <div align="center">
 
 # AB-Cloud 研究计划：统一专著（中文摘要）
@@ -58,3 +66,10 @@
 ## 关键词
 
 关键词：黎曼 ζ 函数 · 希尔伯特–波利亚 · 阿哈罗诺夫–玻姆 · 格点狄拉克算符 · 随机矩阵 · GUE · 蒙哥马利–奥德利兹科 · 贝里–基廷 · Connes · 盲验证 · 可复现性
+
+<div align="center">
+
+<img src="../../../../assets/svg/divider-gold.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

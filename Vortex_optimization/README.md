@@ -1,3 +1,24 @@
+<!-- AB-ENRICHED:v1 · section=Vortex_optimization -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&height=90&color=0:05060f,50:ff2ec4,100:05060f&section=header&text=VORTEX%20OPTIMIZATION&fontSize=26&fontColor=e5e7eb&fontAlignY=55&animation=fadeIn" alt="VORTEX OPTIMIZATION" width="100%"/>
+
+<img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=15&duration=2800&pause=1100&color=ff2ec4&center=true&vCenter=true&width=760&lines=Convergence+ladder+D%3D0.1096+%E2%86%92+0.0220;GUE+floor+by+lattice+size;Vortex+density+as+control+knob" alt="Typing: section tagline"/>
+
+</div>
+<details>
+<summary><strong>🗺️ How <code>Vortex_optimization/</code> connects to the repository (click)</strong></summary>
+
+```mermaid
+flowchart LR
+    ROOT["🏠 Root README"] --> SEC["Vortex Optimization"]
+    DATA["🧊 Frozen data<br/>verification/data/"] -.-> SEC
+    SEC --> OUT["convergence ladders to the GUE floor"]
+    SEC <-.-> SIB["Hilbert_Polya · results"]
+```
+
+</details>
+
 <div align="center">
 
 <img src="figures/banner_convergence.svg" alt="The convergence ladder: the committed distance ladder from the suite reference D = 0.1096 down to the GUE floor 0.0220, and the floor ladder by lattice size" width="100%"/>
@@ -381,3 +402,14 @@ The measured **convergence ladder**: the proof that the cloud's approach to the 
 - Scan design, Python port, all measurements, figures and this package: Test 34-ext study, September 2026.
 - ζ zeros: `verification/data/zeta_zeros_50000.txt` from the base repository (Odlyzko-format first 50,000 zeros).
 - License: inherits the repository's license.
+
+<div align="center">
+<img src="../assets/svg/divider-magenta.svg" alt="—" width="100%" height="14"/>
+
+<!-- AI end-cap — prompt P-14, registry: assets/prompts/AI_PROMPTS.md -->
+<img src="../assets/banners/banner-Vortex_optimization.webp" alt="AI-rendered section art (prompt P-14)" width="100%"/>
+
+<sub>🖼️ Section art: <a href="../assets/prompts/AI_PROMPTS.md">P-14</a> · palette <code>#05060f · #00e5ff · #ff2ec4 · #a78bfa · #ffd60a</code></sub>
+
+<sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
+</div>

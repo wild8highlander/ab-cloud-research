@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ffd60a,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ 02_data/](../README.md) · [🏠 Root README](../../../../README.md)**
+
+</div>
 # 🗃 Processed Data — `research_registry.json`
 
 The single machine-readable register of the academic package. Every number
@@ -22,3 +30,8 @@ entry change in the same commit → monographs re-cite.
 > artifact, are treated as mistakes, not as shortcuts.
 
 Part of [`AB_Cloud_Academic_Package/02_data/`](../) · see the package root [README](../../README.md)
+
+<div align="center">
+
+<img src="../../../../assets/svg/divider-gold.svg" alt="—" width="100%" height="12"/>
+</div>

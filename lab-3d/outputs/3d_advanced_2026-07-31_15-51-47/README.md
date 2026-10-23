@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ outputs/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 <div align="center">
 
 [![Shelf](https://img.shields.io/badge/Shelf-labs-7FC8A8?style=flat-square)](../README.md)
@@ -55,3 +63,8 @@ the advanced session — the extended parameter regimes of the 3D laboratory. Ti
 This folder is a **committed run artifact**: the outputs of one execution of the module's pipeline, frozen at the moment of generation. The run directories are named by their UTC timestamp and are never edited after the fact — the reports, figures and data tables inside are the evidence that the pipeline ran and what it produced. Regenerating them is always possible from the scripts; the committed copies exist so that no reader ever has to.
 
 **Where next:** [outputs hub](../README.md)
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
+</div>

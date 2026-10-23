@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ffd60a,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ 02_data/](../README.md) · [🏠 Root README](../../../../README.md)**
+
+</div>
 # 02_data/frozen — the frozen ζ-zero datasets
 
 Byte-identical copies of the repo's canonical frozen datasets
@@ -33,3 +41,10 @@ required, the suite reads them by relative path.
 Every file in `02_data/**` is covered by `../checksums.sha256`. After
 editing anything here, regenerate it with `python3
 06_code/scripts/update_checksums.py`.
+
+<div align="center">
+
+<img src="../../../../assets/svg/divider-gold.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

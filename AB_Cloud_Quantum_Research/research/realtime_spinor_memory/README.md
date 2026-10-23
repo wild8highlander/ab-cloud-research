@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ research/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 # ⚡ The machine without long-term memory: real-time spinor phase models
 
 
@@ -177,3 +185,8 @@ This folder is a small but functional **shelf of its module**: it keeps a focuse
 A standing research thread: the machine **without long-term memory** — real-time spinor phase models in which the reading is recomputed from scratch and nothing is stored. The folder carries the model code and its own detailed note.
 
 **Subfolders:** `data/` · `docs/` · `experiments/` · `figures/` · `spinor/` · `tests/` · `theorems/`
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
+</div>

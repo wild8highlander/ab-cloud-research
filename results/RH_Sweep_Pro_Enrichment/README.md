@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:22c55e,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ results/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 # RH_Auto_5000_L64_s5 — AB cloud ↔ ζ(s) zeros: run + post-run enrichment
 
 > **🧭 Navigation:** [results/](../README.md) · [Root README](../../README.md) · [verification/](../../verification/README.md)
@@ -163,3 +171,10 @@ Plan: fine sweep W ∈ [1.8…2.4], σ ∈ [0.4…0.6] via the now-working
 - Run: 2026-10-16 12:36, `RH_Unified.jl`, preset `preset_auto(5000)`.
 - Audit & methodology report: `report/Отчёт_обогащение_RH_Sweep_Pro.pdf` (23 pp., RU).
 - Integrity: `manifest.sha256` (SHA-256 of every file in this folder).
+
+<div align="center">
+
+<img src="../../assets/svg/divider-green.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

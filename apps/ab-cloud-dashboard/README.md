@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:4FC3F7,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ apps/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 # AB-Cloud Dashboard — React Application №1
 
 > **🧭 Navigation:** [apps/](../README.md) · [lab3d](../ab-cloud-lab3d/README.md) · [Root](../../README.md)
@@ -111,3 +119,10 @@ a paper and the raw run can be cross-examined in seconds:
 Static React bundle, no backend, no analytics, no external requests: the
 app is a pure view over committed files. This is what makes it suitable
 for long-term archival — there is no service to keep alive.
+
+<div align="center">
+
+<img src="../../assets/svg/divider-blue.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

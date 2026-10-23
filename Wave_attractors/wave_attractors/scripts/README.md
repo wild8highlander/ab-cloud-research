@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:00e5ff,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ wave_attractors/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 <div align="center">
 
 [![Shelf](https://img.shields.io/badge/Shelf-labs-7FC8A8?style=flat-square)](../README.md)
@@ -54,3 +62,8 @@ This folder holds the **pipeline scripts** of its module: the deterministic code
 The experiment scripts of the study: the staged pipeline from ray-level experiments to the cross-reference dump.
 
 **Subfolders:** `julia/` · `monograph/` · `report/`
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-cyan.svg" alt="—" width="100%" height="12"/>
+</div>

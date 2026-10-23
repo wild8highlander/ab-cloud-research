@@ -1,3 +1,24 @@
+<!-- AB-ENRICHED:v1 · section=AB_Cloud_Academic_Package -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&height=90&color=0:05060f,50:ffd60a,100:05060f&section=header&text=ACADEMIC%20PACKAGE&fontSize=26&fontColor=e5e7eb&fontAlignY=55&animation=fadeIn" alt="ACADEMIC PACKAGE" width="100%"/>
+
+<img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=15&duration=2800&pause=1100&color=ffd60a&center=true&vCenter=true&width=760&lines=FAIR-aligned+academic+bundle;Data+%C2%B7+figures+%C2%B7+reports+%C2%B7+code;Zenodo-ready+packaging" alt="Typing: section tagline"/>
+
+</div>
+<details>
+<summary><strong>🗺️ How <code>AB_Cloud_Academic_Package/</code> connects to the repository (click)</strong></summary>
+
+```mermaid
+flowchart LR
+    ROOT["🏠 Root README"] --> SEC["Academic Package"]
+    DATA["🧊 Frozen data<br/>verification/data/"] -.-> SEC
+    SEC --> OUT["FAIR academic bundle (meta/data/figures/reports/code)"]
+    SEC <-.-> SIB["monographs · results"]
+```
+
+</details>
+
 <div align="center">
 
 <img src="assets/banner.svg" alt="AB-Cloud Academic Package — animated banner: glowing pillars standing on a golden plinth under a pulsing zeta node, with zeros drifting along the critical line and a neon scan sweep" width="1152"/>
@@ -167,4 +188,15 @@ every number checkable on every shelf.*
 
 **[↑ back to top](#-what-this-folder-is)** · [Repository root](../README.md)
 
+</div>
+
+<div align="center">
+<img src="../assets/svg/divider-gold.svg" alt="—" width="100%" height="14"/>
+
+<!-- AI end-cap — prompt P-10, registry: assets/prompts/AI_PROMPTS.md -->
+<img src="../assets/banners/banner-AB_Cloud_Academic_Package.webp" alt="AI-rendered section art (prompt P-10)" width="100%"/>
+
+<sub>🖼️ Section art: <a href="../assets/prompts/AI_PROMPTS.md">P-10</a> · palette <code>#05060f · #00e5ff · #ff2ec4 · #a78bfa · #ffd60a</code></sub>
+
+<sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
 </div>

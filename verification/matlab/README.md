@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:00e5ff,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ verification/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
 # MATLAB / Octave Verification
 
 > **🧭 Navigation:** [verification/](../README.md) · [Root README](../../README.md) · [CANON_SPEC](../CANON_SPEC.md)
@@ -132,3 +140,10 @@ spinor38
   `octave --eval "run_verify('--zeros', 50000)"` from the shell.
 - `spinor38/` — the Test 38 port: its own Jacobi algorithm (not `eig`), data read from
   `../spinor64/data/`.
+
+<div align="center">
+
+<img src="../../assets/svg/divider-cyan.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

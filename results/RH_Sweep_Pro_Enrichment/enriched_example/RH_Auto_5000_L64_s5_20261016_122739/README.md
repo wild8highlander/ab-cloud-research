@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:22c55e,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ RH_Sweep_Pro_Enrichment/](../../README.md) · [🏠 Root README](../../../../README.md)**
+
+</div>
 # Run RH_Auto_5000_L64_s5_20261016_122739
 
 > RH-Sweep PRO · AB cloud ↔ ζ zeros · auto preset preset_auto(5000)
@@ -82,3 +90,10 @@ byte-identical reproduction is guaranteed only on the same platform.
 - N_v = 6 — the lower boundary of the vortex-density working window.
 - E(s=1) failed — a sign of a non-limiting level-repulsion regime.
 - The run environment (Julia/BLAS) is not pinned by the original code.
+
+<div align="center">
+
+<img src="../../../../assets/svg/divider-green.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../../README.md">⬆ parent section</a></sub>
+
+</div>

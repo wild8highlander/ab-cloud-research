@@ -1,3 +1,24 @@
+<!-- AB-ENRICHED:v1 · section=docs -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&height=90&color=0:05060f,50:526CFE,100:05060f&section=header&text=DOCUMENTATION%20SITE&fontSize=26&fontColor=e5e7eb&fontAlignY=55&animation=fadeIn" alt="DOCUMENTATION SITE" width="100%"/>
+
+<img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=15&duration=2800&pause=1100&color=526CFE&center=true&vCenter=true&width=760&lines=MkDocs+Material+site;MathJax+everywhere;Deployed+to+GitHub+Pages" alt="Typing: section tagline"/>
+
+</div>
+<details>
+<summary><strong>🗺️ How <code>docs/</code> connects to the repository (click)</strong></summary>
+
+```mermaid
+flowchart LR
+    ROOT["🏠 Root README"] --> SEC["Documentation Site"]
+    DATA["🧊 Frozen data<br/>verification/data/"] -.-> SEC
+    SEC --> OUT["the deployed documentation site"]
+    SEC <-.-> SIB["apps · monographs"]
+```
+
+</details>
+
 <div align="center">
 
 <img src="assets/banner.svg" alt="Docs — animated banner: the documentation-site browser window with the sidebar navigation filling in, the MathJax formula box glowing, the site cards and the pages rising into the site" width="100%"/>
@@ -176,3 +197,14 @@ committed artifact — every page links the artifact, not the other way around.
 <p align="center">
   <sub><em>The README gives the ledger; the site gives the tour.</em></sub>
 </p>
+
+<div align="center">
+<img src="../assets/svg/divider-blue.svg" alt="—" width="100%" height="14"/>
+
+<!-- AI end-cap — prompt P-16, registry: assets/prompts/AI_PROMPTS.md -->
+<img src="../assets/banners/banner-docs.webp" alt="AI-rendered section art (prompt P-16)" width="100%"/>
+
+<sub>🖼️ Section art: <a href="../assets/prompts/AI_PROMPTS.md">P-16</a> · palette <code>#05060f · #00e5ff · #ff2ec4 · #a78bfa · #ffd60a</code></sub>
+
+<sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
+</div>

@@ -1,3 +1,11 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:a78bfa,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ monograph/](../README.md) · [🏠 Root README](../../../README.md)**
+
+</div>
 # monograph/src/ — reserved slot for series template overrides
 
 > **🧭 Navigation:** [monograph/](../README.md) · [Hilbert_Polya/](../../README.md) · [Root README](../../../README.md)
@@ -69,3 +77,10 @@ repository root) would pick them up without any change to the scripts.
 This folder holds the **pipeline scripts** of its module: the deterministic code paths that turn frozen inputs into reports, figures and verdicts. The scripts follow the repository's seed discipline — same input, same seed, same bytes out — so a re-run on the pinned platform reproduces the committed artifacts. Nothing here is executed at import time by other modules; they are entry points, documented in the module README.
 
 A reserved slot for series template overrides: intentionally minimal — the default rendering templates live with the build pipeline.
+
+<div align="center">
+
+<img src="../../../assets/svg/divider-violet.svg" alt="—" width="100%" height="12"/>
+<sub>⚡ Part of <a href="../../../README.md">AB-Cloud Research</a> — numbers are verbatim from the unified registry; no result on this page is a claim about the Riemann hypothesis · <a href="../README.md">⬆ parent section</a></sub>
+
+</div>

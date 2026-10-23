@@ -1,3 +1,26 @@
+<!-- AB-ENRICHED:v1 · section=formal -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&height=90&color=0:05060f,50:a78bfa,100:05060f&section=header&text=FORMAL%20VERIFICATION&fontSize=26&fontColor=e5e7eb&fontAlignY=55&animation=fadeIn" alt="FORMAL VERIFICATION" width="100%"/>
+
+<img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=15&duration=2800&pause=1100&color=a78bfa&center=true&vCenter=true&width=760&lines=Lean+4+%C2%B7+Coq+%C2%B7+Agda+%C2%B7+Isabelle;Zero+external+dependencies;8%2F8+PASS+vs+frozen+references" alt="Typing: section tagline"/>
+
+<img src="../assets/svg/progress-formal.svg" alt="progress-formal" width="420"/>
+
+</div>
+<details>
+<summary><strong>🗺️ How <code>formal/</code> connects to the repository (click)</strong></summary>
+
+```mermaid
+flowchart LR
+    ROOT["🏠 Root README"] --> SEC["Formal Layer (4 assistants)"]
+    DATA["🧊 Frozen data<br/>verification/data/"] -.-> SEC
+    SEC --> OUT["machine-checked theorems + executable re-derivation"]
+    SEC <-.-> SIB["verification · code"]
+```
+
+</details>
+
 <div align="center">
 
 <img src="assets/formal-banner.svg" alt="AB-Cloud Formal Verification" width="100%"/>
@@ -290,3 +313,14 @@ masks the others:
 3. **A new assistant** — create `formal/<assistant>/`, add a CI job to
    `formal.yml`, add a column to the matrix. Keep the dependency surface
    empty; that is the house style.
+
+<div align="center">
+<img src="../assets/svg/divider-violet.svg" alt="—" width="100%" height="14"/>
+
+<!-- AI end-cap — prompt P-03, registry: assets/prompts/AI_PROMPTS.md -->
+<img src="../assets/banners/banner-formal.webp" alt="AI-rendered section art (prompt P-03)" width="100%"/>
+
+<sub>🖼️ Section art: <a href="../assets/prompts/AI_PROMPTS.md">P-03</a> · palette <code>#05060f · #00e5ff · #ff2ec4 · #a78bfa · #ffd60a</code></sub>
+
+<sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
+</div>
