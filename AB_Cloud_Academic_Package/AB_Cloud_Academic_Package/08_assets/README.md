@@ -1,5 +1,15 @@
 # 08_assets — the visual identity of the unified edition
 
+> **🧭 Navigation:** [Package root](../README.md) · [AB_Cloud_Academic_Package/](../../README.md) · [Repo root](../../../README.md)
+
+```mermaid
+flowchart LR
+    A["07_web_lab<br/>interactive web laboratory"] --> B["08_assets<br/>visual identity"] --> C["09_tests<br/>package integrity suite"]
+    style B fill:#1f6feb,color:#fff
+```
+
+*Layer map of the unified package — the highlighted node is this layer.*
+
 | Folder | Contents |
 |---|---|
 | [`avatars/`](avatars/) | the cast: author, core, processor, verifier, spinor (from AB_Cloud_Quantum_Research) + Riemann, Hilbert, Pólya (from Hilbert_Polya) |

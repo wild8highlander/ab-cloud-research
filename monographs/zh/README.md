@@ -1,5 +1,16 @@
 # Monograph v22 — Chinese Edition (中文版)
 
+> **🧭 Navigation:** [monographs/](../README.md) · [Root README](../../README.md)
+
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../../assets/visuals/ai/ab_cloud_concept_dark.png">
+  <img src="../../assets/visuals/ai/ab_cloud_concept_light.png" alt="Conceptual render of the AB-cloud: a lattice phase resonator with Aharonov-Bohm flux vortices tuned to the zeros of the Riemann zeta function (illustration, not raw data)" width="760">
+</picture>
+</p>
+
+*Conceptual illustration — not raw data.*
+
 The Chinese edition of the rewritten monograph, kept fully parallel to the
 RU and EN editions: same 37-test base, same appendices, figures re-labelled
 in Chinese. Typesetting uses `ctex`-aware XeLaTeX for the `.tex` source.

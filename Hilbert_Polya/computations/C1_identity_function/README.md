@@ -1,5 +1,7 @@
 # C1 · The identity function and the Γ-ladder
 
+> **🧭 Navigation:** [Hilbert_Polya/](../README.md · [Root README](../../README.md)
+
 ![version](https://img.shields.io/badge/version-2.0.0-298bbc) ![](https://img.shields.io/badge/series-C1--C8-3b4f58) ![](https://img.shields.io/badge/statuses-honest-3a6b4f)
 
 <p align="center"><img src="../../assets/illustrations/ill_critical_line.png" width="720" alt="The critical line: the identity function Z_id assembled from the Γ-ladder closures"/></p>

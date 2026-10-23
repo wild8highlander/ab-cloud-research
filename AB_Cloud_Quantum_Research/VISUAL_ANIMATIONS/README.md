@@ -17,6 +17,20 @@ Visual animations of the whole folder at work · GIF + SVG + HTML
 
 </div>
 
+> **🧭 Navigation:** [AB_Cloud_Quantum_Research/](../README.md) · [Root README](../../README.md)
+
+```mermaid
+flowchart LR
+    S["scripts/"] --> G["gif/<br/>5 animations"]
+    S --> V["svg/<br/>7 animated (SMIL)"]
+    S --> H["html/<br/>6 interactive pages"]
+    G --> I["html/index.html<br/>the visual portal"]
+    V --> I
+    H --> I
+```
+
+*One render pipeline, three output layers — all offline.*
+
 > [!TIP]
 > **Start here:** open [`html/index.html`](html/index.html) — the visual portal
 > linking every animation. Everything runs locally; no network, no dependencies.

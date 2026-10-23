@@ -1,5 +1,16 @@
 # multilang/ — multilingual twins of the kernel
 
+> **🧭 Navigation:** [Hilbert_Polya/](../README.md · [Root README](../../README.md)
+
+```mermaid
+flowchart LR
+    P["hpbridge/<br/>Python reference"] --> T["six twins<br/>C · C++ · Go · JS · Julia · Rust"]
+    T --> V["verify_control.txt<br/>the three-line contract"]
+    V --> K["same numbers as the reference:<br/>a property of the mathematics,<br/>not of the language"]
+```
+
+*Six tongues, one sentence — the cross-checking loop.*
+
 <p align="center"><img src="../assets/illustrations/ill_prime_flow.png" width="600" alt="The prime flow re-expressed in six programming languages"/></p>
 
 <p align="center"><img src="../assets/avatars/hp_cast_strip.svg" width="720" alt="Bridge avatar cast"/></p>

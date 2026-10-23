@@ -1,5 +1,15 @@
 # 06_code — the unified CLI (six languages, one contract) + the research cores + the formal layer
 
+> **🧭 Navigation:** [Package root](../README.md) · [AB_Cloud_Academic_Package/](../../README.md) · [Repo root](../../../README.md)
+
+```mermaid
+flowchart LR
+    A["05_logs<br/>logs · provenance · metrics"] --> B["06_code<br/>unified CLI · six languages, one contract"] --> C["07_web_lab<br/>interactive web laboratory"]
+    style B fill:#1f6feb,color:#fff
+```
+
+*Layer map of the unified package — the highlighted node is this layer.*
+
 | Runner | Language | Entry | Status |
 |---|---|---|---|
 | **reference** | Python 3.10+ (typer/rich) | [`python/run.py`](python/run.py) | full command surface |

@@ -1,5 +1,7 @@
 # RH_Auto_5000_L64_s5 — AB cloud ↔ ζ(s) zeros: run + post-run enrichment
 
+> **🧭 Navigation:** [results/](../README.md) · [Root README](../../README.md) · [verification/](../../verification/README.md)
+
 ![banner](figures/banner.png)
 
 **TL;DR.** The configuration α = 1/π ≈ 0.31831, W = 2.0, σ = 0.5 (L = 64, 5 seeds)

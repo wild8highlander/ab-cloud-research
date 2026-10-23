@@ -1,4 +1,14 @@
 # AB Quantum Processor — Julia Research Program
+> **🧭 Navigation:** [modules/](../README.md) · [AB_Cloud_Quantum_Research/](../../README.md) · [Root README](../../../README.md)
+
+```mermaid
+flowchart LR
+    E["E01-E18<br/>pre-registered experiments"] --> R["run_all.jl<br/>stages 1 · 2 · 3a · 3b · 3c · 4 · 5"]
+    R --> V["verdicts.jl<br/>18/18 PASS vs pre-registered thresholds"]
+    V --> X["cross_validate.py<br/>independent Python implementation"]
+    X --> F["24 figures @ 600 dpi<br/>+ abqp_workbook.xlsx"]
+```
+
 ## 18 computational experiments for testing and developing the hypothesis
 
 **Version:** 0.4.0 · **Language:** Julia 1.10+ · **Status:** EXECUTED — 18 experiments (E01–E18); all 18 pre-registered verdicts PASS; the obligations O-J1 (the height T=1000 + Riemann–Siegel) and O-J2 (class B: the compiler against strong baselines under equal constraints) are executed; the flagship is reproduced by an independent Python implementation.

@@ -1,5 +1,7 @@
 # AB-Cloud Verification Suite — Fortran port (canonical spec v3.0)
 
+> **🧭 Navigation:** [verification/](../README.md) · [Root README](../../README.md) · [CANON_SPEC](../CANON_SPEC.md)
+
 Fortran implementation of the unified AB-Cloud numerical kernel, ported to the
 binding specification `verification/CANON_SPEC.md` (v3.0). Single source of
 truth, bilingual EN/RU catalog, frozen-anchor self-check, honest

@@ -1,5 +1,15 @@
 # 07_web_lab — the interactive web laboratory
 
+> **🧭 Navigation:** [Package root](../README.md) · [AB_Cloud_Academic_Package/](../../README.md) · [Repo root](../../../README.md)
+
+```mermaid
+flowchart LR
+    A["06_code<br/>unified CLI · six languages, one contract"] --> B["07_web_lab<br/>interactive web laboratory"] --> C["08_assets<br/>visual identity"]
+    style B fill:#1f6feb,color:#fff
+```
+
+*Layer map of the unified package — the highlighted node is this layer.*
+
 | File | What it is |
 |---|---|
 | [`index.html`](index.html) | **the laboratory** — one offline HTML file: 9 themes, RU/EN, search, explain mode, verdict ledger, flagship results, metrics bars, numbers registry |

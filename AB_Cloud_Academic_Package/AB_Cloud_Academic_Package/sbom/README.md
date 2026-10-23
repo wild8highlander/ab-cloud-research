@@ -1,5 +1,7 @@
 # sbom/ — Software Bill of Materials
 
+> **🧭 Navigation:** [Package root](../README.md) · [AB_Cloud_Academic_Package/](../../README.md) · [Repo root](../../../README.md)
+
 - `cyclonedx.json` — CycloneDX 1.5 (runtime + cross-language stdlib components)
 - `spdx.json` — SPDX 2.3
 

@@ -1,5 +1,17 @@
 # data/ — the committed campaign verdicts
 
+> **🧭 Navigation:** [Hilbert_Polya/](../README.md · [Root README](../../README.md)
+
+```mermaid
+flowchart LR
+    V["campaign verdict JSON<br/>quantities · thresholds · controls"] -->|committed, frozen| D["data/<br/>the evidence base"]
+    D --> E["campaigns/<br/>excursion scripts"]
+    D --> T["tests/<br/>pytest suite"]
+    D --> F["figures · monographs · explorer"]
+```
+
+*Everything downstream replays committed files — nothing depends on a recomputation.*
+
 <p align="center"><img src="../assets/illustrations/ill_trace_formula.png" width="600" alt="The trace formula as a ledger: committed verdicts weighed against the explicit formula"/></p>
 
 <p align="center"><img src="../assets/avatars/hp_agent_lyra.svg" width="110" alt="Agent Lyra, keeper of the verdict ledger"/></p>

@@ -1,5 +1,16 @@
 # hpbridge/ — the Python package of the series
 
+> **🧭 Navigation:** [Hilbert_Polya/](../README.md · [Root README](../../README.md)
+
+```mermaid
+flowchart LR
+    P["hpbridge package<br/>Z_id · Gamma-ladder · trace formula<br/>Λ-sieve · protocol gates"] --> C["campaigns/<br/>C1-C6 (v1 core) · C9-C16 (v2)"]
+    C --> I["independent_verification/"]
+    C --> T["tests/"]
+```
+
+*The common vocabulary: everything imports from here.*
+
 <p align="center"><img src="../assets/illustrations/ill_vortex_lattice.png" width="600" alt="Vortex lattice wrapping the critical line"/></p>
 
 <p align="center"><img src="../assets/avatars/hp_cast_strip.svg" width="720" alt="Bridge avatar cast"/></p>

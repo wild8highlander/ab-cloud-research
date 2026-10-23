@@ -1,5 +1,17 @@
 # tests/ — one folder per test, one monograph per folder
 
+> **🧭 Navigation:** [dirac-lab/](../README.md) · [Root README](../../README.md)
+
+```mermaid
+flowchart LR
+    A["D1-D6 · lattice reality<br/>bands 2.7e-15 · 4 zero modes · Berry pi<br/>Landau · Klein x977 · zitterbewegung"]
+    A --> B["D7 · the bridge<br/>mean-r 0.605-0.608 vs GUE 0.5992"]
+    B --> C["D8-D12 · protection and transport<br/>chiral protection · JR wall<br/>Montgomery · BK/Connes · ladder limit"]
+    C --> D["D13-D14 · drive and form factor<br/>conjugation drive · Odlyzko"]
+```
+
+*The D1–D14 arc — from lattice reality to the zeta bridge; verdicts in the table below.*
+
 Every test of the suite **D1–D14** owns a self-contained folder. Nothing is
 scattered: each folder holds the test's focused LaTeX monograph (source +
 compiled PDF), its verbatim verdict ledger, the canonical data table, and a

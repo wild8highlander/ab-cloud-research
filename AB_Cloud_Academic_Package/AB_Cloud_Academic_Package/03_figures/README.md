@@ -1,5 +1,15 @@
 # 03_figures — the consolidated figure set
 
+> **🧭 Navigation:** [Package root](../README.md) · [AB_Cloud_Academic_Package/](../../README.md) · [Repo root](../../../README.md)
+
+```mermaid
+flowchart LR
+    A["02_data<br/>datasets · schemas · dictionaries"] --> B["03_figures<br/>consolidated figure set"] --> C["04_reports<br/>the report suite"]
+    style B fill:#1f6feb,color:#fff
+```
+
+*Layer map of the unified package — the highlighted node is this layer.*
+
 | Path | What it is |
 |---|---|
 | `static/dirac/` | the Dirac laboratory's 14 test figures (D1–D14), 600 dpi |

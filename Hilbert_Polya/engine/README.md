@@ -1,5 +1,16 @@
 # engine/ — the core of the resonator
 
+> **🧭 Navigation:** [Hilbert_Polya/](../README.md · [Root README](../../README.md)
+
+```mermaid
+flowchart LR
+    T["docs/theory.md<br/>the resonator spec"] --> B["build<br/>the Hermitian resonator,<br/>identical every time"]
+    B --> S["spectrum -> statistics<br/>comparable with the zeros of zeta"]
+    S --> C["shared by all campaigns<br/>C3-C8 (v1) · C9-C16 (v2)<br/>+ the explorer live gate"]
+```
+
+*Two modules, one contract — every consumer passes through the same pipeline.*
+
 <p align="center"><img src="../assets/illustrations/ill_vortex_lattice.png" width="600" alt="The vortex lattice: flux lines and vortex phases of the resonator Hamiltonian"/></p>
 
 <p align="center"><img src="../assets/avatars/hp_polya.svg" width="110" alt="Pólya, who asked for the operator"/></p>

@@ -1,5 +1,15 @@
 # 01_monographs — the unified monograph
 
+> **🧭 Navigation:** [Package root](../README.md) · [AB_Cloud_Academic_Package/](../../README.md) · [Repo root](../../../README.md)
+
+```mermaid
+flowchart LR
+    A["00_meta<br/>manifest · provenance · governance"] --> B["01_monographs<br/>the unified monograph"] --> C["02_data<br/>datasets · schemas · dictionaries"]
+    style B fill:#1f6feb,color:#fff
+```
+
+*Layer map of the unified package — the highlighted node is this layer.*
+
 One monograph consolidates the whole programme: ten levels (spectral core, AB processor,
 Dirac skeleton, Hilbert–Pólya bridge, blind verification + heritage, spinor study,
 Meridian observatory, vortex optimization, wave attractors), one verdict ledger,

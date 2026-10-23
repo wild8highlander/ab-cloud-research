@@ -1,5 +1,13 @@
 # webapp/ — Interactive applications (self-contained HTML, no external assets)
 
+> **🧭 Navigation:** [dirac-lab/](../README.md) · [tests/](../tests/README.md) · [Root README](../../README.md)
+
+```mermaid
+flowchart LR
+    A["dirac_cone_explorer.html<br/>Bloch heatmap · anisotropy slider<br/>Hofstadter butterfly"] -->|ties to| T1["tests D1 / D3"]
+    B["wave_packet_lab.html<br/>Klein tunneling · zitterbewegung"] -->|ties to| T2["tests D5 / D6"]
+```
+
 ## 1. Dirac Cone Explorer — [`dirac_cone_explorer.html`](dirac_cone_explorer.html)
 
 - Live heatmap of the π-flux Bloch dispersion |E+(k)| over the full Brillouin zone; the four Dirac points circled.

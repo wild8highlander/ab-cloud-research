@@ -4,6 +4,8 @@
 
 # AB Cloud Research — Unified Academic Package
 
+> **🧭 Navigation:** [AB_Cloud_Academic_Package/](../README.md) · [Repo root](../../README.md)
+
 **One study across ten levels: the algebraic AB (Aharonov–Bohm) architecture as
 computational fabric, its Dirac skeleton, the Hilbert–Pólya bridge, the blind
 verification apparatus, the reference runs, the meridian observatory, the

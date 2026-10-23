@@ -1,5 +1,7 @@
 # MATLAB / Octave Verification
 
+> **🧭 Navigation:** [verification/](../README.md) · [Root README](../../README.md) · [CANON_SPEC](../CANON_SPEC.md)
+
 Canonical MATLAB — and GNU Octave — port of the AB-Cloud Verification Suite
 kernel, spec `../CANON_SPEC.md` (v3.0). Bit-compatible with the frozen golden
 reference `../data/abcloud_golden.json` (meridian-spectral-observatory canon,

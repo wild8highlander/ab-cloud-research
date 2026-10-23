@@ -1,5 +1,15 @@
 # 04_reports — the report suite
 
+> **🧭 Navigation:** [Package root](../README.md) · [AB_Cloud_Academic_Package/](../../README.md) · [Repo root](../../../README.md)
+
+```mermaid
+flowchart LR
+    A["03_figures<br/>consolidated figure set"] --> B["04_reports<br/>the report suite"] --> C["05_logs<br/>logs · provenance · metrics"]
+    style B fill:#1f6feb,color:#fff
+```
+
+*Layer map of the unified package — the highlighted node is this layer.*
+
 | File | What it is |
 |---|---|
 | [`report.md`](report.md) · [`report.pdf`](report.pdf) · [`report.docx`](report.docx) | the unified report (EN canonical) |

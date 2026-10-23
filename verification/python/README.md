@@ -4,6 +4,8 @@
 > thin `_en`/`_ru` language pins. Measured self-check: 28/28 PASS (machine-verified for
 > python/C++/Go/Rust/Julia/JS; fortran/R/MATLAB/Haskell — same spec, runtime self-check).
 
+> **🧭 Navigation:** [verification/](../README.md) · [Root README](../../README.md) · [CANON_SPEC](../CANON_SPEC.md)
+
 # Python Verification — the Reference Implementation
 
 This folder is the **reference implementation** of the three-objection

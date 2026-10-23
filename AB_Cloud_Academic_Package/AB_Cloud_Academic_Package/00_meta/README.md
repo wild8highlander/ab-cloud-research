@@ -1,5 +1,15 @@
 # 00_meta — manifest, provenance and governance
 
+> **🧭 Navigation:** [Package root](../README.md) · [AB_Cloud_Academic_Package/](../../README.md) · [Repo root](../../../README.md)
+
+```mermaid
+flowchart LR
+    B["00_meta<br/>manifest · provenance · governance"] --> C["01_monographs<br/>the unified monograph"]
+    style B fill:#1f6feb,color:#fff
+```
+
+*Layer map of the unified package — the highlighted node is this layer.*
+
 This folder is the *administrative memory* of the unified package: what it
 contains, where every piece came from, which checklists it passes, and how
 decisions about it are made.

@@ -23,6 +23,17 @@
 
 </div>
 
+> **🧭 Navigation:** [Root README](../README.md) · [dirac-lab/](../dirac-lab/README.md) · [Hilbert_Polya/](../Hilbert_Polya/README.md)
+
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/visuals/animated/ab_flux_vortex.svg">
+  <img src="../assets/visuals/animated/ab_flux_vortex.svg" alt="Animated AB flux vortex: circulation of the Aharonov-Bohm phase around the flux line with the phase dial (conceptual animation, not raw data)" width="620">
+</picture>
+</p>
+
+*Conceptual animation — not raw data.*
+
 ---
 
 ## TL;DR

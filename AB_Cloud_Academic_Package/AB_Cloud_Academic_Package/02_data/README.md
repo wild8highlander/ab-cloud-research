@@ -1,5 +1,15 @@
 # 02_data — datasets, schemas, dictionaries, cards
 
+> **🧭 Navigation:** [Package root](../README.md) · [AB_Cloud_Academic_Package/](../../README.md) · [Repo root](../../../README.md)
+
+```mermaid
+flowchart LR
+    A["01_monographs<br/>the unified monograph"] --> B["02_data<br/>datasets · schemas · dictionaries"] --> C["03_figures<br/>consolidated figure set"]
+    style B fill:#1f6feb,color:#fff
+```
+
+*Layer map of the unified package — the highlighted node is this layer.*
+
 | Path | What it is |
 |---|---|
 | [`raw/`](raw/README.md) | byte copies of the sources' curated datasets (read-only) |

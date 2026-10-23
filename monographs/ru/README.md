@@ -1,5 +1,16 @@
 # Monograph v22 — Russian Edition
 
+> **🧭 Navigation:** [monographs/](../README.md) · [Root README](../../README.md)
+
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../../assets/visuals/ai/ab_cloud_concept_dark.png">
+  <img src="../../assets/visuals/ai/ab_cloud_concept_light.png" alt="Conceptual render of the AB-cloud: a lattice phase resonator with Aharonov-Bohm flux vortices tuned to the zeros of the Riemann zeta function (illustration, not raw data)" width="760">
+</picture>
+</p>
+
+*Conceptual illustration — not raw data.*
+
 The Russian edition of the rewritten monograph *"AB-Cloud — a phase resonator
 for the zeros of the Riemann zeta function"*, built from scratch on the
 37-test verification suite (v18/v19). Every figure and every number in the

@@ -1,5 +1,15 @@
 # 09_tests — the package integrity suite
 
+> **🧭 Navigation:** [Package root](../README.md) · [AB_Cloud_Academic_Package/](../../README.md) · [Repo root](../../../README.md)
+
+```mermaid
+flowchart LR
+    A["08_assets<br/>visual identity"] --> B["09_tests<br/>package integrity suite"] --> C["10_notebooks<br/>notebooks"]
+    style B fill:#1f6feb,color:#fff
+```
+
+*Layer map of the unified package — the highlighted node is this layer.*
+
 | File | What it checks |
 |---|---|
 | [`python/test_package_structure.py`](python/test_package_structure.py) | the skeleton matches the unified spec; versionless naming; every section has a README |

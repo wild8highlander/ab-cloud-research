@@ -19,6 +19,17 @@
 > 🧭 **Navigation:** [↑ main README](../README.md) · [📚 monographs](../MONOGRAPH_ARCHIVE/README.md) · [🧪 hypothesis lab](../HYPOTHESIS_LAB/README.md) · [🎞 animations](../VISUAL_ANIMATIONS/README.md)
 # 📐 theorems_lemmas/ — the derivations of the theorems Th1–Th6 with measurement figures
 
+```mermaid
+flowchart TD
+    T1["Th1 · hermiticity<br/>real spectrum"] --> T2["Th2 · self-adjointness<br/>drift 2.2e-16"]
+    T2 --> T3["Th3 · Kato corridors<br/>~1e-27"]
+    T3 --> T4["Th4 · Li formula<br/>two paths <= 4.4e-11"]
+    T4 --> T5["Th5 · block reduction<br/>7.1e-15"]
+    T5 --> T6["Th6 · trace carries Lambda(n)/sqrt(n)<br/>r = 0.9996"]
+```
+
+*Th1–Th6 as one chain — each certificate quoted from the table below.*
+
 **The unified folder of the formal and numerical derivations** of the AB Cloud
 Quantum Research study. Each theorem lives in its own `T0K_*` folder and
 contains **four artifacts**: (1) `README.md` — a detailed derivation with the

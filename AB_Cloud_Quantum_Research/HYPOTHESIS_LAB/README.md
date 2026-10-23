@@ -16,6 +16,17 @@ Hypothesis testing laboratory · CLI + browser · Python ≥ 3.10
 
 </div>
 
+> **🧭 Navigation:** [AB_Cloud_Quantum_Research/](../README.md) · [Root README](../../README.md) · [modules/](../modules/README.md)
+
+```mermaid
+flowchart LR
+    C["JSON hypothesis config<br/>thresholds pre-registered"] --> R["offline run<br/>no network · Python >= 3.10"]
+    R --> P["SHA256-pinned report<br/>an artifact, not a draft"]
+    P --> V["verdict + does_not_prove field<br/>PASS and FAIL published alike"]
+```
+
+*The discipline loop of the lab — thresholds are fixed before the run.*
+
 > [!IMPORTANT]
 > **Discipline.** A hypothesis is formulated as a JSON config *before* the run:
 > what is tested, which thresholds, what the result does **not** prove. Changing

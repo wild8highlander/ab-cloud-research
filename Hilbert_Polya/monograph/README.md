@@ -1,5 +1,16 @@
 # monograph/ — the summary volumes and their content sources
 
+> **🧭 Navigation:** [Hilbert_Polya/](../README.md · [Root README](../../README.md)
+
+```mermaid
+flowchart TD
+    S["one content source"] --> L["RU · EN"]
+    L --> F["PDF · DOCX"]
+    F --> V["canon volume T1-T18 · theorem volume T1-T10<br/>reproduction appendix · v2.0 generation"]
+```
+
+*Languages and formats cannot drift: everything is rendered from one source.*
+
 <p align="center"><img src="../assets/illustrations/ill_critical_line.png" width="600" alt="The critical line drawn as a bound volume spine"/></p>
 
 <p align="center"><img src="../assets/avatars/hp_cast_strip.svg" width="720" alt="Bridge avatar cast"/></p>

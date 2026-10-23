@@ -1,5 +1,7 @@
 # R Verification — canonical port (CANON_SPEC v3.0)
 
+> **🧭 Navigation:** [verification/](../README.md) · [Root README](../../README.md) · [CANON_SPEC](../CANON_SPEC.md)
+
 Base-R implementation of the AB-Cloud Verification Suite kernel. No CRAN
 packages; runs anywhere R ≥ 4.0 does. This port follows
 [`../CANON_SPEC.md`](../CANON_SPEC.md) exactly: same frozen anchors, same

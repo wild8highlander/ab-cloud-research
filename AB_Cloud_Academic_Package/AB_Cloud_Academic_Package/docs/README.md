@@ -1,5 +1,7 @@
 # docs/ — documentation site sources (MkDocs-ready)
 
+> **🧭 Navigation:** [Package root](../README.md) · [AB_Cloud_Academic_Package/](../../README.md) · [Repo root](../../../README.md)
+
 | File | Page |
 |---|---|
 | [`index.md`](index.md) | the home page |

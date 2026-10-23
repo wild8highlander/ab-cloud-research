@@ -1,5 +1,7 @@
 # formal/lean4 — Machine-checked AB-Cloud core in Lean 4
 
+> **🧭 Navigation:** [formal/](../../README.md) · [lean4/](../README.md) · [Repo root](../../../README.md)
+
 ![Lean4](https://img.shields.io/badge/Lean4-4.19.0-2E7D32?style=flat-square&logo=lean&logoColor=white)
 ![Deps](https://img.shields.io/badge/dependencies-lean%20core%20only-2EA043?style=flat-square)
 ![CI](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/formal.yml?branch=main&style=flat-square&label=formal%20CI)

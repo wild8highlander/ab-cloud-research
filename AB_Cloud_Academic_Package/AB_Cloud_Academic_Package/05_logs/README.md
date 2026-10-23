@@ -1,5 +1,15 @@
 # 05_logs — logs, provenance, metrics
 
+> **🧭 Navigation:** [Package root](../README.md) · [AB_Cloud_Academic_Package/](../../README.md) · [Repo root](../../../README.md)
+
+```mermaid
+flowchart LR
+    A["04_reports<br/>the report suite"] --> B["05_logs<br/>logs · provenance · metrics"] --> C["06_code<br/>unified CLI · six languages, one contract"]
+    style B fill:#1f6feb,color:#fff
+```
+
+*Layer map of the unified package — the highlighted node is this layer.*
+
 | File | What it is |
 |---|---|
 | [`metrics.json`](metrics.json) | the machine-readable numbers registry (every entry names its campaign) |
