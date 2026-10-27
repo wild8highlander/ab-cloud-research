@@ -927,21 +927,21 @@ contains
   !=============================================================================
   ! b(N; offset) — zeros 1..N against Gram points offset+1 .. offset+N (spec §3)
   !=============================================================================
-  function bN_offset(z, n, N, off) result(v)
+  function bN_offset(z, n, nzeros, off) result(v)
     real(dp), intent(in)  :: z(:)
-    integer, intent(in)   :: n, N, off
+    integer, intent(in)   :: n, nzeros, off
     real(dp)              :: v, acc
     integer               :: k
 
-    if (N <= 0 .or. off + N > n) then
+    if (nzeros <= 0 .or. off + nzeros > n) then
       v = nan_dp
       return
     end if
     acc = 0.0_dp
-    do k = 1, N
+    do k = 1, nzeros
       acc = acc + abs(z(k) - gram_point(off + k))
     end do
-    v = acc/real(N, dp)
+    v = acc/real(nzeros, dp)
   end function bN_offset
 
   !=============================================================================
@@ -1027,8 +1027,8 @@ contains
   subroutine ks_test(sp, m, D, pval)
     real(dp), intent(in)  :: sp(:)
     integer, intent(in)   :: m
-    real(dp), intent(out) :: D, pval, lam
-    real(dp)              :: Fx, d1, d2
+    real(dp), intent(out) :: D, pval
+    real(dp)              :: Fx, d1, d2, lam
     integer               :: i
 
     if (m <= 0) then
@@ -1392,17 +1392,17 @@ contains
 
     integer, parameter :: MAXG = 64
     integer  :: grid(MAXG), ng, i, nfit
-    integer  :: N
+    integer  :: ncur
     real(dp) :: bN, xs(MAXG), ys(MAXG)
     real(dp) :: slope, inter, se, r2, ci_lo, ci_hi
     logical  :: already
 
     ng = 0
-    N = 50
-    do while (N <= n .and. ng < MAXG)
+    ncur = 50
+    do while (ncur <= n .and. ng < MAXG)
       ng = ng + 1
-      grid(ng) = N
-      N = N*2
+      grid(ng) = ncur
+      ncur = ncur*2
     end do
     if (ng > 0) then
       already = (grid(ng) == n)

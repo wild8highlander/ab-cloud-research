@@ -1,0 +1,146 @@
+name: CI autofix
+
+# One-shot repair workflow: applies ALL 4 CI fixes, verifies them with the
+# real toolchain gates and pushes the result to main.
+#
+# How to run: Actions tab -> "CI autofix" -> Run workflow (branch: main).
+# Safe to re-run: already-applied patches are skipped automatically.
+#
+# Fixes applied:
+#   1. 02_data/checksums.sha256 — regenerated from current files (15 README
+#      hashes were stale after the AB-ENRICHED banners were added).
+#   2. verify_core.c (x2) — explicit (int *) cast for calloc (the polyglot
+#      gate compiles .c as C++ with g++ -fsyntax-only).
+#   3. ab_cloud_verify.f90 — Fortran is case-insensitive: dummy args n and N
+#      collided in bN_offset; local N shadowed dummy n in verify_objection3;
+#      lam was declared intent(out) but is a local in ks_test.
+#   4. polyglot.yml — R is not preinstalled on ubuntu-24.04 runners, so the
+#      R job now installs it via r-lib/actions/setup-r@v2.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ci-autofix
+  cancel-in-progress: false
+
+jobs:
+  autofix:
+    name: Apply & verify CI fixes
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Apply source fixes + regenerate 02_data/checksums.sha256
+        run: |
+          python3 << 'PYEOF'
+          import hashlib, pathlib, sys
+
+          def patch(path, old, new):
+              p = pathlib.Path(path)
+              t = p.read_text(encoding="utf-8")
+              tag = old.splitlines()[0][:56]
+              if old in t:
+                  assert t.count(old) == 1, f"pattern not unique in {path}: {tag}"
+                  p.write_text(t.replace(old, new, 1), encoding="utf-8")
+                  print("patched :", tag)
+              elif new in t:
+                  print("already :", tag)
+              else:
+                  print("MISS    :", tag)
+                  sys.exit(1)
+
+          C_CAST_OLD = "int *spf = calloc(N + 1, sizeof(int));"
+          C_CAST_NEW = "int *spf = (int *)calloc(N + 1, sizeof(int));"
+          patch("Hilbert_Polya/multilang/c/verify_core.c", C_CAST_OLD, C_CAST_NEW)
+          patch("AB_Cloud_Quantum_Research/modules/core_spectrum/multilang/c/verify_core.c",
+                C_CAST_OLD, C_CAST_NEW)
+
+          F = "verification/fortran/ab_cloud_verify.f90"
+          patch(F, "function bN_offset(z, n, N, off) result(v)",
+                   "function bN_offset(z, n, nzeros, off) result(v)")
+          patch(F, "integer, intent(in)   :: n, N, off",
+                   "integer, intent(in)   :: n, nzeros, off")
+          patch(F, "if (N <= 0 .or. off + N > n) then",
+                   "if (nzeros <= 0 .or. off + nzeros > n) then")
+          patch(F, "do k = 1, N\n      acc = acc + abs(z(k) - gram_point(off + k))",
+                   "do k = 1, nzeros\n      acc = acc + abs(z(k) - gram_point(off + k))")
+          patch(F, "v = acc/real(N, dp)", "v = acc/real(nzeros, dp)")
+          patch(F, "real(dp), intent(out) :: D, pval, lam",
+                   "real(dp), intent(out) :: D, pval")
+          patch(F, "real(dp)              :: Fx, d1, d2",
+                   "real(dp)              :: Fx, d1, d2, lam")
+          patch(F, "integer  :: N", "integer  :: ncur")
+          patch(F, "N = 50\n", "ncur = 50\n")
+          patch(F, "do while (N <= n .and. ng < MAXG)",
+                   "do while (ncur <= n .and. ng < MAXG)")
+          patch(F, "grid(ng) = N", "grid(ng) = ncur")
+          patch(F, "N = N*2", "ncur = ncur*2")
+
+          W = ".github/workflows/polyglot.yml"
+          patch(W,
+                "      - uses: actions/checkout@v7\n"
+                "      - name: parse() over every tracked R file",
+                "      - uses: actions/checkout@v7\n"
+                "      # R is NOT preinstalled on ubuntu-24.04 runner images (unlike 22.04),\n"
+                "      # so the gate installs it explicitly — otherwise Rscript is missing\n"
+                "      # and the job fails with \"command not found\".\n"
+                "      - uses: r-lib/actions/setup-r@v2\n"
+                "        with:\n"
+                '          r-version: "release"\n'
+                "      - name: parse() over every tracked R file")
+
+          # Regenerate 02_data/checksums.sha256 (order-preserving; hashes of
+          # unchanged datasets stay byte-identical).
+          base = pathlib.Path("AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/02_data")
+          man = base / "checksums.sha256"
+          entries = []
+          for line in man.read_text(encoding="utf-8").splitlines():
+              if "  " in line:
+                  h, pth = line.split("  ", 1)
+                  entries.append((pth, h))
+          assert len(entries) >= 30, f"too few manifest entries: {len(entries)}"
+          out, changed = [], 0
+          for pth, h in entries:
+              f = base / pth
+              if not f.is_file():
+                  print("MISSING listed file:", pth)
+                  sys.exit(1)
+              nh = hashlib.sha256(f.read_bytes()).hexdigest()
+              if nh != h:
+                  changed += 1
+              out.append(f"{nh}  {pth}")
+          if changed:
+              man.write_text("\n".join(out) + "\n", encoding="utf-8")
+          print(f"checksums.sha256: {len(entries)} entries, {changed} hashes updated")
+          PYEOF
+
+      - name: Verify with the real gates (g++, gfortran, sha256sum, yamllint)
+        run: |
+          set -euo pipefail
+          g++ -std=c++17 -fsyntax-only Hilbert_Polya/multilang/c/verify_core.c
+          g++ -std=c++17 -fsyntax-only AB_Cloud_Quantum_Research/modules/core_spectrum/multilang/c/verify_core.c
+          (cd verification/fortran && gfortran -cpp -fsyntax-only ab_cloud_verify.f90)
+          (cd verification/fortran && gfortran -cpp -fsyntax-only ab_cloud_verify_en.f90)
+          (cd verification/fortran && gfortran -cpp -fsyntax-only ab_cloud_verify_ru.f90)
+          (cd AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/02_data && sha256sum -c checksums.sha256 --quiet)
+          pip install --quiet yamllint
+          yamllint -c .yamllint.yaml .github/workflows/polyglot.yml
+          echo "ALL VERIFICATIONS PASSED"
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing to commit — all fixes already applied."
+          else
+            git commit -m "CI: regenerate 02_data checksums; fix C++ casts, Fortran n/N collision, R setup on ubuntu-24.04"
+            git push
+            echo "PUSHED to main"
+          fi

@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
   }
   /* 2) Λ-сито до 100000 + Σ Λ(n)/n^{3/2} */
   int N = 100000;
-  int *spf = calloc(N + 1, sizeof(int));
+  int *spf = (int *)calloc(N + 1, sizeof(int));
   double lsum = 0.0;
   int npc = 0;
   for (int i = 2; i <= N; i++) {

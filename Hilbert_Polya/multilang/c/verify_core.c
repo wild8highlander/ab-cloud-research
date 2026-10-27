@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
     }
     /* (2) Λ-сумма решетом до 1e5 */
     const int N = 100000;
-    int *spf = calloc(N + 1, sizeof(int));
+    int *spf = (int *)calloc(N + 1, sizeof(int));
     double sum = 0.0;
     for (int i = 2; i <= N; i++) {
         if (spf[i] == 0) {
