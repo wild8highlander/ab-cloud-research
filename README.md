@@ -308,9 +308,8 @@ Three summary statements, each traceable to the ledgers and audits below:
 
 - **The spectral statistics converges.** The estimator errors of the
   pre-audit era (GOE rigidity slopes shipped as GUE, an impossible Poisson
-  ⟨r⟩ = 1.3863, stale KS evidence — purged in
-  [audit v2.0.3](docs/audit_v2.0.3.md) and
-  [audit v2.0.4](docs/audit_v2.0.4.md)) are fixed, and with the corrected
+  ⟨r⟩ = 1.3863, stale KS evidence — purged in the audit v2.0.3 and
+  audit v2.0.4 passes) are fixed, and with the corrected
   laws every statistic converges to its GUE prediction: the ⟨r⟩ plateau over
   L = 16 → 80 settles at 0.6004 (χ²/dof = 0.01 against the analytic 0.5997),
   the unfolded-spacing law on 5,000 zeros gives D = 0.031048 / W² = 1.5383 —

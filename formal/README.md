@@ -8,6 +8,17 @@
 <img src="../assets/svg/progress-formal.svg" alt="progress-formal" width="420"/>
 
 </div>
+
+<!-- AB-ENRICHED:v2 · motion strip -->
+<div align="center">
+
+<img src="../projects/quantum-research/VISUAL_ANIMATIONS/gif/compiler_gates.gif" alt="Animated GIF: obligations flowing through the four compiler gates of the formal stack" width="560"/>
+
+<sub>🎞️ <em>Compiler gates: every obligation must pass — Lean 4 · Coq · Agda · Isabelle.</em></sub>
+
+<img src="../assets/svg/divider-animated.svg" alt="—" width="100%" height="14"/>
+
+</div>
 <details>
 <summary><strong>🗺️ How <code>formal/</code> connects to the repository (click)</strong></summary>
 
@@ -324,3 +335,6 @@ masks the others:
 
 <sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
 </div>
+
+<!-- AB-ENRICHED:v2 · footer wave -->
+<img src="https://capsule-render.vercel.app/api?type=waving&height=85&color=0:a78bfa,55:0e1a4a,100:05060f&section=footer&animation=fadeIn" alt="" width="100%"/>

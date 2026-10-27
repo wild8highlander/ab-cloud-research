@@ -8,6 +8,17 @@
 <img src="../assets/svg/progress-tests.svg" alt="progress-tests" width="420"/>
 
 </div>
+
+<!-- AB-ENRICHED:v2 · motion strip -->
+<div align="center">
+
+<img src="../projects/quantum-research/VISUAL_ANIMATIONS/gif/campaign_timeline.gif" alt="Animated GIF: the campaign timeline — verification runs accreting day by day" width="620"/>
+
+<sub>🎞️ <em>The campaign timeline — artifacts accrete run by run, nothing hand-typed.</em></sub>
+
+<img src="../assets/svg/divider-animated.svg" alt="—" width="100%" height="14"/>
+
+</div>
 <details>
 <summary><strong>🗺️ How <code>results/</code> connects to the repository (click)</strong></summary>
 
@@ -202,3 +213,6 @@ the paper trail ends here and starts here.*
 
 <sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
 </div>
+
+<!-- AB-ENRICHED:v2 · footer wave -->
+<img src="https://capsule-render.vercel.app/api?type=waving&height=85&color=0:22c55e,55:0e1a4a,100:05060f&section=footer&animation=fadeIn" alt="" width="100%"/>

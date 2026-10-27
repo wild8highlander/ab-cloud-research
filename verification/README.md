@@ -8,6 +8,19 @@
 <img src="../assets/svg/progress-verification.svg" alt="progress-verification" width="420"/>
 
 </div>
+
+<!-- AB-ENRICHED:v2 · motion strip -->
+<div align="center">
+
+<img src="../assets/svg/progress-spinor64.svg" alt="progress bar: spinor structures GUE-consistent 64/64" width="420"/><br/>
+<img src="../projects/quantum-research/VISUAL_ANIMATIONS/gif/spinor_cycles.gif" alt="Animated GIF: the 64 spinor structures cycling through their holonomy classes" width="560"/><br/>
+<img src="../projects/quantum-research/VISUAL_ANIMATIONS/svg/spinor_ring_pi2.svg" alt="Animated SMIL ring: spinor holonomy phase pi/2 rotating in step" width="170"/> <img src="../projects/quantum-research/VISUAL_ANIMATIONS/svg/spinor_ring_pi3.svg" alt="Animated SMIL ring: spinor holonomy phase pi/3 rotating in step" width="170"/> <img src="../projects/quantum-research/VISUAL_ANIMATIONS/svg/spinor_ring_pi7.svg" alt="Animated SMIL ring: spinor holonomy phase pi/7 — the AB phase — rotating in step" width="170"/>
+
+<sub>🎞️ <em>Ten ports, one verdict — the 64 spinor structures in motion, regenerated from the package's own data.</em></sub>
+
+<img src="../assets/svg/divider-animated.svg" alt="—" width="100%" height="14"/>
+
+</div>
 <details>
 <summary><strong>🗺️ How <code>verification/</code> connects to the repository (click)</strong></summary>
 
@@ -449,3 +462,6 @@ reference statistics is treated as a bug in the port, not an opinion.
 
 <sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
 </div>
+
+<!-- AB-ENRICHED:v2 · footer wave -->
+<img src="https://capsule-render.vercel.app/api?type=waving&height=85&color=0:00e5ff,55:0e1a4a,100:05060f&section=footer&animation=fadeIn" alt="" width="100%"/>

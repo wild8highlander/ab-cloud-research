@@ -6,6 +6,17 @@
 <img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=15&duration=2800&pause=1100&color=4FC3F7&center=true&vCenter=true&width=760&lines=Verdict+dashboard;WebGL+3D+lattice+lab;Static+bundles+%C2%B7+Pages-ready" alt="Typing: section tagline"/>
 
 </div>
+
+<!-- AB-ENRICHED:v2 · motion strip -->
+<div align="center">
+
+<img src="../assets/visuals/animated/gue_transition.svg" alt="Animated SMIL scheme: level spacings flowing from Poisson through the AB-cloud family into the GUE fixed point as the phase dial turns" width="640"/>
+
+<sub>🎞️ <em>GUE transition, live — the spectral story the two apps let you explore.</em></sub>
+
+<img src="../assets/svg/divider-animated.svg" alt="—" width="100%" height="14"/>
+
+</div>
 <details>
 <summary><strong>🗺️ How <code>apps/</code> connects to the repository (click)</strong></summary>
 
@@ -190,3 +201,6 @@ model of the project, extended to the browser.
 
 <sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
 </div>
+
+<!-- AB-ENRICHED:v2 · footer wave -->
+<img src="https://capsule-render.vercel.app/api?type=waving&height=85&color=0:4FC3F7,55:0e1a4a,100:05060f&section=footer&animation=fadeIn" alt="" width="100%"/>

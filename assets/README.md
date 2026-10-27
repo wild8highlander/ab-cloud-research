@@ -6,6 +6,17 @@
 <img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=15&duration=2800&pause=1100&color=8B949E&center=true&vCenter=true&width=760&lines=Banners+%C2%B7+icons+%C2%B7+SVG;One+palette+to+rule+them+all" alt="Typing: section tagline"/>
 
 </div>
+
+<!-- AB-ENRICHED:v2 · motion strip -->
+<div align="center">
+
+<img src="../projects/quantum-research/VISUAL_ANIMATIONS/svg/logo_pulse.svg" alt="Animated SMIL emblem: the AB-Cloud mark pulsing inside its rotating orbit rings" width="210"/>
+
+<sub>🎞️ <em>The AB-Cloud mark, pulsing — one palette to rule them all.</em></sub>
+
+<img src="../assets/svg/divider-animated.svg" alt="—" width="100%" height="14"/>
+
+</div>
 <details>
 <summary><strong>🗺️ How <code>assets/</code> connects to the repository (click)</strong></summary>
 
@@ -87,3 +98,6 @@ third-party copyright anywhere in the visual layer.
 
 <sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
 </div>
+
+<!-- AB-ENRICHED:v2 · footer wave -->
+<img src="https://capsule-render.vercel.app/api?type=waving&height=85&color=0:8B949E,55:0e1a4a,100:05060f&section=footer&animation=fadeIn" alt="" width="100%"/>

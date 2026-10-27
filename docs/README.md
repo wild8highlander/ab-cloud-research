@@ -6,6 +6,17 @@
 <img src="https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&weight=500&size=15&duration=2800&pause=1100&color=526CFE&center=true&vCenter=true&width=760&lines=MkDocs+Material+site;MathJax+everywhere;Deployed+to+GitHub+Pages" alt="Typing: section tagline"/>
 
 </div>
+
+<!-- AB-ENRICHED:v2 · motion strip -->
+<div align="center">
+
+<img src="../projects/quantum-research/VISUAL_ANIMATIONS/svg/folder_map.svg" alt="Animated SMIL map of the repository tree: nodes glowing and pulsing as the reading paths light up" width="620"/>
+
+<sub>🎞️ <em>The whole repository tree, animated — start here, then go anywhere.</em></sub>
+
+<img src="../assets/svg/divider-animated.svg" alt="—" width="100%" height="14"/>
+
+</div>
 <details>
 <summary><strong>🗺️ How <code>docs/</code> connects to the repository (click)</strong></summary>
 
@@ -76,11 +87,9 @@ built with MkDocs Material and auto-deployed on every push to `main`.**
 | [`quickstart.md`](quickstart.md) | fastest paths: Julia suite, Python verification, apps |
 | [`julia-suite.md`](julia-suite.md) | the 39-test two-pass suite explained (modes, flags, outputs) |
 | [`verification.md`](verification.md) | the 10-language verification suite and the three objections |
-| [`monographs.md`](monographs.md) | the trilingual v22 monograph package and formats |
-| [`monograph-v21.md`](monograph-v21.md) | the original v21 monograph and the v21.1 corrections |
+| [`../projects/monographs/`](../projects/monographs/README.md) | the trilingual v22 monograph package and formats — 5 editions, RU · EN · ZH |
+| [`../projects/hilbert-polya/docs/`](../projects/hilbert-polya/docs/README.md) | the Hilbert–Pólya audit series (v2.0.x): the GOE/GUE and rigidity-slope error purges |
 | [`results.md`](results.md) | how to read `results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/` and the reference logs |
-| [`audit_v2.0.3.md`](audit_v2.0.3.md) | the repo-wide GOE/GUE audit — v2.0.3 of the error-purge series |
-| [`audit_v2.0.4.md`](audit_v2.0.4.md) | the rigidity-slope audit — v2.0.4, a full pass over every README and table |
 | [`formal.md`](formal.md) | the formal verification layer: Lean 4 · Coq · Agda · Isabelle |
 | [`map.md`](map.md) | one-page map of the whole repository tree |
 | [`lab3d.md`](lab3d.md) | the 3D laboratory: modes A–J, committed runs |
@@ -153,9 +162,7 @@ README and site without losing their place. The built output (`site/`) is dispos
 |---|---|---|
 | `assets/` | directory, 3 files inside | folder |
 | `javascripts/` | directory, 1 file inside | folder |
-| `README.md` | 6.7 KB | markdown guide |
-| `audit_v2.0.3.md` | 8.7 KB | markdown guide |
-| `audit_v2.0.4.md` | 8.3 KB | markdown guide |
+| `README.md` | 10.0 KB | markdown guide |
 | `citation.md` | 983 B | markdown guide |
 | `faq.md` | 1.7 KB | markdown guide |
 | `formal.md` | 5.6 KB | markdown guide |
@@ -164,12 +171,10 @@ README and site without losing their place. The built output (`site/`) is dispos
 | `lab3d.md` | 875 B | markdown guide |
 | `license.md` | 1.2 KB | markdown guide |
 | `map.md` | 4.6 KB | markdown guide |
-| `monograph-v21.md` | 1.1 KB | markdown guide |
-| `monographs.md` | 1.6 KB | markdown guide |
 | `quickstart.md` | 1.5 KB | markdown guide |
 | `results.md` | 1.2 KB | markdown guide |
 | `verification.md` | 1.3 KB | markdown guide |
-| **Total (files)** | **49.0 KB** | 16 files + 2 subdirectories |
+| **Total (files)** | **32.4 KB** | 12 files + 2 subdirectories |
 
 ---
 
@@ -208,3 +213,6 @@ committed artifact — every page links the artifact, not the other way around.
 
 <sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
 </div>
+
+<!-- AB-ENRICHED:v2 · footer wave -->
+<img src="https://capsule-render.vercel.app/api?type=waving&height=85&color=0:526CFE,55:0e1a4a,100:05060f&section=footer&animation=fadeIn" alt="" width="100%"/>

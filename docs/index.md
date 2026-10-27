@@ -31,7 +31,7 @@ $$H\psi_n = \gamma_n \psi_n, \qquad \zeta(\tfrac12 + i\gamma_n) = 0$$
 ## Where to go next
 
 - :material-rocket-launch: [Quick start](quickstart.md) — run the suite in 5 minutes
-- :material-book-open-variant: [Monographs](monographs.md) — 5 editions, 57 figures at 600 dpi
+- :material-book-open-variant: [Monographs](https://github.com/wild8highlander/ab-cloud-research/tree/main/projects/monographs) — 5 editions, 57 figures at 600 dpi
 - :material-test-tube: [Verification](verification.md) — 10 languages, 2M zeros
 - :material-shield-check: [Formal verification](formal.md) — Lean 4 · Coq · Agda · Isabelle, 8/8 re-derivation PASS
 - :material-map: [Repository map](map.md) — the whole tree on one page

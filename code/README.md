@@ -8,6 +8,17 @@
 <img src="../assets/svg/progress-tests.svg" alt="progress-tests" width="420"/>
 
 </div>
+
+<!-- AB-ENRICHED:v2 · motion strip -->
+<div align="center">
+
+<img src="../projects/quantum-research/VISUAL_ANIMATIONS/gif/pipeline_flow.gif" alt="Animated GIF: the two-pass verification pipeline — frozen data in, two passes, sealed verdicts out" width="560"/>
+
+<sub>🎞️ <em>The two-pass flagship pipeline — 39 tests, exit-code gated tolerances.</em></sub>
+
+<img src="../assets/svg/divider-animated.svg" alt="—" width="100%" height="14"/>
+
+</div>
 <details>
 <summary><strong>🗺️ How <code>code/</code> connects to the repository (click)</strong></summary>
 
@@ -195,3 +206,6 @@ flowchart LR
 
 <sub>⚡ Part of <a href="../README.md">AB-Cloud Research</a> — phase resonator for the zeros of the Riemann zeta function · <a href="../README.md">🏠 Root README</a></sub>
 </div>
+
+<!-- AB-ENRICHED:v2 · footer wave -->
+<img src="https://capsule-render.vercel.app/api?type=waving&height=85&color=0:9558B2,55:0e1a4a,100:05060f&section=footer&animation=fadeIn" alt="" width="100%"/>
