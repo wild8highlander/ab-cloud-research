@@ -140,7 +140,8 @@ jobs:
           if git diff --cached --quiet; then
             echo "Nothing to commit — all fixes already applied."
           else
-            git commit -m "CI: regenerate 02_data checksums; fix C++ casts, Fortran n/N collision, R setup on ubuntu-24.04"
+            git commit -m "CI: regenerate 02_data checksums" \
+                       -m "fix C++ casts, Fortran n/N collision, R setup on ubuntu-24.04"
             git push
             echo "PUSHED to main"
           fi
