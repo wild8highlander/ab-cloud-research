@@ -10,7 +10,7 @@
 
 > **🧭 Navigation:** [apps/](../README.md) · [dashboard](../ab-cloud-dashboard/README.md) · [Root](../../README.md)
 
-Interactive WebGL laboratory (React 18 + Vite + **Three.js**) visualizing
+Interactive WebGL laboratory (React 19 + Vite + **Three.js**) visualizing
 the 3D-1…3D-34 experiments of the Julia suite. Every scene is computed in
 the browser — the γ values are not pre-baked pictures but live geometry.
 

@@ -68,7 +68,7 @@ export default function App() {
       <div ref={hostRef} className="canvas-host" />
       <p className="info">{info}</p>
       <footer className="muted">
-        Source: <code>apps/ab-cloud-lab3d/</code> (React 18 + Vite + Three.js).
+        Source: <code>apps/ab-cloud-lab3d/</code> (React 19 + Vite + Three.js).
         ζ evaluator: self-anchored Euler–Maclaurin (port of 3D-34);
         check anchors ζ(2)=π²/6, ζ(4)=π⁴/90, ζ(1/2)≈−1.4603545.
       </footer>

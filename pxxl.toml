@@ -1,0 +1,23 @@
+# ──────────────────────────────────────────────────────────────
+# pxxl.toml — Pxxl build configuration for ab-cloud-research
+# https://docs.pxxl.app/deploy/build-configuration
+#
+# Pxxl reads this file when creating the build plan.
+# All values remain reviewable/editable in the Deploy flow UI.
+# ──────────────────────────────────────────────────────────────
+
+language       = "node"
+framework      = "vite"
+packageManager = "npm"
+
+installCommand = "npm ci"
+buildCommand   = "npm run build"
+
+# Static App target: `npm run build` assembles the full portal
+# (landing + dashboard + lab3d) into ./dist
+outputDirectory = "dist"
+
+# Start command is only used if the project is deployed as a
+# Web Service instead of a Static App (serves dist/ on $PORT).
+startCommand = "npm start"
+port         = 3000

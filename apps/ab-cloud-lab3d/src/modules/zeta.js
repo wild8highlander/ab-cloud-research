@@ -48,7 +48,7 @@ export function zeta(s) {
   const Nc = [N, 0];
   const d = (s[0] - 1) * (s[0] - 1) + s[1] * s[1];
   const invS1 = [(s[0] - 1) / d, -s[1] / d];
-  tail = cMul(invS1, cPow(Nc, [1 - s[0], -s[1]]));
+  let tail = cMul(invS1, cPow(Nc, [1 - s[0], -s[1]]));
   tail = cAdd(tail, cMul([0.5, 0], cPow(Nc, [-s[0], -s[1]])));
   let rising = [1, 0];               // (s)_0
   let asym = [0, 0];

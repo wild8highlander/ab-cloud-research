@@ -1,0 +1,25 @@
+{
+  "name": "ab-cloud-research",
+  "private": true,
+  "version": "1.1.0",
+  "type": "module",
+  "description": "AB-Cloud Research — web portal (verification dashboard + 3D lab). Root Node.js orchestrator for deployment on Pxxl and similar platforms.",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:dashboard": "npm run dev -w ab-cloud-dashboard",
+    "dev:lab3d": "npm run dev -w ab-cloud-lab3d",
+    "build": "node scripts/build-site.mjs",
+    "start": "node scripts/serve.mjs",
+    "preview": "npm run build && node scripts/serve.mjs",
+    "build:dashboard": "npm run build -w ab-cloud-dashboard",
+    "build:lab3d": "npm run build -w ab-cloud-lab3d"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}

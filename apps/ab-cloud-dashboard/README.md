@@ -11,7 +11,7 @@
 > **🧭 Navigation:** [apps/](../README.md) · [lab3d](../ab-cloud-lab3d/README.md) · [Root](../../README.md)
 
 Interactive real-time dashboard of the AB-Cloud verification suite.
-React 18 + Vite, **no charting dependencies** — every plot is hand-rolled
+React 19 + Vite, **no charting dependencies** — every plot is hand-rolled
 SVG, so the whole app is a few source files with a tiny bundle.
 
 ## The three tabs
