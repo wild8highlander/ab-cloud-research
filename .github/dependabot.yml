@@ -9,23 +9,23 @@ updates:
     schedule:
       interval: "monthly"
   - package-ecosystem: "pip"
-    directory: "/AB_Cloud_Quantum_Research/modules/core_spectrum"
+    directory: "/projects/quantum-research/modules/core_spectrum"
     schedule:
       interval: "monthly"
   - package-ecosystem: "pip"
-    directory: "/AB_Cloud_Quantum_Research/modules/processor_ab"
+    directory: "/projects/quantum-research/modules/processor_ab"
     schedule:
       interval: "monthly"
   - package-ecosystem: "pip"
-    directory: "/Hilbert_Polya"
+    directory: "/projects/hilbert-polya"
     schedule:
       interval: "monthly"
   - package-ecosystem: "pip"
-    directory: "/AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/06_code"
+    directory: "/projects/academic-package/06_code"
     schedule:
       interval: "monthly"
   - package-ecosystem: "npm"
-    directory: "/Wave_attractors/wave_attractors/scripts/monograph"
+    directory: "/projects/wave-attractors/wave_attractors/scripts/monograph"
     schedule:
       interval: "monthly"
   - package-ecosystem: "npm"
@@ -45,11 +45,11 @@ updates:
     schedule:
       interval: "monthly"
   - package-ecosystem: "gomod"
-    directory: "/meridian-spectral-observatory/ports/go"
+    directory: "/projects/meridian-observatory/ports/go"
     schedule:
       interval: "monthly"
   - package-ecosystem: "gomod"
-    directory: "/AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/06_code/go"
+    directory: "/projects/academic-package/06_code/go"
     schedule:
       interval: "monthly"
   - package-ecosystem: "cargo"
@@ -61,10 +61,10 @@ updates:
     schedule:
       interval: "monthly"
   - package-ecosystem: "cargo"
-    directory: "/meridian-spectral-observatory/ports/rust"
+    directory: "/projects/meridian-observatory/ports/rust"
     schedule:
       interval: "monthly"
   - package-ecosystem: "cargo"
-    directory: "/AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/06_code/rust"
+    directory: "/projects/academic-package/06_code/rust"
     schedule:
       interval: "monthly"

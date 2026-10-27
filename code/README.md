@@ -174,10 +174,10 @@ flowchart LR
 
 | Layer | What it adds |
 |---|---|
-| [`meridian-spectral-observatory/`](../meridian-spectral-observatory/README.md) | the standalone observatory — the current supercombo and the H1–H7 audit |
+| [`projects/meridian-observatory/`](../projects/meridian-observatory/README.md) | the standalone observatory — the current supercombo and the H1–H7 audit |
 | [`results/`](../results/README.md) | the committed run artifacts of the suite |
 | [`verification/`](../verification/README.md) | the 10-language independent verification |
-| [`dirac-lab/`](../dirac-lab/README.md) | the Dirac-skeleton laboratory (D1–D14) |
+| [`projects/dirac-lab/`](../projects/dirac-lab/README.md) | the Dirac-skeleton laboratory (D1–D14) |
 
 ---
 

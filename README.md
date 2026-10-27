@@ -39,12 +39,12 @@
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 
 [![GUE](https://img.shields.io/badge/%E2%9F%A8r%E2%9F%A9-0.5848%20%C2%B1%200.0260%20vs%20GUE%200.5992-9558B2?style=for-the-badge&logo=julia&logoColor=white&label=%E2%9F%A8r%E2%9F%A9)](results/Test%201-37%20ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt)
-[![Montgomery](https://img.shields.io/badge/Montgomery%20KS-0.047%2C%20p%3D0.27-9558B2?style=for-the-badge&label=KS)](monographs/en/text/AB_Cloud_Monograph_v22_EN.pdf)
+[![Montgomery](https://img.shields.io/badge/Montgomery%20KS-0.047%2C%20p%3D0.27-9558B2?style=for-the-badge&label=KS)](projects/monographs/en/text/AB_Cloud_Monograph_v22_EN.pdf)
 [![Byers–Yang](https://img.shields.io/badge/Byers%E2%80%93Yang%20defect-3.5e--15-2EA043?style=for-the-badge&label=Flux)](results/Test%201-37%20ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt)
 [![Connes](https://img.shields.io/badge/Connes%20self--duality-4%20zero%20modes-2EA043?style=for-the-badge&label=Topology)](results/Test%201-37%20ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt)
 [![Dirac](https://img.shields.io/badge/Dirac%20cone-v_F%E2%88%980.125%2C%20R%C2%B2%3D0.9997-FFB74D?style=for-the-badge&label=Dynamics)](results/Test%201-37%20ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt)
 [![Zeros](https://img.shields.io/badge/%CE%B6%20zeros-2%2C001%2C058%20embedded-4FC3F7?style=for-the-badge&label=Data)](verification/data/)
-[![Lattice](https://img.shields.io/badge/3D%20lattice-36%C2%B3%20Hofstadter-4FC3F7?style=for-the-badge&label=Lab3D)](lab-3d/)
+[![Lattice](https://img.shields.io/badge/3D%20lattice-36%C2%B3%20Hofstadter-4FC3F7?style=for-the-badge&label=Lab3D)](projects/lab-3d/)
 [![Suite](https://img.shields.io/badge/Julia%20suite-v23%20·%2039%20tests%2C%20two--pass-2EA043?style=for-the-badge&label=Suite)](code/ab_cloud_full.jl)
 [![Formal](https://img.shields.io/github/actions/workflow/status/wild8highlander/ab-cloud-research/formal.yml?branch=main&style=for-the-badge&logo=lean&label=Formal%20%C2%B7%20Lean4%2FCoq%2FAgda%2FIsabelle&color=2E7D32)](formal/)
 [![Lean4](https://img.shields.io/badge/Lean4-verify%3A%208%2F8%20PASS-2E7D32?style=for-the-badge&logo=lean&label=%CE%BE%20re-derivation)](formal/lean4/)
@@ -53,11 +53,11 @@
 <!-- CONTENT BADGES -->
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 
-[![Monographs](https://img.shields.io/badge/Monographs-5%20editions%20(RU%2FEN%2FZH%20%2B%20v21%20RU%2FEN)-blue?style=for-the-badge&logo=adobeacrobatreader&logoColor=white&label=Monographs)](monographs/)
+[![Monographs](https://img.shields.io/badge/Monographs-5%20editions%20(RU%2FEN%2FZH%20%2B%20v21%20RU%2FEN)-blue?style=for-the-badge&logo=adobeacrobatreader&logoColor=white&label=Monographs)](projects/monographs/)
 [![Verification](https://img.shields.io/badge/Verification-10%20languages-blue?style=for-the-badge&label=Verification)](verification/)
-[![Figures](https://img.shields.io/badge/Figures-57%20plates%20%40%20600%20dpi%20(19%20%C3%97%203%20languages)-green?style=for-the-badge&label=Figures)](monographs/ru/figures/)
-[![Documents](https://img.shields.io/badge/Documents-docx%20%7C%20pdf%20%7C%20html%20%7C%20pptx%20%7C%20tex-green?style=for-the-badge&logo=googledocs&logoColor=white&label=Documents)](monographs/)
-[![Preprints](https://img.shields.io/badge/Preprints-tex%20%2B%20pdf%20%C3%973-orange?style=for-the-badge&logo=arxiv&label=Preprints)](monographs/en/text/preprint/)
+[![Figures](https://img.shields.io/badge/Figures-57%20plates%20%40%20600%20dpi%20(19%20%C3%97%203%20languages)-green?style=for-the-badge&label=Figures)](projects/monographs/ru/figures/)
+[![Documents](https://img.shields.io/badge/Documents-docx%20%7C%20pdf%20%7C%20html%20%7C%20pptx%20%7C%20tex-green?style=for-the-badge&logo=googledocs&logoColor=white&label=Documents)](projects/monographs/)
+[![Preprints](https://img.shields.io/badge/Preprints-tex%20%2B%20pdf%20%C3%973-orange?style=for-the-badge&logo=arxiv&label=Preprints)](projects/monographs/en/text/preprint/)
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <!-- LANGUAGE & INFRASTRUCTURE BADGES -->
@@ -192,7 +192,7 @@ GUE Wigner surmise and rule out the GOE/Poisson alternatives at a glance.
 </p>
 
 > **How to read this chart.** Built with matplotlib directly from
-> `AB_Cloud_Academic_Package/.../02_data/frozen/zeros/zeros50k.txt` (SHA-256
+> `projects/academic-package/.../02_data/frozen/zeros/zeros50k.txt` (SHA-256
 > pinned). The unfolding uses the Riemann–von Mangoldt counting function; the
 > recomputed ratio statistic ⟨r⟩ = 0.6119 over 49,998 gaps lands inside the
 > suite's own GUE band [0.5772, 0.6212].
@@ -202,22 +202,22 @@ GUE Wigner surmise and rule out the GOE/Poisson alternatives at a glance.
 <table>
 <tr>
 <td align="center" width="33%">
-<img src="AB_Cloud_Quantum_Research/VISUAL_ANIMATIONS/gif/zeros_rising.gif" alt="zeros rising — ζ-zeros climbing the critical line" width="100%"/><br/>
+<img src="projects/quantum-research/VISUAL_ANIMATIONS/gif/zeros_rising.gif" alt="zeros rising — ζ-zeros climbing the critical line" width="100%"/><br/>
 <sub><strong>zeros_rising</strong> — ζ-zeros climbing the critical line</sub>
 </td>
 <td align="center" width="33%">
-<img src="AB_Cloud_Quantum_Research/VISUAL_ANIMATIONS/gif/spinor_cycles.gif" alt="spinor cycles — the 64 spinor structures in motion" width="100%"/><br/>
+<img src="projects/quantum-research/VISUAL_ANIMATIONS/gif/spinor_cycles.gif" alt="spinor cycles — the 64 spinor structures in motion" width="100%"/><br/>
 <sub><strong>spinor_cycles</strong> — the 64 spinor structures in motion</sub>
 </td>
 <td align="center" width="33%">
-<img src="AB_Cloud_Quantum_Research/VISUAL_ANIMATIONS/gif/pipeline_flow.gif" alt="pipeline flow — two-pass verification pipeline" width="100%"/><br/>
+<img src="projects/quantum-research/VISUAL_ANIMATIONS/gif/pipeline_flow.gif" alt="pipeline flow — two-pass verification pipeline" width="100%"/><br/>
 <sub><strong>pipeline_flow</strong> — two-pass verification pipeline</sub>
 </td>
 </tr>
 </table>
 
-> Full animation catalogue: [AB_Cloud_Quantum_Research/VISUAL_ANIMATIONS/](AB_Cloud_Quantum_Research/VISUAL_ANIMATIONS/README.md)
-> · visual language & component library: [.readme-components/](.readme-components/README.md)
+> Full animation catalogue: [projects/quantum-research/VISUAL_ANIMATIONS/](projects/quantum-research/VISUAL_ANIMATIONS/README.md)
+> · visual language & component library: [readme toolkit](scripts/readme/)
 
 <div align="center">
 <img src="assets/svg/divider-animated.svg" alt="—" width="100%" height="14"/>
@@ -261,7 +261,7 @@ the number, produced by the named run; re-running the command from the
 
 > The v23 monograph consolidates the ledger; the v22 series (RU/EN/ZH + v2.2.1
 > corrections) and the original v21 pair remain archived under
-> [monographs/](monographs/) exactly as released at DOI 10.5281/zenodo.21825394.
+> [projects/monographs/](projects/monographs/) exactly as released at DOI 10.5281/zenodo.21825394.
 
 ## 🌀 What is the AB-cloud?
 
@@ -336,7 +336,7 @@ Three summary statements, each traceable to the ledgers and audits below:
   (C3), with the trace bridge ‖ΔK‖ ≤ 1.2e-5 (C4). The prime channel (H5)
   is YES since audit v2.0.8 — the convergence ladder: the gate
   ψ-correlation climbs with the vortex coverage (−0.12 → +0.09 → +0.24)
-  and, per the `Vortex_optimization` scan, with the lattice size (GUE floor
+  and, per the `projects/vortex-optimization` scan, with the lattice size (GUE floor
   0.0324 → 0.0220 for L = 24 → 96, best pooled D = 0.0318), entering the
   operator together with H2 through the level identity. The one open item is
   the *bit-level* branch — the direct L = 96 escape of the gate ladder from
@@ -369,9 +369,9 @@ it — the whole construction, in four steps:
    formal layer, with the honest finite-T caveats kept visible rather than
    tuned away.
 
-The monographs ([EN](monographs/en/text/AB_Cloud_Monograph_v22_EN.pdf) ·
-[RU](monographs/ru/text/AB_Cloud_Monograph_v22_RU.pdf) ·
-[ZH](monographs/zh/text/AB_Cloud_Monograph_v22_ZH.pdf)) carry the full
+The monographs ([EN](projects/monographs/en/text/AB_Cloud_Monograph_v22_EN.pdf) ·
+[RU](projects/monographs/ru/text/AB_Cloud_Monograph_v22_RU.pdf) ·
+[ZH](projects/monographs/zh/text/AB_Cloud_Monograph_v22_ZH.pdf)) carry the full
 analytic story: seven chapters, the spinor-structure calculus on the Klein
 quartic, and the verification appendices that mirror this repository.
 
@@ -427,9 +427,9 @@ immediately visible rather than hidden by different inputs.
 
 ---
 
-## 📦 AB_Cloud_Quantum_Research — the packaged program
+## 📦 projects/quantum-research — the packaged program
 
-[`AB_Cloud_Quantum_Research/`](AB_Cloud_Quantum_Research/README.md) is the
+[`projects/quantum-research/`](projects/quantum-research/README.md) is the
 self-contained campaign program inside this repository: four levels of one
 machine — the spectral core (V01–V19, theorems Th1–Th6, the V13 obligation
 machine), the AB processor (V20/P0, exact Givens-QR compilation), the
@@ -441,9 +441,9 @@ pre-registered campaigns, all PASS, 9 theorems with certificates**.
 
 | Folder | What it is | Highlights |
 |--------|-----------|------------|
-| 📚 [`MONOGRAPH_ARCHIVE/`](AB_Cloud_Quantum_Research/MONOGRAPH_ARCHIVE/README.md) | the publication layer: monographs of the whole program | main monograph **RU + EN × DOCX + PDF** (104+ pages, 28 figures, 44 tables) · 4 level research-program monographs · 10 compilable LaTeX (.tex) sources · license duplicated inside |
-| 🧪 [`HYPOTHESIS_LAB/`](AB_Cloud_Quantum_Research/HYPOTHESIS_LAB/README.md) | the open hypothesis laboratory — **test your own hypotheses** under the program discipline | 4 batteries (spinor · blind zeros · explicit formula · exact compilation) · Python CLI `ab_lab.py` + offline browser lab · SHA256-pinned verdicts with `does_not_prove` |
-| 🎞 [`VISUAL_ANIMATIONS/`](AB_Cloud_Quantum_Research/VISUAL_ANIMATIONS/README.md) | how the whole folder works — shown, not told | 5 GIF animations · 7 animated SMIL SVGs (GitHub-visible) · 6 interactive HTML pages · everything rebuildable by scripts |
+| 📚 [`MONOGRAPH_ARCHIVE/`](projects/quantum-research/MONOGRAPH_ARCHIVE/README.md) | the publication layer: monographs of the whole program | main monograph **RU + EN × DOCX + PDF** (104+ pages, 28 figures, 44 tables) · 4 level research-program monographs · 10 compilable LaTeX (.tex) sources · license duplicated inside |
+| 🧪 [`HYPOTHESIS_LAB/`](projects/quantum-research/HYPOTHESIS_LAB/README.md) | the open hypothesis laboratory — **test your own hypotheses** under the program discipline | 4 batteries (spinor · blind zeros · explicit formula · exact compilation) · Python CLI `ab_lab.py` + offline browser lab · SHA256-pinned verdicts with `does_not_prove` |
+| 🎞 [`VISUAL_ANIMATIONS/`](projects/quantum-research/VISUAL_ANIMATIONS/README.md) | how the whole folder works — shown, not told | 5 GIF animations · 7 animated SMIL SVGs (GitHub-visible) · 6 interactive HTML pages · everything rebuildable by scripts |
 
 ```mermaid
 flowchart LR
@@ -455,11 +455,11 @@ flowchart LR
     C --> G["🎞 VISUAL_ANIMATIONS"]
 ```
 
-Quick entry points: the [folder README](AB_Cloud_Quantum_Research/README.md)
+Quick entry points: the [folder README](projects/quantum-research/README.md)
 (EN, full)
-· the [main monograph EN](AB_Cloud_Quantum_Research/MONOGRAPH_ARCHIVE/main_monograph/AB_Cloud_Quantum_Research_Monograph_EN.pdf)
-· the [browser hypothesis lab](AB_Cloud_Quantum_Research/HYPOTHESIS_LAB/hypothesis_lab.html)
-· the [animation portal](AB_Cloud_Quantum_Research/VISUAL_ANIMATIONS/html/index.html).
+· the [main monograph EN](projects/quantum-research/MONOGRAPH_ARCHIVE/main_monograph/AB_Cloud_Quantum_Research_Monograph_EN.pdf)
+· the [browser hypothesis lab](projects/quantum-research/HYPOTHESIS_LAB/hypothesis_lab.html)
+· the [animation portal](projects/quantum-research/VISUAL_ANIMATIONS/html/index.html).
 The folder keeps the same honesty discipline as the rest of the repository:
 pre-registered thresholds, blind SHA-pinned protocols, published negative
 results, and the RH conclusion honestly **blocked**.
@@ -481,7 +481,7 @@ each other:
    checks re-implemented in C++, Fortran, Go, Haskell, JavaScript, Julia,
    MATLAB, Python, R and Rust, with answers to 3 standard referee objections
    and ζ-zero datasets up to **2,001,058 zeros** (Odlyzko).
-3. **3D lattice laboratory** (`lab-3d/`) — a three-dimensional non-Hermitian
+3. **3D lattice laboratory** (`projects/lab-3d/`) — a three-dimensional non-Hermitian
    Hofstadter Hamiltonian with vortex lines ("Universal Lattice Operating
    System for the Riemann Zeros"), 36³ lattices, 5000 embedded zeros, full
    output reports.
@@ -762,12 +762,12 @@ spectrum, spinor classes).
 
 | Edition | Language | Formats | Path |
 |---|---|---|---|
-| **v22** (rewritten from scratch on the verified 37-test suite) | Русский | md · html · docx · pdf · pptx · tex | [`monographs/ru/`](monographs/ru/text/) |
-| **v22** | English | md · html · docx · pdf · pptx · tex | [`monographs/en/`](monographs/en/text/) |
-| **v22** | 中文 | md · html · docx · pdf · pptx · tex | [`monographs/zh/`](monographs/zh/text/) |
-| **v21 original** (author's edition with verification) | Русский | docx · pdf · html · md · pptx | [`monographs/original-v21/ru/`](monographs/original-v21/ru/text/) |
-| **v21 English edition** (full translation) | English | docx · pdf · html · md · pptx | [`monographs/original-v21/en/`](monographs/original-v21/en/text/) |
-| **v21.1 corrected editions** (errata note + section 3.2.5: all 64 spinor structures verified) | Русский · English | md · docx · html · pdf | [`monographs/original-v21/`](monographs/original-v21/) |
+| **v22** (rewritten from scratch on the verified 37-test suite) | Русский | md · html · docx · pdf · pptx · tex | [`projects/monographs/ru/`](projects/monographs/ru/text/) |
+| **v22** | English | md · html · docx · pdf · pptx · tex | [`projects/monographs/en/`](projects/monographs/en/text/) |
+| **v22** | 中文 | md · html · docx · pdf · pptx · tex | [`projects/monographs/zh/`](projects/monographs/zh/text/) |
+| **v21 original** (author's edition with verification) | Русский | docx · pdf · html · md · pptx | [`projects/monographs/original-v21/ru/`](projects/monographs/original-v21/ru/text/) |
+| **v21 English edition** (full translation) | English | docx · pdf · html · md · pptx | [`projects/monographs/original-v21/en/`](projects/monographs/original-v21/en/text/) |
+| **v21.1 corrected editions** (errata note + section 3.2.5: all 64 spinor structures verified) | Русский · English | md · docx · html · pdf | [`projects/monographs/original-v21/`](projects/monographs/original-v21/) |
 
 Each v22 edition contains **19 figures at 600 dpi** with captions in the
 language of the edition, a 14-slide presentation, and an arXiv-style preprint
@@ -783,14 +783,14 @@ matrix is a set of files you can open right here.
 
 | Edition | Languages | Formats shipped | Location |
 |---------|-----------|-----------------|----------|
-| **v22** (current line) | RU · EN · ZH | pdf · docx · html · md · tex · pptx | [monographs/ru/text/](monographs/ru/text/) · [en/](monographs/en/text/) · [zh/](monographs/zh/text/) |
+| **v22** (current line) | RU · EN · ZH | pdf · docx · html · md · tex · pptx | [projects/monographs/ru/text/](projects/monographs/ru/text/) · [en/](projects/monographs/en/text/) · [zh/](projects/monographs/zh/text/) |
 | **v2.2.1** corrections | RU · EN | pdf · docx · html | same directories, `*_v221.*` files |
-| **v21 originals** (archived) | RU · EN | pdf — two variants each: *with verification appendix* and *corrected* | [monographs/original-v21/](monographs/original-v21/) |
-| **Preprints** | RU · EN | pdf + tex sources | [monographs/*/text/preprint/](monographs/en/text/preprint/) |
+| **v21 originals** (archived) | RU · EN | pdf — two variants each: *with verification appendix* and *corrected* | [projects/monographs/original-v21/](projects/monographs/original-v21/) |
+| **Preprints** | RU · EN | pdf + tex sources | [projects/monographs/*/text/preprint/](projects/monographs/en/text/preprint/) |
 | **Final report** of the flagship run | EN | md · pdf · docx · html | [results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/FINAL_REPORT/](results/Test%201-37%20ab_cloud_full.jl/run_20260902_134759/FINAL_REPORT/) |
 
 Figure apparatus: **19 plates per language × 3 languages** in
-[monographs/*/figures/](monographs/ru/figures/), all rendered at **600 dpi**;
+[projects/monographs/*/figures/](projects/monographs/ru/figures/), all rendered at **600 dpi**;
 shared media lives in [assets/](assets/). Across the whole repository that
 amounts to **124 PDF, 85 DOCX and 168 PNG** documents — the complete
 publication pipeline of the project, from editable sources to print-ready
@@ -909,11 +909,11 @@ notes (what is and is not claimed):
 
 ## 🧊 3D lattice laboratory
 
-`lab-3d/` accompanies the preprint *"AB-Cloud: A Universal Lattice Operating
+`projects/lab-3d/` accompanies the preprint *"AB-Cloud: A Universal Lattice Operating
 System for the Riemann Zeros"* — a **three-dimensional** non-Hermitian
 Hofstadter Hamiltonian with topological vortex lines: 36³ lattices,
 5000 embedded zeros, Python + Julia implementations, and the full set of
-generated output reports (July 2026 runs) in `lab-3d/outputs/`.
+generated output reports (July 2026 runs) in `projects/lab-3d/outputs/`.
 
 ## 🚀 Quick start
 
@@ -979,11 +979,11 @@ tests individually with custom flags, browse the ζ data, open the Physics
 Lab — a parameter playground for the AB-cloud (L, α, Nv, W, gauge, seed)
 with live ⟨r⟩ / KS / spectrum readouts — and the 3D lattice laboratory.
 
-**The 3D lattice laboratory ([lab-3d/](lab-3d/) + [apps/ab-cloud-lab3d/](apps/ab-cloud-lab3d/)).**
+**The 3D lattice laboratory ([projects/lab-3d/](projects/lab-3d/) + [apps/ab-cloud-lab3d/](apps/ab-cloud-lab3d/)).**
 Hofstadter butterflies and vortex textures in three dimensions, rendered
-both offline (Python/Julia pipelines in `lab-3d/code/`, committed outputs
-in `lab-3d/outputs/`) and interactively in the browser app. The lab ships
-its own preprint bundle ([lab-3d/preprint/](lab-3d/preprint/)) and a 36³
+both offline (Python/Julia pipelines in `projects/lab-3d/code/`, committed outputs
+in `projects/lab-3d/outputs/`) and interactively in the browser app. The lab ships
+its own preprint bundle ([projects/lab-3d/preprint/](projects/lab-3d/preprint/)) and a 36³
 Hofstadter configuration as the reference scene.
 
 **The dashboard ([apps/ab-cloud-dashboard/](apps/ab-cloud-dashboard/)).**
@@ -1242,9 +1242,9 @@ The monograph ships **19 plates per language** (RU / EN / ZH), rendered at
 the ledger, so a figure and its claim can never drift apart. The same
 plates appear in the per-language figure directories:
 
-[monographs/ru/figures/](monographs/ru/figures/) ·
-[monographs/en/figures/](monographs/en/figures/) ·
-[monographs/zh/figures/](monographs/zh/figures/)
+[projects/monographs/ru/figures/](projects/monographs/ru/figures/) ·
+[projects/monographs/en/figures/](projects/monographs/en/figures/) ·
+[projects/monographs/zh/figures/](projects/monographs/zh/figures/)
 
 | Plate | What it shows | Producing test |
 |-------|---------------|----------------|
@@ -1284,11 +1284,11 @@ ab-cloud-research/
 │   ├── lean4/                    #   theorems + abcloud-verify executable (8/8 PASS)
 │   ├── coq/ · agda/ · isabelle/  #   the same exact core in three more assistants
 │   └── assets/                   #   banners & seal
-├── Hilbert_Polya/                # NEW: Hilbert–Pólya bridge subproject (C1–C17 campaigns)
+├── projects/hilbert-polya/                # NEW: Hilbert–Pólya bridge subproject (C1–C17 campaigns)
 ├── apps/                         # React applications
 │   ├── ab-cloud-dashboard/       #   39-test dashboard, real-time ζ statistics (+ dist/)
 │   └── ab-cloud-lab3d/           #   WebGL 3D laboratory: lattice, Dirac cone, ζ strip (+ dist/)
-├── monographs/
+├── projects/monographs/
 │   ├── ru/  en/  zh/             # v22 editions: md + html + docx + pdf + pptx + preprint
 │   │   ├── text/                 #   + 19 figures @ 600 dpi per language
 │   │   └── figures/
@@ -1296,12 +1296,12 @@ ab-cloud-research/
 │       ├── ru/  en/              #   docx + pdf + html + md + pptx (16 slides each)
 │       └── media/                #   shared figures
 ├── verification/                 # 10-language verification + spinor64 + ζ data
-├── lab-3d/                       # 3D lattice laboratory (code + outputs + preprint)
-├── dirac-lab/                    # NEW: Dirac laboratory — D1–D14, 96 checks, all PASS
-├── Vortex_optimization/          # NEW: Test 34-ext vortex-density scan (D = 0.0318)
-├── Wave_attractors/              # NEW: hyperbolic wave-attractors reproduction (study W1)
-├── meridian-spectral-observatory/ # NEW: standalone Julia spectral benches
-├── AB_Cloud_Academic_Package/    # NEW: packaged academic submission bundle
+├── projects/lab-3d/                       # 3D lattice laboratory (code + outputs + preprint)
+├── projects/dirac-lab/                    # NEW: Dirac laboratory — D1–D14, 96 checks, all PASS
+├── projects/vortex-optimization/          # NEW: Test 34-ext vortex-density scan (D = 0.0318)
+├── projects/wave-attractors/              # NEW: hyperbolic wave-attractors reproduction (study W1)
+├── projects/meridian-observatory/ # NEW: standalone Julia spectral benches
+├── projects/academic-package/    # NEW: packaged academic submission bundle
 ├── results/                      # 586 files: run_20260902_134759 artifacts + reference logs
 ├── docs/                         # MkDocs Material documentation site
 ├── assets/                       # banner & repo art
@@ -1320,25 +1320,25 @@ READMEs are maintained in English.
 | `code/julia/` | [`code/julia/README.md`](code/julia/README.md) | the v23 provenance copy and how it relates to the suite |
 | `formal/` | [`formal/README.md`](formal/README.md) | the formal layer: coverage matrix across Lean 4 · Coq · Agda · Isabelle, quick starts, the 8/8 re-derivation ledger |
 | `formal/lean4/` | [`formal/lean4/ABCloud/README.md`](formal/lean4/ABCloud/README.md) | the Lean project anatomy: exact layer, numeric port, generated references, executable |
-| `Hilbert_Polya/` | [`Hilbert_Polya/README.md`](Hilbert_Polya/README.md) | the Hilbert–Pólya bridge: campaigns C1–C17, monograph volumes, infographics |
+| `projects/hilbert-polya/` | [`projects/hilbert-polya/README.md`](projects/hilbert-polya/README.md) | the Hilbert–Pólya bridge: campaigns C1–C17, monograph volumes, infographics |
 | `verification/` | [`verification/README.md`](verification/README.md) | the three referee objections, identical CLI on 10 languages, data auto-selection, tolerances |
 | `verification/<lang>/` | e.g. [`verification/python/README.md`](verification/python/README.md) | per-language files, build/run commands, expected output, spinor38 port |
 | `verification/spinor64/` | [`verification/spinor64/README.md`](verification/spinor64/README.md) | the 64-spinor experiment E1+E2, orbits 28/21/7/7/1 |
 | `verification/data/` | [`verification/data/README.md`](verification/data/README.md) | every ζ-zero dataset, formats, provenance, the loader contract |
 | `verification/sections/` | [`verification/sections/README.md`](verification/sections/README.md) | per-section closed-form micro-verifications |
-| `monographs/` | [`monographs/README.md`](monographs/README.md) | the five editions, format guide, what physics each document stores, how to rebuild |
-| `monographs/{ru,en,zh}/` | [`monographs/en/README.md`](monographs/en/README.md) | per-edition file tables, reading order, appendices B/D |
-| `monographs/original-v21/` | [`monographs/original-v21/README.md`](monographs/original-v21/README.md) | the original v21, its claims, and the exact v21.1 corrections |
-| `lab-3d/` | [`lab-3d/README.md`](lab-3d/README.md) | the 3D lattice OS: key numbers, modes A–J, the four committed runs |
-| `lab-3d/code/`, `lab-3d/outputs/` | `README.md` inside each | the 69-module map; how to read/regenerate the 2026-07-31 runs |
+| `projects/monographs/` | [`projects/monographs/README.md`](projects/monographs/README.md) | the five editions, format guide, what physics each document stores, how to rebuild |
+| `projects/monographs/{ru,en,zh}/` | [`projects/monographs/en/README.md`](projects/monographs/en/README.md) | per-edition file tables, reading order, appendices B/D |
+| `projects/monographs/original-v21/` | [`projects/monographs/original-v21/README.md`](projects/monographs/original-v21/README.md) | the original v21, its claims, and the exact v21.1 corrections |
+| `projects/lab-3d/` | [`projects/lab-3d/README.md`](projects/lab-3d/README.md) | the 3D lattice OS: key numbers, modes A–J, the four committed runs |
+| `projects/lab-3d/code/`, `projects/lab-3d/outputs/` | `README.md` inside each | the 69-module map; how to read/regenerate the 2026-07-31 runs |
 | `results/` | [`results/README.md`](results/README.md) | the 454-file run `run_20260902_134759` and the reference logs |
 | `apps/` | [`apps/README.md`](apps/README.md) | the two React apps and how to run/deploy them |
 | `apps/ab-cloud-dashboard/`, `apps/ab-cloud-lab3d/` | `README.md` inside each | tab-by-tab feature guide, architecture, build commands |
-| `dirac-lab/` | [`dirac-lab/README.md`](dirac-lab/README.md) | the Dirac laboratory: D1–D14 test ledger (96 checks, all PASS), Dirac skeleton of the AB-cloud |
-| `Vortex_optimization/` | [`Vortex_optimization/README.md`](Vortex_optimization/README.md) | the Test 34-ext vortex-density scan: 242 configurations, best D = 0.0318 vs reference 0.1096 |
-| `Wave_attractors/` | [`Wave_attractors/README.md`](Wave_attractors/README.md) | study W1: hyperbolic wave attractors reproduced from first principles |
-| `meridian-spectral-observatory/` | [`meridian-spectral-observatory/README.md`](meridian-spectral-observatory/README.md) | standalone Julia benches: from the lattice AB model to ζ-zero statistics |
-| `AB_Cloud_Academic_Package/` | [`AB_Cloud_Academic_Package/README.md`](AB_Cloud_Academic_Package/README.md) | the packaged academic submission: monographs, preprints, run archive, SHA-256 sums |
+| `projects/dirac-lab/` | [`projects/dirac-lab/README.md`](projects/dirac-lab/README.md) | the Dirac laboratory: D1–D14 test ledger (96 checks, all PASS), Dirac skeleton of the AB-cloud |
+| `projects/vortex-optimization/` | [`projects/vortex-optimization/README.md`](projects/vortex-optimization/README.md) | the Test 34-ext vortex-density scan: 242 configurations, best D = 0.0318 vs reference 0.1096 |
+| `projects/wave-attractors/` | [`projects/wave-attractors/README.md`](projects/wave-attractors/README.md) | study W1: hyperbolic wave attractors reproduced from first principles |
+| `projects/meridian-observatory/` | [`projects/meridian-observatory/README.md`](projects/meridian-observatory/README.md) | standalone Julia benches: from the lattice AB model to ζ-zero statistics |
+| `projects/academic-package/` | [`projects/academic-package/README.md`](projects/academic-package/README.md) | the packaged academic submission: monographs, preprints, run archive, SHA-256 sums |
 | `docs/` | [`docs/README.md`](docs/README.md) | the MkDocs site pages and how to build them |
 | `assets/` | [`assets/README.md`](assets/README.md) | banner provenance and figure reuse rules |
 | `.github/` | [`.github/WORKFLOWS.md`](.github/WORKFLOWS.md) | what every CI workflow, template and automation file does |
@@ -1519,15 +1519,15 @@ repository, each starting where *you* are:
 **🧑‍🔬 The physicist (half a day).**
 [What is the AB-cloud](#-what-is-the-ab-cloud) → [key results](#-key-verified-results)
 → the [statistical deep-dive](#-statistical-deep-dive--how-to-read-the-numbers)
-→ the English monograph PDF ([v22](monographs/en/text/AB_Cloud_Monograph_v22_EN.pdf),
+→ the English monograph PDF ([v22](projects/monographs/en/text/AB_Cloud_Monograph_v22_EN.pdf),
 7 chapters, 19 plates) → reproduce one figure from
-[lab-3d/](lab-3d/) → the [3D lab preprint](lab-3d/preprint/).
+[projects/lab-3d/](projects/lab-3d/) → the [3D lab preprint](projects/lab-3d/preprint/).
 
 **🧮 The mathematician (at your own pace).**
 The [64 spinor structures](#-the-64-spinor-structures--full-data) and the
 Klein quartic orbit theorem → Connes self-duality and Chern anchors in the
 [ledger](#-full-test-ledger--the-two-pass-flagship-run)
-→ the `.tex` sources of the monograph ([monographs/*/text](monographs/en/text/))
+→ the `.tex` sources of the monograph ([projects/monographs/*/text](projects/monographs/en/text/))
 → ζ dataset provenance in [verification/data/README.md](verification/data/README.md).
 
 **👨‍💻 The engineer / reproducibility auditor (one evening).**
@@ -1541,7 +1541,7 @@ workflows in [.github/WORKFLOWS.md](.github/WORKFLOWS.md).
 The hosted [documentation site](https://wild8highlander.github.io/ab-cloud-research)
 → the interactive [dashboard app](apps/ab-cloud-dashboard/) and
 [3D lab app](apps/ab-cloud-lab3d/) → `make menu` for the interactive Julia
-explorer → the figures gallery ([monographs/ru/figures/](monographs/ru/figures/))
+explorer → the figures gallery ([projects/monographs/ru/figures/](projects/monographs/ru/figures/))
 → the FAQ below.
 
 ## ❓ FAQ — honest answers to fair questions

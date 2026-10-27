@@ -9,6 +9,8 @@ site_description: >-
   lab.
 site_author: "Isaev Iskhak Khamzatovich"
 site_url: "https://wild8highlander.github.io/ab-cloud-research"
+# Build into dist-docs/ — site/ is the live Pxxl deploy portal, do not touch it.
+site_dir: "dist-docs"
 repo_url: "https://github.com/wild8highlander/ab-cloud-research"
 repo_name: wild8highlander/ab-cloud-research
 copyright: "Copyright © 2026 Isaev Iskhak Khamzatovich — Custom Research License"

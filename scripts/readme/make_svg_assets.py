@@ -115,10 +115,10 @@ def progress_bar(name, label, value, frac=1.0, c1=CYAN, c2=MAGENTA, w=600):
 
 # ---- dividers (category palette variants) ----
 divider(CYAN, MAGENTA, "animated")            # universal (root README)
-divider(CYAN, CYAN, "cyan")                   # verification, dirac-lab, Wave_attractors, apps
-divider(MAGENTA, MAGENTA, "magenta")          # AB_Cloud_Quantum_Research, lab-3d, Vortex_optimization
-divider(VIOLET, VIOLET, "violet")             # formal, Hilbert_Polya, meridian-spectral-observatory
-divider(GOLD, GOLD, "gold")                   # monographs, AB_Cloud_Academic_Package
+divider(CYAN, CYAN, "cyan")                   # verification, dirac-lab, projects/wave-attractors, apps
+divider(MAGENTA, MAGENTA, "magenta")          # projects/quantum-research, lab-3d, projects/vortex-optimization
+divider(VIOLET, VIOLET, "violet")             # formal, projects/hilbert-polya, projects/meridian-observatory
+divider(GOLD, GOLD, "gold")                   # monographs, projects/academic-package
 divider(GREEN, CYAN, "green")                 # results
 divider(PURPLE, VIOLET, "purple")             # code
 divider(BLUE, VIOLET, "blue")                 # docs

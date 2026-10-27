@@ -7243,6 +7243,7 @@ function _hp_discover_zeros()::String
     cands = String[]
     get(ENV, "HP_ZEROS", "") != "" && push!(cands, ENV["HP_ZEROS"])
     push!(cands, joinpath(@__DIR__, "zeros50k.txt"))
+    push!(cands, joinpath(@__DIR__, "..", "verification", "zeros50k.txt")) # repo canonical copy
     push!(cands, joinpath(pwd(), "zeros50k.txt"))
     for c in cands
         isfile(c) && return c

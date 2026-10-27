@@ -13,9 +13,9 @@ import os, sys
 REPO = os.environ.get("REPO_ROOT", ".")
 MARK = "AB-ENRICHED"
 SECTIONS = {
-    "verification", "formal", "monographs", "AB_Cloud_Quantum_Research",
-    "AB_Cloud_Academic_Package", "Hilbert_Polya", "dirac-lab", "lab-3d",
-    "Wave_attractors", "Vortex_optimization", "meridian-spectral-observatory",
+    "verification", "formal", "monographs", "projects/quantum-research",
+    "projects/academic-package", "projects/hilbert-polya", "dirac-lab", "lab-3d",
+    "projects/wave-attractors", "projects/vortex-optimization", "projects/meridian-observatory",
     "results", "code", "apps", "docs", "assets",
 }
 SKIP_TOKENS = ("_source", "_original", "_template", "_documents")

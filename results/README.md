@@ -188,7 +188,7 @@ artifacts is not licensed without the Author's written consent.
 *Runs are committed, verdicts are timestamped, negatives are citizens —
 the paper trail ends here and starts here.*
 
-**[↑ back to top](#-what-lives-here)** · [Repository root](../README.md) · [Academic Package](../AB_Cloud_Academic_Package/README.md)
+**[↑ back to top](#-what-lives-here)** · [Repository root](../README.md) · [Academic Package](../projects/academic-package/README.md)
 
 </div>
 

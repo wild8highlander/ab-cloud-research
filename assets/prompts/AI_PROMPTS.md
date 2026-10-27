@@ -43,7 +43,7 @@ Thin horizontal banner, dark navy background hex 05060f, a geometric formal proo
 
 ### P-04 · `banner-monographs` #banner #section
 
-- **Target file:** assets/banners/banner-monographs.webp — end-cap of monographs/README.md
+- **Target file:** assets/banners/banner-monographs.webp — end-cap of projects/monographs/README.md
 - **Generation size:** `1344x768`
 
 ```text
@@ -70,7 +70,7 @@ Thin horizontal banner, dark navy background hex 05060f, a luminous spectral sta
 
 ### P-07 · `banner-dirac-lab` #banner #section
 
-- **Target file:** assets/banners/banner-dirac-lab.webp — end-cap of dirac-lab/README.md
+- **Target file:** assets/banners/banner-dirac-lab.webp — end-cap of projects/dirac-lab/README.md
 - **Generation size:** `1344x768`
 
 ```text
@@ -79,7 +79,7 @@ Thin horizontal banner, dark navy background hex 05060f, a glowing double-cone D
 
 ### P-08 · `banner-lab-3d` #banner #section
 
-- **Target file:** assets/banners/banner-lab-3d.webp — end-cap of lab-3d/README.md
+- **Target file:** assets/banners/banner-lab-3d.webp — end-cap of projects/lab-3d/README.md
 - **Generation size:** `1344x768`
 
 ```text
@@ -283,17 +283,17 @@ Social preview card for a mathematical physics research project, dark navy backg
 Square minimal logo icon, very dark navy background hex 05060f, a glowing abstract monogram of two interlocked angular shapes made of thin luminous circuit traces forming a toroidal resonator symbol, cyan gradient glow with subtle magenta accent, high contrast, vector-like, centered, generous margins, no other elements, no text, no watermark
 ```
 
-## Wave_attractors deep-dive (v2 wave-deep-dive)
+## projects/wave-attractors deep-dive (v2 wave-deep-dive)
 
 The W1 folder keeps its own sub-family: one hero, one unique banner per README
-(13 folders), and the study avatar. Targets live in `Wave_attractors/assets/ai/`
-(WebP); the SMIL companions live in `Wave_attractors/assets/visuals/`.
+(13 folders), and the study avatar. Targets live in `projects/wave-attractors/assets/ai/`
+(WebP); the SMIL companions live in `projects/wave-attractors/assets/visuals/`.
 Generation sizes: hero and banners `1344x768` (banners center-cropped to `1344x672`, 2:1;
 hero center-cropped to `1344x756`, 16:9), avatar `1024x1024`.
 
 ### P-W1 · `wave-hero` #hero
 
-- **Target file:** Wave_attractors/assets/ai/hero.webp — top hero of Wave_attractors/README.md
+- **Target file:** projects/wave-attractors/assets/ai/hero.webp — top hero of projects/wave-attractors/README.md
 - **Generation size:** `1344x768` → crop `1344x756`
 
 ```text
@@ -302,7 +302,7 @@ Dramatic wide scientific hero image: a dark anisotropic polygonal cavity seen fr
 
 ### P-W2 · `wave-banner-ci` #banner
 
-- **Target file:** Wave_attractors/assets/ai/banner-ci.webp — .github/README.md
+- **Target file:** projects/wave-attractors/assets/ai/banner-ci.webp — .github/README.md
 - **Generation size:** `1344x768` → crop `1344x672`
 
 ```text
@@ -311,7 +311,7 @@ Continuous integration pipeline visualized as a luminous circuit board where glo
 
 ### P-W3 · `wave-banner-workflows` #banner
 
-- **Target file:** Wave_attractors/assets/ai/banner-workflows.webp — .github/workflows/README.md
+- **Target file:** projects/wave-attractors/assets/ai/banner-workflows.webp — .github/workflows/README.md
 - **Generation size:** `1344x768` → crop `1344x672`
 
 ```text
@@ -320,7 +320,7 @@ Automated workflow machinery made of light: branching directed acyclic graph of 
 
 ### P-W4 · `wave-banner-assets` #banner
 
-- **Target file:** Wave_attractors/assets/ai/banner-assets.webp — assets/README.md
+- **Target file:** projects/wave-attractors/assets/ai/banner-assets.webp — assets/README.md
 - **Generation size:** `1344x768` → crop `1344x672`
 
 ```text
@@ -329,7 +329,7 @@ An elegant dark gallery shelf with framed abstract wave artworks and glowing col
 
 ### P-W5 · `wave-banner-docs` #banner
 
-- **Target file:** Wave_attractors/assets/ai/banner-docs.webp — docs/README.md
+- **Target file:** projects/wave-attractors/assets/ai/banner-docs.webp — docs/README.md
 - **Generation size:** `1344x768` → crop `1344x672`
 
 ```text
@@ -338,7 +338,7 @@ An open futuristic book on a dark desk, glowing hyperbola curves and wave-interf
 
 ### P-W6 · `wave-banner-package` #banner
 
-- **Target file:** Wave_attractors/assets/ai/banner-package.webp — wave_attractors/README.md
+- **Target file:** projects/wave-attractors/assets/ai/banner-package.webp — wave_attractors/README.md
 - **Generation size:** `1344x768` → crop `1344x672`
 
 ```text
@@ -347,7 +347,7 @@ Cross-section blueprint of a scientific software package: nested glowing modules
 
 ### P-W7 · `wave-banner-data` #banner
 
-- **Target file:** Wave_attractors/assets/ai/banner-data.webp — wave_attractors/data/README.md
+- **Target file:** projects/wave-attractors/assets/ai/banner-data.webp — wave_attractors/data/README.md
 - **Generation size:** `1344x768` → crop `1344x672`
 
 ```text
@@ -356,7 +356,7 @@ Crystalline frozen data structures: translucent cubic lattice cells containing g
 
 ### P-W8 · `wave-banner-figures` #banner
 
-- **Target file:** Wave_attractors/assets/ai/banner-figures.webp — wave_attractors/figures/README.md
+- **Target file:** projects/wave-attractors/assets/ai/banner-figures.webp — wave_attractors/figures/README.md
 - **Generation size:** `1344x768` → crop `1344x672`
 
 ```text
@@ -365,7 +365,7 @@ A dark museum gallery hall of glowing framed scientific figures: wave maps, phas
 
 ### P-W9 · `wave-banner-monograph` #banner
 
-- **Target file:** Wave_attractors/assets/ai/banner-monograph.webp — wave_attractors/monograph/README.md
+- **Target file:** projects/wave-attractors/assets/ai/banner-monograph.webp — wave_attractors/monograph/README.md
 - **Generation size:** `1344x768` → crop `1344x672`
 
 ```text
@@ -374,7 +374,7 @@ Two massive scholarly tomes side by side on a dark wooden lectern, embossed chir
 
 ### P-W10 · `wave-banner-report` #banner
 
-- **Target file:** Wave_attractors/assets/ai/banner-report.webp — wave_attractors/report/README.md
+- **Target file:** projects/wave-attractors/assets/ai/banner-report.webp — wave_attractors/report/README.md
 - **Generation size:** `1344x768` → crop `1344x672`
 
 ```text
@@ -383,7 +383,7 @@ A sealed official research report lying on a dark official desk, glowing magenta
 
 ### P-W11 · `wave-banner-scripts` #banner
 
-- **Target file:** Wave_attractors/assets/ai/banner-scripts.webp — wave_attractors/scripts/README.md
+- **Target file:** projects/wave-attractors/assets/ai/banner-scripts.webp — wave_attractors/scripts/README.md
 - **Generation size:** `1344x768` → crop `1344x672`
 
 ```text
@@ -392,7 +392,7 @@ A pipeline of glowing code streams flowing from floating terminal windows into a
 
 ### P-W12 · `wave-banner-julia` #banner
 
-- **Target file:** Wave_attractors/assets/ai/banner-julia.webp — wave_attractors/scripts/julia/README.md
+- **Target file:** projects/wave-attractors/assets/ai/banner-julia.webp — wave_attractors/scripts/julia/README.md
 - **Generation size:** `1344x768` → crop `1344x672`
 
 ```text
@@ -401,7 +401,7 @@ Abstract dual-language parity emblem: two intertwined light streams in cyan and 
 
 ### P-W13 · `wave-banner-monograph-build` #banner
 
-- **Target file:** Wave_attractors/assets/ai/banner-monograph-build.webp — wave_attractors/scripts/monograph/README.md
+- **Target file:** projects/wave-attractors/assets/ai/banner-monograph-build.webp — wave_attractors/scripts/monograph/README.md
 - **Generation size:** `1344x768` → crop `1344x672`
 
 ```text
@@ -410,7 +410,7 @@ An automated printing atelier: a conveyor of glowing pages assembling into a boo
 
 ### P-W14 · `wave-banner-report-build` #banner
 
-- **Target file:** Wave_attractors/assets/ai/banner-report-build.webp — wave_attractors/scripts/report/README.md
+- **Target file:** projects/wave-attractors/assets/ai/banner-report-build.webp — wave_attractors/scripts/report/README.md
 - **Generation size:** `1344x768` → crop `1344x672`
 
 ```text
@@ -419,7 +419,7 @@ A typographic compose room: glowing metal type blocks, a sealed document sheet t
 
 ### P-W15 · `wave-avatar` #avatar
 
-- **Target file:** Wave_attractors/assets/ai/avatar.webp — the W1 emblem on all fourteen folder READMEs
+- **Target file:** projects/wave-attractors/assets/ai/avatar.webp — the W1 emblem on all fourteen folder READMEs
 - **Generation size:** `1024x1024`
 
 ```text

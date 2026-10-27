@@ -23,7 +23,7 @@ import urllib.parse
 
 ROOT = os.environ.get("AB_CLOUD_ROOT", os.path.join(os.path.dirname(__file__), "..", ".."))
 ROOT = os.path.abspath(ROOT)
-PKG = os.path.join(ROOT, "AB_Cloud_Academic_Package", "AB_Cloud_Academic_Package")
+PKG = os.path.join(ROOT, "projects", "academic-package")
 
 SKIP_DIRS = {".git", "node_modules", ".ruff_cache", "__pycache__", ".venv", "site", ".github"}
 
@@ -196,14 +196,14 @@ def cmd_readmes() -> int:
 
 # ─────────────────────────────── sync ───────────────────────────────
 SYNC_PAIRS = [
-    ("code/ab_cloud_full.jl", "AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/06_code/lab_standalone/ab_cloud_full.jl"),
-    ("code/hp_audit_standalone.jl", "AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/06_code/lab_standalone/hp_audit_standalone.jl"),
-    ("code/RH_Unified_D.jl", "AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/06_code/meridian/RH_Unified_D.jl"),
-    ("code/RH_Sweep_Pro_D.jl", "AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/06_code/meridian/RH_Sweep_Pro_D.jl"),
-    ("verification/zeros1.txt", "AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/02_data/frozen/zeros/zeros1.txt"),
-    ("verification/zeros50k.txt", "AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/02_data/frozen/zeros/zeros50k.txt"),
-    ("verification/zeta_zeros_13661.txt", "AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/02_data/frozen/zeros/zeta_zeros_13661.txt"),
-    ("verification/zeta_zeros_highT_blocks.txt", "AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/02_data/frozen/zeros/zeta_zeros_highT_blocks.txt"),
+    ("code/ab_cloud_full.jl", "projects/academic-package/06_code/lab_standalone/ab_cloud_full.jl"),
+    ("code/hp_audit_standalone.jl", "projects/academic-package/06_code/lab_standalone/hp_audit_standalone.jl"),
+    ("code/RH_Unified_D.jl", "projects/academic-package/06_code/meridian/RH_Unified_D.jl"),
+    ("code/RH_Sweep_Pro_D.jl", "projects/academic-package/06_code/meridian/RH_Sweep_Pro_D.jl"),
+    ("verification/zeros1.txt", "projects/academic-package/02_data/frozen/zeros/zeros1.txt"),
+    ("verification/zeros50k.txt", "projects/academic-package/02_data/frozen/zeros/zeros50k.txt"),
+    ("verification/zeta_zeros_13661.txt", "projects/academic-package/02_data/frozen/zeros/zeta_zeros_13661.txt"),
+    ("verification/zeta_zeros_highT_blocks.txt", "projects/academic-package/02_data/frozen/zeros/zeta_zeros_highT_blocks.txt"),
 ]
 
 
@@ -263,13 +263,13 @@ def cmd_sync() -> int:
     data = json.loads(lab[k:end])
     lab_ids = [v["id"] for v in data["verdicts"]]
     if lab_ids != reg_ids:
-        err("AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/07_web_lab/index.html",
+        err("projects/academic-package/07_web_lab/index.html",
             0, f"web-lab verdicts {lab_ids} != registry {reg_ids}")
         v_bad += 1
-    readme = open(os.path.join(PKG, "README.md"), encoding="utf-8").read()
+    readme = open(os.path.join(PKG, "EDITION.md"), encoding="utf-8").read()
     for gid in reg_ids:
         if gid != "RH" and not re.search(rf"^\| {re.escape(gid)}\b", readme, re.M):
-            err("AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/README.md",
+            err("projects/academic-package/EDITION.md",
                 0, f"verdict {gid} missing from the package README ledger table")
             v_bad += 1
     print(f"sync: verdict layer, {v_bad} inconsistencies (registry: {len(reg_ids)} verdicts)")

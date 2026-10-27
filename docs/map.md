@@ -22,7 +22,7 @@ flowchart LR
         C["Coq · Agda · Isabelle"]
     end
     subgraph OUT["Publications & apps"]
-        M["monographs/<br/>v22 RU/EN/ZH + v21 + v2.2.1"]
+        M["projects/monographs/<br/>v22 RU/EN/ZH + v21 + v2.2.1"]
         R["results/<br/>flagship artifacts"]
         APP["apps/<br/>dashboard + 3D lab"]
     end
@@ -45,13 +45,13 @@ flowchart LR
 | `verification/` | the 10-language cross-verification suite, spinor64, ζ datasets, per-section micro-verifications | [`verification/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/verification/README.md) |
 | `formal/` | **the formal layer** — Lean 4 (theorems + executable), Coq, Agda, Isabelle/HOL, all dependency-free | [`formal/README.md`](formal.md) |
 | `formal/lean4/` | the flagship Lean project: exact layer, numeric port, `abcloud-verify` executable | [`formal/lean4/ABCloud/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/formal/lean4/ABCloud/README.md) |
-| `Hilbert_Polya/` | the Hilbert–Pólya bridge subproject: campaigns C1–C8, theorems T1–T10, monograph volumes | [`Hilbert_Polya/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/Hilbert_Polya/README.md) |
-| `monographs/` | five monograph editions (v22 RU/EN/ZH + original v21 RU/EN) + v2.2.1 corrections, 600-dpi figure apparatus | [`monographs/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/monographs/README.md) |
-| `lab-3d/` | the 3D lattice laboratory: code, committed outputs, preprint bundle | [`lab-3d/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/lab-3d/README.md) |
-| `dirac-lab/` | the Dirac laboratory: D1–D14 ledger, 96 checks, all PASS | [`dirac-lab/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/dirac-lab/README.md) |
-| `Vortex_optimization/` | the Test 34-ext vortex-density optimization study (best D = 0.0318) | [`Vortex_optimization/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/Vortex_optimization/README.md) |
-| `Wave_attractors/` | the hyperbolic wave-attractors reproduction study (W1) | [`Wave_attractors/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/Wave_attractors/README.md) |
-| `meridian-spectral-observatory/` | 24 standalone Julia spectral benches | [`meridian-spectral-observatory/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/meridian-spectral-observatory/README.md) |
+| `projects/hilbert-polya/` | the Hilbert–Pólya bridge subproject: campaigns C1–C8, theorems T1–T10, monograph volumes | [`projects/hilbert-polya/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/projects/hilbert-polya/README.md) |
+| `projects/monographs/` | five monograph editions (v22 RU/EN/ZH + original v21 RU/EN) + v2.2.1 corrections, 600-dpi figure apparatus | [`projects/monographs/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/projects/monographs/README.md) |
+| `projects/lab-3d/` | the 3D lattice laboratory: code, committed outputs, preprint bundle | [`projects/lab-3d/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/projects/lab-3d/README.md) |
+| `projects/dirac-lab/` | the Dirac laboratory: D1–D14 ledger, 96 checks, all PASS | [`projects/dirac-lab/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/projects/dirac-lab/README.md) |
+| `projects/vortex-optimization/` | the Test 34-ext vortex-density optimization study (best D = 0.0318) | [`projects/vortex-optimization/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/projects/vortex-optimization/README.md) |
+| `projects/wave-attractors/` | the hyperbolic wave-attractors reproduction study (W1) | [`projects/wave-attractors/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/projects/wave-attractors/README.md) |
+| `projects/meridian-observatory/` | 24 standalone Julia spectral benches | [`projects/meridian-observatory/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/projects/meridian-observatory/README.md) |
 | `apps/` | the React dashboard and the WebGL 3D laboratory (with prebuilt bundles) | [`apps/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/apps/README.md) |
 | `results/` | the flagship run artifacts (453 files, 39 directories) + reference logs | [`results/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/results/README.md) |
 | `docs/` | this MkDocs Material site | [`docs/README.md`](https://github.com/wild8highlander/ab-cloud-research/blob/main/docs/README.md) |

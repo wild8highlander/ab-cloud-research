@@ -3,7 +3,7 @@
 # Canonical numerics live in code/ab_cloud_full.jl (dependency-free Julia).
 # The 10-language verification stack lives in verification/.
 # The formal layer (Lean 4 · Coq · Agda · Isabelle) lives in formal/.
-# The 3D lattice laboratory lives in lab-3d/.
+# The 3D lattice laboratory lives in projects/lab-3d/.
 
 .PHONY: help smoke quick-test test-all menu verify formal formal-lean formal-coq \
         formal-agda formal-isabelle docs docs-serve lint test pytest clean clean-all
@@ -64,8 +64,8 @@ lint: ## Lint workflow YAML, curated markdown and Python (ruff)
         @ruff check . 2>/dev/null || echo "ruff not installed - skipped (CI enforces it)"
 
 pytest: ## Run all four Python test suites (83 tests, ~3 min)
-        cd AB_Cloud_Quantum_Research && $(PYTHON) -m pytest tests/test_unified.py modules/processor_ab/tests/ modules/core_spectrum/tests/ -q
-        cd AB_Cloud_Quantum_Research/research/realtime_spinor_memory && $(PYTHON) -m pytest tests/ -q
+        cd projects/quantum-research && $(PYTHON) -m pytest tests/test_unified.py modules/processor_ab/tests/ modules/core_spectrum/tests/ -q
+        cd projects/quantum-research/research/realtime_spinor_memory && $(PYTHON) -m pytest tests/ -q
 
 test: pytest ## Alias for pytest
 

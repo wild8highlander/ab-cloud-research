@@ -135,7 +135,7 @@
       "size": "1344x336",
       "format": "webp",
       "used_by": [
-        "monographs/README.md"
+        "projects/monographs/README.md"
       ]
     },
     "quantum": {
@@ -162,7 +162,7 @@
       "size": "1344x336",
       "format": "webp",
       "used_by": [
-        "dirac-lab/README.md"
+        "projects/dirac-lab/README.md"
       ]
     },
     "lab-3d": {
@@ -171,7 +171,7 @@
       "size": "1344x336",
       "format": "webp",
       "used_by": [
-        "lab-3d/README.md"
+        "projects/lab-3d/README.md"
       ]
     },
     "results": {
@@ -248,139 +248,139 @@
     }
   },
   "wave_deep_dive": {
-    "_note": "W1 folder deep-dive (v2): one unique AI banner per README + hero + avatar. SMIL companions: Wave_attractors/assets/visuals/ (32 files, not raster-managed).",
+    "_note": "W1 folder deep-dive (v2): one unique AI banner per README + hero + avatar. SMIL companions: projects/wave-attractors/assets/visuals/ (32 files, not raster-managed).",
     "assets": {
       "wave-hero": {
-        "file": "Wave_attractors/assets/ai/hero.webp",
+        "file": "projects/wave-attractors/assets/ai/hero.webp",
         "prompt": "P-W1",
         "used_by": [
-          "/home/z/my-project/ab-cloud-research/Wave_attractors/README.md"
+          "/home/z/my-project/ab-cloud-research/projects/wave-attractors/README.md"
         ],
         "size": "1344x756",
         "format": "webp"
       },
       "wave-ci": {
-        "file": "Wave_attractors/assets/ai/banner-ci.webp",
+        "file": "projects/wave-attractors/assets/ai/banner-ci.webp",
         "prompt": "P-W2",
         "used_by": [
-          "/home/z/my-project/ab-cloud-research/Wave_attractors/.github/README.md"
+          "/home/z/my-project/ab-cloud-research/projects/wave-attractors/.github/README.md"
         ],
         "size": "1344x672",
         "format": "webp"
       },
       "wave-workflows": {
-        "file": "Wave_attractors/assets/ai/banner-workflows.webp",
+        "file": "projects/wave-attractors/assets/ai/banner-workflows.webp",
         "prompt": "P-W3",
         "used_by": [
-          "/home/z/my-project/ab-cloud-research/Wave_attractors/.github/workflows/README.md"
+          "/home/z/my-project/ab-cloud-research/projects/wave-attractors/.github/workflows/README.md"
         ],
         "size": "1344x672",
         "format": "webp"
       },
       "wave-assets": {
-        "file": "Wave_attractors/assets/ai/banner-assets.webp",
+        "file": "projects/wave-attractors/assets/ai/banner-assets.webp",
         "prompt": "P-W4",
         "used_by": [
-          "/home/z/my-project/ab-cloud-research/Wave_attractors/assets/README.md"
+          "/home/z/my-project/ab-cloud-research/projects/wave-attractors/assets/README.md"
         ],
         "size": "1344x672",
         "format": "webp"
       },
       "wave-docs": {
-        "file": "Wave_attractors/assets/ai/banner-docs.webp",
+        "file": "projects/wave-attractors/assets/ai/banner-docs.webp",
         "prompt": "P-W5",
         "used_by": [
-          "/home/z/my-project/ab-cloud-research/Wave_attractors/docs/README.md"
+          "/home/z/my-project/ab-cloud-research/projects/wave-attractors/docs/README.md"
         ],
         "size": "1344x672",
         "format": "webp"
       },
       "wave-package": {
-        "file": "Wave_attractors/assets/ai/banner-package.webp",
+        "file": "projects/wave-attractors/assets/ai/banner-package.webp",
         "prompt": "P-W6",
         "used_by": [
-          "/home/z/my-project/ab-cloud-research/Wave_attractors/wave_attractors/README.md"
+          "/home/z/my-project/ab-cloud-research/projects/wave-attractors/wave_attractors/README.md"
         ],
         "size": "1344x672",
         "format": "webp"
       },
       "wave-data": {
-        "file": "Wave_attractors/assets/ai/banner-data.webp",
+        "file": "projects/wave-attractors/assets/ai/banner-data.webp",
         "prompt": "P-W7",
         "used_by": [
-          "/home/z/my-project/ab-cloud-research/Wave_attractors/wave_attractors/data/README.md"
+          "/home/z/my-project/ab-cloud-research/projects/wave-attractors/wave_attractors/data/README.md"
         ],
         "size": "1344x672",
         "format": "webp"
       },
       "wave-figures": {
-        "file": "Wave_attractors/assets/ai/banner-figures.webp",
+        "file": "projects/wave-attractors/assets/ai/banner-figures.webp",
         "prompt": "P-W8",
         "used_by": [
-          "/home/z/my-project/ab-cloud-research/Wave_attractors/wave_attractors/figures/README.md"
+          "/home/z/my-project/ab-cloud-research/projects/wave-attractors/wave_attractors/figures/README.md"
         ],
         "size": "1344x672",
         "format": "webp"
       },
       "wave-monograph": {
-        "file": "Wave_attractors/assets/ai/banner-monograph.webp",
+        "file": "projects/wave-attractors/assets/ai/banner-monograph.webp",
         "prompt": "P-W9",
         "used_by": [
-          "/home/z/my-project/ab-cloud-research/Wave_attractors/wave_attractors/monograph/README.md"
+          "/home/z/my-project/ab-cloud-research/projects/wave-attractors/wave_attractors/monograph/README.md"
         ],
         "size": "1344x672",
         "format": "webp"
       },
       "wave-report": {
-        "file": "Wave_attractors/assets/ai/banner-report.webp",
+        "file": "projects/wave-attractors/assets/ai/banner-report.webp",
         "prompt": "P-W10",
         "used_by": [
-          "/home/z/my-project/ab-cloud-research/Wave_attractors/wave_attractors/report/README.md"
+          "/home/z/my-project/ab-cloud-research/projects/wave-attractors/wave_attractors/report/README.md"
         ],
         "size": "1344x672",
         "format": "webp"
       },
       "wave-scripts": {
-        "file": "Wave_attractors/assets/ai/banner-scripts.webp",
+        "file": "projects/wave-attractors/assets/ai/banner-scripts.webp",
         "prompt": "P-W11",
         "used_by": [
-          "/home/z/my-project/ab-cloud-research/Wave_attractors/wave_attractors/scripts/README.md"
+          "/home/z/my-project/ab-cloud-research/projects/wave-attractors/wave_attractors/scripts/README.md"
         ],
         "size": "1344x672",
         "format": "webp"
       },
       "wave-julia": {
-        "file": "Wave_attractors/assets/ai/banner-julia.webp",
+        "file": "projects/wave-attractors/assets/ai/banner-julia.webp",
         "prompt": "P-W12",
         "used_by": [
-          "/home/z/my-project/ab-cloud-research/Wave_attractors/wave_attractors/scripts/julia/README.md"
+          "/home/z/my-project/ab-cloud-research/projects/wave-attractors/wave_attractors/scripts/julia/README.md"
         ],
         "size": "1344x672",
         "format": "webp"
       },
       "wave-monograph-build": {
-        "file": "Wave_attractors/assets/ai/banner-monograph-build.webp",
+        "file": "projects/wave-attractors/assets/ai/banner-monograph-build.webp",
         "prompt": "P-W13",
         "used_by": [
-          "/home/z/my-project/ab-cloud-research/Wave_attractors/wave_attractors/scripts/monograph/README.md"
+          "/home/z/my-project/ab-cloud-research/projects/wave-attractors/wave_attractors/scripts/monograph/README.md"
         ],
         "size": "1344x672",
         "format": "webp"
       },
       "wave-report-build": {
-        "file": "Wave_attractors/assets/ai/banner-report-build.webp",
+        "file": "projects/wave-attractors/assets/ai/banner-report-build.webp",
         "prompt": "P-W14",
         "used_by": [
-          "/home/z/my-project/ab-cloud-research/Wave_attractors/wave_attractors/scripts/report/README.md"
+          "/home/z/my-project/ab-cloud-research/projects/wave-attractors/wave_attractors/scripts/report/README.md"
         ],
         "size": "1344x672",
         "format": "webp"
       },
       "wave-avatar": {
-        "file": "Wave_attractors/assets/ai/avatar.webp",
+        "file": "projects/wave-attractors/assets/ai/avatar.webp",
         "prompt": "P-W15",
         "used_by": [
-          "all 14 Wave_attractors READMEs (footer emblem)"
+          "all 14 projects/wave-attractors READMEs (footer emblem)"
         ],
         "size": "1024x1024",
         "format": "webp"

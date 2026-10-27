@@ -106,7 +106,7 @@ actually does. For publication-grade output use the offline pipelines in
 `lab-3d/code/` — the browser is the sketchbook, the pipeline is the press.
 
 The reference scene — the **36³ Hofstadter configuration** — is the same
-one the 3D-lab preprint ([lab-3d/preprint/](../../lab-3d/preprint/)) opens
+one the 3D-lab preprint ([lab-3d/preprint/](../../projects/lab-3d/preprint/)) opens
 with, so the app and the paper start from identical ground.
 
 <div align="center">

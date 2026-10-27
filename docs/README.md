@@ -25,7 +25,7 @@ flowchart LR
 
 # 📚 Docs — MkDocs Material Documentation Site
 
-> **🧭 Navigation:** [Root README](../README.md) · [monographs/](../monographs/README.md)
+> **🧭 Navigation:** [Root README](../README.md) · [projects/monographs/](../projects/monographs/README.md)
 
 **The sources of the GitHub Pages documentation site
 (<https://wild8highlander.github.io/ab-cloud-research>) — the narrative layer of the project,
@@ -188,7 +188,7 @@ committed artifact — every page links the artifact, not the other way around.
 | Layer | What it adds |
 |---|---|
 | [`apps/`](../apps/README.md) | the interactive layer — dashboard + WebGL 3-D laboratory |
-| [`monographs/`](../monographs/README.md) | the trilingual monograph editions |
+| [`projects/monographs/`](../projects/monographs/README.md) | the trilingual monograph editions |
 | [`results/`](../results/README.md) | the committed run artifacts the pages link into |
 | [`code/`](../code/README.md) | the canonical Julia suite |
 

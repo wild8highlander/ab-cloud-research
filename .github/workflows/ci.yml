@@ -24,26 +24,26 @@ jobs:
           test -f code/RH_Sweep_Pro_D.jl
           test -f code/hp_audit_standalone.jl
           test -f code/hp_audit_standal_one.jl
-          test -f meridian-spectral-observatory/ab_cloud_full.jl
+          test -f projects/meridian-observatory/ab_cloud_full.jl
           test -f verification/python/ab_cloud_verify.py
           test -f formal/lean4/lakefile.lean
           test -f formal/coq/ABCloud/Core.v
           test -f formal/isabelle/ABCloud.thy
           test -f "results/Test 1-37 ab_cloud_full.jl/verification_run_v18_37tests_2026-08-28.txt"
           test -f "results/Test 1-37 ab_cloud_full.jl/ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt"
-          test -f monographs/ru/text/AB_Cloud_Monograph_v22_RU.pdf
-          test -f monographs/en/text/AB_Cloud_Monograph_v22_EN.pdf
-          test -f monographs/zh/text/AB_Cloud_Monograph_v22_ZH.pdf
-          test -f monographs/original-v21/ru/text/AB_Cloud_Monograph_v21_RU_with_Verification.docx
-          test -f monographs/original-v21/en/text/AB_Cloud_Monograph_v21_EN_with_Verification.pdf
+          test -f projects/monographs/ru/text/AB_Cloud_Monograph_v22_RU.pdf
+          test -f projects/monographs/en/text/AB_Cloud_Monograph_v22_EN.pdf
+          test -f projects/monographs/zh/text/AB_Cloud_Monograph_v22_ZH.pdf
+          test -f projects/monographs/original-v21/ru/text/AB_Cloud_Monograph_v21_RU_with_Verification.docx
+          test -f projects/monographs/original-v21/en/text/AB_Cloud_Monograph_v21_EN_with_Verification.pdf
           test -f verification/zeros1.txt
           test -f verification/zeros50k.txt
           test -f verification/zeta_zeros_13661.txt
           test -f verification/zeta_zeros_500k_odlyzko.txt
           test -f verification/zeta_zeros_2M_odlyzko.txt
           test -f verification/zeta_zeros_highT_blocks.txt
-          test -f AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/02_data/processed/research_registry.json
-          test -f AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/06_code/lab_standalone/ab_cloud_full.jl
+          test -f projects/academic-package/02_data/processed/research_registry.json
+          test -f projects/academic-package/06_code/lab_standalone/ab_cloud_full.jl
           test -f .github/scripts/docs_health.py
           test -f .github/docs-health-allowlist.json
           test -f CITATION.cff
@@ -59,7 +59,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       # The glob surface lives in .markdownlint-cli2.jsonc (single source of
-      # truth): the curated root/docs/formal/code/verification/Hilbert_Polya
+      # truth): the curated root/docs/formal/code/verification/projects/hilbert-polya
       # set plus the Academic Package's authored docs and the Meridian docs.
       - name: Lint the curated markdown surface
         uses: DavidAnson/markdownlint-cli2-action@v24
@@ -117,37 +117,37 @@ jobs:
           pip install --disable-pip-version-check \
             numpy scipy matplotlib mpmath sympy pytest pyyaml jsonschema typer
       - name: Run the unified test suite
-        working-directory: AB_Cloud_Quantum_Research
+        working-directory: projects/quantum-research
         run: pytest tests/test_unified.py -q
       - name: Run the processor module tests
-        working-directory: AB_Cloud_Quantum_Research
+        working-directory: projects/quantum-research
         run: pytest modules/processor_ab/tests/ -q
       - name: Run the core spectrum module tests
-        working-directory: AB_Cloud_Quantum_Research
+        working-directory: projects/quantum-research
         run: pytest modules/core_spectrum/tests/ -q
       # The V13 obligation machine re-runs live on every push: B1 DAG,
       # B2 blocking, B3 artifact gate, B4 formal audit (sorry/oops = 0),
       # B5 committed-verdict consistency. Non-zero exit fails the job;
       # the report lands in the job summary via --ci-summary.
       - name: Run the V13 obligation machine (formal bridge, live)
-        working-directory: AB_Cloud_Quantum_Research/modules/core_spectrum
+        working-directory: projects/quantum-research/modules/core_spectrum
         run: python3 campaigns/run_v13_formal_bridge.py --ci-summary
       - name: Run the realtime spinor memory tests
-        working-directory: AB_Cloud_Quantum_Research/research/realtime_spinor_memory
+        working-directory: projects/quantum-research/research/realtime_spinor_memory
         run: pytest tests/ -q
       - name: Run the Academic Package contract tests
-        working-directory: AB_Cloud_Academic_Package/AB_Cloud_Academic_Package
+        working-directory: projects/academic-package
         run: pytest 09_tests/python/ -q
       - name: Run the Hilbert-Polya module tests
-        working-directory: Hilbert_Polya
+        working-directory: projects/hilbert-polya
         run: pytest tests/ -q
       # The package's Python clone is CLI-driven (its tests_* modules are
       # library code, not pytest-collectable): smoke it through the intended
       # entry point so 06_code stays exercised on every push.
       - name: Smoke-run the Python clone suite (tests 1-2, small zero budget)
-        working-directory: AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/06_code/python/python_clone
+        working-directory: projects/academic-package/06_code/python/python_clone
         run: |
           python3 -m abcloud.cli --test 1,2 --no-two-pass --zeros 2000 \
             --no-progress --out "${RUNNER_TEMP}/abclone-smoke"
       - name: Smoke-run the Vortex T34 engine sanity script
-        run: python3 Vortex_optimization/scripts/test_engine.py
+        run: python3 projects/vortex-optimization/scripts/test_engine.py

@@ -34,7 +34,7 @@ the 2026-10 bump wave (`checkout@v7`, `markdownlint-cli2-action@v24`,
 | `ISSUE_TEMPLATE/feature_request.yml` | structured feature form |
 | `ISSUE_TEMPLATE/config.yml` | disables blank issues, adds contact links |
 | `PULL_REQUEST_TEMPLATE.md` | PR checklist (tests run, docs updated, CHANGELOG entry) |
-| `dependabot.yml` | weekly bumps for GitHub Actions; monthly bumps for pip (`lab-3d`, `modules/core_spectrum`, `modules/processor_ab`, `Hilbert_Polya`, the package's `06_code`), npm (`scripts/monograph`, both `apps/`), gomod and cargo (every module/crate in the repo) |
+| `dependabot.yml` | weekly bumps for GitHub Actions; monthly bumps for pip (`lab-3d`, `modules/core_spectrum`, `modules/processor_ab`, `projects/hilbert-polya`, the package's `06_code`), npm (`scripts/monograph`, both `apps/`), gomod and cargo (every module/crate in the repo) |
 | `labeler.yml` | path → label mapping consumed by the `labeler.yml` workflow |
 | `docs-health-allowlist.json` | the docs-health ratchet: known-broken link classes in auto-generated/historical artifacts (keep short and shrinking) |
 | `release-drafter.yml` | categories/labels → release-notes sections mapping |
@@ -50,7 +50,7 @@ the 2026-10 bump wave (`checkout@v7`, `markdownlint-cli2-action@v24`,
 | `.github/scripts/docs_health.py` | the three gates of `docs-health.yml` (`links`, `readmes`, `sync`) |
 | `.github/scripts/check_data_formats.py` | the `data-formats` job of `ci.yml` (JSON/TOML validity + `bash -n`) |
 | `ruff.toml` | the `ruff` job of `ci.yml` (Python real-defect gate: E9, F821, F402, F404, F811) |
-| `lab-3d/pyproject.toml → [tool.ruff.lint]` | same rule set for the `lab-3d/` subtree (nearest-config discovery) |
+| `projects/lab-3d/pyproject.toml → [tool.ruff.lint]` | same rule set for the `projects/lab-3d/` subtree (nearest-config discovery) |
 | `.editorconfig` | editor/IDE whitespace consistency for all file types |
 
 ## Local reproduction of CI checks
@@ -60,10 +60,10 @@ make lint                                    # markdownlint + YAML sanity
 ruff check .                                 # Python real-defect gate
 python3 .github/scripts/docs_health.py all   # links + readmes + package⇄canon sync
 python3 .github/scripts/check_data_formats.py  # JSON/TOML validity + bash -n
-python3 -m pytest AB_Cloud_Quantum_Research/tests -q     # unified suite
-python3 -m pytest AB_Cloud_Quantum_Research/modules -q   # module suites
-python3 -m pytest AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/09_tests/python -q  # package contract suite
-python3 -m pytest Hilbert_Polya/tests -q      # Hilbert-Polya suite
+python3 -m pytest projects/quantum-research/tests -q     # unified suite
+python3 -m pytest projects/quantum-research/modules -q   # module suites
+python3 -m pytest projects/academic-package/09_tests/python -q  # package contract suite
+python3 -m pytest projects/hilbert-polya/tests -q      # Hilbert-Polya suite
 julia code/ab_cloud_full.jl --test 1          # the same smoke run julia.yml executes
 cd formal/lean4 && lake build && lake exe abcloud-verify   # the formal gate
 python3 verification/sections/section3_ab_cloud/python/verify.py   # smoke test

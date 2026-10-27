@@ -1,0 +1,56 @@
+<!-- AB-ENRICHED:v1 · sub -->
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=venice&height=48&color=0:ff2ec4,100:05060f&section=header" alt="" width="100%"/>
+
+**🧭 [⬆ Vortex_optimization/](../README.md) · [🏠 Root README](../../README.md)**
+
+</div>
+<div align="center">
+
+[![Shelf](https://img.shields.io/badge/Shelf-labs-7FC8A8?style=flat-square)](../README.md)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21825394-blue?style=flat-square)](https://doi.org/10.5281/zenodo.21825394)
+
+</div>
+
+# ⚙️ Vortex_optimization — scripts
+
+> **The full pipeline of the T-34 study: engine, sweeps, GUE control, charts, report builder — and its tests.**
+
+Six scripts that generate the entire study: [`t34_engine.py`](t34_engine.py) is the optimization engine, [`t34_sweep.py`](t34_sweep.py) drives the A/B/C sweeps that wrote [`../data/`](../data/), [`gue96.py`](gue96.py) runs the 96-lattice GUE control, [`t34_charts.py`](t34_charts.py) renders [`../figures/`](../figures/), [`t34_report.py`](t34_report.py) assembles the report, and [`test_engine.py`](test_engine.py) keeps the engine honest. The order matters and is the reproduction recipe: engine → sweep → control → charts → report.
+
+## 📁 Contents
+
+| Item | Kind | Size | What it is |
+|---|---|---|---|
+| [`gue96.py`](gue96.py) | Python | 1.9 KB | — |
+| [`t34_charts.py`](t34_charts.py) | Python | 11.3 KB | — |
+| [`t34_engine.py`](t34_engine.py) | Python | 19.2 KB | — |
+| [`t34_report.py`](t34_report.py) | Python | 47.1 KB | — |
+| [`t34_sweep.py`](t34_sweep.py) | Python | 17.3 KB | — |
+| [`test_engine.py`](test_engine.py) | Python | 3.4 KB | — |
+
+## 🧭 Navigation
+
+[⬅ Vortex_optimization/](../README.md) · [🏠 Repo root](../../README.md)
+
+---
+
+<div align="center">
+
+*Part of the [AB-Cloud Research](../../README.md) repository · DOI [10.5281/zenodo.21825394](https://doi.org/10.5281/zenodo.21825394) · © 2026 Isaev Iskhak Khamzatovich — personal proprietary use, see the [license terms](../../../LICENSE).*
+
+</div>
+
+---
+
+<!-- enriched-r3 -->
+
+This folder holds the **pipeline scripts** of its module: the deterministic code paths that turn frozen inputs into reports, figures and verdicts. The scripts follow the repository's seed discipline — same input, same seed, same bytes out — so a re-run on the pinned platform reproduces the committed artifacts. Nothing here is executed at import time by other modules; they are entry points, documented in the module README.
+
+The scripts of the study: the scan drivers and the analysis pass that produced the committed curves and figures.
+
+<div align="center">
+
+<img src="../../assets/svg/divider-magenta.svg" alt="—" width="100%" height="12"/>
+</div>

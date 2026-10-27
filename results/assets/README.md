@@ -43,7 +43,7 @@ plain `<img>`/`<picture>` tags.
 > Art only — no data, no code, no results. The READMEs that consume these
 > files live one level up: [`../README.md`](../README.md). The ports subtree
 > keeps its own separate family in
-> [`meridian-spectral-observatory/ports/assets/`](../../meridian-spectral-observatory/ports/assets/).
+> [`meridian-spectral-observatory/ports/assets/`](../../projects/meridian-observatory/ports/assets/).
 
 <div align="center">
 

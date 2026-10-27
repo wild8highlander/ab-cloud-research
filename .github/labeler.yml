@@ -2,34 +2,34 @@
 "julia-suite":
   - changed-files:
       - any-glob-to-any-file: "code/**"
-      - any-glob-to-any-file: "meridian-spectral-observatory/**"
+      - any-glob-to-any-file: "projects/meridian-observatory/**"
 "verification":
   - changed-files:
       - any-glob-to-any-file: "verification/**"
-      - any-glob-to-any-file: "Hilbert_Polya/computations/**"
+      - any-glob-to-any-file: "projects/hilbert-polya/computations/**"
 "3d-lab":
   - changed-files:
-      - any-glob-to-any-file: "lab-3d/**"
-      - any-glob-to-any-file: "dirac-lab/**"
+      - any-glob-to-any-file: "projects/lab-3d/**"
+      - any-glob-to-any-file: "projects/dirac-lab/**"
 "monographs":
   - changed-files:
-      - any-glob-to-any-file: "monographs/**"
-      - any-glob-to-any-file: "AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/01_monographs/**"
+      - any-glob-to-any-file: "projects/monographs/**"
+      - any-glob-to-any-file: "projects/academic-package/01_projects/monographs/**"
 "academic-package":
   - changed-files:
-      - any-glob-to-any-file: "AB_Cloud_Academic_Package/**"
+      - any-glob-to-any-file: "projects/academic-package/**"
 "core-modules":
   - changed-files:
-      - any-glob-to-any-file: "AB_Cloud_Quantum_Research/**"
+      - any-glob-to-any-file: "projects/quantum-research/**"
 "formal":
   - changed-files:
       - any-glob-to-any-file: "formal/**"
-      - any-glob-to-any-file: "AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/06_code/formal/**"
+      - any-glob-to-any-file: "projects/academic-package/06_code/formal/**"
 "web-lab":
   - changed-files:
-      - any-glob-to-any-file: "AB_Cloud_Academic_Package/AB_Cloud_Academic_Package/07_web_lab/**"
+      - any-glob-to-any-file: "projects/academic-package/07_web_lab/**"
       - any-glob-to-any-file: "apps/**"
-      - any-glob-to-any-file: "Wave_attractors/**"
+      - any-glob-to-any-file: "projects/wave-attractors/**"
 "documentation":
   - changed-files:
       - any-glob-to-any-file: "docs/**"

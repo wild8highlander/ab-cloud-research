@@ -145,7 +145,7 @@ flowchart LR
   that produced it.
 - **ab-cloud-lab3d** is the physics playground: the 3D lattice laboratory in the browser —
   Hofstadter surfaces and vortex textures you can rotate, zoom and re-parameterise, matching
-  the offline pipelines in [`lab-3d/`](../lab-3d/README.md).
+  the offline pipelines in [`lab-3d/`](../projects/lab-3d/README.md).
 
 Both apps read from the same committed evidence as everything else in the repository; neither
 contains private copies of the numbers. A figure in the dashboard and the corresponding PNG in
@@ -170,7 +170,7 @@ model of the project, extended to the browser.
 | Layer | What it adds |
 |---|---|
 | [`docs/`](../docs/README.md) | the MkDocs Material documentation site (the narrative layer) |
-| [`lab-3d/`](../lab-3d/README.md) | the offline 3D branch the WebGL laboratory mirrors |
+| [`lab-3d/`](../projects/lab-3d/README.md) | the offline 3D branch the WebGL laboratory mirrors |
 | [`results/`](../results/README.md) | the committed run artifacts the dashboard reads from |
 | [`verification/`](../verification/README.md) | the 10-language verification package |
 

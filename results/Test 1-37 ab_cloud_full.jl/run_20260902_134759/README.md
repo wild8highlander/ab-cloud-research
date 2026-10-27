@@ -19,7 +19,7 @@
 
 This is **the** canonical artifact set of the v19 era: one folder, thirty-seven `test_NN_<name>/` experiment directories, and the consolidated `FINAL_REPORT/`. First pass closed at **32 PASS / 5 WARN** (the five statistical WARNs of the Wigner-surmise floor — tests 4, 5, 6, 11, 12, 28, 35 in the register semantics), the HARDCORE second pass re-examined every completion and closed **all PASS (77 verdict lines total)**, and a pass-3 series resolved the stragglers 19/29/31. Julia 1.12.0, 50 000 Odlyzko zeros.
 
-Nothing in this folder has been regenerated or reformatted after the run — it is committed exactly as produced, which is what makes it a *reference*: any later run of `ab_cloud_full.jl` can be diffed against this one line by line. The sibling file [`ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt`](../ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt) holds the raw header/config dump, and the monographs in [`../../../monographs/`](../../../monographs/) cite their numbers from here.
+Nothing in this folder has been regenerated or reformatted after the run — it is committed exactly as produced, which is what makes it a *reference*: any later run of `ab_cloud_full.jl` can be diffed against this one line by line. The sibling file [`ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt`](../ab_cloud_v19_verify_report_2026-09-02_23-33-45.txt) holds the raw header/config dump, and the monographs in [`../../../projects/monographs/`](../../../projects/monographs/) cite their numbers from here.
 
 ## 🗺️ Anatomy of a test directory
 

@@ -13,11 +13,11 @@ MARKER = "AB-ENRICHED:v1"
 
 CAT = {
  "verification": ("00e5ff", "cyan"), "formal": ("a78bfa", "violet"),
- "monographs": ("ffd60a", "gold"), "AB_Cloud_Quantum_Research": ("ff2ec4", "magenta"),
- "AB_Cloud_Academic_Package": ("ffd60a", "gold"), "Hilbert_Polya": ("a78bfa", "violet"),
+ "monographs": ("ffd60a", "gold"), "projects/quantum-research": ("ff2ec4", "magenta"),
+ "projects/academic-package": ("ffd60a", "gold"), "projects/hilbert-polya": ("a78bfa", "violet"),
  "dirac-lab": ("00e5ff", "cyan"), "lab-3d": ("ff2ec4", "magenta"),
- "Wave_attractors": ("00e5ff", "cyan"), "Vortex_optimization": ("ff2ec4", "magenta"),
- "meridian-spectral-observatory": ("a78bfa", "violet"), "results": ("22c55e", "green"),
+ "projects/wave-attractors": ("00e5ff", "cyan"), "projects/vortex-optimization": ("ff2ec4", "magenta"),
+ "projects/meridian-observatory": ("a78bfa", "violet"), "results": ("22c55e", "green"),
  "code": ("9558B2", "purple"), "apps": ("4FC3F7", "blue"), "docs": ("526CFE", "blue"),
  "assets": ("8B949E", "gray"),
 }
