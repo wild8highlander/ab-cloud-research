@@ -1,70 +1,135 @@
 version: 2
 updates:
+  # ── GitHub Actions ─────────────────────────────────────────────
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      actions-minor:
+        update-types: [minor, patch]
+
+  # ── Python (pip) ───────────────────────────────────────────────
   - package-ecosystem: "pip"
     directory: "/lab-3d"
     schedule:
       interval: "monthly"
+    open-pull-requests-limit: 3
+    groups:
+      pip-minor:
+        update-types: [minor, patch]
+
   - package-ecosystem: "pip"
     directory: "/projects/quantum-research/modules/core_spectrum"
     schedule:
       interval: "monthly"
+    open-pull-requests-limit: 3
+    groups:
+      pip-minor:
+        update-types: [minor, patch]
+
   - package-ecosystem: "pip"
     directory: "/projects/quantum-research/modules/processor_ab"
     schedule:
       interval: "monthly"
+    open-pull-requests-limit: 3
+    groups:
+      pip-minor:
+        update-types: [minor, patch]
+
   - package-ecosystem: "pip"
     directory: "/projects/hilbert-polya"
     schedule:
       interval: "monthly"
+    open-pull-requests-limit: 3
+    groups:
+      pip-minor:
+        update-types: [minor, patch]
+
   - package-ecosystem: "pip"
     directory: "/projects/academic-package/06_code"
     schedule:
       interval: "monthly"
+    open-pull-requests-limit: 3
+    groups:
+      pip-minor:
+        update-types: [minor, patch]
+
+  # ── Node (npm) ─────────────────────────────────────────────────
   - package-ecosystem: "npm"
     directory: "/projects/wave-attractors/wave_attractors/scripts/monograph"
     schedule:
       interval: "monthly"
+    open-pull-requests-limit: 3
+    groups:
+      npm-minor:
+        update-types: [minor, patch]
+
   - package-ecosystem: "npm"
     directory: "/apps/ab-cloud-lab3d"
     schedule:
       interval: "monthly"
+    open-pull-requests-limit: 3
+    groups:
+      npm-minor:
+        update-types: [minor, patch]
+
   - package-ecosystem: "npm"
     directory: "/apps/ab-cloud-dashboard"
     schedule:
       interval: "monthly"
+    open-pull-requests-limit: 3
+    groups:
+      npm-minor:
+        update-types: [minor, patch]
+
+  # ── Go ─────────────────────────────────────────────────────────
   - package-ecosystem: "gomod"
     directory: "/verification/go"
     schedule:
       interval: "monthly"
+    open-pull-requests-limit: 2
+
   - package-ecosystem: "gomod"
     directory: "/verification/go/spinor38"
     schedule:
       interval: "monthly"
+    open-pull-requests-limit: 2
+
   - package-ecosystem: "gomod"
     directory: "/projects/meridian-observatory/ports/go"
     schedule:
       interval: "monthly"
+    open-pull-requests-limit: 2
+
   - package-ecosystem: "gomod"
     directory: "/projects/academic-package/06_code/go"
     schedule:
       interval: "monthly"
+    open-pull-requests-limit: 2
+
+  # ── Rust ───────────────────────────────────────────────────────
   - package-ecosystem: "cargo"
     directory: "/verification/rust"
     schedule:
       interval: "monthly"
+    open-pull-requests-limit: 2
+
   - package-ecosystem: "cargo"
     directory: "/verification/rust/spinor38"
     schedule:
       interval: "monthly"
+    open-pull-requests-limit: 2
+
   - package-ecosystem: "cargo"
     directory: "/projects/meridian-observatory/ports/rust"
     schedule:
       interval: "monthly"
+    open-pull-requests-limit: 2
+
   - package-ecosystem: "cargo"
     directory: "/projects/academic-package/06_code/rust"
     schedule:
       interval: "monthly"
+    open-pull-requests-limit: 2
