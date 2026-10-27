@@ -133,23 +133,56 @@ function gramPoint(n) {
   return t;
 }
 
-function numberVariance(eigs, Lvalues, nWindows) {
-  const lam = sortAsc(eigs);
+// Smooth (average) zero-counting function N̄(T) — leading-order
+// Riemann–von Mangoldt: N̄(T) = (T/2π)·ln(T/2π) − T/2 + 7/8.
+// Port of smooth_counting_function (verification/julia/ab_cloud_full.jl §5);
+// used ONLY to build cumulative unfolded positions for Σ²(L).
+function smoothCounting(t) {
+  if (t <= 0) return 0;
+  const x = t / (2 * Math.PI);
+  return x * Math.log(x) - x + 7 / 8;
+}
+
+// binary search: first index with arr[i] >= x (Julia searchsortedfirst)
+function lowerBound(arr, x) {
+  let lo = 0, hi = arr.length;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (arr[mid] < x) lo = mid + 1; else hi = mid;
+  }
+  return lo;
+}
+
+function numberVariance(eigs, Lvalues, nWindows = 3000) {
+  // Σ²(L) — number variance. Faithful port of number_variance in
+  // verification/julia/ab_cloud_full.jl:
+  //   1. unfold the zeros via the smooth counting function N̄(γ) (mean
+  //      spacing → 1; a wide-neighborhood or raw-window unfolding would fold
+  //      the slow 1/log density drift into Σ² and blow it up to O(L²));
+  //   2. drop n_windows random windows of unfolded length L into [u₁, u_end]
+  //      and take the variance of the level counts.
+  // Poisson: Σ²(L) = L;  GUE: Σ²(L) = O(log L).
+  const u = sortAsc(eigs).map(smoothCounting);
+  const n = u.length;
+  const uLo = u[0], uHi = u[n - 1];
+  // seeded LCG (same convention as scenes.js) → the chart is deterministic
+  // across reloads instead of jumpy Monte-Carlo noise
+  let sd = 123456789;
+  const rnd = () => (sd = (sd * 1103515245 + 12345) % 2147483648) / 2147483648;
   const out = [];
+  const counts = new Float64Array(nWindows);
   for (const L of Lvalues) {
-    // unfold locally by index (suite-style window over normalized levels)
-    let acc = 0, cnt = 0;
-    const step = Math.max(1, Math.floor(lam.length / nWindows));
-    for (let start = 0; start + L < lam.length; start += step) {
-      // count levels in the spectral window of length L centered at start
-      const c = lam[start];
-      let nL = 0;
-      for (let i = start; i < lam.length && lam[i] < c + L; i++) nL++;
-      acc += Math.pow(nL - L, 2);
-      cnt++;
-      if (cnt >= nWindows) break;
+    if (uHi - uLo <= L) { out.push({ L, sigma2: NaN }); continue; }
+    for (let w = 0; w < nWindows; w++) {
+      const x0 = uLo + rnd() * (uHi - uLo - L);
+      counts[w] = lowerBound(u, x0 + L) - lowerBound(u, x0);
     }
-    out.push({ L, sigma2: acc / Math.max(cnt, 1) });
+    let mean = 0;
+    for (let w = 0; w < nWindows; w++) mean += counts[w];
+    mean /= nWindows;
+    let acc = 0;
+    for (let w = 0; w < nWindows; w++) acc += (counts[w] - mean) ** 2;
+    out.push({ L, sigma2: acc / Math.max(nWindows - 1, 1) }); // Julia var(): corrected
   }
   return out;
 }
@@ -234,7 +267,7 @@ self.onmessage = (e) => {
       const ks = gueRatioKS(ratios);
       const rMean = ratios.reduce((a, b) => a + b, 0) / ratios.length;
       const Lvalues = [2, 5, 10, 20, 50, 100, 200, 500, 1000];
-      const sig2 = numberVariance(zeros, Lvalues, 500);
+      const sig2 = numberVariance(zeros, Lvalues, 3000);
       const d3 = delta3(zeros, [2, 5, 10, 20, 50, 100, 200]);
       self.postMessage({ type: 'stats', ok: true, result: {
         bN, rMean, ks, nRatios: ratios.length, sig2, d3,

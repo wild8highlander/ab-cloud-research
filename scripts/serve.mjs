@@ -7,11 +7,12 @@
  * platform health check on / (GET and HEAD).
  */
 import { createServer } from 'node:http';
-import { readFile, stat } from 'node:fs/promises';
+import { readFile, stat, realpath } from 'node:fs/promises';
 import { extname, join, resolve, dirname, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'dist');
+const rootReal = await realpath(root).catch(() => root); // realpath base for the symlink guard
 const port = Number(process.env.PORT) || 3000;
 
 const MIME = {
@@ -55,7 +56,8 @@ const server = createServer(async (req, res) => {
     return;
   }
   try {
-    const urlPath = safeDecode(new URL(req.url, 'http://localhost').pathname);
+    const reqUrl = new URL(req.url, 'http://localhost');
+    const urlPath = safeDecode(reqUrl.pathname);
     const safePath = normalize(urlPath).replace(/^(\.\.[/\\])+/, '');
     const base = join(root, safePath);
     if (!base.startsWith(root)) {
@@ -66,9 +68,22 @@ const server = createServer(async (req, res) => {
     // resolution order:
     //   1. exact file            (/dashboard/data/run_summary.json)
     //   2. directory index       (/dashboard/ → /dashboard/index.html)
-    //   3. implicit index        (/dashboard  → /dashboard/index.html)
+    //   3. implicit index        (/dashboard  → 301 → /dashboard/)
     //   4. extensionless → portal landing (soft fallback), else 404
     const st = await stat(base).catch(() => null);
+
+    // CRITICAL: a directory requested WITHOUT the trailing slash must 301
+    // to the slash form. Serving index.html directly from "/dashboard"
+    // would resolve the page's RELATIVE asset URLs ("./assets/…",
+    // fetch("data/…")) against "/" instead of "/dashboard/" → 404s and a
+    // blank page. (Same convention as nginx/Netlify/GitHub Pages.)
+    if (st?.isDirectory() && !urlPath.endsWith('/')) {
+      const search = reqUrl.search || '';
+      res.writeHead(301, { location: encodeURI(urlPath) + '/' + search });
+      res.end();
+      return;
+    }
+
     let file = null;
     if (st?.isFile()) {
       file = base;
@@ -81,6 +96,13 @@ const server = createServer(async (req, res) => {
 
     if (!file) {
       res.writeHead(404, { 'content-type': 'text/plain; charset=utf-8' }).end('404 Not Found');
+      return;
+    }
+
+    // realpath guard: a symlink inside dist/ must not escape the site root
+    const real = await realpath(file).catch(() => null);
+    if (!real || !real.startsWith(rootReal)) {
+      res.writeHead(403).end('Forbidden');
       return;
     }
 
@@ -98,6 +120,15 @@ const server = createServer(async (req, res) => {
   } catch (err) {
     res.writeHead(500, { 'content-type': 'text/plain; charset=utf-8' }).end(`500: ${err.message}`);
   }
+});
+
+// Friendly startup failure (EADDRINUSE etc.) instead of an unhandled error
+server.on('error', (err) => {
+  console.error(`✗ AB-Cloud portal server failed to start: ${err.message}`);
+  if (err.code === 'EADDRINUSE') {
+    console.error(`  Port ${port} is already in use — set a different PORT env value.`);
+  }
+  process.exit(1);
 });
 
 server.listen(port, '0.0.0.0', () => {

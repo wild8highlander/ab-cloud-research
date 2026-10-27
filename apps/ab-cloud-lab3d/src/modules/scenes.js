@@ -19,7 +19,18 @@ export function makeScene(container) {
   camera.position.set(26, 20, 30);
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(width, height);
+  // crisp on HiDPI/retina displays (cap at 2 to protect GPU memory)
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   container.appendChild(renderer.domElement);
+  // survive GPU process resets: without these listeners a lost context leaves
+  // a permanently black canvas until a manual reload
+  const onCtxLost = (e) => { e.preventDefault(); };
+  const onCtxRestored = () => {
+    // three.js re-uploads scene resources automatically on the next render
+    renderer.render(scene, camera);
+  };
+  renderer.domElement.addEventListener('webglcontextlost', onCtxLost);
+  renderer.domElement.addEventListener('webglcontextrestored', onCtxRestored);
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   const ambient = new THREE.AmbientLight(0xffffff, 0.55);
@@ -70,7 +81,10 @@ export function makeScene(container) {
       window.removeEventListener('resize', onResize);
       this.clear();
       controls.dispose();
+      renderer.domElement.removeEventListener('webglcontextlost', onCtxLost);
+      renderer.domElement.removeEventListener('webglcontextrestored', onCtxRestored);
       renderer.dispose();
+      renderer.forceContextLoss?.(); // release the GPU context promptly
       renderer.domElement.parentNode?.removeChild(renderer.domElement);
     },
   };

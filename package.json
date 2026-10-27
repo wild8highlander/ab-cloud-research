@@ -17,9 +17,12 @@
     "build:lab3d": "npm run build -w ab-cloud-lab3d"
   },
   "engines": {
-    "node": ">=20.19.0"
+    "node": ">=18.0.0"
   },
   "allowScripts": {
-    "esbuild@0.28.2": true
+    "esbuild@0.21.3": true,
+    "esbuild@0.21.4": true,
+    "esbuild@0.21.5": true,
+    "esbuild@0.25.0": true
   }
 }

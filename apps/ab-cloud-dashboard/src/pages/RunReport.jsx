@@ -4,14 +4,19 @@ const VERDICT_CLASS = {
   PASS: 'v-pass', WARN: 'v-warn', FAIL: 'v-fail',
 };
 
-export default function RunReport({ summary }) {
+export default function RunReport({ summary, error }) {
   const [filter, setFilter] = useState('ALL');
+  if (error && !summary) {
+    return <p className="error-note">Failed to load run summary — {error}</p>;
+  }
   if (!summary) return <p className="muted">Loading run summary…</p>;
   if (!Array.isArray(summary.tests) || !summary.tests.length) {
     return <p className="error-note">run_summary.json is malformed — no test list found.</p>;
   }
   const shown = summary.tests.filter(t =>
-    filter === 'ALL' ? true : filter === 'WARN' ? t.verdict !== 'PASS' : t.verdict === 'PASS');
+    filter === 'ALL' ? true : filter === 'PASS' ? t.verdict === 'PASS' : t.verdict !== 'PASS');
+  // describe the actual data — never hardcode verdict kinds/ids here
+  const nonPass = summary.tests.filter(t => t.verdict !== 'PASS').map(t => t.id);
   return (
     <section>
       <h2>Run {summary.run} <span className="pill">{summary.date}</span></h2>
@@ -22,7 +27,7 @@ export default function RunReport({ summary }) {
         Full artifacts: <code>results/{summary.run}</code> in the repository.
       </p>
       <div className="filter-row">
-        {['ALL', 'PASS', 'WARN'].map(f => (
+        {['ALL', 'PASS', 'NON-PASS'].map(f => (
           <button key={f} className={filter === f ? 'btn active' : 'btn'}
             onClick={() => setFilter(f)}>{f}</button>
         ))}
@@ -39,13 +44,15 @@ export default function RunReport({ summary }) {
           ))}
         </tbody>
       </table>
-      <p className="muted">
-        The five WARN verdicts (tests 4, 5, 6, 11, 12) are the Wigner-surmise
-        floor: at N = 50,000 the asymptotic p-values vanish while the
-        suite's own two-sample machinery against the exact GUE reference
-        passes at the same data (see the monograph, section 3.2, and the
-        CALIBRATED verdict lines in the run logs).
-      </p>
+      {nonPass.length > 0 && (
+        <p className="muted">
+          Non-PASS verdicts (tests {nonPass.join(', ')}) are the Wigner-surmise
+          floor: at N = 50,000 the asymptotic p-values vanish while the
+          suite's own two-sample machinery against the exact GUE reference
+          passes at the same data (see the monograph, section 3.2, and the
+          CALIBRATED verdict lines in the run logs).
+        </p>
+      )}
     </section>
   );
 }

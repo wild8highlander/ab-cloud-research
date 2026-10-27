@@ -92,16 +92,32 @@ export function useWorker() {
   const workerRef = useRef(null);
   const [busy, setBusy] = useState(false);
   useEffect(() => {
-    workerRef.current = new Worker(
-      new URL('../worker/stats.worker.js', import.meta.url), { type: 'module' });
-    return () => workerRef.current.terminate();
+    // Module-worker construction can THROW in environments without support
+    // (older Firefox, some Android WebViews, strict CSP without worker-src).
+    // An uncaught throw inside useEffect would unmount the whole React root
+    // (white screen). Instead: remember the failure and let run() resolve
+    // with an error payload the pages render as a normal error note.
+    try {
+      workerRef.current = new Worker(
+        new URL('../worker/stats.worker.js', import.meta.url), { type: 'module' });
+    } catch (e) {
+      workerRef.current = null;
+      workerRef.initError = String(e?.message || e);
+    }
+    return () => { workerRef.current?.terminate(); workerRef.current = null; };
   }, []);
   // stable identity: keeps page-level effects from re-firing on every render
   const run = useCallback((type, payload) => new Promise((resolve) => {
     const w = workerRef.current;
-    if (!w) { resolve({ type, ok: false, error: 'worker unavailable' }); return; }
+    if (!w) {
+      resolve({ type, ok: false, error: workerRef.initError || 'worker unavailable in this browser' });
+      return;
+    }
     setBusy(true);
+    // safety net: a lost/unknown message must never leave the UI spinning forever
+    const timer = setTimeout(() => finish({ type, ok: false, error: 'worker timed out' }), 120000);
     const finish = (data) => {
+      clearTimeout(timer);
       w.removeEventListener('message', handler);
       w.removeEventListener('error', onErr);
       setBusy(false);

@@ -10,7 +10,7 @@
  *      dist/dashboard/...         (React verification dashboard)
  *      dist/lab3d/...             (React + Three.js 3D laboratory)
  *
- * Works on Node >= 20.19 (no external dependencies).
+ * Works on Node >= 18 (no external dependencies).
  */
 import { spawnSync } from 'node:child_process';
 import { existsSync, cpSync, mkdirSync, rmSync } from 'node:fs';
@@ -35,6 +35,40 @@ function run(cmd, args, cwd) {
   }
 }
 
+// ---- esbuild self-heal -------------------------------------------------------
+// Some CI environments (recent npm security policy, restricted containers)
+// skip esbuild's postinstall validation script. The binary usually still
+// works (it ships as an optionalDependency), but when the platform binary is
+// missing the API throws. A rebuild re-runs the install script and fixes it;
+// a plain `npm install` is the last-resort fallback. Doing this BEFORE the
+// vite builds turns a confusing "esbuild: Failed to install correctly" (or
+// "The service was stopped") build failure into an automatic repair.
+function esbuildHealthy(appDir) {
+  const probe = spawnSync(
+    process.execPath,
+    ['-e', "try{const e=require('esbuild');e.transformSync('const x=1');}catch(_){process.exit(1)}"],
+    { cwd: appDir, timeout: 30000 },
+  );
+  return probe.status === 0;
+}
+
+function ensureEsbuild(appDir) {
+  if (esbuildHealthy(appDir)) return;
+  console.log('\n⚠ esbuild sanity check failed — attempting automatic repair…');
+  spawnSync('npm', ['rebuild', 'esbuild'], { cwd: root, stdio: 'inherit', shell: process.platform === 'win32' });
+  if (esbuildHealthy(appDir)) {
+    console.log('✓ esbuild repaired via `npm rebuild esbuild`.');
+    return;
+  }
+  console.log('⚠ still broken — falling back to a full `npm install`…');
+  run('npm', ['install'], root);
+  if (!esbuildHealthy(appDir)) {
+    console.error('✗ esbuild is not usable after repair attempts — aborting with a clear message.');
+    console.error('  Fix locally with: npm rebuild esbuild   (or npm install)');
+    process.exit(1);
+  }
+}
+
 function ensureDeps(appDir) {
   // npm workspaces hoist deps to the root node_modules; checking the app-level
   // dir alone would re-run `npm ci` on every build even right after install.
@@ -49,9 +83,25 @@ function ensureDeps(appDir) {
   }
 }
 
+// 0. Fail early (and clearly) when an expected input directory is missing
+//    instead of throwing a raw ENOENT stack from cpSync at the end.
+if (!existsSync(site)) {
+  console.error(`✗ Build input missing: ${site}`);
+  console.error('  The portal landing lives in ./site — make sure it is committed.');
+  process.exit(1);
+}
+for (const app of apps) {
+  if (!existsSync(join(app.dir, 'package.json'))) {
+    console.error(`✗ Build input missing: ${app.dir}/package.json`);
+    console.error('  Workspace apps must live under ./apps — make sure they are committed.');
+    process.exit(1);
+  }
+}
+
 // 1. Build both apps
 for (const app of apps) {
   ensureDeps(app.dir);
+  ensureEsbuild(app.dir);
   run('npm', ['run', 'build', '-w', app.name], root);
 }
 

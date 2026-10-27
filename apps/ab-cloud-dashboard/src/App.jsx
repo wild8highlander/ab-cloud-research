@@ -50,8 +50,8 @@ export default function App() {
             <br />Check that <code>data/</code> is deployed next to this page and reload.
           </p>
         )}
-        {tab === 'run' && <RunReport summary={summary} />}
-        {tab === 'zeros' && <ZerosStats zeros={zeros} />}
+        {tab === 'run' && <RunReport summary={summary} error={loadErr} />}
+        {tab === 'zeros' && <ZerosStats zeros={zeros} error={loadErr} />}
         {tab === 'spinor' && <Spinor64 />}
       </main>
       <footer className="muted">

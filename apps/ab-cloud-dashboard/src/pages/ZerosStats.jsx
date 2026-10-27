@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart, BarChart, Stat, useWorker } from '../components/ui.jsx';
 
-export default function ZerosStats({ zeros }) {
+export default function ZerosStats({ zeros, error: loadError }) {
   const { run, busy } = useWorker();
   const [res, setRes] = useState(null);
   const [err, setErr] = useState('');
@@ -15,10 +15,15 @@ export default function ZerosStats({ zeros }) {
     }
   }, [zeros, res, err, run]);
 
+  if (loadError && !zeros) {
+    return <p className="error-note">Failed to load the zeros dataset — {loadError}</p>;
+  }
   if (!zeros) return <p className="muted">Loading the 50,000 Odlyzko zeros…</p>;
   if (err) return <p className="error-note">Real-time statistics failed: {err}</p>;
   if (busy && !res) return <p className="muted">Computing real-time statistics in a Web Worker…</p>;
-  if (!res || !res.bN || !res.bN.length) return null;
+  if (!res || !res.bN || !res.bN.length) {
+    return <p className="muted">Statistics are unavailable for this dataset (not enough zeros to build the b(N) checkpoints).</p>;
+  }
   const lastB = res.bN[res.bN.length - 1].b;
 
   const nShown = 5000;

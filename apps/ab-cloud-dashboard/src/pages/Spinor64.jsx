@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart, Stat, useWorker } from '../components/ui.jsx';
 
-export default function Spinor64() {
+export default function Spinor64({ error: loadError }) {
   const { run, busy } = useWorker();
   const [data, setData] = useState(null);
   const [res, setRes] = useState(null);
@@ -43,6 +43,7 @@ export default function Spinor64() {
   }, [data, res, err, run]);
 
   if (err) return <p className="error-note">{err}</p>;
+  if (loadError && !data) return <p className="error-note">{loadError}</p>;
   if (!data) return <p className="muted">Loading frozen spinor data…</p>;
   const orbitCounts = [28, 21, 7, 7, 1];
 
@@ -61,10 +62,10 @@ export default function Spinor64() {
         <Stat label="Orbit sizes (PSL(2,7))" value={orbitCounts.join(' / ')}
           refVal="odd = 28 (bitangents, Riemann–Klein)" />
         <Stat label="Isospectrality (odd orbit)" value={res ? res.isomax.toExponential(2) : '…'}
-          refVal="8.9e-15 (reference)" ok={res && res.isomax < 1e-9} />
+          refVal="8.9e-15 (reference)" ok={res ? res.isomax < 1e-9 : undefined} />
         <Stat label="⟨r⟩ (representative)" value={res ? res.rMean.toFixed(10) : '…'}
-          refVal="0.4515710793" ok={res && Math.abs(res.rMean - 0.4515710792825435) < 1e-6} />
-        <Stat label="Zero modes" value={res ? res.nZero : '…'} refVal="2" ok={res && res.nZero === 2} />
+          refVal="0.4515710793" ok={res ? Math.abs(res.rMean - 0.4515710792825435) < 1e-6 : undefined} />
+        <Stat label="Zero modes" value={res ? res.nZero : '…'} refVal="2" ok={res ? res.nZero === 2 : undefined} />
       </div>
       {res && (
         <>

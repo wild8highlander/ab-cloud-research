@@ -49,17 +49,24 @@ export default function App() {
   useEffect(() => {
     const s = sceneRef.current;
     if (!s || glError) return;
-    if (tab === 'hofstadter') {
-      const { vortices } = buildHofstadter(s, 18, alpha, nv);
-      setInfo(`Lattice 18×18, α = ${alpha}, ${vortices.length} vortices (red cones, q=+1). Site bars are colored by the Landau phase 2πα·j — the GUE mechanism of the suite is the vortex phase field (:monumental gauge).`);
-    } else if (tab === 'dirac') {
-      buildDiracCone(s, 6, 1.9);
-      setInfo('Dirac cone E(k) = v_F·|k| at α = 1/2 (vortex q=+1): the chiral tower of suite tests 19/30, v_F(2π) = 1.9.');
-    } else {
-      buildZetaStrip(s, 40, 61, 200);
-      setInfo(`|ζ(σ+it)| for σ ∈ [0, 1.2], t ∈ [0, 40] — the critical strip (3D-34). Yellow line: Re s = 1/2; red spheres: embedded zeros γ₁..γ₁₅. JS ζ-evaluator self-check: |ζ(2)−π²/6| = ${check ? check.z2err.toExponential(2) : '…'}.`);
+    // A throwing scene builder must degrade to an error note, never unmount
+    // the React root (which would blank the whole page).
+    try {
+      if (tab === 'hofstadter') {
+        const { vortices } = buildHofstadter(s, 18, alpha, nv);
+        setInfo(`Lattice 18×18, α = ${alpha}, ${vortices.length} vortices (red cones, q=+1). Site bars are colored by the Landau phase 2πα·j — the GUE mechanism of the suite is the vortex phase field (:monumental gauge).`);
+      } else if (tab === 'dirac') {
+        buildDiracCone(s, 6, 1.9);
+        setInfo('Dirac cone E(k) = v_F·|k| at α = 1/2 (vortex q=+1): the chiral tower of suite tests 19/30, v_F(2π) = 1.9.');
+      } else {
+        buildZetaStrip(s, 40, 61, 200);
+        setInfo(`|ζ(σ+it)| for σ ∈ [0, 1.2], t ∈ [0, 40] — the critical strip (3D-34). Yellow line: Re s = 1/2; red spheres: embedded zeros γ₁..γ₁₅. JS ζ-evaluator self-check: |ζ(2)−π²/6| = ${check ? check.z2err.toExponential(2) : '…'}.`);
+      }
+    } catch (e) {
+      setGlError(`Failed to build the "${tab}" scene — ${e?.message || e}. ` +
+        'Reload the page; if it persists, try another browser.');
     }
-  }, [tab, alpha, nv, check]);
+  }, [tab, alpha, nv, check, glError]);
 
   return (
     <div className="app">
