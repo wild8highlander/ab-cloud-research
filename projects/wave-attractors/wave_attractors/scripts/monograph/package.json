@@ -9,6 +9,6 @@
     "build": "npm run build:ru && npm run build:en"
   },
   "dependencies": {
-    "docx": "9.7.1"
+    "docx": "9.14.0"
   }
 }
