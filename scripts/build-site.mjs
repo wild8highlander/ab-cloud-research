@@ -36,7 +36,10 @@ function run(cmd, args, cwd) {
 }
 
 function ensureDeps(appDir) {
-  if (existsSync(join(appDir, 'node_modules'))) return;
+  // npm workspaces hoist deps to the root node_modules; checking the app-level
+  // dir alone would re-run `npm ci` on every build even right after install.
+  if (existsSync(join(appDir, 'node_modules')) ||
+      existsSync(join(root, 'node_modules'))) return;
   console.log('\n▶ installing workspace dependencies…');
   if (existsSync(join(root, 'package-lock.json'))) {
     const ci = spawnSync('npm', ['ci'], { cwd: root, stdio: 'inherit' });

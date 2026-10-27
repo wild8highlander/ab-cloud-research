@@ -47,6 +47,7 @@ export function zeta(s) {
   }
   const Nc = [N, 0];
   const d = (s[0] - 1) * (s[0] - 1) + s[1] * s[1];
+  if (d === 0) return [Infinity, 0]; // pole at s = 1 (grid points can hit it exactly)
   const invS1 = [(s[0] - 1) / d, -s[1] / d];
   let tail = cMul(invS1, cPow(Nc, [1 - s[0], -s[1]]));
   tail = cAdd(tail, cMul([0.5, 0], cPow(Nc, [-s[0], -s[1]])));

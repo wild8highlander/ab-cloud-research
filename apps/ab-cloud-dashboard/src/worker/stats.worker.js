@@ -1,7 +1,8 @@
 /**
  * stats.worker.js — real-time RMT statistics for the AB-Cloud dashboard.
  * Implements the core diagnostics of the Julia suite in plain JS:
- *   b(N) convergence, spacing ratios <r>, KS vs the GUE ratio law,
+ *   b(N) convergence vs Gram points (suite convention, CANON_SPEC §2),
+ *   spacing ratios <r>, KS vs the GUE ratio law,
  *   Sigma^2(L), Delta_3(L), R_2(s), and a 56x56 Jacobi eigensolver
  *   for the spinor-structure operators.
  */
@@ -50,12 +51,17 @@ function gcdf(r) {
 }
 
 function kolmogorovP(D, n) {
+  if (!(D > 0) || !(n > 0)) return 1; // D=0 → perfect match; D<0/NaN → no evidence
   const en = Math.sqrt(n);
   const lam = (en + 0.12 + 0.11 / en) * D;
-  const kmax = Math.floor(Math.sqrt(2) / lam) + 1;
+  // hard cap: for vanishing D the exact series needs astronomic k; p → 1 anyway.
+  const kmax = Math.min(Math.floor(Math.sqrt(2) / lam) + 1, 200000);
   let s = 0;
-  for (let k = 1; k <= kmax; k++)
-    s += Math.pow(-1, k - 1) * Math.exp(-2 * k * k * lam * lam);
+  for (let k = 1; k <= kmax; k++) {
+    const term = Math.exp(-2 * k * k * lam * lam);
+    s += (k % 2 ? 1 : -1) * term;
+    if (k > 50 && term < 1e-17) break; // terms decay monotonically past the first oscillations
+  }
   return Math.max(0, Math.min(1, 2 * s));
 }
 
@@ -73,20 +79,58 @@ function gueRatioKS(ratios) {
 }
 
 function bNConvergence(zeros, checkpoints) {
-  // gamma-tilde: second-difference Gram reference (suite convention, simple
-  // in-browser version): mean |gamma_k - local reference| per prefix N
+  // Suite convention (CANON_SPEC §2; port of compute_bn in verification/rust):
+  //   b(N) = (1/N) Σ_{k=1..N} |γ_k − gram_point(k)|,
+  // where gram_point(k) solves θ(t) = πk (Riemann–Siegel theta).
+  // Single incremental pass up to max(checkpoints), prefix sums at each N.
+  const cps = [...checkpoints].sort((a, b) => a - b);
+  const maxN = Math.min(cps[cps.length - 1], zeros.length);
   const out = [];
-  for (const N of checkpoints) {
-    let sum = 0;
-    for (let k = 0; k < N; k++) {
-      const left = k > 0 ? zeros[k - 1] : zeros[k];
-      const right = k + 1 < N ? zeros[k + 1] : zeros[k];
-      const ref = (left + right) / 2; // local Gram reference
-      sum += Math.abs(zeros[k] - ref);
+  let sum = 0;
+  let ci = 0;
+  for (let k = 1; k <= maxN; k++) {
+    sum += Math.abs(zeros[k - 1] - gramPoint(k));
+    while (ci < cps.length && cps[ci] === k) {
+      out.push({ N: k, b: sum / k });
+      ci++;
     }
-    out.push({ N, b: sum / N });
   }
   return out;
+}
+
+// Lambert W (principal branch), x >= 0 — Newton iteration,
+// port of the solver in verification/rust/src/main.rs.
+function lambertW(x) {
+  let w = Math.log(x > 1 ? x : 1);
+  if (w < 0) w = x; // W(x) ~ x for 0<x<1; avoids the w=-1 flat point
+  for (let i = 0; i < 50; i++) {
+    const ew = Math.exp(w);
+    const f = w * ew - x;
+    const fp = ew * (w + 1);
+    if (Math.abs(fp) < 1e-30) break;
+    const delta = f / fp;
+    w -= delta;
+    if (Math.abs(delta) < 1e-14 * (1 + Math.abs(w))) break;
+  }
+  return w;
+}
+
+// gram_point(n): solution of theta(t) = pi*n (CANON_SPEC §2;
+// faithful port of gram_point in verification/rust/src/main.rs).
+function gramPoint(n) {
+  if (n === 0) return 0;
+  let t = (2 * Math.PI * n) / lambertW(n / Math.E);
+  for (let i = 0; i < 8; i++) {
+    const arg = t / (2 * Math.PI);
+    if (arg <= 0) break;
+    const theta = 0.5 * t * Math.log(arg) - 0.5 * t - Math.PI / 8
+      + 1 / (48 * t) + 7 / (5760 * t * t * t);
+    const dtheta = 0.5 * Math.log(arg) - 1 / (48 * t * t)
+      - 21 / (5760 * t * t * t * t);
+    if (Math.abs(dtheta) < 1e-30) break;
+    t -= (theta - n * Math.PI) / dtheta;
+  }
+  return t;
 }
 
 function numberVariance(eigs, Lvalues, nWindows) {
@@ -200,8 +244,14 @@ self.onmessage = (e) => {
       const { classes, edges, representative } = payload;
       const N = 56;
       const spectra = [];
-      for (const c of classes) {
-        if (c.orbit !== 0) continue;
+      const odd = (classes || []).filter(c => c.orbit === 0);
+      if (!odd.length || !Array.isArray(edges) || !edges.length) {
+        throw new Error('no odd-orbit spinor classes or empty edge list in payload');
+      }
+      for (const c of odd) {
+        if (!Array.isArray(c.signs) || c.signs.length < edges.length) {
+          throw new Error(`class ${c.cls}: ${c.signs ? c.signs.length : 0} signs < ${edges.length} edges`);
+        }
         const A = [];
         for (let i = 0; i < N; i++) A.push(new Array(N).fill(0));
         edges.forEach(([u, v], k) => {
@@ -211,6 +261,9 @@ self.onmessage = (e) => {
         const w = jacobiEigen(A);
         if (c.cls === representative) spectra.unshift(w);
         else spectra.push(w);
+      }
+      if (!spectra.length) {
+        throw new Error(`representative class ${representative} not found among odd classes`);
       }
       const rep = spectra[0];
       let isomax = 0;

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 
 const VERDICT_CLASS = {
   PASS: 'v-pass', WARN: 'v-warn', FAIL: 'v-fail',
@@ -7,16 +7,19 @@ const VERDICT_CLASS = {
 export default function RunReport({ summary }) {
   const [filter, setFilter] = useState('ALL');
   if (!summary) return <p className="muted">Loading run summary…</p>;
+  if (!Array.isArray(summary.tests) || !summary.tests.length) {
+    return <p className="error-note">run_summary.json is malformed — no test list found.</p>;
+  }
   const shown = summary.tests.filter(t =>
     filter === 'ALL' ? true : filter === 'WARN' ? t.verdict !== 'PASS' : t.verdict === 'PASS');
   return (
     <section>
       <h2>Run {summary.run} <span className="pill">{summary.date}</span></h2>
       <p className="muted">
-        Julia {summary.julia} · {summary.zeros.toLocaleString()} Odlyzko zeros ·
-        two-pass {summary.two_pass} · first pass {summary.first_pass.PASS} PASS /{' '}
-        {summary.first_pass.WARN} WARN · hardcore pass-2: {summary.hardcore_pass2}.
-        Full artifacts: <code>results/{summary.run}/</code> in the repository.
+        Julia {summary.julia ?? '?'} · {(summary.zeros ?? 0).toLocaleString()} Odlyzko zeros ·
+        two-pass {summary.two_pass ?? '?'} · first pass {summary.first_pass?.PASS ?? '?'} PASS /{' '}
+        {summary.first_pass?.WARN ?? '?'} WARN · hardcore pass-2: {summary.hardcore_pass2 ?? '?'}.
+        Full artifacts: <code>results/{summary.run}</code> in the repository.
       </p>
       <div className="filter-row">
         {['ALL', 'PASS', 'WARN'].map(f => (

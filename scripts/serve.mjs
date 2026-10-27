@@ -4,7 +4,7 @@
  *
  * Used as the Web Service fallback start command (`npm start`):
  * serves ./dist on 0.0.0.0:$PORT (default 3000) and answers the
- * platform health check on /.
+ * platform health check on / (GET and HEAD).
  */
 import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
@@ -21,6 +21,7 @@ const MIME = {
   '.css': 'text/css; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
   '.txt': 'text/plain; charset=utf-8',
+  '.csv': 'text/csv; charset=utf-8',
   '.svg': 'image/svg+xml',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
@@ -34,17 +35,27 @@ const MIME = {
   '.map': 'application/json',
 };
 
-async function firstExisting(paths) {
-  for (const p of paths) {
-    const s = await stat(p).catch(() => null);
-    if (s?.isFile()) return p;
+async function isFile(p) {
+  const s = await stat(p).catch(() => null);
+  return s?.isFile() ? p : null;
+}
+
+function safeDecode(raw) {
+  try {
+    return decodeURIComponent(raw);
+  } catch {
+    return raw; // malformed percent-encoding → serve as-is (will 404/500 safely)
   }
-  return null;
 }
 
 const server = createServer(async (req, res) => {
+  const method = req.method || 'GET';
+  if (method !== 'GET' && method !== 'HEAD') {
+    res.writeHead(405, { allow: 'GET, HEAD' }).end('Method Not Allowed');
+    return;
+  }
   try {
-    const urlPath = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
+    const urlPath = safeDecode(new URL(req.url, 'http://localhost').pathname);
     const safePath = normalize(urlPath).replace(/^(\.\.[/\\])+/, '');
     const base = join(root, safePath);
     if (!base.startsWith(root)) {
@@ -52,10 +63,21 @@ const server = createServer(async (req, res) => {
       return;
     }
 
-    const file =
-      (await stat(base).then((s) => (s.isDirectory() ? join(base, 'index.html') : base)).catch(() => null)) ??
-      (await firstExisting([join(base, 'index.html'), join(base, 'index.htm')])) ??
-      (urlPath === '/' || !extname(urlPath) ? join(root, 'index.html') : null);
+    // resolution order:
+    //   1. exact file            (/dashboard/data/run_summary.json)
+    //   2. directory index       (/dashboard/ → /dashboard/index.html)
+    //   3. implicit index        (/dashboard  → /dashboard/index.html)
+    //   4. extensionless → portal landing (soft fallback), else 404
+    const st = await stat(base).catch(() => null);
+    let file = null;
+    if (st?.isFile()) {
+      file = base;
+    } else if (st?.isDirectory() || !extname(urlPath)) {
+      file =
+        (await isFile(join(base, 'index.html'))) ??
+        (await isFile(join(base, 'index.htm'))) ??
+        (extname(urlPath) ? null : join(root, 'index.html'));
+    }
 
     if (!file) {
       res.writeHead(404, { 'content-type': 'text/plain; charset=utf-8' }).end('404 Not Found');
@@ -63,11 +85,16 @@ const server = createServer(async (req, res) => {
     }
 
     const data = await readFile(file);
-    res.writeHead(200, {
+    const headers = {
       'content-type': MIME[extname(file).toLowerCase()] ?? 'application/octet-stream',
-      'cache-control': file.includes(`${root}/assets`) ? 'public, max-age=31536000, immutable' : 'no-cache',
-    });
-    res.end(data);
+      'content-length': data.length,
+      'cache-control': file.startsWith(join(root, 'dashboard', 'assets')) ||
+        file.startsWith(join(root, 'lab3d', 'assets'))
+        ? 'public, max-age=31536000, immutable'
+        : 'no-cache',
+    };
+    res.writeHead(200, headers);
+    res.end(method === 'HEAD' ? undefined : data);
   } catch (err) {
     res.writeHead(500, { 'content-type': 'text/plain; charset=utf-8' }).end(`500: ${err.message}`);
   }

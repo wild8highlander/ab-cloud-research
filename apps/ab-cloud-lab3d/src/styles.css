@@ -13,3 +13,4 @@ nav { display: flex; gap: .5em; margin: .8em 0; flex-wrap: wrap; }
 .muted { color: #8494b3; font-size: .92em; }
 footer { margin-top: 1em; font-size: .85em; }
 code { background: #1b2540; border-radius: 4px; padding: 0 .35em; }
+.gl-error { color: #ff8a80; background: #2a1215; border: 1px solid #5c1a1a; border-radius: 10px; padding: .9em 1.1em; }

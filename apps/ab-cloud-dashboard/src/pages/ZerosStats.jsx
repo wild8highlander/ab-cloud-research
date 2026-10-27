@@ -4,16 +4,22 @@ import { LineChart, BarChart, Stat, useWorker } from '../components/ui.jsx';
 export default function ZerosStats({ zeros }) {
   const { run, busy } = useWorker();
   const [res, setRes] = useState(null);
+  const [err, setErr] = useState('');
 
   useEffect(() => {
-    if (zeros && zeros.length && !res) {
-      run('stats', { zeros }).then(r => { if (r.ok) setRes(r.result); });
+    if (zeros && zeros.length && !res && !err) {
+      run('stats', { zeros }).then(r => {
+        if (r.ok) setRes(r.result);
+        else setErr(r.error || 'worker computation failed');
+      });
     }
-  }, [zeros, res, run]);
+  }, [zeros, res, err, run]);
 
   if (!zeros) return <p className="muted">Loading the 50,000 Odlyzko zeros…</p>;
+  if (err) return <p className="error-note">Real-time statistics failed: {err}</p>;
   if (busy && !res) return <p className="muted">Computing real-time statistics in a Web Worker…</p>;
-  if (!res) return null;
+  if (!res || !res.bN || !res.bN.length) return null;
+  const lastB = res.bN[res.bN.length - 1].b;
 
   const nShown = 5000;
   const hist = (() => {
@@ -42,8 +48,8 @@ export default function ZerosStats({ zeros }) {
           refVal="0.59965 (GUE)" ok={Math.abs(res.rMean - 0.59965) < 0.02} />
         <Stat label={`KS D vs GUE ratio law (n=${res.nRatios})`}
           value={res.ks.D.toFixed(4)} refVal={`p = ${res.ks.p.toExponential(2)}`} />
-        <Stat label="b(N = 50000)" value={res.bN[res.bN.length - 1].b.toFixed(4)}
-          refVal="1.2126 (suite Test 1)" ok={Math.abs(res.bN[res.bN.length - 1].b - 1.2126) < 0.05} />
+        <Stat label="b(N = 50000)" value={lastB.toFixed(4)}
+          refVal="1.2126 (suite Test 1)" ok={Math.abs(lastB - 1.2126) < 0.05} />
         <Stat label="POISSON / GOE / GUE"
           value={`${res.refs.R_POISSON} / ${res.refs.R_GOE} / ${res.refs.R_GUE}`} />
       </div>

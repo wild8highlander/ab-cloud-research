@@ -7,21 +7,23 @@
  */
 'use strict';
 import * as THREE from 'three';
-import 'three/examples/jsm/controls/OrbitControls.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { zeta, FIRST_ZEROS } from './zeta.js';
 
 export function makeScene(container) {
+  const width = container.clientWidth || 800;   // guard: 0-size host (hidden tab, CSS not applied yet)
+  const height = container.clientHeight || 600;
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x0d1220);
-  const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 500);
+  const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 500);
   camera.position.set(26, 20, 30);
   const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setSize(width, height);
   container.appendChild(renderer.domElement);
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
-  scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+  const ambient = new THREE.AmbientLight(0xffffff, 0.55);
+  scene.add(ambient);
   const dir = new THREE.DirectionalLight(0xffffff, 1.1);
   dir.position.set(30, 40, 25);
   scene.add(dir);
@@ -32,25 +34,44 @@ export function makeScene(container) {
     renderer.render(scene, camera);
   };
   animate();
+  const lights = new Set([ambient, dir]); // never disposed
   const onResize = () => {
-    camera.aspect = container.clientWidth / container.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(container.clientWidth, container.clientHeight);
+    const w = container.clientWidth, h = container.clientHeight;
+    if (w > 0 && h > 0) { // guard: hidden/collapsed host would give NaN aspect
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    }
   };
   window.addEventListener('resize', onResize);
+  // free GPU resources of a subtree (prevents context memory leak on rebuilds)
+  const disposeDeep = (obj) => {
+    obj.traverse?.((o) => {
+      o.geometry?.dispose?.();
+      if (Array.isArray(o.material)) o.material.forEach(m => m.dispose?.());
+      else o.material?.dispose?.();
+    });
+  };
   return {
     scene, camera, renderer, controls,
     clear() {
-      while (scene.children.length > 3) {
-        const c = scene.children[scene.children.length - 1];
+      // remove everything EXCEPT the base lights; disposing GPU resources.
+      // (the old count-based loop `length > 3` kept one stale group alive and
+      //  accumulated scene content on every tab switch)
+      for (let i = scene.children.length - 1; i >= 0; i--) {
+        const c = scene.children[i];
+        if (lights.has(c)) continue;
         scene.remove(c);
+        disposeDeep(c);
       }
     },
     dispose() {
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', onResize);
+      this.clear();
+      controls.dispose();
       renderer.dispose();
-      container.removeChild(renderer.domElement);
+      renderer.domElement.parentNode?.removeChild(renderer.domElement);
     },
   };
 }
@@ -137,25 +158,13 @@ export function buildDiracCone(s, kmax = 6, vF = 1.9) {
 /* ---- module 3: ζ critical strip ---- */
 export function buildZetaStrip(s, tmax = 40, nSigma = 81, nT = 240) {
   s.clear();
-  const geo = new THREE.PlaneGeometry(1.2, tmax, nSigma - 1, nT - 1);
-  geo.rotateX(-Math.PI / 2);
-  const pos = geo.attributes.position;
-  const colors = [];
   let eMax = 0;
-  const vals = [];
-  for (let i = 0; i < pos.count; i++) {
-    const sigma = pos.getX(i);          // mapped: x in [-0.6, 0.6] -> sigma in [0, 1.2]
-    const t = -pos.getZ(i) + tmax / 2;
-    const w = zeta([sigma + 0.5 - 0.6 + 0.6, 0]); // placeholder replaced below
-    vals.push(null);
-  }
-  // recompute directly (clearer mapping: sigma in [0, 1.2])
+  // direct mapping: sigma in [0, 1.2], t in [0, tmax]
   const seg = nSigma * nT;
   const zgeo = new THREE.BufferGeometry();
   const vertices = new Float32Array(seg * 3);
   const zcol = new Float32Array(seg * 3);
   const indices = [];
-  let p = 0;
   const sigmas = [], ts = [], zs = [];
   for (let a = 0; a < nSigma; a++) {
     for (let b = 0; b < nT; b++) {

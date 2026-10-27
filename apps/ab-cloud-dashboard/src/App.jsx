@@ -7,12 +7,19 @@ export default function App() {
   const [summary, setSummary] = useState(null);
   const [zeros, setZeros] = useState(null);
   const [tab, setTab] = useState('run');
+  const [loadErr, setLoadErr] = useState('');
 
   useEffect(() => {
-    fetch('data/run_summary.json').then(r => r.json()).then(setSummary);
-    fetch('data/zeta_zeros_50000_embedded.txt').then(r => r.text()).then(t => {
-      setZeros(t.split('\n').filter(l => l && !l.startsWith('#')).map(Number));
-    });
+    fetch('data/run_summary.json')
+      .then(r => { if (!r.ok) throw new Error(`run_summary.json: HTTP ${r.status}`); return r.json(); })
+      .then(setSummary)
+      .catch(e => setLoadErr(p => p + `run summary: ${e.message}. `));
+    fetch('data/zeta_zeros_50000_embedded.txt')
+      .then(r => { if (!r.ok) throw new Error(`zeros dataset: HTTP ${r.status}`); return r.text(); })
+      .then(t => {
+        setZeros(t.split('\n').filter(l => l && !l.startsWith('#')).map(Number));
+      })
+      .catch(e => setLoadErr(p => p + `${e.message}. `));
   }, []);
 
   const tabs = [
@@ -37,6 +44,12 @@ export default function App() {
         </nav>
       </header>
       <main>
+        {loadErr && (
+          <p className="error-note">
+            Failed to load datasets: {loadErr}
+            <br />Check that <code>data/</code> is deployed next to this page and reload.
+          </p>
+        )}
         {tab === 'run' && <RunReport summary={summary} />}
         {tab === 'zeros' && <ZerosStats zeros={zeros} />}
         {tab === 'spinor' && <Spinor64 />}

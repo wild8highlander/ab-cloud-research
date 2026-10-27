@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 /* ---------- tiny SVG chart helpers (no chart deps) ---------- */
 
@@ -74,7 +74,7 @@ export function BarChart({ points, width = 640, height = 300, xLabel, yLabel }) 
   );
 }
 
-export function Stat({ label, value, ref: refVal, ok }) {
+export function Stat({ label, value, refVal, ok }) {
   return (
     <div className="stat">
       <div className="stat-label">{label}</div>
@@ -96,17 +96,27 @@ export function useWorker() {
       new URL('../worker/stats.worker.js', import.meta.url), { type: 'module' });
     return () => workerRef.current.terminate();
   }, []);
-  const run = (type, payload) => new Promise((resolve) => {
-    setBusy(true);
+  // stable identity: keeps page-level effects from re-firing on every render
+  const run = useCallback((type, payload) => new Promise((resolve) => {
     const w = workerRef.current;
-    const handler = (e) => {
-      if (e.data.type !== type) return;
+    if (!w) { resolve({ type, ok: false, error: 'worker unavailable' }); return; }
+    setBusy(true);
+    const finish = (data) => {
       w.removeEventListener('message', handler);
+      w.removeEventListener('error', onErr);
       setBusy(false);
-      resolve(e.data);
+      resolve(data);
+    };
+    const handler = (e) => {
+      if (e.data && e.data.type === type) finish(e.data);
+    };
+    const onErr = (e) => {
+      e.preventDefault();
+      finish({ type, ok: false, error: String(e.message || 'worker error') });
     };
     w.addEventListener('message', handler);
+    w.addEventListener('error', onErr);
     w.postMessage({ type, payload });
-  });
+  }), []);
   return { run, busy };
 }

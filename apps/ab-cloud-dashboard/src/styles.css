@@ -51,3 +51,7 @@ table.data th { background: #eef2fa; }
 .filter-row { display: flex; gap: .5em; margin: .6em 0; }
 footer { margin-top: 1.2em; font-size: .85em; }
 code { background: #eef2f8; border-radius: 4px; padding: 0 .35em; }
+.error-note {
+  background: #fee2e2; color: #7f1d1d; border: 1px solid #fecaca;
+  border-radius: 10px; padding: .8em 1em; font-size: .92em;
+}

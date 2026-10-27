@@ -6,34 +6,43 @@ export default function Spinor64() {
   const [data, setData] = useState(null);
   const [res, setRes] = useState(null);
   const [idx, setIdx] = useState(0);
+  const [err, setErr] = useState('');
 
   useEffect(() => {
+    const get = (url, as) => fetch(url).then(r => {
+      if (!r.ok) throw new Error(`${url}: HTTP ${r.status}`);
+      return as === 'json' ? r.json() : r.text();
+    });
     Promise.all([
-      fetch('data/spinor_classes.csv').then(r => r.text()),
-      fetch('data/klein_graph_edges.csv').then(r => r.text()),
-      fetch('data/reference_stats.json').then(r => r.json()),
+      get('data/spinor_classes.csv', 'text'),
+      get('data/klein_graph_edges.csv', 'text'),
+      get('data/reference_stats.json', 'json'),
     ]).then(([clsTxt, edgeTxt, stats]) => {
-      const lines = clsTxt.trim().split('\n').slice(1);
+      const lines = clsTxt.trim().split(/\r?\n/).slice(1);
       const classes = lines.filter(Boolean).map(l => {
         const p = l.split(',');
         return { cls: +p[0], orbit: +p[1], arf: +p[2],
           signs: p[3].trim().split(/\s+/).map(Number) };
       });
-      const edges = edgeTxt.trim().split('\n').slice(1).filter(Boolean)
+      const edges = edgeTxt.trim().split(/\r?\n/).slice(1).filter(Boolean)
         .map(l => { const p = l.split(','); return [+p[1], +p[2]]; });
       setData({ classes, edges, stats });
-    });
+    }).catch(e => setErr(`Failed to load frozen spinor data — ${e.message}`));
   }, []);
 
   useEffect(() => {
-    if (data && !res) {
+    if (data && !res && !err) {
       run('spinor', {
         classes: data.classes, edges: data.edges,
         representative: data.stats.representative_class,
-      }).then(r => { if (r.ok) setRes(r.result); });
+      }).then(r => {
+        if (r.ok) setRes(r.result);
+        else setErr(`Spinor computation failed — ${r.error || 'unknown worker error'}`);
+      });
     }
-  }, [data, res, run]);
+  }, [data, res, err, run]);
 
+  if (err) return <p className="error-note">{err}</p>;
   if (!data) return <p className="muted">Loading frozen spinor data…</p>;
   const orbitCounts = [28, 21, 7, 7, 1];
 
