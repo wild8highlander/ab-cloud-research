@@ -1,0 +1,25 @@
+# humans.txt — the people behind AB-Cloud Research
+# Learn more: https://humanstxt.org
+
+/* TEAM */
+Author: Isaev Iskhak Khamzatovich
+ORCID: 0009-0003-7299-0701
+Contact: https://github.com/wild8highlander
+Role: research, theory, implementation, formal verification
+
+/* SITE */
+Name: AB-Cloud Research
+Purpose: A phase resonator for the Riemann zeta zeros — a topological vortex on a
+  Hofstadter lattice encoding Aharonov-Bohm phases from the critical line, with
+  GUE random-matrix universality verified end-to-end in the browser.
+Stack: React 19, Vite, Three.js (WebGL), Web Workers, Node.js
+Formal layer: Lean 4, Coq, Agda, Isabelle/HOL
+Verification: 39 tests, two-pass (Julia 1.12, 50,000 Odlyzko zeros)
+Portal layer: PWA (service worker, offline fallback), canvas zero-field,
+  scroll-reveal motion, light/dark themes, serverless JSON API
+  (/api/health, /api/version, /api/zeta, /api/og)
+Motion: IntersectionObserver reveals, count-up stats, card tilt, particle
+  field — all honoring prefers-reduced-motion
+DOI: 10.5281/zenodo.21825394
+Repository: https://github.com/wild8highlander/ab-cloud-research
+Hosting: Pxxl (static edge + serverless functions)

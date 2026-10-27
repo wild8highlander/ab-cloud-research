@@ -9,11 +9,15 @@
  *      dist/index.html            (portal landing from ./site)
  *      dist/dashboard/...         (React verification dashboard)
  *      dist/lab3d/...             (React + Three.js 3D laboratory)
+ * 3. If SITE_URL is set (e.g. in Pxxl Secrets), emits SEO artifacts:
+ *      dist/sitemap.xml           (absolute URLs: /, /dashboard/, /lab3d/)
+ *      dist/robots.txt            (+ "Sitemap:" line)
+ *      canonical <link> + og:url + absolute og:image in dist/index.html
  *
  * Works on Node >= 18 (no external dependencies).
  */
 import { spawnSync } from 'node:child_process';
-import { existsSync, cpSync, mkdirSync, rmSync } from 'node:fs';
+import { existsSync, cpSync, mkdirSync, rmSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -114,9 +118,57 @@ cpSync(join(apps[0].dir, 'dist'), join(dist, 'dashboard'), { recursive: true });
 cpSync(join(apps[1].dir, 'dist'), join(dist, 'lab3d'), { recursive: true });
 
 // 3. Portal landing (site/index.html + assets) at the site root
+//    (cpSync copies dot-directories too — site/.well-known/security.txt lands at dist/.well-known/)
 cpSync(site, dist, { recursive: true });
+
+// 4. Optional SEO pass — only when the public URL is known.
+//    Set SITE_URL in Pxxl Secrets ("https://<your-pxxl-domain>"), rebuild,
+//    and the deploy gains a sitemap, robots Sitemap line, canonical link
+//    and absolute OG image URLs. Without SITE_URL the site ships exactly
+//    as before (relative og:image, no sitemap) — nothing breaks.
+const SITE_URL = (process.env.SITE_URL || process.env.PXXL_PUBLIC_DOMAIN || '').replace(/\/+$/, '');
+if (SITE_URL) {
+  if (!/^https:\/\//.test(SITE_URL)) {
+    console.error(`✗ SITE_URL must start with https:// (got "${SITE_URL}") — skipping SEO pass.`);
+  } else {
+    console.log(`\n▶ SEO pass for SITE_URL=${SITE_URL} …`);
+
+    writeFileSync(
+      join(dist, 'sitemap.xml'),
+      `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>${SITE_URL}/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>${SITE_URL}/dashboard/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/lab3d/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+</urlset>
+`,
+    );
+
+    const robotsPath = join(dist, 'robots.txt');
+    let robots = readFileSync(robotsPath, 'utf8').replace(/\n*Sitemap:.*$/m, '').trimEnd();
+    robots += `\nSitemap: ${SITE_URL}/sitemap.xml\n`;
+    writeFileSync(robotsPath, robots);
+
+    const landingPath = join(dist, 'index.html');
+    let landing = readFileSync(landingPath, 'utf8');
+    // absolute cover image for social scrapers that ignore relative URLs
+    landing = landing
+      .replaceAll('content="og-cover.png"', `content="${SITE_URL}/og-cover.png"`)
+      .replace(
+        /(\s*<meta name="twitter:image" content="[^"]*" \/>)/,
+        `$1\n  <meta property="og:url" content="${SITE_URL}/" />\n  <link rel="canonical" href="${SITE_URL}/" />`,
+      );
+    writeFileSync(landingPath, landing);
+
+    console.log('   dist/sitemap.xml         — generated from SITE_URL');
+    console.log('   dist/robots.txt          — + Sitemap line');
+    console.log('   dist/index.html          — canonical + og:url + absolute og:image');
+  }
+}
 
 console.log('\n✅ AB-Cloud portal assembled:');
 console.log('   dist/index.html          — portal landing');
 console.log('   dist/dashboard/…         — verification dashboard (React 19 + Vite)');
 console.log('   dist/lab3d/…             — 3D laboratory (React 19 + Three.js)');
+console.log('   dist/offline.html        — offline fallback (service worker)');
+console.log('   dist/.well-known/        — security.txt (RFC 9116)');

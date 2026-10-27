@@ -5,8 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AB-Cloud Research — Phase Resonator for the Riemann ζ Zeros</title>
   <meta name="description" content="AB-Cloud: a topological vortex on a Hofstadter lattice encoding Aharonov–Bohm phases from the zeros of the Riemann zeta function. Interactive verification dashboard and 3D laboratory." />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305060f'/%3E%3Ctext x='32' y='46' font-size='42' text-anchor='middle' fill='%234fc3f7' font-family='Georgia,serif' font-style='italic'%3E%CE%B6%3C/text%3E%3C/svg%3E" />
+  <meta name="theme-color" content="#05060f" />
+  <!-- Social preview cards. og:image/twitter:image are deploy-root-relative;
+       most scrapers (Telegram, Facebook, LinkedIn) resolve them against the
+       page URL. If a scraper demands an absolute URL, prefix your final
+       domain, e.g. https://<your-pxxl-domain>/og-cover.png -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AB-Cloud Research" />
+  <meta property="og:title" content="AB-Cloud Research — Phase Resonator for the Riemann ζ Zeros" />
+  <meta property="og:description" content="A topological vortex on a Hofstadter lattice encoding Aharonov–Bohm phases from the zeros of the Riemann zeta function. Interactive verification dashboard and 3D laboratory." />
+  <meta property="og:image" content="og-cover.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="AB-Cloud Research — phase resonator for the ζ zeros" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AB-Cloud Research — Phase Resonator for the Riemann ζ Zeros" />
+  <meta name="twitter:description" content="A topological vortex on a Hofstadter lattice encoding Aharonov–Bohm phases from the zeros of the Riemann zeta function. Interactive verification dashboard and 3D laboratory." />
+  <meta name="twitter:image" content="og-cover.png" />
+  <!-- PWA: installable app, offline via sw.js, OS-level shortcuts to both apps -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ResearchProject",
+    "name": "AB-Cloud Research",
+    "alternateName": "AB-Cloud: Phase Resonator for the Riemann zeta Zeros",
+    "description": "A topological vortex on a Hofstadter lattice encoding Aharonov-Bohm phases from the zeros of the Riemann zeta function, with GUE random-matrix universality verified end-to-end in the browser.",
+    "url": "https://github.com/wild8highlander/ab-cloud-research",
+    "identifier": ["doi:10.5281/zenodo.21825394", "https://orcid.org/0009-0003-7299-0701"],
+    "author": {
+      "@type": "Person",
+      "name": "Isaev Iskhak Khamzatovich",
+      "identifier": "https://orcid.org/0009-0003-7299-0701"
+    },
+    "keywords": "Riemann Hypothesis, Hilbert-Pólya program, Aharonov-Bohm effect, Hofstadter lattice, GUE, random matrix theory, zeta zeros",
+    "hasPart": [
+      {
+        "@type": "WebApplication",
+        "name": "AB-Cloud Verification Dashboard",
+        "url": "dashboard/",
+        "applicationCategory": "ScientificApplication",
+        "operatingSystem": "any"
+      },
+      {
+        "@type": "WebApplication",
+        "name": "AB-Cloud 3D Laboratory",
+        "url": "lab3d/",
+        "applicationCategory": "ScientificApplication",
+        "operatingSystem": "any"
+      }
+    ]
+  }
+  </script>
+  <script src="register-sw.js" defer></script>
+  <script src="portal.js" defer></script>
+  <script src="particles.js" defer></script>
   <style>
+    /* ═══ Cross-document view transitions (progressive enhancement) ═══ */
+    @view-transition { navigation: auto; }
+
     :root {
       --bg: #05060f;
       --bg-soft: #0a0d1d;
@@ -16,10 +75,45 @@
       --accent-2: #8be9fd;
       --text: #e8eef7;
       --muted: #8a94ab;
+      --grid-c: rgba(79, 195, 247, 0.05);
+      --glow-c: rgba(79, 195, 247, 0.14);
+      --zeta-c: rgba(79, 195, 247, 0.045);
+      --card-a: rgba(79, 195, 247, 0.055);
+      --card-b: rgba(79, 195, 247, 0.012);
+      --card-glow: rgba(79, 195, 247, 0.10);
+      --card-line-h: rgba(79, 195, 247, 0.45);
+      --card-shadow: rgba(79, 195, 247, 0.35);
+      --sel: rgba(79, 195, 247, 0.35);
+      --grad-a: #4fc3f7;
+      --grad-b: #8be9fd;
+      --grad-c: #ffffff;
       --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
     }
+    html[data-theme="light"] {
+      color-scheme: light;
+      --bg: #eef3f9;
+      --bg-soft: #e3ebf5;
+      --panel: rgba(9, 44, 84, 0.04);
+      --line: rgba(11, 110, 168, 0.26);
+      --accent: #0b6ea8;
+      --accent-2: #085e91;
+      --text: #121c2a;
+      --muted: #4c5c72;
+      --grid-c: rgba(11, 110, 168, 0.08);
+      --glow-c: rgba(11, 110, 168, 0.12);
+      --zeta-c: rgba(11, 110, 168, 0.07);
+      --card-a: rgba(11, 110, 168, 0.08);
+      --card-b: rgba(11, 110, 168, 0.02);
+      --card-glow: rgba(11, 110, 168, 0.12);
+      --card-line-h: rgba(11, 110, 168, 0.55);
+      --card-shadow: rgba(11, 110, 168, 0.30);
+      --sel: rgba(11, 110, 168, 0.25);
+      --grad-a: #0b6ea8;
+      --grad-b: #0a86c8;
+      --grad-c: #17405f;
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { color-scheme: dark; }
+    html { color-scheme: dark; scroll-behavior: smooth; }
     body {
       background: var(--bg);
       color: var(--text);
@@ -28,52 +122,151 @@
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
+      transition: background-color 0.45s ease, color 0.45s ease;
     }
+    ::selection { background: var(--sel); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
     /* ── ambient background ─────────────────────────────── */
     .bg-grid {
       position: fixed; inset: 0; z-index: 0; pointer-events: none;
       background-image:
-        linear-gradient(rgba(79,195,247,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(79,195,247,0.05) 1px, transparent 1px);
+        linear-gradient(var(--grid-c) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-c) 1px, transparent 1px);
       background-size: 44px 44px;
       mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 75%);
       -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 75%);
     }
     .bg-glow {
       position: fixed; z-index: 0; pointer-events: none;
-      width: 900px; height: 480px; left: 50%; top: -220px; transform: translateX(-50%);
-      background:
-        radial-gradient(ellipse at center, rgba(79,195,247,0.14), transparent 65%);
+      width: 900px; height: 480px; left: 50%; top: -220px;
+      transform: translate(calc(-50% + var(--mx, 0px)), var(--my, 0px));
+      background: radial-gradient(ellipse at center, var(--glow-c), transparent 65%);
       filter: blur(10px);
+      transition: transform 0.6s cubic-bezier(0.2, 0.6, 0.3, 1);
     }
     .bg-zeta {
       position: fixed; right: -60px; bottom: -120px; z-index: 0; pointer-events: none;
       font-family: Georgia, serif; font-style: italic;
       font-size: clamp(360px, 55vw, 720px); line-height: 1;
-      color: rgba(79, 195, 247, 0.045);
+      color: var(--zeta-c);
       user-select: none;
     }
+    #zeroField {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      width: 100%; height: 100%;
+    }
+
     /* ── layout ─────────────────────────────────────────── */
     .wrap { position: relative; z-index: 1; width: min(1060px, 92vw); margin: 0 auto; }
     main.wrap { flex: 1; }
     header.hero { padding: clamp(56px, 10vh, 110px) 0 40px; text-align: center; }
+
+    /* hero cascade-in */
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    header.hero > * { animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+    header.hero > .badge   { animation-delay: 0.05s; }
+    header.hero > h1       { animation-delay: 0.15s; }
+    header.hero > .tagline { animation-delay: 0.28s; }
+    header.hero > .actions { animation-delay: 0.42s; }
+
     .badge {
       display: inline-block; font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em;
       text-transform: uppercase; color: var(--accent-2);
       border: 1px solid var(--line); border-radius: 999px;
       padding: 7px 16px; background: var(--panel);
       backdrop-filter: blur(4px);
+      animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.3, 1) both, breathe 4.5s ease-in-out 1.2s infinite;
+    }
+    @keyframes breathe {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(79, 195, 247, 0); }
+      50%      { box-shadow: 0 0 22px -4px var(--card-shadow); }
     }
     h1 {
       margin: 26px 0 14px; font-size: clamp(34px, 6vw, 58px); font-weight: 800;
       letter-spacing: -0.02em; line-height: 1.05;
     }
     h1 .grad {
-      background: linear-gradient(92deg, #4fc3f7 0%, #8be9fd 45%, #ffffff 100%);
+      background: linear-gradient(92deg, var(--grad-a) 0%, var(--grad-b) 45%, var(--grad-c) 100%);
+      background-size: 220% 100%;
       -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: gradShift 9s ease-in-out infinite;
+    }
+    @keyframes gradShift {
+      0%, 100% { background-position: 0% 50%; }
+      50%      { background-position: 100% 50%; }
     }
     .tagline { color: var(--muted); font-size: clamp(15px, 2vw, 18px); max-width: 640px; margin: 0 auto; line-height: 1.65; }
     .tagline b { color: var(--text); font-weight: 600; }
+
+    /* ── hero actions (share / BibTeX) ───────────────────── */
+    .actions {
+      margin-top: 26px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    }
+    .actions button {
+      font: inherit; cursor: pointer;
+      font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.06em;
+      color: var(--accent); background: var(--panel);
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 9px 18px;
+      transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .actions button:hover {
+      border-color: var(--card-line-h); background: var(--card-a);
+      transform: translateY(-2px); box-shadow: 0 10px 26px -14px var(--card-shadow);
+    }
+    .actions button:active { transform: translateY(0); }
+
+    /* ── scroll progress bar ─────────────────────────────── */
+    #progress {
+      position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 60;
+      background: linear-gradient(90deg, var(--grad-a), var(--grad-b));
+      transform-origin: 0 50%; transform: scaleX(0);
+      pointer-events: none;
+    }
+
+    /* ── theme toggle & back-to-top ──────────────────────── */
+    .fab {
+      position: fixed; z-index: 55; width: 42px; height: 42px;
+      display: grid; place-items: center; cursor: pointer;
+      border: 1px solid var(--line); border-radius: 50%;
+      background: var(--bg-soft); color: var(--accent);
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease;
+    }
+    .fab:hover { border-color: var(--card-line-h); transform: translateY(-2px); box-shadow: 0 10px 26px -12px var(--card-shadow); }
+    #themeToggle { top: 18px; right: 18px; }
+    #themeToggle svg { width: 19px; height: 19px; transition: opacity 0.3s ease, transform 0.5s ease; position: absolute; }
+    #themeToggle .ico-sun  { opacity: 0; transform: rotate(90deg) scale(0.5); }
+    #themeToggle .ico-moon { opacity: 1; transform: rotate(0deg) scale(1); }
+    html[data-theme="light"] #themeToggle .ico-sun  { opacity: 1; transform: rotate(0deg) scale(1); }
+    html[data-theme="light"] #themeToggle .ico-moon { opacity: 0; transform: rotate(-90deg) scale(0.5); }
+    #toTop {
+      bottom: 20px; right: 20px; opacity: 0; pointer-events: none;
+      transform: translateY(8px);
+    }
+    #toTop.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    #toTop svg.ring { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+    #toTop .ring-bg { fill: none; stroke: var(--line); stroke-width: 2; }
+    #toTop .ring-fg { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round;
+                      stroke-dasharray: 100; stroke-dashoffset: 100; }
+    #toTop .arr-up { font-family: var(--mono); font-size: 15px; }
+
+    /* ── toast ───────────────────────────────────────────── */
+    #toast {
+      position: fixed; left: 50%; bottom: 26px; z-index: 70;
+      transform: translate(-50%, 14px);
+      font-family: var(--mono); font-size: 12.5px; color: var(--text);
+      background: var(--bg-soft); border: 1px solid var(--card-line-h);
+      border-radius: 999px; padding: 10px 20px;
+      box-shadow: 0 14px 40px -18px var(--card-shadow);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1);
+    }
+    #toast.show { opacity: 1; transform: translate(-50%, 0); }
+
     /* ── cards ──────────────────────────────────────────── */
     .apps {
       display: grid; grid-template-columns: 1fr 1fr; gap: 22px;
@@ -83,25 +276,33 @@
     .card {
       position: relative; display: flex; flex-direction: column; gap: 14px;
       padding: 28px 26px 24px;
-      background: linear-gradient(180deg, rgba(79,195,247,0.055), rgba(79,195,247,0.012));
+      background: linear-gradient(180deg, var(--card-a), var(--card-b));
       border: 1px solid var(--line); border-radius: 18px;
       text-decoration: none; color: inherit;
+      transform: perspective(950px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--lift, 0px));
       transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
       overflow: hidden;
+      will-change: transform;
     }
     .card::after {
       content: ""; position: absolute; inset: 0;
-      background: radial-gradient(420px 160px at 20% 0%, rgba(79,195,247,0.10), transparent 60%);
+      background: radial-gradient(420px 160px at 20% 0%, var(--card-glow), transparent 60%);
       opacity: 0; transition: opacity 0.25s ease; pointer-events: none;
     }
-    .card:hover { transform: translateY(-4px); border-color: rgba(79,195,247,0.45); box-shadow: 0 18px 50px -22px rgba(79,195,247,0.35); }
+    .card:hover {
+      --lift: -5px;
+      border-color: var(--card-line-h);
+      box-shadow: 0 18px 50px -22px var(--card-shadow);
+    }
     .card:hover::after { opacity: 1; }
     .card .ico {
       width: 46px; height: 46px; border-radius: 12px; flex: 0 0 auto;
       display: grid; place-items: center;
-      background: rgba(79,195,247,0.10); border: 1px solid var(--line);
+      background: var(--card-a); border: 1px solid var(--line);
       font-size: 22px; font-family: var(--mono); color: var(--accent);
+      transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1.4);
     }
+    .card:hover .ico { transform: scale(1.12) rotate(-4deg); }
     .card h2 { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
     .card .kind { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-2); }
     .card p { color: var(--muted); font-size: 14.5px; line-height: 1.7; }
@@ -111,7 +312,16 @@
     }
     .card .go .arr { transition: transform 0.2s ease; }
     .card:hover .go .arr { transform: translateX(5px); }
-    /* ── stats strip ────────────────────────────────────── */
+
+    /* ── reveal-on-scroll (portal.js toggles .in) ────────── */
+    [data-reveal] {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.75s cubic-bezier(0.2, 0.7, 0.3, 1), transform 0.75s cubic-bezier(0.2, 0.7, 0.3, 1);
+      transition-delay: var(--rd, 0s);
+    }
+    [data-reveal].in { opacity: 1; transform: none; }
+
+    /* ── stats strip (count-up targets carry data-count) ── */
     .stats {
       margin: 30px 0 8px; padding: 20px 8px;
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
@@ -121,6 +331,36 @@
     @media (max-width: 640px) { .stats { grid-template-columns: repeat(2, 1fr); row-gap: 20px; } }
     .stat .n { font-family: var(--mono); font-size: clamp(20px, 3vw, 26px); font-weight: 700; color: var(--accent); }
     .stat .l { margin-top: 5px; font-size: 12px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* ── critical line strip (γ₁…γ₁₅) ────────────────────── */
+    .critwrap { margin: 34px 0 8px; padding: 22px 6px 14px; text-align: center; }
+    .critwrap svg { width: 100%; height: auto; display: block; }
+    .critline { stroke: var(--line); stroke-width: 1.5; }
+    .critline-core { stroke: var(--accent); stroke-width: 1; opacity: 0.55; }
+    .zero-tie { stroke: var(--accent); stroke-width: 1; opacity: 0.28; }
+    .zero-dot { fill: var(--accent); }
+    .zero { animation: zeroPulse 3.2s ease-in-out infinite; animation-delay: var(--d, 0s); }
+    @keyframes zeroPulse {
+      0%, 100% { opacity: 0.35; }
+      50%      { opacity: 1; }
+    }
+    .scan {
+      fill: url(#scanGrad);
+      animation: scan 7.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    .scan-stop { stop-color: var(--accent); }
+    @keyframes scan {
+      0%   { transform: translateX(0); opacity: 0; }
+      8%   { opacity: 1; }
+      92%  { opacity: 1; }
+      100% { transform: translateX(672px); opacity: 0; }
+    }
+    .crit-cap {
+      margin-top: 12px; font-family: var(--mono); font-size: 11.5px;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    }
+    .crit-cap b { color: var(--accent); font-weight: 600; }
+
     /* ── footer ─────────────────────────────────────────── */
     footer {
       padding: 34px 0 44px; text-align: center;
@@ -130,13 +370,63 @@
     footer a { color: var(--accent); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
     footer .doi { font-family: var(--mono); font-size: 12px; color: var(--muted); }
-    ::selection { background: rgba(79,195,247,0.35); }
+    .api-status {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .api-status .dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--muted); opacity: 0.55;
+      transition: background 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+    }
+    .api-status[data-state="ok"] .dot {
+      background: #35e08b; opacity: 1;
+      animation: dotPulse 2.2s ease-in-out infinite;
+    }
+    .api-status[data-state="down"] .dot {
+      background: #ff5d5d; opacity: 1;
+      animation: dotPulse 1.1s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(53, 224, 139, 0.45); }
+      50%      { box-shadow: 0 0 0 6px rgba(53, 224, 139, 0); }
+    }
+
+    /* ── reduced motion: honor the user's preference ─────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      [data-reveal] { opacity: 1; transform: none; }
+      #zeroField { display: none; }
+    }
+
+    /* ── print: strip decorations ────────────────────────── */
+    @media print {
+      .bg-grid, .bg-glow, .bg-zeta, #zeroField, .fab, .actions, #toast, #progress { display: none !important; }
+      body { background: #fff; color: #000; }
+    }
   </style>
 </head>
 <body>
-  <div class="bg-grid"></div>
-  <div class="bg-glow"></div>
-  <div class="bg-zeta">ζ</div>
+  <div id="progress" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <div class="bg-zeta" aria-hidden="true">ζ</div>
+  <canvas id="zeroField" aria-hidden="true"></canvas>
+
+  <button id="themeToggle" class="fab" type="button" aria-label="Toggle light / dark theme" aria-pressed="false">
+    <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8z"/>
+    </svg>
+    <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.4"/>
+      <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M19.1 4.9l-1.6 1.6M6.5 17.5l-1.6 1.6"/>
+    </svg>
+  </button>
 
   <header class="hero wrap">
     <span class="badge">Riemann Hypothesis · Hilbert–Pólya program</span>
@@ -146,11 +436,15 @@
       Aharonov–Bohm phases from the critical line, and <b>GUE random-matrix universality</b>,
       verified end-to-end in the browser.
     </p>
+    <div class="actions">
+      <button id="btnShare" type="button">share portal&nbsp;↗</button>
+      <button id="btnCite" type="button">copy BibTeX&nbsp;⧉</button>
+    </div>
   </header>
 
   <main class="wrap">
     <section class="apps">
-      <a class="card" href="dashboard/index.html">
+      <a class="card" href="dashboard/" data-reveal>
         <span class="ico">ζ</span>
         <span class="kind">React 19 · Vite · Web Worker</span>
         <h2>Verification Dashboard</h2>
@@ -163,7 +457,7 @@
         <span class="go">open dashboard <span class="arr">→</span></span>
       </a>
 
-      <a class="card" href="lab3d/index.html">
+      <a class="card" href="lab3d/" data-reveal style="--rd: 0.12s">
         <span class="ico">◈</span>
         <span class="kind">React 19 · Vite · Three.js WebGL</span>
         <h2>3D Laboratory</h2>
@@ -178,21 +472,67 @@
       </a>
     </section>
 
-    <section class="stats">
-      <div class="stat"><div class="n">39</div><div class="l">tests · two-pass</div></div>
-      <div class="stat"><div class="n">10</div><div class="l">languages verified</div></div>
-      <div class="stat"><div class="n">50 000</div><div class="l">ζ zeros embedded</div></div>
-      <div class="stat"><div class="n">4</div><div class="l">formal systems</div></div>
+    <section class="stats" data-reveal aria-label="Research statistics">
+      <div class="stat"><div class="n" data-count="39">39</div><div class="l">tests · two-pass</div></div>
+      <div class="stat"><div class="n" data-count="10">10</div><div class="l">languages verified</div></div>
+      <div class="stat"><div class="n" data-count="50000" data-format="space">50 000</div><div class="l">ζ zeros embedded</div></div>
+      <div class="stat"><div class="n" data-count="4">4</div><div class="l">formal systems</div></div>
+    </section>
+
+    <section class="critwrap" data-reveal aria-label="The first fifteen zeta zeros on the critical line">
+      <svg viewBox="0 0 800 120" role="img" aria-label="The first fifteen nontrivial zeros of the Riemann zeta function, pulsing on the critical line Re(s) = one half">
+        <defs>
+          <linearGradient id="scanGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0"   stop-color="transparent" />
+            <stop class="scan-stop" offset="0.5" stop-opacity="0.35" />
+            <stop offset="1"   stop-color="transparent" />
+          </linearGradient>
+        </defs>
+        <line class="critline" x1="36" y1="60" x2="764" y2="60" />
+        <line class="critline-core" x1="36" y1="60" x2="764" y2="60" />
+        <rect class="scan" x="44" y="12" width="48" height="96" rx="8" />
+        <!-- γ₁…γ₁₅: ordinate-proportional placement, conjugate pairs above/below -->
+        <g class="zero" style="--d: 0.00s"><title>γ₁ = 14.1347251417…</title><line class="zero-tie" x1="185" y1="46" x2="185" y2="74"/><circle class="zero-dot" cx="185" cy="46" r="3.2"/><circle class="zero-dot" cx="185" cy="74" r="3.2"/></g>
+        <g class="zero" style="--d: 0.21s"><title>γ₂ = 21.0220396388…</title><line class="zero-tie" x1="256" y1="46" x2="256" y2="74"/><circle class="zero-dot" cx="256" cy="46" r="3.2"/><circle class="zero-dot" cx="256" cy="74" r="3.2"/></g>
+        <g class="zero" style="--d: 0.42s"><title>γ₃ = 25.0108575801…</title><line class="zero-tie" x1="297" y1="46" x2="297" y2="74"/><circle class="zero-dot" cx="297" cy="46" r="3.2"/><circle class="zero-dot" cx="297" cy="74" r="3.2"/></g>
+        <g class="zero" style="--d: 0.63s"><title>γ₄ = 30.4248761259…</title><line class="zero-tie" x1="353" y1="46" x2="353" y2="74"/><circle class="zero-dot" cx="353" cy="46" r="3.2"/><circle class="zero-dot" cx="353" cy="74" r="3.2"/></g>
+        <g class="zero" style="--d: 0.84s"><title>γ₅ = 32.9350615877…</title><line class="zero-tie" x1="379" y1="46" x2="379" y2="74"/><circle class="zero-dot" cx="379" cy="46" r="3.2"/><circle class="zero-dot" cx="379" cy="74" r="3.2"/></g>
+        <g class="zero" style="--d: 1.05s"><title>γ₆ = 37.5861781588…</title><line class="zero-tie" x1="427" y1="46" x2="427" y2="74"/><circle class="zero-dot" cx="427" cy="46" r="3.2"/><circle class="zero-dot" cx="427" cy="74" r="3.2"/></g>
+        <g class="zero" style="--d: 1.26s"><title>γ₇ = 40.9184054498…</title><line class="zero-tie" x1="461" y1="46" x2="461" y2="74"/><circle class="zero-dot" cx="461" cy="46" r="3.2"/><circle class="zero-dot" cx="461" cy="74" r="3.2"/></g>
+        <g class="zero" style="--d: 1.47s"><title>γ₈ = 43.3270732809…</title><line class="zero-tie" x1="486" y1="46" x2="486" y2="74"/><circle class="zero-dot" cx="486" cy="46" r="3.2"/><circle class="zero-dot" cx="486" cy="74" r="3.2"/></g>
+        <g class="zero" style="--d: 1.68s"><title>γ₉ = 48.0051508812…</title><line class="zero-tie" x1="534" y1="46" x2="534" y2="74"/><circle class="zero-dot" cx="534" cy="46" r="3.2"/><circle class="zero-dot" cx="534" cy="74" r="3.2"/></g>
+        <g class="zero" style="--d: 1.89s"><title>γ₁₀ = 49.7738324777…</title><line class="zero-tie" x1="552" y1="46" x2="552" y2="74"/><circle class="zero-dot" cx="552" cy="46" r="3.2"/><circle class="zero-dot" cx="552" cy="74" r="3.2"/></g>
+        <g class="zero" style="--d: 2.10s"><title>γ₁₁ = 52.9703214777…</title><line class="zero-tie" x1="585" y1="46" x2="585" y2="74"/><circle class="zero-dot" cx="585" cy="46" r="3.2"/><circle class="zero-dot" cx="585" cy="74" r="3.2"/></g>
+        <g class="zero" style="--d: 2.31s"><title>γ₁₂ = 56.4462476971…</title><line class="zero-tie" x1="621" y1="46" x2="621" y2="74"/><circle class="zero-dot" cx="621" cy="46" r="3.2"/><circle class="zero-dot" cx="621" cy="74" r="3.2"/></g>
+        <g class="zero" style="--d: 2.52s"><title>γ₁₃ = 59.3470440026…</title><line class="zero-tie" x1="651" y1="46" x2="651" y2="74"/><circle class="zero-dot" cx="651" cy="46" r="3.2"/><circle class="zero-dot" cx="651" cy="74" r="3.2"/></g>
+        <g class="zero" style="--d: 2.73s"><title>γ₁₄ = 60.8317785246…</title><line class="zero-tie" x1="666" y1="46" x2="666" y2="74"/><circle class="zero-dot" cx="666" cy="46" r="3.2"/><circle class="zero-dot" cx="666" cy="74" r="3.2"/></g>
+        <g class="zero" style="--d: 2.94s"><title>γ₁₅ = 65.1125440481…</title><line class="zero-tie" x1="711" y1="46" x2="711" y2="74"/><circle class="zero-dot" cx="711" cy="46" r="3.2"/><circle class="zero-dot" cx="711" cy="74" r="3.2"/></g>
+      </svg>
+      <div class="crit-cap">γ₁ … γ₁₅ — the first fifteen zeros, every one on <b>Re(s) = ½</b></div>
     </section>
   </main>
 
-  <footer class="wrap">
+  <footer class="wrap" data-reveal>
     <div class="links">
       <a href="https://github.com/wild8highlander/ab-cloud-research" target="_blank" rel="noopener">GitHub&nbsp;↗</a>
       <a href="https://doi.org/10.5281/zenodo.21825394" target="_blank" rel="noopener">Zenodo DOI&nbsp;↗</a>
+      <a href="/api/zeta" target="_blank" rel="noopener">Zeta API&nbsp;↗</a>
     </div>
     <div>Isaev Iskhak Khamzatovich · ORCID <span style="font-family: var(--mono)">0009-0003-7299-0701</span></div>
+    <div class="api-status" data-state="idle" id="apiStatus" role="status">
+      <span class="dot" aria-hidden="true"></span><span class="api-label">checking api…</span>
+    </div>
     <div class="doi">Lean 4 · Coq · Agda · Isabelle/HOL — formal layer of the AB-Cloud suite</div>
   </footer>
+
+  <button id="toTop" class="fab" type="button" aria-label="Back to top">
+    <svg class="ring" viewBox="0 0 42 42" aria-hidden="true">
+      <circle class="ring-bg" cx="21" cy="21" r="19" />
+      <circle class="ring-fg" cx="21" cy="21" r="19" pathLength="100" />
+    </svg>
+    <span class="arr-up" aria-hidden="true">↑</span>
+  </button>
+
+  <div id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>

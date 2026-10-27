@@ -1,23 +1,253 @@
-# ──────────────────────────────────────────────────────────────
-# pxxl.toml — Pxxl build configuration for ab-cloud-research
-# https://docs.pxxl.app/deploy/build-configuration
+# ════════════════════════════════════════════════════════════════
+# pxxl.toml — full-featured Pxxl deployment for ab-cloud-research
 #
-# Pxxl reads this file when creating the build plan.
-# All values remain reviewable/editable in the Deploy flow UI.
-# ──────────────────────────────────────────────────────────────
+# Docs:
+#   https://docs.pxxl.app/routing-and-rewrites      (this file's schema)
+#   https://docs.pxxl.app/deploy/configuration      (build settings)
+#   https://docs.pxxl.app/deploy/functions          (serverless API)
+#
+# The portal is a PURE STATIC multi-page site plus a small serverless API:
+#   /                → portal landing            (dist/index.html)
+#   /dashboard/      → React verification dash   (dist/dashboard/)
+#   /lab3d/          → Three.js 3D laboratory    (dist/lab3d/)
+#   /api/health      → Pxxl Function (JSON, uptime probes)
+#   /api/version     → Pxxl Function (deployment introspection)
+#   /api/zeta        → Pxxl Function (open-data JSON API)
+#   /api/og          → Pxxl Function (server-side social cards for bots)
+#
+# Feature blocks are independent: every [[redirects]] / [[headers]]
+# / [[rewrites]] / [functions] block can be deleted on its own without
+# affecting the rest.
+# ════════════════════════════════════════════════════════════════
 
-language       = "node"
-framework      = "vite"
-packageManager = "npm"
+version = 1
 
-installCommand = "npm ci"
-buildCommand   = "npm run build"
+# ── 1. build ────────────────────────────────────────────────────
+# `npm run build` (scripts/build-site.mjs) installs workspace deps,
+# self-heals esbuild, builds both Vite apps and assembles ./dist.
+# Deployment target: Static App + Functions — no start command, no
+# port, no health check (a non-static startCommand would flip the
+# build plan to a Web Service per the Pxxl docs).
+[build]
+command = "npm run build"
+output  = "dist"
 
-# Static App target: `npm run build` assembles the full portal
-# (landing + dashboard + lab3d) into ./dist
-outputDirectory = "dist"
+# ── 2. serverless functions ─────────────────────────────────────
+# Pxxl Functions (docs.pxxl.app/deploy/functions): each file under
+# api/ is bundled beside the static site into one immutable runtime
+# generation. Handlers use the dependency-free Web-API style
+# (export async function GET(request: Request)).
+#
+# NOTE: Functions require a plan that includes them. If your plan
+# does not, set enabled = false AND delete the three bot-rewrite
+# blocks below — the static site, redirects and headers are fully
+# independent and keep working.
+[functions]
+enabled = true
+root    = "api"
+prefix  = "/api"
 
-# Start command is only used if the project is deployed as a
-# Web Service instead of a Static App (serves dist/ on $PORT).
-startCommand = "npm start"
-port         = 3000
+# ── 3. bot-aware social previews ────────────────────────────────
+# Social scrapers never execute JS, and the Vite apps ship no OG
+# meta of their own. These conditional rewrites hand bots hitting
+# the three public routes a server-rendered card from /api/og with
+# ABSOLUTE og:image URLs. Humans are unaffected (the condition
+# matches crawler user-agents only).
+#
+# ⚠ Delete these three blocks together with [functions] if your
+#   plan lacks Functions.
+[[rewrites]]
+source      = "/"
+destination = "/api/og?path=/"
+has_header  = { key = "user-agent", regex = "(?i).*(twitterbot|whatsapp|telegrambot|discordbot|facebookexternalhit|linkedinbot|slurp|bingbot|googlebot).*" }
+
+[[rewrites]]
+source      = "/dashboard/"
+destination = "/api/og?path=/dashboard"
+has_header  = { key = "user-agent", regex = "(?i).*(twitterbot|whatsapp|telegrambot|discordbot|facebookexternalhit|linkedinbot|slurp|bingbot|googlebot).*" }
+
+[[rewrites]]
+source      = "/lab3d/"
+destination = "/api/og?path=/lab3d"
+has_header  = { key = "user-agent", regex = "(?i).*(twitterbot|whatsapp|telegrambot|discordbot|facebookexternalhit|linkedinbot|slurp|bingbot|googlebot).*" }
+
+# ── 4. redirects ────────────────────────────────────────────────
+# Canonicalization (308 = permanent, method-preserving). The two
+# Vite apps mount at directory prefixes and ship RELATIVE asset
+# URLs (vite `base: './'`): they must be opened with a trailing
+# slash, or the browser resolves "./assets/…" against the site
+# root and renders a blank page.
+[[redirects]]
+source      = "/dashboard"
+destination = "/dashboard/"
+status      = 308
+
+[[redirects]]
+source      = "/lab3d"
+destination = "/lab3d/"
+status      = 308
+
+[[redirects]]
+source      = "/index.html"
+destination = "/"
+status      = 308
+
+# Legacy alias kept for older links in docs and chat history.
+[[redirects]]
+source      = "/lab"
+destination = "/lab3d/"
+status      = 308
+
+# One-keyboard-key vanity routes (memorable deep links for talks).
+[[redirects]]
+source      = "/d"
+destination = "/dashboard/"
+status      = 308
+
+[[redirects]]
+source      = "/l"
+destination = "/lab3d/"
+status      = 308
+
+# Probe endpoints one browser keystroke away.
+[[redirects]]
+source      = "/health"
+destination = "/api/health"
+status      = 307
+
+[[redirects]]
+source      = "/zeta"
+destination = "/api/zeta"
+status      = 307
+
+[[redirects]]
+source      = "/orcid"
+destination = "https://orcid.org/0009-0003-7299-0701"
+status      = 307
+
+# Vanity deep links (307 = temporary: the target may move).
+[[redirects]]
+source      = "/github"
+destination = "https://github.com/wild8highlander/ab-cloud-research"
+status      = 307
+
+[[redirects]]
+source      = "/doi"
+destination = "https://doi.org/10.5281/zenodo.21825394"
+status      = 307
+
+# ── 5. routing mode ─────────────────────────────────────────────
+# Deliberately NO spa fallback: the portal is a classic multi-page
+# site with a real file at every URL. A SPA fallback would serve
+# the landing page for every broken link and mask genuine 404s.
+[routing]
+spa = false
+
+# ── 6. response headers ─────────────────────────────────────────
+# Rule order matters: the universal rule applies security headers
+# to EVERY path; the following rules add per-class Cache-Control.
+# Cache-Control is intentionally NOT set here for HTML — the static
+# edge default keeps HTML revalidation-ready, and every path below
+# matches exactly one cache rule (no duplicate header keys).
+[[headers]]
+source = "/:path*"
+[headers.headers]
+Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+Strict-Transport-Security = "max-age=63072000; includeSubDomains"
+X-Content-Type-Options    = "nosniff"
+X-Frame-Options           = "SAMEORIGIN"
+Referrer-Policy           = "strict-origin-when-cross-origin"
+Cross-Origin-Opener-Policy  = "same-origin"
+Cross-Origin-Resource-Policy = "same-origin"
+# credentialless (not require-corp): everything on this site is same-origin,
+# so nothing breaks, while Chrome/Firefox gain crossOriginIsolated — which
+# unlocks high-resolution timers for the dashboard's Web Worker.
+Cross-Origin-Embedder-Policy = "credentialless"
+Permissions-Policy        = "camera=(), microphone=(), geolocation=(), gyroscope=(), magnetometer=(), payment=(), usb=(), interest-cohort=()"
+
+# Vite emits content-hashed filenames under /{app}/assets — safe
+# to cache forever.
+[[headers]]
+source = "/dashboard/assets/:path*"
+[headers.headers]
+Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+source = "/lab3d/assets/:path*"
+[headers.headers]
+Cache-Control = "public, max-age=31536000, immutable"
+
+# Open research data: short TTL + CORS, so other groups' notebooks
+# and tools can fetch the datasets cross-origin.
+[[headers]]
+source = "/dashboard/data/:path*"
+[headers.headers]
+Cache-Control              = "public, max-age=300, stale-while-revalidate=86400"
+Access-Control-Allow-Origin = "*"
+
+# Brand images and icons: a week is plenty (they change rarely and
+# are re-fetched on deploy via SW precache).
+[[headers]]
+source = "/og-cover.png"
+[headers.headers]
+Cache-Control = "public, max-age=604800"
+
+[[headers]]
+source = "/icon-:path*"
+[headers.headers]
+Cache-Control = "public, max-age=604800"
+
+[[headers]]
+source = "/apple-touch-icon.png"
+[headers.headers]
+Cache-Control = "public, max-age=604800"
+
+# Web app manifest: re-check hourly, pick up icon/shortcut changes
+# within an hour of each deploy.
+[[headers]]
+source = "/manifest.json"
+[headers.headers]
+Cache-Control = "public, max-age=3600"
+
+# Service worker MUST revalidate on every fetch, or updates would
+# wait up to 24h for the browser's own SW refresh.
+[[headers]]
+source = "/sw.js"
+[headers.headers]
+Cache-Control = "public, max-age=0, must-revalidate"
+
+# Portal motion/interaction layer and the particle canvas script:
+# short TTL + SWR — edits ship within minutes, SW precache bridges
+# the gap for offline users.
+[[headers]]
+source = "/portal.js"
+[headers.headers]
+Cache-Control = "public, max-age=300, stale-while-revalidate=86400"
+
+[[headers]]
+source = "/particles.js"
+[headers.headers]
+Cache-Control = "public, max-age=300, stale-while-revalidate=86400"
+
+# Favicon is re-read weekly; SVG is tiny so revalidation cost is nil.
+[[headers]]
+source = "/favicon.svg"
+[headers.headers]
+Cache-Control = "public, max-age=604800"
+
+# PWA install screenshots (added for richer install prompts).
+[[headers]]
+source = "/screenshots/:path*"
+[headers.headers]
+Cache-Control = "public, max-age=604800"
+
+# Generated SEO files (build-time, from SITE_URL) and discovery files.
+[[headers]]
+source = "/sitemap.xml"
+[headers.headers]
+Cache-Control = "public, max-age=3600"
+
+[[headers]]
+source = "/robots.txt"
+[headers.headers]
+Cache-Control = "public, max-age=86400"
