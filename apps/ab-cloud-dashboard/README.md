@@ -14,7 +14,7 @@ Interactive real-time dashboard of the AB-Cloud verification suite.
 React 19 + Vite, **no charting dependencies** — every plot is hand-rolled
 SVG, so the whole app is a few source files with a tiny bundle.
 
-## The three tabs
+## The ten tabs
 
 ### 1. Run report (37 tests)
 
@@ -24,7 +24,36 @@ The verdict table of the two-pass run `run_20260902_134759` (Julia 1.12.0,
 (PASS / WARN / FAIL), the WARN-band calibration note is displayed so nobody
 mistakes calibrated warnings for failures.
 
-### 2. Real-time ζ statistics
+### 2. Test explorer — 37 deep-dive panels
+
+Every test of the run gets its own panel, parsed from its frozen report by
+`scripts/prepare-test-explorer-data.py` into `public/data/test_reports.json`:
+what the test verifies, the hardcore sub-checks, the headline Result line,
+the metrics of the FULL COMPUTATION LOG (3 280 `calc:` numbers), the numeric
+console tables (rendered as data tables **and** SVG charts), every
+PASS/WARN/FAIL verdict line of the console capture, the reproduce command
+and the trimmed console capture itself. Searchable, grouped into 10
+research categories, deep-linkable via `#T<n>` fragments.
+
+### 3. HP audit H1–H8
+
+The standalone Hilbert–Pólya deep-audit battery
+(`results/Test H1-H8 hp_audit_standalone.jl/`): battery verdicts, the
+per-test sub-check tables (43 sub-checks), the preset parameters of each
+run and the method notes — including the honest WARNs (H1 prime-oscillation
+fingerprint, H5 large-ensemble showdown).
+
+### 4. Stat lab — 9 live tests
+
+The suite's statistics layer re-implemented in the Web Worker: pair
+correlation R₂(s) vs the sine kernel, spacing histogram vs the Wigner–GUE
+surmise (KS), QQ plot vs the exact GUE ratio law, Pearson χ² GOF with
+incomplete-gamma p-value, autocorrelation of the ratios, Wald–Wolfowitz
+runs test, even/odd and height-split two-sample KS, Shannon entropy of the
+ratio law. Each card recomputes its diagnostic live from the embedded
+50 000 zeros — “mirror of Test N” ties it back to the frozen result.
+
+### 5. Real-time ζ statistics
 
 The same diagnostics as suite tests 1–5, 13, 14 — computed **live in a Web
 Worker** from the embedded 50 000-zero dataset
@@ -38,7 +67,13 @@ Worker** from the embedded 50 000-zero dataset
 The UI stays responsive while the worker crunches; sliders let you change
 the sample size and unfolding parameters.
 
-### 3. Test 38 — 64 spinors
+### 6–9. Enrichment run · Metrics ×38 · GUE control · Golden values
+
+The frozen artifacts of `results/RH_Sweep_Pro_Enrichment/` (curves,
+per-config metrics, the GUE error floor) and the 206 golden values of
+`verification/data/`.
+
+### 10. Test 38 — 64 spinors
 
 The frozen spinor classes of `verification/spinor64/` with the **28
 odd-structure spectra computed live in the browser** by a hand-written
@@ -49,23 +84,23 @@ all 64 spinor structures verified in-browser.
 
 ## Architecture
 
-The three tabs as data flows from the committed evidence (bundle committed
+The ten tabs as data flows from the committed evidence (bundle committed
 prebuilt in `dist/` — runs without Node):
 
 ```mermaid
 flowchart LR
-    R["committed evidence<br/>runs · logs · datasets"] --> T1["tab 1<br/>run report · 37 verdicts"]
-    R --> T2["tab 2<br/>real-time ζ statistics"]
-    R --> T3["tab 3<br/>Test 38 · 64 spinors"]
+    R["committed evidence<br/>runs · logs · datasets"] --> T1["tabs 1–4<br/>run report · explorer · audit · stat lab"]
+    R --> T2["tabs 5–9<br/>ζ statistics · enrichment · metrics · control · golden"]
+    R --> T3["tab 10<br/>Test 38 · 64 spinors"]
 ```
 
 | Piece | Where | Notes |
 |---|---|---|
-| Pages | `src/pages/{RunReport,ZerosStats,Spinor64}.jsx` | one tab each |
-| Worker | `src/worker/stats.worker.js` | all heavy numerics; posts progress messages |
-| UI kit | `src/components/ui.jsx` | tables, badges, sliders (hand-rolled) |
-| Data | `public/data/run_summary.json`, `public/data/zeta_zeros_50000_embedded.txt` | copied verbatim from `results/` and `verification/data/` at build time |
-| Styles | `src/styles.css` | dark scientific theme |
+| Pages | `src/pages/*.jsx` | one tab each (RunReport, Tests, HAudit, StatLab, ZerosStats, …) |
+| Worker | `src/worker/stats.worker.js` | all heavy numerics: `stats`, `lab` (9 tests), `spinor` |
+| UI kit | `src/components/ui.jsx` | SVG charts, Stat cards, skeletons (hand-rolled) |
+| Data | `public/data/*.json`, `public/data/zeta_zeros_50000_embedded.txt` | frozen by `scripts/prepare-dashboard-data.py` and `scripts/prepare-test-explorer-data.py` |
+| Styles | `src/styles.css` | dark scientific theme (landing design tokens) |
 
 ## Run / build
 

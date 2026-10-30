@@ -1,0 +1,4185 @@
+{
+ "_meta": {
+  "what": "Per-test deep-dive panels parsed from the frozen suite reports (results/Test 1-37 ab_cloud_full.jl/run_20260902_134759)",
+  "run": "run_20260902_134759",
+  "generated_by": "scripts/prepare-test-explorer-data.py",
+  "n_tests": 37,
+  "n_tables": 4,
+  "n_calc_metrics": 3280,
+  "n_subchecks": 11,
+  "n_checks": 158,
+  "n_series": 3
+ },
+ "categories": [
+  {
+   "name": "b(N) convergence",
+   "ids": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "name": "Spacing statistics",
+   "ids": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "name": "Regression stability",
+   "ids": [
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  {
+   "name": "Goodness-of-fit",
+   "ids": [
+    11,
+    12
+   ]
+  },
+  {
+   "name": "Long-range RMT",
+   "ids": [
+    13,
+    14
+   ]
+  },
+  {
+   "name": "AB construction & topology",
+   "ids": [
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+   ]
+  },
+  {
+   "name": "Quantum geometry",
+   "ids": [
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27
+   ]
+  },
+  {
+   "name": "Scaling & non-Hermitian",
+   "ids": [
+    29,
+    30,
+    31
+   ]
+  },
+  {
+   "name": "Cross-comparisons",
+   "ids": [
+    28,
+    32,
+    33,
+    34,
+    35
+   ]
+  },
+  {
+   "name": "Robustness & normalization",
+   "ids": [
+    36,
+    37
+   ]
+  }
+ ],
+ "tests": [
+  {
+   "id": 1,
+   "slug": "bN_convergence",
+   "title": "Test 1: b(N) convergence table",
+   "short": "b(N) convergence table",
+   "verdict": "PASS",
+   "generated": "2026-09-02 13:48:07",
+   "category": "b(N) convergence",
+   "focus": "Gram-point approximation b(N) = (1/N)Σ|γ−γ̃|",
+   "description": "b(N) = (1/N)Σ|γ_k−γ̃_k| measures convergence of Gram-point approximations to true zeta zeros. EXACT-formula family: tolerance scale = floating-point round-off.",
+   "method": "b(N) = (1/N)Σ|γ_k−γ̃_k| measures convergence of Gram-point approximations to true zeta zeros. EXACT-formula family: tolerance scale = floating-point round-off.",
+   "result": "Test 1 [HARDCORE pass 2]: 8 sub-checks, 0 failed, b(50000)=1.2126 → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 1 --no-two-pass",
+   "bench": "TEST 1 (secondary, HARDCORE): Objection 1: b(N) Convergence — deep validation",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [
+    {
+     "title": "",
+     "header": [
+      "N",
+      "b(N)",
+      "Δ vs prev"
+     ],
+     "rows": [
+      [
+       25,
+       4.61011904,
+       null
+      ],
+      [
+       30,
+       4.3989811,
+       -0.21113793
+      ],
+      [
+       37,
+       4.19328523,
+       -0.20569587
+      ],
+      [
+       45,
+       3.99436696,
+       -0.19891827
+      ],
+      [
+       55,
+       3.82521662,
+       -0.16915034
+      ],
+      [
+       67,
+       3.64557432,
+       -0.1796423
+      ],
+      [
+       82,
+       3.48017264,
+       -0.16540168
+      ],
+      [
+       100,
+       3.33216387,
+       -0.14800877
+      ],
+      [
+       122,
+       3.19102856,
+       -0.14113531
+      ],
+      [
+       149,
+       3.0547428,
+       -0.13628576
+      ],
+      [
+       182,
+       2.92670445,
+       -0.12803835
+      ],
+      [
+       222,
+       2.80661045,
+       -0.12009399
+      ],
+      [
+       271,
+       2.69470483,
+       -0.11190563
+      ],
+      [
+       331,
+       2.58922605,
+       -0.10547878
+      ],
+      [
+       404,
+       2.49073209,
+       -0.09849395
+      ],
+      [
+       493,
+       2.39664403,
+       -0.09408806
+      ],
+      [
+       601,
+       2.31009371,
+       -0.08655032
+      ],
+      [
+       733,
+       2.22746775,
+       -0.08262597
+      ],
+      [
+       894,
+       2.14988257,
+       -0.07758517
+      ],
+      [
+       1091,
+       2.07548883,
+       -0.07439375
+      ],
+      [
+       1331,
+       2.00670624,
+       -0.06878258
+      ],
+      [
+       1624,
+       1.94050129,
+       -0.06620495
+      ],
+      [
+       1981,
+       1.87824219,
+       -0.0622591
+      ],
+      [
+       2417,
+       1.81976912,
+       -0.05847307
+      ],
+      [
+       2949,
+       1.76403755,
+       -0.05573157
+      ],
+      [
+       3598,
+       1.71118123,
+       -0.05285631
+      ],
+      [
+       4390,
+       1.66131581,
+       -0.04986543
+      ],
+      [
+       5356,
+       1.61372615,
+       -0.04758965
+      ],
+      [
+       6534,
+       1.56860437,
+       -0.04512178
+      ],
+      [
+       7971,
+       1.52581659,
+       -0.04278779
+      ],
+      [
+       9725,
+       1.48500587,
+       -0.04081071
+      ],
+      [
+       11864,
+       1.44607495,
+       -0.03893093
+      ],
+      [
+       14474,
+       1.40903106,
+       -0.03704389
+      ],
+      [
+       17658,
+       1.37368198,
+       -0.03534908
+      ],
+      [
+       21543,
+       1.33991132,
+       -0.03377066
+      ],
+      [
+       26282,
+       1.30766875,
+       -0.03224257
+      ],
+      [
+       32064,
+       1.27682139,
+       -0.03084736
+      ],
+      [
+       39118,
+       1.2473023,
+       -0.0295191
+      ],
+      [
+       47724,
+       1.21900837,
+       -0.02829392
+      ],
+      [
+       50000,
+       1.21255268,
+       -0.0064557
+      ]
+     ],
+     "n_rows_total": 40
+    }
+   ],
+   "subchecks": [
+    {
+     "tag": "H0",
+     "label": "reproduce",
+     "text": "max|b_direct − b_prefix| over 4 probes = 0.00e+00 (limit 1e-9)"
+    },
+    {
+     "tag": "H1",
+     "label": "dense scan",
+     "text": "40 checkpoints, N = 25 → 50000 (ratio 1.22)"
+    },
+    {
+     "tag": "H2",
+     "label": "monotone",
+     "text": "0/39 consecutive pairs exceed the noise band (limit 2)"
+    },
+    {
+     "tag": "H3",
+     "label": "predict",
+     "text": "walk-forward one-step-ahead, best of 3 laws (power / 1·log⁻¹N / local secant)"
+    },
+    {
+     "tag": "H4",
+     "label": "stationarity",
+     "text": "head b(25000)=1.315628 | tail b(25000)=1.109478 | tail/head = 0.8433 (limit 1.25)"
+    },
+    {
+     "tag": "H5",
+     "label": "bootstrap",
+     "text": "b(50000)=1.212553 | 95%CI [1.209765, 1.215265] (width 0.45% of b, limit 15%)"
+    },
+    {
+     "tag": "H6",
+     "label": "outliers",
+     "text": "peak |Δγ| = 9.0356 at k=1 (0.0% of Σd, limit 10%)"
+    },
+    {
+     "tag": "H7",
+     "label": "Gram sanity",
+     "text": "γ̃ strictly increasing over n=1..50000 → 0 violations (limit 0)"
+    }
+   ],
+   "checks": [
+    "H0 reproduce         PASS — worst |Δ| = 0.00e+00",
+    "H1 dense scan        PASS — 40 checkpoints",
+    "H2 monotone          PASS — 0 violations / 39 pairs",
+    "H3 out-of-sample     PASS — walk-forward median 0.05%, max 0.09%",
+    "H4 stationarity      PASS — tail/head = 0.8433",
+    "H5 bootstrap         PASS — CI width 0.45%, margin +0.7846",
+    "H6 outlier audit     PASS — peak 0.0% of Σd, trimmed dev 1.13%",
+    "H7 Gram reference    PASS — 0 violations",
+    "Test 1 [HARDCORE pass 2]: 8 sub-checks, 0 failed, b(50000)=1.2126 → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 1 (secondary, HARDCORE): Objection 1: b(N) Convergence — deep validation",
+    "Same statistic b(N) = (1/N) Σ|γ_k − γ̃_k|, verified by 8 harder sub-checks",
+    "────────────────────────────────────────────────────────────",
+    " H0 reproduce : max|b_direct − b_prefix| over 4 probes = 0.00e+00 (limit 1e-9)",
+    " H1 dense scan: 40 checkpoints, N = 25 → 50000 (ratio 1.22)",
+    "            N             b(N)        Δ vs prev",
+    "           25     4.6101190361              ---",
+    "           30     4.3989811028    -0.2111379332",
+    "           37     4.1932852303    -0.2056958726",
+    "           45     3.9943669591    -0.1989182711",
+    "           55     3.8252166187    -0.1691503404",
+    "           67     3.6455743228    -0.1796422960",
+    "           82     3.4801726407    -0.1654016820",
+    "          100     3.3321638710    -0.1480087697",
+    "          122     3.1910285619    -0.1411353091",
+    "          149     3.0547427984    -0.1362857635",
+    "          182     2.9267044466    -0.1280383518",
+    "          222     2.8066104527    -0.1200939939",
+    "          271     2.6947048268    -0.1119056258",
+    "          331     2.5892260492    -0.1054787776",
+    "          404     2.4907320942    -0.0984939550",
+    "          493     2.3966440338    -0.0940880604",
+    "          601     2.3100937127    -0.0865503211",
+    "          733     2.2274677461    -0.0826259666",
+    "          894     2.1498825733    -0.0775851728",
+    "         1091     2.0754888256    -0.0743937476",
+    "         1331     2.0067062433    -0.0687825824",
+    "         1624     1.9405012929    -0.0662049503",
+    "         1981     1.8782421944    -0.0622590986",
+    "         2417     1.8197691194    -0.0584730750",
+    "         2949     1.7640375461    -0.0557315733",
+    "         3598     1.7111812347    -0.0528563114",
+    "         4390     1.6613158059    -0.0498654288",
+    "         5356     1.6137261550    -0.0475896509",
+    "         6534     1.5686043745    -0.0451217805",
+    "         7971     1.5258165855    -0.0427877890",
+    "         9725     1.4850058741    -0.0408107114",
+    "        11864     1.4460749475    -0.0389309266",
+    "        14474     1.4090310622    -0.0370438853",
+    "        17658     1.3736819777    -0.0353490845",
+    "        21543     1.3399113218    -0.0337706559",
+    "        26282     1.3076687539    -0.0322425680",
+    "        32064     1.2768213946    -0.0308473593",
+    "        39118     1.2473022976    -0.0295190970",
+    "        47724     1.2190083740    -0.0282939236",
+    "        50000     1.2125526773    -0.0064556968",
+    " H2 monotone  : 0/39 consecutive pairs exceed the noise band (limit 2)",
+    " H3 predict   : walk-forward one-step-ahead, best of 3 laws (power / 1·log⁻¹N / local secant)",
+    "                median err 0.05%, max err 0.09% (limits 2%/5%)",
+    " H4 stationarity: head b(25000)=1.315628 | tail b(25000)=1.109478 | tail/head = 0.8433 (limit 1.25)",
+    " H5 bootstrap : b(50000)=1.212553 | 95%CI [1.209765, 1.215265] (width 0.45% of b, limit 15%)",
+    "                threshold 2.00 − (b + 2σ/√N = 1.215350) = +0.784650 → verdict ROBUST",
+    " H6 outliers  : peak |Δγ| = 9.0356 at k=1 (0.0% of Σd, limit 10%)",
+    "                top-5 share 0.1% | 1%-trimmed b deviates +1.13% from b (limit 15%)",
+    " H7 Gram sanity: γ̃ strictly increasing over n=1..50000 → 0 violations (limit 0)",
+    "────────────────────────────────────────────────────────────",
+    " H0 reproduce         PASS — worst |Δ| = 0.00e+00",
+    " H1 dense scan        PASS — 40 checkpoints",
+    " H2 monotone          PASS — 0 violations / 39 pairs",
+    " H3 out-of-sample     PASS — walk-forward median 0.05%, max 0.09%",
+    " H4 stationarity      PASS — tail/head = 0.8433",
+    " H5 bootstrap         PASS — CI width 0.45%, margin +0.7846",
+    " H6 outlier audit     PASS — peak 0.0% of Σd, trimmed dev 1.13%"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_01_bN_convergence/report.md"
+  },
+  {
+   "id": 2,
+   "slug": "bN_monotonicity",
+   "title": "Test 2: Monotonicity verification",
+   "short": "Monotonicity verification",
+   "verdict": "PASS",
+   "generated": "2026-09-02 13:48:39",
+   "category": "b(N) convergence",
+   "focus": "monotonicity of the b(N) descent",
+   "description": "Checks b(N) does not increase along the refinement sequence — an algebraic consistency property (binary verdict).",
+   "method": "Checks b(N) does not increase along the refinement sequence — an algebraic consistency property (binary verdict).",
+   "result": "Test 2 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 2 --no-two-pass",
+   "bench": "TEST 2 (secondary, HARDCORE): Objection 1: b(N) Convergence — deep monotonicity audit",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "S1 strict band       PASS — 0 violations / 39 pairs",
+    "S2 segments          PASS — 0 increases / 10 segments",
+    "S3 new lows          PASS — 100% of checkpoints",
+    "S4 drawdown          PASS — 73.7% decrease",
+    "Test 2 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 2 (secondary, HARDCORE): Objection 1: b(N) Convergence — deep monotonicity audit",
+    "────────────────────────────────────────────────────────────",
+    " S1 strict band: 0/39 pairs violate (limit 0)",
+    "    segment      mean |Δγ|",
+    "    1-5001        1.629872",
+    " 5001-10001       1.328818",
+    " 10001-15001       1.248992",
+    " 15001-20001       1.201689",
+    " 20001-25000       1.168653",
+    " 25000-30000       1.143731",
+    " 30000-35000       1.123510",
+    " 35000-40000       1.106908",
+    " 40000-45000       1.092713",
+    " 45000-50000       1.080314",
+    " S2 segments  : 0 local increases (limit 0)",
+    " S3 new lows  : 40/40 checkpoints = 100% (limit ≥ 60%)",
+    " S4 drawdown  : b(50000)=1.2126 vs b(25)=4.6101 → 73.7% decrease (limit ≥ 5%)",
+    "────────────────────────────────────────────────────────────",
+    " S1 strict band       PASS — 0 violations / 39 pairs",
+    " S2 segments          PASS — 0 increases / 10 segments",
+    " S3 new lows          PASS — 100% of checkpoints",
+    " S4 drawdown          PASS — 73.7% decrease",
+    " Test 2 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_02_bN_monotonicity/report.md"
+  },
+  {
+   "id": 3,
+   "slug": "bN_rate",
+   "title": "Test 3: Convergence rate (power-law fit)",
+   "short": "Convergence rate (power-law fit)",
+   "verdict": "PASS",
+   "generated": "2026-09-02 13:48:50",
+   "category": "b(N) convergence",
+   "focus": "power-law fit of the convergence rate",
+   "description": "log-log regression of b(N): the slope is a formula-derived quantity with R² as the goodness yardstick.",
+   "method": "log-log regression of b(N): the slope is a formula-derived quantity with R² as the goodness yardstick.",
+   "result": "Test 3 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 3 --no-two-pass",
+   "bench": "TEST 3 (secondary, HARDCORE): Objection 1: b(N) Convergence — deep rate-law validation",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "R1 power-law R²      PASS — R² = 0.9882",
+    "R2 best-law R²       PASS — R² = 0.9975",
+    "R3 walk-forward      PASS — median 0.05%, max 0.09%",
+    "R4 α stability       PASS — |Δα| = 0.0723",
+    "Test 3 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 3 (secondary, HARDCORE): Objection 1: b(N) Convergence — deep rate-law validation",
+    "────────────────────────────────────────────────────────────",
+    " R1 dense power law: b(N) ≈ 7.3564·N^(-0.1737), R² = 0.988236 (limit 0.95)",
+    " R2 alt 1/log N   : b(N) ≈ -0.2557 + 16.2185/log(N), R² = 0.997500",
+    "                   best of two laws: R² = 0.9975 (limit 0.95)",
+    " R3 walk-forward  : median err 0.05%, max err 0.09% (limits 2%/5%)",
+    " R4 α stability   : α_lower=0.2116 vs α_upper=0.1393, |Δα|=0.0723 (limit 0.2)",
+    "────────────────────────────────────────────────────────────",
+    " R1 power-law R²      PASS — R² = 0.9882",
+    " R2 best-law R²       PASS — R² = 0.9975",
+    " R3 walk-forward      PASS — median 0.05%, max 0.09%",
+    " R4 α stability       PASS — |Δα| = 0.0723",
+    " Test 3 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_03_bN_rate/report.md"
+  },
+  {
+   "id": 4,
+   "slug": "gue_ks_full",
+   "title": "Test 4: GUE KS test (full range)",
+   "short": "GUE KS test (full range)",
+   "verdict": "PASS",
+   "generated": "2026-09-02 13:49:00",
+   "category": "Spacing statistics",
+   "focus": "KS test vs the GUE ratio law, full range",
+   "description": "STATISTICAL family: one-sample KS of zero spacings vs GUE Wigner surmise. p-values depend on sample size and T-range — finite-data effects are legal.",
+   "method": "STATISTICAL family: one-sample KS of zero spacings vs GUE Wigner surmise. p-values depend on sample size and T-range — finite-data effects are legal.",
+   "result": "Test 4 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 4 --no-two-pass",
+   "bench": "TEST 4 (secondary, HARDCORE): Objection 2: GUE Spacing Statistics — deep KS audit",
+   "calc": [
+    {
+     "name": "KS D",
+     "value": 0.021619,
+     "note": ""
+    },
+    {
+     "name": "KS D",
+     "value": 0.029562,
+     "note": ""
+    },
+    {
+     "name": "KS D",
+     "value": 0.025418,
+     "note": ""
+    },
+    {
+     "name": "KS D",
+     "value": 0.021305,
+     "note": ""
+    },
+    {
+     "name": "KS D",
+     "value": 0.027409,
+     "note": ""
+    },
+    {
+     "name": "KS D",
+     "value": 0.022629,
+     "note": ""
+    },
+    {
+     "name": "KS D",
+     "value": 0.019816,
+     "note": ""
+    },
+    {
+     "name": "KS D",
+     "value": 0.019647,
+     "note": ""
+    },
+    {
+     "name": "KS D",
+     "value": 0.019627,
+     "note": ""
+    },
+    {
+     "name": "KS D",
+     "value": 0.024587,
+     "note": ""
+    },
+    {
+     "name": "KS D",
+     "value": 0.018906,
+     "note": ""
+    }
+   ],
+   "n_calc_total": 11,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "K1 block homog       PASS — spread = 0.009934",
+    "K2 half split        PASS — |ΔD| = 0.005681",
+    "K3 moments           PASS — mean 1.0000, var 0.1591",
+    "Test 4 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 4 (secondary, HARDCORE): Objection 2: GUE Spacing Statistics — deep KS audit",
+    "────────────────────────────────────────────────────────────",
+    " Full range: N=49999 spacings, D=0.021619, p=0.000000 (report; primary verdict governs)",
+    " K1 blocks    : D over 8 blocks: min=0.019627 max=0.029562, spread=0.009934 (limit 0.0101)",
+    " K2 half split: D_first=0.024587, D_second=0.018906, |ΔD|=0.005681 (limit 0.02)",
+    " K3 moments   : mean(s)=1.0000 (limit |Δ|<0.02), var(s)=0.1591 vs surmise 0.1781 (limit ±60%)",
+    "────────────────────────────────────────────────────────────",
+    " K1 block homog       PASS — spread = 0.009934",
+    " K2 half split        PASS — |ΔD| = 0.005681",
+    " K3 moments           PASS — mean 1.0000, var 0.1591",
+    " Test 4 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_04_gue_ks_full/report.md"
+  },
+  {
+   "id": 5,
+   "slug": "gue_ks_highT",
+   "title": "Test 5: GUE KS test (high-T only)",
+   "short": "GUE KS test (high-T only)",
+   "verdict": "PASS",
+   "generated": "2026-09-02 13:49:11",
+   "category": "Spacing statistics",
+   "focus": "KS test vs GUE, high-height subranges",
+   "description": "Same, restricted to high T where GUE asymptotics hold better; still data-limited (embedded 50k zeros, T ≤ 40434 ≪ 10⁶).",
+   "method": "Same, restricted to high T where GUE asymptotics hold better; still data-limited (embedded 50k zeros, T ≤ 40434 ≪ 10⁶).",
+   "result": "Test 5 [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 5 --no-two-pass",
+   "bench": "TEST 5 (secondary, HARDCORE): Objection 2: GUE Spacing Statistics — dense high-T sweep",
+   "calc": [
+    {
+     "name": "KS D",
+     "value": 0.021622,
+     "note": ""
+    },
+    {
+     "name": "KS D",
+     "value": 0.021625,
+     "note": ""
+    },
+    {
+     "name": "KS D",
+     "value": 0.021588,
+     "note": ""
+    },
+    {
+     "name": "KS D",
+     "value": 0.02138,
+     "note": ""
+    },
+    {
+     "name": "KS D",
+     "value": 0.021203,
+     "note": ""
+    },
+    {
+     "name": "KS D",
+     "value": 0.020927,
+     "note": ""
+    },
+    {
+     "name": "KS D",
+     "value": 0.020175,
+     "note": ""
+    }
+   ],
+   "n_calc_total": 7,
+   "series": [],
+   "tables": [
+    {
+     "title": "",
+     "header": [
+      "T_min",
+      "N_zeros",
+      "D",
+      "p"
+     ],
+     "rows": [
+      [
+       50,
+       49990,
+       0.021622,
+       0.0
+      ],
+      [
+       125,
+       49959,
+       0.021625,
+       0.0
+      ],
+      [
+       312,
+       49854,
+       0.021588,
+       0.0
+      ],
+      [
+       781,
+       49524,
+       0.02138,
+       0.0
+      ],
+      [
+       1953,
+       48526,
+       0.021203,
+       0.0
+      ],
+      [
+       4883,
+       45604,
+       0.020927,
+       0.0
+      ],
+      [
+       12207,
+       37231,
+       0.020175,
+       0.0
+      ]
+     ],
+     "n_rows_total": 7
+    }
+   ],
+   "subchecks": [],
+   "checks": [
+    "T2 trend             PASS — p 9.564e-21 → 1.326e-13",
+    "T3 top mean          PASS — mean = 1.0000",
+    "Test 5 [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 5 (secondary, HARDCORE): Objection 2: GUE Spacing Statistics — dense high-T sweep",
+    "────────────────────────────────────────────────────────────",
+    "        T_min    N_zeros            D            p",
+    "           50      49990     0.021622     0.000000",
+    "          125      49959     0.021625     0.000000",
+    "          312      49854     0.021588     0.000000",
+    "          781      49524     0.021380     0.000000",
+    "         1953      48526     0.021203     0.000000",
+    "         4883      45604     0.020927     0.000000",
+    "        12207      37231     0.020175     0.000000",
+    " T2 trend     : p(first)=9.564e-21 → p(last)=1.326e-13 (must not degrade); best p=1.326e-13 (info; primary governs)",
+    " T3 top mean  : mean(s) at highest band = 1.0000 (limit |Δ|<0.02)",
+    "────────────────────────────────────────────────────────────",
+    " T2 trend             PASS — p 9.564e-21 → 1.326e-13",
+    " T3 top mean          PASS — mean = 1.0000",
+    " Test 5 [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_05_gue_ks_highT/report.md"
+  },
+  {
+   "id": 6,
+   "slug": "chi2_hist",
+   "title": "Test 6: Spacing chi^2 histogram test",
+   "short": "Spacing chi^2 histogram test",
+   "verdict": "PASS",
+   "generated": "2026-09-02 13:49:22",
+   "category": "Spacing statistics",
+   "focus": "χ² goodness-of-fit of the spacing histogram",
+   "description": "χ² binned comparison of spacing histogram to Wigner-Dyson. Binning choices are part of the tolerance system.",
+   "method": "χ² binned comparison of spacing histogram to Wigner-Dyson. Binning choices are part of the tolerance system.",
+   "result": "Test 6 [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 6 --no-two-pass",
+   "bench": "TEST 6 (secondary, HARDCORE): Objection 2: GUE Spacing Statistics — bin-stability audit",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "C1 bin sweep         PASS — 0 flips vs majority (REJECT)",
+    "C2 halves            PASS — rel.dev = 16.5%",
+    "Test 6 [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 6 (secondary, HARDCORE): Objection 2: GUE Spacing Statistics — bin-stability audit",
+    "────────────────────────────────────────────────────────────",
+    " C1 bins= 300: χ²/df = 2.3771, p = 0.000000 → REJECT",
+    " C1 bins= 150: χ²/df = 3.6171, p = 0.000000 → REJECT",
+    " C1 bins=  75: χ²/df = 6.3149, p = 0.000000 → REJECT",
+    " C1 bins=  37: χ²/df = 11.3303, p = 0.000000 → REJECT",
+    " C2 halves    : χ²/df first=2.5187, second=2.1023, rel.dev=16.5% (limit 50%)",
+    "────────────────────────────────────────────────────────────",
+    " C1 bin sweep         PASS — 0 flips vs majority (REJECT)",
+    " C2 halves            PASS — rel.dev = 16.5%",
+    " Test 6 [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_06_chi2_hist/report.md"
+  },
+  {
+   "id": 7,
+   "slug": "decay_slope",
+   "title": "Test 7: Decay slope (log-log regression)",
+   "short": "Decay slope (log-log regression)",
+   "verdict": "PASS",
+   "generated": "2026-09-02 13:49:32",
+   "category": "Regression stability",
+   "focus": "log–log regression slope of the decay",
+   "description": "Large-T decay of b(N): formula family (slope≈−0.5), verified via linear regression with R².",
+   "method": "Large-T decay of b(N): formula family (slope≈−0.5), verified via linear regression with R².",
+   "result": "Test 7 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 7 --no-two-pass",
+   "bench": "TEST 7 (secondary, HARDCORE): Objection 3: Large-T Decay Rate — deep slope validation",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "D1 slope CI          PASS — width 0.0179, R² 0.9954",
+    "D2 stability         PASS — |Δslope| = 0.0367",
+    "D3 walk-forward      PASS — median 0.05%, max 0.09%",
+    "D4 boot vs CI        PASS — CI [-0.1621, -0.1378]",
+    "Test 7 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 7 (secondary, HARDCORE): Objection 3: Large-T Decay Rate — deep slope validation",
+    "────────────────────────────────────────────────────────────",
+    " D1 slope     : -0.1504, 95%CI [-0.1594, -0.1414] (width 0.0179), R²=0.9954 (limits 0.1 / 0.9)",
+    " D2 stability : slope_lo=-0.1752, slope_hi=-0.1385, |Δ|=0.0367 (limit 0.15)",
+    " D3 walk-fwd  : median err 0.05%, max err 0.09% (limits 2%/5%)",
+    " D4 bootstrap : slope=-0.1504 inside boot 95%CI [-0.1621, -0.1378]? YES",
+    "────────────────────────────────────────────────────────────",
+    " D1 slope CI          PASS — width 0.0179, R² 0.9954",
+    " D2 stability         PASS — |Δslope| = 0.0367",
+    " D3 walk-forward      PASS — median 0.05%, max 0.09%",
+    " D4 boot vs CI        PASS — CI [-0.1621, -0.1378]",
+    " Test 7 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_07_decay_slope/report.md"
+  },
+  {
+   "id": 8,
+   "slug": "residuals",
+   "title": "Test 8: Residual analysis of fit",
+   "short": "Residual analysis of fit",
+   "verdict": "PASS",
+   "generated": "2026-09-02 13:49:43",
+   "category": "Regression stability",
+   "focus": "residual analysis of the fit",
+   "description": "Residual structure of the log-log fit — algebraic diagnostics.",
+   "method": "Residual structure of the log-log fit — algebraic diagnostics.",
+   "result": "Test 8 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 8 --no-two-pass",
+   "bench": "TEST 8 (secondary, HARDCORE): Objection 3: Large-T Decay Rate — dense residual audit",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "E1 runs              PASS — 3 vs 5.8 expected",
+    "E2 autocorr          PASS — r1=0.679, r2=0.005",
+    "E3 scale             PASS — ratio = 1.076",
+    "E4 sign balance      PASS — 4+/-6",
+    "Test 8 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 8 (secondary, HARDCORE): Objection 3: Large-T Decay Rate — dense residual audit",
+    "────────────────────────────────────────────────────────────",
+    " E1 runs      : 3 runs over 10 doubling-grid residuals (expected 5.8 ± 6.0)",
+    " E2 autocorr  : lag-1 = 0.6794, lag-2 = 0.0053 (sanity limit |r|<0.95)",
+    " E3 scale     : dense residuals sd_first=0.04614, sd_second=0.04289, ratio=1.076 (limits 0.4–2.5)",
+    "────────────────────────────────────────────────────────────",
+    " E1 runs              PASS — 3 vs 5.8 expected",
+    " E2 autocorr          PASS — r1=0.679, r2=0.005",
+    " E3 scale             PASS — ratio = 1.076",
+    " E4 sign balance      PASS — 4+/-6",
+    " Test 8 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_08_residuals/report.md"
+  },
+  {
+   "id": 9,
+   "slug": "bootstrap_ci",
+   "title": "Test 9: Bootstrap CI for slope",
+   "short": "Bootstrap CI for slope",
+   "verdict": "PASS",
+   "generated": "2026-09-02 13:49:53",
+   "category": "Regression stability",
+   "focus": "bootstrap CI for the slope",
+   "description": "Sampling-noise quantification: statistical system with CIs.",
+   "method": "Sampling-noise quantification: statistical system with CIs.",
+   "result": "Test 9 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 9 --no-two-pass",
+   "bench": "TEST 9 (secondary, HARDCORE): Objection 3: Large-T Decay Rate — bootstrap reproducibility audit",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "B1 CI width          PASS — width = 0.0288",
+    "B2 seed stability    PASS — Δmed 0.0003, overlap 91%",
+    "B3 jackknife         PASS — range [-0.1808, -0.1676]",
+    "B4 half grid         PASS — |Δmed| = 0.0342",
+    "Test 9 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 9 (secondary, HARDCORE): Objection 3: Large-T Decay Rate — bootstrap reproducibility audit",
+    "────────────────────────────────────────────────────────────",
+    " B1 primary CI: width 0.0288, median -0.1743 (limit 0.1)",
+    " B2 second seed: median -0.1745 (|Δmed|=0.0003, limit 0.02), CI overlap 91% (limit 60%)",
+    " B3 jackknife : LOO slope range [-0.1808, -0.1676] inside boot CI ± 0.02? YES",
+    " B4 half grid : median -0.2085 vs full -0.1743, |Δ|=0.0342 (limit 0.05)",
+    "────────────────────────────────────────────────────────────",
+    " B1 CI width          PASS — width = 0.0288",
+    " B2 seed stability    PASS — Δmed 0.0003, overlap 91%",
+    " B3 jackknife         PASS — range [-0.1808, -0.1676]",
+    " B4 half grid         PASS — |Δmed| = 0.0342",
+    " Test 9 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_09_bootstrap_ci/report.md"
+  },
+  {
+   "id": 10,
+   "slug": "cross_validation",
+   "title": "Test 10: Cross-validation stability",
+   "short": "Cross-validation stability",
+   "verdict": "PASS",
+   "generated": "2026-09-02 13:50:03",
+   "category": "Regression stability",
+   "focus": "cross-validation of the fit stability",
+   "description": "Statistical stability of the fit under data splits.",
+   "method": "Statistical stability of the fit under data splits.",
+   "result": "Test 10 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 10 --no-two-pass",
+   "bench": "TEST 10 (secondary, HARDCORE): deep cross-validation audit",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "V1 deciles           PASS — 0 increases / 10 segments",
+    "V2 f-convergence     PASS — dev 0.19% → 0.06%",
+    "V3 offset tripwire   PASS — wrong offset +1762824.6% worse",
+    "V4 even-odd          PASS — dev = 0.34%",
+    "Test 10 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 10 (secondary, HARDCORE): deep cross-validation audit",
+    "All sub-samples use index-aware Gram points (offset discipline)",
+    "────────────────────────────────────────────────────────────",
+    " V1 deciles   : 0 local increases over 10 segment means (limit 0)",
+    " V2 f-sweep   : dev(0.3)=0.0019 → dev(0.9)=0.0006 (must decrease)",
+    "                devs: 0.0019 / 0.0011 / 0.0005 / 0.0006",
+    " V3 tripwire  : correct-offset tail b=1.1095, wrong-offset b=19559.2539 → +1762824.6% worse (limit ≥ 5%)",
+    " V4 even-odd  : b_even=1.208457 vs full 1.212553, dev=0.34% (limit 10%)",
+    "────────────────────────────────────────────────────────────",
+    " V1 deciles           PASS — 0 increases / 10 segments",
+    " V2 f-convergence     PASS — dev 0.19% → 0.06%",
+    " V3 offset tripwire   PASS — wrong offset +1762824.6% worse",
+    " V4 even-odd          PASS — dev = 0.34%",
+    " Test 10 [HARDCORE pass 2]: 4 sub-checks, 0 failed, b(50000)=1.2126 → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_10_cross_validation/report.md"
+  },
+  {
+   "id": 11,
+   "slug": "anderson_darling",
+   "title": "Test 11: Anderson-Darling test",
+   "short": "Anderson-Darling test",
+   "verdict": "PASS",
+   "generated": "2026-09-02 14:02:11",
+   "category": "Goodness-of-fit",
+   "focus": "Anderson–Darling tail-sensitive test",
+   "description": "Tail-sensitive GOF vs GUE surmise — full range + height-resolved asymptotic verdict (cf. Test 5)",
+   "method": "Tail-sensitive GOF vs GUE surmise — full range + height-resolved asymptotic verdict (cf. Test 5)",
+   "result": "Test 11 [HARDCORE pass 2]: 5 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 11 --no-two-pass",
+   "bench": "TEST 11 (secondary, HARDCORE): Objection 2 (extended): Advanced RMT Diagnostics — A² reproducibility audit",
+   "calc": [
+    {
+     "name": "A²",
+     "value": 61.492426,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.384147,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.108144,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.302521,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.593758,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.413282,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.868152,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.975684,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.01708,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.809583,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.503147,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.822603,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.630763,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.313073,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.790403,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.537456,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.732354,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.682979,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.648136,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.682244,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.732065,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.484654,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.317421,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.475593,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.936691,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.909633,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.684453,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.206852,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.865485,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.491087,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.917496,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.396365,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.834122,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.372013,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.295102,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.873086,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.196927,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.800149,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.173258,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.486103,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.296684,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 2.019278,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.497771,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.864356,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.612102,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.608755,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.669087,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.512802,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.827037,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.604734,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.715415,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.596571,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.288266,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.354442,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.574599,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.292411,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.411976,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.157199,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.576984,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.590977,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.31098,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.603407,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.593734,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.430364,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.709201,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.696205,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 3.087918,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.194566,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.688519,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.627008,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.321408,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 4.162145,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.909458,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.705902,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.418252,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.355315,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.746679,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.431794,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 1.8451,
+     "note": "(n=49999)"
+    },
+    {
+     "name": "A²",
+     "value": 0.668308,
+     "note": "(n=49999)"
+    }
+   ],
+   "n_calc_total": 3011,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "A1 MC p stability    PASS — |Δp| = 0.0000",
+    "A2 half split        PASS — rel.dev = 33.9%, low/high A² = 1.51",
+    "A3 structure         PASS — A²/W² = 7.52",
+    "A4 GUE floor         PASS — floor 7.2 vs data 61.5, std Δ +1.8%",
+    "A5 two-sample        PASS — p = 0.0000, A² = 104.7",
+    "Test 11 [HARDCORE pass 2]: 5 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 11 (secondary, HARDCORE): Objection 2 (extended): Advanced RMT Diagnostics — A² reproducibility audit",
+    "────────────────────────────────────────────────────────────",
+    " Data: A² = 61.492426 (n=49999, cap=50000)",
+    "   MC(seed=0x11a1) progress: 500/1000",
+    "   MC(seed=0x11a1) progress: 1000/1000",
+    "   MC(seed=0x11a2) progress: 500/1000",
+    "   MC(seed=0x11a2) progress: 1000/1000",
+    " A1 MC p seeds: p1=0.0000, p2=0.0000, |Δp|=0.0000 (limit 0.05, n_mc=1000)",
+    " A2 halves    : A²_first=37.6468, A²_second=24.8662, rel.dev=33.9% (limit 50%)",
+    "                low-T/high-T trend: A²_first/A²_second = 1.51 (>1 → deviation concentrated at low T)",
+    " A3 structure : A²/W² = 7.52 (W² = 8.1777; structural band 1–8)",
+    " A4 ensemble  : 6 × 3500x3500 GUE, seeds 112–117 (diag est. ≈ 154 s)",
+    "   pooled n_ref=16800: mean 1.000171, std 0.4294 (law 0.4220, Δ +1.8%), A²_pooled = 2.4313",
+    "   floor scaled to n=49999: A² ≈ 7.2 vs data 61.5",
+    "   A5 two-sample MC: 250/1000",
+    "   A5 two-sample MC: 500/1000",
+    "   A5 two-sample MC: 750/1000",
+    "   A5 two-sample MC: 1000/1000",
+    "   A5 two-sample: A²(data vs ensemble CDF) = 104.6518, p(MC) = 0.0000 [n_mc=1000] → deviation CONFIRMED vs big-GUE reference",
+    "────────────────────────────────────────────────────────────",
+    " A1 MC p stability    PASS — |Δp| = 0.0000",
+    " A2 half split        PASS — rel.dev = 33.9%, low/high A² = 1.51",
+    " A3 structure         PASS — A²/W² = 7.52",
+    " A4 GUE floor         PASS — floor 7.2 vs data 61.5, std Δ +1.8%",
+    " A5 two-sample        PASS — p = 0.0000, A² = 104.7",
+    " Test 11 [HARDCORE pass 2]: 5 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_11_anderson_darling/report.md"
+  },
+  {
+   "id": 12,
+   "slug": "two_sample_ks",
+   "title": "Test 12: Real zeros vs GUE matrix",
+   "short": "Real zeros vs GUE matrix",
+   "verdict": "PASS",
+   "generated": "2026-09-02 14:02:26",
+   "category": "Goodness-of-fit",
+   "focus": "two-sample KS: real zeros vs GUE matrix",
+   "description": "Two-sample KS: data vs simulated GUE matrix spectrum.",
+   "method": "Two-sample KS: data vs simulated GUE matrix spectrum.",
+   "result": "Test 12 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 12 --no-two-pass",
+   "bench": "TEST 12 (secondary, HARDCORE): Objection 2 (extended): Advanced RMT Diagnostics — 2KS symmetry audit",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "W1 ref symmetry      PASS — |ΔD| = 0.007812",
+    "W2 block agree       PASS — 4/4 agree",
+    "W3 D bound           PASS — D 0.0233 vs crit 0.0235",
+    "Test 12 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 12 (secondary, HARDCORE): Objection 2 (extended): Advanced RMT Diagnostics — 2KS symmetry audit",
+    "────────────────────────────────────────────────────────────",
+    " Full: real n=9600 vs ref n=9600, D=0.023333, p=0.010547 (primary verdict governs)",
+    " W1 ref split : D_vs_A=0.028542, D_vs_B=0.020729, |ΔD|=0.007812 (limit 0.02)",
+    " W2 blocks    : 4/4 blocks agree with full verdict at α=0.01 (limit ≥ 3)",
+    " W3 effect    : D_full=0.023333 < 2KS critical at α=0.01: 0.023527? YES",
+    "────────────────────────────────────────────────────────────",
+    " W1 ref symmetry      PASS — |ΔD| = 0.007812",
+    " W2 block agree       PASS — 4/4 agree",
+    " W3 D bound           PASS — D 0.0233 vs crit 0.0235",
+    " Test 12 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_12_two_sample_ks/report.md"
+  },
+  {
+   "id": 13,
+   "slug": "number_variance",
+   "title": "Test 13: Number variance Σ²(L)",
+   "short": "Number variance Σ²(L)",
+   "verdict": "PASS",
+   "generated": "2026-09-02 14:02:41",
+   "category": "Long-range RMT",
+   "focus": "number variance Σ²(L) vs Poisson/GUE",
+   "description": "Long-range statistics: Σ²(L) ~ (1/π²)lnL for GUE — asymptotic curve comparison.",
+   "method": "Long-range statistics: Σ²(L) ~ (1/π²)lnL for GUE — asymptotic curve comparison.",
+   "result": "Test 13 [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 13 --no-two-pass",
+   "bench": "TEST 13 (secondary, HARDCORE): Objection 2 (extended): Advanced RMT Diagnostics — Σ² rigidity audit",
+   "calc": [
+    {
+     "name": "Σ²(L=2)",
+     "value": 0.38146,
+     "note": "(n_pos=50000, n_windows=3000, mean_count=2.00)"
+    },
+    {
+     "name": "Σ²(L=4.536)",
+     "value": 0.402894,
+     "note": "(n_pos=50000, n_windows=3000, mean_count=4.54)"
+    },
+    {
+     "name": "Σ²(L=10.287)",
+     "value": 0.354897,
+     "note": "(n_pos=50000, n_windows=3000, mean_count=10.30)"
+    },
+    {
+     "name": "Σ²(L=23.331)",
+     "value": 0.313517,
+     "note": "(n_pos=50000, n_windows=3000, mean_count=23.34)"
+    },
+    {
+     "name": "Σ²(L=52.915)",
+     "value": 0.353407,
+     "note": "(n_pos=50000, n_windows=3000, mean_count=52.91)"
+    },
+    {
+     "name": "Σ²(L=120.01)",
+     "value": 0.354226,
+     "note": "(n_pos=50000, n_windows=3000, mean_count=120.02)"
+    },
+    {
+     "name": "Σ²(L=272.178)",
+     "value": 0.35561,
+     "note": "(n_pos=50000, n_windows=3000, mean_count=272.16)"
+    },
+    {
+     "name": "Σ²(L=617.292)",
+     "value": 0.351103,
+     "note": "(n_pos=50000, n_windows=3000, mean_count=617.29)"
+    },
+    {
+     "name": "Σ²(L=1400)",
+     "value": 0.342086,
+     "note": "(n_pos=50000, n_windows=3000, mean_count=1399.99)"
+    },
+    {
+     "name": "Σ²(L=2)",
+     "value": 0.399956,
+     "note": "(n_pos=9601, n_windows=3000, mean_count=1.99)"
+    },
+    {
+     "name": "Σ²(L=4.536)",
+     "value": 0.506062,
+     "note": "(n_pos=9601, n_windows=3000, mean_count=4.51)"
+    },
+    {
+     "name": "Σ²(L=10.287)",
+     "value": 0.579419,
+     "note": "(n_pos=9601, n_windows=3000, mean_count=10.28)"
+    },
+    {
+     "name": "Σ²(L=23.331)",
+     "value": 0.691828,
+     "note": "(n_pos=9601, n_windows=3000, mean_count=23.34)"
+    },
+    {
+     "name": "Σ²(L=52.915)",
+     "value": 0.784109,
+     "note": "(n_pos=9601, n_windows=3000, mean_count=52.90)"
+    },
+    {
+     "name": "Σ²(L=120.01)",
+     "value": 0.894359,
+     "note": "(n_pos=9601, n_windows=3000, mean_count=120.05)"
+    },
+    {
+     "name": "Σ²(L=272.178)",
+     "value": 0.845014,
+     "note": "(n_pos=9601, n_windows=3000, mean_count=272.20)"
+    },
+    {
+     "name": "Σ²(L=617.292)",
+     "value": 0.887775,
+     "note": "(n_pos=9601, n_windows=3000, mean_count=617.29)"
+    },
+    {
+     "name": "Σ²(L=1400)",
+     "value": 0.821553,
+     "note": "(n_pos=9601, n_windows=3000, mean_count=1399.99)"
+    },
+    {
+     "name": "Σ²(L=23.331)",
+     "value": 0.32473,
+     "note": "(n_pos=50000, n_windows=3000, mean_count=23.33)"
+    },
+    {
+     "name": "Σ²(L=23.331)",
+     "value": 0.306048,
+     "note": "(n_pos=50000, n_windows=3000, mean_count=23.34)"
+    },
+    {
+     "name": "Σ²(L=23.331)",
+     "value": 0.318012,
+     "note": "(n_pos=50000, n_windows=3000, mean_count=23.32)"
+    }
+   ],
+   "n_calc_total": 21,
+   "series": [
+    {
+     "name": "Σ²",
+     "x": "L",
+     "points": [
+      [
+       2.0,
+       0.38146
+      ],
+      [
+       2.0,
+       0.399956
+      ],
+      [
+       4.536,
+       0.402894
+      ],
+      [
+       4.536,
+       0.506062
+      ],
+      [
+       10.287,
+       0.354897
+      ],
+      [
+       10.287,
+       0.579419
+      ],
+      [
+       23.331,
+       0.313517
+      ],
+      [
+       23.331,
+       0.691828
+      ],
+      [
+       23.331,
+       0.32473
+      ],
+      [
+       23.331,
+       0.306048
+      ],
+      [
+       23.331,
+       0.318012
+      ],
+      [
+       52.915,
+       0.353407
+      ],
+      [
+       52.915,
+       0.784109
+      ],
+      [
+       120.01,
+       0.354226
+      ],
+      [
+       120.01,
+       0.894359
+      ],
+      [
+       272.178,
+       0.35561
+      ],
+      [
+       272.178,
+       0.845014
+      ],
+      [
+       617.292,
+       0.351103
+      ],
+      [
+       617.292,
+       0.887775
+      ],
+      [
+       1400.0,
+       0.342086
+      ],
+      [
+       1400.0,
+       0.821553
+      ]
+     ]
+    }
+   ],
+   "tables": [
+    {
+     "title": "",
+     "header": [
+      "L",
+      "Σ²_data",
+      "Poisson=L",
+      "data/Pois"
+     ],
+     "rows": [
+      [
+       2.0,
+       0.3815,
+       2.0,
+       0.1907
+      ],
+      [
+       4.5,
+       0.4029,
+       4.5359,
+       0.0888
+      ],
+      [
+       10.3,
+       0.3549,
+       10.2874,
+       0.0345
+      ],
+      [
+       23.3,
+       0.3135,
+       23.3315,
+       0.0134
+      ],
+      [
+       52.9,
+       0.3534,
+       52.915,
+       0.0067
+      ],
+      [
+       120.0,
+       0.3542,
+       120.0097,
+       0.003
+      ],
+      [
+       272.2,
+       0.3556,
+       272.1783,
+       0.0013
+      ],
+      [
+       617.3,
+       0.3511,
+       617.2922,
+       0.0006
+      ],
+      [
+       1400.0,
+       0.3421,
+       1400.0,
+       0.0002
+      ]
+     ],
+     "n_rows_total": 9
+    }
+   ],
+   "subchecks": [],
+   "checks": [
+    "N1 beat Poisson      PASS — 9/9 L-values",
+    "N2 monotone          PASS — 0 dips",
+    "N3 GUE band          PASS — 9/9 in band",
+    "N4 seed noise        PASS — spread = 5.9%",
+    "Test 13 [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 13 (secondary, HARDCORE): Objection 2 (extended): Advanced RMT Diagnostics — Σ² rigidity audit",
+    "────────────────────────────────────────────────────────────",
+    "        L      Σ²_data    Poisson=L    data/Pois",
+    "      2.0       0.3815       2.0000       0.1907",
+    "      4.5       0.4029       4.5359       0.0888",
+    "     10.3       0.3549      10.2874       0.0345",
+    "     23.3       0.3135      23.3315       0.0134",
+    "     52.9       0.3534      52.9150       0.0067",
+    "    120.0       0.3542     120.0097       0.0030",
+    "    272.2       0.3556     272.1783       0.0013",
+    "    617.3       0.3511     617.2922       0.0006",
+    "   1400.0       0.3421    1400.0000       0.0002",
+    " N2 monotone  : 0 dips >25% across 8 grid steps (limit 1)",
+    " N3 GUE band  : 9/9 finite pairs have data/GUE ∈ [0.2, 5] (limit 80%)",
+    " N4 seed noise: Σ²(L=23.3) over 3 seeds: 0.3247/0.3060/0.3180, spread=5.9% (limit 40%)",
+    "────────────────────────────────────────────────────────────",
+    " N1 beat Poisson      PASS — 9/9 L-values",
+    " N2 monotone          PASS — 0 dips",
+    " N3 GUE band          PASS — 9/9 in band",
+    " N4 seed noise        PASS — spread = 5.9%",
+    " Test 13 [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_13_number_variance/report.md"
+  },
+  {
+   "id": 14,
+   "slug": "spectral_rigidity",
+   "title": "Test 14: Spectral rigidity Δ₃(L)",
+   "short": "Spectral rigidity Δ₃(L)",
+   "verdict": "PASS",
+   "generated": "2026-09-02 14:02:56",
+   "category": "Long-range RMT",
+   "focus": "spectral rigidity Δ₃(L) audit",
+   "description": "Δ₃(L) long-range rigidity vs GUE universal prediction.",
+   "method": "Δ₃(L) long-range rigidity vs GUE universal prediction.",
+   "result": "Test 14 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 14 --no-two-pass",
+   "bench": "TEST 14 (secondary, HARDCORE): Objection 2 (extended): Advanced RMT Diagnostics — Δ₃ audit",
+   "calc": [
+    {
+     "name": "Δ₃(L=2)",
+     "value": 0.093421,
+     "note": "(n_pos=50000, n_windows=500, n_devs=500)"
+    },
+    {
+     "name": "Δ₃(L=4.536)",
+     "value": 0.128616,
+     "note": "(n_pos=50000, n_windows=500, n_devs=500)"
+    },
+    {
+     "name": "Δ₃(L=10.287)",
+     "value": 0.161422,
+     "note": "(n_pos=50000, n_windows=500, n_devs=500)"
+    },
+    {
+     "name": "Δ₃(L=23.331)",
+     "value": 0.173069,
+     "note": "(n_pos=50000, n_windows=500, n_devs=500)"
+    },
+    {
+     "name": "Δ₃(L=52.915)",
+     "value": 0.175808,
+     "note": "(n_pos=50000, n_windows=500, n_devs=500)"
+    },
+    {
+     "name": "Δ₃(L=120.01)",
+     "value": 0.176269,
+     "note": "(n_pos=50000, n_windows=500, n_devs=500)"
+    },
+    {
+     "name": "Δ₃(L=272.178)",
+     "value": 0.175052,
+     "note": "(n_pos=50000, n_windows=500, n_devs=500)"
+    },
+    {
+     "name": "Δ₃(L=617.292)",
+     "value": 0.176106,
+     "note": "(n_pos=50000, n_windows=500, n_devs=500)"
+    },
+    {
+     "name": "Δ₃(L=1400)",
+     "value": 0.175848,
+     "note": "(n_pos=50000, n_windows=500, n_devs=500)"
+    },
+    {
+     "name": "Δ₃(L=23.331)",
+     "value": 0.173347,
+     "note": "(n_pos=50000, n_windows=166, n_devs=166)"
+    },
+    {
+     "name": "Δ₃(L=23.331)",
+     "value": 0.173506,
+     "note": "(n_pos=50000, n_windows=166, n_devs=166)"
+    },
+    {
+     "name": "Δ₃(L=23.331)",
+     "value": 0.173829,
+     "note": "(n_pos=50000, n_windows=166, n_devs=166)"
+    }
+   ],
+   "n_calc_total": 12,
+   "series": [
+    {
+     "name": "Δ₃",
+     "x": "L",
+     "points": [
+      [
+       2.0,
+       0.093421
+      ],
+      [
+       4.536,
+       0.128616
+      ],
+      [
+       10.287,
+       0.161422
+      ],
+      [
+       23.331,
+       0.173069
+      ],
+      [
+       23.331,
+       0.173347
+      ],
+      [
+       23.331,
+       0.173506
+      ],
+      [
+       23.331,
+       0.173829
+      ],
+      [
+       52.915,
+       0.175808
+      ],
+      [
+       120.01,
+       0.176269
+      ],
+      [
+       272.178,
+       0.175052
+      ],
+      [
+       617.292,
+       0.176106
+      ],
+      [
+       1400.0,
+       0.175848
+      ]
+     ]
+    }
+   ],
+   "tables": [
+    {
+     "title": "",
+     "header": [
+      "L",
+      "Δ₃_data",
+      "Poisson=L/15",
+      "data/Pois"
+     ],
+     "rows": [
+      [
+       2.0,
+       0.0934,
+       0.1333,
+       0.7007
+      ],
+      [
+       4.5,
+       0.1286,
+       0.3024,
+       0.4253
+      ],
+      [
+       10.3,
+       0.1614,
+       0.6858,
+       0.2354
+      ],
+      [
+       23.3,
+       0.1731,
+       1.5554,
+       0.1113
+      ],
+      [
+       52.9,
+       0.1758,
+       3.5277,
+       0.0498
+      ],
+      [
+       120.0,
+       0.1763,
+       8.0006,
+       0.022
+      ],
+      [
+       272.2,
+       0.1751,
+       18.1452,
+       0.0096
+      ],
+      [
+       617.3,
+       0.1761,
+       41.1528,
+       0.0043
+      ],
+      [
+       1400.0,
+       0.1758,
+       93.3333,
+       0.0019
+      ]
+     ],
+     "n_rows_total": 9
+    }
+   ],
+   "subchecks": [],
+   "checks": [
+    "G1 beat Poisson      PASS — 9/9 L-values",
+    "G2 monotone          PASS — 0 dips",
+    "G3 seed noise        PASS — spread = 0.3%",
+    "Test 14 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 14 (secondary, HARDCORE): Objection 2 (extended): Advanced RMT Diagnostics — Δ₃ audit",
+    "────────────────────────────────────────────────────────────",
+    "        L      Δ₃_data Poisson=L/15    data/Pois",
+    "      2.0       0.0934       0.1333       0.7007",
+    "      4.5       0.1286       0.3024       0.4253",
+    "     10.3       0.1614       0.6858       0.2354",
+    "     23.3       0.1731       1.5554       0.1113",
+    "     52.9       0.1758       3.5277       0.0498",
+    "    120.0       0.1763       8.0006       0.0220",
+    "    272.2       0.1751      18.1452       0.0096",
+    "    617.3       0.1761      41.1528       0.0043",
+    "   1400.0       0.1758      93.3333       0.0019",
+    " G2 monotone  : 0 dips >30% across 8 grid steps (limit 1)",
+    " G3 seed noise: Δ₃(L=23.3) over 3 seeds: 0.1733/0.1735/0.1738, spread=0.3% (limit 35%)",
+    "────────────────────────────────────────────────────────────",
+    " G1 beat Poisson      PASS — 9/9 L-values",
+    " G2 monotone          PASS — 0 dips",
+    " G3 seed noise        PASS — spread = 0.3%",
+    " Test 14 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_14_spectral_rigidity/report.md"
+  },
+  {
+   "id": 15,
+   "slug": "ab_construction",
+   "title": "Test 15: AB-cloud Hamiltonian construction",
+   "short": "AB-cloud Hamiltonian construction",
+   "verdict": "PASS",
+   "generated": "2026-09-02 14:03:25",
+   "category": "AB construction & topology",
+   "focus": "Hermiticity, TRB flux, Dirac string of the Hamiltonian",
+   "description": "Mixed: Hermiticity/τ_TRB are EXACT (machine-ε), ⟨r⟩ check is STATISTICAL.",
+   "method": "Mixed: Hermiticity/τ_TRB are EXACT (machine-ε), ⟨r⟩ check is STATISTICAL.",
+   "result": "Test 15b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 15 --no-two-pass",
+   "bench": "TEST 15 (pass 2, HARDCORE): AB-cloud construction — deep validation",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "full signed scan     PASS — 4/4 vortex plaquettes, 9021/9021 empty clean",
+    "hermiticity          PASS — verify_hermitian on the quartet H",
+    "Test 15b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 15 (pass 2, HARDCORE): AB-cloud construction — deep validation",
+    "Full-lattice plaquette scan of the ±-quartet (all plaquettes, signed check)",
+    "────────────────────────────────────────────────────────────",
+    " ⚠ RUNTIME: 1 build + O(N) plaquette scan at 96x96 (N=9216) — seconds",
+    " Lattice: 96x96 open :dirac, α=0, quartet q=±1.00 → 9025 plaquettes scanned",
+    " Vortex plaquettes (signed): 4/4 correct ✓",
+    " Empty plaquettes clean (<1e-9): 9021/9021, worst |flux| = 0.00e+00",
+    "────────────────────────────────────────────────────────────",
+    " full signed scan     PASS — 4/4 vortex plaquettes, 9021/9021 empty clean",
+    " hermiticity          PASS — verify_hermitian on the quartet H",
+    " Test 15b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_15_ab_construction/report.md"
+  },
+  {
+   "id": 16,
+   "slug": "ab_gue_class",
+   "title": "Test 16: AB-cloud GUE classification",
+   "short": "AB-cloud GUE classification",
+   "verdict": "PASS",
+   "generated": "2026-09-02 14:32:00",
+   "category": "AB construction & topology",
+   "focus": "⟨r⟩ bulk statistics vs GUE classification",
+   "description": "Statistical: ⟨r⟩ over the central bulk window vs GUE 0.5992, MC p-value as diagnostics.",
+   "method": "Statistical: ⟨r⟩ over the central bulk window vs GUE 0.5992, MC p-value as diagnostics.",
+   "result": "Test 16b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 16 --no-two-pass",
+   "bench": "TEST 16 (pass 2, HARDCORE): ⟨r⟩ → GUE classification — deep validation",
+   "calc": [
+    {
+     "name": "⟨r⟩",
+     "value": 0.572908,
+     "note": "(n_r=5527, n_eigs=5529)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.569121,
+     "note": "(n_r=5527, n_eigs=5529)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.586869,
+     "note": "(n_r=5527, n_eigs=5529)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.584535,
+     "note": "(n_r=5527, n_eigs=5529)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.585615,
+     "note": "(n_r=5527, n_eigs=5529)"
+    }
+   ],
+   "n_calc_total": 5,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "⟨r⟩ > 0.55           PASS — ⟨r⟩ = 0.5798 ± 0.0037 vs GUE 0.5992 (n=5)",
+    "scatter ≤ 0.022      PASS — σ=0.0082 ≤ ✓ monograph band",
+    "Test 16b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 16 (pass 2, HARDCORE): ⟨r⟩ → GUE classification — deep validation",
+    "Deep ensemble at the launch-standard config (pass 1 already swept breadth)",
+    "────────────────────────────────────────────────────────────",
+    " ⚠ RUNTIME: n=5 realizations at 96x96 (N=9216) ≈ 1.5–3 min each → expect ≈ 12–17 min",
+    " Config: α=0.5000, Nv=2, q=1.000, BC=:open, W_eff=1.00 (standard cap 1.0)",
+    " real  1/5: ⟨r⟩ = 0.5729",
+    " real  2/5: ⟨r⟩ = 0.5691",
+    " real  3/5: ⟨r⟩ = 0.5869",
+    " real  4/5: ⟨r⟩ = 0.5845",
+    " real  5/5: ⟨r⟩ = 0.5856",
+    " Ensemble: ⟨r⟩ = 0.5798 ± 0.0037 (n=5)",
+    " Bootstrap 95% CI [0.5732, 0.5859] ∌ GUE (diagnostic); above/below GUE: 0/5",
+    "────────────────────────────────────────────────────────────",
+    " ⟨r⟩ > 0.55           PASS — ⟨r⟩ = 0.5798 ± 0.0037 vs GUE 0.5992 (n=5)",
+    " scatter ≤ 0.022      PASS — σ=0.0082 ≤ ✓ monograph band",
+    " Test 16b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_16_ab_gue_class/report.md"
+  },
+  {
+   "id": 17,
+   "slug": "connes_self_duality",
+   "title": "Test 17: Connes self-duality α↔1/α",
+   "short": "Connes self-duality α↔1/α",
+   "verdict": "PASS",
+   "generated": "2026-09-02 15:07:36",
+   "category": "AB construction & topology",
+   "focus": "Connes self-duality α ↔ 1/α",
+   "description": "EXACT: isospectrality under α ↔ 1/α to machine precision.",
+   "method": "EXACT: isospectrality under α ↔ 1/α to machine precision.",
+   "result": "Test 17b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 17 --no-two-pass",
+   "bench": "TEST 17 (pass 2, HARDCORE): Connes self-duality — cross-size audit",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "zero_modes(1/2)=4 ∀L PASS — topological invariant holds on the whole ladder",
+    "E→−E defect < 1e-10 ∀L PASS — α=1/2 and α=1/3, generic bipartite symmetry",
+    "Test 17b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 17 (pass 2, HARDCORE): Connes self-duality — cross-size audit",
+    "Zero-mode invariant + spectral symmetries on the size ladder 24 → ab_nx",
+    "────────────────────────────────────────────────────────────",
+    " L=24: zero_modes(α=1/2)=4 | spec.defect(1/2)=1.42e-15, (1/3)=1.66e-15 | duality=3.62e-01",
+    " L=48: zero_modes(α=1/2)=4 | spec.defect(1/2)=2.90e-15, (1/3)=2.41e-15 | duality=3.65e-01",
+    " L=96: zero_modes(α=1/2)=4 | spec.defect(1/2)=3.96e-15, (1/3)=3.24e-15 | duality=3.66e-01",
+    " At α=1/3 the spectrum stays gapped at E=0 on these tori (base observation).",
+    "────────────────────────────────────────────────────────────",
+    " zero_modes(1/2)=4 ∀L PASS — topological invariant holds on the whole ladder",
+    " E→−E defect < 1e-10 ∀L PASS — α=1/2 and α=1/3, generic bipartite symmetry",
+    " Test 17b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_17_connes_self_duality/report.md"
+  },
+  {
+   "id": 18,
+   "slug": "chiral_AIII",
+   "title": "Test 18: Chiral symmetry AIII at α=1/2",
+   "short": "Chiral symmetry AIII at α=1/2",
+   "verdict": "PASS",
+   "generated": "2026-09-02 15:12:06",
+   "category": "AB construction & topology",
+   "focus": "chiral symmetry class AIII at α = 1/2",
+   "description": "EXACT: ||SHS+H||/||H|| ≈ 1e-16 on the pure lattice (W=0); W>0 is the honest breaker.",
+   "method": "EXACT: ||SHS+H||/||H|| ≈ 1e-16 on the pure lattice (W=0); W>0 is the honest breaker.",
+   "result": "Test 18b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 18 --no-two-pass",
+   "bench": "TEST 18 (pass 2, HARDCORE): chiral symmetry AIII — deep audit",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [
+    {
+     "tag": "H3",
+     "label": "operator sanity",
+     "text": "‖S² − I‖/‖I‖ = 0.00e+00 < ✓ 1e-12"
+    }
+   ],
+   "checks": [
+    "exact row < 1e-10    PASS — ‖SHS+H‖/‖H‖ = 0.00e+00 at α=1/2, W=0",
+    "ε_rms contract (W=1.0) PASS — defect 5.77e-03 vs analytic 2‖ε‖_F/‖H‖_F = 0.0058 (size-independent)",
+    "vortices PRESERVE AIII PASS — defect = 0.00e+00 (Nv=2, q=±1.00, W=0) — bond phases; Byers-Yang for integer q",
+    "S² = I               PASS — ‖S²−I‖/‖I‖ = 0.00e+00",
+    "Test 18b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 18 (pass 2, HARDCORE): chiral symmetry AIII — deep audit",
+    "Exact row + ε_rms quantitative contract + vortex-preservation row +",
+    "S² = I operator sanity (launch-standard lattice)",
+    "────────────────────────────────────────────────────────────",
+    " ⚠ RUNTIME: 3 builds + 3 S·H·S defect evals at 96x96 (Diagonal S, O(N²)) — ≈ 1–2 min",
+    " H1 exact row (α=1/2, W=0):      defect = 0.00e+00 < ✓ 1e-10",
+    " H2 ε row (W=1.0, Nv=0):       defect = 5.77e-03 vs ε_rms = 0.0058 (analytic) ∈ [0.5, 2.0]× ✓",
+    " H2v vortex row (Nv=2, W=0):     defect = 0.00e+00 < 1e-10 ✓ (bond phases PRESERVE AIII)",
+    " H3 operator sanity: ‖S² − I‖/‖I‖ = 0.00e+00 < ✓ 1e-12",
+    "────────────────────────────────────────────────────────────",
+    " exact row < 1e-10    PASS — ‖SHS+H‖/‖H‖ = 0.00e+00 at α=1/2, W=0",
+    " ε_rms contract (W=1.0) PASS — defect 5.77e-03 vs analytic 2‖ε‖_F/‖H‖_F = 0.0058 (size-independent)",
+    " vortices PRESERVE AIII PASS — defect = 0.00e+00 (Nv=2, q=±1.00, W=0) — bond phases; Byers-Yang for integer q",
+    " S² = I               PASS — ‖S²−I‖/‖I‖ = 0.00e+00",
+    " Test 18b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_18_chiral_AIII/report.md"
+  },
+  {
+   "id": 19,
+   "slug": "dirac_cone",
+   "title": "Test 19: Dirac cone v_F ≈ 0.125",
+   "short": "Dirac cone v_F ≈ 0.125",
+   "verdict": "PASS",
+   "generated": "2026-09-02 15:29:36",
+   "category": "AB construction & topology",
+   "focus": "Dirac cone 1/L scaling, v_F",
+   "description": "EXACT-geometry: zero modes at (π/2,π/2) require L/4∈ℤ; gap scaling fit R².",
+   "method": "EXACT-geometry: zero modes at (π/2,π/2) require L/4∈ℤ; gap scaling fit R².",
+   "result": "Test 19c [SERIES pass 3]: 3 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 19 --no-two-pass",
+   "bench": "TEST 19 (pass 3, SERIES): Dirac cone — α-selective 1/L series",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "α=0.5 fit R² > 0.95 (4 pts) PASS — E_min = 0.0043 + 12.2836/L, v_F = b/2π = 1.9550",
+    "α=0.5 scale ∈ [8, 18] PASS — E_min·L(L=80) = 12.553, target 4π = 12.566",
+    "α-selectivity > 2×   PASS — E_min·L(0.5) = 12.553 vs 0.4: 0.527 / 0.6: 0.527 (q=5 odd → gapless at E=0)",
+    "Test 19c [SERIES pass 3]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 19 (pass 3, SERIES): Dirac cone — α-selective 1/L series",
+    "────────────────────────────────────────────────────────────",
+    " 4-point mod-20 grid L=20, 40, 60, 80; α ∈ {0.4, 0.5, 0.6} — all EXACT on the torus",
+    " ⚠ RUNTIME: 12 value-only solves (largest 80²) ≈ 2–3 min",
+    " α=0.4 L=20: E_min = 0.086901, E_min·L = 1.7380, zero_modes = 30",
+    " α=0.4 L=40: E_min = 0.025377, E_min·L = 1.0151, zero_modes = 70",
+    " α=0.4 L=60: E_min = 0.011605, E_min·L = 0.6963, zero_modes = 110",
+    " α=0.4 L=80: E_min = 0.006593, E_min·L = 0.5275, zero_modes = 150",
+    " α=0.5 L=20: E_min = 0.618034, E_min·L = 12.3607, zero_modes = 4",
+    " α=0.5 L=40: E_min = 0.312869, E_min·L = 12.5148, zero_modes = 4",
+    " α=0.5 L=60: E_min = 0.209057, E_min·L = 12.5434, zero_modes = 4",
+    " α=0.5 L=80: E_min = 0.156918, E_min·L = 12.5535, zero_modes = 4",
+    " α=0.6 L=20: E_min = 0.086901, E_min·L = 1.7380, zero_modes = 30",
+    " α=0.6 L=40: E_min = 0.025377, E_min·L = 1.0151, zero_modes = 70",
+    " α=0.6 L=60: E_min = 0.011605, E_min·L = 0.6963, zero_modes = 110",
+    " α=0.6 L=80: E_min = 0.006593, E_min·L = 0.5275, zero_modes = 150",
+    " α=0.5 fit: E_min = 0.0043 + 12.2836/L, R² = 0.999975 (v_F = b/2π = 1.9550)",
+    " E_min·L @L=80: α=0.4 → 0.5275 | α=0.5 → 12.5535 (4π = 12.566) | α=0.6 → 0.5275",
+    "────────────────────────────────────────────────────────────",
+    " α=0.5 fit R² > 0.95 (4 pts) PASS — E_min = 0.0043 + 12.2836/L, v_F = b/2π = 1.9550",
+    " α=0.5 scale ∈ [8, 18] PASS — E_min·L(L=80) = 12.553, target 4π = 12.566",
+    " α-selectivity > 2×   PASS — E_min·L(0.5) = 12.553 vs 0.4: 0.527 / 0.6: 0.527 (q=5 odd → gapless at E=0)",
+    " Test 19c [SERIES pass 3]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_19_dirac_cone/report.md"
+  },
+  {
+   "id": 20,
+   "slug": "chern_tknn",
+   "title": "Test 20: TKNN Chern number C₁=1 (gapped anchors)",
+   "short": "TKNN Chern number C₁=1 (gapped anchors)",
+   "verdict": "PASS",
+   "generated": "2026-09-02 15:30:18",
+   "category": "AB construction & topology",
+   "focus": "TKNN Chern number C₁ = 1 (gapped anchors)",
+   "description": "EXACT: FHS C₁=+1 on the MAGNETIC BZ (q×q Harper; anchors α=1/4,1/3,1/5); α=1/2 = Dirac touching, per-band C undefined — touching-ladder rungs need L ≡ 0 (mod 4) so (π/2,π/2) lies on the k-grid; sub-second by design (q×q cells).",
+   "method": "EXACT: FHS C₁=+1 on the MAGNETIC BZ (q×q Harper; anchors α=1/4,1/3,1/5); α=1/2 = Dirac touching, per-band C undefined — touching-ladder rungs need L ≡ 0 (mod 4) so (π/2,π/2) lies on the k-grid; sub-second by design (q×q cells).",
+   "result": "Test 20b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 20 --no-two-pass",
+   "bench": "TEST 20 (pass 2, HARDCORE): TKNN Chern number — deep audit",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "anchors C₁=+1 {1/4,1/3,1/5} PASS — TKNN Diophantine t₁=+1, grid-converged 12→24 points",
+    "ladder C₁=+1, L=12..72 PASS — magnetic-BZ FHS on L = 12/18/24/36/48/72 (α=1/3)",
+    "α=1/2 Dirac touching + branch PASS — bare gap ≈ 1e-16 ∀L (rungs L ≡ 0 mod 4 — Dirac points on-grid); mass-regularized C₁ = 0 (chirality-balanced)",
+    "Test 20b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 20 (pass 2, HARDCORE): TKNN Chern number — deep audit",
+    "Anchors {1/4, 1/3, 1/5} + size ladder 12→72 + α=1/2 touching audit",
+    "────────────────────────────────────────────────────────────",
+    " α=1/4: C₁ = +1 (12-pt grid) → +1 (24-pt grid) ✓, min gap 1.646",
+    " α=1/3: C₁ = +1 (12-pt grid) → +1 (24-pt grid) ✓, min gap 1.268",
+    " α=1/5: C₁ = +1 (12-pt grid) → +1 (24-pt grid) ✓, min gap 1.554",
+    " α=1/3 ladder L=12 (  48 k-points): C₁ = +1, min gap 1.268 ✓",
+    " α=1/3 ladder L=18 ( 108 k-points): C₁ = +1, min gap 1.268 ✓",
+    " α=1/3 ladder L=24 ( 192 k-points): C₁ = +1, min gap 1.268 ✓",
+    " α=1/3 ladder L=36 ( 432 k-points): C₁ = +1, min gap 1.268 ✓",
+    " α=1/3 ladder L=48 ( 768 k-points): C₁ = +1, min gap 1.268 ✓",
+    " α=1/3 ladder L=72 (1728 k-points): C₁ = +1, min gap 1.268 ✓",
+    " α=1/2 L=12: bare min gap = 5.48e-16 (touching), singular links 0",
+    " α=1/2 L=16: bare min gap = 5.48e-16 (touching), singular links 0",
+    " α=1/2 L=24: bare min gap = 5.48e-16 (touching), singular links 0",
+    " α=1/2 L=48: bare min gap = 5.48e-16 (touching), singular links 0",
+    " α=1/2 L=72: bare min gap = 5.48e-16 (touching), singular links 0",
+    " α=1/2 mass branch (24×12 grid): C(m=+0.3) = +0 (gap 0.435), C(m=−0.3) = +0 (gap 0.435) ✓",
+    "────────────────────────────────────────────────────────────",
+    " anchors C₁=+1 {1/4,1/3,1/5} PASS — TKNN Diophantine t₁=+1, grid-converged 12→24 points",
+    " ladder C₁=+1, L=12..72 PASS — magnetic-BZ FHS on L = 12/18/24/36/48/72 (α=1/3)",
+    " α=1/2 Dirac touching + branch PASS — bare gap ≈ 1e-16 ∀L (rungs L ≡ 0 mod 4 — Dirac points on-grid); mass-regularized C₁ = 0 (chirality-balanced)",
+    " Test 20b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_20_chern_tknn/report.md"
+  },
+  {
+   "id": 21,
+   "slug": "gamma_phase",
+   "title": "Test 21: γ* spinorial phase ≈ π/2",
+   "short": "γ* spinorial phase ≈ π/2",
+   "verdict": "PASS",
+   "generated": "2026-09-02 15:31:19",
+   "category": "Quantum geometry",
+   "focus": "spinorial phase arg(γ*) ≈ π/2",
+   "description": "EXACT geometric phase check.",
+   "method": "EXACT geometric phase check.",
+   "result": "Test 21b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 21 --no-two-pass",
+   "bench": "TEST 21 (pass 2, HARDCORE): γ* spinorial phase — 256-bit precision audit",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "Float64 round-off    PASS — |Δa|=1.23e-19, |Δb|=6.39e-17 (machine-ε scale)",
+    "arg(γ*) → π/2 (256-bit) PASS — deviation 0.1259° < 1°",
+    "δ_C ± 1e-6 stability PASS — worst deviation 0.1259° across the ±1e-6 scan",
+    "Test 21b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 21 (pass 2, HARDCORE): γ* spinorial phase — 256-bit precision audit",
+    "────────────────────────────────────────────────────────────",
+    " δ_C = π/7, b₂(K3) = 22 (256-bit recomputation)",
+    " a_C: Float64 8.276305e-04 vs 256-bit 8.276305e-04 → |Δ| = 1.23e-19",
+    " b_C: Float64 0.376510 vs 256-bit 0.376510 → |Δ| = 6.39e-17",
+    " arg(γ*) at 256-bit: 89.874055° (deviation from 90°: 0.1259°)",
+    " δ = π/7-1·1e-6: arg(γ*) deviation = 0.1259°",
+    " δ = π/7+1·1e-6: arg(γ*) deviation = 0.1259°",
+    "────────────────────────────────────────────────────────────",
+    " Float64 round-off    PASS — |Δa|=1.23e-19, |Δb|=6.39e-17 (machine-ε scale)",
+    " arg(γ*) → π/2 (256-bit) PASS — deviation 0.1259° < 1°",
+    " δ_C ± 1e-6 stability PASS — worst deviation 0.1259° across the ±1e-6 scan",
+    " Test 21b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_21_gamma_phase/report.md"
+  },
+  {
+   "id": 22,
+   "slug": "ab_phase",
+   "title": "Test 22: AB phase Φ_AB = π/7 = δ_C",
+   "short": "AB phase Φ_AB = π/7 = δ_C",
+   "verdict": "PASS",
+   "generated": "2026-09-02 15:31:34",
+   "category": "Quantum geometry",
+   "focus": "AB phase Φ_AB = π/7 = δ_C",
+   "description": "EXACT flux-phase identity.",
+   "method": "EXACT flux-phase identity.",
+   "result": "Test 22b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 22 --no-two-pass",
+   "bench": "TEST 22 (pass 2, HARDCORE): AB phase Φ_AB = π/7 — 256-bit audit",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "rational identity    PASS — 2π/14 == π/7 (256-bit), Float64 |Δ| = 1.75e-17",
+    "flux linearity p=1..3 PASS — Φ_AB(p/14) = p·(π/7) exact at 256-bit",
+    "Φ_AB == δ_C          PASS — Float64 δ_C vs 256-bit π/7: |Δ| = 1.75e-17",
+    "Test 22b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 22 (pass 2, HARDCORE): AB phase Φ_AB = π/7 — 256-bit audit",
+    "────────────────────────────────────────────────────────────",
+    " Φ_AB(1/14) == 1·(π/7): true (256-bit exact)",
+    " Φ_AB(2/14) == 2·(π/7): true (256-bit exact)",
+    " Φ_AB(3/14) == 3·(π/7): true (256-bit exact)",
+    " 2π·(1/14) == π/7 at 256-bit: true (bit-for-bit)",
+    " Float64 Φ_AB vs 256-bit truth: |Δ| = 1.75e-17 (contract < 1e-15)",
+    " Float64 δ_C vs 256-bit π/7:   |Δ| = 1.75e-17",
+    "────────────────────────────────────────────────────────────",
+    " rational identity    PASS — 2π/14 == π/7 (256-bit), Float64 |Δ| = 1.75e-17",
+    " flux linearity p=1..3 PASS — Φ_AB(p/14) = p·(π/7) exact at 256-bit",
+    " Φ_AB == δ_C          PASS — Float64 δ_C vs 256-bit π/7: |Δ| = 1.75e-17",
+    " Test 22b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_22_ab_phase/report.md"
+  },
+  {
+   "id": 23,
+   "slug": "fractal_factor",
+   "title": "Test 23: Complex fractal factor CF",
+   "short": "Complex fractal factor CF",
+   "verdict": "PASS",
+   "generated": "2026-09-02 15:31:49",
+   "category": "Quantum geometry",
+   "focus": "complex fractal factor CF",
+   "description": "Log-periodic factor — semi-statistical curve comparison.",
+   "method": "Log-periodic factor — semi-statistical curve comparison.",
+   "result": "Test 23b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 23 --no-two-pass",
+   "bench": "TEST 23 (pass 2, HARDCORE): complex fractal factor — 256-bit audit",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "β_imag anchors       PASS — Float64 |Δ|=3.04e-16; LaTeX 2.854 |Δ|=3.28e-05",
+    "c_AB ≈ 0.02063       PASS — c_AB = 0.020623, |Δ| = 6.82e-06",
+    "Test 23b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 23 (pass 2, HARDCORE): complex fractal factor — 256-bit audit",
+    "────────────────────────────────────────────────────────────",
+    " |CF| − 1 at 256-bit: 0.00e+00 (contract < 1e-30)",
+    " β_imag: Float64 2.854032819406525 vs 256-bit 2.854032819406525 (|Δ| = 3.04e-16)",
+    " β_imag vs LaTeX 2.854: |Δ| = 3.28e-05 (contract < 1e-3)",
+    " c_AB = 1 − |CF_hard|: 0.020623 vs 0.02063 (|Δ| = 6.82e-06, contract < 1e-3)",
+    "────────────────────────────────────────────────────────────",
+    " |CF| = 1 (1e-30)     PASS — pure-phase property at 256-bit: 0.00e+00",
+    " β_imag anchors       PASS — Float64 |Δ|=3.04e-16; LaTeX 2.854 |Δ|=3.28e-05",
+    " c_AB ≈ 0.02063       PASS — c_AB = 0.020623, |Δ| = 6.82e-06",
+    " Test 23b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_23_fractal_factor/report.md"
+  },
+  {
+   "id": 24,
+   "slug": "dirac_string_flux",
+   "title": "Test 24: Dirac string flux verification",
+   "short": "Dirac string flux verification",
+   "verdict": "PASS",
+   "generated": "2026-09-02 15:32:56",
+   "category": "Quantum geometry",
+   "focus": "Dirac string flux verification",
+   "description": "EXACT: plaquette flux = 2πq (mod 2π); tolerance = round-off accumulation across the lattice.",
+   "method": "EXACT: plaquette flux = 2πq (mod 2π); tolerance = round-off accumulation across the lattice.",
+   "result": "Test 24b [HARDCORE pass 2]: 5 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 24 --no-two-pass",
+   "bench": "TEST 24 (pass 2, HARDCORE): Dirac-string flux — exhaustive scan",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "scan A q=+1.0        PASS — 9025/9025 plaquettes OK",
+    "scan B q=+1.0        PASS — 9025/9025 plaquettes OK",
+    "scan A− q=-1.0       PASS — 9025/9025 plaquettes OK",
+    "scan A frac q=+0.3   PASS — 9025/9025 plaquettes OK",
+    "hermiticity (all)    PASS — verify_hermitian per config",
+    "Test 24b [HARDCORE pass 2]: 5 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 24 (pass 2, HARDCORE): Dirac-string flux — exhaustive scan",
+    "Full plaquette scan × 4 configs: 2 positions × {+1, −1, +0.3}",
+    "────────────────────────────────────────────────────────────",
+    " Lattice: 96x96 (N=9216 sites) — full plaquette scan × 4 configs",
+    " cfg A (ix=32, iy=48, q=+1.0): vortex 1/1, empty 9024/9024 → OK",
+    " cfg B (ix=64, iy=24, q=+1.0): vortex 1/1, empty 9024/9024 → OK",
+    " cfg A− (ix=32, iy=48, q=-1.0): vortex 1/1, empty 9024/9024 → OK",
+    " cfg A frac (ix=32, iy=48, q=+0.3): vortex 1/1, empty 9024/9024 → OK",
+    " Max |flux| over ALL empty plaquettes and configs: 8.88e-16",
+    "────────────────────────────────────────────────────────────",
+    " scan A q=+1.0        PASS — 9025/9025 plaquettes OK",
+    " scan B q=+1.0        PASS — 9025/9025 plaquettes OK",
+    " scan A− q=-1.0       PASS — 9025/9025 plaquettes OK",
+    " scan A frac q=+0.3   PASS — 9025/9025 plaquettes OK",
+    " hermiticity (all)    PASS — verify_hermitian per config",
+    " Test 24b [HARDCORE pass 2]: 5 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_24_dirac_string_flux/report.md"
+  },
+  {
+   "id": 25,
+   "slug": "byers_yang",
+   "title": "Test 25: Byers-Yang theorem check",
+   "short": "Byers-Yang theorem check",
+   "verdict": "PASS",
+   "generated": "2026-09-02 16:39:23",
+   "category": "Quantum geometry",
+   "focus": "Byers–Yang theorem check",
+   "description": "EXACT: spectra identical for q and q+1 (Δ~1e-15); fractional q must DIFFER (non-neutral config).",
+   "method": "EXACT: spectra identical for q and q+1 (Δ~1e-15); fractional q must DIFFER (non-neutral config).",
+   "result": "Test 25b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 25 --no-two-pass",
+   "bench": "TEST 25 (pass 2, HARDCORE): Byers–Yang — multi-layout / multi-q audit",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "integer q ∀layouts   PASS — Δ(q=+1,+2,−1 vs 0) < 1e-10 on 3 independent layouts",
+    "fractional Δ > 1e-3  PASS — q ∈ {0.3, 0.5} keep the genuine AB effect",
+    "Test 25b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 25 (pass 2, HARDCORE): Byers–Yang — multi-layout / multi-q audit",
+    "3 layouts × {+1, +2, −1} integer rows + fractional {0.3, 0.5} rows",
+    "────────────────────────────────────────────────────────────",
+    " ⚠ RUNTIME: 12 value-only diagonalizations at 96x96 (N=9216) — expect ≈ 10–15 min",
+    " layout 1, q=+1: Δ = 9.66e-15 < 1e-10 ✓",
+    " layout 1, q=+2: Δ = 1.04e-14 < 1e-10 ✓",
+    " layout 1, q=-1: Δ = 9.66e-15 < 1e-10 ✓",
+    " layout 1, fractional q=0.3: Δ = 3.35e-03 > 1e-3 ✓ (genuine AB effect)",
+    " layout 1, fractional q=0.5: Δ = 3.74e-03 > 1e-3 ✓ (genuine AB effect)",
+    " layout 2, q=+1: Δ = 1.24e-14 < 1e-10 ✓",
+    " layout 2, q=+2: Δ = 8.66e-15 < 1e-10 ✓",
+    " layout 2, q=-1: Δ = 1.24e-14 < 1e-10 ✓",
+    " layout 3, q=+1: Δ = 1.01e-14 < 1e-10 ✓",
+    " layout 3, q=+2: Δ = 8.89e-15 < 1e-10 ✓",
+    " layout 3, q=-1: Δ = 1.01e-14 < 1e-10 ✓",
+    "────────────────────────────────────────────────────────────",
+    " integer q ∀layouts   PASS — Δ(q=+1,+2,−1 vs 0) < 1e-10 on 3 independent layouts",
+    " fractional Δ > 1e-3  PASS — q ∈ {0.3, 0.5} keep the genuine AB effect",
+    " Test 25b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_25_byers_yang/report.md"
+  },
+  {
+   "id": 26,
+   "slug": "pbc_torus",
+   "title": "Test 26: PBC torus Dirac string",
+   "short": "PBC torus Dirac string",
+   "verdict": "PASS",
+   "generated": "2026-09-02 17:09:01",
+   "category": "Quantum geometry",
+   "focus": "PBC torus Dirac string",
+   "description": "Mixed: flux identities exact; ⟨r⟩ on 4 neutral vortices over the bulk window (statistical).",
+   "method": "Mixed: flux identities exact; ⟨r⟩ on 4 neutral vortices over the bulk window (statistical).",
+   "result": "Test 26b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 26 --no-two-pass",
+   "bench": "TEST 26 (pass 2, HARDCORE): PBC torus Dirac string — deep validation",
+   "calc": [
+    {
+     "name": "⟨r⟩",
+     "value": 0.600632,
+     "note": "(n_r=5527, n_eigs=5529)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.596193,
+     "note": "(n_r=5527, n_eigs=5529)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.600551,
+     "note": "(n_r=5527, n_eigs=5529)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.58938,
+     "note": "(n_r=5527, n_eigs=5529)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.595447,
+     "note": "(n_r=5527, n_eigs=5529)"
+    }
+   ],
+   "n_calc_total": 5,
+   "series": [],
+   "tables": [],
+   "subchecks": [
+    {
+     "tag": "H1",
+     "label": "flux",
+     "text": "vortex plaquette OK; empty plaquettes: 9024 clean, 0 wrap artifacts (0.0000), 191 seam (gauge holonomy, ix=96/iy=96), 0 unexplained"
+    }
+   ],
+   "checks": [
+    "flux + artifacts     PASS — vortex OK; 9024 clean + 0 wrap(−2πq) + 191 seam holonomy; 0 unexplained",
+    "⟨r⟩ > 0.5 (ensemble) PASS — ⟨r⟩ = 0.5964 ± 0.0021 (n=5, base contract)",
+    "scatter ≤ 0.022      PASS — σ=0.0046 ≤ ✓ monograph band",
+    "hermiticity ∀real    PASS — verify_hermitian per realization",
+    "Test 26b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 26 (pass 2, HARDCORE): PBC torus Dirac string — deep validation",
+    "Exhaustive artifact classification + ⟨r⟩ ensemble (n ≥ 5)",
+    "────────────────────────────────────────────────────────────",
+    " ⚠ RUNTIME: flux scan (1 build) + n=5 ⟨r⟩ realizations at 96x96 → expect ≈ 12–17 min",
+    " ⟨r⟩ row: α=0.5000, Nv=4 (base protocol), q=1.0000, W=1.00 = ab_w_eff (capped)",
+    " H1 flux: vortex plaquette OK; empty plaquettes: 9024 clean, 0 wrap artifacts (0.0000), 191 seam (gauge holonomy, ix=96/iy=96), 0 unexplained",
+    " real  1/5: ⟨r⟩ = 0.6006",
+    " real  2/5: ⟨r⟩ = 0.5962",
+    " real  3/5: ⟨r⟩ = 0.6006",
+    " real  4/5: ⟨r⟩ = 0.5894",
+    " real  5/5: ⟨r⟩ = 0.5954",
+    " Ensemble: ⟨r⟩ = 0.5964 ± 0.0021 | bootstrap CI [0.5928, 0.5997] ∋ GUE | above/below: 2/3",
+    "────────────────────────────────────────────────────────────",
+    " flux + artifacts     PASS — vortex OK; 9024 clean + 0 wrap(−2πq) + 191 seam holonomy; 0 unexplained",
+    " ⟨r⟩ > 0.5 (ensemble) PASS — ⟨r⟩ = 0.5964 ± 0.0021 (n=5, base contract)",
+    " scatter ≤ 0.022      PASS — σ=0.0046 ≤ ✓ monograph band",
+    " hermiticity ∀real    PASS — verify_hermitian per realization",
+    " Test 26b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_26_pbc_torus/report.md"
+  },
+  {
+   "id": 27,
+   "slug": "binary_chiral",
+   "title": "Test 27: Binary chiral symmetry at α=1/2",
+   "short": "Binary chiral symmetry at α=1/2",
+   "verdict": "PASS",
+   "generated": "2026-09-02 17:11:46",
+   "category": "Quantum geometry",
+   "focus": "binary chiral symmetry at α = 1/2",
+   "description": "EXACT: defect 0 on pure lattice; W>0 row is the honest breaker control.",
+   "method": "EXACT: defect 0 on pure lattice; W>0 row is the honest breaker control.",
+   "result": "Test 27b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 27 --no-two-pass",
+   "bench": "TEST 27 (pass 2, HARDCORE): binary chiral symmetry — deep audit",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [
+    {
+     "tag": "H3",
+     "label": "scan",
+     "text": "monotone ✓, defect(W=4)/defect(W=0.5) = 7.42 ∈ [5, 12] ✓"
+    }
+   ],
+   "checks": [
+    "exact row < 1e-10    PASS — binary contract at α=1/2, W=0: 0.00e+00",
+    "ε_rms contract (W=1.0) PASS — defect 5.77e-03 ≈ analytic 2‖ε‖_F/‖H‖_F = 0.0058",
+    "vortices PRESERVE AIII PASS — defect = 0.00e+00 (Nv=2, q=±1.00, W=0) — bond phases; Byers-Yang for integer q",
+    "Coulomb W-scan linear PASS — Nv=2: monotone, defect 0.101→0.746, ratio 7.42 ∈ [5, 12]",
+    "Test 27b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 27 (pass 2, HARDCORE): binary chiral symmetry — deep audit",
+    "Exact row + ε_rms contract + vortex preservation + Coulomb W-scan",
+    "(launch-standard lattice, 96x96 in two-pass mode)",
+    "────────────────────────────────────────────────────────────",
+    " ⚠ RUNTIME: 11 builds + 11 S·H·S defect evals at 96x96 (Diagonal S, O(N²)) — ≈ 2–4 min",
+    " H1 exact row (W=0, clean):     defect = 0.00e+00 < ✓ 1e-10",
+    " H2 ε row (W=1.0, Nv=0):      defect = 5.77e-03 vs ε_rms = 0.0058 (analytic) ∈ [0.5, 2.0]× ✓",
+    " H2v vortex row (Nv=2, W=0):    defect = 0.00e+00 < 1e-10 ✓ (bond phases PRESERVE AIII)",
+    " W-scan (Nv=2) W=0.5: defect = 1.0052e-01",
+    " W-scan (Nv=2) W=1.0: defect = 2.0010e-01",
+    " W-scan (Nv=2) W=2.0: defect = 3.9425e-01",
+    " W-scan (Nv=2) W=4.0: defect = 7.4620e-01",
+    " H3 scan: monotone ✓, defect(W=4)/defect(W=0.5) = 7.42 ∈ [5, 12] ✓",
+    " Nv=0 ε-floor diagnostic (residual ε is FIXED-amplitude):",
+    " W-scan (Nv=0) W=0.5: defect = 5.7704e-03 ≈ ε_rms (W-independent ✓)",
+    " W-scan (Nv=0) W=1.0: defect = 5.7704e-03 ≈ ε_rms (W-independent ✓)",
+    " W-scan (Nv=0) W=2.0: defect = 5.7704e-03 ≈ ε_rms (W-independent ✓)",
+    " W-scan (Nv=0) W=4.0: defect = 5.7704e-03 ≈ ε_rms (W-independent ✓)",
+    "────────────────────────────────────────────────────────────",
+    " exact row < 1e-10    PASS — binary contract at α=1/2, W=0: 0.00e+00",
+    " ε_rms contract (W=1.0) PASS — defect 5.77e-03 ≈ analytic 2‖ε‖_F/‖H‖_F = 0.0058",
+    " vortices PRESERVE AIII PASS — defect = 0.00e+00 (Nv=2, q=±1.00, W=0) — bond phases; Byers-Yang for integer q",
+    " Coulomb W-scan linear PASS — Nv=2: monotone, defect 0.101→0.746, ratio 7.42 ∈ [5, 12]",
+    " Test 27b [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_27_binary_chiral/report.md"
+  },
+  {
+   "id": 28,
+   "slug": "f_gue_merit",
+   "title": "Test 28: f_GUE figure of merit",
+   "short": "f_GUE figure of merit",
+   "verdict": "FAIL",
+   "generated": "2026-09-02 17:39:02",
+   "category": "Cross-comparisons",
+   "focus": "f_GUE figure of merit",
+   "description": "Statistical: fraction of spectral diagnostics consistent with GUE.",
+   "method": "Statistical: fraction of spectral diagnostics consistent with GUE.",
+   "result": "Test 28b [HARDCORE pass 2]: 2 sub-checks, 1 failed → WARN",
+   "reproduce": "julia ab_cloud_v19.jl --test 28 --no-two-pass",
+   "bench": "TEST 28 (pass 2, HARDCORE): f_GUE figure of merit — ensemble deep pass",
+   "calc": [
+    {
+     "name": "Σ²(L=2)",
+     "value": 0.404688,
+     "note": "(n_pos=9601, n_windows=3000, mean_count=1.99)"
+    },
+    {
+     "name": "Σ²(L=2)",
+     "value": 0.663437,
+     "note": "(n_pos=5530, n_windows=3000, mean_count=2.03)"
+    },
+    {
+     "name": "Σ²(L=2)",
+     "value": 0.629287,
+     "note": "(n_pos=5530, n_windows=3000, mean_count=2.02)"
+    },
+    {
+     "name": "Σ²(L=2)",
+     "value": 0.620146,
+     "note": "(n_pos=5530, n_windows=3000, mean_count=2.04)"
+    },
+    {
+     "name": "Σ²(L=2)",
+     "value": 0.737871,
+     "note": "(n_pos=5527, n_windows=3000, mean_count=2.04)"
+    },
+    {
+     "name": "Σ²(L=2)",
+     "value": 0.52684,
+     "note": "(n_pos=5530, n_windows=3000, mean_count=2.02)"
+    }
+   ],
+   "n_calc_total": 6,
+   "series": [
+    {
+     "name": "Σ²",
+     "x": "L",
+     "points": [
+      [
+       2.0,
+       0.404688
+      ],
+      [
+       2.0,
+       0.663437
+      ],
+      [
+       2.0,
+       0.629287
+      ],
+      [
+       2.0,
+       0.620146
+      ],
+      [
+       2.0,
+       0.737871
+      ],
+      [
+       2.0,
+       0.52684
+      ]
+     ]
+    }
+   ],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "⟨f_GUE⟩ > 0.90       WARN — ⟨f_GUE⟩ = 0.8553 ± 0.0214 (n=5 of 5 finite)",
+    "scatter < 0.10       PASS — σ=0.0479 stable across vortex layouts",
+    "Test 28b [HARDCORE pass 2]: 2 sub-checks, 1 failed → WARN"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 28 (pass 2, HARDCORE): f_GUE figure of merit — ensemble deep pass",
+    "n ≥ 5 realizations, per-realization f_GUE, ensemble verdict",
+    "────────────────────────────────────────────────────────────",
+    " ⚠ RUNTIME: n=5 realizations at 96x96 → expect ≈ 12–17 min",
+    " Config: 96x96, Nv=4, q=±1.00, α=0.5000, W=1.0 (hardcore standard: W=1, q=1, Nv=4)",
+    " real  1/5: f_GUE = 0.8378",
+    " real  2/5: f_GUE = 0.8592",
+    " real  3/5: f_GUE = 0.8649",
+    " real  4/5: f_GUE = 0.7911",
+    " real  5/5: f_GUE = 0.9234",
+    " Ensemble: ⟨f_GUE⟩ = 0.8553 ± 0.0214 | bootstrap CI [0.8184, 0.8946] ∌ 0.90 (diagnostic)",
+    "────────────────────────────────────────────────────────────",
+    " ⟨f_GUE⟩ > 0.90       WARN — ⟨f_GUE⟩ = 0.8553 ± 0.0214 (n=5 of 5 finite)",
+    " scatter < 0.10       PASS — σ=0.0479 stable across vortex layouts",
+    " Test 28b [HARDCORE pass 2]: 2 sub-checks, 1 failed → WARN"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_28_f_gue_merit/report.md"
+  },
+  {
+   "id": 29,
+   "slug": "dirac_dip",
+   "title": "Test 29: Dirac dip in DOS at α=1/2",
+   "short": "Dirac dip in DOS at α=1/2",
+   "verdict": "PASS",
+   "generated": "2026-09-02 18:44:11",
+   "category": "Scaling & non-Hermitian",
+   "focus": "Dirac dip in the DOS at α = 1/2",
+   "description": "Semi-exact: DOS dip depth vs prediction.",
+   "method": "Semi-exact: DOS dip depth vs prediction.",
+   "result": "Test 29c [SERIES pass 3]: 3 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 29 --no-two-pass",
+   "bench": "TEST 29 (pass 3, SERIES): Dirac dip — fine α-scan + window series",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "strict dip @96² (9 pts) PASS — ρ(α=1/2) = 0.0195 below ALL 8 other scan points",
+    "contrast grows as w → 0 PASS — contrast(w) 288.00× (w=0.1) vs 10.67× (w=0.5): Dirac ρ ∝ E vs metallic ρ ≈ const",
+    "no wash-out 48²→96²  PASS — 13.33× → 10.67× at the same α pair (0.396 vs 1/2; tolerance 0.8, as 29b)",
+    "Test 29c [SERIES pass 3]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 29 (pass 3, SERIES): Dirac dip — fine α-scan + window series",
+    "────────────────────────────────────────────────────────────",
+    " Fine scan: 9 points α = k/96 around k=48 (α=1/2 EXACT), window |E|<0.5",
+    " ⚠ RUNTIME: 9 solves at 96² + 2 anchors at 48² ≈ 8–13 min",
+    " α=38/96 = 0.39583: ρ(|E|<0.5) = 0.2083  (289.4 s)",
+    " α=41/96 = 0.42708: ρ(|E|<0.5) = 0.1458  (297.0 s)",
+    " α=44/96 = 0.45833: ρ(|E|<0.5) = 0.0833  (290.1 s)",
+    " α=47/96 = 0.48958: ρ(|E|<0.5) = 0.0208  (293.5 s)",
+    " α=48/96 = 0.50000: ρ(|E|<0.5) = 0.0195  (294.9 s)",
+    " α=49/96 = 0.51042: ρ(|E|<0.5) = 0.0208  (288.2 s)",
+    " α=52/96 = 0.54167: ρ(|E|<0.5) = 0.0833  (331.0 s)",
+    " α=55/96 = 0.57292: ρ(|E|<0.5) = 0.1458  (316.0 s)",
+    " α=58/96 = 0.60417: ρ(|E|<0.5) = 0.2083  (326.3 s)",
+    " window |E|<0.1: ρ_dip(α=1/2) = 0.0004, ρ_off(α=38/96) = 0.1250 → contrast 288.00×",
+    " window |E|<0.2: ρ_dip(α=1/2) = 0.0039, ρ_off(α=38/96) = 0.2083 → contrast 53.33×",
+    " window |E|<0.3: ρ_dip(α=1/2) = 0.0091, ρ_off(α=38/96) = 0.2083 → contrast 22.86×",
+    " window |E|<0.5: ρ_dip(α=1/2) = 0.0195, ρ_off(α=38/96) = 0.2083 → contrast 10.67×",
+    " window |E|<0.8: ρ_dip(α=1/2) = 0.0525, ρ_off(α=38/96) = 0.2083 → contrast 3.97×",
+    " contrast @w=0.5 (α=0.396 vs 1/2): 13.33× (48x48) → 10.67× (96x96) → holds/sharpens ✓",
+    "────────────────────────────────────────────────────────────",
+    " strict dip @96² (9 pts) PASS — ρ(α=1/2) = 0.0195 below ALL 8 other scan points",
+    " contrast grows as w → 0 PASS — contrast(w) 288.00× (w=0.1) vs 10.67× (w=0.5): Dirac ρ ∝ E vs metallic ρ ≈ const",
+    " no wash-out 48²→96²  PASS — 13.33× → 10.67× at the same α pair (0.396 vs 1/2; tolerance 0.8, as 29b)",
+    " Test 29c [SERIES pass 3]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_29_dirac_dip/report.md"
+  },
+  {
+   "id": 30,
+   "slug": "vf_scaling",
+   "title": "Test 30: Dirac cone vF scaling vs L",
+   "short": "Dirac cone vF scaling vs L",
+   "verdict": "PASS",
+   "generated": "2026-09-02 18:58:25",
+   "category": "Scaling & non-Hermitian",
+   "focus": "Dirac cone v_F scaling vs L",
+   "description": "EXACT-geometry: FIRST DISTINCT Dirac level above the zero tower ~ 1/L (the old ev[j0+1]-ev[j0] hit the valley-degenerate partner ~1e-15 → gaps 0.0); L/4∈ℤ grid up to t31_lmax; linear fit R².",
+   "method": "EXACT-geometry: FIRST DISTINCT Dirac level above the zero tower ~ 1/L (the old ev[j0+1]-ev[j0] hit the valley-degenerate partner ~1e-15 → gaps 0.0); L/4∈ℤ grid up to t31_lmax; linear fit R².",
+   "result": "Test 30b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 30 --no-two-pass",
+   "bench": "TEST 30 (pass 2, HARDCORE): Dirac cone velocity — dense-grid audit",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "R² > 0.95 (11 pts)   PASS — R² = 0.9999",
+    "zero tower == 4 ∀L   PASS — |E| ≤ 1e-8 at every size",
+    "E₁·L cv ≤ 5%         PASS — cv = 0.75% (Dirac law: E₁·L → 4π = const)",
+    "Test 30b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 30 (pass 2, HARDCORE): Dirac cone velocity — dense-grid audit",
+    "────────────────────────────────────────────────────────────",
+    " 11-point mod-4 grid L=16…96, zero-tower check, E₁·L constancy",
+    " ⚠ RUNTIME: 11 value-only diagonalizations, L up to 96 — expect ≈ 8–12 min",
+    " L=16: E₁ = 0.765367 (E₁·L = 12.2459), zero_modes = 4, 0.7 s",
+    " L=24: E₁ = 0.517638 (E₁·L = 12.4233), zero_modes = 4, 0.7 s",
+    " L=32: E₁ = 0.390181 (E₁·L = 12.4858), zero_modes = 4, 1.1 s",
+    " L=40: E₁ = 0.312869 (E₁·L = 12.5148), zero_modes = 4, 2.5 s",
+    " L=48: E₁ = 0.261052 (E₁·L = 12.5305), zero_modes = 4, 4.9 s",
+    " L=56: E₁ = 0.223929 (E₁·L = 12.5400), zero_modes = 4, 11.4 s",
+    " L=64: E₁ = 0.196034 (E₁·L = 12.5462), zero_modes = 4, 24.2 s",
+    " L=72: E₁ = 0.174311 (E₁·L = 12.5504), zero_modes = 4, 49.8 s",
+    " L=80: E₁ = 0.156918 (E₁·L = 12.5535), zero_modes = 4, 100.7 s",
+    " L=88: E₁ = 0.142678 (E₁·L = 12.5557), zero_modes = 4, 176.0 s",
+    " L=96: E₁ = 0.130806 (E₁·L = 12.5574), zero_modes = 4, 282.4 s",
+    " Fit: gap = 12.2188/L + 0.0054, R² = 0.999880, v_F = 1.9447 (π-flux target 2.0)",
+    " E₁·L: mean = 12.5003, cv = 0.75% ≤ ✓ 5%",
+    "────────────────────────────────────────────────────────────",
+    " R² > 0.95 (11 pts)   PASS — R² = 0.9999",
+    " zero tower == 4 ∀L   PASS — |E| ≤ 1e-8 at every size",
+    " E₁·L cv ≤ 5%         PASS — cv = 0.75% (Dirac law: E₁·L → 4π = const)",
+    " Test 30b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_30_vf_scaling/report.md"
+  },
+  {
+   "id": 31,
+   "slug": "hatano_nelson",
+   "title": "Test 31: Hatano-Nelson non-Hermitian skin",
+   "short": "Hatano-Nelson non-Hermitian skin",
+   "verdict": "PASS",
+   "generated": "2026-09-02 20:04:01",
+   "category": "Scaling & non-Hermitian",
+   "focus": "Hatano–Nelson non-Hermitian skin",
+   "description": "Deterministic non-Hermitian spectral property: complex eigenvalue count/pattern.",
+   "method": "Deterministic non-Hermitian spectral property: complex eigenvalue count/pattern.",
+   "result": "Test 31c [SERIES pass 3]: 4 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 31 --no-two-pass",
+   "bench": "TEST 31 (pass 3, SERIES): Hatano–Nelson — realization ensemble",
+   "calc": [
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.894102,
+     "note": "(n=2304, Poisson-box ref NaN, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.907204,
+     "note": "(n=2304, Poisson-box ref 0.851687, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.925299,
+     "note": "(n=2304, Poisson-box ref 0.852026, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.930754,
+     "note": "(n=2304, Poisson-box ref 0.850043, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.88776,
+     "note": "(n=2304, Poisson-box ref NaN, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.910544,
+     "note": "(n=2304, Poisson-box ref 0.852173, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.923175,
+     "note": "(n=2304, Poisson-box ref 0.852783, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.930952,
+     "note": "(n=2304, Poisson-box ref 0.850774, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.898821,
+     "note": "(n=2304, Poisson-box ref NaN, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.878783,
+     "note": "(n=2304, Poisson-box ref 0.851955, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.888162,
+     "note": "(n=2304, Poisson-box ref 0.852427, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.891964,
+     "note": "(n=2304, Poisson-box ref 0.850764, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.897703,
+     "note": "(n=2304, Poisson-box ref NaN, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.903503,
+     "note": "(n=2304, Poisson-box ref 0.851913, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.923336,
+     "note": "(n=2304, Poisson-box ref 0.852584, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.935506,
+     "note": "(n=2304, Poisson-box ref 0.850682, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.898157,
+     "note": "(n=2304, Poisson-box ref NaN, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.90606,
+     "note": "(n=2304, Poisson-box ref 0.851688, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.920104,
+     "note": "(n=2304, Poisson-box ref 0.851832, 10 clouds)"
+    },
+    {
+     "name": "⟨r⟩_NN",
+     "value": 0.937177,
+     "note": "(n=2304, Poisson-box ref 0.850592, 10 clouds)"
+    }
+   ],
+   "n_calc_total": 20,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "σ=0.5 Hermitian ∀real PASS — n_complex = 0 and max|Im| < 1e-10 in all 5 realizations",
+    "n_complex > 0 ∀(σ,k) PASS — every non-Hermitian row (5 × 3) develops complex eigenvalues",
+    "⟨r⟩ rises with σ (2-D repulsion) PASS — ensemble mean 0.8953 (σ=0.5, line) → 0.9253 (σ=0.8, area)",
+    "max|Im| grows with σ PASS — ensemble mean 0.3184 (σ=0.6) → 0.9576 (σ=0.8), g = (σ−½)·ln|γ|",
+    "Test 31c [SERIES pass 3]: 4 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 31 (pass 3, SERIES): Hatano–Nelson — realization ensemble",
+    "────────────────────────────────────────────────────────────",
+    " Ensemble: n=5 realizations × σ ∈ {0.5, 0.6, 0.7, 0.8}, γ = 5.0",
+    " Lattice: 48x48 (N=2304), W_eff = 1.00 (standard), Nv=4 neutral, q=±1.00",
+    " ⚠ RUNTIME: 15 zgeev + 5 heevr rows at 48² ≈ 1–2 min",
+    " real 1/5 σ=0.5: n_complex =     0, max|Im| = 0.0000, ⟨r⟩NN = 0.8941 (3.3 s)",
+    " real 1/5 σ=0.6: n_complex =  2243, max|Im| = 0.3195, ⟨r⟩NN = 0.9072 (18.6 s)",
+    " real 1/5 σ=0.7: n_complex =  2283, max|Im| = 0.6397, ⟨r⟩NN = 0.9253 (18.8 s)",
+    " real 1/5 σ=0.8: n_complex =  2298, max|Im| = 0.9602, ⟨r⟩NN = 0.9308 (18.5 s)",
+    " real 2/5 σ=0.5: n_complex =     0, max|Im| = 0.0000, ⟨r⟩NN = 0.8878 (3.3 s)",
+    " real 2/5 σ=0.6: n_complex =  2237, max|Im| = 0.3194, ⟨r⟩NN = 0.9105 (18.1 s)",
+    " real 2/5 σ=0.7: n_complex =  2297, max|Im| = 0.6396, ⟨r⟩NN = 0.9232 (18.4 s)",
+    " real 2/5 σ=0.8: n_complex =  2299, max|Im| = 0.9598, ⟨r⟩NN = 0.9310 (18.5 s)",
+    " real 3/5 σ=0.5: n_complex =     0, max|Im| = 0.0000, ⟨r⟩NN = 0.8988 (3.8 s)",
+    " real 3/5 σ=0.6: n_complex =  2147, max|Im| = 0.3147, ⟨r⟩NN = 0.8788 (18.6 s)",
+    " real 3/5 σ=0.7: n_complex =  2239, max|Im| = 0.6319, ⟨r⟩NN = 0.8882 (20.1 s)",
+    " real 3/5 σ=0.8: n_complex =  2274, max|Im| = 0.9501, ⟨r⟩NN = 0.8920 (21.7 s)",
+    " real 4/5 σ=0.5: n_complex =     0, max|Im| = 0.0000, ⟨r⟩NN = 0.8977 (3.7 s)",
+    " real 4/5 σ=0.6: n_complex =  2260, max|Im| = 0.3199, ⟨r⟩NN = 0.9035 (18.7 s)",
+    " real 4/5 σ=0.7: n_complex =  2300, max|Im| = 0.6399, ⟨r⟩NN = 0.9233 (23.1 s)",
+    " real 4/5 σ=0.8: n_complex =  2303, max|Im| = 0.9601, ⟨r⟩NN = 0.9355 (25.5 s)",
+    " real 5/5 σ=0.5: n_complex =     0, max|Im| = 0.0000, ⟨r⟩NN = 0.8982 (4.6 s)",
+    " real 5/5 σ=0.6: n_complex =  2237, max|Im| = 0.3183, ⟨r⟩NN = 0.9061 (23.1 s)",
+    " real 5/5 σ=0.7: n_complex =  2287, max|Im| = 0.6381, ⟨r⟩NN = 0.9201 (23.9 s)",
+    " real 5/5 σ=0.8: n_complex =  2303, max|Im| = 0.9578, ⟨r⟩NN = 0.9372 (24.7 s)",
+    " Ensemble means: σ=0.5: n_cx=0.0, max|Im|=0.00e+00, ⟨r⟩=0.8953",
+    " σ=0.8: n_cx=2295.4, max|Im|=0.9576, ⟨r⟩=0.9253 | Poisson-box baseline ≈ 0.8500",
+    " S1 anchor: OK ✓ | S2 sweep: OK ✓ | S3 ⟨r⟩ rise: OK ✓ (0.8953→0.9253) | S4 max|Im| grow: OK ✓ (0.3184→0.9576)",
+    "────────────────────────────────────────────────────────────",
+    " σ=0.5 Hermitian ∀real PASS — n_complex = 0 and max|Im| < 1e-10 in all 5 realizations",
+    " n_complex > 0 ∀(σ,k) PASS — every non-Hermitian row (5 × 3) develops complex eigenvalues",
+    " ⟨r⟩ rises with σ (2-D repulsion) PASS — ensemble mean 0.8953 (σ=0.5, line) → 0.9253 (σ=0.8, area)",
+    " max|Im| grows with σ PASS — ensemble mean 0.3184 (σ=0.6) → 0.9576 (σ=0.8), g = (σ−½)·ln|γ|",
+    " Test 31c [SERIES pass 3]: 4 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_31_hatano_nelson/report.md"
+  },
+  {
+   "id": 32,
+   "slug": "rmean_bootstrap",
+   "title": "Test 32: Multi-realization ⟨r⟩ bootstrap",
+   "short": "Multi-realization ⟨r⟩ bootstrap",
+   "verdict": "PASS",
+   "generated": "2026-09-02 21:02:17",
+   "category": "Cross-comparisons",
+   "focus": "multi-realization ⟨r⟩ bootstrap",
+   "description": "Statistical: ⟨r⟩ = 0.5992 ± 0.022 (tolerance band = monograph §11.1); CI printed as diagnostics. Effective disorder capped: W_eff = min(ab_W, ab_W_max ≤ 1.0) — disorder must not drive the vortex motion.",
+   "method": "Statistical: ⟨r⟩ = 0.5992 ± 0.022 (tolerance band = monograph §11.1); CI printed as diagnostics. Effective disorder capped: W_eff = min(ab_W, ab_W_max ≤ 1.0) — disorder must not drive the vortex motion.",
+   "result": "Test 32b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 32 --no-two-pass",
+   "bench": "TEST 32 (pass 2, HARDCORE): ⟨r⟩ bootstrap — deep validation",
+   "calc": [
+    {
+     "name": "⟨r⟩",
+     "value": 0.581975,
+     "note": "(n_r=5527, n_eigs=5529)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.58495,
+     "note": "(n_r=5527, n_eigs=5529)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.588113,
+     "note": "(n_r=5527, n_eigs=5529)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.59095,
+     "note": "(n_r=5527, n_eigs=5529)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.586224,
+     "note": "(n_r=5527, n_eigs=5529)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.599252,
+     "note": "(n_r=5527, n_eigs=5529)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.603718,
+     "note": "(n_r=5527, n_eigs=5529)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.600059,
+     "note": "(n_r=5527, n_eigs=5529)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.601791,
+     "note": "(n_r=5527, n_eigs=5529)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.600971,
+     "note": "(n_r=5527, n_eigs=5529)"
+    }
+   ],
+   "n_calc_total": 10,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "Test 32: ⟨r⟩=0.5864±0.003 (q=1.0, n=5, W=1.0) vs GUE 0.5992 → PASS",
+    "row q=1.00 scatter   PASS — σ=0.0034 vs band 0.022 (CI [0.5838, 0.5892] ∌ GUE, 0/5 above/below)",
+    "row q=0.30 scatter   PASS — σ=0.0017 vs band 0.022 (CI [0.5999, 0.6026] ∌ GUE, 5/0 above/below)",
+    "Test 32b [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 32 (pass 2, HARDCORE): ⟨r⟩ bootstrap — deep validation",
+    "Harder machinery: n ≥ 5 realizations/row, comparison row",
+    "held at monograph anchor density on the current lattice, ensemble",
+    "stability checks (bootstrap CI, realization scatter, sign count).",
+    "────────────────────────────────────────────────────────────",
+    " ⚠ RUNTIME: 2 rows × n=5 realizations at 96x96 → expect ≈ 9–14 min (measured t(L) ≈ 56·(L/96)⁶ s per eig)",
+    " H2: comparison-row Nv rescaled to anchor density 2.78% of 96x96 → Nv=256 (was 144)",
+    "════════════════════════════════════════════════════════════",
+    "TEST 32: ⟨r⟩ bootstrap over independent realizations",
+    "Target: ⟨r⟩ = 0.5992 ± 0.022 vs GUE 0.5992 (machine-precision match)",
+    "────────────────────────────────────────────────────────────",
+    " WHY W (DISORDER) IS CAPPED AT W_max ≈ 1.0 — disorder → vortex motion → statistics:",
+    "  W is the diagonal on-site potential the vortices paint onto the lattice:",
+    "      V_i = Σ_k q_k·W / (r_ik²·N⁻¹ + 1),   hopping t = 1.",
+    "  The ratio (disorder energy q·W) / (kinetic energy t) decides what the",
+    "  vortex cloud does and which spectral statistics come out:",
+    "   • q·W ≳ t  (e.g. W=4, q=0.3 → V≈1.2 next to a core): the disorder",
+    "     landscape dominates the vortex motion — vortices pin/steer the",
+    "     eigenstates, states localize on the potential relief, and ⟨r⟩ drifts",
+    "     from GUE (0.5992) toward Poisson (0.3863) by an essentially random",
+    "     amount. A strongly disordered, spinning vortex system can therefore",
+    "     emit ALMOST ANY statistics — the numbers depend on the effective",
+    "     rotation speed (W/t) and on the twisting/vortex arrangement (Nv,",
+    "     layout, charges) of that realization, not on the AB physics.",
+    "   • q·W ≲ t  (W ≤ 1): the Aharonov-Bohm phases dominate the hopping,",
+    "     states stay delocalized and GUE (Wigner-Dyson) is reachable.",
+    "  That is why these tests measure at W_eff = min(cfg.ab_W, W_max = 1.0):",
+    "  they certify the PHASE physics, not the disorder physics.",
+    " ℹ️ NOTE: cfg.ab_q_list[1] = 1.0 is INTEGER.",
+    " Pure Dirac-string model: integer flux is unobservable (Byers-Yang)",
+    " → real H → GOE ceiling. The :monumental smooth gauge: phases are",
+    " generically complex for ANY q → GUE reachable with the user's q.",
+    " Primary verdict uses q=1.0; q=0.3 is also run for comparison.",
+    " [q=1.000] Torus gauge-compatible (q·(2-Nx)=-94 ∈ ℤ) → using :torus BC",
+    " Bootstrap config: 96x96, Nv=2, q=±1.000, α=0.5000, W=1.00 (cap 1.00, min(cfg.ab_W, W_max)), BC=:torus, n_real=5",
+    " Disorder check: q·W = 1.00 vs hopping t = 1.0 → AB phases dominate (GUE reachable)",
+    " Vortex phase model: :monumental (complex smooth-gauge phases → GUE reachable for any q)",
+    " NOTE: this is bootstrap row 1/2 — a FULL second set of 5 realizations; the verdict comes from row 1 (the configured q).",
+    " realization 1/5: ⟨r⟩ = 0.5820",
+    " realization 2/5: ⟨r⟩ = 0.5849",
+    " realization 3/5: ⟨r⟩ = 0.5881",
+    " realization 4/5: ⟨r⟩ = 0.5909",
+    " realization 5/5: ⟨r⟩ = 0.5862",
+    " ⟨r⟩ = 0.5864 ± 0.0030 (95% CI [0.5835, 0.5894]) [GUE=0.5996, Pois=0.3863]",
+    " Deviation from GUE 0.5992: -0.0128 (2.13%)",
+    " [q=0.300] Torus not gauge-compatible (q·(2-Nx)=-28.2000 ∉ ℤ) → using :open BC",
+    " [comparison-row overrides] W=0.50 (ab_W_cmp, cap 1.00), Nv=256 (ab_nv_cmp) (primary row: W=1.00, Nv=2)",
+    " Bootstrap config: 96x96, Nv=256, q=±0.300, α=0.5000, W=0.50 (cap 1.00, ab_W_cmp), BC=:open, n_real=5",
+    " Disorder check: q·W = 0.15 vs hopping t = 1.0 → AB phases dominate (GUE reachable)",
+    " Vortex phase model: :monumental (complex smooth-gauge phases → GUE reachable for any q)",
+    " NOTE: this is bootstrap row 2/2 — a FULL second set of 5 realizations; the verdict comes from row 1 (the configured q).",
+    " realization 1/5: ⟨r⟩ = 0.5993",
+    " realization 2/5: ⟨r⟩ = 0.6037",
+    " realization 3/5: ⟨r⟩ = 0.6001",
+    " realization 4/5: ⟨r⟩ = 0.6018",
+    " realization 5/5: ⟨r⟩ = 0.6010",
+    " ⟨r⟩ = 0.6012 ± 0.0015 (95% CI [0.5997, 0.6027]) [GUE=0.5996, Pois=0.3863]",
+    " Deviation from GUE 0.5992: +0.0020 (0.33%)",
+    " Row diagnostics: nearest class = GUE (d_GOE=0.0705, d_GUE=0.0016, d_Poi=0.2149)",
+    " Row diagnostics: vortex density 2.78% (Nv=256 on 96x96) vs monograph anchor 2.78% (25/30×30)",
+    " Row readout: GUE-proximity → the fractional-q row is healthy at this W/Nv.",
+    " ─── Final verdict ───",
+    " Primary result (q=1.000): ⟨r⟩=0.5864 ± 0.0030"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_32_rmean_bootstrap/report.md"
+  },
+  {
+   "id": 33,
+   "slug": "l_scaling_rmean",
+   "title": "Test 33: L-scaling ⟨r⟩ (10→20→30→50→80→112)",
+   "short": "L-scaling ⟨r⟩ (10→20→30→50→80→112)",
+   "verdict": "PASS",
+   "generated": "2026-09-02 21:32:46",
+   "category": "Cross-comparisons",
+   "focus": "L-scaling of ⟨r⟩ (10→112) and plateau",
+   "description": "Statistical finite-size trend: monotone approach to 0.594-0.599; monograph anchors L≤50, extended points L=80/112 (user spec 2026-08-29) check the GUE plateau; W_eff capped at ab_W_max.",
+   "method": "Statistical finite-size trend: monotone approach to 0.594-0.599; monograph anchors L≤50, extended points L=80/112 (user spec 2026-08-29) check the GUE plateau; W_eff capped at ab_W_max.",
+   "result": "Test 33b (hardcore): plateau weighted ⟨r⟩=0.6004, χ²/dof=0.01 → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 33 --no-two-pass",
+   "bench": "TEST 33 (pass 2, HARDCORE): L-scaling — deep validation",
+   "calc": [
+    {
+     "name": "⟨r⟩",
+     "value": 0.629404,
+     "note": "(n_r=59, n_eigs=61)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.509721,
+     "note": "(n_r=59, n_eigs=61)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.574634,
+     "note": "(n_r=59, n_eigs=61)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.557955,
+     "note": "(n_r=59, n_eigs=61)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.48607,
+     "note": "(n_r=59, n_eigs=61)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.593495,
+     "note": "(n_r=239, n_eigs=241)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.596397,
+     "note": "(n_r=239, n_eigs=241)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.58288,
+     "note": "(n_r=239, n_eigs=241)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.58853,
+     "note": "(n_r=239, n_eigs=241)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.615185,
+     "note": "(n_r=239, n_eigs=241)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.625316,
+     "note": "(n_r=539, n_eigs=541)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.610951,
+     "note": "(n_r=539, n_eigs=541)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.600825,
+     "note": "(n_r=539, n_eigs=541)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.592813,
+     "note": "(n_r=539, n_eigs=541)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.605293,
+     "note": "(n_r=539, n_eigs=541)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.597483,
+     "note": "(n_r=1499, n_eigs=1501)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.594415,
+     "note": "(n_r=1499, n_eigs=1501)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.606851,
+     "note": "(n_r=1499, n_eigs=1501)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.574458,
+     "note": "(n_r=1499, n_eigs=1501)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.594551,
+     "note": "(n_r=1499, n_eigs=1501)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.598524,
+     "note": "(n_r=3839, n_eigs=3841)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.593096,
+     "note": "(n_r=3839, n_eigs=3841)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.598961,
+     "note": "(n_r=3839, n_eigs=3841)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.602712,
+     "note": "(n_r=3839, n_eigs=3841)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.600199,
+     "note": "(n_r=3839, n_eigs=3841)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.512863,
+     "note": "(n_r=59, n_eigs=61)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.408227,
+     "note": "(n_r=59, n_eigs=61)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.434605,
+     "note": "(n_r=59, n_eigs=61)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.444497,
+     "note": "(n_r=59, n_eigs=61)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.371493,
+     "note": "(n_r=59, n_eigs=61)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.552303,
+     "note": "(n_r=239, n_eigs=241)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.568758,
+     "note": "(n_r=239, n_eigs=241)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.525701,
+     "note": "(n_r=239, n_eigs=241)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.549972,
+     "note": "(n_r=239, n_eigs=241)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.585633,
+     "note": "(n_r=239, n_eigs=241)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.578164,
+     "note": "(n_r=539, n_eigs=541)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.588849,
+     "note": "(n_r=539, n_eigs=541)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.583585,
+     "note": "(n_r=539, n_eigs=541)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.601887,
+     "note": "(n_r=539, n_eigs=541)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.614023,
+     "note": "(n_r=539, n_eigs=541)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.606783,
+     "note": "(n_r=1499, n_eigs=1501)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.602431,
+     "note": "(n_r=1499, n_eigs=1501)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.597144,
+     "note": "(n_r=1499, n_eigs=1501)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.608952,
+     "note": "(n_r=1499, n_eigs=1501)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.58673,
+     "note": "(n_r=1499, n_eigs=1501)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.59793,
+     "note": "(n_r=3839, n_eigs=3841)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.610283,
+     "note": "(n_r=3839, n_eigs=3841)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.595793,
+     "note": "(n_r=3839, n_eigs=3841)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.599605,
+     "note": "(n_r=3839, n_eigs=3841)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.59834,
+     "note": "(n_r=3839, n_eigs=3841)"
+    }
+   ],
+   "n_calc_total": 50,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "Test 33: L-scaling to L=80 0.434,0.556,0.593,0.6,0.6 → PASS",
+    "Test 33b (hardcore): plateau weighted ⟨r⟩=0.6004, χ²/dof=0.01 → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 33 (pass 2, HARDCORE): L-scaling — deep validation",
+    "Harder machinery: up to 5 realizations per L, weighted",
+    "GUE-plateau χ² over L ≥ 50, no L beyond 112 (RAM honesty: L=128 ≈ 4.3 GB).",
+    "────────────────────────────────────────────────────────────",
+    " ⚠ RUNTIME: 2 q-rows × up to n=5 realizations × L ∈ {10,20,30,50,80,112} → expect ≈ 27–81 min (±3× machine factor; RAM-gated rungs are skipped inside with a printed reason)",
+    "════════════════════════════════════════════════════════════",
+    "TEST 33: L-Scaling for AB-Cloud Lattice",
+    "L=10→0.487 (Poisson), L=20→0.562, L=30→0.595, L=50→0.594 (monograph),",
+    "L=80, L=112 → GUE plateau check (extended range, user spec 2026-08-29)",
+    "────────────────────────────────────────────────────────────",
+    " WHY W (DISORDER) IS CAPPED AT W_max ≈ 1.0 — disorder → vortex motion → statistics:",
+    "  W is the diagonal on-site potential the vortices paint onto the lattice:",
+    "      V_i = Σ_k q_k·W / (r_ik²·N⁻¹ + 1),   hopping t = 1.",
+    "  The ratio (disorder energy q·W) / (kinetic energy t) decides what the",
+    "  vortex cloud does and which spectral statistics come out:",
+    "   • q·W ≳ t  (e.g. W=4, q=0.3 → V≈1.2 next to a core): the disorder",
+    "     landscape dominates the vortex motion — vortices pin/steer the",
+    "     eigenstates, states localize on the potential relief, and ⟨r⟩ drifts",
+    "     from GUE (0.5992) toward Poisson (0.3863) by an essentially random",
+    "     amount. A strongly disordered, spinning vortex system can therefore",
+    "     emit ALMOST ANY statistics — the numbers depend on the effective",
+    "     rotation speed (W/t) and on the twisting/vortex arrangement (Nv,",
+    "     layout, charges) of that realization, not on the AB physics.",
+    "   • q·W ≲ t  (W ≤ 1): the Aharonov-Bohm phases dominate the hopping,",
+    "     states stay delocalized and GUE (Wigner-Dyson) is reachable.",
+    "  That is why these tests measure at W_eff = min(cfg.ab_W, W_max = 1.0):",
+    "  they certify the PHASE physics, not the disorder physics.",
+    " ⚠ RAM GATE: L=112 needs ≈ 10.6 GB peak (matrix + LAPACK workspace), free ≈ 4.5 GB → SKIPPED (a swap-thrashing eig is indistinguishable from a hang)",
+    " q=1.00 BC=:torus L=10  Nv=4   α=0.50 W=1.00 ⟨r⟩ = 0.5516 ± 0.0252 (5 real, monograph 0.487)",
+    " q=1.00 BC=:torus L=20  Nv=12  α=0.50 W=1.00 ⟨r⟩ = 0.5953 ± 0.0055 (5 real, monograph 0.562)",
+    " q=1.00 BC=:torus L=30  Nv=26  α=0.50 W=1.00 ⟨r⟩ = 0.6070 ± 0.0054 (5 real, monograph 0.595)",
+    " q=1.00 BC=:torus L=50  Nv=70  α=0.50 W=1.00 ⟨r⟩ = 0.5936 ± 0.0053 (5 real, monograph 0.594)",
+    " q=1.00 BC=:torus L=80  Nv=178 α=0.50 W=1.00 ⟨r⟩ = 0.5987 ± 0.0016 (5 real, monograph 0.595*)",
+    " q=0.30 BC=:open  L=10  Nv=4   α=0.50 W=1.00 ⟨r⟩ = 0.4343 ± 0.0233 (5 real, monograph 0.487)",
+    " q=0.30 BC=:open  L=20  Nv=12  α=0.50 W=1.00 ⟨r⟩ = 0.5565 ± 0.0100 (5 real, monograph 0.562)",
+    " q=0.30 BC=:open  L=30  Nv=26  α=0.50 W=1.00 ⟨r⟩ = 0.5933 ± 0.0065 (5 real, monograph 0.595)",
+    " q=0.30 BC=:open  L=50  Nv=70  α=0.50 W=1.00 ⟨r⟩ = 0.6004 ± 0.0040 (5 real, monograph 0.594)",
+    " q=0.30 BC=:open  L=80  Nv=178 α=0.50 W=1.00 ⟨r⟩ = 0.6004 ± 0.0025 (5 real, monograph 0.595*)",
+    " Verdict run: q=0.30 (fractional AB phase — reference standard, stable)",
+    " Trend (L=10→20→30→50→80): 0.434 → 0.556 → 0.593 → 0.6 → 0.6",
+    " Monotone increase: YES",
+    " Final L=80 close to GUE 0.595 (|Δ|<0.05): YES",
+    " (comparison) q=1.0 user setting: 0.552 → 0.595 → 0.607 → 0.594 → 0.599 (final 0.5987)",
+    " Test 33: L-scaling to L=80 0.434,0.556,0.593,0.6,0.6 → PASS",
+    " ─── HARDCORE GUE-plateau check (verdict q=0.3, L ≥ 50) ───",
+    " plateau points: L=50: 0.6004±0.0040, L=80: 0.6004±0.0025",
+    " weighted ⟨r⟩ = 0.6004 vs GUE 0.5992 (|Δ|=0.0012) → IN ✓ band ±0.022",
+    " χ² = 0.01, dof = 2, χ²/dof = 0.01 → consistent ✓ (≤ 2 consistent; diagnostic)",
+    " Test 33b (hardcore): plateau weighted ⟨r⟩=0.6004, χ²/dof=0.01 → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_33_l_scaling_rmean/report.md"
+  },
+  {
+   "id": 34,
+   "slug": "direct_vs_zeta",
+   "title": "Test 34: DIRECT AB-cloud vs ζ (full loaded set)",
+   "short": "DIRECT AB-cloud vs ζ (full loaded set)",
+   "verdict": "FAIL",
+   "generated": "2026-09-02 22:03:38",
+   "category": "Cross-comparisons",
+   "focus": "DIRECT AB-cloud vs ζ on the full loaded set",
+   "description": "Statistical: unfolded-spacing KS (effect size D<0.10) + Montgomery R₂(s) vs ζ-zeros and GUE. full 50k range, not ζ-5000.",
+   "method": "Statistical: unfolded-spacing KS (effect size D<0.10) + Montgomery R₂(s) vs ζ-zeros and GUE. full 50k range, not ζ-5000.",
+   "result": "Test 34b [HARDCORE pass 2]: 4 sub-checks, 1 failed → WARN",
+   "reproduce": "julia ab_cloud_v19.jl --test 34 --no-two-pass",
+   "bench": "TEST 34 (pass 2, HARDCORE): direct AB vs ζ — deep validation",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "KS composite         WARN — p = 2.236e-186, D = 0.1096 (p>0.01 or D<0.10)",
+    "⟨|ΔR₂|⟩ < 0.10 (fine) PASS — ds=0.05, s_max=4.0: 0.0002",
+    "closer to GUE        PASS — d_GUE=0.8764 < d_Pois=0.9998",
+    "KS ensemble stability PASS — D spread 0.0923..0.1189 (median 0.1153)",
+    "Test 34b [HARDCORE pass 2]: 4 sub-checks, 1 failed → WARN"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 34 (pass 2, HARDCORE): direct AB vs ζ — deep validation",
+    "n ≥ 5 realizations, R₂ bins 0.05, per-realization KS stability",
+    "────────────────────────────────────────────────────────────",
+    " ⚠ RUNTIME: n=5 AB realizations at 96x96 + ζ unfolding (50000 zeros) → ≈ 12–17 min",
+    " Config: Nv=2, q=1.00, α=0.5000, W=1.0 (base protocol)",
+    " real  1/5: 5528 spacings, D_k(ζ) = 0.0923",
+    " real  2/5: 5527 spacings, D_k(ζ) = 0.1188",
+    " real  3/5: 5528 spacings, D_k(ζ) = 0.1153",
+    " real  4/5: 5528 spacings, D_k(ζ) = 0.1065",
+    " real  5/5: 5528 spacings, D_k(ζ) = 0.1189",
+    " Pooled: 27639 AB spacings vs 49999 ζ spacings | KS D = 0.1096, p = 2.236e-186",
+    " Per-realization D(ζ): min 0.0923 / median 0.1153 / max 0.1189 (n=5)",
+    " ⟨|R₂_AB − R₂_ζ|⟩ (ds=0.05, s≤4) = 0.0002 (target < 0.10)",
+    " d_GUE = 0.8764 vs d_Poisson = 0.9998 → closer to GUE",
+    "────────────────────────────────────────────────────────────",
+    " KS composite         WARN — p = 2.236e-186, D = 0.1096 (p>0.01 or D<0.10)",
+    " ⟨|ΔR₂|⟩ < 0.10 (fine) PASS — ds=0.05, s_max=4.0: 0.0002",
+    " closer to GUE        PASS — d_GUE=0.8764 < d_Pois=0.9998",
+    " KS ensemble stability PASS — D spread 0.0923..0.1189 (median 0.1153)",
+    " Test 34b [HARDCORE pass 2]: 4 sub-checks, 1 failed → WARN"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_34_direct_vs_zeta/report.md"
+  },
+  {
+   "id": 35,
+   "slug": "form_factor_Kt",
+   "title": "Test 35: Spectral form factor K(t)",
+   "short": "Spectral form factor K(t)",
+   "verdict": "FAIL",
+   "generated": "2026-09-02 22:36:30",
+   "category": "Cross-comparisons",
+   "focus": "spectral form factor K(t) vs GUE",
+   "description": "Statistical: raw (1/n)|Σe^{itε}|² vs finite-box GUE reference K_box(t)=t(1−sinc(2πt)); RMS over t≥0.3.",
+   "method": "Statistical: raw (1/n)|Σe^{itε}|² vs finite-box GUE reference K_box(t)=t(1−sinc(2πt)); RMS over t≥0.3.",
+   "result": "Test 35b [HARDCORE pass 2]: 3 sub-checks, 2 failed → WARN",
+   "reproduce": "julia ab_cloud_v19.jl --test 35 --no-two-pass",
+   "bench": "TEST 35 (pass 2, HARDCORE): spectral form factor K(t) — ensemble pass",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "RMS < 0.30 (ensemble) WARN — ensemble-mean K(t), 33-point grid: 0.6143",
+    "Corr > 0.50 (ensemble) PASS — Corr(K, K_box) = 0.6379",
+    "RMS scatter ≤ 0.15   WARN — σ=0.1856 across 5 realizations",
+    "Test 35b [HARDCORE pass 2]: 3 sub-checks, 2 failed → WARN"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 35 (pass 2, HARDCORE): spectral form factor K(t) — ensemble pass",
+    "n ≥ 5 per-realization K(t), 33-point t-grid, ensemble verdict",
+    "────────────────────────────────────────────────────────────",
+    " ⚠ RUNTIME: n=5 realizations at 96x96 → expect ≈ 12–17 min",
+    " real  1/5: RMS(K−K_box, t≥0.3) = 0.9199",
+    " real  2/5: RMS(K−K_box, t≥0.3) = 0.8578",
+    " real  3/5: RMS(K−K_box, t≥0.3) = 0.9671",
+    " real  4/5: RMS(K−K_box, t≥0.3) = 0.7540",
+    " real  5/5: RMS(K−K_box, t≥0.3) = 0.4999",
+    " ENSEMBLE K(t): RMS(K_AB − K_box, t ≥ 0.3) = 0.6143 (target < 0.30)",
+    " Corr(K_AB, K_box) = 0.6379 (target > 0.50) | Corr(K_AB, K_ζ) = 0.8123",
+    " Per-realization RMS: mean 0.7998, scatter σ = 0.1856 > ✗ 0.15",
+    "────────────────────────────────────────────────────────────",
+    " RMS < 0.30 (ensemble) WARN — ensemble-mean K(t), 33-point grid: 0.6143",
+    " Corr > 0.50 (ensemble) PASS — Corr(K, K_box) = 0.6379",
+    " RMS scatter ≤ 0.15   WARN — σ=0.1856 across 5 realizations",
+    " Test 35b [HARDCORE pass 2]: 3 sub-checks, 2 failed → WARN"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_35_form_factor_Kt/report.md"
+  },
+  {
+   "id": 36,
+   "slug": "byte_robust",
+   "title": "Test 36: Byte-level robustness",
+   "short": "Byte-level robustness",
+   "verdict": "PASS",
+   "generated": "2026-09-02 23:33:00",
+   "category": "Robustness & normalization",
+   "focus": "byte-level robustness of ⟨r⟩",
+   "description": "Mixed: |Δr| under 256-level quantization + RNG entropy (statistical). Sample accumulated to 25 000 (pass 1) / 50 000 (pass 2) eigenvalues; verdict = multi-window average over 120×15-eig windows (single window = diagnostic); W_eff capped at ab_W_max.",
+   "method": "Mixed: |Δr| under 256-level quantization + RNG entropy (statistical). Sample accumulated to 25 000 (pass 1) / 50 000 (pass 2) eigenvalues; verdict = multi-window average over 120×15-eig windows (single window = diagnostic); W_eff capped at ab_W_max.",
+   "result": "Test 36: byte robust — r_256=0.5756, |Δr|_multi=0.0009 (120 windows), |Δr|_1win=0.0061 (diag), H=7.9991 bits, χ²_z=-0.234, n=55288 → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 36 --no-two-pass",
+   "bench": "TEST 36: Byte-level robustness — quantization + RNG entropy",
+   "calc": [
+    {
+     "name": "⟨r⟩",
+     "value": 0.38793,
+     "note": "(n_r=55288, n_eigs=55290)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.657053,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.643724,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.624209,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.568482,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.522107,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.535764,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.652837,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.59561,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.624374,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.604567,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.485897,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.693192,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.68383,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.528901,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.519134,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.492447,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.622341,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.617574,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.607611,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.545788,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.540762,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.384361,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.605531,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.527459,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.492429,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.640946,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.815854,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.467241,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.655008,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.6518,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.476787,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.522209,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.526679,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.487008,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.639582,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.663925,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.501332,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.462589,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.486558,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.571701,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.655437,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.669788,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.68124,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.655458,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.628425,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.585196,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.563536,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.692005,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.726317,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.665739,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.612582,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.672288,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.537854,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.462356,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.634012,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.544264,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.407715,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.540566,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.45849,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.57229,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.612044,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.745189,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.606921,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.673025,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.399152,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.553205,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.54826,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.521588,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.546769,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.53336,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.501554,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.508977,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.610973,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.626084,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.550313,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.550351,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.642275,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.529751,
+     "note": "(n_r=13, n_eigs=15)"
+    },
+    {
+     "name": "⟨r⟩",
+     "value": 0.548388,
+     "note": "(n_r=13, n_eigs=15)"
+    }
+   ],
+   "n_calc_total": 122,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "⟨r⟩_raw = 0.5765, ⟨r⟩_byte = 0.5756, |Δ⟨r⟩| = 0.0009 (tol=0.0200) → PASS",
+    "χ²_z (CLT approx, df=255) = -0.2342 (|z|<3.0) → PASS",
+    "Test 36: byte robust — r_256=0.5756, |Δr|_multi=0.0009 (120 windows), |Δr|_1win=0.0061 (diag), H=7.9991 bits, χ²_z=-0.234, n=55288 → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 36: Byte-level robustness — quantization + RNG entropy",
+    " Verify ⟨r⟩ survives 256-level quantization + RNG byte uniformity",
+    "────────────────────────────────────────────────────────────",
+    " WHY W (DISORDER) IS CAPPED AT W_max ≈ 1.0 — disorder → vortex motion → statistics:",
+    "  W is the diagonal on-site potential the vortices paint onto the lattice:",
+    "      V_i = Σ_k q_k·W / (r_ik²·N⁻¹ + 1),   hopping t = 1.",
+    "  The ratio (disorder energy q·W) / (kinetic energy t) decides what the",
+    "  vortex cloud does and which spectral statistics come out:",
+    "   • q·W ≳ t  (e.g. W=4, q=0.3 → V≈1.2 next to a core): the disorder",
+    "     landscape dominates the vortex motion — vortices pin/steer the",
+    "     eigenstates, states localize on the potential relief, and ⟨r⟩ drifts",
+    "     from GUE (0.5992) toward Poisson (0.3863) by an essentially random",
+    "     amount. A strongly disordered, spinning vortex system can therefore",
+    "     emit ALMOST ANY statistics — the numbers depend on the effective",
+    "     rotation speed (W/t) and on the twisting/vortex arrangement (Nv,",
+    "     layout, charges) of that realization, not on the AB physics.",
+    "   • q·W ≲ t  (W ≤ 1): the Aharonov-Bohm phases dominate the hopping,",
+    "     states stay delocalized and GUE (Wigner-Dyson) is reachable.",
+    "  That is why these tests measure at W_eff = min(cfg.ab_W, W_max = 1.0):",
+    "  they certify the PHASE physics, not the disorder physics.",
+    " Sample target: 50000 eigenvalues [pass 2 (secondary)] (cfg.ab37_n_eigs_pass2)",
+    " Disorder: W = 1.00 = min(ab_W=4.00, W_max=1.00) → q·W = 1.00 vs hopping t = 1.0 → AB phases dominate (byte check tests the phase physics)",
+    " realization  1/5, continuing (below target): +5529 central eigs → accumulated 5529 / 50000 (11%)",
+    " realization  2/5, continuing (below target): +5529 central eigs → accumulated 11058 / 50000 (22%)",
+    " realization  3/5, continuing (below target): +5529 central eigs → accumulated 16587 / 50000 (33%)",
+    " realization  4/5, continuing (below target): +5529 central eigs → accumulated 22116 / 50000 (44%)",
+    " realization  5/5, continuing (below target): +5529 central eigs → accumulated 27645 / 50000 (55%)",
+    " realization  6/6, continuing (below target): +5529 central eigs → accumulated 33174 / 50000 (66%)",
+    " realization  7/7, continuing (below target): +5529 central eigs → accumulated 38703 / 50000 (77%)",
+    " realization  8/8, continuing (below target): +5529 central eigs → accumulated 44232 / 50000 (88%)",
+    " realization  9/9, continuing (below target): +5529 central eigs → accumulated 49761 / 50000 (100%)",
+    " realization 10/10: +5529 central eigs → accumulated 55290 / 50000 (111%)",
+    " Raw ⟨r⟩ = 0.3879 (n=55288 spacings)",
+    " Universality class: Poisson (d_GUE=0.2117, d_GOE=0.1428, d_GSE=0.2883, d_Poi=0.0016)",
+    " (local window: n=15 central eigs, raw ⟨r⟩_local = 0.6571)",
+    " (a) Byte-quantization robustness (256 levels):",
+    " legacy single window (diagnostic): r_byte = 0.6631, raw_local = 0.6571, |Δr| = 0.0061",
+    " multi-window average (decisive; 120 windows × 15 eigs):",
+    " ⟨r⟩_raw = 0.5765, ⟨r⟩_byte = 0.5756, |Δ⟨r⟩| = 0.0009 (tol=0.0200) → PASS",
+    " (b) RNG byte-entropy / uniformity:",
+    " Shannon entropy = 7.9991 bits (target ≥ 7.9)",
+    " χ²_z (CLT approx, df=255) = -0.2342 (|z|<3.0) → PASS",
+    " Test 36: byte robust — r_256=0.5756, |Δr|_multi=0.0009 (120 windows), |Δr|_1win=0.0061 (diag), H=7.9991 bits, χ²_z=-0.234, n=55288 → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_36_byte_robust/report.md"
+  },
+  {
+   "id": 37,
+   "slug": "half_factorial_gamma",
+   "title": "Test 37: (1/2)! via Γ — half-factorial & GUE normalization",
+   "short": "(1/2)! via Γ — half-factorial & GUE normalization",
+   "verdict": "PASS",
+   "generated": "2026-09-02 23:33:21",
+   "category": "Robustness & normalization",
+   "focus": "(1/2)! via Γ and GUE normalization",
+   "description": "EXACT: Γ(1/2) = √π, (1/2)! = Γ(3/2) = √π/2, ladder + recurrence (suite's own Lanczos lgamma); UNIQUENESS of the Γ-construction via the reflection self-dual fixed point Γ(1/2)² = π and Bohr–Mollerup log-convexity; the GUE β=2 surmise normalization 32/π² verified as the half-factorial identity (∫p₂ = ⟨s⟩ = 1, ⟨s²⟩ = 3π/8 by quadrature). Pass 2 = 256-bit BigFloat re-audit.",
+   "method": "EXACT: Γ(1/2) = √π, (1/2)! = Γ(3/2) = √π/2, ladder + recurrence (suite's own Lanczos lgamma); UNIQUENESS of the Γ-construction via the reflection self-dual fixed point Γ(1/2)² = π and Bohr–Mollerup log-convexity; the GUE β=2 surmise normalization 32/π² verified as the half-factorial identity (∫p₂ = ⟨s⟩ = 1, ⟨s²⟩ = 3π/8 by quadrature). Pass 2 = 256-bit BigFloat re-audit.",
+   "result": "Test 37b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS",
+   "reproduce": "julia ab_cloud_v19.jl --test 37 --no-two-pass",
+   "bench": "TEST 37 (pass 2, HARDCORE): (1/2)! via Γ — 256-bit precision audit",
+   "calc": [],
+   "n_calc_total": 0,
+   "series": [],
+   "tables": [],
+   "subchecks": [],
+   "checks": [
+    "Float64 round-off    PASS — |ΔΓ(1/2)|=5.83e-16, |Δ(1/2)!|=2.94e-16 relative (machine-ε scale)",
+    "32/π² identity (256-bit) PASS — rel.err 2.51e-26 — exact at 256-bit",
+    "ladder + self-duality + recurrence (256-bit) PASS — worst rel.err 4.78e-25 across the three identities",
+    "Test 37b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "excerpt": [
+    "════════════════════════════════════════════════════════════",
+    "TEST 37 (pass 2, HARDCORE): (1/2)! via Γ — 256-bit precision audit",
+    "────────────────────────────────────────────────────────────",
+    " DE reference: |Γ(1/2)_256 − √π| = 1.20e-28 (independent quadrature)",
+    " Γ(1/2):  Float64 vs 256-bit DE rel.err = 5.83e-16",
+    " (1/2)!:  Float64 vs 256-bit DE rel.err = 2.94e-16",
+    " N = 1/[½·(π/4)^{3/2}·(1/2)!] at 256-bit vs 32/π²: rel.err = 2.51e-26",
+    " ladder Γ(5/2)_DE = 3√π/4: rel.err = 4.78e-25",
+    " Γ(1/2)_DE² = π (reflection self-duality): rel.err = 1.35e-28",
+    " recurrence (1/2)!_DE = ½·Γ(1/2)_DE: rel.err = 2.51e-26",
+    "────────────────────────────────────────────────────────────",
+    " Float64 round-off    PASS — |ΔΓ(1/2)|=5.83e-16, |Δ(1/2)!|=2.94e-16 relative (machine-ε scale)",
+    " 32/π² identity (256-bit) PASS — rel.err 2.51e-26 — exact at 256-bit",
+    " ladder + self-duality + recurrence (256-bit) PASS — worst rel.err 4.78e-25 across the three identities",
+    " Test 37b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS"
+   ],
+   "report_path": "results/Test 1-37 ab_cloud_full.jl/run_20260902_134759/test_37_half_factorial_gamma/report.md"
+  }
+ ]
+}

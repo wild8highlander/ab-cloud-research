@@ -223,6 +223,292 @@ function delta3(eigs, Lvalues) {
   return out;
 }
 
+// ── Stat Lab: additional live diagnostic tests ───────────────────────────
+// Port of the Julia suite's statistics layer (ab_cloud_full.jl) to plain JS:
+// pair correlation R₂(s), Wigner–GUE surmise KS/χ², QQ vs the GUE ratio law,
+// autocorrelation of spacing ratios, even/odd + half-split stationarity,
+// Shannon entropy of the ratio distribution and the Wald–Wolfowitz runs test.
+
+function erf(x) {
+  // Abramowitz & Stegun 7.1.26, |ε| ≤ 1.5e-7 — plenty for p-values
+  const s = x < 0 ? -1 : 1;
+  const a = Math.abs(x);
+  const t = 1 / (1 + 0.3275911 * a);
+  const y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t
+    - 0.284496736) * t + 0.254829592) * t * Math.exp(-a * a);
+  return s * y;
+}
+
+function lnGamma(x) {
+  // Lanczos approximation (g=7, n=9)
+  const g = 7;
+  const C = [0.99999999999980993, 676.5203681218851, -1259.1392167224028,
+    771.32342877765313, -176.61502916214059, 12.507343278686905,
+    -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+  if (x < 0.5) {
+    return Math.log(Math.PI / Math.sin(Math.PI * x)) - lnGamma(1 - x);
+  }
+  x -= 1;
+  let a = C[0];
+  const t = x + g + 0.5;
+  for (let i = 1; i < g + 2; i++) a += C[i] / (x + i);
+  return 0.5 * Math.log(2 * Math.PI) + (x + 0.5) * Math.log(t) - t + Math.log(a);
+}
+
+// lower regularized incomplete gamma P(a,x) — series (x < a+1) / CF otherwise
+function gammaP(a, x) {
+  if (x <= 0) return 0;
+  if (x < a + 1) {
+    let ap = a, sum = 1 / a, del = sum;
+    for (let n = 1; n < 500; n++) {
+      ap += 1;
+      del *= x / ap;
+      sum += del;
+      if (Math.abs(del) < Math.abs(sum) * 1e-15) break;
+    }
+    return sum * Math.exp(-x + a * Math.log(x) - lnGamma(a));
+  }
+  // continued fraction for Q(a,x) (Lentz)
+  const FPMIN = 1e-300;
+  let b = x + 1 - a, c = 1 / FPMIN, d = 1 / b, h = d;
+  for (let i = 1; i < 500; i++) {
+    const an = -i * (i - a);
+    b += 2;
+    d = an * d + b; if (Math.abs(d) < FPMIN) d = FPMIN;
+    c = b + an / c; if (Math.abs(c) < FPMIN) c = FPMIN;
+    d = 1 / d;
+    const del = d * c;
+    h *= del;
+    if (Math.abs(del - 1) < 1e-15) break;
+  }
+  const q = Math.exp(-x + a * Math.log(x) - lnGamma(a)) * h;
+  return 1 - q;
+}
+
+// CDF of the GUE (β=2) Wigner surmise p(s) = (32/π²)s²·e^(−4s²/π)
+function gueSurmiseCdf(s) {
+  if (s <= 0) return 0;
+  return erf(2 * s / Math.sqrt(Math.PI)) - (4 * s / Math.PI) * Math.exp(-4 * s * s / Math.PI);
+}
+
+function unfold(zeros) {
+  const u = sortAsc(zeros).map(smoothCounting);
+  const d = [];
+  for (let i = 1; i < u.length; i++) d.push(u[i] - u[i - 1]);
+  return { u, d };
+}
+
+function twoSampleKS(a, b) {
+  const xs = sortAsc(a), ys = sortAsc(b);
+  const n1 = xs.length, n2 = ys.length;
+  let i = 0, j = 0, dp = 0, dm = 0;
+  while (i < n1 && j < n2) {
+    const x = xs[i], y = ys[j];
+    if (x <= y) { i++; }
+    if (y <= x) { j++; }
+    const f1 = i / n1, f2 = j / n2;
+    dp = Math.max(dp, f1 - f2);
+    dm = Math.max(dm, f2 - f1);
+  }
+  const D = Math.max(dp, dm);
+  const en = Math.sqrt((n1 * n2) / (n1 + n2));
+  const lam = (en + 0.12 + 0.11 / en) * D;
+  return { D, p: kolmogorovP(D, Math.max(n1, n2)), lam, n1, n2 };
+}
+
+function histMean(counts, edges) {
+  let sum = 0, tot = 0;
+  for (let k = 0; k < counts.length; k++) {
+    const mid = (edges[k] + edges[k + 1]) / 2;
+    sum += mid * counts[k]; tot += counts[k];
+  }
+  return tot ? sum / tot : 0;
+}
+
+const LAB = {
+  // R₂(s): all pairwise separations of unfolded zeros (window s ≤ 3.2)
+  paircorr(zeros) {
+    const { u } = unfold(zeros);
+    const n = u.length, S_MAX = 3.2, nBins = 160, w = S_MAX / nBins;
+    const counts = new Array(nBins).fill(0);
+    let pairs = 0;
+    for (let i = 0; i < n; i++) {
+      for (let j = i + 1; j < n; j++) {
+        const s = u[j] - u[i];
+        if (s > S_MAX) break;
+        counts[Math.min(nBins - 1, Math.floor(s / w))]++;
+        pairs++;
+      }
+    }
+    const bins = [], gue = [];
+    for (let k = 0; k < nBins; k++) {
+      const s = (k + 0.5) * w;
+      // Montgomery convention (one-sided): R₂(s) = (1/N)·Σ_{i≠j, u_j−u_i=s} 1
+      // = count(j>i pairs in bin) / (N·Δs) — integrates to 1, oscillates
+      // around the sine-kernel curve 1 − sinc²(s).
+      bins.push({ s, r: counts[k] / (n * w) });
+      const t = Math.sin(Math.PI * s) / (Math.PI * s);
+      gue.push({ s, r: 1 - t * t });
+    }
+    return { bins, gue, n, pairs };
+  },
+
+  // spacing histogram vs Wigner–GUE surmise + KS
+  spacing(zeros) {
+    const { d } = unfold(zeros);
+    const n = d.length;
+    const S_MAX = 4, nBins = 40, w = S_MAX / nBins;
+    const counts = new Array(nBins).fill(0);
+    const srt = sortAsc(d);
+    for (const s of d) counts[Math.min(nBins - 1, Math.floor(s / w))]++;
+    const bins = [];
+    for (let k = 0; k < nBins; k++) {
+      const lo = k * w, hi = lo + w;
+      bins.push({ s: (lo + hi) / 2, p: counts[k] / (n * w),
+        gue: (gueSurmiseCdf(hi) - gueSurmiseCdf(lo)) / w });
+    }
+    let dp = 0, dm = 0;
+    for (let i = 0; i < n; i++) {
+      const F = gueSurmiseCdf(srt[i]);
+      dp = Math.max(dp, (i + 1) / n - F);
+      dm = Math.max(dm, F - i / n);
+    }
+    const D = Math.max(dp, dm);
+    let mean = 0;
+    for (const s of d) mean += s;
+    mean /= n;
+    let va = 0;
+    for (const s of d) va += (s - mean) ** 2;
+    return { bins, n, D, p: kolmogorovP(D, n), mean, sd: Math.sqrt(va / n) };
+  },
+
+  // QQ plot: ratio quantiles vs the exact GUE ratio-law quantiles
+  qq(zeros) {
+    const r = sortAsc(spacingRatios(zeros));
+    const n = r.length, pts = [];
+    for (let k = 1; k < 40; k++) {
+      const q = k / 40;
+      // invert RCDF by binary search on the precomputed grid
+      let lo = 0, hi = RCDF.cdf.length - 1;
+      while (hi - lo > 1) {
+        const mid = (lo + hi) >> 1;
+        if (RCDF.cdf[mid] <= q) lo = mid; else hi = mid;
+      }
+      const t = (q - RCDF.cdf[lo]) / (RCDF.cdf[hi] - RCDF.cdf[lo] || 1);
+      const theo = RCDF.grid[lo] * (1 - t) + RCDF.grid[hi] * t;
+      pts.push([theo, r[Math.round(q * n) - 1]]);
+    }
+    const ks = gueRatioKS(spacingRatios(zeros));
+    return { pts, n, D: ks.D, p: ks.p };
+  },
+
+  // autocorrelation of the spacing-ratio sequence (GUE: consistent with 0)
+  autocorr(zeros) {
+    const r = spacingRatios(zeros);
+    const n = r.length;
+    let m = 0;
+    for (const v of r) m += v;
+    m /= n;
+    let c0 = 0;
+    for (const v of r) c0 += (v - m) ** 2;
+    c0 /= n;
+    const out = [];
+    for (let k = 1; k <= 12; k++) {
+      let ck = 0;
+      for (let i = 0; i + k < n; i++) ck += (r[i] - m) * (r[i + k] - m);
+      ck /= n * (n - k);
+      out.push({ lag: k, ac: ck / c0 });
+    }
+    return { out, n, ci: 1.96 / Math.sqrt(n) };
+  },
+
+  // even/odd split of the ratio sequence (index stability)
+  evenodd(zeros) {
+    const r = spacingRatios(zeros);
+    const even = r.filter((_, i) => i % 2 === 0);
+    const odd = r.filter((_, i) => i % 2 === 1);
+    const mean = a => a.reduce((x, y) => x + y, 0) / a.length;
+    const ks = twoSampleKS(even, odd);
+    return { rEven: mean(even), rOdd: mean(odd), nEven: even.length, nOdd: odd.length,
+      D: ks.D, p: ks.p, refs: { R_GUE, R_GOE, R_POISSON } };
+  },
+
+  // height-split stationarity: first vs second half of the zeros dataset
+  halves(zeros) {
+    const h = Math.floor(zeros.length / 2);
+    const r1 = spacingRatios(zeros.slice(0, h));
+    const r2 = spacingRatios(zeros.slice(h));
+    const mean = a => a.reduce((x, y) => x + y, 0) / a.length;
+    const ks = twoSampleKS(r1, r2);
+    return { r1: mean(r1), r2: mean(r2), n1: r1.length, n2: r2.length,
+      D: ks.D, p: ks.p };
+  },
+
+  // Shannon entropy of the ratio distribution vs the GUE reference
+  entropy(zeros) {
+    const r = spacingRatios(zeros);
+    const nB = 40, counts = new Array(nB).fill(0);
+    for (const v of r) counts[Math.min(nB - 1, Math.floor(v * nB))]++;
+    let H = 0;
+    for (const c of counts) {
+      if (c > 0) { const p = c / r.length; H -= p * Math.log(p); }
+    }
+    // GUE reference with the same binning, from the exact ratio law pdf
+    let Hg = 0;
+    for (let k = 0; k < nB; k++) {
+      const lo = k / nB, hi = (k + 1) / nB;
+      const f = x => (27 / 8) * Math.pow(x + x * x, 2) / Math.pow(1 + x + x * x, 5);
+      const p = (f((lo + hi) / 2)) / nB;
+      if (p > 0) Hg -= p * Math.log(p);
+    }
+    return { H, Hg, dH: H - Hg, n: r.length, counts: counts.map((c, k) => ({ k, c })) };
+  },
+
+  // χ² GOF of the spacing histogram vs the Wigner–GUE surmise
+  chi2(zeros) {
+    const { d } = unfold(zeros);
+    const n = d.length, S_MAX = 4, nBins = 20, w = S_MAX / nBins;
+    const counts = new Array(nBins).fill(0);
+    for (const s of d) counts[Math.min(nBins - 1, Math.floor(s / w))]++;
+    let chi = 0, dof = 0;
+    const rows = [];
+    for (let k = 0; k < nBins; k++) {
+      const lo = k * w, hi = lo + w;
+      const E = n * (gueSurmiseCdf(hi) - gueSurmiseCdf(lo));
+      if (E < 5) { rows.push({ range: [lo, hi], O: counts[k], E, used: false }); continue; }
+      chi += (counts[k] - E) ** 2 / E;
+      dof++;
+      rows.push({ range: [lo, hi], O: counts[k], E, used: true });
+    }
+    dof -= 1; // no parameters fitted
+    const p = 1 - gammaP(dof / 2, chi / 2);
+    return { chi, dof, p, n, rows };
+  },
+
+  // Wald–Wolfowitz runs test on the ratio sequence (above/below median)
+  runs(zeros) {
+    const r = spacingRatios(zeros);
+    const srt = sortAsc(r);
+    const med = srt[Math.floor(srt.length / 2)];
+    let n1 = 0, n2 = 0, runs = 1;
+    const flags = r.map(v => v > med);
+    for (const f of flags) { if (f) n1++; else n2++; }
+    for (let i = 1; i < flags.length; i++) if (flags[i] !== flags[i - 1]) runs++;
+    const n = n1 + n2;
+    const mu = (2 * n1 * n2) / n + 1;
+    const sd = Math.sqrt((2 * n1 * n2 * (2 * n1 * n2 - n)) / (n * n * (n - 1)));
+    const z = (runs - mu) / sd;
+    const p = 2 * (1 - gammaP(0.5, (z * z) / 2)); // two-sided normal approx
+    return { runs, mu, sd, z, p, n1, n2, n };
+  },
+};
+
+function labTest(zeros, test) {
+  const fn = LAB[test];
+  if (!fn) throw new Error(`unknown lab test: ${test}`);
+  return fn(zeros);
+}
+
 // 56x56 Jacobi eigensolver (for the spinor-structure operators)
 function jacobiEigen(Ain) {
   const n = Ain.length;
@@ -273,6 +559,9 @@ self.onmessage = (e) => {
         bN, rMean, ks, nRatios: ratios.length, sig2, d3,
         refs: { R_GUE, R_GOE, R_POISSON },
       } });
+    } else if (type === 'lab') {
+      const { zeros, test } = payload;
+      self.postMessage({ type: 'lab', test, ok: true, result: labTest(zeros, test) });
     } else if (type === 'spinor') {
       const { classes, edges, representative } = payload;
       const N = 56;

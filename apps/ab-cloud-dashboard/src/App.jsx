@@ -6,9 +6,15 @@ import Spectra from './pages/Spectra.jsx';
 import Metrics from './pages/Metrics.jsx';
 import Control from './pages/Control.jsx';
 import Golden from './pages/Golden.jsx';
+import Tests from './pages/Tests.jsx';
+import HAudit from './pages/HAudit.jsx';
+import StatLab from './pages/StatLab.jsx';
 
 const TABS = [
   ['run', 'Run report (37 tests)'],
+  ['tests', 'Test explorer 37×'],
+  ['haudit', 'HP audit H1–H8'],
+  ['lab', 'Stat lab · 9 live'],
   ['zeros', 'Live ζ statistics'],
   ['spectra', 'Enrichment run'],
   ['metrics', 'Metrics ×38'],
@@ -45,11 +51,13 @@ export default function App() {
           <span className="grad">Verification dashboard:<br />the evidence, recomputed in front of you</span>
         </h1>
         <p className="sub">
-          <b>37 tests</b> across two passes · <b>50,000</b> Odlyzko zeros ·
-          the full <b>enrichment</b> of RH_Auto_5000_L64_s5 · <b>38 metrics</b> ·
-          the GUE error floor · <b>206 golden values</b> ·
-          statistics live in a Web Worker · Isaev Iskhak Khamzatovich
-          (ORCID 0009-0003-7299-0701)
+          <b>37 tests</b> across two passes · <b>37 deep-dive panels</b> with the
+          frozen computation logs · <b>8</b> Hilbert–Pólya audit tests ·{' '}
+          <b>9 live statistical tests</b> recomputed in your browser ·{' '}
+          <b>50,000</b> Odlyzko zeros · the full <b>enrichment</b> of
+          RH_Auto_5000_L64_s5 · <b>38 metrics</b> · the GUE error floor ·{' '}
+          <b>206 golden values</b> · statistics live in a Web Worker · Isaev
+          Iskhak Khamzatovich (ORCID 0009-0003-7299-0701)
         </p>
       </header>
       <div className="tabbar-wrap">
@@ -62,13 +70,17 @@ export default function App() {
         </nav>
       </div>
       <main id="main">
-        {loadErr && tab !== 'spectra' && tab !== 'metrics' && tab !== 'control' && tab !== 'golden' && (
+        {loadErr && tab !== 'spectra' && tab !== 'metrics' && tab !== 'control' && tab !== 'golden' &&
+          tab !== 'tests' && tab !== 'haudit' && (
           <p className="error-note" role="alert">
             Failed to load datasets: {loadErr}
             <br />Check that <code>data/</code> is deployed next to this page and reload.
           </p>
         )}
         {tab === 'run' && <RunReport summary={summary} error={loadErr} />}
+        {tab === 'tests' && <Tests />}
+        {tab === 'haudit' && <HAudit />}
+        {tab === 'lab' && <StatLab zeros={zeros} />}
         {tab === 'zeros' && <ZerosStats zeros={zeros} error={loadErr} />}
         {tab === 'spectra' && <Spectra />}
         {tab === 'metrics' && <Metrics />}
@@ -86,9 +98,12 @@ export default function App() {
         <div>
           Source: <code>apps/ab-cloud-dashboard/</code> (React + Vite).
           Data: the frozen artifacts of <code>results/RH_Sweep_Pro_Enrichment/</code>,
-          <code> verification/data/</code> (golden values, embedded Odlyzko 50k
+          <code> results/Test 1-37 ab_cloud_full.jl/</code> (per-test reports),{' '}
+          <code>results/Test H1-H8 hp_audit_standalone.jl/</code> (deep audit),{' '}
+          <code>verification/data/</code> (golden values, embedded Odlyzko 50k
           zeros) and the frozen spinor classes of <code>verification/spinor64/</code>.
-          Regenerate the JSON with <code>scripts/prepare-dashboard-data.py</code>.
+          Regenerate the JSON with <code>scripts/prepare-dashboard-data.py</code> and{' '}
+          <code>scripts/prepare-test-explorer-data.py</code>.
           DOI 10.5281/zenodo.21825394.
         </div>
       </footer>
