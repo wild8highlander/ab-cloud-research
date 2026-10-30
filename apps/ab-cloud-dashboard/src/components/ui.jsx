@@ -36,8 +36,8 @@ export function LineChart({ series, width = 640, height = 320, xLabel, yLabel,
             points={s.points.map(p => `${X(p[0])},${Y(p[1])}`).join(' ')} />
         ))}
         {series.map((s, i) => (
-          <text key={'lg' + i} x={pad.l + 8 + i * 150} y={pad.t + 14} fontSize="12"
-            fill={SERIES_COLORS[i % SERIES_COLORS.length]} fontFamily={MONO}>{s.name}</text>
+          <text key={'lg' + i} x={pad.l + 8 + (i % 2) * 250} y={pad.t + 14 + Math.floor(i / 2) * 16}
+            fontSize="12" fill={SERIES_COLORS[i % SERIES_COLORS.length]} fontFamily={MONO}>{s.name}</text>
         ))}
         <text x={width / 2} y={height - 8} fontSize="12" textAnchor="middle" fill="#9B9B9B"
           fontFamily={MONO}>{xLabel}</text>
@@ -82,6 +82,39 @@ export function BarChart({ points, width = 640, height = 300, xLabel, yLabel }) 
           const v = xMax * f;
           return <text key={'x' + i} x={X(v)} y={height - pad.b + 14} fontSize="10"
             textAnchor="middle" fill="#9B9B9B" fontFamily={MONO}>{v.toFixed(2)}</text>;
+        })}
+      </svg>
+    </div>
+  );
+}
+
+/* Categorical horizontal bars — for label/value pairs (verdicts, groups,
+ * ensemble distances). Complements BarChart, which needs numeric x. */
+export function CatBar({ items, width = 640, rowHeight = 34, unit = '' }) {
+  if (!items.length) return null;
+  const max = Math.max(...items.map(i => Math.abs(i.value))) || 1;
+  const labelW = 120;
+  const barW = width - labelW - 96;
+  return (
+    <div className="chart-frame">
+      <svg width="100%" viewBox={`0 0 ${width} ${items.length * rowHeight + 16}`} role="img">
+        {items.map((it, i) => {
+          const y = 8 + i * rowHeight;
+          const w = Math.max(2, (Math.abs(it.value) / max) * barW);
+          const color = it.color || '#00E5FF';
+          return (
+            <g key={i}>
+              <text x={labelW - 10} y={y + 17} fontSize="12" textAnchor="end"
+                fill="#9B9B9B" fontFamily={MONO}>{it.label}</text>
+              <rect x={labelW} y={y + 6} width={barW} height={rowHeight - 12}
+                fill="#181818" stroke="#313131" />
+              <rect x={labelW} y={y + 6} width={w} height={rowHeight - 12} fill={color} opacity="0.8" />
+              <text x={labelW + barW + 8} y={y + 17} fontSize="12"
+                fill="#FFFFFF" fontFamily={MONO}>
+                {typeof it.value === 'number' ? it.value.toPrecision(6).replace(/\.?0+$/, '') : it.value}{unit}
+              </text>
+            </g>
+          );
         })}
       </svg>
     </div>

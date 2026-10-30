@@ -1,5 +1,41 @@
 # Changelog
 
+## [1.5.0] — 2026-10-30 — «the frozen artifacts become the interface» (content ×5 wave)
+
+The repository already held a second, deeper layer of evidence — the
+enrichment run, the 38-column sweep CSV, the GUE error floor, the 206 golden
+constants. This release wires all of it into the web surfaces, multiplying
+the portal's content roughly fivefold while touching no numerics: every new
+view reads frozen artifacts, and the live worker keeps its exact methodology.
+
+- **Dashboard grows from 3 to 7 tabs.** New: *Enrichment run* (all seven
+  curves of RH_Auto_5000_L64_s5 — R₂(s), K(t), Σ²(L), Δ₃(L), p(s)+E(s), the
+  ratio histogram, the superposition ⟨r⟩(m) — drawn from
+  `enrichment_curves.json`, an export of `data/assets.npz`), *Metrics ×38*
+  (the full sweep table of `metrics.csv`, regrouped into seven diagnostics),
+  *GUE control* (the error floor 0.025557 vs the run's 0.020975, the
+  superposition check, the verbatim caveat), and *Golden values* (all 206
+  frozen constants of `abcloud_golden.json`, searchable).
+- **Existing tabs expanded.** Run report gains the two-pass pipeline cards
+  and a verdict-count chart; Live ζ statistics gains p(s) vs the Wigner GUE
+  surmise, the survival E(s) with window switching (5k/20k/50k) and a
+  paginated zeros browser (γₙ, gap, ratio); Test 38 gains the orbit census,
+  the odd-orbit member chips and the frozen signs column.
+- **Landing page ×5 content.** The evidence panel becomes a four-view
+  instrument (ratio histogram live + R₂(s)/K(t)/Σ²(L) frozen, embedded
+  offline); new sections *The enrichment run* (six traceable stat cards) and
+  *Verification timeline* (six dated artifact events); the numbers strip
+  grows 6 → 10 cards; FAQ 8 → 12 answers with the JSON-LD FAQPage kept in
+  sync.
+- **Docs.** Two new pages under Verification: *Enrichment run* and *Golden
+  values*; `mkdocs build --strict` stays green.
+- **Data pipeline.** `scripts/prepare-dashboard-data.py` (numpy) freezes
+  repo artifacts into the dashboard's JSON; its outputs are committed, so
+  end users never need Python.
+- **Housekeeping.** Service-worker cache bumped to `ab-cloud-v4`, dashboard
+  version 1.3.0. The 37-test suite, the worker (`stats.worker.js`) and all
+  frozen numerics are byte-identical to 1.4.0.
+
 ## [1.4.0] — 2026-10-30 — «the web portal speaks the same design language» (web UI redesign wave)
 
 A full visual-system pass over every browser surface of the portal — the

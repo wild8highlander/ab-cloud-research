@@ -11,7 +11,7 @@
  * The precache list must stay root-relative: Pxxl serves the site from the
  * domain root, and scripts/serve.mjs (the local/fallback server) does too.
  */
-const VERSION = 'ab-cloud-v3';
+const VERSION = 'ab-cloud-v4';
 const PRECACHE = `${VERSION}-precache`;
 const RUNTIME = `${VERSION}-runtime`;
 

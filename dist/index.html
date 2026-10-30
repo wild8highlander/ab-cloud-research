@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AB-Cloud Research — the zeros of ζ(s) as physics, verified in your browser</title>
+  <meta name="description" content="AB-Cloud turns 2,001,058 frozen zeros of the Riemann zeta function into a Hofstadter resonator. The verification dashboard and the 3D laboratory recompute every verdict, statistic and spectrum live in your browser. Nothing to install." />
+  <meta name="theme-color" content="#000000" />
+  <!-- Social preview cards. og:image/twitter:image are deploy-root-relative;
+       most scrapers (Telegram, Facebook, LinkedIn) resolve them against the
+       page URL. If a scraper demands an absolute URL, prefix your final
+       domain, e.g. https://<your-pxxl-domain>/og-cover.png -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AB-Cloud Research" />
+  <meta property="og:title" content="AB-Cloud Research — the zeros of ζ(s) as physics, verified in your browser" />
+  <meta property="og:description" content="A Hofstadter resonator built from the zeros of the Riemann zeta function. GUE statistics, live in-browser verification and a WebGL 3D laboratory. Nothing to install." />
+  <meta property="og:image" content="og-cover.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="AB-Cloud Research — phase resonator for the ζ zeros" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AB-Cloud Research — the zeros of ζ(s) as physics, verified in your browser" />
+  <meta name="twitter:description" content="A Hofstadter resonator built from the zeros of the Riemann zeta function. GUE statistics, live in-browser verification and a WebGL 3D laboratory." />
+  <meta name="twitter:image" content="og-cover.png" />
+  <!-- PWA: installable app, offline via sw.js, OS-level shortcuts to both apps -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ResearchProject",
+    "name": "AB-Cloud Research",
+    "alternateName": "AB-Cloud: Phase Resonator for the Riemann zeta Zeros",
+    "description": "A topological vortex on a Hofstadter lattice encoding Aharonov–Bohm phases from the zeros of the Riemann zeta function, with GUE random-matrix universality verified end-to-end in the browser.",
+    "url": "https://github.com/wild8highlander/ab-cloud-research",
+    "identifier": ["doi:10.5281/zenodo.21825394", "https://orcid.org/0009-0003-7299-0701"],
+    "author": {
+      "@type": "Person",
+      "name": "Isaev Iskhak Khamzatovich",
+      "identifier": "https://orcid.org/0009-0003-7299-0701"
+    },
+    "keywords": "Riemann Hypothesis, Hilbert–Pólya programme, Aharonov–Bohm effect, Hofstadter lattice, GUE, random matrix theory, zeta zeros",
+    "hasPart": [
+      {
+        "@type": "WebApplication",
+        "name": "AB-Cloud Verification Dashboard",
+        "url": "dashboard/",
+        "applicationCategory": "ScientificApplication",
+        "operatingSystem": "any"
+      },
+      {
+        "@type": "WebApplication",
+        "name": "AB-Cloud 3D Laboratory",
+        "url": "lab3d/",
+        "applicationCategory": "ScientificApplication",
+        "operatingSystem": "any"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What exactly is AB-Cloud?", "acceptedAnswer": {"@type": "Answer", "text": "AB-Cloud is a Hofstadter Hamiltonian decorated with topological vortices whose Aharonov–Bohm phases are derived from the nontrivial zeros of the Riemann zeta function. Its spectra reproduce GUE random-matrix statistics, and this portal lets you recompute every published number in the browser."}}, {"@type": "Question", "name": "Does this prove the Riemann Hypothesis?", "acceptedAnswer": {"@type": "Answer", "text": "No. AB-Cloud is a numerical laboratory for the Hilbert–Pólya programme: it shows that a concrete quantum system built from the zeros carries the expected spectral statistics. The formal layer in Lean 4, Coq, Agda and Isabelle states precisely what is proven and what is evidence."}}, {"@type": "Question", "name": "What do I need to run it?", "acceptedAnswer": {"@type": "Answer", "text": "A browser. The dashboard and the 3D laboratory are static files with no backend, no account and no build step on your side."}}, {"@type": "Question", "name": "Can I reproduce everything offline?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The repository ships prebuilt bundles, the frozen datasets and the full Julia suite. Clone it, serve the dist folders with any static file server, or rebuild from source with Node 18 or newer."}}, {"@type": "Question", "name": "Why ten languages?", "acceptedAnswer": {"@type": "Answer", "text": "Python, Julia, C++, Rust, Go, Haskell, Fortran, JavaScript, R and MATLAB each re-implement the same checks independently. A bug shared across ten independent codebases is far less likely than a bug in one."}}, {"@type": "Question", "name": "Where do the numbers come from?", "acceptedAnswer": {"@type": "Answer", "text": "The zeros come from the published Odlyzko tables, frozen in the repository with SHA-256 checksums. Run artifacts, logs and plots live under results/ and are referenced by every claim on this page."}}, {"@type": "Question", "name": "How do I cite it?", "acceptedAnswer": {"@type": "Answer", "text": "Cite the Zenodo DOI 10.5281/zenodo.21825394. The footer button copies a ready BibTeX entry, and CITATION.cff in the repository carries the machine-readable form."}}, {"@type": "Question", "name": "Who is behind it?", "acceptedAnswer": {"@type": "Answer", "text": "Isaev Iskhak Khamzatovich (ORCID 0009-0003-7299-0701), under a custom research licence. The contact and reuse terms are in the LICENSE and SECURITY files of the repository."}}, {"@type": "Question", "name": "What is the enrichment run?", "acceptedAnswer": {"@type": "Answer", "text": "After the main sweep RH_Auto_5000_L64_s5, the post-run enricher (RH_Results_Enricher.jl) froze seven diagnostic curves - R2(s), K(t), Sigma2(L), Delta3(L), p(s) with survival E(s), the ratio histogram and the superposition r(m) - plus five GIF animations and a 23-page report, all committed under results/RH_Sweep_Pro_Enrichment/ and drawn in the dashboard's Enrichment tab."}}, {"@type": "Question", "name": "Why is the coupling exactly alpha = 1/pi?", "acceptedAnswer": {"@type": "Answer", "text": "The sweep scanned the coupling and the best configuration landed on alpha = 0.3183098861837907 - the 16-digit float of 1/pi. It is an empirical lock-in reported by the suite (metrics.csv), not an assumption put in by hand; the identity is stated as alpha_identity = 1/pi in the frozen SUMMARY.json."}}, {"@type": "Question", "name": "What is the GUE error floor?", "acceptedAnswer": {"@type": "Answer", "text": "A GUE simulation split into two halves and pushed through the same pipeline (poly-unfold deg 5, blocks of 250, KDE bw = 0.15) deviates from itself by R2 RMS 0.025557. That is the method's own noise floor. The run's per-seed R2 RMS is 0.020975 - below the floor, i.e. statistically indistinguishable from a GUE realization of the same volume."}}, {"@type": "Question", "name": "What are the golden values?", "acceptedAnswer": {"@type": "Answer", "text": "206 frozen constants in verification/data/abcloud_golden.json - Delta3 checkpoints, K(t) values, Sigma2, the Byers-Yang flux defect A2, the b(N) ladder and more. Every implementation in the 10-language stack must reproduce them; the dashboard's Golden values tab makes all of them searchable."}}]}</script>
+  <script src="register-sw.js" defer></script>
+  <script src="portal.js" defer></script>
+  <script src="particles.js" defer></script>
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       AB-Cloud portal — design tokens
+       Visual system: one typeface (Manrope) + Geist Mono for data,
+       Tailwind type scale, spacing tokens 0…96, radii per nested
+       formula, flat dark surfaces #000 → #313131, one text gradient
+       on the hero heading only. Motion: cubic-bezier(.22,1,.36,1).
+       ═══════════════════════════════════════════════════════════ */
+    @font-face {
+      font-family: 'Manrope Variable';
+      src: url('fonts/manrope-var.woff2') format('woff2-variations');
+      font-weight: 200 800;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono Variable';
+      src: url('fonts/geist-mono-var.woff2') format('woff2-variations');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @view-transition { navigation: auto; }
+
+    :root {
+      --bg: #000000;
+      --surface: #181818;
+      --surface-2: #1F1F1F;
+      --surface-3: #272727;
+      --border: #313131;
+      --border-strong: #4A4A4A;
+      --text: #FFFFFF;
+      --body: #C6C6C6;
+      --muted: #9B9B9B;
+      --accent: #00E5FF;
+      --accent-2: #4FC3F7;
+      --pink: #FF2EC4;
+      --ok: #4ADE80;
+      --warn: #FBBF24;
+      --sel: rgba(0, 229, 255, 0.30);
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --font: 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
+      --mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Consolas, monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { color-scheme: dark; scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--body);
+      font-family: var(--font);
+      font-size: 16px; line-height: 24px;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      overflow-x: hidden;
+      text-wrap: pretty;
+    }
+    ::selection { background: var(--sel); color: var(--text); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { color: var(--accent); }
+    svg { display: block; }
+    h1, h2, h3 { color: var(--text); font-weight: 700; text-wrap: balance; }
+
+    .wrap { position: relative; z-index: 1; width: min(1120px, 92vw); margin: 0 auto; }
+    .narrow { max-width: 680px; margin-left: auto; margin-right: auto; }
+    section { padding: 96px 0; }
+    @media (max-width: 767px) { section { padding: 64px 0; } }
+
+    .kicker {
+      font-family: var(--mono); font-size: 12px; line-height: 16px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    h2.section-title { font-size: 30px; line-height: 36px; margin: 12px 0 16px; }
+    @media (max-width: 767px) { h2.section-title { font-size: 24px; line-height: 32px; } }
+    .section-lead { color: var(--muted); font-size: 16px; line-height: 24px; max-width: 680px; }
+
+    /* ── skip link ─────────────────────────────────────────── */
+    .skip-link {
+      position: fixed; top: -48px; left: 16px; z-index: 100;
+      background: var(--surface-2); color: var(--text);
+      border: 1px solid var(--border); border-radius: 999px;
+      padding: 8px 12px; font-size: 14px; line-height: 20px; font-weight: 600;
+      transition: top 0.5s var(--ease);
+    }
+    .skip-link:focus { top: 12px; color: var(--text); }
+
+    /* ── floating navigation ───────────────────────────────── */
+    .nav {
+      position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+      z-index: 60;
+      display: flex; align-items: center; gap: 4px;
+      padding: 4px;
+      background: rgba(24, 24, 24, 0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      max-width: calc(100vw - 32px);
+    }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav a.link {
+      color: var(--muted); font-size: 14px; line-height: 20px; font-weight: 600;
+      padding: 8px 12px; border-radius: 999px; white-space: nowrap;
+      transition: color 0.3s, background-color 0.3s;
+    }
+    .nav a.link:hover { color: var(--text); background: var(--surface-3); }
+    .nav a.link[aria-current="true"] { color: var(--text); background: var(--surface-3); }
+    .nav .btn { margin-left: 4px; }
+    .nav .btn.btn-primary { font-size: 14px; line-height: 20px; }
+    #menuBtn {
+      display: none; width: 40px; height: 40px; border: 0; background: transparent;
+      color: var(--text); cursor: pointer; border-radius: 999px;
+      position: relative;
+    }
+    #menuBtn svg { position: absolute; inset: 8px; width: 24px; height: 24px;
+      transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
+    #menuBtn .ico-x { opacity: 0; transform: rotate(-90deg) scale(0.5); }
+    body.menu-open #menuBtn .ico-x { opacity: 1; transform: rotate(0deg) scale(1); }
+    body.menu-open #menuBtn .ico-list { opacity: 0; transform: rotate(90deg) scale(0.5); }
+    @media (max-width: 767px) {
+      .nav-links, .nav .btn.btn-primary { display: none; }
+      #menuBtn { display: block; }
+      .nav { padding: 4px; }
+    }
+
+    /* ── mobile menu: full height panel ────────────────────── */
+    #mobileMenu {
+      position: fixed; inset: 0; z-index: 55;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      gap: 8px;
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity 0.5s var(--ease), visibility 0.5s;
+    }
+    body.menu-open #mobileMenu { opacity: 1; visibility: visible; pointer-events: auto; }
+    #mobileMenu a.m-link {
+      color: var(--text); font-size: 24px; line-height: 32px; font-weight: 600;
+      padding: 16px 24px;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), color 0.3s;
+    }
+    #mobileMenu a.m-link:hover { color: var(--accent); }
+    body.menu-open #mobileMenu a.m-link { opacity: 1; transform: none; }
+    body.menu-open #mobileMenu a.m-link:nth-child(1) { transition-delay: 0ms; }
+    body.menu-open #mobileMenu a.m-link:nth-child(2) { transition-delay: 60ms; }
+    body.menu-open #mobileMenu a.m-link:nth-child(3) { transition-delay: 120ms; }
+    body.menu-open #mobileMenu a.m-link:nth-child(4) { transition-delay: 180ms; }
+    body.menu-open #mobileMenu a.m-link:nth-child(5) { transition-delay: 240ms; }
+    body.menu-open #mobileMenu a.m-link:nth-child(6) { transition-delay: 300ms; }
+    body.menu-open #mobileMenu .m-cta { transition-delay: 360ms; }
+    #mobileMenu .m-cta {
+      margin-top: 16px; opacity: 0; transform: translateY(24px);
+      transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+    }
+    body.menu-open #mobileMenu .m-cta { opacity: 1; transform: none; }
+
+    /* ── buttons ───────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: var(--font); font-size: 16px; line-height: 24px; font-weight: 600;
+      padding: 8px 12px; border-radius: 999px; border: 1px solid transparent;
+      cursor: pointer; white-space: nowrap;
+      transition: transform 0.5s var(--ease), background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: var(--accent); color: #000000; }
+    .btn-primary:hover { background: #33EBFF; transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
+    .btn-ghost:hover { background: var(--surface-2); border-color: var(--border-strong); transform: translateY(-2px); }
+    .btn .arr { transition: transform 0.5s var(--ease); }
+    .btn:hover .arr { transform: translateX(2px); }
+
+    /* ── hero ──────────────────────────────────────────────── */
+    #zeroField { position: fixed; inset: 0; z-index: 0; pointer-events: none; width: 100%; height: 100%; }
+    header.hero { padding: 160px 0 48px; text-align: center; position: relative; z-index: 1; }
+    @media (max-width: 767px) { header.hero { padding: 128px 0 32px; } }
+    @keyframes rise { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: none; } }
+    header.hero > * { animation: rise 0.8s var(--ease) both; }
+    header.hero > .badge   { animation-delay: 0.05s; }
+    header.hero > h1       { animation-delay: 0.15s; }
+    header.hero > .tagline { animation-delay: 0.28s; }
+    header.hero > .cta-row { animation-delay: 0.40s; }
+    header.hero > .proof   { animation-delay: 0.52s; }
+    .badge {
+      display: inline-block; font-family: var(--mono); font-size: 12px; line-height: 16px;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+      border: 1px solid var(--border); border-radius: 999px;
+      padding: 2px 8px; background: var(--surface);
+    }
+    h1 {
+      margin: 24px auto 16px; max-width: 680px;
+      font-size: 48px; line-height: 1; letter-spacing: -0.02em; font-weight: 700;
+    }
+    @media (max-width: 767px) { h1 { font-size: 36px; line-height: 40px; } }
+    h1 .grad {
+      background: linear-gradient(90deg, #FFFFFF 0%, #9B9B9B 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .tagline { color: var(--muted); font-size: 18px; line-height: 28px; max-width: 680px; margin: 0 auto; }
+    .tagline b { color: var(--text); font-weight: 600; }
+    .cta-row { margin-top: 32px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .proof {
+      margin-top: 32px; display: flex; gap: 8px 24px; justify-content: center; flex-wrap: wrap;
+      font-family: var(--mono); font-size: 12px; line-height: 16px; letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+    .proof b { color: var(--text); font-weight: 600; }
+
+    /* ── evidence panel (live histogram) ───────────────────── */
+    .evidence-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      padding: 24px; text-align: left;
+    }
+    @media (max-width: 767px) { .evidence-card { padding: 16px; } }
+    .evidence-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+    .evidence-title { font-family: var(--mono); font-size: 12px; line-height: 16px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--muted); }
+    .legend { display: flex; gap: 16px; font-family: var(--mono); font-size: 12px; line-height: 16px; color: var(--muted); }
+    .legend i { display: inline-block; width: 8px; height: 8px; border-radius: 999px; margin-right: 4px; }
+    .legend .l1 i { background: var(--accent); }
+    .legend .l2 i { background: var(--pink); }
+    #ratioChart { width: 100%; height: auto; }
+    #ratioChart .bar { fill: var(--accent); fill-opacity: 0.75; }
+    #ratioChart .gue { fill: none; stroke: var(--pink); stroke-width: 1.6; }
+    #ratioChart .axis { stroke: var(--border); stroke-width: 1; }
+    #ratioChart text { font-family: var(--mono); font-size: 10px; fill: var(--muted); }
+    .evidence-cap { margin-top: 16px; font-size: 14px; line-height: 20px; color: var(--muted); }
+    .evidence-cap b { color: var(--text); font-weight: 600; }
+    .chart-note[hidden] { display: none; }
+    .chart-note {
+      margin-top: 16px; font-size: 14px; line-height: 20px; color: var(--warn);
+    }
+
+    /* ── evidence view switcher (ratio / R2 / K / Sigma2) ──── */
+    .ev-tabs {
+      display: flex; gap: 4px; padding: 4px; margin-bottom: 16px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 999px; width: fit-content; max-width: 100%;
+      overflow-x: auto;
+    }
+    .ev-tab {
+      font-family: var(--mono); font-size: 12px; line-height: 16px;
+      color: var(--muted); background: transparent; border: 0;
+      border-radius: 999px; padding: 6px 12px; cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.3s, background-color 0.3s, transform 0.5s var(--ease);
+    }
+    .ev-tab:hover { color: var(--text); background: var(--surface-3); }
+    .ev-tab:active { transform: scale(0.98); }
+    .ev-tab.active { background: var(--text); color: #000000; font-weight: 600; }
+
+    /* ── verification timeline ─────────────────────────────── */
+    .timeline {
+      list-style: none; margin: 32px 0 0; padding: 0;
+      position: relative; max-width: 720px;
+    }
+    .timeline::before {
+      content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px;
+      width: 2px; background: linear-gradient(180deg, var(--border-strong), var(--border));
+    }
+    .tl-item { position: relative; padding: 0 0 40px 40px; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-dot {
+      position: absolute; left: 0; top: 4px; width: 16px; height: 16px;
+      border-radius: 999px; background: var(--surface-2);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 0 4px rgba(0, 229, 255, 0.10);
+    }
+    .tl-date {
+      font-family: var(--mono); font-size: 12px; line-height: 16px;
+      letter-spacing: 0.10em; color: var(--accent); margin-bottom: 4px;
+    }
+    .tl-body h3 { margin: 0 0 6px; font-size: 18px; line-height: 28px; font-weight: 700; color: var(--text); }
+    .tl-body p { margin: 0; font-size: 14px; line-height: 20px; color: var(--muted); max-width: 60ch; }
+    .tl-body p b { color: var(--body); font-weight: 600; }
+
+    /* ── tagline reveal (B11) ──────────────────────────────── */
+    .tagline-reveal {
+      font-size: 30px; line-height: 36px; font-weight: 700; color: var(--text);
+      max-width: 680px; margin: 0 auto; text-align: center;
+      text-wrap: balance;
+    }
+    @media (min-width: 768px) { .tagline-reveal { font-size: 36px; line-height: 40px; } }
+    .tagline-reveal .w {
+      color: rgba(255, 255, 255, 0.30);
+      transition: color 0.5s var(--ease);
+    }
+    .tagline-reveal .w.on { color: var(--text); }
+
+    /* ── reveal on scroll (portal.js adds .in once) ────────── */
+    html.js [data-reveal] {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+      transition-delay: var(--rd, 0s);
+    }
+    html.js [data-reveal].in { opacity: 1; transform: none; }
+
+    /* ── benefit cards ─────────────────────────────────────── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 767px) { .grid-2 { grid-template-columns: 1fr; } }
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      padding: 24px;
+      transition: transform 0.5s var(--ease), border-color 0.3s, background-color 0.3s;
+    }
+    .card:hover { transform: translateY(-2px); border-color: var(--border-strong); background: var(--surface-2); }
+    .card .ico { color: var(--accent); margin-bottom: 16px; }
+    .card .ico svg { width: 24px; height: 24px; }
+    .card h3 { font-size: 18px; line-height: 28px; margin-bottom: 4px; }
+    .card p { color: var(--muted); font-size: 14px; line-height: 20px; }
+    .card p b { color: var(--body); font-weight: 600; }
+
+    /* ── how it works ──────────────────────────────────────── */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    @media (max-width: 767px) { .steps { grid-template-columns: 1fr; } }
+    .step { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+    .step .num {
+      font-family: var(--mono); font-size: 12px; line-height: 16px; letter-spacing: 0.14em;
+      color: var(--accent); margin-bottom: 16px;
+    }
+    .step h3 { font-size: 18px; line-height: 28px; margin-bottom: 4px; }
+    .step p { color: var(--muted); font-size: 14px; line-height: 20px; }
+
+    /* ── numbers strip ─────────────────────────────────────── */
+    .numbers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    @media (max-width: 767px) { .numbers { grid-template-columns: 1fr 1fr; } }
+    .stat-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      padding: 24px;
+    }
+    .stat-card .v {
+      font-family: var(--mono); font-size: 30px; line-height: 36px; font-weight: 600;
+      color: var(--text); font-variant-numeric: tabular-nums;
+    }
+    .stat-card .v small { font-size: 16px; line-height: 24px; color: var(--muted); font-weight: 500; }
+    .stat-card .l { margin-top: 4px; font-size: 14px; line-height: 20px; color: var(--muted); }
+    .stat-card .l b { color: var(--body); font-weight: 600; }
+
+    /* ── app cards ─────────────────────────────────────────── */
+    a.app-card { display: flex; flex-direction: column; gap: 4px; color: inherit; }
+    a.app-card:hover { color: inherit; }
+    a.app-card .kind { font-family: var(--mono); font-size: 12px; line-height: 16px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-2); margin-bottom: 8px; }
+    a.app-card .go {
+      margin-top: 16px; display: inline-flex; align-items: center; gap: 8px;
+      font-size: 16px; line-height: 24px; font-weight: 600; color: var(--accent);
+    }
+    a.app-card .go .arr { transition: transform 0.5s var(--ease); }
+    a.app-card:hover .go .arr { transform: translateX(4px); }
+
+    /* ── FAQ ───────────────────────────────────────────────── */
+    .faq { display: grid; gap: 12px; max-width: 760px; margin: 0 auto; }
+    .faq details {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden;
+    }
+    .faq details:hover { border-color: var(--border-strong); }
+    .faq summary {
+      list-style: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 16px 24px;
+      font-size: 16px; line-height: 24px; font-weight: 600; color: var(--text);
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary .caret { color: var(--muted); flex: 0 0 auto;
+      transition: transform 0.5s var(--ease), color 0.3s; }
+    .faq details[open] summary .caret { transform: rotate(180deg); color: var(--accent); }
+    .faq .answer { padding: 0 24px 16px; color: var(--muted); font-size: 14px; line-height: 20px; }
+    .faq .answer a { color: var(--accent-2); }
+
+    /* ── final CTA ─────────────────────────────────────────── */
+    .final-cta {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      padding: 48px 24px; text-align: center;
+    }
+    .final-cta h2 { font-size: 30px; line-height: 36px; margin-bottom: 8px; }
+    .final-cta p { color: var(--muted); max-width: 680px; margin: 0 auto 24px; }
+    .final-cta .cta-row { margin-top: 0; }
+
+    /* ── footer ────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 0 64px; text-align: center; position: relative; z-index: 1;
+      color: var(--muted); font-size: 14px; line-height: 20px;
+    }
+    footer .links {
+      display: flex; gap: 8px 24px; justify-content: center; flex-wrap: wrap;
+      font-family: var(--mono); font-size: 14px; line-height: 20px; margin-bottom: 24px;
+    }
+    footer .links a {
+      display: inline-flex; align-items: center; gap: 4px; color: var(--muted);
+      transition: color 0.3s;
+    }
+    footer .links a:hover { color: var(--text); }
+    footer .links svg { width: 16px; height: 16px; }
+    footer .fine { margin-top: 16px; font-size: 12px; line-height: 16px; color: var(--muted); }
+    .api-status {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 24px;
+      font-family: var(--mono); font-size: 12px; line-height: 16px; letter-spacing: 0.10em; text-transform: uppercase;
+    }
+    .api-status .dot {
+      width: 8px; height: 8px; border-radius: 999px;
+      background: var(--muted); opacity: 0.55;
+      transition: background-color 0.3s, opacity 0.3s;
+    }
+    .api-status[data-state="ok"] .dot { background: var(--ok); opacity: 1; }
+    .api-status[data-state="down"] .dot { background: var(--bad); opacity: 1; }
+
+    /* ── toast ─────────────────────────────────────────────── */
+    #toast {
+      position: fixed; left: 50%; bottom: 24px; z-index: 70;
+      transform: translate(-50%, 16px);
+      font-family: var(--mono); font-size: 12px; line-height: 16px; color: var(--text);
+      background: var(--surface-2); border: 1px solid var(--border-strong);
+      border-radius: 999px; padding: 8px 12px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s, transform 0.5s var(--ease);
+    }
+    #toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    /* ── reduced motion ────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html.js [data-reveal] { opacity: 1; transform: none; }
+      #zeroField { display: none; }
+    }
+
+    @media print {
+      #zeroField, .nav, #mobileMenu, #menuBtn, #toast { display: none !important; }
+      body { background: #fff; color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <canvas id="zeroField" aria-hidden="true"></canvas>
+
+  <nav class="nav" aria-label="Main">
+    <div class="nav-links">
+      <a class="link" href="#evidence" data-spy>Evidence</a>
+      <a class="link" href="#enrichment" data-spy>Enrichment</a>
+      <a class="link" href="#timeline" data-spy>Timeline</a>
+      <a class="link" href="#numbers" data-spy>Numbers</a>
+      <a class="link" href="#apps" data-spy>Apps</a>
+      <a class="link" href="#faq" data-spy>FAQ</a>
+    </div>
+    <a class="btn btn-primary" href="dashboard/">Open the dashboard</a>
+    <button id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <svg class="ico-list" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg>
+      <svg class="ico-x" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg>
+    </button>
+  </nav>
+
+  <div id="mobileMenu" role="dialog" aria-label="Menu">
+    <a class="m-link" href="#evidence">Evidence</a>
+    <a class="m-link" href="#enrichment">Enrichment</a>
+    <a class="m-link" href="#timeline">Timeline</a>
+    <a class="m-link" href="#numbers">Numbers</a>
+    <a class="m-link" href="#apps">Apps</a>
+    <a class="m-link" href="#faq">FAQ</a>
+    <a class="m-link" href="https://github.com/wild8highlander/ab-cloud-research" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn btn-primary m-cta" href="dashboard/">Open the dashboard</a>
+  </div>
+
+  <main id="main">
+    <!-- ═══ HERO ═══ -->
+    <header class="hero wrap">
+      <span class="badge">AB-Cloud Research · Hilbert–Pólya programme</span>
+      <h1><span class="grad">Riemann zeros as physics,<br>verified in your browser</span></h1>
+      <p class="tagline">
+        AB-Cloud turns <b>2,001,058 frozen zeros</b> of the Riemann ζ function into a
+        Hofstadter resonator — and recomputes every verdict, statistic and spectrum
+        <b>live on this site</b>. Nothing to install, nothing to take on faith.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="dashboard/">Open the dashboard <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="lab3d/">Explore the 3D laboratory</a>
+      </div>
+      <p class="proof">
+        <span><b>39</b> tests · two passes · all passing</span>
+        <span><b>10</b> languages · one number each</span>
+        <span>Lean 4 re-derivation <b>8/8</b></span>
+        <span>DOI <b>10.5281/zenodo.21825394</b></span>
+      </p>
+    </header>
+
+    <!-- ═══ EVIDENCE PANEL (live, from the frozen dataset) ═══ -->
+    <section id="evidence" class="wrap" aria-labelledby="evidence-title">
+      <div class="evidence-card" data-reveal>
+        <div class="evidence-head">
+          <span class="evidence-title" id="evidence-title">Spacing ratios of the ζ zeros vs the GUE law</span>
+          <div class="legend" aria-hidden="true">
+            <span class="l1"><i></i>zeros, live</span>
+            <span class="l2"><i></i>GUE ratio law</span>
+          </div>
+        </div>
+        <div class="ev-tabs" role="tablist" aria-label="Evidence views">
+          <button class="ev-tab active" role="tab" aria-selected="true" data-view="ratio" type="button">Ratio histogram</button>
+          <button class="ev-tab" role="tab" aria-selected="false" data-view="r2" type="button">R₂(s)</button>
+          <button class="ev-tab" role="tab" aria-selected="false" data-view="k" type="button">K(t)</button>
+          <button class="ev-tab" role="tab" aria-selected="false" data-view="s2" type="button">Σ²(L)</button>
+        </div>
+        <svg id="ratioChart" viewBox="0 0 640 280" role="img" aria-label="Histogram of consecutive spacing ratios of the first five thousand zeta zeros against the GUE ratio law curve"></svg>
+        <p class="evidence-cap" id="evidenceCap">Loading the frozen Odlyzko dataset from the dashboard…</p>
+        <p class="chart-note" id="evidenceNote" hidden></p>
+      </div>
+    </section>
+
+    <!-- ═══ ENRICHMENT RUN (frozen SUMMARY.json) ═══ -->
+    <section id="enrichment" class="wrap" aria-labelledby="enrichment-title">
+      <p class="kicker" data-reveal>The enrichment run</p>
+      <h2 class="section-title" id="enrichment-title" data-reveal>RH_Auto_5000_L64_s5 — the deepest look so far</h2>
+      <p class="section-lead" data-reveal>
+        On 2026-10-17 the post-run enrichment froze seven diagnostic curves and a
+        23-page report for the α = 1/π operator: 6,140 eigenvalues against 5,000 ζ
+        zeros, a GUE-splitting error floor, and a verdict you can audit curve by
+        curve in the dashboard's new tabs.
+      </p>
+      <div class="numbers">
+        <div class="stat-card" data-reveal>
+          <div class="v">84.846<small> / 100</small></div>
+          <div class="l"><b>Composite score</b> · tests 10/11, RMT core 6/6</div>
+        </div>
+        <div class="stat-card" data-reveal style="--rd: 0.05s">
+          <div class="v">Δr = 0.00039</div>
+          <div class="l"><b>⟨r⟩ = 0.59999</b> vs GUE 0.5996 — three decimals of agreement</div>
+        </div>
+        <div class="stat-card" data-reveal style="--rd: 0.10s">
+          <div class="v">0.0210 &lt; 0.0256</div>
+          <div class="l"><b>R² RMS below the GUE floor</b> — indistinguishable from GUE</div>
+        </div>
+        <div class="stat-card" data-reveal style="--rd: 0.15s">
+          <div class="v">0.9417 / 0.9882</div>
+          <div class="l"><b>K(t) correlation</b> vs ζ zeros / vs GUE theory</div>
+        </div>
+        <div class="stat-card" data-reveal style="--rd: 0.20s">
+          <div class="v">6,140 × 5,000</div>
+          <div class="l"><b>Eigenvalues × ζ zeros</b>, superposition of 5 seeds</div>
+        </div>
+        <div class="stat-card" data-reveal style="--rd: 0.25s">
+          <div class="v">7 + 5</div>
+          <div class="l"><b>Curves + GIF animations</b> frozen by RH_Results_Enricher.jl</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ TAGLINE REVEAL (B11) ═══ -->
+    <section class="wrap" aria-label="Core statement">
+      <p class="tagline-reveal" id="taglineReveal">Same numbers, same artifacts, same spectrum — from the Julia suite to your browser tab, nothing lost on the way.</p>
+    </section>
+
+    <!-- ═══ PROBLEM → SOLUTION ═══ -->
+    <section class="wrap">
+      <p class="kicker" data-reveal>Why this portal exists</p>
+      <h2 class="section-title" data-reveal>A claim is only as good as its cheapest reproduction</h2>
+      <p class="section-lead" data-reveal>
+        Checking a spectral claim normally means installing Julia, collecting datasets, running
+        notebooks for hours and hoping the notebook matches the paper. AB-Cloud removes that tax:
+        the evidence is frozen in the repository, and this portal re-derives the statistics from
+        the very same files, in front of you, in seconds.
+      </p>
+    </section>
+
+    <!-- ═══ BENEFITS ═══ -->
+    <section class="wrap" aria-labelledby="benefits-title">
+      <p class="kicker" data-reveal>What you get</p>
+      <h2 class="section-title" id="benefits-title" data-reveal>Evidence you can poke at</h2>
+      <div class="grid-2">
+        <div class="card" data-reveal>
+          <div class="ico" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M207.06,72.67A111.24,111.24,0,0,0,128,40h-.4C66.07,40.21,16,91,16,153.13V176a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V152A111.25,111.25,0,0,0,207.06,72.67ZM224,176H119.71l54.76-75.3a8,8,0,0,0-12.94-9.42L99.92,176H32V153.13c0-3.08.15-6.12.43-9.13H56a8,8,0,0,0,0-16H35.27c10.32-38.86,44-68.24,84.73-71.66V80a8,8,0,0,0,16,0V56.33A96.14,96.14,0,0,1,221,128H200a8,8,0,0,0,0,16h23.67c.21,2.65.33,5.31.33,8Z"/></svg></div>
+          <h3>Verify without installing</h3>
+          <p>The dashboard recomputes <b>b(N), the KS statistic and Σ²(L)</b> from 50,000 Odlyzko zeros in a Web Worker, right in the tab you already have open.</p>
+        </div>
+        <div class="card" data-reveal style="--rd: 0.06s">
+          <div class="ico" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm88,104a87.61,87.61,0,0,1-3.33,24H174.16a157.44,157.44,0,0,0,0-48h38.51A87.61,87.61,0,0,1,216,128ZM102,168H154a115.11,115.11,0,0,1-26,45A115.27,115.27,0,0,1,102,168Zm-3.9-16a140.84,140.84,0,0,1,0-48h59.88a140.84,140.84,0,0,1,0,48ZM40,128a87.61,87.61,0,0,1,3.33-24H81.84a157.44,157.44,0,0,0,0,48H43.33A87.61,87.61,0,0,1,40,128ZM154,88H102a115.11,115.11,0,0,1,26-45A115.27,115.27,0,0,1,154,88Zm52.33,0H170.71a135.28,135.28,0,0,0-22.3-45.6A88.29,88.29,0,0,1,206.37,88ZM107.59,42.4A135.28,135.28,0,0,0,85.29,88H49.63A88.29,88.29,0,0,1,107.59,42.4ZM49.63,168H85.29a135.28,135.28,0,0,0,22.3,45.6A88.29,88.29,0,0,1,49.63,168Zm98.78,45.6a135.28,135.28,0,0,0,22.3-45.6h35.66A88.29,88.29,0,0,1,148.41,213.6Z"/></svg></div>
+          <h3>Ten languages, one number</h3>
+          <p><b>Python, Julia, C++, Rust, Go, Haskell, Fortran, JavaScript, R and MATLAB</b> agree to about 1e-12 on every shared check. Independent codebases do not share bugs.</p>
+        </div>
+        <div class="card" data-reveal style="--rd: 0.12s">
+          <div class="ico" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M225.86,102.82c-3.77-3.94-7.67-8-9.14-11.57-1.36-3.27-1.44-8.69-1.52-13.94-.15-9.76-.31-20.82-8-28.51s-18.75-7.85-28.51-8c-5.25-.08-10.67-.16-13.94-1.52-3.56-1.47-7.63-5.37-11.57-9.14C146.28,23.51,138.44,16,128,16s-18.27,7.51-25.18,14.14c-3.94,3.77-8,7.67-11.57,9.14C88,40.64,82.56,40.72,77.31,40.8c-9.76.15-20.82.31-28.51,8S41,67.55,40.8,77.31c-.08,5.25-.16,10.67-1.52,13.94-1.47,3.56-5.37,7.63-9.14,11.57C23.51,109.72,16,117.56,16,128s7.51,18.27,14.14,25.18c3.77,3.94,7.67,8,9.14,11.57,1.36,3.27,1.44,8.69,1.52,13.94.15,9.76.31,20.82,8,28.51s18.75,7.85,28.51,8c5.25.08,10.67.16,13.94,1.52,3.56,1.47,7.63,5.37,11.57,9.14C109.72,232.49,117.56,240,128,240s18.27-7.51,25.18-14.14c3.94-3.77,8-7.67,11.57-9.14,3.27-1.36,8.69-1.44,13.94-1.52,9.76-.15,20.82-.31,28.51-8s7.85-18.75,8-28.51c.08-5.25.16-10.67,1.52-13.94,1.47-3.56,5.37-7.63,9.14-11.57C232.49,146.28,240,138.44,240,128S232.49,109.73,225.86,102.82Zm-11.55,39.29c-4.79,5-9.75,10.17-12.38,16.52-2.52,6.1-2.63,13.07-2.73,19.82-.1,7-.21,14.33-3.32,17.43s-10.39,3.22-17.43,3.32c-6.75.1-13.72.21-19.82,2.73-6.35,2.63-11.52,7.59-16.52,12.38S132,224,128,224s-9.15-4.92-14.11-9.69-10.17-9.75-16.52-12.38c-6.1-2.52-13.07-2.63-19.82-2.73-7-.1-14.33-.21-17.43-3.32s-3.22-10.39-3.32-17.43c-.1-6.75-.21-13.72-2.73-19.82-2.63-6.35-7.59-11.52-12.38-16.52S32,132,32,128s4.92-9.15,9.69-14.11,9.75-10.17,12.38-16.52c2.52-6.1,2.63-13.07,2.73-19.82.1-7,.21-14.33,3.32-17.43S70.51,56.9,77.55,56.8c6.75-.1,13.72-.21,19.82-2.73,6.35-2.63,11.52-7.59,16.52-12.38S124,32,128,32s9.15,4.92,14.11,9.69,10.17,9.75,16.52,12.38c6.1,2.52,13.07,2.63,19.82,2.73,7,.1,14.33.21,17.43,3.32s3.22,10.39,3.32,17.43c.1,6.75.21,13.72,2.73,19.82,2.63,6.35,7.59,11.52,12.38,16.52S224,124,224,128,219.08,137.15,214.31,142.11ZM173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34Z"/></svg></div>
+          <h3>Re-derived, not just computed</h3>
+          <p><b>Lean 4 re-derives the ξ kernel identity</b> from first principles; 8 of 8 formal checks pass. Coq, Agda and Isabelle carry the same statements from their own foundations.</p>
+        </div>
+        <div class="card" data-reveal style="--rd: 0.18s">
+          <div class="ico" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M128,112a28,28,0,0,0-8,54.83V184a8,8,0,0,0,16,0V166.83A28,28,0,0,0,128,112Zm0,40a12,12,0,1,1,12-12A12,12,0,0,1,128,152Zm80-72H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></svg></div>
+          <h3>Frozen and sealed</h3>
+          <p><b>2,001,058 zeros with SHA-256 manifests</b>, frozen Odlyzko tables and committed run artifacts. Nothing regenerates silently behind your back.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ HOW IT WORKS ═══ -->
+    <section class="wrap" aria-labelledby="how-title">
+      <p class="kicker" data-reveal>How it works</p>
+      <h2 class="section-title" id="how-title" data-reveal>Three steps from table to spectrum</h2>
+      <div class="steps">
+        <div class="step" data-reveal>
+          <div class="num">01</div>
+          <h3>Freeze the evidence</h3>
+          <p>The Odlyzko zero tables and every run artifact are committed to the repository with checksums. The browser fetches only from this same origin.</p>
+        </div>
+        <div class="step" data-reveal style="--rd: 0.08s">
+          <div class="num">02</div>
+          <h3>Run the suite</h3>
+          <p>The two-pass Julia sweep over 72×72 and 96×96 lattices produces 77 verdict lines across 39 tests, logged and archived under results.</p>
+        </div>
+        <div class="step" data-reveal style="--rd: 0.16s">
+          <div class="num">03</div>
+          <h3>Open the browser</h3>
+          <p>The dashboard recomputes the statistics from the same frozen files, and the 3D laboratory renders Hofstadter surfaces, the Dirac cone and the critical strip procedurally.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ TIMELINE ═══ -->
+    <section id="timeline" class="wrap" aria-labelledby="timeline-title">
+      <p class="kicker" data-reveal>Verification timeline</p>
+      <h2 class="section-title" id="timeline-title" data-reveal>Every artifact has a date</h2>
+      <ol class="timeline">
+        <li class="tl-item" data-reveal>
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-body">
+            <div class="tl-date">2026-09-02</div>
+            <h3>run_20260902_134759 — the 37-test suite</h3>
+            <p>Two-pass run over 50,000 Odlyzko zeros (72×72 → 96×96 HARDCORE):
+              first pass 32 PASS / 5 WARN, hardcore pass 2 — all PASS across 77
+              verdict lines. The dashboard's Run report tab shows every verdict.</p>
+          </div>
+        </li>
+        <li class="tl-item" data-reveal style="--rd: 0.05s">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-body">
+            <div class="tl-date">2026-10-10</div>
+            <h3>v1.3.0 — CI green, the formal layer lands</h3>
+            <p>Lean 4 · Coq · Agda · Isabelle statements pinned; GitHub Pages
+              deployment and CI made green; the repository map restructured.</p>
+          </div>
+        </li>
+        <li class="tl-item" data-reveal style="--rd: 0.10s">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-body">
+            <div class="tl-date">2026-10-15</div>
+            <h3>Audits v2.0.3 → v2.0.8 — the purge series</h3>
+            <p>The GOE-as-GUE confusion purged (v2.0.3), the rigidity slope
+              corrected (v2.0.4), verdicts propagate: H2 = YES, then H5 = YES
+              via the convergence ladder (v2.0.7 / v2.0.8).</p>
+          </div>
+        </li>
+        <li class="tl-item" data-reveal style="--rd: 0.15s">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-body">
+            <div class="tl-date">2026-10-16</div>
+            <h3>RH_Unified — 13,661 zeros, the α = 1/π sweep</h3>
+            <p>The sweep locks the best configuration (α = 1/π, W = 2, σ = 0.5,
+              L = 64) and writes the full 38-column metrics.csv — now readable
+              column by column in the dashboard's Metrics ×38 tab.</p>
+          </div>
+        </li>
+        <li class="tl-item" data-reveal style="--rd: 0.20s">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-body">
+            <div class="tl-date">2026-10-17</div>
+            <h3>RH_Auto_5000_L64_s5 — the enrichment run</h3>
+            <p>Seven curves, five GIF animations and a 23-page report frozen;
+              the GUE-splitting floor measured at R² RMS 0.0256 — below it sits
+              the run's own 0.0210. The Enrichment tab draws all of it.</p>
+          </div>
+        </li>
+        <li class="tl-item" data-reveal style="--rd: 0.25s">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-body">
+            <div class="tl-date">2026-10-30</div>
+            <h3>v1.4.0 → v1.5.0 — the portal speaks the data</h3>
+            <p>The whole web surface redesigned to one system, then wired to the
+              frozen artifacts: four dashboard tabs added, every number on this
+              page traceable to a dated artifact.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ═══ NUMBERS ═══ -->
+    <section id="numbers" class="wrap" aria-labelledby="numbers-title">
+      <p class="kicker" data-reveal>The numbers</p>
+      <h2 class="section-title" id="numbers-title" data-reveal>Headline metrics, traceable to artifacts</h2>
+      <div class="numbers">
+        <div class="stat-card" data-reveal>
+          <div class="v">0.5848 <small>± 0.0260</small></div>
+          <div class="l"><b>⟨r⟩ of the AB-cloud</b> vs GUE 0.5992</div>
+        </div>
+        <div class="stat-card" data-reveal style="--rd: 0.05s">
+          <div class="v">0.047</div>
+          <div class="l"><b>Montgomery KS</b> vs ζ zeros, p = 0.27</div>
+        </div>
+        <div class="stat-card" data-reveal style="--rd: 0.10s">
+          <div class="v">3.5e−15</div>
+          <div class="l"><b>Byers–Yang flux defect</b>, machine-precision topology</div>
+        </div>
+        <div class="stat-card" data-reveal style="--rd: 0.15s">
+          <div class="v">8/8</div>
+          <div class="l"><b>Lean 4 re-derivation</b> of the ξ kernel identity</div>
+        </div>
+        <div class="stat-card" data-reveal style="--rd: 0.20s">
+          <div class="v">2,001,058</div>
+          <div class="l"><b>ζ zeros frozen</b> with SHA-256 manifests</div>
+        </div>
+        <div class="stat-card" data-reveal style="--rd: 0.25s">
+          <div class="v">0.9997</div>
+          <div class="l"><b>R² of the Dirac cone</b>, E<sub>min</sub> ∝ 1/L</div>
+        </div>
+        <div class="stat-card" data-reveal style="--rd: 0.30s">
+          <div class="v">84.8<small> / 100</small></div>
+          <div class="l"><b>Composite score</b> of the enrichment run RH_Auto_5000_L64_s5</div>
+        </div>
+        <div class="stat-card" data-reveal style="--rd: 0.35s">
+          <div class="v">0.0210 &lt; 0.0256</div>
+          <div class="l"><b>R² RMS vs the GUE floor</b> — run below its own error bar</div>
+        </div>
+        <div class="stat-card" data-reveal style="--rd: 0.40s">
+          <div class="v">13,661</div>
+          <div class="l"><b>ζ zeros verified</b> in the RH_Unified sweep, all rows cross-checked</div>
+        </div>
+        <div class="stat-card" data-reveal style="--rd: 0.45s">
+          <div class="v">206</div>
+          <div class="l"><b>Golden constants</b> in abcloud_golden.json, one number per language</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ APPS ═══ -->
+    <section id="apps" class="wrap" aria-labelledby="apps-title">
+      <p class="kicker" data-reveal>Two windows into one dataset</p>
+      <h2 class="section-title" id="apps-title" data-reveal>Read the evidence, play with the physics</h2>
+      <div class="grid-2">
+        <a class="card app-card" href="dashboard/" data-reveal>
+          <span class="kind">React 19 · Vite · Web Worker</span>
+          <div class="ico" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M207.06,72.67A111.24,111.24,0,0,0,128,40h-.4C66.07,40.21,16,91,16,153.13V176a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V152A111.25,111.25,0,0,0,207.06,72.67ZM224,176H119.71l54.76-75.3a8,8,0,0,0-12.94-9.42L99.92,176H32V153.13c0-3.08.15-6.12.43-9.13H56a8,8,0,0,0,0-16H35.27c10.32-38.86,44-68.24,84.73-71.66V80a8,8,0,0,0,16,0V56.33A96.14,96.14,0,0,1,221,128H200a8,8,0,0,0,0,16h23.67c.21,2.65.33,5.31.33,8Z"/></svg></div>
+          <h3>Verification dashboard</h3>
+          <p>Seven tabs of evidence: the 37-test verdict table, live ζ statistics — b(N), KS against the exact GUE ratio law, Σ²(L), Δ₃(L), p(s), E(s) and a zeros browser — the full enrichment run RH_Auto_5000_L64_s5, all 38 sweep metrics, the GUE error floor, 206 searchable golden values, and 64 spinor structures checked by a Jacobi eigensolver in the tab.</p>
+          <span class="go">Open the dashboard <span class="arr" aria-hidden="true">→</span></span>
+        </a>
+        <a class="card app-card" href="lab3d/" data-reveal style="--rd: 0.08s">
+          <span class="kind">React 19 · Vite · Three.js WebGL</span>
+          <div class="ico" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M223.68,66.15,135.68,18h0a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32h0l80.34,44L128,120,47.66,76ZM40,90l80,43.78v85.79L40,175.82Zm96,129.57V133.82L216,90v85.78Z"/></svg></div>
+          <h3>3D laboratory</h3>
+          <p>Interactive WebGL scenes of experiments 3D-1…3D-34, computed live: the Hofstadter lattice with q = +1 vortex flux cones, the Dirac cone at α = 1/2, and the ζ critical strip with the embedded zeros γ₁…γ₁₅.</p>
+          <span class="go">Explore the laboratory <span class="arr" aria-hidden="true">→</span></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ═══ FAQ ═══ -->
+    <section id="faq" class="wrap" aria-labelledby="faq-title">
+      <p class="kicker" data-reveal style="text-align:center">Questions</p>
+      <h2 class="section-title" id="faq-title" data-reveal style="text-align:center">Asked before every review</h2>
+      <div class="faq">
+        <details data-reveal>
+          <summary>What exactly is AB-Cloud? <svg class="caret" viewBox="0 0 256 256" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <div class="answer">AB-Cloud is a Hofstadter Hamiltonian decorated with topological vortices whose Aharonov–Bohm phases are derived from the nontrivial zeros of ζ(s). Its spectra reproduce GUE random-matrix statistics, and this portal lets you recompute every published number in the browser.</div>
+        </details>
+        <details data-reveal>
+          <summary>Does this prove the Riemann Hypothesis? <svg class="caret" viewBox="0 0 256 256" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <div class="answer">No. AB-Cloud is a numerical laboratory for the Hilbert–Pólya programme: it shows that a concrete quantum system built from the zeros carries the expected spectral statistics. The formal layer in Lean 4, Coq, Agda and Isabelle states precisely what is proven and what remains evidence.</div>
+        </details>
+        <details data-reveal>
+          <summary>What do I need to run it? <svg class="caret" viewBox="0 0 256 256" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <div class="answer">A browser. The dashboard and the 3D laboratory are static files with no backend, no account and no build step on your side.</div>
+        </details>
+        <details data-reveal>
+          <summary>Can I reproduce everything offline? <svg class="caret" viewBox="0 0 256 256" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <div class="answer">Yes. The repository ships prebuilt bundles, the frozen datasets and the full Julia suite. Clone it and serve the dist folders with any static file server, or rebuild from source with Node 18 or newer.</div>
+        </details>
+        <details data-reveal>
+          <summary>Why ten languages? <svg class="caret" viewBox="0 0 256 256" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <div class="answer">Python, Julia, C++, Rust, Go, Haskell, Fortran, JavaScript, R and MATLAB each re-implement the same checks independently. A bug shared across ten independent codebases is far less likely than a bug in one.</div>
+        </details>
+        <details data-reveal>
+          <summary>Where do the numbers come from? <svg class="caret" viewBox="0 0 256 256" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <div class="answer">The zeros come from the published Odlyzko tables, frozen in the repository with SHA-256 checksums. Run artifacts, logs and plots live under results/ and are referenced by every claim on this page.</div>
+        </details>
+        <details data-reveal>
+          <summary>How do I cite it? <svg class="caret" viewBox="0 0 256 256" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <div class="answer">Cite the Zenodo DOI 10.5281/zenodo.21825394. The footer button copies a ready BibTeX entry, and CITATION.cff in the repository carries the machine-readable form.</div>
+        </details>
+        <details data-reveal>
+          <summary>Who is behind it? <svg class="caret" viewBox="0 0 256 256" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <div class="answer">Isaev Iskhak Khamzatovich (ORCID 0009-0003-7299-0701), under a custom research licence. The contact and reuse terms are in the LICENSE and SECURITY files of the repository.</div>
+        </details>
+        <details data-reveal>
+          <summary>What is the enrichment run? <svg class="caret" viewBox="0 0 256 256" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <div class="answer">After the main sweep RH_Auto_5000_L64_s5, the post-run enricher (RH_Results_Enricher.jl) froze seven diagnostic curves — R₂(s), K(t), Σ²(L), Δ₃(L), p(s) with survival E(s), the ratio histogram and the superposition ⟨r⟩(m) — plus five GIF animations and a 23-page report, all committed under results/RH_Sweep_Pro_Enrichment/ and drawn in the dashboard's Enrichment tab.</div>
+        </details>
+        <details data-reveal>
+          <summary>Why is the coupling exactly α = 1/π? <svg class="caret" viewBox="0 0 256 256" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <div class="answer">The sweep scanned the coupling and the best configuration landed on α = 0.3183098861837907 — the 16-digit float of 1/π. It is an empirical lock-in reported by the suite (metrics.csv), not an assumption put in by hand; the identity is stated as alpha_identity = 1/π in the frozen SUMMARY.json.</div>
+        </details>
+        <details data-reveal>
+          <summary>What is the GUE error floor? <svg class="caret" viewBox="0 0 256 256" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <div class="answer">A GUE simulation split into two halves and pushed through the same pipeline (poly-unfold deg 5, blocks of 250, KDE bw = 0.15) deviates from itself by R² RMS 0.025557. That is the method's own noise floor. The run's per-seed R² RMS is 0.020975 — below the floor, i.e. statistically indistinguishable from a GUE realization of the same volume. The full comparison lives in the GUE control tab.</div>
+        </details>
+        <details data-reveal>
+          <summary>What are the golden values? <svg class="caret" viewBox="0 0 256 256" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <div class="answer">206 frozen constants in verification/data/abcloud_golden.json — Δ₃ checkpoints, K(t) values, Σ², the Byers–Yang flux defect A₂, the b(N) ladder and more. Every implementation in the 10-language stack must reproduce them; the dashboard's Golden values tab makes all of them searchable.</div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ═══ FINAL CTA ═══ -->
+    <section class="wrap" aria-labelledby="cta-title">
+      <div class="final-cta" data-reveal>
+        <h2 id="cta-title">Open the evidence</h2>
+        <p>No account, no install, no build step: every bundle on this site is a static file you can audit, and every number traces back to a frozen artifact.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="dashboard/">Open the dashboard <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="https://github.com/wild8highlander/ab-cloud-research" target="_blank" rel="noopener">Read the source</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <div class="links">
+      <a href="https://github.com/wild8highlander/ab-cloud-research" target="_blank" rel="noopener"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"/></svg>GitHub</a>
+      <a href="https://doi.org/10.5281/zenodo.21825394" target="_blank" rel="noopener">Zenodo DOI</a>
+      <a href="/api/zeta" target="_blank" rel="noopener">ζ API</a>
+      <a href="https://wild8highlander.github.io/ab-cloud-research/" target="_blank" rel="noopener">Docs</a>
+      <a href="https://github.com/wild8highlander/ab-cloud-research/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
+      <button id="btnCite" type="button" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:14px;line-height:20px;color:var(--muted)" class="cite-btn"><svg viewBox="0 0 256 256" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></svg>Copy BibTeX</button>
+    </div>
+    <div>Isaev Iskhak Khamzatovich · ORCID <span style="font-family:var(--mono)">0009-0003-7299-0701</span></div>
+    <div class="fine">Lean 4 · Coq · Agda · Isabelle/HOL — the formal layer of the AB-Cloud suite · © 2026, custom research licence</div>
+    <div class="api-status" data-state="idle" id="apiStatus" role="status">
+      <span class="dot" aria-hidden="true"></span><span class="api-label">checking api…</span>
+    </div>
+  </footer>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <p style="text-align:center;padding:16px;color:#9B9B9B;font-size:14px;line-height:20px">
+      JavaScript is off: the static text of this page still reads fine, but the live histogram,
+      statistics and 3D scenes need it. The dashboard at dashboard/ works the same way.
+    </p>
+  </noscript>
+</body>
+</html>

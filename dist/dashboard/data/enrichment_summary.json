@@ -1,0 +1,46 @@
+{
+  "run": "RH_Auto_5000_L64_s5",
+  "generated": "2026-10-17",
+  "headline": {
+    "best_config": { "alpha": 0.3183098861837907, "W": 2.0, "sigma": 0.5, "L": 64, "n_seeds": 5 },
+    "alpha_identity": "1/π",
+    "composite_score": 84.846,
+    "score_max": 100,
+    "tests_passed": "10/11",
+    "rmt_core_tests": "6/6",
+    "n_eigs": 6140,
+    "n_zeta_zeros": 5000,
+    "r_mean_per_seed": 0.59999,
+    "R_GUE": 0.5996,
+    "delta_r_vs_GUE": 0.00039,
+    "r_class": "GUE",
+    "K_corr_zeta": 0.9417,
+    "K_corr_GUE": 0.9882,
+    "R2_rms_GUE": 0.020975,
+    "R2_rms_Poisson": 0.258933,
+    "only_failed_test": "E(s=1)=0.521 (цель 0.171) — слабее ожидаемого отталкивание уровней на хвосте p(s)"
+  },
+  "post_run_enrichment": {
+    "curves": 7,
+    "figures_new": 7,
+    "animations_gif": 5,
+    "gue_control_floor_R2_rms": 0.025557,
+    "code_fixes": "RH_Sweep_Pro_D_FIXED.jl: 10 патчей (sweep-движок D-1/D-2, χ²-выживание D-5, K-критерий D-6, κ-оценка D-7, ⟨r̃⟩-унификация D-3, per-seed файлы P10, GIF-анимации)",
+    "verdict": "R₂_rms прогона (0.0210) ниже пола GUE-расщепления (0.0256) → AB-облако статистически неотличимо от GUE-реализации того же объёма"
+  },
+  "key_finding": {
+    "what": "csv/ab_eigs.txt сохранён глобально отсортированным = объединение 5 сидов",
+    "consequence": "пост-хок метрики по файлу показывают суперпозицию m=5 (⟨r⟩=0.391, ⟨r̃⟩=0.253), per-seed метрики прогона — 0.5999/0.361",
+    "verification": "симуляция union m=5 GUE даёт ⟨r⟩=0.393±0.004, ⟨r̃⟩=0.252 — совпадает с файлом",
+    "fix": "RH_Sweep_Pro_D_FIXED.jl пишет csv/seeds/ab_eigs_seed{k}.txt (патч P10)"
+  },
+  "artifacts": {
+    "data": ["csv прогона (metrics.csv, zeta_zeros.txt, ab_eigs.txt), results.json, config.json, gue_control.json, assets.npz"],
+    "curves": ["R2(s)", "K(t)", "Σ²(L)", "Δ₃(L)", "p(s)+E(s)", "гистограмма r", "суперпозиция ⟨r⟩(m)"],
+    "figures": ["banner", "fig01_ratio_histogram", "fig02_superposition", "fig03_R2_K", "fig04_gue_floor", "fig05_score_composition", "fig06_tests_summary", "original_run/ (5 PNG прогона)"],
+    "animations": ["anim01_superposition_m", "anim02_ratio_buildup", "anim03_spectrum_alignment", "anim04_R2_convergence", "anim05_score_buildup"],
+    "report": ["report.txt прогона", "Отчёт_обогащение_RH_Sweep_Pro.pdf (23 стр.)"],
+    "scripts": ["RH_Sweep_Pro_D_FIXED.jl (v1.1)", "RH_Results_Enricher.jl", "example_post_run.jl", "CHANGES_FIXED.md"],
+    "monograph": ["MONOGRAPH_CHAPTER_RU.md"]
+  }
+}

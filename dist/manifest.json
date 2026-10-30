@@ -1,0 +1,88 @@
+{
+  "name": "AB-Cloud Research",
+  "short_name": "AB-Cloud",
+  "description": "A phase resonator for the Riemann zeta zeros: topological vortex on a Hofstadter lattice, GUE universality, live in-browser verification dashboard and 3D laboratory.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "handle_links": "preferred",
+  "orientation": "any",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "categories": [
+    "education",
+    "science"
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop.jpg",
+      "sizes": "1280x800",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "AB-Cloud portal \u2014 verification dashboard and 3D laboratory"
+    },
+    {
+      "src": "/screenshots/mobile.jpg",
+      "sizes": "720x1280",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "AB-Cloud portal on mobile"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Verification Dashboard",
+      "short_name": "Dashboard",
+      "description": "The two-pass verdict table and live zeta statistics in a Web Worker.",
+      "url": "/dashboard/",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "3D Laboratory",
+      "short_name": "Lab 3D",
+      "description": "Interactive WebGL scenes of experiments 3D-1..3D-34.",
+      "url": "/lab3d/",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

@@ -75,6 +75,8 @@ nav:
   - Verification:
       - 10-language suite: verification.md
       - Reference results: results.md
+      - Enrichment run: enrichment.md
+      - Golden values: golden-values.md
       - GOE/GUE audit v2.0.3: audit_v2.0.3.md
       - Rigidity-slope audit v2.0.4: audit_v2.0.4.md
   - Formal verification:

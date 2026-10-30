@@ -2,10 +2,18 @@ import React, { useEffect, useState } from 'react';
 import RunReport from './pages/RunReport.jsx';
 import ZerosStats from './pages/ZerosStats.jsx';
 import Spinor64 from './pages/Spinor64.jsx';
+import Spectra from './pages/Spectra.jsx';
+import Metrics from './pages/Metrics.jsx';
+import Control from './pages/Control.jsx';
+import Golden from './pages/Golden.jsx';
 
 const TABS = [
   ['run', 'Run report (37 tests)'],
   ['zeros', 'Live ζ statistics'],
+  ['spectra', 'Enrichment run'],
+  ['metrics', 'Metrics ×38'],
+  ['control', 'GUE control'],
+  ['golden', 'Golden values'],
   ['spinor', 'Test 38 · 64 spinors'],
 ];
 
@@ -38,6 +46,8 @@ export default function App() {
         </h1>
         <p className="sub">
           <b>37 tests</b> across two passes · <b>50,000</b> Odlyzko zeros ·
+          the full <b>enrichment</b> of RH_Auto_5000_L64_s5 · <b>38 metrics</b> ·
+          the GUE error floor · <b>206 golden values</b> ·
           statistics live in a Web Worker · Isaev Iskhak Khamzatovich
           (ORCID 0009-0003-7299-0701)
         </p>
@@ -52,7 +62,7 @@ export default function App() {
         </nav>
       </div>
       <main id="main">
-        {loadErr && (
+        {loadErr && tab !== 'spectra' && tab !== 'metrics' && tab !== 'control' && tab !== 'golden' && (
           <p className="error-note" role="alert">
             Failed to load datasets: {loadErr}
             <br />Check that <code>data/</code> is deployed next to this page and reload.
@@ -60,6 +70,10 @@ export default function App() {
         )}
         {tab === 'run' && <RunReport summary={summary} error={loadErr} />}
         {tab === 'zeros' && <ZerosStats zeros={zeros} error={loadErr} />}
+        {tab === 'spectra' && <Spectra />}
+        {tab === 'metrics' && <Metrics />}
+        {tab === 'control' && <Control />}
+        {tab === 'golden' && <Golden />}
         {tab === 'spinor' && <Spinor64 />}
       </main>
       <footer>
@@ -71,8 +85,11 @@ export default function App() {
         </div>
         <div>
           Source: <code>apps/ab-cloud-dashboard/</code> (React + Vite).
-          Data: embedded Odlyzko 50k zeros and the frozen spinor classes of
-          <code>verification/spinor64/</code>. DOI 10.5281/zenodo.21825394.
+          Data: the frozen artifacts of <code>results/RH_Sweep_Pro_Enrichment/</code>,
+          <code> verification/data/</code> (golden values, embedded Odlyzko 50k
+          zeros) and the frozen spinor classes of <code>verification/spinor64/</code>.
+          Regenerate the JSON with <code>scripts/prepare-dashboard-data.py</code>.
+          DOI 10.5281/zenodo.21825394.
         </div>
       </footer>
     </div>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Off the Critical Line · AB-Cloud Research</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <style>
+    /* Same design tokens as the portal landing: Manrope + Geist Mono,
+       flat dark surfaces, one text gradient on the display numeral. */
+    @font-face {
+      font-family: 'Manrope Variable';
+      src: url('fonts/manrope-var.woff2') format('woff2-variations');
+      font-weight: 200 800; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono Variable';
+      src: url('fonts/geist-mono-var.woff2') format('woff2-variations');
+      font-weight: 100 900; font-style: normal; font-display: swap;
+    }
+    :root {
+      --bg: #000000;
+      --surface: #181818;
+      --surface-2: #1F1F1F;
+      --surface-3: #272727;
+      --border: #313131;
+      --border-strong: #4A4A4A;
+      --text: #FFFFFF;
+      --body: #C6C6C6;
+      --muted: #9B9B9B;
+      --accent: #00E5FF;
+      --accent-2: #4FC3F7;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --font: 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
+      --mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Consolas, monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { color-scheme: dark; }
+    body {
+      background: var(--bg); color: var(--body);
+      font-family: var(--font); font-size: 16px; line-height: 24px;
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      overflow-x: hidden; position: relative; text-align: center; padding: 24px;
+    }
+    ::selection { background: rgba(0, 229, 255, 0.30); color: var(--text); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+    .wrap { position: relative; z-index: 1; max-width: 640px; }
+    @keyframes rise { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: none; } }
+    main.wrap > * { animation: rise 0.8s var(--ease) both; }
+    main.wrap > .badge { animation-delay: 0.05s; }
+    main.wrap > .code  { animation-delay: 0.14s; }
+    main.wrap > h1     { animation-delay: 0.26s; }
+    main.wrap > p      { animation-delay: 0.36s; }
+    main.wrap > nav    { animation-delay: 0.48s; }
+
+    .badge {
+      display: inline-block; font-family: var(--mono); font-size: 12px; line-height: 16px;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+      border: 1px solid var(--border); border-radius: 999px;
+      padding: 2px 8px; background: var(--surface);
+      margin-bottom: 24px;
+    }
+    .code {
+      font-family: var(--mono); font-size: clamp(72px, 16vw, 128px); font-weight: 600;
+      line-height: 1; letter-spacing: -0.04em;
+      background: linear-gradient(90deg, #FFFFFF 0%, #9B9B9B 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    h1 { font-size: 24px; line-height: 32px; font-weight: 700; margin: 24px 0 16px; color: var(--text); }
+    p { color: var(--muted); font-size: 16px; line-height: 24px; max-width: 520px; margin: 0 auto; }
+    p b { color: var(--body); font-weight: 600; }
+    nav {
+      margin-top: 40px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    }
+    nav a {
+      color: var(--text); text-decoration: none;
+      border: 1px solid var(--border); border-radius: 999px;
+      padding: 8px 12px; font-size: 16px; line-height: 24px; font-weight: 600;
+      background: transparent;
+      transition: transform 0.5s var(--ease), background-color 0.3s, border-color 0.3s;
+    }
+    nav a:hover { background: var(--surface-2); border-color: var(--border-strong); transform: translateY(-2px); }
+    nav a:active { transform: scale(0.98); }
+    nav a.home { background: var(--accent); border-color: var(--accent); color: #000000; }
+    nav a.home:hover { background: #33EBFF; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <span class="badge">HTTP 404 · zero not found</span>
+    <div class="code">404</div>
+    <h1>This zero is off the critical line.</h1>
+    <p>
+      The page you asked for does not exist — it never landed on
+      <b>Re(s)&nbsp;=&nbsp;½</b>. Every real destination is one click away:
+    </p>
+    <nav>
+      <a class="home" href="/">portal&nbsp;home</a>
+      <a href="/dashboard/">verification&nbsp;dashboard</a>
+      <a href="/lab3d/">3D&nbsp;laboratory</a>
+    </nav>
+  </main>
+</body>
+</html>

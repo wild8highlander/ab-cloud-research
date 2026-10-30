@@ -175,7 +175,69 @@ table.data tbody tr:hover { background: var(--surface-3); }
 .v-fail { color: var(--bad); border: 1px solid rgba(248, 113, 113, 0.35); }
 
 /* ── filter row ────────────────────────────────────────────── */
-.filter-row { display: flex; gap: 8px; margin: 16px 0; flex-wrap: wrap; }
+.filter-row { display: flex; gap: 8px; margin: 16px 0; flex-wrap: wrap; align-items: center; }
+
+/* ── search input (Golden values) ──────────────────────────── */
+.search {
+  flex: 1 1 200px; min-width: 180px;
+  background: var(--surface-2); color: var(--text);
+  border: 1px solid var(--border); border-radius: 999px;
+  padding: 8px 14px; font-family: var(--font);
+  font-size: 14px; line-height: 20px;
+  transition: border-color 0.3s;
+}
+.search::placeholder { color: var(--muted); }
+.search:focus { outline: none; border-color: var(--accent); }
+
+/* ── two-pass pipeline cards ───────────────────────────────── */
+.pipeline {
+  display: flex; gap: 12px; align-items: stretch; margin: 16px 0;
+}
+.pipe-card {
+  flex: 1 1 0; min-width: 0;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 12px 16px;
+  font-size: 13px; line-height: 20px; color: var(--muted);
+}
+.pipe-card b { color: var(--body); }
+.pipe-step {
+  font-family: var(--mono); font-size: 12px; line-height: 16px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 6px;
+}
+.pipe-arrow {
+  align-self: center; color: var(--muted); font-size: 18px; flex: 0 0 auto;
+}
+@media (max-width: 800px) {
+  .pipeline { flex-direction: column; }
+  .pipe-arrow { transform: rotate(90deg); align-self: center; }
+}
+
+/* ── zeros browser pagination ──────────────────────────────── */
+.browser-nav {
+  display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+  margin: 16px 0 0;
+}
+.browser-pos { font-family: var(--mono); font-size: 13px; margin: 0 4px; }
+.browser-nav .btn { border: 1px solid var(--border); }
+
+/* ── details reveal + mono chips (odd-orbit members) ───────── */
+details.reveal-block {
+  border: 1px solid var(--border); border-radius: 12px;
+  background: var(--surface-2);
+  padding: 0; margin: 16px 0;
+}
+details.reveal-block summary {
+  cursor: pointer; padding: 12px 16px;
+  color: var(--body); font-size: 14px; line-height: 20px; font-weight: 600;
+  border-radius: 12px;
+}
+details.reveal-block summary:hover { color: var(--text); }
+details.reveal-block[open] summary { border-bottom: 1px solid var(--border); }
+.mono-chips {
+  display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 12px 16px;
+}
+.mono-chips code { padding: 2px 8px; }
 
 /* ── skeleton loaders (B9: shaped like the real layout) ────── */
 @keyframes pulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 0.8; } }

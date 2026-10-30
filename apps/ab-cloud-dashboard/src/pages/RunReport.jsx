@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Skeleton } from '../components/ui.jsx';
+import { CatBar, Skeleton } from '../components/ui.jsx';
 
 const VERDICT_CLASS = {
   PASS: 'v-pass', WARN: 'v-warn', FAIL: 'v-fail',
@@ -25,6 +25,11 @@ export default function RunReport({ summary, error }) {
     filter === 'ALL' ? true : filter === 'PASS' ? t.verdict === 'PASS' : t.verdict !== 'PASS');
   // describe the actual data — never hardcode verdict kinds/ids here
   const nonPass = summary.tests.filter(t => t.verdict !== 'PASS').map(t => t.id);
+  const verdictCounts = summary.tests.reduce((acc, t) => {
+    acc[t.verdict] = (acc[t.verdict] || 0) + 1;
+    return acc;
+  }, {});
+  const VERDICT_COLORS = { PASS: '#4ADE80', WARN: '#FBBF24', FAIL: '#F87171' };
   return (
     <section>
       <h2>Run {summary.run} <span className="pill">{summary.date}</span></h2>
@@ -34,6 +39,38 @@ export default function RunReport({ summary, error }) {
         {summary.first_pass?.WARN ?? '?'} WARN · hardcore pass 2: {summary.hardcore_pass2 ?? '?'}.
         Full artifacts: <code>results/{summary.run}</code> in the repository.
       </p>
+
+      <h3>The two-pass pipeline</h3>
+      <div className="pipeline">
+        <div className="pipe-card">
+          <div className="pipe-step">pass 1 · 72×72</div>
+          <p>First pass over {(summary.zeros ?? 0).toLocaleString()} zeros:{' '}
+            <b>{summary.first_pass?.PASS ?? '?'} PASS</b> /{' '}
+            <b>{summary.first_pass?.WARN ?? '?'} WARN</b> — the Wigner-surmise
+            floor surfaces as WARN on the asymptotic p-values.</p>
+        </div>
+        <div className="pipe-arrow" aria-hidden="true">→</div>
+        <div className="pipe-card">
+          <div className="pipe-step">pass 2 · {summary.two_pass?.includes('96') ? '96×96 (HARDCORE)' : summary.two_pass}</div>
+          <p>Hardcore second pass: <b>{summary.hardcore_pass2 ?? '?'}</b> —
+            every flagged test re-examined with the calibrated two-sample
+            machinery against the exact GUE reference.</p>
+        </div>
+        <div className="pipe-arrow" aria-hidden="true">→</div>
+        <div className="pipe-card">
+          <div className="pipe-step">verdict</div>
+          <p>{summary.tests.length} tests on this dashboard,
+            {' '}{nonPass.length} non-PASS row{nonPass.length === 1 ? '' : 's'} —
+            all traced to the surmise floor, none to the data.</p>
+        </div>
+      </div>
+
+      <h3>Verdict counts</h3>
+      <CatBar items={Object.entries(verdictCounts).map(([v, n]) => ({
+        label: v, value: n, color: VERDICT_COLORS[v] || '#00E5FF',
+      }))} unit=" tests" />
+
+      <h3>All {summary.tests.length} verdicts</h3>
       <div className="filter-row" role="group" aria-label="Filter tests by verdict">
         {['ALL', 'PASS', 'NON-PASS'].map(f => (
           <button key={f} className={filter === f ? 'btn active' : 'btn'}

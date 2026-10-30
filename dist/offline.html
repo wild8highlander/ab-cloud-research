@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Offline — AB-Cloud Research</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#000000" />
+  <!-- auto-retry without JavaScript (CSP forbids inline handlers) -->
+  <meta http-equiv="refresh" content="30" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <style>
+    @font-face {
+      font-family: 'Manrope Variable';
+      src: url('fonts/manrope-var.woff2') format('woff2-variations');
+      font-weight: 200 800; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono Variable';
+      src: url('fonts/geist-mono-var.woff2') format('woff2-variations');
+      font-weight: 100 900; font-style: normal; font-display: swap;
+    }
+    :root {
+      --bg: #000000;
+      --surface: #181818;
+      --surface-2: #1F1F1F;
+      --border: #313131;
+      --border-strong: #4A4A4A;
+      --text: #FFFFFF;
+      --body: #C6C6C6;
+      --muted: #9B9B9B;
+      --accent: #00E5FF;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --font: 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
+      --mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Consolas, monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { color-scheme: dark; }
+    body {
+      background: var(--bg); color: var(--body);
+      font-family: var(--font); font-size: 16px; line-height: 24px;
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 24px; overflow-x: hidden;
+    }
+    ::selection { background: rgba(0, 229, 255, 0.30); color: var(--text); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+    .wrap { position: relative; z-index: 1; max-width: 560px; }
+    @keyframes rise { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: none; } }
+    .badge { animation: rise 0.8s var(--ease) 0.05s both; }
+    h1     { animation: rise 0.8s var(--ease) 0.16s both; }
+    p      { animation: rise 0.8s var(--ease) 0.28s both; }
+    .actions { animation: rise 0.8s var(--ease) 0.40s both; }
+    .hint  { animation: rise 0.8s var(--ease) 0.52s both; }
+
+    .badge {
+      display: inline-block; font-family: var(--mono); font-size: 12px; line-height: 16px;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+      border: 1px solid var(--border); border-radius: 999px; padding: 2px 8px;
+      background: var(--surface);
+    }
+    h1 { margin: 24px 0 16px; font-size: 30px; line-height: 36px; font-weight: 700; color: var(--text); }
+    p { color: var(--muted); }
+    p b { color: var(--body); font-weight: 600; }
+    .actions { margin-top: 32px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .actions a {
+      color: var(--text); text-decoration: none;
+      border: 1px solid var(--border); border-radius: 999px;
+      padding: 8px 12px; font-size: 16px; line-height: 24px; font-weight: 600;
+      transition: transform 0.5s var(--ease), background-color 0.3s, border-color 0.3s;
+    }
+    .actions a:hover { background: var(--surface-2); border-color: var(--border-strong); transform: translateY(-2px); }
+    .actions a:active { transform: scale(0.98); }
+    .actions a.home { background: var(--accent); border-color: var(--accent); color: #000000; }
+    .actions a.home:hover { background: #33EBFF; }
+    .hint {
+      margin-top: 32px; font-family: var(--mono); font-size: 12px; line-height: 16px;
+      color: var(--muted); border-top: 1px solid var(--border); padding-top: 24px;
+    }
+    .hint b { color: var(--body); font-weight: 600; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <span class="badge">offline · cached copy unavailable</span>
+    <h1>You are off the grid</h1>
+    <p>
+      This page was not cached by the service worker before the connection dropped.
+      The rest of the portal — the landing page, the verification dashboard and the 3D
+      laboratory — may still be available offline.
+    </p>
+    <div class="actions">
+      <a class="home" href="/">portal&nbsp;home</a>
+      <a href="/dashboard/">dashboard</a>
+      <a href="/lab3d/">3D&nbsp;laboratory</a>
+    </div>
+    <div class="hint">
+      Re(s) = &frac12; holds even without a network. This page retries every 30 seconds.<br />
+      <b>Tip:</b> open the landing page once while online — it will be cached for offline use.
+    </div>
+  </main>
+</body>
+</html>

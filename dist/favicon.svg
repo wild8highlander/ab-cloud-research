@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- AB-Cloud favicon: zeta on a dark cosmic plate.
+       Vector twin of icon-192.png / icon-512.png (see manifest.json). -->
+  <defs>
+    <linearGradient id="glow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4fc3f7" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#4fc3f7" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#05060f"/>
+  <rect x="1.5" y="1.5" width="61" height="61" rx="12.5" fill="none" stroke="#4fc3f7" stroke-opacity="0.18" stroke-width="1"/>
+  <ellipse cx="32" cy="30" rx="22" ry="18" fill="url(#glow)"/>
+  <text x="32" y="46" font-size="40" text-anchor="middle" fill="#4fc3f7"
+        font-family="FreeSerif, Georgia, 'Times New Roman', serif" font-style="italic">&#950;</text>
+</svg>

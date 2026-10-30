@@ -1,0 +1,6 @@
+Contact: mailto:wild8highlander@users.noreply.github.com
+Contact: https://github.com/wild8highlander/ab-cloud-research/security/advisories/new
+Expires: 2027-10-27T00:00:00.000Z
+Preferred-Languages: en, ru
+Canonical: /.well-known/security.txt
+Policy: https://github.com/wild8highlander/ab-cloud-research/blob/main/SECURITY.md

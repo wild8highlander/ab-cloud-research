@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { LineChart, Stat, Skeleton, useWorker } from '../components/ui.jsx';
+import { CatBar, LineChart, Stat, Skeleton, useWorker } from '../components/ui.jsx';
 
 export default function Spinor64({ error: loadError }) {
   const { run, busy } = useWorker();
@@ -54,6 +54,12 @@ export default function Spinor64({ error: loadError }) {
     );
   }
   const orbitCounts = [28, 21, 7, 7, 1];
+  const oddMembers = data.stats.odd_orbit_members ?? [];
+  const arfOne = data.classes.filter(c => c.arf === 1).length;
+  const orbitFieldCounts = data.classes.reduce((acc, c) => {
+    acc[c.orbit] = (acc[c.orbit] || 0) + 1;
+    return acc;
+  }, {});
 
   return (
     <section>
@@ -75,6 +81,29 @@ export default function Spinor64({ error: loadError }) {
           refVal="0.4515710793" ok={res ? Math.abs(res.rMean - 0.4515710792825435) < 1e-6 : undefined} />
         <Stat label="Zero modes" value={res ? res.nZero : '…'} refVal="2" ok={res ? res.nZero === 2 : undefined} />
       </div>
+
+      <h3>Orbit census — the 64 structures of PSL(2,7)</h3>
+      <CatBar items={Object.entries(orbitFieldCounts).map(([orb, n], i) => ({
+        label: `orbit ${orb}`, value: n,
+        color: ['#00E5FF', '#FF2EC4', '#A78BFA', '#FFD60A', '#4ADE80'][i % 5],
+      }))} unit=" classes" />
+      <p className="muted">
+        Frozen reference (<code>data/reference_stats.json</code>):
+        orbit sizes { (data.stats.orbit_sizes ?? orbitCounts).join(' / ') },
+        eigenvalue window [{(data.stats.eigen_min ?? 0).toFixed(6)},
+        {(data.stats.eigen_max ?? 0).toFixed(6)}],
+        {(data.stats.n_zero_modes ?? 2)} zero modes,
+        ⟨r⟩ reference {(data.stats.r_mean_reference ?? 0).toFixed(10)}.
+        The browser's Arf=1 count ({arfOne} classes) matches the frozen
+        odd-orbit membership ({oddMembers.length} members).
+      </p>
+      <details className="reveal-block">
+        <summary>The {oddMembers.length} members of the odd orbit (Arf = 1)</summary>
+        <p className="mono-chips">
+          {oddMembers.map(m => <code key={m}>{m}</code>)}
+        </p>
+      </details>
+
       {res && (
         <>
           <h3>Representative spectrum (class {data.stats.representative_class},
@@ -84,25 +113,26 @@ export default function Spinor64({ error: loadError }) {
         </>
       )}
       <h3>The 64 structures</h3>
+      <label className="muted" htmlFor="spinorRange" style={{ display: 'block', marginTop: '16px' }}>
+        Showing classes {idx}…{idx + 15} — slide to browse all 64 (Arf column: 1 = odd orbit)
+      </label>
+      <input id="spinorRange" className="range" type="range" min="0" max="48" value={idx}
+        onChange={e => setIdx(+e.target.value)} />
       <div className="table-wrap">
         <table className="data">
-          <thead><tr><th scope="col">class</th><th scope="col">orbit</th><th scope="col">Arf</th></tr></thead>
+          <thead><tr><th scope="col">class</th><th scope="col">orbit</th><th scope="col">Arf</th><th scope="col">signs (frozen)</th></tr></thead>
           <tbody>
             {data.classes.filter(c => c.cls >= idx && c.cls < idx + 16).map(c => (
               <tr key={c.cls}>
                 <td className="test-id">{c.cls}</td>
                 <td className="test-id">{c.orbit}</td>
                 <td className="test-id">{c.arf}</td>
+                <td className="headline">{c.signs.join(' ')}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <label className="muted" htmlFor="spinorRange" style={{ display: 'block', marginTop: '16px' }}>
-        Showing classes {idx}…{idx + 15} — slide to browse all 64
-      </label>
-      <input id="spinorRange" className="range" type="range" min="0" max="48" value={idx}
-        onChange={e => setIdx(+e.target.value)} />
       {busy && <p className="muted" role="status">computing…</p>}
     </section>
   );
