@@ -1,0 +1,17 @@
+{
+  "status": "ok",
+  "service": "ab-cloud-research",
+  "version": "2.0.0",
+  "mode": "static-snapshot",
+  "time": "2026-10-30T15:25:32.990Z",
+  "uptimeSeconds": 0,
+  "endpoints": {
+    "health": "/api/health",
+    "version": "/api/version",
+    "zetaZeros": "/api/zeta?n=1..30"
+  },
+  "links": {
+    "repository": "https://github.com/wild8highlander/ab-cloud-research",
+    "doi": "https://doi.org/10.5281/zenodo.21825394"
+  }
+}

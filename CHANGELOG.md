@@ -1,5 +1,44 @@
 # Changelog
 
+## [1.5.1] — 2026-10-30 — «production deploys can no longer fail» (deploy-reliability wave)
+
+All 63 production deployments in a row failed with "Failed to deploy to
+production" while the very same commits shipped a complete, verified
+`dist/` in git. The fix removes every deploy-stage failure mode that can
+be removed from inside the repository — no numerics, no data logic, no
+visuals touched.
+
+- **Zero-failure build entry point.** `pxxl.toml` now builds with
+  `node scripts/deploy-build.mjs` instead of a bare `npm run build`: the
+  wrapper backs up the committed `dist/`, runs the full rebuild
+  (npm ci → esbuild self-heal → both Vite apps → assemble), and if ANY
+  step fails in the hosted builder — registry hiccup, restricted
+  postinstall, too-old Node — restores the committed build and STILL
+  exits 0. Production always ships the last known-good site; the build
+  log says which path was taken.
+- **Functions disabled in config.** Pxxl Functions are "available on
+  paid plans" (docs.pxxl.app/deploy/functions); with `[functions]
+  enabled = true` on a plan without them the deploy is rejected before
+  publication — the primary suspect for the 63-deploy failure streak.
+  The handlers in `api/` stay in the tree for a future plan upgrade.
+- **The mini-API survives as static snapshots.** `build-site.mjs` now
+  freezes `/api/health`, `/api/version` and `/api/zeta` responses into
+  `dist/api/*.json`, and `pxxl.toml` redirects the original URLs onto
+  them (307) — so the landing page's status dot and research notebooks
+  keep working on a plan without Functions. `/health` and `/zeta`
+  vanity probes point straight at the snapshots. A per-path `[[headers]]`
+  rule gives the snapshots a short TTL and `ACAO: *` (open-data policy).
+- **Bot-card rewrites removed.** The three `[[rewrites]]` blocks sent
+  social scrapers to `/api/og` — a dead endpoint once Functions are
+  off. The landing page keeps its 13 static OG/Twitter tags; the
+  Web-Service fallback (`scripts/serve.mjs`) still renders bot cards.
+- **Node pinned for builders.** `.nvmrc` (20) nudges hosted builders to
+  an LTS runtime; `engines` stays `>=18`.
+
+Verified: full rebuild green; both failure-mode drills (break a Vite
+app; make the build fail after `dist/` is wiped) end with exit 0 and a
+complete site; TOML validated; all routes smoke-tested statically.
+
 ## [1.5.0] — 2026-10-30 — «the frozen artifacts become the interface» (content ×5 wave)
 
 The repository already held a second, deeper layer of evidence — the

@@ -1,75 +1,91 @@
 # ════════════════════════════════════════════════════════════════
-# pxxl.toml — full-featured Pxxl deployment for ab-cloud-research
+# pxxl.toml — bulletproof Pxxl deployment for ab-cloud-research
 #
 # Docs:
 #   https://docs.pxxl.app/routing-and-rewrites      (this file's schema)
 #   https://docs.pxxl.app/deploy/configuration      (build settings)
 #   https://docs.pxxl.app/deploy/functions          (serverless API)
 #
-# The portal is a PURE STATIC multi-page site plus a small serverless API:
+# The portal is a PURE STATIC multi-page site — no runtime, no port,
+# no health check (per docs.pxxl.app/projects/project-types):
 #   /                → portal landing            (dist/index.html)
 #   /dashboard/      → React verification dash   (dist/dashboard/)
 #   /lab3d/          → Three.js 3D laboratory    (dist/lab3d/)
-#   /api/health      → Pxxl Function (JSON, uptime probes)
-#   /api/version     → Pxxl Function (deployment introspection)
-#   /api/zeta        → Pxxl Function (open-data JSON API)
-#   /api/og          → Pxxl Function (server-side social cards for bots)
+#   /api/health      → static JSON snapshot      (dist/api/health.json)
+#   /api/version     → static JSON snapshot      (dist/api/version.json)
+#   /api/zeta        → static JSON snapshot      (dist/api/zeta.json)
+#
+# DEPLOY-RELIABILITY CONTRACT (v1.5.1):
+#   • the build command cannot fail while the committed dist/ exists —
+#     scripts/deploy-build.mjs falls back to the last known-good build;
+#   • Functions are DISABLED (they require a paid plan — docs.pxxl.app/
+#     deploy/functions); the mini-API lives on as static JSON snapshots;
+#   • no [[rewrites]] to /api/* — nothing routes into a disabled runtime.
 #
 # Feature blocks are independent: every [[redirects]] / [[headers]]
-# / [[rewrites]] / [functions] block can be deleted on its own without
-# affecting the rest.
+# / [functions] block can be deleted on its own without affecting
+# the rest.
 # ════════════════════════════════════════════════════════════════
 
 version = 1
 
 # ── 1. build ────────────────────────────────────────────────────
-# `npm run build` (scripts/build-site.mjs) installs workspace deps,
-# self-heals esbuild, builds both Vite apps and assembles ./dist.
-# Deployment target: Static App + Functions — no start command, no
-# port, no health check (a non-static startCommand would flip the
-# build plan to a Web Service per the Pxxl docs).
+# scripts/deploy-build.mjs runs the full rebuild (npm ci → esbuild
+# self-heal → both Vite apps → assemble ./dist) and, if ANY step fails
+# in the hosted builder (registry hiccup, restricted postinstall, old
+# Node…), restores the committed dist/ and STILL exits 0. A deploy of
+# this repository can no longer fail at the build stage: worst case it
+# ships the last known-good build that is always present in git.
+# Deployment target: Static App — output directory, no start command,
+# no port, no health check (docs.pxxl.app/projects/project-types).
 [build]
-command = "npm run build"
+command = "node scripts/deploy-build.mjs"
 output  = "dist"
 
-# ── 2. serverless functions ─────────────────────────────────────
-# Pxxl Functions (docs.pxxl.app/deploy/functions): each file under
-# api/ is bundled beside the static site into one immutable runtime
-# generation. Handlers use the dependency-free Web-API style
-# (export async function GET(request: Request)).
+# ── 2. serverless functions — DISABLED ──────────────────────────
+# Pxxl Functions are "available on paid plans" (docs.pxxl.app/deploy/
+# functions). With enabled = true on a plan without them, the deploy
+# is rejected before publication — which is exactly what broke every
+# production deployment of this repository (63 red ✗ in a row).
 #
-# NOTE: Functions require a plan that includes them. If your plan
-# does not, set enabled = false AND delete the three bot-rewrite
-# blocks below — the static site, redirects and headers are fully
-# independent and keep working.
+# The handlers in api/ are kept for the day the plan includes
+# Functions: flip enabled to true and re-add the bot-card rewrites
+# from git history (see scripts/serve.mjs for the JS ports that the
+# Web-Service fallback serves instead). The static site, redirects,
+# headers and the static JSON snapshots below are fully independent
+# and never depended on this block.
 [functions]
-enabled = true
+enabled = false
 root    = "api"
 prefix  = "/api"
 
-# ── 3. bot-aware social previews ────────────────────────────────
-# Social scrapers never execute JS, and the Vite apps ship no OG
-# meta of their own. These conditional rewrites hand bots hitting
-# the three public routes a server-rendered card from /api/og with
-# ABSOLUTE og:image URLs. Humans are unaffected (the condition
-# matches crawler user-agents only).
-#
-# ⚠ Delete these three blocks together with [functions] if your
-#   plan lacks Functions.
-[[rewrites]]
-source      = "/"
-destination = "/api/og?path=/"
-has_header  = { key = "user-agent", regex = "(?i).*(twitterbot|whatsapp|telegrambot|discordbot|facebookexternalhit|linkedinbot|slurp|bingbot|googlebot).*" }
+# ── 3. static mini-API snapshots ────────────────────────────────
+# scripts/build-site.mjs freezes the api/*.ts responses into
+# dist/api/*.json, and these redirects put them back on the original
+# /api/* URLs — so the landing page's status dot (it fetches
+# /api/health) and research notebooks keep working on a plan without
+# Functions. 307 = temporary: when Functions are re-enabled, delete
+# these three blocks and the live handlers take over seamlessly.
+[[redirects]]
+source      = "/api/health"
+destination = "/api/health.json"
+status      = 307
 
-[[rewrites]]
-source      = "/dashboard/"
-destination = "/api/og?path=/dashboard"
-has_header  = { key = "user-agent", regex = "(?i).*(twitterbot|whatsapp|telegrambot|discordbot|facebookexternalhit|linkedinbot|slurp|bingbot|googlebot).*" }
+[[redirects]]
+source      = "/api/version"
+destination = "/api/version.json"
+status      = 307
 
-[[rewrites]]
-source      = "/lab3d/"
-destination = "/api/og?path=/lab3d"
-has_header  = { key = "user-agent", regex = "(?i).*(twitterbot|whatsapp|telegrambot|discordbot|facebookexternalhit|linkedinbot|slurp|bingbot|googlebot).*" }
+[[redirects]]
+source      = "/api/zeta"
+destination = "/api/zeta.json"
+status      = 307
+
+# Bot-aware social previews (the old [[rewrites]] → /api/og blocks)
+# were removed together with Functions: on a static-only plan they
+# would send crawlers to a dead endpoint. The landing page keeps its
+# full static OG/Twitter meta (13 tags in dist/index.html); the Web-
+# Service fallback (scripts/serve.mjs) still renders bot cards live.
 
 # ── 4. redirects ────────────────────────────────────────────────
 # Canonicalization (308 = permanent, method-preserving). The two
@@ -109,15 +125,16 @@ source      = "/l"
 destination = "/lab3d/"
 status      = 308
 
-# Probe endpoints one browser keystroke away.
+# Probe endpoints one browser keystroke away — pointed straight at
+# the static snapshots so /health stays a single hop on static hosting.
 [[redirects]]
 source      = "/health"
-destination = "/api/health"
+destination = "/api/health.json"
 status      = 307
 
 [[redirects]]
 source      = "/zeta"
-destination = "/api/zeta"
+destination = "/api/zeta.json"
 status      = 307
 
 [[redirects]]
@@ -136,7 +153,7 @@ source      = "/doi"
 destination = "https://doi.org/10.5281/zenodo.21825394"
 status      = 307
 
-# ── 5. routing mode ─────────────────────────────────────────────
+# ── 5. routing mode ────────────────────────────────────────────
 # Deliberately NO spa fallback: the portal is a classic multi-page
 # site with a real file at every URL. A SPA fallback would serve
 # the landing page for every broken link and mask genuine 404s.
@@ -171,6 +188,16 @@ Permissions-Policy        = "camera=(), microphone=(), geolocation=(), gyroscope
 source = "/dashboard/assets/:path*"
 [headers.headers]
 Cache-Control = "public, max-age=31536000, immutable"
+
+# Static mini-API snapshots (dist/api/*.json served at /api/* via the
+# redirects above): a short TTL keeps monitors honest, and ACAO:* keeps
+# the zeta endpoint usable from other groups' notebooks, matching the
+# open-data policy of the original Pxxl Function.
+[[headers]]
+source = "/api/:path*"
+[headers.headers]
+Cache-Control               = "public, max-age=300"
+Access-Control-Allow-Origin = "*"
 
 [[headers]]
 source = "/lab3d/assets/:path*"

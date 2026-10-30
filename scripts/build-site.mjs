@@ -121,6 +121,79 @@ cpSync(join(apps[1].dir, 'dist'), join(dist, 'lab3d'), { recursive: true });
 //    (cpSync copies dot-directories too — site/.well-known/security.txt lands at dist/.well-known/)
 cpSync(site, dist, { recursive: true });
 
+// 3.5. Static API snapshots — dist/api/*.json
+//
+//      Pxxl Functions are a paid-plan feature; on plans without them the
+//      api/*.ts handlers are not deployed, yet the landing page's status
+//      dot fetches /api/health and research notebooks use /api/zeta.
+//      pxxl.toml therefore redirects /api/{health,version,zeta} onto these
+//      frozen JSON snapshots (307), so a PURE STATIC deployment keeps a
+//      working mini-API. Content mirrors scripts/serve.mjs and api/*.ts —
+//      keep the three in sync. Dynamic fields (time/uptime) are frozen to
+//      the build moment; the "mode" field makes that explicit.
+const ZEROS = [
+  14.1347251417347, 21.0220396387716, 25.0108575801457, 30.4248761258595,
+  32.9350615877392, 37.5861781588257, 40.91840544983, 43.327073280915,
+  48.0051508811672, 49.7738324776723, 52.9703214777145, 56.4462476970634,
+  59.3470440026024, 60.8317785246098, 65.1125440480817, 67.0798105294942,
+  69.546401711174, 72.0671576744853, 75.7046906990839, 77.1448400688748,
+  79.3373750202494, 82.910380854086, 84.7354929805171, 87.4208845358898,
+  88.8091112076345, 92.4918992713839, 94.65134404051, 95.8706342282453,
+  98.8311942181937, 101.317851005731,
+];
+const API_VERSION = '2.0.0'; // keep in sync with api/health.ts and api/version.ts
+const BUILD_TIME = new Date().toISOString();
+const REPO = 'https://github.com/wild8highlander/ab-cloud-research';
+const DOI = 'https://doi.org/10.5281/zenodo.21825394';
+
+const apiDir = join(dist, 'api');
+mkdirSync(apiDir, { recursive: true });
+const writeJson = (name, body) =>
+  writeFileSync(join(apiDir, name), JSON.stringify(body, null, 2) + '\n');
+
+writeJson('health.json', {
+  status: 'ok',
+  service: 'ab-cloud-research',
+  version: API_VERSION,
+  mode: 'static-snapshot',
+  time: BUILD_TIME,
+  uptimeSeconds: 0,
+  endpoints: {
+    health: '/api/health',
+    version: '/api/version',
+    zetaZeros: '/api/zeta?n=1..30',
+  },
+  links: { repository: REPO, doi: DOI },
+});
+
+writeJson('version.json', {
+  service: 'ab-cloud-research',
+  version: API_VERSION,
+  release: 'x15-plus',
+  mode: 'static-snapshot',
+  time: BUILD_TIME,
+  features: {
+    staticApp: ['redirects', 'security-headers', 'cache-tiers', 'spa=false', 'static-api-snapshots'],
+    pwa: ['manifest', 'service-worker', 'offline-fallback', 'shortcuts'],
+    api: ['/api/health', '/api/version', '/api/zeta'],
+  },
+  links: { repository: REPO, doi: DOI },
+});
+
+writeJson('zeta.json', {
+  hypothesis: 'Re(s) = 1/2 for every nontrivial zero of zeta(s)',
+  zero: { ordinal: 1, realPart: 0.5, imaginaryPart: ZEROS[0] },
+  zeros: ZEROS.slice(0, 10).map((imag, i) => ({ ordinal: i + 1, s: { re: 0.5, im: imag } })),
+  count: 10,
+  meta: {
+    source: 'first nontrivial zeros on the critical line (Odlyzko tables)',
+    usage: '/api/zeta.json serves the first 10 zeros; ?n=1..30 ranges need Pxxl Functions (api/zeta.ts)',
+    fullFirst30: ZEROS.map((imag, i) => ({ ordinal: i + 1, s: { re: 0.5, im: imag } })),
+    companionDataset: '/dashboard/data/zeta_zeros_50000_embedded.txt',
+    links: { repository: REPO, doi: DOI },
+  },
+});
+
 // 4. Optional SEO pass — only when the public URL is known.
 //    Set SITE_URL in Pxxl Secrets ("https://<your-pxxl-domain>"), rebuild,
 //    and the deploy gains a sitemap, robots Sitemap line, canonical link
@@ -170,5 +243,6 @@ console.log('\n✅ AB-Cloud portal assembled:');
 console.log('   dist/index.html          — portal landing');
 console.log('   dist/dashboard/…         — verification dashboard (React 19 + Vite)');
 console.log('   dist/lab3d/…             — 3D laboratory (React 19 + Three.js)');
+console.log('   dist/api/*.json          — static mini-API snapshots (health/version/zeta)');
 console.log('   dist/offline.html        — offline fallback (service worker)');
 console.log('   dist/.well-known/        — security.txt (RFC 9116)');

@@ -1,0 +1,31 @@
+{
+  "service": "ab-cloud-research",
+  "version": "2.0.0",
+  "release": "x15-plus",
+  "mode": "static-snapshot",
+  "time": "2026-10-30T15:25:32.990Z",
+  "features": {
+    "staticApp": [
+      "redirects",
+      "security-headers",
+      "cache-tiers",
+      "spa=false",
+      "static-api-snapshots"
+    ],
+    "pwa": [
+      "manifest",
+      "service-worker",
+      "offline-fallback",
+      "shortcuts"
+    ],
+    "api": [
+      "/api/health",
+      "/api/version",
+      "/api/zeta"
+    ]
+  },
+  "links": {
+    "repository": "https://github.com/wild8highlander/ab-cloud-research",
+    "doi": "https://doi.org/10.5281/zenodo.21825394"
+  }
+}
