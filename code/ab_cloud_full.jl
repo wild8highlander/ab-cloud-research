@@ -20,15 +20,20 @@ export ab_w, ab_box, ab_panel_header, ab_show_banner, ab_render_bar,
        ab_verdict_icon, ab_celebrate, ab_ico, ab_ico_lab, ab_ico_h,
        ab_color_on, ab_color_off, ab_cyn, ab_grn, ab_red, ab_ylw, ab_mag,
        ab_blu, ab_gry, ab_wht, ab_org, ab_B, ab_D, ab_R,
-       ab_gold, ab_vio, ab_ice, ab_rule
+       ab_gold, ab_vio, ab_ice, ab_rule,
+       ab_hr, ab_subhr, ab_badge, ab_kv, ab_note, ab_ok, ab_warn,
+       ab_error, ab_emph, ab_sparkline, ab_category_header, ab_bar,
+       ab_grad_rule, ab_trunc, ab_pad,
+       ab_table, ab_cell_color, ab_colorize, ab_stat_block
 
-# ═══ AURORA DEEP PALETTE ════════════════════════════════════════════════════
+# ═══ AURORA DEEP PALETTE ═══════════════════════════════════════════════════
 # чёрно-синее небо, полярное сияние и золото: заголовки — лёд/синь,
 # акценты и вердикты PASS — золото, FAIL — алый, WARN — янтарь
 const _AUR_ICE  = (125, 211, 252)   # ледяной голубой (основной тон)
 const _AUR_SKY  = (91, 141, 255)    # синь (вторичный тон)
 const _AUR_GOLD = (232, 199, 102)   # светлое золото (акценты, ETA, WARN)
 const _AUR_GRN  = (52, 211, 153)    # полярная зелень (PASS)
+const _AUR_VIO  = (167, 139, 250)   # фиолетовое сияние
 
 # ─── цветовой шлюз: отчёты всегда получают чистый текст ───────────────────────
 const COLOR = Ref{Bool}(true)
@@ -37,15 +42,20 @@ ab_color_off() = (COLOR[] = false; nothing)
 
 _ab() = COLOR[]
 _p3(r::Int, g::Int, b::Int) = _ab() ? "\e[38;2;$(r);$(g);$(b)m" : ""
-ab_cyn() = _p3(_AUR_ICE...);  ab_grn() = _p3(_AUR_GRN...)
-ab_red() = _p3(255,95,110);   ab_ylw() = _p3(_AUR_GOLD...)
-ab_mag() = _p3(167,139,250);  ab_blu() = _p3(_AUR_SKY...)
-ab_gry() = _p3(139,152,178);  ab_wht() = _p3(235,240,255)
-ab_org() = _p3(255,159,90)
-ab_gold() = _p3(212,175,55)   # глубокое золото (орнаменты, баннеры)
-ab_vio()  = _p3(167,139,250)  # фиолетовое сияние
-ab_ice()  = _p3(_AUR_ICE...)  # лёд (заголовки разделов)
+ab_cyn()  = _p3(_AUR_ICE...)
+ab_grn()  = _p3(_AUR_GRN...)
+ab_red()  = _p3(255,  95, 110)
+ab_ylw()  = _p3(_AUR_GOLD...)
+ab_mag()  = _p3(_AUR_VIO...)
+ab_blu()  = _p3(_AUR_SKY...)
+ab_gry()  = _p3(139, 152, 178)
+ab_wht()  = _p3(235, 240, 255)
+ab_org()  = _p3(255, 159,  90)
+ab_gold() = _p3(212, 175, 55)   # глубокое золото (орнаменты, баннеры)
+ab_vio()  = _p3(_AUR_VIO...)    # фиолетовое сияние
+ab_ice()  = _p3(_AUR_ICE...)    # лёд (заголовки разделов)
 
+# ═══ AURORA ORNAMENTAL LINE ════════════════════════════════════════════════
 "Орнаментальная линия-разделитель AURORA: ✦ ── ❄ ── ✦"
 function ab_rule(width::Int = 66; ornament::Bool = true)::String
     _ab() || return "─"^width
@@ -58,6 +68,13 @@ function ab_rule(width::Int = 66; ornament::Bool = true)::String
         ab_D() * "─"^width * ab_R()
     return line
 end
+
+"Градиентная орнаментная линия (без центрального ❄)."
+function ab_grad_rule(width::Int = 66; c1 = _AUR_ICE, c2 = _AUR_GOLD)::String
+    _ab() || return "─"^width
+    return _grad("─"^width, c1, c2)
+end
+
 ab_B() = _ab() ? "\e[1m" : ""
 ab_D() = _ab() ? "\e[2m" : ""
 ab_R() = _ab() ? "\e[0m" : ""
@@ -78,14 +95,15 @@ function ab_w(s::AbstractString)::Int
         else
             u = codepoint(c)
             w += (u >= 0x1F300 || u == 0x2705 || u == 0x274C || u == 0x2B50 ||
-                  u == 0x2714 || u == 0x26A1 || u == 0x2699 || u == 0x25B6) ? 2 : (u >= 0x2600 ? 2 : 1)
+                  u == 0x2714 || u == 0x26A1 || u == 0x2699 || u == 0x25B6) ? 2 :
+                 (u >= 0x2600 ? 2 : 1)
             i = nextind(s, i)
         end
     end
     return w
 end
 
-"Обрезать строку до видимой ширины w (ANSI-кодом не считается)."
+"Обрезать строку до видимой ширины wmax (ANSI-кодом не считается)."
 function ab_trunc(s::AbstractString, wmax::Int)::String
     ab_w(s) <= wmax && return String(s)
     out = IOBuffer(); acc = 0; i = firstindex(s); n = lastindex(s)
@@ -143,24 +161,152 @@ function _grad(s::AbstractString, c1::Tuple{Int,Int,Int}, c2::Tuple{Int,Int,Int}
     return String(take!(io))
 end
 
-_accent(::Val{:cyan}) = ab_cyn(); _accent(::Val{:green}) = ab_grn()
-_accent(::Val{:magenta}) = ab_mag(); _accent(::Val{:yellow}) = ab_ylw()
-_accent(::Val{:blue}) = ab_blu();  _accent(::Val{:red}) = ab_red()
-_accent(::Val{:gold}) = ab_gold(); _accent(::Val{:violet}) = ab_vio()
-_accent(::Val{:ice}) = ab_ice()
+_accent(::Val{:cyan})    = ab_cyn()
+_accent(::Val{:green})   = ab_grn()
+_accent(::Val{:magenta}) = ab_mag()
+_accent(::Val{:yellow})  = ab_ylw()
+_accent(::Val{:blue})    = ab_blu()
+_accent(::Val{:red})     = ab_red()
+_accent(::Val{:gold})    = ab_gold()
+_accent(::Val{:violet})  = ab_vio()
+_accent(::Val{:ice})     = ab_ice()
+
+# ═══ AURORA DASHBOARD HELPERS ═════════════════════════════════════════════
+# Общие элементы для красивого вывода: разделители, бейджи, ключ-значение,
+# спарклайны, заголовки категорий, статические прогресс-бары.
+
+"Орнаментальный разделитель секции с заголовком: ✦ ── title ── ✦."
+function ab_hr(title::AbstractString = ""; width::Int = 66,
+               accent::Symbol = :gold)::String
+    isempty(title) && return ab_grad_rule(width)
+    _ab() || return "── $title " * "─"^max(0, width - 4 - ab_w(title))
+    tw = ab_w(title) + 2
+    side = max(2, (width - tw - 4) ÷ 2)
+    left  = ab_gold() * "✦" * ab_R() * ab_D() * "─"^side * ab_R()
+    right = ab_D() * "─"^side * ab_R() * ab_gold() * "✦" * ab_R()
+    A = _accent(Val{accent}())
+    mid = A * ab_B() * " " * title * " " * ab_R()
+    return left * mid * right
+end
+
+"Тонкий подразделитель (точки)."
+function ab_subhr(width::Int = 66)::String
+    _ab() || return "─"^width
+    n = max(0, (width - 3) ÷ 2)
+    return _grad("· " * "·"^n, _AUR_ICE, _AUR_GOLD)
+end
+
+"Цветной бейдж статуса: [PASS] / [WARN] / [FAIL] / [INFO] / [DONE]."
+function ab_badge(text::AbstractString; color::Symbol = :cyan)::String
+    _ab() || return "[" * text * "]"
+    col = color === :pass ? ab_grn() :
+          color === :warn ? ab_ylw() :
+          color === :fail ? ab_red() :
+          color === :gold ? ab_gold() :
+          color === :ice  ? ab_ice()  :
+          color === :done ? ab_blu()  :
+          color === :vio  ? ab_vio()  : ab_cyn()
+    return col * ab_B() * "[" * text * "]" * ab_R()
+end
+
+"Ключ-значение с цветным ключом и разделителем."
+function ab_kv(key::AbstractString, value::AbstractString;
+               keycolor::Symbol = :ice, valcolor::Symbol = :white,
+               width::Int = 22)::String
+    _ab() || return rpad(key, width) * " = " * value
+    kc = keycolor === :gold   ? ab_gold() :
+         keycolor === :cyan   ? ab_cyn()  :
+         keycolor === :green  ? ab_grn()  :
+         keycolor === :red    ? ab_red()  :
+         keycolor === :yellow ? ab_ylw()  :
+         keycolor === :blue   ? ab_blu()  :
+         keycolor === :violet ? ab_vio()  : ab_ice()
+    vc = valcolor === :white  ? ab_wht()  :
+         valcolor === :gold   ? ab_gold() :
+         valcolor === :cyan   ? ab_cyn()  :
+         valcolor === :green  ? ab_grn()  :
+         valcolor === :red    ? ab_red()  :
+         valcolor === :yellow ? ab_ylw()  :
+         valcolor === :dim    ? ab_gry()  : ab_ice()
+    pad = max(0, width - ab_w(key))
+    return kc * ab_B() * key * ab_R() * " "^pad *
+           ab_D() * "│" * ab_R() * " " * vc * value * ab_R()
+end
+
+"Информационная заметка (синий ℹ)."
+ab_note(s::AbstractString)  = _ab() ? ab_ice() * "ℹ  " * s * ab_R() : "note: " * s
+"Успех (зелёная ✓)."
+ab_ok(s::AbstractString)    = _ab() ? ab_grn() * "✓  " * s * ab_R() : "ok: " * s
+"Предупреждение (жёлтая ⚠)."
+ab_warn(s::AbstractString)  = _ab() ? ab_ylw() * "⚠  " * s * ab_R() : "warn: " * s
+"Ошибка (красная ✖)."
+ab_error(s::AbstractString) = _ab() ? ab_red() * ab_B() * "✖  " * s * ab_R() : "error: " * s
+"Акцентирование (золото)."
+ab_emph(s::AbstractString)  = _ab() ? ab_gold() * ab_B() * s * ab_R() : s
+
+"Sparkline через юникод-блоки: ▁▂▃▄▅▆▇█."
+function ab_sparkline(vals::AbstractVector{<:Real};
+                      color::Symbol = :gold)::String
+    isempty(vals) && return ""
+    blocks = ['▁','▂','▃','▄','▅','▆','▇','█']
+    lo = minimum(vals); hi = maximum(vals)
+    span = max(hi - lo, 1e-30)
+    col = color === :ice  ? ab_ice()  :
+          color === :cyan ? ab_cyn()  : ab_grn()
+    io = IOBuffer()
+    _ab() && print(io, col)
+    for v in vals
+        idx = clamp(round(Int, (v - lo) / span * 7) + 1, 1, 8)
+        print(io, blocks[idx])
+    end
+    _ab() && print(io, ab_R())
+    return String(take!(io))
+end
+
+"Крупный заголовок-категория для меню (без \\n — не рвёт рамочный ab_box)."
+function ab_category_header(icon::AbstractString, title::AbstractString;
+                            color::Symbol = :gold)::String
+    _ab() || return "── $title ──"
+    col = color === :gold   ? ab_gold() :
+          color === :cyan   ? ab_cyn()  :
+          color === :green  ? ab_grn()  :
+          color === :violet ? ab_vio()  :
+          color === :red    ? ab_red()  :
+          color === :blue   ? ab_blu()  : ab_ice()
+    return " " * ab_D() * "──" * ab_R() * " " *
+           col * ab_B() * icon * " " * title * ab_R() * " " *
+           ab_D() * repeat("─", max(4, 34 - ab_w(title))) * ab_R()
+end
+
+"Быстрый горизонтальный прогресс-бар (статический, для summary)."
+function ab_bar(frac::Real; width::Int = 16, label::String = "",
+                color::Symbol = :gold)::String
+    f = clamp(Float64(frac), 0.0, 1.0)
+    nfill = round(Int, f * width)
+    col_lo = color === :pass ? ab_grn() :
+             color === :warn ? ab_ylw() :
+             color === :fail ? ab_red() : ab_gold()
+    _ab() || return "[" * "#"^nfill * "."^(width - nfill) * "] " *
+                    @sprintf("%5.1f%%", 100 * f) *
+                    (isempty(label) ? "" : "  " * label)
+    bar = col_lo * "▰"^nfill * ab_R() *
+          _p3(38, 52, 84) * "▱"^(width - nfill) * ab_R()
+    lbl = isempty(label) ? "" : "  " * ab_D() * label * ab_R()
+    return bar * " " * ab_wht() * ab_B() * @sprintf("%5.1f%%", 100 * f) * ab_R() * lbl
+end
 
 # ─── рамочный бокс ╔═╗ с уже готовыми (раскрашенными) строками ────────────────
 function ab_box(rows::Vector{String}; title::String = "", note::String = "",
                 accent::Symbol = :gold)
     content = filter(!=("SEP"), rows)
     maxw = isempty(content) ? 40 : maximum(ab_w, content)
-    inner = clamp(maxw + 2, 56, 76)
+    inner = clamp(maxw + 2, 56, 78)
     A = _accent(Val{accent}())
     io = IOBuffer()
     print(io, A, "╔", "═"^inner, "╗", ab_R(), "\n")
     if !isempty(title)
         t = ab_trunc(title, inner - 4)
-        nt = isempty(note) ? "" : ab_trunc(note, 12)
+        nt = isempty(note) ? "" : ab_trunc(note, 14)
         body = " " * t
         line = ab_pad(body, inner - 2 - (isempty(nt) ? 0 : ab_w(nt) + 3))
         print(io, A, "║", ab_R(), line)
@@ -173,7 +319,8 @@ function ab_box(rows::Vector{String}; title::String = "", note::String = "",
             print(io, A, "╟", "─"^inner, "╢", ab_R(), "\n")
         else
             rr = ab_trunc(r, inner - 4)
-            print(io, A, "║", ab_R(), " ", rr, " "^(max(0, inner - 2 - ab_w(rr) - 1)), A, "║", ab_R(), "\n")
+            print(io, A, "║", ab_R(), " ", rr,
+                  " "^(max(0, inner - 2 - ab_w(rr) - 1)), A, "║", ab_R(), "\n")
         end
     end
     print(io, A, "╚", "═"^inner, "╝", ab_R())
@@ -210,32 +357,48 @@ const _ART = [
 function ab_show_banner(title::AbstractString, infos::Vector{String})
     println()
     if _ab() && stdout isa Base.TTY
-        # баннер: градиент ледяного синего → золота (AURORA Deep)
+        # ── ASCII-лого: ледяной → золотой градиент ──
         for line in _ART
-            println(_grad(rpad(line, 59), _AUR_ICE, _AUR_GOLD))
+            println("   " * _grad(rpad(line, 59), _AUR_ICE, _AUR_GOLD))
         end
-        println("   ", ab_rule(66))
-        println(ab_B(), ab_gold(), "  ✦  ", ab_R(), ab_B(), ab_wht(), title, ab_R())
+        # ── Баннерная линия с орнаментом ──
+        println("   " * ab_rule(66))
+        # ── Заголовок ──
+        println("   " * ab_gold() * "✦  " * ab_R() *
+                ab_B() * ab_wht() * title * ab_R())
+        # ── Информационные строки ──
         for s in infos
-            println("   ", ab_gold(), "│", ab_R(), " ", ab_gry(), s, ab_R())
+            println("   " * ab_gold() * "│" * ab_R() * " " *
+                    ab_gry() * s * ab_R())
         end
-        println("   ", ab_rule(66))
-        println(ab_D(), "   ❄ AURORA visual engine · truecolor · ",
-                Dates.format(Dates.now(), "yyyy-mm-dd HH:MM"), ab_R())
+        println("   " * ab_rule(66))
+        # ── Фичевые бейджи в одну строку ──
+        println("   " *
+            ab_badge("AURORA", color = :gold) * " " *
+            ab_badge("truecolor", color = :cyan) * " " *
+            ab_badge("stdlib-only", color = :green) * " " *
+            ab_badge("Termux-safe", color = :ice) * " " *
+            ab_badge("Julia " * string(VERSION)[1:min(4, end)], color = :warn))
+        # ── Метаданные ──
+        println("   " * ab_D() * "❄ AURORA visual engine · " *
+                Dates.format(Dates.now(), "yyyy-mm-dd HH:MM") *
+                " · " * ab_gold() * "✦" * ab_R())
     else
-        println(repeat("=", 60))
-        println(title)
+        # ── Non-TTY fallback: plain text (для логов/CI) ──
+        println(repeat("═", 62))
+        println("  " * title)
+        println(repeat("─", 62))
         for s in infos
-            println(s)
+            println("  " * s)
         end
-        println(repeat("=", 60))
+        println(repeat("═", 62))
     end
     return
 end
 
 # ─── ГЛАВНЫЙ прогресс-бар тестов (одна строка, STDERR) ────────────────────────
 function ab_render_bar(; label::String, frac::Float64, extra::String,
-                        elapsed::Float64, width::Int, now_str::String)::String
+                       elapsed::Float64, width::Int, now_str::String)::String
     f = clamp(frac, 0.0, 1.0)
     lab = ab_pad(String(first(label, 10)), 10)
     pct = @sprintf("%5.1f%%", 100 * f)
@@ -260,9 +423,9 @@ function ab_render_bar(; label::String, frac::Float64, extra::String,
     s = _spin_str() * " " * ab_cyn() * lab * ab_R() * bar * " " * pcc * ab_B() * pct * ab_R()
     used = 2 + 10 + barw + 1 + 6
     eta = (f > 0.03 && f < 0.999) ? elapsed * (1 - f) / max(f, 0.03) : -1.0
-    for (txt, vis) in ((isempty(extra) ? "" : extra, nothing),
-                       (eta > 0 ? "ETA " * _hms(eta) : "", nothing),
-                       ("up " * _hms(elapsed), nothing))
+    for (txt, _) in ((isempty(extra) ? "" : extra, nothing),
+                     (eta > 0 ? "ETA " * _hms(eta) : "", nothing),
+                     ("up " * _hms(elapsed), nothing))
         isempty(txt) && continue
         v = ab_w(txt)
         if used + 3 + v + 22 <= width - 1
@@ -275,9 +438,9 @@ function ab_render_bar(; label::String, frac::Float64, extra::String,
     return s
 end
 
-# ─── бар для циклов (pbar) ────────────────────────────────────────────────────
+# ─── бар для циклов (loop bar) ────────────────────────────────────────
 function ab_render_loopbar(; label::String, k::Int, n::Int, frac::Float64,
-                            elapsed::Float64, width::Int)::String
+                           elapsed::Float64, width::Int)::String
     f = clamp(frac, 0.0, 1.0)
     lab = ab_pad(String(first(label, 18)), 18)
     barw = clamp(width - 2 - 18 - 12 - 24, 10, 24)
@@ -325,16 +488,34 @@ function ab_done_line(label::AbstractString, hms_s::AbstractString,
            ab_D() * " — " * ts * ab_R() * " → " * verdict
 end
 
-# ─── раскраска вердиктов в лог-строках (консоль; отчёты остаются чистыми) ─────
+# ─── раскраска вердиктов и метрик в лог-строках (консоль; отчёты чистые) ─────
+# NB: replace(s, re => f) передаёт f SubString совпадения (НЕ RegexMatch) —
+# поэтому в колбэках используется сам m, без m.match / m.captures.
 function ab_paint_result(s::AbstractString)::String
     _ab() || return String(s)
     t = String(s)
-    for (pat, col) in ((r"\bPASS\b", ab_grn()), (r"\bWARN\b", ab_ylw()),
-                       (r"\bFAIL\b", ab_red()), (r"\bERROR\b", ab_red()))
-        t = replace(t, pat => m -> col * ab_B() * m.match * ab_R())
+    # ── verdict keywords ──
+    for (pat, col) in ((r"\bPASS\b", ab_grn()),
+                       (r"\bWARN\b", ab_ylw()),
+                       (r"\bFAIL\b", ab_red()),
+                       (r"\bERROR\b", ab_red()),
+                       (r"\bDONE\b", ab_blu()))
+        t = replace(t, pat => m -> col * ab_B() * m * ab_R())
     end
-    for (w, col) in (("ПРОЙДЕН", ab_grn()), ("ПРЕДУПР.", ab_ylw()), ("СБОЙ", ab_red()))
+    for (w, col) in (("ПРОЙДЕН", ab_grn()),
+                     ("ПРЕДУПР.", ab_ylw()),
+                     ("СБОЙ", ab_red()))
         t = replace(t, w => col * ab_B() * w * ab_R())
+    end
+    # ── statistical metric labels ──
+    for pat in (r"⟨r⟩\s*=", r"\bσ\s*=", r"\bR²\s*=",
+                r"\bKS\s+D\s*=", r"\bKS\s+p\s*=", r"\bf_GUE\s*=",
+                r"\bIPR\s*=", r"\bΔ₃\s*=", r"Σ²\s*=")
+        t = replace(t, pat => m -> ab_ice() * m * ab_R())
+    end
+    # ── chaos / order-parameter labels ──
+    for pat in (r"\bΛ\s*=", r"\bT\*\s*=", r"\bT_c\s*=", r"\bTc\s*=")
+        t = replace(t, pat => m -> ab_gold() * m * ab_R())
     end
     return t
 end
@@ -346,35 +527,428 @@ const _ICO_TEST = Dict{Int,String}(1=>"📈",2=>"📈",3=>"📈",4=>"🎲",5=>"�
     7=>"📉",8=>"📉",9=>"📉",10=>"🔁",11=>"📐",12=>"🧮",13=>"📊",14=>"📏",15=>"🌀",
     16=>"🌀",17=>"🔃",18=>"⚛️",19=>"🛰️",20=>"🧲",21=>"🧲",22=>"🧲",23=>"🌀",24=>"🧲",
     25=>"⚖️",26=>"🧭",27=>"⚛️",28=>"🎯",29=>"📉",30=>"📈",31=>"🔗",32=>"📊",33=>"📏",
-    34=>"🌌",35=>"📈",36=>"🔒",37=>"🎓",38=>"🔥")
+    34=>"🌌",35=>"📈",36=>"🔒",37=>"🎓",38=>"🔥",39=>"🌐")
 const _ICO_LAB = ["🧪","🔬","🌀","📊","⚛️","🧲","📈","🎲"]
 const _ICO_HP  = ["🧬","🧬","🧬","🧬"]
-ab_ico(id::Int) = get(_ICO_TEST, id, "🧪")
+ab_ico(id::Int)     = get(_ICO_TEST, id, "🧪")
 ab_ico_lab(id::Int) = _ICO_LAB[mod1(id, length(_ICO_LAB))]
-ab_ico_h(id::Int) = _ICO_HP[mod1(id, length(_ICO_HP))]
+ab_ico_h(id::Int)   = _ICO_HP[mod1(id, length(_ICO_HP))]
 
 # ─── финальный салют (полярное сияние) ────────────────────────────────────────
 function ab_celebrate()
     _ab() && stdout isa Base.TTY || return
     println()
-    println("   ", _grad("✦ ──────────────────────────────────────────── ❄ ──────────────────────────────────────────── ✦",
-                      _AUR_ICE, _AUR_GOLD))
+    println("   ", _grad("✦ ─────────────────────────────────────── ❄ ─────────────────────────────────────── ✦",
+                        _AUR_ICE, _AUR_GOLD))
     println("      ", ab_gold(), "✨ ", ab_B(), "SESSION COMPLETE · СЕССИЯ ЗАВЕРШЕНА", ab_R(), " ✨")
-    println("   ", _grad("✦ ──────────────────────────────────────────── ❄ ──────────────────────────────────────────── ✦",
-                      _AUR_GOLD, _AUR_ICE))
+    println("   ", _grad("✦ ─────────────────────────────────────── ❄ ─────────────────────────────────────── ✦",
+                        _AUR_GOLD, _AUR_ICE))
     return
+end
+
+# ═══ AURORA TABLE / STAT-BLOCK ═════════════════════════════════════════
+# Красивые таблицы и лёгкие стат-панели для REPL-вывода тестов:
+# классификатор цвета ячейки, цветной рендер, ab_table и ab_stat_block.
+
+"Цвет ячейки по содержимому. Возвращает :plain для «обычных» ячеек."
+function ab_cell_color(s::AbstractString)::Symbol
+    u = uppercase(strip(s))
+    u in ("PASS", "KEEP", "OK", "✓", "PASS ✓")           && return :green
+    u in ("WARN", "WARNING", "⚠")                        && return :yellow
+    u in ("FAIL", "REJECT", "REJECTED", "✗", "ERROR")    && return :red
+    u in ("DONE",)                                        && return :blue
+    u in ("GUE", "GUE ✓", "GUE-CLASS")                    && return :cyan
+    u in ("GOE", "POISSON")                               && return :dim
+    (u == "NAN" || u == "—" || u == "N/A")                && return :dim
+    return :plain
+end
+
+"Обернуть текст в ANSI-цвет (:plain = без изменений, работает и в non-TTY)."
+function ab_colorize(s::AbstractString, c::Symbol)::String
+    c == :plain && return String(s)
+    c == :gold   && return ab_gold() * s * ab_R()
+    c == :cyan   && return ab_cyn()  * s * ab_R()
+    c == :green  && return ab_grn()  * s * ab_R()
+    c == :yellow && return ab_ylw()  * s * ab_R()
+    c == :red    && return ab_red()  * s * ab_R()
+    c == :blue   && return ab_blu()  * s * ab_R()
+    c == :dim    && return ab_gry()  * s * ab_R()
+    c == :ice    && return ab_ice()  * s * ab_R()
+    c == :violet && return ab_vio()  * s * ab_R()
+    c == :white  && return ab_wht()  * s * ab_R()
+    return String(s)
+end
+
+"""
+    ab_table(headers, rows; kwargs...) -> String
+
+AURORA-таблица: Unicode box-drawing, цветные заголовки, автоматическая
+раскраска ячеек-вердиктов (PASS/WARN/FAIL/GUE/GOE/NaN) и (опционально)
+ширинный fit под реальный терминал.
+
+Keywords:
+  aligns::Vector{Symbol}   :left | :right | :center — по колонкам
+                           (по умолчанию — все :left)
+  accent::Symbol           цвет заголовков (:gold)
+  border::Symbol           цвет рамки (:dim)
+  title::String            заголовок над верхней рамкой
+  cell_color::Function     Function(String) → Symbol; по умолчанию ab_cell_color
+  max_width::Int           жёсткий предел видимой ширины (0 = авто по stderr)
+"""
+function ab_table(headers::Vector{<:AbstractString},
+                  rows::Vector{<:Vector};
+                  aligns::Vector{Symbol} = fill(:left, length(headers)),
+                  accent::Symbol = :gold,
+                  border::Symbol = :dim,
+                  title::AbstractString = "",
+                  cell_color::Function = ab_cell_color,
+                  max_width::Int = 0)::String
+    ncol = length(headers)
+    length(aligns) == ncol || error("ab_table: aligns must match headers")
+    # ── нормализация строк: короткие добиваем пустыми, длинные режем до ncol
+    # (иначе widths[i] на кривой строке выходил бы за BoundsError) ──
+    str_rows = Vector{Vector{String}}()
+    for r0 in rows
+        r = [string(x) for x in r0]
+        length(r) > ncol && (r = r[1:ncol])
+        while length(r) < ncol
+            push!(r, "")
+        end
+        push!(str_rows, r)
+    end
+    widths = [ab_w(h) for h in headers]
+    for r in str_rows, (i, v) in enumerate(r)
+        widths[i] = max(widths[i], ab_w(v))
+    end
+    # ── ширинный fit ──
+    if max_width <= 0
+        max_width = stderr isa Base.TTY ? clamp(displaysize(stderr)[2] - 2, 30, 120) : 0
+    end
+    indent = 2
+    borders = (ncol + 1) + 2 * ncol + indent # рамки + внутренние отступы
+    total = sum(widths) + borders
+    if max_width > 0 && total > max_width
+        budget = max_width - borders
+        scale = budget / max(sum(widths), 1)
+        widths = [max(3, floor(Int, w * scale)) for w in widths]
+    end
+    # ── рендер ──
+    io = IOBuffer()
+    bcol = s -> ab_colorize(s, border)
+    acol = s -> ab_colorize(s, accent)
+    isempty(title) || println(io, "  " * acol("✦ ") * ab_B() * title * ab_R())
+    print(io, "  ", bcol("╭"))
+    for (i, w) in enumerate(widths)
+        print(io, bcol("─"^(w + 2)), bcol(i == ncol ? "╮" : "┬"))
+    end
+    println(io)
+    # заголовок
+    print(io, "  ", bcol("│"))
+    for (i, h) in enumerate(headers)
+        hh = String(h)
+        pad = widths[i] - ab_w(hh)
+        if ab_w(hh) > widths[i]
+            hh = ab_trunc(hh, widths[i] - 1)
+            pad = widths[i] - ab_w(hh)
+        end
+        inner = acol(ab_B() * hh * ab_R())
+        aligns[i] == :right  ? print(io, " "^(pad + 1), inner, " ", bcol("│")) :
+        aligns[i] == :center ? print(io, " ", " "^(pad ÷ 2), inner,
+                                        " "^(pad - pad ÷ 2 + 1), bcol("│")) :
+                               print(io, " ", inner, " "^(pad + 1), bcol("│"))
+    end
+    println(io)
+    print(io, "  ", bcol("╞"))
+    for (i, w) in enumerate(widths)
+        print(io, bcol("═"^(w + 2)), bcol(i == ncol ? "╡" : "╪"))
+    end
+    println(io)
+    # строки
+    for r in str_rows
+        print(io, "  ", bcol("│"))
+        for (i, v) in enumerate(r)
+            s = v
+            if ab_w(s) > widths[i]
+                s = ab_trunc(s, widths[i] - 1)
+            end
+            pad = widths[i] - ab_w(s)
+            col = ab_colorize(s, cell_color(v))
+            aligns[i] == :right  ? print(io, " "^(pad + 1), col, " ", bcol("│")) :
+            aligns[i] == :center ? print(io, " ", " "^(pad ÷ 2), col,
+                                            " "^(pad - pad ÷ 2 + 1), bcol("│")) :
+                                   print(io, " ", col, " "^(pad + 1), bcol("│"))
+        end
+        println(io)
+    end
+    print(io, "  ", bcol("╰"))
+    for (i, w) in enumerate(widths)
+        print(io, bcol("─"^(w + 2)), bcol(i == ncol ? "╯" : "┴"))
+    end
+    return String(take!(io))
+end
+
+"""
+    ab_stat_block(title, entries; accent=:gold) -> String
+
+Лёгкий «панель-стат»: заголовок + набор (label, value[, color]).
+Без рамки — для вещей, которые не тянут полноценную таблицу.
+  entries: Vector{Tuple{String, String}} или
+           Vector{Tuple{String, String, Symbol}}
+"""
+function ab_stat_block(title::AbstractString,
+                       entries::Vector{<:Tuple};
+                       accent::Symbol = :gold)::String
+    io = IOBuffer()
+    println(io, "  ", ab_colorize("❄ ", accent), ab_B() * title * ab_R())
+    wlab = isempty(entries) ? 0 : maximum(ab_w(e[1]) for e in entries)
+    for e in entries
+        lab = string(e[1]); val = string(e[2])
+        col = length(e) >= 3 ? Symbol(e[3]) : :white
+        pad = wlab - ab_w(lab)
+        println(io, "    ", ab_gry() * lab * ab_R(), " "^(pad + 2),
+                    ab_colorize(val, col))
+    end
+    return String(take!(io))
 end
 
 end # module ABUI
 
-# Explicit imports instead of `using` — the name list is identical to ABUI's
-# export list above (re-including the file in one REPL session self-heals).
+# ═════════════════════════════════════════════════════════════════════════════
+# EXTERNAL IMPORT LIST — must stay in sync with the module export list above.
+# Re-including the file in one REPL session self-heals.
+# ═════════════════════════════════════════════════════════════════════════════
 import .ABUI: ab_w, ab_box, ab_panel_header, ab_show_banner, ab_render_bar,
        ab_render_loopbar, ab_start_line, ab_done_line, ab_paint_result,
        ab_verdict_icon, ab_celebrate, ab_ico, ab_ico_lab, ab_ico_h,
        ab_color_on, ab_color_off, ab_cyn, ab_grn, ab_red, ab_ylw, ab_mag,
        ab_blu, ab_gry, ab_wht, ab_org, ab_B, ab_D, ab_R,
-       ab_gold, ab_vio, ab_ice, ab_rule
+       ab_gold, ab_vio, ab_ice, ab_rule,
+       ab_hr, ab_subhr, ab_badge, ab_kv, ab_note, ab_ok, ab_warn,
+       ab_error, ab_emph, ab_sparkline, ab_category_header, ab_bar,
+       ab_grad_rule, ab_trunc, ab_pad,
+       ab_table, ab_cell_color, ab_colorize, ab_stat_block,
+       # : внутренние имена ABUI, нужные новому однострочному прогресс-бару
+       # (построитель кадра красит бар сам: палитра AURORA + спиннер)
+       _ab, _AUR_ICE, _AUR_GOLD, _SPIN_FRAMES
+
+# ═════════════════════════════════════════════════════════════════════════
+#  ABMon — системный монитор (CPU / RAM / температура / задержка / аптайм)
+#  Полностью stdlib, читает /proc и /sys там, где они есть (Termux-safe:
+#  если /proc или /sys недоступны — честно показывает «—»).
+#  Публичные имена — префикс модуля ABMon.*. Ничего не пишет на экран сам
+#  по себе, отдаёт снапшоты; рисование делегируется прогресс-бару и панели.
+# ═════════════════════════════════════════════════════════════════════════
+module ABMon
+
+using Printf: @sprintf, @printf
+import Dates
+
+# ── низкоуровневое чтение ──────────────────────────────────────────────────
+"""Прочитать файл целиком; `nothing` если файла нет / не читается."""
+function _read_first(path::AbstractString)
+    isfile(path) || return nothing
+    try
+        return read(path, String)
+    catch
+        return nothing
+    end
+end
+
+"""Парсит `/proc/stat` → (total_jiffies::Int64, idle_jiffies::Int64)."""
+function _cpu_jiffies()
+    s = _read_first("/proc/stat")
+    s === nothing && return (Int64(0), Int64(0))
+    for line in eachline(IOBuffer(s))
+        startswith(line, "cpu ") || continue
+        parts = split(line)
+        length(parts) < 5 && return (Int64(0), Int64(0))
+        vals = [tryparse(Int64, p) for p in parts[2:end]]
+        all(v -> v !== nothing, vals) || return (Int64(0), Int64(0))
+        total = sum(v::Int64 for v in vals if v !== nothing)
+        # idle + iowait (iowait отсутствует на минимальных ядрах — считаем 0)
+        idle_v = get(vals, 5, nothing)
+        idle = vals[4]::Int64 + (idle_v === nothing ? Int64(0) : idle_v::Int64)
+        return (total, idle)
+    end
+    return (Int64(0), Int64(0))
+end
+
+"""`/proc/meminfo` → (total_kb, avail_kb). 0/0 если нет."""
+function _meminfo()
+    s = _read_first("/proc/meminfo")
+    s === nothing && return (Int64(0), Int64(0))
+    total = Int64(0); avail = Int64(0)
+    for line in eachline(IOBuffer(s))
+        if startswith(line, "MemTotal:")
+            m = match(r"MemTotal:\s+(\d+)", line)
+            m !== nothing && (total = parse(Int64, m.captures[1]))
+        elseif startswith(line, "MemAvailable:")
+            m = match(r"MemAvailable:\s+(\d+)", line)
+            m !== nothing && (avail = parse(Int64, m.captures[1]))
+        end
+    end
+    return (total, avail)
+end
+
+"""Температура в °C. Пробует thermal_zone и hwmon; NaN если нет."""
+function _temperature_c()
+    # /sys/class/thermal/thermal_zone*/temp — millidegrees
+    for k in 0:8
+        s = _read_first("/sys/class/thermal/thermal_zone$(k)/temp")
+        s === nothing && continue
+        v = tryparse(Float64, strip(s))
+        v !== nothing && isfinite(v) && v > 0 && return v / 1000.0
+    end
+    # /sys/class/hwmon/hwmon*/temp*_input — тоже millidegrees
+    for h in 0:4
+        for t in 1:4
+            s = _read_first("/sys/class/hwmon/hwmon$(h)/temp$(t)_input")
+            s === nothing && continue
+            v = tryparse(Float64, strip(s))
+            v !== nothing && isfinite(v) && v > 0 && return v / 1000.0
+        end
+    end
+    return NaN
+end
+
+"""`/proc/loadavg` → (load1, load5, load15) как Union{Float64,Nothing}."""
+function _loadavg()
+    s = _read_first("/proc/loadavg")
+    s === nothing && return (nothing, nothing, nothing)
+    parts = split(s)
+    length(parts) < 3 && return (nothing, nothing, nothing)
+    return (tryparse(Float64, parts[1]),
+            tryparse(Float64, parts[2]),
+            tryparse(Float64, parts[3]))
+end
+
+"""`/proc/uptime` → сек, как Float64 (NaN если нет)."""
+function _uptime_s()
+    s = _read_first("/proc/uptime")
+    s === nothing && return NaN
+    parts = split(s)
+    isempty(parts) && return NaN
+    v = tryparse(Float64, parts[1])
+    return v === nothing ? NaN : v
+end
+
+"""Латентность «пустого» I/O-цикла: запись+чтение во временном файле, мкс.
+Приближение «задержки системы под текущей нагрузкой» — не сеть."""
+const _LAT_PROBE = Ref{String}("")
+function _io_latency_us()
+    if isempty(_LAT_PROBE[])
+        base = get(ENV, "TMPDIR", isdir("/tmp") ? "/tmp" : pwd())
+        _LAT_PROBE[] = joinpath(base, ".abmon_lat_probe")
+    end
+    t0 = time_ns()
+    try
+        open(_LAT_PROBE[], "w") do f; write(f, "x"); end
+        open(_LAT_PROBE[], "r") do f; read(f, UInt8); end
+    catch
+        return NaN
+    end
+    return (time_ns() - t0) / 1000.0
+end
+
+# ── снапшот ────────────────────────────────────────────────────────────────
+"""Один замер. Все поля — скаляры (для отображения и для CSV)."""
+struct Snapshot
+    ts::Float64              # unix time
+    cpu_pct::Float64         # загрузка CPU за интервал между двумя samples
+    load1::Float64
+    load5::Float64
+    load15::Float64
+    ram_used_gb::Float64     # (total-avail)/2^30
+    ram_total_gb::Float64
+    ram_pct::Float64
+    julia_rss_gb::Float64    # Sys.maxrss()/2^30
+    temp_c::Float64
+    io_lat_us::Float64
+    uptime_s::Float64
+end
+
+"""Счётчик предыдущего чтения CPU — для вычисления pct между двумя samples."""
+mutable struct _CPUPair
+    total::Int64
+    idle::Int64
+end
+const _CPU_PREV = Ref(_CPUPair(0, 0))
+
+"""Снять снапшот. `interval_s` — сколько прошло с предыдущего снятия (для CPU)."""
+function snapshot(interval_s::Real = 1.0)::Snapshot
+    total, idle = _cpu_jiffies()
+    p = _CPU_PREV[]
+    cpu_pct = NaN
+    if p.total > 0 && total > p.total
+        dt = total - p.total
+        di = idle - p.idle
+        cpu_pct = clamp(100.0 * (1.0 - Float64(di) / Float64(dt)), 0.0, 100.0)
+    end
+    _CPU_PREV[] = _CPUPair(total, idle)
+    l1, l5, l15 = _loadavg()
+    mtot, mavail = _meminfo()
+    ram_total = mtot > 0 ? Float64(mtot) / 2^20 : (Sys.total_memory() / 2^30)
+    ram_used  = mtot > 0 ? Float64(mtot - mavail) / 2^20 :
+                           (Sys.total_memory() - Sys.free_memory()) / 2^30
+    ram_pct = ram_total > 0 ? 100.0 * ram_used / ram_total : NaN
+    return Snapshot(
+        time(),
+        cpu_pct,
+        something(l1, NaN), something(l5, NaN), something(l15, NaN),
+        ram_used, ram_total, ram_pct,
+        Sys.maxrss() / 2^30,
+        _temperature_c(),
+        _io_latency_us(),
+        _uptime_s(),
+    )
+end
+
+# ── форматирование ─────────────────────────────────────────────────────────
+"""Короткая одна строка для встраивания в прогресс-бар."""
+function format_inline(s::Snapshot)::String
+    cpu  = isfinite(s.cpu_pct) ? @sprintf("cpu %3.0f%%", s.cpu_pct) : "cpu   — "
+    ram  = isfinite(s.ram_pct) ? @sprintf("ram %.1f/%.1fG", s.ram_used_gb, s.ram_total_gb) :
+                                 @sprintf("ram %.1fG", s.julia_rss_gb)
+    temp = isfinite(s.temp_c)  ? @sprintf("%.1f°C", s.temp_c) : "—°C"
+    lat  = isfinite(s.io_lat_us) ? @sprintf("%.0fµs", s.io_lat_us) : "—µs"
+    return "$cpu · $ram · $temp · $lat"
+end
+
+"""Полная многострочная панель (без рамки)."""
+function format_panel(s::Snapshot)::String
+    io = IOBuffer()
+    @printf(io, "CPU     : %s\n",
+            isfinite(s.cpu_pct) ? @sprintf("%.1f%%  (load %.2f / %.2f / %.2f)",
+                                           s.cpu_pct, s.load1, s.load5, s.load15) : "—")
+    @printf(io, "RAM     : %s\n",
+            isfinite(s.ram_pct) ?
+            @sprintf("%.2f / %.2f GiB (%.1f%%)  julia RSS %.2f GiB",
+                     s.ram_used_gb, s.ram_total_gb, s.ram_pct, s.julia_rss_gb) :
+            @sprintf("julia RSS %.2f GiB", s.julia_rss_gb))
+    @printf(io, "Temp    : %s\n", isfinite(s.temp_c) ? @sprintf("%.1f °C", s.temp_c) : "—")
+    @printf(io, "I/O lat : %s\n", isfinite(s.io_lat_us) ? @sprintf("%.0f µs", s.io_lat_us) : "—")
+    @printf(io, "Uptime  : %s\n",
+            isfinite(s.uptime_s) ? _fmt_uptime(s.uptime_s) : "—")
+    @printf(io, "Time    : %s", Dates.format(Dates.unix2datetime(s.ts), "yyyy-mm-dd HH:MM:SS"))
+    return String(take!(io))
+end
+
+function _fmt_uptime(sec::Float64)
+    s = floor(Int, sec)
+    d, s = divrem(s, 86400)
+    h, s = divrem(s, 3600)
+    m, s = divrem(s, 60)
+    d > 0 ? @sprintf("%dd %02d:%02d:%02d", d, h, m, s) : @sprintf("%02d:%02d:%02d", h, m, s)
+end
+
+"""Сбросить счётчик CPU — чтобы первый snapshot не давал 0%."""
+function reset!()
+    total, idle = _cpu_jiffies()
+    _CPU_PREV[] = _CPUPair(total, idle)
+    return nothing
+end
+
+end # module ABMon
 # ═══════════════════════════════════════════════════════════════════════════════
 #  AB-CLOUD VERIFICATION SUITE · AURORA EDITION
 #  computational core (39 tests + hardcore passes + Physics Lab + 3D Lab)
@@ -524,12 +1098,12 @@ import .ABUI: ab_w, ab_box, ab_panel_header, ab_show_banner, ab_render_bar,
 #  256-BIGFLOAT precision audits (Choptyuk closed forms), and ensemble
 #  deep checks (bootstrap CI of the mean, realization scatter vs the
 #  monograph ±0.022 band, sign counts, per-realization KS stability).
-#  Test 32/33 keep their dedicated test40b/test41b; Test 36's pass 2
+#  Test 32/33 keep their dedicated test32b/test33b; Test 36's pass 2
 #  already scales through its own AB_PASS sample targets.
 #  • THIRD pass (SERIES) for Tests 19 / 29 / 31 (suite spec):
 #  after the HARDCORE audit, a THIRD run — test19c / test37c / test39c
 #  (menu ids 19/29/31) — is dedicated to the test's REAL report series,
-#  following the test22b plot pattern: 19c draws the α-selective Dirac
+#  following the test20b plot pattern: 19c draws the α-selective Dirac
 #  1/L ladder (α ∈ {0.4, 0.5, 0.6}: 4π collapse at 1/2 vs gapless
 #  neighbours), 29c draws the ρ(α) fine scan at the secondary resolution
 #  + the contrast-vs-window series, 31c draws the Hatano–Nelson
@@ -626,7 +1200,7 @@ import .ABUI: ab_w, ab_box, ab_panel_header, ab_show_banner, ab_render_bar,
 # =============================================================================
 
 import Printf: @printf, @sprintf
-import LinearAlgebra: norm, eigvals, eigvals!, Hermitian, I, Diagonal, eigen, Symmetric, SymTridiagonal, LAPACKException, det, rmul!, mul!, dot, LAPACK # : + LAPACK module (t34g windowed diagonalization: hetrd!/stebz!);: + SymTridiagonal/eigvals! for the sparse 3D engine # dot = FHS link product (Test 20); mul!/rmul! in-place ops for Test 27
+import LinearAlgebra: norm, eigvals, eigvals!, Hermitian, I, Diagonal, eigen, Symmetric, SymTridiagonal, LAPACKException, SingularException, det, rmul!, mul!, dot, LAPACK # : + LAPACK module (t34g windowed diagonalization: hetrd!/stebz!);: + SymTridiagonal/eigvals! for the sparse 3D engine # dot = FHS link product (Test 20); mul!/rmul! in-place ops for Test 27
 import Random: seed!, randperm, rand, randn, randn!, rand!, default_rng, MersenneTwister # rand! for the hardcore bootstrap buffer; randn! fills the lean GUE matrix buffer in place
 import SparseArrays: SparseMatrixCSC, sparse, nnz, lu, issuccess # : the 3D sparse engine (stdlib only; nnz shadowed locally in t3_02 is legal Julia)
 import Statistics: mean, std, median, quantile, cor, var
@@ -892,6 +1466,14 @@ mutable struct Config
  t34g_q::Float64 # default 1.0 — charge (lab standard)
  t34g_W::Float64 # default 1.0 — onsite disorder width (lab standard)
 
+ # ── 2D dense-eig RAM budget (session-wide gate) ──
+ ab_ram_gb::Float64 # 0 = авто (0.75 × Sys.free_memory); >0 = ручной бюджет (CLI --ab-ram-gb)
+ # ── системный монитор (ABMon) ──
+ ab_monitor_on::Bool # показывать CPU/RAM/Temp/I/O-lat в баре и в milestone-строках
+ ab_monitor_interval::Float64 # период опроса датчиков, секунды (≥ 0.25)
+ ab_monitor_log::Bool # писать CSV снапшотов в run_dir/logs/monitor.csv
+ ab_monitor_panel::Bool # печатать полную панель в начале каждого теста
+
 end
 
 const MSG = Dict{String, Dict{String, String}}(
@@ -947,7 +1529,6 @@ const MSG = Dict{String, Dict{String, String}}(
  "menu_q" => "q. Quit",
  "menu_p" => "p. Apply a preset",
  "menu_g" => "g. Language — switch UI language EN↔RU (current: EN)",
- "prompt" => "\nSelect [1-38/a/p/c/r/l/d3/f/h/g/q]: ",
  "prompt" => "\nSelect [1-38/a/p/c/r/l/d3/f/h/g/q]: ",
  "obj1_title" => "Objection 1: b(N) Convergence",
  "obj2_title" => "Objection 2: GUE Spacing Statistics",
@@ -2003,6 +2584,13 @@ function gue_matrix_eigenvalues(N::Int; seed::Int=42)::Vector{Float64}
    end
   end
  end
+ # Фикс 4: на однопоточной Julia между предупреждением выше и возвратом
+ # НЕТ никакого вывода — честно называем ожидаемую тишину, чтобы её не
+ # принимали за зависание (тикер выше работает только при nthreads() > 1).
+ if Threads.nthreads() == 1 && N ≥ 6000
+  @printf("   NOTE: single-threaded Julia — the LAPACK eigvals below runs as ONE blocking ccall.\n   There will be NO output for ≈ %.0f min on 2 cores. NOT a hang. Use --matrix-size 3000 for fast runs, or start Julia with -t 4 for the ticker.\n",
+   max(1.0, (N / 8000)^3 * 2.2))
+ end
  ev = try
   eigvals(Hermitian(G)) # LAPACK solver overwrites G in place
  finally
@@ -2668,6 +3256,27 @@ function verify_hermitian(H::AbstractMatrix{<:Complex})
  end
  norm_M = sqrt(norm_M)
  return max_err / max(norm_M, 1e-30) < 1e-12
+end
+
+"""
+ hermiticity_defect(H) → Float64
+
+Relative Hermiticity defect max|H_ij − conj(H_ji)| / ||H||_F — the actual
+number `verify_hermitian` thresholds at 1e-12. Same element-wise loop (no
+`H - H'` allocation, Julia 1.10.4 stdlib-safe): ~1e-17 for a healthy
+matrix, O(1) for a broken one. Used by Tests 15/26 for honest output.
+"""
+function hermiticity_defect(H::AbstractMatrix{<:Complex})::Float64
+ M = Matrix(H)
+ n = size(M, 1)
+ max_err = 0.0
+ norm_M = 0.0
+ @inbounds for j in 1:n, i in 1:n
+  norm_M += abs2(M[i,j])
+  err = abs(M[i,j] - conj(M[j,i]))
+  err > max_err && (max_err = err)
+ end
+ return max_err / max(sqrt(norm_M), 1e-30)
 end
 
 """
@@ -9486,99 +10095,91 @@ function log_result(s::String)
 end
 
 # ═════════════════════════════════════════════════════════════════════════════
-# 9a. SINGLE-LINE PROGRESS BAR
+# 9a. SINGLE-LINE PROGRESS BAR — AURORA edition (переписан по плану
+# модернизации: ширина/очистка/EMA-ETA/очередь/монитор/управление .ab_ctl)
 #
 # One dynamic line per running test, repainted in place via '\r' on STDERR
-# never multi-line, never fills the REPL:
+# (never multi-line, never fills the REPL):
 #
-#  Test 11 ██████████░░░░░░ 62.0% 00:00:41 · MC 1000/2000 ·:33
+#  ⠋ Test 11 ▰▰▰▰▰▱▱▱▱▱ 47.0% · eig 96×96 · cpu 93% · ram 3.1/7.6G · 41.2°C · 88µs · ETA 00:00:41 · up 00:00:37 · 2026-10-30 12:00:00
 #
-# The frame carries: label, bar, percent, ELAPSED time and the current
-# DATE+TIME of the run — the timestamp is the on-screen proof that the code
-# really runs. Bar writes go to STDERR only (never into the report file); the
-# report instead receives sparse milestone lines (every 25%) plus a per-test
-# "done in … — yyyy-mm-dd HH:MM:SS → PASS/FAIL" line.
+# Layout rules that keep the line intact on ANY terminal (incl. minimal
+# Termux):
+#  * frame width = displaysize(stderr) − 2, clamped to [30, 100] — re-read
+#    at every repaint, so a resized/narrow window can never wrap the bar;
+#  * every erase is "\r" + SPACE-PAD + "\r" (the previous frame's width is
+#    remembered in _PROG_LAST_W) — works even in terminals without \e[K;
+#  * tail truncation order (right to left): timestamp → up → ETA → status →
+#    tag; bar/label/percent are the last to be sacrificed;
+#  * ETA is an EMA over the progress rate (smooths realization bursts);
+#    the clock keeps ticking between prog_update sites via prog_heartbeat()
+#    (from log_comp) and the monitor loop.
 #
-# Layout rules that keep the line intact on ANY terminal:
-#  * the frame width is derived from the ACTUAL terminal width
-#  (displaysize(stderr), re-read at every repaint) and never exceeds it
-#  a hard-coded width is the classic source of wrapped bar lines (a long
-#  tail wrapping to the next row and the following frame concatenated onto it);
-#  * every frame write ends with an ANSI clear-to-end-of-line and every erase
-#  is "\r" + clear-to-EOL — both are width-independent, so no stale
-#  characters survive and no padding spaces can wrap;
-#  * when a phase tag ("eig 96×96", "report", "gif") does not fit, it is
-#  shortened first; the timestamp is the last thing to be cut.
+# Display pump: ONE background task owns EVERY live-terminal write.
+# Producers push to a BOUNDED channel (256) — overflow drops the OLDEST
+# cosmetic frame instead of blocking, so a frozen console can never
+# deadlock the suite (the audit capture in the tee reader is written
+# directly and is never lost).
 #
-# When stderr is NOT a terminal (piped run, IDE runner, CI) the in-place bar
-# is suppressed automatically and only the sparse milestone lines are printed,
-# so the output never degrades into multiple \r lines.
-# Disable entirely: --no-progress flag or env AB_NO_PROGRESS=1.
+# Monitor: ABMon inline (cpu · ram · temp · io-lat) rides in the frame
+# status (see the _mon_* helpers below); the full panel is printed at test
+# start via --monitor panel / menu 78; a second session can control the
+# bar through the file <run_dir>/.ab_ctl (pause / resume / snapshot).
+#
+# When stderr is NOT a terminal (piped run, IDE runner, CI) the in-place
+# bar is suppressed automatically and sparse milestone lines (every 10%,
+# WITH the monitor inline) are printed instead. Disable entirely:
+# --no-progress flag or env AB_NO_PROGRESS=1.
 #
 # Two-pass runs share ONE bar across both passes: the wrapper narrows the
-# fraction range via _prog_narrow! (pass 1 → [0, 0.45], pass 2 → [0.52, 0.97]),
-# so progress sites inside a test keep their local [0,1] meaning and the bar
-# advances through BOTH passes instead of sitting at a fixed percentage while
-# a heavy secondary pass runs.
+# fraction range via _prog_narrow! (pass 1 → [0, 0.45], pass 2 →
+# [0.52, 0.97]); absolute pass-boundary frames go through prog_update_abs.
 # ═════════════════════════════════════════════════════════════════════════════
 const PROGRESS_ENABLED = Ref{Bool}(get(ENV, "AB_NO_PROGRESS", "") ∉ ("1", "true", "yes"))
-const _PROG_ACTIVE = Ref{Bool}(false)
-const _PROG_T0     = Ref{Float64}(0.0)
-const _PROG_LABEL  = Ref{String}("")
-const _PROG_FRAC   = Ref{Float64}(0.0)
-const _PROG_EXTRA  = Ref{String}("")
-const _PROG_LAST   = Ref{Float64}(0.0)
-const _PROG_STEP   = Ref{Int}(-1)
-const _PROG_BAR_W  = 16
-const _PROG_MAX_LINE_W = 78          # aesthetic cap on wide terminals
-const _PROG_MIN_LINE_W = 46          # below this only bar+percent+elapsed fit
-# Fraction range owned by the current bar; a two-pass wrapper narrows it so
-# inner progress sites keep their local [0,1] meaning.
-const _PROG_BASE = Ref{Float64}(0.0)
-const _PROG_SPAN = Ref{Float64}(1.0)
-# Every bar write (frame/heartbeat/clear) and every clear+output pair in the
-# stdout readers holds this lock — otherwise an @async reader's clear can be
-# interleaved by a repaint frame and the next stdout line concatenates onto a
-# stale frame.
+const _PROG_ACTIVE    = Ref{Bool}(false)
+const _PROG_PAUSED    = Ref{Bool}(false)   # .ab_ctl «pause»: репейнты замирают, тест идёт дальше
+const _PROG_T0        = Ref{Float64}(0.0)
+const _PROG_LABEL     = Ref{String}("")
+const _PROG_FRAC      = Ref{Float64}(0.0)
+const _PROG_TAG       = Ref{String}("")    # phase tag («eig 96×96», «report», «gif»)
+const _PROG_STATUS    = Ref{String}("")    # ABMon inline (cpu · ram · temp · lat)
+const _PROG_LAST_W    = Ref{Int}(0)        # видимая ширина последнего кадра (space-pad erase)
+const _PROG_LAST_T    = Ref{Float64}(0.0)  # время последнего кадра (throttle репейнта)
+const _PROG_STEP      = Ref{Int}(-1)       # последний milestone для non-TTY
+const _PROG_TICK      = Ref{Int}(0)        # счётчик спиннера
+const _PROG_ETA_RATE  = Ref{Float64}(NaN)  # EMA скорости (доля/сек)
+const _PROG_LAST_FRAC = Ref{Float64}(NaN)
+const _PROG_LAST_TS   = Ref{Float64}(0.0)
+const _PROG_BASE      = Ref{Float64}(0.0)  # диапазон долей, принадлежащий текущему бару
+const _PROG_SPAN      = Ref{Float64}(1.0)  # (сужается two-pass обёрткой)
+
+# Bounded display queue: переполнение выбрасывает самый старый кадр
+# (косметика; продюсер НИКОГДА не блокируется).
+const _DISP_CAP   = 256
+const _DISP_Q     = Channel{Any}(_DISP_CAP)
+const _DISP_TASK  = Ref{Union{Nothing,Task}}(nothing)
+const _DISP_DEPTH = Ref{Int}(0)              # tee owners (run_all + per-test)
+const _DISP_FAILS = Ref{Int}(0)              # console write failures (logged, then silent)
+# Every queue/state op holds this lock — it is NEVER held across a console
+# I/O operation, so it can no longer transmit a frozen-console freeze.
 const _PROG_IO_LOCK = ReentrantLock()
 
 _prog_now_str() = Dates.format(Dates.now(), "yyyy-mm-dd HH:MM:SS")
 
 function _prog_hms(sec::Real)::String
- s = max(0, round(Int, sec))
- @sprintf("%02d:%02d:%02d", s ÷ 3600, (s % 3600) ÷ 60, s % 60)
+    s = max(0, round(Int, sec))
+    @sprintf("%02d:%02d:%02d", s ÷ 3600, (s % 3600) ÷ 60, s % 60)
 end
 
 _prog_tty() = PROGRESS_ENABLED[] && (stderr isa Base.TTY)
 
-# ═══════════════════════════════════════════════════════════════════════════════
-# 16.1b LIVE-DISPLAY PUMP — fire-and-forget terminal writer (NOTE:
-# ═══════════════════════════════════════════════════════════════════════════════
-# WHY THIS EXISTS — the "suite freezes mid-run " class:
-# the stdout tee readers used to write to the LIVE terminal synchronously and
-# UNDER _PROG_IO_LOCK. A console that is slow, frozen (Windows QuickEdit text
-# selection), closed, or failing blocks that write — the reader then stops
-# draining the 64 KB tee pipe, the next test-side stdout write blocks on the
-# full pipe, and the WHOLE suite deadlocks with zero diagnostics. The lock
-# even PROPAGATED the freeze: prog_update/heartbeat in the test task waited
-# on the same lock while the reader held it inside a blocked console write.
-#
-# THE FIX: ONE background pump task owns EVERY live-terminal write (forwarded
-# output chunks, tee lines, bar clear/frame). Producers only push to an
-# UNBOUNDED channel (never blocks, cannot throw) and the stdout readers drain
-# their pipes FIRST, forwarding best-effort afterwards. Consequences:
-#  • the tee pipe ALWAYS drains → the suite can never deadlock on output;
-#  • a frozen console only lags the cosmetics (the queue absorbs the tail
-#  and catches up when/if the console unfreezes);
-#  • _PROG_IO_LOCK now guards only queue/state bookkeeping — it is NEVER
-#  held across an I/O operation, so it can no longer transmit a freeze.
-# Order of bar ops vs output chunks is preserved (single queue, single
-# consumer), so the one-visible-bar-line guarantee is unchanged.
-const _DISP_Q     = Channel{Any}(Inf)        # unbounded — put! never blocks
-const _DISP_TASK  = Ref{Union{Nothing,Task}}(nothing)
-const _DISP_DEPTH = Ref{Int}(0)              # tee owners (run_all + per-test)
-const _DISP_FAILS = Ref{Int}(0)              # consecutive console failures
+"""Реальная ширина терминала минус 2 колонки, пол [30, 100]."""
+function _prog_width()::Int
+    cols = stderr isa Base.TTY ? displaysize(stderr)[2] : 100
+    return clamp(cols - 2, 30, 100)
+end
 
+# ── очередь и pump ─────────────────────────────────────────────────────────
 function _disp_ensure_pump!()
     lock(_PROG_IO_LOCK) do
         t = _DISP_TASK[]
@@ -9589,9 +10190,15 @@ end
 
 """Queue a terminal work item — NEVER blocks on console state.
 Items: (:write, io, data) | (:println, io, line) | (:bar,:clear, nothing) |
- (:bar,:frame, nothing) | (:stop, nothing, nothing)."""
+(:bar,:frame, nothing) | (:stop, nothing, nothing)."""
 function _disp_push!(item::Tuple)
-    put!(_DISP_Q, item)
+    lock(_PROG_IO_LOCK) do
+        # переполнение → отбрасываем самый старый кадр (косметика, не критично)
+        while Base.n_avail(_DISP_Q) ≥ _DISP_CAP - 1
+            try; take!(_DISP_Q); catch; break; end
+        end
+        try; put!(_DISP_Q, item); catch; end
+    end
     _disp_ensure_pump!()
     return
 end
@@ -9608,13 +10215,14 @@ function _disp_release!()
     lock(_PROG_IO_LOCK) do
         _DISP_DEPTH[] = max(0, _DISP_DEPTH[] - 1)
     end
-    _DISP_DEPTH[] == 0 && put!(_DISP_Q, (:stop, nothing, nothing))
+    _DISP_DEPTH[] == 0 && (try; put!(_DISP_Q, (:stop, nothing, nothing)); catch; end)
     return
 end
 
 """Bounded wait until the pump has painted everything queued so far.
-Returns true when the queue is empty — false on timeout (broken/slow console;
-the suite proceeds regardless, the tail flushes later or lands in the report)."""
+Returns true when the queue is empty — false on timeout (broken/slow
+console; the suite proceeds regardless, the tail flushes later or lands in
+the report)."""
 function _disp_flush_wait(timeout::Real)::Bool
     t0 = time()
     while time() - t0 < timeout
@@ -9622,6 +10230,15 @@ function _disp_flush_wait(timeout::Real)::Bool
         sleep(0.02)
     end
     return Base.n_avail(_DISP_Q) == 0
+end
+
+"""Очистить текущую строку бара: `\\r` + пробелы + `\\r` (fallback для
+терминалов без `\\e[K`, включая минимальный Termux). _PROG_LAST_W[]
+гарантирует, что хвоста от предыдущего, более широкого кадра не останется;
+W−1 пробелов — чтобы на точной ширине окна не сработал автоперенос."""
+function _prog_clear_ops()
+    pad = max(0, _PROG_LAST_W[] - 1)
+    return "\r" * " "^pad * "\r"
 end
 
 function _disp_perform!(item::Tuple)
@@ -9632,28 +10249,36 @@ function _disp_perform!(item::Tuple)
         println(item[2], item[3]); flush(item[2])
     elseif kind === :bar
         _PROG_ACTIVE[] || return
+        _PROG_PAUSED[] && return
         (PROGRESS_ENABLED[] && (stderr isa Base.TTY)) || return
         if item[2] === :clear
-            write(stderr, "\r\e[K") # width-independent erase
+            write(stderr, _prog_clear_ops())
             flush(stderr)
+            _PROG_LAST_W[] = 0
         else # :frame — repaint the current bar frame in place
-            write(stderr, "\r" * _prog_frame(_PROG_FRAC[], _PROG_EXTRA[]) * "\e[K")
+            s = _prog_frame(_PROG_FRAC[], _PROG_TAG[], _PROG_STATUS[])
+            write(stderr, _prog_clear_ops() * s)
             flush(stderr)
+            _PROG_LAST_W[] = ab_w(s)
         end
     end
 end
 
 function _disp_pump_loop()
     while true
-        item = take!(_DISP_Q)
+        item = try
+            take!(_DISP_Q)
+        catch
+            return
+        end
         try
             _disp_perform!(item)
         catch e
-            # Broken console must never kill the pump (and with it the drain):
-            # log the first failures into the audit trail, then keep serving
-            # the queue silently — the captured report still gets everything.
+            # Broken console must never kill the pump (and with it the
+            # drain): log the first failures into the audit trail, then
+            # keep serving the queue silently.
             (_DISP_FAILS[] += 1) ≤ 3 && try
-                log_comp(" live-display pump: console write failed (suite continues, capture intact): $(sprint(showerror, e))")
+                log_comp(" display pump: console write failed (suite continues, capture intact): $(sprint(showerror, e))")
             catch
             end
         end
@@ -9661,34 +10286,92 @@ function _disp_pump_loop()
     end
 end
 
-"""Usable line width: the REAL terminal width minus one safety column,
-clamped to [46, 78]. Re-read at every repaint so terminal resizes and odd
-PTY sizes (narrow capture consoles, IDE panes) can never wrap the bar."""
-function _prog_width()::Int
- cols = stderr isa Base.TTY ? displaysize(stderr)[2] : _PROG_MAX_LINE_W
- return clamp(cols - 1, _PROG_MIN_LINE_W, _PROG_MAX_LINE_W)
+# ── сборка кадра ───────────────────────────────────────────────────────────
+"""Собрать кадр одной строки. Усечение — от правого края к левому:
+сначала timestamp, потом up, потом ETA, потом status, потом tag;
+bar/label/pct — последнее, что жертвуется."""
+function _prog_frame(frac::Real, tag::AbstractString, status::AbstractString)::String
+    W = _prog_width()
+    f = clamp(Float64(frac), 0.0, 1.0)
+    lab = ab_pad(String(first(_PROG_LABEL[], 12)), 12)
+    pct = @sprintf("%5.1f%%", 100 * f)
+    # Фиксированная часть: spin(1) + sp(1) + lab(12) + bar + sp(1) + pct(6)
+    barw = clamp(W - 22 - 2, 5, 32)
+    # Бар с градиентом ледяной → золотой (полярное сияние AURORA)
+    cio = IOBuffer()
+    nfill = round(Int, f * barw)
+    for j in 1:barw
+        t = barw <= 1 ? 0.0 : (j - 1) / (barw - 1)
+        r = round(Int, _AUR_ICE[1] + (_AUR_GOLD[1] - _AUR_ICE[1]) * t)
+        g = round(Int, _AUR_ICE[2] + (_AUR_GOLD[2] - _AUR_ICE[2]) * t)
+        b = round(Int, _AUR_ICE[3] + (_AUR_GOLD[3] - _AUR_ICE[3]) * t)
+        col = j <= nfill ? @sprintf("\e[38;2;%d;%d;%dm", r, g, b) : "\e[38;2;38;52;84m"
+        print(cio, _ab() ? col : "", j <= nfill ? "▰" : "▱")
+    end
+    _ab() && print(cio, "\e[0m")
+    bar = String(take!(cio))
+    pcc = f >= 0.999 ? ab_grn() : ab_wht()
+    s = _spin_str() * " " * ab_cyn() * lab * ab_R() * bar * " " * pcc * ab_B() * pct * ab_R()
+    # Фиксированная часть: spin(2 — брайль ⠋ в ab_w считается за 2 колонки,
+    # консервативно) + sp(1) + lab(12) + bar + sp(1) + pct(6)
+    used = 3 + 12 + barw + 1 + 6
+    # ETA из EMA скорости (сглаживает скачки прогресса между реализациями)
+    eta_s = -1.0
+    if isfinite(_PROG_ETA_RATE[]) && _PROG_ETA_RATE[] > 1e-9 && f < 0.999
+        eta_s = (1.0 - f) / _PROG_ETA_RATE[]
+    end
+    now_s = _prog_now_str()
+    up_s = _prog_hms(time() - _PROG_T0[])
+    tail = [
+        (:tag,    isempty(tag)    ? "" : tag),
+        (:status, isempty(status) ? "" : status),
+        (:eta,    eta_s > 0 ? "ETA " * _prog_hms(eta_s) : ""),
+        (:up,     "up " * up_s),
+        (:ts,     now_s),
+    ]
+    for (kind, txt) in tail
+        isempty(txt) && continue
+        room = W - used - 3            # " · " = 3 видимых колонки
+        room < 1 && break              # даже « · …» не влезает — конец кадра
+        v = ab_w(txt)
+        v > room && (txt = ab_trunc(txt, room); v = ab_w(txt))
+        s *= ab_D() * " · " * ab_R()
+        col = kind === :status ? ab_mag() : kind === :eta ? ab_ylw() : ab_gry()
+        s *= col * txt * ab_R()
+        used += 3 + v
+    end
+    return s
 end
 
-function _prog_frame(frac::Real, extra::AbstractString)::String
- return ab_render_bar(; label = _PROG_LABEL[], frac = Float64(frac),
-  extra = String(extra), elapsed = time() - _PROG_T0[],
-  width = _prog_width(), now_str = _prog_now_str())
+function _spin_str()
+    _PROG_TICK[] = (_PROG_TICK[] % length(_SPIN_FRAMES)) + 1
+    ch = _SPIN_FRAMES[_PROG_TICK[]]
+    return _ab() ? ab_cyn() * ab_B() * ch * ab_R() : ch
 end
 
+# ── публичный API ──────────────────────────────────────────────────────────
 function prog_start(label::AbstractString)
- _PROG_LABEL[] = String(label)
- _PROG_T0[] = time()
- _PROG_FRAC[] = 0.0
- _PROG_EXTRA[] = ""
- _PROG_LAST[] = 0.0
- _PROG_STEP[] = -1
- _PROG_BASE[] = 0.0 # a fresh bar owns the full fraction range
- _PROG_SPAN[] = 1.0
- _PROG_ACTIVE[] = true
- # Per-test START stamp — together with the done-line it provides the dated
- # proof that every test really ran.
- println(ab_start_line(_PROG_LABEL[], _prog_now_str()))
- prog_update(0.0)
+    _PROG_LABEL[] = String(label)
+    _PROG_T0[] = time()
+    _PROG_FRAC[] = 0.0
+    _PROG_TAG[] = ""
+    _PROG_STATUS[] = ""
+    _PROG_LAST_W[] = 0
+    _PROG_LAST_T[] = 0.0
+    _PROG_STEP[] = -1
+    _PROG_ETA_RATE[] = NaN
+    _PROG_LAST_FRAC[] = NaN
+    _PROG_LAST_TS[] = 0.0
+    _PROG_BASE[] = 0.0    # a fresh bar owns the full fraction range
+    _PROG_SPAN[] = 1.0
+    _PROG_ACTIVE[] = true
+    _PROG_PAUSED[] = false
+    _PROG_TICK[] = 0        # spinner starts from frame 1 deterministically
+    # (a leftover phase from a previous test made the first frame random)
+    # Per-test START stamp — together with the done-line it provides the
+    # dated proof that every test really ran.
+    println(ab_start_line(_PROG_LABEL[], _prog_now_str()))
+    prog_update(0.0)
 end
 
 """Narrow the fraction range the current bar accepts from progress sites.
@@ -9696,114 +10379,249 @@ Used by the two-pass runner: pass 1 maps local progress into [0, 0.45],
 pass 2 into [0.52, 0.97], and the wrapper writes its pass-boundary frames
 with absolute fractions via prog_update_abs."""
 function _prog_narrow!(base::Real, span::Real)
- _PROG_BASE[] = Float64(base)
- _PROG_SPAN[] = Float64(span)
+    _PROG_BASE[] = Float64(base)
+    _PROG_SPAN[] = Float64(span)
 end
 
 function prog_update_abs(frac::Real, extra::AbstractString = "")
- _PROG_ACTIVE[] || return
- _PROG_BASE[] = 0.0
- _PROG_SPAN[] = 1.0
- prog_update(frac, extra)
+    _PROG_ACTIVE[] || return
+    _PROG_BASE[] = 0.0
+    _PROG_SPAN[] = 1.0
+    prog_update(frac, extra)
 end
 
 """Erase the bar line before any other output is written to the terminal.
-The bar lives on STDERR (78 cols, no newline). Any stdout chunk written
-while the frame is on screen would otherwise be APPENDED after column 78
-and the next repaint would smear both. Both stdout tee-readers
-(run_all_tests + rep_tee_stdout) call this before forwarding each chunk,
-so at most ONE bar line is ever visible: the frame sits under the latest
-output while the test is in a silent heavy phase and is reused in place."""
+The bar lives on STDERR. Any stdout chunk written while the frame is on
+screen would otherwise be APPENDED after the frame and the next repaint
+would smear both. Both stdout tee-readers (run_all_tests + rep_tee_stdout)
+call this before forwarding each chunk, so at most ONE bar line is ever
+visible: the frame sits under the latest output while the test is in a
+silent heavy phase and is reused in place."""
 function prog_clear_for_output()
- _PROG_ACTIVE[] || return
- (PROGRESS_ENABLED[] && (stderr isa Base.TTY)) || return
- # NOTE: goes through the display pump — a frozen console can no
- # longer block the caller while it holds _PROG_IO_LOCK.
- _disp_push!((:bar, :clear, nothing))
+    _PROG_ACTIVE[] || return
+    (PROGRESS_ENABLED[] && (stderr isa Base.TTY)) || return
+    # NOTE: goes through the display pump — a frozen console can no
+    # longer block the caller while it holds _PROG_IO_LOCK.
+    _disp_push!((:bar, :clear, nothing))
 end
 
 # prog_repaint redraws the CURRENT frame in place; both stdout readers and
 # the report writer call it right AFTER printing their chunk, so the bar is
-# visible at all times (single line, never multi-row). The trailing ANSI
-# clear-to-EOL erases whatever is left of a previous, wider frame.
+# visible at all times (single line, never multi-row).
 function prog_repaint()
- _PROG_ACTIVE[] || return
- _prog_tty() || return
- _disp_push!((:bar, :frame, nothing)) # NOTE: via pump
+    _PROG_ACTIVE[] || return
+    _prog_tty() || return
+    _disp_push!((:bar, :frame, nothing)) # NOTE: via pump
 end
 
-"""Set the frame's tag (right of the percent, before the timestamp) and
-repaint — for phases that have their own sub-progress but no natural
+"""Set the frame's tag (right of the percent, before the monitor status)
+and repaint — for phases that have their own sub-progress but no natural
 prog_update site (report/plot writing). No-op when no bar is active."""
 function prog_tag!(extra::AbstractString)
- _PROG_ACTIVE[] || return
- _PROG_EXTRA[] = String(extra)
- prog_repaint()
+    _PROG_ACTIVE[] || return
+    _PROG_TAG[] = String(extra)
+    prog_repaint()
 end
 
 """Own the bar only if none is active — run_test inside run_test_two_pass
 must NOT steal or restart the two-pass bar."""
 function _prog_owned_start(label::AbstractString)::Bool
- _PROG_ACTIVE[] && return false
- prog_start(label)
- return true
+    _PROG_ACTIVE[] && return false
+    prog_start(label)
+    return true
 end
 
 function prog_update(frac::Real, extra::AbstractString = "")
- _PROG_ACTIVE[] || return
- # Map the local fraction through the range owned by this bar (a two-pass
- # wrapper narrows it; standalone runs own the full [0,1]).
- f = _PROG_BASE[] + clamp(Float64(frac), 0.0, 1.0) * _PROG_SPAN[]
- _PROG_FRAC[] = clamp(f, 0.0, 1.0)
- _PROG_EXTRA[] = String(extra)
- if _prog_tty()
-  t = time()
-  if Float64(frac) >= 1.0 || t - _PROG_LAST[] >= 0.2
-   _disp_push!((:bar, :frame, nothing)) # NOTE: via pump
-   _PROG_LAST[] = t
-  end
- else
-  # non-TTY: sparse milestone lines (0/25/50/75/100%) on stdout — they are
-  # tee'd into the saved report as evidence of a real, live run.
- step = floor(Int, clamp(Float64(frac), 0.0, 1.0) * 4)
-  if Float64(frac) >= 1.0 || step > _PROG_STEP[]
-   _PROG_STEP[] = max(step, _PROG_STEP[])
-   el = time() - _PROG_T0[]
-   println(@sprintf("   [%s] %3.0f%% elapsed %s · %s%s",
-    _PROG_LABEL[], 100 * clamp(Float64(frac), 0.0, 1.0), _prog_hms(el), _prog_now_str(),
-    isempty(extra) ? "" : " · " * String(extra)))
-  end
- end
+    _PROG_ACTIVE[] || return
+    # Map the local fraction through the range owned by this bar (a
+    # two-pass wrapper narrows it; standalone runs own the full [0,1]).
+    f_abs = _PROG_BASE[] + clamp(Float64(frac), 0.0, 1.0) * _PROG_SPAN[]
+    # EMA скорости (для ETA): 0.7 старого + 0.3 мгновенного, шаг ≥ 50 мс
+    t = time()
+    if isfinite(_PROG_LAST_FRAC[]) && _PROG_LAST_TS[] > 0.0
+        dt = t - _PROG_LAST_TS[]
+        if dt > 0.05
+            df = f_abs - _PROG_LAST_FRAC[]
+            rate_inst = df / dt
+            _PROG_ETA_RATE[] = isfinite(_PROG_ETA_RATE[]) ?
+                0.7 * _PROG_ETA_RATE[] + 0.3 * rate_inst : rate_inst
+        end
+    end
+    _PROG_LAST_FRAC[] = f_abs
+    _PROG_LAST_TS[] = t
+    _PROG_FRAC[] = clamp(f_abs, 0.0, 1.0)
+    _PROG_TAG[] = String(extra)
+    if _prog_tty()
+        if Float64(frac) >= 1.0 || t - _PROG_LAST_T[] >= 0.2
+            _disp_push!((:bar, :frame, nothing)) # NOTE: via pump
+            _PROG_LAST_T[] = t
+        end
+    else
+        # non-TTY: sparse milestone lines (every 10%) on stdout — they are
+        # tee'd into the saved report as evidence of a real, live run.
+        # Monitor inline rides along (cpu · ram · temp · io-lat).
+        step = floor(Int, clamp(Float64(frac), 0.0, 1.0) * 10)  # 10% вместо 25%
+        if Float64(frac) >= 1.0 || step > _PROG_STEP[]
+            _PROG_STEP[] = max(step, _PROG_STEP[])
+            el = time() - _PROG_T0[]
+            mon = _mon_inline()
+            println(@sprintf("   [%s] %3.0f%% elapsed %s · %s%s%s",
+                _PROG_LABEL[], 100 * clamp(Float64(frac), 0.0, 1.0), _prog_hms(el),
+                _prog_now_str(),
+                isempty(extra) ? "" : " · " * String(extra),
+                isempty(mon)   ? "" : " · " * mon))
+        end
+    end
 end
 
-"""Heartbeat: repaint the current frame (same frac/extra) so the elapsed
-clock keeps ticking while a test is between explicit progress points.
-Called from log_comp — i.e. automatically at every logged computation."""
+"""Heartbeat: repaint the current frame (same frac/tag/status) so the
+elapsed clock and the monitor inline keep ticking while a test is between
+explicit progress points. Called from log_comp — i.e. automatically at
+every logged computation."""
 function prog_heartbeat()
- _PROG_ACTIVE[] || return
- _prog_tty() || return
- t = time()
- t - _PROG_LAST[] < 0.25 && return
- _PROG_LAST[] = t
- _disp_push!((:bar, :frame, nothing)) # NOTE: via pump
+    _PROG_ACTIVE[] || return
+    _prog_tty() || return
+    t = time()
+    t - _PROG_LAST_T[] < 0.25 && return
+    _PROG_LAST_T[] = t
+    _disp_push!((:bar, :frame, nothing)) # NOTE: via pump
 end
 
 function prog_finish(ok::Bool, elapsed_s::Real)
- _PROG_ACTIVE[] || return
- _PROG_ACTIVE[] = false
- _PROG_BASE[] = 0.0
- _PROG_SPAN[] = 1.0
- if PROGRESS_ENABLED[] && (stderr isa Base.TTY)
-  _disp_push!((:bar, :clear, nothing)) # NOTE: via pump
- end
- println(ab_done_line(_PROG_LABEL[], _prog_hms(elapsed_s), _prog_now_str(), ok))
+    _PROG_ACTIVE[] || return
+    _PROG_ACTIVE[] = false
+    _PROG_BASE[] = 0.0
+    _PROG_SPAN[] = 1.0
+    _PROG_PAUSED[] = false # lifecycle ends — размораживаем, чтобы clear сработал
+    if PROGRESS_ENABLED[] && (stderr isa Base.TTY)
+        _disp_push!((:bar, :clear, nothing)) # NOTE: via pump
+        _disp_flush_wait(0.25) # bounded grace: erase BEFORE the done-line lands
+    end
+    println(ab_done_line(_PROG_LABEL[], _prog_hms(elapsed_s), _prog_now_str(), ok))
 end
 
 # The done-line + started-line give each test its elapsed time AND the
 # date/time of the run; the live frame shows both continuously.
 
 function _test_prog_label(id::Int)::String
- return @sprintf("Test %2d", id) # short test name goes to the done-line via last_log_line
+    return @sprintf("Test %2d", id) # short test name goes to the done-line via last_log_line
+end
+
+# ── интеграция ABMon с баром ───────────────────────────────────────────────
+const _MON_LAST_SNAP = Ref{Union{Nothing,ABMon.Snapshot}}(nothing)
+const _MON_TASK      = Ref{Union{Nothing,Task}}(nothing)
+const _MON_STOP      = Ref{Bool}(false)
+const _MON_ON        = Ref{Bool}(false)
+const _MON_LOG_IO    = Ref{Union{Nothing,IOStream}}(nothing)
+
+"""Текущая inline-строка монитора (пусто, если выключен)."""
+_mon_inline() = begin
+    _MON_ON[] || return ""
+    s = _MON_LAST_SNAP[]
+    s === nothing ? "" : ABMon.format_inline(s)
+end
+
+"""Фоновый цикл монитора: обновляет _MON_LAST_SNAP и статус бара каждые
+interval сек, пишет CSV, опрашивает управляющий файл .ab_ctl."""
+function _mon_loop!(interval::Float64, log_io)
+    ABMon.reset!()
+    while !_MON_STOP[]
+        try
+            snap = ABMon.snapshot(interval)
+            _MON_LAST_SNAP[] = snap
+            _PROG_STATUS[] = ABMon.format_inline(snap)
+            if log_io !== nothing
+                println(log_io,
+                    @sprintf("%.3f,%.2f,%.2f,%.2f,%.2f,%.3f,%.3f,%.2f,%.2f,%.2f,%.0f,%.0f",
+                             snap.ts, snap.cpu_pct, snap.load1, snap.load5, snap.load15,
+                             snap.ram_used_gb, snap.ram_total_gb, snap.ram_pct,
+                             snap.julia_rss_gb, snap.temp_c, snap.io_lat_us, snap.uptime_s))
+                flush(log_io)
+            end
+            # control-file polling: pause / resume / snapshot
+            _mon_check_control!()
+        catch e
+            _DISP_FAILS[] < 5 && try
+                log_comp(" monitor loop: $(sprint(showerror, e))")
+            catch
+            end
+        end
+        sleep(interval)
+    end
+end
+
+"""Файл .ab_ctl: `echo pause > …/.ab_ctl` ставит бар на паузу и т.д.
+Управление из второй сессии Termux — сам тест при этом продолжается."""
+function _mon_check_control!()
+    isempty(REP.run_dir) && return
+    p = joinpath(REP.run_dir, ".ab_ctl")
+    isfile(p) || return
+    cmd = try; strip(read(p, String)); catch; return; end
+    isempty(cmd) && return
+    try; rm(p; force=true); catch; end
+    if cmd == "pause";       _PROG_PAUSED[] = true
+    elseif cmd == "resume";  _PROG_PAUSED[] = false
+    elseif cmd == "snapshot"
+        s = _MON_LAST_SNAP[]
+        if s !== nothing
+            out = joinpath(REP.run_dir, "logs", "monitor_snapshot.txt")
+            mkpath(dirname(out))
+            open(out, "w") do f; println(f, ABMon.format_panel(s)); end
+        end
+    end
+end
+
+"""Запустить монитор (один раз за run). Возвращает true если реально
+запущен. Первый снапшот ждём ограниченно (≤1 с) — чтобы панель/бар сразу
+получили живые данные, а не пустоту."""
+function _mon_start!(cfg::Config)
+    cfg.ab_monitor_on || (_MON_ON[] = false; return false)
+    _MON_ON[] && return true
+    _MON_STOP[] = false
+    log_io = nothing
+    if cfg.ab_monitor_log && !isempty(REP.run_dir)
+        logdir = joinpath(REP.run_dir, "logs"); mkpath(logdir)
+        p = joinpath(logdir, "monitor.csv")
+        log_io = open(p, "w")
+        println(log_io, "ts,cpu_pct,load1,load5,load15,ram_used_gb,ram_total_gb,ram_pct,julia_rss_gb,temp_c,io_lat_us,uptime_s")
+    end
+    _MON_LOG_IO[] = log_io
+    interval = clamp(cfg.ab_monitor_interval, 0.25, 10.0)
+    _MON_TASK[] = @async _mon_loop!(interval, log_io)
+    _MON_ON[] = true
+    t0 = time()
+    while _MON_LAST_SNAP[] === nothing && time() - t0 < 1.0
+        sleep(0.02)
+    end
+    return true
+end
+
+function _mon_stop!()
+    _MON_ON[] || return
+    _MON_STOP[] = true
+    t = _MON_TASK[]
+    (t !== nothing && !istaskdone(t)) && try; wait(t); catch; end
+    io = _MON_LOG_IO[]
+    io !== nothing && try; close(io); catch; end
+    _MON_LOG_IO[] = nothing
+    _MON_ON[] = false
+end
+
+"""Полная панель монитора (если включена) — в начале теста/рана."""
+function _mon_print_panel(cfg::Config, where::AbstractString = "")
+    cfg.ab_monitor_on || cfg.ab_monitor_panel || return
+    s = _MON_LAST_SNAP[]
+    s === nothing && return
+    isempty(where) || println(" ── monitor · ", where, " ──")
+    println(ABMon.format_panel(s))
+end
+
+"""Запустить монитор, только если он ещё не запущен (run_test внутри
+run_all_tests / run_test_two_pass не должен перезапускать и двойить CSV)."""
+function _mon_owned_start!(cfg::Config)::Bool
+    _MON_ON[] && return false
+    _mon_start!(cfg)
+    return _MON_ON[]
 end
 
 # : the optional Plots.jl dependency and its PLOTS_AVAILABLE probe are
@@ -9929,7 +10747,7 @@ const T19_VF_CACHE = Dict{String,Float64}()
 const T19_SERIES_CACHE = Ref{Any}(nothing)
 
 # T33_LAST / T34_LAST — full result hand-off from the base Tests 32/33 to
-# their HARDCORE pass-2 variants (test40b/test41b). Set at the end of a base
+# their HARDCORE pass-2 variants (test32b/test33b). Set at the end of a base
 # test run; cleared by the b-variant BEFORE it re-runs the base test (stale-
 # data guard). T33 element: (q, r_mean, r_se, ci_lo, ci_hi, r_vals);
 # T34 element: (verdict_q, L_list, results_34, results_34_se).
@@ -11850,10 +12668,21 @@ function test11_anderson_darling(zeta_zeros::Vector{Float64}, cfg::Config)
  sp_contig = length(sp) == sp_loaded_n # true → block table keeps its T order
  # cap default — the test now really consumes the
  # FULL embedded ζ-range (49 999 spacings) instead of the first 5000.
- @printf(" Using %d spacings (cap=%d%s)\n", length(sp), cfg.ad_sample_cap,
- length(sp) < cfg.ad_sample_cap ? ", full loaded range — no subsampling" : "")
- @printf(" mean spacing = %.6f (ideal 1.000000 — unfolding drift inflates A²; ±0.002 ≈ A² 2.7 at n=50k)\n",
- mean(sp))
+ mc_n = length(sp)
+ n_mc = 2000
+
+ # ── шапка секции ─────────────────────────────────────────────
+ println()
+ println(ab_hr("TEST 11 · Anderson–Darling (tail-sensitive)"; accent = :ice))
+ println(ab_stat_block("setup",
+     [("zeros loaded", @sprintf("%d  (cap %d%s)", length(sp), cfg.ad_sample_cap,
+                                length(sp) < cfg.ad_sample_cap ?
+                                " · full loaded range — no subsampling" : "")),
+      ("mean spacing", @sprintf("%.6f  ·  ideal 1.000000 — unfolding drift inflates A²; ±0.002 ≈ A² 2.7 at n=50k",
+                                mean(sp)), :cyan),
+      ("MC null",      @sprintf("%d exact-law resamples × %d i.i.d. spacings (inverse-CDF)",
+                                n_mc, mc_n)),
+      ("seed",         "36 (deterministic)")]))
 
  # (a) data vs analytic GUE formula
  A2_data = anderson_darling_stat(sp; cdf_func=gue_cdf)
@@ -11869,16 +12698,12 @@ function test11_anderson_darling(zeta_zeros::Vector{Float64}, cfg::Config)
  # measured: pool A² = 0.60 → null median 19.6, while a true-GUE 50k
  # sample gives A² ≈ 1.1). The old scheme runs below as a labeled
  # diagnostic, verdict-independent.
- mc_n = length(sp)
- n_mc = 2000
  ref = get_gue_ref(cfg) # built once per run — Test 12 + diagnostic block below
  ref_sp = ref.spacings # bulk spacings of the GUE matrix (pool ~ 1600 at N=2000)
  pool_n = length(ref_sp)
  rng_t11c = MersenneTwister(36)
  A2_ref = Vector{Float64}(undef, n_mc)
  buf_t11 = Vector{Float64}(undef, mc_n) # reused — anderson_darling_stat sorts a copy
- @printf(" MC null: %d exact-law resamples × %d i.i.d. spacings (inverse-CDF, seed 36) ...\n",
- n_mc, mc_n)
  t_mc_pass1 = time() # engine wall time for the PASS 3 comparison
  for k in 1:n_mc
  rmt_sample!(rng_t11c, buf_t11)
@@ -11892,31 +12717,45 @@ function test11_anderson_darling(zeta_zeros::Vector{Float64}, cfg::Config)
  pval_mc = k_exc / n_mc
  ci_lo, ci_hi = wilson_ci(k_exc, n_mc)
 
- @printf(" Data: A² = %.6f (vs analytic GUE CDF)\n", A2_data)
- @printf(" Reference (exact law, i.i.d.): median A² = %.6f, 95%% q = %.6f\n",
- median(A2_ref), quantile(A2_ref, 0.95))
- @printf(" Monte-Carlo p-value (data ≥ null): %.4f [n_mc=%d], Wilson 95%% CI [%.4f, %.4f]\n",
- pval_mc, n_mc, ci_lo, ci_hi)
- @printf(" H0 (%s): %s\n", rmt_law_name(), pval_mc > 0.05 ? "NOT REJECTED" : "REJECTED")
  #  WARN calibration: the surmise floor of the reference itself
  D_ref11, _ = ks_test(ref_sp)
- @printf(" Surmise floor : D_ref = %.4f — the exact-GUE reference sits THIS far from the analytic surmise; A²/n = %.2e of the data should be read against it\n",
- D_ref11, A2_data / length(sp))
+ q95_null = quantile(A2_ref, 0.95)
+
+ # ── вердикт-блок ──────────────────────────────────────────
+ println(ab_stat_block("Anderson–Darling verdict",
+     [("data A²",          @sprintf("%.6f  (vs analytic %s CDF)", A2_data, rmt_law_name()), :gold),
+      ("reference median", @sprintf("%.6f  (exact law, i.i.d.)", median(A2_ref))),
+      ("95 % quantile",    @sprintf("%.6f", q95_null)),
+      ("MC p-value",       @sprintf("%.4f  [n_mc=%d]  Wilson 95%% CI [%.4f, %.4f]",
+                                     pval_mc, n_mc, ci_lo, ci_hi),
+                           pval_mc > 0.05 ? :green : :red),
+      (@sprintf("H0 (%s)", rmt_law_name()),
+                           pval_mc > 0.05 ? "NOT REJECTED" : "⚠ REJECTED",
+                           pval_mc > 0.05 ? :green : :red),
+      ("surmise floor",    @sprintf("D_ref = %.4f — the exact-GUE reference sits THIS far from the analytic surmise; read A²/n = %.2e of the data against it",
+                                     D_ref11, A2_data / length(sp)), :dim)]))
 
  # ── Effect size — a bare A² number is uninterpretable without n ──
  # For a systematic CDF deviation ε, A² ≈ n·ε² (tail-weighted): the SAME ε
  # that is invisible at n=5000 produces A² 10× larger at n=50000. Report the
  # implied ε next to the detection threshold ε_crit = sqrt(q95/n) — how far
  # above the null's 95% quantile the data actually sits, in CDF units.
- q95_null = quantile(A2_ref, 0.95)
  n_eff = length(sp)
- @printf(" Effect size: A²/n = %.2e → tail-weighted CDF deviation ε ≈ %.2f%% (95%% null q %.2f ↔ ε_crit ≈ %.2f%%)\n",
-  A2_data / n_eff, 100 * sqrt(A2_data / n_eff), q95_null,
-  100 * sqrt(q95_null / n_eff))
- @printf(" Spacing std = %.4f (law %.4f) — a variance mismatch inflates A² exactly like mean drift\n",
-  std(sp), sqrt(rmt_law_var()))
- @printf("   variance deficit %+.1f%% vs law (mean drift only %+.4f%%) — the dominant single effect in A²\n",
-  100 * (std(sp) / sqrt(rmt_law_var()) - 1.0), 100 * (mean(sp) - 1.0))
+
+ # ── effect size ───────────────────────────────────────────
+ println(ab_stat_block("effect-size decomposition",
+     [("A²/n",    @sprintf("%.2e", A2_data / n_eff), :ice),
+      ("tail CDF deviation ε",
+                   @sprintf("%.2f %%   (critical ≈ %.2f %%  ←  95%% null q %.2f)",
+                            100 * sqrt(A2_data / n_eff),
+                            100 * sqrt(q95_null / n_eff), q95_null), :cyan),
+      ("variance deficit",
+                   @sprintf("%+.1f %%   (spacing std %.4f vs law %.4f — a variance mismatch inflates A² exactly like mean drift)",
+                            100 * (std(sp) / sqrt(rmt_law_var()) - 1.0),
+                            std(sp), sqrt(rmt_law_var())), :red),
+      ("mean drift",
+                   @sprintf("%+.4f %%   ← minor; variance deficit is the dominant single effect in A²",
+                            100 * (mean(sp) - 1.0)), :dim)]))
 
  # ── Height-resolved A² — the suite's own asymptotic logic (Test 5 port) ──
  # GUE convergence is slow, ε(T) ~ 1/log(T/2π)²: the LOW zeros deviate at
@@ -11928,7 +12767,7 @@ function test11_anderson_darling(zeta_zeros::Vector{Float64}, cfg::Config)
  # identical to Test 5), evaluate A² against a size-matched exact-law null,
  # and let the best subrange govern the asymptotic verdict (α = 0.01,
  # Test 5's criterion).
- println("\n Height-resolved A² (asymptotic logic — same as Test 5's high-T ranges):")
+ println()
  T_mins_a2 = copy(cfg.highT_mins)
  if length(zeta_zeros) > 100000 # auto-extend for big files (Test 5 parity)
   for extra in [50000.0, 100000.0, 500000.0]
@@ -11946,9 +12785,8 @@ function test11_anderson_darling(zeta_zeros::Vector{Float64}, cfg::Config)
  # wrong branch ("no high-T subrange with ≥100 zeros available" despite a full
  # table). `≥` below lets ties resolve to the HIGHEST-T (most asymptotic) row.
  best_T_p, best_T_min, best_T_n = -1.0, 0.0, 0
- @printf(" (T grid: configured highT_mins + auto quartile heights; rows with <100 zeros skipped)\n")
- @printf(" %10s %10s %10s %12s %10s %8s\n", "T_min", "N_sp", "mean s", "A²", "p(MC)", "H0")
  rng_t11h = MersenneTwister(0x11b0)
+ height_rows = Vector{Vector{String}}()
  for T_min in T_mins_a2
   idx = findfirst(z -> z > T_min, zeta_zeros)
   idx === nothing && continue
@@ -11972,11 +12810,24 @@ function test11_anderson_darling(zeta_zeros::Vector{Float64}, cfg::Config)
   if p_hi >= best_T_p
    best_T_p, best_T_min, best_T_n = p_hi, T_min, length(sp_hi)
   end
-  @printf(" %10.0f %10d %10.4f %12.4f %10.4f %8s\n",
-   T_min, length(sp_hi), mean(sp_hi), A2_hi, p_hi, p_hi > 0.05 ? "KEEP" : "REJECT")
+  push!(height_rows,
+   [@sprintf("%.0f", T_min),
+    string(length(sp_hi)),
+    @sprintf("%.4f", mean(sp_hi)),
+    @sprintf("%.4f", A2_hi),
+    @sprintf("%.4f", p_hi),
+    p_hi > 0.05 ? "KEEP" : "REJECT"])
  end
+ println(ab_table(
+     ["T_min", "N_sp", "mean s", "A²", "p(MC)", "H0"],
+     height_rows;
+     aligns = [:right, :right, :right, :right, :right, :center],
+     title  = "height-resolved A² — asymptotic logic (Test-5 high-T ranges)"))
  best_T_p < 0 && (best_T_p = 0.0) # no subrange ran → keep prints/verdict sane
- @printf(" ε(T) ~ 1/log(T/2π)² shrinks with height → A² must drop along the table; best subrange p=%.4f governs the asymptotic verdict (α = 0.01, Test-5 criterion)\n",
+ @printf("    (T grid: configured highT_mins + auto quartile heights; rows with <100 zeros skipped)\n")
+ @printf("    best subrange  T > %.0f   p = %.4f   → %s\n",
+  best_T_min, best_T_p, best_T_p > 0.01 ? "asymptotic PASS" : "asymptotic WARN")
+ @printf("    ε(T) ~ 1/log(T/2π)² shrinks with height → A² must drop along the table; best subrange p=%.4f governs the asymptotic verdict (α = 0.01, Test-5 criterion)\n",
   best_T_p)
 
  # ── Block localization — WHERE in the loaded range does A² live? ──
@@ -11986,12 +12837,11 @@ function test11_anderson_darling(zeta_zeros::Vector{Float64}, cfg::Config)
  # deviation (surmise approximation or an unfolding artefact). Only runs on
  # the contiguous (uncapped) sample — a random subsample has no T order.
  if sp_contig
-  println("\n Block localization (8 contiguous blocks, low → high T):")
   K_blk = 8
   edges_blk = round.(Int, range(1, length(sp), length=K_blk + 1))
   n_blk_mc = 300
   rng_t11k = MersenneTwister(0x11b1)
-  @printf(" %5s %10s %8s %12s %10s %8s\n", "blk", "γ start", "n", "A²", "p(MC)", "H0")
+  blk_rows = Vector{Vector{String}}()
   for b in 1:K_blk
    lo_b, hi_b = edges_blk[b], edges_blk[b + 1]
    hi_b > lo_b || continue
@@ -12005,10 +12855,15 @@ function test11_anderson_darling(zeta_zeros::Vector{Float64}, cfg::Config)
    end
    p_b = cnt_b / n_blk_mc
    γ0 = sp_loaded_n == length(zeta_zeros) - 1 ? @sprintf("%.0f", zeta_zeros[lo_b]) : "—"
-   @printf(" %5d %10s %8d %12.4f %10.4f %8s\n",
-    b, γ0, length(sp_b), A2_b, p_b, p_b > 0.05 ? "KEEP" : "REJECT")
+   push!(blk_rows, [string(b), γ0, string(length(sp_b)),
+                    @sprintf("%.4f", A2_b), @sprintf("%.4f", p_b),
+                    p_b > 0.05 ? "KEEP" : "REJECT"])
    prog_update(b / K_blk, @sprintf("block MC %d/%d", b, K_blk))
   end
+  println()
+  println(ab_table(["blk", "γ start", "n", "A²", "p(MC)", "H0"], blk_rows;
+                   aligns = [:right, :right, :right, :right, :right, :center],
+                   title = "block localization — 8 contiguous blocks, low → high T"))
  else
   println("\n Block localization: skipped — capped sample is randomly subsampled (T order lost).")
  end
@@ -12071,12 +12926,23 @@ function test11_anderson_darling(zeta_zeros::Vector{Float64}, cfg::Config)
   ens = gue_ensemble_reference(R_ens, N_ens; seed_base=cfg.gue_matrix_seed,
    tag="T11 PASS 2")
   law_sd = sqrt(rmt_law_var())
-  @printf("  %5s %8s %10s %10s %12s\n", "seed", "n_sp", "mean s", "std s", "A² vs law")
+  ens_rows = Vector{Vector{String}}()
   for k in 1:R_ens
-   @printf("  %5d %8d %10.6f %10.4f %12.4f\n", ens.seed_base + k - 1,
-    ens.per_n[k], ens.per_mean[k], ens.per_std[k], ens.per_a2[k])
+   push!(ens_rows, [string(ens.seed_base + k - 1),
+                    string(ens.per_n[k]),
+                    @sprintf("%.6f", ens.per_mean[k]),
+                    @sprintf("%.4f", ens.per_std[k]),
+                    @sprintf("%.4f", ens.per_a2[k])])
   end
-  @printf("  each A²_k sits at the ~0.8 null scale → no bad seed in %d–%d (seed 112 was never the problem)\n",
+  println()
+  println(ab_table(
+      ["seed", "n_sp", "mean s", "std s", "A² vs law"],
+      ens_rows;
+      aligns = [:right, :right, :right, :right, :right],
+      title  = @sprintf("PASS 2 · ensemble — %d × %d×%d GUE, seeds %d–%d",
+                        R_ens, N_ens, N_ens, ens.seed_base,
+                        ens.seed_base + R_ens - 1)))
+  @printf("    each A²_k sits at the ~0.8 null scale → no bad seed in %d–%d (seed 112 was never the problem)\n",
    ens.seed_base, ens.seed_base + R_ens - 1)
   A2_pool_ens = anderson_darling_stat(ens.pooled; cdf_func=gue_cdf)
   floor_scaled = A2_pool_ens * (mc_n / ens.n_ref)
@@ -12135,14 +13001,11 @@ function test11_anderson_darling(zeta_zeros::Vector{Float64}, cfg::Config)
  # grid is built once from gue_cdf and is CDF-engine-independent), so the
  # two ensembles differ only through the table's ≤1e-9 CDF error. The
  # verdict is NOT re-evaluated.
- println("\n PASS 3: β=2 CDF interpolation table — cross-check vs exact")
+ # ── PASS 3 (output block below the timing loops so the stat block can
+ # carry the measured wall times) ──
  worst_tbl = rmt_build_cdf_table!() # ensure built + fresh 997-pt self-check
- @printf("  table: %d pts on [0, %.1f]; self-check max|ΔF| = %.2e (997 probes)\n",
- _RMT_TABLE_N, _RMT_TABLE_SMAX, worst_tbl)
  A2_data_exact = anderson_darling_stat(sp; cdf_func=gue2_surmise_cdf)
  A2_data_tbl = anderson_darling_stat(sp; cdf_func=rmt_table_cdf)
- @printf("  Data A² (n=%d): exact %.6f vs table %.6f (Δ = %.2e)\n",
- length(sp), A2_data_exact, A2_data_tbl, abs(A2_data_exact - A2_data_tbl))
  n3 = min(n_mc, 500) # bounded cost: ~15 s exact + ~1 s table at full range
  rng_t11p3 = MersenneTwister(36) # same draws as pass-1 resamples 1..n3
  A2_x = Vector{Float64}(undef, n3) # exact engine
@@ -12166,12 +13029,19 @@ function test11_anderson_darling(zeta_zeros::Vector{Float64}, cfg::Config)
  p_t3 = count(a -> a ≥ A2_data_tbl, A2_t) / n3
  dmax = maximum(abs.(A2_x .- A2_t); init = 0.0)
  speedup = t_table3 > 0 ? t_exact3 / t_table3 : NaN
- @printf("  MC ensemble (%d resamples × %d, seed 36 — null samples identical to pass 1):\n", n3, mc_n)
- @printf("   exact: median %.4f, p %.4f | table: median %.4f, p %.4f\n",
- median(A2_x), p_x3, median(A2_t), p_t3)
- @printf("   max|ΔA²| across the ensemble = %.2e (verdict-relevant digits: none)\n", dmax)
- @printf("  MC wall time: exact %.1f s vs table %.1f s → %.0f× faster\n",
- t_exact3, t_table3, speedup)
+ println()
+ println(ab_stat_block("PASS 3 · β=2 CDF interpolation table — cross-check vs exact",
+     [("table",       @sprintf("%d pts on [0, %.0f]  ·  self-check max|ΔF| = %.2e (997 probes)",
+                               _RMT_TABLE_N, _RMT_TABLE_SMAX, worst_tbl)),
+      ("data A²",     @sprintf("n = %d: exact %.6f   vs   table %.6f   (Δ = %.2e)",
+                               length(sp), A2_data_exact, A2_data_tbl,
+                               abs(A2_data_exact - A2_data_tbl))),
+      ("MC null",     @sprintf("%d resamples × %d, seed 36 — null samples identical to pass 1",
+                               n3, mc_n)),
+      ("MC medians",  @sprintf("exact %.4f, p %.4f   |   table %.4f, p %.4f   ·   max|ΔA²| = %.2e (verdict-relevant digits: none)",
+                               median(A2_x), p_x3, median(A2_t), p_t3, dmax)),
+      ("MC wall",     @sprintf("exact %.1f s   vs   table %.1f s   →   %.0f× faster",
+                               t_exact3, t_table3, speedup), :gold)]))
  @printf("  pass-1 MC above ran on the %s engine in %.1f s for %d resamples;\n",
  RMT_TABLE_ON[] ? "table" : "exact", t_mc_pass1, n_mc)
  @printf("  the other engine would cost ≈ %.0f s (--rmt-table %s switches).\n",
@@ -12663,8 +13533,9 @@ function test15_ab_cloud_construction(zeta_zeros::Vector{Float64}, cfg::Config)
  @printf(" Vortices: %d at plaquette centers, q = ±%.3f (net = %+.3f)\n",
  n_vortices, q_mag, net_charge)
  @printf(" Background flux α = %.4f (α = 0: pure vortex-flux verification mode)\n", 0.0)
- @printf(" Hermiticity: ||H - H†|| / ||H|| = %.2e → %s\n",
- herm_ok ? 0.0 : 1.0, herm_ok ? "OK" : "FAIL") # use herm_ok flag (avoid H - H' segfault)
+ herm_rel = hermiticity_defect(H) # element-wise, no H - H' (Julia 1.10.4-safe)
+ @printf(" Hermiticity: ||H - H†||_max / ||H||_F = %.2e → %s\n",
+ herm_rel, herm_ok ? "OK" : "FAIL")
  @printf(" TRS breaking: τ(H) = ||H - H*|| / ||H|| = %.6f → %s\n",
  τ, τ > 1e-6 ? "BROKEN (GUE class)" : "PRESERVED (GOE class)")
  @printf(" Dirac string flux verification (mod 2π, in (-π,π]):\n")
@@ -12858,10 +13729,18 @@ function test16_ab_cloud_gue_classification(zeta_zeros::Vector{Float64}, cfg::Co
  cfg_ab = ABCloudConfig(Nx, Ny, vortices, α, t_hop, lat, ab_w_eff(cfg),
  cfg.ab_seed + k_real)
  H = build_ab_cloud_hamiltonian(cfg_ab)
+ # RAM GATE (Фикс 3): плотный эрмитов eigvals под бюджет сессии;
+ # при превышении — честный пропуск реализации (NaN) вместо OOM.
+ ev = _ab_eig_2d(cfg, H; label = @sprintf("test16 real %d/%d", k_real, n_real))
+ if ev === nothing
+  push!(r_vals, NaN); push!(D_vals, NaN); push!(A2_vals, NaN)
+  push!(sig2_vals, NaN); push!(d3_vals, NaN)
+  ab_gc!()
+  continue
+ end
  # Hermitian eigenvalues (LAPACK heevr, jobz='N') —
  # identical spectrum to ~1e-12 (H is hermitianized by the builder), ~3×
  # lower peak memory than the zgeev path on 5184² matrices.
- ev = sort(eigvals(Hermitian(H)))
 
  # Central fraction of spectrum for spacing-based statistics
  n = length(ev)
@@ -12910,6 +13789,16 @@ function test16_ab_cloud_gue_classification(zeta_zeros::Vector{Float64}, cfg::Co
  # keep the bar alive through the silent realizations loop
  prog_update(0.30 + 0.66 * done_real_units / total_real_units,
   @sprintf("real %d/%d", done_real_units, total_real_units))
+ end
+
+ # RAM GATE: если ВСЕ реализации α-строки пропущены (решётка не лезет в
+ # бюджет сессии), каждая следующая строка будет пропущена тоже — та же
+ # решётка. Честный FAIL с записью в отчёт вместо NaN-статистики.
+ if all(isnan, r_vals)
+  println(" ⚠ RAM GATE: all Test 16 realizations skipped at $(Nx)×$(Ny) —",
+   " dense eig exceeds the session RAM budget (raise --ab-ram-gb or lower the lattice).")
+  rep_note!("RAM gate: Test 16 skipped all realizations (dense eig at $(Nx)×$(Ny) exceeds the RAM budget).")
+  return false
  end
 
  # Bootstrap statistics for ⟨r⟩
@@ -13367,7 +14256,7 @@ end
 #  mass·diag((−1)^m) opens the gap and the chirality-balanced Dirac
 #  points give C₁ = 0 for BOTH mass signs on the pinned 24×12 grid.
 # All rows are q×q-cell diagonalisations — sub-second by design.
-function test22_chern_number_tknn(zeta_zeros::Vector{Float64}, cfg::Config)
+function test20_chern_number_tknn(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 20: TKNN Chern Number C_1 = 1 per sub-band (α = p/q, gapped)")
  println("Fukui–Hatsugai–Suzuki on the MAGNETIC BZ (q×q Harper cell) — the")
@@ -13422,7 +14311,7 @@ end
 # ─────────────────────────────────────────────────────────────────────────────
 
 # ─────────────────────────────────────────────────────────────────────────────
-function test23_gamma_star_phase(zeta_zeros::Vector{Float64}, cfg::Config)
+function test21_gamma_star_phase(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 21: γ* Spinorial Phase ≈ π/2 (90° via imaginary unit)")
  println("Eq:gamma-star (choptyuk_qcd_bridge.tex §3.1, line 312-314)")
@@ -13473,7 +14362,7 @@ function test23_gamma_star_phase(zeta_zeros::Vector{Float64}, cfg::Config)
 end
 
 # ─────────────────────────────────────────────────────────────────────────────
-function test24_ab_phase(zeta_zeros::Vector{Float64}, cfg::Config)
+function test22_ab_phase(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 22: AB Phase Φ_AB = π/7 = δ_C")
  println("Eq:ab-phase (choptyuk_qcd_bridge.tex §3.2, line 402-405)")
@@ -13504,7 +14393,7 @@ function test24_ab_phase(zeta_zeros::Vector{Float64}, cfg::Config)
 end
 
 # ─────────────────────────────────────────────────────────────────────────────
-function test25_complex_factor(zeta_zeros::Vector{Float64}, cfg::Config)
+function test23_complex_factor(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 23: Complex Fractal Factor CF (log-periodic modulation)")
  println("Eq:complex-factor (choptyuk_qcd_bridge.tex §3.2, line 420-436)")
@@ -13590,7 +14479,7 @@ end
 #  suite's own gue2_surmise_pdf; the same P(1/2, x²) regularized gamma
 #  differentiates to (2/√π)e^{−x²} — the erf kernel χ² CDFs (df odd)
 #  are built on.
-# Pass 2 (HARDCORE, test44b): the same identities re-audited at 256-bit.
+# Pass 2 (HARDCORE, test37b): the same identities re-audited at 256-bit.
 # ─────────────────────────────────────────────────────────────────────────────
 
 """Simpson quadrature of f on [a, b] with n intervals (n forced even).
@@ -13606,7 +14495,7 @@ function _hf_simpson(f::Function, a::Float64, b::Float64, n::Int)::Float64
 end
 
 # ── Test 37 (menu id): (1/2)! via Γ — half-factorial & GUE normalization ────
-function test44_half_factorial_gamma(zeta_zeros::Vector{Float64}, cfg::Config)
+function test37_half_factorial_gamma(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 37: (1/2)! via Γ — half-factorial audit & GUE normalization")
  println("(1/2)! = Γ(3/2) = √π/2 — the fractional factorial that normalizes")
@@ -13726,7 +14615,7 @@ end
 #  H2 normalization identity at 256-bit: 1/[½·(π/4)^{3/2}·Γ(3/2)_DE] == 32/π²
 #  H3 ladder/reflection/recurrence at 256-bit: Γ(5/2)_DE = 3√π/4,
 #  Γ(1/2)_DE² = π, (1/2)!_DE = ½·Γ(1/2)_DE
-function test44b_half_factorial_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
+function test37b_half_factorial_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 37 (pass 2, HARDCORE): (1/2)! via Γ — 256-bit precision audit")
  println(repeat("─",60))
@@ -14017,6 +14906,11 @@ function config_menu!(cfg::Config)
  cfg.ab_run_third_pass ? "ON" : "OFF")
  println(" 74. Report preset (AURORA-тема отчётов): ", cfg.rep_preset,
  "  [aurora | ice | gold | emerald]")
+ println(" 75. System monitor: ", cfg.ab_monitor_on ? "ON" : "OFF",
+ " (cpu / ram / temp / io-lat в баре)")
+ println(" 76. Monitor interval: ", cfg.ab_monitor_interval, " s")
+ println(" 77. Monitor CSV log: ", cfg.ab_monitor_log ? "ON" : "OFF")
+ println(" 78. Full monitor panel at test start: ", cfg.ab_monitor_panel ? "ON" : "OFF")
  println("\n Enter number to change, or 'q' to return:")
 
  # prompt was printed twice (copy-paste artifact).
@@ -14460,6 +15354,19 @@ function config_menu!(cfg::Config)
  else
  !isempty(v) && println(" Unknown preset — keeping $(cfg.rep_preset)")
  end
+ elseif answer == "75"
+ cfg.ab_monitor_on = !cfg.ab_monitor_on
+ println(" System monitor: ", cfg.ab_monitor_on ? "ON" : "OFF")
+ elseif answer == "76"
+ print(" New monitor interval (0.25..10 s) [current=$(cfg.ab_monitor_interval)]: ")
+ v = strip(readline())
+ !isempty(v) && try; cfg.ab_monitor_interval = clamp(parse(Float64, v), 0.25, 10.0); catch; end
+ elseif answer == "77"
+ cfg.ab_monitor_log = !cfg.ab_monitor_log
+ println(" Monitor CSV log: ", cfg.ab_monitor_log ? "ON" : "OFF")
+ elseif answer == "78"
+ cfg.ab_monitor_panel = !cfg.ab_monitor_panel
+ println(" Full monitor panel: ", cfg.ab_monitor_panel ? "ON" : "OFF")
  end
  catch e
  # stay alive — report and redraw the config menu.
@@ -15519,7 +16426,11 @@ const _SUBSUP_MAP = Dict('²' => "^{2}", '³' => "^{3}", '⁴' => "^{4}", '⁵' 
     '₊' => "_{+}", '₋' => "_{-}")
 
 function _norm_text(s::AbstractString)
-    haskey(_SUBSUP_MAP, '²') || return String(s)
+    # FIX: the old guard `haskey(_SUBSUP_MAP, '²')` tested the DICTIONARY
+    # itself (always true — '²' is a literal key of this const map), so the
+    # early-out never fired and every string paid the IOBuffer rewrite. The
+    # intended fast path: skip normalization when s has no mappable glyph.
+    any(c -> haskey(_SUBSUP_MAP, c), s) || return String(s)
     out = IOBuffer()
     for ch in s
         if haskey(_SUBSUP_MAP, ch)
@@ -15649,6 +16560,12 @@ function make_theme(name::String)
 end
 
 # --- colormaps ---
+# FIX (data-integrity guard): the hex table must be exactly 256×6 = 1536
+# chars. A single lost/gained character in this 1536-char literal used to
+# surface only deep in plotting as wrong colors or a late BoundsError at
+# index 256 — the load-time check makes the corruption loud and immediate.
+length(_VIRIDIS_HEX) == 1536 ||
+    error("VIRIDIS LUT corrupted: $(length(_VIRIDIS_HEX)) hex chars (need 256×6 = 1536)")
 const _VIRIDIS_LUT = let lut = Vector{RGBA32}(undef, 256)
     h = _VIRIDIS_HEX
     for i in 0:255
@@ -16587,6 +17504,13 @@ end
 _utc_stamp() = Dates.format(Dates.now(), "yyyy-mm-dd HH:MM") * " UTC"
 
 function _repplot_to_fig(p::RepPlot, w::Int, h::Int)::ABPlot.Fig
+    # NOTE (deliberate, kept explicit): PNG rasters always render the AURORA
+    # dark theme. --rep-preset selects the HTML report palette family
+    # (aurora/ice/gold/emerald — see _AUR_PRESETS), while ABPlot.make_theme
+    # defines exactly two full themes ("light" and the aurora-family dark):
+    # passing "ice"/"gold"/"emerald" would silently hit make_theme's
+    # else-branch (aurora) anyway. Pinned here so the engine never pretends the
+    # HTML preset carries over to the PNG canvas.
     f = ABPlot.make_fig(w, h;
         title = p.title, subtitle = "",
         footer = @sprintf("AB-Cloud · ABPlot engine · AURORA theme · %s",
@@ -16920,15 +17844,28 @@ function report_blocks_to_pdf(blocks::Vector{Tuple{String,String,String}})::Vect
         out = String[]
         for raw in split(s, '\n')
             ln = String(raw)
+            pushed = false
             while ab_w(ln) > maxc
-                cut = min(length(ln), maxc)
-                sp = findlast(' ', ln[1:min(end, maxc)])
-                cut = sp === nothing ? maxc : Int(sp)
-                cut < 1 && (cut = maxc)
-                push!(out, String(ln[1:cut]))
-                ln = ln[nextind(ln, cut):end]
+                # FIX (StringIndexError): String indexing in Julia is BYTE-based;
+                # the old ln[1:min(end, maxc)] mixed the byte index `end` with
+                # the character budget maxc and crashed (StringIndexError) the
+                # moment byte maxc landed mid-multibyte-char (A², —, ·, →).
+                # Operate on the CHARACTER vector instead — indices are then
+                # plain 1-based char positions, immune to UTF-8 boundaries.
+                # (Also covers the wide-char case: ab_w > maxc while the char
+                # count is ≤ maxc → the old fallback cut=maxc overran the line.)
+                chars = collect(ln)
+                n = min(length(chars), maxc)
+                sp = findlast(isequal(' '), chars[1:n])
+                k = sp === nothing ? n : sp
+                k < 1 && (k = 1)
+                push!(out, join(chars[1:k]))
+                ln = join(chars[k+1:end])
+                pushed = true
             end
-            push!(out, ln)
+            # пустой ОСТАТОК после полного consumed-куска не добавляем
+            # (пустые входные строки — добавляем: это межабзацные отступы)
+            (pushed && isempty(ln)) || push!(out, ln)
         end
         out
     end
@@ -18058,12 +18995,18 @@ end
 # line pairs unrelated constants (row index vs a threshold printed mid-sentence)
 # into every report and the GIF tour. Tests now queue REAL plots instead:
 # hc_verdict_table queues a sub-check verdict map on every HARDCORE pass, and
-# scan-style deep audits queue their own series (see test22b_chern_hardcore for
+# scan-style deep audits queue their own series (see test20b_chern_hardcore for
 # the pattern). A pass with no queued plots states it honestly in its report.)
 
 # ── 16.16 run_test hook (original renamed to _rep_inner_test) ──────────
 # Original run_test renamed; the hook above wraps it with reporting.
 function run_test(id::Int, zeta_zeros::Vector{Float64}, cfg::Config)::Bool
+ # Системный монитор (Часть 5): для одиночных запусков (--test N / меню)
+ # владеем монитором здесь; под run_all_tests / run_test_two_pass он уже
+ # запущен — _mon_owned_start! тогда просто вернёт false.
+    mon_owned = _mon_owned_start!(cfg)
+    # Полная панель монитора в начале теста, если включена (--monitor panel / меню 78)
+    cfg.ab_monitor_panel && _mon_print_panel(cfg, "Test $(id) start")
  # per-test single-line progress bar + start/done timestamps.
     # Owned ONLY when no bar is active — under run_test_two_pass the two-pass
     # wrapper owns the bar for both passes and this hook stays passive.
@@ -18100,6 +19043,7 @@ function run_test(id::Int, zeta_zeros::Vector{Float64}, cfg::Config)::Bool
         return out
     finally
         owned && prog_finish(out, time() - t0)
+        mon_owned && _mon_stop!()
     end
 end
 
@@ -18564,7 +19508,7 @@ function lab_e15(cfg::Config)
     println("\n Chern number vs α (TKNN, L=$L, open lattice):")
     xs = Float64[]; cs = Float64[]
     for a in (0.10, 0.20, 0.30, 0.40, 0.45, 0.50, 0.55, 0.60, 0.70, 0.80)
-        c1 = test22_chern_number_tknn_nocfg(a, L)
+        c1 = _chern_c1_first_band_or_nan(a, L)
         @printf("   α = %.2f: C₁(lowest band) = %g\n", a, c1)
         isnan(c1) && continue # gap closed (α=1/2 touching) — excluded from the plot
         push!(xs, a); push!(cs, c1)
@@ -18586,7 +19530,7 @@ subband gap closes (per-band C₁ undefined — e.g. the α=1/2 Dirac touching).
 (The stub here just returned 1.0 for α ≤ 1/2 — a fake 'Diophantine
 check' with unused p/q variables; at α = 2/5 the true lowest-band C₁ is 3,
 so the hardcoded rule was wrong exactly where it mattered.)"
-function test22_chern_number_tknn_nocfg(alpha::Float64, L::Int)
+function _chern_c1_first_band_or_nan(alpha::Float64, L::Int)
     pq = rationalize(alpha; tol=1e-9)
     q = denominator(pq)
     q > 64 && return NaN # outside the FHS contract (q ≤ 64) — honest NaN, not a guess
@@ -18982,9 +19926,26 @@ function physics_lab_menu!(cfg::Config)
         @printf("  Lab defaults: %d×%d | α=%g | W=%g | q=%g | Nv=%d | %s | %s | %s | seed=%d\n",
                 cfg.lab_L, cfg.lab_L, cfg.lab_alpha, cfg.lab_W, cfg.lab_q, cfg.lab_nv,
                 cfg.lab_layout, cfg.lab_lattice, cfg.lab_model, cfg.lab_seed)
-        println("  Select an experiment to see its full description and run it:")
+        println("  " * ab_D() *
+            (cfg.lang == "ru" ?
+             "Выберите эксперимент — будет показано полное описание и запуск:" :
+             "Select an experiment to see its full description and run it:") * ab_R())
+        prev_group = ""
         for e in LAB_EXPS
-            @printf("  %s E%-2d. %s\n        └ %s\n", ab_ico_lab(e.id), e.id - 100, e.title, e.about)
+            group = e.id <= 118 ?
+                (cfg.lang == "ru" ? "E1–E18 · решётка и интерферометрия" :
+                                    "E1–E18 · lattice & interferometry") :
+                (cfg.lang == "ru" ? "E19–E22 · 2D/3D облака, гидродинамика, квантовый волк" :
+                                    "E19–E22 · 2D/3D clouds, hydrodynamics, quantum walk")
+            if group != prev_group
+                println(ab_category_header(e.id <= 118 ? "⚛️" : "🌊", group,
+                                           color = e.id <= 118 ? :gold : :cyan))
+                prev_group = group
+            end
+            println("  " * ab_ico_lab(e.id) * " " * ab_gold() * ab_B() *
+                    @sprintf("E%-2d", e.id - 100) * ab_R() * ab_D() * ". " * ab_R() *
+                    ab_wht() * e.title * ab_R())
+            println("       " * ab_D() * "└ " * e.about * ab_R())
         end
         println("  a.  Run ALL experiments sequentially (writes reports for each)")
         println("  s.  Lab parameter settings — matrix size, α, W, vortices, … (applies to all runs)")
@@ -19084,8 +20045,12 @@ function _lab_run!(e::LabExp, cfg::Config)
             if PROGRESS_ENABLED[] && (stderr isa Base.TTY)
                 _disp_push!((:bar, :clear, nothing))
             end
-            println(@sprintf("[%s] done in %s — %s → %s", _PROG_LABEL[],
-                             _prog_hms(time() - t0), _prog_now_str(), ok ? "DONE" : "ERROR"))
+            println("  " * ab_ice() * ab_B() * "❄" * ab_R() * " [" *
+                    ab_cyn() * _PROG_LABEL[] * ab_R() * "]" *
+                    ab_D() * " done in " * ab_R() *
+                    ab_gold() * _prog_hms(time() - t0) * ab_R() *
+                    ab_D() * " — " * _prog_now_str() * ab_R() * " → " *
+                    ab_badge(ok ? "DONE" : "ERROR"; color = ok ? :done : :fail))
             flush(stdout)
         end
     end
@@ -19400,6 +20365,7 @@ function lab_e22(cfg::Config)
 end
 
 function _lab_register_e19plus!()
+    any(e -> e.id >= 119, LAB_EXPS) && return # idempotent: повторный заход в LAB не дублирует E19–E22
     exps = (
         LabExp(119, "abcloud_2d", "AB cloud: construction & 2D spatial maps",
             "coupling-mass field, ψ₀ and mid-band densities as heatmaps",
@@ -19923,6 +20889,12 @@ function _h3_eig(H::AbstractMatrix)
     return ev
 end
 function _h3_eig(Hs::SparseMatrixCSC{ComplexF64})
+    # FIX (diagnostic): a sparse matrix built outside h3d_cfg carries no rebuild
+    # closure, so the RAM-guard downgrade below cannot shrink L — every retry
+    # re-uses the same matrix until the guard dies with "... exhausted". That is
+    # almost certainly an upstream wiring mistake, so say it loudly here
+    # instead of failing deep inside the guard loop.
+    D3_REBUILD[] === nothing && @warn "_h3_eig(sparse) called outside h3d_cfg — D3_REBUILD unset: the RAM guard cannot downgrade L for this matrix"
     build = D3_REBUILD[] === nothing ? (Lp -> Hs) : D3_REBUILD[]
     Lstart = D3_LAST_L[] > 0 ? D3_LAST_L[] : round(Int, cbrt(size(Hs, 1)))
     r = _h3_window_guarded(Lstart, D3_SP_DEPTH[]; build = build, wantvecs = false)
@@ -20137,7 +21109,12 @@ function d3_params_menu!(cfg::Config)
     end
 end
 
-_h3_eig(H) = sort(real.(eigvals(H)))
+# FIX: a loose `_h3_eig(H) = sort(real.(eigvals(H)))` Any-method used to sit
+# here. It never beat the typed methods for real arguments (Matrix/SparseMatrixCSC
+# dispatch is more specific) but silently bypassed the D3_LAST_STATS bookkeeping
+# for exotic argument types and invited call-site drift. Removed — every verified
+# call site passes an h3d_cfg build, so the typed funnel (dense full spectrum /
+# sparse RAM-guarded window) is the only intended entry now.
 _h3_r(ev) = mean_adjacent_spacing_ratio(central_band_eigs(ev, 0.6))[1]
 # : TRUE spectral extent in both engines (dense: full spectrum;
 # sparse: cheap edge Lanczos — the _h3_eig window is NOT the extent)
@@ -21094,29 +22071,27 @@ function _d3_hardcore_audits(cfg::Config)::Bool
     # dense builders must be elementwise-equal at ANY L), so it runs at a
     # cheap L=12 rather than re-paying the L₂ dense build per test
     Lh4 = min(L, 12)
-    if true
-        lines = _d3_lines(cfg)
-        Hd = h3d_build(Lh4; alpha = cfg.d3_alpha, tz = cfg.d3_tz,
-                       tz_stagger = cfg.d3_tz_stagger, vlines = lines, W = cfg.d3_W,
-                       mass = cfg.d3_mass,
-                       openx = _d3_boundary_map(cfg.d3_boundary)[1],
-                       openy = _d3_boundary_map(cfg.d3_boundary)[2],
-                       openz = _d3_boundary_map(cfg.d3_boundary)[3],
-                       seed = cfg.d3_seed)
-        Hs12 = h3d_build_sparse(Lh4; alpha = cfg.d3_alpha, tz = cfg.d3_tz,
-                                tz_stagger = cfg.d3_tz_stagger, vlines = lines,
-                                W = cfg.d3_W, mass = cfg.d3_mass,
-                                openx = _d3_boundary_map(cfg.d3_boundary)[1],
-                                openy = _d3_boundary_map(cfg.d3_boundary)[2],
-                                openz = _d3_boundary_map(cfg.d3_boundary)[3],
-                                seed = cfg.d3_seed)
-        de = maximum(abs.(Matrix(Hd) - Matrix(Hs12)))
-        oke = de == 0.0
-        @printf("   H4 cross-engine: max|H_sparse − H_dense| = %.2e (construction check at L=%d) → %s\n",
-                de, Lh4, oke ? "IDENTICAL" : "FAIL")
-        ok &= oke
-        Hd = nothing; Hs12 = nothing
-    end
+    lines = _d3_lines(cfg)
+    Hd = h3d_build(Lh4; alpha = cfg.d3_alpha, tz = cfg.d3_tz,
+                   tz_stagger = cfg.d3_tz_stagger, vlines = lines, W = cfg.d3_W,
+                   mass = cfg.d3_mass,
+                   openx = _d3_boundary_map(cfg.d3_boundary)[1],
+                   openy = _d3_boundary_map(cfg.d3_boundary)[2],
+                   openz = _d3_boundary_map(cfg.d3_boundary)[3],
+                   seed = cfg.d3_seed)
+    Hs12 = h3d_build_sparse(Lh4; alpha = cfg.d3_alpha, tz = cfg.d3_tz,
+                            tz_stagger = cfg.d3_tz_stagger, vlines = lines,
+                            W = cfg.d3_W, mass = cfg.d3_mass,
+                            openx = _d3_boundary_map(cfg.d3_boundary)[1],
+                            openy = _d3_boundary_map(cfg.d3_boundary)[2],
+                            openz = _d3_boundary_map(cfg.d3_boundary)[3],
+                            seed = cfg.d3_seed)
+    de = maximum(abs.(Matrix(Hd) - Matrix(Hs12)))
+    oke = de == 0.0
+    @printf("   H4 cross-engine: max|H_sparse − H_dense| = %.2e (construction check at L=%d) → %s\n",
+            de, Lh4, oke ? "IDENTICAL" : "FAIL")
+    ok &= oke
+    Hd = nothing; Hs12 = nothing
     H1 = nothing; GC.gc(); GC.gc()
     return ok
 end
@@ -21277,8 +22252,22 @@ function three_d_menu!(cfg::Config)
         @printf("  two-pass: %s | pass 1 L=%d³ (%d MB) → pass 2 HARDCORE L=%d³ (%d MB) | engine %s\n",
                 cfg.d3_two_pass ? "ON " : "OFF", cfg.d3_L_primary, cfg.d3_ram_mb1,
                 cfg.d3_L_secondary, cfg.d3_ram_mb2, eng)
+        prev_group_3d = ""
         for t in T3D
-            @printf("  %s 3D-%-2d. %s — %s\n", ab_ico_lab(t.id + 300), t.id, t.title, t.about)
+            group = t.id <= 10 ? "Construction & Statistics" :
+                    t.id <= 18 ? "Disorder & Size" :
+                    t.id <= 24 ? "Topology & Butterfly" :
+                    t.id <= 30 ? "Localization & Anisotropy" :
+                                 "Modern Dirac e⁻/e⁺ & ζ critical line"
+            if group != prev_group_3d
+                println(ab_category_header(t.id <= 30 ? "🧊" : "⚛️", group,
+                                           color = t.id <= 30 ? :blue : :violet))
+                prev_group_3d = group
+            end
+            println("  " * ab_ico_lab(t.id + 300) * " " * ab_gold() * ab_B() *
+                    @sprintf("3D-%-2d", t.id) * ab_R() * ab_D() * ". " * ab_R() *
+                    ab_wht() * t.title * ab_R() * " — " *
+                    ab_D() * t.about * ab_R())
         end
         println("  a.  Run ALL 3D tests" * (cfg.d3_two_pass ? " (two-pass 36³→54³ spec: L₁=$(cfg.d3_L_primary)³, L₂=$(cfg.d3_L_secondary)³)" : ""))
         println("  2.  Toggle two-pass mode (currently " * (cfg.d3_two_pass ? "ON" : "OFF") * ")")
@@ -21370,19 +22359,48 @@ end
 
 # ── 20. QUICK CHECK (16××32 two-pass) ───────────────────────────
 function quick_check_all(zeta_zeros::Vector{Float64}, cfg::Config)
-    println("\n QUICK CHECK: the full 38-test suite on 16×16 (pass 1) and 32×32 (pass 2)")
-    watched = (:ab_nx, :ab_ny, :ab_nx_secondary, :ab_ny_secondary, :ab_run_two_pass,
-               :ab_run_third_pass, :ab_nv_list, :ab_nv_list_secondary,
-               :ab_n_realizations, :ab_ks_bootstrap_n)
+    println("\n QUICK CHECK: the full suite on 16×16 (pass 1) and 32×32 (pass 2)")
+    println(" RAM: every expensive knob is capped — GUE ref, AD cap, t31 lmax,")
+    println("      test 33 hc floor, test 36 sample targets, t38 three-pass lattices.")
+    watched = (
+        :ab_nx, :ab_ny, :ab_nx_secondary, :ab_ny_secondary, :ab_run_two_pass,
+        :ab_run_third_pass, :ab_nv_list, :ab_nv_list_secondary,
+        :ab_n_realizations, :ab_ks_bootstrap_n,
+        :gue_matrix_size, :ad_sample_cap, :n_bootstrap, :t31_lmax,
+        :ab_hc_nreal, :ab37_n_eigs_pass1, :ab37_n_eigs_pass2,
+        :t38_l1, :t38_l2, :t38_seeds, :t38_quick, :t38_c2_seeds,
+        :ab_monitor_on, :ab_monitor_interval, :ab_monitor_log, :ab_monitor_panel,
+    )
     saved = [(f, getfield(cfg, f)) for f in watched]
     try
+        # Решётки: основная 16×16, хардкорная 32×32
         cfg.ab_nx = 16; cfg.ab_ny = 16
         cfg.ab_nx_secondary = 32; cfg.ab_ny_secondary = 32
         cfg.ab_run_two_pass = true
-        cfg.ab_run_third_pass = false # QUICK CHECK stays fast — no 19c/29c/31c series
+        cfg.ab_run_third_pass = false      # 19c/29c/31c в quick check не гоняем
         cfg.ab_nv_list = [2]; cfg.ab_nv_list_secondary = [2]
         cfg.ab_n_realizations = 2
         cfg.ab_ks_bootstrap_n = min(cfg.ab_ks_bootstrap_n, 50)
+        # ▼▼ СОБСТВЕННО ФИКС «зависает после теста 3» ▼▼
+        cfg.gue_matrix_size = min(cfg.gue_matrix_size, 500)   # было 12000 → 7-8 мин тишины
+        # ▲▲                                                  ▲▲
+        cfg.ad_sample_cap   = min(cfg.ad_sample_cap, 5_000)
+        cfg.n_bootstrap     = min(cfg.n_bootstrap, 200)
+        cfg.t31_lmax        = min(cfg.t31_lmax, 32)          # тест 30: [8,12,16,20,24,28,32]
+        cfg.ab_hc_nreal     = min(cfg.ab_hc_nreal, 2)        # 32b/33b/35b
+        cfg.ab37_n_eigs_pass1 = min(cfg.ab37_n_eigs_pass1, 5_000)
+        cfg.ab37_n_eigs_pass2 = min(cfg.ab37_n_eigs_pass2, 10_000)
+        # Тест 38 (Кюри), три прохода: лёгкие решётки
+        cfg.t38_l1 = min(cfg.t38_l1, 20)
+        cfg.t38_l2 = min(cfg.t38_l2, 24)
+        cfg.t38_seeds = min(cfg.t38_seeds, 2)
+        cfg.t38_c2_seeds = min(cfg.t38_c2_seeds, 3)
+        cfg.t38_quick = true
+        # монитор быстрый: реже, без панели, без CSV
+        cfg.ab_monitor_on = true
+        cfg.ab_monitor_interval = 2.0
+        cfg.ab_monitor_log = false
+        cfg.ab_monitor_panel = false
         run_all_tests(zeta_zeros, cfg)
     finally
         for (f, v) in saved
@@ -21857,7 +22875,18 @@ end
 Returns (coef, RSS, R²). The H2 fits use basis matrices, so a single helper
 covers both the 3-parameter ζ-ansatz and the 2-parameter lattice reference."""
 function _hp_linlsq(X::Matrix{Float64}, y::Vector{Float64})
-    c = X \ y
+    # FIX: a rank-deficient SQUARE basis used to escape as a raw
+    # SingularException from `X \ y` (verified empirically: tall rank-deficient
+    # X is handled gracefully by the QR path — R² just collapses to 0 — but a
+    # square singular X throws). Both H2 bases are tall (n×3 / n×2), so this
+    # branch is pure insurance: NaN coefficients flow into the existing
+    # isfinite-gated fits_ok/AICc verdict (see H2) instead of crashing the audit.
+    c = try
+        X \ y
+    catch e
+        e isa SingularException || rethrow()
+        fill(NaN, size(X, 2))
+    end
     res = y .- X * c
     rss = sum(abs2, res)
     my = mean(y)
@@ -21950,16 +22979,19 @@ other regimes override only their own levers (Nv and/or α)."""
 function _hp_regime_config(cfg::Config, L::Int, seed::Int, R::HPRegime;
                            lattice::Symbol = :open)
     α = _hp_regime_alpha(cfg, R)
-    local v::Vector{Vortex}
-    if R.nv_mode === :density
+    # FIX: the old `local v::Vector{Vortex}` + two if/else assignments works
+    # only as long as every FUTURE branch remembers to assign v — a forgotten
+    # branch meant UndefVarError far from the edit site. An if-expression binds
+    # v on every path by construction.
+    v = if R.nv_mode === :density
         Nv = _hp_regime_Nv(cfg, L, R)
-        v = Nv == 0 ? Vortex[] :
+        Nv == 0 ? Vortex[] :
             random_vortex_configuration(Nv, L, L; q_magnitude = resolve_q_magnitude(cfg),
                                         enforce_neutrality = true,
                                         rng = MersenneTwister(seed),
                                         place_at_centers = true)
     else
-        v = _hp_std_vortices(cfg, L, MersenneTwister(seed))
+        _hp_std_vortices(cfg, L, MersenneTwister(seed))
     end
     return ABCloudConfig(L, L, v, α, cfg.ab_t, lattice, ab_w_eff(cfg), seed, :monumental)
 end
@@ -23725,7 +24757,7 @@ end
 # ─────────────────────────────────────────────────────────────────────────────
 
 function show_menu(cfg::Config)
-    if !(stdout isa Base.TTY) # piped/CI — исходный простой вид
+    if !(stdout isa Base.TTY) # piped/CI — простой вид без ANSI
         print(msg(cfg, "menu_title"))
         for i in SUITE_IDS
             print(msg(cfg, "menu_$i") * "\n")
@@ -23733,43 +24765,84 @@ function show_menu(cfg::Config)
         for k in ("menu_a", "menu_p", "menu_c", "menu_r", "menu_q", "menu_g")
             print(msg(cfg, k) * "\n")
         end
-        print(" l. Physics lab — experiment configurations (22) / Лаборатория\n")
-        print(" d3. 3D lab — 34 tests: Hofstadter stack + Dirac e⁻/e⁺ & ζ critical line ('s' inside = all parameters)\n")
-        print(" h. Hilbert-Pólya deep audit — 7 tests H1-H7: arithmetic specificity, not just universality / Аудит Гильберта-Пойа\n")
-        print(" f. Quick check — full suite at 16×16 → 32×32 (fast)\n")
+        print(" l. Physics lab — 22 experiments\n")
+        print(" d3. 3D lab — 34 tests\n")
+        print(" h. Hilbert-Pólya audit — 7 tests\n")
+        print(" f. Quick check\n")
         return
     end
+
+    ru = cfg.lang == "ru"
     rows = String[]
-    for i in SUITE_IDS
+
+    # ═══ RIEMANN ζ — Tests 1–14 ═══
+    push!(rows, ab_category_header("📊",
+        ru ? "СТАТИСТИКА ζ · 1–14" : "ζ STATISTICS · 1–14", color = :cyan))
+    for i in 1:14
         txt = strip(msg(cfg, "menu_$i"))
         m = match(r"^(\d+)\.\s*(.*)$", txt)
-        num = m === nothing ? lpad(string(i), 2) : String(m.captures[1])
+        num  = m === nothing ? lpad(string(i), 2) : String(m.captures[1])
         body = m === nothing ? String(txt) : String(m.captures[2])
-        body = replace(body, r"^\[[^\]]*\]" => mm -> ab_cyn() * String(mm) * ab_R())
+        # replace(s, re => f) даёт f SubString совпадения — красим тег [Obj.N] целиком
+        body = replace(body, r"^\[[^\]]*\]" => mm -> ab_cyn() * mm * ab_R())
         push!(rows, " " * ab_ico(i) * " " * ab_cyn() * lpad(num, 2) * ab_R() *
                     ab_D() * ". " * ab_R() * body)
     end
+
+    # ═══ AB-CLOUD — Tests 15–39 ═══
     push!(rows, "SEP")
-    for (ico, k) in (("▶️","menu_a"),("🎛️","menu_p"),("🔧","menu_c"),("🔄","menu_r"),("🚪","menu_q"),("🌐","menu_g"))
+    push!(rows, ab_category_header("⚛️",
+        ru ? "AB-CLOUD · 15–39" : "AB-CLOUD PHYSICS · 15–39", color = :gold))
+    for i in 15:39
+        txt = strip(msg(cfg, "menu_$i"))
+        m = match(r"^(\d+)\.\s*(.*)$", txt)
+        num  = m === nothing ? lpad(string(i), 2) : String(m.captures[1])
+        body = m === nothing ? String(txt) : String(m.captures[2])
+        body = replace(body, r"^\[[^\]]*\]" => mm -> ab_gold() * mm * ab_R())
+        push!(rows, " " * ab_ico(i) * " " * ab_cyn() * lpad(num, 2) * ab_R() *
+                    ab_D() * ". " * ab_R() * body)
+    end
+
+    # ═══ Действия ═══
+    push!(rows, "SEP")
+    push!(rows, ab_category_header("🎯", ru ? "ДЕЙСТВИЯ" : "ACTIONS",
+                                   color = :violet))
+    for (ico, k) in (("▶️","menu_a"), ("🎛️","menu_p"), ("🔧","menu_c"),
+                     ("🔄","menu_r"), ("🌐","menu_g"), ("🚪","menu_q"))
         t = strip(msg(cfg, k))
         mm = match(r"^([A-Za-z0-9]+)\.\s*(.*)$", t)
-        key = mm === nothing ? "" : String(mm.captures[1])
+        key  = mm === nothing ? "" : String(mm.captures[1])
         body = mm === nothing ? String(t) : String(mm.captures[2])
         push!(rows, " " * ico * " " * ab_grn() * ab_B() * lpad(key, 2) * ab_R() *
                     ab_D() * ". " * ab_R() * body)
     end
-    push!(rows, " 🔬 " * ab_grn() * ab_B() * "l" * ab_R() * ab_D() * ". " * ab_R() * "Physics lab — experiment configurations (22) / Лаборатория")
-    push!(rows, " 🧊 " * ab_grn() * ab_B() * "d3" * ab_R() * ab_D() * ". " * ab_R() * "3D lab — Hofstadter stack, Dirac e⁻/e⁺, ζ critical line (34 tests)")
-    push!(rows, " 🧬 " * ab_grn() * ab_B() * "h" * ab_R() * ab_D() * ". " * ab_R() * "Hilbert-Pólya deep audit — 7 tests H1-H7 / Аудит Гильберта-Пойа")
-    push!(rows, " ⚡ " * ab_grn() * ab_B() * "f" * ab_R() * ab_D() * ". " * ab_R() * "Quick check — full suite at 16×16 → 32×32 (fast)")
+
+    # ═══ Лаборатории ═══
+    push!(rows, ab_category_header("🧪", ru ? "ЛАБОРАТОРИИ" : "SPECIAL LABS",
+                                   color = :green))
+    push!(rows, " 🔬 " * ab_grn() * ab_B() * "l " * ab_R() * ab_D() * "· " * ab_R() *
+        (ru ? "Физическая лаборатория — 22 эксперимента (E1–E22)" :
+              "Physics lab — 22 experiments (E1–E22)"))
+    push!(rows, " 🧊 " * ab_grn() * ab_B() * "d3" * ab_R() * ab_D() * "· " * ab_R() *
+        (ru ? "3D-лаборатория — 34 теста (Hofstadter, Дирак)" :
+              "3D lab — 34 tests (Hofstadter, Dirac)"))
+    push!(rows, " 🧬 " * ab_grn() * ab_B() * "h " * ab_R() * ab_D() * "· " * ab_R() *
+        (ru ? "Аудит Гильберта–Пойа H1–H7" :
+              "Hilbert–Pólya audit H1–H7"))
+    push!(rows, " ⚡ " * ab_grn() * ab_B() * "f " * ab_R() * ab_D() * "· " * ab_R() *
+        (ru ? "Быстрая проверка 16×16 → 32×32" :
+              "Quick check 16×16 → 32×32"))
+
     tt = strip(replace(strip(msg(cfg, "menu_title")), r"=+" => ""))
-    print(ab_box(rows; title = "🌌  " * tt, note = "UI3 v3", accent = :cyan))
+    note = ru ? @sprintf("%d тестов", length(SUITE_IDS)) :
+                @sprintf("%d tests", length(SUITE_IDS))
+    print(ab_box(rows; title = "🌌  " * tt, note = note, accent = :gold))
     println()
 end
 
 
 # ── Test 25: Dirac string flux verification ─────────────────────────────
-function test31_dirac_string_flux(zeta_zeros::Vector{Float64}, cfg::Config)
+function test24_dirac_string_flux(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 24: Dirac String Flux Verification") # was "TEST 25"
  println("Verify: vortex plaquette flux = 2π·q (mod 2π), other plaquettes ≈ 0")
@@ -23803,8 +24876,9 @@ function test31_dirac_string_flux(zeta_zeros::Vector{Float64}, cfg::Config)
  expected = mod2pi(2π * q_mag + π) - π
  ok = abs(flux_mod - expected) < 1e-9
  n_correct_vortex += ok ? 1 : 0
- @printf(" Vortex plaquette (%d,%d): flux = %+.6f, expected = %+.6f → %s\n",
- ix, iy, flux_mod, expected, ok ? "OK" : "FAIL")
+ println("  " * ab_kv("vortex plaquette ($ix,$iy)",
+  @sprintf("flux=%+.6f  exp=%+.6f  %s", flux_mod, expected, ok ? "✓" : "✗");
+  keycolor = :gold, valcolor = ok ? :green : :red, width = 28))
  else
  ok = abs(flux_mod) < 1e-9
  n_correct_empty += ok ? 1 : 0
@@ -23815,10 +24889,21 @@ function test31_dirac_string_flux(zeta_zeros::Vector{Float64}, cfg::Config)
  end
 
  n_empty = n_total - 1 # one plaquette has the vortex
- @printf("\n Lattice: %dx%d, q_mag = %.4f (per cfg.ab_q_list)\n", Nx, Ny, q_mag)
- @printf(" Summary: vortex plaquette OK = %d/1, empty plaquettes OK = %d/%d\n",
- n_correct_vortex, n_correct_empty, n_empty)
- @printf(" Max |flux| on empty plaquettes = %.2e (should be ~0)\n", max_empty_flux)
+ println()
+ println("  " * ab_kv("lattice", @sprintf("%dx%d", Nx, Ny);
+  keycolor = :gold, width = 22))
+ println("  " * ab_kv("q_magnitude", @sprintf("%.4f (per cfg.ab_q_list)", q_mag);
+  keycolor = :gold, valcolor = :cyan, width = 22))
+ println("  " * ab_kv("vortex plaquettes",
+  @sprintf("%d/1  %s", n_correct_vortex, n_correct_vortex == 1 ? "✓" : "✗");
+  keycolor = :gold, valcolor = n_correct_vortex == 1 ? :green : :red, width = 22))
+ println("  " * ab_kv("empty plaquettes",
+  @sprintf("%d/%d  %s", n_correct_empty, n_empty,
+   n_correct_empty == n_empty ? "✓" : "✗");
+  keycolor = :gold, valcolor = n_correct_empty == n_empty ? :green : :red, width = 22))
+ println("  " * ab_kv("max empty flux",
+  @sprintf("%.2e  %s", max_empty_flux, max_empty_flux < 1e-9 ? "✓" : "✗");
+  keycolor = :gold, valcolor = max_empty_flux < 1e-9 ? :green : :yellow, width = 22))
  @printf(" A smooth-gauge-only formula would give flux = 0 on ALL plaquettes.\n")
 
  status = (n_correct_vortex == 1) && (n_correct_empty == n_empty) ? msg(cfg, "pass") : msg(cfg, "warn")
@@ -23828,7 +24913,7 @@ function test31_dirac_string_flux(zeta_zeros::Vector{Float64}, cfg::Config)
 end
 
 # ── Test 25 (menu id): Byers-Yang theorem check ─────────────────────────────
-function test32_byers_yang_theorem(zeta_zeros::Vector{Float64}, cfg::Config)
+function test25_byers_yang_theorem(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 25: Byers-Yang Theorem Check") # was "TEST 26"
  println("Integer q=1.0 → spectrum identical to q=0 (flux quantization)")
@@ -23899,7 +24984,7 @@ function test32_byers_yang_theorem(zeta_zeros::Vector{Float64}, cfg::Config)
 end
 
  # ── Test 27: PBC torus with periodically-wrapped Dirac string ──────
-function test33_pbc_torus_dirac_string(zeta_zeros::Vector{Float64}, cfg::Config)
+function test26_pbc_torus_dirac_string(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  flush(stdout)
  println("TEST 26: PBC Torus with Periodically-Wrapped Dirac String") # was "TEST 27"
@@ -24020,9 +25105,9 @@ function test33_pbc_torus_dirac_string(zeta_zeros::Vector{Float64}, cfg::Config)
  # Check (c): Hermiticity
  herm_ok = verify_hermitian(H)
  τ = time_reversal_asymmetry(H)
- # Hermiticity error already computed inside verify_hermitian.
- # For display, just use 0.0 if hermitian, else 1.0.
- herm_err_display = herm_ok ? 0.0 : 1.0
+ # Real relative defect (element-wise loop, no H - H' allocation —
+ # Julia 1.10.4-safe): ~2e-17 for a healthy matrix, ~1 for a broken one.
+ herm_err_display = hermiticity_defect(H)
 
  # Check (d): ⟨r⟩ approaches GUE
  # central bulk window — the full-spectrum
@@ -24036,17 +25121,27 @@ function test33_pbc_torus_dirac_string(zeta_zeros::Vector{Float64}, cfg::Config)
  ev_bulk = central_band_eigs(sort(ev), cfg.ab_center_fraction)
  r_mean, n_r = mean_adjacent_spacing_ratio(ev_bulk)
 
- @printf(" (a) Vortex plaquette (%d,%d): flux = %+.6f, expected = %+.6f → %s\n",
- ix_v, iy_v, flux_v_mod, expected_v_mod, flux_v_ok ? "OK" : "FAIL")
- @printf(" (b) Empty plaquettes: %d/%d have |flux| < 1e-6 (max |flux| = %.2e)\n",
- n_empty_ok, n_empty_total, max_empty_flux)
- @printf(" (Periodic string artifacts: %d plaquettes)\n", n_artifacts)
- @printf(" (c) Hermiticity: ||H - H†||/||H|| = %.2e → %s\n",
- herm_err_display, herm_ok ? "OK" : "FAIL")
- @printf(" TRS breaking: τ(H) = %.6f → %s\n",
- τ, τ > 1e-6 ? "BROKEN (GUE class)" : "PRESERVED (GOE class)")
- @printf(" (d) ⟨r⟩ = %.4f (GUE ≈ %.4f, Poisson ≈ %.4f, n_r = %d)\n",
- r_mean, R_MEAN_GUE, R_MEAN_POISSON, n_r)
+ println(" " * ab_kv("(a) vortex plaquette",
+  @sprintf("(%d,%d)  flux=%+.6f  exp=%+.6f  %s",
+   ix_v, iy_v, flux_v_mod, expected_v_mod, flux_v_ok ? "✓" : "✗");
+  keycolor = :gold, valcolor = flux_v_ok ? :green : :red, width = 22))
+ println(" " * ab_kv("(b) empty plaquettes",
+  @sprintf("%d/%d |flux|<1e-6, max=%.2e", n_empty_ok, n_empty_total, max_empty_flux);
+  keycolor = :gold, valcolor = :white, width = 22))
+ println(" " * ab_kv("(b') periodic artifacts",
+  @sprintf("%d plaquettes", n_artifacts);
+  keycolor = :gold, valcolor = :dim, width = 22))
+ println(" " * ab_kv("(c) hermiticity",
+  @sprintf("||H-H†||/||H|| = %.2e  %s", herm_err_display, herm_ok ? "✓" : "✗");
+  keycolor = :gold, valcolor = herm_ok ? :green : :red, width = 22))
+ println(" " * ab_kv("    TRS breaking",
+  @sprintf("τ(H) = %.6f  %s", τ,
+   τ > 1e-6 ? "BROKEN · GUE class" : "PRESERVED · GOE class");
+  keycolor = :ice, valcolor = τ > 1e-6 ? :green : :yellow, width = 22))
+ println(" " * ab_kv("(d) ⟨r⟩",
+  @sprintf("%.4f   GUE %.4f · Poisson %.4f · n_r = %d",
+   r_mean, R_MEAN_GUE, R_MEAN_POISSON, n_r);
+  keycolor = :gold, valcolor = :cyan, width = 22))
 
  # PASS criterion: (a) vortex flux OK, (c) Hermitian, (d) ⟨r⟩ > 0.5
  # (b) is informational — on a torus, periodic string artifacts are expected.
@@ -24075,7 +25170,7 @@ end
 # ─────────────────────────────────────────────────────────────────────────────
 
 # ── Test 27: Binary chiral symmetry at α=1/2 ───────────────────────────────
-function test34_chiral_binary_alpha_half(zeta_zeros::Vector{Float64}, cfg::Config)
+function test27_chiral_binary_alpha_half(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 27: Binary Chiral Symmetry at α=1/2")
  println("Verify ‖H + ΓHΓ⁻¹‖/‖H‖ = 0 exactly at α=1/2 (binary pass/fail)")
@@ -24321,7 +25416,7 @@ end
 # sine-kernel process, while half-remembered asymptotics give values anywhere
 # in 0.2-0.6 — a wrong constant shrinks the denominator and pushes f_GUE
 # down by ~0.2, turning real GUE-quality data into a false WARN.)
-function test30_f_GUE_figure_of_merit(zeta_zeros::Vector{Float64}, cfg::Config)
+function test28_f_GUE_figure_of_merit(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 28: f_GUE Figure of Merit")
  println("f_GUE = (Σ²_Poisson - Σ²_data) / (Σ²_Poisson - Σ²_GUE) — should be > 0.90")
@@ -24423,7 +25518,7 @@ function test30_f_GUE_figure_of_merit(zeta_zeros::Vector{Float64}, cfg::Config)
 end
 
 # ── Test 29: Dirac dip in DOS at α=1/2 ──────────────────────────────────────
-function test37_dirac_dip_dos(zeta_zeros::Vector{Float64}, cfg::Config)
+function test29_dirac_dip_dos(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 29: Dirac Dip in DOS at α=1/2")
  println("Density of states at α=1/2 should be ~8.8× SMALLER than at α=0.4 or α=0.6")
@@ -24488,7 +25583,7 @@ function test37_dirac_dip_dos(zeta_zeros::Vector{Float64}, cfg::Config)
 end
 
 # ── Test 30: Dirac cone velocity v_F ────────────────────────────────────────
-function test38_dirac_cone_vF(zeta_zeros::Vector{Float64}, cfg::Config)
+function test30_dirac_cone_vF(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 30: Dirac Cone Velocity v_F at α=1/2")
  println("Verify 1/L scaling of the Dirac gap (R² > 0.95); v_F = slope/2π")
@@ -24584,7 +25679,7 @@ function test38_dirac_cone_vF(zeta_zeros::Vector{Float64}, cfg::Config)
 end
 
 # ── Test 31: Hatano-Nelson non-Hermitian test ───────────────────────────────
-function test39_hatano_nelson(zeta_zeros::Vector{Float64}, cfg::Config)
+function test31_hatano_nelson(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 31: Hatano–Nelson Skin Effect for σ≠1/2")
  println("σ=1/2 → Hermitian (GUE); σ≠1/2 → complex spectrum (Poisson)")
@@ -24739,7 +25834,7 @@ const _DISORDER_STATISTICS_NOTE = [
 # ⟨r⟩ uses the central cfg.ab_center_fraction bulk window
 # (monograph bulk=0.6), consistent with Tests 16/33/36 — the FULL
 # spectrum includes band edges and biases ⟨r⟩ downward.
-function test40_200_realization_rmean(zeta_zeros::Vector{Float64}, cfg::Config)
+function test32_200_realization_rmean(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 32: ⟨r⟩ bootstrap over independent realizations")
  println("Target: ⟨r⟩ = 0.5992 ± 0.022 vs GUE 0.5992 (machine-precision match)")
@@ -24789,7 +25884,7 @@ function test40_200_realization_rmean(zeta_zeros::Vector{Float64}, cfg::Config)
  center_frac_test33 = cfg.ab_center_fraction
  # Use cfg.ab_n_realizations instead of hardcoded 30.
  # HARDCORE pass-2 (STATS_SECONDARY_HARDCORE, set by run_test_two_pass for
- # the test40b deep-validation variant): the realization count is floored at
+ # the test32b deep-validation variant): the realization count is floored at
  # cfg.ab_hc_nreal (default 5) — ensemble deep checks need more data.
  n_realizations = max(3, STATS_SECONDARY_HARDCORE[] ?
  max(cfg.ab_n_realizations, cfg.ab_hc_nreal) : cfg.ab_n_realizations)
@@ -24896,7 +25991,9 @@ function test40_200_realization_rmean(zeta_zeros::Vector{Float64}, cfg::Config)
  H = build_ab_cloud_hamiltonian(cfg_ab)
  prog_update((qi_ - 1 + (k - 0.5) / n_realizations) / n_q,
  @sprintf("q=%.2f · rel %d/%d · diagonalizing", q_mag, k, n_realizations))
- ev_all_k = sort(eigvals(Hermitian(H))) # values only — eigenvectors would cost several times more RAM
+ # RAM GATE (Фикс 3): пропущенная реализация вносит NaN, тест не падает по OOM
+ ev_all_k = _ab_eig_2d(cfg, H; label = @sprintf("test32 real %d/%d", k, n_realizations))
+ ev_all_k === nothing && (push!(r_vals, NaN); ab_gc!(); continue)
  # Central bulk window instead of the full spectrum: band edges are
  # non-bulk and bias ⟨r⟩ toward Poisson.
  ev_k = central_band_eigs(ev_all_k, center_frac_test33)
@@ -24908,6 +26005,15 @@ function test40_200_realization_rmean(zeta_zeros::Vector{Float64}, cfg::Config)
  if k % max(1, n_realizations ÷ 6) == 0 || k == n_realizations
  @printf(" realization %d/%d: ⟨r⟩ = %.4f\n", k, n_realizations, r_k)
  end
+ end
+
+ # RAM GATE: все реализации пропущены — решётка не лезет в бюджет сессии.
+ # Решётка одна на все q-строки, значит не пролезет и дальше — честный FAIL.
+ if all(isnan, r_vals)
+  println(" ⚠ RAM GATE: all Test 32 realizations skipped at $(Nx)×$(Ny) —",
+   " dense eig exceeds the session RAM budget (raise --ab-ram-gb or lower the lattice).")
+  rep_note!("RAM gate: Test 32 skipped all realizations (dense eig at $(Nx)×$(Ny) exceeds the RAM budget).")
+  return false
  end
 
  r_mean = mean(r_vals)
@@ -24998,7 +26104,7 @@ function test40_200_realization_rmean(zeta_zeros::Vector{Float64}, cfg::Config)
  (abs(final_r_mean - 0.5992) < 0.05 ? msg(cfg, "warn") : msg(cfg, "fail"))
  log_result(" Test 32: ⟨r⟩=$(round(final_r_mean,digits=4))±$(round(1.96*final_r_se,digits=4)) " *
  "(q=$(round(final_q,digits=2)), n=$(n_realizations), W=$(round(W,digits=1))) vs GUE 0.5992 → $status")
- # Hand the full per-row results to the HARDCORE pass-2 variant (test40b):
+ # Hand the full per-row results to the HARDCORE pass-2 variant (test32b):
  # rows = (q, r_mean, r_se, ci_lo, ci_hi, r_vals) per q row + protocol context.
  T33_LAST[] = (all_results, n_realizations, W)
  return ok
@@ -25009,7 +26115,7 @@ end
 # as the 1b…14b ζ-statistics variants. The plain pass 2 for this test is just
 # a bigger-lattice rerun; this variant is strictly HARDER instead:
 #  H1 MORE realizations per row: n ≥ cfg.ab_hc_nreal (floor, default 5)
-#  enforced inside test40 when the hardcore flag is up; the ensemble CI
+#  enforced inside test32 when the hardcore flag is up; the ensemble CI
 #  tightens ≈ √(n/5) vs the primary pass.
 #  H2 ANCHOR DENSITY on ANY lattice: the comparison row (q=0.3) Nv is
 #  rescaled to the monograph density 25/900 = 2.78% of Nx·Ny (the
@@ -25019,14 +26125,14 @@ end
 #  • bootstrap percentile 95% CI of the ensemble mean (10 000 resamples)
 #  vs GUE 0.5992 — DIAGNOSTIC ONLY: the verdict stays on the fixed
 #  ±0.022 band (CI containment is an anti-pattern as n grows — see
-#  the note in test40);
+#  the note in test32);
 #  • realization scatter std(r_vals) vs the monograph ensemble band
 #  ±0.022 — this is the test of the suite's own thesis: vortex
 #  arrangements differ per realization, so the ENSEMBLE must be
 #  stable, not just one mean lucky;
 #  • sign count of realizations above/below GUE (systematic-offset
 #  sanity readout).
-function test40b_rmean_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
+function test32b_rmean_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 32 (pass 2, HARDCORE): ⟨r⟩ bootstrap — deep validation")
  println("Harder machinery: n ≥ $(cfg.ab_hc_nreal) realizations/row, comparison row")
@@ -25062,7 +26168,7 @@ function test40b_rmean_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  Nx, Ny, cfg.ab_hc_nreal, hc_nv))
  T33_LAST[] = nothing # stale-data guard — this pass must hand its OWN data
  base_ok = try
- test40_200_realization_rmean(zeta_zeros, cfg)
+ test32_200_realization_rmean(zeta_zeros, cfg)
  catch e
  println(" ERROR in base bootstrap: $(sprint(showerror, e))")
  false
@@ -25077,7 +26183,7 @@ function test40b_rmean_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  end
  rows, n_used, W_used = data
  println("\n ─── HARDCORE ensemble checks (per row) ───")
- # Verdict rows feed hc_verdict_table: test40b was the ONLY
+ # Verdict rows feed hc_verdict_table: test32b was the ONLY
  # hardcore variant that never routed through hc_verdict_table, so its
  # pass-2 report carried no verdict-map plot at all (the 10:42 report:
  # "no plots queued", empty plots/ dir) — the "graphs are empty" complaint
@@ -25137,7 +26243,7 @@ end
 # → WARN, and worse on 96×96). L=112 means a
 # 12544×12544 dense Hermitian diagonalization (≈2.5 GB matrix + LAPACK
 # workspace): keep ≥ 8 GB RAM free; a warning is printed before the run.
-function test41_lattice_L_scaling(zeta_zeros::Vector{Float64}, cfg::Config)
+function test33_lattice_L_scaling(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 33: L-Scaling for AB-Cloud Lattice")
  println("L=10→0.487 (Poisson), L=20→0.562, L=30→0.595, L=50→0.594 (monograph),")
@@ -25153,19 +26259,21 @@ function test41_lattice_L_scaling(zeta_zeros::Vector{Float64}, cfg::Config)
  # swap-thrashes INSIDE one non-interruptible LAPACK call — many minutes of
  # absolute silence (no progress line is possible mid-eig) — the whole
  # suite looks frozen right after Test 32 ("32 тест зависает и не грузится").
- # The gate drops rungs whose peak exceeds 70% of the CURRENTLY free memory
- # and says so honestly; the scan, verdicts, plot and the T34_LAST contract
- # then run on the surviving ladder (L_active). Decided ONCE, so both
- # q-rows share the same ladder and the parallel vectors stay consistent.
- free_gb = max(Sys.free_memory(), 0) / 1024^3
+ # The gate drops rungs whose peak exceeds 70% of the SESSION RAM BUDGET
+ # (Фикс 2/3: единый бюджет _ab_ram_budget_gb — CLI --ab-ram-gb / env
+ # AB_RAM_BUDGET_MB / авто 0.75 × free) and says so honestly; the scan,
+ # verdicts, plot and the T34_LAST contract then run on the surviving
+ # ladder (L_active). Decided ONCE, so both q-rows share the same ladder
+ # and the parallel vectors stay consistent.
+ budget_gb = _ab_ram_budget_gb(cfg)
  L_active = Int[]
  for L in L_list
-  peak_gb = L^4 * 16 * 4.5 / 1024^3
-  if peak_gb > 0.70 * free_gb
-   @printf(" ⚠ RAM GATE: L=%d needs ≈ %.1f GB peak (matrix + LAPACK workspace), free ≈ %.1f GB → SKIPPED (a swap-thrashing eig is indistinguishable from a hang)\n",
-    L, peak_gb, free_gb)
-   rep_note!(@sprintf("Test 33 RAM gate: L=%d skipped (needs ≈ %.1f GB peak, free ≈ %.1f GB).",
-    L, peak_gb, free_gb))
+  peak_gb = _ab_ram_peak_gb_2d(L * L)
+  if peak_gb > 0.70 * budget_gb
+   @printf(" ⚠ RAM GATE: L=%d needs ≈ %.1f GB peak (matrix + LAPACK workspace), budget ≈ %.1f GB → SKIPPED (a swap-thrashing eig is indistinguishable from a hang)\n",
+    L, peak_gb, budget_gb)
+   rep_note!(@sprintf("Test 33 RAM gate: L=%d skipped (needs ≈ %.1f GB peak, budget ≈ %.1f GB).",
+    L, peak_gb, budget_gb))
   else
    push!(L_active, L)
   end
@@ -25234,7 +26342,7 @@ function test41_lattice_L_scaling(zeta_zeros::Vector{Float64}, cfg::Config)
  # results[q] = vector of ⟨r⟩ over L_list (averaged over realizations)
  results_34 = Dict{Float64, Vector{Float64}}()
  results_34_se = Dict{Float64, Vector{Float64}}() # per-L standard errors (HARDCORE plateau χ²)
- # average ≤ 5 configs (primary). HARDCORE pass-2 (test41b) lifts the cap
+ # average ≤ 5 configs (primary). HARDCORE pass-2 (test33b) lifts the cap
  # to cfg.ab_hc_nreal (default 5) — the plateau χ² needs tighter per-L SEs.
  n_cap_34 = STATS_SECONDARY_HARDCORE[] ? max(5, cfg.ab_hc_nreal) : 5
  n_avg_34 = max(1, min(cfg.ab_n_realizations, n_cap_34))
@@ -25341,8 +26449,8 @@ function test41_lattice_L_scaling(zeta_zeros::Vector{Float64}, cfg::Config)
  status = ok ? msg(cfg, "pass") : (monotone ? msg(cfg, "warn") : msg(cfg, "fail"))
  log_result(" Test 33: L-scaling to L=$(L_active[end]) " *
  "$(join([round(r, digits=3) for r in r_means], ",")) → $status")
- # Hand the full per-L results to the HARDCORE pass-2 variant (test41b).
- # NOTE: the stored ladder is L_active (RAM-gated) — test41b's plateau
+ # Hand the full per-L results to the HARDCORE pass-2 variant (test33b).
+ # NOTE: the stored ladder is L_active (RAM-gated) — test33b's plateau
  # indexing (findall(≥50)) walks the SAME parallel vectors.
  T34_LAST[] = (verdict_q, copy(L_active), results_34, results_34_se)
  return ok
@@ -25354,7 +26462,7 @@ end
 # secondary 96×96 setting does not change it) — this variant makes pass 2
 # strictly harder instead:
 #  H1 MORE realizations per L: cap lifted 5 → cfg.ab_hc_nreal (default 5)
-#  (enforced inside test41 when the hardcore flag is up);
+#  (enforced inside test33 when the hardcore flag is up);
 #  H2 WEIGHTED GUE-plateau test: inverse-variance weighted mean over the
 #  plateau points L ≥ 50 vs GUE 0.5992 + a χ²/dof consistency readout
 #  stricter than the base monotonicity + final-point criteria, which a
@@ -25362,7 +26470,7 @@ end
 #  H3 RAM honesty: L is NOT pushed beyond 112 — L=128 would need a
 #  16384² complex matrix ≈ 4.3 GB + LAPACK workspace (OOM risk on the
 #  8 GB-class device); the reason is printed instead of attempted.
-function test41b_lscaling_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
+function test33b_lscaling_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 33 (pass 2, HARDCORE): L-scaling — deep validation")
  println("Harder machinery: up to $(max(5, cfg.ab_hc_nreal)) realizations per L, weighted")
@@ -25379,7 +26487,7 @@ function test41b_lscaling_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  rep_note!(@sprintf("Test 33 HARDCORE pass 2: n ≤ %d per L, weighted GUE-plateau χ² over L ≥ 50, L capped at 112 (RAM honesty).", n_hc))
  T34_LAST[] = nothing # stale-data guard — this pass must hand its OWN data
  base_ok = try
- test41_lattice_L_scaling(zeta_zeros, cfg)
+ test33_lattice_L_scaling(zeta_zeros, cfg)
  catch e
  println(" ERROR in base L-scaling: $(sprint(showerror, e))")
  false
@@ -25842,7 +26950,7 @@ function test19b_dirac_velocity_hardcore(zeta_zeros::Vector{Float64}, cfg::Confi
 end
 
 # ── Test 19c (menu id 19, pass 3 SERIES): α-selective Dirac scaling series ───
-# Pattern source: test22b (real report plots, Task 15) + the b-variant plot
+# Pattern source: test20b (real report plots, Task 15) + the b-variant plot
 # blocks (Task 16). Pass 1 fits E_min(1/L) at ONE flux (α=0.5) and pass 2
 # audits that fit on a dense grid — but neither run shows WHAT MAKES α=1/2
 # special. The c-pass turns that into a REAL three-curve series on the clean
@@ -26222,7 +27330,7 @@ end
 #  work — milliseconds — so "done in 0:00:00" is the DESIGN cost, not a
 #  skip. Four real report plots queued: C₁ ladder, anchor convergence,
 #  touching depth, mass-gap opening.
-function test22b_chern_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
+function test20b_chern_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 20 (pass 2, HARDCORE): TKNN Chern number — deep audit")
  println("Anchors {1/4, 1/3, 1/5} + size ladder 12→72 + α=1/2 touching audit")
@@ -26334,7 +27442,7 @@ end
 #  noise — isolates physics from arithmetic)
 #  H3 δ_C sensitivity: arg(γ*) at δ ∈ {π/7 − 1e-6, π/7, π/7 + 1e-6} stays
 #  within 1° of π/2 — the 90° claim is not a fine-tuning accident
-function test23b_gamma_star_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
+function test21b_gamma_star_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 21 (pass 2, HARDCORE): γ* spinorial phase — 256-bit precision audit")
  println(repeat("─",60))
@@ -26384,7 +27492,7 @@ end
 #  at 256-bit — the AB phase is linear in the enclosed flux
 #  H3 δ_C identity: Φ_AB == δ_C both at Float64 and 256-bit (the spinorial
 #  holonomy claim of §3.2)
-function test24b_ab_phase_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
+function test22b_ab_phase_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 22 (pass 2, HARDCORE): AB phase Φ_AB = π/7 — 256-bit audit")
  println(repeat("─",60))
@@ -26427,7 +27535,7 @@ end
 #  LaTeX constant 2.854 (|Δ| < 1e-3, the base's documented anchor)
 #  H3 c_AB = 1 − |CF_hard| ≈ 0.02063 (|Δ| < 1e-3, base contract) with the
 #  256-bit refinement of the hardcoded amplitude reported
-function test25b_complex_factor_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
+function test23b_complex_factor_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 23 (pass 2, HARDCORE): complex fractal factor — 256-bit audit")
  println(repeat("─",60))
@@ -26475,7 +27583,7 @@ end
 #  H2 charge family at position A: q = −1 and q = +0.3 — the flux is
 #  charge-linear (2πq mod 2π) and must hold identically for fractional q
 #  H3 hermiticity of every built H
-function test31b_dirac_flux_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
+function test24b_dirac_flux_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 24 (pass 2, HARDCORE): Dirac-string flux — exhaustive scan")
  println("Full plaquette scan × 4 configs: 2 positions × {+1, −1, +0.3}")
@@ -26536,7 +27644,7 @@ end
 #  α=0. The identity is gauge-topological and size-independent; the cost
 #  is 12 value-only Hermitian diagonalizations at N = ab_nx² (heevr,
 #  ≈ 30–60 s each at 96²) — an honest ≈ 10–15 min hardcore block.
-function test32b_byers_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
+function test25b_byers_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 25 (pass 2, HARDCORE): Byers–Yang — multi-layout / multi-q audit")
  println("3 layouts × {+1, +2, −1} integer rows + fractional {0.3, 0.5} rows")
@@ -26607,7 +27715,7 @@ end
 #  cap; the base keeps its own W protocol) → mean ± SE + bootstrap CI +
 #  scatter vs ±0.022 + sign counts
 #  H3 hermiticity + τ per realization
-function test33b_torus_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
+function test26b_torus_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 26 (pass 2, HARDCORE): PBC torus Dirac string — deep validation")
  println("Exhaustive artifact classification + ⟨r⟩ ensemble (n ≥ $(cfg.ab_hc_nreal))")
@@ -26742,7 +27850,7 @@ end
 #  Calibrations measured on the embedded set:
 #  ⟨r⟩(50k) = 0.6119, block spread 0.0050, D_GUE(50k) = 0.0216 vs
 #  D_GOE(50k) = 0.0880 (Poisson control 0.283) — every window ≥ 1.4×.
-function test34b_chiral_binary_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
+function test27b_chiral_binary_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 27 (pass 2, HARDCORE): binary chiral symmetry — deep audit")
  println("Exact row + ε_rms contract + vortex preservation + Coulomb W-scan")
@@ -26969,7 +28077,7 @@ end
 # HARDCORE parameter standard (suite spec): W = ab_w_eff(cfg) (=1.0
 # under default config), q = 1.0, Nv = 4 — the pass-1 cfg-list defaults
 # (Nv=25, raw ab_W) deliberately do NOT extend to this pass.
-function test30b_fgue_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
+function test28b_fgue_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 28 (pass 2, HARDCORE): f_GUE figure of merit — ensemble deep pass")
  println("n ≥ $(cfg.ab_hc_nreal) realizations, per-realization f_GUE, ensemble verdict")
@@ -27065,7 +28173,7 @@ end
 #  the dip holds for |E| < {0.3, 0.5, 0.8} (reuses the anchor spectra)
 #  H3 size sharpening: contrast(96×96) ≥ 0.9·contrast(L_mid) — the dip must
 #  NOT wash out with system size (0.9 tolerance for finite-size wiggles)
-function test37b_dirac_dip_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
+function test29b_dirac_dip_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 29 (pass 2, HARDCORE): Dirac dip in DOS — fine-scan deep audit")
  println(repeat("─",60))
@@ -27160,7 +28268,7 @@ function test37b_dirac_dip_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
 end
 
 # ── Test 29c (menu id 29, pass 3 SERIES): Dirac dip — fine scan + window series
-# Pattern source: test22b (Task 15) + the b-variant plot blocks (Task 16).
+# Pattern source: test20b (Task 15) + the b-variant plot blocks (Task 16).
 # Pass 2 (29b) already proves the dip on a 9-point scan at the mid lattice and
 # 3 anchors at the secondary one; the c-pass is the SERIES run that draws the
 # physics curves themselves at the FULL secondary resolution (cfg.ab_nx = 96
@@ -27179,7 +28287,7 @@ end
 # Runtime honesty: 9 solves at 96² (heevr values-only ≈ 56 s each, measured
 # ) + 2 at 48² ≈ 8–12 min — the price of a fine scan at the
 #  launch resolution.
-function test37c_dirac_dip_series(zeta_zeros::Vector{Float64}, cfg::Config)
+function test29c_dirac_dip_series(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 29 (pass 3, SERIES): Dirac dip — fine α-scan + window series")
  println(repeat("─",60))
@@ -27307,7 +28415,7 @@ end
 #  H3 E₁·L constancy: cv = std(E₁·L)/mean ≤ 5% across the grid (the Dirac
 #  scaling law is E₁·L → 4π = const — pointwise scatter is the honest
 #  measure, the fit alone can hide wiggles)
-function test38b_vF_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
+function test30b_vF_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 30 (pass 2, HARDCORE): Dirac cone velocity — dense-grid audit")
  println(repeat("─",60))
@@ -27383,7 +28491,7 @@ end
 # zgeev workspace ≈ 5–6 GB at 96² (N² × 16 B = 1.27 GB per matrix copy;
 # the run printed "peak RAM ≈ 0.0 GB" because the formula
 # below was missing one factor of N — it computed MEGABYTES, not GB).
-function test39b_hatano_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
+function test31b_hatano_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 31 (pass 2, HARDCORE): Hatano–Nelson skin effect — σ-sweep")
  println(repeat("─",60))
@@ -27485,7 +28593,7 @@ function test39b_hatano_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
 end
 
 # ── Test 31c (menu id 31, pass 3 SERIES): Hatano–Nelson realization ensemble ─
-# Pattern source: test22b (Task 15) + the b-variant plot blocks (Task 16).
+# Pattern source: test20b (Task 15) + the b-variant plot blocks (Task 16).
 # Pass 1 measures ONE σ pair (0.5 vs 0.7) and pass 2 sweeps σ on ONE
 # realization at the full secondary lattice. Neither run answers the
 # STATISTICAL question: is the skin-effect signature stable across the
@@ -27514,7 +28622,7 @@ end
 # Runtime honesty: n × (1 heevr + 3 zgeev) solves at N ≤ 2304; measured
 # : heevr 48² ≈ 0.9 s, zgeev ≈ 4–8× heevr → ≈ 2–4 min at n = 5
 #  (the H0 matrix is built once per realization, σ-rows copy it).
-function test39c_hatano_series(zeta_zeros::Vector{Float64}, cfg::Config)
+function test31c_hatano_series(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 31 (pass 3, SERIES): Hatano–Nelson — realization ensemble")
  println(repeat("─",60))
@@ -27649,7 +28757,7 @@ end
 #  bimodal ensemble
 #  Verdict: the base composite contract on the enriched sample
 #  ((p > 0.01 || D < 0.10) && ⟨|ΔR₂|⟩ < 0.10 && closer to GUE than Poisson)
-function test36b_ab_vs_zeta_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
+function test34b_ab_vs_zeta_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 34 (pass 2, HARDCORE): direct AB vs ζ — deep validation")
  println("n ≥ $(cfg.ab_hc_nreal) realizations, R₂ bins 0.05, per-realization KS stability")
@@ -27831,7 +28939,7 @@ end
 #  H2 DENSER t-grid: midpoints inserted (points over [0.02, 2.0])
 #  H3 realization scatter of RMS(K − K_box): reported with a 0.15 FAIL
 #  basis — the ramp must be an ensemble property, not per-realization luck
-function test42b_form_factor_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
+function test35b_form_factor_hardcore(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n$(repeat("═",60))")
  println("TEST 35 (pass 2, HARDCORE): spectral form factor K(t) — ensemble pass")
  println("n ≥ $(cfg.ab_hc_nreal) per-realization K(t), 33-point t-grid, ensemble verdict")
@@ -27986,7 +29094,7 @@ end
 # ζ zeros?
 
 # PASS criterion: KS p > 0.01 AND ⟨|R₂^AB(s) − R₂^ζ(s)|⟩_s < 0.10
-function test36_direct_ab_vs_zeta5000(zeta_zeros::Vector{Float64}, cfg::Config)
+function test34_direct_ab_vs_zeta(zeta_zeros::Vector{Float64}, cfg::Config)
  # the WHOLE loaded range is used (50 000 zeros with
  # the embedded dataset), not the last 5000. The header is
  # built from the actual count so the output always names the real range.
@@ -28041,7 +29149,16 @@ function test36_direct_ab_vs_zeta5000(zeta_zeros::Vector{Float64}, cfg::Config)
  # the same disorder pattern seed 96, defeating the bootstrap).
  cfg_ab = ABCloudConfig(Nx, Ny, vortices, α, t_hop, lat, W, cfg.ab_seed + 119 + ireal)
  H = build_ab_cloud_hamiltonian(cfg_ab)
- evals = sort(eigvals(Hermitian(H))) # values only (RAM: no eigenvector block)
+ # RAM GATE (Фикс 3): гейт зависит только от размера решётки — если не
+ # пролезла первая реализация, не пролезет ни одна: честный FAIL сразу.
+ evals = _ab_eig_2d(cfg, H; label = @sprintf("test34 real %d/%d", ireal, n_real))
+ if evals === nothing
+  println(" ⚠ RAM GATE: all Test 34 realizations skipped at $(Nx)×$(Ny) —",
+   " dense eig exceeds the session RAM budget (raise --ab-ram-gb or lower the lattice).")
+  rep_note!("RAM gate: Test 34 skipped all realizations (dense eig at $(Nx)×$(Ny) exceeds the RAM budget).")
+  ab_gc!()
+  return false
+ end
  # Take central band: ±center_frac fraction of the spectrum
  n_tot = length(evals)
  half = Int(fld(n_tot * center_frac, 2))
@@ -28265,9 +29382,8 @@ end
 # (ramp on [0,1], plateau at 1 for t > 1). Also compare against ζ-5000.
 
 # PASS criterion: RMS(K_AB − K_GUE) < 0.30 AND Corr(K_AB, K_GUE) > 0.50.
-function test42_spectral_form_factor_Kt(zeta_zeros::Vector{Float64}, cfg::Config)
- println("
-" * repeat("═", 60))
+function test35_spectral_form_factor_Kt(zeta_zeros::Vector{Float64}, cfg::Config)
+ println("\n" * repeat("═", 60))
  println("TEST 35: Spectral form factor K(t) — GUE ramp+plateau diagnostic")
  println(" Compare empirical K(t) against K_GUE_theory(t) = min(t, 1)")
  println(repeat("─", 60))
@@ -28353,16 +29469,11 @@ function test42_spectral_form_factor_Kt(zeta_zeros::Vector{Float64}, cfg::Config
  smooth_window=smooth_window,
  eigs_per_seed=0)
 
- @printf("
- Spectral form factor K(t):
-")
- @printf(" t | K(AB) K(GUE) K(ζ) K(Poisson)
-")
- @printf(" ------+--------------------------------------------
-")
+ @printf("\n Spectral form factor K(t):\n")
+ @printf(" t | K(AB) K(GUE) K(ζ) K(Poisson)\n")
+ @printf(" ------+--------------------------------------------\n")
  for k in 1:length(t_values)
- @printf(" %.3f | %.4f %.4f %.4f %.4f
-",
+ @printf(" %.3f | %.4f %.4f %.4f %.4f\n",
  t_values[k], K_ab[k], K_gue[k], K_zeta[k], K_poisson[k])
  end
 
@@ -28380,15 +29491,10 @@ function test42_spectral_form_factor_Kt(zeta_zeros::Vector{Float64}, cfg::Config
  corr_zeta = length(K_ab) > 1 && std(K_ab) > 1e-12 && std(K_zeta) > 1e-12 ?
  cor(K_ab, K_zeta) : 0.0
 
- @printf("
- RMS(K_AB − K_GUE) = %.4f (target < 0.30; t ≥ 0.3 block region)
-", rms_gue)
- @printf(" RMS(K_AB − K_ζ) = %.4f
-", rms_zeta)
- @printf(" Corr(K_AB, K_GUE) = %.4f (target > 0.50; all t)
-", corr_gue)
- @printf(" Corr(K_AB, K_ζ) = %.4f
-", corr_zeta)
+ @printf("\n RMS(K_AB − K_GUE) = %.4f (target < 0.30; t ≥ 0.3 block region)\n", rms_gue)
+ @printf(" RMS(K_AB − K_ζ) = %.4f\n", rms_zeta)
+ @printf(" Corr(K_AB, K_GUE) = %.4f (target > 0.50; all t)\n", corr_gue)
+ @printf(" Corr(K_AB, K_ζ) = %.4f\n", corr_zeta)
 
  pass = rms_gue < 0.30 && corr_gue > 0.50
  status = pass ? msg(cfg, "pass") : msg(cfg, "warn")
@@ -28423,7 +29529,7 @@ end
 #  quantized ⟨r⟩ over 120 evenly-spaced 15-eig windows (noise ÷ √120 ≈ 11),
 #  so the verdict measures the SYSTEMATIC quantization bias, not window
 #  luck. The single-window value stays printed as a legacy diagnostic.
-function test43_byte_robustness(zeta_zeros::Vector{Float64}, cfg::Config)
+function test36_byte_robustness(zeta_zeros::Vector{Float64}, cfg::Config)
  println("\n" * repeat("═", 60))
  println("TEST 36: Byte-level robustness — quantization + RNG entropy")
  println(" Verify ⟨r⟩ survives 256-level quantization + RNG byte uniformity")
@@ -28478,7 +29584,15 @@ function test43_byte_robustness(zeta_zeros::Vector{Float64}, cfg::Config)
  # constructor → all realizations got the same disorder seed 96).
  cfg_ab = ABCloudConfig(Nx, Ny, vortices, α, t_hop, lat, W, cfg.ab_seed + 88 + ireal_b)
  H = build_ab_cloud_hamiltonian(cfg_ab)
- evals = sort(eigvals(Hermitian(H))) # values only (RAM: no eigenvector block)
+ # RAM GATE (Фикс 3): размер решётки в цикле не меняется — гейт на первой
+ # же реализации означает, что не пролезет ни одна: честный FAIL.
+ evals = _ab_eig_2d(cfg, H; label = @sprintf("test36 real %d", ireal_b))
+ if evals === nothing
+  println(" ⚠ RAM GATE: Test 36 dense eig at $(Nx)×$(Ny) exceeds the session RAM budget — no realizations run.")
+  rep_note!("RAM gate: Test 36 skipped (dense eig at $(Nx)×$(Ny) exceeds the RAM budget).")
+  ab_gc!()
+  return false
+ end
  n_tot = length(evals)
  half = Int(fld(n_tot * center_frac, 2))
  j_lo = max(1, fld(n_tot, 2) - half)
@@ -28629,9 +29743,9 @@ Special cases:
  these tests ignore the lattice, so the generic pass 2 carried zero
  information. Pass 1 output is unchanged; overall verdict = pass1 AND pass2.
  • Tests 15–35 (lattice): pass 2 likewise becomes the HARDCORE b-variant
- (test15b…test42b: dense grids, full-system scans, ensembles at
+ (test15b…test35b: dense grids, full-system scans, ensembles at
  ab_hc_nreal realizations, 256-bit precision audits). Test 33 previously
- SKIPPED pass 2 (its L grid is internal); it now runs test41b as pass 2.
+ SKIPPED pass 2 (its L grid is internal); it now runs test33b as pass 2.
  • Test 36 (byte robustness): pass 2 keeps its own AB_PASS sample scaling
  (eigenvalues) — already deep, no b-variant.
  • Test 19 (, runs FOUR passes when the series
@@ -29036,7 +30150,22 @@ stebz! on the central window — RAM stays at the raw n²·16 B matrix."
 function t34g_spectrum_window!(H::Matrix{ComplexF64}, ilo::Int, ihi::Int; nchunks::Int = 10)
     n = size(H, 1)
     1 <= ilo <= ihi <= n || throw(ArgumentError("T34G: bad window"))
-    _, _, d, e = LAPACK.hetrd!('L', H)
+    ret = LAPACK.hetrd!('L', H)
+    # VERIFIED — this is NOT a version crash site. Every Julia from 1.6 through
+    # 1.11 returns (A, tau, d, e) from hetrd! (checked in the 1.6.7 / 1.7.3 /
+    # 1.9.4 / 1.10.9 / 1.11.5 LinearAlgebra sources, docstring "(A, tau, d, e)",
+    # plus a runtime probe: the windowed eigenvalues below match eigvals to
+    # ~3e-14 on 1.10.9). The length-dispatch only future-proofs the unpack
+    # against a hypothetical API change: if hetrd! ever returns just (A, tau),
+    # d/e are recovered from H in place, exactly where the zhetrd LAPACK
+    # contract stores them for uplo='L' (d = real diagonal, e = real subdiag).
+    d, e = if length(ret) == 4
+        ret[3], ret[4]
+    elseif length(ret) == 2
+        real.([H[i, i] for i in 1:n]), real.([H[i + 1, i] for i in 1:n - 1])
+    else
+        error("LAPACK.hetrd! returned $(length(ret)) values — unsupported API")
+    end
     nchunks = max(1, min(nchunks, ihi - ilo + 1))
     edges = [round(Int, ilo + (ihi - ilo) * c / nchunks) for c in 0:nchunks]
     evals = Vector{Float64}(undef, ihi - ilo + 1)
@@ -29276,7 +30405,9 @@ end
 function run_test_two_pass(id::Int, zeta_zeros::Vector{Float64}, cfg::Config)::Bool
     # The two-pass wrapper owns the single-line progress bar for BOTH passes
     # (pass 1 maps to [0, 0.45] of the bar, pass 2 to [0.52, 0.97]) and stamps
-    # the done-line with elapsed time + date/time.
+    # the done-line with elapsed time + date/time. The system monitor is
+    # owned here too on standalone runs (run_test inside sees it running).
+    mon_owned = _mon_owned_start!(cfg)
     owned = _prog_owned_start(_test_prog_label(id))
     t0 = time()
     ok = false
@@ -29285,13 +30416,14 @@ function run_test_two_pass(id::Int, zeta_zeros::Vector{Float64}, cfg::Config)::B
         return ok
     finally
         owned && prog_finish(ok, time() - t0)
+        mon_owned && _mon_stop!()
     end
 end
 
 function _run_test_two_pass_impl(id::Int, zeta_zeros::Vector{Float64}, cfg::Config)::Bool
  # Test 33 (L-scaling) USED TO skip pass 2 entirely (the L grid is fixed
  # inside the test, so the secondary-lattice rerun was verbatim). Since the
- # HARDCORE b-variant test41b exists, that reason is GONE: pass 2 now runs
+ # HARDCORE b-variant test33b exists, that reason is GONE: pass 2 now runs
  # the deep-validation variant (n-cap lifted to ab_hc_nreal, weighted
  # GUE-plateau χ²) through the generic lattice branch below, which sets
  # STATS_SECONDARY_HARDCORE for id 33. No special case needed.
@@ -29303,7 +30435,16 @@ function _run_test_two_pass_impl(id::Int, zeta_zeros::Vector{Float64}, cfg::Conf
  # seed/jackknife cross-checks) — same meaning, strictly harder machinery.
  # The STATS_SECONDARY_HARDCORE flag routes _rep_inner_test so pass 2 also
  # gets full report artifacts, and is ALWAYS restored in `finally`.
+ # FIX (state hygiene): the defensive entry reset used to cover ONE flag only;
+ # a stale AB_PASS / TERTIARY / QUATERNARY marker left by a previously
+ # interrupted entry path would silently reroute this test's dispatch. Start
+ # every two-pass run from a clean slate — the `finally` blocks below still
+ # own the restore on the way out.
  STATS_SECONDARY_HARDCORE[] = false # defensive reset — never leak state across tests
+ STATS_TERTIARY_SERIES[]    = false
+ STATS_QUATERNARY_AUDIT[]   = false
+ AB_PASS[]                  = :primary
+ _prog_narrow!(0.0, 1.0)
  if 1 ≤ id ≤ 14
  log_comp_section("Test $id — pass 1 (primary: standard implementation)")
  _prog_narrow!(0.0, 0.45) # inner progress sites fill the first half of the bar
@@ -29381,7 +30522,12 @@ function _run_test_two_pass_impl(id::Int, zeta_zeros::Vector{Float64}, cfg::Conf
  elapsed1 = (time_ns() - t1) / 1e9
  log_comp(@sprintf(" pass 1 result: %s (elapsed: %.2fs)",
  pass1 ? "PASS" : "FAIL/WARN", elapsed1))
- prog_update_abs(p1_end, "pass1 done")
+ # NOTE: Test 38 owns its own absolute 0→1 bar inside test38_curie (it has
+ # internal phases 38a/38b/38c + finalize). Rewinding the bar to p1_end
+ # after its self-managed 0.98 would flash 98%→45%→100% in the terminal.
+ # Skip the rewind for id 38 — the dedicated id==38 branch below writes the
+ # final 100% frame instead.
+ id != 38 && prog_update_abs(p1_end, "pass1 done")
 
  if !cfg.ab_run_two_pass || cfg.ab_run_primary_only
  log_comp(" pass 2 SKIPPED (ab_run_two_pass=false or --no-two-pass)")
@@ -29432,12 +30578,12 @@ function _run_test_two_pass_impl(id::Int, zeta_zeros::Vector{Float64}, cfg::Conf
  # (fix: the flag really excludes 36 now — the old `(15 ≤ id ≤ 36)`
  # contradicted this comment and armed a nonexistent id-36 b-variant.)
  # Test 37: included — its pass 2 is the 256-bit BigFloat re-audit
- # (test44b), no lattice dependence, so the secondary lattice swap is inert.
+ # (test37b), no lattice dependence, so the secondary lattice swap is inert.
  STATS_SECONDARY_HARDCORE[] = (15 ≤ id ≤ 35) || (id == 37) # : 38 self-contained
  (15 ≤ id ≤ 35) && log_comp(
  " pass 2 = HARDCORE variant (denser grids / more realizations / deep checks — see the b-variant block)")
  (id == 37) && log_comp(
- " pass 2 = HARDCORE variant (256-bit BigFloat precision audit — test44b)")
+ " pass 2 = HARDCORE variant (256-bit BigFloat precision audit — test37b)")
  (id == 36) && log_comp(
  " pass 2 = sample-scaled rerun (AB_PASS targets 25k → 50k eigenvalues; no b-variant — already deep)")
  AB_PASS[] = :secondary # pass-specific sample targets (Test 36 reads this)
@@ -29582,7 +30728,7 @@ end
 # ═══════════════════════════════════════════════════════════════════════════════
 # Test 38 — CURIE POINT of the vortex-flux lattice magnet
 # The corrected THREE-PASS implementation replaces the pair
-# (test38_curie_point + test38b_curie_hardcore — both REMOVED; an audit
+# (the old Curie-point helper + test38b_curie_hardcore — both REMOVED; an audit
 # confirmed their helpers had no callers outside the pair).
 # ═══════════════════════════════════════════════════════════════════════════════
 # PHYSICS (rewrite of the lattice magnet): spinless tight-binding H on
@@ -29619,73 +30765,15 @@ end
 import LinearAlgebra: qr, diagind
 import Random: AbstractRNG
 
-# ── console progress bar (ported verbatim from; clash-free in) ────
-const _PBAR_T0 = Ref(0.0)
-const _PBAR_MS = Ref(0)          # last printed milestone (0..10), non-TTY mode
-const _PBAR_OPEN = Ref(false)    # an in-place bar line is on screen (TTY mode)
-
-"Seconds → mm:ss (or h:mm:ss)."
-function fmt_hms(s::Real)
-    s = max(s, 0.0)
-    h = floor(Int, s) ÷ 3600
-    m = (floor(Int, s) % 3600) ÷ 60
-    sec = floor(Int, s) % 60
-    h > 0 ? @sprintf("%d:%02d:%02d", h, m, sec) : @sprintf("%02d:%02d", m, sec)
-end
-
-"""
- pbar(k, n; label = "progress", width = 22)
-
-Live progress bar for loops; call with the 1-based iteration index `k` of `n`.
-TTY: in-place carriage-return update, newline at k == n. Non-TTY (the suite's
-stdout is redirected during tests): milestone lines every 10% plus a final
-100% line — logs stay grep-friendly.
-
-FIX («прогресс-бар теста 38 растягивается»): the bar is now guaranteed
-to stay ONE terminal line. The elapsed/ETA tail grows over time and the old
-frame never erased to end-of-line, so the line wrapped onto a second row on
-~80-column consoles and smeared residue when a later frame was shorter than
-an earlier one. The whole frame is now capped to the REAL terminal width
-(displaysize − 1 safety column, floor 40) and every frame ends with ANSI
-clear-to-end-of-line (`\\e[K`): shorter frames erase the residue of longer
-ones, and the label — not the bar or the percent — is what gets truncated
-when the console is narrow.
-"""
-function pbar(k::Int, n::Int; label::String = "progress", width::Int = 22)
-    n > 0 || return
-    k == 1 && (_PBAR_T0[] = time(); _PBAR_MS[] = 0)
-    k = clamp(k, 1, n)
-    frac = k / n
-    el = time() - _PBAR_T0[]
-    if isa(stdout, Base.TTY)
-        # ABUI: truecolor-бар со спиннером, градиентом, up/ETA и счётчиком (k/n)
-        line = ab_render_loopbar(; label = label, k = k, n = n, frac = frac,
-            elapsed = el, width = max(40, displaysize(stdout)[2] - 1))
-        print(stdout, "\r", line, "\e[K")
-        _PBAR_OPEN[] = true
-        if k >= n
-            println()
-            _PBAR_OPEN[] = false
-        end
-        flush(stdout)
-    else
-        ms = floor(Int, frac * 10)
-        if ms > _PBAR_MS[] || k >= n
-            println(@sprintf("  %s: %3d%% (%d/%d) · %s elapsed",
-                             label, round(Int, 100 * frac), k, n, fmt_hms(el)))
-            _PBAR_MS[] = ms
-        end
-    end
-end
-
-"Close an in-place progress line after an early loop break."
-function pbar_done()
-    if _PBAR_OPEN[]
-        println()
-        _PBAR_OPEN[] = false
-        flush(stdout)
-    end
-end
+# ── console progress bar (the private per-loop system) — REMOVED ────
+# The deleted per-loop bar wrote to STDOUT (colliding with the shared ABUI
+# bar on STDERR and with the report tee: every \r-frame was captured into
+# REP.stdout_lines, so with reports ON the bar never showed live and the
+# report got ANSI garbage), started its clock only on the first k==1 call
+# (any loop entering with k>1 inherited a zeroed clock → "up 486000:00:00"),
+# and fought the prog_* display pump for the same terminal line. Test 38
+# now drives the SHARED single-line bar via prog_update_abs with absolute
+# phase fractions (see the phase map inside test38_curie).
 
 # ── Wigner surmises + KS machinery (Test-38 dependencies; the names are
 #  clash-free in — verified by audit; _make_cdf renamed ab23_make_cdf
@@ -30248,10 +31336,12 @@ function test38_curie(zeta_zeros::Vector{Float64}, cfg::Config)
     # ======================================================================
     # V1 — sampler calibration (no lattice; the p-value-grade check)
     # ======================================================================
+    prog_update_abs(0.01, "V1 sampler calibration")
     v1v, v1info = t38_v1_calibration(cfg)
     for l in v1info
         println("        V1 · ", l)
     end
+    prog_update_abs(0.02, "V1 done")
 
     # ======================================================================
     # PASS 38a — main curve at L1 (coarse + refine), checks V2..V5
@@ -30271,10 +31361,10 @@ function test38_curie(zeta_zeros::Vector{Float64}, cfg::Config)
     na = length(coarse) * S
     for (i, T) in enumerate(coarse), k in 1:S
         lam_a[(T, k)] = solve_set!(true, L1, T, k)
-        pbar((i - 1) * S + k, na; label = @sprintf("38a coarse L=%d", L1))
+        prog_update_abs(0.02 + 0.20 * ((i - 1) * S + k) / na,
+                        @sprintf("38a coarse L=%d", L1))
         incomplete && break
     end
-    pbar_done()
     println(incomplete ? "  38a coarse grid: INTERRUPTED (time cap)" :
                         "  38a coarse grid: done")
     flush(stdout)
@@ -30293,10 +31383,10 @@ function test38_curie(zeta_zeros::Vector{Float64}, cfg::Config)
     ref_tasks = [(T, k) for T in refine for k in 1:S if !haskey(lam_a, (T, k))]
     for (i, (T, k)) in enumerate(ref_tasks)
         lam_a[(T, k)] = solve_set!(true, L1, T, k)
-        pbar(i, length(ref_tasks); label = @sprintf("38a refine L=%d", L1))
+        prog_update_abs(0.22 + 0.10 * i / length(ref_tasks),
+                        @sprintf("38a refine L=%d", L1))
         incomplete && break
     end
-    pbar_done()
     println(@sprintf("  38a refine grid: %s (%d new spectra)",
                      incomplete ? "INTERRUPTED (time cap)" : "done", length(ref_tasks)))
     flush(stdout)
@@ -30346,23 +31436,24 @@ function test38_curie(zeta_zeros::Vector{Float64}, cfg::Config)
     bi = 0
     for k in 1:S
         lam_b[(0.0, k)] = solve_set!(true, L2, 0.0, k)
-        bi += 1; pbar(bi, 2S; label = @sprintf("38b endpoints L=%d", L2))
+        bi += 1
+        prog_update_abs(0.32 + 0.04 * bi / (2S), @sprintf("38b endpoints L=%d", L2))
         incomplete && break
         lam_b[(T38_T_HI, k)] = solve_set!(true, L2, T38_T_HI, k)
-        bi += 1; pbar(bi, 2S; label = @sprintf("38b endpoints L=%d", L2))
+        bi += 1
+        prog_update_abs(0.32 + 0.04 * bi / (2S), @sprintf("38b endpoints L=%d", L2))
         incomplete && break
     end
-    pbar_done()
     bref = clamp.(range(Ta_anchor - 0.25, Ta_anchor + 0.25; length = 5), 0.02, T38_TC_MAX)
     nb = count(T -> !haskey(lam_b, (T, 1)), collect(bref))
     for T in bref
         haskey(lam_b, (T, 1)) && continue
         bi += 1
         lam_b[(T, 1)] = solve_set!(true, L2, T, 1)
-        pbar(bi, 2S + nb; label = @sprintf("38b refine L=%d", L2))
+        prog_update_abs(0.40 + 0.05 * (bi - 2S) / max(nb, 1),
+                        @sprintf("38b refine L=%d", L2))
         incomplete && break
     end
-    pbar_done()
     println(incomplete ? "  38b hardcore: INTERRUPTED (time cap)" : "  38b hardcore: done")
     flush(stdout)
 
@@ -30382,13 +31473,14 @@ function test38_curie(zeta_zeros::Vector{Float64}, cfg::Config)
     ci = 0
     for k in 1:S
         push!(lam_noflux, solve_set!(false, L1, 0.0, k; control = :noflux))
-        ci += 1; pbar(ci, 2S; label = "38b controls")
+        ci += 1
+        prog_update_abs(0.45 + 0.025 * ci / S, "38b controls (no-flux)")
         incomplete && break
         push!(lam_deph, solve_set!(false, L1, 0.0, k; control = :deph))
-        ci += 1; pbar(ci, 2S; label = "38b controls")
+        ci += 1
+        prog_update_abs(0.475 + 0.025 * (ci - S) / S, "38b controls (static dephasing)")
         incomplete && break
     end
-    pbar_done()
     nf_mean, _, _ = _pool(lam_noflux)
     dp_mean, _, _ = _pool(lam_deph)
 
@@ -30427,10 +31519,10 @@ function test38_curie(zeta_zeros::Vector{Float64}, cfg::Config)
     for (i, (ff, k)) in enumerate(c1tasks)
         v = solve_set!(false, L1, 0.0, k; f = ff)
         isfinite(v) && push!(f_lam[ff], v)
-        pbar(i, length(c1tasks); label = "38c C1 density scan")
+        prog_update_abs(0.50 + 0.12 * i / max(length(c1tasks), 1),
+                        @sprintf("38c C1 density scan f=%.2f", ff))
         incomplete && break
     end
-    pbar_done()
     for ff in f_pts   # baseline density reuses the 38a T=0 spectra
         if T38_NV_SCALE == ff
             for k in 1:S
@@ -30470,6 +31562,8 @@ function test38_curie(zeta_zeros::Vector{Float64}, cfg::Config)
     U_curves = Dict{Int,Vector{Float64}}()
     m_all = Dict{Tuple{Int,Float64},Vector{Float64}}()
     c2_done = true
+    total_c2 = length(c2sizes) * length(Tg2) * c2seeds
+    done_c2 = 0
     for (ir, Ls) in enumerate(c2sizes)
         us = Float64[]
         for (it, T) in enumerate(Tg2)
@@ -30480,8 +31574,9 @@ function test38_curie(zeta_zeros::Vector{Float64}, cfg::Config)
                 r = t38_solve(cfg, Ls, T, k)
                 r.cached || (bud.skipped += 1)
                 isfinite(r.lam) && push!(ms, t38_map_m(r.lam))
-                pbar((it - 1) * c2seeds + k, length(Tg2) * c2seeds;
-                     label = @sprintf("C2 rung %d/%d L=%d", ir, length(c2sizes), Ls))
+                done_c2 += 1
+                prog_update_abs(0.62 + 0.36 * done_c2 / max(total_c2, 1),
+                                @sprintf("38c C2 %d/%d rung L=%d", done_c2, total_c2, Ls))
             end
             c2_done || break
             push!(us, t38_binder(ms))
@@ -30490,7 +31585,6 @@ function test38_curie(zeta_zeros::Vector{Float64}, cfg::Config)
         c2_done || break
         U_curves[Ls] = us
     end
-    pbar_done()
     println(c2_done ? "  38c C2 staircase: done" : "  38c C2 staircase: INTERRUPTED (time cap)")
     flush(stdout)
     m_anchor = 2.0 * ((lam0 + lamhi) / 2 - LAMBDA_GOE) / (LAMBDA_GUE - LAMBDA_GOE) - 1.0
@@ -30562,7 +31656,7 @@ function test38_curie(zeta_zeros::Vector{Float64}, cfg::Config)
         # early return: no figure, no verdict row — the run only grew the cache
         ab23_register_result("t38", "Curie 3-pass (cached spectra grew)", :warn, dt,
                         [("state", "incomplete"), ("cached", string(length(T38_CACHE)))])
-        return true  # incomplete run only grew the cache — not a verdict failure
+        return false # incomplete run only grew the cache — NOT a verdict PASS
     end
     println(@sprintf("[%s] %-8s Test 38 Curie: 38a %s · 38b %s · 38c %s · T*(%d)=%.3f · T*(%d)=%s · %.1f min",
                      vcolor(v), "t38", uppercase(String(va)), uppercase(String(vb)),
@@ -30709,6 +31803,7 @@ function test38_curie(zeta_zeros::Vector{Float64}, cfg::Config)
         ABPlot.text!(f, 0.02, y0 - (i - 1) * 0.083, l; size = 11, color = col)
     end
 
+    prog_update_abs(0.99, "Test 38 — finalizing figure + verdict")
     ab23_save_report_fig!(f, "t38_curie_panels", "Test 38 — Curie point (38a + 38b + 38c)")
     GC.gc()
 
@@ -30727,95 +31822,81 @@ function test38_curie(zeta_zeros::Vector{Float64}, cfg::Config)
 end
 
 function _rep_inner_test(id::Int, zeta_zeros::Vector{Float64}, cfg::Config)::Bool
- # Tests 1-19: zeta-zero statistics + AB-cloud construction/GUE/self-duality/chiral/Dirac
- # Test 20: TKNN Chern (magnetic-BZ FHS: gapped anchors α=1/4,1/3,1/5 — C₁=+1;
- # α=1/2 Dirac touching — per-band C₁ UNDEFINED, touching + mass-branch rows)
- # Test 21: γ* spinorial phase ≈ π/2
- # Test 22: AB phase Φ_AB = π/7
- # Test 23: Complex fractal factor CF
- # Test 24: Dirac string flux verification
- # Test 25: Byers-Yang theorem check
- # Test 26: PBC torus Dirac string
- # Test 27: Binary chiral symmetry at α=1/2
- # Test 28: f_GUE figure of merit
- # Test 29: Dirac dip in DOS at α=1/2
- # Test 30: Dirac cone velocity v_F
- # Test 31: Hatano-Nelson non-Hermitian
- # Test 32: Multi-realization ⟨r⟩ bootstrap
- # Test 33: L-scaling for AB-cloud
- # Test 34: DIRECT AB-cloud vs ζ-full 50k (Hilbert-Pólya)
- # Test 35: Spectral form factor K(t)
- # Test 36: Byte-level robustness
- # Test 37: (1/2)! via Γ — half-factorial audit & GUE normalization
- # Test 38: Curie point — thermal destruction of the GUE (ζ) class, Λ(T)=0
- # tests 1–14 have two variants — the standard primary
- # implementation (pass 1 and all single-run paths) and the HARDCORE
- # deep-validation pass (two-pass secondary). The flag is set ONLY by
- # run_test_two_pass around pass 2 and restored in its `finally`; menu /
- # --test / --no-two-pass runs always see `false` and behave exactly as before.
+ # Dispatcher (переписан по плану модернизации: имена testNN_* теперь
+ # совпадают с номерами в меню / SUITE_IDS / TEST_META; коллайдеров
+ # test38_*/test39_* больше нет, test40…test44 не существует).
+ # Pass routing — флаги ставятся ТОЛЬКО обёрткой run_test_two_pass вокруг
+ # соответствующего прохода и снимаются в её `finally`; меню / --test /
+ # --no-two-pass прогоны всегда видят `false` и получают pass 1:
+ #  pass 2 HARDCORE — deep-validation b-варианты (1b–14b ζ-статистика +
+ #    15b–37b решёточные; id 36 byte масштабируется через AB_PASS,
+ #    id 38 (Curie) гоняет свой 38b внутри, id 39 (34G) самодостаточен);
+ #  pass 3 SERIES  — 19c/29c/31c (настоящие сери для отчётов);
+ #  pass 4 AUDIT   — 19d (twist-спектроскопия).
  hc_flag = STATS_SECONDARY_HARDCORE[]
- # pass 3 SERIES routing (19c/29c/31c) — the flag is set ONLY by
- # run_test_two_pass around pass 3; menu / --test / --no-two-pass runs and
- # passes 1–2 always see `false`. Mutually exclusive with hc_flag in time.
  ts_flag = STATS_TERTIARY_SERIES[]
- ts_flag && id == 19 && return test19c_dirac_alpha_series(zeta_zeros, cfg)
- ts_flag && id == 29 && return test37c_dirac_dip_series(zeta_zeros, cfg)
- ts_flag && id == 31 && return test39c_hatano_series(zeta_zeros, cfg)
- # pass 4 AUDIT routing (19d, —) — the flag is set
- # ONLY by run_test_two_pass around pass 4; menu / --test / --no-two-pass runs
- # and passes 1–3 always see `false`. Mutually exclusive with hc/ts in time.
  sq_flag = STATS_QUATERNARY_AUDIT[]
+
+ # ── pass 3 SERIES (19c / 29c / 31c) ────────────────────────────
+ ts_flag && id == 19 && return test19c_dirac_alpha_series(zeta_zeros, cfg)
+ ts_flag && id == 29 && return test29c_dirac_dip_series(zeta_zeros, cfg)
+ ts_flag && id == 31 && return test31c_hatano_series(zeta_zeros, cfg)
+
+ # ── pass 4 AUDIT (19d) ─────────────────────────────────────────
  sq_flag && id == 19 && return test19d_dirac_cone_audit(zeta_zeros, cfg)
- hc_flag && id == 1 && return test1b_convergence_hardcore(zeta_zeros, cfg)
- hc_flag && id == 2 && return test2b_monotonicity_hardcore(zeta_zeros, cfg)
- hc_flag && id == 3 && return test3b_rate_hardcore(zeta_zeros, cfg)
- hc_flag && id == 4 && return test4b_gue_ks_full_hardcore(zeta_zeros, cfg)
- hc_flag && id == 5 && return test5b_gue_ks_highT_hardcore(zeta_zeros, cfg)
- hc_flag && id == 6 && return test6b_chi2_hardcore(zeta_zeros, cfg)
- hc_flag && id == 7 && return test7b_decay_slope_hardcore(zeta_zeros, cfg)
- hc_flag && id == 8 && return test8b_residuals_hardcore(zeta_zeros, cfg)
- hc_flag && id == 9 && return test9b_bootstrap_hardcore(zeta_zeros, cfg)
+
+ # ── pass 2 HARDCORE, Tests 1–14 ────────────────────────────────
+ hc_flag && id == 1  && return test1b_convergence_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 2  && return test2b_monotonicity_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 3  && return test3b_rate_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 4  && return test4b_gue_ks_full_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 5  && return test5b_gue_ks_highT_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 6  && return test6b_chi2_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 7  && return test7b_decay_slope_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 8  && return test8b_residuals_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 9  && return test9b_bootstrap_hardcore(zeta_zeros, cfg)
  hc_flag && id == 10 && return test10b_crossval_hardcore(zeta_zeros, cfg)
  hc_flag && id == 11 && return test11b_ad_hardcore(zeta_zeros, cfg)
  hc_flag && id == 12 && return test12b_two_ks_hardcore(zeta_zeros, cfg)
  hc_flag && id == 13 && return test13b_numbervar_hardcore(zeta_zeros, cfg)
  hc_flag && id == 14 && return test14b_d3_hardcore(zeta_zeros, cfg)
- hc_flag && id == 32 && return test40b_rmean_hardcore(zeta_zeros, cfg)
- hc_flag && id == 33 && return test41b_lscaling_hardcore(zeta_zeros, cfg)
- # HARDCORE pass-2 b-variants for the lattice tests 15–35 (menu ids) —
- # the same mechanism as the 1b–14b ζ variants (see the b-variant block).
+
+ # ── pass 2 HARDCORE, Tests 15–37 ───────────────────────────────
  hc_flag && id == 15 && return test15b_construction_hardcore(zeta_zeros, cfg)
  hc_flag && id == 16 && return test16b_gue_classification_hardcore(zeta_zeros, cfg)
  hc_flag && id == 17 && return test17b_self_duality_hardcore(zeta_zeros, cfg)
  hc_flag && id == 18 && return test18b_chiral_hardcore(zeta_zeros, cfg)
  hc_flag && id == 19 && return test19b_dirac_velocity_hardcore(zeta_zeros, cfg)
- hc_flag && id == 20 && return test22b_chern_hardcore(zeta_zeros, cfg)
- hc_flag && id == 21 && return test23b_gamma_star_hardcore(zeta_zeros, cfg)
- hc_flag && id == 22 && return test24b_ab_phase_hardcore(zeta_zeros, cfg)
- hc_flag && id == 23 && return test25b_complex_factor_hardcore(zeta_zeros, cfg)
- hc_flag && id == 24 && return test31b_dirac_flux_hardcore(zeta_zeros, cfg)
- hc_flag && id == 25 && return test32b_byers_hardcore(zeta_zeros, cfg)
- hc_flag && id == 26 && return test33b_torus_hardcore(zeta_zeros, cfg)
- hc_flag && id == 27 && return test34b_chiral_binary_hardcore(zeta_zeros, cfg)
- hc_flag && id == 28 && return test30b_fgue_hardcore(zeta_zeros, cfg)
- hc_flag && id == 29 && return test37b_dirac_dip_hardcore(zeta_zeros, cfg)
- hc_flag && id == 30 && return test38b_vF_hardcore(zeta_zeros, cfg)
- hc_flag && id == 31 && return test39b_hatano_hardcore(zeta_zeros, cfg)
- hc_flag && id == 34 && return test36b_ab_vs_zeta_hardcore(zeta_zeros, cfg)
- hc_flag && id == 35 && return test42b_form_factor_hardcore(zeta_zeros, cfg)
- hc_flag && id == 37 && return test44b_half_factorial_hardcore(zeta_zeros, cfg)
- # : id 38 has NO hardcore b-variant anymore — the three-pass Curie
- # implementation runs its own 38b hardcore pass internally (self-contained).
+ hc_flag && id == 20 && return test20b_chern_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 21 && return test21b_gamma_star_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 22 && return test22b_ab_phase_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 23 && return test23b_complex_factor_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 24 && return test24b_dirac_flux_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 25 && return test25b_byers_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 26 && return test26b_torus_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 27 && return test27b_chiral_binary_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 28 && return test28b_fgue_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 29 && return test29b_dirac_dip_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 30 && return test30b_vF_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 31 && return test31b_hatano_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 32 && return test32b_rmean_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 33 && return test33b_lscaling_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 34 && return test34b_ab_vs_zeta_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 35 && return test35b_form_factor_hardcore(zeta_zeros, cfg)
+ hc_flag && id == 37 && return test37b_half_factorial_hardcore(zeta_zeros, cfg)
+ # id 36 (byte) масштабируется по AB_PASS, id 38 (Curie) и id 39 (34G)
+ # самодостаточны — b-варианта у них нет.
 
- id == 1 && return test1_convergence_table(zeta_zeros, cfg)
- id == 2 && return test2_monotonicity(zeta_zeros, cfg)
- id == 3 && return test3_convergence_rate(zeta_zeros, cfg)
- id == 4 && return test4_gue_ks_full(zeta_zeros, cfg)
- id == 5 && return test5_gue_ks_highT(zeta_zeros, cfg)
- id == 6 && return test6_chi2_histogram(zeta_zeros, cfg)
- id == 7 && return test7_decay_slope(zeta_zeros, cfg)
- id == 8 && return test8_residual_analysis(zeta_zeros, cfg)
- id == 9 && return test9_bootstrap_slope(zeta_zeros, cfg)
+ # ── pass 1 (базовая реализация) ────────────────────────────────
+ id == 1  && return test1_convergence_table(zeta_zeros, cfg)
+ id == 2  && return test2_monotonicity(zeta_zeros, cfg)
+ id == 3  && return test3_convergence_rate(zeta_zeros, cfg)
+ id == 4  && return test4_gue_ks_full(zeta_zeros, cfg)
+ id == 5  && return test5_gue_ks_highT(zeta_zeros, cfg)
+ id == 6  && return test6_chi2_histogram(zeta_zeros, cfg)
+ id == 7  && return test7_decay_slope(zeta_zeros, cfg)
+ id == 8  && return test8_residual_analysis(zeta_zeros, cfg)
+ id == 9  && return test9_bootstrap_slope(zeta_zeros, cfg)
  id == 10 && return test10_cross_validation(zeta_zeros, cfg)
  id == 11 && return test11_anderson_darling(zeta_zeros, cfg)
  id == 12 && return test12_two_sample_ks(zeta_zeros, cfg)
@@ -30826,29 +31907,98 @@ function _rep_inner_test(id::Int, zeta_zeros::Vector{Float64}, cfg::Config)::Boo
  id == 17 && return test17_alpha_half_self_duality(zeta_zeros, cfg)
  id == 18 && return test18_chiral_symmetry_AIII(zeta_zeros, cfg)
  id == 19 && return test19_dirac_cone_velocity(zeta_zeros, cfg)
- id == 20 && return test22_chern_number_tknn(zeta_zeros, cfg)
- id == 21 && return test23_gamma_star_phase(zeta_zeros, cfg)
- id == 22 && return test24_ab_phase(zeta_zeros, cfg)
- id == 23 && return test25_complex_factor(zeta_zeros, cfg)
- id == 24 && return test31_dirac_string_flux(zeta_zeros, cfg)
- id == 25 && return test32_byers_yang_theorem(zeta_zeros, cfg)
- id == 26 && return test33_pbc_torus_dirac_string(zeta_zeros, cfg)
- id == 27 && return test34_chiral_binary_alpha_half(zeta_zeros, cfg)
- id == 28 && return test30_f_GUE_figure_of_merit(zeta_zeros, cfg)
- id == 29 && return test37_dirac_dip_dos(zeta_zeros, cfg)
- id == 30 && return test38_dirac_cone_vF(zeta_zeros, cfg)
- id == 31 && return test39_hatano_nelson(zeta_zeros, cfg)
- id == 32 && return test40_200_realization_rmean(zeta_zeros, cfg)
- id == 33 && return test41_lattice_L_scaling(zeta_zeros, cfg)
- id == 34 && return test36_direct_ab_vs_zeta5000(zeta_zeros, cfg)
- id == 35 && return test42_spectral_form_factor_Kt(zeta_zeros, cfg)
- id == 36 && return test43_byte_robustness(zeta_zeros, cfg)
- id == 37 && return test44_half_factorial_gamma(zeta_zeros, cfg)
+ id == 20 && return test20_chern_number_tknn(zeta_zeros, cfg)
+ id == 21 && return test21_gamma_star_phase(zeta_zeros, cfg)
+ id == 22 && return test22_ab_phase(zeta_zeros, cfg)
+ id == 23 && return test23_complex_factor(zeta_zeros, cfg)
+ id == 24 && return test24_dirac_string_flux(zeta_zeros, cfg)
+ id == 25 && return test25_byers_yang_theorem(zeta_zeros, cfg)
+ id == 26 && return test26_pbc_torus_dirac_string(zeta_zeros, cfg)
+ id == 27 && return test27_chiral_binary_alpha_half(zeta_zeros, cfg)
+ id == 28 && return test28_f_GUE_figure_of_merit(zeta_zeros, cfg)
+ id == 29 && return test29_dirac_dip_dos(zeta_zeros, cfg)
+ id == 30 && return test30_dirac_cone_vF(zeta_zeros, cfg)
+ id == 31 && return test31_hatano_nelson(zeta_zeros, cfg)
+ id == 32 && return test32_200_realization_rmean(zeta_zeros, cfg)
+ id == 33 && return test33_lattice_L_scaling(zeta_zeros, cfg)
+ id == 34 && return test34_direct_ab_vs_zeta(zeta_zeros, cfg)
+ id == 35 && return test35_spectral_form_factor_Kt(zeta_zeros, cfg)
+ id == 36 && return test36_byte_robustness(zeta_zeros, cfg)
+ id == 37 && return test37_half_factorial_gamma(zeta_zeros, cfg)
  id == 38 && return test38_curie(zeta_zeros, cfg)
  id == 39 && return test39_t34g_geometry_sweep(zeta_zeros, cfg)
  return false
 end
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 2D DENSE-EIG RAM BUDGET — session-wide gate (Фикс 2)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Авто-бюджет вычисляется ОДИН раз за сессию (первый вызов) — печатанная в
+# run_all_tests строка остаётся актуальной для всех гейтов прогона; явный
+# --ab-ram-gb / env всегда читаются напрямую (они константы сессии).
+const _AB_RAM_BUDGET_CACHED = Ref{Float64}(NaN)
+
+"""
+    _ab_ram_budget_gb(cfg) -> Float64
+
+RAM-бюджет сессии в ГБ. Приоритет:
+  1. `cfg.ab_ram_gb > 0`      — явно (`--ab-ram-gb N`)
+  2. `AB_RAM_BUDGET_MB` (env) — CI / контейнер
+  3. `0.75 × Sys.free_memory()` — запас под нужды ОС; вычисляется один раз
+     за сессию (кэш), чтобы решение не «плыло» по ходу прогона.
+"""
+function _ab_ram_budget_gb(cfg::Config)::Float64
+    cfg.ab_ram_gb > 0 && return cfg.ab_ram_gb
+    env_mb = tryparse(Float64, get(ENV, "AB_RAM_BUDGET_MB", ""))
+    env_mb !== nothing && env_mb > 0 && return env_mb / 1024
+    if isnan(_AB_RAM_BUDGET_CACHED[])
+        _AB_RAM_BUDGET_CACHED[] = max(0.5, Sys.free_memory() / 2^30 * 0.75)
+    end
+    return _AB_RAM_BUDGET_CACHED[]
+end
+
+"""
+    _ab_ram_peak_gb_2d(N::Int; factor = 4.5) -> Float64
+
+Пиковая RAM одного dense eigvals для N×N комплексной эрмитовой матрицы
+(heevr, только значения), эмпирически: `N² · 16 Б × factor`
+(матрица + workspace heevr + один временный при эрмитизации + запас GC).
+Калибровка: 96² = 9216 сайтов пикует ≈ 3.5–4 ГБ RSS на 2 ядрах →
+factor 4.5 честный.
+"""
+_ab_ram_peak_gb_2d(N::Int; factor::Float64 = 4.5)::Float64 =
+    (Float64(N) * Float64(N) * 16.0 * factor) / 2^30
+
+"""
+    _ab_eig_2d(cfg, H; label = "2D eig") -> Union{Vector{Float64}, Nothing}
+
+Dense эрмитовы eigvals (только значения) для 2D-решёточных тестов с RAM-гейтом.
+Возвращает ОТСОРТИРОВАННЫЙ спектр, либо `nothing`, если пиковый объём
+превышает бюджет сессии (тогда вызывающий обязан корректно обработать
+пропуск — положить NaN, пропустить реализацию и т. п.).
+Не разрушает H — владение остаётся у вызывающего.
+"""
+function _ab_eig_2d(cfg::Config, H::AbstractMatrix;
+                    label::String = "2D eig")::Union{Vector{Float64}, Nothing}
+    N = size(H, 1)
+    peak = _ab_ram_peak_gb_2d(N)
+    budget = _ab_ram_budget_gb(cfg)
+    if peak > budget
+        @printf(" ⚠ RAM GATE [%s]: %d² dense eig ≈ %.2f GB peak > budget %.2f GB → skipped (raise with --ab-ram-gb N, or lower the lattice/realizations)\n",
+                label, N, peak, budget)
+        return nothing
+    end
+    # FIX (sparse honesty): the stdlib has NO eigvals for sparse matrices, so a
+    # sparse H used to MethodError at `eigvals(Hermitian(H))`. The RAM gate
+    # above has ALREADY approved the N²·16 B footprint, so materializing the
+    # dense copy costs exactly the memory the gate budgeted — no silent
+    # eigensolver swap (that would need external packages; this suite stays
+    # stdlib-only by design).
+    Hd = H isa SparseMatrixCSC ? Matrix(H) : H
+    return sort(eigvals(Hermitian(Hd)))
+end
 
 function run_all_tests(zeta_zeros::Vector{Float64}, cfg::Config)
  # tee stdout — every println / @printf goes BOTH to the live
@@ -30902,6 +32052,14 @@ function run_all_tests(zeta_zeros::Vector{Float64}, cfg::Config)
 
  results = Bool[]
  try
+ # ── RAM BUDGET (Фикс 2): одно решение на всю сессию, печатается один раз ──
+ budget_gb = _ab_ram_budget_gb(cfg)
+ Nmax = floor(Int, sqrt(budget_gb * 2^30 / (16.0 * 4.5)))
+ @printf("\n RAM BUDGET: %.1f GB → max safe dense 2D lattice ≈ %d sites (%.0f×%.0f); above that, 2D eig calls are RAM-gated\n",
+  budget_gb, Nmax, sqrt(Nmax), sqrt(Nmax))
+ # ── системный монитор (ABMon): cpu/ram/temp/io-lat в баре + CSV в логи ──
+ _mon_start!(cfg)
+ _mon_print_panel(cfg, "run start")
  println("\n$(repeat("═",60))")
  println("🚀  ", fmt(cfg, "title"))
  println("    Running all $(length(SUITE_IDS)) tests with $(length(zeta_zeros)) zeros · AURORA visual engine")
@@ -30969,7 +32127,7 @@ function run_all_tests(zeta_zeros::Vector{Float64}, cfg::Config)
  "Sig2(L)", "D3(L)", "AB-build", "Montgomery", "SelfDual", "AIII",
  "Dirac vF", "TKNN C1", "g*-90deg", "Phi_AB", "CF-log",
  "DiracStr", "ByersYang", "PBC-torus", "ChiralAIII", "f_GUE",
- "DiracDip", "vF_Dirac", "HatanoN", "200-real", "L-scale", "AB-zeta50k",
+ "DiracDip", "vF_Dirac", "HatanoN", "200-real", "L-scale", "AB-zetaALL",
  "K-form", "ByteRob", "HalfFact", "CurieTc", "GeomT34"]
 
  for (k, id) in enumerate(SUITE_IDS) # results[k] ↔ SUITE_IDS[k] ↔ labels[k]
@@ -30992,6 +32150,7 @@ function run_all_tests(zeta_zeros::Vector{Float64}, cfg::Config)
  # fire-and-forget, so shutdown can never hang on console I/O.
  _disp_flush_wait(5.0)
  _disp_release!()
+ _mon_stop!() # монитор: закрыть CSV и остановить фоновый цикл
  end
 
  save_report(cfg)
@@ -31493,19 +32652,14 @@ function default_config()::Config
  2, # t34g_nv — vortex ring count (lab standard)
  1.0, # t34g_q — charge (lab standard)
  1.0, # t34g_W — onsite disorder (lab standard)
+ # ── 2D dense-eig RAM budget (session-wide gate) ──
+ 0.0, # ab_ram_gb (0 → auto: 0.75 × free memory; CLI --ab-ram-gb N, env AB_RAM_BUDGET_MB)
+ # ── системный монитор (ABMon) ──
+ true, # ab_monitor_on — cpu/ram/temp/io-lat в строке бара
+ 1.0, # ab_monitor_interval — период опроса датчиков (с)
+ true, # ab_monitor_log — CSV в <run_dir>/logs/monitor.csv
+ false, # ab_monitor_panel — полная панель в начале каждого теста (--monitor panel)
  )
-end
-
-"Parse '24,36,48' → Int[24,36,48] (Test-38c C2 staircase CLI)."
-function parse_int_list(s::AbstractString)
-    out = Int[]
-    for tok in split(s, ',')
-        t = strip(tok)
-        isempty(t) && continue
-        v = tryparse(Int, t)
-        v !== nothing && push!(out, v)
-    end
-    return out
 end
 
 function parse_args!(cfg::Config)
@@ -31767,6 +32921,24 @@ function parse_args!(cfg::Config)
  # W_eff = min(ab_W, ab_W_max). Default 1.0 (
  # "W должно быть значительно меньше, в районе W=1, и не превышать 1.0").
  cfg.ab_W_max = parse(Float64, args[i+1]); i += 2
+ elseif a == "--ab-ram-gb" && i+1 ≤ length(args)
+ # Общий RAM-бюджет сессии для dense-eig 2D-тестов (ГБ).
+ # 0 = авто (0.75 × свободной памяти); env AB_RAM_BUDGET_MB — для CI.
+ cfg.ab_ram_gb = max(0.0, parse(Float64, args[i+1])); i += 2
+ elseif a == "--monitor" && i+1 ≤ length(args)
+ v = lowercase(strip(args[i+1]))
+ if v in ("on", "1", "true"); cfg.ab_monitor_on = true
+ elseif v in ("off", "0", "false"); cfg.ab_monitor_on = false
+ elseif v == "panel"; cfg.ab_monitor_on = true; cfg.ab_monitor_panel = true
+ else; println(" WARNING: --monitor on|off|panel (got '$v')")
+ end
+ i += 2
+ elseif a == "--monitor-interval" && i+1 ≤ length(args)
+ cfg.ab_monitor_interval = clamp(parse(Float64, args[i+1]), 0.25, 10.0); i += 2
+ elseif a == "--monitor-log" && i+1 ≤ length(args)
+ cfg.ab_monitor_log = lowercase(strip(args[i+1])) in ("on", "1", "true"); i += 2
+ elseif a == "--monitor-panel"
+ cfg.ab_monitor_panel = true; i += 1
  elseif a == "--ab-w-cmp" && i+1 ≤ length(args)
  # Test-32 comparison-row (q=0.3) disorder strength. Default 0.5
  # . Pass "follow"
@@ -31901,6 +33073,16 @@ function parse_args!(cfg::Config)
  --no-plot (no-op — the ABPlot engine always renders)
  --no-progress Disable the single-line progress bar
  (bar auto-disables when output is piped)
+ --ab-ram-gb N Session RAM budget for dense 2D eigensolves, GB
+ (default: auto = 0.75 x free memory; env
+ AB_RAM_BUDGET_MB works too). Oversized lattices
+ are RAM-gated per realization, not OOM-killed.
+ --monitor on|off|panel System monitor (cpu/ram/temp/io-lat) in the
+ progress bar; "panel" also prints the full
+ system panel before every test
+ --monitor-interval S Monitor polling period, seconds (0.25-10, default 1)
+ --monitor-log on|off Monitor CSV log <run_dir>/logs/monitor.csv
+ --monitor-panel Full monitor panel before every test
  --verbose (retired no-op)
  --config Enter interactive config first
  --help This help
@@ -32067,7 +33249,10 @@ function main()
  while true
  try
  show_menu(cfg)
- print(msg(cfg, "prompt"))
+ print(" " * ab_grn() * ab_B() * "▸" * ab_R() * " " *
+       ab_D() * (cfg.lang == "ru" ? "выбор" : "select") * ab_R() * " " *
+       ab_cyn() * "[1–39/a/p/c/r/l/d3/f/h/g/q]" * ab_R() * " " *
+       ab_gold() * "✦" * ab_R() * " ")
  answer = strip(readline())
 
  if isempty(answer)

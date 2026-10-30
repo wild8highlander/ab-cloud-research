@@ -5,117 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>404 — Off the Critical Line · AB-Cloud Research</title>
   <meta name="robots" content="noindex" />
-  <meta name="theme-color" content="#05060f" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305060f'/%3E%3Ctext x='32' y='46' font-size='42' text-anchor='middle' fill='%234fc3f7' font-family='Georgia,serif' font-style='italic'%3E%CE%B6%3C/text%3E%3C/svg%3E" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <style>
+    /* Same design tokens as the portal landing: Manrope + Geist Mono,
+       flat dark surfaces, one text gradient on the display numeral. */
+    @font-face {
+      font-family: 'Manrope Variable';
+      src: url('fonts/manrope-var.woff2') format('woff2-variations');
+      font-weight: 200 800; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono Variable';
+      src: url('fonts/geist-mono-var.woff2') format('woff2-variations');
+      font-weight: 100 900; font-style: normal; font-display: swap;
+    }
     :root {
-      --bg: #05060f;
-      --panel: rgba(255, 255, 255, 0.025);
-      --line: rgba(79, 195, 247, 0.18);
-      --accent: #4fc3f7;
-      --accent-2: #8be9fd;
-      --text: #e8eef7;
-      --muted: #8a94ab;
-      --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+      --bg: #000000;
+      --surface: #181818;
+      --surface-2: #1F1F1F;
+      --surface-3: #272727;
+      --border: #313131;
+      --border-strong: #4A4A4A;
+      --text: #FFFFFF;
+      --body: #C6C6C6;
+      --muted: #9B9B9B;
+      --accent: #00E5FF;
+      --accent-2: #4FC3F7;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --font: 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
+      --mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Consolas, monospace;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { color-scheme: dark; }
     body {
-      background: var(--bg); color: var(--text);
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg); color: var(--body);
+      font-family: var(--font); font-size: 16px; line-height: 24px;
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
       overflow-x: hidden; position: relative; text-align: center; padding: 24px;
     }
-    .bg-grid {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background-image:
-        linear-gradient(rgba(79,195,247,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(79,195,247,0.05) 1px, transparent 1px);
-      background-size: 44px 44px;
-      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 75%);
-      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 75%);
-    }
-    .bg-glow {
-      position: fixed; z-index: 0; pointer-events: none;
-      width: 900px; height: 480px; left: 50%; top: -220px; transform: translateX(-50%);
-      background: radial-gradient(ellipse at center, rgba(79,195,247,0.14), transparent 65%);
-      filter: blur(10px);
-    }
-    .bg-zeta {
-      position: fixed; right: -40px; bottom: -140px; z-index: 0; pointer-events: none;
-      font-family: Georgia, serif; font-style: italic;
-      font-size: clamp(320px, 50vw, 640px); line-height: 1;
-      color: rgba(79, 195, 247, 0.045); user-select: none;
-    }
-    .wrap { position: relative; z-index: 1; max-width: 640px; }
-    .code {
-      font-family: var(--mono); font-size: clamp(84px, 18vw, 150px); font-weight: 800;
-      line-height: 1; letter-spacing: -0.04em;
-      background: linear-gradient(92deg, #4fc3f7 0%, #8be9fd 45%, #ffffff 100%);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-    }
-    .badge {
-      display: inline-block; font-family: var(--mono); font-size: 12px;
-      letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-2);
-      border: 1px solid var(--line); border-radius: 999px;
-      padding: 7px 16px; background: var(--panel); backdrop-filter: blur(4px);
-      margin-bottom: 22px;
-    }
-    h1 { font-size: clamp(20px, 4vw, 28px); font-weight: 700; margin: 18px 0 12px; letter-spacing: -0.01em; }
-    p { color: var(--muted); font-size: 15px; line-height: 1.7; max-width: 520px; margin: 0 auto; }
-    p b { color: var(--text); font-weight: 600; }
-    nav {
-      margin-top: 34px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
-      font-family: var(--mono); font-size: 14px;
-    }
-    nav a {
-      color: var(--accent); text-decoration: none;
-      border: 1px solid var(--line); border-radius: 12px;
-      padding: 11px 20px; background: var(--panel);
-      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    nav a:hover {
-      border-color: rgba(79,195,247,0.45); transform: translateY(-2px);
-      box-shadow: 0 12px 30px -14px rgba(79,195,247,0.4);
-    }
-    ::selection { background: rgba(79,195,247,0.35); }
+    ::selection { background: rgba(0, 229, 255, 0.30); color: var(--text); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
 
-    /* ── animations ─────────────────────────────────────── */
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    main.wrap > * { animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+    .wrap { position: relative; z-index: 1; max-width: 640px; }
+    @keyframes rise { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: none; } }
+    main.wrap > * { animation: rise 0.8s var(--ease) both; }
     main.wrap > .badge { animation-delay: 0.05s; }
     main.wrap > .code  { animation-delay: 0.14s; }
     main.wrap > h1     { animation-delay: 0.26s; }
     main.wrap > p      { animation-delay: 0.36s; }
     main.wrap > nav    { animation-delay: 0.48s; }
 
-    @keyframes gradShift {
-      0%, 100% { background-position: 0% 50%; }
-      50%      { background-position: 100% 50%; }
+    .badge {
+      display: inline-block; font-family: var(--mono); font-size: 12px; line-height: 16px;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+      border: 1px solid var(--border); border-radius: 999px;
+      padding: 2px 8px; background: var(--surface);
+      margin-bottom: 24px;
     }
     .code {
-      background-size: 220% 100%;
-      animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) 0.14s both,
-                 gradShift 8s ease-in-out infinite;
+      font-family: var(--mono); font-size: clamp(72px, 16vw, 128px); font-weight: 600;
+      line-height: 1; letter-spacing: -0.04em;
+      background: linear-gradient(90deg, #FFFFFF 0%, #9B9B9B 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
     }
-
-    /* stray zeros drifting up the strip */
-    .stray {
-      position: fixed; z-index: 0; pointer-events: none;
-      bottom: -40px;
-      font-family: Georgia, serif; font-style: italic;
-      color: rgba(79,195,247,0.16);
-      animation: floatUp linear infinite;
+    h1 { font-size: 24px; line-height: 32px; font-weight: 700; margin: 24px 0 16px; color: var(--text); }
+    p { color: var(--muted); font-size: 16px; line-height: 24px; max-width: 520px; margin: 0 auto; }
+    p b { color: var(--body); font-weight: 600; }
+    nav {
+      margin-top: 40px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
     }
-    @keyframes floatUp {
-      0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
-      12%  { opacity: 1; }
-      88%  { opacity: 0.85; }
-      100% { transform: translateY(-110vh) rotate(24deg); opacity: 0; }
+    nav a {
+      color: var(--text); text-decoration: none;
+      border: 1px solid var(--border); border-radius: 999px;
+      padding: 8px 12px; font-size: 16px; line-height: 24px; font-weight: 600;
+      background: transparent;
+      transition: transform 0.5s var(--ease), background-color 0.3s, border-color 0.3s;
     }
+    nav a:hover { background: var(--surface-2); border-color: var(--border-strong); transform: translateY(-2px); }
+    nav a:active { transform: scale(0.98); }
+    nav a.home { background: var(--accent); border-color: var(--accent); color: #000000; }
+    nav a.home:hover { background: #33EBFF; }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -123,20 +93,10 @@
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
-      .stray { display: none; }
     }
   </style>
 </head>
 <body>
-  <div class="bg-grid"></div>
-  <div class="bg-glow"></div>
-  <div class="bg-zeta">ζ</div>
-  <span class="stray" style="left:8%; font-size:22px; animation-duration:17s; animation-delay:0s">γ</span>
-  <span class="stray" style="left:22%; font-size:15px; animation-duration:23s; animation-delay:4s">γ</span>
-  <span class="stray" style="left:46%; font-size:19px; animation-duration:19s; animation-delay:9s">γ</span>
-  <span class="stray" style="left:67%; font-size:14px; animation-duration:26s; animation-delay:2s">γ</span>
-  <span class="stray" style="left:84%; font-size:24px; animation-duration:21s; animation-delay:12s">γ</span>
-
   <main class="wrap">
     <span class="badge">HTTP 404 · zero not found</span>
     <div class="code">404</div>
@@ -146,7 +106,7 @@
       <b>Re(s)&nbsp;=&nbsp;½</b>. Every real destination is one click away:
     </p>
     <nav>
-      <a href="/">portal&nbsp;home</a>
+      <a class="home" href="/">portal&nbsp;home</a>
       <a href="/dashboard/">verification&nbsp;dashboard</a>
       <a href="/lab3d/">3D&nbsp;laboratory</a>
     </nav>

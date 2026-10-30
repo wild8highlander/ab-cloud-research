@@ -14,7 +14,7 @@ export function makeScene(container) {
   const width = container.clientWidth || 800;   // guard: 0-size host (hidden tab, CSS not applied yet)
   const height = container.clientHeight || 600;
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x0d1220);
+  scene.background = new THREE.Color(0x000000);
   const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 500);
   camera.position.set(26, 20, 30);
   const renderer = new THREE.WebGLRenderer({ antialias: true });

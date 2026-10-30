@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { LineChart, BarChart, Stat, useWorker } from '../components/ui.jsx';
+import { LineChart, BarChart, Stat, Skeleton, useWorker } from '../components/ui.jsx';
 
 export default function ZerosStats({ zeros, error: loadError }) {
   const { run, busy } = useWorker();
@@ -18,11 +18,24 @@ export default function ZerosStats({ zeros, error: loadError }) {
   if (loadError && !zeros) {
     return <p className="error-note">Failed to load the zeros dataset — {loadError}</p>;
   }
-  if (!zeros) return <p className="muted">Loading the 50,000 Odlyzko zeros…</p>;
-  if (err) return <p className="error-note">Real-time statistics failed: {err}</p>;
-  if (busy && !res) return <p className="muted">Computing real-time statistics in a Web Worker…</p>;
+  if (err) return <p className="error-note">Live statistics failed: {err}</p>;
+  if (!zeros || (busy && !res)) {
+    return (
+      <section aria-busy="true" aria-label="Computing live statistics">
+        <h2>Live statistics of the ζ zeros <span className="pill">Web Worker</span></h2>
+        <p className="muted">Computing in a Web Worker from the embedded 50,000 Odlyzko zeros…</p>
+        <Skeleton kind="stats" />
+        <Skeleton kind="chart" />
+      </section>
+    );
+  }
   if (!res || !res.bN || !res.bN.length) {
-    return <p className="muted">Statistics are unavailable for this dataset (not enough zeros to build the b(N) checkpoints).</p>;
+    return (
+      <div className="empty">
+        <b>Statistics are unavailable for this dataset.</b><br />
+        Not enough zeros to build the b(N) checkpoints — check that the embedded dataset deployed correctly.
+      </div>
+    );
   }
   const lastB = res.bN[res.bN.length - 1].b;
 
@@ -43,7 +56,7 @@ export default function ZerosStats({ zeros, error: loadError }) {
 
   return (
     <section>
-      <h2>Real-time statistics of the ζ zeros <span className="pill">Web Worker</span></h2>
+      <h2>Live statistics of the ζ zeros <span className="pill">Web Worker</span></h2>
       <p className="muted">
         The same diagnostics as the Julia suite (tests 1–5, 13, 14), computed
         live in your browser from the embedded Odlyzko dataset of 50,000 zeros.
@@ -61,7 +74,7 @@ export default function ZerosStats({ zeros, error: loadError }) {
 
       <h3>b(N) convergence</h3>
       <LineChart logX xLabel="N" yLabel="b(N)"
-        series={[{ name: 'b(N) — in-browser', points: res.bN.map(p => [p.N, p.b]) }]} />
+        series={[{ name: 'b(N) — in the browser', points: res.bN.map(p => [p.N, p.b]) }]} />
 
       <h3>Spacing-ratio histogram (first 5,000 zeros) vs GUE ratio law</h3>
       <BarChart points={hist} xLabel="r = min/max" yLabel="count" />
@@ -69,13 +82,13 @@ export default function ZerosStats({ zeros, error: loadError }) {
       <h3>Σ²(L) — number variance</h3>
       <LineChart logX xLabel="L" yLabel="Σ²(L)"
         series={[
-          { name: 'zeros (in-browser)', points: res.sig2.map(p => [p.L, p.sigma2]) },
+          { name: 'zeros (in the browser)', points: res.sig2.map(p => [p.L, p.sigma2]) },
           { name: 'Poisson L', points: res.sig2.map(p => [p.L, p.L]) },
         ]} />
 
       <h3>Δ₃(L) — spectral rigidity</h3>
       <LineChart logX xLabel="L" yLabel="Δ₃(L)"
-        series={[{ name: 'zeros (in-browser)', points: res.d3.map(p => [p.L, p.delta3]) }]} />
+        series={[{ name: 'zeros (in the browser)', points: res.d3.map(p => [p.L, p.delta3]) }]} />
     </section>
   );
 }

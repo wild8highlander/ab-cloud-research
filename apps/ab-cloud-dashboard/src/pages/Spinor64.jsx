@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { LineChart, Stat, useWorker } from '../components/ui.jsx';
+import { LineChart, Stat, Skeleton, useWorker } from '../components/ui.jsx';
 
 export default function Spinor64({ error: loadError }) {
   const { run, busy } = useWorker();
@@ -44,13 +44,21 @@ export default function Spinor64({ error: loadError }) {
 
   if (err) return <p className="error-note">{err}</p>;
   if (loadError && !data) return <p className="error-note">{loadError}</p>;
-  if (!data) return <p className="muted">Loading frozen spinor data…</p>;
+  if (!data) {
+    return (
+      <section aria-busy="true" aria-label="Loading frozen spinor data">
+        <h2>Test 38 — 64 spinor structures of the Klein quartic <span className="pill">Jacobi in the browser</span></h2>
+        <Skeleton kind="stats" />
+        <Skeleton kind="table" />
+      </section>
+    );
+  }
   const orbitCounts = [28, 21, 7, 7, 1];
 
   return (
     <section>
       <h2>Test 38 — 64 spinor structures of the Klein quartic
-        <span className="pill">in-browser Jacobi</span></h2>
+        <span className="pill">Jacobi in the browser</span></h2>
       <p className="muted">
         All 64 structures are loaded from the frozen dataset
         (<code>verification/spinor64/data/</code>). The browser computes the
@@ -76,19 +84,26 @@ export default function Spinor64({ error: loadError }) {
         </>
       )}
       <h3>The 64 structures</h3>
-      <table className="data">
-        <thead><tr><th>class</th><th>orbit</th><th>Arf</th></tr></thead>
-        <tbody>
-          {data.classes.filter(c => c.cls >= idx && c.cls < idx + 16).map(c => (
-            <tr key={c.cls}>
-              <td>{c.cls}</td><td>{c.orbit}</td><td>{c.arf}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <input type="range" min="0" max="48" value={idx}
-        onChange={e => setIdx(+e.target.value)} style={{ width: '100%' }} />
-      {busy && <p className="muted">computing…</p>}
+      <div className="table-wrap">
+        <table className="data">
+          <thead><tr><th scope="col">class</th><th scope="col">orbit</th><th scope="col">Arf</th></tr></thead>
+          <tbody>
+            {data.classes.filter(c => c.cls >= idx && c.cls < idx + 16).map(c => (
+              <tr key={c.cls}>
+                <td className="test-id">{c.cls}</td>
+                <td className="test-id">{c.orbit}</td>
+                <td className="test-id">{c.arf}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <label className="muted" htmlFor="spinorRange" style={{ display: 'block', marginTop: '16px' }}>
+        Showing classes {idx}…{idx + 15} — slide to browse all 64
+      </label>
+      <input id="spinorRange" className="range" type="range" min="0" max="48" value={idx}
+        onChange={e => setIdx(+e.target.value)} />
+      {busy && <p className="muted" role="status">computing…</p>}
     </section>
   );
 }

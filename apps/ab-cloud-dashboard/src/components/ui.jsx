@@ -1,6 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 /* ---------- tiny SVG chart helpers (no chart deps) ---------- */
+/* Dark-theme palette: brand cyan leads, series colors follow the
+   repo banner palette (#00e5ff · #ff2ec4 · #a78bfa · #ffd60a). */
+
+const SERIES_COLORS = ['#00E5FF', '#FF2EC4', '#A78BFA', '#FFD60A', '#4ADE80'];
+const MONO = "'Geist Mono Variable', ui-monospace, 'SF Mono', Consolas, monospace";
 
 export function LineChart({ series, width = 640, height = 320, xLabel, yLabel,
   logX = false, hLines = [] }) {
@@ -13,43 +18,44 @@ export function LineChart({ series, width = 640, height = 320, xLabel, yLabel,
   const yMin = Math.min(0, Math.min(...ys)), yMax = Math.max(...ys) * 1.05;
   const X = v => pad.l + ((logX ? Math.log10(v) : v) - xMin) / (xMax - xMin || 1) * (width - pad.l - pad.r);
   const Y = v => height - pad.b - (v - yMin) / (yMax - yMin || 1) * (height - pad.t - pad.b);
-  const colors = ['#2563eb', '#dc2626', '#059669', '#d97706', '#7c3aed'];
   return (
-    <svg width="100%" viewBox={`0 0 ${width} ${height}`} role="img">
-      <rect x={pad.l} y={pad.t} width={width - pad.l - pad.r} height={height - pad.t - pad.b}
-        fill="#fafbff" stroke="#d7dce8" />
-      {hLines.map((h, i) => (
-        <g key={i}>
-          <line x1={pad.l} x2={width - pad.r} y1={Y(h.value)} y2={Y(h.value)}
-            stroke={h.color} strokeDasharray="5 4" />
-          <text x={width - pad.r - 4} y={Y(h.value) - 4} fontSize="11"
-            fill={h.color} textAnchor="end">{h.label}</text>
-        </g>
-      ))}
-      {series.map((s, i) => (
-        <polyline key={i} fill="none" stroke={colors[i % colors.length]} strokeWidth="1.8"
-          points={s.points.map(p => `${X(p[0])},${Y(p[1])}`).join(' ')} />
-      ))}
-      {series.map((s, i) => (
-        <text key={'lg' + i} x={pad.l + 8 + i * 150} y={pad.t + 14} fontSize="12"
-          fill={colors[i % colors.length]}>{s.name}</text>
-      ))}
-      <text x={width / 2} y={height - 8} fontSize="12" textAnchor="middle" fill="#555">
-        {xLabel}</text>
-      <text x={14} y={height / 2} fontSize="12" textAnchor="middle" fill="#555"
-        transform={`rotate(-90 14 ${height / 2})`}>{yLabel}</text>
-      {[0, 0.25, 0.5, 0.75, 1].map((f, i) => (
-        <text key={'y' + i} x={pad.l - 6} y={Y(yMin + f * (yMax - yMin)) + 4}
-          fontSize="10" textAnchor="end" fill="#777">
-          {(yMin + f * (yMax - yMin)).toPrecision(3)}</text>
-      ))}
-      {[0, 0.5, 1].map((f, i) => {
-        const v = xMin + f * (xMax - xMin);
-        return <text key={'x' + i} x={X(logX ? Math.pow(10, v) : v)} y={height - pad.b + 14}
-          fontSize="10" textAnchor="middle" fill="#777">
-          {(logX ? Math.pow(10, v) : v).toPrecision(3)}</text>;
-      })}
-    </svg>
+    <div className="chart-frame">
+      <svg width="100%" viewBox={`0 0 ${width} ${height}`} role="img">
+        <rect x={pad.l} y={pad.t} width={width - pad.l - pad.r} height={height - pad.t - pad.b}
+          fill="#181818" stroke="#313131" />
+        {hLines.map((h, i) => (
+          <g key={i}>
+            <line x1={pad.l} x2={width - pad.r} y1={Y(h.value)} y2={Y(h.value)}
+              stroke={h.color} strokeDasharray="5 4" />
+            <text x={width - pad.r - 4} y={Y(h.value) - 4} fontSize="11"
+              fill={h.color} textAnchor="end" fontFamily={MONO}>{h.label}</text>
+          </g>
+        ))}
+        {series.map((s, i) => (
+          <polyline key={i} fill="none" stroke={SERIES_COLORS[i % SERIES_COLORS.length]} strokeWidth="1.8"
+            points={s.points.map(p => `${X(p[0])},${Y(p[1])}`).join(' ')} />
+        ))}
+        {series.map((s, i) => (
+          <text key={'lg' + i} x={pad.l + 8 + i * 150} y={pad.t + 14} fontSize="12"
+            fill={SERIES_COLORS[i % SERIES_COLORS.length]} fontFamily={MONO}>{s.name}</text>
+        ))}
+        <text x={width / 2} y={height - 8} fontSize="12" textAnchor="middle" fill="#9B9B9B"
+          fontFamily={MONO}>{xLabel}</text>
+        <text x={14} y={height / 2} fontSize="12" textAnchor="middle" fill="#9B9B9B"
+          fontFamily={MONO} transform={`rotate(-90 14 ${height / 2})`}>{yLabel}</text>
+        {[0, 0.25, 0.5, 0.75, 1].map((f, i) => (
+          <text key={'y' + i} x={pad.l - 6} y={Y(yMin + f * (yMax - yMin)) + 4}
+            fontSize="10" textAnchor="end" fill="#9B9B9B" fontFamily={MONO}>
+            {(yMin + f * (yMax - yMin)).toPrecision(3)}</text>
+        ))}
+        {[0, 0.5, 1].map((f, i) => {
+          const v = xMin + f * (xMax - xMin);
+          return <text key={'x' + i} x={X(logX ? Math.pow(10, v) : v)} y={height - pad.b + 14}
+            fontSize="10" textAnchor="middle" fill="#9B9B9B" fontFamily={MONO}>
+            {(logX ? Math.pow(10, v) : v).toPrecision(3)}</text>;
+        })}
+      </svg>
+    </div>
   );
 }
 
@@ -60,17 +66,25 @@ export function BarChart({ points, width = 640, height = 300, xLabel, yLabel }) 
   const X = v => pad.l + v / xMax * (width - pad.l - pad.r);
   const Y = v => height - pad.b - v / yMax * (height - pad.t - pad.b);
   return (
-    <svg width="100%" viewBox={`0 0 ${width} ${height}`} role="img">
-      <rect x={pad.l} y={pad.t} width={width - pad.l - pad.r} height={height - pad.t - pad.b}
-        fill="#fafbff" stroke="#d7dce8" />
-      {points.map((p, i) => (
-        <rect key={i} x={X(p[0])} y={Y(p[1])} width={Math.max(1, (width - pad.l - pad.r) / xMax)}
-          height={height - pad.b - Y(p[1])} fill="#2563eb" opacity="0.85" />
-      ))}
-      <text x={width / 2} y={height - 8} fontSize="12" textAnchor="middle" fill="#555">{xLabel}</text>
-      <text x={14} y={height / 2} fontSize="12" textAnchor="middle" fill="#555"
-        transform={`rotate(-90 14 ${height / 2})`}>{yLabel}</text>
-    </svg>
+    <div className="chart-frame">
+      <svg width="100%" viewBox={`0 0 ${width} ${height}`} role="img">
+        <rect x={pad.l} y={pad.t} width={width - pad.l - pad.r} height={height - pad.t - pad.b}
+          fill="#181818" stroke="#313131" />
+        {points.map((p, i) => (
+          <rect key={i} x={X(p[0])} y={Y(p[1])} width={Math.max(1, (width - pad.l - pad.r) / xMax)}
+            height={height - pad.b - Y(p[1])} fill="#00E5FF" opacity="0.75" />
+        ))}
+        <text x={width / 2} y={height - 8} fontSize="12" textAnchor="middle" fill="#9B9B9B"
+          fontFamily={MONO}>{xLabel}</text>
+        <text x={14} y={height / 2} fontSize="12" textAnchor="middle" fill="#9B9B9B"
+          fontFamily={MONO} transform={`rotate(-90 14 ${height / 2})`}>{yLabel}</text>
+        {[0, 0.5, 1].map((f, i) => {
+          const v = xMax * f;
+          return <text key={'x' + i} x={X(v)} y={height - pad.b + 14} fontSize="10"
+            textAnchor="middle" fill="#9B9B9B" fontFamily={MONO}>{v.toFixed(2)}</text>;
+        })}
+      </svg>
+    </div>
   );
 }
 
@@ -86,6 +100,27 @@ export function Stat({ label, value, refVal, ok }) {
       )}
     </div>
   );
+}
+
+/* Skeleton loaders (B9): shaped like the real layout, not spinners. */
+export function Skeleton({ kind }) {
+  if (kind === 'stats') {
+    return (
+      <div className="stats-grid" aria-hidden="true">
+        {[0, 1, 2, 3].map(i => <div key={i} className="skeleton sk-stat" />)}
+      </div>
+    );
+  }
+  if (kind === 'table') {
+    return (
+      <div aria-hidden="true">
+        {[0, 1, 2, 3, 4, 5, 6, 7].map(i => (
+          <div key={i} className="skeleton sk-row" style={{ opacity: 1 - i * 0.09 }} />
+        ))}
+      </div>
+    );
+  }
+  return <div className="skeleton sk-chart" aria-hidden="true" />;
 }
 
 export function useWorker() {

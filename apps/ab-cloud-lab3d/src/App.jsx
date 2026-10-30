@@ -2,6 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { makeScene, buildHofstadter, buildDiracCone, buildZetaStrip } from './modules/scenes.js';
 import { zetaSelfCheck } from './modules/zeta.js';
 
+const TABS = [
+  ['hofstadter', 'Hofstadter lattice'],
+  ['dirac', 'Dirac cone'],
+  ['zeta', 'ζ critical strip'],
+];
+
 function webglSupported() {
   try {
     const c = document.createElement('canvas');
@@ -29,7 +35,7 @@ export default function App() {
   useEffect(() => {
     if (!hostRef.current) return;
     if (!webglSupported()) {
-      setGlError('WebGL is not available in this browser/environment. ' +
+      setGlError('WebGL is not available in this browser or environment. ' +
         'The 3D laboratory needs hardware (or software) WebGL — try Chrome, ' +
         'Firefox or Safari with hardware acceleration enabled.');
       return;
@@ -70,40 +76,56 @@ export default function App() {
 
   return (
     <div className="app">
-      <header>
-        <h1>AB-Cloud — 3D Laboratory</h1>
-        <p className="muted">
+      <a className="skip-link" href="#main">Skip to content</a>
+      <header className="hero">
+        <p className="kicker">AB-Cloud · 3D laboratory</p>
+        <h1>
+          <span className="grad">The lattice, the cone and the strip:<br />experiments 3D-1…3D-34, live</span>
+        </h1>
+        <p className="sub">
           Hofstadter lattice with vortices · Dirac cone · ζ critical strip —
-          WebGL/Three.js, real-time. Suite 3D-1…3D-34 (Julia) visualized.
+          <b> WebGL and Three.js, computed in real time</b>. Every scene is
+          procedural: no prebaked pictures, no server.
         </p>
-        <nav>
-          <button className={tab === 'hofstadter' ? 'btn active' : 'btn'}
-            onClick={() => setTab('hofstadter')}>Hofstadter lattice</button>
-          <button className={tab === 'dirac' ? 'btn active' : 'btn'}
-            onClick={() => setTab('dirac')}>Dirac cone</button>
-          <button className={tab === 'zeta' ? 'btn active' : 'btn'}
-            onClick={() => setTab('zeta')}>ζ critical strip</button>
-        </nav>
-        {tab === 'hofstadter' && (
-          <div className="controls">
-            <label>α = {alpha.toFixed(2)}
-              <input type="range" min="0" max="1" step="0.05" value={alpha}
-                onChange={e => setAlpha(+e.target.value)} />
-            </label>
-            <label>vortices = {nv}
-              <input type="range" min="0" max="12" value={nv}
-                onChange={e => setNv(+e.target.value)} />
-            </label>
-          </div>
-        )}
       </header>
-      <div ref={hostRef} className="canvas-host" />
-      {glError && <p className="gl-error">{glError}</p>}
-      {!glError && <p className="info">{info}</p>}
-      <footer className="muted">
-        Source: <code>apps/ab-cloud-lab3d/</code> (React 19 + Vite + Three.js).
-        ζ evaluator: self-anchored Euler–Maclaurin (port of 3D-34);
-        check anchors ζ(2)=π²/6, ζ(4)=π⁴/90, ζ(1/2)≈−1.4603545.
+      <div className="tabbar-wrap">
+        <nav className="tabbar" aria-label="Scenes">
+          {TABS.map(([k, label]) => (
+            <button key={k} className={tab === k ? 'btn active' : 'btn'}
+              aria-current={tab === k ? 'true' : undefined}
+              onClick={() => setTab(k)}>{label}</button>
+          ))}
+        </nav>
+      </div>
+      {tab === 'hofstadter' && (
+        <div className="controls">
+          <label>α = <span className="val">{alpha.toFixed(2)}</span>
+            <input type="range" min="0" max="1" step="0.05" value={alpha}
+              onChange={e => setAlpha(+e.target.value)} />
+          </label>
+          <label>vortices = <span className="val">{nv}</span>
+            <input type="range" min="0" max="12" value={nv}
+              onChange={e => setNv(+e.target.value)} />
+          </label>
+        </div>
+      )}
+      <main id="main">
+        <div ref={hostRef} className="canvas-host" />
+        {glError && <p className="gl-error" role="alert">{glError}</p>}
+        {!glError && <p className="info">{info}</p>}
+      </main>
+      <footer>
+        <div className="links">
+          <a href="https://github.com/wild8highlander/ab-cloud-research" target="_blank" rel="noopener">GitHub repository</a>
+          <a href="https://github.com/wild8highlander/ab-cloud-research/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
+          <a href="https://doi.org/10.5281/zenodo.21825394" target="_blank" rel="noopener">Zenodo DOI</a>
+          <a href="/">Portal home</a>
+        </div>
+        <div>
+          Source: <code>apps/ab-cloud-lab3d/</code> (React 19 + Vite + Three.js).
+          ζ evaluator: self-anchored Euler–Maclaurin (port of 3D-34);
+          check anchors ζ(2)=π²/6, ζ(4)=π⁴/90, ζ(1/2)≈−1.4603545.
+        </div>
       </footer>
     </div>
   );

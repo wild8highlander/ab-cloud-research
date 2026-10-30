@@ -1,5 +1,47 @@
 # Changelog
 
+## [1.4.0] — 2026-10-30 — «the web portal speaks the same design language» (web UI redesign wave)
+
+A full visual-system pass over every browser surface of the portal — the
+landing page, both React apps and the MkDocs docs site — driven by one
+design system: Manrope for text, Geist Mono for data, Tailwind type scale,
+spacing tokens 0…96, nested-radius formula, flat dark surfaces
+(#000000 → #313131) with a single cyan accent, and motion on the
+cubic-bezier(0.22, 1, 0.36, 1) curve. All data logic, workers, numerics and
+charts are untouched — every number still comes from the same frozen
+datasets.
+
+- **Landing page (`site/`) rebuilt** to the landing-page structure: floating
+  translucent navigation with scrollspy and a full-height mobile menu,
+  hero with the #FFFFFF→#9B9B9B text gradient, a live evidence panel that
+  computes the spacing-ratio histogram of the ζ zeros against the GUE ratio
+  law from the same frozen dataset the dashboard ships, a word-by-word
+  tagline reveal (IntersectionObserver, per-word trigger line), benefits,
+  how-it-works, traceable headline metrics, FAQ (8 questions + FAQPage
+  JSON-LD for AEO), final CTA and a footer with legal links. Phosphor icons
+  inlined (exact SVG paths); a branded 404 and an offline page restyled to
+  match; particles.js rewritten as a quiet zeros field that honors
+  prefers-reduced-motion; fonts self-hosted (`site/fonts/`, OFL licenses
+  included); service worker precache bumped (v3) to include the fonts.
+- **Verification dashboard** redesigned: dark theme, Manrope + Geist Mono
+  (self-hosted via @fontsource-variable), floating tab bar with blur,
+  skeleton loaders shaped like the real layout, a composed empty state for
+  the verdict filter, sticky-header data table with row hover, mono verdict
+  badges, brand-colored charts, skip link, aria-current tabs, OG meta,
+  theme-color #000000. Charts, worker, pages logic unchanged.
+- **3D laboratory** restyled with the same tokens; the WebGL scene
+  background moved to #000000 to sit flush with the new surface ladder;
+  controls, info panel and footer match the system.
+- **Docs site (MkDocs Material)** rebranded: slate scheme with black
+  primary and cyan accent by default, Manrope / Geist Mono font pairing.
+  Four nav-referenced pages that did not exist (monographs.md,
+  monograph-v21.md, audit_v2.0.3.md, audit_v2.0.4.md) were written and
+  added, so `mkdocs build --strict` passes again.
+- **Version bumps**: both apps to 1.2.0; root workspace lockfile
+  regenerated with the two @fontsource-variable packages and
+  @phosphor-icons/react.
+
+
 ## [1.3.9] — 2026-10-16 — «every folder gets its showcase» (README beautification wave)
 
 The presentation-layer wave: the showcase treatment that

@@ -17,12 +17,20 @@ copyright: "Copyright © 2026 Isaev Iskhak Khamzatovich — Custom Research Lice
 
 theme:
   name: material
+  # Brand system of the web portal: flat dark surfaces, cyan accent,
+  # Manrope for text and Geist Mono for code (same fonts as the apps).
+  font:
+    text: Manrope
+    code: Geist Mono
   palette:
-    - scheme: default
-      primary: deep purple
-      accent: light blue
     - scheme: slate
-      primary: indigo
+      primary: black
+      accent: cyan
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+    - scheme: default
+      primary: black
       accent: cyan
       toggle:
         icon: material/weather-night
