@@ -5,5 +5,5 @@ matplotlib>=3.9
 openpyxl>=3.1
 Pillow>=10.0
 pypdf>=6.21.4
-pytest>=8.0
+pytest>=9.2.0
 streamlit>=1.30; # Bridge Explorer (optional)
