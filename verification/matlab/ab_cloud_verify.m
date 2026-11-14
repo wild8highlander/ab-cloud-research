@@ -361,7 +361,10 @@ function z = parse_plain(path)
     if isempty(raw)
         return
     end
-    lines = strsplit(raw, {'\r\n', '\n', '\r'});
+    % NOTE: strsplit with {'\r\n','\n','\r'} matches the LITERAL text backslash-n
+    % (char literals do not process escapes), so the file never splits. regexp
+    % does interpret \n/\r — use it for the newline split.
+    lines = regexp(raw, '\r\n|\n|\r', 'split');
     vals  = str2double(strtrim(lines));   % NaN for comments/blanks/garbage
     z = vals(~isnan(vals));
     z = z(:);
@@ -374,7 +377,7 @@ function z = parse_csv(path)
     if isempty(raw)
         return
     end
-    lines = strsplit(raw, {'\r\n', '\n', '\r'});
+    lines = regexp(raw, '\r\n|\n|\r', 'split');
     buf   = zeros(1, numel(lines));
     cnt   = 0;
     for i = 1:numel(lines)
@@ -405,7 +408,7 @@ function z = parse_highT(path)
     if isempty(raw)
         return
     end
-    lines = strsplit(raw, {'\r\n', '\n', '\r'});
+    lines = regexp(raw, '\r\n|\n|\r', 'split');
     buf   = zeros(1, numel(lines));
     cnt   = 0;
     base  = 0.0;

@@ -1,12 +1,17 @@
 %% spinor38.m — Test 38: 64 spinor structures of the Klein quartic (MATLAB/Octave port)
 % Self-implemented cyclic Jacobi eigenvalue algorithm (eig() NOT used).
-% Run (Octave): octave spinor38.m [repo-root]   |   MATLAB: spinor38('repo-root')
+% Run (Octave): octave --eval "spinor38"   |   MATLAB: spinor38 / spinor38('repo-root')
+% (a function file passed as `octave spinor38.m` only DEFINES the function
+% and exits — it is never called; use --eval as above)
 %
 % Validated C++ reference output: isospectrality max|dlambda| = 3.419e-14,
 % <r> = 0.4515710793, VERDICT PASS.
 
-function spinor38()
-  dd = find_data_dir();
+function spinor38(root)
+  if nargin < 1
+    root = '';
+  end
+  dd = find_data_dir(root);
   % ---- classes ----
   fid = fopen(fullfile(dd, 'spinor_classes.csv'), 'r');
   hdr = fgetl(fid);
@@ -133,7 +138,11 @@ function w = jacobi_eigen(Ain)
       for q = p+1:N
         if abs(A(p,q)) < 1e-15, continue; end
         tau = (A(q,q) - A(p,p)) / (2 * A(p,q));
-        t = sign(tau) / (abs(tau) + sqrt(1 + tau^2));
+        % Numerical-Recipes convention: tau == 0 must give t = +1 (45-degree
+        % rotation). sign(0) == 0 in MATLAB/Octave would give t = 0 — an
+        % identity rotation, freezing the zero-initialized diagonal forever.
+        sgn = 1; if tau < 0, sgn = -1; end
+        t = sgn / (abs(tau) + sqrt(1 + tau^2));
         c = 1 / sqrt(1 + t^2);
         s = t * c;
         for kk = 1:N
@@ -153,12 +162,19 @@ function w = jacobi_eigen(Ain)
   w = sort(w);
 end
 
-function dd = find_data_dir()
+function dd = find_data_dir(root)
   dd = pwd();
   for up = 1:6
     cand = fullfile(dd, 'verification', 'spinor64', 'data', 'spinor_classes.csv');
     if exist(cand, 'file'), return; end
     dd = fullfile(dd, '..');
   end
-  error('data dir not found; run from inside the repository');
+  if ~isempty(root)
+    cand = fullfile(root, 'verification', 'spinor64', 'data', 'spinor_classes.csv');
+    if exist(cand, 'file')
+      dd = fullfile(root, 'verification', 'spinor64', 'data');
+      return;
+    end
+  end
+  error('data dir not found; run from inside the repository or pass the repo root');
 end

@@ -80,7 +80,9 @@ fn jacobi_eigen(a_in: &Vec<Vec<f64>>) -> Vec<f64> {
 fn extract_json_num(js: &str, key: &str) -> f64 {
     let pat = format!("\"{}\":", key);
     if let Some(i) = js.find(&pat) {
-        let rest = &js[i + pat.len()..];
+        // reference_stats.json is pretty-printed ("key": value with a space
+        // after the colon) — skip leading whitespace before scanning digits.
+        let rest = js[i + pat.len()..].trim_start();
         let end = rest
             .find(|ch: char| !"0123456789.eE-".contains(ch))
             .unwrap_or(rest.len());

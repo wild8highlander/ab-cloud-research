@@ -4,7 +4,7 @@ include("ab_cloud_verify.jl")
 if abspath(PROGRAM_FILE) == @__FILE__
     # re-dispatch CLI with lang pinned to :en
     zeros = 50000; source = "auto"; objection = "all"
-    data_dir = "../data"; selfcheck_on = true
+    data_dir = normpath(joinpath(@__DIR__, "..", "data")); selfcheck_on = true
     i = 1
     while i <= length(ARGS)
         a = ARGS[i]

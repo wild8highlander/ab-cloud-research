@@ -1,0 +1,8 @@
+{
+  "name": "ab-cloud-verification-js",
+  "private": true,
+  "version": "3.0.0",
+  "type": "commonjs",
+  "description": "CommonJS scope pin for the AB-Cloud verification JS port. The repository root package.json declares \"type\": \"module\" (for the dashboard apps), which made Node treat every .js file here as an ES module and crash on `require`. The nearest package.json wins, so this file restores CommonJS semantics for the whole verification/javascript/ subtree without renaming any file.",
+  "main": "ab_cloud_verify.js"
+}

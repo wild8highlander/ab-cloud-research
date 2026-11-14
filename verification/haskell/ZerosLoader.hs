@@ -46,6 +46,7 @@ zeroSources =
   , ZeroSource "50k_full" "zeta_zeros_50000_embedded.txt"  50000
   , ZeroSource "500k"     "zeta_zeros_500k_odlyzko.txt"    500000
   , ZeroSource "2M"       "zeta_zeros_2M_odlyzko.txt"      2001052
+  , ZeroSource "2M_gz"    "zeta_zeros_2M_odlyzko.txt.gz"   2001052
   , ZeroSource "highT"    "zeta_zeros_highT_blocks.txt"    30000
   , ZeroSource "csv"      "zeta_zeros_50000.csv"           13661
   , ZeroSource "zeros6"   "zeros6.txt"                     2001052
@@ -66,12 +67,23 @@ findSource name = case filter ((== name) . srcName) zeroSources of
   []    -> Nothing
 
 -- | Load zeros from dataDir, truncating to count when count > 0.
+-- An unknown source name is a hard error (never silently re-resolved to
+-- 'auto' — a silent fallback loads the wrong dataset without warning).
 loadZeros :: FilePath -> Int -> String -> IO [Double]
 loadZeros dataDir count source = do
-  let src = case source of
-        ""     -> autoSelect count
-        "auto" -> autoSelect count
-        name   -> maybe (autoSelect count) id (findSource name)
+  src <- case source of
+    ""     -> return (autoSelect count)
+    "auto" -> return (autoSelect count)
+    name   -> case findSource name of
+      Just s  -> return s
+      Nothing -> ioError (userError
+        ("unknown source '" ++ name ++ "'  (expected: auto|50k|50k_full|500k|2M|2M_gz|highT|csv|zeros6)"))
+  -- base+array has no gzip reader: 2M_gz is refused explicitly (same policy
+  -- as the Rust port) instead of decoding binary data as text.
+  if srcName src == "2M_gz"
+    then ioError (userError
+      ("source '2M_gz' needs an external gunzip; use --source 2M (plain text, same data)"))
+    else return ()
   let path = dataDir ++ "/" ++ srcFile src
   putStrLn ("  Data file: " ++ path ++ " (source '" ++ srcName src ++ "')")
   zs <- parseZeroFile path (srcName src == "csv") (srcName src == "highT")
@@ -196,7 +208,7 @@ erfcCF z = exp (negate (z * z)) / (sqrt pi * f)
 -- ---------------------------------------------------------------------------
 -- GUE CDF: canonical 32768-point table (CANON_SPEC §5)
 -- ---------------------------------------------------------------------------
-gueTN, gueSMAXD :: Int
+gueTN :: Int
 gueTN = 32768
 
 gueSMAX :: Double
@@ -258,11 +270,14 @@ ksAsymptoticPValue lam
   | otherwise = clamp (2 * s)
   where
     clamp v = max 0 (min 1 v)
-    s2 = sum' (takeWhile (\t -> t >= 1e-18)
-               [exp (negate ((fromIntegral (2*k - 1)^2 * pi^2) / (8 * lam^2))) | k <- [1..1000]])
-    s  = sum' (takeWhile (\t -> abs t >= 1e-18)
-               [fromIntegral ((-1)^(k+1)) * exp (negate (2 * fromIntegral k^2 * lam^2)) | k <- [1..100]])
-    sum' = foldl' (+) 0
+    -- spec §6 / Python reference: add the term, THEN break when it drops
+    -- below 1e-18. takeWhile excluded the first sub-threshold term, which
+    -- zeroes the p-value for the golden case (lambda ~= 4.84).
+    s2 = sumUntil [exp (negate ((fromIntegral (2*k - 1)^2 * pi^2) / (8 * lam^2))) | k <- [1..1000]]
+    s  = sumUntil [fromIntegral ((-1)^(k+1)) * exp (negate (2 * fromIntegral k^2 * lam^2)) | k <- [1..100]]
+    sumUntil (t:ts) | abs t < 1e-18 = t
+                    | otherwise     = t + sumUntil ts
+    sumUntil [] = 0
 
 ksTestDP :: [Double] -> (Double, Double)
 ksTestDP sp = (d, ksAsymptoticPValue lam)
@@ -348,7 +363,8 @@ runObjection1 zeros = Obj1Res ns bn converging hasFit fitA fitS fitR2
     ns0 = filter (<= maxZ) [100, 500, 1000, 5000, 10000, 50000]
     ns = if null ns0 then [min maxZ 100] else ns0
     bn = map (computeBN zeros) ns
-    converging = and (zipWith (<) (drop 1 bn) bn)
+    -- reference criterion: monotone decrease AND >= 3 table points
+    converging = length bn >= 3 && and (zipWith (<) (drop 1 bn) bn)
     (hasFit, fitA, fitS, fitR2) =
       if length ns >= 3
         then let lx = [log (fromIntegral n) | (n, b) <- zip ns bn, n > 1, b > 0]

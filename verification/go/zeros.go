@@ -2,7 +2,9 @@ package main
 
 import (
 	"bufio"
+	"compress/gzip"
 	"fmt"
+	"io"
 	"math"
 	"os"
 	"path/filepath"
@@ -26,6 +28,7 @@ var zeroSources = []ZeroSource{
 	{"50k_full", "zeta_zeros_50000_embedded.txt", 50000},
 	{"500k", "zeta_zeros_500k_odlyzko.txt", 500000},
 	{"2M", "zeta_zeros_2M_odlyzko.txt", 2001052},
+	{"2M_gz", "zeta_zeros_2M_odlyzko.txt.gz", 2001052},
 	{"highT", "zeta_zeros_highT_blocks.txt", 30000},
 	{"csv", "zeta_zeros_50000.csv", 13661},
 	{"zeros6", "zeros6.txt", 2001052},
@@ -86,6 +89,7 @@ func LoadZeros(dataDir string, count int, source string) ([]float64, error) {
 
 // parseZeroFile reads a file of floats, skipping # comments and blanks.
 // csv: second field is t; highT: "# BLOCK ... offset=<v>" headers shift values.
+// A ".gz" suffix selects transparent gzip decompression (source 2M_gz).
 func parseZeroFile(path string, isCSV, isHighT bool) ([]float64, error) {
 	f, err := os.Open(path)
 	if err != nil {
@@ -93,9 +97,19 @@ func parseZeroFile(path string, isCSV, isHighT bool) ([]float64, error) {
 	}
 	defer f.Close()
 
+	var reader io.Reader = f
+	if strings.HasSuffix(strings.ToLower(path), ".gz") {
+		gz, gzErr := gzip.NewReader(f)
+		if gzErr != nil {
+			return nil, fmt.Errorf("gzip: %w", gzErr)
+		}
+		defer gz.Close()
+		reader = gz
+	}
+
 	var zeros []float64
 	blockOffset := 0.0
-	sc := bufio.NewScanner(f)
+	sc := bufio.NewScanner(reader)
 	sc.Buffer(make([]byte, 1<<20), 1<<20)
 
 	for sc.Scan() {

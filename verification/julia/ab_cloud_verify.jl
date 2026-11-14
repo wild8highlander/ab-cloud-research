@@ -312,7 +312,9 @@ function run_objection1(zeros::Vector{Float64})::Obj1Res
     ns = filter(n -> n <= length(zeros), [100, 500, 1000, 5000, 10000, 50000])
     isempty(ns) && (ns = [min(length(zeros), 100)])
     bn = [compute_bn(zeros, n) for n in ns]
-    converging = all(bn[i] < bn[i-1] for i in 2:length(bn))
+    # Reference criterion: monotone decrease AND >= 3 table points (with 1-2
+    # points the monotone test is meaningless; python/ab_cloud_verify.py:470).
+    converging = length(bn) >= 3 && all(bn[i] < bn[i-1] for i in 2:length(bn))
     has_fit = false; fit_a = 0.0; fit_s = 0.0; fit_r2 = 0.0
     if length(ns) >= 3
         lx = [log(Float64(n)) for (n, b) in zip(ns, bn) if n > 1 && b > 0.0]
@@ -570,7 +572,8 @@ end
 # Main
 # ---------------------------------------------------------------------------
 function run_suite(; zeros::Int=50000, source::String="auto", objection::String="all",
-                    lang::Symbol=:en, data_dir::String="../data", selfcheck_on::Bool=true)
+                    lang::Symbol=:en, data_dir::String=normpath(joinpath(@__DIR__, "..", "data")),
+                    selfcheck_on::Bool=true)
     println()
     lang == :ru ? println("  ║   AB-CLOUD ПРОВЕРКА — ГИПОТЕЗА РИМАНА        ║") :
                   println("  ║   AB-CLOUD VERIFICATION — RIEMANN HYPOTHESIS  ║")
@@ -595,7 +598,7 @@ end
 function main()
     args = ARGS
     zeros = 50000; source = "auto"; objection = "all"; lang = :en
-    data_dir = "../data"; selfcheck_on = true
+    data_dir = normpath(joinpath(@__DIR__, "..", "data")); selfcheck_on = true
     i = 1
     while i <= length(args)
         a = args[i]

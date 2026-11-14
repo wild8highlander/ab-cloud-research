@@ -392,6 +392,7 @@ pub fn run_objection1(zeros: &[f64]) -> Obj1Res {
     let bn: Vec<f64> = ns.iter().map(|&n| compute_bn(zeros, n)).collect();
     let mut converging = true;
     for i in 1..bn.len() { if bn[i] >= bn[i - 1] { converging = false; } }
+    if bn.len() < 3 { converging = false; } // reference: monotone AND >= 3 points
     let mut res = Obj1Res { ns, bn, converging, has_fit: false, fit_a: 0.0, fit_s: 0.0, fit_r2: 0.0 };
     if res.ns.len() >= 3 {
         let mut lx = Vec::new(); let mut ly = Vec::new();

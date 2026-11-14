@@ -39,18 +39,20 @@ parseClasses f = do
     , not (null l)
     , let (a, r1) = break (== ',') l
     , let (b, r2) = break (== ',') (drop 1 r1)
-    , let d = drop 1 r2
+    , let (_, r3) = break (== ',') (drop 1 r2)   -- skip the arf column
+    , let d = drop 1 r3
     ]
 
 parseEdges :: FilePath -> IO [(Int, Int)]
 parseEdges f = do
   ls <- drop 1 . lines <$> readFile f
   return
-    [ (read a, read b)
+    [ (read a, read v)
     | l <- ls
     , not (null l)
     , let (a, r1) = break (== ',') l
-    , let b = drop 1 r1
+    , let (_, r2) = break (== ',') (drop 1 r1)   -- u
+    , let v = drop 1 r2                          -- v
     ]
 
 jsonNum :: String -> String -> Double
@@ -59,7 +61,15 @@ jsonNum js key = go (words js)
     needle = '"' : key ++ "\":"
     go [] = 0
     go (t : ts)
-      | needle `prefixOf` t = readNum (drop (length needle) t)
+      | needle `prefixOf` t =
+          -- reference_stats.json is pretty-printed: the needle token ends at
+          -- the colon and the value is the NEXT word.
+          let rest = drop (length needle) t
+          in if null rest
+               then case ts of
+                      (w : _) -> readNum w
+                      []      -> 0
+               else readNum rest
       | otherwise = go ts
     prefixOf pfx s = take (length pfx) s == pfx
     readNum = readTaking

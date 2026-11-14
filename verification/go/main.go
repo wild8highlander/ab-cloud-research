@@ -9,7 +9,7 @@ import (
 
 func main() {
 	zerosN := flag.Int("zeros", 50000, "number of zeros to load")
-	source := flag.String("source", "auto", "data source: auto|50k|50k_full|500k|2M|highT|csv|zeros6")
+	source := flag.String("source", "auto", "data source: auto|50k|50k_full|500k|2M|2M_gz|highT|csv|zeros6")
 	objection := flag.String("objection", "all", "objection to run: 1|2|3|all")
 	lang := flag.String("lang", "en", "output language: en|ru")
 	dataDir := flag.String("data-dir", "../data", "path to the data directory")

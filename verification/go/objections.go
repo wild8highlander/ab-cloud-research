@@ -63,6 +63,11 @@ func RunObjection1(zeros []float64) Obj1Res {
                         res.Converging = false
                 }
         }
+        if len(res.BN) < 3 {
+                // Reference criterion: the monotone test needs >= 3 table points
+                // to be meaningful (python/ab_cloud_verify.py:470).
+                res.Converging = false
+        }
         if len(res.Ns) >= 3 {
                 var lx, ly []float64
                 for i, N := range res.Ns {
@@ -141,6 +146,6 @@ func RunObjection3(zeros []float64) Obj3Res {
         res.SE = lr.SE
         res.CILO = lr.Slope - 1.96*lr.SE
         res.CIHI = lr.Slope + 1.96*lr.SE
-        res.OK = math.Abs(lr.Slope+0.5) < 0.1
+        res.OK = math.Abs(lr.Slope+0.5) <= 0.1
         return res
 }

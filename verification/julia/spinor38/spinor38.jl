@@ -38,7 +38,11 @@ function jacobi_eigen(A::Matrix{Float64})
         for p in 1:n, q in (p+1):n
             abs(M[p, q]) < 1e-15 && continue
             tau = (M[q, q] - M[p, p]) / (2 * M[p, q])
-            t = sign(tau) / (abs(tau) + sqrt(1 + tau^2))
+            # Numerical-Recipes convention: tau == 0 must give t = +1 (45-degree
+            # rotation). sign(0.0) == 0.0 in Julia would give t = 0 — an identity
+            # rotation, freezing the zero-initialized diagonal forever.
+            sgn = tau >= 0 ? 1.0 : -1.0
+            t = sgn / (abs(tau) + sqrt(1 + tau^2))
             c = 1 / sqrt(1 + t^2)
             s = t * c
             for k in 1:n
@@ -79,8 +83,11 @@ function main()
     end
     js = read(joinpath(dd, "reference_stats.json"), String)
     function jsonnum(key::String)
-        m = match(Regex("\"$(key)\":\s*([-0-9.eE+]+)"), js)
-        isnothing(m) ? 0.0 : parse(Float64, m.captures[1])
+        # r-string: in a normal Julia string "\s" is an invalid escape and the
+        # file fails to even include() (ParseError). The \s* also handles the
+        # space after the colon in the pretty-printed reference_stats.json.
+        m = match(r"\"$(key)\":\s*([-0-9.eE+]+)", js)
+        m === nothing ? 0.0 : parse(Float64, m.captures[1])
     end
     r_ref = jsonnum("r_mean_reference")
     n_zero_ref = round(Int, jsonnum("n_zero_modes"))

@@ -48,7 +48,10 @@ e_v <- as.integer(sapply(eparts, `[`, 3))
 js <- paste(readLines(file.path(dd, "reference_stats.json")), collapse = " ")
 json_num <- function(js, key) {
   m <- regmatches(js, regexpr(paste0('"', key, '":\\s*[-0-9.eE+]+'), js))
-  as.numeric(gsub(paste0('"', key, '":'), "", gsub('[",}]', "", m)))
+  # Order matters: strip the quoted '"key":' prefix FIRST; the inner gsub
+  # already removed the quote characters, so doing it in the other order
+  # makes the prefix removal a silent no-op and as.numeric() returns NA.
+  as.numeric(gsub('[",}]', "", gsub(paste0('"', key, '":'), "", m)))
 }
 r_ref <- json_num(js, "r_mean_reference")
 n_zero_ref <- round(json_num(js, "n_zero_modes"))

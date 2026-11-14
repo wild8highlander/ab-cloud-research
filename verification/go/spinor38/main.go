@@ -106,6 +106,9 @@ func extractJSONNum(js, key string) float64 {
 		return 0
 	}
 	rest := js[i+len(pat):]
+	// reference_stats.json is pretty-printed ("key": value with a space after
+	// the colon) — skip leading whitespace before scanning for the terminator.
+	rest = strings.TrimLeft(rest, " \t\r\n")
 	end := strings.IndexAny(rest, ",}] \n")
 	if end < 0 {
 		end = len(rest)
