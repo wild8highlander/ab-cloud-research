@@ -1,0 +1,37 @@
+ Test 1 [HARDCORE pass 2]: 8 sub-checks, 0 failed → PASS
+ Test 1 [HARDCORE pass 2]: 8 sub-checks, 0 failed, b(50000)=1.2126 → PASS
+ Test 10 [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS
+ Test 10: Max deviation=8.5% (first half) → PASS
+ Test 11 [HARDCORE pass 2]: 5 sub-checks, 0 failed → PASS
+ Test 11: A²=61.4924, MC p=0.0000 → WARN
+ Test 12 [HARDCORE pass 2]: 3 sub-checks, 1 failed → WARN
+ Test 12: D=0.032520, p=0.023440 → WARN
+ Test 13 [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS
+ Test 13: closer-to-GUE in 9/9 rows → PASS
+ Test 14 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS
+ Test 14: closer-to-GUE in 9/9 rows → PASS
+ Test 1: b(N=50000) = 1.2126 → PASS
+ Test 2 [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS
+ Test 27 [HARDCORE pass 2]: 6 sub-checks, 0 failed → PASS
+ Test 27: chiral defect (W=0) = 0.0, (W=1.0) = 0.0058, ζ ⟨r⟩=0.6134 → PASS
+ Test 27b [HARDCORE pass 2]: 6 sub-checks → PASS
+ Test 2: Monotonicity violations: 0 / 499 → PASS
+ Test 3 [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS
+ Test 37 [HARDCORE pass 2]: 9 sub-checks, 0 failed → PASS
+ Test 37: (1/2)!=√π/2 [err 4.4e-16], 32/π² [err 2.2e-16], ∫p₂=1 [|Δ|=3.4e-15] → PASS
+ Test 37b [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS
+ Test 39: geometry sweep 0/7 → WARN
+ Test 3: α = 0.1685 (empirical), R²=0.9895 → PASS
+ Test 3: α = 0.1685 (empirical; no expected value), R²=0.9895 → PASS
+ Test 4 [HARDCORE pass 2]: 3 sub-checks, 0 failed → PASS
+ Test 4: D=0.021619, p=0.000000 → WARN
+ Test 5 [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS
+ Test 5: best p = 0.000000 → WARN
+ Test 6 [HARDCORE pass 2]: 2 sub-checks, 0 failed → PASS
+ Test 6: χ² p(bins=300) = 0.000000 → WARN
+ Test 7 [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS
+ Test 7: Slope=-0.1504 (empirical), 95%CI=[-0.1594,-0.1414] → PASS
+ Test 8 [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS
+ Test 8: Runs=3 (exp=5.8) → PASS
+ Test 9 [HARDCORE pass 2]: 4 sub-checks, 0 failed → PASS
+ Test 9: Bootstrap slope=-0.1745 (empirical), 95%CI=[-0.1908,-0.1585] → PASS
